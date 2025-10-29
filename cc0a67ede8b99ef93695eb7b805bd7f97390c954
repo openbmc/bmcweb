@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "877aa546_fd8bdefb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-29T14:45:25Z",
+      "side": 1,
+      "message": "I see you merged 83978 into this commit. Please add the curl command output for the unique commands from that one to this commit message.\n\ni.e. curl --insecure --user root:0penBmc https://127.0.0.1:4443/redfish/v1/Systems/Yosemite_4_Sentinel_Dome_T1_Slot_1/Memory/Yosemite_4_Sentinel_Dome_Slot_1_DIMM",
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b2b8b26_65d20643",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-29T14:45:25Z",
+      "side": 1,
+      "message": "Still getting a failure?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "673e4545_94bdf37d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-29T14:45:25Z",
+      "side": 1,
+      "message": "nit: For debug, more helpful to have both systemName and dimmId included here in the message.",
+      "range": {
+        "startLine": 817,
+        "startChar": 40,
+        "endLine": 817,
+        "endChar": 55
+      },
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "509c0a9d_481a824a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-29T14:45:25Z",
+      "side": 1,
+      "message": "These checks should be after the setUpRedfishRoute() check.",
+      "range": {
+        "startLine": 957,
+        "startChar": 4,
+        "endLine": 965,
+        "endChar": 5
+      },
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
