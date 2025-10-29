@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "800f875b_97885428",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-29T14:44:38Z",
+      "side": 1,
+      "message": "Will do! Thanks for pointing out.",
+      "parentUuid": "3c710349_9fc777d9",
+      "revId": "b1108dd0b46b154f8789ed9d858cef545cbefb31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb4b2131_b6aa6479",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 3
@@ -115,6 +133,30 @@
       "side": 1,
       "message": "The line of what goes into storage_drive.hpp is not clear to me. The handleSystemsStorageDriveGet() function is quite similar to getDrives(). Why is one moved and the other one not moved?\n\nNote: I\u0027m not strongly tied to this comment. No change would be okay, I\u0027m just trying to understand the source file distinctions.",
       "parentUuid": "3af04b06_29021ff4",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 21
+      },
+      "revId": "b1108dd0b46b154f8789ed9d858cef545cbefb31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79102ea4_d38c0697",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-29T14:44:38Z",
+      "side": 1,
+      "message": "Have to take a look again tomorrow. You are right, after havin another look, it is not clear. Have to move some other code around. Also CI fails for some reason now. Need to investigate.",
+      "parentUuid": "6d7fba1d_f902f1ea",
       "range": {
         "startLine": 134,
         "startChar": 12,
