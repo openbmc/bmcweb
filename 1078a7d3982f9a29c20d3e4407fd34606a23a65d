@@ -198,6 +198,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "676b8262_fc186272",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T21:30:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t break any existing use cases correct? If so, I am fine with this function. Thansk for getting in the PDI / Design doc",
+      "parentUuid": "72476476_266fb84c",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8762e2cb_5e932d45",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 16

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c245bd8_624a1950",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T21:30:22Z",
+      "side": 1,
+      "message": "Already covered in the ec. Oh well.",
+      "revId": "55fe9e47b1530966441f3906256f20ecb1073f09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
