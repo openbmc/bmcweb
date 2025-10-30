@@ -88,6 +88,24 @@
       "parentUuid": "5379b0eb_e2e89a3f",
       "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fec1cb6_55ae598c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-30T10:35:14Z",
+      "side": 1,
+      "message": "How do I associate CPU with system? Where do I configure the association port for systems to connect the cpu to? Which DBUS services, paths and interfaces are involved? Do we have documentation about this? Or a clear and precise architectural document describing it?",
+      "parentUuid": "ba9c386c_1707c190",
+      "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
