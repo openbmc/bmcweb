@@ -178,6 +178,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72476476_266fb84c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-10-30T14:47:46Z",
+      "side": 1,
+      "message": "PDI and design doc have been merged. Un-targetted updates for PLDM devices will work now with this patch. Can we get this merged?",
+      "parentUuid": "9a68eab9_f24cf6f4",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8762e2cb_5e932d45",
