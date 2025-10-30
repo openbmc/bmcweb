@@ -97,8 +97,6 @@ inline void doPowerSupplyCollection(
         "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies", chassisId);
     asyncResp->res.jsonValue["Description"] =
         "The collection of PowerSupply resource instances.";
-    asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-    asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
     updatePowerSupplyList(asyncResp, chassisId, subtreePaths);
 }
@@ -151,6 +149,25 @@ inline void handlePowerSupplyCollectionGet(
             doPowerSupplyCollection(asyncResp, chassisId, ec, subtreePaths);
         });
 }
+
+inline void doPowerSupply(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& chassisId,
+                          const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
+        asyncResp, chassisId, sensors::dbus::powerPaths, sensors::powerNodeStr);
+
+    getChassisData(sensorAsyncResp);
+
+    return;
+}
+
 
 inline void requestRoutesPowerSupplyCollection(App& app)
 {
