@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b459d7df_948b9b7f",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T22:28:49Z",
+      "side": 1,
+      "message": "Huh ? I still see it in the commit msg.. What if you had multiple fabrics? How would you tie the switches to the correct Fabric?",
+      "parentUuid": "017c7b90_dca42212",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "238df5be_b93b9899",
         "filename": "redfish-core/lib/fabric.hpp",
         "patchSetId": 5
