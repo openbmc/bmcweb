@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b87d1ee9_89927dbc",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T19:57:26Z",
+      "side": 0,
+      "message": "I suspect this would break a use case..",
+      "revId": "21cbc0003a9af5d62195eee5429684d0a992c00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff47d0c2_46d93e16",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T19:57:26Z",
+      "side": 0,
+      "message": "We control the old Power/Thermal via a meson option.",
+      "revId": "21cbc0003a9af5d62195eee5429684d0a992c00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

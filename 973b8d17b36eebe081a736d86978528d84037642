@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fac618ca_5096df75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T19:57:26Z",
+      "side": 1,
+      "message": "Not a huge deal, but please wrap at 72 characters. \nhttps://cbea.ms/git-commit/\n\nYou should be able to configure your editor to do this",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 71
+      },
+      "revId": "973b8d17b36eebe081a736d86978528d84037642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f6f846_4bcc1418",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T19:57:26Z",
+      "side": 1,
+      "message": "Why doesn\u0027t the current PowerSupply code not work for you? \nThe current code looks at Inventory.Item.PowerSupply and uses an association between PowerSupply and Chassis\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/PowerSupply.interface.yaml#L5",
+      "revId": "973b8d17b36eebe081a736d86978528d84037642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c33b8ac1_ddfec173",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T19:57:26Z",
+      "side": 1,
+      "message": "Full name here if you can. :) \nThanks! \n\nhttps://github.com/openbmc/docs/blob/643e73605907251d80166d3d3c984456fc7fd599/CONTRIBUTING.md?plain\u003d1#L251",
+      "range": {
+        "startLine": 19,
+        "startChar": 15,
+        "endLine": 19,
+        "endChar": 23
+      },
+      "revId": "973b8d17b36eebe081a736d86978528d84037642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f8209f79_93b97a5e",
