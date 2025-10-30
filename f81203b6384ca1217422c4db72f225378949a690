@@ -153,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "017c7b90_dca42212",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-30T13:07:10Z",
+      "side": 1,
+      "message": "This is not used anymore as we have static Fabric resource.",
+      "parentUuid": "decbc7b4_bc387eab",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "238df5be_b93b9899",
