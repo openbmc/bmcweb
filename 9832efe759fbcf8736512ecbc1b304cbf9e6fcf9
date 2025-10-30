@@ -106,6 +106,24 @@
       "parentUuid": "ba9c386c_1707c190",
       "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4edc360_1eb8714c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-30T21:55:37Z",
+      "side": 1,
+      "message": "Can we have an association like we do for other inventory items? \nE.g .\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/de992eff005357b14ddad39e30ad000eaeb098b2/yaml/xyz/openbmc_project/Inventory/Item/Cpu.interface.yaml#L98\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/tree/de992eff005357b14ddad39e30ad000eaeb098b2/yaml/xyz/openbmc_project/Inventory/Item#inventory-association",
+      "parentUuid": "6fec1cb6_55ae598c",
+      "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
