@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ccc567e_ea03e264",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-31T23:33:38Z",
+      "side": 1,
+      "message": "nit, typo",
+      "revId": "7203517932ba64db04e2e22b9b839c7bbf249271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aac207b_cc6a8ba5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-31T23:33:38Z",
+      "side": 1,
+      "message": "minor things, then this looks fine.",
+      "revId": "7203517932ba64db04e2e22b9b839c7bbf249271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "331d0c15_f8afd121",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-31T23:33:38Z",
+      "side": 1,
+      "message": "Please move this down a scope so the error types are all handled together.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 13
+      },
+      "revId": "7203517932ba64db04e2e22b9b839c7bbf249271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b1d4d0_d4cd78b5",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-31T23:33:38Z",
+      "side": 1,
+      "message": "I\u0027d really like to see these lambdas turned into functions, but it seems silly to reject a simple PR like this because of that.",
+      "revId": "7203517932ba64db04e2e22b9b839c7bbf249271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
