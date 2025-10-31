@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ced7965_04a1fbe9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-31T09:18:25Z",
+      "side": 1,
+      "message": "@ed@tanous.net mentioned that Nvidia ConnectX should not be considered a FabricAdapter. @ed@tanous.net, can you please provide your input?",
+      "parentUuid": "463c1762_40768cfe",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "6db767199b390b880dc46164876dce68782009b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83dc68ee_d1dcd13b",
         "filename": "redfish-core/lib/switch_port.hpp",
         "patchSetId": 7
@@ -37,6 +61,24 @@
       "writtenOn": "2025-10-30T14:21:16Z",
       "side": 1,
       "message": "PDI is incorrect.",
+      "revId": "6db767199b390b880dc46164876dce68782009b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f07244c0_8a6e5877",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-31T09:18:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83dc68ee_d1dcd13b",
       "revId": "6db767199b390b880dc46164876dce68782009b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
