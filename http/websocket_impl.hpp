@@ -251,6 +251,10 @@ class ConnectionImpl : public Connection
                 {
                     BMCWEB_LOG_WARNING("doRead timeout: {}", ec);
                 }
+                else if (ec == boost::asio::error::operation_aborted)
+                {
+                    BMCWEB_LOG_WARNING("doRead operation is aborted: {}", ec);
+                }
                 else if (ec != boost::beast::websocket::error::closed &&
                          ec != boost::asio::error::eof &&
                          ec != boost::asio::ssl::error::stream_truncated)
@@ -297,6 +301,11 @@ class ConnectionImpl : public Connection
             }
             if (ec)
             {
+                if (ec == boost::asio::error::operation_aborted)
+                {
+                    BMCWEB_LOG_WARNING("doWrite operation is aborted: {}", ec);
+                    return;
+                }
                 BMCWEB_LOG_ERROR("Error in ws.async_write {}", ec);
                 return;
             }
