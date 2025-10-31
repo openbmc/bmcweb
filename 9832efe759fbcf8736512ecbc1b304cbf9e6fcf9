@@ -142,6 +142,24 @@
       "parentUuid": "b4edc360_1eb8714c",
       "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42cbc8ce_abcb9d16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-31T09:15:32Z",
+      "side": 1,
+      "message": "Oh, what I forgot to mention:\nOn multi host systems the \u0027system\u0027 representation in redfish depends on the ManagedHost interface. I placed that interface on the EM Board config in my setup, thats why I created the association between board and cpu. Also from a topology pov i would say, a board containing a cpu is not far fetched.",
+      "parentUuid": "69c4079d_f13e3f41",
+      "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
