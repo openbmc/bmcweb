@@ -236,38 +236,62 @@ class ConnectionImpl : public Connection
         selfOwned.reset();
     }
 
+    void afterRead(const std::shared_ptr<Connection>& /*self*/,
+                   const boost::beast::error_code& ec, size_t bytesRead)
+    {
+        if (ec)
+        {
+            if (ec == boost::beast::error::timeout)
+            {
+                BMCWEB_LOG_WARNING("doRead timeout: {}", ec);
+            }
+            else if (ec != boost::beast::websocket::error::closed &&
+                     ec != boost::asio::error::eof &&
+                     ec != boost::asio::ssl::error::stream_truncated)
+            {
+                BMCWEB_LOG_ERROR("doRead error {}", ec);
+            }
+            if (closeHandler)
+            {
+                std::string reason{ws.reason().reason.c_str()};
+                closeHandler(*this, reason);
+            }
+            return;
+        }
+
+        handleMessage(bytesRead);
+    }
+
     void doRead()
     {
         if (readingDefered)
         {
             return;
         }
-        ws.async_read(inBuffer, [this, self(shared_from_this())](
-                                    const boost::beast::error_code& ec,
-                                    size_t bytesRead) {
-            if (ec)
-            {
-                if (ec == boost::beast::error::timeout)
-                {
-                    BMCWEB_LOG_WARNING("doRead timeout: {}", ec);
-                }
-                else if (ec != boost::beast::websocket::error::closed &&
-                         ec != boost::asio::error::eof &&
-                         ec != boost::asio::ssl::error::stream_truncated)
-                {
-                    BMCWEB_LOG_ERROR("doRead error {}", ec);
-                }
-                if (closeHandler)
-                {
-                    std::string reason{ws.reason().reason.c_str()};
-                    closeHandler(*this, reason);
-                }
-                return;
-            }
-
-            handleMessage(bytesRead);
-        });
+        ws.async_read(inBuffer, std::bind_front(&self_t::afterRead, this,
+                                                shared_from_this()));
     }
+
+    void afterWrite(const std::shared_ptr<Connection>& /*self*/,
+                    const boost::beast::error_code& ec, size_t bytesSent)
+    {
+        doingWrite = false;
+        outBuffer.consume(bytesSent);
+        if (ec == boost::beast::websocket::error::closed)
+        {
+            // Do nothing here.  doRead handler will call the
+            // closeHandler.
+            close("Write error");
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Error in ws.async_write {}", ec);
+            return;
+        }
+        doWrite();
+    }
+
     void doWrite()
     {
         // If we're already doing a write, ignore the request, it will be picked
@@ -283,25 +307,9 @@ class ConnectionImpl : public Connection
             return;
         }
         doingWrite = true;
-        ws.async_write(outBuffer.data(), [this, self(shared_from_this())](
-                                             const boost::beast::error_code& ec,
-                                             size_t bytesSent) {
-            doingWrite = false;
-            outBuffer.consume(bytesSent);
-            if (ec == boost::beast::websocket::error::closed)
-            {
-                // Do nothing here.  doRead handler will call the
-                // closeHandler.
-                close("Write error");
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Error in ws.async_write {}", ec);
-                return;
-            }
-            doWrite();
-        });
+        ws.async_write(
+            outBuffer.data(),
+            std::bind_front(&self_t::afterWrite, this, shared_from_this()));
     }
 
   private:
