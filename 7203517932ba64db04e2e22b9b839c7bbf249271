@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "adbc0fba_f6cd8ab4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-02T00:07:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8ccc567e_ea03e264",
+      "revId": "7203517932ba64db04e2e22b9b839c7bbf249271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4aac207b_cc6a8ba5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -58,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91c9d0fb_60048c5f",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-02T00:07:47Z",
+      "side": 1,
+      "message": "Rearrange the codes to handle the cases in one place",
+      "parentUuid": "331d0c15_f8afd121",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 13
+      },
+      "revId": "7203517932ba64db04e2e22b9b839c7bbf249271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00b1d4d0_d4cd78b5",
@@ -71,6 +113,24 @@
       "writtenOn": "2025-10-31T23:33:38Z",
       "side": 1,
       "message": "I\u0027d really like to see these lambdas turned into functions, but it seems silly to reject a simple PR like this because of that.",
+      "revId": "7203517932ba64db04e2e22b9b839c7bbf249271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f44f49d2_04e2d0f0",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-02T00:07:47Z",
+      "side": 1,
+      "message": "The refactor is done by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84825, and this will be on top of it",
+      "parentUuid": "00b1d4d0_d4cd78b5",
       "revId": "7203517932ba64db04e2e22b9b839c7bbf249271",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
