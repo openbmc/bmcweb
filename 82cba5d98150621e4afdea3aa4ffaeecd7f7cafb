@@ -105,6 +105,24 @@
       "parentUuid": "5a351526_ee4bc112",
       "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41e3e18e_b388355d",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-11-03T01:37:56Z",
+      "side": 1,
+      "message": "Hi Ed! yup, today I just re-tested both path! Also, I am sorry I should put 401 instead of 404 there (was working on something else and not too focus, sorry!)\n\nhere are my full test plan that I just executed:\n\n## path of 401 http code\n### modified device\n- deploy new image to a BMC test device\n- remove account from bmcweb (`curl -X DELETE .../AccountService/Accounts/\u003cremoved-acc\u003e`)\n- use certificate of removed account (`curl --cert\u003d... --key\u003d... .../AccountService/Accounts -v`)\n- expect to get 401\n\n### controlled device\n- remove account from bmcweb (`curl -X DELETE .../AccountService/Accounts/\u003cremoved-acc\u003e`)\n- use certificate of removed account (`curl --cert\u003d... --key\u003d... .../AccountService/Accounts -v`)\n- expect to get 500\n\n---\n\n## path of 500 http code\n### stopped phosphor-user-manager service\n- re-add removed account to the modified BMC device using root user (`curl --user\u003d\"root:\u003croot-pwd\u003e\" --data\u003d\u003cjson-to-readd-removed-acc\u003e -X POST .../AccountService/Accounts`)\n- ssh to the BMC\n- stop the phosphor-user-manager srv (`systemctl stop xyz.openbmc_project.User.Manager`)\n- send curl request (`curl --cert\u003d... --key\u003d... .../AccountService/Accounts -v`)\n- expect to get 500\n\n### healthy phosphor-user-manager service\n- restart the phosphor-user-manager srv inside modified BMC (`systemctl start xyz.openbmc_project.User.Manager`)\n- ensure that the service is healthy (`systemctl status xyz.openbmc_project.User.Manager`)\n- send curl request (`curl --cert\u003d... --key\u003d... .../AccountService/Accounts -v`)\n- expect to get 200 (and response)\n\n---\n\nPlease let me know if the test plan is not covering necessary cases, thank you!!",
+      "parentUuid": "2f4466bc_9ffd42e2",
+      "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
