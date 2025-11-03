@@ -123,6 +123,24 @@
       "parentUuid": "2f4466bc_9ffd42e2",
       "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cc3252a_29dfbe8a",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-11-03T01:40:58Z",
+      "side": 1,
+      "message": "Oh also testing of the path of 500 http code on controlled device (control variable / BMC that I don\u0027t modify):\n\n## path of 500 http code\n### controlled device\n- ssh to the BMC\n- stop the phosphor-user-manager srv (`systemctl stop xyz.openbmc_project.User.Manager`)\n- send curl request (`curl --cert\u003d... --key\u003d... .../AccountService/Accounts -v`)\n- expect to get 500 (same as the modified BMC, as expected)",
+      "parentUuid": "41e3e18e_b388355d",
+      "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
