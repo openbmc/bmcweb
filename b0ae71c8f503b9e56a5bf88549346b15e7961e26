@@ -1,4 +1,28 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f34e8ef_ac69ef44",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-11-03T14:22:40Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need to be above the L248-L250 check? (I.e. that check is for !\u003d which will fire for this. Seems like we would end up with both an ERROR and a WARNING message for the operation_aborted case.)",
+      "range": {
+        "startLine": 254,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 13
+      },
+      "revId": "b0ae71c8f503b9e56a5bf88549346b15e7961e26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
