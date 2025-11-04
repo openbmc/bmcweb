@@ -227,6 +227,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7a99153_bb240871",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T00:31:03Z",
+      "side": 1,
+      "message": "Can we do that now? (I would really prefer this) Or at least call out that this assumes 1 Fabrics and all switches are assumed under that fabric in the commit msg and probably as a code comment as well.",
+      "parentUuid": "9bc76eeb_f7fe6e0a",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "238df5be_b93b9899",
         "filename": "redfish-core/lib/fabric.hpp",
         "patchSetId": 5
