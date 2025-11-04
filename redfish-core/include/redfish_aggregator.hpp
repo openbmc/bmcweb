@@ -14,6 +14,7 @@
 #include "parsing.hpp"
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
+#include "utils/redfish_aggregator_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -608,9 +609,10 @@ class RedfishAggregator
             }
         }
 
-        // Create a copy of thisReq so we we can still locally process the req
         std::error_code ec;
-        auto localReq = std::make_shared<crow::Request>(thisReq.copy());
+        // Create a filtered copy of the request
+        auto localReq =
+            std::make_shared<crow::Request>(createNewRequest(thisReq));
         if (ec)
         {
             BMCWEB_LOG_ERROR("Failed to create copy of request");
@@ -621,9 +623,9 @@ class RedfishAggregator
             return;
         }
 
+        boost::urls::url& urlNew = localReq->url();
         if (aggType == AggregationType::Collection)
         {
-            boost::urls::url& urlNew = localReq->url();
             auto paramsIt = urlNew.params().begin();
             while (paramsIt != urlNew.params().end())
             {
@@ -647,9 +649,9 @@ class RedfishAggregator
                 // Pass all other parameters
                 paramsIt++;
             }
-            localReq->target(urlNew.buffer());
         }
-
+        // Filter headers to only allow Host and Content-Type
+        localReq->target(urlNew.buffer());
         getSatelliteConfigs(
             std::bind_front(aggregateAndHandle, aggType, localReq, asyncResp));
     }
