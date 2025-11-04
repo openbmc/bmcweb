@@ -245,16 +245,17 @@ class ConnectionImpl : public Connection
             {
                 BMCWEB_LOG_WARNING("doRead timeout: {}", ec);
             }
+            else if (ec == boost::asio::error::operation_aborted)
+            {
+                BMCWEB_LOG_WARNING("doRead operation is aborted: {}", ec);
+            }
             else if (ec != boost::beast::websocket::error::closed &&
                      ec != boost::asio::error::eof &&
                      ec != boost::asio::ssl::error::stream_truncated)
             {
                 BMCWEB_LOG_ERROR("doRead error {}", ec);
             }
-            else if (ec == boost::asio::error::operation_aborted)
-            {
-                BMCWEB_LOG_WARNING("doRead operation is aborted: {}", ec);
-            }
+
             if (closeHandler)
             {
                 std::string reason{ws.reason().reason.c_str()};
