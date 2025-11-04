@@ -14,6 +14,7 @@
 #include "parsing.hpp"
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
+#include "utils/redfish_aggregator_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -649,7 +650,9 @@ class RedfishAggregator
             }
             localReq->target(urlNew.buffer());
         }
-
+        // Filter headers to only allow Host, Accept, and Content-Type
+        boost::beast::http::fields newHeaders = createNewHeaders(localReq);
+        localReq->setFields(newHeaders);
         getSatelliteConfigs(
             std::bind_front(aggregateAndHandle, aggType, localReq, asyncResp));
     }
