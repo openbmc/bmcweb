@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfcdc514_2038c6e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T00:19:28Z",
+      "side": 1,
+      "message": "This is restricting the POST only, do we need to do something about the PATCH?",
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc978bc4_cb5f9f02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T00:19:28Z",
+      "side": 1,
+      "message": "Having an operator with ssh, kind of defeats the propose of that role being operator.. But if the user tells us so, I guess we should protect the client from themselves? Can you talk more about this.",
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36d9d61f_602cd0d5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
