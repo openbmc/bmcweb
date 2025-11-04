@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0b36743_302e9071",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "What is HMC?",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "619c4255_89784291",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "// Filter headers to only allow Host and Content-Type. Set Accept.",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47617d31_cb6d500b",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "you appear to be keeping the host header",
+      "range": {
+        "startLine": 13,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 37
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7739e09_41099755",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "include memory, etc.",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee45164_0ce4fc6c",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "You then set Accept so it isn\u0027t like you are really taking it from the request",
+      "range": {
+        "startLine": 16,
+        "startChar": 23,
+        "endLine": 16,
+        "endChar": 30
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5ebf614_5bbc7b7f",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "I personally think not using auto is easier to understand this code but :shrug:\nhttps://github.com/openbmc/bmcweb/blob/b0a8d97b5d85aefca19b75c8d375e7ceed4dd186/http/http2_connection.hpp#L234",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aae12a4f_8ce68380",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "let\u0027s not use single char var names, it makes searching / maintainability harder. Let\u0027s call this header",
+      "range": {
+        "startLine": 20,
+        "startChar": 13,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3d3dce_c890aca0",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "boost::beast::http::field is easier to understand, change if you agree.",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1476d27e_1c8b8283",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T21:13:21Z",
+      "side": 1,
+      "message": "Why do you need the new clearHeader if you use the old one here? Just use the old one above too?",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
