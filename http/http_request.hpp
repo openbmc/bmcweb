@@ -113,6 +113,11 @@ struct Request
         req.erase(key);
     }
 
+    void clearHeader(std::string_view key)
+    {
+        req.erase(key);
+    }
+
     std::string_view methodString() const
     {
         return req.method_string();
