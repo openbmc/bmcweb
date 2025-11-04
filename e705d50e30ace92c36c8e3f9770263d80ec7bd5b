@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e0630c1_f876744d",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T00:35:47Z",
+      "side": 1,
+      "message": "So if you get a D-Bus error you just leave off?",
+      "parentUuid": "217263d5_6a24f910",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6613780f_dea869c1",
         "filename": "redfish-core/lib/switch_port.hpp",
         "patchSetId": 1
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Changed it to `BMCWEB_LOG_DEBUG`.",
       "parentUuid": "6613780f_dea869c1",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebfc6f99_70365a52",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-04T00:35:47Z",
+      "side": 1,
+      "message": "I still think you should do \n\n    messages::internalError(asyncResp-\u003eres);\n\nand Not \n\n     \n    asyncResp-\u003eres.jsonValue[jsonPtr] \u003d nullptr;\n\nOr just remove the \n\n    asyncResp-\u003eres.jsonValue[jsonPtr] \u003d nullptr;",
+      "parentUuid": "5a5a20c9_c129a5d0",
       "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
