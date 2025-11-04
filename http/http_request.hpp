@@ -113,6 +113,11 @@ struct Request
         req.erase(key);
     }
 
+    void clearHeader(std::string_view key)
+    {
+        req.erase(key);
+    }
+
     std::string_view methodString() const
     {
         return req.method_string();
@@ -136,6 +141,16 @@ struct Request
     const boost::beast::http::fields& fields() const
     {
         return req.base();
+    }
+
+    void setFields(const boost::beast::http::fields& fields)
+    {
+        auto& dst = req.base();
+        dst.clear();
+        for (const auto& f : fields)
+        {
+            dst.insert(f.name(), f.name_string(), f.value());
+        }
     }
 
     const std::string& body() const
