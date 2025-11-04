@@ -498,11 +498,14 @@ class HTTP2Connection :
             }
             thisReq.method(verb);
         }
-        else if (nameSv.starts_with(":"))
+        else if (nameSv.starts_with(":") || nameSv.contains("x-auth-token") ||
+                 nameSv.contains("X-Auth-Token") ||
+                 nameSv.contains("x-Auth-Token") ||
+                 nameSv.contains("X-AUTH-TOKEN"))
         {
             // Ignore all other http2 headers
             // :scheme and :authority are other valid http2 fields that might
-            // show up here.
+            // show up here and x-auth-token variants
         }
         else
         {
