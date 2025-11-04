@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b1268ed_c62b0795",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-11-04T22:56:44Z",
+      "side": 1,
+      "message": "Hi Ed and Gunnar, sorry I think I missed this comment, \n\n\u003e There\u0027s a hostname in the certificate UPN, how do you reuse a CN between two different machines if there\u0027s a hostname?\n\nWe only put top part of the hostname tree inside the UPN. For example, let\u0027s say we have this hostname `switch010.dc01.region03.example.com`. We only put `malikrafsan@example.com` inside the UPN. This will ensure that we can make the UPN to access all devices that we have\n\nlet me know if you have any concern!",
+      "parentUuid": "8999659c_3c9727b1",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "498728d976c0aa5a2ac54a5b23bae31ed8db8112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d94c3bb_46ba7c9c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
