@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ed58f23_99e735f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "Overall can we fix this a bit to not make a complete copy of the headers, THEN try to fix them?  Lets just write something like\n\nboost::beast::http::fields createNewHeaders(Request\u0026 req);",
+      "revId": "7e9fbb1191897e00c059affb6ade7d9c7bbee870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

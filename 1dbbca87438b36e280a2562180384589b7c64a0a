@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60cc18f6_81021c3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "proprietary term for what we would call satellite mc here.",
+      "parentUuid": "a0b36743_302e9071",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "619c4255_89784291",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -83,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c846705f_47d398f8",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "#include to be clear.",
+      "parentUuid": "c7739e09_41099755",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ee45164_0ce4fc6c",
         "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
         "patchSetId": 1
@@ -117,6 +159,30 @@
       "writtenOn": "2025-11-04T21:13:21Z",
       "side": 1,
       "message": "I personally think not using auto is easier to understand this code but :shrug:\nhttps://github.com/openbmc/bmcweb/blob/b0a8d97b5d85aefca19b75c8d375e7ceed4dd186/http/http2_connection.hpp#L234",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26d373da_cd44c4a7",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "+1.  don\u0027t use auto here.",
+      "parentUuid": "c5ebf614_5bbc7b7f",
       "range": {
         "startLine": 17,
         "startChar": 4,
@@ -169,6 +235,111 @@
         "endLine": 20,
         "endChar": 13
       },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0428e0c_3be9e553",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "0a3d3dce_c890aca0",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30355590_8b72482a",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "aae12a4f_8ce68380",
+      "range": {
+        "startLine": 20,
+        "startChar": 13,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c5eeff8_89e5aed1",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "We shouldn\u0027t get both name and name string.  we should have something like",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa1b8cc_a940e493",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "Remove this.  http2 should not be forwarding http2 headers to the rest of the system (we already fixed this).",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4f12e1f_f3e47022",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:21:13Z",
+      "side": 1,
+      "message": "This is going to invalidate your iterator on line 18.  You can\u0027t modify the header while you\u0027re parsing it.",
       "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
