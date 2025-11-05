@@ -78,11 +78,6 @@ inline triggers::TriggerActionEnum toRedfishTriggerAction(
     {
         return triggers::TriggerActionEnum::RedfishEvent;
     }
-    if (dbusValue ==
-        "xyz.openbmc_project.Telemetry.Trigger.TriggerAction.LogToJournal")
-    {
-        return triggers::TriggerActionEnum::LogToLogService;
-    }
     return triggers::TriggerActionEnum::Invalid;
 }
 
@@ -95,10 +90,6 @@ inline std::string toDbusTriggerAction(std::string_view redfishValue)
     if (redfishValue == "RedfishEvent")
     {
         return "xyz.openbmc_project.Telemetry.Trigger.TriggerAction.LogToRedfishEventLog";
-    }
-    if (redfishValue == "LogToLogService")
-    {
-        return "xyz.openbmc_project.Telemetry.Trigger.TriggerAction.LogToJournal";
     }
     return "";
 }
