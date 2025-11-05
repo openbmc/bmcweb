@@ -78,11 +78,6 @@ inline triggers::TriggerActionEnum toRedfishTriggerAction(
     {
         return triggers::TriggerActionEnum::RedfishEvent;
     }
-    if (dbusValue ==
-        "xyz.openbmc_project.Telemetry.Trigger.TriggerAction.LogToJournal")
-    {
-        return triggers::TriggerActionEnum::LogToLogService;
-    }
     return triggers::TriggerActionEnum::Invalid;
 }
 
@@ -95,10 +90,6 @@ inline std::string toDbusTriggerAction(std::string_view redfishValue)
     if (redfishValue == "RedfishEvent")
     {
         return "xyz.openbmc_project.Telemetry.Trigger.TriggerAction.LogToRedfishEventLog";
-    }
-    if (redfishValue == "LogToLogService")
-    {
-        return "xyz.openbmc_project.Telemetry.Trigger.TriggerAction.LogToJournal";
     }
     return "";
 }
@@ -663,6 +654,14 @@ inline bool parsePostTriggerParams(crow::Response& res,
         ctx.actions.reserve(triggerActions->size());
         for (const std::string& action : *triggerActions)
         {
+            // current backend implementation does not support the following
+            // action
+            if (action == "LogToLogService")
+            {
+                messages::propertyValueIncorrect(res, "TriggerActions", action);
+                return false;
+            }
+
             std::string dbusAction = toDbusTriggerAction(action);
 
             if (dbusAction.empty())
