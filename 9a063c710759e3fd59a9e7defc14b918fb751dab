@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28c16e69_e81eec23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-11-05T10:19:25Z",
+      "side": 1,
+      "message": "The POST method is used when creating a new user. I\u0027m not sure if it is suitable to use the PATCH method.\nPlease refer to the code implementing the restriction for the hostconsole group here: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/account_service.hpp#L1882-L1895",
+      "parentUuid": "dfcdc514_2038c6e3",
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc978bc4_cb5f9f02",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -58,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d595329_fe363591",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-11-05T10:19:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "36d9d61f_602cd0d5",
+      "range": {
+        "startLine": 1904,
+        "startChar": 16,
+        "endLine": 1904,
+        "endChar": 32
+      },
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c363586_76da7496",
@@ -71,6 +113,30 @@
       "writtenOn": "2025-10-30T21:46:24Z",
       "side": 1,
       "message": "Is using something like \n\n        \"AccountNotModified\": {\n            \"Description\": \"Indicates that the modification requested for the account was not successful.\",\n            \"LongDescription\": \"This message shall indicate that the modification requested for the account was not successful.\",\n            \"Message\": \"The account modification request failed.\",\n            \"Severity\": \"Warning\",\n            \"MessageSeverity\": \"Warning\",\n            \"NumberOfArgs\": 0,\n            \"Resolution\": \"The modification may have failed due to permission issues or issues with the request body.\"\n        },\n\nbetter? From https://redfish.dmtf.org/registries/Base.1.21.0.json",
+      "range": {
+        "startLine": 1906,
+        "startChar": 1,
+        "endLine": 1909,
+        "endChar": 23
+      },
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dfc8b72_44f8e4eb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-11-05T10:19:25Z",
+      "side": 1,
+      "message": "Hi Gunnar,\n\nDo you mean asyncResp-\u003eres.result(boost::beast::http::status::not_modified) instead?",
+      "parentUuid": "3c363586_76da7496",
       "range": {
         "startLine": 1906,
         "startChar": 1,
