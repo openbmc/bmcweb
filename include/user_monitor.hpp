@@ -15,8 +15,8 @@ namespace bmcweb
 
 inline void onUserRemoved(sdbusplus::message_t& msg)
 {
-    sdbusplus::message::object_path p;
-    msg.read(p);
+    auto p = msg.unpack<sdbusplus::message::object_path>();
+
     std::string username = p.filename();
     persistent_data::SessionStore::getInstance().removeSessionsByUsername(
         username);
