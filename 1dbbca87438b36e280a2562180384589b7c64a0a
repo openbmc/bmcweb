@@ -359,6 +359,24 @@
       "message": "Why do you need the new clearHeader if you use the old one here? Just use the old one above too?",
       "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0055e34a_cd7045f7",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-05T18:22:32Z",
+      "side": 1,
+      "message": "We really shouldn\u0027t be using clearHeader at all.  We need to be using the first overload here:\n\nhttps://www.boost.org/doc/libs/latest/libs/beast/doc/html/beast/ref/boost__beast__http__basic_fields/erase.html\n\nThat returns a new iterator so the old one isn\u0027t invalidated.",
+      "parentUuid": "1476d27e_1c8b8283",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
