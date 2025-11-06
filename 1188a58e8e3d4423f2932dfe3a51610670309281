@@ -34,6 +34,24 @@
       "parentUuid": "bb1a30ed_edec22d6",
       "revId": "1188a58e8e3d4423f2932dfe3a51610670309281",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc6cc6bb_bb1ea68c",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-06T12:55:25Z",
+      "side": 0,
+      "message": "Edit: sorry the commit still exists, but no longer fixes all includes, but only those for which the initial commit has already been merged.",
+      "parentUuid": "cc5a8452_3c018619",
+      "revId": "1188a58e8e3d4423f2932dfe3a51610670309281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
