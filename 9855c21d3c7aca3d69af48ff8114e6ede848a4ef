@@ -34,6 +34,24 @@
       "parentUuid": "357b78e5_f96ccdc0",
       "revId": "9855c21d3c7aca3d69af48ff8114e6ede848a4ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35cb567f_2813233d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-11-06T14:18:45Z",
+      "side": 1,
+      "message": "Yes @gunnar@gmills.xyz The Redfish validator had found this error . And as per the DMTF schema\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.17.0.pdf \n\nThe Members@odata.count is a required property for any Resource collection responses.",
+      "parentUuid": "c4474350_d6e378a5",
+      "revId": "9855c21d3c7aca3d69af48ff8114e6ede848a4ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
