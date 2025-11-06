@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2f6b788_6a41595a",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-06T11:06:32Z",
+      "side": 1,
+      "message": "This is only a temporary naming which gets renamed in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83347/12.",
+      "parentUuid": "db0440eb_a7c1b87f",
+      "range": {
+        "startLine": 386,
+        "startChar": 4,
+        "endLine": 386,
+        "endChar": 60
+      },
+      "revId": "5ecb9b5f8ea9f43323f8e2aef8790a39208e5691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4557c74c_c6d012f3",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70fb035e_1d73f808",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-06T11:06:32Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "4557c74c_c6d012f3",
+      "range": {
+        "startLine": 412,
+        "startChar": 4,
+        "endLine": 412,
+        "endChar": 52
+      },
+      "revId": "5ecb9b5f8ea9f43323f8e2aef8790a39208e5691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e80819c5_11c995e8",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-10-29T12:26:35Z",
       "side": 1,
       "message": "How about `doHandleSystemsLogServicesEventLogActionsClearPost`?",
+      "range": {
+        "startLine": 430,
+        "startChar": 4,
+        "endLine": 430,
+        "endChar": 59
+      },
+      "revId": "5ecb9b5f8ea9f43323f8e2aef8790a39208e5691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88dd5d63_e54455b3",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-06T11:06:32Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "e80819c5_11c995e8",
       "range": {
         "startLine": 430,
         "startChar": 4,

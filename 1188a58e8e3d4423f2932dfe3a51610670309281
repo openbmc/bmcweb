@@ -16,6 +16,24 @@
       "message": "Not sure why you removed these going from patch set 8 to 9. The include cleaner got reenabled so please rebase these one more time. Other than that this looks fine to me. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83762",
       "revId": "1188a58e8e3d4423f2932dfe3a51610670309281",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc5a8452_3c018619",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-06T11:06:32Z",
+      "side": 0,
+      "message": "Before this, I had a commit at the end of the commit chain that was fixing all includes across all files, but we agreed on fixing these in their respective patch instead. Thats why patchset 9 has them removed now, and the aforementioned fix-includes commit at the end of the chain no longer exists. Running clang-tidy on the file directly gives me the error for these includes not being included directly.",
+      "parentUuid": "bb1a30ed_edec22d6",
+      "revId": "1188a58e8e3d4423f2932dfe3a51610670309281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
