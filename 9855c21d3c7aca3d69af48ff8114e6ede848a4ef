@@ -70,6 +70,24 @@
       "parentUuid": "35cb567f_2813233d",
       "revId": "9855c21d3c7aca3d69af48ff8114e6ede848a4ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dda2d954_ed356a01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-06T15:24:55Z",
+      "side": 1,
+      "message": "\u003e And as per the DMTF schema\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.17.0.pdf\n\nCan you tell which section to look or what resource? \n\nhttps://redfish.dmtf.org/schemas/v1/PCIeFunctionCollection.json is a better link",
+      "parentUuid": "1b4a0c10_2ed7ac46",
+      "revId": "9855c21d3c7aca3d69af48ff8114e6ede848a4ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
