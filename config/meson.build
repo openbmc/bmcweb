@@ -36,7 +36,6 @@ feature_options = [
     'redfish-oem-manager-fan-data',
     'redfish-provisioning-feature',
     'redfish-updateservice-use-dbus',
-    'redfish-use-3-digit-messageid',
     'redfish-use-hardcoded-system-location-indicator',
     'rest',
     'session-auth',
