@@ -212,8 +212,12 @@ class Connection :
                          connectionCount);
         if (connectionCount >= 200)
         {
-            BMCWEB_LOG_CRITICAL("{} Max connection count exceeded.",
-                                logPtr(this));
+            readClientIp();
+
+            BMCWEB_LOG_CRITICAL(
+                "{} Max connection count exceeded. Request {} {} {}",
+                logPtr(this), req->methodString(), req->target(),
+                req->ipAddress.to_string());
             return;
         }
 
