@@ -16,6 +16,24 @@
       "message": "Still don\u0027t understand the board need here? \nI thought we would go from System \u003c--(some associaiton)-\u003e DIMMs",
       "revId": "6ee4746c4b6315f441c79535cdd2e1216899e252",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f22a7025_b4aa4216",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-07T10:22:21Z",
+      "side": 1,
+      "message": ".",
+      "parentUuid": "54794f9e_668cf8f7",
+      "revId": "6ee4746c4b6315f441c79535cdd2e1216899e252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

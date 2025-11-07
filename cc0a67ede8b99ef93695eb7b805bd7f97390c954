@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f98b0290_23cb970c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-07T10:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "877aa546_fd8bdefb",
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b2b8b26_65d20643",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-10-29T14:45:25Z",
       "side": 1,
       "message": "Still getting a failure?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acf790a2_1e69439c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-07T10:22:21Z",
+      "side": 1,
+      "message": "Dont I expect a failure for this path on single host bmcweb?",
+      "parentUuid": "2b2b8b26_65d20643",
       "range": {
         "startLine": 108,
         "startChar": 0,
@@ -77,6 +119,30 @@
       "writtenOn": "2025-10-29T14:45:25Z",
       "side": 1,
       "message": "These checks should be after the setUpRedfishRoute() check.",
+      "range": {
+        "startLine": 957,
+        "startChar": 4,
+        "endLine": 965,
+        "endChar": 5
+      },
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49558af9_22634e5a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-07T10:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "509c0a9d_481a824a",
       "range": {
         "startLine": 957,
         "startChar": 4,
