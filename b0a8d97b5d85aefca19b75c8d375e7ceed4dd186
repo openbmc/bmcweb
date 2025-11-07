@@ -16,6 +16,24 @@
       "message": "If D-Bus sets it, do we care? \nIt is valid in PDI \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/0814d6a59fbe7c7a3f7c3e4657441be3bcaa7d20/yaml/xyz/openbmc_project/Telemetry/Trigger.interface.yaml#L62",
       "revId": "b0a8d97b5d85aefca19b75c8d375e7ceed4dd186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "694eb073_e1406d64",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2025-11-07T06:24:37Z",
+      "side": 0,
+      "message": "Once this change gets approved, I\u0027ll open patches dropping the same functionality on Dbus end (in phosphor-dbus-interfaces and telemetry).",
+      "parentUuid": "bc731731_110e1b1e",
+      "revId": "b0a8d97b5d85aefca19b75c8d375e7ceed4dd186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
