@@ -16,6 +16,24 @@
       "message": "This makes more sense to me. Can you document this association in PDI ?",
       "revId": "f9a9a985782e1ef0b12d97f58af9e1dce987d07e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2409f2f7_c9d2f7fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 30
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-10T09:38:51Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/85082",
+      "parentUuid": "0d85a3e8_858f49b1",
+      "revId": "f9a9a985782e1ef0b12d97f58af9e1dce987d07e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
