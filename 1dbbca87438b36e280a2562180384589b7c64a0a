@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2572fa8e_4224efa5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "SOrry its satellite BMC",
+      "parentUuid": "a0b36743_302e9071",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "619c4255_89784291",
@@ -123,6 +147,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69da7e46_80bf38b3",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c846705f_47d398f8",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ee45164_0ce4fc6c",
@@ -183,6 +225,30 @@
       "side": 1,
       "message": "+1.  don\u0027t use auto here.",
       "parentUuid": "c5ebf614_5bbc7b7f",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13fb4f37_78f2a2a2",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "26d373da_cd44c4a7",
       "range": {
         "startLine": 17,
         "startChar": 4,
@@ -287,6 +353,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22496ad9_ea0fef6c",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "aae12a4f_8ce68380",
+      "range": {
+        "startLine": 20,
+        "startChar": 13,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe590b81_fca95498",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0a3d3dce_c890aca0",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c5eeff8_89e5aed1",
@@ -300,6 +414,24 @@
       "writtenOn": "2025-11-05T18:21:13Z",
       "side": 1,
       "message": "We shouldn\u0027t get both name and name string.  we should have something like",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb31c3a8_3969a4ff",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6c5eeff8_89e5aed1",
       "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -327,6 +459,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fbde3d9_84a5713f",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6fa1b8cc_a940e493",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4f12e1f_f3e47022",
@@ -340,6 +496,24 @@
       "writtenOn": "2025-11-05T18:21:13Z",
       "side": 1,
       "message": "This is going to invalidate your iterator on line 18.  You can\u0027t modify the header while you\u0027re parsing it.",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "701a509e_80073728",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e4f12e1f_f3e47022",
       "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -374,6 +548,24 @@
       "writtenOn": "2025-11-05T18:22:32Z",
       "side": 1,
       "message": "We really shouldn\u0027t be using clearHeader at all.  We need to be using the first overload here:\n\nhttps://www.boost.org/doc/libs/latest/libs/beast/doc/html/beast/ref/boost__beast__http__basic_fields/erase.html\n\nThat returns a new iterator so the old one isn\u0027t invalidated.",
+      "parentUuid": "1476d27e_1c8b8283",
+      "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c20479c9_a4c5f519",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-10T19:44:05Z",
+      "side": 1,
+      "message": "Older one does not handle keys like \"x-auth-token\" as it is not present Http fields enum",
       "parentUuid": "1476d27e_1c8b8283",
       "revId": "1dbbca87438b36e280a2562180384589b7c64a0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
