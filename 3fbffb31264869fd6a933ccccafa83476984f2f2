@@ -215,6 +215,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28228f02_fe985df8",
+        "filename": "http/app.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "I removed this change in the path set #9.",
+      "parentUuid": "73815e2d_9912346d",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 72
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab289e56_ed378412",
@@ -234,6 +258,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "814ffe82_43d965e3",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "I updated the code. Please help check.",
+      "parentUuid": "ab289e56_ed378412",
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0fb41cc2_0e43a6a2",
         "filename": "http/http_connection.hpp",
         "patchSetId": 5
@@ -245,6 +287,24 @@
       "writtenOn": "2025-09-15T20:44:16Z",
       "side": 1,
       "message": "Please make sure that you implement \"bootstrap auth\" as part of this option.  I suspect this will need to move to an enum.",
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a67a3640_a485fa71",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "I updated the code. Please help check.",
+      "parentUuid": "0fb41cc2_0e43a6a2",
       "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -598,6 +658,30 @@
       "side": 1,
       "message": "\u003e \"In addition to standard credentials, implementations may optionally support auto-generation and delivery of\n\u003e HI-only credentials that may be used by the Firmware or OS to authenticate.\n\u003e ◦ If supported, auto-generated credentials for the Host shall be delivered by using UEFI-based mechanism\n\u003e described in a later section of this document.\"\n\u003e \n\u003e Note, that it says FIRMWARE OR OS for the bootstrap HI-only credentials.\n\u003e \n\u003e \n\u003e \"Services may support provisioning a temporary account for the host interface using IPMI commands.\"\n\u003e \n\u003e Note it specifies \"A\" temporary account, not multiple.\n\u003e \n\u003e \n\u003e Now, it does also say:\n\u003e \n\u003e \"If the Get Bootstrap Account Credentials command has been issued and responds with the completion code 00h, a\n\u003e bootstrap account shall be added to the manager\u0027s account collection and enabled. If the Get Bootstrap Account\n\u003e Credentials command is sent subsequent times and responds with the completion code 00h, a new account shall be\n\u003e created based on the newly generated credentials. Any existing bootstrap accounts shall remain active.\"\n\u003e \n\u003e \n\u003e So maybe I\u0027m wrong?\n\u003e \n\u003e \"Services shall delete all bootstrap accounts:\n\u003e • On any reset of the service.\n\u003e • On any reset of the host. Implementers may need to provision for the necessary mechanisms in order to detect a\n\u003e host reset, which could be hardware-based, UEFI-based, or a mixture of the two.\"\n\u003e \n\u003e \n\u003e This makes the implementation more complex.  Maybe we need boostrap accounts to be bootstrap_\u003cuuid\u003e ?\n\nAs the current implementation, the first bootStrap account name will always bootstrap0. The other account names will be created randomly.\nAll of boot strap accounts will be removed when the CurrentHostState at object path `/xyz/openbmc_project/state/host0` change to not \"Running\" state.",
       "parentUuid": "b0a82061_51cd6ecc",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa61e63d_8c218b33",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbe7cbc5_1953ebb9",
       "range": {
         "startLine": 38,
         "startChar": 51,

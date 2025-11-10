@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "560818f3_291f5a5c",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "I updated the code to removing filesystem.\nIn the latest code, I updated user_monitor to watch the Added/Removed/PropertyChanged D-Bus signals. The list of bootStrap user will be updated base on those signal.\nisBootStrapAccount() method is added in user_monitor, it will response whether the user is bootStrapAccount base on the existing list.",
+      "parentUuid": "fd27a5e4_ea3cc815",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 29
+      },
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77fbaea6_b1215fed",
         "filename": "include/authentication.hpp",
         "patchSetId": 8
@@ -37,6 +61,30 @@
       "writtenOn": "2025-10-03T15:21:29Z",
       "side": 1,
       "message": "Please don\u0027t use default params here.  Just populate where we need them\n\nAlso pass basic values (bool, int, etc) by value.\n\nAlso, this probably deserves to be an enum class.",
+      "range": {
+        "startLine": 326,
+        "startChar": 36,
+        "endLine": 326,
+        "endChar": 44
+      },
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bbef2aa_f093e6c4",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77fbaea6_b1215fed",
       "range": {
         "startLine": 326,
         "startChar": 36,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6257959_feac28e0",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fa1e43c1_1885a370",
+      "range": {
+        "startLine": 371,
+        "startChar": 8,
+        "endLine": 371,
+        "endChar": 12
+      },
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7800bd9b_805c899e",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c76b6098_cc95be4e",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7800bd9b_805c899e",
+      "range": {
+        "startLine": 377,
+        "startChar": 16,
+        "endLine": 377,
+        "endChar": 73
+      },
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee43b38e_770682c2",
@@ -106,6 +202,24 @@
       "writtenOn": "2025-10-03T15:21:29Z",
       "side": 1,
       "message": "This looks broken to me.  Yes, this will return unauthorized for bootstrap users attempting to access from non bootstrap interfaces.... AFTER THE SESSION IS CREATED! ! ! !",
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d30cfa2_3d5d05aa",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-10T03:12:08Z",
+      "side": 1,
+      "message": "I updated to check the bootStrap authentication before create the section.",
+      "parentUuid": "ee43b38e_770682c2",
       "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
