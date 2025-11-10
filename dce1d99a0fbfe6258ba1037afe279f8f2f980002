@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48b0b49d_5c9a7473",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-11-10T21:23:27Z",
+      "side": 1,
+      "message": "Just below this in the commit message I\u0027ve included the longDescription of the Rotational ReadingType enum. Specifically:\n\n\u003eServices should represent fan speed and pump speed sensors with the `ReadingType` value `Percent`.\n\nThis was added to 2025.3\n\nFor comparison the v1_11_0 of Sensor does not contain that statement.\n```\ncurl -s https://redfish.dmtf.org/schemas/v1/Sensor.v1_11_0.json | jq .definitions.ReadingType.enumLongDescriptions.Rotational\n\"This value shall indicate a measurement of rotational frequency, in revolutions per minute units.  The `ReadingUnits` property shall contain either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value.\"\n```\n\nThis Redfish change was after questions we had on the implementation of SpeedRPM with fan sensors. It was discussed in review comment: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/73700/comments/deae0bcb_0c7ce4e2\n\nIs the enum definition not sufficient in the commit message?",
+      "parentUuid": "0e3ce5e1_a7557084",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4f4cff0_ea608da5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-10T20:08:56Z",
       "side": 1,
       "message": "This seems like it states the opposite of what you\u0027re implementing?",
+      "range": {
+        "startLine": 16,
+        "startChar": 100,
+        "endLine": 16,
+        "endChar": 180
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38700e75_90bef896",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-11-10T21:23:27Z",
+      "side": 1,
+      "message": "My reading of the description is that for non fan speed and pump speed sensors that use Rotational they would use the rev/min or RPM for the ReadingUnits.\n\nBut for the exception cases of fan speed and pump speed sensors they should not be using Rotational at all.",
+      "parentUuid": "c4f4cff0_ea608da5",
       "range": {
         "startLine": 16,
         "startChar": 100,
@@ -100,6 +148,24 @@
       "writtenOn": "2025-11-10T20:08:56Z",
       "side": 1,
       "message": "Divide by zero safety issue.",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eeb169d_b342e775",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-11-10T21:23:27Z",
+      "side": 1,
+      "message": "range is computed and checked at L531 above. If it is \u003c\u003d 0 we will return and not do this division.",
+      "parentUuid": "aeb68e5e_34eeb3d2",
       "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
