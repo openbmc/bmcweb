@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "332b8809_f8f722ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T14:57:10Z",
+      "side": 1,
+      "message": "This is not normally justification for zero testing, but this code has at least ok unit test coverage, so we should be ok here.  Please make sure you\u0027re testing where appropriate.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 44
+      },
+      "revId": "7681b8a16fd75dc3424a6d70a76a906d128b8de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
