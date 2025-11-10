@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e3ce5e1_a7557084",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T20:08:56Z",
+      "side": 1,
+      "message": "You\u0027ve just linked the schema, you haven\u0027t linked where or why this was needed, or the change to the spec that says \"all fan sensors shall be percent\".  Considering that \"percent of what\" is VERY subjective on a fan.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4f4cff0_ea608da5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T20:08:56Z",
+      "side": 1,
+      "message": "This seems like it states the opposite of what you\u0027re implementing?",
+      "range": {
+        "startLine": 16,
+        "startChar": 100,
+        "endLine": 16,
+        "endChar": 180
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bce1424b_5cac6721",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T20:08:56Z",
+      "side": 1,
+      "message": "Why are we unpacking the properties AGAIN?  There\u0027s already an unpack of these properties in the code you\u0027ve added this to.",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 59
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f26c577c_80470544",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T20:08:56Z",
+      "side": 1,
+      "message": "No, that\u0027s not how this works.  if min value isn\u0027t published, we either don\u0027t publish the property at all or we mark it null.",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeb68e5e_34eeb3d2",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T20:08:56Z",
+      "side": 1,
+      "message": "Divide by zero safety issue.",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9210178_19ef03b0",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T20:08:56Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be set where we\u0027re finding the units on line 617?",
+      "range": {
+        "startLine": 746,
+        "startChar": 0,
+        "endLine": 746,
+        "endChar": 48
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "621fe109_9157ec50",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T20:08:56Z",
+      "side": 1,
+      "message": "This method is already very...very long, lets not make it longer.",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc007822_c1445b0b",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T20:08:56Z",
+      "side": 1,
+      "message": "These are setting ints, you should probably set floats so they match.",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
