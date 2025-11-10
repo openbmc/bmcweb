@@ -38,6 +38,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5be3145_a8cf098e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T15:04:19Z",
+      "side": 1,
+      "message": "Can you please add more details here, ideally from the specification as to why this is being enforced?  it seems like you should be able to give any user any level of role.  Maybe the backends dont\u0027 handle that correctly, but that\u0027s not a problem here.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc978bc4_cb5f9f02",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -66,6 +89,40 @@
       "writtenOn": "2025-11-10T10:03:25Z",
       "side": 1,
       "message": "Hi Gunnar,\n\nFriendly ping.",
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f841b20_4127c01f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T15:04:19Z",
+      "side": 1,
+      "message": "Overall, I\u0027m not sure why this is b",
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ada5976f_c382a5d9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T15:04:19Z",
+      "side": 1,
+      "message": "Why is this being done in bmcweb?  All these updates are being sent to phosphor-user-manager, and any business logic of enforcing certain roles or restrictions needs to be done there.",
       "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -112,6 +169,29 @@
         "startChar": 16,
         "endLine": 1904,
         "endChar": 32
+      },
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a94dd44f_3cd029f4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1908,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-10T15:04:19Z",
+      "side": 1,
+      "message": "This isn\u0027t a valid Redfish message.  Please use valid redfish messages.",
+      "range": {
+        "startLine": 1906,
+        "startChar": 0,
+        "endLine": 1908,
+        "endChar": 71
       },
       "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
