@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74a08349_a2577a62",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Do we have any problem with that?",
+      "parentUuid": "f30ab27d_5c78bbac",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91f9f41f_076e0f97",
         "filename": "redfish-core/lib/host_interface.hpp",
         "patchSetId": 13
@@ -170,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3320fbb6_a1816953",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "52f65d0b_50bf96e1",
+      "range": {
+        "startLine": 16,
+        "startChar": 56,
+        "endLine": 16,
+        "endChar": 59
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ccdcbbd_fa3a3079",
@@ -187,6 +229,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "032529f1_7203d2bb",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6ccdcbbd_fa3a3079",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3ee4ebc_cff6ebac",
@@ -200,6 +260,30 @@
       "writtenOn": "2025-10-03T15:16:38Z",
       "side": 1,
       "message": "Please follow what we do everywhere else with if/else if trees.\n\nAs written this will construct and malloc all these strings, as well as the map just to do a single string lookup.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9407ec75_942fd721",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a3ee4ebc_cff6ebac",
       "range": {
         "startLine": 57,
         "startChar": 0,
@@ -233,6 +317,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e634715_6331bdcc",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "68f0a350_3fcc6945",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0821115d_a7aee0e5",
@@ -246,6 +354,24 @@
       "writtenOn": "2025-10-03T15:16:38Z",
       "side": 1,
       "message": "Why does the credential bootstrap have its own role?  SHouldn\u0027t this just be the role of the bootstrap user?",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a07bd8bf_4e69cbb8",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Actually, the role of the bootStrap user is depend on the `RoleId` of `CredentialBootstrapping`.\n\nRedfish API support changing the `RoleId` of `CredentialBootstrapping` and the role of bootStrap user will be changed base on the updated value.",
+      "parentUuid": "0821115d_a7aee0e5",
       "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -273,6 +399,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e26c756_a5eaff44",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c54c09a4_a13e53a8",
+      "range": {
+        "startLine": 103,
+        "startChar": 23,
+        "endLine": 103,
+        "endChar": 51
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67a0ddbf_970e47ae",
@@ -290,6 +440,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d757f1dc_bb05a105",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "67a0ddbf_970e47ae",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc46852c_42faf592",
@@ -303,6 +471,24 @@
       "writtenOn": "2025-10-03T16:57:03Z",
       "side": 1,
       "message": "WARNING here",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "514f27ae_bdaa8aba",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cc46852c_42faf592",
       "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -330,6 +516,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd38b4d3_4dbe8d67",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "810d588a_23ca19bb",
+      "range": {
+        "startLine": 148,
+        "startChar": 53,
+        "endLine": 148,
+        "endChar": 72
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a80de7a7_b424b6f3",
@@ -343,6 +553,24 @@
       "writtenOn": "2025-10-03T16:57:03Z",
       "side": 1,
       "message": "See https://github.com/openbmc/bmcweb/blob/a9da2b2b50758ec9657ab7034e57dadb3e62abd0/redfish-core/lib/memory.hpp#L413 for how we should do this",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3020833_13fdbec2",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:46:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a80de7a7_b424b6f3",
       "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
