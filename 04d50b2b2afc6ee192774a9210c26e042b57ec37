@@ -16,6 +16,23 @@
       "message": "I would expect this to fail. The ComputerSystem resource with id \u0027system\u0027 should not exist in our testing environment for multi-host, hence this should be an invalid URI. Any request to \u0027system\u0027 should return a 404 ResourceNotFound, validation should fail.",
       "revId": "04d50b2b2afc6ee192774a9210c26e042b57ec37",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "402a9152_1f0935e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-11T19:58:01Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/85082 needs to go first. Can you include that link in the commit msg?",
+      "revId": "04d50b2b2afc6ee192774a9210c26e042b57ec37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
