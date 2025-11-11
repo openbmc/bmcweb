@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b36840da_f5328891",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-11T13:06:44Z",
+      "side": 1,
+      "message": "For some reason I did not get notified about this thread, sorry for the late reply. \n\n\u003e The code to GET systems collection does not have this condition.\n\nTrue, this check is only needed when doing requests on the ComputerSystem identifier, \ni.e  GET /redfish/v1/Systems/system. \n\nSingle-host expects either default \u0027system\u0027 systemName (\u003d ComputerSystem resource identifier in redfish), or anything that is set via BMCWEB_REDFISH_SYSTEM_URI_NAME. On multi-host, neither of those is expected, the systemName comes from the \u0027Name\u0027 property of the EM configuration that defines the ManagedHost interface. \nThat is why the following check exists everywhere we enable multi-host support\n\n`if (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM) {\n     if (systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME) {\n         return ERR;\n     }\n }\n`\n\nThis is only to validate for single-host, on multi-host we don\u0027t make assumptions about the systemName used to identify a host, other than the identifiers used for all hosts being unique.",
+      "parentUuid": "4423389c_aaf8c595",
+      "revId": "f5ef639eda082680bba2b59ef1d173bac60bba1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ce1ab0d_da81812b",
