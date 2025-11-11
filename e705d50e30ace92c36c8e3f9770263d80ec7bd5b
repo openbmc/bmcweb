@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76a1cce9_94b57b05",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-11T14:32:05Z",
+      "side": 1,
+      "message": "Yes, these properties are optional and we would only populates present properties.",
+      "parentUuid": "3e0630c1_f876744d",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6613780f_dea869c1",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "I still think you should do \n\n    messages::internalError(asyncResp-\u003eres);\n\nand Not \n\n     \n    asyncResp-\u003eres.jsonValue[jsonPtr] \u003d nullptr;\n\nOr just remove the \n\n    asyncResp-\u003eres.jsonValue[jsonPtr] \u003d nullptr;",
       "parentUuid": "5a5a20c9_c129a5d0",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da2a0ab3_a2333258",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-11T14:32:05Z",
+      "side": 1,
+      "message": "Removed nullptr assignment. Since these properties are optional if any of the properties are not present we would not report an error and populate only present properties.",
+      "parentUuid": "ebfc6f99_70365a52",
       "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
