@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27fad554_084728f9",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da933c16_d79eb74b",
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d8f04d6_40e5357d",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-10-03T15:33:40Z",
       "side": 1,
       "message": "Do we really need to support RoleId?  Our roles other than Admin are somewhat broken right now, so I\u0027m a little surprised we\u0027d make this configurable at all.   Was there a use case you were trying to accomplish?",
+      "range": {
+        "startLine": 201,
+        "startChar": 37,
+        "endLine": 201,
+        "endChar": 43
+      },
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e67c17_40d27436",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:51:47Z",
+      "side": 1,
+      "message": "The Redfish host interface spec mentions that \"The permissions granted to any auto-generated credentials shall be configurable with a defined RoleId\nassigned.\". And the Redfish API also supported the patching to the properties of `CredentialBootstrapping` interface.\n\nSo I think the supported code needs follow spec.",
+      "parentUuid": "9d8f04d6_40e5357d",
       "range": {
         "startLine": 201,
         "startChar": 37,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09174fb_bd9f505b",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85db999e_e2af9afe",
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba747f1a_56e7ebb3",
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2505ca58_c10df722",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:51:47Z",
+      "side": 1,
+      "message": "Don\u0027t need to handle `ec` when using `setDbusProperty`.",
+      "parentUuid": "ba747f1a_56e7ebb3",
+      "range": {
+        "startLine": 209,
+        "startChar": 45,
+        "endLine": 209,
+        "endChar": 55
+      },
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4c30c50_d5a8efdc",
@@ -94,6 +178,30 @@
       "writtenOn": "2025-10-03T15:33:40Z",
       "side": 1,
       "message": "Please don\u0027t duplicate this lookup.  if this struct were surviving, you would use find.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 9
+      },
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b92b22ca_67de1746",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:51:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d4c30c50_d5a8efdc",
       "range": {
         "startLine": 244,
         "startChar": 0,
