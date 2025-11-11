@@ -133,6 +133,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4967c9e_40a81bb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-11T20:00:18Z",
+      "side": 1,
+      "message": "But then that ComputerSystem id should not be in the collection ? \nThe Redfish validator walks the tree, it checks any /redfish/v1/Systems/\u003csystem id\u003e at /redfish/v1/Systems (the systems collection)",
+      "parentUuid": "06c7c2bf_fca7cdb9",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "673e4545_94bdf37d",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 19
