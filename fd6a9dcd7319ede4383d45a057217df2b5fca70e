@@ -161,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e92d383_d866d8b0",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-11T19:50:04Z",
+      "side": 1,
+      "message": "I would prefer for keeping the files cleaner, not having it. If we have every company that contributes, it could be 10+ lines in our main files. \n\nSee https://github.com/openbmc/docs/blob/643e73605907251d80166d3d3c984456fc7fd599/CONTRIBUTING.md?plain\u003d1#L495",
+      "parentUuid": "74a08349_a2577a62",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91f9f41f_076e0f97",
         "filename": "redfish-core/lib/host_interface.hpp",
         "patchSetId": 13
