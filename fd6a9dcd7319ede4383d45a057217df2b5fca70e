@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e09a8c9_7d75aab6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-11T12:51:29Z",
+      "side": 1,
+      "message": "\u003e Somethings I see missing from this:\n\u003e 1. Redfish service validator testing\n\nI will add the validator testing later.\n\n\u003e 2. Documentation updates\n\nDo you mean update the design doc?\n\n\u003e 3. Installation of the CSDL schema\n\nThis is the first time, I\u0027m working with the Redfish schema.\nCan you give more detail.",
+      "parentUuid": "d0942866_7b05b624",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f30ab27d_5c78bbac",
         "filename": "redfish-core/lib/host_interface.hpp",
         "patchSetId": 13
