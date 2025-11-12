@@ -39,6 +39,30 @@
       },
       "revId": "e309ffce4bf40daefac83bad13aba9cd4ea96f3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abe8ae30_5005efa9",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-12T17:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2198bdaa_a6d70624",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 365,
+        "endChar": 2
+      },
+      "revId": "e309ffce4bf40daefac83bad13aba9cd4ea96f3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
