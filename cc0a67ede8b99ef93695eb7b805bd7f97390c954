@@ -181,6 +181,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d5c6a27_9410d964",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-11-12T19:09:20Z",
+      "side": 1,
+      "message": "I\u0027m confused here about testing an expected failure. I thought this test was added in response to my earlier comment: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83945/comment/0e88d7b1_cd902670/\n\nWith my original comment I was looking for the validation of no failures with the Multi-Host option disabled on a single host system. (So validating with the code changes that an existing configuration would still work correctly.)\n\nIf this was a different test, then I would still like the validation of existing configurations continuing to work as before to be added.",
+      "parentUuid": "dd7debc0_33caf337",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "673e4545_94bdf37d",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 19
