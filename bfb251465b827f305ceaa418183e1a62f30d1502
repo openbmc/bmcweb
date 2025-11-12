@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c95c24e0_817230c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T18:50:35Z",
+      "side": 1,
+      "message": "The only place I see connecting is for Cables there \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml#L122\n\nI see a few more at https://github.com/openbmc/phosphor-dbus-interfaces/blob/669f3182ab0001f6812875b884ecfbfbd1c8ae2c/yaml/xyz/openbmc_project/Inventory/Item/README.md?plain\u003d1#L28\nbut nothing around Switch\n\nEither make it more generic (so they are collectively documented) or push a new Inventory.Item type for connecting",
+      "parentUuid": "0838dd4f_6a7c5638",
+      "revId": "bfb251465b827f305ceaa418183e1a62f30d1502",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c48e6f6a_8563f06b",
         "filename": "meson.options",
         "patchSetId": 9
