@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0aac3a_ca6bd81d",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T17:00:07Z",
+      "side": 1,
+      "message": "Where are you using this?",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf1292af_6eae740e",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T17:00:07Z",
+      "side": 1,
+      "message": "Why call this dst / destination ? This is the request class\n\nhttps://github.com/openbmc/bmcweb/blob/e8f66f0b0df2a483822b0c51b67c5b4e71c1d74b/redfish-core/include/redfish_aggregator.hpp#L812\n\nis an example calling it requestFields\nAnother choice would be to call it fields and call the parameter fieldsIn, like line 43 above\n\n        boost::beast::http::fields\u0026 requestFields \u003d req.base(); \n        requestFields.clear();\n\n        for (const auto\u0026 field : req.fields())\n        {\n            dst.insert(field.name(), field.name_string(), field.value());\n        }",
+      "range": {
+        "startLine": 148,
+        "startChar": 14,
+        "endLine": 148,
+        "endChar": 18
+      },
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c13a111a_c461ab59",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T17:00:07Z",
+      "side": 1,
+      "message": "I don\u0027t think \"it\" makes sense here..\n\n    for (const auto\u0026 field : fields)\n\nor \n\n    for (const boost::beast::http::fields::value_type\u0026 field : fields())\n\nlike \nhttps://github.com/openbmc/bmcweb/blob/e8f66f0b0df2a483822b0c51b67c5b4e71c1d74b/redfish-core/lib/task.hpp#L81\n\nhttps://github.com/openbmc/bmcweb/blob/e8f66f0b0df2a483822b0c51b67c5b4e71c1d74b/http/http2_connection.hpp#L239",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "661031dd_99b774b0",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T17:00:07Z",
+      "side": 1,
+      "message": "// Drop any incoming x-auth-token headers and keep Host and Content-Type. Set Accept.",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f0eeb6a_b57a545e",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T17:00:07Z",
+      "side": 1,
+      "message": "I don\u0027t think \"it\" makes sense here..\n\nfor (const auto\u0026 field : localReq-\u003efields)\n\nor\n\nfor (const boost::beast::http::fields::value_type\u0026 header : localReq-\u003efields())",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
