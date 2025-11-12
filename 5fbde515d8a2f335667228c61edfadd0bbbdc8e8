@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60360f45_cb3e01b4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-12T17:18:28Z",
+      "side": 1,
+      "message": "This has now become a fairly big lambda. Can you please put this into a separate function?",
+      "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3558afa_313e2f52",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 33
@@ -31,6 +48,30 @@
       "writtenOn": "2025-11-12T16:24:03Z",
       "side": 1,
       "message": "Isn\u0027t this just the systemName above? Trying to figure out why you need sp?",
+      "range": {
+        "startLine": 1117,
+        "startChar": 57,
+        "endLine": 1117,
+        "endChar": 70
+      },
+      "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7530b5f_9a7ff666",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-12T17:18:28Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "b3558afa_313e2f52",
       "range": {
         "startLine": 1117,
         "startChar": 57,
