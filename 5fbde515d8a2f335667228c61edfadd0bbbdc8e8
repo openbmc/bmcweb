@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03c6808e_a8ad0a02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T16:24:03Z",
+      "side": 1,
+      "message": "Overall I support this",
+      "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3558afa_313e2f52",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T16:24:03Z",
+      "side": 1,
+      "message": "Isn\u0027t this just the systemName above? Trying to figure out why you need sp?",
+      "range": {
+        "startLine": 1117,
+        "startChar": 57,
+        "endLine": 1117,
+        "endChar": 70
+      },
+      "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba04826f_9131dc46",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T16:24:03Z",
+      "side": 1,
+      "message": "Does this assumption always work? \nAll will be under the system ? Like the old below looks under all of inventory, that might be a better/safer bet\n\n```\n        collection_util::getCollectionMembers(\n            asyncResp,\n            boost::urls::format(\"/redfish/v1/Systems/{}/Processors\",\n                                systemName),\n            processorInterfaces, \"/xyz/openbmc_project/inventory\");\n```",
+      "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
