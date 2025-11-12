@@ -33,6 +33,24 @@
       "message": "Get service validator run on this, then this looks fine.",
       "revId": "5828a79fafaf618d968a10d48dcb03d0e57787b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81ced318_a39c8483",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-11-12T12:33:49Z",
+      "side": 1,
+      "message": "For Service validator i dont see any instances/Members for the validation of Members count .\n\n{\n    \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices\",\n    \"@odata.type\": \"#PCIeDeviceCollection.PCIeDeviceCollection\",\n    \"Description\": \"Collection of PCIe Devices\",\n    \"Members\": [],\n    \"Members@odata.count\": 0,\n    \"Name\": \"PCIe Device Collection\"\n}\n\nCould you please suggest on this.",
+      "parentUuid": "6a699c9a_eba9bdb8",
+      "revId": "5828a79fafaf618d968a10d48dcb03d0e57787b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
