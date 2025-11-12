@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "889684b8_19c7b04b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-12T16:26:18Z",
+      "side": 1,
+      "message": "Same comment as below, is it better to look under all inventory like the below code does ?\n\n   \"/xyz/openbmc_project/inventory\"",
+      "revId": "003dd5c8ef294284d089c3c748e7d580fc5c0ff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "676ddf85_000a132c",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 27
