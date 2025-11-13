@@ -16,6 +16,24 @@
       "message": "PDI needs to go first but seems reasonable to me",
       "revId": "a32c8ac682d340ec2ad4eba17635b657157cc4a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "372c54b0_353377a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-11-13T07:04:19Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz can you help review the PDI - https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/84839?",
+      "parentUuid": "b37d59fc_760381bb",
+      "revId": "a32c8ac682d340ec2ad4eba17635b657157cc4a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
