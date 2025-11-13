@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5058d856_1693130d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-11-13T12:26:07Z",
+      "side": 1,
+      "message": "This has to use the containing/contained_by association for chassis \u003c-\u003e NIC. I commented on the backend patch as well.",
+      "parentUuid": "71593998_eb6086fd",
+      "range": {
+        "startLine": 19,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "8354adbc7c601add737dc328f1edacb0f652bf98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e6df809_fd25f917",
         "filename": "redfish-core/lib/network_adapter.hpp",
         "patchSetId": 2
