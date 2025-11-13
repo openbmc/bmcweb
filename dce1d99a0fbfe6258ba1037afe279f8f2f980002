@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "733014ed_cb6429c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-13T20:16:23Z",
+      "side": 1,
+      "message": "https://github.com/DMTF/Redfish/issues/6197 is the Redfish issue",
+      "parentUuid": "48b0b49d_5c9a7473",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4f4cff0_ea608da5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -90,6 +114,52 @@
         "startChar": 100,
         "endLine": 16,
         "endChar": 180
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffd627d1_713b2bd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-13T20:16:23Z",
+      "side": 1,
+      "message": "I don\u0027t think this part is important.. Maybe just remove it and go with the last sentence? Which is the new sentence here..",
+      "range": {
+        "startLine": 16,
+        "startChar": 1,
+        "endLine": 16,
+        "endChar": 221
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b3c70f0_d3ada9b0",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-13T20:16:23Z",
+      "side": 1,
+      "message": "Should we plan to disable first ?",
+      "range": {
+        "startLine": 336,
+        "startChar": 52,
+        "endLine": 337,
+        "endChar": 41
       },
       "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
