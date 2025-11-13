@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce541a1b_352bc3e4",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-13T09:53:42Z",
+      "side": 0,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85218/1",
+      "parentUuid": "098a4cef_11316be3",
+      "revId": "04d50b2b2afc6ee192774a9210c26e042b57ec37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7715b11b_9d36f5eb",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-11T20:02:06Z",
       "side": 0,
       "message": "Can you make this is a separate commit?",
+      "revId": "04d50b2b2afc6ee192774a9210c26e042b57ec37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58b0f131_ea16c2fd",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-13T09:53:42Z",
+      "side": 0,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85218/1",
+      "parentUuid": "7715b11b_9d36f5eb",
       "revId": "04d50b2b2afc6ee192774a9210c26e042b57ec37",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

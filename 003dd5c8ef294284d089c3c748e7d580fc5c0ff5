@@ -33,6 +33,24 @@
       "message": "Why are we still looking for board?",
       "revId": "003dd5c8ef294284d089c3c748e7d580fc5c0ff5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f2fc32d_246e28e0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-13T09:53:42Z",
+      "side": 1,
+      "message": "Forgot.",
+      "parentUuid": "676ddf85_000a132c",
+      "revId": "003dd5c8ef294284d089c3c748e7d580fc5c0ff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
