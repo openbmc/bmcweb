@@ -227,6 +227,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21de1e60_d6847805",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-13T13:50:09Z",
+      "side": 1,
+      "message": "@janeta@us.ibm.com This would be the test above then, which succeeded and seems to have been part of the commit message in older patchsets before the discussion too:\n```\nSingle host enabled:\n\n\u003e\u003epayload: [\u0027Tree\u0027, \u0027/redfish/v1/Systems/system/Memory\u0027]\nResults Summary:\nPass: 81, Fail: 0, Warning: 0\nValidation has succeeded.\n```\nI do agree, that adding a test expected to fail might be a bit misleading, which is why it got removed. Hopefully this helps",
+      "parentUuid": "3226c8d9_6d14d62e",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "cc0a67ede8b99ef93695eb7b805bd7f97390c954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "673e4545_94bdf37d",
