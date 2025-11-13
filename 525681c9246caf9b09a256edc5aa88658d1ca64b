@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "407fbd5e_98be8475",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-13T16:42:26Z",
+      "side": 1,
+      "message": "You could just return Manager here directly, and avoid the variable.",
+      "revId": "525681c9246caf9b09a256edc5aa88658d1ca64b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
