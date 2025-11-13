@@ -630,8 +630,13 @@ class HTTP2Connection :
 
         if (ec)
         {
-            BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
-                             ec.message());
+            // EOF is normal when client closes HTTP/2 connection
+            // Only log non-EOF errors
+            if (ec != boost::asio::error::eof)
+            {
+                BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
+                                 ec.message());
+            }
             close();
             BMCWEB_LOG_DEBUG("{} from read(1)", logPtr(this));
             return;
