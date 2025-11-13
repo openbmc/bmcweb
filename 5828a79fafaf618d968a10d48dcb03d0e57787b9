@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "632918fd_c544fa6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-13T20:01:17Z",
+      "side": 1,
+      "message": "This is not correct. \"PCIeFunctions@odata.count\" was in https://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_19_0.json but it is deprecated . \n\n                \"PCIeFunctions\": {\n                    \"deprecated\": \"This property has been deprecated in favor of the `PCIeFunctions` property in the root that provides a link to a resource collection.\",\n                    \"description\": \"An array of links to PCIe functions exposed by this device.\",\n                    \"items\": {\n                        \"$ref\": \"http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction\"\n                    },\n                    \"longDescription\": \"This property shall contain an array of links to resources of type `PCIeFunction` that represent the PCIe functions this device exposes.\",\n                    \"readonly\": true,\n                    \"type\": \"array\",\n                    \"versionDeprecated\": \"v1_4_0\"\n                },\n                \"PCIeFunctions@odata.count\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count\"\n                },",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "5828a79fafaf618d968a10d48dcb03d0e57787b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2edcdcb4_719d4196",
