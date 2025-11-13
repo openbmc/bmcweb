@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81963178_f7755935",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-13T05:24:56Z",
+      "side": 1,
+      "message": "I am not using this, but felt this API is missing",
+      "parentUuid": "1a0aac3a_ca6bd81d",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf1292af_6eae740e",
         "filename": "http/http_request.hpp",
         "patchSetId": 7
@@ -31,6 +49,30 @@
       "writtenOn": "2025-11-12T17:00:07Z",
       "side": 1,
       "message": "Why call this dst / destination ? This is the request class\n\nhttps://github.com/openbmc/bmcweb/blob/e8f66f0b0df2a483822b0c51b67c5b4e71c1d74b/redfish-core/include/redfish_aggregator.hpp#L812\n\nis an example calling it requestFields\nAnother choice would be to call it fields and call the parameter fieldsIn, like line 43 above\n\n        boost::beast::http::fields\u0026 requestFields \u003d req.base(); \n        requestFields.clear();\n\n        for (const auto\u0026 field : req.fields())\n        {\n            dst.insert(field.name(), field.name_string(), field.value());\n        }",
+      "range": {
+        "startLine": 148,
+        "startChar": 14,
+        "endLine": 148,
+        "endChar": 18
+      },
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af4d2f45_961978b8",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-13T05:24:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bf1292af_6eae740e",
       "range": {
         "startLine": 148,
         "startChar": 14,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29fff631_3b8533e7",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-13T05:24:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c13a111a_c461ab59",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "661031dd_99b774b0",
@@ -75,6 +135,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24c2bd8e_9d41364d",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-13T05:24:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "661031dd_99b774b0",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f0eeb6a_b57a545e",
@@ -88,6 +166,24 @@
       "writtenOn": "2025-11-12T17:00:07Z",
       "side": 1,
       "message": "I don\u0027t think \"it\" makes sense here..\n\nfor (const auto\u0026 field : localReq-\u003efields)\n\nor\n\nfor (const boost::beast::http::fields::value_type\u0026 header : localReq-\u003efields())",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "901df808_11f530d0",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-13T05:24:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1f0eeb6a_b57a545e",
       "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
