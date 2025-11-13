@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6bc8b317_3c49377d",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-13T17:30:46Z",
+      "side": 1,
+      "message": "FWIW, we\u0027re trying to move toward the enum based APIs, and away from strings (because of casing/string matching issues).\n\nlets remove this for now, and if we find a place where we need this, we can add it then.",
+      "parentUuid": "81963178_f7755935",
+      "revId": "ef3e3e8c0ccf19d0f897dddd3cfcf84acb229cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf1292af_6eae740e",
         "filename": "http/http_request.hpp",
         "patchSetId": 7

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef2ada8_94e243e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-13T17:30:46Z",
+      "side": 1,
+      "message": "Chandra, can you take a look (and ideally test) https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84895\n\nI think it\u0027s simpler, and lets us just construct a request that\u0027s correct, instead of trying to clear out an incorrect one.  PTAL.",
+      "revId": "ffc791a581bd4ad14fc9c40839ed847a1290740d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
