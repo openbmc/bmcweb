@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77186e6e_144d4c7d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-13T11:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60360f45_cb3e01b4",
+      "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3558afa_313e2f52",
@@ -82,6 +100,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b31112cf_08cdf206",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-13T11:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7530b5f_9a7ff666",
+      "range": {
+        "startLine": 1117,
+        "startChar": 57,
+        "endLine": 1117,
+        "endChar": 70
+      },
+      "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba04826f_9131dc46",
@@ -95,6 +137,24 @@
       "writtenOn": "2025-11-12T16:24:03Z",
       "side": 1,
       "message": "Does this assumption always work? \nAll will be under the system ? Like the old below looks under all of inventory, that might be a better/safer bet\n\n```\n        collection_util::getCollectionMembers(\n            asyncResp,\n            boost::urls::format(\"/redfish/v1/Systems/{}/Processors\",\n                                systemName),\n            processorInterfaces, \"/xyz/openbmc_project/inventory\");\n```",
+      "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87b55779_336bfb1f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-13T11:13:28Z",
+      "side": 1,
+      "message": "I dont want to dig into it, so I changed it back to the original constexpr.",
+      "parentUuid": "ba04826f_9131dc46",
       "revId": "5fbde515d8a2f335667228c61edfadd0bbbdc8e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
