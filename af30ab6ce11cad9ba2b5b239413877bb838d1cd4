@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d79e16a8_a055325b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-13T16:52:15Z",
+      "side": 1,
+      "message": "Needs to follow existing patterns.  Happy to discuss how the patterns suck (they do), and we should refactor to something better as a whole, but not as part of a new feature and not only on one resource handler.  We\u0027re better off keeping things the way they are than having one thing bespoke.",
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c0143ff_92bf09de",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-13T16:52:15Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 383,
+        "startChar": 49,
+        "endLine": 383,
+        "endChar": 52
+      },
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d1f12d5_49be0295",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-13T16:52:15Z",
+      "side": 1,
+      "message": "Please do not organize code this way.   We currently have a unique entry point for each verb.  I do appreciate you trying to reduce duplication, but we should avoid duplication as a whole, not on a per-route basis.",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 5
+      },
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c155d9c_38f942ae",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-13T16:52:15Z",
+      "side": 1,
+      "message": "FYI, this will get flagged as a security vulnerability if any verb other than the ones above is posted.",
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
