@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e3d5b6_a9e08fa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-13T17:24:08Z",
+      "side": 1,
+      "message": "Minor comment + Oliver\u0027s but looks good",
+      "revId": "46399f66d30cbe10622cc9314ec5384ee6a8ff61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "198bc28a_7c76f80a",
@@ -14,6 +31,46 @@
       "writtenOn": "2025-11-13T15:30:09Z",
       "side": 1,
       "message": "nit: camel case function name",
+      "revId": "46399f66d30cbe10622cc9314ec5384ee6a8ff61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90aaeea3_23485001",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-13T17:24:08Z",
+      "side": 1,
+      "message": "sdbusplus::message::object_path would be better \nhttps://github.com/openbmc/bmcweb/blob/f8ae88768e33c050d08aeac6a0a657043de27407/redfish-core/lib/sensors.hpp#L1034C9-L1034C40\n\nor just put in line",
+      "range": {
+        "startLine": 829,
+        "startChar": 4,
+        "endLine": 829,
+        "endChar": 15
+      },
+      "revId": "46399f66d30cbe10622cc9314ec5384ee6a8ff61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0604384f_c0742bff",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-13T17:24:08Z",
+      "side": 1,
+      "message": "In other places we are grabbing both PersistentMemory.Partition and Dimm...\n\nconstexpr std::array\u003cstd::string_view, 2\u003e memoryInterfaces \u003d { \"xyz.openbmc_project.Inventory.Item.Dimm\", \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\n\nI don\u0027t understand why we wouldn\u0027t just grab .PersistentMemory.Partition in all places and map both to Redfish memory but this is how it was and how the initial code did it so looks good. We will keep with what we were doing. \n\nhttps://github.com/openbmc/bmcweb/commit/45094adc7172a3a9adbcbfb7cf1abb1ac5aa767c",
       "revId": "46399f66d30cbe10622cc9314ec5384ee6a8ff61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
