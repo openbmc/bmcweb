@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8116ba8b_a598e122",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-14T15:49:12Z",
+      "side": 1,
+      "message": "Fair point. I\u0027ll think about it in more depth and come back to you on that topic. Regarding this patch, I now just stick to extracting the lambdas into separate handler functions using the existing pattern.",
+      "parentUuid": "d79e16a8_a055325b",
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c0143ff_92bf09de",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-11-13T16:52:15Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 383,
+        "startChar": 49,
+        "endLine": 383,
+        "endChar": 52
+      },
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d20d67_019c7586",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-14T15:49:12Z",
+      "side": 1,
+      "message": "Not entirely sure what what this could mean.. I have kept the TBD, since technically, the way EventLog for multi-host ComputerSystem should work, would be to have EventLogs specific to each host and being able to serve the logs via said resource on a multi-host platform. I see this capability being introduced someday, so might aswell keep the TBD. Or is it about something else? I don\u0027t think I have mispelled it :D",
+      "parentUuid": "6c0143ff_92bf09de",
       "range": {
         "startLine": 383,
         "startChar": 49,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a1610f_e0eb9456",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-14T15:49:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6d1f12d5_49be0295",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 5
+      },
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c155d9c_38f942ae",
@@ -77,6 +143,24 @@
       "writtenOn": "2025-11-13T16:52:15Z",
       "side": 1,
       "message": "FYI, this will get flagged as a security vulnerability if any verb other than the ones above is posted.",
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb4eda7a_500fa3e2",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-14T15:49:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2c155d9c_38f942ae",
       "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
