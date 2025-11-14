@@ -46,6 +46,30 @@
       },
       "revId": "0ffd53511b2baccf196cca77eeb7db7e7a5fc84b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6b813a8_cb7f97d5",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-14T15:52:08Z",
+      "side": 1,
+      "message": "I have called it downloadEntryType now. No problem to change to your suggestion though, just let me know.",
+      "parentUuid": "efd2940f_1fb2e819",
+      "range": {
+        "startLine": 327,
+        "startChar": 51,
+        "endLine": 327,
+        "endChar": 59
+      },
+      "revId": "0ffd53511b2baccf196cca77eeb7db7e7a5fc84b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
