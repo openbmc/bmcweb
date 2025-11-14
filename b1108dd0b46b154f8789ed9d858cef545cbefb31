@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9c5db86_31f72c55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-14T08:04:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800f875b_97885428",
+      "revId": "b1108dd0b46b154f8789ed9d858cef545cbefb31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb4b2131_b6aa6479",
@@ -181,6 +199,30 @@
       "side": 1,
       "message": "I renamed the file to `storage_chassis.hpp` so it actually reflects what the content is.",
       "parentUuid": "79102ea4_d38c0697",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 21
+      },
+      "revId": "b1108dd0b46b154f8789ed9d858cef545cbefb31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "513de58f_6491d108",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-14T08:04:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b30b882_1c6652ce",
       "range": {
         "startLine": 134,
         "startChar": 12,
