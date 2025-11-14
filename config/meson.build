@@ -186,6 +186,25 @@ else
     work_dir = '/home/root'
 endif
 
+multi_comp = get_option('experimental-redfish-multi-computer-system')
+if multi_comp.enabled()
+    if get_option('redfish-cpu-log').enabled()
+        error(
+            'redfish-cpu-log option not supported with experimental-redfish-multi-computer-system option enabled',
+        )
+    endif
+    if get_option('redfish-dump-log').enabled()
+        error(
+            'redfish-dump-log option not supported with experimental-redfish-multi-computer-system option enabled',
+        )
+    endif
+    if get_option('redfish-host-logger').enabled()
+        error(
+            'redfish-host-logger option not supported with experimental-redfish-multi-computer-system option enabled',
+        )
+    endif
+endif
+
 configure_file(
     input: 'bmcweb.service.in',
     output: 'bmcweb.service',
