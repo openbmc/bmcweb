@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32bd42e5_20d4068b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-14T10:38:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198bc28a_7c76f80a",
+      "revId": "46399f66d30cbe10622cc9314ec5384ee6a8ff61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90aaeea3_23485001",
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "Call this inventoryPath?",
       "parentUuid": "90aaeea3_23485001",
+      "range": {
+        "startLine": 829,
+        "startChar": 4,
+        "endLine": 829,
+        "endChar": 15
+      },
+      "revId": "46399f66d30cbe10622cc9314ec5384ee6a8ff61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9dd5242_7e647e03",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-14T10:38:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0af1ffff_603dd330",
       "range": {
         "startLine": 829,
         "startChar": 4,
