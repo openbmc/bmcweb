@@ -27,6 +27,7 @@
 #include "utils/eventlog_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/log_services_utils.hpp"
+#include "utils/systems_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -879,26 +880,23 @@ inline void handleSystemsLogServiceCollectionGet(
     {
         return;
     }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
 
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogServiceCollection.LogServiceCollection";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/LogServices", systemName);
     asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
     asyncResp->res.jsonValue["Description"] =
         "Collection of LogServices for this Computer System";
