@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8634534_1f9b3922",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-14T20:12:06Z",
+      "side": 1,
+      "message": "Because this one just constructs a new correct object, and is half the number of new lines.",
+      "parentUuid": "e8cb6f9f_a5213711",
+      "revId": "25b94774d52f4928f19c1bc82b1e92c5664cfdcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebd33643_3dce7b57",
         "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2025-11-13T18:51:45Z",
       "side": 1,
       "message": "printing the ec, might help debug",
+      "range": {
+        "startLine": 21,
+        "startChar": 44,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "25b94774d52f4928f19c1bc82b1e92c5664cfdcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f725e6b_d7f99a19",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-14T20:12:06Z",
+      "side": 1,
+      "message": "This was meant to be informational without overwriting Chandras patch.  Lets review if he thinks it\u0027s the right thing to do.",
+      "parentUuid": "ebd33643_3dce7b57",
       "range": {
         "startLine": 21,
         "startChar": 44,
