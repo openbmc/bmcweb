@@ -59,6 +59,12 @@ feature_options_string = '\n// Feature options\n'
 string_options_string = '\n// String options\n'
 int_options_string = '\n// Integer options\n'
 
+multi_host_enabled = get_option('experimental-redfish-multi-computer-system').enabled()
+multi_host_incompatible_options = [
+    'redfish-cpu-log',
+    'redfish-dump-log',
+    'redfish-host-logger',
+]
 
 foreach feature_type, feature_list : {
     'Feature': feature_options,
@@ -73,6 +79,16 @@ foreach feature_type, feature_list : {
         opt = get_option(option_key)
         if feature_type == 'Feature'
             opt = opt.allowed()
+            if multi_host_enabled
+                if multi_host_incompatible_options.contains(option_key)
+                    opt = false
+                    warning(
+                        '@0@ not allowed with experimental-redfish-multi-computer-system enabled. Disabling option.'.format(
+                            option_key,
+                        ),
+                    )
+                endif
+            endif
             feature_options_string += 'constexpr const bool @0@=@1@;\n'.format(
                 option_key_config,
                 opt.to_string(),
