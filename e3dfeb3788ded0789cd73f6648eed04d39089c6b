@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8facb353_796352b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-15T21:52:45Z",
+      "side": 1,
+      "message": "Looks good, try to fix some more of the includes if you can",
+      "revId": "e3dfeb3788ded0789cd73f6648eed04d39089c6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7ef0f5d_6ae9a695",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-15T21:52:45Z",
+      "side": 1,
+      "message": "#include optional",
+      "range": {
+        "startLine": 498,
+        "startChar": 6,
+        "endLine": 498,
+        "endChar": 20
+      },
+      "revId": "e3dfeb3788ded0789cd73f6648eed04d39089c6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6502474a_a6e06970",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-15T21:52:45Z",
+      "side": 1,
+      "message": "I think these could be enums.. E.g. https://github.com/openbmc/bmcweb/blob/b69e69779d5ee38e474f7b8acc052664de3551d5/redfish-core/lib/trigger.hpp#L123  Something for the future maybe but not needed for this.",
+      "revId": "e3dfeb3788ded0789cd73f6648eed04d39089c6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9b5868_60473e48",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-15T21:52:45Z",
+      "side": 1,
+      "message": "`#include memory`",
+      "range": {
+        "startLine": 572,
+        "startChar": 9,
+        "endLine": 572,
+        "endChar": 25
+      },
+      "revId": "e3dfeb3788ded0789cd73f6648eed04d39089c6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
