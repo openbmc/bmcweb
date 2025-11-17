@@ -111,6 +111,30 @@
       },
       "revId": "c4d168c44fc06cb78ba142abec6e520ddba05e67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dad8f962_1623864e",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-17T15:08:47Z",
+      "side": 1,
+      "message": "Generally we would also rely on the backend to return a reasonable thing here.",
+      "parentUuid": "2e3eeab6_29c239a2",
+      "range": {
+        "startLine": 657,
+        "startChar": 1,
+        "endLine": 663,
+        "endChar": 13
+      },
+      "revId": "c4d168c44fc06cb78ba142abec6e520ddba05e67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
