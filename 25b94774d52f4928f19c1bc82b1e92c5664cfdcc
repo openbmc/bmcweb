@@ -81,6 +81,54 @@
       },
       "revId": "25b94774d52f4928f19c1bc82b1e92c5664cfdcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "408f1a6e_0e0466dd",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-17T08:31:18Z",
+      "side": 1,
+      "message": "If it is information Can we change it BMCWEB_LOG_ERROR \u003d\u003d\u003eBMCWEB_LOG_INFO",
+      "parentUuid": "5f725e6b_d7f99a19",
+      "range": {
+        "startLine": 21,
+        "startChar": 44,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "25b94774d52f4928f19c1bc82b1e92c5664cfdcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "724a715c_a035945a",
+        "filename": "redfish-core/include/utils/redfish_aggregator_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-11-17T08:31:18Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "5f725e6b_d7f99a19",
+      "range": {
+        "startLine": 21,
+        "startChar": 44,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "25b94774d52f4928f19c1bc82b1e92c5664cfdcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
