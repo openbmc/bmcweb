@@ -34,6 +34,24 @@
       "parentUuid": "d79d9048_65c72885",
       "revId": "85e392080624cc6bc47c5940796393e72ba354d9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61000ba6_38efe5bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-17T20:40:33Z",
+      "side": 1,
+      "message": "I am okay here, but for the future, we really require testing for this sort of change. I know this creates a higher barrier to contributions, but unless we get more resources at the project level, I don\u0027t see a better solution.",
+      "parentUuid": "2a2e97af_9bd13629",
+      "revId": "85e392080624cc6bc47c5940796393e72ba354d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
