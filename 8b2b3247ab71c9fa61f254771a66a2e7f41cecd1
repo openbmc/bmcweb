@@ -34,6 +34,24 @@
       "parentUuid": "a5c8c35b_ed19bf7c",
       "revId": "8b2b3247ab71c9fa61f254771a66a2e7f41cecd1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ed77b56_82b5562a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-17T09:19:44Z",
+      "side": 1,
+      "message": "I supported show `redfish/v1/Managers/{}/HostInterfaces` in manager collections.",
+      "parentUuid": "5bece7da_800c61f8",
+      "revId": "8b2b3247ab71c9fa61f254771a66a2e7f41cecd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
