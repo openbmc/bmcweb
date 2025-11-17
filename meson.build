@@ -398,6 +398,7 @@ srcfiles_bmcweb = files(
     'src/dbus_utility.cpp',
     'src/json_html_serializer.cpp',
     'src/ossl_random.cpp',
+    'src/package_parser.cpp',
     'src/ssl_key_handler.cpp',
     'src/webserver_cli.cpp',
     'src/webserver_run.cpp',
