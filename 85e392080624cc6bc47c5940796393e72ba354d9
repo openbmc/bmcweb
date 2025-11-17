@@ -16,6 +16,24 @@
       "message": "We should run our Redfish Validator as part of CI. We don\u0027t. Compute resources are one of the things holding us back. \nWe should have more testing to make sure endpoints aren\u0027t broken. We don\u0027t. Getting developers to buy into Unit testing, etc, has been a struggle.  \n\nSo we require some manual testing for each commit. Janet pointed out how an earlier patchset of this commit was broken (missing the route).. Since this is a refactor, verifying the output matches what was there before is a reasonable test. That is the kind of testing we expect with each commit.\n\nhttps://github.com/openbmc/bmcweb/blob/efe29ab5ffd86b01d4848b470a14e29c54ecae43/docs/TESTING.md?plain\u003d1#L4\n\nThat said, this is unlikely to break anything, and I would be okay with it going without the testing above. However, this is a complex enough change that I would really like to see some testing... And for the future, I really want to see testing on changes like this.",
       "revId": "85e392080624cc6bc47c5940796393e72ba354d9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a2e97af_9bd13629",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-17T11:47:26Z",
+      "side": 1,
+      "message": "I can break up this change into smaller chunks, if you want, but I dont have the facilities to run this code on real hardware with proper configuration to run the validator against it. I just dont have the hardware and it\u0027s tiring to build custom qemu targets and em configs together for every other ressource node to test.",
+      "parentUuid": "d79d9048_65c72885",
+      "revId": "85e392080624cc6bc47c5940796393e72ba354d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
