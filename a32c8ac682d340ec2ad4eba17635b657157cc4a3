@@ -34,6 +34,24 @@
       "parentUuid": "b37d59fc_760381bb",
       "revId": "a32c8ac682d340ec2ad4eba17635b657157cc4a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df3ca52e_6e1e6280",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-17T13:56:07Z",
+      "side": 1,
+      "message": "Gunnar has reviewed the PDI patch.",
+      "parentUuid": "372c54b0_353377a2",
+      "revId": "a32c8ac682d340ec2ad4eba17635b657157cc4a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
