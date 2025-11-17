@@ -33,6 +33,24 @@
       "message": "I think object_path would be better here: \n\n\n`sdbusplus::message::object_path inventoryPath(`",
       "revId": "bc4dace98647b43c49c879c4affdf051675ce226",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03d4e543_621e717f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-17T07:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6065dd3_8d7f38f5",
+      "revId": "bc4dace98647b43c49c879c4affdf051675ce226",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
