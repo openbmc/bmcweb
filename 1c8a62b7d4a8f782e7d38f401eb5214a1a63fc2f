@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df8fabe_8525b353",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-17T14:32:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4d235ae_06084d8a",
+      "range": {
+        "startLine": 1234,
+        "startChar": 12,
+        "endLine": 1234,
+        "endChar": 29
+      },
+      "revId": "1c8a62b7d4a8f782e7d38f401eb5214a1a63fc2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3017d40_3f9b4b1a",
@@ -58,6 +82,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e5b0ba_1e9bba7d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1267,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-17T14:32:00Z",
+      "side": 1,
+      "message": "Right, you have a point there.\n\nSince in the single host path there is nothing representing the redfish ComputerSystem on DBus, we cannot just add this association without any backing.\n\nIf we were to just a generic `RelatedItem` for the computer system, we should probably add it in other places too, which would cause a lot of overhead.\n\nI removed it for now. We can base the `RelatedItem` on the associations.",
+      "parentUuid": "e3017d40_3f9b4b1a",
+      "revId": "1c8a62b7d4a8f782e7d38f401eb5214a1a63fc2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b9fa35f_d926a73d",
@@ -71,6 +113,30 @@
       "writtenOn": "2025-11-13T19:12:53Z",
       "side": 1,
       "message": "Can this be swId like elsewhere?\nhttps://github.com/openbmc/bmcweb/blob/f8ae88768e33c050d08aeac6a0a657043de27407/redfish-core/include/utils/sw_utils.hpp#L84",
+      "range": {
+        "startLine": 1274,
+        "startChar": 47,
+        "endLine": 1274,
+        "endChar": 51
+      },
+      "revId": "1c8a62b7d4a8f782e7d38f401eb5214a1a63fc2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b3ef6f4_7098d687",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-17T14:32:00Z",
+      "side": 1,
+      "message": "sure, i adjusted it throughout the patch for consistency 👍",
+      "parentUuid": "6b9fa35f_d926a73d",
       "range": {
         "startLine": 1274,
         "startChar": 47,
@@ -104,6 +170,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f20e7275_9e055a26",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-17T14:32:00Z",
+      "side": 1,
+      "message": "yes, i had the wrong variable name :/\n\nFixed it.",
+      "parentUuid": "9e5b4df3_be5837f4",
+      "range": {
+        "startLine": 1280,
+        "startChar": 36,
+        "endLine": 1280,
+        "endChar": 42
+      },
+      "revId": "1c8a62b7d4a8f782e7d38f401eb5214a1a63fc2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5903adc5_4ae1f260",
@@ -117,6 +207,30 @@
       "writtenOn": "2025-11-13T19:12:53Z",
       "side": 1,
       "message": "don\u0027t you need to look for certain interfaces ?\nhttps://github.com/openbmc/bmcweb/blob/f8ae88768e33c050d08aeac6a0a657043de27407/src/dbus_utility.cpp#L130",
+      "range": {
+        "startLine": 1282,
+        "startChar": 35,
+        "endLine": 1282,
+        "endChar": 37
+      },
+      "revId": "1c8a62b7d4a8f782e7d38f401eb5214a1a63fc2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e212c3e_e753a55d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-17T14:32:00Z",
+      "side": 1,
+      "message": "yes, sure.\n\nAdjusted it to pass an array `relatedItemInterfaces` to constrain our search.",
+      "parentUuid": "5903adc5_4ae1f260",
       "range": {
         "startLine": 1282,
         "startChar": 35,
