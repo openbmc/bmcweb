@@ -34,6 +34,24 @@
       "parentUuid": "faa2c9f4_0501ce5d",
       "revId": "77a70b39d93226f4b11ad5f950cdb18a91a1ff7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6132c849_a0a685b3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-17T16:03:19Z",
+      "side": 1,
+      "message": "I was trying to avoid the move / the extra variable (\"parsed\").\nWhich maybe you could still do with the optional ? But at that point, not sure it is any cleaner. \n\nBut anyway, I think I overlooked the optional.",
+      "parentUuid": "fcf3698b_0181f704",
+      "revId": "77a70b39d93226f4b11ad5f950cdb18a91a1ff7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
