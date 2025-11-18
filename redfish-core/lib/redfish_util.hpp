@@ -66,7 +66,7 @@ void getMainChassisId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     // Find managed chassis
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        dbus_utils::inventoryPath, 0, chassisInterfaces,
         [callback = std::forward<CallbackFunc>(callback),
          asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {

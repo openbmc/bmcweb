@@ -82,8 +82,8 @@ inline void getChassisAssembly(
     BMCWEB_LOG_DEBUG("Get ChassisAssembly");
 
     dbus::utility::getAssociatedSubTreePathsById(
-        chassisId, "/xyz/openbmc_project/inventory", chassisInterfaces,
-        "containing", assemblyInterfaces,
+        chassisId, dbus_utils::inventoryPath, chassisInterfaces, "containing",
+        assemblyInterfaces,
         std::bind_front(afterGetChassisAssembly, asyncResp,
                         std::move(callback)));
 }
