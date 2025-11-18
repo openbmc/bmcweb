@@ -220,8 +220,8 @@ inline void getValidFabricPortPath(
                        const std::string& portServiceName)>&& callback)
 {
     dbus::utility::getAssociatedSubTreePathsById(
-        adapterId, "/xyz/openbmc_project/inventory", fabricInterfaces,
-        "connecting", portInterfaces,
+        adapterId, dbus_utils::inventoryPath, fabricInterfaces, "connecting",
+        portInterfaces,
         std::bind_front(afterGetValidFabricPortPath, asyncResp, portId,
                         std::move(callback)));
 }
@@ -339,8 +339,8 @@ inline void handleFabricPortCollectionHead(
     }
 
     dbus::utility::getAssociatedSubTreePathsById(
-        adapterId, "/xyz/openbmc_project/inventory", fabricInterfaces,
-        "connecting", portInterfaces,
+        adapterId, dbus_utils::inventoryPath, fabricInterfaces, "connecting",
+        portInterfaces,
         std::bind_front(afterHandleFabricPortCollectionHead, asyncResp,
                         adapterId));
 }
@@ -423,8 +423,8 @@ inline void handleFabricPortCollectionGet(
     }
 
     dbus::utility::getAssociatedSubTreePathsById(
-        adapterId, "/xyz/openbmc_project/inventory", fabricInterfaces,
-        "connecting", portInterfaces,
+        adapterId, dbus_utils::inventoryPath, fabricInterfaces, "connecting",
+        portInterfaces,
         std::bind_front(doHandleFabricPortCollectionGet, asyncResp, systemName,
                         adapterId));
 }

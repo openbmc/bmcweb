@@ -682,6 +682,54 @@ inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
+inline void afterGetManagerObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    const std::function<
+        void(const std::string& managerPath,
+             const dbus::utility::MapperServiceMap& serviceMap)>& callback)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("D-Bus response error on GetSubTree {}", ec);
+        return;
+    }
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG("Can't find bmc D-Bus object!");
+        return;
+    }
+    // Assume only 1 bmc D-Bus object
+    // Throw an error if there is more than 1
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR("Found more than 1 bmc D-Bus object!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    callback(subtree[0].first, subtree[0].second);
+}
+
+inline void getManagerObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /* managerId */,
+    std::function<void(const std::string& managerPath,
+                       const dbus::utility::MapperServiceMap& serviceMap)>&&
+        callback)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Bmc"};
+    dbus::utility::getSubTree(
+        dbus_utils::inventoryPath, 0, interfaces,
+        [asyncResp, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            afterGetManagerObject(asyncResp, ec, subtree, callback);
+        });
+}
+
 inline void handleManagerGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

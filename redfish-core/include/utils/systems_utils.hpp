@@ -6,6 +6,7 @@
 
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "dbus_utils.hpp"
 #include "error_messages.hpp"
 #include "human_sort.hpp"
 #include "logging.hpp"
@@ -112,7 +113,7 @@ inline void getSystemCollectionMembers(
     BMCWEB_LOG_DEBUG("Get system collection members for /redfish/v1/Systems");
 
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         std::bind_front(handleSystemCollectionMembers, asyncResp));
 }
 
@@ -200,7 +201,7 @@ inline void getComputerSystemIndex(
         constexpr std::array<std::string_view, 1> interfaces{
             "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
         dbus::utility::getSubTreePaths(
-            "/xyz/openbmc_project/inventory", 0, interfaces,
+            dbus_utils::inventoryPath, 0, interfaces,
             std::bind_front(afterGetComputerSystemSubTreePaths, asyncResp,
                             systemName, std::move(callback)));
     }
@@ -303,7 +304,7 @@ inline void getValidSystemsPath(
         "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
         "xyz.openbmc_project.Inventory.Item.System"};
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp, systemId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& systemsPaths) {
