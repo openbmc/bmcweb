@@ -46,6 +46,30 @@
       },
       "revId": "0acecce8b9f6435363109eb5d8b911f312aaf749",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65755bb5_f2c4cfd5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-18T05:57:46Z",
+      "side": 1,
+      "message": "O_o shadows a global, for reasons I dont understand.......",
+      "parentUuid": "cbd6e84c_01f9b4e2",
+      "range": {
+        "startLine": 1089,
+        "startChar": 36,
+        "endLine": 1089,
+        "endChar": 55
+      },
+      "revId": "0acecce8b9f6435363109eb5d8b911f312aaf749",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
