@@ -286,7 +286,7 @@ inline void handleChassisPowerGet(
     // chassis power limit
 
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        dbus_utils::inventoryPath, 0, chassisInterfaces,
         std::bind_front(afterGetChassis, sensorAsyncResp));
 }
 

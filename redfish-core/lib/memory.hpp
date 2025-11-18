@@ -881,7 +881,7 @@ inline void getValidDimmPath(
         "xyz.openbmc_project.Inventory.Item.Dimm"};
 
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp, dimmId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtree) {

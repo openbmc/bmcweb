@@ -110,7 +110,7 @@ inline void setLocationIndicatorActiveState(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Bmc"};
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         std::bind_front(handleSetLocationIndicatorActive, asyncResp,
                         locationIndicatorActive, managerId));
 }
@@ -728,7 +728,7 @@ inline void getManagerObject(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Bmc"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
