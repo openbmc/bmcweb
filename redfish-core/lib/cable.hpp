@@ -205,7 +205,7 @@ inline void handleCableGet(App& app, const crow::Request& req,
     BMCWEB_LOG_DEBUG("Cable Id: {}", cableId);
 
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, cableInterfaces,
+        dbus_utils::inventoryPath, 0, cableInterfaces,
         std::bind_front(afterHandleCableGet, asyncResp, cableId));
 }
 
@@ -225,7 +225,7 @@ inline void handleCableCollectionGet(
     asyncResp->res.jsonValue["Description"] = "Collection of Cable Entries";
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::url("/redfish/v1/Cables"), cableInterfaces,
-        "/xyz/openbmc_project/inventory");
+        dbus_utils::inventoryPath);
 }
 
 /**

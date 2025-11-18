@@ -47,7 +47,6 @@
 namespace redfish
 {
 
-static constexpr const char* inventoryPath = "/xyz/openbmc_project/inventory";
 static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
     "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
 static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
@@ -97,7 +96,7 @@ inline void getValidPCIeDevicePath(
                              const std::string& service)>& callback)
 {
     dbus::utility::getSubTreePaths(
-        inventoryPath, 0, pcieDeviceInterface,
+        dbus_utils::inventoryPath, 0, pcieDeviceInterface,
         [pcieDeviceId, asyncResp,
          callback](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreePathsResponse&
@@ -216,8 +215,7 @@ inline void linkAssociatedProcessor(
         "xyz.openbmc_project.Inventory.Item.Accelerator"};
 
     dbus::utility::getAssociatedSubTreePaths(
-        pcieDevicePath + "/connected_to",
-        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieDevicePath + "/connected_to", dbus_utils::inventoryPath, 0,
         processorInterfaces,
         std::bind_front(afterGetAssociatedSubTreePaths, asyncResp));
 }
@@ -294,8 +292,7 @@ inline void getPCIeDeviceSlotPath(
 {
     std::string associationPath = pcieDevicePath + "/contained_by";
     dbus::utility::getAssociatedSubTreePaths(
-        associationPath, sdbusplus::message::object_path(inventoryPath), 0,
-        pcieSlotInterface,
+        associationPath, dbus_utils::inventoryPath, 0, pcieSlotInterface,
         [callback = std::move(callback), asyncResp, pcieDevicePath](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& endpoints) {

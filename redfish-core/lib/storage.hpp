@@ -73,7 +73,7 @@ inline void handleSystemsStorageCollectionGet(
         asyncResp,
         boost::urls::format("/redfish/v1/Systems/{}/Storage",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME),
-        interface, "/xyz/openbmc_project/inventory");
+        interface, dbus_utils::inventoryPath);
 }
 
 inline void handleStorageCollectionGet(
@@ -92,7 +92,7 @@ inline void handleStorageCollectionGet(
         "xyz.openbmc_project.Inventory.Item.Storage"};
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::format("/redfish/v1/Storage"), interface,
-        "/xyz/openbmc_project/inventory");
+        dbus_utils::inventoryPath);
 }
 
 inline void requestRoutesStorageCollection(App& app)
@@ -147,7 +147,7 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     const std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Drive"};
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         std::bind_front(afterChassisDriveCollectionSubtree, asyncResp));
 }
 
@@ -211,7 +211,7 @@ inline void handleSystemsStorageGet(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Storage"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         std::bind_front(afterSystemsStorageGetSubtree, asyncResp, storageId));
 }
 
@@ -274,7 +274,7 @@ inline void handleStorageGet(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Storage"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         std::bind_front(afterSubtree, asyncResp, storageId));
 }
 
@@ -663,7 +663,7 @@ inline void handleSystemsStorageDriveGet(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Drive"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         std::bind_front(afterGetSubtreeSystemsStorageDrive, asyncResp,
                         driveId));
 }
@@ -765,7 +765,7 @@ inline void chassisDriveCollectionGet(
 
     // mapper call lambda
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        dbus_utils::inventoryPath, 0, chassisInterfaces,
         std::bind_front(afterChassisDriveCollectionSubtreeGet, asyncResp,
                         chassisId));
 }
@@ -842,7 +842,7 @@ inline void matchAndFillDrive(
         constexpr std::array<std::string_view, 1> driveInterface = {
             "xyz.openbmc_project.Inventory.Item.Drive"};
         dbus::utility::getSubTree(
-            "/xyz/openbmc_project/inventory", 0, driveInterface,
+            dbus_utils::inventoryPath, 0, driveInterface,
             [asyncResp, chassisId, driveName](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -863,7 +863,7 @@ inline void handleChassisDriveGet(
 
     // mapper call chassis
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        dbus_utils::inventoryPath, 0, chassisInterfaces,
         [asyncResp, chassisId,
          driveName](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -1054,7 +1054,7 @@ inline void handleSystemsStorageControllerCollectionGet(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.StorageController"};
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreePathsResponse&
                         controllerList) {
@@ -1082,7 +1082,7 @@ inline void handleSystemsStorageControllerGet(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.StorageController"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp,
          controllerId](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {

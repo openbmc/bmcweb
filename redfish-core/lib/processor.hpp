@@ -232,9 +232,8 @@ inline void getCpuDataByService(
 {
     BMCWEB_LOG_DEBUG("Get available system cpu resources by service.");
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
     dbus::utility::getManagedObjects(
-        service, path,
+        service, dbus_utils::inventoryPath,
         [cpuId, service, objPath, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& dbusData) {
@@ -810,7 +809,7 @@ inline void getProcessorObject(
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "xyz.openbmc_project.Control.Power.Throttle"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp, processorId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -1112,7 +1111,7 @@ inline void handleProcessorCollectionGet(
         asyncResp,
         boost::urls::format("/redfish/v1/Systems/{}/Processors",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME),
-        processorInterfaces, "/xyz/openbmc_project/inventory");
+        processorInterfaces, dbus_utils::inventoryPath);
 }
 
 inline void requestRoutesProcessor(App& app)
