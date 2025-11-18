@@ -47,7 +47,6 @@
 namespace redfish
 {
 
-static constexpr const char* inventoryPath = "/xyz/openbmc_project/inventory";
 static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
     "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
 static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
@@ -96,6 +95,8 @@ inline void getValidPCIeDevicePath(
     const std::function<void(const std::string& pcieDevicePath,
                              const std::string& service)>& callback)
 {
+    sdbusplus::message::object_path inventoryPath(
+        "/xyz/openbmc_project/inventory");
     dbus::utility::getSubTreePaths(
         inventoryPath, 0, pcieDeviceInterface,
         [pcieDeviceId, asyncResp,
@@ -292,10 +293,11 @@ inline void getPCIeDeviceSlotPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::function<void(const std::string& pcieDeviceSlot)>&& callback)
 {
+    sdbusplus::message::object_path inventoryPath(
+        "/xyz/openbmc_project/inventory");
     std::string associationPath = pcieDevicePath + "/contained_by";
     dbus::utility::getAssociatedSubTreePaths(
-        associationPath, sdbusplus::message::object_path(inventoryPath), 0,
-        pcieSlotInterface,
+        associationPath, inventoryPath, 0, pcieSlotInterface,
         [callback = std::move(callback), asyncResp, pcieDevicePath](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& endpoints) {
