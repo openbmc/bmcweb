@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347d487f_024b9b4d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-18T14:03:58Z",
+      "side": 1,
+      "message": "What if `appliedConfigUri` is a string like \"/redfish/v1/Systems/{}/Processors/{}/OperatingConfigsAdditionalStr\"?\n\nTo make it precise, I think `expectedPrefix` may need to end with \"/\".\n```\n    boost::urls::url expectedPrefix \u003d boost::urls::format(\n        \"/redfish/v1/Systems/{}/Processors/{}/OperatingConfigs/\",\n        BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId, expectedPrefix);\n```",
+      "revId": "73b10d84cea6f55f8dede1b731427c1e891632fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
