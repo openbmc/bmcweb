@@ -5,6 +5,7 @@
 #include "async_resp.hpp"
 #include "boost_formatters.hpp"
 #include "dbus_utility.hpp"
+#include "dbus_utils.hpp"
 #include "error_messages.hpp"
 #include "logging.hpp"
 
@@ -38,7 +39,7 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     // Get the Chassis Collection
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        dbus_utils::inventoryPath, 0, chassisInterfaces,
         [callback = std::forward<Callback>(callback), asyncResp,
          chassisId](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreePathsResponse&

@@ -184,7 +184,7 @@ inline void getValidFabricAdapterPath(
 {
     constexpr std::array<std::string_view, 1> interfaces{
         "xyz.openbmc_project.Inventory.Item.FabricAdapter"};
-    dbus::utility::getSubTree("/xyz/openbmc_project/inventory", 0, interfaces,
+    dbus::utility::getSubTree(dbus_utils::inventoryPath, 0, interfaces,
                               std::bind_front(afterGetValidFabricAdapterPath,
                                               adapterId, std::move(callback)));
 }
@@ -353,7 +353,7 @@ inline void handleFabricAdapterCollectionGet(
         asyncResp,
         boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME),
-        interfaces, "/xyz/openbmc_project/inventory");
+        interfaces, dbus_utils::inventoryPath);
 }
 
 inline void handleFabricAdapterCollectionHead(

@@ -5,6 +5,7 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
+#include "dbus_utils.hpp"
 #include "generated/enums/pcie_device.hpp"
 #include "generated/enums/pcie_slots.hpp"
 #include "utils/collection.hpp"
@@ -44,9 +45,9 @@ inline void getPCIeDeviceList(
     const boost::urls::url pcieDeviceUrl = boost::urls::format(
         "/redfish/v1/Systems/{}/PCIeDevices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-    collection_util::getCollectionToKey(
-        asyncResp, pcieDeviceUrl, pcieDeviceInterface,
-        "/xyz/openbmc_project/inventory", jsonKeyName);
+    collection_util::getCollectionToKey(asyncResp, pcieDeviceUrl,
+                                        pcieDeviceInterface,
+                                        dbus_utils::inventoryPath, jsonKeyName);
 }
 
 inline std::optional<pcie_slots::SlotTypes> dbusSlotTypeToRf(
