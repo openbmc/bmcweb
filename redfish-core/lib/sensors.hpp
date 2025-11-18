@@ -436,7 +436,7 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     // Get the Chassis Collection
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        dbus_utils::inventoryPath, 0, chassisInterfaces,
         [callback = std::forward<Callback>(callback), asyncResp,
          chassisIdStr{std::string(chassisId)},
          chassisSubNode{std::string(chassisSubNode)},
@@ -1031,9 +1031,8 @@ void getInventoryItemsData(
         const std::string& invConnection = *it;
 
         // Get all object paths and their interfaces for current connection
-        sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
-            invConnection, path,
+            invConnection, dbus_utils::inventoryPath,
             [sensorsAsyncResp, inventoryItems, invConnections,
              callback = std::forward<Callback>(callback), invConnectionsIndex](
                 const boost::system::error_code& ec,
@@ -1103,7 +1102,6 @@ void getInventoryItemsConnections(
 {
     BMCWEB_LOG_DEBUG("getInventoryItemsConnections enter");
 
-    const std::string path = "/xyz/openbmc_project/inventory";
     constexpr std::array<std::string_view, 4> interfaces = {
         "xyz.openbmc_project.Inventory.Item",
         "xyz.openbmc_project.Inventory.Item.PowerSupply",
@@ -1112,7 +1110,7 @@ void getInventoryItemsConnections(
 
     // Make call to ObjectMapper to find all inventory items
     dbus::utility::getSubTree(
-        path, 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          inventoryItems](
             const boost::system::error_code& ec,

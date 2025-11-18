@@ -21,6 +21,8 @@ namespace redfish
 {
 namespace dbus_utils
 {
+const sdbusplus::message::object_path inventoryPath(
+    "/xyz/openbmc_project/inventory");
 
 struct UnpackErrorPrinter
 {

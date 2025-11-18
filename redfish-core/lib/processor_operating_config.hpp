@@ -187,7 +187,7 @@ inline void handleOperatingConfigCollectionGet(
     const std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"};
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp,
          cpuName](const boost::system::error_code& ec,
                   const dbus::utility::MapperGetSubTreePathsResponse& objects) {
@@ -253,7 +253,7 @@ inline void handleOperationConfigGet(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp, cpuName,
          configName](const boost::system::error_code& ec,
                      const dbus::utility::MapperGetSubTreeResponse& subtree) {

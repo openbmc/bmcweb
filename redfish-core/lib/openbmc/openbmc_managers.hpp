@@ -1168,10 +1168,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
         // todo(james): might make sense to do a mapper call here if this
         // interface gets more traction
-        sdbusplus::message::object_path objPath(
-            "/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
-            "xyz.openbmc_project.EntityManager", objPath,
+            "xyz.openbmc_project.EntityManager", dbus_utils::inventoryPath,
             [self](const boost::system::error_code& ec,
                    const dbus::utility::ManagedObjectType& mObj) {
                 if (ec)

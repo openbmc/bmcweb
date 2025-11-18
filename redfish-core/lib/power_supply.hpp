@@ -139,11 +139,8 @@ inline void handlePowerSupplyCollectionGet(
     {
         return;
     }
-
-    const std::string reqpath = "/xyz/openbmc_project/inventory";
-
     dbus::utility::getAssociatedSubTreePathsById(
-        chassisId, reqpath, chassisInterfaces, "powered_by",
+        chassisId, dbus_utils::inventoryPath, chassisInterfaces, "powered_by",
         powerSupplyInterface,
         [asyncResp, chassisId](
             const boost::system::error_code& ec,
@@ -209,10 +206,8 @@ inline void getValidPowerSupplyPath(
     std::function<void(const std::string& powerSupplyPath,
                        const std::string& service)>&& callback)
 {
-    const std::string reqpath = "/xyz/openbmc_project/inventory";
-
     dbus::utility::getAssociatedSubTreeById(
-        chassisId, reqpath, chassisInterfaces, "powered_by",
+        chassisId, dbus_utils::inventoryPath, chassisInterfaces, "powered_by",
         powerSupplyInterface,
         [asyncResp, chassisId, powerSupplyId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
