@@ -259,7 +259,7 @@ inline void handleChassisCollectionGet(
 
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::url("/redfish/v1/Chassis"), chassisInterfaces,
-        "/xyz/openbmc_project/inventory");
+        dbus_utils::inventoryPath);
 }
 
 inline void getChassisContainedBy(
@@ -350,14 +350,12 @@ inline void getChassisConnectivity(
     BMCWEB_LOG_DEBUG("Get chassis connectivity");
 
     dbus::utility::getAssociatedSubTreePaths(
-        chassisPath + "/contained_by",
-        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisPath + "/contained_by", dbus_utils::inventoryPath, 0,
         chassisInterfaces,
         std::bind_front(getChassisContainedBy, asyncResp, chassisId));
 
     dbus::utility::getAssociatedSubTreePaths(
-        chassisPath + "/containing",
-        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisPath + "/containing", dbus_utils::inventoryPath, 0,
         chassisInterfaces,
         std::bind_front(getChassisContains, asyncResp, chassisId));
 }
@@ -694,7 +692,7 @@ inline void handleChassisGet(
     }
 
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        dbus_utils::inventoryPath, 0, chassisInterfaces,
         std::bind_front(handleChassisGetSubTree, asyncResp, chassisId));
 
     constexpr std::array<std::string_view, 1> interfaces2 = {
@@ -753,7 +751,7 @@ inline void handleChassisPatch(
     const std::string& chassisId = param;
 
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        dbus_utils::inventoryPath, 0, chassisInterfaces,
         [asyncResp, chassisId, locationIndicatorActive,
          indicatorLed](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {

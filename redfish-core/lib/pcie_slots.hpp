@@ -235,7 +235,7 @@ inline void handlePCIeSlotCollectionGet(
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        dbus_utils::inventoryPath, 0, interfaces,
         [asyncResp,
          chassisID](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {

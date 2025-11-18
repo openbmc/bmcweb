@@ -15,6 +15,7 @@
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
 #include "utils/redfish_aggregator_utils.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -944,9 +945,8 @@ class RedfishAggregator
             satelliteInfo.emplace(prefix, source.url);
         }
 
-        sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
-            "xyz.openbmc_project.EntityManager", path,
+            "xyz.openbmc_project.EntityManager", dbus_utils::inventoryPath,
             [handler{std::move(handler)},
              satelliteInfo = std::move(satelliteInfo)](
                 const boost::system::error_code& ec,
