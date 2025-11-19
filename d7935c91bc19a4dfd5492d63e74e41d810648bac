@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb23d66c_54921ae7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-19T21:04:39Z",
+      "side": 1,
+      "message": "It does ensure these are correct. \nIt also moves all of these to sdbusplus::message::object_path.",
+      "parentUuid": "cb548688_c5d2f065",
+      "revId": "d7935c91bc19a4dfd5492d63e74e41d810648bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5cd89cd8_90f01d2b",
