@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d33e66d_40453991",
+        "filename": "redfish-core/include/utils/manager_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-19T18:28:43Z",
+      "side": 1,
+      "message": "Thanks for finding this.\nFor the current single bmc support logic, it will be treated as NotFound if managerId !\u003d DEFAULT_BMC.\nModified `afterGetValidManagerPath()` to check it.",
+      "parentUuid": "805769eb_830023f2",
+      "range": {
+        "startLine": 109,
+        "startChar": 20,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "9da0d45233ae5d4f1c22d7a5eadcd63a3e312152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb39c930_06c99bd7",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-19T15:52:49Z",
       "side": 1,
       "message": "In the original if no bmc is found an error is not being returned. But here it will be treating it as an error. Was that not the reason for the revert?",
+      "range": {
+        "startLine": 653,
+        "startChar": 4,
+        "endLine": 657,
+        "endChar": 15
+      },
+      "revId": "9da0d45233ae5d4f1c22d7a5eadcd63a3e312152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88eb95a4_4ccbb972",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-19T18:28:43Z",
+      "side": 1,
+      "message": "You\u0027re right.\nPreviously, `getManagerObject()` checks the NotFound condition and bypasses this `getManagerData()` - https://github.com/openbmc/bmcweb/blob/d9495964cd857f8775677f3f5c1f35f0cf00c0a6/redfish-core/lib/managers.hpp#L889C5-L889C21\n\nSo, it would be correct here not to treat as an error.",
+      "parentUuid": "eb39c930_06c99bd7",
       "range": {
         "startLine": 653,
         "startChar": 4,
