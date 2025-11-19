@@ -34,6 +34,24 @@
       "parentUuid": "8d5e8410_9d9b66a1",
       "revId": "7681b8a16fd75dc3424a6d70a76a906d128b8de9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9ebbab9_9f2b4394",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-19T19:46:26Z",
+      "side": 0,
+      "message": "Yeah, digging deeper, this is correct. #include \"dbus_utility.hpp\" is getDbusObject, dbus::utility::getProperty, etc.",
+      "parentUuid": "22c72bf5_3ddd14b3",
+      "revId": "7681b8a16fd75dc3424a6d70a76a906d128b8de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
