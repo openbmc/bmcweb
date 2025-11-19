@@ -22,6 +22,30 @@
       },
       "revId": "24b208aad4cc725bdb408a9eb77751997fef9297",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f73f99c6_9f79b666",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-19T00:28:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d28df987_50bf50fb",
+      "range": {
+        "startLine": 537,
+        "startChar": 40,
+        "endLine": 537,
+        "endChar": 56
+      },
+      "revId": "24b208aad4cc725bdb408a9eb77751997fef9297",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
