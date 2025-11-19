@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a07e2b_89c7c7f8",
+        "filename": "redfish-core/lib/manager_logservices_dbus_eventlog.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-19T00:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6a2e086_d70636f5",
+      "revId": "3cfb8f4c6c19c82c7b989f9e37dd4ce9d3286668",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c61ae32_5a5a56eb",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-15T22:03:35Z",
       "side": 1,
       "message": "This goes against what we have done elsewhere, can you follow our existing patterns ?",
+      "revId": "3cfb8f4c6c19c82c7b989f9e37dd4ce9d3286668",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a789191_24f7fad3",
+        "filename": "redfish-core/lib/manager_logservices_dbus_eventlog.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-19T00:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c61ae32_5a5a56eb",
       "revId": "3cfb8f4c6c19c82c7b989f9e37dd4ce9d3286668",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
