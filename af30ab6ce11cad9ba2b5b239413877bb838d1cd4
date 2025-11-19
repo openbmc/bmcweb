@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec8acc0b_bfadf55d",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-19T00:27:02Z",
+      "side": 1,
+      "message": "@ed@tanous.net can I close this?",
+      "parentUuid": "73d20d67_019c7586",
+      "range": {
+        "startLine": 383,
+        "startChar": 49,
+        "endLine": 383,
+        "endChar": 52
+      },
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d1f12d5_49be0295",
         "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
         "patchSetId": 11
