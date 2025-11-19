@@ -33,6 +33,24 @@
       "message": "I think this can be simplified by using `getAssociatedSubTreePathsById()`\n\n```\ninline void addRelatedItemFromAssociationAfterGetManagedHosts(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 swId,\n    const boost::system::error_code\u0026 ec,\n    const dbus::utility::MapperGetSubTreePathsResponse\u0026 associatedPaths)\n{\n   ....\n}\n```\n\n```\ninline void getRelatedItems(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp, \n                            const std::string\u0026 swId, const std::string\u0026 path,\n                            const std::string\u0026 purpose)\n{\n    ...\n    constexpr std::array\u003cstd::string_view, 1\u003e hostInterfaces{\n        \"xyz.openbmc_project.Inventory.Decorator.ManagedHost\",\n    };\n    \n    dbus::utility::getAssociatedSubTreePathsById(\n        swId, hwInventoryPath, 0, managedHostInterfaces,\n        \"running\", hostInterfaces,\n        std::bind_front(addRelatedItemFromAssociationAfterGetManagedHosts, \n                  asyncResp,  swId));\n\n```",
       "revId": "c04e0f90cc33c379fa5d53ee93c752cb5a89bf9f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86de9f21_53d78dff",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1365,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-19T13:44:53Z",
+      "side": 1,
+      "message": "Hi, thanks for this idea and code sample, i changed the code to match 👍\n\nThe equivalent manual call to what i used is\n\n```\nbusctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper \nxyz.openbmc_project.ObjectMapper GetAssociatedSubTreePathsById ssassas \nHostSPIFlash_8456 /xyz/openbmc_project 1 xyz.openbmc_project.Software.Version \n\"running\" 1 xyz.openbmc_project.Inventory.Decorator.ManagedHost\n```\n\nand i had to constrain to `/xyz/openbmc_project` instead of `/xyz/openbmc_project/inventory` or `/xyz/openbmc_project/software`. Since the Managed Host and Software are on different namespaces, the call apparently requires i choose the common parent namespace.\n\nAlso re-tested the change.",
+      "parentUuid": "d68026e4_b283b3f3",
+      "revId": "c04e0f90cc33c379fa5d53ee93c752cb5a89bf9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
