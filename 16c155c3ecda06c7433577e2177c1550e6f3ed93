@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "176b85b4_029e00df",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-19T18:41:58Z",
+      "side": 1,
+      "message": "This would be \n```\nboost::urls::format(\"/redfish/v1/Systems/{}/Processors\", systemName);\n```",
+      "revId": "16c155c3ecda06c7433577e2177c1550e6f3ed93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bdeb322_e89dde62",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-19T18:41:58Z",
+      "side": 1,
+      "message": "This would be\n```\nboost::urls::format(\"/redfish/v1/Systems/{}/Processors\", systemName);\n```",
+      "revId": "16c155c3ecda06c7433577e2177c1550e6f3ed93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
