@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "19be1ae3_d8ca16b9",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-19T00:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7ef0f5d_6ae9a695",
+      "range": {
+        "startLine": 498,
+        "startChar": 6,
+        "endLine": 498,
+        "endChar": 20
+      },
+      "revId": "e3dfeb3788ded0789cd73f6648eed04d39089c6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6502474a_a6e06970",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 14
@@ -71,6 +95,30 @@
       "writtenOn": "2025-11-15T21:52:45Z",
       "side": 1,
       "message": "`#include memory`",
+      "range": {
+        "startLine": 572,
+        "startChar": 9,
+        "endLine": 572,
+        "endChar": 25
+      },
+      "revId": "e3dfeb3788ded0789cd73f6648eed04d39089c6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaad4717_eca08a19",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-19T00:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d9b5868_60473e48",
       "range": {
         "startLine": 572,
         "startChar": 9,
