@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6e61642_f833688a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-19T15:34:21Z",
+      "side": 1,
+      "message": "It looks good to me - with a minor comment",
+      "revId": "5f585688baef9fc943f4675968a443f9a5d64647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c9174ee_1739542d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-19T15:34:21Z",
+      "side": 1,
+      "message": "Is it better to add `ec` to debug log?",
+      "revId": "5f585688baef9fc943f4675968a443f9a5d64647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
