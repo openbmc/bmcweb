@@ -16,6 +16,24 @@
       "message": "Don\u0027t you still need this for getDbusObject, dbus::utility::getProperty, etc ?",
       "revId": "7681b8a16fd75dc3424a6d70a76a906d128b8de9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22c72bf5_3ddd14b3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-11-19T18:51:33Z",
+      "side": 0,
+      "message": "clang-tidy told me to remove this one. Looks like those are being found from dbus_utility.hpp.\n```\n/home/janeta/CI/bmcweb/redfish-core/lib/fan.hpp:17:1: error: included header dbus_utils.hpp is not used directly [misc-include-cleaner,-warnings-as-errors]\n   17 | #include \"utils/dbus_utils.hpp\"\n```\n\nLooks like we aren\u0027t using the bit defined by dbus_utils.hpp in this file.",
+      "parentUuid": "8d5e8410_9d9b66a1",
+      "revId": "7681b8a16fd75dc3424a6d70a76a906d128b8de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
