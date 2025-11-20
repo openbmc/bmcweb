@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35afa223_fdecce75",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-20T10:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d02b409_307c19be",
+      "revId": "d7935c91bc19a4dfd5492d63e74e41d810648bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59e9e626_98fcc919",
@@ -101,6 +119,24 @@
       "writtenOn": "2025-11-19T19:09:36Z",
       "side": 1,
       "message": "In addition to this line, there are another lines that can be changed.\n\n- `getDimmData()`  - https://github.com/openbmc/bmcweb/blob/d9495964cd857f8775677f3f5c1f35f0cf00c0a6/redfish-core/lib/memory.hpp#L822\n\n- `handleMemoryCollectionGet` - https://github.com/openbmc/bmcweb/blob/d9495964cd857f8775677f3f5c1f35f0cf00c0a6/redfish-core/lib/memory.hpp#L997",
+      "revId": "d7935c91bc19a4dfd5492d63e74e41d810648bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4863ea98_9c7cec0b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-20T10:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59e9e626_98fcc919",
       "revId": "d7935c91bc19a4dfd5492d63e74e41d810648bac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
