@@ -33,6 +33,24 @@
       "message": "Is it better to add `ec` to debug log?",
       "revId": "5f585688baef9fc943f4675968a443f9a5d64647",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0236ab62_6d115778",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-20T09:12:26Z",
+      "side": 1,
+      "message": "Done 👍.",
+      "parentUuid": "3c9174ee_1739542d",
+      "revId": "5f585688baef9fc943f4675968a443f9a5d64647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
