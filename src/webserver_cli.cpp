@@ -88,8 +88,6 @@ int runCLI(int argc, char** argv) noexcept(false)
 {
     CLI::App app("BMCWeb CLI");
 
-    cliLogLevel("INFO");
-
     const CLI::Validator levelValidator =
         CLI::Validator(validateLogLevel, "valid level");
 
@@ -107,6 +105,7 @@ int runCLI(int argc, char** argv) noexcept(false)
 
     if (loglevelsub->parsed())
     {
+        cliLogLevel("INFO");
         return setLogLevel(loglevel);
     }
     if (daemon->parsed())
