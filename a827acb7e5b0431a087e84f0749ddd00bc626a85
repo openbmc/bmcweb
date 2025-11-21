@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25a5975_7203913c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-21T16:45:10Z",
+      "side": 1,
+      "message": "Nice, i did not know it would do that. Fixed it now 👍",
+      "parentUuid": "0c6155b6_ef56683d",
+      "revId": "a827acb7e5b0431a087e84f0749ddd00bc626a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76238f5f_d04d87d9",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-21T13:35:48Z",
       "side": 1,
       "message": "Similarly, it is better to combine 2 debug entries into one.\n\n```\n    BMCWEB_LOG_DEBUG(\n        \"Could not find related Chassis items for {} by association, ec\u003d{}\", swId, ec);\n```",
+      "revId": "a827acb7e5b0431a087e84f0749ddd00bc626a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a5d7895_d3bb9d0f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-21T16:45:10Z",
+      "side": 1,
+      "message": "Done. Thanks for pointing out everything in need of changing 👍",
+      "parentUuid": "76238f5f_d04d87d9",
       "revId": "a827acb7e5b0431a087e84f0749ddd00bc626a85",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
