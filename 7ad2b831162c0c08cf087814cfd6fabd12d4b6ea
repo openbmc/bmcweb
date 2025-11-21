@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa94f511_a5567fac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-21T21:07:27Z",
+      "side": 1,
+      "message": "The new patch follows as described in forum link",
+      "parentUuid": "34cad99f_37216a3a",
+      "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e27f027_6cf96d8e",
@@ -67,6 +85,24 @@
       "writtenOn": "2025-10-13T18:06:31Z",
       "side": 1,
       "message": "Can you mention the MemberId and how it used in patching ? \n\n                \"MemberId\": {\n                    \"description\": \"The unique identifier for the member within an array.\",\n                    \"longDescription\": \"This property shall contain the unique identifier for this member within an array.  For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index.\",",
+      "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f8bf98a_9cb9be9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-21T21:07:27Z",
+      "side": 1,
+      "message": "MemberId is no longer used for PATCH, as it is readonly field and patching method follows the explanation in https://redfishforum.com/thread/437/patch-individual-items-array-objects",
+      "parentUuid": "2e27f027_6cf96d8e",
       "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
