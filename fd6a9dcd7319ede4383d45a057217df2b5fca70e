@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5814507_4e990a98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-21T03:38:43Z",
+      "side": 1,
+      "message": "\u003e \u003e Somethings I see missing from this:\n\u003e \u003e 1. Redfish service validator testing\n\u003e \n\u003e I will add the validator testing later.\n\nUpdated.\n\n\u003e \n\u003e \u003e 2. Documentation updates\n\u003e \n\u003e Do you mean update the design doc?\n\nUpdated redfish.md\n\n\u003e \n\u003e \u003e 3. Installation of the CSDL schema\n\u003e \n\u003e This is the first time, I\u0027m working with the Redfish schema.\n\u003e Can you give more detail?\n\nI checked in the redfish-core there are `CSDL` folder https://github.com/openbmc/bmcweb/blob/43feb5cd47bd6d87a927a1ec63024ac0eb573bac/redfish-core/schema/dmtf/csdl/HostInterface_v1.xml#L70\nWhat should I do with this file?",
+      "parentUuid": "1e09a8c9_7d75aab6",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f30ab27d_5c78bbac",
         "filename": "redfish-core/lib/host_interface.hpp",
         "patchSetId": 13
@@ -426,6 +444,24 @@
       "side": 1,
       "message": "Actually, the role of the bootStrap user is depend on the `RoleId` of `CredentialBootstrapping`.\n\nRedfish API support changing the `RoleId` of `CredentialBootstrapping` and the role of bootStrap user will be changed base on the updated value.",
       "parentUuid": "0821115d_a7aee0e5",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96f7e323_f694f651",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-11-21T03:38:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a07bd8bf_4e69cbb8",
       "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
