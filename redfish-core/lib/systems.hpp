@@ -453,10 +453,10 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get host information.");
-    sdbusplus::message::object_path path =
-        systems_utils::getHostStateObjectPath(computerSystemIndex);
+
     dbus::utility::getProperty<std::string>(
-        systems_utils::getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex),
+        systems_utils::getHostStateObjectPath(computerSystemIndex),
         "xyz.openbmc_project.State.Host", "CurrentHostState",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
@@ -757,10 +757,9 @@ inline int assignBootParameters(
 inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const uint64_t computerSystemIndex)
 {
-    sdbusplus::message::object_path path =
-        systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::string>(
-        systems_utils::getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex),
+        systems_utils::getHostStateObjectPath(computerSystemIndex),
         "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
         [asyncResp](const boost::system::error_code ec,
                     const std::string& bootProgressStr) {
@@ -790,10 +789,9 @@ inline void getBootProgressLastStateTime(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const uint64_t computerSystemIndex)
 {
-    sdbusplus::message::object_path path =
-        systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<uint64_t>(
-        systems_utils::getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex),
+        systems_utils::getHostStateObjectPath(computerSystemIndex),
         "xyz.openbmc_project.State.Boot.Progress", "BootProgressLastUpdate",
         [asyncResp](const boost::system::error_code& ec,
                     const uint64_t lastStateTime) {
@@ -827,12 +825,12 @@ inline void getBootOverrideType(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const uint64_t computerSystemIndex)
 {
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "boot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "boot";
 
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.Settings", path,
+        "xyz.openbmc_project.Settings", controlPath,
         "xyz.openbmc_project.Control.Boot.Type", "BootType",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& bootType) {
@@ -872,11 +870,12 @@ inline void getBootOverrideMode(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const uint64_t computerSystemIndex)
 {
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "boot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "boot";
+
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.Settings", path,
+        "xyz.openbmc_project.Settings", controlPath,
         "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& bootModeStr) {
@@ -927,12 +926,12 @@ inline void getBootOverrideSource(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const uint64_t computerSystemIndex)
 {
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "boot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "boot";
 
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.Settings", path,
+        "xyz.openbmc_project.Settings", controlPath,
         "xyz.openbmc_project.Control.Boot.Source", "BootSource",
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          const std::string& bootSourceStr) {
@@ -987,15 +986,15 @@ inline void processBootOverrideEnable(
         return;
     }
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "boot";
-    path /= "one_time";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "boot";
+    controlPath /= "one_time";
 
     // If boot source override is enabled, we need to check 'one_time'
     // property to set a correct value for the "BootSourceOverrideEnabled"
     dbus::utility::getProperty<bool>(
-        "xyz.openbmc_project.Settings", path,
+        "xyz.openbmc_project.Settings", controlPath,
         "xyz.openbmc_project.Object.Enable", "Enabled",
         [asyncResp](const boost::system::error_code& ec, bool oneTimeSetting) {
             if (ec)
@@ -1030,12 +1029,12 @@ inline void getBootOverrideEnable(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const uint64_t computerSystemIndex)
 {
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "boot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "boot";
 
     dbus::utility::getProperty<bool>(
-        "xyz.openbmc_project.Settings", path,
+        "xyz.openbmc_project.Settings", controlPath,
         "xyz.openbmc_project.Object.Enable", "Enabled",
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          const bool bootOverrideEnable) {
@@ -1093,10 +1092,10 @@ inline void getLastResetTime(
     const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Getting System Last Reset Time");
-    sdbusplus::message::object_path path =
-        systems_utils::getChassisStateObjectPath(computerSystemIndex);
+
     dbus::utility::getProperty<uint64_t>(
-        systems_utils::getChassisStateServiceName(computerSystemIndex), path,
+        systems_utils::getChassisStateServiceName(computerSystemIndex),
+        systems_utils::getChassisStateObjectPath(computerSystemIndex),
         "xyz.openbmc_project.State.Chassis", "LastStateChangeTime",
         [asyncResp](const boost::system::error_code& ec,
                     uint64_t lastResetTime) {
@@ -1134,10 +1133,10 @@ inline void getAutomaticRebootAttempts(
     const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get Automatic Retry policy");
-    sdbusplus::message::object_path path =
-        systems_utils::getHostStateObjectPath(computerSystemIndex);
+
     dbus::utility::getAllProperties(
-        systems_utils::getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex),
+        systems_utils::getHostStateObjectPath(computerSystemIndex),
         "xyz.openbmc_project.Control.Boot.RebootAttempts",
         [asyncResp{asyncResp}](
             const boost::system::error_code& ec,
@@ -1197,12 +1196,12 @@ inline void getAutomaticRetryPolicy(
 {
     BMCWEB_LOG_DEBUG("Get Automatic Retry policy");
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "auto_reboot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "auto_reboot";
 
     dbus::utility::getProperty<bool>(
-        "xyz.openbmc_project.Settings", path,
+        "xyz.openbmc_project.Settings", controlPath,
         "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          bool autoRebootEnabled) {
@@ -1305,12 +1304,12 @@ inline void getPowerRestorePolicy(
 {
     BMCWEB_LOG_DEBUG("Get power restore policy");
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "power_restore_policy";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "power_restore_policy";
 
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.Settings", path,
+        "xyz.openbmc_project.Settings", controlPath,
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& policy) {
@@ -1596,11 +1595,12 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot type: {}", bootTypeStr);
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "boot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "boot";
+
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideMode",
-                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Settings", controlPath,
                     "xyz.openbmc_project.Control.Boot.Type", "BootType",
                     bootTypeStr);
 }
@@ -1655,11 +1655,12 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot override enable: {}", bootOverrideEnable);
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "boot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "boot";
+
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideEnabled",
-                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Settings", controlPath,
                     "xyz.openbmc_project.Object.Enable", "Enabled",
                     bootOverrideEnable);
 
@@ -1673,9 +1674,9 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("DBUS boot override persistent: {}",
                      bootOverridePersistent);
 
-    path /= "one_time";
+    controlPath /= "one_time";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideEnabled",
-                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Settings", controlPath,
                     "xyz.openbmc_project.Object.Enable", "Enabled",
                     !bootOverridePersistent);
 }
@@ -1720,15 +1721,16 @@ inline void setBootModeOrSource(
     BMCWEB_LOG_DEBUG("DBUS boot source: {}", bootSourceStr);
     BMCWEB_LOG_DEBUG("DBUS boot mode: {}", bootModeStr);
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "boot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "boot";
+
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideTarget",
-                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Settings", controlPath,
                     "xyz.openbmc_project.Control.Boot.Source", "BootSource",
                     bootSourceStr);
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideTarget",
-                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Settings", controlPath,
                     "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
                     bootModeStr);
 }
@@ -1912,11 +1914,12 @@ inline void setAutomaticRetry(
         return;
     }
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "auto_reboot";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "auto_reboot";
+
     setDbusProperty(asyncResp, "Boot/AutomaticRetryConfig",
-                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Settings", controlPath,
                     "xyz.openbmc_project.Control.Boot.RebootPolicy",
                     "AutoReboot", autoRebootEnabled);
 }
@@ -1962,11 +1965,12 @@ inline void setPowerRestorePolicy(
         return;
     }
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
-                                         std::to_string(computerSystemIndex));
-    path /= "power_restore_policy";
+    sdbusplus::message::object_path controlPath =
+        systems_utils::getControlObjectPath(computerSystemIndex);
+    controlPath /= "power_restore_policy";
+
     setDbusProperty(asyncResp, "PowerRestorePolicy",
-                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Settings", controlPath,
                     "xyz.openbmc_project.Control.Power.RestorePolicy",
                     "PowerRestorePolicy", powerRestorePolicy);
 }
@@ -3527,10 +3531,9 @@ inline void getAllowedHostTransitions(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const uint64_t computerSystemIndex)
 {
-    sdbusplus::message::object_path path =
-        systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::vector<std::string>>(
-        systems_utils::getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex),
+        systems_utils::getHostStateObjectPath(computerSystemIndex),
         "xyz.openbmc_project.State.Host", "AllowedHostTransitions",
         std::bind_front(afterGetAllowedHostTransitions, asyncResp));
 }
