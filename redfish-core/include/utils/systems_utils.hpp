@@ -219,44 +219,48 @@ inline void getComputerSystemIndex(
 inline sdbusplus::message::object_path getHostStateObjectPath(
     const uint64_t computerSystemIndex)
 {
-    const sdbusplus::message::object_path hostStatePath(
-        "/xyz/openbmc_project/state/host" +
-        std::to_string(computerSystemIndex));
-
-    return hostStatePath;
+    sdbusplus::message::object_path hostPath("/xyz/openbmc_project/state");
+    hostPath /= std::format("host{}", computerSystemIndex);
+    return hostPath;
 }
 
 inline std::string getHostStateServiceName(const uint64_t computerSystemIndex)
 {
-    std::string hostStateService = "xyz.openbmc_project.State.Host";
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        hostStateService += std::to_string(computerSystemIndex);
+        return std::format("xyz.openbmc_project.State.Host{}",
+                           computerSystemIndex);
     }
 
-    return hostStateService;
+    return "xyz.openbmc_project.State.Host";
 }
 
 inline sdbusplus::message::object_path getChassisStateObjectPath(
     const uint64_t computerSystemIndex)
 {
-    const sdbusplus::message::object_path chassisStatePath(
-        "/xyz/openbmc_project/state/chassis" +
-        std::to_string(computerSystemIndex));
-
-    return chassisStatePath;
+    sdbusplus::message::object_path chassisPath("/xyz/openbmc_project/state");
+    chassisPath /= std::format("chassis{}", computerSystemIndex);
+    return chassisPath;
 }
 
 inline std::string getChassisStateServiceName(
     const uint64_t computerSystemIndex)
 {
-    std::string chassisStateService = "xyz.openbmc_project.State.Chassis";
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        chassisStateService += std::to_string(computerSystemIndex);
+        return std::format("xyz.openbmc_project.State.Chassis{}",
+                           computerSystemIndex);
     }
 
-    return chassisStateService;
+    return "xyz.openbmc_project.State.Chassis";
+}
+
+inline sdbusplus::message::object_path getControlObjectPath(
+    const uint64_t computerSystemIndex)
+{
+    sdbusplus::message::object_path controlPath("/xyz/openbmc_project/control");
+    controlPath /= std::format("host{}", computerSystemIndex);
+    return controlPath;
 }
 
 inline void afterGetValidSystemsPath(
