@@ -27,6 +27,7 @@
 #include "utils/manager_utils.hpp"
 #include "utils/sw_utils.hpp"
 #include "utils/systemd_utils.hpp"
+#include "utils/systems_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <systemd/sd-bus.h>
@@ -699,6 +700,63 @@ inline void getManagedChassis(
         chassiUrl;
 }
 
+inline void afterGetValidSystemPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    nlohmann::json::object_t& manager,
+    nlohmann::json::array_t& managerForServers,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& systemPaths)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const std::string& system : systemPaths)
+    {
+        const sdbusplus::message::object_path systemPath(system);
+        manager["@odata.id"] = boost::urls::format("/redfish/v1/Systems/{}",
+                                                   systemPath.filename());
+        managerForServers.emplace_back(manager);
+    }
+
+    asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] =
+        managerForServers.size();
+
+    asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
+        std::move(managerForServers);
+}
+
+inline void getManagedServers(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    nlohmann::json::object_t manager;
+    nlohmann::json::array_t managerForServers;
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        constexpr std::array<const std::string_view, 1> intf = {
+            "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/inventory", 0, intf,
+            std::bind_front(afterGetValidSystemPaths, asyncResp, manager,
+                            managerForServers));
+    }
+    else
+    {
+        asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
+
+        manager["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        managerForServers.emplace_back(std::move(manager));
+
+        asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
+            std::move(managerForServers);
+    }
+}
+
 inline void handleManagerGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -783,19 +841,8 @@ inline void handleManagerGet(
         asyncResp->res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
             nlohmann::json::array_t({"KVMIP"});
     }
-    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
 
-        nlohmann::json::array_t managerForServers;
-        nlohmann::json::object_t manager;
-        manager["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-        managerForServers.emplace_back(std::move(manager));
-
-        asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
-            std::move(managerForServers);
-    }
+    getManagedServers(asyncResp);
 
     sw_util::populateSoftwareInformation(asyncResp, sw_util::bmcPurpose,
                                          "FirmwareVersion", true);
@@ -808,7 +855,10 @@ inline void handleManagerGet(
     managerDiagnosticData["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}/ManagerDiagnosticData", managerId);
 
-    getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
+    if (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
+    }
 
     dbus::utility::getProperty<double>(
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
