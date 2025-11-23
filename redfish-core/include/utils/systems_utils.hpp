@@ -219,44 +219,42 @@ inline void getComputerSystemIndex(
 inline sdbusplus::message::object_path getHostStateObjectPath(
     const uint64_t computerSystemIndex)
 {
-    const sdbusplus::message::object_path hostStatePath(
-        "/xyz/openbmc_project/state/host" +
-        std::to_string(computerSystemIndex));
+    const std::string path =
+        std::format("/xyz/openbmc_project/state/host{}", computerSystemIndex);
 
-    return hostStatePath;
+    return sdbusplus::message::object_path{path};
 }
 
 inline std::string getHostStateServiceName(const uint64_t computerSystemIndex)
 {
-    std::string hostStateService = "xyz.openbmc_project.State.Host";
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        hostStateService += std::to_string(computerSystemIndex);
+        return std::format("xyz.openbmc_project.State.Host{}",
+                           computerSystemIndex);
     }
 
-    return hostStateService;
+    return "xyz.openbmc_project.State.Host";
 }
 
 inline sdbusplus::message::object_path getChassisStateObjectPath(
     const uint64_t computerSystemIndex)
 {
-    const sdbusplus::message::object_path chassisStatePath(
-        "/xyz/openbmc_project/state/chassis" +
-        std::to_string(computerSystemIndex));
+    const std::string path = std::format("/xyz/openbmc_project/state/chassis{}",
+                                         computerSystemIndex);
 
-    return chassisStatePath;
+    return sdbusplus::message::object_path{path};
 }
 
 inline std::string getChassisStateServiceName(
     const uint64_t computerSystemIndex)
 {
-    std::string chassisStateService = "xyz.openbmc_project.State.Chassis";
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        chassisStateService += std::to_string(computerSystemIndex);
+        return std::format("xyz.openbmc_project.State.Chassis{}",
+                           computerSystemIndex);
     }
 
-    return chassisStateService;
+    return "xyz.openbmc_project.State.Chassis";
 }
 
 inline void afterGetValidSystemsPath(
