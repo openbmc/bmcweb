@@ -110,25 +110,19 @@ inline void handleSystemsLogServicesEventLogActionsClearPost(
         asyncResp);
 }
 
-inline void requestRoutesSystemsJournalEventLogEntryCollection(App& app)
+inline void requestRoutesSystemsJournalEventLog(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServiceEventLogLogEntryCollection, std::ref(app)));
-}
 
-inline void requestRoutesSystemsJournalEventLogEntry(App& app)
-{
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServiceEventLogEntriesGet, std::ref(app)));
-}
 
-inline void requestRoutesSystemsJournalEventLogClear(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/EventLog/Actions/LogService.ClearLog/")
