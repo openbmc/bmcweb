@@ -192,16 +192,13 @@ inline void handleSystemsDBusEventLogEntryDownloadGet(
     eventlog_utils::downloadEventLogEntry(asyncResp, entryId, "System");
 }
 
-inline void requestRoutesSystemsDBusEventLogEntryCollection(App& app)
+inline void requestRoutesSystemsDBusEventLog(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsDBusEventLogEntryCollection, std::ref(app)));
-}
 
-inline void requestRoutesSystemsDBusEventLogEntry(App& app)
-{
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
@@ -221,18 +218,6 @@ inline void requestRoutesSystemsDBusEventLogEntry(App& app)
                 deleteLogEntrySubOverComputerSystemLogServiceCollectionLogServiceLogEntryCollection)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
             handleSystemsDBusEventLogEntryDelete, std::ref(app)));
-}
-
-/**
- * DBusLogServiceActionsClear class supports POST method for ClearLog action.
- */
-inline void requestRoutesSystemsDBusLogServiceActionsClear(App& app)
-{
-    /**
-     * Function handles POST method request.
-     * The Clear Log actions does not require any parameter.The action deletes
-     * all entries found in the Entries collection for this Log Service.
-     */
 
     BMCWEB_ROUTE(
         app,
@@ -241,10 +226,7 @@ inline void requestRoutesSystemsDBusLogServiceActionsClear(App& app)
                         postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleSystemsDBusLogServiceActionsClear, std::ref(app)));
-}
 
-inline void requestRoutesSystemsDBusEventLogEntryDownload(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment/")
