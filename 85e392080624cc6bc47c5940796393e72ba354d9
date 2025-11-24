@@ -52,6 +52,24 @@
       "parentUuid": "2a2e97af_9bd13629",
       "revId": "85e392080624cc6bc47c5940796393e72ba354d9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fddfc8ae_af480f9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-24T19:59:38Z",
+      "side": 1,
+      "message": "\u003e  if you want, but I dont have the facilities to run this code on real hardware with proper configuration to run the validator against it.\n\nI would highly recommend coming up with a solution.  Like Gunnar says, this patch is pretty easy to verify correctness based on a code review, but presumably refactoring isn\u0027t the scope of what you wanted to do with openbmc/bmcweb, so at some point, you\u0027ll need those qemu targets.  If you\u0027re on discord, I\u0027m happy to help show you how I operate for most changes in qemu, which really isn\u0027t too bad to set up.\n\nFWIW, you\u0027re welcome to use one of the two qemu targets I use upstream (nvidia-gb200-nvl72-bmc or s7106) as those models already exist and have been upstreamed.",
+      "parentUuid": "61000ba6_38efe5bc",
+      "revId": "85e392080624cc6bc47c5940796393e72ba354d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
