@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef15b9e9_5c7e8e94",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "as well as",
+      "range": {
+        "startLine": 4,
+        "startChar": 66,
+        "endLine": 4,
+        "endChar": 72
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07bd7456_b46e5afb",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "and",
+      "range": {
+        "startLine": 22,
+        "startChar": 23,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccc665f2_c472bb3f",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "\"In accordance to the\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2799233a_2db8d597",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "repitition, how about \n\"dbus associations to link\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 53,
+        "endLine": 37,
+        "endChar": 65
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83b41dc6_2575b5e1",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "want",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c20f99_1b834e9e",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "remove that, either you know whats described in the document, then fine, otherwise you need to read it anyway to understand whats going on here.",
+      "range": {
+        "startLine": 37,
+        "startChar": 21,
+        "endLine": 37,
+        "endChar": 34
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1d32be9_a7772fa0",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "Do you refer to the term in the redfish specification? If so, clarify this, otherwise its \"computer system\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c47c4fd_b0188875",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "bmcweb, we",
+      "range": {
+        "startLine": 45,
+        "startChar": 58,
+        "endLine": 45,
+        "endChar": 67
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260b97cb_ecf46c3b",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "\"Most associations needed are not in place yet\"|\n\nIt should follow a list of the missing associations.",
+      "range": {
+        "startLine": 46,
+        "startChar": 17,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e55bd55e_a93aa585",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "The proposal for the interface came from the mailing list",
+      "range": {
+        "startLine": 53,
+        "startChar": 10,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f310bed6_efc28268",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "The interface determine the root element in redfishs\u0027s ComputerSystem (system name) tree.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 21
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c2ff6a1_a5b3e37c",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "computer system",
+      "range": {
+        "startLine": 71,
+        "startChar": 66,
+        "endLine": 71,
+        "endChar": 80
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f92629df_0eaa8a85",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "which allows",
+      "range": {
+        "startLine": 73,
+        "startChar": 48,
+        "endLine": 73,
+        "endChar": 50
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20f7f3ad_9423fe29",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "computer system",
+      "range": {
+        "startLine": 76,
+        "startChar": 35,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2109e70b_fe706679",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-24T07:57:00Z",
+      "side": 1,
+      "message": "/\\ ?",
+      "range": {
+        "startLine": 230,
+        "startChar": 52,
+        "endLine": 230,
+        "endChar": 54
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
