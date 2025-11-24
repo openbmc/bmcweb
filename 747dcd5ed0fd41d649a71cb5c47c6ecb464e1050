@@ -302,6 +302,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45b3a0e9_12e068a8",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-24T09:43:40Z",
+      "side": 1,
+      "message": "Let\u0027s not write down what `redfish-system-uri-name` defaults to, people can look that up in `meson.options`.",
+      "range": {
+        "startLine": 74,
+        "startChar": 16,
+        "endLine": 75,
+        "endChar": 20
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20f7f3ad_9423fe29",
         "filename": "docs/MULTI_HOST.md",
         "patchSetId": 9
