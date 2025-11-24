@@ -103,6 +103,23 @@
       "message": "It looks good to me",
       "revId": "2292bd81a0cc29e7a6bee051ae291c84134d8e29",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "339f2c36_ef070d14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-24T16:50:05Z",
+      "side": 1,
+      "message": "Thank you for the commit, https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85487 merged so I think this can be abandoned",
+      "revId": "2292bd81a0cc29e7a6bee051ae291c84134d8e29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
