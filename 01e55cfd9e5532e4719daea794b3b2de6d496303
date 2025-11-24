@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "456ad652_58b7d91d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-24T19:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba09c734_d2bf1b91",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b94ab48f_1ba0b540",
@@ -48,6 +66,30 @@
       "writtenOn": "2025-11-24T17:12:28Z",
       "side": 1,
       "message": "this doesn\u0027t look right, do we need to check the ec here? Could be a separate commit. But not everything should be a resourceNotFound",
+      "range": {
+        "startLine": 239,
+        "startChar": 68,
+        "endLine": 239,
+        "endChar": 73
+      },
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f230f757_81d2a893",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-24T19:30:24Z",
+      "side": 1,
+      "message": "`assembly_utils::getChassisAssembly()` checks `ec` whether it is an `io_error` or `EBADR`, and returns `internalError()` for the other cases.\nIf this function is called, they are the cases of NotFound, and this warning is to show show which one of `io_error` or `EBADR`.",
+      "parentUuid": "b94ab48f_1ba0b540",
       "range": {
         "startLine": 239,
         "startChar": 68,
@@ -83,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09fe7c61_0fc36cb1",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-24T19:30:24Z",
+      "side": 1,
+      "message": "Similar to GET - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84000/comment/b94ab48f_1ba0b540/, the error conditions, other than `io_error` or EBADR, are already handled as `internalError` inside `getChassisAssembly`.\nIf the code reaches here, ec will be only one of `io_error` or EBADR, but both cases are resulted as NotFound.",
+      "parentUuid": "f11c8310_a76ff714",
+      "range": {
+        "startLine": 303,
+        "startChar": 57,
+        "endLine": 303,
+        "endChar": 63
+      },
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e11c88c6_bb1579ce",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 11
@@ -94,6 +160,24 @@
       "writtenOn": "2025-11-24T17:12:28Z",
       "side": 1,
       "message": "Why is everything a resourceNotFound ?",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6dce275_b9e1cdeb",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-24T19:30:24Z",
+      "side": 1,
+      "message": "Same as GET/HEAD case - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84000/comment/f11c8310_a76ff714/",
+      "parentUuid": "e11c88c6_bb1579ce",
       "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -115,6 +199,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4166176_b92e01cb",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-24T19:30:24Z",
+      "side": 1,
+      "message": "I also found out that there seems no other better message.",
+      "parentUuid": "8a9a2ade_1729eb45",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83e6b487_23d0b9c1",
@@ -128,6 +230,24 @@
       "writtenOn": "2025-11-24T17:12:28Z",
       "side": 1,
       "message": "Why do you need the map? \n\nWhy can\u0027t here you call \n\n      if (locationIndicatorActive.has_value())\n      {\n          setLocationIndicatorActive(asyncResp, assembly ,*locationIndicatorActive)",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4c9d51_1b85a0c7",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-24T19:30:24Z",
+      "side": 1,
+      "message": "Yes, that would be a good idea.\nUpdated as suggested like\n\n```\n    if (locationIndicatorActive.has_value())\n    {\n        const auto\u0026 assembly \u003d assemblyList[assemblyIndex];\n        setLocationIndicatorActive(asyncResp, assembly ,*locationIndicatorActive);\n    }\n```",
+      "parentUuid": "83e6b487_23d0b9c1",
       "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
