@@ -39,6 +39,30 @@
       },
       "revId": "ab8aaeba196f1356e9caf092b461622b5c7f6c5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eab85d6_b34bde71",
+        "filename": "redfish-core/lib/manager_logservices_dbus_eventlog.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-24T19:49:32Z",
+      "side": 1,
+      "message": "NVM, this isn\u0027t worth holding up this patch for.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/85522. is the fix.  Lets discuss there if you think this isn\u0027t correct, otherwise that can merge and we should be good.",
+      "parentUuid": "efe29daa_ec22429b",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 1
+      },
+      "revId": "ab8aaeba196f1356e9caf092b461622b5c7f6c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
