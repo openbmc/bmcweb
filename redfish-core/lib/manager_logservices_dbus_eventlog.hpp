@@ -146,17 +146,13 @@ inline void handleManagersDBusEventLogEntryDownload(
     eventlog_utils::downloadEventLogEntry(asyncResp, entryId, "System");
 }
 
-inline void requestRoutesManagersDBusEventLogEntryCollection(App& app)
+inline void requestRoutesManagersDBusEventLog(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/LogServices/EventLog/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleManagersDBusEventLogEntryCollection, std::ref(app)));
-}
-
-inline void requestRoutesManagersDBusEventLogEntry(App& app)
-{
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/<str>/LogServices/EventLog/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
@@ -176,18 +172,6 @@ inline void requestRoutesManagersDBusEventLogEntry(App& app)
                 deleteLogEntrySubOverComputerSystemLogServiceCollectionLogServiceLogEntryCollection)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
             handleManagersDBusEventLogEntryDelete, std::ref(app)));
-}
-
-/**
- * DBusLogServiceActionsClear class supports POST method for ClearLog action.
- */
-inline void requestRoutesManagersDBusLogServiceActionsClear(App& app)
-{
-    /**
-     * Function handles POST method request.
-     * The Clear Log actions does not require any parameter.The action deletes
-     * all entries found in the Entries collection for this Log Service.
-     */
 
     BMCWEB_ROUTE(
         app,
@@ -196,10 +180,6 @@ inline void requestRoutesManagersDBusLogServiceActionsClear(App& app)
                         postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagersDBusLogServiceActionsClear, std::ref(app)));
-}
-
-inline void requestRoutesManagersDBusEventLogEntryDownload(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/EventLog/Entries/<str>/attachment/")
