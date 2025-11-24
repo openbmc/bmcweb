@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0782a0bb_f4a37c15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-24T22:56:49Z",
+      "side": 1,
+      "message": "Lets start by inlining the path (which is what we should\u0027ve done in the first place.).\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/85530\n\nAfter that we can decide if we want to remove all these into some common method.  If we\u0027re doing to do that, just putting these in some common global I don\u0027t think improves the readability here.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "6d7895ab7c4d146e28039c2f7381173e09414d40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
