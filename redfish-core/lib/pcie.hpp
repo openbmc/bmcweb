@@ -47,12 +47,6 @@
 namespace redfish
 {
 
-static constexpr const char* inventoryPath = "/xyz/openbmc_project/inventory";
-static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
-    "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
-static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
-    "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
-
 inline void handlePCIeDevicePath(
     const std::string& pcieDeviceId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -69,7 +63,8 @@ inline void handlePCIeDevicePath(
         {
             continue;
         }
-
+        static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+            "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
         dbus::utility::getDbusObject(
             pcieDevicePath, pcieDeviceInterface,
             [pcieDevicePath, asyncResp,
@@ -96,8 +91,11 @@ inline void getValidPCIeDevicePath(
     const std::function<void(const std::string& pcieDevicePath,
                              const std::string& service)>& callback)
 {
+    static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+
     dbus::utility::getSubTreePaths(
-        inventoryPath, 0, pcieDeviceInterface,
+        "/xyz/openbmc_project/inventory", 0, pcieDeviceInterface,
         [pcieDeviceId, asyncResp,
          callback](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreePathsResponse&
@@ -293,9 +291,11 @@ inline void getPCIeDeviceSlotPath(
     std::function<void(const std::string& pcieDeviceSlot)>&& callback)
 {
     std::string associationPath = pcieDevicePath + "/contained_by";
+    sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
+    static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
     dbus::utility::getAssociatedSubTreePaths(
-        associationPath, sdbusplus::message::object_path(inventoryPath), 0,
-        pcieSlotInterface,
+        associationPath, path, 0, pcieSlotInterface,
         [callback = std::move(callback), asyncResp, pcieDevicePath](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& endpoints) {
@@ -361,6 +361,8 @@ inline void afterGetPCIeDeviceSlotPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceSlot)
 {
+    static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
     dbus::utility::getDbusObject(
         pcieDeviceSlot, pcieSlotInterface,
         [asyncResp,
