@@ -70,6 +70,29 @@
       "parentUuid": "61000ba6_38efe5bc",
       "revId": "85e392080624cc6bc47c5940796393e72ba354d9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "463bdece_5731865f",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-24T20:01:01Z",
+      "side": 1,
+      "message": "This whole function has been superceeded with:\n\nunpackPropertiesNoThrow\nand\nstd::bind_front\n\nIf we applied those here, I\u0027m assuming these would end up half the size.  Something you can do if you\u0027re interested.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 1
+      },
+      "revId": "85e392080624cc6bc47c5940796393e72ba354d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
