@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e73833_c52e2e48",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-24T18:14:19Z",
+      "side": 1,
+      "message": "This method is already huge.  Please do not make it worse.  Break out things as needed into sub functions.",
+      "revId": "a6858a7217444336998bb7213dc27b050a6ad447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
