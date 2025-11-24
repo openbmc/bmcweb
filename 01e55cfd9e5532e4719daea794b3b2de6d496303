@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "771810cf_228f74fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-24T17:12:28Z",
+      "side": 1,
+      "message": "Between this array and ip addresses \n\nhttps://github.com/openbmc/bmcweb/blob/c42eef2f0daf65c9b5ce88465bd003f60b474dfa/redfish-core/lib/ethernet.hpp#L1536\n\nI\u0027m so glad Redfish moved away from arrays :)",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba09c734_d2bf1b91",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-24T17:12:28Z",
+      "side": 1,
+      "message": "include optional",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94ab48f_1ba0b540",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-24T17:12:28Z",
+      "side": 1,
+      "message": "this doesn\u0027t look right, do we need to check the ec here? Could be a separate commit. But not everything should be a resourceNotFound",
+      "range": {
+        "startLine": 239,
+        "startChar": 68,
+        "endLine": 239,
+        "endChar": 73
+      },
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f11c8310_a76ff714",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-24T17:12:28Z",
+      "side": 1,
+      "message": "Again this doesn\u0027t look correct, everything is being mapped to resourceNotFound?  Maybe a separate commit to fix this ?",
+      "range": {
+        "startLine": 303,
+        "startChar": 57,
+        "endLine": 303,
+        "endChar": 63
+      },
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11c88c6_bb1579ce",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-24T17:12:28Z",
+      "side": 1,
+      "message": "Why is everything a resourceNotFound ?",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a9a2ade_1729eb45",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-24T17:12:28Z",
+      "side": 1,
+      "message": "Yep, Redfish said to do this. \n\n            \"Message\": \"The index %1 is not a valid offset into the array.\",\n\nLet\u0027s say it 4 element array.. If you PATCH 5 elements, it says \"The index 5 is not a valid offset into the array\". That works. If you PATCH 3 elements, it says \"The index 3 is not a valid..\", not perfect but I don\u0027t see a better message and doing something different when it is longer vs shorter, doesn\u0027t seem worth this code.",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83e6b487_23d0b9c1",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-24T17:12:28Z",
+      "side": 1,
+      "message": "Why do you need the map? \n\nWhy can\u0027t here you call \n\n      if (locationIndicatorActive.has_value())\n      {\n          setLocationIndicatorActive(asyncResp, assembly ,*locationIndicatorActive)",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
