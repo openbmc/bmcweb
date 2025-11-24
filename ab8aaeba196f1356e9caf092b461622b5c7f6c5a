@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "073f8937_307ebfe1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-24T19:40:54Z",
+      "side": 1,
+      "message": "One minor factoring then I\u0027m in support of this merging.",
+      "revId": "ab8aaeba196f1356e9caf092b461622b5c7f6c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efe29daa_ec22429b",
+        "filename": "redfish-core/lib/manager_logservices_dbus_eventlog.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-24T19:40:54Z",
+      "side": 1,
+      "message": "Please combine all these into a single method.  There\u0027s no case where doing a partial route makes sense for these (we can\u0027t have a collection without an entry for example), so lets just keep it simple.",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 1
+      },
+      "revId": "ab8aaeba196f1356e9caf092b461622b5c7f6c5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
