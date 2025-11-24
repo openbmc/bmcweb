@@ -107,6 +107,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80951912_9aada8f1",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-24T19:36:46Z",
+      "side": 1,
+      "message": "We shouldn\u0027t have TBD in code intended for master, but I now realize this came from other code, so it\u0027s fine.",
+      "parentUuid": "ec8acc0b_bfadf55d",
+      "range": {
+        "startLine": 383,
+        "startChar": 49,
+        "endLine": 383,
+        "endChar": 52
+      },
+      "revId": "af30ab6ce11cad9ba2b5b239413877bb838d1cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d1f12d5_49be0295",
