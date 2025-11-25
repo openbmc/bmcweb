@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b41008_4df3afcc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-25T18:42:26Z",
+      "side": 1,
+      "message": "I\u0027ve removed the meson option and the no-lint exception.  The write() calls are blocking, so writing to anything other than tmpfs (as currently written) will cause issues.  We can iterate.",
+      "revId": "df6f216cd27d8fc5aa703372f308e680cf4a678e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
