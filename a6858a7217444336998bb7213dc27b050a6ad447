@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60b858c4_0bb8b9d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-25T15:10:30Z",
+      "side": 1,
+      "message": "Unit tests are not needed.",
+      "parentUuid": "bb3b285a_183fe76d",
+      "revId": "a6858a7217444336998bb7213dc27b050a6ad447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74e73833_c52e2e48",
