@@ -1,0 +1,198 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "249b866a_8fa9eedf",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "I think it is better to name as `switchInterfaces` so that additional interface may be added in the future",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "405a4ad7_6de12fd4",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "`boost::urls::format()`",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06f06e0c_66a1df8f",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "`boost::urls::format()`",
+      "range": {
+        "startLine": 48,
+        "startChar": 53,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "627268e3_9ff23f90",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "Should this check NotFound case like?\n\n```\n        if (ec.value() \u003d\u003d boost::system::errc::io_error || ec.value() \u003d\u003d EBADR)\n        {\n            // Not found\n            messages::resourceNotFound(asyncResp-\u003eres, \"Switch\", switchId);\n            return;\n        }\n```",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a73e2cd7_d5a491fd",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "`boost::urls::format()`",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 19
+      },
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c85f0253_8a2c5ebe",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "Should this be done by using `collection_util::getCollectionMembers()` like this, and remove the above `handleFabricSwitchPathsSwitchCollection()`?\n\n\n```\n   std::string switchUrl \u003d boost::urls::format(\"/redfish/v1/Fabrics/{}/Switches\", fabricId);\n   \n    asyncResp-\u003eres.jsonValue[\"@odata.id\"] \u003d switchUrl;\n    asyncResp-\u003eres.jsonValue[\"@odata.type\"] \u003d\n        \"#SwitchCollection.SwitchCollection\";\n    asyncResp-\u003eres.jsonValue[\"Name\"] \u003d fabricId + \" Switch Collection\";\n    \n    collection_util::getCollectionMembers(\n        asyncResp, boost::urls::url(switchUrl), switchInterfaces,\n        \"/xyz/openbmc_project/inventory\");\n```",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fb05c77_a22d64d5",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "`boost::urls::format()`",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "325d366d_187c2204",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "`boost::urls::format()`",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 18
+      },
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9febd53_24055508",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "`boost::urls::format()`",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 19
+      },
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec027690_1b5569a6",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-11-25T13:58:46Z",
+      "side": 1,
+      "message": "Should add `head` routes for `Fabric` \u0026 `Switch`?",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
