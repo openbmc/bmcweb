@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aa1d31b_c11350e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-11-25T06:14:49Z",
+      "side": 1,
+      "message": "Lets get this in asap. I want to get rid of the problem, so we can move on with the multi host hw inventory changes.",
+      "revId": "d033b1573f615724a31edc8a1bc8105d13f0028a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
