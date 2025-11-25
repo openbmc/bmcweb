@@ -51,7 +51,7 @@ inline void handleManagersLogServiceEventLogLogEntryCollection(
     eventlog_utils::
         handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
             asyncResp, delegatedQuery,
-            eventlog_utils::LogServiceParent::Managers);
+            eventlog_utils::LogServiceParentCollection::Managers);
 }
 
 inline void handleManagersJournalEventLogEntry(
@@ -69,7 +69,7 @@ inline void handleManagersJournalEventLogEntry(
         return;
     }
     eventlog_utils::handleSystemsAndManagersLogServiceEventLogEntriesGet(
-        asyncResp, param, eventlog_utils::LogServiceParent::Managers);
+        asyncResp, param, eventlog_utils::LogServiceParentCollection::Managers);
 }
 
 inline void handleManagersJournalEventLogClear(
