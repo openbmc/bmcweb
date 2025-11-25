@@ -39,6 +39,30 @@
       },
       "revId": "42d4e63ba242d4cd63fdbe8708d38c6d755dc23c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c6ad14_c84ae9ee",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-25T18:02:03Z",
+      "side": 1,
+      "message": "I do think it is worth a change, thanks for pointing that out. I think \"collectionId\" might be a bit misleading though.. How about just calling it \"collection\" and \"member\" || \"collectionName\" and \"memberId\"?",
+      "parentUuid": "e1b3af66_da792d12",
+      "range": {
+        "startLine": 561,
+        "startChar": 23,
+        "endLine": 561,
+        "endChar": 32
+      },
+      "revId": "42d4e63ba242d4cd63fdbe8708d38c6d755dc23c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
