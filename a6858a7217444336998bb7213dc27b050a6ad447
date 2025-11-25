@@ -33,6 +33,24 @@
       "message": "This method is already huge.  Please do not make it worse.  Break out things as needed into sub functions.",
       "revId": "a6858a7217444336998bb7213dc27b050a6ad447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ca697e0_21ede55a",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-25T13:39:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74e73833_c52e2e48",
+      "revId": "a6858a7217444336998bb7213dc27b050a6ad447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
