@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9c9b715_a53332ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-25T17:21:58Z",
+      "side": 1,
+      "message": "I would say they are, at least for the free functions.",
+      "parentUuid": "60b858c4_0bb8b9d8",
+      "revId": "a6858a7217444336998bb7213dc27b050a6ad447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74e73833_c52e2e48",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 12
