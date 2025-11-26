@@ -554,10 +554,15 @@ inline void getLDAPConfigData(const std::string& ldapType,
                    const dbus::utility::MapperGetObject& resp) mutable {
             if (ec || resp.empty())
             {
-                BMCWEB_LOG_WARNING(
-                    "DBUS response error during getting of service name: {}",
-                    ec);
                 LDAPConfigData empty{};
+                bool isExpectedError = ec && (ec.value() ==
+                    boost::system::errc::io_error || ec.value() == EBADR);
+                if (!isExpectedError)
+                {
+                    BMCWEB_LOG_WARNING(
+                        "DBUS response error during getting of service name: {}",
+                        ec);
+                }
                 callback(false, empty, ldapType);
                 return;
             }
