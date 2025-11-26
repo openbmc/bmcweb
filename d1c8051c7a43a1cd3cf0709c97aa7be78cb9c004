@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e6a635_3221e805",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-26T17:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30d0bbe0_33fe8a6b",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 78
+      },
+      "revId": "d1c8051c7a43a1cd3cf0709c97aa7be78cb9c004",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d15d702_f82841da",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-10-02T18:42:33Z",
       "side": 1,
       "message": "Please use the methods on sdbusplus::message::object_path\n\nstring +\u003d isn\u0027t appropriate for dbus path construction.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 52
+      },
+      "revId": "d1c8051c7a43a1cd3cf0709c97aa7be78cb9c004",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8e4001f_dd002f5c",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-26T17:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d15d702_f82841da",
       "range": {
         "startLine": 108,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfa94165_ee2b252c",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-26T17:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8477b82a_d8ccf81c",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 47
+      },
+      "revId": "d1c8051c7a43a1cd3cf0709c97aa7be78cb9c004",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc5bd020_32ed25e3",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-10-02T18:42:33Z",
       "side": 1,
       "message": "This is now a security issue/injection attack.  systemName is user/attacker provided, and could allow injection into the url if it\u0027s not escaped (which it isn\u0027t here).\n\nThere\u0027s an effort underway to fix the remaining ones of these so it\u0027s more obvious that this is a security issue:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/83377\n\nBut for now, you\u0027ll need to port to boost::urls::url, or stack on top of the aformentioned patch.",
+      "range": {
+        "startLine": 330,
+        "startChar": 20,
+        "endLine": 330,
+        "endChar": 30
+      },
+      "revId": "d1c8051c7a43a1cd3cf0709c97aa7be78cb9c004",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "455f6082_31ebdd84",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-26T17:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc5bd020_32ed25e3",
       "range": {
         "startLine": 330,
         "startChar": 20,
