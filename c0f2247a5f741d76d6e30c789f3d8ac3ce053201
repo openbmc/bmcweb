@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ee6ac04_7800136d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-11-26T17:33:55Z",
+      "side": 1,
+      "message": "Same change as https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83377",
+      "revId": "c0f2247a5f741d76d6e30c789f3d8ac3ce053201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
