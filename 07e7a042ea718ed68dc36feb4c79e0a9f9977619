@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45fe97c9_ae824de7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-26T21:04:07Z",
+      "side": 1,
+      "message": "Seems reasonable. Some minor comments",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1830809_9c1a78a8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-26T21:04:07Z",
+      "side": 1,
+      "message": "#include \u003cboost/url/format.hpp\u003e",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b4c1152_f47cca96",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-26T21:04:07Z",
+      "side": 1,
+      "message": "Why not this one? Then you could remove #include format",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fe8fc39_346acce8",
+        "filename": "redfish-core/lib/systems_logservices_hostlogger.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-26T21:04:07Z",
+      "side": 1,
+      "message": "Why not this one too?",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557d78af_e6e72dfd",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-26T21:04:07Z",
+      "side": 1,
+      "message": "Why not this one?\n\nMaybe these are later? I am just curious more than anything",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f4c4537_cf30ad60",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-26T21:04:07Z",
+      "side": 1,
+      "message": "I don\u0027t think you use it anymore now, oh well",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
