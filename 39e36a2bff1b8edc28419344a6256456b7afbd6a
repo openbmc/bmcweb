@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca03901d_82de889b",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "249b866a_8fa9eedf",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "405a4ad7_6de12fd4",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-25T13:58:46Z",
       "side": 1,
       "message": "`boost::urls::format()`",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "160e9e87_afd05763",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "405a4ad7_6de12fd4",
       "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33002d88_6cbf6494",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06f06e0c_66a1df8f",
+      "range": {
+        "startLine": 48,
+        "startChar": 53,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "627268e3_9ff23f90",
@@ -71,6 +131,24 @@
       "writtenOn": "2025-11-25T13:58:46Z",
       "side": 1,
       "message": "Should this check NotFound case like?\n\n```\n        if (ec.value() \u003d\u003d boost::system::errc::io_error || ec.value() \u003d\u003d EBADR)\n        {\n            // Not found\n            messages::resourceNotFound(asyncResp-\u003eres, \"Switch\", switchId);\n            return;\n        }\n```",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f64da6d_cfdf0eda",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "627268e3_9ff23f90",
       "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -98,6 +176,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70aeabd7_72727d5f",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a73e2cd7_d5a491fd",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 19
+      },
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c85f0253_8a2c5ebe",
@@ -111,6 +213,24 @@
       "writtenOn": "2025-11-25T13:58:46Z",
       "side": 1,
       "message": "Should this be done by using `collection_util::getCollectionMembers()` like this, and remove the above `handleFabricSwitchPathsSwitchCollection()`?\n\n\n```\n   std::string switchUrl \u003d boost::urls::format(\"/redfish/v1/Fabrics/{}/Switches\", fabricId);\n   \n    asyncResp-\u003eres.jsonValue[\"@odata.id\"] \u003d switchUrl;\n    asyncResp-\u003eres.jsonValue[\"@odata.type\"] \u003d\n        \"#SwitchCollection.SwitchCollection\";\n    asyncResp-\u003eres.jsonValue[\"Name\"] \u003d fabricId + \" Switch Collection\";\n    \n    collection_util::getCollectionMembers(\n        asyncResp, boost::urls::url(switchUrl), switchInterfaces,\n        \"/xyz/openbmc_project/inventory\");\n```",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a593a0d_4e249875",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c85f0253_8a2c5ebe",
       "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -132,6 +252,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b2f654e_77885adf",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fb05c77_a22d64d5",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "325d366d_187c2204",
@@ -145,6 +283,30 @@
       "writtenOn": "2025-11-25T13:58:46Z",
       "side": 1,
       "message": "`boost::urls::format()`",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 18
+      },
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6689faae_c4ecc696",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "325d366d_187c2204",
       "range": {
         "startLine": 188,
         "startChar": 8,
@@ -178,6 +340,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b2fe51a_02ce11ed",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9febd53_24055508",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 19
+      },
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec027690_1b5569a6",
@@ -191,6 +377,24 @@
       "writtenOn": "2025-11-25T13:58:46Z",
       "side": 1,
       "message": "Should add `head` routes for `Fabric` \u0026 `Switch`?",
+      "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd6a3e96_e04d7f22",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-11-26T12:36:34Z",
+      "side": 1,
+      "message": "Those are not added as they are not needed as of yet, will be added in next set of patches if required at that time.",
+      "parentUuid": "ec027690_1b5569a6",
       "revId": "39e36a2bff1b8edc28419344a6256456b7afbd6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
