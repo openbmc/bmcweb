@@ -184,6 +184,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f255351e_29372a6b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-26T21:43:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a6dce275_b9e1cdeb",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8a9a2ade_1729eb45",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 11
@@ -248,6 +266,24 @@
       "side": 1,
       "message": "Yes, that would be a good idea.\nUpdated as suggested like\n\n```\n    if (locationIndicatorActive.has_value())\n    {\n        const auto\u0026 assembly \u003d assemblyList[assemblyIndex];\n        setLocationIndicatorActive(asyncResp, assembly ,*locationIndicatorActive);\n    }\n```",
       "parentUuid": "83e6b487_23d0b9c1",
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3353987_9c7117cc",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-11-26T21:43:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c4c9d51_1b85a0c7",
       "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
