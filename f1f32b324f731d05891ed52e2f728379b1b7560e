@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22da8e2b_825e3ef6",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-26T17:25:33Z",
+      "side": 1,
+      "message": "Done. And sorry, bamboozled myself a bit. Should have pushed the follow-up under this changeId, and create a new patch for these changes under a new changeId, so the comments are actually in sync with the changes.",
+      "parentUuid": "f88cf76a_749b1397",
+      "range": {
+        "startLine": 714,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 41
+      },
+      "revId": "f1f32b324f731d05891ed52e2f728379b1b7560e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e92d13f_8df6d8e5",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-11T15:23:58Z",
       "side": 1,
       "message": "No lambdas more than a few lines.",
+      "range": {
+        "startLine": 707,
+        "startChar": 0,
+        "endLine": 741,
+        "endChar": 21
+      },
+      "revId": "f1f32b324f731d05891ed52e2f728379b1b7560e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c707acff_b3041cb4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-26T17:25:33Z",
+      "side": 1,
+      "message": "Done in follow-up patch.",
+      "parentUuid": "2e92d13f_8df6d8e5",
       "range": {
         "startLine": 707,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b55fde96_ffb311b1",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-26T17:25:33Z",
+      "side": 1,
+      "message": "Done in follow-up patch.",
+      "parentUuid": "f24e1b2c_23110879",
+      "range": {
+        "startLine": 769,
+        "startChar": 0,
+        "endLine": 771,
+        "endChar": 30
+      },
+      "revId": "f1f32b324f731d05891ed52e2f728379b1b7560e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af6344b0_553daf53",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-03-11T15:23:58Z",
       "side": 1,
       "message": "Same as above.",
+      "range": {
+        "startLine": 767,
+        "startChar": 18,
+        "endLine": 782,
+        "endChar": 21
+      },
+      "revId": "f1f32b324f731d05891ed52e2f728379b1b7560e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "769835cd_ee1c587c",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-26T17:25:33Z",
+      "side": 1,
+      "message": "See commit message in follow-up patch.",
+      "parentUuid": "af6344b0_553daf53",
       "range": {
         "startLine": 767,
         "startChar": 18,
