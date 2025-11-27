@@ -6,7 +6,6 @@
 
 #include <nlohmann/json.hpp>
 
-#include <algorithm>
 #include <format>
 #include <ranges>
 #include <string>
