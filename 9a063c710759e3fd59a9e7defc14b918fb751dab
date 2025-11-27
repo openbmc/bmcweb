@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19bc0374_898bc9d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-11-27T04:15:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a5be3145_a8cf098e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc978bc4_cb5f9f02",
@@ -141,6 +165,24 @@
       "side": 1,
       "message": "Hi Ed,\n\nPlease refer to the patch set on phosphor-host-ipmid at https://gerrit.openbmc.org/c/openbmc/phosphor-host-ipmid/+/84769",
       "parentUuid": "ada5976f_c382a5d9",
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35562acd_8978c0f6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-11-27T04:15:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8e81ba9e_dd95841c",
       "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -229,6 +271,30 @@
       "side": 1,
       "message": "Do you have any suggestions? Or use asyncResp-\u003eres.result(boost::beast::http::status::not_modified) instead?",
       "parentUuid": "a94dd44f_3cd029f4",
+      "range": {
+        "startLine": 1906,
+        "startChar": 0,
+        "endLine": 1908,
+        "endChar": 71
+      },
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a448709b_f3c873e5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1908,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-11-27T04:15:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "822f9395_c93d9b4d",
       "range": {
         "startLine": 1906,
         "startChar": 0,
