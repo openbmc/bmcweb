@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48d8c98e_7ffad90f",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-27T14:39:55Z",
+      "side": 1,
+      "message": "nit, IMO using less local variables makes the code more compact and readable.\n\n```suggestion\n    return sdbusplus::message::object_path(path);\n```",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 24
+      },
+      "revId": "87cf5ab476c0dac1698ad063a0e6dbb987a86310",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6395fcc8_5c17bb60",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-27T14:39:55Z",
+      "side": 1,
+      "message": "nit:\n```suggestion\n{\n    return std::format(\n        \"xyz.openbmc_project.State.Boot.PostCode{}\", computerSystemIndex);\n```",
+      "range": {
+        "startLine": 112,
+        "startChar": 1,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "87cf5ab476c0dac1698ad063a0e6dbb987a86310",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
