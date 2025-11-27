@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include <format>
-#include <ranges>
 #include <string>
 #include <string_view>
 #include <vector>
