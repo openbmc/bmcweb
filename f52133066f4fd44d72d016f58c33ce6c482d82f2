@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36f065ce_8e091fc8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-11-28T14:02:32Z",
+      "side": 1,
+      "message": "sorry, i should have noted that earlier. Do you think this alternative would be better?\n\n\n```suggestion\n{\n    const sdbusplus::message::object_path settingsPath(std::format(\n        \"/xyz/openbmc_project/control/host{}/boot\",\n        computerSystemIndex));\n```\n\nFrom my perspective it is a tiny bit better since we have one less variable to go around.\n\nIf you agree with it that could be applied throughout the patch.",
+      "range": {
+        "startLine": 827,
+        "startChar": 1,
+        "endLine": 831,
+        "endChar": 61
+      },
+      "revId": "f52133066f4fd44d72d016f58c33ce6c482d82f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
