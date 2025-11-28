@@ -87,6 +87,30 @@
       },
       "revId": "42d4e63ba242d4cd63fdbe8708d38c6d755dc23c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98ba5b07_6abab732",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-28T12:38:20Z",
+      "side": 1,
+      "message": "Follow-up: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85572",
+      "parentUuid": "6f4205ac_23815f6c",
+      "range": {
+        "startLine": 561,
+        "startChar": 23,
+        "endLine": 561,
+        "endChar": 32
+      },
+      "revId": "42d4e63ba242d4cd63fdbe8708d38c6d755dc23c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
