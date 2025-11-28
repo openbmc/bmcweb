@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1babb2e2_746ef962",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-28T12:31:32Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. Done",
+      "parentUuid": "e7cb0697_9cc20af4",
+      "range": {
+        "startLine": 688,
+        "startChar": 38,
+        "endLine": 688,
+        "endChar": 80
+      },
+      "revId": "7ae20aa4741c5f7eeddaea77edc28049719f8048",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b837fe4_f10df643",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-27T14:26:08Z",
       "side": 1,
       "message": "If we are also querying \n`xyz.openbmc_project.Inventory.Item.System` (line 724) then the result is not necessarily in the systems collection, right?\n\nI thought systems collection only contains objects which have \n`\"xyz.openbmc_project.Inventory.Decorator.ManagedHost` interface.",
+      "range": {
+        "startLine": 701,
+        "startChar": 65,
+        "endLine": 703,
+        "endChar": 74
+      },
+      "revId": "7ae20aa4741c5f7eeddaea77edc28049719f8048",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "582b5231_12d41b5b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-11-28T12:31:32Z",
+      "side": 1,
+      "message": "\u003e I thought systems collection only contains objects which have\n\"xyz.openbmc_project.Inventory.Decorator.ManagedHost interface.\n\nYeah you are right, currently the multi-host collection only contains objects that specify `xyz.openbmc_project.Inventory.Decorator.ManagedHost`. I removed the other interface. \n\nBut following the PDI definition for `xyz.openbmc_project.Inventory.Item.System` we might as well update the collection handler to include the interface. I see other functions added to systems_utils, that also specify it.",
+      "parentUuid": "0b837fe4_f10df643",
       "range": {
         "startLine": 701,
         "startChar": 65,
