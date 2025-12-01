@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7cfdd79_fdb31330",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-01T16:50:31Z",
+      "side": 1,
+      "message": "This message seems confusing if the error is that the array passed in is shorter than expected. \n\nI.e\n\"The index 2 is not a valid offset into the array.\", but the patch just contained a single element.\n\nShould the arraySizeTooLong and arraySizeTooShort messages be used instead?",
+      "range": {
+        "startLine": 333,
+        "startChar": 18,
+        "endLine": 333,
+        "endChar": 30
+      },
+      "revId": "7bdc8f4a33752149537a29092f436c5a4553e29f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
