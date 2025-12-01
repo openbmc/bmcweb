@@ -34,6 +34,24 @@
       "parentUuid": "347d487f_024b9b4d",
       "revId": "73b10d84cea6f55f8dede1b731427c1e891632fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da529d54_4ffe451f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-01T17:46:33Z",
+      "side": 1,
+      "message": "I think expectedPrefix did end with a / before. L931 in original appended \"/OperatingConfigs/\".",
+      "parentUuid": "7b09d1e5_16797af4",
+      "revId": "73b10d84cea6f55f8dede1b731427c1e891632fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

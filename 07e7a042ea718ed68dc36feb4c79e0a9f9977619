@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fb891ec_541c7037",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-01T17:46:33Z",
+      "side": 1,
+      "message": "Good idea. I\u0027m wondering about a few additional files not touched:\n\n * https://github.com/openbmc/bmcweb/blob/6926d43047446a1f08d4b157d48a30221ae8f87e/redfish-core/lib/pcie.hpp#L145\n * https://github.com/openbmc/bmcweb/blob/6926d43047446a1f08d4b157d48a30221ae8f87e/redfish-core/lib/storage_controller.hpp#L173\n * https://github.com/openbmc/bmcweb/blob/6926d43047446a1f08d4b157d48a30221ae8f87e/redfish-core/lib/log_services.hpp#L928\n * https://github.com/openbmc/bmcweb/blob/6926d43047446a1f08d4b157d48a30221ae8f87e/redfish-core/include/utils/eventlog_utils.hpp#L128",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1830809_9c1a78a8",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 12
@@ -54,6 +71,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1804c5cb_0cdc89c0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-01T17:46:33Z",
+      "side": 1,
+      "message": "I\u0027m only seeing two {} in the format string. Looks like expectedPrefix here as param is a typo.",
+      "range": {
+        "startLine": 930,
+        "startChar": 53,
+        "endLine": 930,
+        "endChar": 67
+      },
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2fe8fc39_346acce8",
         "filename": "redfish-core/lib/systems_logservices_hostlogger.hpp",
         "patchSetId": 12
@@ -82,6 +122,52 @@
       "writtenOn": "2025-11-26T21:04:07Z",
       "side": 1,
       "message": "Why not this one?\n\nMaybe these are later? I am just curious more than anything",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2544d594_1e8f65fc",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-01T17:46:33Z",
+      "side": 1,
+      "message": "Should this one also be converted?",
+      "range": {
+        "startLine": 305,
+        "startChar": 16,
+        "endLine": 308,
+        "endChar": 47
+      },
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47b47255_8941c707",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-01T17:46:33Z",
+      "side": 1,
+      "message": "Should this one also be converted?",
+      "range": {
+        "startLine": 427,
+        "startChar": 20,
+        "endLine": 430,
+        "endChar": 46
+      },
       "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
