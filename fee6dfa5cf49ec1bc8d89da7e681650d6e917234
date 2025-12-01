@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94dcc219_a83370ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-01T19:03:50Z",
+      "side": 1,
+      "message": "Redfish Validator? What tests?",
+      "revId": "fee6dfa5cf49ec1bc8d89da7e681650d6e917234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d6fc06e_8ccecfa8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-01T19:03:50Z",
+      "side": 1,
+      "message": "I don\u0027t see an opposite of Starting so StandbyOffline seems fine. Enabled could have also worked here. Maybe something like UnavailableOffline would also work but PowerState is what is most important here and it says PoweringOff.  \n\n                \"Absent\": \"This function or device is not currently present or detected.  This resource represents a capability or an available location where a device can be installed.\",\n                \"Deferring\": \"The element does not process any commands but queues new requests.\",\n                \"Degraded\": \"The function or resource is degraded.\",\n                \"Disabled\": \"This function or resource is disabled.\",\n                \"Enabled\": \"This function or resource is enabled.\",\n                \"InTest\": \"This function or resource is undergoing testing or is in the process of capturing information for debugging.\",\n                \"Qualified\": \"The element quality is within the acceptable range of operation.\",\n                \"Quiesced\": \"The element is enabled but only processes a restricted set of commands.\",\n                \"StandbyOffline\": \"This function or resource is enabled but awaits an external action to activate it.\",\n                \"StandbySpare\": \"This function or resource is part of a redundancy set and awaits a failover or other external action to activate it.\",\n                \"Starting\": \"This function or resource is starting.\",\n                \"UnavailableOffline\": \"This function or resource is present but cannot be used.\",\n                \"Updating\": \"The element is updating and might be unavailable or degraded.\"",
+      "revId": "fee6dfa5cf49ec1bc8d89da7e681650d6e917234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
