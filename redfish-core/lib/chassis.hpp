@@ -192,6 +192,24 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
                 asyncResp->res.jsonValue["Status"]["State"] =
                     resource::State::StandbyOffline;
             }
+            else if (
+                chassisState ==
+                "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOff")
+            {
+                asyncResp->res.jsonValue["PowerState"] =
+                    resource::PowerState::PoweringOff;
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::StandbyOffline;
+            }
+            else if (
+                chassisState ==
+                "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOn")
+            {
+                asyncResp->res.jsonValue["PowerState"] =
+                    resource::PowerState::PoweringOn;
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Starting;
+            }
         });
 }
 
