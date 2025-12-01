@@ -52,6 +52,24 @@
       "parentUuid": "7b09d1e5_16797af4",
       "revId": "73b10d84cea6f55f8dede1b731427c1e891632fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "272fe527_c046973a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-01T22:40:16Z",
+      "side": 1,
+      "message": "Added a /.  Does someone have a system that exercises this path to test with?",
+      "parentUuid": "da529d54_4ffe451f",
+      "revId": "73b10d84cea6f55f8dede1b731427c1e891632fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
