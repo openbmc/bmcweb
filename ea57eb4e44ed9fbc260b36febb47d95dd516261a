@@ -230,6 +230,24 @@
       "parentUuid": "90983219_756c9d8a",
       "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03d67fdb_6ab24fe6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-12-01T06:58:21Z",
+      "side": 1,
+      "message": "Hi @oliver.brewka@9elements.com, I\u0027m aware of the topology update. But I\u0027m still confused whether we are set with the direction that chassis and system will be linked by containing/contained_by association? I see that you have not merged your Entity-Manager configurations (or maybe I missed them?). Please confirm and maybe point me to an example config in EM repo designated for this purpose. I can continue to work on this.",
+      "parentUuid": "5d031462_7414b1ab",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
