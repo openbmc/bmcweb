@@ -22,6 +22,30 @@
       },
       "revId": "7bdc8f4a33752149537a29092f436c5a4553e29f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab515600_a61e6f76",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-01T18:58:03Z",
+      "side": 1,
+      "message": "I thought the same thing, I was thinking ArraySizeTooShort / ArraySizeTooLong were permanent errors like the patched array was 0 and it requires an element or the patched array was 10 and that is above the max size but on 2nd read I could see where TooShort could be used here. \nhttps://redfish.dmtf.org/registries/Base.1.21.0.json\n\n        \"ArraySizeTooShort\": {\n            \"Description\": \"Indicates that the size of the array is less than the minimum number of elements.\",\n            \"LongDescription\": \"This message shall indicate that the size of the array is less than the minimum number of elements.\",\n\n        \"ArraySizeTooLong\": {\n            \"Description\": \"Indicates that the size of the array exceeded the maximum number of elements.\",\n            \"LongDescription\": \"This message shall indicate that the size of the array exceeded the maximum number of elements.\",",
+      "parentUuid": "f7cfdd79_fdb31330",
+      "range": {
+        "startLine": 333,
+        "startChar": 18,
+        "endLine": 333,
+        "endChar": 30
+      },
+      "revId": "7bdc8f4a33752149537a29092f436c5a4553e29f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
