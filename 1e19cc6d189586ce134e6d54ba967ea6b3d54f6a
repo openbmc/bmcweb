@@ -46,6 +46,30 @@
       },
       "revId": "1e19cc6d189586ce134e6d54ba967ea6b3d54f6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2376388_33998d80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:17:10Z",
+      "side": 1,
+      "message": "I\u0027m having trouble rectifying what you\u0027re saying here with the code.  There is at a minimum a new branch that is conditionally triggered, and your patchset adds 6 lines of code.  That doesn\u0027t match with \"simplify\" and \"without altering behavior\".  Maybe we\u0027re talking about different patches?",
+      "parentUuid": "63425242_a9f76d0c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 34
+      },
+      "revId": "1e19cc6d189586ce134e6d54ba967ea6b3d54f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
