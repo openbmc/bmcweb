@@ -102,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f902076a_5e115817",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-12-02T15:21:51Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz\nWould my response answer your question?",
+      "parentUuid": "f230f757_81d2a893",
+      "range": {
+        "startLine": 239,
+        "startChar": 68,
+        "endLine": 239,
+        "endChar": 73
+      },
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f11c8310_a76ff714",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 11
