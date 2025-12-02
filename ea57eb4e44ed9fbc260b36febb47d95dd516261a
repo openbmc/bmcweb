@@ -248,6 +248,24 @@
       "parentUuid": "5d031462_7414b1ab",
       "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "363c5690_446a3d4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-02T15:05:56Z",
+      "side": 1,
+      "message": "You are right, the corresponding configs have not been merged yet. I just updated the configs to use the new topology port records (https://gerrit.openbmc.org/c/openbmc/entity-manager/+/81385). \nFor now I went with \u0027containing/contained_by\u0027 since it is already implemented in EM. Also looking at EM configurations, xyz.openbmc_project.Inventory.Item.System is mostly configured in mainboard configs which is contained_by a chassis typically. I think you also once suggested a \u0027managing/managed_by\u0027 association which I also think is ok. I don\u0027t have a strong opinion on what the association should be called. \nI\u0027ll ping the discord thread on that one to get some better answers.",
+      "parentUuid": "03d67fdb_6ab24fe6",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
