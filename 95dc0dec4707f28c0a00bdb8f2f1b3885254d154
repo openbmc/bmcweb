@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bba198e1_fd5c5b8d",
+        "filename": "http/app.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T00:11:14Z",
+      "side": 1,
+      "message": "Please put this in its own file.  Something like \"Parse socket name\".  Ideally getHttpType would also go in the same file, up to you if you want to move that there.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 0
+      },
+      "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8277e0df_71b2014c",
+        "filename": "http/app.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T00:11:14Z",
+      "side": 1,
+      "message": "This check should really go on line 157",
+      "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e313da64_ac778b01",
+        "filename": "http/app.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T00:11:14Z",
+      "side": 1,
+      "message": "insecure-disable-auth should only apply to the \"default\" socket.  Other sockets should take the additional-auth param, or default to auth.",
+      "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
