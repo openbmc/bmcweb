@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c8ccfc1_2d964485",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-02T19:19:26Z",
+      "side": 1,
+      "message": "I assume RFA is Redfish Aggregation ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "a4e67a7986b1a3604c7bb0879a09cbf953921eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f6d7558_a6d2b3b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-02T19:19:26Z",
+      "side": 1,
+      "message": "It might be good to call out the commit that broke this \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/84895\n\nOh well.",
+      "revId": "a4e67a7986b1a3604c7bb0879a09cbf953921eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "50c3ab92_188a660d",
