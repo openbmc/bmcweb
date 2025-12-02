@@ -88,6 +88,24 @@
       "parentUuid": "272fe527_c046973a",
       "revId": "73b10d84cea6f55f8dede1b731427c1e891632fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d458aee_78df85bf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T16:53:22Z",
+      "side": 1,
+      "message": "I think this was originally added by Intel, and those folks don\u0027t seem to be around.  I\u0027m going to say this is ok with inspection.  If anyone disagrees and knows how to test this, I\u0027m happy to.",
+      "parentUuid": "ab4ec867_5a499add",
+      "revId": "73b10d84cea6f55f8dede1b731427c1e891632fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
