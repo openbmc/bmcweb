@@ -16,6 +16,154 @@
       "message": "Can you please rebase this if this is still desired?",
       "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dc6886f_af54efb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:27:19Z",
+      "side": 1,
+      "message": "Lots to fix here.",
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecfef8b7_cfa960cb",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:27:19Z",
+      "side": 1,
+      "message": "This function takes no ownership, pass by Response.",
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c1d611b_81624b73",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:27:19Z",
+      "side": 1,
+      "message": "can these just be std::isfinite checks, rather than bools?  There\u0027s nothing preventing them from being set to something invalid, so might as well just check for validity here.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 34
+      },
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f1ff0e6_436b3289",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:27:19Z",
+      "side": 1,
+      "message": "Need to log an error here if this isn\u0027t intended?",
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f468312a_63f058a6",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:27:19Z",
+      "side": 1,
+      "message": "this is still a divide by zero error.  Not sure why you closed that comment.",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 52
+      },
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e33bdf25_7d10cd40",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:27:19Z",
+      "side": 1,
+      "message": "This isn\u0027t enough of a check.  isfinite(). as written, you probably also need to check totalSet, right?  Although that should go away.",
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "234bdbef_3884ef6f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:27:19Z",
+      "side": 1,
+      "message": "Please read COMMON_ERRORS.md.  These two functions, and the way you\u0027re comparing are called out by name.",
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7c3e804_4b86a64f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:27:19Z",
+      "side": 1,
+      "message": "no lambdas more than a line or two.",
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
