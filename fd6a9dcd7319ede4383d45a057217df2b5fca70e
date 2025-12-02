@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e185dda8_ce2ee6ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T00:13:22Z",
+      "side": 1,
+      "message": "\u003e I will add the validator testing later.\n\nPlease mark WIP until that happens.\n\n\u003e What should I do with this file?\n\nAdd a symlink to the installed directory.  This will cause your RSV test to start passing.",
+      "parentUuid": "b5814507_4e990a98",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f30ab27d_5c78bbac",
         "filename": "redfish-core/lib/host_interface.hpp",
         "patchSetId": 13
