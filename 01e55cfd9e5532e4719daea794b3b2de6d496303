@@ -124,6 +124,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53ab5458_cc0056e3",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-02T16:48:27Z",
+      "side": 1,
+      "message": "Acknowledged. I don\u0027t see why io_error vs EBADR matters but it doesn\u0027t hurt anything.",
+      "parentUuid": "f230f757_81d2a893",
+      "range": {
+        "startLine": 239,
+        "startChar": 68,
+        "endLine": 239,
+        "endChar": 73
+      },
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f11c8310_a76ff714",
@@ -161,6 +185,30 @@
       "side": 1,
       "message": "Similar to GET - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84000/comment/b94ab48f_1ba0b540/, the error conditions, other than `io_error` or EBADR, are already handled as `internalError` inside `getChassisAssembly`.\nIf the code reaches here, ec will be only one of `io_error` or EBADR, but both cases are resulted as NotFound.",
       "parentUuid": "f11c8310_a76ff714",
+      "range": {
+        "startLine": 303,
+        "startChar": 57,
+        "endLine": 303,
+        "endChar": 63
+      },
+      "revId": "01e55cfd9e5532e4719daea794b3b2de6d496303",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d820b1_447a5176",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-02T16:48:27Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "09fe7c61_0fc36cb1",
       "range": {
         "startLine": 303,
         "startChar": 57,
