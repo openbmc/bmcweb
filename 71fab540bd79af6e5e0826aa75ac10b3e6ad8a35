@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d45a1bb_d9a8f870",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-12-02T14:36:30Z",
+      "side": 1,
+      "message": "This patch set is for the Redfish host interface schema which are the additional patch sets actually.\n\nThey can be review separately with the `BootStrap Account restriction` code and the design spec but will be merged after code and design spec.\nhttps://gerrit.openbmc.org/c/openbmc/docs/+/79327\n\nI wonder can we focus on the bootStrap Account Design docs and the code first?",
+      "revId": "71fab540bd79af6e5e0826aa75ac10b3e6ad8a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
