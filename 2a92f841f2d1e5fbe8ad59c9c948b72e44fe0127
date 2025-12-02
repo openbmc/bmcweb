@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6d22df8_991a394e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:29:03Z",
+      "side": 1,
+      "message": "I suspect this class doesn\u0027t really need to exist.  Do we expect these two properties to be coming from different services?",
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecfef8b7_cfa960cb",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 23
@@ -128,6 +145,23 @@
       "writtenOn": "2025-12-02T22:27:19Z",
       "side": 1,
       "message": "This isn\u0027t enough of a check.  isfinite(). as written, you probably also need to check totalSet, right?  Although that should go away.",
+      "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bae905a_5e28068d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:29:03Z",
+      "side": 1,
+      "message": "I don\u0027t really see any shared ownership here, this all seems to be on stack?",
       "revId": "2a92f841f2d1e5fbe8ad59c9c948b72e44fe0127",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
