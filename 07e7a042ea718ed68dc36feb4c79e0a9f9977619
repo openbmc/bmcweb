@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e2fd224_88951ff3",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T16:36:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1830809_9c1a78a8",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b4c1152_f47cca96",
@@ -83,6 +101,24 @@
       "writtenOn": "2025-11-26T21:04:07Z",
       "side": 1,
       "message": "Why not this one? Then you could remove #include format",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c3a239c_81b433d6",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T16:36:47Z",
+      "side": 1,
+      "message": "Trying to be incremental.  I did everything I could with sed replace.",
+      "parentUuid": "0b4c1152_f47cca96",
       "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -153,6 +189,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e65145c2_a5fe126a",
+        "filename": "redfish-core/lib/systems_logservices_hostlogger.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T16:36:47Z",
+      "side": 1,
+      "message": "Trying to be incremental.  I did everything I could with sed replace.",
+      "parentUuid": "2fe8fc39_346acce8",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "557d78af_e6e72dfd",
         "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
         "patchSetId": 12
@@ -164,6 +218,24 @@
       "writtenOn": "2025-11-26T21:04:07Z",
       "side": 1,
       "message": "Why not this one?\n\nMaybe these are later? I am just curious more than anything",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6efa04a3_3dd0d771",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T16:36:47Z",
+      "side": 1,
+      "message": "Trying to be incremental.  I did everything I could with sed replace.",
+      "parentUuid": "557d78af_e6e72dfd",
       "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -275,6 +347,24 @@
       "writtenOn": "2025-11-26T21:04:07Z",
       "side": 1,
       "message": "I don\u0027t think you use it anymore now, oh well",
+      "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "279bb5d7_a6c44830",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T16:36:47Z",
+      "side": 1,
+      "message": "Weird that include-cleaner doesn\u0027t catch that anymore...... weird.",
+      "parentUuid": "7f4c4537_cf30ad60",
       "revId": "07e7a042ea718ed68dc36feb4c79e0a9f9977619",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
