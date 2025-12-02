@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b60781f1_62180b1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:07:45Z",
+      "side": 1,
+      "message": "Because we\u0027re opening pandoras box here, lets move toward the correct, typesafe APIs using operator/\u003d.  I allowed these in in the first place because to_string on a uint64 is technically always representable as a dbus path for all values, and I didn\u0027t want to slow you guys down, but if we\u0027re going to go the route of technical correctness, we need to be using typesafe object_path objects.\n\nflushing these through std::format is one level too removed from being able to obviously see that these don\u0027t need escaped.",
+      "revId": "f52133066f4fd44d72d016f58c33ce6c482d82f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36f065ce_8e091fc8",
@@ -62,6 +79,30 @@
       "side": 1,
       "message": "We should never be using std::format for constructing a dbus path because it doesn\u0027t escape or handle errors on bad input correctly, so both are wrong.\n\nCorrect here would be\n```\nsdbusplus::message::object_path settingsPath/xyz/openbmc_project/control);\nsettingsPath /\u003d std::format(\"host{}\", computerSystemIndex);\nsettingsPath /\u003d \"boot\";\n```",
       "parentUuid": "e1c0f613_a7c09c05",
+      "range": {
+        "startLine": 827,
+        "startChar": 1,
+        "endLine": 831,
+        "endChar": 61
+      },
+      "revId": "f52133066f4fd44d72d016f58c33ce6c482d82f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d9f086e_9866a987",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:07:45Z",
+      "side": 1,
+      "message": "btw, if someone wanted to go create an sdbupslus equivalent to boost::urls::format, or std::format, (something like sdbusplus::message::object_path::format()) that took the same arguments, that would be awesome, but until that exists, we continue to use the /\u003d stuff.",
+      "parentUuid": "068d4df5_a66d274b",
       "range": {
         "startLine": 827,
         "startChar": 1,
