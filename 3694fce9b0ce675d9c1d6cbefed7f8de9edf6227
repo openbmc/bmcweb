@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90d1afda_5ab2c0cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-02T20:52:39Z",
+      "side": 1,
+      "message": "We do this for chassis_utils already so seems reasonable \nhttps://github.com/openbmc/bmcweb/blob/32ea63d365aeef63a53e4e89d4db56c70cea940e/redfish-core/include/utils/chassis_utils.hpp#L76",
+      "revId": "3694fce9b0ce675d9c1d6cbefed7f8de9edf6227",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
