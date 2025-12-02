@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ebd8fdf_0a73bbc5",
+        "filename": "http/app.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-12-02T10:48:47Z",
+      "side": 1,
+      "message": "I moved `getAuthMode` and `getHttpType` to http/utility.hpp.",
+      "parentUuid": "bba198e1_fd5c5b8d",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 0
+      },
+      "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8277e0df_71b2014c",
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab164a1b_648b6ac2",
+        "filename": "http/app.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-12-02T10:48:47Z",
+      "side": 1,
+      "message": "I added the check for line #157 as below:\n```\n            if (socknameComponents.size() \u003e\u003d 3)\n            {\n                httpType \u003d utility::getHttpType(socknameComponents[2]);\n            }\n```\nLet me know if I miss your idea.",
+      "parentUuid": "8277e0df_71b2014c",
+      "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e313da64_ac778b01",
         "filename": "http/app.hpp",
         "patchSetId": 13
@@ -54,6 +96,24 @@
       "writtenOn": "2025-12-02T00:11:14Z",
       "side": 1,
       "message": "insecure-disable-auth should only apply to the \"default\" socket.  Other sockets should take the additional-auth param, or default to auth.",
+      "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94a91ced_b41a4874",
+        "filename": "http/app.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-12-02T10:48:47Z",
+      "side": 1,
+      "message": "I will update the comment to \n```\n            /*\n             * The default configuration of authMode is AuthMode::AUTH\n             */\n```\nIs it your idea? because we need the default authMode. And I think AuthMode::AUTH is correct one in this case.",
+      "parentUuid": "e313da64_ac778b01",
       "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
