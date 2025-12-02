@@ -162,6 +162,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc7b580f_4e218e47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-12-02T14:28:36Z",
+      "side": 1,
+      "message": "\u003e \u003e I will add the validator testing later.\n\u003e \n\u003e Please mark WIP until that happens.\n\nI updated the validator testing in other comment:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/82853/comment/4ccc656c_f44ebda2/\n\n\u003e \n\u003e \u003e What should I do with this file?\n\u003e \n\u003e Add a symlink to the installed directory.  This will cause your RSV test to start passing.\n\nI updated the symlink.",
+      "parentUuid": "e185dda8_ce2ee6ea",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f30ab27d_5c78bbac",
         "filename": "redfish-core/lib/host_interface.hpp",
         "patchSetId": 13
