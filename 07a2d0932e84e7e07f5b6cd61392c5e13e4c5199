@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2562d6ca_7ba8a87f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:20:26Z",
+      "side": 1,
+      "message": "Please answer \"Why\" in your commit message.  You\u0027ve included 100+ lines of test results, but no real commit message as to why this is desired.",
+      "revId": "07a2d0932e84e7e07f5b6cd61392c5e13e4c5199",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a40ff8c_c928d289",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-02T22:20:26Z",
+      "side": 1,
+      "message": "please put all this under \"Tested:\"",
+      "revId": "07a2d0932e84e7e07f5b6cd61392c5e13e4c5199",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
