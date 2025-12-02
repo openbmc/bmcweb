@@ -23,7 +23,14 @@ inline crow::Request createNewRequest(const crow::Request& localReq)
         BMCWEB_LOG_ERROR("Failed to set body.  Continuing");
     }
 
-    for (const auto& field : req.fields())
+    // Preserve method and target (URI) from the original request
+    req.method(localReq.method());
+    if (!req.target(localReq.target()))
+    {
+        BMCWEB_LOG_ERROR("Failed to set target on aggregated request");
+    }
+
+    for (const auto& field : localReq.fields())
     {
         // Drop any incoming x-auth-token headers and keep Host and
         // Content-Type. Set Accept.
@@ -34,6 +41,7 @@ inline crow::Request createNewRequest(const crow::Request& localReq)
             req.addHeader(headerName, field.value());
         }
     }
+    // Set Accept header to application/json, application/octet-stream
     req.addHeader(boost::beast::http::field::accept,
                   "application/json, application/octet-stream");
     return req;
