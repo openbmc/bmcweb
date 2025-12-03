@@ -266,6 +266,24 @@
       "parentUuid": "03d67fdb_6ab24fe6",
       "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e1d471a_4cb7335a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T12:52:58Z",
+      "side": 1,
+      "message": "I think the best argument for `containing/contained_by` is that the Redfish data model specification uses the same terminology, expececting the Links/Chassis array to consist of Chassis resources that _contain_ that ComputerSystem.",
+      "parentUuid": "363c5690_446a3d4d",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
