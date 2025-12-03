@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "987708fe_32ff5dff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-12-03T12:53:58Z",
+      "side": 1,
+      "message": "Sure. initially thought it was obvious but outside the multi-host bubble that might not be the case.",
+      "parentUuid": "2562d6ca_7ba8a87f",
+      "revId": "07a2d0932e84e7e07f5b6cd61392c5e13e4c5199",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a40ff8c_c928d289",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-02T22:20:26Z",
       "side": 1,
       "message": "please put all this under \"Tested:\"",
+      "revId": "07a2d0932e84e7e07f5b6cd61392c5e13e4c5199",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd49b15_2211b784",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-12-03T12:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a40ff8c_c928d289",
       "revId": "07a2d0932e84e7e07f5b6cd61392c5e13e4c5199",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
