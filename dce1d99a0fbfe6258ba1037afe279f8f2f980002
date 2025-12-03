@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30f528e2_749bb610",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-03T17:22:15Z",
+      "side": 1,
+      "message": "I\u0027ve added the links to the Redfish issue and PR with changes for the issue.",
+      "parentUuid": "733014ed_cb6429c0",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4f4cff0_ea608da5",
@@ -142,6 +166,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d05e7b1_b1542b96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-03T17:22:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38700e75_90bef896",
+      "range": {
+        "startLine": 16,
+        "startChar": 100,
+        "endLine": 16,
+        "endChar": 180
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "017eb836_fcdb6fe8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-03T17:22:15Z",
+      "side": 1,
+      "message": "I\u0027ve reworded to reference just the added sentence for clarity of why this change is being introduced.",
+      "parentUuid": "ffd627d1_713b2bd5",
+      "range": {
+        "startLine": 16,
+        "startChar": 1,
+        "endLine": 16,
+        "endChar": 221
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b3c70f0_d3ada9b0",
@@ -165,6 +237,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0717a03_63ff178f",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-03T17:22:15Z",
+      "side": 1,
+      "message": "Good point! Updating to default to disabled January 2027 with complete removal by June 2027.",
+      "parentUuid": "0b3c70f0_d3ada9b0",
+      "range": {
+        "startLine": 336,
+        "startChar": 52,
+        "endLine": 337,
+        "endChar": 41
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bce1424b_5cac6721",
@@ -178,6 +274,30 @@
       "writtenOn": "2025-11-10T20:08:56Z",
       "side": 1,
       "message": "Why are we unpacking the properties AGAIN?  There\u0027s already an unpack of these properties in the code you\u0027ve added this to.",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 59
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5531906a_e99785d3",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-03T17:22:15Z",
+      "side": 1,
+      "message": "The unpack of these properties is a single one at a time and direct assignment into the JSON. But all three are needed at one time in order to calculate the percent. We also separately unpack properties for determing the Health/Status in the objectPropertiesToJson() function.",
+      "parentUuid": "bce1424b_5cac6721",
       "range": {
         "startLine": 486,
         "startChar": 0,
@@ -276,6 +396,24 @@
       "writtenOn": "2025-11-10T20:08:56Z",
       "side": 1,
       "message": "This method is already very...very long, lets not make it longer.",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "252ca405_192e736c",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-03T17:22:15Z",
+      "side": 1,
+      "message": "I\u0027m working on a separate commit to restructure objectPropertiesToJson() to address this comment. I\u0027ll push that separately and rebase on top of it.",
+      "parentUuid": "621fe109_9157ec50",
       "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
