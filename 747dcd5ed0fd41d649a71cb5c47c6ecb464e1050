@@ -565,6 +565,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17acfca1_5fe846d0",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "609e0097_e8b69239",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 21
+      },
+      "revId": "747dcd5ed0fd41d649a71cb5c47c6ecb464e1050",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c2ff6a1_a5b3e37c",

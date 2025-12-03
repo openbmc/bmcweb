@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c649e45b_9cf766f0",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ecb172b_69429236",
+      "range": {
+        "startLine": 3,
+        "startChar": 47,
+        "endLine": 3,
+        "endChar": 57
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f96b04d_f4460289",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-25T18:22:32Z",
       "side": 1,
       "message": "Remove.  This sentence adds no value to this document.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 22
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaeb80f6_f3ab400e",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f96b04d_f4460289",
       "range": {
         "startLine": 7,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43c1369d_e530cb49",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf73af56_1b7f9cef",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 3
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e4bd8c4_afda01c0",
@@ -87,6 +159,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c10c69_3349d55e",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e4bd8c4_afda01c0",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5f2c581_f4a61aac",
@@ -100,6 +190,30 @@
       "writtenOn": "2025-11-25T18:22:32Z",
       "side": 1,
       "message": "Remove all this.  This is great discussions happened, but this documentation needs to stand alone and survive longer than discord chats.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 62
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f8daea4_125243ea",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5f2c581_f4a61aac",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -133,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c47515d9_a3c7fd0d",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b01298b1_43af8e8b",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 100
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d48a49d_c4b2752d",
@@ -146,6 +284,30 @@
       "writtenOn": "2025-11-25T18:22:32Z",
       "side": 1,
       "message": "nit, use bottom links for these to keep the reading smooth.  Put the link at the bottom with a number or id, and only link the id here.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 109
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8daab3b7_ae3ef2e0",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Inline links are being used in other docs too. It might keep reviewing smooth, but I don\u0027t think a reader of the doc would agree jumping around the document.",
+      "parentUuid": "8d48a49d_c4b2752d",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -179,6 +341,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d790f15c_2cd065bc",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22144702_b559d31f",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 14
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c29e2999_b1ac3924",
@@ -192,6 +378,30 @@
       "writtenOn": "2025-11-25T18:22:32Z",
       "side": 1,
       "message": "Remove.  We can point to code here, but we shouldn\u0027t point to a point-in-time gerrit review.  We should point to docs/code on master.\n\nAlso, at this level, dbus is supposed to be an abstraction, so I would remove reference to any specific daemon.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 82
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e34c9eb8_a896ccb6",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29e2999_b1ac3924",
       "range": {
         "startLine": 43,
         "startChar": 0,
@@ -225,6 +435,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82488e6a_d7730b31",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Thanks for your review. I tried to be precise with my language in this patchset.",
+      "parentUuid": "d079e840_2d5ad13a",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 22
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0560a92e_382f6195",
@@ -238,6 +472,30 @@
       "writtenOn": "2025-12-03T04:05:51Z",
       "side": 1,
       "message": "Comes from D-Bus. It could be another backend. Oh well, Entity Manager is the only that supports it today.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af30268_17c9aee1",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "I rephrased it a little bit, to indicate potential for change.",
+      "parentUuid": "0560a92e_382f6195",
       "range": {
         "startLine": 79,
         "startChar": 0,
@@ -271,6 +529,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb3a4652_a4fe026d",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "942bc1a4_db5fe4e1",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74c7c4ed_26059a51",
@@ -284,6 +566,30 @@
       "writtenOn": "2025-12-03T04:05:51Z",
       "side": 1,
       "message": "Can you combine these 2?",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 32
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4751fa_49d70246",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74c7c4ed_26059a51",
       "range": {
         "startLine": 162,
         "startChar": 0,
@@ -317,6 +623,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a85aafa_d5cce71a",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b01f563_75f929ed",
+      "range": {
+        "startLine": 186,
+        "startChar": 1,
+        "endLine": 216,
+        "endChar": 3
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfdbf6b6_00f2f172",
@@ -330,6 +660,24 @@
       "writtenOn": "2025-12-03T04:05:51Z",
       "side": 1,
       "message": "Can we combine the Processor collection and Processor ? Otherwise it just repeats",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebeee13e_6a92e2bb",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfdbf6b6_00f2f172",
       "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -357,6 +705,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fc68ad6_188f6d89",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "526c89b5_4096cc45",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 5
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50a6cf76_faaa0761",
@@ -370,6 +742,24 @@
       "writtenOn": "2025-12-03T04:05:51Z",
       "side": 1,
       "message": "Do we need the --- ?",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3fc3b9_8317a716",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50a6cf76_faaa0761",
       "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -391,6 +781,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa88b046_c4dd1b6b",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5ad8100_1fdb5dab",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df9356ca_d7cfbeab",
@@ -404,6 +812,24 @@
       "writtenOn": "2025-12-03T04:05:51Z",
       "side": 1,
       "message": "Why do you need these --- I don\u0027t see them other places. I don\u0027t see where a horizontal line helps",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2476445_286643da",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:38:16Z",
+      "side": 1,
+      "message": "In general I had them in to increase readability. Should look ok now without. Done",
+      "parentUuid": "df9356ca_d7cfbeab",
       "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
