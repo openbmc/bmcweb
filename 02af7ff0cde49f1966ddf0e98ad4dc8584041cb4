@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0199797c_11fe1243",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-03T18:27:26Z",
+      "side": 1,
+      "message": "Looking for input here.  I think these changes are good, and we should merge them.  Should we enable the clang warning and start enforcing?  That I\u0027m not as sure on.",
+      "revId": "02af7ff0cde49f1966ddf0e98ad4dc8584041cb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
