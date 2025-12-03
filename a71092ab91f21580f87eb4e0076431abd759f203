@@ -318,6 +318,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6cf1af6_424403af",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-03T21:41:05Z",
+      "side": 1,
+      "message": "Also markdown-lint complains about bare urls.",
+      "parentUuid": "8daab3b7_ae3ef2e0",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 109
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22144702_b559d31f",
