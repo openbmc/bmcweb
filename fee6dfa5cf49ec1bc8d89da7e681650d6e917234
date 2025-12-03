@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "915a781b_1ba0e52f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-12-03T15:47:53Z",
+      "side": 1,
+      "message": "Sorry, was obvious to me as I was discovered this working on official OpenBMC tests - https://github.com/openbmc/openbmc-test-automation/. Tests using reboot failed on BMC that exposes the TransitioningToOff/TransitioningToOn statuses. It\u0027s not particular test, as it fails on power management operation. This is the reason behind this - the way the power operation in the openbmc-test-automation tests works - it has 2 states current and desired states, after it performed operation, it periodically collects current state and compares with desired, until it matches (success) or timeout (failure). The state looks like:\n```\nstate:\n  [redfish]:                                      1\n  [chassis]:                                      On\n  [host]:                                         Disabled\n  [bmc]:                                          Enabled\n  [boot_progress]:                                None\n```\n\nIn order to collect Chassis state, tests do `Redfish.Get Properties    /redfish/v1/Chassis/${CHASSIS_ID}` and then consume `${chassis[\"PowerState\"]}    ${chassis[\"Status\"][\"State\"]}`.\n\nSo, the problem was, when DBUS reports state as TransitioningToOff or TransitioningToOn, the code simple ignored them, and did not populate the fields. As tests expected these fields to be populated, it simple failed the test as it could not construct valid state object.\n\nI ran the test suite against BMC with my change, and it stopped failing tests as the fields were populated and tests could construct and consume the state object.\n\nThe dbus properties have been moved by the tests (and revealed the problem). Do you still want me to use busctl to manually move?",
+      "parentUuid": "2c24e47f_d43cc617",
+      "revId": "fee6dfa5cf49ec1bc8d89da7e681650d6e917234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4d6fc06e_8ccecfa8",
