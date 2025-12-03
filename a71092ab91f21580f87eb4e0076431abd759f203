@@ -223,6 +223,189 @@
       },
       "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0560a92e_382f6195",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Comes from D-Bus. It could be another backend. Oh well, Entity Manager is the only that supports it today.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "942bc1a4_db5fe4e1",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Started from the bottom. \n\nCan you remove these ? Other .md don\u0027t have them. \n\nMaybe just remove this whole testing section",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74c7c4ed_26059a51",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Can you combine these 2?",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 32
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b01f563_75f929ed",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Can you combine these in some way? It just repeats..",
+      "range": {
+        "startLine": 186,
+        "startChar": 1,
+        "endLine": 216,
+        "endChar": 3
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfdbf6b6_00f2f172",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Can we combine the Processor collection and Processor ? Otherwise it just repeats",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "526c89b5_4096cc45",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Why do you need these?",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 5
+      },
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a6cf76_faaa0761",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Do we need the --- ?",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ad8100_1fdb5dab",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Aren\u0027t we moving away from Power to PowerSubsystem ? Can we just remove ? I know everyone doesn\u0027t use NMI",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df9356ca_d7cfbeab",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-03T04:05:51Z",
+      "side": 1,
+      "message": "Why do you need these --- I don\u0027t see them other places. I don\u0027t see where a horizontal line helps",
+      "revId": "a71092ab91f21580f87eb4e0076431abd759f203",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
