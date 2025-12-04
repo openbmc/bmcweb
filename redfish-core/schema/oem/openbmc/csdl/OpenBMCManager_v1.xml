@@ -358,5 +358,36 @@
         </Property>
       </ComplexType>
     </Schema>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCManager.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+
+      <ComplexType Name="FanController" BaseType="OpenBMCManager.v1_0_0.FanController">
+        <Property Name="CheckHysteresisWithSetpoint" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Description" String="Apply hysteresis around the setpoint."/>
+          <Annotation Term="OData.LongDescription"
+                     String="When true, hysteresis is evaluated around the setpoint rather than the raw input value."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="DCoefficient" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="Derivative coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Derivative coefficient for the PID loop."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PidController" BaseType="OpenBMCManager.v1_0_0.PidController">
+        <Property Name="CheckHysteresisWithSetpoint" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Description" String="Apply hysteresis around the setpoint."/>
+          <Annotation Term="OData.LongDescription"
+                     String="When true, hysteresis is evaluated around the setpoint rather than the raw input value."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="DCoefficient" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="Derivative coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Derivative coefficient for the PID loop."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+      </ComplexType>
+    </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
