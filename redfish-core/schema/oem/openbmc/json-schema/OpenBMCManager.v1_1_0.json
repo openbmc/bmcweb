@@ -1,5 +1,5 @@
 {
-    "$id": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCManager.v1_0_0.json",
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCManager.v1_1_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2024 OpenBMC.",
     "definitions": {
@@ -98,6 +98,19 @@
                 }
             },
             "properties": {
+                "CheckHysteresisWithSetpoint": {
+                    "description": "Apply hysteresis around the setpoint when true.",
+                    "longDescription": "When true, hysteresis is evaluated around the setpoint rather than the raw input value.",
+                    "readonly": false,
+                    "type": "string",
+                    "enum": ["Input", "Setpoint"]
+                },
+                "DCoefficient": {
+                    "description": "Derivative coefficient for the PID.",
+                    "longDescription": "Derivative coefficient for the PID loop.",
+                    "readonly": false,
+                    "type": "number"
+                },
                 "FFGainCoefficient": {
                     "description": "Feed forward gain coefficient for the PID.",
                     "longDescription": "Feed forward gain coefficient for the PID.",
@@ -350,6 +363,19 @@
                 }
             },
             "properties": {
+                "CheckHysteresisWithSetpoint": {
+                    "description": "Apply hysteresis around the setpoint when true.",
+                    "longDescription": "When true, hysteresis is evaluated around the setpoint rather than the raw input value.",
+                    "readonly": false,
+                    "type": "string",
+                    "enum": ["Input", "Setpoint"]
+                },
+                "DCoefficient": {
+                    "description": "Derivative coefficient for the PID.",
+                    "longDescription": "Derivative coefficient for the PID loop.",
+                    "readonly": false,
+                    "type": "number"
+                },
                 "FFGainCoefficient": {
                     "description": "Feed forward gain coefficient for the PID.",
                     "longDescription": "Feed forward gain coefficient for the PID.",
@@ -619,5 +645,5 @@
         }
     },
     "owningEntity": "OpenBMC",
-    "title": "#OpenBMCManager.v1_0_0"
+    "title": "#OpenBMCManager.v1_1_0"
 }
