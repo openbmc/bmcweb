@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d50eee0e_6718da1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-04T04:03:47Z",
+      "side": 1,
+      "message": "\u003e Do you still want me to use busctl to manually move?\n\nIf you can, at a minimum, please add more to the commit msg like below. Ideally you would also run the redfish validator but since we moved to enums, it is pretty unlikely the validator got broke. \n\nCan you add a bit of this to the commit msg? Something like \n\nTested: Robot tests testing power operations now pass, before when the D-Bus state was TransitioningToOff or TransitioningToOn they would error.",
+      "parentUuid": "915a781b_1ba0e52f",
+      "revId": "fee6dfa5cf49ec1bc8d89da7e681650d6e917234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4d6fc06e_8ccecfa8",
