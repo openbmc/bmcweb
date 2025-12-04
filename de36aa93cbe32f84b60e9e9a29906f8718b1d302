@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c3f9061_be24dfe9",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCManager_v1.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-04T18:34:58Z",
+      "side": 1,
+      "message": "Please grok how versioning is handled.  You\u0027ve currently just added this property to OpenBMCManager.v1_0_0.Fan, which means there will now be two different versions that report 1.0.0.\n\nYou need to create a 1.1.0 version, inherit from 1.0.0, and update to use the new version.  There are many examples of this in the DMTF schemas.",
+      "revId": "de36aa93cbe32f84b60e9e9a29906f8718b1d302",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
