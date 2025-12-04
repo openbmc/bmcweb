@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c81b7aa_87147f56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-04T19:04:32Z",
+      "side": 1,
+      "message": "Clang has this warning Named Return Value Optimization.. It seems like we should enable it since it is easy enough to do. \n\n\"identify situations where the compiler is unable to perform NRVO, which can result in an extra copy or move operation that might otherwise be elided.\" \n\nIt makes sense to me to enable since it is easy enough to do.",
+      "parentUuid": "cdb64beb_2a871e09",
+      "revId": "02af7ff0cde49f1966ddf0e98ad4dc8584041cb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0199797c_11fe1243",
