@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c33405c_7c4c0b4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-04T18:36:06Z",
+      "side": 1,
+      "message": "Please make sure your username, signoff, and other things use your actual name as it appears in the CLA (with spaces).  CI is currently failing because of that.",
+      "revId": "de36aa93cbe32f84b60e9e9a29906f8718b1d302",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c3f9061_be24dfe9",
