@@ -358,5 +358,102 @@
         </Property>
       </ComplexType>
     </Schema>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCManager.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <ComplexType Name="Manager" BaseType="Resource.OemObject">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="OpenBMCManager Oem properties."/>
+        <Property Name="Fan" Type="OpenBMCManager.v1_1_0.Fan"/>
+      </ComplexType>
+      <EnumType Name="HysteresisEvaluation">
+        <Member Name="Input">
+          <Annotation Term="OData.Description" String="Evaluate hysteresis around the raw input value."/>
+        </Member>
+        <Member Name="Setpoint">
+          <Annotation Term="OData.Description" String="Evaluate hysteresis around the setpoint."/>
+        </Member>
+      </EnumType>
+    <ComplexType Name="Fan" BaseType="OpenBMCManager.v1_0_0.Fan">
+      <Property Name="FanControllers" Type="OpenBMCManager.v1_1_0.FanControllers"/>
+      <Property Name="PidControllers" Type="OpenBMCManager.v1_1_0.PidControllers"/>
+      <Property Name="StepwiseControllers" Type="OpenBMCManager.v1_1_0.StepwiseControllers"/>
+      <Property Name="FanZones" Type="OpenBMCManager.v1_1_0.FanZones"/>
+    </ComplexType>
+    <ComplexType Name="FanControllers" BaseType="OpenBMCManager.v1_0_0.FanControllers">
+      <Annotation Term="Redfish.DynamicPropertyPatterns">
+        <Collection>
+          <Record>
+            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+            <PropertyValue Property="Type" String="OpenBMCManager.v1_1_0.FanController"/>
+          </Record>
+        </Collection>
+      </Annotation>
+    </ComplexType>
+    <ComplexType Name="PidControllers" BaseType="OpenBMCManager.v1_0_0.PidControllers">
+      <Annotation Term="Redfish.DynamicPropertyPatterns">
+        <Collection>
+          <Record>
+            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+            <PropertyValue Property="Type" String="OpenBMCManager.v1_1_0.PidController"/>
+          </Record>
+        </Collection>
+      </Annotation>
+    </ComplexType>
+    <ComplexType Name="StepwiseControllers" BaseType="OpenBMCManager.v1_0_0.StepwiseControllers">
+      <Annotation Term="Redfish.DynamicPropertyPatterns">
+        <Collection>
+          <Record>
+            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+            <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.StepwiseController"/>
+          </Record>
+        </Collection>
+      </Annotation>
+    </ComplexType>
+    <ComplexType Name="FanZones" BaseType="OpenBMCManager.v1_0_0.FanZones">
+      <Annotation Term="Redfish.DynamicPropertyPatterns">
+        <Collection>
+          <Record>
+            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+            <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.FanZone"/>
+          </Record>
+        </Collection>
+      </Annotation>
+    </ComplexType>
+      <ComplexType Name="FanController" BaseType="OpenBMCManager.v1_0_0.FanController">
+        <Property Name="CheckHysteresisWithSetpoint"
+                  Type="OpenBMCManager.v1_1_0.HysteresisEvaluation"
+                  Nullable="false">
+          <Annotation Term="OData.Description"
+                      String="Controls how hysteresis is evaluated."/>
+          <Annotation Term="OData.LongDescription"
+                      String="Selects whether hysteresis is evaluated around the raw input value or around the setpoint."/>
+          <Annotation Term="OData.Permissions"
+                      EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="DCoefficient" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="Derivative coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Derivative coefficient for the PID loop."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PidController" BaseType="OpenBMCManager.v1_0_0.PidController">
+        <Property Name="CheckHysteresisWithSetpoint"
+                  Type="OpenBMCManager.v1_1_0.HysteresisEvaluation"
+                  Nullable="false">
+          <Annotation Term="OData.Description"
+                      String="Controls how hysteresis is evaluated."/>
+          <Annotation Term="OData.LongDescription"
+                      String="Selects whether hysteresis is evaluated around the raw input value or around the setpoint."/>
+          <Annotation Term="OData.Permissions"
+                      EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="DCoefficient" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="Derivative coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Derivative coefficient for the PID loop."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+      </ComplexType>
+    </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
