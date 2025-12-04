@@ -74,6 +74,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6be7c37e_59934c44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-12-04T15:03:47Z",
+      "side": 1,
+      "message": "I always forget about the validator. Just ran this version on test BMC, made it into transitioning (PoweringOff) state, and ran the validator. It succeeded.\n\nLet me update the commit message.",
+      "parentUuid": "d50eee0e_6718da1b",
+      "revId": "fee6dfa5cf49ec1bc8d89da7e681650d6e917234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4d6fc06e_8ccecfa8",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 1
