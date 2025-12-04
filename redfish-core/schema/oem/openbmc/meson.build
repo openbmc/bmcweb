@@ -14,10 +14,12 @@ foreach option_key, schema : schemas
             follow_symlinks: true,
         )
 
-        install_data(
-            'json-schema/@0@.v1_0_0.json'.format(schema),
-            install_dir: 'share/www/redfish/v1/JsonSchemas',
-            follow_symlinks: true,
-        )
+    if schema == 'OpenBMCManager'
+      install_data(
+        'json-schema/OpenBMCManager.v1_1_0.json',
+        install_dir: 'share/www/redfish/v1/JsonSchemas',
+        follow_symlinks: true,
+      )
     endif
+  endif
 endforeach
