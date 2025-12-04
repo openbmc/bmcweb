@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8ccdb95_97201837",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-12-04T15:21:48Z",
+      "side": 1,
+      "message": "Is there a specific test case that cause the crash?\nIf so, it would be better to show it.\nAnd also test statement.",
+      "range": {
+        "startLine": 11,
+        "startChar": 40,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "506df25acaaf326258303f18f69269097eb3979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef600849_88503c67",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-12-04T15:21:48Z",
+      "side": 1,
+      "message": "The labmda body may be invoked later as an async-call (from inside `requestUserInfo()`).\nIn that case, `adapter` may also be lost if it is captured as reference.\n\nSo, I think it may be needed to be captured as value (`adapter`)??",
+      "range": {
+        "startLine": 291,
+        "startChar": 58,
+        "endLine": 291,
+        "endChar": 66
+      },
+      "revId": "506df25acaaf326258303f18f69269097eb3979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
