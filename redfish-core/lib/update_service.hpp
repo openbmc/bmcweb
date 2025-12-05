@@ -1208,6 +1208,8 @@ inline void handleUpdateServiceGet(
     asyncResp->res.jsonValue["ServiceEnabled"] = true;
     asyncResp->res.jsonValue["FirmwareInventory"]["@odata.id"] =
         "/redfish/v1/UpdateService/FirmwareInventory";
+    asyncResp->res.jsonValue["SoftwareInventory"]["@odata.id"] =
+        "/redfish/v1/UpdateService/SoftwareInventory";
     // Get the MaxImageSizeBytes
     asyncResp->res.jsonValue["MaxImageSizeBytes"] =
         BMCWEB_HTTP_BODY_LIMIT * 1024 * 1024;
@@ -1251,6 +1253,28 @@ inline void handleUpdateServiceFirmwareInventoryCollectionGet(
         asyncResp,
         boost::urls::url("/redfish/v1/UpdateService/FirmwareInventory"), iface,
         "/xyz/openbmc_project/software");
+}
+
+inline void handleUpdateServiceSoftwareInventoryCollectionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#SoftwareInventoryCollection.SoftwareInventoryCollection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        "/redfish/v1/UpdateService/SoftwareInventory";
+    asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
+    const std::array<const std::string_view, 1> iface = {
+        "xyz.openbmc_project.Software.Version"};
+
+    redfish::collection_util::getCollectionMembers(
+        asyncResp,
+        boost::urls::url("/redfish/v1/UpdateService/SoftwareInventory"), iface,
+        "/xyz/openbmc_project/inventory/software");
 }
 
 inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1353,7 +1377,7 @@ inline void getSoftwareVersion(
 
 inline void handleUpdateServiceFirmwareInventoryGetCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::shared_ptr<std::string>& swId,
+    const std::string& inventoryType, const std::shared_ptr<std::string>& swId,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
@@ -1386,27 +1410,28 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
             continue;
         }
         found = true;
-        sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
-        sw_util::getSwMinimumVersion(asyncResp, swId, obj.second[0].first);
+        sw_util::getSwStatus(asyncResp, path, swId, obj.second[0].first);
+        sw_util::getSwMinimumVersion(asyncResp, path, swId,
+                                     obj.second[0].first);
         getSoftwareVersion(asyncResp, obj.second[0].first, obj.first, *swId);
+        sw_util::getSwUpdatableStatus(asyncResp, path, swId);
     }
     if (!found)
     {
         BMCWEB_LOG_WARNING("Input swID {} not found!", *swId);
         messages::resourceMissingAtURI(
             asyncResp->res,
-            boost::urls::format(
-                "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId));
+            boost::urls::format("/redfish/v1/UpdateService/{}/{}",
+                                inventoryType, *swId));
         return;
     }
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId);
+        "/redfish/v1/UpdateService/{}/{}", inventoryType, *swId);
     asyncResp->res.jsonValue["@odata.type"] =
         "#SoftwareInventory.v1_1_0.SoftwareInventory";
     asyncResp->res.jsonValue["Name"] = "Software Inventory";
     asyncResp->res.jsonValue["Status"]["HealthRollup"] = resource::Health::OK;
     asyncResp->res.jsonValue["Updateable"] = false;
-    sw_util::getSwUpdatableStatus(asyncResp, swId);
 }
 
 inline void handleUpdateServiceFirmwareInventoryGet(
@@ -1425,7 +1450,26 @@ inline void handleUpdateServiceFirmwareInventoryGet(
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/software/", 0, interfaces,
         std::bind_front(handleUpdateServiceFirmwareInventoryGetCallback,
-                        asyncResp, swId));
+                        asyncResp, "FirmwareInventory", swId));
+}
+
+inline void handleUpdateServiceSoftwareInventoryGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& param)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    std::shared_ptr<std::string> swId = std::make_shared<std::string>(param);
+
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Software.Version"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory/software/", 0, interfaces,
+        std::bind_front(handleUpdateServiceFirmwareInventoryGetCallback,
+                        asyncResp, "SoftwareInventory", swId));
 }
 
 inline void requestRoutesUpdateService(App& app)
@@ -1463,6 +1507,16 @@ inline void requestRoutesUpdateService(App& app)
         .privileges(redfish::privileges::getSoftwareInventoryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleUpdateServiceFirmwareInventoryCollectionGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/SoftwareInventory/")
+        .privileges(redfish::privileges::getSoftwareInventoryCollection)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleUpdateServiceSoftwareInventoryCollectionGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/SoftwareInventory/<str>/")
+        .privileges(redfish::privileges::getSoftwareInventory)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleUpdateServiceSoftwareInventoryGet, std::ref(app)));
 }
 
 } // namespace redfish

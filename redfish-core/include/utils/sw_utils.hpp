@@ -389,15 +389,13 @@ inline std::string getRedfishSwHealth(const std::string& swState)
  */
 inline void getSwMinimumVersion(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::shared_ptr<std::string>& swId, const std::string& dbusSvc)
+    const std::string& objectPath, const std::shared_ptr<std::string>& swId,
+    const std::string& dbusSvc)
 {
     BMCWEB_LOG_DEBUG("getSwMinimumVersion: svc {}, swId {}", dbusSvc, *swId);
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/software");
-    path /= *swId;
-
     dbus::utility::getProperty<std::string>(
-        dbusSvc, path, "xyz.openbmc_project.Software.MinimumVersion",
+        dbusSvc, objectPath, "xyz.openbmc_project.Software.MinimumVersion",
         "MinimumVersion",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& swMinimumVersion) {
@@ -428,14 +426,14 @@ inline void getSwMinimumVersion(
  * @return void
  */
 inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& objectPath,
                         const std::shared_ptr<std::string>& swId,
                         const std::string& dbusSvc)
 {
     BMCWEB_LOG_DEBUG("getSwStatus: swId {} svc {}", *swId, dbusSvc);
 
     dbus::utility::getAllProperties(
-        dbusSvc, "/xyz/openbmc_project/software/" + *swId,
-        "xyz.openbmc_project.Software.Activation",
+        dbusSvc, objectPath, "xyz.openbmc_project.Software.Activation",
         [asyncResp,
          swId](const boost::system::error_code& ec,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -531,17 +529,14 @@ inline void handleUpdateableObject(
  */
 inline void getSwUpdatableStatus(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::shared_ptr<std::string>& swId)
+    const std::string& objectPath, const std::shared_ptr<std::string>& swId)
 {
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
-        sdbusplus::message::object_path swObjectPath(
-            "/xyz/openbmc_project/software");
-        swObjectPath = swObjectPath / *swId;
         constexpr std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Software.Update"};
         dbus::utility::getDbusObject(
-            swObjectPath.str, interfaces,
+            objectPath, interfaces,
             std::bind_front(handleUpdateableObject, asyncResp));
     }
     else
