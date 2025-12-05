@@ -3,6 +3,126 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7bb75b1_3654d977",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:25:46Z",
+      "side": 1,
+      "message": "nit: Just say \"Managers\"\n\nmanagers.hpp is an implementation detail that we can see from your patch.  Manager is the API facing thing.",
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13e75ba9_195bee3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:25:46Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s \"all\" right, it should be only the hosts that are managed by this bmc?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2e97101_5e5dadf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:25:46Z",
+      "side": 1,
+      "message": "Please see the redfish checklist and execute it.",
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d4bdbc9_037f68ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:25:46Z",
+      "side": 1,
+      "message": "In support of this.",
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74d5717c_370156a8",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:25:46Z",
+      "side": 1,
+      "message": "What\u0027s the holdup just using the new version of this code in all cases?",
+      "range": {
+        "startLine": 721,
+        "startChar": 7,
+        "endLine": 721,
+        "endChar": 16
+      },
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29664de6_01e362be",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:25:46Z",
+      "side": 1,
+      "message": "Need to add /inventory here as well.  Also dbus paths don\u0027t end in /.  The mapper returns the right call for now, but it\u0027s still incorrect.",
+      "range": {
+        "startLine": 726,
+        "startChar": 13,
+        "endLine": 726,
+        "endChar": 34
+      },
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3828f70e_da4ae605",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 3
@@ -14,6 +134,47 @@
       "writtenOn": "2025-12-05T18:34:16Z",
       "side": 1,
       "message": "Not loving the link to a commit that could never go in but :shrug: \n\nTODO: Fix getMainChassis for support multiple chassis, for now disable in MULTI Computer System\n\nis better IMO\n\n\nThis could also just be a separate commit",
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ae5a6a2_76ab605f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:25:46Z",
+      "side": 1,
+      "message": "This needs removed.  We shouldn\u0027t be pointing to Gerrit reviews in code.  If you want to point in your commit message, fine, but as written this makes it soudn like a dependency.",
+      "parentUuid": "3828f70e_da4ae605",
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b2eada_2390eba5",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:25:46Z",
+      "side": 1,
+      "message": "I\u0027d like to see this large lambda (with no captures, so could\u0027ve been a normal method call) cleaned up before we continue increasing its scope.  If you want to do it all in this one patch, that\u0027s fine, but this patch is making this already mediocre code worse.",
+      "range": {
+        "startLine": 846,
+        "startChar": 0,
+        "endLine": 860,
+        "endChar": 13
+      },
       "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
