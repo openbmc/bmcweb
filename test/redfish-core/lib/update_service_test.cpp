@@ -152,7 +152,7 @@ TEST(UpdateService, MissingPurposeIsToleratedAndSkipsDescription)
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     dbus::utility::DBusPropertiesMap props = {
         {"Version", std::string("anyVersion")}};
-    getSoftwareVersionCallback(asyncResp, "swId", {}, props);
+    getSoftwareVersionCallback(asyncResp, "swId", "", {}, props);
 
     EXPECT_NE(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
@@ -168,7 +168,7 @@ TEST(UpdateService, PurposeIsTranslatedToDescription)
         {"Version", std::string("anyVersion")},
         {"Purpose", std::string("xyz.openbmc_project.Software.Version."
                                 "VersionPurpose.BMC")}};
-    getSoftwareVersionCallback(asyncResp, "swId", {}, props);
+    getSoftwareVersionCallback(asyncResp, "swId", "", {}, props);
 
     EXPECT_NE(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
@@ -179,7 +179,7 @@ TEST(UpdateService, PurposeIsTranslatedToDescription)
 TEST(UpdateService, MissingVersionIsError)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    getSoftwareVersionCallback(asyncResp, "swId", {},
+    getSoftwareVersionCallback(asyncResp, "swId", "", {},
                                dbus::utility::DBusPropertiesMap{});
 
     EXPECT_EQ(asyncResp->res.result(),
