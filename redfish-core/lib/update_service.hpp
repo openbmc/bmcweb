@@ -24,6 +24,7 @@
 #include "task.hpp"
 #include "task_messages.hpp"
 #include "utility.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -1263,9 +1264,36 @@ inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
 }
 
+inline void handleGetRelatedItemPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& object)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBus response error on GetSubTreePaths {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& path : object)
+    {
+        const std::string name =
+            sdbusplus::message::object_path(path).filename();
+
+        if (!name.empty())
+        {
+            const auto url =
+                boost::urls::format("/redfish/v1/Chassis/{}", name);
+
+            addRelatedItem(asyncResp, url);
+        }
+    }
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& purpose)
+                            const std::string& purpose, const std::string& path)
 {
     if (purpose == sw_util::bmcPurpose)
     {
@@ -1282,13 +1310,22 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     else
     {
+        const std::string associationPath = path + "/running";
+
+        dbus::utility::getAssociatedSubTreePaths(
+            associationPath,
+            sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"},
+            0, chassisInterfaces,
+            std::bind_front(handleGetRelatedItemPaths, asyncResp));
+
         BMCWEB_LOG_DEBUG("Unknown software purpose {}", purpose);
     }
 }
 
 inline void getSoftwareVersionCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& swId, const boost::system::error_code& ec,
+    const std::string& swId, const std::string& path,
+    const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& propertiesList)
 {
     if (ec)
@@ -1338,7 +1375,7 @@ inline void getSoftwareVersionCallback(
     }
     std::string formatDesc = swInvPurpose->substr(endDesc);
     asyncResp->res.jsonValue["Description"] = formatDesc + " image";
-    getRelatedItems(asyncResp, *swInvPurpose);
+    getRelatedItems(asyncResp, *swInvPurpose, path);
 }
 
 inline void getSoftwareVersion(
@@ -1348,7 +1385,7 @@ inline void getSoftwareVersion(
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Software.Version",
-        std::bind_front(getSoftwareVersionCallback, asyncResp, swId));
+        std::bind_front(getSoftwareVersionCallback, asyncResp, swId, path));
 }
 
 inline void handleUpdateServiceFirmwareInventoryGetCallback(
