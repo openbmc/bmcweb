@@ -41,6 +41,40 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85ed2a14_c33d82e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:29:35Z",
+      "side": 1,
+      "message": "Overall in support of continued type safety cleanup.  Just needs comments addressed.",
+      "revId": "285bd55ff3cb6655d695d472a1d1cb672e2b79f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8cd0ee0_07cb7a26",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:29:35Z",
+      "side": 1,
+      "message": "Probably unrelated to this cleanup (so feel free to tell me to ask on a normal forum), but is this still needed?  I thought all daemons that were previously using Host had been moved to also expose Host0?",
+      "revId": "285bd55ff3cb6655d695d472a1d1cb672e2b79f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "850f2b1f_bb4032db",
@@ -54,6 +88,24 @@
       "writtenOn": "2025-12-05T18:38:20Z",
       "side": 1,
       "message": "going to have to explain this one to me.. This looks like the control path? \n\ngetHostControlObjectPath ?\n\ngetHostBootSettings ? \n\nIsn\u0027t there a /xyz/openbmc_project/settings ? And I would expect getSettingsObjectPath to go there",
+      "revId": "285bd55ff3cb6655d695d472a1d1cb672e2b79f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb3ae60b_b11505df",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:29:35Z",
+      "side": 1,
+      "message": "+1.",
+      "parentUuid": "850f2b1f_bb4032db",
       "revId": "285bd55ff3cb6655d695d472a1d1cb672e2b79f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
