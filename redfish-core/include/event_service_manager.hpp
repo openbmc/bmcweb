@@ -20,7 +20,6 @@
 #include "utils/time_utils.hpp"
 
 #include <boost/circular_buffer.hpp>
-#include <boost/circular_buffer/base.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/result.hpp>
 #include <boost/url/parse.hpp>
@@ -30,7 +29,6 @@
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
-#include <format>
 #include <memory>
 #include <optional>
 #include <random>
