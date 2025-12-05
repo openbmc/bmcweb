@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b54e12e9_984428c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-05T18:10:14Z",
+      "side": 1,
+      "message": "+1. Code looks correct now, but how was this found and how was Algorithm  / Random  missed in patchset 1 and 2?",
+      "parentUuid": "2bcb0859_76a9a43f",
+      "revId": "72a8523546fcc452c0eafb6801e908bbda88d249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eafc33c3_61a6d8a5",
         "filename": "redfish-core/include/event_matches_filter.hpp",
         "patchSetId": 2
