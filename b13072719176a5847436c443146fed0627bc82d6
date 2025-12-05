@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11f12c0c_eff0eec3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-05T18:47:13Z",
+      "side": 1,
+      "message": "Overall I am good",
+      "revId": "b13072719176a5847436c443146fed0627bc82d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d891025d_87e261dd",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-05T18:47:13Z",
+      "side": 1,
+      "message": "You don\u0027t want to include this line (458) and lines 468, 469 ?\nJust don\u0027t put out a link ?",
+      "revId": "b13072719176a5847436c443146fed0627bc82d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79a87171_589ebbcb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-05T18:47:13Z",
+      "side": 1,
+      "message": "I think a todo would be helpful \n\nTODO: Support Multi Computer System\n\nUp to you.",
+      "revId": "b13072719176a5847436c443146fed0627bc82d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
