@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec9e1efd_9fe47379",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:34:08Z",
+      "side": 1,
+      "message": "Spreading this check across a bunch of different branches is a mess to read.  I suspect we can just enforce this at configure time?",
+      "range": {
+        "startLine": 910,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 69
+      },
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd277f2e_d923aef6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -14,6 +37,63 @@
       "writtenOn": "2025-12-05T18:20:12Z",
       "side": 1,
       "message": "So you just don\u0027t add the link ? \nSo LogServices is just empty when MULTI_COMPUTER_SYSTEM ?",
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0a39f5b_f391aa0d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:34:08Z",
+      "side": 1,
+      "message": "See above, this one specifically, if these two options aren\u0027t allowed together, can we just make that enforced in meson?",
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70318a48_8896e574",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:34:08Z",
+      "side": 1,
+      "message": "systemName{std::move(systemName)}\n\nDoesn\u0027t really matter in practice, but static analyzers complain.",
+      "range": {
+        "startLine": 974,
+        "startChar": 20,
+        "endLine": 974,
+        "endChar": 30
+      },
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd540dfc_b3aa611c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-05T19:34:08Z",
+      "side": 1,
+      "message": "This is now a security vulnerability as you\u0027ve written it.  \"systemName\" comes from the user, so might contain bad characters (including query strings and other stuff).  BMCWEB_REDFISH_SYSTEM_URI_NAME comes from compile time, so std::format is appropriate, although really anything new should use boost::urls::format",
       "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
