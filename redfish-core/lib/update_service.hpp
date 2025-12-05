@@ -1240,9 +1240,54 @@ inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
 }
 
+// Inventory item interfaces for which a RelatedItem link can be built from the
+// software "running" association. Additional item types are appended by
+// follow-up patches as their RelatedItem mapping is implemented.
+constexpr std::array<std::string_view, 2> relatedItemInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.Board",
+    "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+inline void getRelatedItemFromAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& [objectPath, serviceMap] : subtree)
+    {
+        const std::string name =
+            sdbusplus::message::object_path(objectPath).filename();
+        if (name.empty())
+        {
+            continue;
+        }
+
+        for (const auto& [service, interfaces] : serviceMap)
+        {
+            if (std::ranges::find(
+                    interfaces, "xyz.openbmc_project.Inventory.Item.Chassis") !=
+                    interfaces.end() ||
+                std::ranges::find(interfaces,
+                                  "xyz.openbmc_project.Inventory.Item.Board") !=
+                    interfaces.end())
+            {
+                addRelatedItem(asyncResp, boost::urls::format(
+                                              "/redfish/v1/Chassis/{}", name));
+                break;
+            }
+        }
+    }
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& purpose)
+                            const std::string& purpose, const std::string& path)
 {
     if (purpose == sw_util::bmcPurpose)
     {
@@ -1259,13 +1304,23 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     else
     {
+        sdbusplus::message::object_path associationPath(path);
+        associationPath /= "running";
+
+        dbus::utility::getAssociatedSubTree(
+            associationPath,
+            sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"},
+            0, relatedItemInterfaces,
+            std::bind_front(getRelatedItemFromAssociation, asyncResp));
+
         BMCWEB_LOG_DEBUG("Unknown software purpose {}", purpose);
     }
 }
 
 inline void getSoftwareVersionCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& swId, const boost::system::error_code& ec,
+    const std::string& swId, const std::string& path,
+    const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& propertiesList)
 {
     if (ec)
@@ -1316,7 +1371,7 @@ inline void getSoftwareVersionCallback(
     }
     std::string formatDesc = swInvPurpose->substr(endDesc);
     asyncResp->res.jsonValue["Description"] = formatDesc + " image";
-    getRelatedItems(asyncResp, *swInvPurpose);
+    getRelatedItems(asyncResp, *swInvPurpose, path);
 }
 
 inline void getSoftwareVersion(
@@ -1326,7 +1381,7 @@ inline void getSoftwareVersion(
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Software.Version",
-        std::bind_front(getSoftwareVersionCallback, asyncResp, swId));
+        std::bind_front(getSoftwareVersionCallback, asyncResp, swId, path));
 }
 
 inline void handleUpdateServiceFirmwareInventoryGetCallback(
