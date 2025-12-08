@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3266f67_16e5506e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T22:47:19Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "789827f8_56a6d4cb",
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d99c579d_fca89102",
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "I\u0027ve changed it to fillPowerThermalIdentity",
       "parentUuid": "d99c579d_fca89102",
+      "range": {
+        "startLine": 600,
+        "startChar": 12,
+        "endLine": 600,
+        "endChar": 34
+      },
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcbfd6be_a24facb9",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T22:47:19Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "50d54d44_3301ab4a",
       "range": {
         "startLine": 600,
         "startChar": 12,
