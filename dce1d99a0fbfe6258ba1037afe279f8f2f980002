@@ -420,6 +420,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ea44ec5_21503154",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-08T15:18:32Z",
+      "side": 1,
+      "message": "Restructure commit: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85835",
+      "parentUuid": "252ca405_192e736c",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc007822_c1445b0b",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 1
