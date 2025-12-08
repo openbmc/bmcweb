@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "789827f8_56a6d4cb",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-08T22:41:56Z",
+      "side": 1,
+      "message": "I\u0027ve removed them. (I had put them in to clarify for myself the various paths through objectPropertiesToJson(), but agree they don\u0027t add anything long-term.)",
+      "parentUuid": "daca46f5_e9177756",
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d99c579d_fca89102",
@@ -48,6 +66,30 @@
       "writtenOn": "2025-12-08T21:09:52Z",
       "side": 1,
       "message": "Lets keep \"deprecated\" out of function names, that\u0027s something for documentation in Redfish.  The code should represent what it\u0027s doing.",
+      "range": {
+        "startLine": 600,
+        "startChar": 12,
+        "endLine": 600,
+        "endChar": 34
+      },
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50d54d44_3301ab4a",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-08T22:41:56Z",
+      "side": 1,
+      "message": "I\u0027ve changed it to fillPowerThermalIdentity",
+      "parentUuid": "d99c579d_fca89102",
       "range": {
         "startLine": 600,
         "startChar": 12,
@@ -75,6 +117,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1a0a167_9fa6c196",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-08T22:41:56Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve made that change.",
+      "parentUuid": "a8b14c55_eefdd373",
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "855d74a8_bae042f6",
@@ -98,6 +158,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7749f720_3fbc4085",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-08T22:41:56Z",
+      "side": 1,
+      "message": "This is an simple change so I\u0027ve made it. (It actually helped me find another place I needed to update to use SensorPropertyMap. I\u0027ve corrected that as well.)",
+      "parentUuid": "855d74a8_bae042f6",
+      "range": {
+        "startLine": 681,
+        "startChar": 15,
+        "endLine": 681,
+        "endChar": 26
+      },
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8620e9e_9b46389d",
@@ -111,6 +195,24 @@
       "writtenOn": "2025-12-08T21:09:52Z",
       "side": 1,
       "message": "Could this be put into mapPropertiesBySubnode, which would allow mapPropertiesBySubnode to just return the properties variable, instead of needing an in/out parameter?",
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d3802c3_6ddfbbc0",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-08T22:41:56Z",
+      "side": 1,
+      "message": "Sure, I\u0027ve moved it. It requires mapPropertiesBySubnode() to also be called for sensor excerpts. I\u0027ve added the check for excerpts inside the function to only do this one piece of work for those.",
+      "parentUuid": "b8620e9e_9b46389d",
       "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
