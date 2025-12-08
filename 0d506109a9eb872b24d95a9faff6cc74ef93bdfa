@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4a99bfd_9e9607b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T21:09:52Z",
+      "side": 1,
+      "message": "Overall in support of this.",
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daca46f5_e9177756",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T21:09:52Z",
+      "side": 1,
+      "message": "I don\u0027t find these doc strings better than what\u0027s there.  \"isExcerpt\" is a variable name.  \n\nPlease improve these comments, or remove.",
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d99c579d_fca89102",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T21:09:52Z",
+      "side": 1,
+      "message": "Lets keep \"deprecated\" out of function names, that\u0027s something for documentation in Redfish.  The code should represent what it\u0027s doing.",
+      "range": {
+        "startLine": 600,
+        "startChar": 12,
+        "endLine": 600,
+        "endChar": 34
+      },
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8b14c55_eefdd373",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T21:09:52Z",
+      "side": 1,
+      "message": "As written, this branch would be improved by just calling return here, and at each of the if statements, just returning early rather than continuing, because the end of the branch doesn\u0027t do anything before returning.",
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855d74a8_bae042f6",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T21:09:52Z",
+      "side": 1,
+      "message": "nit, for new code, these should be std::string_view;  Up to you if you want to change, because I realize this struct came from earlier.",
+      "range": {
+        "startLine": 681,
+        "startChar": 15,
+        "endLine": 681,
+        "endChar": 26
+      },
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8620e9e_9b46389d",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T21:09:52Z",
+      "side": 1,
+      "message": "Could this be put into mapPropertiesBySubnode, which would allow mapPropertiesBySubnode to just return the properties variable, instead of needing an in/out parameter?",
+      "revId": "0d506109a9eb872b24d95a9faff6cc74ef93bdfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
