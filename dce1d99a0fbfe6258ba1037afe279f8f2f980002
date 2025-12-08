@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "752ef251_5fce6705",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-08T21:12:19Z",
+      "side": 1,
+      "message": "Reopening, still need some amount of description of what the user facing upshot is.  \"X property is removed, replaced with Y property, and X property changes to Rotational\"",
+      "parentUuid": "2aed6d3d_1e09992e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4f4cff0_ea608da5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
