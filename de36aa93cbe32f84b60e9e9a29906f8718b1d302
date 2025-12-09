@@ -105,6 +105,24 @@
       "parentUuid": "c8e911ee_8fe6c929",
       "revId": "de36aa93cbe32f84b60e9e9a29906f8718b1d302",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2df2721f_90c1f3c3",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCManager_v1.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2025-12-09T04:45:05Z",
+      "side": 1,
+      "message": "Thanks, Ed.\nI’ve updated the schema version to OpenBMCManager.v1_1_0, inherited from v1_0_0 as you suggested, and adjusted the JSON/XML accordingly.",
+      "parentUuid": "5a67eb66_cd35c307",
+      "revId": "de36aa93cbe32f84b60e9e9a29906f8718b1d302",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
