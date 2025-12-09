@@ -3026,6 +3026,45 @@ inline void afterPortRequest(
     }
 }
 
+inline void getLinkedChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& linkedChassisPaths)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    if (linkedChassisPaths.empty())
+    {
+        return;
+    }
+
+    nlohmann::json::array_t chassisArray;
+    for (const auto& linkedChassisPath : linkedChassisPaths)
+    {
+        sdbusplus::message::object_path chassisPath(linkedChassisPath);
+        std::string linkedChassisName = chassisPath.filename();
+        if (linkedChassisName.empty())
+        {
+            BMCWEB_LOG_WARNING(
+                "Malformed linked chassis path {} for system name {}",
+                chassisPath.str, systemName);
+            continue;
+        }
+        nlohmann::json::object_t chassis;
+        chassis["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}", linkedChassisName);
+        chassisArray.emplace_back(std::move(chassis));
+    }
+    asyncResp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
+}
+
 /**
  * @brief process the GET request after getting the computerSystemIndex
  *
@@ -3135,26 +3174,28 @@ inline void processComputerSystemGet(
         getIndicatorLedState(asyncResp);
     }
 
-    // Currently not supported on multi-host.
     if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         getComputerSystem(asyncResp);
-        // Todo: chassis matching could be handled by patch
-        // https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60793
-        getMainChassisId(
-            asyncResp, [](const std::string& chassisId,
-                          const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                nlohmann::json::array_t chassisArray;
-                nlohmann::json& chassis = chassisArray.emplace_back();
-                chassis["@odata.id"] =
-                    boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-                aRsp->res.jsonValue["Links"]["Chassis"] =
-                    std::move(chassisArray);
-            });
-
         pcie_util::getPCIeDeviceList(
             asyncResp, nlohmann::json::json_pointer("/PCIeDevices"));
     }
+
+    systems_utils::getValidSystemsPath(
+        asyncResp, systemName,
+        [asyncResp, systemName](const std::optional<std::string>& systemPath) {
+            if (systemPath)
+            {
+                // A system is linked to an array of chassis containing it
+                dbus::utility::getAssociatedSubTreePaths(
+                    *systemPath + "/contained_by",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/inventory"),
+                    0, chassisInterfaces,
+                    std::bind_front(getLinkedChassis, asyncResp, systemName));
+            }
+        });
+
     getHostState(asyncResp, computerSystemIndex);
     getBootProperties(asyncResp, computerSystemIndex);
     getBootProgress(asyncResp, computerSystemIndex);
