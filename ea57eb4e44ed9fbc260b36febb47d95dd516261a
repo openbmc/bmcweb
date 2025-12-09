@@ -284,6 +284,24 @@
       "parentUuid": "363c5690_446a3d4d",
       "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0e6db3b_e4db0ed0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-12-09T12:04:39Z",
+      "side": 1,
+      "message": "I updated this to support retrieving linked chassis from the containing/contained_by associations between an inventory that represents the system and other chassis inventories. This is only supported for the enabling of `experimental-redfish-multi-computer-system` as the default system name \"system\" in when it comes to single host does not have an inventory on D-Bus to represent it. Discussion at https://discord.com/channels/775381525260664832/1385306077188460545",
+      "parentUuid": "3e1d471a_4cb7335a",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
