@@ -16,6 +16,46 @@
       "message": "Would love to see some unit tests here, but code itself LGTM.",
       "revId": "c4e2eb0d1a67acd4eecf097b17389d770bf177e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f37af9e_2e819929",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-12-09T20:42:32Z",
+      "side": 1,
+      "message": "Should be better to return here instead of continuing?",
+      "revId": "c4e2eb0d1a67acd4eecf097b17389d770bf177e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3d4c1f3_764dfbf6",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-12-09T20:42:32Z",
+      "side": 1,
+      "message": "For this case, the original code returns from `objectPropertiesToJson()`, not  continuing the following loop - https://github.com/openbmc/bmcweb/blob/d32aff8d085db882f222a0de019385d37749b8b1/redfish-core/include/utils/sensor_utils.hpp#L692\n\nWhat if making this `fillPowerThermalIdentity()` to return true/false, and then `objectPropertiesToJson()` uses it like?\n\n```\nobjectPropertiesToJson()\n{\n ...\n\n    if (!isExcerpt)\n    {\n        if (chassisSubNode \u003d\u003d ChassisSubNode::sensorsNode)\n        {\n            bool filledOk \u003d illSensorIdentity(sensorName, sensorType, propertiesDict,\n                               sensorJson);\n           if(!filledOk) \n           {\n                return;\n            }\n                              \n...",
+      "range": {
+        "startLine": 682,
+        "startChar": 22,
+        "endLine": 682,
+        "endChar": 40
+      },
+      "revId": "c4e2eb0d1a67acd4eecf097b17389d770bf177e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
