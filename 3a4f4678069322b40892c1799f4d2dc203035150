@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afdb7b21_ab49e08a",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-12-10T13:46:10Z",
+      "side": 1,
+      "message": "This is uint64 now in the PDI.",
+      "range": {
+        "startLine": 81,
+        "startChar": 18,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "3a4f4678069322b40892c1799f4d2dc203035150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "437816bd_6c3d56e8",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-12-10T13:46:10Z",
+      "side": 1,
+      "message": "This is called Width now.",
+      "range": {
+        "startLine": 88,
+        "startChar": 9,
+        "endLine": 88,
+        "endChar": 14
+      },
+      "revId": "3a4f4678069322b40892c1799f4d2dc203035150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
