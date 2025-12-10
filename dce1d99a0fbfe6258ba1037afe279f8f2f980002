@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f96ce2_1dcf5286",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-10T22:55:12Z",
+      "side": 1,
+      "message": "I\u0027ve added summary of difference which will be reflected in response to the commit message. I\u0027ve also added an example of the unchanged response for clarity.",
+      "parentUuid": "752ef251_5fce6705",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4f4cff0_ea608da5",
@@ -356,6 +380,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f45aa2f_440b26b6",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-10T22:55:12Z",
+      "side": 1,
+      "message": "I\u0027ve restructured the flow here and rebased on top of the restructure of objectPropertiesToJson().\n\nNow:\n fillSensorIdentity() will unpack these values as well and pass down to new function convertToFanPercent() to do the conversion work. (I\u0027m keeping a separate getFanPercent() function for unit testing and for eventual use by ThermalMetrics which is not an excerpt, so has different Redfish property names for the same information.)",
+      "parentUuid": "5531906a_e99785d3",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 59
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f26c577c_80470544",
@@ -369,6 +417,24 @@
       "writtenOn": "2025-11-10T20:08:56Z",
       "side": 1,
       "message": "No, that\u0027s not how this works.  if min value isn\u0027t published, we either don\u0027t publish the property at all or we mark it null.",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7632f932_06726425",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-10T22:55:12Z",
+      "side": 1,
+      "message": "Modified to match how missing maxValue is handled, so the property won\u0027t be published if we cannot compute the percent.",
+      "parentUuid": "f26c577c_80470544",
       "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -421,6 +487,30 @@
       "writtenOn": "2025-11-10T20:08:56Z",
       "side": 1,
       "message": "Shouldn\u0027t this be set where we\u0027re finding the units on line 617?",
+      "range": {
+        "startLine": 746,
+        "startChar": 0,
+        "endLine": 746,
+        "endChar": 48
+      },
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbbbe2b9_4965e411",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-10T22:55:12Z",
+      "side": 1,
+      "message": "Yes that makes more sense. I\u0027ve moved it into the fillSensorIdentity function path.",
+      "parentUuid": "a9210178_19ef03b0",
       "range": {
         "startLine": 746,
         "startChar": 0,
@@ -484,6 +574,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47d68d2f_83ef4fbb",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-10T22:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ea44ec5_21503154",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc007822_c1445b0b",
@@ -497,6 +605,24 @@
       "writtenOn": "2025-11-10T20:08:56Z",
       "side": 1,
       "message": "These are setting ints, you should probably set floats so they match.",
+      "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53137cb7_9711bef4",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-12-10T22:55:12Z",
+      "side": 1,
+      "message": "Good catch, I\u0027ve corrected it.",
+      "parentUuid": "cc007822_c1445b0b",
       "revId": "dce1d99a0fbfe6258ba1037afe279f8f2f980002",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
