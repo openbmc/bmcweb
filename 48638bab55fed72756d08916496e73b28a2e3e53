@@ -22,6 +22,30 @@
       },
       "revId": "48638bab55fed72756d08916496e73b28a2e3e53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa9db39_f64e6819",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:36:49Z",
+      "side": 1,
+      "message": "@ed@tanous.net\n I will update the patch, so the expected-error logic uses only the error value, and I removed the extra variable by inlining the condition",
+      "parentUuid": "5d6cb2c1_8ecd9426",
+      "range": {
+        "startLine": 558,
+        "startChar": 0,
+        "endLine": 560,
+        "endChar": 48
+      },
+      "revId": "48638bab55fed72756d08916496e73b28a2e3e53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

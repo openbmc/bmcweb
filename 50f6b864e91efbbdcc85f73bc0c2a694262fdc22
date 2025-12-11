@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b17f9a7_b3e2d863",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:36:49Z",
+      "side": 1,
+      "message": "@ed@tanous.net they occur during reloading time also",
+      "parentUuid": "f2bbeac9_34fbb5ef",
+      "range": {
+        "startLine": 9,
+        "startChar": 60,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fa6b031_de21d164",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-12-08T21:15:03Z",
       "side": 1,
       "message": "This is an improvement, but it is making an already waaaaaay too long lambda longer.  Would you consider some amount of refactor (ideally in a predecessor patchset) so we make sure we\u0027re making an improvement to the code here, and not just continuing down a bad path?",
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f97a1bf_833a73ba",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:36:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4fa6b031_de21d164",
       "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

@@ -94,6 +94,30 @@
       },
       "revId": "1e19cc6d189586ce134e6d54ba967ea6b3d54f6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da4a97d9_5d957eb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:36:49Z",
+      "side": 1,
+      "message": "its previous patch commit message",
+      "parentUuid": "b2376388_33998d80",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 34
+      },
+      "revId": "1e19cc6d189586ce134e6d54ba967ea6b3d54f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
