@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0903b92b_e236067e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:37:07Z",
+      "side": 1,
+      "message": "I will update all test suits",
+      "parentUuid": "703e99ed_ad4a3e79",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 16
+      },
+      "revId": "506df25acaaf326258303f18f69269097eb3979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8ccdb95_97201837",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-12-04T15:21:48Z",
       "side": 1,
       "message": "Is there a specific test case that cause the crash?\nIf so, it would be better to show it.\nAnd also test statement.",
+      "range": {
+        "startLine": 11,
+        "startChar": 40,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "506df25acaaf326258303f18f69269097eb3979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f28400e9_e54c2b80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:37:07Z",
+      "side": 1,
+      "message": "yeah, sure I will update everything",
+      "parentUuid": "a8ccdb95_97201837",
       "range": {
         "startLine": 11,
         "startChar": 40,
@@ -84,6 +132,30 @@
       "side": 1,
       "message": "Correct, as written this is unsafe.  We also need to identify where in http connection we\u0027re seeing the crash, and catch it.  Please identify the line that\u0027s actually crashing.\n\nSpecifically https://github.com/openbmc/bmcweb/blob/57d41fed30c140c308155076c0642cca7c418201/http/http_connection.hpp#L441\n\nThis line is intended to return, and take no more action in the connection class.  If that\u0027s happening, we need to understand where.",
       "parentUuid": "ef600849_88503c67",
+      "range": {
+        "startLine": 291,
+        "startChar": 58,
+        "endLine": 291,
+        "endChar": 66
+      },
+      "revId": "506df25acaaf326258303f18f69269097eb3979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "092fe257_b211be9b",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:37:07Z",
+      "side": 1,
+      "message": "I’ll also reproduce the crash and confirm the exact line in http_connection.hpp that fails, then share details in a follow-up.",
+      "parentUuid": "183da5fe_27e39f01",
       "range": {
         "startLine": 291,
         "startChar": 58,
