@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb66661d_829c4ecf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-11T21:15:28Z",
+      "side": 1,
+      "message": "Why is any process reloading outside of an error?  (answer in your commit message).\n\nIs this something we need to start doing everywhere, or is this a specific case?",
+      "parentUuid": "2b17f9a7_b3e2d863",
+      "range": {
+        "startLine": 9,
+        "startChar": 60,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4fa6b031_de21d164",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 8
