@@ -54,6 +54,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cec2963b_ecf2949e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:36:15Z",
+      "side": 1,
+      "message": "This was caught during a clang-tidy/static analysis check. The missing \u003calgorithm\u003e and \u003crandom\u003e headers were an oversight—I initially assumed they came from \u003cranges\u003e, but they are declared in \u003calgorithm\u003e and \u003crandom\u003e. Updated in this patch.",
+      "parentUuid": "28830a23_8a3125f3",
+      "revId": "72a8523546fcc452c0eafb6801e908bbda88d249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42fe7c6c_78230f00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:36:15Z",
+      "side": 1,
+      "message": "it might come from \u003cranges\u003e since it\u0027s part of the ranges library introduced in C++20, but the actual declaration is in \u003calgorithm\u003e",
+      "parentUuid": "28830a23_8a3125f3",
+      "revId": "72a8523546fcc452c0eafb6801e908bbda88d249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eafc33c3_61a6d8a5",
@@ -89,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec5c80c7_d355a2d1",
+        "filename": "redfish-core/include/event_matches_filter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:36:15Z",
+      "side": 1,
+      "message": "I thougt",
+      "parentUuid": "eafc33c3_61a6d8a5",
+      "revId": "72a8523546fcc452c0eafb6801e908bbda88d249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50a2df8c_c3324076",
@@ -119,6 +173,24 @@
       "writtenOn": "2025-12-05T18:03:13Z",
       "side": 1,
       "message": "Algorithm looks back.",
+      "parentUuid": "50a2df8c_c3324076",
+      "revId": "72a8523546fcc452c0eafb6801e908bbda88d249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d35542b_a1abb13a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-11T09:36:15Z",
+      "side": 1,
+      "message": "it might come from \u003cranges\u003e because it\u0027s part of the ranges library introduced in C++20, but the actual declaration is in \u003calgorithm\u003e",
       "parentUuid": "50a2df8c_c3324076",
       "revId": "72a8523546fcc452c0eafb6801e908bbda88d249",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
