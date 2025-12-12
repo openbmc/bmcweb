@@ -696,10 +696,18 @@ inline void extractIPData(const std::string& ethifaceId,
                                 ipv4Address.netmask = getNetmask(*mask);
                             }
                         }
-                        else if (property.first == "Type" ||
-                                 property.first == "Gateway")
+                        else if (property.first == "Type")
                         {
-                            // Type & Gateway is not used
+                            // Type is not used
+                        }
+                        else if (property.first == "Gateway")
+                        {
+                            const std::string* gateway =
+                                std::get_if<std::string>(&property.second);
+                            if (gateway != nullptr)
+                            {
+                                ipv4Address.gateway = *gateway;
+                            }
                         }
                         else
                         {
