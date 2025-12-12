@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc9f3778_edf2f00e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-12T16:46:17Z",
+      "side": 1,
+      "message": "nit: you don\u0027t have to put \u0027system:\" in front of the topic",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15074022_c9af6deb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-12T16:46:17Z",
+      "side": 1,
+      "message": "In general I am fine with making it multi-host only for now, but I think technically you should already be able to leverage this on single-host too if:\n1. you split your configs as discussed\n2. set BMCWEB_REDFISH_SYSTEM_URI_NAME to the id of the inventory     object that is representing your ComputerSystem.\n\nNow point 2. does not seem ideal to me and maybe should be discussed at some point, when thinking about associations for single-host systems, specifically between the ComputerSystem resource and everything needed. \n\nIf you are fine with the above points and can adapt your platform to them, then we should not put this behind the multi-host option.",
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c82ae7df_1fc0cd61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-12T16:46:17Z",
+      "side": 1,
+      "message": "As we are currently discussing this in PDI [1], not the xyz.openbmc_project.Inventory.Decorator.ManagedHost interface should be required, but the xyz.openbmc_project.Inventory.Item.System interface\n\n\n[1] https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/85082",
+      "range": {
+        "startLine": 33,
+        "startChar": 58,
+        "endLine": 33,
+        "endChar": 69
+      },
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd1eb97a_d68d92b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-12T16:46:17Z",
+      "side": 1,
+      "message": "I did test your implementation on my test setup. Everything work as expected. Thank you! If @ed@tanous.net and @gunnar@gmills.xyz require the Tested: section to include some of my testing results and you are ok with it I can update the commit message for you accordingly.",
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f549d7b2_bbe66c88",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 3209,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-12T16:46:17Z",
+      "side": 1,
+      "message": "I think it would be better to convert systemPath string to an object_path and use the /\u003d operator for appending the endpoint.",
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
