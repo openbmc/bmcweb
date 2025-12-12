@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6446ebd0_2f97b030",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-12T16:00:59Z",
+      "side": 1,
+      "message": "boost::urls::format",
+      "range": {
+        "startLine": 40,
+        "startChar": 44,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "ee3f47d19658e829446371b47275761b6cef3ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3592e56_ad816803",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-12T16:00:59Z",
+      "side": 1,
+      "message": "nlohmann::json\u0026",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 8
+      },
+      "revId": "ee3f47d19658e829446371b47275761b6cef3ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a2244a8_5cf874e4",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-12T16:00:59Z",
+      "side": 1,
+      "message": "nit, nlohmann::json::array_t",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 38
+      },
+      "revId": "ee3f47d19658e829446371b47275761b6cef3ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
