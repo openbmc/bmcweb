@@ -230,13 +230,7 @@ inline sdbusplus::message::object_path getHostStateObjectPath(
 
 inline std::string getHostStateServiceName(const uint64_t computerSystemIndex)
 {
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        return std::format("xyz.openbmc_project.State.Host{}",
-                           computerSystemIndex);
-    }
-
-    return "xyz.openbmc_project.State.Host";
+    return std::format("xyz.openbmc_project.State.Host{}", computerSystemIndex);
 }
 
 inline sdbusplus::message::object_path getChassisStateObjectPath(
@@ -250,13 +244,8 @@ inline sdbusplus::message::object_path getChassisStateObjectPath(
 inline std::string getChassisStateServiceName(
     const uint64_t computerSystemIndex)
 {
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        return std::format("xyz.openbmc_project.State.Chassis{}",
-                           computerSystemIndex);
-    }
-
-    return "xyz.openbmc_project.State.Chassis";
+    return std::format("xyz.openbmc_project.State.Chassis{}",
+                       computerSystemIndex);
 }
 
 inline sdbusplus::message::object_path getControlObjectPath(
