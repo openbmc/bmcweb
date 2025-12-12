@@ -1,7 +1,10 @@
 #include "ethernet.hpp"
 #include "http_response.hpp"
 
+#include <dbus_utility.hpp>
+
 #include <nlohmann/json.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
 #include <cstddef>
 #include <string>
@@ -206,6 +209,43 @@ TEST(Ethernet, parseAddressesDeleteExistingOnShortLength)
     EXPECT_EQ(addrOut[0].existingDbusId, "my_ip_id");
     EXPECT_EQ(addrOut[0].operation, AddrChange::Delete);
     EXPECT_EQ(gatewayOut, "");
+}
+
+// Test that IPv4 Gateway property is correctly extracted from D-Bus data
+TEST(Ethernet, extractIPDataWithGateway)
+{
+    // Create mock D-Bus data simulating phosphor-network's IPv4 object
+    dbus::utility::ManagedObjectType dbusData;
+
+    sdbusplus::message::object_path ipPath(
+        "/xyz/openbmc_project/network/eth0/ipv4/1a2b3c4d");
+
+    dbus::utility::DBusPropertiesMap properties;
+    properties.emplace_back("Address", std::string("192.168.1.100"));
+    properties.emplace_back("Gateway", std::string("192.168.1.1"));
+    properties.emplace_back("Origin",
+                           std::string("xyz.openbmc_project.Network.IP."
+                                      "AddressOrigin.Static"));
+    properties.emplace_back("PrefixLength", static_cast<uint8_t>(24));
+    properties.emplace_back("Type",
+                           std::string("xyz.openbmc_project.Network.IP."
+                                      "Protocol.IPv4"));
+
+    dbus::utility::DBusInterfacesMap interfaces;
+    interfaces.emplace_back("xyz.openbmc_project.Network.IP", properties);
+
+    dbusData.emplace_back(ipPath, interfaces);
+
+    // Extract the IP data
+    std::vector<IPv4AddressData> ipv4Config;
+    extractIPData("eth0", dbusData, ipv4Config);
+
+    // Verify Gateway was extracted correctly
+    ASSERT_EQ(ipv4Config.size(), 1);
+    EXPECT_EQ(ipv4Config[0].address, "192.168.1.100");
+    EXPECT_EQ(ipv4Config[0].gateway, "192.168.1.1");
+    EXPECT_EQ(ipv4Config[0].netmask, "255.255.255.0");
+    EXPECT_EQ(ipv4Config[0].origin, "Static");
 }
 
 } // namespace
