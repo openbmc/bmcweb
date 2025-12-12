@@ -805,7 +805,9 @@ inline void objectPropertiesToJson(
             }
             if (!std::isfinite(*doubleValue))
             {
-                if (valueName == "Value")
+                static const std::set<std::string> allowedNAN = {
+                    "Value", "MaxValue", "MinValue"};
+                if (allowedNAN.contains(valueName))
                 {
                     // Readings are allowed to be NAN for unavailable;  coerce
                     // them to null in the json response.
