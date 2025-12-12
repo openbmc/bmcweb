@@ -854,15 +854,9 @@ inline void objectPropertiesToJson(
             }
             if (!std::isfinite(*doubleValue))
             {
-                if (valueName == "Value")
-                {
-                    // Readings are allowed to be NAN for unavailable;  coerce
-                    // them to null in the json response.
-                    sensorJson[key] = nullptr;
-                    continue;
-                }
-                BMCWEB_LOG_WARNING("Sensor value for {} was unexpectedly {}",
-                                   valueName, *doubleValue);
+                // Readings are allowed to be NAN for unavailable;  coerce
+                // them to null in the json response.
+                sensorJson[key] = nullptr;
                 continue;
             }
             if (forceToInt)
