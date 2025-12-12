@@ -83,6 +83,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f71052e_d08354dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-12T18:13:31Z",
+      "side": 1,
+      "message": "Sorry about this in advance, but you struck a nerve a little.  This isn\u0027t a \"Ed and Gunnar require\" thing, it\u0027s a documented project level requirement for all code submissions.  Your comment implies that we as maintainers are doing something different than the rest of the project by asking people to test, which I don\u0027t believe to be the case.\n\nRelevant doc link below:\n\nhttps://github.com/openbmc/docs/blob/224f278c74a574962a74a7498a86989a360666ea/CONTRIBUTING.md?plain\u003d1#L262",
+      "parentUuid": "bd1eb97a_d68d92b6",
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f549d7b2_bbe66c88",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 15
