@@ -1023,15 +1023,30 @@ inline void objectPropertiesToJson(
             }
             if (!std::isfinite(*doubleValue))
             {
-                if (valueName == "Value")
+                static constexpr std::array<std::string_view, 2>
+                    valueNanIsSkipped{{"MaxValue", "MinValue"}};
+                static constexpr std::array<std::string_view, 7> valueNanIsNull{
+                    {"CriticalHigh", "CriticalLow", "HardShutdownHigh",
+                     "HardShutdownLow", "Value", "WarningHigh", "WarningLow"}};
+                if (std::ranges::find(valueNanIsNull, valueName) !=
+                    valueNanIsNull.end())
                 {
-                    // Readings are allowed to be NAN for unavailable;  coerce
-                    // them to null in the json response.
+                    // Value names with NaN reading should be skipped for a
+                    // subset of valueNames (Example: MaxValue) as specified in
+                    // valueNanIsNull.
                     sensorJson[key] = nullptr;
-                    continue;
                 }
-                BMCWEB_LOG_WARNING("Sensor value for {} was unexpectedly {}",
-                                   valueName, *doubleValue);
+                else if (std::ranges::find(valueNanIsSkipped, valueName) ==
+                         valueNanIsSkipped.end())
+                {
+                    // Value names with NaN readings where valueNames are
+                    // neither in valueNaNIsSkipped nor in valueNaNIsNull are
+                    // unexpected. Report as a warning and skip.
+                    BMCWEB_LOG_WARNING(
+                        "Sensor value for {} was unexpectedly {}", valueName,
+                        *doubleValue);
+                }
+
                 continue;
             }
             if (forceToInt)
