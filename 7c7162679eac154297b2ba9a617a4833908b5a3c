@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0cda457a_0367dfe7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-13T18:15:17Z",
+      "side": 1,
+      "message": "Would be good to reference \nhttps://github.com/openbmc/bmcweb/blob/e32edd47e374ceb93d89ac1d2c3158c39ff6e5cf/DEVELOPING.md?plain\u003d1#L231C1-L234C1\n\n- info: Information for the golden path debugging.\n- debug: Information that\u0027s overly verbose such that it shouldn\u0027t be printed in\n  all debug scenarios, but might be useful in some debug contexts.\n\nWe haven\u0027t put much thought into our info vs debug, but we have it kind of defined so I support something like this if folks do care.",
+      "parentUuid": "a75034e6_7bab811a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "7c7162679eac154297b2ba9a617a4833908b5a3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b03277d6_5fbfcd2d",
         "filename": "http/complete_response_fields.hpp",
         "patchSetId": 1
