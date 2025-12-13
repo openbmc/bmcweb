@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6adc343c_0faeee23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-13T18:09:26Z",
+      "side": 1,
+      "message": "Tested? Redfish validator with OEM enabled is happy? \nThe other schemas are installed?",
+      "revId": "ee009660e25ee749939c7ff3e82a41b2a029ab95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

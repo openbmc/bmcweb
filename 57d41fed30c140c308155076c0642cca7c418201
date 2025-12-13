@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b94fd09_9e6f7b9d",
+        "filename": "redfish-core/schema/oem/openbmc/meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-13T18:09:26Z",
+      "side": 0,
+      "message": "don\u0027t we still need this for the other schemas ? Like \nhttps://github.com/openbmc/bmcweb/tree/e32edd47e374ceb93d89ac1d2c3158c39ff6e5cf/redfish-core/schema/oem/openbmc/json-schema",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 9
+      },
+      "revId": "57d41fed30c140c308155076c0642cca7c418201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
