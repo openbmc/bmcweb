@@ -30,6 +30,7 @@
 #include "utils/sw_utils.hpp"
 
 #include <sys/mman.h>
+#include <sys/sendfile.h>
 #include <unistd.h>
 
 #include <boost/asio/error.hpp>
@@ -64,6 +65,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <variant>
 #include <vector>
@@ -85,6 +87,10 @@ static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
 
 /* @brief String that indicates the Software Update D-Bus interface */
 constexpr const char* updateInterface = "xyz.openbmc_project.Software.Update";
+
+/* @brief String that indicates the Software MultipartUpdate D-Bus interface */
+constexpr const char* multipartUpdateInterface =
+    "xyz.openbmc_project.Software.MultipartUpdate";
 
 struct MemoryFileDescriptor
 {
@@ -848,6 +854,389 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
     return multiRet;
 }
 
+// Aggregator to track multiple update responses and create ONE task
+// Task only completes when ALL activations complete
+struct MultiUpdateAggregator :
+    std::enable_shared_from_this<MultiUpdateAggregator>
+{
+    enum class ActivationStatus
+    {
+        Pending,   // Waiting for completion
+        Completed, // Successfully completed
+        Failed     // Failed
+    };
+
+    // Per-activation tracking
+    struct ActivationTracker
+    {
+        sdbusplus::message::object_path path;
+        std::string serviceName;
+        std::unique_ptr<sdbusplus::bus::match_t> match;
+        uint8_t progress = 0;
+        ActivationStatus status = ActivationStatus::Pending;
+    };
+
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+    task::Payload payload;
+    size_t expectedUpdates = 0;
+    bool taskCreated = false;
+    std::shared_ptr<task::TaskData> task;
+
+    // All activation state in one place
+    std::vector<ActivationTracker> activations;
+
+    MultiUpdateAggregator(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
+                          task::Payload&& payloadIn, size_t updateCount) :
+        asyncResp(asyncRespIn), payload(std::move(payloadIn)),
+        expectedUpdates(updateCount)
+    {
+        // Pre-reserve space for all expected activations
+        activations.reserve(updateCount);
+    }
+
+    MultiUpdateAggregator(const MultiUpdateAggregator&) = delete;
+    MultiUpdateAggregator& operator=(const MultiUpdateAggregator&) = delete;
+    MultiUpdateAggregator(MultiUpdateAggregator&&) = delete;
+    MultiUpdateAggregator& operator=(MultiUpdateAggregator&&) = delete;
+
+    ~MultiUpdateAggregator()
+    {
+        // If no task was created and all updates failed, send error
+        if (!taskCreated && activations.empty() && asyncResp)
+        {
+            messages::internalError(asyncResp->res);
+        }
+    }
+
+    // Called when an activation completes (success or failure)
+    // Returns true if ALL activations are now complete
+    bool onActivationComplete(const std::string& pathStr, bool success,
+                              const std::shared_ptr<task::TaskData>& taskData)
+    {
+        // Find and update the activation
+        auto it = std::find_if(activations.begin(), activations.end(),
+                               [&pathStr](const ActivationTracker& tracker) {
+                                   return tracker.path.str == pathStr;
+                               });
+
+        if (it == activations.end())
+        {
+            BMCWEB_LOG_WARNING("Path {} not found in activations", pathStr);
+            return false;
+        }
+
+        // Prevent double-counting
+        if (it->status != ActivationStatus::Pending)
+        {
+            BMCWEB_LOG_DEBUG("Path {} already counted, ignoring", pathStr);
+            return false;
+        }
+
+        it->status = success ? ActivationStatus::Completed
+                             : ActivationStatus::Failed;
+
+        // Count completed and failed
+        size_t completed = static_cast<size_t>(
+            std::count_if(activations.begin(), activations.end(),
+                          [](const ActivationTracker& t) {
+                              return t.status == ActivationStatus::Completed;
+                          }));
+        size_t failed = static_cast<size_t>(
+            std::count_if(activations.begin(), activations.end(),
+                          [](const ActivationTracker& t) {
+                              return t.status == ActivationStatus::Failed;
+                          }));
+
+        BMCWEB_LOG_INFO("Activation complete for {}: success={}, "
+                        "completed={}/{}, failed={}/{}",
+                        pathStr, success, completed, activations.size(), failed,
+                        activations.size());
+
+        // Early exit: still waiting for more activations to complete
+        if ((completed + failed) < activations.size())
+        {
+            return false;
+        }
+
+        // All activations are done - finish the task
+        std::string index = std::to_string(taskData->index);
+
+        // If ANY activation failed, the whole update fails
+        if (failed > 0)
+        {
+            taskData->state = "Exception";
+            taskData->status = "Warning";
+            taskData->messages.emplace_back(messages::taskAborted(index));
+        }
+        else
+        {
+            taskData->state = "Completed";
+            taskData->messages.emplace_back(messages::taskCompletedOK(index));
+        }
+
+        taskData->timer.cancel();
+        taskData->finishTask();
+        task::TaskData::sendTaskEvent(taskData->state, taskData->index);
+
+        // Clear all matches (they're owned by ActivationTracker now)
+        for (auto& activation : activations)
+        {
+            activation.match.reset();
+        }
+
+        return true; // All done
+    }
+
+    // Update aggregated progress from a single path's progress
+    void updateProgress(const std::string& pathStr, uint8_t progress,
+                        const std::shared_ptr<task::TaskData>& taskData)
+    {
+        // Find and update the activation
+        auto it = std::find_if(activations.begin(), activations.end(),
+                               [&pathStr](const ActivationTracker& tracker) {
+                                   return tracker.path.str == pathStr;
+                               });
+
+        if (it != activations.end())
+        {
+            it->progress = progress;
+        }
+
+        // Find minimum progress across all activations
+        uint8_t minProgress = 0;
+        if (!activations.empty())
+        {
+            auto minIt = std::min_element(
+                activations.begin(), activations.end(),
+                [](const ActivationTracker& a, const ActivationTracker& b) {
+                    return a.progress < b.progress;
+                });
+            minProgress = minIt->progress;
+        }
+
+        taskData->percentComplete = static_cast<int>(minProgress);
+    }
+
+    // Handle Activation state changes (Active, Failed, Invalid, Staged)
+    bool handleActivationState(const std::string& pathStr,
+                               const dbus::utility::DBusPropertiesMap& values,
+                               const std::shared_ptr<task::TaskData>& taskData)
+    {
+        auto it = std::find_if(values.begin(), values.end(),
+                               [](const auto& property) {
+                                   return property.first == "Activation";
+                               });
+
+        if (it == values.end())
+        {
+            return !task::completed;
+        }
+
+        const std::string* state = std::get_if<std::string>(&it->second);
+        if (state == nullptr)
+        {
+            return !task::completed;
+        }
+
+        // Check for completion (success or failure)
+        if (state->ends_with("Invalid") || state->ends_with("Failed"))
+        {
+            return onActivationComplete(pathStr, false, taskData)
+                       ? task::completed
+                       : !task::completed;
+        }
+
+        if (state->ends_with("Active"))
+        {
+            return onActivationComplete(pathStr, true, taskData)
+                       ? task::completed
+                       : !task::completed;
+        }
+
+        // Handle staged state (not a completion, but task is paused)
+        if (state->ends_with("Staged"))
+        {
+            std::string index = std::to_string(taskData->index);
+            taskData->state = "Stopping";
+            taskData->messages.emplace_back(messages::taskPaused(index));
+            taskData->extendTimer(std::chrono::hours(5));
+        }
+
+        return !task::completed;
+    }
+
+    // Handle ActivationProgress updates
+    bool handleActivationProgressUpdate(
+        const std::string& pathStr,
+        const dbus::utility::DBusPropertiesMap& values,
+        const std::shared_ptr<task::TaskData>& taskData)
+    {
+        auto it = std::find_if(
+            values.begin(), values.end(),
+            [](const auto& property) { return property.first == "Progress"; });
+
+        if (it == values.end())
+        {
+            return !task::completed;
+        }
+
+        const uint8_t* progress = std::get_if<uint8_t>(&it->second);
+        if (progress == nullptr)
+        {
+            return !task::completed;
+        }
+
+        // Update aggregated progress (minimum across all activations)
+        updateProgress(pathStr, *progress, taskData);
+
+        // Add progress message
+        taskData->messages.emplace_back(messages::taskProgressChanged(
+            std::to_string(taskData->index),
+            static_cast<size_t>(taskData->percentComplete)));
+
+        // Extend timer while receiving updates
+        taskData->extendTimer(std::chrono::minutes(5));
+
+        return !task::completed;
+    }
+
+    // Main handler - dispatches to appropriate handler based on interface
+    bool handleActivation(boost::system::error_code ec,
+                          sdbusplus::message_t& msg,
+                          const std::shared_ptr<task::TaskData>& taskData)
+    {
+        if (ec)
+        {
+            return task::completed;
+        }
+
+        std::string pathStr = msg.get_path();
+        std::string iface;
+        dbus::utility::DBusPropertiesMap values;
+        msg.read(iface, values);
+
+        if (iface == "xyz.openbmc_project.Software.Activation")
+        {
+            return handleActivationState(pathStr, values, taskData);
+        }
+
+        if (iface == "xyz.openbmc_project.Software.ActivationProgress")
+        {
+            return handleActivationProgressUpdate(pathStr, values, taskData);
+        }
+
+        return !task::completed;
+    }
+
+    void handleUpdateResponse(const std::string& objectPath,
+                              const std::string& serviceName,
+                              const boost::system::error_code& ec,
+                              const sdbusplus::message::object_path& retPath)
+    {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("StartUpdate failed on {}: {} - {}", objectPath,
+                             ec.value(), ec.message());
+            // Create a failed activation tracker (no path since StartUpdate
+            // failed)
+            activations.emplace_back(ActivationTracker{
+                .path = sdbusplus::message::object_path(),
+                .serviceName = serviceName,
+                .match = nullptr,
+                .progress = 0,
+                .status = ActivationStatus::Failed});
+        }
+        else
+        {
+            BMCWEB_LOG_INFO(
+                "Call to StartUpdate on {} ({}) Success, retPath = {}",
+                objectPath, serviceName, retPath.str);
+
+            // Create task on first successful activation
+            if (!taskCreated)
+            {
+                taskCreated = true;
+
+                // Task callback captures shared_ptr to keep aggregator alive
+                std::shared_ptr<MultiUpdateAggregator> self =
+                    shared_from_this();
+
+                // Create task with handler
+                // We create our own D-Bus matches for each activation rather
+                // than using the task's built-in match
+                task = task::TaskData::createTask(
+                    [self](boost::system::error_code ec2,
+                           sdbusplus::message_t& msg,
+                           const std::shared_ptr<task::TaskData>& taskData) {
+                        return self->handleActivation(ec2, msg, taskData);
+                    },
+                    "");
+                // Manually start the timer without creating a match
+                task->extendTimer(std::chrono::minutes(5));
+                task->messages.emplace_back(
+                    messages::taskStarted(std::to_string(task->index)));
+                task::TaskData::sendTaskEvent(task->state, task->index);
+                task->payload.emplace(payload);
+                task->populateResp(asyncResp->res);
+
+                // Release asyncResp to send the 202 Accepted response
+                asyncResp.reset();
+            }
+
+            // Create D-Bus match for this activation
+            std::weak_ptr<MultiUpdateAggregator> weak = weak_from_this();
+            auto match = std::make_unique<sdbusplus::bus::match_t>(
+                *crow::connections::systemBus,
+                "type='signal',interface='org.freedesktop.DBus.Properties',"
+                "member='PropertiesChanged',path='" +
+                    retPath.str + "'",
+                [weak, task = task](sdbusplus::message_t& message) {
+                    std::shared_ptr<MultiUpdateAggregator> aggregator =
+                        weak.lock();
+                    if (aggregator == nullptr)
+                    {
+                        return;
+                    }
+                    boost::system::error_code ec2;
+                    aggregator->handleActivation(ec2, message, task);
+                });
+
+            // Add activation tracker with the match
+            activations.emplace_back(ActivationTracker{
+                .path = retPath,
+                .serviceName = serviceName,
+                .match = std::move(match),
+                .progress = 0,
+                .status = ActivationStatus::Pending});
+        }
+
+        BMCWEB_LOG_INFO("activations now has {} entries (expected {})",
+                        activations.size(), expectedUpdates);
+
+        // Check if all responses are in
+        if (activations.size() < expectedUpdates)
+        {
+            return;
+        }
+
+        // Count how many succeeded (have valid paths and are Pending)
+        size_t pendingCount = static_cast<size_t>(
+            std::count_if(activations.begin(), activations.end(),
+                          [](const ActivationTracker& t) {
+                              return t.status == ActivationStatus::Pending;
+                          }));
+
+        // All services rejected the update
+        if (pendingCount == 0)
+        {
+            BMCWEB_LOG_ERROR(
+                "All {} service(s) rejected the update (no matching devices)",
+                expectedUpdates);
+            messages::internalError(asyncResp->res);
+        }
+    }
+};
+
 inline void handleStartUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const std::string& objectPath, const boost::system::error_code& ec,
@@ -881,6 +1270,94 @@ inline void startUpdate(
         },
         serviceName, objectPath, updateInterface, "StartUpdate",
         sdbusplus::message::unix_fd(memfd.fd), applyTime);
+}
+
+// Start update with aggregator for multiple services
+// Creates a separate memfd copy for each service since dup() shares file
+// position
+inline void startUpdateAggregated(
+    const std::shared_ptr<MultiUpdateAggregator>& aggregator,
+    const MemoryFileDescriptor& memfd, const std::string& applyTime,
+    const std::string& objectPath, const std::string& serviceName)
+{
+    // Get the size of the original memfd
+    off_t fileSize = lseek(memfd.fd, 0, SEEK_END);
+    if (fileSize == -1)
+    {
+        aggregator->handleUpdateResponse(
+            objectPath, serviceName,
+            boost::system::errc::make_error_code(boost::system::errc::io_error),
+            sdbusplus::message::object_path());
+        return;
+    }
+
+    // Seek back to start for reading
+    if (lseek(memfd.fd, 0, SEEK_SET) == -1)
+    {
+        aggregator->handleUpdateResponse(
+            objectPath, serviceName,
+            boost::system::errc::make_error_code(boost::system::errc::io_error),
+            sdbusplus::message::object_path());
+        return;
+    }
+
+    // Create a new memfd for this service
+    MemoryFileDescriptor serviceFd("update-image");
+    if (serviceFd.fd == -1)
+    {
+        aggregator->handleUpdateResponse(
+            objectPath, serviceName,
+            boost::system::errc::make_error_code(
+                boost::system::errc::no_buffer_space),
+            sdbusplus::message::object_path());
+        return;
+    }
+
+    // Copy data from original memfd to the new one using sendfile
+    off_t offset = 0;
+    off_t remaining = fileSize;
+    while (remaining > 0)
+    {
+        ssize_t sent = sendfile(serviceFd.fd, memfd.fd, &offset,
+                                static_cast<size_t>(remaining));
+        if (sent == -1)
+        {
+            aggregator->handleUpdateResponse(
+                objectPath, serviceName,
+                boost::system::errc::make_error_code(
+                    boost::system::errc::io_error),
+                sdbusplus::message::object_path());
+            return;
+        }
+        remaining -= sent;
+    }
+
+    // Seek the new memfd to start
+    if (lseek(serviceFd.fd, 0, SEEK_SET) == -1)
+    {
+        aggregator->handleUpdateResponse(
+            objectPath, serviceName,
+            boost::system::errc::make_error_code(boost::system::errc::io_error),
+            sdbusplus::message::object_path());
+        return;
+    }
+
+    // Release ownership of the fd - it will be closed after D-Bus call
+    int fdToSend = serviceFd.fd;
+    serviceFd.fd = -1;
+
+    dbus::utility::async_method_call(
+        aggregator->asyncResp,
+        [aggregator, objectPath, serviceName,
+         fdToSend](const boost::system::error_code& ec1,
+                   const sdbusplus::message::object_path& retPath) {
+            // Close our copy of the fd after the D-Bus call completes
+            close(fdToSend);
+            aggregator->handleUpdateResponse(objectPath, serviceName, ec1,
+                                             retPath);
+        },
+        serviceName, objectPath, updateInterface, "StartUpdate",
+        sdbusplus::message::unix_fd(fdToSend), applyTime);
 }
 
 inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -962,29 +1439,48 @@ inline void handleMultipartManagerUpdate(
         messages::internalError(asyncResp->res);
         return;
     }
-    if (subtree.size() != 1)
+
+    if (subtree.empty())
     {
-        BMCWEB_LOG_ERROR("Found {} MultipartUpdate objects, expected exactly 1",
-                         subtree.size());
+        BMCWEB_LOG_ERROR("No MultipartUpdate objects found");
         messages::internalError(asyncResp->res);
         return;
     }
 
-    const auto& [objectPath, services] = subtree[0];
-    for (const auto& [serviceName, ifaces] : services)
+    // Count valid update targets (objects with MultipartUpdate interface)
+    std::vector<std::pair<std::string, std::string>> updateTargets;
+    for (const auto& [objectPath, services] : subtree)
     {
-        if (std::find(ifaces.begin(), ifaces.end(), updateInterface) !=
-            ifaces.end())
+        for (const auto& [serviceName, ifaces] : services)
         {
-            startUpdate(asyncResp, std::move(payload), memfd, applyTime,
-                        objectPath, serviceName);
-            return;
+            if (std::find(ifaces.begin(), ifaces.end(),
+                          multipartUpdateInterface) != ifaces.end())
+            {
+                updateTargets.emplace_back(objectPath, serviceName);
+                break; // Only need one service per object
+            }
         }
     }
-    BMCWEB_LOG_ERROR(
-        "MultipartUpdate object at {} does not implement {} interface",
-        objectPath, updateInterface);
-    messages::internalError(asyncResp->res);
+
+    if (updateTargets.empty())
+    {
+        BMCWEB_LOG_ERROR("No objects implement {} interface",
+                         multipartUpdateInterface);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    BMCWEB_LOG_INFO("Starting update to {} MultipartUpdate service(s)",
+                    updateTargets.size());
+
+    auto aggregator = std::make_shared<MultiUpdateAggregator>(
+        asyncResp, std::move(payload), updateTargets.size());
+
+    for (const auto& [objectPath, serviceName] : updateTargets)
+    {
+        startUpdateAggregated(aggregator, memfd, applyTime, objectPath,
+                              serviceName);
+    }
 }
 
 inline void processUpdateRequest(
