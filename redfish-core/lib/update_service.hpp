@@ -30,6 +30,7 @@
 #include "utils/sw_utils.hpp"
 
 #include <sys/mman.h>
+#include <sys/sendfile.h>
 #include <unistd.h>
 
 #include <boost/asio/error.hpp>
@@ -86,6 +87,10 @@ static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
 
 /* @brief String that indicates the Software Update D-Bus interface */
 constexpr const char* updateInterface = "xyz.openbmc_project.Software.Update";
+
+/* @brief String that indicates the Software MultipartUpdate D-Bus interface */
+constexpr const char* multipartUpdateInterface =
+    "xyz.openbmc_project.Software.MultipartUpdate";
 
 struct MemoryFileDescriptor
 {
@@ -849,6 +854,441 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
     return multiRet;
 }
 
+/**
+ * @brief Aggregation context for tracking multiple firmware update operations
+ *
+ * This class tracks the progress and results of update operations across
+ * multiple D-Bus services. It uses the shared_ptr lifecycle pattern - the
+ * destructor finalizes the response when all async operations complete and
+ * the last shared_ptr reference is released.
+ *
+ * Monitors keep themselves alive via shared_from_this() captures in their
+ * D-Bus match callbacks, so this context does not need to store them.
+ */
+class UpdateAggregationContext :
+    public std::enable_shared_from_this<UpdateAggregationContext>
+{
+  public:
+    UpdateAggregationContext(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
+        task::Payload&& payloadIn, size_t expectedCount) :
+        asyncResp(asyncRespIn), payload(std::move(payloadIn)),
+        expectedUpdates(expectedCount)
+    {}
+
+    UpdateAggregationContext(const UpdateAggregationContext&) = delete;
+    UpdateAggregationContext& operator=(const UpdateAggregationContext&) =
+        delete;
+    UpdateAggregationContext(UpdateAggregationContext&&) = delete;
+    UpdateAggregationContext& operator=(UpdateAggregationContext&&) = delete;
+
+    ~UpdateAggregationContext()
+    {
+        finalizeResponse();
+    }
+
+    void handleUpdateResponse(const std::string& objectPath,
+                              const std::string& serviceName,
+                              const boost::system::error_code& ec,
+                              const sdbusplus::message::object_path& retPath);
+
+    void reportResult(const std::string& pathStr, const std::string& service,
+                      bool success)
+    {
+        results.emplace_back(pathStr, service, success);
+
+        BMCWEB_LOG_INFO("Activation result for {}: success={}, "
+                        "reported={}/{}",
+                        pathStr.empty() ? service : pathStr, success,
+                        results.size(), expectedUpdates);
+
+        checkCompletion();
+    }
+
+    void updateProgress(const std::string& pathStr, uint8_t progressVal)
+    {
+        std::shared_ptr<task::TaskData> taskPtr = taskWeak.lock();
+        if (!taskPtr)
+        {
+            return;
+        }
+
+        progressMap[pathStr] = progressVal;
+
+        uint8_t minProgress = 100;
+        if (responsesReceived < expectedUpdates)
+        {
+            minProgress = 0;
+        }
+        else
+        {
+            for (const auto& [path, prog] : progressMap)
+            {
+                minProgress = std::min(minProgress, prog);
+            }
+        }
+
+        taskPtr->percentComplete = static_cast<int>(minProgress);
+        taskPtr->messages.emplace_back(messages::taskProgressChanged(
+            std::to_string(taskPtr->index),
+            static_cast<size_t>(taskPtr->percentComplete)));
+        task::TaskData::sendTaskEvent(taskPtr->state, taskPtr->index);
+        taskPtr->extendTimer(std::chrono::minutes(5));
+    }
+
+    void handleStaged(const std::string& pathStr)
+    {
+        (void)pathStr;
+
+        std::shared_ptr<task::TaskData> taskPtr = taskWeak.lock();
+        if (!taskPtr)
+        {
+            return;
+        }
+
+        std::string index = std::to_string(taskPtr->index);
+        taskPtr->state = "Stopping";
+        taskPtr->messages.emplace_back(messages::taskPaused(index));
+        taskPtr->extendTimer(std::chrono::hours(5));
+    }
+
+  private:
+    void ensureTaskCreated()
+    {
+        if (!taskWeak.expired())
+        {
+            return;
+        }
+
+        std::shared_ptr<task::TaskData> taskPtr = task::TaskData::createTask(
+            [](const boost::system::error_code& ec2, sdbusplus::message_t& msg,
+               const std::shared_ptr<task::TaskData>& taskData) {
+                (void)ec2;
+                (void)msg;
+                (void)taskData;
+                // Individual monitors handle property changes
+                return !task::completed;
+            },
+            "");
+
+        taskPtr->extendTimer(std::chrono::minutes(5));
+        taskPtr->messages.emplace_back(
+            messages::taskStarted(std::to_string(taskPtr->index)));
+        task::TaskData::sendTaskEvent(taskPtr->state, taskPtr->index);
+        taskPtr->payload.emplace(payload);
+        taskPtr->populateResp(asyncResp->res);
+
+        // Release asyncResp to send 202 Accepted
+        asyncResp.reset();
+
+        taskWeak = taskPtr;
+    }
+
+    void checkCompletion()
+    {
+        if (results.size() < expectedUpdates)
+        {
+            return;
+        }
+
+        std::shared_ptr<task::TaskData> taskPtr = taskWeak.lock();
+        if (!taskPtr)
+        {
+            return;
+        }
+
+        size_t failedCount = 0;
+        for (const auto& [path, svc, success] : results)
+        {
+            if (!success)
+            {
+                failedCount++;
+            }
+        }
+
+        std::string index = std::to_string(taskPtr->index);
+
+        if (failedCount > 0)
+        {
+            taskPtr->state = "Exception";
+            taskPtr->status = "Warning";
+            taskPtr->messages.emplace_back(messages::taskAborted(index));
+        }
+        else
+        {
+            taskPtr->state = "Completed";
+            taskPtr->messages.emplace_back(messages::taskCompletedOK(index));
+        }
+
+        taskPtr->timer.cancel();
+        taskPtr->finishTask();
+        task::TaskData::sendTaskEvent(taskPtr->state, taskPtr->index);
+    }
+
+    void finalizeResponse()
+    {
+        // If no results were reported and asyncResp is still valid,
+        // all StartUpdate calls failed before creating a task
+        if (results.empty() && asyncResp)
+        {
+            messages::internalError(asyncResp->res);
+        }
+    }
+
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+    task::Payload payload;
+    size_t expectedUpdates;
+    size_t responsesReceived = 0;
+    std::weak_ptr<task::TaskData> taskWeak;
+    std::unordered_map<std::string, uint8_t> progressMap;
+    std::vector<std::tuple<std::string, std::string, bool>> results;
+};
+
+class ActivationStatusMonitor :
+    public std::enable_shared_from_this<ActivationStatusMonitor>
+{
+  public:
+    static constexpr std::chrono::minutes monitorTimeout{5};
+
+    ActivationStatusMonitor(std::shared_ptr<UpdateAggregationContext> ctxIn,
+                            sdbusplus::message::object_path pathIn,
+                            std::string serviceIn) :
+        ctx(std::move(ctxIn)), activationPath(std::move(pathIn)),
+        service(std::move(serviceIn)), timer(getIoContext()), progress(0),
+        completed(false)
+    {}
+
+    ActivationStatusMonitor(const ActivationStatusMonitor&) = delete;
+    ActivationStatusMonitor& operator=(const ActivationStatusMonitor&) = delete;
+    ActivationStatusMonitor(ActivationStatusMonitor&&) = delete;
+    ActivationStatusMonitor& operator=(ActivationStatusMonitor&&) = delete;
+
+    ~ActivationStatusMonitor()
+    {
+        timer.cancel();
+        match.reset();
+    }
+
+    void startMonitoring();
+
+  private:
+    void createMatch();
+    void startTimeout();
+    void handlePropertyChange(sdbusplus::message_t& msg);
+    void handleActivationState(const std::string& state);
+    void handleProgress(uint8_t progressVal);
+    void onComplete(bool success);
+    void onTimeout(const boost::system::error_code& ec);
+
+    std::shared_ptr<UpdateAggregationContext> ctx;
+    sdbusplus::message::object_path activationPath;
+    std::string service;
+    std::unique_ptr<sdbusplus::bus::match_t> match;
+    boost::asio::steady_timer timer;
+    uint8_t progress;
+    bool completed;
+};
+
+inline void UpdateAggregationContext::handleUpdateResponse(
+    const std::string& objectPath, const std::string& serviceName,
+    const boost::system::error_code& ec,
+    const sdbusplus::message::object_path& retPath)
+{
+    responsesReceived++;
+
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("StartUpdate failed on {}: {} - {}", objectPath,
+                         ec.value(), ec.message());
+        reportResult("", serviceName, false);
+        return;
+    }
+
+    BMCWEB_LOG_INFO("StartUpdate succeeded on {}, activation path: {}",
+                    objectPath, retPath.str);
+
+    ensureTaskCreated();
+
+    progressMap[retPath.str] = 0;
+
+    auto monitor = std::make_shared<ActivationStatusMonitor>(
+        shared_from_this(), retPath, serviceName);
+    monitor->startMonitoring();
+}
+
+inline void ActivationStatusMonitor::startMonitoring()
+{
+    createMatch();
+    startTimeout();
+}
+
+inline void ActivationStatusMonitor::createMatch()
+{
+    std::string matchRule =
+        "type='signal',interface='org.freedesktop.DBus.Properties',"
+        "member='PropertiesChanged',path='" +
+        activationPath.str + "'";
+
+    match = std::make_unique<sdbusplus::bus::match_t>(
+        *crow::connections::systemBus, matchRule,
+        [self = shared_from_this()](sdbusplus::message_t& msg) {
+            self->handlePropertyChange(msg);
+        });
+}
+
+inline void ActivationStatusMonitor::startTimeout()
+{
+    timer.expires_after(monitorTimeout);
+    timer.async_wait(
+        [self = shared_from_this()](const boost::system::error_code& ec) {
+            self->onTimeout(ec);
+        });
+}
+
+inline void ActivationStatusMonitor::handlePropertyChange(
+    sdbusplus::message_t& msg)
+{
+    if (completed)
+    {
+        return;
+    }
+
+    std::string iface;
+    dbus::utility::DBusPropertiesMap values;
+    msg.read(iface, values);
+
+    if (iface == "xyz.openbmc_project.Software.Activation")
+    {
+        auto it = std::ranges::find_if(values, [](const auto& prop) {
+            return prop.first == "Activation";
+        });
+        if (it != values.end())
+        {
+            const std::string* state = std::get_if<std::string>(&it->second);
+            if (state != nullptr)
+            {
+                handleActivationState(*state);
+            }
+        }
+    }
+    else if (iface == "xyz.openbmc_project.Software.ActivationProgress")
+    {
+        auto it = std::ranges::find_if(values, [](const auto& prop) {
+            return prop.first == "Progress";
+        });
+        if (it != values.end())
+        {
+            const uint8_t* prog = std::get_if<uint8_t>(&it->second);
+            if (prog != nullptr)
+            {
+                handleProgress(*prog);
+            }
+        }
+    }
+}
+
+inline void ActivationStatusMonitor::handleActivationState(
+    const std::string& state)
+{
+    if (state.ends_with("Invalid") || state.ends_with("Failed"))
+    {
+        onComplete(false);
+    }
+    else if (state.ends_with("Active"))
+    {
+        onComplete(true);
+    }
+    else if (state.ends_with("Staged"))
+    {
+        ctx->handleStaged(activationPath.str);
+    }
+}
+
+inline void ActivationStatusMonitor::handleProgress(uint8_t progressVal)
+{
+    progress = progressVal;
+    ctx->updateProgress(activationPath.str, progressVal);
+
+    timer.cancel();
+    startTimeout();
+}
+
+inline void ActivationStatusMonitor::onComplete(bool success)
+{
+    if (completed)
+    {
+        return;
+    }
+    completed = true;
+    timer.cancel();
+    match.reset();
+
+    ctx->reportResult(activationPath.str, service, success);
+}
+
+inline void ActivationStatusMonitor::onTimeout(
+    const boost::system::error_code& ec)
+{
+    if (ec == boost::asio::error::operation_aborted)
+    {
+        return;
+    }
+    if (completed)
+    {
+        return;
+    }
+
+    BMCWEB_LOG_ERROR("Activation timeout for {}", activationPath.str);
+    onComplete(false);
+}
+
+// Type alias for update targets (objectPath, serviceName pairs)
+using UpdateTargets = std::vector<std::pair<std::string, std::string>>;
+
+// Callback type for discovery completion
+using DiscoveryCallback = std::function<void(const UpdateTargets&)>;
+
+inline void handleServiceDiscovery(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const DiscoveryCallback& callback, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("getSubTree error: {} - {}", ec.value(), ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    UpdateTargets targets;
+    for (const auto& [objectPath, services] : subtree)
+    {
+        for (const auto& [serviceName, ifaces] : services)
+        {
+            auto it = std::ranges::find(ifaces, multipartUpdateInterface);
+            if (it != ifaces.end())
+            {
+                targets.emplace_back(objectPath, serviceName);
+                break; // One service per object is enough
+            }
+        }
+    }
+
+    callback(targets);
+}
+
+inline void discoverMultipartUpdateServices(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    DiscoveryCallback&& callback)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        multipartUpdateInterface};
+
+    dbus::utility::getSubTree("/xyz/openbmc_project/software", 1, interfaces,
+                              std::bind_front(handleServiceDiscovery, asyncResp,
+                                              std::move(callback)));
+}
+
 inline void handleStartUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const std::string& objectPath, const boost::system::error_code& ec,
@@ -882,6 +1322,82 @@ inline void startUpdate(
         },
         serviceName, objectPath, updateInterface, "StartUpdate",
         sdbusplus::message::unix_fd(memfd.fd), applyTime);
+}
+
+inline void startUpdateWithContext(
+    const std::shared_ptr<UpdateAggregationContext>& ctx,
+    const MemoryFileDescriptor& memfd, const std::string& applyTime,
+    const std::string& objectPath, const std::string& serviceName)
+{
+    off_t fileSize = lseek(memfd.fd, 0, SEEK_END);
+    if (fileSize == -1)
+    {
+        ctx->handleUpdateResponse(
+            objectPath, serviceName,
+            boost::system::errc::make_error_code(boost::system::errc::io_error),
+            sdbusplus::message::object_path());
+        return;
+    }
+
+    // We need to make a copy here because cloning an fd doesn't
+    // make a deep copy of the seek pointer, so each service needs
+    // its own memfd
+
+    if (lseek(memfd.fd, 0, SEEK_SET) == -1)
+    {
+        ctx->handleUpdateResponse(
+            objectPath, serviceName,
+            boost::system::errc::make_error_code(boost::system::errc::io_error),
+            sdbusplus::message::object_path());
+        return;
+    }
+
+    MemoryFileDescriptor serviceFd("update-image");
+    if (serviceFd.fd == -1)
+    {
+        ctx->handleUpdateResponse(objectPath, serviceName,
+                                  boost::system::errc::make_error_code(
+                                      boost::system::errc::no_buffer_space),
+                                  sdbusplus::message::object_path());
+        return;
+    }
+
+    off_t offset = 0;
+    off_t remaining = fileSize;
+    while (remaining > 0)
+    {
+        ssize_t sent = sendfile(serviceFd.fd, memfd.fd, &offset,
+                                static_cast<size_t>(remaining));
+        if (sent == -1)
+        {
+            ctx->handleUpdateResponse(objectPath, serviceName,
+                                      boost::system::errc::make_error_code(
+                                          boost::system::errc::io_error),
+                                      sdbusplus::message::object_path());
+            return;
+        }
+        remaining -= sent;
+    }
+
+    if (lseek(serviceFd.fd, 0, SEEK_SET) == -1)
+    {
+        ctx->handleUpdateResponse(
+            objectPath, serviceName,
+            boost::system::errc::make_error_code(boost::system::errc::io_error),
+            sdbusplus::message::object_path());
+        return;
+    }
+
+    int fd = serviceFd.fd;
+    dbus::utility::async_method_call(
+        nullptr,
+        [ctx, objectPath, serviceName, serviceFdCapture = std::move(serviceFd)](
+            const boost::system::error_code& ec1,
+            const sdbusplus::message::object_path& retPath) {
+            ctx->handleUpdateResponse(objectPath, serviceName, ec1, retPath);
+        },
+        serviceName, objectPath, updateInterface, "StartUpdate",
+        sdbusplus::message::unix_fd(fd), applyTime);
 }
 
 inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -950,41 +1466,28 @@ inline void handleBMCUpdate(
                 functionalSoftware[0], "xyz.openbmc_project.Software.Manager");
 }
 
-inline void handleMultipartManagerUpdate(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
-    const MemoryFileDescriptor& memfd, const std::string& applyTime,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& subtree)
+inline void startMultipartUpdates(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    task::Payload&& payload, const MemoryFileDescriptor& memfd,
+    const std::string& applyTime, const UpdateTargets& targets)
 {
-    if (ec)
+    if (targets.empty())
     {
-        BMCWEB_LOG_ERROR("error_code = {}", ec);
-        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    if (subtree.size() != 1)
-    {
-        BMCWEB_LOG_ERROR("Found {} MultipartUpdate objects, expected exactly 1",
-                         subtree.size());
+        BMCWEB_LOG_ERROR("No MultipartUpdate services found");
         messages::internalError(asyncResp->res);
         return;
     }
 
-    const auto& [objectPath, services] = subtree[0];
-    for (const auto& [serviceName, ifaces] : services)
+    BMCWEB_LOG_INFO("Starting update to {} MultipartUpdate service(s)",
+                    targets.size());
+
+    auto ctx = std::make_shared<UpdateAggregationContext>(
+        asyncResp, std::move(payload), targets.size());
+
+    for (const auto& [objectPath, serviceName] : targets)
     {
-        if (std::ranges::find(ifaces, updateInterface) != ifaces.end())
-        {
-            startUpdate(asyncResp, std::move(payload), memfd, applyTime,
-                        objectPath, serviceName);
-            return;
-        }
+        startUpdateWithContext(ctx, memfd, applyTime, objectPath, serviceName);
     }
-    BMCWEB_LOG_ERROR(
-        "MultipartUpdate object at {} does not implement {} interface",
-        objectPath, updateInterface);
-    messages::internalError(asyncResp->res);
 }
 
 inline void processUpdateRequest(
@@ -1014,16 +1517,12 @@ inline void processUpdateRequest(
 
     if (targets.empty())
     {
-        constexpr std::array<std::string_view, 1> interfaces = {
-            "xyz.openbmc_project.Software.MultipartUpdate"};
-        dbus::utility::getSubTree(
-            "/xyz/openbmc_project/software", 1, interfaces,
+        discoverMultipartUpdateServices(
+            asyncResp,
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
-             applyTime](const boost::system::error_code& ec,
-                        const dbus::utility::MapperGetSubTreeResponse&
-                            subtree) mutable {
-                handleMultipartManagerUpdate(asyncResp, std::move(payload),
-                                             memfd, applyTime, ec, subtree);
+             applyTime](const UpdateTargets& discoveredTargets) mutable {
+                startMultipartUpdates(asyncResp, std::move(payload), memfd,
+                                      applyTime, discoveredTargets);
             });
         return;
     }
