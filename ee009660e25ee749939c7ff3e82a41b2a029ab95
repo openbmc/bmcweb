@@ -16,6 +16,24 @@
       "message": "Tested? Redfish validator with OEM enabled is happy? \nThe other schemas are installed?",
       "revId": "ee009660e25ee749939c7ff3e82a41b2a029ab95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "602aacf0_4ecbd471",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2025-12-13T22:26:04Z",
+      "side": 1,
+      "message": "I ran the Redfish Service Validator against my local bmcweb build with\nthis change applied.\n\nThe validation completed successfully (no failures, warnings only).\nThe warnings are mainly related to existing OEM schema handling\n(for example, OpenBmc under OemObject) and were already present\nprior to this change.\n\nFor convenience, here are the clickable links to the test artifacts:\n\nRedfish Service Validator summary:\nhttps://raw.githubusercontent.com/YouPengWu/ToReviewer/main/85785/redfish-validator-summary.png\n\nRedfish Service Validator details:\nhttps://raw.githubusercontent.com/YouPengWu/ToReviewer/main/85785/redfish-validator-details.png\n\nExposed OpenBMCManager OEM schema:\nhttps://raw.githubusercontent.com/YouPengWu/ToReviewer/main/85785/redfish-oem-schema.png",
+      "parentUuid": "6adc343c_0faeee23",
+      "revId": "ee009660e25ee749939c7ff3e82a41b2a029ab95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
