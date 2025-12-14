@@ -70,6 +70,30 @@
       },
       "revId": "57d41fed30c140c308155076c0642cca7c418201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd0c490f_c8a9b139",
+        "filename": "redfish-core/schema/oem/openbmc/meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2025-12-14T11:29:19Z",
+      "side": 0,
+      "message": "Hi,\n\nI have updated the test records based on this patch.\nAll tests were performed on OpenBMC QEMU (evb-ast2600).\n\nTest steps and evidence\n\n1. Load Fantable via entity-manager\n\nFantable is loaded through entity-manager using the following configuration:\n\n/var/configuration/system.json\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit)/system.txt\n\n2. Verify OEM PID properties via Redfish\n\nConfirmed that the new PID properties (DCoefficient, CheckHysteresisWithSetpoint)\nare exposed correctly under:\n\nGET /redfish/v1/Managers/bmc\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit)/Managers-bmc-oem.png\n\n3. Verify updated OEM schema\n\nConfirmed that the new properties are defined in the updated OEM schema:\n\nGET /redfish/v1/JsonSchemas/OpenBMCManager\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit)/redfish-oem-schema.png\n\n4. Redfish Service Validator\n\nRedfish Service Validator was executed successfully.\n\nTest summary\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit)/redfish-validator-summary.png\n\nTest details\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit)/redfish-validator-details.png\n\nFull conformance log\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit)/ConformanceLog_12_14_2025_180449.txt\n\nResult comparison\n\nFor reference, the baseline community build (bmcweb commit 57d41) shows the same\nexisting warnings and no additional failures:\n\nBaseline conformance log\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(57d41)/ConformanceLog_12_14_2025_174610.txt\n\nResult:\n\nRedfish Service Validator: PASS (Fail \u003d 0)\n\nWarning count unchanged compared to baseline\n\nNo new issues introduced by this patch\n\nThanks.",
+      "parentUuid": "37f3f98b_6674dc7a",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 9
+      },
+      "revId": "57d41fed30c140c308155076c0642cca7c418201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
