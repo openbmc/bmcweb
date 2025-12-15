@@ -39,6 +39,23 @@
       },
       "revId": "c9575546eff7e1131c55e845fd0f0bdb747d7def",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ffdb57b_86c7d6ff",
+        "filename": "redfish-core/schema/oem/openbmc/meson.build",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-15T17:32:15Z",
+      "side": 1,
+      "message": "Why is this now conditional?  Won\u0027t this only install OpenBMCManager?\n\nI suspect we need to move the .v1_0_0 up to the schemas variable on line 2.",
+      "revId": "c9575546eff7e1131c55e845fd0f0bdb747d7def",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
