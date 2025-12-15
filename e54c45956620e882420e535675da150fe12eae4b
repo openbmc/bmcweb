@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44caa874_96b3ff81",
+        "filename": "meson.options",
+        "patchSetId": 6
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-15T22:04:52Z",
+      "side": 1,
+      "message": "Does 6 months on enabled make more sense? June / July 2026? \nJust not sure many people are going to do anything until we change the default.",
+      "range": {
+        "startLine": 351,
+        "startChar": 40,
+        "endLine": 351,
+        "endChar": 52
+      },
+      "revId": "e54c45956620e882420e535675da150fe12eae4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
