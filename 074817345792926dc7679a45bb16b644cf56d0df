@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31427036_be8c51da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:48:31Z",
+      "side": 1,
+      "message": "I have went through the checklist and had done the rework accordingly. Please let me know if I had missed anything.",
+      "parentUuid": "b97ab558_de633936",
+      "revId": "074817345792926dc7679a45bb16b644cf56d0df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6aaf9768_f30ee8ec",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-12-12T15:50:05Z",
       "side": 1,
       "message": "?  This isn\u0027t maybe unused, it\u0027s unused.  Just don\u0027t include it?",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "074817345792926dc7679a45bb16b644cf56d0df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32dead16_a5e43c68",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:48:31Z",
+      "side": 1,
+      "message": "This function is passed as a callback to the function getFabricSwitchPath, which is used at multiple places to get Switch Object Path.",
+      "parentUuid": "6aaf9768_f30ee8ec",
       "range": {
         "startLine": 37,
         "startChar": 4,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "413fa225_08d19b1d",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "758e2f8d_9b63f62a",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 8
+      },
+      "revId": "074817345792926dc7679a45bb16b644cf56d0df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d0adbc8_9877d0ba",
@@ -77,6 +143,30 @@
       "writtenOn": "2025-12-12T15:50:05Z",
       "side": 1,
       "message": "Please don\u0027t call callbacks in a loop.  Push these to an array, and call the callback with the array (or an error).\n\nIf this list is empty, the callback won\u0027t be called.  If it contains multiple, it will be called multiple times.  Both are incorrect",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "074817345792926dc7679a45bb16b644cf56d0df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41c884c4_2cdf7e35",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d0adbc8_9877d0ba",
       "range": {
         "startLine": 80,
         "startChar": 0,
@@ -104,6 +194,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96336cee_a0386408",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "218c6a98_5bcbb888",
+      "revId": "074817345792926dc7679a45bb16b644cf56d0df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23a89f57_846755ce",
@@ -117,6 +225,24 @@
       "writtenOn": "2025-12-12T15:50:05Z",
       "side": 1,
       "message": "nit, nlohmann::json::object_t",
+      "revId": "074817345792926dc7679a45bb16b644cf56d0df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24be642c_5b67a17a",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23a89f57_846755ce",
       "revId": "074817345792926dc7679a45bb16b644cf56d0df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
