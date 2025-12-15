@@ -682,6 +682,20 @@ inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
+inline void getManagedChassis(
+    const std::string& chassisId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    asyncResp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
+    nlohmann::json::array_t managerForChassis;
+    nlohmann::json::object_t manager;
+    manager["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
+    managerForChassis.emplace_back(std::move(manager));
+    asyncResp->res.jsonValue["Links"]["ManagerForChassis"] =
+        std::move(managerForChassis);
+}
+
 inline void handleManagerGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -791,21 +805,7 @@ inline void handleManagerGet(
     managerDiagnosticData["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}/ManagerDiagnosticData", managerId);
 
-    getMainChassisId(
-        asyncResp, [](const std::string& chassisId,
-                      const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-            aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
-            nlohmann::json::array_t managerForChassis;
-            nlohmann::json::object_t managerObj;
-            boost::urls::url chassiUrl =
-                boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-            managerObj["@odata.id"] = chassiUrl;
-            managerForChassis.emplace_back(std::move(managerObj));
-            aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
-                std::move(managerForChassis);
-            aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
-                chassiUrl;
-        });
+    getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
 
     dbus::utility::getProperty<double>(
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
