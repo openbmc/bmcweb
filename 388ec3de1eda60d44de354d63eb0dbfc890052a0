@@ -301,6 +301,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88733adc_64026c78",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-15T21:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d30ee08_d61a41dc",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40d1dd71_5dc294ee",
@@ -503,6 +521,24 @@
       "writtenOn": "2024-10-18T17:43:13Z",
       "side": 1,
       "message": "We follow \nhttps://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md#bracket-style from https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#c-1 \n\n Please use brackets here",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10151498_12bad727",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-15T21:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1f12dd4_f4bfe181",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
