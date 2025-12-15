@@ -65,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ccee579_69d76d14",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-12-15T23:15:57Z",
+      "side": 1,
+      "message": "Im ok to drop this. Update coming up.",
+      "parentUuid": "b03277d6_5fbfcd2d",
+      "revId": "7c7162679eac154297b2ba9a617a4833908b5a3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b53d3af9_eb5f80e5",
