@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b5d8351_7586432b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-15T18:19:19Z",
+      "side": 1,
+      "message": "Thanks for this commit! \nI don\u0027t see you on the latest Microsoft CCLA update. Maybe one of the CCLA managers  (Sagar, Dhananjay, Thirupathaiah, Chitkala, Kiran) can add you? \nThey should also be able to add you to their Gerrit Approved list so CI starts automatically.",
+      "revId": "b915e27cb34ef9a7ac1e3b6dca7ecb392f868b26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
