@@ -56,6 +56,24 @@
       "message": "Why is this now conditional?  Won\u0027t this only install OpenBMCManager?\n\nI suspect we need to move the .v1_0_0 up to the schemas variable on line 2.",
       "revId": "c9575546eff7e1131c55e845fd0f0bdb747d7def",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73445850_749144ba",
+        "filename": "redfish-core/schema/oem/openbmc/meson.build",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2025-12-15T23:47:07Z",
+      "side": 1,
+      "message": "Hi,\n\nI have updated meson.build and adjusted the CheckHysteresisWithSetpoint schema format.\n\nVerification results:\n\nGET /redfish/v1/JsonSchemas/OpenBMCManager\nScreenshot:\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit_20251216)/Managers-bmc-oem.png\n\nRedfish Service Validator was executed successfully.\n\nTest summary:\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit_20251216)/redfish-validator-summary.png\n\nTest details:\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit_20251216)/redfish-validator-details.png",
+      "parentUuid": "3ffdb57b_86c7d6ff",
+      "revId": "c9575546eff7e1131c55e845fd0f0bdb747d7def",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
