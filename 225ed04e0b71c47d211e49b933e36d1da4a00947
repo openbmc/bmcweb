@@ -47,6 +47,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71336cb7_5c2d7242",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:55:56Z",
+      "side": 1,
+      "message": "The use of sdbusplus::message::object_path is not working and hence std::string is used.\n\nThe following won\u0027t compile as operator / can\u0027t take sdbusplus::message::object_path as the second operand.\n`sdbusplus::message::object_path objectPath;\nsdbusplus::message::object_path metricObjectPath;\nauto path \u003d objectPath / \"Metrics\" / metricObjectPath;`\n\n\nThe following will compile but results in object path like this `/xyz/openbmc_project/inventory/pcie_devices/Nvidia_ConnectX_255/Ports/UP_0/Metrics/_2fpcie_2fl0_5fto_5frecovery_5fcount`.\n\n`sdbusplus::message::object_path objectPath;\nsdbusplus::message::object_path metricObjectPath \u003d \"/pcie/l0_to_recovery_count\";\nauto path \u003d objectPath / \"Metrics\" / metricObjectPath.str;`",
+      "parentUuid": "4b745f3f_690edf84",
+      "range": {
+        "startLine": 163,
+        "startChar": 23,
+        "endLine": 163,
+        "endChar": 39
+      },
+      "revId": "225ed04e0b71c47d211e49b933e36d1da4a00947",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "869c23c2_cca8cd8a",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:55:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f5207f4_0bd3ce2e",
+      "range": {
+        "startLine": 163,
+        "startChar": 60,
+        "endLine": 163,
+        "endChar": 67
+      },
+      "revId": "225ed04e0b71c47d211e49b933e36d1da4a00947",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eda79480_1d8e7db5",
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbd77e69_755745e6",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:55:56Z",
+      "side": 1,
+      "message": "For each Metric Value, there is a separate DBus Object Path that hosts Interface xyz.openbmc_project.Metric.Value. Doing GetAll call is not possible in such case.",
+      "parentUuid": "eda79480_1d8e7db5",
+      "revId": "225ed04e0b71c47d211e49b933e36d1da4a00947",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a75fa9b_b9b213eb",
@@ -77,6 +143,30 @@
       "writtenOn": "2025-12-12T15:58:25Z",
       "side": 1,
       "message": "Violation of COMMON_ERROR around dbus path creation.  Please use sdbusplus::message::object_path.",
+      "range": {
+        "startLine": 166,
+        "startChar": 21,
+        "endLine": 166,
+        "endChar": 44
+      },
+      "revId": "225ed04e0b71c47d211e49b933e36d1da4a00947",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d35de748_bb466dec",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-12-15T13:55:56Z",
+      "side": 1,
+      "message": "The use of sdbusplus::message::object_path is not working and hence std::string is used.\n\nThe following won\u0027t compile as operator / can\u0027t take sdbusplus::message::object_path as the second operand.\n`sdbusplus::message::object_path objectPath;\nsdbusplus::message::object_path metricObjectPath;\nauto path \u003d objectPath / \"Metrics\" / metricObjectPath;`\n\n\nThe following will compile but results in object path like this `/xyz/openbmc_project/inventory/pcie_devices/Nvidia_ConnectX_255/Ports/UP_0/Metrics/_2fpcie_2fl0_5fto_5frecovery_5fcount`.\n\n`sdbusplus::message::object_path objectPath;\nsdbusplus::message::object_path metricObjectPath \u003d \"/pcie/l0_to_recovery_count\";\nauto path \u003d objectPath / \"Metrics\" / metricObjectPath.str;`",
+      "parentUuid": "7a75fa9b_b9b213eb",
       "range": {
         "startLine": 166,
         "startChar": 21,
