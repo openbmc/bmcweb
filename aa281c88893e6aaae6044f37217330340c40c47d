@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25ada399_78a6b464",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-15T19:48:14Z",
+      "side": 1,
+      "message": "nit, you don\u0027t have to put \"Problem:\" in a commit message, commit message should be prose written by people, not test results from an automated system.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "aa281c88893e6aaae6044f37217330340c40c47d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d1576e5_aaee6c63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-15T19:48:14Z",
+      "side": 1,
+      "message": "nit, \"Tested:\" is the standard here.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "aa281c88893e6aaae6044f37217330340c40c47d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6815a8ab_5d2ed3f5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -14,6 +60,24 @@
       "writtenOn": "2025-12-15T18:08:59Z",
       "side": 1,
       "message": "This seems odd we need a check like this? We can\u0027t remove any place that sets 200? \nWhy do we need a special check like this? We don\u0027t do this anywhere else",
+      "revId": "aa281c88893e6aaae6044f37217330340c40c47d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630e1a03_824c4eaa",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-15T19:48:14Z",
+      "side": 1,
+      "message": "+1.  Technically either are valid, but it would be a lot easier if as a user we had consistent behavior and just returned 204 on password sets.",
+      "parentUuid": "6815a8ab_5d2ed3f5",
       "revId": "aa281c88893e6aaae6044f37217330340c40c47d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
