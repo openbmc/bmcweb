@@ -72,6 +72,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "634c2dc4_2d7ae60c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-15T22:02:23Z",
+      "side": 1,
+      "message": "I am fine with this but your commit msg, doesn\u0027t to me explain why we need this change.",
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fa6b031_de21d164",
@@ -103,6 +120,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "4fa6b031_de21d164",
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d1ef0a9_679af1de",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-15T22:02:23Z",
+      "side": 1,
+      "message": "Ideally refactoring to get rid of the long lambda is done in a separate commit on top or before this (if you want to refactor to get rid of the long lambda, it would help us out :) )",
+      "parentUuid": "4f97a1bf_833a73ba",
       "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
