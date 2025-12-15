@@ -189,6 +189,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24e5a4fe_178162a0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-15T17:55:39Z",
+      "side": 1,
+      "message": "That patchset does not answer the question i asked.",
+      "parentUuid": "35562acd_8978c0f6",
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36d9d61f_602cd0d5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -295,6 +313,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "822f9395_c93d9b4d",
+      "range": {
+        "startLine": 1906,
+        "startChar": 0,
+        "endLine": 1908,
+        "endChar": 71
+      },
+      "revId": "9a063c710759e3fd59a9e7defc14b918fb751dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "423a731a_650909a4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1908,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-15T17:55:39Z",
+      "side": 1,
+      "message": "\u003e Do you have any suggestions?\n\nAny suggestion I gave would come from the Redfihs specification and Registries.  Please look to those for input.",
+      "parentUuid": "a448709b_f3c873e5",
       "range": {
         "startLine": 1906,
         "startChar": 0,
