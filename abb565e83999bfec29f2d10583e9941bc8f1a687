@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ad8c21_a9f55d87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-16T15:41:42Z",
+      "side": 1,
+      "message": "If you do something like \n\nFixes: https://github.com/openbmc/bmcweb/issues/225\n\nhttps://graphite.com/guides/closing-issues-with-pull-requests-in-github\n\nIt will automatically close when this merges",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "abb565e83999bfec29f2d10583e9941bc8f1a687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edd23532_93853a03",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-16T15:41:42Z",
+      "side": 0,
+      "message": "I think you can remove this function now",
+      "revId": "1aa94df4cb3b7ab864a4c5fb009538c259c2801e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
