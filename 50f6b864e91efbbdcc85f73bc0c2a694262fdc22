@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc5b2f57_a652834b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-16T06:17:24Z",
+      "side": 1,
+      "message": "Sure, I will update the commit msg with proper description",
+      "parentUuid": "634c2dc4_2d7ae60c",
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fa6b031_de21d164",
