@@ -62,6 +62,7 @@
 #include <functional>
 #include <memory>
 #include <optional>
+#include <source_location>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -77,9 +78,6 @@ namespace redfish
 static std::unique_ptr<sdbusplus::bus::match_t> fwUpdateMatcher;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<sdbusplus::bus::match_t> fwUpdateErrorMatcher;
-// Only allow one update at a time
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static bool fwUpdateInProgress = false;
 // Timer for software available
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
@@ -124,7 +122,7 @@ struct MemoryFileDescriptor
 
 inline void cleanUp()
 {
-    fwUpdateInProgress = false;
+    sw_util::fwUpdateInProgress() = false;
     fwUpdateMatcher = nullptr;
     fwUpdateErrorMatcher = nullptr;
 }
@@ -323,7 +321,7 @@ inline void softwareInterfaceAdded(
                     {
                         createTask(asyncResp, std::move(payload), objPath);
                     }
-                    fwUpdateInProgress = false;
+                    sw_util::fwUpdateInProgress() = false;
                 });
 
             break;
@@ -454,7 +452,7 @@ inline void monitorForSoftwareAvailable(
     int timeoutTimeSeconds = 50)
 {
     // Only allow one FW update at a time
-    if (fwUpdateInProgress)
+    if (sw_util::fwUpdateInProgress())
     {
         if (asyncResp)
         {
@@ -477,7 +475,7 @@ inline void monitorForSoftwareAvailable(
         softwareInterfaceAdded(asyncResp, m, std::move(payload));
     };
 
-    fwUpdateInProgress = true;
+    sw_util::fwUpdateInProgress() = true;
 
     fwUpdateMatcher = std::make_unique<sdbusplus::bus::match_t>(
         *crow::connections::systemBus,
