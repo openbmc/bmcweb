@@ -16,6 +16,23 @@
       "message": "Thanks for this commit! \nI don\u0027t see you on the latest Microsoft CCLA update. Maybe one of the CCLA managers  (Sagar, Dhananjay, Thirupathaiah, Chitkala, Kiran) can add you? \nThey should also be able to add you to their Gerrit Approved list so CI starts automatically.",
       "revId": "b915e27cb34ef9a7ac1e3b6dca7ecb392f868b26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a503302_1e70d663",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2025-12-16T00:44:28Z",
+      "side": 1,
+      "message": "Thanks - I\u0027ll go ahead and send an e-mail to them asking to be added to the list.",
+      "revId": "b915e27cb34ef9a7ac1e3b6dca7ecb392f868b26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
