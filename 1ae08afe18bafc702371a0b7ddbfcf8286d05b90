@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebbe2df_30314989",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2025-12-16T23:33:42Z",
+      "side": 1,
+      "message": "Alternatively, if we want to stick to the old output we could do a\n```\nif (!allowedNAN.contains(valueName)) {\n    BMCWEB_LOG_WARNING(\"Sensor value for {} was unexpectedly {}\", ...);\n}\n```\n\n@ed@tanous.net what do you think?",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
