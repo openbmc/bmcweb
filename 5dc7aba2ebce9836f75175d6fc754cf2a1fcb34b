@@ -16,6 +16,24 @@
       "message": "is this still being worked?",
       "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60f504e4_b1eed430",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T14:58:43Z",
+      "side": 1,
+      "message": "yes, it does. As I remember we\u0027re waiting for interface review before any action with bmcweb and most of questions were resolved but not in \"resolved\" state. I\u0027ll double check later and make them resolved if they\u0027re resolved in code.",
+      "parentUuid": "9375cfe6_b45796f9",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
