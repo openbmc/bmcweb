@@ -405,6 +405,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed0b7aa7_d59948b9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T16:34:29Z",
+      "side": 1,
+      "message": "From what I see, it is just one which is not resolved and not answered by Ivan, I think here should be uint64_t::max. There is distinction between unexpiring user and password expiration which is not specified which somehow \"unexpiring\". From chage part it looks like this:\n\nfor unexpiring user it will be something like / \"0\":\n\n```\nlastday \u003d (create time in days / last time chagned \u003d\u003d\n1756771200)\nchage --lastday 20333 --maxdays -1\n```\n\nfor not specifying password expiration / \"uint64_t::max\":\n\n```\nlastday \u003d (create time in days / last time chagned \u003d\u003d\n1756771200)\nchage --lastday 20333 --maxdays 2147463314\n```\n\nDistinction here that one with unspecified pwdexp still expirable but unexpiring is not.\n\n\nAlso from commit description in PUM:\n```\nTo make password not to expire, uint64_t maximum should be provided as\na password expiration argument value.\n\nNot to set password expiration, zero should be provided as a password\nexpiration argument. This value is required to create a user without\npassword expiration specified, to unify calls from the bmcweb. Moreover,\nthis value is required to further extend CreateUser2 method to allow\ncreate a user with password and account expiration but to use it in a\nsituation, for example, when account expiration is specified but\npassword expiration is not.\n```",
+      "parentUuid": "2a6ae9f7_c2d55bd8",
+      "range": {
+        "startLine": 1940,
+        "startChar": 0,
+        "endLine": 1940,
+        "endChar": 45
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edd342cd_940994e0",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 7
