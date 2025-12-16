@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a69d29c4_66b664eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-12-16T08:57:20Z",
+      "side": 1,
+      "message": "It\u0027s to represent the file name that this is making changes to.",
+      "parentUuid": "dc9f3778_edf2f00e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15074022_c9af6deb",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9227379_ff814476",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-12-16T08:57:20Z",
+      "side": 1,
+      "message": "Updated the code as your suggestion. Although we do not plan to split our existing configurations, I did some tests with some modifications on our system and it worked.",
+      "parentUuid": "15074022_c9af6deb",
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c82ae7df_1fc0cd61",
@@ -54,6 +96,30 @@
       "writtenOn": "2025-12-12T16:46:17Z",
       "side": 1,
       "message": "As we are currently discussing this in PDI [1], not the xyz.openbmc_project.Inventory.Decorator.ManagedHost interface should be required, but the xyz.openbmc_project.Inventory.Item.System interface\n\n\n[1] https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/85082",
+      "range": {
+        "startLine": 33,
+        "startChar": 58,
+        "endLine": 33,
+        "endChar": 69
+      },
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99bdbda_2ab564a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-12-16T08:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c82ae7df_1fc0cd61",
       "range": {
         "startLine": 33,
         "startChar": 58,
@@ -117,6 +183,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5cf4530_702b15ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-12-16T08:57:20Z",
+      "side": 1,
+      "message": "Please add any test result as you will as I don\u0027t have a multi-host system to test practical cases. Thanks in advance.",
+      "parentUuid": "edec4207_60be69e3",
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "369d0f3c_010b0550",
@@ -134,6 +218,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ecb8776_239ecfd5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 3177,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-12-16T08:57:20Z",
+      "side": 1,
+      "message": "The code is updated to support both case.",
+      "parentUuid": "369d0f3c_010b0550",
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f549d7b2_bbe66c88",
@@ -147,6 +249,24 @@
       "writtenOn": "2025-12-12T16:46:17Z",
       "side": 1,
       "message": "I think it would be better to convert systemPath string to an object_path and use the /\u003d operator for appending the endpoint.",
+      "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d3e98c5_1d1f9916",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 3209,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-12-16T08:57:20Z",
+      "side": 1,
+      "message": "I see it\u0027s implemented like that in many places. Maybe I should leave it as is to save some code lines.",
+      "parentUuid": "f549d7b2_bbe66c88",
       "revId": "76073d06845f6f816f6e0ca0777f5ffd296a81aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
