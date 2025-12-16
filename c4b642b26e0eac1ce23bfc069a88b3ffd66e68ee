@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2daa1653_002d85e3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-16T17:55:52Z",
+      "side": 1,
+      "message": "I don\u0027t think it is possible to do this check during configuration of the build. `systemName` is set at runtime with the incoming request. \n\nAm I overlooking sth?",
+      "parentUuid": "ec9e1efd_9fe47379",
+      "range": {
+        "startLine": 910,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 69
+      },
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd277f2e_d923aef6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2025-12-05T18:20:12Z",
       "side": 1,
       "message": "So you just don\u0027t add the link ? \nSo LogServices is just empty when MULTI_COMPUTER_SYSTEM ?",
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c894db5a_eccb09dc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-16T17:55:52Z",
+      "side": 1,
+      "message": "\u003e So you just don\u0027t add the link ?\n\nCorrect. \n\n\u003e So LogServices is just empty when MULTI_COMPUTER_SYSTEM ?\n\nIt contains the PostCodes LogService, for which the follow-up patch adds support for multi-host.",
+      "parentUuid": "bd277f2e_d923aef6",
       "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +96,24 @@
       "writtenOn": "2025-12-05T19:34:08Z",
       "side": 1,
       "message": "See above, this one specifically, if these two options aren\u0027t allowed together, can we just make that enforced in meson?",
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a2f3ff_34b3281d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-16T17:55:52Z",
+      "side": 1,
+      "message": "For the log options I did solve this in meson. Done",
+      "parentUuid": "a0a39f5b_f391aa0d",
       "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -83,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cbf1872_7b1ed7fc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-16T17:55:52Z",
+      "side": 1,
+      "message": "So do I need to change this? This is how we do it in multiple places apart from this patch\n\nAlso clang-tidy does not complain on my local machine, so I am a bit confused.",
+      "parentUuid": "70318a48_8896e574",
+      "range": {
+        "startLine": 974,
+        "startChar": 20,
+        "endLine": 974,
+        "endChar": 30
+      },
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd540dfc_b3aa611c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -94,6 +178,24 @@
       "writtenOn": "2025-12-05T19:34:08Z",
       "side": 1,
       "message": "This is now a security vulnerability as you\u0027ve written it.  \"systemName\" comes from the user, so might contain bad characters (including query strings and other stuff).  BMCWEB_REDFISH_SYSTEM_URI_NAME comes from compile time, so std::format is appropriate, although really anything new should use boost::urls::format",
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97ae8c61_1d350f92",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-16T17:55:52Z",
+      "side": 1,
+      "message": "The follow-up patch already fixes that.",
+      "parentUuid": "fd540dfc_b3aa611c",
       "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
