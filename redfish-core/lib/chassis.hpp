@@ -596,6 +596,10 @@ inline void handleChassisGetSubTree(
             "xyz.openbmc_project.Inventory.Decorator.Replaceable";
         const std::string revisionInterface =
             "xyz.openbmc_project.Inventory.Decorator.Revision";
+        const std::string uuidInterface = "xyz.openbmc_project.Common.UUID";
+        const std::string locationCodeInterface =
+            "xyz.openbmc_project.Inventory.Decorator.LocationCode";
+
         for (const auto& interface : interfaces2)
         {
             if (interface == assetTagInterface)
@@ -647,6 +651,14 @@ inline void handleChassisGetSubTree(
                         asyncResp->res.jsonValue["Version"] = property;
                     });
             }
+            else if (interface == uuidInterface)
+            {
+                getChassisUUID(asyncResp, connectionName, path);
+            }
+            else if (interface == locationCodeInterface)
+            {
+                getChassisLocationCode(asyncResp, connectionName, path);
+            }
         }
 
         for (const char* interface : hasIndicatorLed)
@@ -680,19 +692,6 @@ inline void handleChassisGetSubTree(
                 const dbus::utility::DBusPropertiesMap& propertiesList) {
                 handleChassisProperties(asyncResp, propertiesList);
             });
-
-        for (const auto& interface : interfaces2)
-        {
-            if (interface == "xyz.openbmc_project.Common.UUID")
-            {
-                getChassisUUID(asyncResp, connectionName, path);
-            }
-            else if (interface ==
-                     "xyz.openbmc_project.Inventory.Decorator.LocationCode")
-            {
-                getChassisLocationCode(asyncResp, connectionName, path);
-            }
-        }
 
         return;
     }
