@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcd1605b_edf7ac7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-16T18:51:08Z",
+      "side": 1,
+      "message": "Please read the documentation on patch testing (which I know you\u0027ve been pointed to before).",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 16
+      },
+      "revId": "b1e8cf612fb30f59769759131313a7c601f64a49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b39323_ef75becd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-16T18:51:08Z",
+      "side": 1,
+      "message": "The testing here isn\u0027t nearly enough.  You\u0027ve changed some core functions that apply to both multihost and non multihost.  We need some level of testing to gain confidence that they\u0027re correct.\n\nTesting a couple URIs manually doesn\u0027t test the whole ComputerSystemCollection tree, which is effected by this change.",
+      "revId": "b1e8cf612fb30f59769759131313a7c601f64a49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c7f3398_59924d6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-16T18:51:08Z",
+      "side": 1,
+      "message": "Overall in support of this, but this isn\u0027t just a minor change, so testing is important.",
+      "revId": "b1e8cf612fb30f59769759131313a7c601f64a49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
