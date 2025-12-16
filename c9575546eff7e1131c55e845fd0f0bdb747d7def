@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f72603a_f0a38aee",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2025-12-16T11:53:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "528c672c_d7154e8f",
+      "revId": "c9575546eff7e1131c55e845fd0f0bdb747d7def",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cb4f7fb_a2774d6c",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-12-15T17:30:52Z",
       "side": 1,
       "message": "This should be an enum with descriptions of each one.",
+      "range": {
+        "startLine": 429,
+        "startChar": 63,
+        "endLine": 429,
+        "endChar": 70
+      },
+      "revId": "c9575546eff7e1131c55e845fd0f0bdb747d7def",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28c0a451_9da50789",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCManager_v1.xml",
+        "patchSetId": 15
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2025-12-16T11:53:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cb4f7fb_a2774d6c",
       "range": {
         "startLine": 429,
         "startChar": 63,
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "Hi,\n\nI have updated meson.build and adjusted the CheckHysteresisWithSetpoint schema format.\n\nVerification results:\n\nGET /redfish/v1/JsonSchemas/OpenBMCManager\nScreenshot:\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit_20251216)/Managers-bmc-oem.png\n\nRedfish Service Validator was executed successfully.\n\nTest summary:\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit_20251216)/redfish-validator-summary.png\n\nTest details:\nhttps://github.com/YouPengWu/ToReviewer/blob/main/85785/Test_case/Bmcweb(my_commit_20251216)/redfish-validator-details.png",
       "parentUuid": "3ffdb57b_86c7d6ff",
+      "revId": "c9575546eff7e1131c55e845fd0f0bdb747d7def",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "314351f2_7505d354",
+        "filename": "redfish-core/schema/oem/openbmc/meson.build",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2025-12-16T11:53:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73445850_749144ba",
       "revId": "c9575546eff7e1131c55e845fd0f0bdb747d7def",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
