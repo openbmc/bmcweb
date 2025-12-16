@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e913d6dd_cffcc570",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c7014f2_29d2014c",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94cacb63_68b6a8cb",
@@ -142,6 +160,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e6437fa_65818623",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41609b46_68c02c57",
+      "range": {
+        "startLine": 1118,
+        "startChar": 24,
+        "endLine": 1118,
+        "endChar": 33
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c2283e9_a28db846",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c57d48a1_25e8e435",
+      "range": {
+        "startLine": 1118,
+        "startChar": 10,
+        "endLine": 1118,
+        "endChar": 14
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd5fe3f0_87835bca",
@@ -173,6 +239,24 @@
       "side": 1,
       "message": "I\u0027ll do it.",
       "parentUuid": "fd5fe3f0_87835bca",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7704003f_1532714f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2701df8f_0d241e05",
       "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -226,6 +310,24 @@
       "side": 1,
       "message": "just duration_cast directly to the correct type (unsigned 64 bit seconds).",
       "parentUuid": "b23e832d_2b679917",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e984bc_5fffb8cb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfda8619_90a36dc7",
       "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -332,6 +434,24 @@
       "side": 1,
       "message": "Yes, I\u0027ll add test for beginning of Epoch time, though in my patchset it means that password does not expire. I realize that 01-01-1970 is valid time but I do not know how to specify special cases like password does not expire and password expiration is not specified without these special values of PasswordExpiration attribute.",
       "parentUuid": "edd342cd_940994e0",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f6759a_36fdcf03",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ab12286_6c91a007",
       "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

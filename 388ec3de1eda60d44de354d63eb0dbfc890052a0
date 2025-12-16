@@ -88,6 +88,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7b104e_8a9fb444",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c338d2ae_17e9170d",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7bb856a_1e08ca23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "looks like outdated and already resolved.",
+      "parentUuid": "0551e5d3_21e99704",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8741a55f_1d2fe57c",
@@ -141,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "251b671a_56379d77",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "looks like outdated and already resolved.",
+      "parentUuid": "fbc5c049_3e0758e2",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "478d6133_1d31225e",
@@ -190,6 +244,24 @@
       "side": 1,
       "message": "correct.  the typedef isn’t much shorter than the actual declaration.",
       "parentUuid": "da039019_b15f09a4",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf12a9ed_0f2ae7bc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "looks like outdated and already resolved.",
+      "parentUuid": "b5313e3b_c28e0246",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -356,6 +428,30 @@
       "side": 1,
       "message": "Right, thanks for pointing out.",
       "parentUuid": "40d1dd71_5dc294ee",
+      "range": {
+        "startLine": 1112,
+        "startChar": 0,
+        "endLine": 1115,
+        "endChar": 22
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20d4a17c_39c069fe",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54b40012_24ab13ff",
       "range": {
         "startLine": 1112,
         "startChar": 0,
@@ -601,6 +697,48 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f77a0c_d6a86947",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08834791_f11a086c",
+      "range": {
+        "startLine": 1121,
+        "startChar": 0,
+        "endLine": 1131,
+        "endChar": 77
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a3c4c40_bedb1c5d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ccda271_ea8ddb67",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3ada23e_d635c794",
@@ -648,6 +786,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61fce0a_6c5ce4bf",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2315b202_b0245329",
+      "range": {
+        "startLine": 1149,
+        "startChar": 0,
+        "endLine": 1149,
+        "endChar": 22
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04842704_4a4620c3",
@@ -685,6 +847,30 @@
       "side": 1,
       "message": "My bad, thanks for pointing it out.",
       "parentUuid": "04842704_4a4620c3",
+      "range": {
+        "startLine": 1157,
+        "startChar": 0,
+        "endLine": 1157,
+        "endChar": 48
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd34568f_a04d70f7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "looks like outdated and already resolved.",
+      "parentUuid": "c95f4a89_0571dc88",
       "range": {
         "startLine": 1157,
         "startChar": 0,
@@ -765,6 +951,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f2ed7f_d3881404",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c00ddaa5_ac9ef7bc",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c0001ea_b5ac2cd2",
@@ -788,6 +992,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53badc8b_3bb4112c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1890,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "looks like outdated and already resolved.",
+      "parentUuid": "5c0001ea_b5ac2cd2",
+      "range": {
+        "startLine": 1890,
+        "startChar": 61,
+        "endLine": 1890,
+        "endChar": 69
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0eb0660_6b49f28f",
@@ -801,6 +1029,30 @@
       "writtenOn": "2024-10-18T17:47:25Z",
       "side": 1,
       "message": "suspect this will go away once the password expiration is done as part of the create call.",
+      "range": {
+        "startLine": 1891,
+        "startChar": 0,
+        "endLine": 1891,
+        "endChar": 46
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "235248a4_dd659ddc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1891,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "looks like outdated and already resolved.",
+      "parentUuid": "a0eb0660_6b49f28f",
       "range": {
         "startLine": 1891,
         "startChar": 0,
@@ -900,6 +1152,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "767a1e43_25db0bb3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "I think it\u0027s resolved, CreateUser2 interface is in review for now with support of it in PUM.",
+      "parentUuid": "6582febb_e325e1cc",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1947bf53_d6605ced",
@@ -949,6 +1219,24 @@
       "side": 1,
       "message": "Yes sdbusplus::unpackPropertiesNoThrow",
       "parentUuid": "aa1f6c1d_88b44e1a",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04bb7205_9d48150a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2137,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2025-12-16T15:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0503758d_0756af6b",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
