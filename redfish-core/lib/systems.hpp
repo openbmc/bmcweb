@@ -2980,6 +2980,26 @@ inline void handleComputerSystemHead(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
 }
+inline void afterSystemGetPortNumber(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& protocolName, const boost::system::error_code& ec,
+    int portNumber)
+{
+    if (ec.value() == boost::system::errc::no_such_file_or_directory)
+    {
+        BMCWEB_LOG_WARNING("No ssh service found");
+        return;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json& dataJson1 = asyncResp->res.jsonValue["SerialConsole"];
+    dataJson1[protocolName]["Port"] = portNumber;
+}
 
 inline void afterPortRequest(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -3003,26 +3023,8 @@ inline void afterPortRequest(
         // obmc-console-ssh service
         if (protocolName == "SSH")
         {
-            getPortNumber(socketPath, [asyncResp, protocolName](
-                                          const boost::system::error_code& ec1,
-                                          int portNumber) {
-                if (ec1.value() ==
-                    boost::system::errc::no_such_file_or_directory)
-                {
-                    BMCWEB_LOG_WARNING("No ssh service found");
-                    return;
-                }
-                if (ec1)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                nlohmann::json& dataJson1 =
-                    asyncResp->res.jsonValue["SerialConsole"];
-                dataJson1[protocolName]["Port"] = portNumber;
-            });
+            getPortNumber(socketPath, std::bind_front(&afterSystemGetPortNumber,
+                                                      asyncResp, protocolName));
         }
     }
 }
