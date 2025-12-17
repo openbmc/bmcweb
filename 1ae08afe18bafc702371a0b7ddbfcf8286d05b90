@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95230d59_e6a4fb06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-12-17T22:27:40Z",
+      "side": 1,
+      "message": "\u003e so closing this out.\n\n👍\n\n```\n2) PLDM doesn\u0027t implement these in some cases. https://github.com/openbmc/pldm/blob/0b06dd891c42103a4555a0376e7a47b604f01ca9/platform-mc/numeric_sensor.cpp#L482\n\nBut it still implements them.\n```\n\nFor some reason there are two different constructors in PLDM.  One of them doesn\u0027t implement (the one I linked to).  It just sets the value to NaN.",
+      "parentUuid": "a39ce5e0_d59195b2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50e0bbbb_c8b3950b",
