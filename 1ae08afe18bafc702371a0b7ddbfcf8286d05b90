@@ -26,6 +26,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2d15dd9_f1b0153f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-12-17T22:01:45Z",
+      "side": 1,
+      "message": "\u003e MinValue and MaxValue are required for IPMI to build SDRs, so they\u0027re arguably implemented by every sensor.\n\nThis arguable but not true. ;)\n\n1) I know for certain phosphor-virtual-sensor _only_ emits a {Min,Max}Value if one is explicitly enabled in the config, which is not required and many do not.\n\n2) PLDM doesn\u0027t implement these in some cases.  https://github.com/openbmc/pldm/blob/0b06dd891c42103a4555a0376e7a47b604f01ca9/platform-mc/numeric_sensor.cpp#L482\n\n3) Not everyone uses IPMI so there is no certainty that anyone is testing even the IPMI side of it.",
+      "parentUuid": "adc758f5_76fb7742",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e0bbbb_c8b3950b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-12-17T22:01:45Z",
+      "side": 1,
+      "message": "I think they\u0027re often set to NaN and not Inf?",
+      "range": {
+        "startLine": 10,
+        "startChar": 36,
+        "endLine": 10,
+        "endChar": 44
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95fb50d7_25fda0ba",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
