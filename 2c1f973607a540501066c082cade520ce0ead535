@@ -105,6 +105,30 @@
       },
       "revId": "2c1f973607a540501066c082cade520ce0ead535",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e58114_70d2a9f5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3027,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T21:06:45Z",
+      "side": 1,
+      "message": "Yep, fair.  Not worth applying anymore brainpower to it, I can just refactor.",
+      "parentUuid": "8aab53ff_08a17f9a",
+      "range": {
+        "startLine": 3017,
+        "startChar": 0,
+        "endLine": 3027,
+        "endChar": 27
+      },
+      "revId": "2c1f973607a540501066c082cade520ce0ead535",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
