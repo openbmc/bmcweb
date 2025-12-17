@@ -108,12 +108,6 @@ DbusEventLogMonitor::DbusEventLogMonitor() :
 
 static void getReadingsForReport(sdbusplus::message_t& msg)
 {
-    if (msg.is_method_error())
-    {
-        BMCWEB_LOG_ERROR("TelemetryMonitor Signal error");
-        return;
-    }
-
     sdbusplus::message::object_path path(msg.get_path());
     std::string id = path.filename();
     if (id.empty())
