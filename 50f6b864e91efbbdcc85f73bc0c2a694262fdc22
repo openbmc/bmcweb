@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "721e0ce4_df8a37c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-17T18:43:03Z",
+      "side": 1,
+      "message": "ERROR and CRITICAL should flag real issues. WARNING is for things that might be a problem. D‑Bus errors like io_error and EBADR sound exactly like that, \"might only be an error in certain scenarios\"\n\nhttps://github.com/openbmc/bmcweb/blob/9ad2c6f422bc0860314b853c287283dcbd29430d/DEVELOPING.md?plain\u003d1#L228C1-L230C58\n\n\n```\n- warning: A condition occurred that is outside the expected flows, but isn\u0027t\n  necessarily an error in the webserver, or might only be an error in certain\n  scenarios. For example, connection drops or 4xx errors.\n```",
+      "parentUuid": "b275c3cb_cc28093a",
+      "range": {
+        "startLine": 9,
+        "startChar": 60,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "634c2dc4_2d7ae60c",
