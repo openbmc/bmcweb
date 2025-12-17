@@ -225,10 +225,9 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
                 // Network Protocol Listen Response Elements is empty
                 boost::system::error_code ec1 =
                     boost::system::errc::make_error_code(
-                        boost::system::errc::bad_message);
+                        boost::system::errc::no_such_file_or_directory);
                 // return error code
                 callback(ec1, 0);
-                BMCWEB_LOG_ERROR("{}", ec1);
                 return;
             }
             const std::string& listenStream =
