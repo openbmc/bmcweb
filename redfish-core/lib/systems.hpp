@@ -3014,10 +3014,19 @@ inline void afterPortRequest(
                                           int portNumber) {
                 if (ec1)
                 {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
-                    messages::internalError(asyncResp->res);
+                    if (ec1.value() ==
+                        boost::error_code::no_such_file_or_directory)
+                    {
+                        BMCWEB_LOG_WARNING("No ssh service found");
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
+                        messages::internalError(asyncResp->res);
+                    }
                     return;
                 }
+
                 nlohmann::json& dataJson1 =
                     asyncResp->res.jsonValue["SerialConsole"];
                 dataJson1[protocolName]["Port"] = portNumber;
