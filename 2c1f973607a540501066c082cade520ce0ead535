@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0e281b1_11b97c06",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-17T20:07:53Z",
+      "side": 1,
+      "message": "Should this be a WARNING then ? If you are logging in systems.hpp, could just remove this",
+      "revId": "2c1f973607a540501066c082cade520ce0ead535",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba7166a_9f460363",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3027,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-17T20:07:53Z",
+      "side": 1,
+      "message": "More common in bmcweb is below style, are we trying to move to more this if/else style? More curious than anything. Not sure if clang-tidy, etc. is forcing this?\n\n                    if (ec1.value() \u003d\u003d\n                        boost::error_code::no_such_file_or_directory)\n                    {\n                        BMCWEB_LOG_WARNING(\"No ssh service found\");\n                        return; \n                    }\n\n                    BMCWEB_LOG_ERROR(\"DBUS response error {}\", ec1);\n                    messages::internalError(asyncResp-\u003eres);\n                    return;",
+      "range": {
+        "startLine": 3017,
+        "startChar": 0,
+        "endLine": 3027,
+        "endChar": 27
+      },
+      "revId": "2c1f973607a540501066c082cade520ce0ead535",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
