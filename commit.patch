@@ -1,0 +1,110 @@
+commit fe05e3f8904dd8caaab59ac16e2f5fd0ffdd2474
+Author: Ramya Sivakumar <sramya@ami.com>
+Date:   Wed Dec 17 18:31:35 2025 +0530
+
+    Optimize persistent file path handling
+    
+    Modernize the persistent data file path logic by using
+    std::filesystem::path and caching the result via a static local
+    variable. This replaces the previous redundant string-based logic.
+    
+    Change-Id: Ibaa80920c2b77d92eeac6ec6f63289d60ed9821e
+    Signed-off-by: Ramya Sivakumar <sramya@ami.com>
+
+diff --git a/include/persistent_data.hpp b/include/persistent_data.hpp
+index 12601038..085a9d54 100644
+--- a/include/persistent_data.hpp
++++ b/include/persistent_data.hpp
+@@ -32,21 +32,17 @@ class ConfigFile
+     uint64_t jsonRevision = 1;
+ 
+   public:
+-    static std::string getStateFile()
++    static const std::filesystem::path& getPath()
+     {
+-        // NOLINTNEXTLINE(concurrency-mt-unsafe)
+         const char* stateDir = std::getenv("STATE_DIRECTORY");
++
+         if (stateDir == nullptr)
+         {
+             stateDir = ".";
+         }
+-        return std::string(stateDir) + "/bmcweb_persistent_data.json";
+-    }
+-
+-    static const std::string& filename()
+-    {
+-        const static std::string fname = getStateFile();
+-        return fname;
++        static const std::filesystem::path path =
++            std::filesystem::path(stateDir) / "bmcweb_persistent_data.json";
++        return path;
+     }
+ 
+     ConfigFile()
+@@ -76,15 +72,16 @@ class ConfigFile
+     {
+         boost::beast::file_posix persistentFile;
+         boost::system::error_code ec;
+-        const std::string& file = filename();
+-        persistentFile.open(file.c_str(), boost::beast::file_mode::read, ec);
++        persistentFile.open(getPath().c_str(), boost::beast::file_mode::read,
++                            ec);
+         uint64_t fileRevision = 0;
+         if (!ec)
+         {
+             uint64_t size = persistentFile.size(ec);
+             if (ec)
+             {
+-                BMCWEB_LOG_CRITICAL("Can't get filesize of {}", file);
++                BMCWEB_LOG_CRITICAL("Can't get filesize of {}",
++                                    getPath().c_str());
+                 return;
+             }
+             std::string str;
+@@ -92,7 +89,8 @@ class ConfigFile
+             persistentFile.read(str.data(), str.size(), ec);
+             if (ec)
+             {
+-                BMCWEB_LOG_CRITICAL("Failed to read file {}", file);
++                BMCWEB_LOG_CRITICAL("Failed to read file {}",
++                                    getPath().c_str());
+                 return;
+             }
+             // call with exceptions disabled
+@@ -279,13 +277,11 @@ class ConfigFile
+ 
+     void writeData()
+     {
+-        const std::string& fname = filename();
+-        std::filesystem::path path(fname);
+-        path = path.parent_path();
+-        if (!path.empty())
++        std::filesystem::path dir = getPath().parent_path();
++        if (!dir.empty())
+         {
+             std::error_code ecDir;
+-            std::filesystem::create_directories(path, ecDir);
++            std::filesystem::create_directories(dir, ecDir);
+             if (ecDir)
+             {
+                 BMCWEB_LOG_CRITICAL("Can't create persistent folders {}",
+@@ -295,7 +291,8 @@ class ConfigFile
+         }
+         boost::beast::file_posix persistentFile;
+         boost::system::error_code ec;
+-        persistentFile.open(fname.c_str(), boost::beast::file_mode::write, ec);
++        persistentFile.open(getPath().c_str(), boost::beast::file_mode::write,
++                            ec);
+         if (ec)
+         {
+             BMCWEB_LOG_CRITICAL("Unable to store persistent data to file {}",
+@@ -308,7 +305,7 @@ class ConfigFile
+             std::filesystem::perms::owner_read |
+             std::filesystem::perms::owner_write |
+             std::filesystem::perms::group_read;
+-        std::filesystem::permissions(fname, permission, ec);
++        std::filesystem::permissions(getPath(), permission, ec);
+         if (ec)
+         {
+             BMCWEB_LOG_CRITICAL("Failed to set filesystem permissions {}",
