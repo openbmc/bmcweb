@@ -204,6 +204,48 @@ void getPortStatusAndPath(
         "org.freedesktop.systemd1.Manager", "ListUnits");
 }
 
+void afterGetPortNumber(
+    std::function<void(const boost::system::error_code&, int)>&& callback,
+    const boost::system::error_code& ec,
+    const std::vector<std::tuple<std::string, std::string>>& resp)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("{}", ec);
+        callback(ec, 0);
+        return;
+    }
+    if (resp.empty())
+    {
+        // Network Protocol Listen Response Elements is empty
+        boost::system::error_code ec1 = boost::system::errc::make_error_code(
+            boost::system::errc::no_such_file_or_directory);
+        // return error code
+        callback(ec1, 0);
+        return;
+    }
+    const std::string& listenStream =
+        std::get<NET_PROTO_LISTEN_STREAM>(resp[0]);
+    const char* pa = &listenStream[listenStream.rfind(':') + 1];
+    int port{0};
+    if (auto [p, ec2] = std::from_chars(pa, nullptr, port); ec2 != std::errc())
+    {
+        // there is only two possibility invalid_argument and
+        // result_out_of_range
+        boost::system::error_code ec3 = boost::system::errc::make_error_code(
+            boost::system::errc::invalid_argument);
+        if (ec2 == std::errc::result_out_of_range)
+        {
+            ec3 = boost::system::errc::make_error_code(
+                boost::system::errc::result_out_of_range);
+        }
+        // return error code
+        callback(ec3, 0);
+        BMCWEB_LOG_ERROR("{}", ec3);
+    }
+    callback(ec, port);
+}
+
 template <typename CallbackFunc>
 void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
 {
@@ -211,48 +253,9 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
         std::vector<std::tuple<std::string, std::string>>>(
         *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",
-        [callback = std::forward<CallbackFunc>(callback)](
-            const boost::system::error_code& ec,
-            const std::vector<std::tuple<std::string, std::string>>& resp) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("{}", ec);
-                callback(ec, 0);
-                return;
-            }
-            if (resp.empty())
-            {
-                // Network Protocol Listen Response Elements is empty
-                boost::system::error_code ec1 =
-                    boost::system::errc::make_error_code(
-                        boost::system::errc::no_such_file_or_directory);
-                // return error code
-                callback(ec1, 0);
-                return;
-            }
-            const std::string& listenStream =
-                std::get<NET_PROTO_LISTEN_STREAM>(resp[0]);
-            const char* pa = &listenStream[listenStream.rfind(':') + 1];
-            int port{0};
-            if (auto [p, ec2] = std::from_chars(pa, nullptr, port);
-                ec2 != std::errc())
-            {
-                // there is only two possibility invalid_argument and
-                // result_out_of_range
-                boost::system::error_code ec3 =
-                    boost::system::errc::make_error_code(
-                        boost::system::errc::invalid_argument);
-                if (ec2 == std::errc::result_out_of_range)
-                {
-                    ec3 = boost::system::errc::make_error_code(
-                        boost::system::errc::result_out_of_range);
-                }
-                // return error code
-                callback(ec3, 0);
-                BMCWEB_LOG_ERROR("{}", ec3);
-            }
-            callback(ec, port);
-        });
+
+        std::bind_front(afterGetPortNumber,
+                        std::forward<CallbackFunc>(callback)));
 }
 
 } // namespace redfish
