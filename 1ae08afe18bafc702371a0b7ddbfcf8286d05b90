@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a39ce5e0_d59195b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T22:22:50Z",
+      "side": 1,
+      "message": "\u003e \u003e MinValue and MaxValue are required for IPMI to build SDRs, so they\u0027re arguably implemented by every sensor.\n\u003e \n\u003e This arguable but not true. ;)\n\u003e \n\u003e 1) I know for certain phosphor-virtual-sensor _only_ emits a {Min,Max}Value if one is explicitly enabled in the config, which is not required and many do not.\n\nI said they were implemented, which we agree on.  Maybe it requires something defined in a config, but it does have an implementation.\n\n\u003e \n\u003e 2) PLDM doesn\u0027t implement these in some cases.  https://github.com/openbmc/pldm/blob/0b06dd891c42103a4555a0376e7a47b604f01ca9/platform-mc/numeric_sensor.cpp#L482\n\nBut it still implements them.\n\n\u003e \n\u003e 3) Not everyone uses IPMI so there is no certainty that anyone is testing even the IPMI side of it.\n\nFair.  FWIW, I read the commit message first before I saw the code content.  Commit message seems pretty reasonable, and I\u0027m not here to be a stickler for commit messages, so closing this out.",
+      "parentUuid": "e2d15dd9_f1b0153f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50e0bbbb_c8b3950b",
@@ -90,6 +114,23 @@
         "endLine": 13,
         "endChar": 56
       },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "700f5055_9e15f106",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T22:22:50Z",
+      "side": 1,
+      "message": "Redfish service validator?",
       "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -141,6 +182,29 @@
       "writtenOn": "2025-12-17T21:04:04Z",
       "side": 1,
       "message": "Overall, there\u0027s more issues with the commit message more than the actual diff, which really shouldn\u0027t hold things up.\n\nLets just be consistent, which should simplify the code, and then this should be good to go.",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3200416d_6c5a8246",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T22:22:50Z",
+      "side": 1,
+      "message": "7 year old TODO here 😊",
+      "range": {
+        "startLine": 753,
+        "startChar": 0,
+        "endLine": 753,
+        "endChar": 71
+      },
       "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
