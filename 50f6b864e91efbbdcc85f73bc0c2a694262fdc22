@@ -168,6 +168,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "af362247_8f164e94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T21:14:52Z",
+      "side": 1,
+      "message": "\u003e transient DBus states or service restarts\n\nThis isn\u0027t an answer.  Services (especially phosphor-user-manager) should not be restarting randomly and making these APIs return errors, so having errors in the logs on unexpected failures is intended.  If services are returning errors randomly, that\u0027s a bug that needs fixed at the source, and bmcweb should log it to make it clear.\n\n\u003e not expected behavior.\n\nWhere is it documented that randomized error messages and service restarts is expected?\n\n\u003e Suppressing these keeps logs clean.\n\nAt the expense of covering up real bugs that might have impact in the future.",
+      "parentUuid": "721e0ce4_df8a37c7",
+      "range": {
+        "startLine": 9,
+        "startChar": 60,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "634c2dc4_2d7ae60c",
