@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5d003c6_31778135",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-17T18:36:05Z",
+      "side": 1,
+      "message": "This needs some testing. Does the persistent file still work after this change ?",
+      "revId": "39e9971c4be1d3bd3c0a2163e4d79bdd4aaac3e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0af41e3b_4ec3b639",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-17T18:36:05Z",
+      "side": 1,
+      "message": "We typically avoid the ternary operator in bmcweb. I don\u0027t find this code easier to read or understand. \n\nCan you incorporate filesystem::path in with the ternary operator?",
+      "range": {
+        "startLine": 39,
+        "startChar": 42,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "39e9971c4be1d3bd3c0a2163e4d79bdd4aaac3e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
