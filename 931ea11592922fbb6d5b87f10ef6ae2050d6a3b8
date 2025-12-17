@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d90b742_118cca1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-17T18:30:00Z",
+      "side": 1,
+      "message": "Yeah, I am trying to understand if the mapping is correct. Please add some of that to the commit msg. \n\nIn PDI / networkd, EmitLLDP is on the Ethernet interface and that maps to Redfish\u0027s LLDPEnabled on the Port schema? So this assumes a Port schema per PDI Ethernet Interface? \n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/af6b2cce7d97159360f292889f759e7739f6a0a4/yaml/xyz/openbmc_project/Network/EthernetInterface.interface.yaml#L114\n\nI also see LLDPEnabled in network adapter, was there any discussion with Redfish about adding it to Ethernet?",
+      "parentUuid": "f5d18a05_96b877a0",
+      "revId": "931ea11592922fbb6d5b87f10ef6ae2050d6a3b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "caceff09_ebb0fb9c",
