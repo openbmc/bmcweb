@@ -39,6 +39,30 @@
       },
       "revId": "2c1f973607a540501066c082cade520ce0ead535",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f48d355_5f237e60",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3027,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T20:09:36Z",
+      "side": 1,
+      "message": "Honestly, I never even realized we preferred one pattern over another, I was just trying to not duplicate the return call, but personally would\u0027ve accepted either in a review.\n\nif the above is what you\u0027d rather see, I can do that.",
+      "parentUuid": "aba7166a_9f460363",
+      "range": {
+        "startLine": 3017,
+        "startChar": 0,
+        "endLine": 3027,
+        "endChar": 27
+      },
+      "revId": "2c1f973607a540501066c082cade520ce0ead535",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
