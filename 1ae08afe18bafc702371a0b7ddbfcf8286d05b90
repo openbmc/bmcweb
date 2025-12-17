@@ -100,6 +100,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32b90acf_b10547bd",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T21:05:34Z",
+      "side": 1,
+      "message": "Don\u0027t statically allocate maps at runtime.  They consume memory in inconsistent ways.\n\nIf this is staying, just declare as an array of string_view, and use std::find_if.\n\nAlso, if we end up keeping, please sort lists like this.  The order here is semi-random.",
+      "range": {
+        "startLine": 808,
+        "startChar": 16,
+        "endLine": 808,
+        "endChar": 22
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea8ec550_88a2936f",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 3
