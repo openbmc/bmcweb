@@ -879,13 +879,6 @@ inline void handleGenerateCSRAction(
         *crow::connections::systemBus, match,
         [asyncResp, service, objectPath, certURI](sdbusplus::message_t& m) {
             timeout.cancel();
-            if (m.is_method_error())
-            {
-                BMCWEB_LOG_ERROR("Dbus method error!!!");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
             dbus::utility::DBusInterfacesMap interfacesProperties;
 
             sdbusplus::message::object_path csrObjectPath;
