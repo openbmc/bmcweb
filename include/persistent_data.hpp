@@ -32,21 +32,20 @@ class ConfigFile
     uint64_t jsonRevision = 1;
 
   public:
-    static std::string getStateFile()
+    static const std::filesystem::path& getPath()
     {
-        // NOLINTNEXTLINE(concurrency-mt-unsafe)
-        const char* stateDir = std::getenv("STATE_DIRECTORY");
-        if (stateDir == nullptr)
-        {
-            stateDir = ".";
-        }
-        return std::string(stateDir) + "/bmcweb_persistent_data.json";
-    }
+        static const std::filesystem::path path = []() {
+            // NOLINTNEXTLINE(concurrency-mt-unsafe)
+            const char* stateDir = std::getenv("STATE_DIRECTORY");
 
-    static const std::string& filename()
-    {
-        const static std::string fname = getStateFile();
-        return fname;
+            std::filesystem::path baseDir = ".";
+            if (stateDir != nullptr)
+            {
+                baseDir = stateDir;
+            }
+            return baseDir / "bmcweb_persistent_data.json";
+        }();
+        return path;
     }
 
     ConfigFile()
@@ -76,15 +75,16 @@ class ConfigFile
     {
         boost::beast::file_posix persistentFile;
         boost::system::error_code ec;
-        const std::string& file = filename();
-        persistentFile.open(file.c_str(), boost::beast::file_mode::read, ec);
+        persistentFile.open(getPath().c_str(), boost::beast::file_mode::read,
+                            ec);
         uint64_t fileRevision = 0;
         if (!ec)
         {
             uint64_t size = persistentFile.size(ec);
             if (ec)
             {
-                BMCWEB_LOG_CRITICAL("Can't get filesize of {}", file);
+                BMCWEB_LOG_CRITICAL("Can't get filesize of {}",
+                                    getPath().c_str());
                 return;
             }
             std::string str;
@@ -92,7 +92,8 @@ class ConfigFile
             persistentFile.read(str.data(), str.size(), ec);
             if (ec)
             {
-                BMCWEB_LOG_CRITICAL("Failed to read file {}", file);
+                BMCWEB_LOG_CRITICAL("Failed to read file {}",
+                                    getPath().c_str());
                 return;
             }
             // call with exceptions disabled
@@ -279,13 +280,11 @@ class ConfigFile
 
     void writeData()
     {
-        const std::string& fname = filename();
-        std::filesystem::path path(fname);
-        path = path.parent_path();
-        if (!path.empty())
+        std::filesystem::path dir = getPath().parent_path();
+        if (!dir.empty())
         {
             std::error_code ecDir;
-            std::filesystem::create_directories(path, ecDir);
+            std::filesystem::create_directories(dir, ecDir);
             if (ecDir)
             {
                 BMCWEB_LOG_CRITICAL("Can't create persistent folders {}",
@@ -295,7 +294,8 @@ class ConfigFile
         }
         boost::beast::file_posix persistentFile;
         boost::system::error_code ec;
-        persistentFile.open(fname.c_str(), boost::beast::file_mode::write, ec);
+        persistentFile.open(getPath().c_str(), boost::beast::file_mode::write,
+                            ec);
         if (ec)
         {
             BMCWEB_LOG_CRITICAL("Unable to store persistent data to file {}",
@@ -308,7 +308,7 @@ class ConfigFile
             std::filesystem::perms::owner_read |
             std::filesystem::perms::owner_write |
             std::filesystem::perms::group_read;
-        std::filesystem::permissions(fname, permission, ec);
+        std::filesystem::permissions(getPath(), permission, ec);
         if (ec)
         {
             BMCWEB_LOG_CRITICAL("Failed to set filesystem permissions {}",
