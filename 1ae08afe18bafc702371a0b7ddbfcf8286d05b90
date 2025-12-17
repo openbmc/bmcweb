@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "adc758f5_76fb7742",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T21:04:04Z",
+      "side": 1,
+      "message": "not really sure where this conclusion came from, but (at least to my understanding) it\u0027s not correct.  MinValue and MaxValue are required for IPMI to build SDRs, so they\u0027re arguably implemented by every sensor.\n\nThresholds I agree, are optional, and probably 50/50 for whether or not they\u0027re defined.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95fb50d7_25fda0ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T21:04:04Z",
+      "side": 1,
+      "message": "This isn\u0027t really correct.  null in redfish means \"supported but not yet populated\".  Non existence for threshold on dbus has classically meant not supported.  we need to grok that distinction, and ideally in this commit message back it up with spec language.",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b583333_e3140742",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -31,6 +77,40 @@
       "writtenOn": "2025-12-17T19:18:13Z",
       "side": 1,
       "message": "Overall I am good",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7926d67b_748eb8c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T21:04:04Z",
+      "side": 1,
+      "message": "Overall, there\u0027s more issues with the commit message more than the actual diff, which really shouldn\u0027t hold things up.\n\nLets just be consistent, which should simplify the code, and then this should be good to go.",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea8ec550_88a2936f",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T21:04:04Z",
+      "side": 1,
+      "message": "Is there any reason we limit this list?  This was limited to Value initially because that was where unavailable was, but in theory we could just make this not a per-value branch?",
       "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -66,6 +146,24 @@
       "side": 1,
       "message": "I don\u0027t understand.. Isn\u0027t this exactly what the code is doing? \n\nIsn\u0027t \n\n\n                if (allowedNAN.contains(valueName))\n                {\n                    // Readings are allowed to be NAN for unavailable;  coerce\n                    // them to null in the json response.\n                    sensorJson[key] \u003d nullptr;\n                    continue;\n                }\n                if (!allowedNAN.contains(valueName)) {\n                    BMCWEB_LOG_WARNING(\"Sensor value for {} was unexpectedly {}\", ...);\n                }\n\n\nthe same as the code now ?\n\n                if (allowedNAN.contains(valueName))\n                {\n                    // Readings are allowed to be NAN for unavailable;  coerce\n                    // them to null in the json response.\n                    sensorJson[key] \u003d nullptr;\n                    continue;\n                }\n                BMCWEB_LOG_WARNING(\"Sensor value for {} was unexpectedly {}\", ...);",
       "parentUuid": "1ebbe2df_30314989",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daaabe9d_e9cbef59",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-17T21:04:04Z",
+      "side": 1,
+      "message": "I\u0027d much rather we keep this flow simple, and have the same behavior for each one.  If they\u0027re present but non finite, we populate with null.",
+      "parentUuid": "c53f48dc_cab87b3e",
       "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
