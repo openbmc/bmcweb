@@ -32,21 +32,18 @@ class ConfigFile
     uint64_t jsonRevision = 1;
 
   public:
-    static std::string getStateFile()
+    static const std::filesystem::path& getPath()
     {
         // NOLINTNEXTLINE(concurrency-mt-unsafe)
         const char* stateDir = std::getenv("STATE_DIRECTORY");
+
         if (stateDir == nullptr)
         {
             stateDir = ".";
         }
-        return std::string(stateDir) + "/bmcweb_persistent_data.json";
-    }
-
-    static const std::string& filename()
-    {
-        const static std::string fname = getStateFile();
-        return fname;
+        static const std::filesystem::path path =
+            std::filesystem::path(stateDir) / "bmcweb_persistent_data.json";
+        return path;
     }
 
     ConfigFile()
@@ -76,7 +73,9 @@ class ConfigFile
     {
         boost::beast::file_posix persistentFile;
         boost::system::error_code ec;
-        const std::string& file = filename();
+        const std::filesystem::path& path = getPath();
+        const std::string& file = path.string();
+
         persistentFile.open(file.c_str(), boost::beast::file_mode::read, ec);
         uint64_t fileRevision = 0;
         if (!ec)
@@ -279,13 +278,13 @@ class ConfigFile
 
     void writeData()
     {
-        const std::string& fname = filename();
-        std::filesystem::path path(fname);
-        path = path.parent_path();
-        if (!path.empty())
+        const std::filesystem::path& path = getPath();
+        const std::string& fname = path.string();
+        const std::filesystem::path dir = path.parent_path();
+        if (!dir.empty())
         {
             std::error_code ecDir;
-            std::filesystem::create_directories(path, ecDir);
+            std::filesystem::create_directories(dir, ecDir);
             if (ecDir)
             {
                 BMCWEB_LOG_CRITICAL("Can't create persistent folders {}",
