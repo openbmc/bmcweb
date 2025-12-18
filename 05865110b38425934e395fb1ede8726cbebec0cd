@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b9e71b9_1b7e3970",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2025-12-18T13:27:59Z",
+      "side": 1,
+      "message": "Hi\n\nI removed the old OpenBMCManager.v1_0_0.json and generated a new OpenBMCManager.v1_1_0.json using the csdl-to-json-converter provided by Redfish-Tools, based on OpenBMCManager_v1.xml.",
+      "revId": "05865110b38425934e395fb1ede8726cbebec0cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
