@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a548a17_2b2ebc9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-18T21:14:08Z",
+      "side": 1,
+      "message": "Please add to the commit msg \nhttps://github.com/openbmc/bmcweb/blob/9ad2c6f422bc0860314b853c287283dcbd29430d/docs/TESTING.md?plain\u003d1#L1\n\nhttps://github.com/openbmc/docs/blob/224f278c74a574962a74a7498a86989a360666ea/CONTRIBUTING.md?plain\u003d1#L262",
+      "parentUuid": "f6fba306_f70f3b2e",
+      "revId": "39e9971c4be1d3bd3c0a2163e4d79bdd4aaac3e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0af41e3b_4ec3b639",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 3
