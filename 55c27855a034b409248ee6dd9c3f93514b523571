@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ef0a8af_a4447ca1",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-18T19:01:28Z",
+      "side": 1,
+      "message": "I really want https://gerrit.openbmc.org/c/openbmc/docs/+/82776/5/style/cpp/.clang-tidy to go and then we can add this on top. I don\u0027t know what the hold up on 82776 is but this looks fine.",
+      "parentUuid": "140a739e_d166f8b0",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "840bea2b_773dcb21",
