@@ -936,6 +936,11 @@ inline void handleSystemsLogServiceCollectionGet(
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems" &&
                   !BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
+        nlohmann::json::object_t cperLog;
+        cperLog["@odata.id"] =
+            std::format("/redfish/v1/Systems/{}/LogServices/CPER",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        logServiceArray.emplace_back(std::move(cperLog));
         nlohmann::json::object_t eventLog;
         eventLog["@odata.id"] =
             std::format("/redfish/v1/Systems/{}/LogServices/EventLog",
@@ -1044,6 +1049,11 @@ inline void handleManagersLogServicesCollectionGet(
 
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
     {
+        nlohmann::json::object_t cperLog;
+        cperLog["@odata.id"] =
+            boost::urls::format("/redfish/v1/Managers/{}/LogServices/CPER",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
+        logServiceArray.emplace_back(std::move(cperLog));
         nlohmann::json::object_t eventLog;
         eventLog["@odata.id"] =
             boost::urls::format("/redfish/v1/Managers/{}/LogServices/EventLog",

@@ -31,12 +31,14 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <cstdlib>
 #include <ctime>
 #include <fstream>
 #include <iomanip>
 #include <memory>
 #include <optional>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -867,6 +869,37 @@ inline void downloadEventLogEntry(
         asyncResp, std::move(downloadEventLogEntryHandler),
         "xyz.openbmc_project.Logging", entryPath,
         "xyz.openbmc_project.Logging.Entry", "GetEntry");
+}
+
+inline void downloadCPER(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& cperId,
+                         const std::string& downloadEntryType)
+{
+    try
+    {
+        dbus::utility::async_method_call(
+            asyncResp,
+            [asyncResp, cperId,
+             downloadEntryType](const boost::system::error_code& ec,
+                                const sdbusplus::message::unix_fd& unixfd) {
+                log_services_utils::downloadEntryCallback(
+                    asyncResp, cperId, downloadEntryType, ec, unixfd);
+            },
+            "xyz.openbmc_project.CPERRepository1",
+            "/xyz/openbmc_project/CPERRepository1",
+            "xyz.openbmc_project.CPERRepository1", "DownloadCPER",
+            static_cast<uint64_t>(std::stoull(cperId)));
+    }
+    catch (const std::invalid_argument&)
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", cperId);
+        return;
+    }
+    catch (const std::out_of_range&)
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", cperId);
+        return;
+    }
 }
 } // namespace eventlog_utils
 } // namespace redfish
