@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46c6b444_92fff8a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-18T21:47:05Z",
+      "side": 1,
+      "message": "This is persistent data, you need to test some amount of rebooting and persistency.",
+      "parentUuid": "1a548a17_2b2ebc9b",
+      "revId": "39e9971c4be1d3bd3c0a2163e4d79bdd4aaac3e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0af41e3b_4ec3b639",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 3

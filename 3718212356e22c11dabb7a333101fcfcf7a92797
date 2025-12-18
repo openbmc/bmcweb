@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a206e5dd_6e508e7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-18T21:47:05Z",
+      "side": 1,
+      "message": "The exiting code already caches the result in a static local variable, so I\u0027m confused how this changed things.",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "3718212356e22c11dabb7a333101fcfcf7a92797",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3f27a73_a4a3b876",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-18T21:47:05Z",
+      "side": 1,
+      "message": "Of this patch, the only thing I think that\u0027s better is using std::filesystem::path rather than a string.  The rest seems like it\u0027s making the code more complex.",
+      "revId": "3718212356e22c11dabb7a333101fcfcf7a92797",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4367d7f_43ef1e2f",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-12-18T21:47:05Z",
+      "side": 1,
+      "message": "Please don\u0027t create inline lambdas with no captures.  The previous code used a normal function and was easier to read.",
+      "revId": "3718212356e22c11dabb7a333101fcfcf7a92797",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
