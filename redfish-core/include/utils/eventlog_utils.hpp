@@ -6,6 +6,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/log_entry.hpp"
 #include "generated/enums/log_service.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -869,6 +870,84 @@ inline void downloadEventLogEntry(
         asyncResp, std::move(downloadEventLogEntryHandler),
         "xyz.openbmc_project.Logging", entryPath,
         "xyz.openbmc_project.Logging.Entry", "GetEntry");
+}
+
+inline void populateCPERLogEntry(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    nlohmann::json& cperLogEntry, LogServiceParentCollection collection,
+    const std::string& cperId)
+{
+    const std::string parentStr =
+        logServiceParentCollectionToString(collection);
+    const std::string_view childId =
+        getMemberIdFromParentCollection(collection);
+    const std::string logEntryDescriptor =
+        getLogEntryDescriptorFromParentCollection(collection);
+
+    if (parentStr.empty() || childId.empty() || logEntryDescriptor.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    std::string additionalDataURI =
+        std::format("/redfish/v1/{}/{}/LogServices/CPER/Entries/{}/attachment",
+                    parentStr, childId, cperId);
+
+    cperLogEntry["@odata.type"] = "#LogEntry.v1_19_0.LogEntry";
+    cperLogEntry["@odata.id"] =
+        boost::urls::format("/redfish/v1/{}/{}/LogServices/CPER/Entries/{}",
+                            parentStr, childId, cperId);
+    cperLogEntry["Name"] = std::format("{} CPER", logEntryDescriptor);
+    cperLogEntry["Id"] = cperId;
+    cperLogEntry["EntryType"] = log_entry::LogEntryType::Event;
+    cperLogEntry["AdditionalDataURI"] = std::move(additionalDataURI);
+    cperLogEntry["DiagnosticDataType"] =
+        log_entry::LogDiagnosticDataTypes::CPER;
+}
+
+inline void getCPER(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                    LogServiceParentCollection collection,
+                    const std::string& cperId)
+{
+    try
+    {
+        dbus::utility::async_method_call(
+            asyncResp,
+            [asyncResp, cperId,
+             collection](const boost::system::error_code& ec,
+                         const std::vector<uint8_t>& rawCper [[maybe_unused]]) {
+                if (ec.value() == ENOENT)
+                {
+                    messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                               cperId);
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("Cannot read CPER from repository: {}",
+                                     ec);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                populateCPERLogEntry(asyncResp, asyncResp->res.jsonValue,
+                                     collection, cperId);
+            },
+            "xyz.openbmc_project.CPERRepository1",
+            "/xyz/openbmc_project/CPERRepository1",
+            "xyz.openbmc_project.CPERRepository1", "ReadCPER",
+            static_cast<uint64_t>(std::stoull(cperId)));
+    }
+    catch (const std::invalid_argument&)
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", cperId);
+        return;
+    }
+    catch (const std::out_of_range&)
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", cperId);
+        return;
+    }
 }
 
 inline void downloadCPER(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

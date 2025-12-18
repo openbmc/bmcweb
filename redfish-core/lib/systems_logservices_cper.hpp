@@ -22,6 +22,33 @@
 
 namespace redfish
 {
+
+inline void handleSystemsCPEREntryGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemId, const std::string& entryId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem", systemId);
+        return;
+    }
+    if (systemId != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem", systemId);
+        return;
+    }
+
+    eventlog_utils::getCPER(asyncResp,
+                            eventlog_utils::LogServiceParentCollection::Systems,
+                            entryId);
+}
+
 inline void handleSystemsCPEREntryDownload(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -55,6 +82,12 @@ inline void handleSystemsCPEREntryDownload(
 
 inline void requestRoutesSystemsCPERLogService(App& app)
 {
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/<str>/LogServices/CPER/Entries/<str>/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleSystemsCPEREntryGet, std::ref(app)));
+
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/CPER/Entries/<str>/attachment/")
