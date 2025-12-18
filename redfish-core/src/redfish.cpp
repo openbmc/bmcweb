@@ -22,6 +22,7 @@
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
+#include "manager_logservices_cper.hpp"
 #include "manager_logservices_dbus_eventlog.hpp"
 #include "manager_logservices_journal.hpp"
 #include "manager_logservices_journal_eventlog.hpp"
@@ -49,6 +50,7 @@
 #include "storage_chassis.hpp"
 #include "storage_controller.hpp"
 #include "systems.hpp"
+#include "systems_logservices_cper.hpp"
 #include "systems_logservices_dbus_eventlog.hpp"
 #include "systems_logservices_hostlogger.hpp"
 #include "systems_logservices_journal_eventlog.hpp"
@@ -121,6 +123,7 @@ RedfishService::RedfishService(App& app)
 
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
     {
+        requestRoutesSystemsCPERLogService(app);
         requestRoutesSystemsEventLogService(app);
         if constexpr (BMCWEB_REDFISH_DBUS_LOG)
         {
@@ -134,6 +137,7 @@ RedfishService::RedfishService(App& app)
 
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
     {
+        requestRoutesManagersCPERLogService(app);
         requestRoutesManagersEventLogService(app);
         if constexpr (BMCWEB_REDFISH_DBUS_LOG)
         {
