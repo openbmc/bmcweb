@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6fba306_f70f3b2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-18T11:00:45Z",
+      "side": 1,
+      "message": "yeah, I tested the changes by performing a Redfish PATCH. I confirmed the bmcweb_persistent_data.json was updated. After a systemctl restart bmcweb, the settings persisted, confirming that the static getPath() correctly identifies and loads the file using the new logic.",
+      "parentUuid": "f5d003c6_31778135",
+      "revId": "39e9971c4be1d3bd3c0a2163e4d79bdd4aaac3e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0af41e3b_4ec3b639",
