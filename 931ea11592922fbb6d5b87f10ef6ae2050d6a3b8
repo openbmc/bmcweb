@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "67e6e2d4_bd2d7aba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-18T18:57:33Z",
+      "side": 1,
+      "message": "Why in the backend (networkd / PDI) did we not implement a port on the Ethernet interface? And have EmitLLDP on that port interface ? This at a minimum  we have a pretty big assumption here that is not documented in the commit msg. I am struggling a bit with this assumption (assume 1 port per Ethernet interface but no Port interface). What if you had other properties in Port you wanted to model here?",
+      "parentUuid": "a50eea28_ed5787ab",
+      "revId": "931ea11592922fbb6d5b87f10ef6ae2050d6a3b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "caceff09_ebb0fb9c",
