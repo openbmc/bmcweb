@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e8b4120_44460ff4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2025-12-18T06:25:10Z",
+      "side": 1,
+      "message": "double check this is necessary.",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d3f257_5eb84df6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2025-12-18T06:25:10Z",
+      "side": 1,
+      "message": "Change this to just always check and compare against activations.end().",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c85e41_422df704",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2025-12-18T06:25:10Z",
+      "side": 1,
+      "message": "this seems excessive, double check this.",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d01bb08_1d576cb1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1347,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2025-12-18T06:25:10Z",
+      "side": 1,
+      "message": "there\u0027s gotta be a better way to do this.",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953137cc_88695539",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1450,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2025-12-18T06:25:10Z",
+      "side": 1,
+      "message": "get rid of this comment.",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
