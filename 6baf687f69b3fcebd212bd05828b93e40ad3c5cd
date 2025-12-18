@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b51653_ddfc767f",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdf22287_59c8a956",
+      "range": {
+        "startLine": 3,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 28
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57522a7a_c820c9bc",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-12-17T20:35:36Z",
       "side": 1,
       "message": "with",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90822730_eca71699",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57522a7a_c820c9bc",
       "range": {
         "startLine": 16,
         "startChar": 14,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c816e19_8c5e3995",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63643759_f4490563",
+      "range": {
+        "startLine": 31,
+        "startChar": 57,
+        "endLine": 32,
+        "endChar": 4
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65c14d66_e6bf8ebe",
@@ -100,6 +172,30 @@
       "writtenOn": "2025-12-17T20:35:36Z",
       "side": 1,
       "message": "identifier",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10b38271_5432e28f",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65c14d66_e6bf8ebe",
       "range": {
         "startLine": 37,
         "startChar": 12,
@@ -133,6 +229,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "712f92d7_a33f13d8",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd00840f_6458805d",
+      "range": {
+        "startLine": 125,
+        "startChar": 31,
+        "endLine": 125,
+        "endChar": 39
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de3538c8_7cff66c0",
@@ -146,6 +266,30 @@
       "writtenOn": "2025-12-17T20:35:36Z",
       "side": 1,
       "message": "shouldn\u0027t this be ### like Logging. I think it is under Not Implemented",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 3
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22ee3027_a51f0c5b",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de3538c8_7cff66c0",
       "range": {
         "startLine": 177,
         "startChar": 0,
@@ -179,6 +323,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "789a34f5_52a6cd4f",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b0b374a_0a0a9163",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 3
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a18e780c_5252a2c1",
@@ -202,6 +370,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01702207_3c74f7a5",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a18e780c_5252a2c1",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 9
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00c94446_115faf8b",
@@ -215,6 +407,30 @@
       "writtenOn": "2025-12-17T20:35:36Z",
       "side": 1,
       "message": "bmcweb. But where in the Redfish does it say EventLog should be under ComputerSystem? Redfish allows for it under ComputerSystem or Manager.. \n\nI think these 2 paragraphs could be 2 sentence.\nAlso I don\u0027t know if you really need a work-arounds section, just put above. \n\n```\nIdeally, EventLog responses would be scoped to the requested ComputerSystem, but bmcweb doesn’t currently support filtering EventLog entries by host. As a workaround, the redfish-eventlog-location\u003dmanagers meson option moves the EventLog tree under /redfish/v1/Managers/{managerId}, providing a way to access logs on multi-host platforms.\n```",
+      "range": {
+        "startLine": 206,
+        "startChar": 43,
+        "endLine": 206,
+        "endChar": 46
+      },
+      "revId": "6baf687f69b3fcebd212bd05828b93e40ad3c5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f82383c_d6fc7bc3",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-12-18T13:41:41Z",
+      "side": 1,
+      "message": "Yea you are right, I think I got the wrong idea from a past discussion, without checking back with the spec.\n\nI followed your suggested wording and got rid of the Work-around section. The EventLog under Managers got moved to the Implemented section under Logging. Done",
+      "parentUuid": "00c94446_115faf8b",
       "range": {
         "startLine": 206,
         "startChar": 43,
