@@ -56,6 +56,24 @@
       "message": "Please don\u0027t create inline lambdas with no captures.  The previous code used a normal function and was easier to read.",
       "revId": "3718212356e22c11dabb7a333101fcfcf7a92797",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb965d08_355d75be",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-19T07:21:28Z",
+      "side": 1,
+      "message": "Acknowledged. I have removed the inline lambda. The logic is now handled with a standard if check and a local static variable.",
+      "parentUuid": "c4367d7f_43ef1e2f",
+      "revId": "3718212356e22c11dabb7a333101fcfcf7a92797",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
