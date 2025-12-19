@@ -734,22 +734,24 @@ inline void handleChassisPatch(
     }
     std::optional<bool> locationIndicatorActive;
     std::optional<std::string> indicatorLed;
+    std::optional<std::string> assetTag;
 
     if (param.empty())
     {
         return;
     }
 
-    if (!json_util::readJsonPatch(                             //
-            req, asyncResp->res,                               //
-            "IndicatorLED", indicatorLed,                      //
-            "LocationIndicatorActive", locationIndicatorActive //
+    if (!json_util::readJsonPatch(                              //
+            req, asyncResp->res,                                //
+            "IndicatorLED", indicatorLed,                       //
+            "LocationIndicatorActive", locationIndicatorActive, //
+            "AssetTag", assetTag                                //
             ))
     {
         return;
     }
 
-    if (!locationIndicatorActive && !indicatorLed)
+    if (!locationIndicatorActive && !indicatorLed && !assetTag)
     {
         return; // delete this when we support more patch properties
     }
@@ -773,7 +775,7 @@ inline void handleChassisPatch(
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
         [asyncResp, chassisId, locationIndicatorActive,
-         indicatorLed](const boost::system::error_code& ec,
+         indicatorLed, assetTag](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
@@ -849,6 +851,22 @@ inline void handleChassisPatch(
                                                       "IndicatorLED");
                         }
                     }
+                }
+		if (assetTag)
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code& setEc) {
+                            if (setEc)
+                            {
+                                BMCWEB_LOG_ERROR("Failed to set AssetTag: {}",
+                                                 setEc);
+                                messages::internalError(asyncResp->res);
+                            }
+                        },
+                        connectionNames[0].first, path,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Inventory.Decorator.AssetTag",
+                        "AssetTag", std::variant<std::string>(*assetTag));
                 }
                 return;
             }
