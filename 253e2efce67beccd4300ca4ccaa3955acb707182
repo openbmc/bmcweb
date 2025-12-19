@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f612435b_881a6e7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-19T22:08:36Z",
+      "side": 1,
+      "message": "Why some of the changes to the existing code?",
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bfe71e8_8dd3a9b8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-19T22:08:36Z",
+      "side": 1,
+      "message": "Why just board?",
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f8758df_4b9f83ce",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-19T22:08:36Z",
+      "side": 1,
+      "message": "Why do you need this check?",
+      "range": {
+        "startLine": 855,
+        "startChar": 32,
+        "endLine": 855,
+        "endChar": 39
+      },
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37299e9b_36f4e749",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-19T22:08:36Z",
+      "side": 1,
+      "message": "We don\u0027t have this check when we set asset tag in system, why do we need it here?\nhttps://github.com/openbmc/bmcweb/blob/9ad2c6f422bc0860314b853c287283dcbd29430d/redfish-core/lib/systems.hpp#L1770",
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9024cde5_196d8167",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-19T22:08:36Z",
+      "side": 1,
+      "message": "nitpick: just call it ec like we do everywhere else, oh well",
+      "range": {
+        "startLine": 866,
+        "startChar": 32,
+        "endLine": 866,
+        "endChar": 37
+      },
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
