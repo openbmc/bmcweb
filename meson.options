@@ -465,8 +465,7 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''This is a temporary option flag for staging the
-    ComputerSystemCollection transition to multi-host.  It, as well as the code
-    still beneath it will be removed on 1/1/2026.  Do not enable in a
+    ComputerSystemCollection transition to multi-host. Do not enable in a
     production environment, or where API stability is required.''',
 )
 
@@ -563,4 +562,3 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
-
