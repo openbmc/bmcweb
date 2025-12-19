@@ -34,6 +34,7 @@
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 #include <algorithm>
 #include <array>
@@ -723,6 +724,28 @@ inline void handleChassisGet(
         std::bind_front(handlePhysicalSecurityGetSubTree, asyncResp));
 }
 
+inline void setChassisAssetTag(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service,
+    const std::string& path,
+    const std::string& assetTag)
+{
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus,
+        service,
+        path,
+        "xyz.openbmc_project.Inventory.Decorator.AssetTag",
+        "AssetTag",
+        assetTag,
+        [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to set AssetTag: {}", ec);
+                messages::internalError(asyncResp->res);
+            }
+        });
+}
+
 inline void handleChassisPatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -734,22 +757,24 @@ inline void handleChassisPatch(
     }
     std::optional<bool> locationIndicatorActive;
     std::optional<std::string> indicatorLed;
+    std::optional<std::string> assetTag;
 
     if (param.empty())
     {
         return;
     }
 
-    if (!json_util::readJsonPatch(                             //
-            req, asyncResp->res,                               //
-            "IndicatorLED", indicatorLed,                      //
-            "LocationIndicatorActive", locationIndicatorActive //
+    if (!json_util::readJsonPatch(                              //
+            req, asyncResp->res,                                //
+            "IndicatorLED", indicatorLed,                       //
+            "LocationIndicatorActive", locationIndicatorActive, //
+            "AssetTag", assetTag                                //
             ))
     {
         return;
     }
 
-    if (!locationIndicatorActive && !indicatorLed)
+    if (!locationIndicatorActive && !indicatorLed && !assetTag)
     {
         return; // delete this when we support more patch properties
     }
@@ -772,9 +797,9 @@ inline void handleChassisPatch(
 
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
-        [asyncResp, chassisId, locationIndicatorActive,
-         indicatorLed](const boost::system::error_code& ec,
-                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        [asyncResp, chassisId, locationIndicatorActive, indicatorLed,
+         assetTag](const boost::system::error_code& ec,
+                   const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error {}", ec);
@@ -849,6 +874,11 @@ inline void handleChassisPatch(
                                                       "IndicatorLED");
                         }
                     }
+                }
+                if (assetTag)
+                {
+                    setChassisAssetTag(asyncResp, connectionNames[0].first, path,
+                                       *assetTag);
                 }
                 return;
             }
