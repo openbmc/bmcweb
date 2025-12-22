@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c75b4f2_cfe07831",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-22T09:20:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f612435b_881a6e7b",
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bfe71e8_8dd3a9b8",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-19T22:08:36Z",
       "side": 1,
       "message": "Why just board?",
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97cb0cfa_8506365e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-22T09:20:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2bfe71e8_8dd3a9b8",
       "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6338aa2d_efec339d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-22T09:20:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3f8758df_4b9f83ce",
+      "range": {
+        "startLine": 855,
+        "startChar": 32,
+        "endLine": 855,
+        "endChar": 39
+      },
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37299e9b_36f4e749",
@@ -75,6 +135,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80652405_8ba4547e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-22T09:20:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "37299e9b_36f4e749",
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9024cde5_196d8167",
@@ -88,6 +166,30 @@
       "writtenOn": "2025-12-19T22:08:36Z",
       "side": 1,
       "message": "nitpick: just call it ec like we do everywhere else, oh well",
+      "range": {
+        "startLine": 866,
+        "startChar": 32,
+        "endLine": 866,
+        "endChar": 37
+      },
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5e884ee_d452bb56",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-22T09:20:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9024cde5_196d8167",
       "range": {
         "startLine": 866,
         "startChar": 32,
