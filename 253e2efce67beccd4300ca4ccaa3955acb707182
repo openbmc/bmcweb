@@ -153,6 +153,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "836ecf12_7656a45a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-22T12:04:14Z",
+      "side": 1,
+      "message": "There is only one system, but there can be many chassis and boards.\nUpdating many possible objects requires extra checks, so the logic cannot be shared.",
+      "parentUuid": "80652405_8ba4547e",
+      "revId": "253e2efce67beccd4300ca4ccaa3955acb707182",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9024cde5_196d8167",
