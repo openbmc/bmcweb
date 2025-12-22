@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f8269d1_97c2d061",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-22T21:17:06Z",
+      "side": 0,
+      "message": "Acknowledged but I don\u0027t see the changes?",
+      "parentUuid": "e8e23315_809d1184",
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "697ffdee_f755e275",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 8
@@ -76,6 +94,29 @@
       "range": {
         "startLine": 797,
         "startChar": 0,
+        "endLine": 800,
+        "endChar": 17
+      },
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0bc1651_90c1a2d2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-22T21:17:06Z",
+      "side": 0,
+      "message": "don\u0027t you still need this check?",
+      "range": {
+        "startLine": 797,
+        "startChar": 3,
         "endLine": 800,
         "endChar": 17
       },

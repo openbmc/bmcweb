@@ -16,6 +16,52 @@
       "message": "Feature: Added AssetTag for write permission (by default read permission)\n\nhttps://gerrit.openbmc.org/c/openbmc/entity-manager/+/86091\n\nThe Above Feature is Support only using busctl comamnd. (enttity manger)\n\nNote: This bmcweb modification support for write AssetTag using curl also for Type (Board/Chassis).",
       "revId": "e56da20d72d63551e62ea03aa0fd67854f703cee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2676a4bd_c6097f97",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-22T21:17:06Z",
+      "side": 1,
+      "message": "I don\u0027t understand why you need this..",
+      "range": {
+        "startLine": 789,
+        "startChar": 0,
+        "endLine": 792,
+        "endChar": 1
+      },
+      "revId": "e56da20d72d63551e62ea03aa0fd67854f703cee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4408c8fd_7a9998fb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-22T21:17:06Z",
+      "side": 1,
+      "message": "Why do you need this? \nCan you just check EBADR ?",
+      "range": {
+        "startLine": 866,
+        "startChar": 1,
+        "endLine": 870,
+        "endChar": 21
+      },
+      "revId": "e56da20d72d63551e62ea03aa0fd67854f703cee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
