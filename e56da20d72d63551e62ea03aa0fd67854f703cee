@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65d03eb6_6c990a74",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-23T08:54:32Z",
+      "side": 1,
+      "message": "Agreed. Removed the interface-based AssetTag pre-check and rely on the DBus Set\nerror handling instead.",
+      "parentUuid": "2676a4bd_c6097f97",
+      "range": {
+        "startLine": 789,
+        "startChar": 0,
+        "endLine": 792,
+        "endChar": 1
+      },
+      "revId": "e56da20d72d63551e62ea03aa0fd67854f703cee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4408c8fd_7a9998fb",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-12-22T21:17:06Z",
       "side": 1,
       "message": "Why do you need this? \nCan you just check EBADR ?",
+      "range": {
+        "startLine": 866,
+        "startChar": 1,
+        "endLine": 870,
+        "endChar": 21
+      },
+      "revId": "e56da20d72d63551e62ea03aa0fd67854f703cee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3e74e53_89bbe827",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-23T08:54:32Z",
+      "side": 1,
+      "message": "Agreed. Removed the explicit propertyUnknown check and rely on DBus errors\n(e.g. EBADR / InvalidArgs) to be translated to Redfish errors.",
+      "parentUuid": "4408c8fd_7a9998fb",
       "range": {
         "startLine": 866,
         "startChar": 1,
