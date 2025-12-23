@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c5666f_1904022c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-23T10:04:06Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz\n\nThank you for the review and suggestions.\n\nThe code has been updated to remove redundant comments, use `auto` for DBus\ncontainer types to improve readability and consistency with existing code,\nretain the `chassisId` filtering logic, and simplify the implementation by\nrelying on DBus error handling rather than explicit interface pre-checks.",
+      "revId": "0e4be1b7a28974f116b222775fa92d4e1e8478e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
