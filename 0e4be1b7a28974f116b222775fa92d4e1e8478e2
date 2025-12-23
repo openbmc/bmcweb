@@ -16,6 +16,40 @@
       "message": "@gunnar@gmills.xyz\n\nThank you for the review and suggestions.\n\nThe code has been updated to remove redundant comments, use `auto` for DBus\ncontainer types to improve readability and consistency with existing code,\nretain the `chassisId` filtering logic, and simplify the implementation by\nrelying on DBus error handling rather than explicit interface pre-checks.",
       "revId": "0e4be1b7a28974f116b222775fa92d4e1e8478e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d6003ee_392b4aa3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-23T16:26:23Z",
+      "side": 1,
+      "message": "Be really careful about marking a comment resolved if it isn\u0027t resolved, it makes reviewing harder. \n\n\"Acknowledged\" really shouldn\u0027t be used a lot in replying to comments. \"Done\" (if the comment was address) or a reason why it wasn\u0027t addressed should be the primary replies.",
+      "revId": "0e4be1b7a28974f116b222775fa92d4e1e8478e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc96595f_5bf09ef9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-23T16:26:23Z",
+      "side": 1,
+      "message": "Why this check?",
+      "revId": "0e4be1b7a28974f116b222775fa92d4e1e8478e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
