@@ -16,6 +16,24 @@
       "message": "Remove this",
       "revId": "5650784cd49922dd1adf2766c160327919318a89",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d6e14d3_f5dfe60a",
+        "filename": "commit.patch",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-23T06:46:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ede27b78_67fe6d4c",
+      "revId": "5650784cd49922dd1adf2766c160327919318a89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
