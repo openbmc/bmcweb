@@ -471,6 +471,11 @@ inline void handleDecoratorAssetProperties(
     // SensorCollection
     asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/Sensors", chassisId);
+
+    // ControlCollection
+    asyncResp->res.jsonValue["Controls"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Controls", chassisId);
+
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     nlohmann::json::array_t computerSystems;
