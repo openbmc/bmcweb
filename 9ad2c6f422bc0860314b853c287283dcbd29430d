@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63b1d9b9_cce6fe8e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:39:56Z",
+      "side": 0,
+      "message": "I still don\u0027t see the original \n\n```\nfor (const std::pair\u003cstd::string, std::vector\u003cstd::pair\u003c std::string, std::vector\u003cstd::string\u003e\u003e\u003e\u003e\u0026 object : subtree)\n```\n\nI still don\u0027t see the original comment either (I don\u0027t care as much about the comment) but it isn\u0027t clear to me why this is changing.",
+      "parentUuid": "3e6e52fb_d2b8ea7b",
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "697ffdee_f755e275",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 8
@@ -245,6 +263,29 @@
         "startChar": 3,
         "endLine": 800,
         "endChar": 17
+      },
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d82c8409_d4924d48",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:39:56Z",
+      "side": 0,
+      "message": "why move this code?",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 814,
+        "endChar": 76
       },
       "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
