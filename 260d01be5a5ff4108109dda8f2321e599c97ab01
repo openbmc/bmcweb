@@ -1,0 +1,226 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d7b22e6_d8caf8ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "is this documented in PDI?",
+      "range": {
+        "startLine": 13,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 46
+      },
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72219321_93d30d8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "I thought to set a Chassis Power Limit was PowerLimitWatts ? \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19b2736c_d342ed3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "Can you talk about what D-Bus interfaces you are using?",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b28ca5d_b09d553f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "Redfish validator? I think you need the link to /redfish/v1/Chassis/\u003cchassis id\u003e/Controls/, otherwise the validator will not know to walk this path",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4e04b73_96d2641a",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "It is not clear to me, that a Mapping like this makes the code simpler..",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71ae459e_69c4d723",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "Why do we need these functions?",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d002c447_2d805321",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "nitpick: don\u0027t need the redfish",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 13
+      },
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1b817e9_9255ed4f",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "Long Lambdas in here \n\nhttps://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f579a47_80b9bb34",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "You are lot of indentations in.. Please break out some of the lambdas",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f10bddf_0a4bc854",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "Any way this can be wrote like the rest of our code? For maintainability and reviewing code it makes it easier if the code base is the same. I know our code base can be improved.. But ideally that is in refactoring commits..",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3da87679_d2851699",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "Don\u0027t you need to link this from chassis.hpp ? How does the client know to go to this URI ?",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "964f0482_02cc8758",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-24T21:33:23Z",
+      "side": 1,
+      "message": "nitpick we have been doing these just as 1 \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/84040",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 1
+      },
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
