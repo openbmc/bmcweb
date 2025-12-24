@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e6e52fb_d2b8ea7b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-24T10:01:02Z",
+      "side": 0,
+      "message": "@gunnar@gmills.xyz\nThat change was accidental. The original loop and comment have been restored. Please let me know if any additional context or clarification is needed here.",
+      "parentUuid": "4eeb1d42_caa91b5b",
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "697ffdee_f755e275",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 8
@@ -198,6 +216,30 @@
       "side": 0,
       "message": "But I still see this removed in the latest patchset..",
       "parentUuid": "3f248540_351af809",
+      "range": {
+        "startLine": 797,
+        "startChar": 3,
+        "endLine": 800,
+        "endChar": 17
+      },
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4a32b6_21d816af",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-24T10:01:02Z",
+      "side": 0,
+      "message": "@gunnar@gmills.xyz\nThe objPath.filename() \u003d\u003d chassisId check is required in\nhandleChassisGetSubTree to ensure only the requested chassis is returned,\nsince the mapper subtree can contain multiple inventory objects.\n\nIn handleChassisPatch, the check is not required because the PATCH flow is\nalready scoped to the requested chassis and exits after the first applicable\nmatch. The behavior was verified to work correctly without this check.",
+      "parentUuid": "0cf75938_6f3ffcfd",
       "range": {
         "startLine": 797,
         "startChar": 3,

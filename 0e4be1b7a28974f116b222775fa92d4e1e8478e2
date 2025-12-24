@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "781c1a8f_7fa90e3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-24T10:01:02Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz\nThanks for the clarification. I’m new to this process and will follow this going forward.",
+      "parentUuid": "6d6003ee_392b4aa3",
+      "revId": "0e4be1b7a28974f116b222775fa92d4e1e8478e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc96595f_5bf09ef9",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 15
@@ -48,6 +66,24 @@
       "writtenOn": "2025-12-23T16:26:23Z",
       "side": 1,
       "message": "Why this check?",
+      "revId": "0e4be1b7a28974f116b222775fa92d4e1e8478e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20531a43_cdedd99d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-24T10:01:02Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz\nThere is no specified length limit for AssetTag in Redfish or DBus schemas.\nRemoved the size check and rely on DBus validation instead.",
+      "parentUuid": "bc96595f_5bf09ef9",
       "revId": "0e4be1b7a28974f116b222775fa92d4e1e8478e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
