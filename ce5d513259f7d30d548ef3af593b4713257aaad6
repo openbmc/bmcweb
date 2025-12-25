@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57e995e8_3628c310",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001542
+      },
+      "writtenOn": "2025-12-25T01:55:11Z",
+      "side": 1,
+      "message": "Others have been abandoned",
+      "parentUuid": "3d14147f_90e7c241",
+      "revId": "ce5d513259f7d30d548ef3af593b4713257aaad6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "794e599f_f175f598",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
