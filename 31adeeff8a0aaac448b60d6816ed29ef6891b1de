@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4d62a29_beb74026",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-26T07:58:57Z",
+      "side": 1,
+      "message": "This change is a result of rebasing onto the latest code. Only required updates were made (AssetTag related)",
+      "parentUuid": "7109826b_0416b777",
+      "range": {
+        "startLine": 814,
+        "startChar": 24,
+        "endLine": 814,
+        "endChar": 43
+      },
+      "revId": "31adeeff8a0aaac448b60d6816ed29ef6891b1de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "406b71f1_4aeb92fc",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 16
@@ -37,6 +61,30 @@
       "writtenOn": "2025-12-24T21:39:56Z",
       "side": 1,
       "message": "It really feels like this should be a 20 line change and this is 16 of lines.. \nYou also need the changes on line 738, 749, 755, 780 but the other changes just make reviewing and git history/git blame harder.",
+      "range": {
+        "startLine": 849,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 17
+      },
+      "revId": "31adeeff8a0aaac448b60d6816ed29ef6891b1de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4177d58_bf1b926e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-26T07:58:57Z",
+      "side": 1,
+      "message": "This change is a result of rebasing onto the latest code. Only required updates were made (AssetTag related)",
+      "parentUuid": "406b71f1_4aeb92fc",
       "range": {
         "startLine": 849,
         "startChar": 0,

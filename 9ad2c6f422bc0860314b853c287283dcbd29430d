@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f24f21ad_8d0ebef1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-26T07:58:57Z",
+      "side": 0,
+      "message": "This change is a result of rebasing onto the latest code. Only required updates were made (AssetTag related)",
+      "parentUuid": "63b1d9b9_cce6fe8e",
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "697ffdee_f755e275",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 8
@@ -281,6 +299,30 @@
       "writtenOn": "2025-12-24T21:39:56Z",
       "side": 0,
       "message": "why move this code?",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 814,
+        "endChar": 76
+      },
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c119a6a5_e623b9c9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2025-12-26T07:58:57Z",
+      "side": 0,
+      "message": "This change is a result of rebasing onto the latest code. Only required updates were made (AssetTag related)",
+      "parentUuid": "d82c8409_d4924d48",
       "range": {
         "startLine": 811,
         "startChar": 0,
