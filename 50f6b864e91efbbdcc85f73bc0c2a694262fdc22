@@ -194,6 +194,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "38bbda0b_26073be4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2025-12-26T18:36:53Z",
+      "side": 1,
+      "message": "while enabling phosphor-ldap-config that warning got fixed. It\u0027s going to enable depends on dependency",
+      "parentUuid": "af362247_8f164e94",
+      "range": {
+        "startLine": 9,
+        "startChar": 60,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "50f6b864e91efbbdcc85f73bc0c2a694262fdc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "634c2dc4_2d7ae60c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
