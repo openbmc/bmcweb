@@ -144,6 +144,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "711639db_f62ca093",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-29T13:57:22Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f24f21ad_8d0ebef1",
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "697ffdee_f755e275",
@@ -286,6 +304,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef866460_574e26dd",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-29T13:57:22Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "ec4a32b6_21d816af",
+      "range": {
+        "startLine": 797,
+        "startChar": 3,
+        "endLine": 800,
+        "endChar": 17
+      },
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d82c8409_d4924d48",
@@ -323,6 +365,30 @@
       "side": 0,
       "message": "This change is a result of rebasing onto the latest code. Only required updates were made (AssetTag related)",
       "parentUuid": "d82c8409_d4924d48",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 814,
+        "endChar": 76
+      },
+      "revId": "9ad2c6f422bc0860314b853c287283dcbd29430d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87716a00_dc4aa47b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-29T13:57:22Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "c119a6a5_e623b9c9",
       "range": {
         "startLine": 811,
         "startChar": 0,
