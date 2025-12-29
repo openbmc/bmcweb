@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d776a36c_6f798cde",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-12-29T17:07:14Z",
+      "side": 1,
+      "message": "Test? Or remove the WIP and go with inspection only? I would prefer a test but since you are a maintainer and would and have proven to fix things when they break I am okay with inspection only",
+      "revId": "fbc2347bcc0e83713dde040d34e00f0ef23e1421",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
