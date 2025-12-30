@@ -10,7 +10,8 @@ namespace crow
 /*
 A test class that simulates a socket by wrapping the beast test stream
 
-Additionally it adds remote_endpoint to allow testing of TCP-specific behaviors
+Additionally it adds remote_endpoint and set_option to allow testing of
+TCP-specific behaviors
 */
 struct TestStream : public boost::beast::test::stream
 {
@@ -24,6 +25,13 @@ struct TestStream : public boost::beast::test::stream
     {
         ec = {};
         return {};
+    }
+
+    template <typename SettableSocketOption>
+    // NOLINTNEXTLINE(readability-identifier-naming)
+    void set_option(const SettableSocketOption& opt)
+    {
+        (void)opt;
     }
 };
 
