@@ -25,6 +25,11 @@ struct TestStream : public boost::beast::test::stream
         ec = {};
         return {};
     }
+
+    template <typename SettableSocketOption>
+    void set_option(const SettableSocketOption &opt) {
+        (void)opt;
+    };
 };
 
 } // namespace crow
