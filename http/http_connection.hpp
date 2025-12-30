@@ -226,7 +226,7 @@ class Connection :
             }
         }
 
-        startDeadline();
+        startDeadline(false);
 
         readClientIp();
         boost::beast::async_detect_ssl(
@@ -749,7 +749,7 @@ class Connection :
             return;
         }
         auto& parse = *parser;
-        startDeadline();
+        startDeadline(false);
         if (httpType == HttpType::HTTP)
         {
             boost::beast::http::async_read_some(
@@ -820,6 +820,8 @@ class Connection :
             return;
         }
 
+        startDeadline(true);
+
         BMCWEB_LOG_DEBUG("{} Clearing response", logPtr(this));
         res.clear();
         initParser();
@@ -841,7 +843,7 @@ class Connection :
         }
         res.preparePayload(urlView);
 
-        startDeadline();
+        startDeadline(false);
         if (httpType == HttpType::HTTP)
         {
             boost::beast::async_write(
@@ -863,6 +865,7 @@ class Connection :
     void cancelDeadlineTimer()
     {
         timer.cancel();
+        timerStarted = false;
     }
 
     void afterTimerWait(const std::weak_ptr<self_type>& weakSelf,
@@ -905,7 +908,7 @@ class Connection :
         self->hardClose();
     }
 
-    void startDeadline()
+    void startDeadline(bool keepaliveIdle)
     {
         // Timer is already started so no further action is required.
         if (timerStarted)
@@ -913,7 +916,9 @@ class Connection :
             return;
         }
 
-        std::chrono::seconds timeout(15);
+        // if we're waiting for future requests while idle in keepalive, allow
+        // up to 15 minutes of delay
+        std::chrono::seconds timeout(keepaliveIdle ? 15 * 60 : 15);
 
         std::weak_ptr<Connection<Adaptor, Handler>> weakSelf = weak_from_this();
         timer.expires_after(timeout);
