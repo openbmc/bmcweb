@@ -7,6 +7,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/physical_context.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
@@ -525,6 +526,78 @@ inline void fillSensorStatus(
         getHealth(sensorJson, propertiesDict, inventoryItem);
 }
 
+inline physical_context::PhysicalContext dBusSensorPhysicalContextToRedfish(
+    const std::string& sensorPhysicalContext)
+{
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.Back")
+    {
+        return physical_context::PhysicalContext::Back;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.CPU")
+    {
+        return physical_context::PhysicalContext::CPU;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.CPUSubsystem")
+    {
+        return physical_context::PhysicalContext::CPUSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.Exhaust")
+    {
+        return physical_context::PhysicalContext::Exhaust;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.Front")
+    {
+        return physical_context::PhysicalContext::Front;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.GPU")
+    {
+        return physical_context::PhysicalContext::GPU;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.GPUSubsystem")
+    {
+        return physical_context::PhysicalContext::GPUSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.Intake")
+    {
+        return physical_context::PhysicalContext::Intake;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.Memory")
+    {
+        return physical_context::PhysicalContext::Memory;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.MemorySubsystem")
+    {
+        return physical_context::PhysicalContext::MemorySubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.PowerSupply")
+    {
+        return physical_context::PhysicalContext::PowerSupply;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.SystemBoard")
+    {
+        return physical_context::PhysicalContext::SystemBoard;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Sensor.Value.PhysicalContext.VoltageRegulator")
+    {
+        return physical_context::PhysicalContext::VoltageRegulator;
+    }
+
+    return physical_context::PhysicalContext::Invalid;
+}
+
 inline void fillSensorIdentity(
     std::string_view sensorName, std::string_view sensorType,
     const dbus::utility::DBusPropertiesMap& propertiesDict,
@@ -562,13 +635,15 @@ inline void fillSensorIdentity(
 
     std::optional<std::string> readingBasis;
     std::optional<std::string> implementation;
+    std::optional<std::string> physicalContext;
     std::optional<Statistics> statistics;
     std::optional<ReadingParameters> readingParameters;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesDict, "ReadingBasis",
-        readingBasis, "Implementation", implementation, "Readings", statistics,
-        "ReadingParameters", readingParameters);
+        readingBasis, "Implementation", implementation, "PhysicalContext",
+        physicalContext, "Readings", statistics, "ReadingParameters",
+        readingParameters);
     if (!success)
     {
         messages::internalError();
@@ -591,6 +666,16 @@ inline void fillSensorIdentity(
         if (implementationOpt != sensor::ImplementationType::Invalid)
         {
             sensorJson["Implementation"] = implementationOpt;
+        }
+    }
+
+    if (physicalContext.has_value())
+    {
+        physical_context::PhysicalContext redfishContext =
+            dBusSensorPhysicalContextToRedfish(*physicalContext);
+        if (redfishContext != physical_context::PhysicalContext::Invalid)
+        {
+            sensorJson["PhysicalContext"] = redfishContext;
         }
     }
 
