@@ -413,6 +413,11 @@ class Connection :
             return;
         }
         keepAlive = req->keepAlive();
+        if (keepAlive)
+        {
+            boost::asio::socket_base::keep_alive keepaliveSockOpt(true);
+            adaptor.next_layer().set_option(keepaliveSockOpt);
+        }
 
         if (authenticationEnabled)
         {
