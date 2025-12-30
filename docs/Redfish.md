@@ -298,6 +298,7 @@ Fields common to all schemas
 - Implementation
 - PeakReading
 - PeakReadingTime
+- PhysicalContext
 - Reading
 - ReadingBasis
 - ReadingRangeMax

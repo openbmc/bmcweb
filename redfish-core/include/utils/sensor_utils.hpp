@@ -7,6 +7,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/physical_context.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
@@ -611,6 +612,22 @@ inline void fillSensorStatus(
         getHealth(sensorJson, propertiesDict, inventoryItem);
 }
 
+inline physical_context::PhysicalContext dBusSensorPhysicalContextToRedfish(
+    const std::string& sensorPhysicalContext)
+{
+    // Currently the PDI only defines the Accelerator type.
+    // TODO: Expand this mapping when additional PhysicalContext types are
+    // added to phosphor-dbus-interfaces.
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.Accelerator")
+    {
+        return physical_context::PhysicalContext::Accelerator;
+    }
+
+    BMCWEB_LOG_WARNING("Unknown PhysicalContext: {}", sensorPhysicalContext);
+    return physical_context::PhysicalContext::Invalid;
+}
+
 inline bool fillSensorIdentity(
     std::string_view sensorName, std::string_view sensorType,
     const dbus::utility::DBusPropertiesMap& propertiesDict,
@@ -619,6 +636,7 @@ inline bool fillSensorIdentity(
 {
     std::optional<std::string> readingBasis;
     std::optional<std::string> implementation;
+    std::optional<std::string> physicalContext;
     std::optional<Statistics> statistics;
     std::optional<ReadingParameters> readingParameters;
     std::optional<double> maxValue;
@@ -627,10 +645,9 @@ inline bool fillSensorIdentity(
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesDict, "ReadingBasis",
-        readingBasis, "Implementation", implementation, "Readings", statistics,
-        "ReadingParameters", readingParameters, "MaxValue", maxValue,
-        "MinValue", minValue, "Value", value);
-
+        readingBasis, "Implementation", implementation, "Type", physicalContext,
+        "Readings", statistics, "ReadingParameters", readingParameters,
+        "MaxValue", maxValue, "MinValue", minValue, "Value", value);
     if (!success)
     {
         BMCWEB_LOG_ERROR("Failed to unpack properties");
@@ -693,6 +710,16 @@ inline bool fillSensorIdentity(
             if (implementationOpt != sensor::ImplementationType::Invalid)
             {
                 sensorJson["Implementation"] = implementationOpt;
+            }
+        }
+
+        if (physicalContext.has_value())
+        {
+            physical_context::PhysicalContext redfishContext =
+                dBusSensorPhysicalContextToRedfish(*physicalContext);
+            if (redfishContext != physical_context::PhysicalContext::Invalid)
+            {
+                sensorJson["PhysicalContext"] = redfishContext;
             }
         }
 
