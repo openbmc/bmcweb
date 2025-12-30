@@ -7,6 +7,7 @@ ReusePort=true
 Service=bmcweb.service
 FileDescriptorName=bmcweb_@BMCWEB_PORT@_@HTTP_LEVEL_ALLOWED@_@HTTP_AUTH_LEVEL@
 BindToDevice=@HTTP_BIND@
+KeepAlive=true
 
 [Install]
 WantedBy=sockets.target
