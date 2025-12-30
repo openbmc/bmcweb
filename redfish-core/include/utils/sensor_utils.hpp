@@ -7,6 +7,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/physical_context.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
@@ -525,6 +526,285 @@ inline void fillSensorStatus(
         getHealth(sensorJson, propertiesDict, inventoryItem);
 }
 
+inline physical_context::PhysicalContext dBusSensorPhysicalContextToRedfish(
+    const std::string& sensorPhysicalContext)
+{
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Accelerator")
+    {
+        return physical_context::PhysicalContext::Accelerator;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.ACInput")
+    {
+        return physical_context::PhysicalContext::ACInput;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type."
+        "ACMaintenanceBypassInput")
+    {
+        return physical_context::PhysicalContext::ACMaintenanceBypassInput;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.ACOutput")
+    {
+        return physical_context::PhysicalContext::ACOutput;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.ACStaticBypassInput")
+    {
+        return physical_context::PhysicalContext::ACStaticBypassInput;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.ACUtilityInput")
+    {
+        return physical_context::PhysicalContext::ACUtilityInput;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.ASIC")
+    {
+        return physical_context::PhysicalContext::ASIC;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Back")
+    {
+        return physical_context::PhysicalContext::Back;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Backplane")
+    {
+        return physical_context::PhysicalContext::Backplane;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Battery")
+    {
+        return physical_context::PhysicalContext::Battery;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Board")
+    {
+        return physical_context::PhysicalContext::Board;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Chassis")
+    {
+        return physical_context::PhysicalContext::Chassis;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.ComputeBay")
+    {
+        return physical_context::PhysicalContext::ComputeBay;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.CoolingSubsystem")
+    {
+        return physical_context::PhysicalContext::CoolingSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.CPU")
+    {
+        return physical_context::PhysicalContext::CPU;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.CPUSubsystem")
+    {
+        return physical_context::PhysicalContext::CPUSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.DCBus")
+    {
+        return physical_context::PhysicalContext::DCBus;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Exhaust")
+    {
+        return physical_context::PhysicalContext::Exhaust;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.ExpansionBay")
+    {
+        return physical_context::PhysicalContext::ExpansionBay;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.ExpansionSubsystem")
+    {
+        return physical_context::PhysicalContext::ExpansionSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Fan")
+    {
+        return physical_context::PhysicalContext::Fan;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Filter")
+    {
+        return physical_context::PhysicalContext::Filter;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.FPGA")
+    {
+        return physical_context::PhysicalContext::FPGA;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Front")
+    {
+        return physical_context::PhysicalContext::Front;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.GPU")
+    {
+        return physical_context::PhysicalContext::GPU;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.GPUSubsystem")
+    {
+        return physical_context::PhysicalContext::GPUSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Intake")
+    {
+        return physical_context::PhysicalContext::Intake;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.LiquidInlet")
+    {
+        return physical_context::PhysicalContext::LiquidInlet;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.LiquidOutlet")
+    {
+        return physical_context::PhysicalContext::LiquidOutlet;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Lower")
+    {
+        return physical_context::PhysicalContext::Lower;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Manager")
+    {
+        return physical_context::PhysicalContext::Manager;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Memory")
+    {
+        return physical_context::PhysicalContext::Memory;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.MemorySubsystem")
+    {
+        return physical_context::PhysicalContext::MemorySubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Motor")
+    {
+        return physical_context::PhysicalContext::Motor;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.NetworkBay")
+    {
+        return physical_context::PhysicalContext::NetworkBay;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.NetworkingDevice")
+    {
+        return physical_context::PhysicalContext::NetworkingDevice;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.PowerOutlet")
+    {
+        return physical_context::PhysicalContext::PowerOutlet;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.PowerSubsystem")
+    {
+        return physical_context::PhysicalContext::PowerSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.PowerSupply")
+    {
+        return physical_context::PhysicalContext::PowerSupply;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.PowerSupplyBay")
+    {
+        return physical_context::PhysicalContext::PowerSupplyBay;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Pump")
+    {
+        return physical_context::PhysicalContext::Pump;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Rectifier")
+    {
+        return physical_context::PhysicalContext::Rectifier;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Reservoir")
+    {
+        return physical_context::PhysicalContext::Reservoir;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Room")
+    {
+        return physical_context::PhysicalContext::Room;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.StorageBay")
+    {
+        return physical_context::PhysicalContext::StorageBay;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.StorageDevice")
+    {
+        return physical_context::PhysicalContext::StorageDevice;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.StorageSubsystem")
+    {
+        return physical_context::PhysicalContext::StorageSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Switch")
+    {
+        return physical_context::PhysicalContext::Switch;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.SystemBoard")
+    {
+        return physical_context::PhysicalContext::SystemBoard;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Transceiver")
+    {
+        return physical_context::PhysicalContext::Transceiver;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Transformer")
+    {
+        return physical_context::PhysicalContext::Transformer;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.TrustedModule")
+    {
+        return physical_context::PhysicalContext::TrustedModule;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.Upper")
+    {
+        return physical_context::PhysicalContext::Upper;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.Type.VoltageRegulator")
+    {
+        return physical_context::PhysicalContext::VoltageRegulator;
+    }
+
+    BMCWEB_LOG_WARNING("Unknown PhysicalContext: {}", sensorPhysicalContext);
+    return physical_context::PhysicalContext::Invalid;
+}
+
 inline void fillSensorIdentity(
     std::string_view sensorName, std::string_view sensorType,
     const dbus::utility::DBusPropertiesMap& propertiesDict,
@@ -562,13 +842,14 @@ inline void fillSensorIdentity(
 
     std::optional<std::string> readingBasis;
     std::optional<std::string> implementation;
+    std::optional<std::string> physicalContext;
     std::optional<Statistics> statistics;
     std::optional<ReadingParameters> readingParameters;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesDict, "ReadingBasis",
-        readingBasis, "Implementation", implementation, "Readings", statistics,
-        "ReadingParameters", readingParameters);
+        readingBasis, "Implementation", implementation, "Type", physicalContext,
+        "Readings", statistics, "ReadingParameters", readingParameters);
     if (!success)
     {
         messages::internalError();
@@ -591,6 +872,16 @@ inline void fillSensorIdentity(
         if (implementationOpt != sensor::ImplementationType::Invalid)
         {
             sensorJson["Implementation"] = implementationOpt;
+        }
+    }
+
+    if (physicalContext.has_value())
+    {
+        physical_context::PhysicalContext redfishContext =
+            dBusSensorPhysicalContextToRedfish(*physicalContext);
+        if (redfishContext != physical_context::PhysicalContext::Invalid)
+        {
+            sensorJson["PhysicalContext"] = redfishContext;
         }
     }
 
