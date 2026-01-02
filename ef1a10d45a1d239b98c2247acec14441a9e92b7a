@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b82462_dcc38ec3",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-02T20:41:46Z",
+      "side": 1,
+      "message": "This should be done at the top of doReadHeaders()",
+      "revId": "ef1a10d45a1d239b98c2247acec14441a9e92b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f678cd_890d8530",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-02T20:41:46Z",
+      "side": 1,
+      "message": "Can we make this an enum class rather than a bool?  keepaliveIdle \u003d true makes sense, but it doesn\u0027t make it clear what keepaliveIdle \u003d false means.\n\nAlso, in the naming convention this would be keepAliveIdle (capital A)",
+      "revId": "ef1a10d45a1d239b98c2247acec14441a9e92b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66587ac7_95851ae3",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-02T20:41:46Z",
+      "side": 1,
+      "message": "nit, please make this not a terinary.  As written it\u0027s not the easiest to read.  Once we have that branch, the comment can be put under the branch so it makes clear that it only applies to the branch.",
+      "revId": "ef1a10d45a1d239b98c2247acec14441a9e92b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
