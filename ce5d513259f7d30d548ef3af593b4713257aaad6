@@ -105,6 +105,24 @@
       "parentUuid": "51ca4758_b9ccec38",
       "revId": "ce5d513259f7d30d548ef3af593b4713257aaad6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1804e1c5_646b695d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001542
+      },
+      "writtenOn": "2026-01-04T03:00:02Z",
+      "side": 1,
+      "message": "When can I be passed?",
+      "parentUuid": "4ab2bf22_b1cc0fb3",
+      "revId": "ce5d513259f7d30d548ef3af593b4713257aaad6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
