@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b716af2_c872611f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1002583
+      },
+      "writtenOn": "2026-01-04T13:52:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b8b82462_dcc38ec3",
+      "revId": "ef1a10d45a1d239b98c2247acec14441a9e92b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6f678cd_890d8530",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd9675e7_c7499db9",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1002583
+      },
+      "writtenOn": "2026-01-04T13:52:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d6f678cd_890d8530",
+      "revId": "ef1a10d45a1d239b98c2247acec14441a9e92b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66587ac7_95851ae3",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-01-02T20:41:46Z",
       "side": 1,
       "message": "nit, please make this not a terinary.  As written it\u0027s not the easiest to read.  Once we have that branch, the comment can be put under the branch so it makes clear that it only applies to the branch.",
+      "revId": "ef1a10d45a1d239b98c2247acec14441a9e92b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1431b17_22760c35",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1002583
+      },
+      "writtenOn": "2026-01-04T13:52:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "66587ac7_95851ae3",
       "revId": "ef1a10d45a1d239b98c2247acec14441a9e92b7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
