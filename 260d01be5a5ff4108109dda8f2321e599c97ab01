@@ -41,6 +41,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6aad280_c4adbd2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "I think I will remove the power limit in watts part. This was mentioned because the platform on which this was tested had multiple power related controls (not exactly power limit) for the processor module. I think it\u0027s causing confusion here.",
+      "parentUuid": "72219321_93d30d8d",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19b2736c_d342ed3b",
@@ -58,6 +76,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8e34fa7_fd814ddf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19b2736c_d342ed3b",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b28ca5d_b09d553f",
@@ -71,6 +107,41 @@
       "writtenOn": "2025-12-24T21:33:23Z",
       "side": 1,
       "message": "Redfish validator? I think you need the link to /redfish/v1/Chassis/\u003cchassis id\u003e/Controls/, otherwise the validator will not know to walk this path",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a768bfdb_aaf5b403",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Done. I have linked /Chassis and Chassis/\u003cchassis-id\u003e/Controls now.",
+      "parentUuid": "5b28ca5d_b09d553f",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "152e032b_8a5de1c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Hi @gunnar@gmills.xyz, sorry for the late reply due to the holidays. I have addressed your comments.",
       "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -94,6 +165,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cc8e992_6b459fe9",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "As a disjoint set of interfaces can come under Controls. This mapping makes the code simpler in the sense that the mechanism remains the same, and whenever a new interface support needs to be added it\u0027s just a matter of providing the mapping for it and the rest of it is taken care of.",
+      "parentUuid": "b4e04b73_96d2641a",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71ae459e_69c4d723",
         "filename": "redfish-core/lib/control.hpp",
         "patchSetId": 1
@@ -105,6 +194,24 @@
       "writtenOn": "2025-12-24T21:33:23Z",
       "side": 1,
       "message": "Why do we need these functions?",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4949e24e_5224070d",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "These are helper functions to access the correct property from the mappings.",
+      "parentUuid": "71ae459e_69c4d723",
       "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -132,6 +239,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "846210d1_8d452da3",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d002c447_2d805321",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 13
+      },
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1b817e9_9255ed4f",
@@ -149,6 +280,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca39e9f9_08ca98c0",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Done. I have refactored the code.",
+      "parentUuid": "e1b817e9_9255ed4f",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f579a47_80b9bb34",
@@ -162,6 +311,24 @@
       "writtenOn": "2025-12-24T21:33:23Z",
       "side": 1,
       "message": "You are lot of indentations in.. Please break out some of the lambdas",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b0aa039_21df95b7",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "4f579a47_80b9bb34",
       "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -185,6 +352,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "385d0bd5_37d76949",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Can you please elaborate on \"rest of our code\"? or provide me with an example?",
+      "parentUuid": "7f10bddf_0a4bc854",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3da87679_d2851699",
         "filename": "redfish-core/lib/control.hpp",
         "patchSetId": 1
@@ -196,6 +381,24 @@
       "writtenOn": "2025-12-24T21:33:23Z",
       "side": 1,
       "message": "Don\u0027t you need to link this from chassis.hpp ? How does the client know to go to this URI ?",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8c8daef_00220f54",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3da87679_d2851699",
       "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -213,6 +416,30 @@
       "writtenOn": "2025-12-24T21:33:23Z",
       "side": 1,
       "message": "nitpick we have been doing these just as 1 \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/84040",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 1
+      },
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2d8fed5_2541c395",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-01-05T03:38:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "964f0482_02cc8758",
       "range": {
         "startLine": 698,
         "startChar": 0,
