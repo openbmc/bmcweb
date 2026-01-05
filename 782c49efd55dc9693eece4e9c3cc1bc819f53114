@@ -1,0 +1,279 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12fbe4e6_a59bcde8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Overall looking much better.  Please move the documentation about options to the options file, and the documentation on dbus usage to DBus_usage.md.  Remove all lists of \"all\" properties, mostly because I don\u0027t want to have to start enforcing this is updated every time we modify a computer system collection resource.\n\nAfter that, should be good to me.",
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90148717_7775e986",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "link the redfish aggregation doc please.",
+      "range": {
+        "startLine": 6,
+        "startChar": 26,
+        "endLine": 6,
+        "endChar": 45
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74b3a42d_d2531630",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Please make note that this is temporary, and the authors will be fixing this.",
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e64847db_3cfa5f49",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "This belongs in general docs, not bmcweb docs.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 60
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25af766e_a77fdf3b",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "This can probably be removed?  This is a description of dbus, which isn\u0027t really in the bmcweb purview.\n\nAlso, and more importantly, Redfish isn\u0027t indexed, so I think this is cobered in DBUS_USAGE.md already in a more general sense.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 187
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f75a51fa_26744fa6",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Remove.  This is covered generically in DBUS_USAGE.md",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 74
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662e9be9_04a04687",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Remove.  I\u0027m not interested in maintaining this list separate from the normal Redfish documentation.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 0
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac024fb8_23c25241",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Remove, \"Ideally\" replace with \"As defined by the Redfish spec and DMTF\"\n\nlater in this paragraph we should make clear that this is not implemented correctly to DMTF standards.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 7
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc59405_d9a9029c",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "I would put this more as a dbus deficiency than a bmcweb one.  s/bmcweb/dbus/g",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 67
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00165310_192b632f",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Remove.  If we want to document redfish-eventlog-location, lets document it in the meson.options where the option lives, not in this doc.",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 93
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35a82e44_dc42d33f",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 34
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "865a0409_8892ef1c",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Remove.",
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acaca6b9_70e76d1a",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-05T21:13:40Z",
+      "side": 1,
+      "message": "Remove.  If we want to start documenting all the things \"not\" done, it\u0027s a much longer list than this.",
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
