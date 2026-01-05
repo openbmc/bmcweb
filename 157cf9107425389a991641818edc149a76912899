@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83e048b_b2aa8ea5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-05T16:15:35Z",
+      "side": 1,
+      "message": "For next time, please Wrap the body at 72 characters, not a custom length from https://cbea.ms/git-commit/",
+      "revId": "157cf9107425389a991641818edc149a76912899",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
