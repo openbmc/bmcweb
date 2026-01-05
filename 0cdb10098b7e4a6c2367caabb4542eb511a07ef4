@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fb3a551_f9d250ed",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 3186,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-05T15:43:41Z",
+      "side": 1,
+      "message": "This call is a duplication of the call made above on L3161. That one is under compile option only.\n\nI\u0027m wondering if the handling for the call of these two should be combined. Code might be pretty ugly doing it, so not sure if this is a good suggestion.",
+      "range": {
+        "startLine": 3184,
+        "startChar": 4,
+        "endLine": 3186,
+        "endChar": 79
+      },
+      "revId": "0cdb10098b7e4a6c2367caabb4542eb511a07ef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
