@@ -36,6 +36,7 @@
 #include <ctime>
 #include <fstream>
 #include <iomanip>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <sstream>
@@ -904,6 +905,70 @@ inline void populateCPERLogEntry(
     cperLogEntry["AdditionalDataURI"] = std::move(additionalDataURI);
     cperLogEntry["DiagnosticDataType"] =
         log_entry::LogDiagnosticDataTypes::CPER;
+}
+
+inline void populateCPERLogServiceEntries(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    nlohmann::json& cperLogServiceEntries,
+    LogServiceParentCollection collection,
+    const std::map<uint64_t, std::vector<uint8_t>>& cpers)
+{
+    const std::string_view childId =
+        getMemberIdFromParentCollection(collection);
+    const std::string parentStr =
+        logServiceParentCollectionToString(collection);
+    const std::string logEntryDescriptor =
+        getLogEntryDescriptorFromParentCollection(collection);
+
+    if (parentStr.empty() || childId.empty() || logEntryDescriptor.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Collections don't include the static data added by SubRoute
+    // because it has a duplicate entry for members
+    cperLogServiceEntries["@odata.type"] =
+        "#LogEntryCollection.LogEntryCollection";
+    cperLogServiceEntries["@odata.id"] = std::format(
+        "/redfish/v1/{}/{}/LogServices/CPER/Entries", parentStr, childId);
+    cperLogServiceEntries["Name"] =
+        std::format("{} CPER Entries", logEntryDescriptor);
+    cperLogServiceEntries["Description"] =
+        std::format("Collection of {} CPER Entries", logEntryDescriptor);
+
+    for (const auto& [i, buffer] : cpers)
+    {
+        nlohmann::json cperLogEntry;
+        populateCPERLogEntry(asyncResp, cperLogEntry, collection,
+                             std::to_string(i));
+        cperLogServiceEntries["Members"].emplace_back(std::move(cperLogEntry));
+    }
+}
+
+inline void getCPEREntryCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    LogServiceParentCollection collection)
+{
+    // DBus implementation of CPER/Entries
+    // Make call to CPER Service to find all CPER objects
+    dbus::utility::async_method_call(
+        asyncResp,
+        [asyncResp,
+         collection](const boost::system::error_code& ec,
+                     const std::map<uint64_t, std::vector<uint8_t>>& rawCpers) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Cannot read CPERs from repository: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            populateCPERLogServiceEntries(asyncResp, asyncResp->res.jsonValue,
+                                          collection, rawCpers);
+        },
+        "xyz.openbmc_project.CPERRepository1",
+        "/xyz/openbmc_project/CPERRepository1",
+        "xyz.openbmc_project.CPERRepository1", "ReadAllCPERs");
 }
 
 inline void getCPER(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

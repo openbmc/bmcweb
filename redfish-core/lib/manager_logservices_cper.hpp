@@ -22,6 +22,24 @@
 
 namespace redfish
 {
+inline void handleManagersCPEREntryCollectionGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+    eventlog_utils::getCPEREntryCollection(
+        asyncResp, eventlog_utils::LogServiceParentCollection::Managers);
+}
+
 inline void handleManagersCPEREntryGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -69,6 +87,11 @@ inline void handleManagersCPEREntryDownload(
 
 inline void requestRoutesManagersCPERLogService(App& app)
 {
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/CPER/Entries/")
+        .privileges(redfish::privileges::getLogEntryCollection)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleManagersCPEREntryCollectionGet, std::ref(app)));
+
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/LogServices/CPER/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
