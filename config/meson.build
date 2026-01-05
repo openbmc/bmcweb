@@ -50,7 +50,6 @@ string_options = [
     'mutual-tls-common-name-parsing-default',
     'redfish-manager-uri-name',
     'redfish-system-uri-name',
-    'redfish-eventlog-location',
 ]
 
 int_options = ['http-body-limit', 'watchdog-timeout-seconds']
@@ -103,6 +102,12 @@ if get_option('buildtype').startswith('debug') and loglvlopt == 'disabled'
 endif
 loglvlopt = loglvlopt.to_upper()
 string_options_string += 'constexpr std::string_view  BMCWEB_LOGGING_LEVEL' + ' = "' + loglvlopt + '";\n'
+
+eventLoc = get_option('redfish-eventlog-location')
+if get_option('experimental-redfish-multi-computer-system').enabled()
+    eventLoc = 'managers'
+endif
+string_options_string += 'constexpr std::string_view BMCWEB_REDFISH_EVENTLOG_LOCATION' + ' = "' + eventLoc + '";\n'
 
 # NBD proxy is disabled due to lack of maintenance.  See meson_options.txt
 feature_options_string += 'constexpr const bool BMCWEB_VM_NBDPROXY = false;\n'
