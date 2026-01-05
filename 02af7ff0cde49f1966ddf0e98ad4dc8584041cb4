@@ -140,6 +140,52 @@
       "message": "It looks good to me",
       "revId": "02af7ff0cde49f1966ddf0e98ad4dc8584041cb4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec671a3c_1efd164c",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-05T15:21:40Z",
+      "side": 1,
+      "message": "This check is repeated from above (L138)?",
+      "range": {
+        "startLine": 142,
+        "startChar": 4,
+        "endLine": 142,
+        "endChar": 57
+      },
+      "revId": "02af7ff0cde49f1966ddf0e98ad4dc8584041cb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "754b4efb_3e89786d",
+        "filename": "test/include/authentication.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-05T15:21:40Z",
+      "side": 1,
+      "message": "This test looks the same as L18 above, am I missing the difference? (Maybe test with a too short token instead?)",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 64
+      },
+      "revId": "02af7ff0cde49f1966ddf0e98ad4dc8584041cb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
