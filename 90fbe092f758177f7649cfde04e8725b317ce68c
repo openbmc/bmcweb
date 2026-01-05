@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd3fdaca_bcb61a16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-05T20:09:19Z",
+      "side": 1,
+      "message": "Although I typically don\u0027t enforce, it is best if your Gerrit Name is the same as your signed-off / CCLA name. Thanks!",
+      "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
