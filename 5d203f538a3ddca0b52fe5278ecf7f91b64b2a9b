@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0a87ee2_4e8df6c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-05T16:06:03Z",
+      "side": 1,
+      "message": "typo: ManagerForChassis\n\n\n\nnit: Maybe add \"handler\" here to clarify this is the Redfish property handling. (I was expecting a function to be named this.)",
+      "range": {
+        "startLine": 7,
+        "startChar": 9,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0470bfd5_ef251617",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -20,6 +43,23 @@
         "endLine": 11,
         "endChar": 39
       },
+      "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25f6bdda_45c301ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-05T16:06:03Z",
+      "side": 1,
+      "message": "Refactor looks fine to me. Just a couple of nit comments.",
       "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -42,6 +82,29 @@
         "startChar": 46,
         "endLine": 687,
         "endChar": 55
+      },
+      "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae5a3d8_33cddf67",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-05T16:06:03Z",
+      "side": 1,
+      "message": "nit: I know this was a refactor, but this variable name has a typo that might be nice to correct here: chassisUrl",
+      "range": {
+        "startLine": 692,
+        "startChar": 21,
+        "endLine": 692,
+        "endChar": 31
       },
       "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
