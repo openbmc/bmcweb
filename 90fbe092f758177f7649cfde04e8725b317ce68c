@@ -38,6 +38,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b598e5c5_5713bd4a",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T18:19:31Z",
+      "side": 1,
+      "message": "This call throws an exception on bad input.",
+      "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "815703da_48b488ff",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 12
