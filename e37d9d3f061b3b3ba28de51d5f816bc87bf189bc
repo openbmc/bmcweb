@@ -93,6 +93,30 @@
       },
       "revId": "e37d9d3f061b3b3ba28de51d5f816bc87bf189bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0bfc468_322089f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-06T20:01:23Z",
+      "side": 1,
+      "message": "I am looking at 7.5.1. Modification success responses\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.8.0.pdf\n\n```\nFor update, replace, and delete operations, the response from the service, after successful modification,\nshould be one of the following responses:\n• HTTP 200 status code with a body that contains the JSON representation of the targeted resource after the modification has been applied, or, for the delete operation, a representation of\nthe deleted resource.\n```\n\nSo without a body that contains the targeted resource this is wrong.",
+      "parentUuid": "99550f34_84a773fc",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 16,
+        "endChar": 1
+      },
+      "revId": "e37d9d3f061b3b3ba28de51d5f816bc87bf189bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
