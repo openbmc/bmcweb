@@ -38,6 +38,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "696d62d6_7331a990",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T18:24:52Z",
+      "side": 1,
+      "message": "I\u0027m struggling with this change.  We\u0027re now several patchsets in and the diff is still worse than before.  I\u0027m finding corner cases like uncaught exceptions for something that is at most a type safety issue.",
+      "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b598e5c5_5713bd4a",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 12
