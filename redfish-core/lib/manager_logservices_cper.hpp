@@ -9,6 +9,7 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_utility.hpp"
+#include "log_services.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/eventlog_utils.hpp"
@@ -87,6 +88,11 @@ inline void handleManagersCPEREntryDownload(
 
 inline void requestRoutesManagersCPERLogService(App& app)
 {
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/CPER/")
+        .privileges(redfish::privileges::getLogService)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleManagersCPERLogServiceGet, std::ref(app)));
+
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/CPER/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(

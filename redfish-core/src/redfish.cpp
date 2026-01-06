@@ -123,7 +123,10 @@ RedfishService::RedfishService(App& app)
 
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
     {
-        requestRoutesSystemsCPERLogService(app);
+        if constexpr (BMCWEB_REDFISH_CPER_LOG)
+        {
+            requestRoutesSystemsCPERLogService(app);
+        }
         requestRoutesSystemsEventLogService(app);
         if constexpr (BMCWEB_REDFISH_DBUS_LOG)
         {
@@ -137,7 +140,10 @@ RedfishService::RedfishService(App& app)
 
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
     {
-        requestRoutesManagersCPERLogService(app);
+        if constexpr (BMCWEB_REDFISH_CPER_LOG)
+        {
+            requestRoutesManagersCPERLogService(app);
+        }
         requestRoutesManagersEventLogService(app);
         if constexpr (BMCWEB_REDFISH_DBUS_LOG)
         {
