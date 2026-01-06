@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3901164d_2efd550f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T17:22:34Z",
+      "side": 1,
+      "message": "Remove, we\u0027re in the bmcweb repo.  no need to prefix with bmcweb:",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34b69e06_4f9b6920",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T17:22:34Z",
+      "side": 1,
+      "message": "Please clarify this.   The CHASSIS AssetTag is read only.  The ComputerSystem AssetTag has been settable for a long time.",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 24
+      },
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9924f74a_fe17c3f6",
