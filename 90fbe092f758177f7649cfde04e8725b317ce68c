@@ -16,6 +16,24 @@
       "message": "Although I typically don\u0027t enforce, it is best if your Gerrit Name is the same as your signed-off / CCLA name. Thanks!",
       "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a407132c_1b5338df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-06T05:16:55Z",
+      "side": 1,
+      "message": "yes, same",
+      "parentUuid": "cd3fdaca_bcb61a16",
+      "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
