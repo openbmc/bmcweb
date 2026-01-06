@@ -24,6 +24,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e3ab3dd_13601e8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T17:29:33Z",
+      "side": 1,
+      "message": "Code itself looks fine.  Sounds like there\u0027s discussion on the dbus interface itself.",
+      "revId": "ba92ce897ee9c0f6a0264c8ad9870b6e326d59c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a31c97dc_41742cd8",
@@ -37,6 +54,30 @@
       "writtenOn": "2026-01-05T22:29:18Z",
       "side": 1,
       "message": "nit: Might be nice to have these sorted alphabetically. It doesn\u0027t seem to be all the available Redfish enums so might help if someone wants to add one in the future to confirm it is not already in the list easily.",
+      "range": {
+        "startLine": 532,
+        "startChar": 4,
+        "endLine": 596,
+        "endChar": 5
+      },
+      "revId": "ba92ce897ee9c0f6a0264c8ad9870b6e326d59c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4265b838_9674e55e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T17:29:33Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a31c97dc_41742cd8",
       "range": {
         "startLine": 532,
         "startChar": 4,
