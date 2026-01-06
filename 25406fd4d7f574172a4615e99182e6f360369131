@@ -47,6 +47,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f78292a_b4282307",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T17:25:05Z",
+      "side": 1,
+      "message": "I\u0027m not sure how this could work as designed.  You need to set the AssetTag on the backing device.  This will set the EM flag.",
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9924f74a_fe17c3f6",
