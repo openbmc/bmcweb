@@ -56,21 +56,9 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
 static constexpr const std::array<const char*, 2> supportedResourceTypes = {
     "Task", "Heartbeat"};
 
-inline void requestRoutesEventService(App& app)
+void getEventServiceInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
-        .privileges(redfish::privileges::getEventService)
-        .methods(
-            boost::beast::http::verb::
-                get)([&app](
-                         const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
-
-            asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/EventService";
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/EventService";
             asyncResp->res.jsonValue["@odata.type"] =
                 "#EventService.v1_5_0.EventService";
             asyncResp->res.jsonValue["Id"] = "EventService";
@@ -111,6 +99,21 @@ inline void requestRoutesEventService(App& app)
 
             asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
                 std::move(supportedSSEFilters);
+}
+inline void requestRoutesEventService(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
+        .privileges(redfish::privileges::getEventService)
+        .methods(
+            boost::beast::http::verb::
+                get)([&app](
+                         const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+            {
+                return;
+            }
+            getEventServiceInfo(asyncResp);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
@@ -132,6 +135,8 @@ inline void requestRoutesEventService(App& app)
                         "ServiceEnabled", serviceEnabled               //
                         ))
                 {
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
                     return;
                 }
 
@@ -152,6 +157,9 @@ inline void requestRoutesEventService(App& app)
                         messages::queryParameterOutOfRange(
                             asyncResp->res, std::to_string(*retryAttemps),
                             "DeliveryRetryAttempts", "[1-3]");
+                        asyncResp->res.result(
+                            boost::beast::http::status::bad_request);
+                        return;
                     }
                     else
                     {
@@ -167,6 +175,9 @@ inline void requestRoutesEventService(App& app)
                         messages::queryParameterOutOfRange(
                             asyncResp->res, std::to_string(*retryInterval),
                             "DeliveryRetryIntervalSeconds", "[5-180]");
+                        asyncResp->res.result(
+                            boost::beast::http::status::bad_request);
+                        return;
                     }
                     else
                     {
@@ -177,6 +188,7 @@ inline void requestRoutesEventService(App& app)
 
                 EventServiceManager::getInstance().setEventServiceConfig(
                     eventServiceConfig);
+                getEventServiceInfo(asyncResp);
             });
 }
 
