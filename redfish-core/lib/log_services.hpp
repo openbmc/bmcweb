@@ -936,6 +936,11 @@ inline void handleSystemsLogServiceCollectionGet(
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems" &&
                   !BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
+        nlohmann::json::object_t cperLog;
+        cperLog["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/CPER",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        logServiceArray.emplace_back(std::move(cperLog));
         nlohmann::json::object_t eventLog;
         eventLog["@odata.id"] =
             std::format("/redfish/v1/Systems/{}/LogServices/EventLog",
@@ -1044,6 +1049,11 @@ inline void handleManagersLogServicesCollectionGet(
 
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
     {
+        nlohmann::json::object_t cperLog;
+        cperLog["@odata.id"] =
+            boost::urls::format("/redfish/v1/Managers/{}/LogServices/CPER",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
+        logServiceArray.emplace_back(std::move(cperLog));
         nlohmann::json::object_t eventLog;
         eventLog["@odata.id"] =
             boost::urls::format("/redfish/v1/Managers/{}/LogServices/EventLog",
@@ -1143,6 +1153,49 @@ inline void handleManagersEventLogServiceGet(
         return;
     }
     eventlog_utils::handleSystemsAndManagersEventLogServiceGet(
+        asyncResp, eventlog_utils::LogServiceParentCollection::Managers);
+}
+
+inline void handleSystemsCPERLogServiceGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    eventlog_utils::handleSystemsAndManagersCPERLogServiceGet(
+        asyncResp, eventlog_utils::LogServiceParentCollection::Systems);
+}
+
+inline void handleManagersCPERLogServiceGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+    eventlog_utils::handleSystemsAndManagersCPERLogServiceGet(
         asyncResp, eventlog_utils::LogServiceParentCollection::Managers);
 }
 
