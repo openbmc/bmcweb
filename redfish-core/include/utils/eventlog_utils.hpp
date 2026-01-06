@@ -162,6 +162,45 @@ inline void handleSystemsAndManagersEventLogServiceGet(
     etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 }
 
+inline void handleSystemsAndManagersCPERLogServiceGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    LogServiceParentCollection collection)
+{
+    const std::string parentStr =
+        logServiceParentCollectionToString(collection);
+    const std::string_view childId =
+        getMemberIdFromParentCollection(collection);
+    const std::string logEntryDescriptor =
+        getLogEntryDescriptorFromParentCollection(collection);
+
+    if (parentStr.empty() || childId.empty() || logEntryDescriptor.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/{}/{}/LogServices/CPER", parentStr, childId);
+    asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
+    asyncResp->res.jsonValue["Name"] = "CPER Log Service";
+    asyncResp->res.jsonValue["Description"] =
+        std::format("{} CPER Log Service", logEntryDescriptor);
+    asyncResp->res.jsonValue["Id"] = "CPER";
+    asyncResp->res.jsonValue["OverWritePolicy"] =
+        log_service::OverWritePolicy::WrapsWhenFull;
+
+    std::pair<std::string, std::string> redfishDateTimeOffset =
+        redfish::time_utils::getDateTimeOffsetNow();
+
+    asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
+    asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+        redfishDateTimeOffset.second;
+
+    asyncResp->res.jsonValue["Entries"]["@odata.id"] = std::format(
+        "/redfish/v1/{}/{}/LogServices/CPER/Entries", parentStr, childId);
+    etag_utils::setEtagOmitDateTimeHandler(asyncResp);
+}
+
 /*
  * Journal EventLog utilities
  * */
