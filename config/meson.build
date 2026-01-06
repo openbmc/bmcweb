@@ -28,6 +28,7 @@ feature_options = [
     'redfish-allow-deprecated-power-thermal',
     'redfish-allow-simple-update',
     'redfish-bmc-journal',
+    'redfish-cper-log',
     'redfish-cpu-log',
     'redfish-dbus-log',
     'redfish-dump-log',
