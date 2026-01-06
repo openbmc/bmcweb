@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb8091eb_3e30b3e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-01-06T12:09:21Z",
+      "side": 1,
+      "message": "ya we will work on this model as per design doc and update this code in later commits  https://gerrit.openbmc.org/c/openbmc/docs/+/82739 \nI believe this commit ready for merge as per existing networkd interfaces.",
+      "parentUuid": "67e6e2d4_bd2d7aba",
+      "revId": "931ea11592922fbb6d5b87f10ef6ae2050d6a3b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "caceff09_ebb0fb9c",
