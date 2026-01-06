@@ -472,7 +472,7 @@ inline void getAcceleratorDataByService(
 {
     BMCWEB_LOG_DEBUG("Get available system Accelerator resources by service.");
     dbus::utility::getAllProperties(
-        service, objPath, "",
+        service, objPath, "xyz.openbmc_project.Inventory.Item.Accelerator",
         [acclrtrId, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {
@@ -485,10 +485,12 @@ inline void getAcceleratorDataByService(
 
             const bool* functional = nullptr;
             const bool* present = nullptr;
+            const uint32_t* defaultBoostClockSpeedMHz = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), properties, "Functional",
-                functional, "Present", present);
+                functional, "Present", present, "DefaultBoostClockSpeedMHz",
+                defaultBoostClockSpeedMHz);
 
             if (!success)
             {
@@ -518,6 +520,13 @@ inline void getAcceleratorDataByService(
             asyncResp->res.jsonValue["Status"]["Health"] = health;
             asyncResp->res.jsonValue["ProcessorType"] =
                 processor::ProcessorType::Accelerator;
+
+            // Add DefaultBoostClockSpeedMHz to Oem section
+            if (defaultBoostClockSpeedMHz != nullptr && *defaultBoostClockSpeedMHz > 0)
+            {
+                asyncResp->res.jsonValue["Oem"]["Nvidia"]["DefaultBoostClockSpeedMHz"] =
+                    *defaultBoostClockSpeedMHz;
+            }
         });
 }
 
