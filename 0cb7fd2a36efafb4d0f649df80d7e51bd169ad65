@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ddf92a6_03dbef3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-06T16:53:43Z",
+      "side": 1,
+      "message": "Always best if your Gerrit Name matched your signed-off / CCLA name. \nDid you talk to Redfish about adding this? https://github.com/openbmc/bmcweb/blob/master/docs/OEM_SCHEMAS.md\n\nDon\u0027t you need changes to the schema file?",
+      "revId": "0cb7fd2a36efafb4d0f649df80d7e51bd169ad65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
