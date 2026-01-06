@@ -142,6 +142,7 @@ inline void requestRoutesEventService(App& app)
                 if (serviceEnabled)
                 {
                     eventServiceConfig.enabled = *serviceEnabled;
+                    messages::success(asyncResp->res);
                 }
 
                 if (retryAttemps)
@@ -156,6 +157,7 @@ inline void requestRoutesEventService(App& app)
                     else
                     {
                         eventServiceConfig.retryAttempts = *retryAttemps;
+                        messages::success(asyncResp->res);
                     }
                 }
 
@@ -172,6 +174,7 @@ inline void requestRoutesEventService(App& app)
                     {
                         eventServiceConfig.retryTimeoutInterval =
                             *retryInterval;
+                        messages::success(asyncResp->res);
                     }
                 }
 
