@@ -22,6 +22,30 @@
       },
       "revId": "cfd641115f79f124c72d38d71e63c787292017c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c55615f_d6bfbe11",
+        "filename": "config/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-06T20:20:31Z",
+      "side": 1,
+      "message": "Ok no problem, I thought about this based on a suggestion of yours on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85600. \n\n\nCould you have a look at https://gerrit.openbmc.org/c/openbmc/openbmc/+/85536 since Patrick did mention you in his comment a while ago. (That patch is related to this one, as I attempted to solve this via meson rather than recipe config) Thanks!",
+      "parentUuid": "5ee27f75_9a00eeb9",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 115
+      },
+      "revId": "cfd641115f79f124c72d38d71e63c787292017c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
