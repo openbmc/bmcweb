@@ -62,6 +62,52 @@
       "message": "@gunnar@gmills.xyz kindly suggest if you have any suggestions?",
       "revId": "25406fd4d7f574172a4615e99182e6f360369131",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a49a95b6_3d6516ca",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T17:23:59Z",
+      "side": 1,
+      "message": "Please use setProperty helper functions.",
+      "range": {
+        "startLine": 867,
+        "startChar": 60,
+        "endLine": 867,
+        "endChar": 63
+      },
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e5e1986_dcb8221c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-06T17:23:59Z",
+      "side": 1,
+      "message": "Please make this a method \"setChassisAssetTag\"",
+      "range": {
+        "startLine": 857,
+        "startChar": 0,
+        "endLine": 869,
+        "endChar": 74
+      },
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
