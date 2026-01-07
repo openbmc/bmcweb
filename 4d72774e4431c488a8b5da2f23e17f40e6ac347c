@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e5e665_4f2b7138",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2130,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-01-07T05:37:58Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "45be401b_14c49371",
+      "range": {
+        "startLine": 2130,
+        "startChar": 27,
+        "endLine": 2130,
+        "endChar": 67
+      },
+      "revId": "4d72774e4431c488a8b5da2f23e17f40e6ac347c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31325379_53910b2f",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-01-06T17:20:28Z",
       "side": 1,
       "message": "nlohmann::json::array_t ifaceArray;",
+      "range": {
+        "startLine": 2152,
+        "startChar": 0,
+        "endLine": 2152,
+        "endChar": 2
+      },
+      "revId": "4d72774e4431c488a8b5da2f23e17f40e6ac347c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd65508a_dfe8249b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2152,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-01-07T05:37:58Z",
+      "side": 1,
+      "message": "looks like ::array() returns json not json::array_t",
+      "parentUuid": "31325379_53910b2f",
       "range": {
         "startLine": 2152,
         "startChar": 0,
