@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fa5684d_145d1982",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-07T16:13:12Z",
+      "side": 1,
+      "message": "Your commit msg doesn\u0027t explain why we should go through this effort to move to 200 (and with it \"a body that contains the JSON representation of the targeted resource after the modification has been applied\")",
+      "parentUuid": "d9d06d95_22580694",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "467aa01c_8ab27dd7",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 7
@@ -155,6 +173,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "a01ac925_ed38b16b",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b115e564_f068f7c0",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-07T16:13:12Z",
+      "side": 1,
+      "message": "But we only do this for this PATCH? Or do we plan to move all PATCHes to 200 and (\"a body that contains the JSON representation of the targeted resource after the modification has been applied\")",
+      "parentUuid": "8e6de0df_0089873d",
       "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
