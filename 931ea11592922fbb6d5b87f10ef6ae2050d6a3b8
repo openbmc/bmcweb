@@ -126,6 +126,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "abfb91c4_bf80af5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-01-07T06:02:35Z",
+      "side": 1,
+      "message": "@Gunner those are unrelated changes for this commit. The current one is based on merged PDI. It is better to deal with future changes with new commit.",
+      "parentUuid": "75877a26_9e37106e",
+      "revId": "931ea11592922fbb6d5b87f10ef6ae2050d6a3b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "caceff09_ebb0fb9c",
