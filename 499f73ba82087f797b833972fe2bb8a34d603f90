@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "819ffa32_4c8a61c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T16:27:17Z",
+      "side": 1,
+      "message": "Will update the commit message with the details",
+      "parentUuid": "9fa5684d_145d1982",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "467aa01c_8ab27dd7",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 7
@@ -191,6 +209,24 @@
       "side": 1,
       "message": "But we only do this for this PATCH? Or do we plan to move all PATCHes to 200 and (\"a body that contains the JSON representation of the targeted resource after the modification has been applied\")",
       "parentUuid": "8e6de0df_0089873d",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e73c2c90_a72db48d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T16:27:17Z",
+      "side": 1,
+      "message": "For now, this behavior only for this PATCH operation on event service fields because of the difficulty in verifying successful changes because certain fields have value limits.\nBut I have a plan for all Patches to 200 with response body if have limit constrains else, I will try to add 204 status code",
+      "parentUuid": "b115e564_f068f7c0",
       "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
