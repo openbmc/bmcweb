@@ -105,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10123ce7_21c160aa",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:50:28Z",
+      "side": 1,
+      "message": "Nope, i missed it. Thank you for that.",
+      "parentUuid": "a6bdceaf_a7423121",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "992bdb6e_5e5c87cf",
