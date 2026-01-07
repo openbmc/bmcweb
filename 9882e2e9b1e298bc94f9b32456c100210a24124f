@@ -172,6 +172,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89d73bd2_16deea3e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:55:15Z",
+      "side": 1,
+      "message": "Yes.  Truncate any precision beyond what we expect.",
+      "parentUuid": "6faf0fe7_c59f9718",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebd41223_9a6eeb74",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
@@ -207,6 +231,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0fa42e87_a5be7aac",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:55:15Z",
+      "side": 1,
+      "message": "Yes, a float would be 100.0 and 0.0 (add the .0 to the end).\n\nWith that said, if we\u0027re now truncating Reading to an integer, just leave these ints.",
+      "parentUuid": "f4f9cf60_5cd56613",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23bb24b6_02fe6022",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
@@ -236,6 +278,24 @@
       "side": 1,
       "message": "Reading is actually not a required property:\n\ncurl -s https://redfish.dmtf.org/schemas/v1/Sensor.v1_11_1.json | jq .definitions.Sensor.required\n[\n  \"@odata.id\",\n  \"@odata.type\",\n  \"Id\",\n  \"Name\"\n]\n\nRedfish validator agreed as well. \n\nThat being said, I could make this nullptr if that is preferred.",
       "parentUuid": "23bb24b6_02fe6022",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e08c6c2_7963eedd",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:55:15Z",
+      "side": 1,
+      "message": "Yes, it\u0027s not technically required, but if we support other properties (RangeMin for example) we\u0027re required to support this.\n\nYes, lets make it nullptr just so we get some indication if something is broken.  From an openbmc perspective we would expect every sensor to have a reading, and a missing reading to be broken software.",
+      "parentUuid": "7d95e20d_854e828e",
       "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
