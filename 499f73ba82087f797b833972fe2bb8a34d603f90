@@ -247,6 +247,24 @@
       "parentUuid": "e73c2c90_a72db48d",
       "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f640e69_540255da",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T16:53:42Z",
+      "side": 1,
+      "message": "Specifically, here  EventService PATCH involves fields with strict limits (e.g., DeliveryRetryAttempts [1–3], DeliveryRetryIntervalSeconds [5–180]). If the PATCH succeeds, currently have no way to confirm what values were applied without making an extra GET call. Returning the updated resource solves this. With 200 status code \n\nif we are going with 204, we have to use GET for confirm the change updated",
+      "parentUuid": "a8ed82c1_3c3ed5bf",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
