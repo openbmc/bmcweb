@@ -229,6 +229,24 @@
       "parentUuid": "b115e564_f068f7c0",
       "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8ed82c1_3c3ed5bf",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-07T16:30:59Z",
+      "side": 1,
+      "message": "Please explain why we shouldn\u0027t just do 204 for all.. consistency for all PATCHes 204) seems more important to me than whatever benefit of using 200 we would get here for this event service PATCH.",
+      "parentUuid": "e73c2c90_a72db48d",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
