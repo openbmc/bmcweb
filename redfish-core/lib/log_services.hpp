@@ -491,7 +491,7 @@ inline void downloadDumpEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& entryID, const std::string& dumpType)
 {
-    if (dumpType != "BMC")
+    if (dumpType != "BMC" && dumpType != "System")
     {
         BMCWEB_LOG_WARNING("Can't find Dump Entry {}", entryID);
         messages::resourceNotFound(asyncResp->res, dumpType + " dump", entryID);
@@ -1376,6 +1376,34 @@ inline void handleLogServicesDumpEntryComputerSystemDelete(
     deleteDumpEntry(asyncResp, dumpId, "System");
 }
 
+inline void handleLogServicesSystemDumpEntryDownloadGet(
+    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId, const std::string& dumpId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    downloadDumpEntry(asyncResp, dumpId, dumpType);
+}
+
 inline void handleLogServicesDumpEntryDownloadGet(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1616,6 +1644,17 @@ inline void requestRoutesSystemDumpEntry(App& app)
         .privileges(redfish::privileges::deleteLogEntry)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
             handleLogServicesDumpEntryComputerSystemDelete, std::ref(app)));
+}
+
+inline void requestRoutesSystemDumpEntryDownload(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/attachment/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleLogServicesSystemDumpEntryDownloadGet,
+                            std::ref(app), "System"));
 }
 
 inline void requestRoutesSystemDumpCreate(App& app)
