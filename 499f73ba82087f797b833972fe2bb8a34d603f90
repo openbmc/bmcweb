@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b55c3a77_ad19cb8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T15:57:29Z",
+      "side": 1,
+      "message": "204 No Content response without detailed info about what fields were updated, Becuase , if apply a patch to update event service fields, certain fields (like retryAttempts) have value constraints",
+      "parentUuid": "cd3ff843_8a28f3da",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "467aa01c_8ab27dd7",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 7
@@ -65,6 +83,42 @@
       "writtenOn": "2026-01-07T15:38:14Z",
       "side": 1,
       "message": "Why do we need this?",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29510042_4da56b10",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T15:57:29Z",
+      "side": 1,
+      "message": "Currently, when applying a patch to event service fields, certain fields have strict value limits (e.g., retryAttempts must be between 1 and 3). If an invalid value is provided, the API returns an error, making it easy to identify the issue. However, in the success case, the API does not provide explicit confirmation of the updated values, so it\u0027s hard to verify what changed without fetching the resource again",
+      "parentUuid": "8a2db264_00d8c9ec",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01ac925_ed38b16b",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T15:57:29Z",
+      "side": 1,
+      "message": "Currently, when applying a patch to event service fields, certain fields have strict value limits (e.g., retryAttempts must be between 1 and 3). If an invalid value is provided, the API returns an error, making it easy to identify the issue. However, in the success case, the API does not provide explicit confirmation of the updated values, so it\u0027s hard to verify what changed without fetching the resource again",
+      "parentUuid": "8a2db264_00d8c9ec",
       "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
