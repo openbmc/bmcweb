@@ -156,6 +156,7 @@ RedfishService::RedfishService(App& app)
         requestRoutesSystemDumpService(app);
         requestRoutesSystemDumpEntryCollection(app);
         requestRoutesSystemDumpEntry(app);
+        requestRoutesSystemDumpEntryDownload(app);
         requestRoutesSystemDumpCreate(app);
         requestRoutesSystemDumpClear(app);
 
