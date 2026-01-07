@@ -301,6 +301,24 @@
       "parentUuid": "3f640e69_540255da",
       "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c2d519_7fa9d01f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-07T17:31:49Z",
+      "side": 1,
+      "message": "\u003e If the PATCH succeeds, currently have no way to confirm what values were applied without making an extra GET call\n\nWe should not return success (204 or 200) if the client gives us invalid values. \nIf  DeliveryRetryAttempts \u003d 0 or  DeliveryRetryAttempts \u003d 4 or DeliveryRetryIntervalSeconds  \u003d 181 we should return an 4xx error. If that gets fixed, do you still the extra GET call?",
+      "parentUuid": "b0dbb532_3075f166",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
