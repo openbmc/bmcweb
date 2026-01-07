@@ -33,6 +33,120 @@
       "message": "It seems more readable by making like this???\n```\ninline std::optional\u003cdouble\u003e getFanPercent(...)\n{\n...\n    if (!value.has_value() || !std::isfinite(*value))\n    {\n        BMCWEB_LOG_DEBUG(\"No Value for {}\", sensorName);\n        return null::opt;\n    }\n    ...\n     return ((*value - *minValue) * 100) / range;\n}\n```",
       "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5697c9df_c5b1b57e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:19:19Z",
+      "side": 1,
+      "message": "A couple of unit tests for this?",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992bdb6e_5e5c87cf",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:19:19Z",
+      "side": 1,
+      "message": "Can we just return std::optional\u003cdouble\u003e rather than have an in/out param here?\n\nShould we be rounding this to a sane value?  As written we\u0027ll get 1.0000000001 type numbers with lots of precision.  Maybe just return an int and round to the closest percent?",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd41223_9a6eeb74",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:19:19Z",
+      "side": 1,
+      "message": "?\n\n0 and 100 are far less confusing than 1E2 and 0E0.",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bb24b6_02fe6022",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:19:19Z",
+      "side": 1,
+      "message": "Else nullptr?  Reading is a required property, right?",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56113d09_13b43350",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:19:19Z",
+      "side": 1,
+      "message": "These aren\u0027t sensor identity parameters.  We already parse these in other code, right?",
+      "range": {
+        "startLine": 627,
+        "startChar": 48,
+        "endLine": 628,
+        "endChar": 44
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83bc09f8_8a8eb0a8",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-07T21:19:19Z",
+      "side": 1,
+      "message": "else?",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
