@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3a44989_4ab754b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-07T21:45:32Z",
+      "side": 1,
+      "message": "Thank you for the reviews.\n\nI have some questions on some of the comments. Please take a look and let me know how I should proceed on those comments.",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca9115b5_2470fe8c",
@@ -54,6 +71,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6bdceaf_a7423121",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-07T21:45:32Z",
+      "side": 1,
+      "message": "I did add unit tests for this function with this commit. Is the comment here that the test are incomplete? Please clarify what cases I missed.",
+      "parentUuid": "5697c9df_c5b1b57e",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bb50735_12d1443c",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-07T21:45:32Z",
+      "side": 1,
+      "message": "Good point, Ed also had this suggestion. I\u0027ll make this change.",
+      "parentUuid": "ca9115b5_2470fe8c",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "992bdb6e_5e5c87cf",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
@@ -65,6 +118,30 @@
       "writtenOn": "2026-01-07T21:19:19Z",
       "side": 1,
       "message": "Can we just return std::optional\u003cdouble\u003e rather than have an in/out param here?\n\nShould we be rounding this to a sane value?  As written we\u0027ll get 1.0000000001 type numbers with lots of precision.  Maybe just return an int and round to the closest percent?",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6faf0fe7_c59f9718",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-07T21:45:32Z",
+      "side": 1,
+      "message": "Myung had a similar comment [1]. I\u0027ll change the function signature.\n\nSo in affect truncate any decimal precision in the result? That seems reasonable. I\u0027ll make that change as well.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103/comment/ca9115b5_2470fe8c/",
+      "parentUuid": "992bdb6e_5e5c87cf",
       "range": {
         "startLine": 538,
         "startChar": 4,
@@ -94,6 +171,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4f9cf60_5cd56613",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-07T21:45:32Z",
+      "side": 1,
+      "message": "I originally had just 0 and 100 here, but an earlier comment from you [1] indicated that these should match the type. So I changed as above. Is that not what you were looking for?\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103/comment/cc007822_c1445b0b/",
+      "parentUuid": "ebd41223_9a6eeb74",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23bb24b6_02fe6022",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
@@ -105,6 +200,24 @@
       "writtenOn": "2026-01-07T21:19:19Z",
       "side": 1,
       "message": "Else nullptr?  Reading is a required property, right?",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d95e20d_854e828e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-07T21:45:32Z",
+      "side": 1,
+      "message": "Reading is actually not a required property:\n\ncurl -s https://redfish.dmtf.org/schemas/v1/Sensor.v1_11_1.json | jq .definitions.Sensor.required\n[\n  \"@odata.id\",\n  \"@odata.type\",\n  \"Id\",\n  \"Name\"\n]\n\nRedfish validator agreed as well. \n\nThat being said, I could make this nullptr if that is preferred.",
+      "parentUuid": "23bb24b6_02fe6022",
       "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -134,6 +247,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fd77f54_84f69eef",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-07T21:45:32Z",
+      "side": 1,
+      "message": "I agree these are not identity properties.\n\nThe MaxValue, MinValue and Value are all needed in order to compute the fan percent value. Originally I had the unpack inside convertToFanPercent() function since they were only needed for that case.\n\n\nHowever an earlier comment from you [1] asked for the unpack to be moved with the others.\n\nAdditionally an earlier comment from you [2] suggested moving the computing of the fan percent to where we are setting the ReadingType, etc. of the object. So with the restructure I moved it there.\n\nI\u0027m not seeing how I can satisfy both of these comments without organizing the code as it is in this commit. Please let me know if you see a better organization that satisfies these comments.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103/comment/bce1424b_5cac6721/\n[2] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103/comment/a9210178_19ef03b0/",
+      "parentUuid": "56113d09_13b43350",
+      "range": {
+        "startLine": 627,
+        "startChar": 48,
+        "endLine": 628,
+        "endChar": 44
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83bc09f8_8a8eb0a8",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
@@ -145,6 +282,24 @@
       "writtenOn": "2026-01-07T21:19:19Z",
       "side": 1,
       "message": "else?",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "894aa20f_3b62abcf",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-07T21:45:32Z",
+      "side": 1,
+      "message": "No else is necessary here. The fan_tach sensor set these to hard-coded values as part of the fillSensorIdentity work. That is what the comment on L875-876 was trying to capture. I\u0027ll reword the comment.",
+      "parentUuid": "83bc09f8_8a8eb0a8",
       "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
