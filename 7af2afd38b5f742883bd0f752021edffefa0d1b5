@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf2df5b4_1b1d933f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T17:58:34Z",
+      "side": 1,
+      "message": "error case has response body parallelly we need Return 200 OK with the JSON representation of the updated EventService so can immediately verify the effective configuration without GET",
+      "parentUuid": "46d6baf4_66a4eb45",
+      "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc772626_3c714ac7",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-07T17:33:56Z",
       "side": 1,
       "message": "Already have a check here too..",
+      "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e88d05a_edc66dc6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T17:58:34Z",
+      "side": 1,
+      "message": "Error case check we have here",
+      "parentUuid": "fc772626_3c714ac7",
       "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
