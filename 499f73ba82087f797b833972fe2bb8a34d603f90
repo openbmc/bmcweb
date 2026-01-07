@@ -337,6 +337,24 @@
       "parentUuid": "f3c2d519_7fa9d01f",
       "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b5c301_e7fb22f5",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-07T17:36:39Z",
+      "side": 1,
+      "message": "for that already have error response body like below \n{\n    \"error\": {\n        \"@Message.ExtendedInfo\": [\n            {\n                \"@odata.type\": \"#Message.v1_1_1.Message\",\n                \"Message\": \"The value \u00275\u0027 for the query parameter DeliveryRetryAttempts is out of range [1-3].\",\n                \"MessageArgs\": [\n                    \"5\",\n                    \"DeliveryRetryAttempts\",\n                    \"[1-3]\"\n                ],\n                \"MessageId\": \"Base.1.19.QueryParameterOutOfRange\",\n                \"MessageSeverity\": \"Warning\",\n                \"Resolution\": \"Reduce the value for the query parameter to a value that is within range, such as a start or count value that is within bounds of the number of resources in a collection or a page number that is within the range of valid pages.\"\n            }\n        ],\n        \"code\": \"Base.1.19.QueryParameterOutOfRange\",\n        \"message\": \"The value \u00275\u0027 for the query parameter DeliveryRetryAttempts is out of range [1-3].\"\n    }\n}",
+      "parentUuid": "f3c2d519_7fa9d01f",
+      "revId": "499f73ba82087f797b833972fe2bb8a34d603f90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
