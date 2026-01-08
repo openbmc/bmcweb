@@ -309,14 +309,18 @@ class HTTP2Connection :
         Response& thisRes = it->second.res;
 
         thisRes.setCompleteRequestHandler(
-            [this, streamId](Response& completeRes) {
+            [weakSelf = weak_from_this(), streamId](Response& completeRes) {
                 BMCWEB_LOG_DEBUG("res.completeRequestHandler called");
-                if (sendResponse(completeRes, streamId) != 0)
+                if (auto self = weakSelf.lock(); self)
                 {
-                    close();
-                    return;
+                    if (self->sendResponse(completeRes, streamId) != 0)
+                    {
+                        self->close();
+                        return;
+                    }
                 }
             });
+
         auto asyncResp =
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
         if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
