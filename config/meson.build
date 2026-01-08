@@ -22,6 +22,7 @@ feature_options = [
     'insecure-push-style-notification',
     'kvm',
     'mutual-tls-auth',
+    'nvidia-oem',
     'redfish',
     'redfish-aggregation',
     'redfish-allow-deprecated-indicatorled',
