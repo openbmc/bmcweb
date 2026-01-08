@@ -111,6 +111,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81312bb5_26da2046",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-08T10:23:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "815703da_48b488ff",
+      "range": {
+        "startLine": 76,
+        "startChar": 28,
+        "endLine": 76,
+        "endChar": 45
+      },
+      "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14c4ac15_419265d2",
@@ -124,6 +148,30 @@
       "writtenOn": "2026-01-06T17:26:24Z",
       "side": 1,
       "message": "Please don\u0027t call this function 3 times in the same method.  Call it once, load into a variable, and use it where appropriate (the same as was there)",
+      "range": {
+        "startLine": 295,
+        "startChar": 28,
+        "endLine": 295,
+        "endChar": 35
+      },
+      "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6a1223d_69c35c12",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-08T10:23:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "14c4ac15_419265d2",
       "range": {
         "startLine": 295,
         "startChar": 28,
