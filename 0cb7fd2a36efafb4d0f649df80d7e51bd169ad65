@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23d4ec01_a248a365",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-08T16:00:27Z",
+      "side": 1,
+      "message": "Nitpick: we already know it is bmcweb, based on the repo",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "0cb7fd2a36efafb4d0f649df80d7e51bd169ad65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b666fe1d_80eaabb1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -101,6 +124,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "7ddf92a6_03dbef3a",
+      "revId": "0cb7fd2a36efafb4d0f649df80d7e51bd169ad65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90635dc1_a59fb4a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-08T16:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef2d4847_930b51a1",
       "revId": "0cb7fd2a36efafb4d0f649df80d7e51bd169ad65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
