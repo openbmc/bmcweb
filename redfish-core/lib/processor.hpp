@@ -15,6 +15,7 @@
 #include "led.hpp"
 #include "logging.hpp"
 #include "query.hpp"
+#include "redfish.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
@@ -1008,6 +1009,8 @@ inline void handleProcessorGet(
     getProcessorObject(
         asyncResp, processorId,
         std::bind_front(getProcessorData, asyncResp, processorId));
+
+    RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
 }
 
 inline void doPatchProcessor(
