@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b39721b8_cf3ecd94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-08T05:45:52Z",
+      "side": 1,
+      "message": "PATCH returns a 4xx (e.g., 400 Bad Request) when DeliveryRetryAttempts or DeliveryRetryIntervalSeconds are out of range. This patch does not change that validation behavior. This change focusing on improving the success response for valid updates",
+      "parentUuid": "eb7f69a8_711aacba",
+      "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c466955_3f575ae2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-07T19:04:14Z",
       "side": 1,
       "message": "I still don\u0027t understand why we want this change in bmcweb",
+      "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bfaab8e_75ca2f9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-08T05:45:52Z",
+      "side": 1,
+      "message": "Here, PATCH /redfish/v1/EventService returns 200 OK with no body, so here need to use extra GET to confirm the applied changes. As per Redfish Specification documents on successful update, PATCH will return 200 OK with the JSON representation of the updated Event Service resource\nwe already have the field limits—PATCH returns a 4xx (e.g., 400 Bad Request) when DeliveryRetryAttempts or DeliveryRetryIntervalSeconds are out of bounds error response we are getting now. so, same way here I\u0027m going to improve the success update, with the JSON representation of the updated EventService resource\n\nThis removes the usage of follow-up GET and improves usability. It also aligns with Redfish guidance, which allows returning the updated resource in the response to PATCH.",
+      "parentUuid": "9c466955_3f575ae2",
       "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
