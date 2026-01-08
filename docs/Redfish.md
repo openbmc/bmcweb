@@ -1051,6 +1051,7 @@ functions the same like the default implementation under the System resource.
 - TotalCores
 - TotalThreads
 - Version
+- Oem/Nvidia/BoostClockFrequency
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
