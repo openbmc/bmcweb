@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c8d87fd_2bbcc9a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-08T09:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0a87ee2_4e8df6c9",
+      "range": {
+        "startLine": 7,
+        "startChar": 9,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0470bfd5_ef251617",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-12-16T18:44:03Z",
       "side": 1,
       "message": "There\u0027s no unit test coverage for this code, so not sure why this is relevant?",
+      "range": {
+        "startLine": 11,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 39
+      },
+      "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f46824de_a4c94054",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-08T09:54:54Z",
+      "side": 1,
+      "message": "Same as in previous patch. Removed it though. Done",
+      "parentUuid": "0470bfd5_ef251617",
       "range": {
         "startLine": 11,
         "startChar": 22,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b743749e_361e4287",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-08T09:54:54Z",
+      "side": 1,
+      "message": "Am I not passing by ref already?",
+      "parentUuid": "dcfc46a0_5b6b4fbe",
+      "range": {
+        "startLine": 687,
+        "startChar": 46,
+        "endLine": 687,
+        "endChar": 55
+      },
+      "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fae5a3d8_33cddf67",
@@ -110,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bcf5eab_997886f0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-08T09:54:54Z",
+      "side": 1,
+      "message": "I got rid of the variable all together. Done",
+      "parentUuid": "fae5a3d8_33cddf67",
+      "range": {
+        "startLine": 692,
+        "startChar": 21,
+        "endLine": 692,
+        "endChar": 31
+      },
+      "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef97c7c5_3e688b68",
@@ -123,6 +219,24 @@
       "writtenOn": "2025-12-16T18:47:00Z",
       "side": 1,
       "message": "isn\u0027t this doing the same thing as line 694?",
+      "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ee3a6a5_05030549",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-08T09:54:54Z",
+      "side": 1,
+      "message": "Good catch. Removed it. Done",
+      "parentUuid": "ef97c7c5_3e688b68",
       "revId": "5d203f538a3ddca0b52fe5278ecf7f91b64b2a9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
