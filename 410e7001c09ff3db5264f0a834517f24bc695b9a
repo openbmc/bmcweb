@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "df571797_96f47192",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-08T20:54:21Z",
+      "side": 1,
+      "message": "Please sign off with your nv email that matches the CLA.  Same with author.",
+      "range": {
+        "startLine": 24,
+        "startChar": 37,
+        "endLine": 24,
+        "endChar": 68
+      },
+      "revId": "410e7001c09ff3db5264f0a834517f24bc695b9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e1989efe_2ae168bd",
