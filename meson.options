@@ -276,6 +276,16 @@ option(
                     /google/v1/''',
 )
 
+# BMCWEB_NVIDIA_OEM
+option(
+    'nvidia-oem',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable NVIDIA OEM extensions for GPU management. Adds
+                    support for GPU-specific properties under Redfish
+                    /redfish/v1/Systems/<str>/Processors/<str>/#/Oem/Nvidia''',
+)
+
 # BMCWEB_HTTP_BODY_LIMIT
 option(
     'http-body-limit',
