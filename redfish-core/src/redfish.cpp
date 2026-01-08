@@ -32,6 +32,7 @@
 #include "metric_report.hpp"
 #include "metric_report_definition.hpp"
 #include "network_protocol.hpp"
+#include "nvidia/nvidia_processors.hpp"
 #include "odata.hpp"
 #include "openbmc/openbmc_managers.hpp"
 #include "pcie.hpp"
@@ -247,6 +248,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesRedfish(app);
 
     requestRoutesOpenBmcManager(*this);
+    requestRoutesNvidiaProcessors(*this);
 
     validate();
 }
