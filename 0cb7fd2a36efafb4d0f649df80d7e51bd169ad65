@@ -85,6 +85,23 @@
       "message": "Please change your gerrit account name to match your name.  right now it\u0027s set to \"liuer\"",
       "revId": "0cb7fd2a36efafb4d0f649df80d7e51bd169ad65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d367002_e501f2ab",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2026-01-08T14:35:42Z",
+      "side": 1,
+      "message": "This needs to use the OEM route handler infrastructure.",
+      "revId": "0cb7fd2a36efafb4d0f649df80d7e51bd169ad65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
