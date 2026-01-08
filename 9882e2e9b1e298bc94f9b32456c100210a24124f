@@ -123,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "838c4bb5_373af3a8",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-08T23:24:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bb50735_12d1443c",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "992bdb6e_5e5c87cf",
@@ -194,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1024f89e_b97986fc",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-08T23:24:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89d73bd2_16deea3e",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebd41223_9a6eeb74",
@@ -247,6 +289,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abb715a2_86ec092e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-08T23:24:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fa42e87_a5be7aac",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23bb24b6_02fe6022",
@@ -296,6 +356,24 @@
       "side": 1,
       "message": "Yes, it\u0027s not technically required, but if we support other properties (RangeMin for example) we\u0027re required to support this.\n\nYes, lets make it nullptr just so we get some indication if something is broken.  From an openbmc perspective we would expect every sensor to have a reading, and a missing reading to be broken software.",
       "parentUuid": "7d95e20d_854e828e",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e678ef63_a522a688",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-08T23:24:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e08c6c2_7963eedd",
       "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -378,6 +456,24 @@
       "side": 1,
       "message": "No else is necessary here. The fan_tach sensor set these to hard-coded values as part of the fillSensorIdentity work. That is what the comment on L875-876 was trying to capture. I\u0027ll reword the comment.",
       "parentUuid": "83bc09f8_8a8eb0a8",
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13482a6b_1c89f426",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-08T23:24:46Z",
+      "side": 1,
+      "message": "I reworded the comment, hopefully it is clearer.",
+      "parentUuid": "894aa20f_3b62abcf",
       "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
