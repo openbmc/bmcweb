@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edc9efb5_fb2f248d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-09T16:01:27Z",
+      "side": 1,
+      "message": "Did you talk to Redfish here? Redfish wouldn\u0027t add this to the standard?\n\nhttps://github.com/openbmc/bmcweb/blob/master/docs/OEM_SCHEMAS.md",
+      "revId": "cd514d6dd6aa9e960d1ebf345a85f477e4d3b4ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c5ee020_f60e31a7",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-09T16:01:27Z",
+      "side": 1,
+      "message": "Doesn\u0027t then everyone get this?",
+      "revId": "cd514d6dd6aa9e960d1ebf345a85f477e4d3b4ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
