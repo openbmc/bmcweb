@@ -238,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f68e42ae_507b3145",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-09T15:10:37Z",
+      "side": 1,
+      "message": "Does this mean that this gives only the whole interger percent (after truncation)?\nWhat if \n(a) Round up - e.g. 50.9 \u003d\u003d\u003e 60% instead of 50%\n(b) Give a 1 or 2 decimal percent (instead of only whole integer percent)?",
+      "parentUuid": "1024f89e_b97986fc",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebd41223_9a6eeb74",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
