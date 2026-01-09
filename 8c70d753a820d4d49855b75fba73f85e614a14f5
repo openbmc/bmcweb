@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "494da4db_56434237",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-09T18:33:09Z",
+      "side": 1,
+      "message": "I think Redfish Service Validator run would be needed.",
+      "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d32acd85_4381f272",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3065,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-09T18:33:09Z",
+      "side": 1,
+      "message": "As chassisArray is an array, I think \"Chassis@odata.count\" seem needed.\nPlease also verify it with Redfish Service Validator.\n\n```\n asyncResp-\u003eres.jsonValue[\"Links\"][\"Chassis@odata.count\"] \u003d chassisArray.size();\n asyncResp-\u003eres.jsonValue[\"Links\"][\"Chassis\"] \u003d std::move(chassisArray);\n```",
+      "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b2b0c93_fec3b799",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3197,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-09T18:33:09Z",
+      "side": 1,
+      "message": "I think combination of `getValidSystemsPath()` and `getAssociatedSubTreePaths()` can be done by `getAssociatedSubTreePathsById()` something like\n\n```\n    constexpr std::array\u003cstd::string_view, 2\u003e systemInterfaces \u003d {\n        \"xyz.openbmc_project.Inventory.Decorator.ManagedHost\",\n        \"xyz.openbmc_project.Inventory.Item.System\"};\n        \n    dbus::utility::getAssociatedSubTreePathsById(\n        systemName, \"/xyz/openbmc_project/inventory\", systemInterfaces,\n        \"contained_by\", chassisInterfaces,\n        std::bind_front(getLinkedChassis, asyncResp, systemName));\n```",
+      "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
