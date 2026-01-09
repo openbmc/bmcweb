@@ -262,6 +262,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37c5cea0_91eb5bc6",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-09T15:48:14Z",
+      "side": 1,
+      "message": "For (b), I think it may be done by \n\n```\nsensorJson[\"Reading\"] \u003d std::format(\"{:.2f}\", percent);\n```",
+      "parentUuid": "f68e42ae_507b3145",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebd41223_9a6eeb74",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
