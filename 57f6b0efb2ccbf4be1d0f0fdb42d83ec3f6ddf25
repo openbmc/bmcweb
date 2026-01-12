@@ -176,6 +176,30 @@
       },
       "revId": "57f6b0efb2ccbf4be1d0f0fdb42d83ec3f6ddf25",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c2e5e2_86c33cb2",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-12T21:37:38Z",
+      "side": 1,
+      "message": "Now using objectExcerptToJson() to obtain the properties. This goes through the same code path for building the properties for a sensor. The underlying function skips adding some properties that are not supported for the excerpts.",
+      "parentUuid": "cfc8b633_79ec4fb8",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "57f6b0efb2ccbf4be1d0f0fdb42d83ec3f6ddf25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

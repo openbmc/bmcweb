@@ -220,6 +220,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c5f7df5_d8854632",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-12T21:37:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14c30949_da688653",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad6f4fe9_c2dfea03",
@@ -492,6 +510,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "725eab60_f5db3e7e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-12T21:37:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccbfa07e_07bf7eef",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52b3ed37_a6bde908",
@@ -601,6 +643,30 @@
       "side": 1,
       "message": "I didn\u0027t realize there were existing utility functions. I\u0027ve changed the sort() of the vector produced by getFanSensorObjects() to use AlphanumLess().",
       "parentUuid": "3baf4371_e6095cfa",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03e706d_5147985d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-12T21:37:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b5def5e_c535afc6",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -897,6 +963,30 @@
       "side": 1,
       "message": "George had updated already to use all_sensors. I believe that addressed this review comment. Please let me know if I\u0027m missing something else for this one.",
       "parentUuid": "4e2b610f_8c855dc4",
+      "range": {
+        "startLine": 99,
+        "startChar": 32,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e778321_7ac67148",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-12T21:37:38Z",
+      "side": 1,
+      "message": "After further investigation the use of all_sensors is not correct here. The sensor architecture document does a good job explaining the associations. [1]\n\nCurrent flow:\nChassis -\u003e cooled_by - returns all fans associated to the specified chassis\nFor each fan:\nFan -\u003e sensors - returns sensors associated with the fan\n\nThe properties of these sensors are then retrieved to build the SensorFanArrayExcerpt.\n\nI\u0027ve updated the commit message to clarify the flow and added a link to the design document.\n\n[1] https://github.com/openbmc/docs/blob/master/architecture/sensor-architecture.md#redfish",
+      "parentUuid": "e84fb0b9_16c70a4a",
       "range": {
         "startLine": 99,
         "startChar": 32,
