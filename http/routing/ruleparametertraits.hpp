@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "privilegeparametertraits.hpp"
 #include "privileges.hpp"
 #include "sserule.hpp"
 #include "verb.hpp"
@@ -17,7 +18,7 @@
 namespace crow
 {
 template <typename T>
-struct RuleParameterTraits
+struct RuleParameterTraits : public PrivilegeParameterTraits<T>
 {
   private:
     RuleParameterTraits() = default;
