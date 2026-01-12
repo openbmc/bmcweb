@@ -104,6 +104,9 @@ class BaseRule
     friend class Router;
     template <typename T>
     friend struct RuleParameterTraits;
+    template <typename T>
+    friend struct PrivilegeParameterTraits;
+
 };
 
 } // namespace crow
