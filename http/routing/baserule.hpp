@@ -102,8 +102,8 @@ class BaseRule
     std::unique_ptr<BaseRule> ruleToUpgrade;
 
     friend class Router;
-    template <typename T>
-    friend struct RuleParameterTraits;
+    template <typename T> friend struct RuleParameterTraits;
+    template <typename T> friend struct PrivilegeParameterTraits;
 };
 
 } // namespace crow
