@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "206e5492_dfb90992",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-12T18:53:42Z",
+      "side": 1,
+      "message": "Ack, will do.",
+      "parentUuid": "62a11913_0787c11c",
+      "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d32acd85_4381f272",
