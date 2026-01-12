@@ -5,6 +5,7 @@
 #include "async_resp.hpp"
 #include "baserule.hpp"
 #include "http_request.hpp"
+#include "privilegeparametertraits.hpp"
 #include "ruleparametertraits.hpp"
 
 #include <boost/callable_traits/args.hpp>
