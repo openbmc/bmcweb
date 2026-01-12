@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95550da8_0c0cb6ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2026-01-12T05:56:55Z",
+      "side": 1,
+      "message": "Acknowledged. I will remove the bmcweb: prefix from the commit subject to align with repository conventions.",
+      "parentUuid": "3901164d_2efd550f",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34b69e06_4f9b6920",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a239da_47c9a99d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2026-01-12T05:56:55Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. This change specifically targets the Chassis AssetTag, which was previously read-only. While the ComputerSystem AssetTag has been writable for some time, this patch enables write support for the Chassis AssetTag and ensures the updated value is propagated to the backing FRU via Entity Manager.",
+      "parentUuid": "34b69e06_4f9b6920",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 24
+      },
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f78292a_b4282307",
@@ -60,6 +108,24 @@
       "writtenOn": "2026-01-06T17:25:05Z",
       "side": 1,
       "message": "I\u0027m not sure how this could work as designed.  You need to set the AssetTag on the backing device.  This will set the EM flag.",
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c950cc5f_a3ce61e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2026-01-12T05:56:55Z",
+      "side": 1,
+      "message": "This is handled by the backend Entity Manager change (Change-Id: I1c921d7e68f6c9ad1ae75a0e00f74b0164150ad1).\n\nPR: https://gerrit.openbmc.org/c/openbmc/entity-manager/+/86091\n\nWhen AssetTag is updated via Redfish or set-property, Entity Manager propagates the value to the corresponding FRU interface (backing device). This ensures the EM flag is set correctly and the value persists across BMC reboots.",
+      "parentUuid": "9f78292a_b4282307",
       "revId": "25406fd4d7f574172a4615e99182e6f360369131",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -104,6 +170,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b78946f_9e4693a4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2026-01-12T05:56:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a49a95b6_3d6516ca",
+      "range": {
+        "startLine": 867,
+        "startChar": 60,
+        "endLine": 867,
+        "endChar": 63
+      },
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e5e1986_dcb8221c",
@@ -117,6 +207,30 @@
       "writtenOn": "2026-01-06T17:23:59Z",
       "side": 1,
       "message": "Please make this a method \"setChassisAssetTag\"",
+      "range": {
+        "startLine": 857,
+        "startChar": 0,
+        "endLine": 869,
+        "endChar": 74
+      },
+      "revId": "25406fd4d7f574172a4615e99182e6f360369131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae30d3d3_2b4bb759",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1002762
+      },
+      "writtenOn": "2026-01-12T05:56:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7e5e1986_dcb8221c",
       "range": {
         "startLine": 857,
         "startChar": 0,
