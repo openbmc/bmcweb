@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "de4b2011_459939bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-12T15:36:40Z",
+      "side": 1,
+      "message": "nit: I don\u0027t see the link to the PDI commit in the commit message. It makes it much easier to find if the link is directly included.",
+      "parentUuid": "aa7d1547_72040a20",
+      "range": {
+        "startLine": 14,
+        "startChar": 8,
+        "endLine": 14,
+        "endChar": 29
+      },
+      "revId": "ba92ce897ee9c0f6a0264c8ad9870b6e326d59c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8e3ab3dd_13601e8d",
