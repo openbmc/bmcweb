@@ -5,6 +5,7 @@
 #include "async_resp.hpp"
 #include "baserule.hpp"
 #include "http_request.hpp"
+#include "privilegeparametertraits.hpp"
 #include "ruleparametertraits.hpp"
 
 #include <boost/callable_traits/args.hpp>
@@ -21,8 +22,7 @@ namespace crow
 namespace detail
 {
 
-template <typename Func, typename... ArgsWrapped>
-struct Wrapped
+template <typename Func, typename... ArgsWrapped> struct Wrapped
 {};
 
 template <typename Func, typename... ArgsWrapped>
@@ -85,8 +85,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         erasedHandler(req, asyncResp, params);
     }
 
-    template <typename Func>
-    void operator()(Func f)
+    template <typename Func> void operator()(Func f)
     {
         using boost::callable_traits::args_t;
         erasedHandler = detail::Wrapped<Func, args_t<Func>>(std::move(f));
