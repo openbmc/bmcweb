@@ -286,6 +286,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd6c1545_2e55aaa9",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-12T13:04:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure how important the precision is here, especially given that we do report the actual RPM.\n\n(I think when Gunnar and Ed talked to DMTF about this issue [1] they were advocating for being able to just have RPM reported fans and that our use cases don\u0027t find percents valuable. That argument was not accepted by DMTF making the conversion to percent necessary.)\n\n[1] https://github.com/DMTF/Redfish/issues/6197",
+      "parentUuid": "37c5cea0_91eb5bc6",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebd41223_9a6eeb74",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
