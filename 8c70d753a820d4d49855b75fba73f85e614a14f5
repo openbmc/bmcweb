@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62a11913_0787c11c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2026-01-12T16:01:40Z",
+      "side": 1,
+      "message": "Hi @oliver.brewka@9elements.com, I don\u0027t have proper EM configs to run the test on our system. Can you please help me run Redfish Service Validator on your systems? I would appreciate if you can confirm the result in the commit message. Thank you.",
+      "parentUuid": "494da4db_56434237",
+      "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d32acd85_4381f272",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 19
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-09T18:33:09Z",
       "side": 1,
       "message": "As chassisArray is an array, I think \"Chassis@odata.count\" seem needed.\nPlease also verify it with Redfish Service Validator.\n\n```\n asyncResp-\u003eres.jsonValue[\"Links\"][\"Chassis@odata.count\"] \u003d chassisArray.size();\n asyncResp-\u003eres.jsonValue[\"Links\"][\"Chassis\"] \u003d std::move(chassisArray);\n```",
+      "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9c17e6_72cc9091",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3065,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2026-01-12T16:01:40Z",
+      "side": 1,
+      "message": "Added Chassis@data.count.",
+      "parentUuid": "d32acd85_4381f272",
       "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-01-09T18:33:09Z",
       "side": 1,
       "message": "I think combination of `getValidSystemsPath()` and `getAssociatedSubTreePaths()` can be done by `getAssociatedSubTreePathsById()` something like\n\n```\n    constexpr std::array\u003cstd::string_view, 2\u003e systemInterfaces \u003d {\n        \"xyz.openbmc_project.Inventory.Decorator.ManagedHost\",\n        \"xyz.openbmc_project.Inventory.Item.System\"};\n        \n    dbus::utility::getAssociatedSubTreePathsById(\n        systemName, \"/xyz/openbmc_project/inventory\", systemInterfaces,\n        \"contained_by\", chassisInterfaces,\n        std::bind_front(getLinkedChassis, asyncResp, systemName));\n```",
+      "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70c608e7_048dc0e4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3197,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2026-01-12T16:01:40Z",
+      "side": 1,
+      "message": "Thanks for your suggestion. I was a little into the old track of using getValidSystemsPath(). Although this approach is not really clear in its purpose at first read but it\u0027s cleaner, given that systemName must be unique. Updated.",
+      "parentUuid": "2b2b0c93_fec3b799",
       "revId": "8c70d753a820d4d49855b75fba73f85e614a14f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
