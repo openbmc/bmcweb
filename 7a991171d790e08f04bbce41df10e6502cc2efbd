@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "274e36d4_01398f26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-13T03:09:14Z",
+      "side": 1,
+      "message": "If i remember right, led-manager is currently configured with static json configuration.\n\nSo i am wondering, how does led-manager currently create the required association to whichever device is identified by a LED group?\n\nAnd if it\u0027s currently not possible to create these associations, why do we need to change the option default.",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 68
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
