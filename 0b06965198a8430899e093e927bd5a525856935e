@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe39eeb0_9d35c092",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T15:37:00Z",
+      "side": 1,
+      "message": "This is an unexpected way to build this stack of commits.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a1be3140_62858fb4",
@@ -14,6 +31,40 @@
       "writtenOn": "2026-01-09T15:14:08Z",
       "side": 1,
       "message": "requires https://gerrit.openbmc.org/c/openbmc/libcper/+/86540",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c4dd90_2ead7680",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T15:37:00Z",
+      "side": 1,
+      "message": "Not possible to have other errors ?",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d09dc70_07fb2336",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T15:37:00Z",
+      "side": 1,
+      "message": "Isn\u0027t this going to fail the Redfish Validator? \nThe Validator is going to try this link and get back a 404.",
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
