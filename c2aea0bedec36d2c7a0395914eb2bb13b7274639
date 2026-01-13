@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af480a4e_e3000172",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T18:21:43Z",
+      "side": 1,
+      "message": "nitpick: contentsize flag",
+      "range": {
+        "startLine": 58,
+        "startChar": 40,
+        "endLine": 58,
+        "endChar": 49
+      },
+      "revId": "c2aea0bedec36d2c7a0395914eb2bb13b7274639",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "582cae22_64740401",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T18:21:43Z",
+      "side": 1,
+      "message": "Don\u0027t you need the size_t sourceSize ?\n\nFrom the header: \nbool init(size_t sourceSize);",
+      "revId": "c2aea0bedec36d2c7a0395914eb2bb13b7274639",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a729448b_4f2a2596",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T18:21:43Z",
+      "side": 1,
+      "message": "nitpick: this is the compress function. compressing chunks ...",
+      "range": {
+        "startLine": 93,
+        "startChar": 54,
+        "endLine": 93,
+        "endChar": 68
+      },
+      "revId": "c2aea0bedec36d2c7a0395914eb2bb13b7274639",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17af4fd4_ad46549b",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T18:21:43Z",
+      "side": 1,
+      "message": "2 worlds collide.. boost asio buffer management and modern c++. \nNot sure I have a better suggestion.",
+      "revId": "c2aea0bedec36d2c7a0395914eb2bb13b7274639",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df922747_af766bd9",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T18:21:43Z",
+      "side": 1,
+      "message": "Nitpick: Attempt to compress..",
+      "revId": "c2aea0bedec36d2c7a0395914eb2bb13b7274639",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
