@@ -310,6 +310,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24b0927b_c814485c",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T19:09:57Z",
+      "side": 1,
+      "message": "```\ninline std::optional\u003cint\u003e getFanPercent(\n...\nreturn (((*value - *minValue) * 100) / range);\n```\ntruncates not rounds.. so 33.9% becomes 33%. Rounding might be better.. Return the double or \n\n```\n// Compute fan\u0027s RPM Percent value and round off to an int\nreturn static_cast\u003cint\u003e(std::lround(((*value - *minValue) * 100) / range))\n```\n\nThat said, I could live with truncating",
+      "parentUuid": "dd6c1545_2e55aaa9",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebd41223_9a6eeb74",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
