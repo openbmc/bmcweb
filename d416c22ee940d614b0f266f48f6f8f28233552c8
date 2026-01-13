@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc5e67e2_cae3fed1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T17:28:21Z",
+      "side": 1,
+      "message": "This feels like it should be the first commit: the meson option, the log service. Maybe you are playing 4D chess that I don\u0027t understand. Haha. That said, I don\u0027t care, they just need to all merge together.",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41833017_ddecec11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T17:28:21Z",
+      "side": 1,
+      "message": "Overall in support of this series. The Redfish CPER support feels like it could use a little more standardization.. \n\nNeed access to Redfish but hoping Redfish could solve \nhttps://github.com/DMTF/Redfish/issues/6339",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb554fd4_c796ac1e",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T17:28:21Z",
+      "side": 1,
+      "message": "We could enable later.. I know we want to enable by default as much function as possible but until cper is present and more stable might make sense to disable by default.. I always struggle enabling by default at this stage. That said, I don\u0027t care that much.",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47fe3aa6_02be2fd3",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T17:28:21Z",
+      "side": 1,
+      "message": "Can you expand this to be correct.. Paths are under systems if BMCWEB_REDFISH_EVENTLOG_LOCATION \u003d system. I know other log service options don\u0027t have it correct but helps someone reading this option",
+      "range": {
+        "startLine": 94,
+        "startChar": 74,
+        "endLine": 95,
+        "endChar": 74
+      },
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5349f0bc_dc5e2322",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T17:28:21Z",
+      "side": 1,
+      "message": "Most of our LogServices have LogEntryTypes.. I think it is still Event in this case. Oh well. \n\n```\n       \"LogEntryTypes\": {           \n...\n            \"enumDescriptions\": {\n                \"CXL\": \"The log contains CXL log entries.\",\n                \"Event\": \"The log contains Redfish-defined messages.\",\n                \"Multiple\": \"The log contains multiple log entry types and, therefore, the log service cannot guarantee a single entry type.\",\n                \"OEM\": \"The log contains entries in an OEM-defined format.\",\n                \"SEL\": \"The log contains legacy IPMI System Event Log (SEL) entries.\"\n            },\n```",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51557064_aae5efd3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T17:28:21Z",
+      "side": 1,
+      "message": "nitpick: extra line",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
