@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ad014a_88e491bb",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T21:04:25Z",
+      "side": 0,
+      "message": "You lost just a bit of info in the log, oh well, if someone looked at the code, wouldn\u0027t matter",
+      "range": {
+        "startLine": 1058,
+        "startChar": 26,
+        "endLine": 1058,
+        "endChar": 44
+      },
+      "revId": "6b54e736c3cb3ceb061886ec2fc6caf4372a6561",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
