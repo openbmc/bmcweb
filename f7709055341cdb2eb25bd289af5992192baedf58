@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5506d666_a4478ca2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2026-01-13T22:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e8b4120_44460ff4",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93d3f257_5eb84df6",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-18T06:25:10Z",
       "side": 1,
       "message": "Change this to just always check and compare against activations.end().",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5657ec6d_c37a4cc5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2026-01-13T22:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93d3f257_5eb84df6",
       "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97b2c932_cba01b55",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2026-01-13T22:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c85e41_422df704",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d01bb08_1d576cb1",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02346240_6e79d9ed",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1347,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2026-01-13T22:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d01bb08_1d576cb1",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "953137cc_88695539",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-12-18T06:25:10Z",
       "side": 1,
       "message": "get rid of this comment.",
+      "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77f93fd1_9098be13",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1450,
+      "author": {
+        "id": 1002504
+      },
+      "writtenOn": "2026-01-13T22:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "953137cc_88695539",
       "revId": "f7709055341cdb2eb25bd289af5992192baedf58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
