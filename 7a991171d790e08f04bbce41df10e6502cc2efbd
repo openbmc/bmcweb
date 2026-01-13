@@ -70,6 +70,30 @@
       },
       "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdef9b02_092c00fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T15:32:11Z",
+      "side": 1,
+      "message": "I think it is best to disable this option at some point, then remove this option altogether with the old code at a later date.\n\nIf we have a fallback, we might be supporting this old incorrect code forever..\n\nThis follows the pattern we have done elsewhere in bmcweb. \n\nNote: I\u0027m okay if this doesn\u0027t go yet. I\u0027m okay if we don\u0027t remove the option until 2027 or even 2028, but eventually I do want to see the old behavior go away.",
+      "parentUuid": "43e58aa8_482fd00d",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 68
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
