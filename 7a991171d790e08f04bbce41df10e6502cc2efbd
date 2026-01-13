@@ -46,6 +46,30 @@
       },
       "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e58aa8_482fd00d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-13T04:19:26Z",
+      "side": 1,
+      "message": "Is it possible to have a fallback implementation?\n\nIf the association is there, use it, and otherwise fall back to a hardcoded object path?\n\nWould that help to get rid of the meson option (assuming that\u0027s the goal here)",
+      "parentUuid": "0cc4c38b_c18a88da",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 68
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
