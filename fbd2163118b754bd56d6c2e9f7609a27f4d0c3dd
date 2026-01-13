@@ -16,6 +16,80 @@
       "message": "requires https://gerrit.openbmc.org/c/openbmc/libcper/+/86542",
       "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "423d29db_71a66641",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T16:55:30Z",
+      "side": 1,
+      "message": "Where are you using limits?",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c13be93e_7afc6c67",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T16:55:30Z",
+      "side": 1,
+      "message": "Where are you using buffer?",
+      "range": {
+        "startLine": 940,
+        "startChar": 25,
+        "endLine": 940,
+        "endChar": 31
+      },
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f80297f9_e66a537a",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T16:55:30Z",
+      "side": 1,
+      "message": "I thought most/all of our collections had \n` Members@odata.count `\n\n```\nMembers@odata.count \u003d cpers.size()\n```\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20Members%40odata.count\u0026type\u003dcode",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56289157_7abced42",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T16:55:30Z",
+      "side": 1,
+      "message": "How many CPER entries can we have ?\n\nWe this problem elsewhere but it does suck to just populate the collection we pull all the data across D-Bus...\n\nA \"GetCPERsIDs\" that just returns the IDs.. That said we have this problem elsewhere.",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
