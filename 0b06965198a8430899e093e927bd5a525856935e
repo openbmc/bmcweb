@@ -55,6 +55,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "affc7e33_163dde40",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T16:01:48Z",
+      "side": 1,
+      "message": "Why do you need the try?\nWe don\u0027t have it elsewhere. I did not think async_method_call threw under normal failures.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48c4dd90_2ead7680",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -72,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66bb6a67_e6755e15",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T16:01:48Z",
+      "side": 1,
+      "message": "Like I am surprised there wouldn\u0027t be a catch all for all others that returns Redfish internalError",
+      "parentUuid": "48c4dd90_2ead7680",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d09dc70_07fb2336",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -83,6 +118,29 @@
       "writtenOn": "2026-01-13T15:37:00Z",
       "side": 1,
       "message": "Isn\u0027t this going to fail the Redfish Validator? \nThe Validator is going to try this link and get back a 404.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33a76289_a2f9b1c1",
+        "filename": "redfish-core/lib/manager_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T16:01:48Z",
+      "side": 1,
+      "message": "Should this Manager?",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 60
+      },
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
