@@ -22,6 +22,30 @@
       },
       "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cc4c38b_c18a88da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T04:00:43Z",
+      "side": 1,
+      "message": "So although hardcoded system location indicator works (with this option enabled), no other leds (cpu, powersupply, fans, you name it) work with a hardcoded group name and require the association, \"identifying\". So I am fine waiting but using the associations follows the led design\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/3d500d70755659e8a107c901201f874bfea4d4ba/yaml/xyz/openbmc_project/Inventory/Item/README.md?plain\u003d1#L24\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/3d500d70755659e8a107c901201f874bfea4d4ba/yaml/xyz/openbmc_project/Led/Group.interface.yaml#L11\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fopenbmc++identified_by\u0026type\u003dcode\n\nare JSON config files using Phosphor Inventory Manager to create the associations\n\nI do see some additional downstream forks also using it \nhttps://github.com/Nuvoton-Israel/openbmc/blob/45666e309bb2c31e902391b73fa4f9440546ba95/meta-nuvoton-obmc/meta-buv-runbmc/recipes-phosphor/inventory/phosphor-inventory-manager/associations.json#L30\n\nhttps://github.com/supermicro/Supermicro-OpenBMC/blob/03720bb950363ce242f140ab841fbe232a2e9217/meta-inspur/meta-fp5280g2/recipes-phosphor/inventory/phosphor-inventory-manager/associations.json#L349",
+      "parentUuid": "274e36d4_01398f26",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 68
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
