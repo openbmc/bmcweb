@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a57d9c72_5c7c4a81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-13T15:41:38Z",
+      "side": 1,
+      "message": "Typically would see something like this on top. Redfish is a hypermedia API. Without a link to `/redfish/v1/Managers/\u003cstr\u003e/LogServices/CPER/Entries/\u003cstr\u003e/attachment/` the client wouldn\u0027t know about this endpoint. \n\nIt just means this commit can\u0027t go on its own because it is dead endpoint if it goes on its own. Up to you if you want to rearrange.",
+      "parentUuid": "fe39eeb0_9d35c092",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a1be3140_62858fb4",
