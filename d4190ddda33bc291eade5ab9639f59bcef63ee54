@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "290e43c6_8371d1fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-01-13T03:46:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb255fe5_7f2a82bf",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "d4190ddda33bc291eade5ab9639f59bcef63ee54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c848417e_c03128e8",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-01-12T15:36:40Z",
       "side": 1,
       "message": "This doesn\u0027t match the enum name in the PDI. Should be PhysicalContextType. Same comment for all below.",
+      "range": {
+        "startLine": 533,
+        "startChar": 52,
+        "endLine": 533,
+        "endChar": 56
+      },
+      "revId": "d4190ddda33bc291eade5ab9639f59bcef63ee54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d12b1142_eca8ca07",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-01-13T03:46:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c848417e_c03128e8",
       "range": {
         "startLine": 533,
         "startChar": 52,
