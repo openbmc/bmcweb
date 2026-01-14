@@ -94,6 +94,23 @@
       },
       "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "796c2411_8417ccc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-14T15:30:05Z",
+      "side": 1,
+      "message": "I don\u0027t think we should change the default on this, unless we change it in the bitbake recipe to be enabled-by-default first.  There has been no communication on this up to this point and I don\u0027t think any entity-manager systems support this association right now.  We\u0027re effectively breaking everyone\u0027s LED system indicator support with this commit.",
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
