@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1713b0c_815ea806",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:15Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "9a04dc5a_9ce027b2",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9962bfe8_25bb0de7",
@@ -60,6 +78,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce271e43_ccce4f8d",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:15Z",
+      "side": 1,
+      "message": "ok 👍",
+      "parentUuid": "9397de66_adeb533e",
+      "range": {
+        "startLine": 880,
+        "startChar": 4,
+        "endLine": 891,
+        "endChar": 5
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a72c4363_608bef26",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -71,6 +113,30 @@
       "writtenOn": "2026-01-14T16:30:06Z",
       "side": 1,
       "message": "`additionalDataURI` should be a boost::urls::url and formatted with boost::urls::format to improve security.",
+      "range": {
+        "startLine": 893,
+        "startChar": 0,
+        "endLine": 895,
+        "endChar": 48
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "190eb019_6cc8e4e0",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:15Z",
+      "side": 1,
+      "message": "Ok, again I just copy / pasted this - is converting to boost::urls::format an incomplete work-in-progress or something?  std::format is all over the place.  I only ask because I might be willing to help migrate the rest of the code to boost::urls::format if that is the goal, to head off these kinds of mistakes going forward.",
+      "parentUuid": "a72c4363_608bef26",
       "range": {
         "startLine": 893,
         "startChar": 0,
@@ -100,6 +166,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd0c2949_ab2491c6",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:15Z",
+      "side": 1,
+      "message": "This was just copy/paste from the existing Eventlog LogService.\n\nI don\u0027t need any specific version for this series.  Eventually, once we starting parsing the CPER we will want a LogEntry version that has the CPER property defined.\n\n\u003e Either is fine we should bump all our LogEntrys to this level since we use a mix :/\n\nI\u0027m happy to help with some maintenance here - what should I do exactly?",
+      "parentUuid": "26e9d46e_425a1113",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80b01873_b0a60422",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -111,6 +195,24 @@
       "writtenOn": "2026-01-13T17:28:28Z",
       "side": 1,
       "message": "Redfish\u0027s mockup has \n\n```\n            \"CPER\": {\n                \"NotificationType\": \"902834BC-AD67-0BAD-BEEF-123456789012\"\n            },\n```\n\nDon\u0027t need that?",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f88bb5c3_3870f396",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:15Z",
+      "side": 1,
+      "message": "At this point I am just trying to do the bare minimum.  Eventually we\u0027ll start parsing the CPER and filling out the CPER property, yes.\n\nI\u0027m not a schema expert but afaict these were the only required properties.  The validator does pass like this (with the entire patch series).",
+      "parentUuid": "80b01873_b0a60422",
       "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -140,6 +242,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6851a6e4_b4bede66",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:15Z",
+      "side": 1,
+      "message": "ok 👍",
+      "parentUuid": "5a515189_058c6b0e",
+      "range": {
+        "startLine": 909,
+        "startChar": 12,
+        "endLine": 909,
+        "endChar": 19
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3b379f8_bd6899e4",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -151,6 +277,24 @@
       "writtenOn": "2026-01-13T16:30:30Z",
       "side": 1,
       "message": "Again why is the try / catch needed?",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fc9bc51_3dc04929",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:15Z",
+      "side": 1,
+      "message": "Answered.  Let me know if you still have concerns here.",
+      "parentUuid": "d3b379f8_bd6899e4",
       "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -185,6 +329,24 @@
       "writtenOn": "2026-01-14T16:30:06Z",
       "side": 1,
       "message": "To be fair, we haven\u0027t adapted the comment anywhere else afaik. ^^",
+      "parentUuid": "9cd05521_3058c0ab",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c629bc7_bd1d29b1",
+        "filename": "redfish-core/lib/systems_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:15Z",
+      "side": 1,
+      "message": "Yes it was copied.  I\u0027m guessing it just means BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM is partially implemented and this code that otherwise appears to be dead code is needed for some other work-in-progress code to function as intended.",
       "parentUuid": "9cd05521_3058c0ab",
       "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
