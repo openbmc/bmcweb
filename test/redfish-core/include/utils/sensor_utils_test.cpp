@@ -2,10 +2,12 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "utils/sensor_utils.hpp"
 
+#include <functional>
 #include <optional>
 #include <string>
 #include <tuple>
 
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace redfish::sensor_utils
@@ -179,6 +181,373 @@ TEST(UpdateSensorStatistics, ParamsNullopt)
 
     EXPECT_FALSE(sensorJson.contains("PeakReading"));
     EXPECT_FALSE(sensorJson.contains("PeakReadingTime"));
+}
+
+TEST(FillSensorStatus, Success)
+{
+    nlohmann::json sensorJson;
+    auto properties = dbus::utility::DBusPropertiesMap();
+
+    // Cases where no properties specified
+
+    // Default status
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "OK");
+
+    // Existing health retained
+    sensorJson.clear();
+    sensorJson["Status"]["Health"] = "Warning";
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "Warning");
+
+    // Existing health retained
+    sensorJson.clear();
+    sensorJson["Status"]["Health"] = "Critical";
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "Critical");
+
+    // Cases with different properties
+
+    properties = {
+        {"Available", true},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "OK");
+
+    properties = {
+        {"Available", false},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(),
+              "UnavailableOffline");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "OK");
+
+    properties = {
+        {"CriticalAlarmHigh", true},
+        {"CriticalAlarmLow", false},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "Critical");
+
+    properties = {
+        {"CriticalAlarmHigh", false},
+        {"CriticalAlarmLow", true},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "Critical");
+
+    properties = {
+        {"WarningAlarmHigh", true},
+        {"WarningAlarmLow", false},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "Warning");
+
+    properties = {
+        {"WarningAlarmHigh", false},
+        {"WarningAlarmLow", true},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "Warning");
+
+    properties = {
+        {"Available", true},        {"CriticalAlarmHigh", true},
+        {"CriticalAlarmLow", true}, {"WarningAlarmHigh", true},
+        {"WarningAlarmLow", true},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(), "Enabled");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "Critical");
+
+    properties = {
+        {"Available", false},        {"CriticalAlarmHigh", false},
+        {"CriticalAlarmLow", false}, {"WarningAlarmHigh", true},
+        {"WarningAlarmLow", true},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"].get<std::string>(),
+              "UnavailableOffline");
+    EXPECT_EQ(sensorJson["Status"]["Health"].get<std::string>(), "Warning");
+}
+
+using testing::StartsWith;
+
+TEST(FillSensorIdentity, Success)
+{
+    nlohmann::json sensorJson;
+    auto properties = dbus::utility::DBusPropertiesMap();
+
+    fillSensorIdentity("fan0_0", "fan_tach", properties, sensorJson);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
+    EXPECT_EQ(sensorJson["Id"].get<std::string>(), "fantach_fan0_0");
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "fan0 0");
+    EXPECT_EQ(sensorJson["ReadingType"].get<std::string>(), "Rotational");
+    EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "RPM");
+
+    // Add properties, all are correct
+    properties = {
+        {"Implementation",
+         "xyz.openbmc_project.Sensor.Type.ImplementationType.Reported"},
+        {"ReadingBasis",
+         "xyz.openbmc_project.Sensor.Type.ReadingBasisType.Delta"},
+    };
+    sensorJson.clear();
+    fillSensorIdentity("power1_0", "power", properties, sensorJson);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
+    EXPECT_EQ(sensorJson["Id"].get<std::string>(), "power_power1_0");
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "power1 0");
+    EXPECT_EQ(sensorJson["ReadingType"].get<std::string>(), "Power");
+    EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "W");
+    EXPECT_EQ(sensorJson["Implementation"].get<std::string>(), "Reported");
+    EXPECT_EQ(sensorJson["ReadingBasis"].get<std::string>(), "Delta");
+
+    // Add invalid properties
+    properties = {
+        {"Implementation",
+         "xyz.openbmc_project.Sensor.Type.ImplementationType.BADTYPE"},
+        {"ReadingBasis",
+         "xyz.openbmc_project.Sensor.Type.ReadingBasisType.BADTYPE"},
+    };
+    sensorJson.clear();
+    fillSensorIdentity("temp2", "temperature", properties, sensorJson);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
+    EXPECT_EQ(sensorJson["Id"].get<std::string>(), "temperature_temp2");
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "temp2");
+    EXPECT_EQ(sensorJson["ReadingType"].get<std::string>(), "Temperature");
+    EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "Cel");
+    EXPECT_FALSE(sensorJson.contains("Implementation"));
+    EXPECT_FALSE(sensorJson.contains("ReadingBasis"));
+}
+
+TEST(FillPowerThermalIdentity, Success)
+{
+    nlohmann::json sensorJson;
+    nlohmann::json::json_pointer unit;
+    bool forceToInt = false;
+    bool result = false;
+
+    result = fillPowerThermalIdentity("temp2", "temperature", sensorJson,
+                                      nullptr, unit, std::ref(forceToInt));
+    EXPECT_TRUE(result);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Thermal.v1_"));
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "temp2");
+    EXPECT_FALSE(sensorJson.contains("Id"));
+    EXPECT_FALSE(sensorJson.contains("ReadingType"));
+    EXPECT_FALSE(sensorJson.contains("ReadingUnits"));
+    EXPECT_FALSE(forceToInt);
+    EXPECT_EQ(unit.to_string(), "/ReadingCelsius");
+
+    sensorJson.clear();
+    forceToInt = false;
+    result = fillPowerThermalIdentity("fan0_0", "fan_tach", sensorJson, nullptr,
+                                      unit, std::ref(forceToInt));
+    EXPECT_TRUE(result);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Thermal.v1_"));
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "fan0 0");
+    EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "RPM");
+    EXPECT_FALSE(sensorJson.contains("Id"));
+    EXPECT_FALSE(sensorJson.contains("ReadingType"));
+    EXPECT_TRUE(forceToInt);
+    EXPECT_EQ(unit.to_string(), "/Reading");
+
+    sensorJson.clear();
+    forceToInt = false;
+    result = fillPowerThermalIdentity("fan2_0", "fan_pwm", sensorJson, nullptr,
+                                      unit, std::ref(forceToInt));
+    EXPECT_TRUE(result);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Thermal.v1_"));
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "fan2 0");
+    EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "Percent");
+    EXPECT_FALSE(sensorJson.contains("Id"));
+    EXPECT_FALSE(sensorJson.contains("ReadingType"));
+    EXPECT_TRUE(forceToInt);
+    EXPECT_EQ(unit.to_string(), "/Reading");
+
+    sensorJson.clear();
+    forceToInt = false;
+    result = fillPowerThermalIdentity("input0", "voltage", sensorJson, nullptr,
+                                      unit, std::ref(forceToInt));
+    EXPECT_TRUE(result);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Power.v1_"));
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "input0");
+    EXPECT_FALSE(sensorJson.contains("ReadingUnits"));
+    EXPECT_FALSE(sensorJson.contains("Id"));
+    EXPECT_FALSE(sensorJson.contains("ReadingType"));
+    EXPECT_FALSE(forceToInt);
+    EXPECT_EQ(unit.to_string(), "/ReadingVolts");
+
+    sensorJson.clear();
+    forceToInt = false;
+    result =
+        fillPowerThermalIdentity("power1_0_input_power", "power", sensorJson,
+                                 nullptr, unit, std::ref(forceToInt));
+    EXPECT_TRUE(result);
+    EXPECT_FALSE(sensorJson.contains("@odata.type"));
+    EXPECT_FALSE(sensorJson.contains("MemberId"));
+    EXPECT_FALSE(sensorJson.contains("Name"));
+    EXPECT_FALSE(sensorJson.contains("ReadingType"));
+    EXPECT_FALSE(sensorJson.contains("ReadingUnits"));
+    EXPECT_FALSE(forceToInt);
+    EXPECT_EQ(unit.to_string(), "/PowerInputWatts");
+
+    sensorJson.clear();
+    forceToInt = false;
+    result =
+        fillPowerThermalIdentity("power1_0_output_power", "power", sensorJson,
+                                 nullptr, unit, std::ref(forceToInt));
+    EXPECT_TRUE(result);
+    EXPECT_FALSE(sensorJson.contains("@odata.type"));
+    EXPECT_FALSE(sensorJson.contains("MemberId"));
+    EXPECT_FALSE(sensorJson.contains("Name"));
+    EXPECT_FALSE(sensorJson.contains("ReadingType"));
+    EXPECT_FALSE(sensorJson.contains("ReadingUnits"));
+    EXPECT_FALSE(forceToInt);
+    EXPECT_EQ(unit.to_string(), "/PowerOutputWatts");
+
+    sensorJson.clear();
+    forceToInt = false;
+    result = fillPowerThermalIdentity("total_power", "power", sensorJson,
+                                      nullptr, unit, std::ref(forceToInt));
+    EXPECT_TRUE(result);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Power.v1_"));
+    EXPECT_EQ(sensorJson["MemberId"].get<std::string>(), "0");
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "Chassis Power Control");
+    EXPECT_FALSE(sensorJson.contains("ReadingType"));
+    EXPECT_FALSE(sensorJson.contains("ReadingUnits"));
+    EXPECT_FALSE(forceToInt);
+    EXPECT_EQ(unit.to_string(), "/PowerConsumedWatts");
+}
+
+TEST(FillPowerThermalIdentity, Failure)
+{
+    nlohmann::json sensorJson;
+    nlohmann::json::json_pointer unit;
+    bool forceToInt = false;
+    bool result = false;
+
+    result = fillPowerThermalIdentity("BadSensor", "BadType", sensorJson,
+                                      nullptr, unit, std::ref(forceToInt));
+    EXPECT_FALSE(result);
+}
+
+using testing::UnorderedElementsAreArray;
+
+TEST(MapPropertiesBySubnode, Success)
+{
+    SensorPropertyList properties;
+    SensorPropertyList expectedProps;
+    SensorPropertyMap valueElement;
+    nlohmann::json::json_pointer unit;
+    bool isExcerpt = true;
+
+    unit = "/Reading"_json_pointer;
+    valueElement = {"xyz.openbmc_project.Sensor.Value", "Value", unit};
+
+    expectedProps = {valueElement};
+    mapPropertiesBySubnode("fan_tach", ChassisSubNode::environmentMetricsNode,
+                           properties, unit, isExcerpt);
+    EXPECT_THAT(properties, testing::ContainerEq(expectedProps));
+
+    isExcerpt = false;
+    properties.clear();
+    expectedProps = {valueElement};
+    mapPropertiesBySubnode("power", ChassisSubNode::powerNode, properties, unit,
+                           isExcerpt);
+    EXPECT_THAT(properties, testing::ContainerEq(expectedProps));
+
+    isExcerpt = false;
+    properties.clear();
+    expectedProps = {
+        valueElement,
+        {"xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
+         "/Thresholds/UpperCaution/Reading"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Warning", "WarningLow",
+         "/Thresholds/LowerCaution/Reading"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalHigh",
+         "/Thresholds/UpperCritical/Reading"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
+         "/Thresholds/LowerCritical/Reading"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.HardShutdown",
+         "HardShutdownHigh", "/Thresholds/UpperFatal/Reading"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.HardShutdown", "HardShutdownLow",
+         "/Thresholds/LowerFatal/Reading"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Value", "MinValue",
+         "/ReadingRangeMin"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Value", "MaxValue",
+         "/ReadingRangeMax"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Accuracy", "Accuracy",
+         "/Accuracy"_json_pointer},
+    };
+    mapPropertiesBySubnode("power", ChassisSubNode::sensorsNode, properties,
+                           unit, isExcerpt);
+    EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
+
+    // fan_tach has an additional property for sensorsNode
+    isExcerpt = false;
+    properties.clear();
+    expectedProps.emplace_back("xyz.openbmc_project.Sensor.Value", "Value",
+                               "/SpeedRPM"_json_pointer);
+    mapPropertiesBySubnode("fan_tach", ChassisSubNode::sensorsNode, properties,
+                           unit, isExcerpt);
+    EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
+
+    isExcerpt = false;
+    properties.clear();
+    expectedProps = {
+        valueElement,
+        {"xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
+         "/UpperThresholdNonCritical"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Warning", "WarningLow",
+         "/LowerThresholdNonCritical"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalHigh",
+         "/UpperThresholdCritical"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
+         "/LowerThresholdCritical"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Value", "MinValue",
+         "/MinReadingRangeTemp"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Value", "MaxValue",
+         "/MaxReadingRangeTemp"_json_pointer},
+    };
+    mapPropertiesBySubnode("temperature", ChassisSubNode::thermalNode,
+                           properties, unit, isExcerpt);
+    EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
+
+    isExcerpt = false;
+    properties.clear();
+    expectedProps = {
+        valueElement,
+        {"xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
+         "/UpperThresholdNonCritical"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Warning", "WarningLow",
+         "/LowerThresholdNonCritical"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalHigh",
+         "/UpperThresholdCritical"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
+         "/LowerThresholdCritical"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Value", "MinValue",
+         "/MinReadingRange"_json_pointer},
+        {"xyz.openbmc_project.Sensor.Value", "MaxValue",
+         "/MaxReadingRange"_json_pointer},
+    };
+    mapPropertiesBySubnode("voltage", ChassisSubNode::powerNode, properties,
+                           unit, isExcerpt);
+    EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
 }
 
 } // namespace
