@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a04dc5a_9ce027b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:30:06Z",
+      "side": 1,
+      "message": "State how you validated. Either note here validation was done in final patch of series or in this one after reordering.",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9962bfe8_25bb0de7",
@@ -14,6 +31,52 @@
       "writtenOn": "2026-01-09T15:14:34Z",
       "side": 1,
       "message": "requires https://gerrit.openbmc.org/c/openbmc/libcper/+/86541",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9397de66_adeb533e",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:30:06Z",
+      "side": 1,
+      "message": "Move these checks into `getCPER` and just pass down the validated strings. Also, with them in here, you do the checks on every iteration, when calling the function in the next patch when building the log entry collection.",
+      "range": {
+        "startLine": 880,
+        "startChar": 4,
+        "endLine": 891,
+        "endChar": 5
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a72c4363_608bef26",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:30:06Z",
+      "side": 1,
+      "message": "`additionalDataURI` should be a boost::urls::url and formatted with boost::urls::format to improve security.",
+      "range": {
+        "startLine": 893,
+        "startChar": 0,
+        "endLine": 895,
+        "endChar": 48
+      },
       "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +117,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a515189_058c6b0e",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:30:06Z",
+      "side": 1,
+      "message": "`getCPERLogEntry` to stay consistent with the rest of the code and to be closer to Redfish vernacular.",
+      "range": {
+        "startLine": 909,
+        "startChar": 12,
+        "endLine": 909,
+        "endChar": 19
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3b379f8_bd6899e4",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -82,6 +168,24 @@
       "writtenOn": "2026-01-13T16:30:30Z",
       "side": 1,
       "message": "I\u0027m sure you copied this from somewhere but this comment doesn\u0027t make a lot of sense to me.. \n \n// Option currently doesn\u0027t CPER. TBD\n\n// Option current doesn\u0027t support mapping CPER Log Service to a Computer System. TBD. \n\n// CPER Log Service when under Computer System assumes 1 System.\n\nOh well.",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b150db5_c63d6d7f",
+        "filename": "redfish-core/lib/systems_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:30:06Z",
+      "side": 1,
+      "message": "To be fair, we haven\u0027t adapted the comment anywhere else afaik. ^^",
+      "parentUuid": "9cd05521_3058c0ab",
       "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
