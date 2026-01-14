@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeb6a07c_ac25cb3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-14T15:38:31Z",
+      "side": 1,
+      "message": "Looks good to me once PDI interface is merged.",
+      "revId": "c0e5052a892c2572a54dd35845c9e749da73ceca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
