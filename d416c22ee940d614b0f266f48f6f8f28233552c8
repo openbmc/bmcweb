@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d5ad977_75498b9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:03Z",
+      "side": 1,
+      "message": "How does one reverse the order without just squashing everything into a single patch?  The service needs the entries collection.  the entries collection needs the entries.  the entries need the attachment ... what am I missing?",
+      "parentUuid": "c673e182_0fb406ed",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e30ffdf1_f360d86e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -49,6 +67,30 @@
       "writtenOn": "2026-01-14T16:33:39Z",
       "side": 1,
       "message": "Could you link the patch?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b48ac35_9426f651",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:03Z",
+      "side": 1,
+      "message": "the patches share the same gerrit topic as this patch.  Do you think the link is important enough to go in the commit message?",
+      "parentUuid": "e30ffdf1_f360d86e",
       "range": {
         "startLine": 13,
         "startChar": 0,
@@ -94,6 +136,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85fc0858_0b866899",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:03Z",
+      "side": 1,
+      "message": "You need to be a DMTF member to get to that URL.",
+      "parentUuid": "46877b3a_98803ec9",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb554fd4_c796ac1e",
@@ -113,6 +173,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e20ed7af_c0889e55",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:03Z",
+      "side": 1,
+      "message": "IMO everything should be enabled by default in meson.options for CI coverage.  Enabling things by default here is not the same as enabling them by default in the yocto recipe.  You should raise this question again in the recipe review (where I will propose to enable it by default again 🤣).",
+      "parentUuid": "fb554fd4_c796ac1e",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47fe3aa6_02be2fd3",
         "filename": "meson.options",
         "patchSetId": 1
@@ -124,6 +202,30 @@
       "writtenOn": "2026-01-13T17:28:21Z",
       "side": 1,
       "message": "Can you expand this to be correct.. Paths are under systems if BMCWEB_REDFISH_EVENTLOG_LOCATION \u003d system. I know other log service options don\u0027t have it correct but helps someone reading this option",
+      "range": {
+        "startLine": 94,
+        "startChar": 74,
+        "endLine": 95,
+        "endChar": 74
+      },
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b399f65_3648d8c1",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:03Z",
+      "side": 1,
+      "message": "Sure, what does that look like?  Don\u0027t forget the manager name is also configurable (what goes in the ? field)\n\n Enable CPER log service transactions through Redfish.  Paths                     are under /redfish/v1/\u003cBMCWEB_REDFISH_EVENTLOG_LOCATION\u003e/\u003c?\u003e/LogServices/CPER.",
+      "parentUuid": "47fe3aa6_02be2fd3",
       "range": {
         "startLine": 94,
         "startChar": 74,
@@ -171,6 +273,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc68768b_cf2230a1",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:03Z",
+      "side": 1,
+      "message": "I copy / pasted this from handleSystemsAndManagersEventLogServiceGet, which does not set LogEntryTypes.  I\u0027m happy to set that to Event if that\u0027s useful/more complete.",
+      "parentUuid": "aefb7ad4_2c05b617",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51557064_aae5efd3",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -182,6 +302,24 @@
       "writtenOn": "2026-01-13T17:28:21Z",
       "side": 1,
       "message": "nitpick: extra line",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b84a382_2bf22d51",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:03Z",
+      "side": 1,
+      "message": "huh.  not sure how that happened.",
+      "parentUuid": "51557064_aae5efd3",
       "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
