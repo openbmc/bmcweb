@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "020e162e_eac45af9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-14T18:06:59Z",
+      "side": 1,
+      "message": "NO.  This is never how we operate!  That statement was made such that YOU, the author, go and clean up the system interfaces such that that option is no longer required and bmcweb doesn\u0027t have to maintain two ways to populate an LED.  We cannot just be changing defaults and breaking things because of some review comment on a meson option.\n\nOctober 15th was the date that YOU should\u0027ve had all the system porting done, either by community help, or you modifying the interfaces manually.  Clearly that didn\u0027t happen, so now we need to decide what to do.  We don\u0027t just randomly break systems because we \"wrote down\" a date (That we\u0027re also now 3 months past)\n\n@gunnar@gmills.xyz, you approved https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83724.  What would you like to see happen here?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "274e36d4_01398f26",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
