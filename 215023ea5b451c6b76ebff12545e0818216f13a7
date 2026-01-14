@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ca6317_b3a5205b",
+        "filename": "meson.options",
+        "patchSetId": 10
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-14T20:50:56Z",
+      "side": 1,
+      "message": "Remove the date for changing the default.  That will be a separate discussion.  Also, a date over a year out isn\u0027t something we do.\n\n\"The code for this option will be removed by the author by June 2026.\"",
+      "range": {
+        "startLine": 350,
+        "startChar": 52,
+        "endLine": 352,
+        "endChar": 56
+      },
+      "revId": "215023ea5b451c6b76ebff12545e0818216f13a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

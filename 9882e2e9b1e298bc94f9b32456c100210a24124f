@@ -547,6 +547,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c56f4f0f_498cb458",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-14T20:50:56Z",
+      "side": 1,
+      "message": "\u003e I agree these are not identity properties.\n\u003e \n\u003e The MaxValue, MinValue and Value are all needed in order to compute the fan percent value. Originally I had the unpack inside convertToFanPercent() function since they were only needed for that case.\n\u003e \n\u003e \n\u003e However an earlier comment from you [1] asked for the unpack to be moved with the others.\n\u003e \n\u003e Additionally an earlier comment from you [2] suggested moving the computing of the fan percent to where we are setting the ReadingType, etc. of the object. So with the restructure I moved it there.\n\nRight, so you\u0027ve moved it to where we\u0027re parsing the properties twice, which isn\u0027t really what I asked.  I suspect you\u0027re close, just that the call to the helpers need put in the right spot.\n\n\u003e \n\u003e I\u0027m not seeing how I can satisfy both of these comments without organizing the code as it is in this commit. Please let me know if you see a better organization that satisfies these comments.\n\nI will try to take a look deeper and provide an example.  As written, this breaks if the id and sensor interfaces are split.\n\n\u003e \n\u003e [1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103/comment/bce1424b_5cac6721/\n\u003e [2] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103/comment/a9210178_19ef03b0/",
+      "parentUuid": "8fd77f54_84f69eef",
+      "range": {
+        "startLine": 627,
+        "startChar": 48,
+        "endLine": 628,
+        "endChar": 44
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83bc09f8_8a8eb0a8",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 7
