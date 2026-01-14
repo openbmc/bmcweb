@@ -18,6 +18,47 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c673e182_0fb406ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:33:39Z",
+      "side": 1,
+      "message": "Agreed. Building the route in reverse does seem a bit odd and makes reviewing a bit harder.",
+      "parentUuid": "fc5e67e2_cae3fed1",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30ffdf1_f360d86e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:33:39Z",
+      "side": 1,
+      "message": "Could you link the patch?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41833017_ddecec11",
@@ -31,6 +72,24 @@
       "writtenOn": "2026-01-13T17:28:21Z",
       "side": 1,
       "message": "Overall in support of this series. The Redfish CPER support feels like it could use a little more standardization.. \n\nNeed access to Redfish but hoping Redfish could solve \nhttps://github.com/DMTF/Redfish/issues/6339",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46877b3a_98803ec9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:33:39Z",
+      "side": 1,
+      "message": "dead link? ^^",
+      "parentUuid": "41833017_ddecec11",
       "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +147,24 @@
       "writtenOn": "2026-01-13T17:28:21Z",
       "side": 1,
       "message": "Most of our LogServices have LogEntryTypes.. I think it is still Event in this case. Oh well. \n\n```\n       \"LogEntryTypes\": {           \n...\n            \"enumDescriptions\": {\n                \"CXL\": \"The log contains CXL log entries.\",\n                \"Event\": \"The log contains Redfish-defined messages.\",\n                \"Multiple\": \"The log contains multiple log entry types and, therefore, the log service cannot guarantee a single entry type.\",\n                \"OEM\": \"The log contains entries in an OEM-defined format.\",\n                \"SEL\": \"The log contains legacy IPMI System Event Log (SEL) entries.\"\n            },\n```",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aefb7ad4_2c05b617",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:33:39Z",
+      "side": 1,
+      "message": "But the type is placed on the LogEntry itself and not on the LogService right? The previous patch has the LogEntryType added on the entry",
+      "parentUuid": "5349f0bc_dc5e2322",
       "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
