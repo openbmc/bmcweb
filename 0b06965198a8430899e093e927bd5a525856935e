@@ -36,6 +36,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba93157f_12cfb1f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:29:36Z",
+      "side": 1,
+      "message": "Also depending on how you choose based on @gunnar@gmills.xyz first comment, state here that this route has been validated in the final patch of this series if the order stays as is.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a1be3140_62858fb4",
@@ -55,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "011075d1_14d450f6",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:29:36Z",
+      "side": 1,
+      "message": "`downloadCPERLogEntry` for consistency.",
+      "range": {
+        "startLine": 874,
+        "startChar": 12,
+        "endLine": 874,
+        "endChar": 24
+      },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "affc7e33_163dde40",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -66,6 +106,24 @@
       "writtenOn": "2026-01-13T16:01:48Z",
       "side": 1,
       "message": "Why do you need the try?\nWe don\u0027t have it elsewhere. I did not think async_method_call threw under normal failures.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22663022_d4bb4026",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:29:36Z",
+      "side": 1,
+      "message": "+1\nAlso aren\u0027t the errors already handled in `downloadEntryCallback`?",
+      "parentUuid": "affc7e33_163dde40",
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -142,6 +200,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7f5ad76_6aa26e38",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:29:36Z",
+      "side": 1,
+      "message": "Use `boost::urls::format` here, to prevent injection attacks.",
+      "range": {
+        "startLine": 940,
+        "startChar": 7,
+        "endLine": 942,
+        "endChar": 56
+      },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30481826_0895a914",
+        "filename": "redfish-core/lib/manager_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:29:36Z",
+      "side": 1,
+      "message": "nit: `handleManagersCPERLogEntryDownload` for consistency.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33a76289_a2f9b1c1",
         "filename": "redfish-core/lib/manager_logservices_cper.hpp",
         "patchSetId": 1
@@ -159,6 +257,47 @@
         "endLine": 47,
         "endChar": 60
       },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8f05c82_5fe2c0ad",
+        "filename": "redfish-core/lib/manager_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:29:36Z",
+      "side": 1,
+      "message": "In this case this refers to the content transfer encoding, which is stated to be Base64 and which is mapped to `System` in `log_services_utils::downloadEntryCallback`.",
+      "parentUuid": "33a76289_a2f9b1c1",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9ea7ba0_3fc69444",
+        "filename": "redfish-core/lib/systems_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:29:36Z",
+      "side": 1,
+      "message": "nit: `handleSystemsCPERLogEntryDownload` for consistency.",
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
