@@ -332,6 +332,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "719b6694_97a9c354",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-14T18:02:35Z",
+      "side": 1,
+      "message": "I\u0027ve changed this to round to the nearest percent. To avoid having to cast I changed the function to return a long instead. I updated the unit test to a case that shows the rounding.",
+      "parentUuid": "24b0927b_c814485c",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 16
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebd41223_9a6eeb74",
