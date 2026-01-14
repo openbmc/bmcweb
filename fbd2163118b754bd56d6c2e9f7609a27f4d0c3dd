@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "995864db_4bd14b7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:30:27Z",
+      "side": 1,
+      "message": "Technically this patch needs to be ran against rf_service_validator individually. However, based on the ordering of the patches this is not possible. \n\nI guess you can just state here that you validated the route in the final patch of the series, else you would need to reorder and validate each patch separately.",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "968e1097_3c7a1d2a",
@@ -31,6 +48,29 @@
       "writtenOn": "2026-01-13T16:55:30Z",
       "side": 1,
       "message": "Where are you using limits?",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96de6d78_d931946f",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:30:27Z",
+      "side": 1,
+      "message": "These checks should be done in `getCPEREntryCollectionGet`. The validated strings / string_views can than be passed down to this function \u0026 `populateCPERLogEntry`.\n\nI.e: https://github.com/openbmc/bmcweb/blob/b84653e71c342f965da5a631b8d2a4766a1606a7/redfish-core/include/utils/eventlog_utils.hpp#L573",
+      "range": {
+        "startLine": 916,
+        "startChar": 4,
+        "endLine": 927,
+        "endChar": 5
+      },
       "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +111,24 @@
       "writtenOn": "2026-01-13T16:55:30Z",
       "side": 1,
       "message": "I thought most/all of our collections had \n` Members@odata.count `\n\n```\nMembers@odata.count \u003d cpers.size()\n```\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20Members%40odata.count\u0026type\u003dcode",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "891f014c_9ab09609",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-14T16:30:27Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "f80297f9_e66a537a",
       "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
