@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5d61c4a_e6bf8702",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-14T21:40:32Z",
+      "side": 1,
+      "message": "I merged 83724 and I take responsibility. To be impacted here, you would have to have a system LED and no other LEDs which I thought limited impact. I talked with Janet and she is going to use this commit to update the date. She also said she would look at EM and reach out if she needed help. Note: We do not have a system with EM on it, so will not be able to test.",
+      "parentUuid": "020e162e_eac45af9",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "274e36d4_01398f26",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
