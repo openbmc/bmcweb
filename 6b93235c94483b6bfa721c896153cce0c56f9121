@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c81051_83016332",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-14T19:38:42Z",
+      "side": 1,
+      "message": "You are correct, I\u0027ve changed it.",
+      "parentUuid": "22a7b888_76f4064e",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 53
+      },
+      "revId": "6b93235c94483b6bfa721c896153cce0c56f9121",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43afc5fa_0c6283f9",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-01-13T21:04:25Z",
       "side": 1,
       "message": "I think it would match more bmcweb code if wrote as  \n```\nif (fanPaths.empty())\n{\n   return;\n}\n\n// Have fans, initialize the array\nasyncResp-\u003eres.jsonValue[\"FanSpeedsPercent\"] \u003d nlohmann::json::array();\nasyncResp-\u003eres.jsonValue[\"FanSpeedsPercent@...\n```\n\nYour call though",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 5
+      },
+      "revId": "6b93235c94483b6bfa721c896153cce0c56f9121",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0838cafa_f33c784c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-14T19:38:42Z",
+      "side": 1,
+      "message": "Agree that matches the repo better, I\u0027ve changed.",
+      "parentUuid": "43afc5fa_0c6283f9",
       "range": {
         "startLine": 240,
         "startChar": 0,
