@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f01fd748_fefc57b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "I thought this would be the simplest way to review this series + the libcper series.  Either way, they should all merge together.  If you don\u0027t care either way, I\u0027ll keep the order as is.",
+      "parentUuid": "a57d9c72_5c7c4a81",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba93157f_12cfb1f2",
@@ -49,6 +67,24 @@
       "writtenOn": "2026-01-14T16:29:36Z",
       "side": 1,
       "message": "Also depending on how you choose based on @gunnar@gmills.xyz first comment, state here that this route has been validated in the final patch of this series if the order stays as is.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3d63be1_de4039be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "ba93157f_12cfb1f2",
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -83,6 +119,30 @@
       "writtenOn": "2026-01-14T16:29:36Z",
       "side": 1,
       "message": "`downloadCPERLogEntry` for consistency.",
+      "range": {
+        "startLine": 874,
+        "startChar": 12,
+        "endLine": 874,
+        "endChar": 24
+      },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c52064_8989ff98",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "A LogEntry is a JSON object defined by Redfish.  This method gets a raw CPER in its native format (binary).  I\u0027m open to a better name but I don\u0027t think LogEntry is appropriate here.",
+      "parentUuid": "011075d1_14d450f6",
       "range": {
         "startLine": 874,
         "startChar": 12,
@@ -128,6 +188,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab1bd990_42bd1a30",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "its for stoull: https://en.cppreference.com/w/cpp/string/basic_string/stoul",
+      "parentUuid": "affc7e33_163dde40",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48c4dd90_2ead7680",
@@ -159,6 +237,24 @@
       "side": 1,
       "message": "Like I am surprised there wouldn\u0027t be a catch all for all others that returns Redfish internalError",
       "parentUuid": "48c4dd90_2ead7680",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9dc1ede_a11f3247",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "No other errors for stoull.  I don\u0027t think anything else throws.",
+      "parentUuid": "66bb6a67_e6755e15",
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -200,6 +296,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50e57600_6cd67e4f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "I only ran the validator on the last patch.  And yeah, oops, I had meant for this to go in the last patch as well.  Will move.",
+      "parentUuid": "4e4f06be_d0031a65",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7f5ad76_6aa26e38",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -221,6 +335,47 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a3d8ffb_a8366ddb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "Sure, although this is all just copy/paste from another logservice, which uses std::format and not boost::url::format.  Also, the only token substitution is a build time feature flag so injection is not possible.  Please mark the thread as unresolved if you still think boost::url::format should be used.",
+      "parentUuid": "a7f5ad76_6aa26e38",
+      "range": {
+        "startLine": 940,
+        "startChar": 7,
+        "endLine": 942,
+        "endChar": 56
+      },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a4ea652_3dce1e86",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "Same problem here as system.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30481826_0895a914",
@@ -234,6 +389,24 @@
       "writtenOn": "2026-01-14T16:29:36Z",
       "side": 1,
       "message": "nit: `handleManagersCPERLogEntryDownload` for consistency.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9495b51_207801f1",
+        "filename": "redfish-core/lib/manager_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "I have the same reply here as before - LogEntries are JSON objects.  We aren\u0027t working with JSON objects here.",
+      "parentUuid": "30481826_0895a914",
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -287,6 +460,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51a4719d_246af7cd",
+        "filename": "redfish-core/lib/manager_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "No.  in downloadCPER this is passed through to downloadEntryCallback which is a \u0027downloadEntryType\u0027 not the parent type.\n\nYour question make me realize though that downloadCPER doesn\u0027t need this argument at all...I can hardcode \"System\" in the downloadCPER implementation.",
+      "parentUuid": "33a76289_a2f9b1c1",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9ea7ba0_3fc69444",
         "filename": "redfish-core/lib/systems_logservices_cper.hpp",
         "patchSetId": 1
@@ -298,6 +495,24 @@
       "writtenOn": "2026-01-14T16:29:36Z",
       "side": 1,
       "message": "nit: `handleSystemsCPERLogEntryDownload` for consistency.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ffe00c9_96e4b17d",
+        "filename": "redfish-core/lib/systems_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:20Z",
+      "side": 1,
+      "message": "I have the same reply here as before - LogEntries are JSON objects. We aren\u0027t working with JSON objects here.",
+      "parentUuid": "a9ea7ba0_3fc69444",
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
