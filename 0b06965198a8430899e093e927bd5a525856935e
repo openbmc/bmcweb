@@ -91,6 +91,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c20db439_d84cff44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3d63be1_de4039be",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a1be3140_62858fb4",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -312,6 +330,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa42cd43_e098fc42",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50e57600_6cd67e4f",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7f5ad76_6aa26e38",
@@ -372,6 +408,24 @@
       "writtenOn": "2026-01-14T20:23:20Z",
       "side": 1,
       "message": "Same problem here as system.",
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2319beda_0d92dad2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a4ea652_3dce1e86",
       "revId": "0b06965198a8430899e093e927bd5a525856935e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -472,6 +526,30 @@
       "side": 1,
       "message": "No.  in downloadCPER this is passed through to downloadEntryCallback which is a \u0027downloadEntryType\u0027 not the parent type.\n\nYour question make me realize though that downloadCPER doesn\u0027t need this argument at all...I can hardcode \"System\" in the downloadCPER implementation.",
       "parentUuid": "33a76289_a2f9b1c1",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0210bd83_108c4dd0",
+        "filename": "redfish-core/lib/manager_logservices_cper.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:50:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51a4719d_246af7cd",
       "range": {
         "startLine": 47,
         "startChar": 54,
