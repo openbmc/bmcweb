@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "960ce149_6c64e149",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:09Z",
+      "side": 1,
+      "message": "\u003e Technically this patch needs to be ran against rf_service_validator individually\n\ndoes it?  why?  This patch doesn\u0027t add any (discoverable) endpoints.\n\nI\u0027m only asking because I seem to have made all the wrong assumptions about patch structure when contributing to bmcweb, and perhaps, using your answer, I can make a documentation update to make things more clear.",
+      "parentUuid": "995864db_4bd14b7b",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "968e1097_3c7a1d2a",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "892e3118_4602ac4d",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:09Z",
+      "side": 1,
+      "message": "Will remove.",
+      "parentUuid": "423d29db_71a66641",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96de6d78_d931946f",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -77,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff24e27d_71000f67",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:09Z",
+      "side": 1,
+      "message": "nice, will do.",
+      "parentUuid": "96de6d78_d931946f",
+      "range": {
+        "startLine": 916,
+        "startChar": 4,
+        "endLine": 927,
+        "endChar": 5
+      },
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c13be93e_7afc6c67",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -88,6 +148,30 @@
       "writtenOn": "2026-01-13T16:55:30Z",
       "side": 1,
       "message": "Where are you using buffer?",
+      "range": {
+        "startLine": 940,
+        "startChar": 25,
+        "endLine": 940,
+        "endChar": 31
+      },
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f00443_3d6b4935",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:09Z",
+      "side": 1,
+      "message": "Right, I\u0027m not.  I can put [[maybe_unused]] on it?",
+      "parentUuid": "c13be93e_7afc6c67",
       "range": {
         "startLine": 940,
         "startChar": 25,
@@ -135,6 +219,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67453827_7c82a157",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:09Z",
+      "side": 1,
+      "message": "Yeah I missed that.  Will add that.",
+      "parentUuid": "f80297f9_e66a537a",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56289157_7abced42",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
@@ -146,6 +248,24 @@
       "writtenOn": "2026-01-13T16:55:30Z",
       "side": 1,
       "message": "How many CPER entries can we have ?\n\nWe this problem elsewhere but it does suck to just populate the collection we pull all the data across D-Bus...\n\nA \"GetCPERsIDs\" that just returns the IDs.. That said we have this problem elsewhere.",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ebe981_a8e1c714",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-14T20:23:09Z",
+      "side": 1,
+      "message": "There really isn\u0027t a limit on the number of entries.\n\nYeah I just followed the same patterns that exist elsewhere because I thought that was the preference.  I\u0027m happy to add more interfaces to the dbus service if that makes things better.",
+      "parentUuid": "56289157_7abced42",
       "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
