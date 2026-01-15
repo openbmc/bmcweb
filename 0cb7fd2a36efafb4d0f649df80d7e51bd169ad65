@@ -208,6 +208,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26569ba1_8500dc59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-15T16:40:24Z",
+      "side": 1,
+      "message": "This doesn\u0027t look done.  Was this discussed with DMTF per https://github.com/openbmc/bmcweb/blob/master/docs/OEM_SCHEMAS.md",
+      "parentUuid": "dd06aa73_8fc3c349",
+      "revId": "0cb7fd2a36efafb4d0f649df80d7e51bd169ad65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d367002_e501f2ab",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 5
