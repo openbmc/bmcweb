@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b803a33b_741c3f25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-15T11:01:31Z",
+      "side": 1,
+      "message": "You could do an interactive rebase and \u0027just\u0027 reorder the commits. In the case of this series however I don\u0027t think it would be that trivial of a task and you probably would have to move some code around patches.\n\nAt least I was thinking about building the routes from the root, starting with /redfish/v1/{Systems/Manager}/LogServices/CPER and continue building the URI from there. \n\n\u003e The service needs the entries collection.  the entries collection needs the entries.  the entries need the attachment\n\nI do understand where you are coming from, but the reverse is true aswell looking at redfish. Patch #1 implements the last segment of the URI - `/attachment` - whilst the LogService itself (`/redfish/v1/Systems/LogServices/CPER`) and any following resource haven\u0027t been implemented yet. \n\nI don\u0027t think it is as important, as long as all patches of the series go in together in one push as Gunnar has mentioned. Marking this as resolved, undo if there are objections.",
+      "parentUuid": "7d5ad977_75498b9f",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e30ffdf1_f360d86e",
@@ -91,6 +109,30 @@
       "side": 1,
       "message": "the patches share the same gerrit topic as this patch.  Do you think the link is important enough to go in the commit message?",
       "parentUuid": "e30ffdf1_f360d86e",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2864f96c_5352edac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-15T11:01:31Z",
+      "side": 1,
+      "message": "I think the commit message is more important for providing context than gerrit. But I wouldn\u0027t mind not seeing the link in the message.",
+      "parentUuid": "0b48ac35_9426f651",
       "range": {
         "startLine": 13,
         "startChar": 0,
@@ -150,6 +192,24 @@
       "side": 1,
       "message": "You need to be a DMTF member to get to that URL.",
       "parentUuid": "46877b3a_98803ec9",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45e2ffa7_9e283e2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-15T11:01:31Z",
+      "side": 1,
+      "message": "Aah I see, thanks.",
+      "parentUuid": "85fc0858_0b866899",
       "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
