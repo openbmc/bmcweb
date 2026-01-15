@@ -72,7 +72,7 @@ to be taken to ensure startup times are low. In general this means:
 
 - At this point in time, the webserver sets a number of security flags in
   compile time options to prevent misuse. The specific flags and what
-  optimization levels they are enabled at are documented in the CMakeLists.txt
+  optimization levels they are enabled at are documented in the meson.build
   file.
 - Exceptions are currently enabled for webserver builds, but their use is
   discouraged. Long term, the intent is to disable exceptions, so any use of
