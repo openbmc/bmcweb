@@ -273,6 +273,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b55a945_476f4294",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-01-15T19:23:23Z",
+      "side": 1,
+      "message": "Yeah. No reason. I will remove this entire abomination and just set it to nullptr.",
+      "parentUuid": "ea8ec550_88a2936f",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1ebbe2df_30314989",
@@ -322,6 +340,24 @@
       "side": 1,
       "message": "I\u0027d much rather we keep this flow simple, and have the same behavior for each one.  If they\u0027re present but non finite, we populate with null.",
       "parentUuid": "c53f48dc_cab87b3e",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ad67676_474b109d",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-01-15T19:23:23Z",
+      "side": 1,
+      "message": "ok. I can do that. Agreed its a lot simpler and less ugly.",
+      "parentUuid": "daaabe9d_e9cbef59",
       "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
