@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78fb60ae_7f9c26f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-15T22:46:29Z",
+      "side": 1,
+      "message": "Altered the commit to adjust the timing of changing the default state of this option. I will work on figuring out the entity-manager changes needed to support adding the necessary associations in this time. I\u0027ve not done any prior work in entity-manager so will need to do some learning to figure out the changes necessary.",
+      "parentUuid": "a5d61c4a_e6bf8702",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "274e36d4_01398f26",
