@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d889fc2b_d02f545d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-01-15T08:02:53Z",
+      "side": 1,
+      "message": "Changed the commit message according to this thread:\nhttps://discord.com/channels/775381525260664832/1460281901922128007",
+      "revId": "bab244ed6b2fabcc01e56e8dfcb9d8c4cc2228f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
