@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "551a53a4_a15db5de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-15T22:50:23Z",
+      "side": 1,
+      "message": "If it is helpful, QEMU master has a decent model for `catalina` and I added all the EEPROMs into the QEMU model so that you can get entity-manager to enumerate all the expected FRUs.",
+      "parentUuid": "78fb60ae_7f9c26f3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "274e36d4_01398f26",
