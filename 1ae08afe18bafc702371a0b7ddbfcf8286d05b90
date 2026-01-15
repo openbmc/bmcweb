@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44fafd88_0438be2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-01-15T22:30:38Z",
+      "side": 1,
+      "message": "Not in my experience. I did not see NaN.",
+      "parentUuid": "50e0bbbb_c8b3950b",
+      "range": {
+        "startLine": 10,
+        "startChar": 36,
+        "endLine": 10,
+        "endChar": 44
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95fb50d7_25fda0ba",
@@ -132,6 +156,30 @@
       "writtenOn": "2025-12-17T21:04:04Z",
       "side": 1,
       "message": "This isn\u0027t really correct.  null in redfish means \"supported but not yet populated\".  Non existence for threshold on dbus has classically meant not supported.  we need to grok that distinction, and ideally in this commit message back it up with spec language.",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34b634c8_1691463e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-01-15T22:30:38Z",
+      "side": 1,
+      "message": "Fixed the language to indicate that its not-populated.",
+      "parentUuid": "95fb50d7_25fda0ba",
       "range": {
         "startLine": 12,
         "startChar": 24,
@@ -256,6 +304,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f23920f2_789635eb",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-01-15T22:30:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "32b90acf_b10547bd",
+      "range": {
+        "startLine": 808,
+        "startChar": 16,
+        "endLine": 808,
+        "endChar": 22
+      },
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea8ec550_88a2936f",
@@ -287,6 +359,24 @@
       "side": 1,
       "message": "Yeah. No reason. I will remove this entire abomination and just set it to nullptr.",
       "parentUuid": "ea8ec550_88a2936f",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "832e8602_bcec039a",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-01-15T22:30:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0b55a945_476f4294",
       "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -358,6 +448,24 @@
       "side": 1,
       "message": "ok. I can do that. Agreed its a lot simpler and less ugly.",
       "parentUuid": "daaabe9d_e9cbef59",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6797ab60_56c4f0b8",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-01-15T22:30:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7ad67676_474b109d",
       "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

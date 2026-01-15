@@ -16,6 +16,24 @@
       "message": "Thanks for this commit! For next time (and ideally here), please follow https://cbea.ms/git-commit/ for commit msgs and wrap the body at 72 chars, not a custom length. \n\n`Wrap the body at 72 characters`",
       "revId": "ba04e6e58839f6f6134cf41911ad961514a82ef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48dd93b2_df8e0416",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-01-15T22:30:38Z",
+      "side": 1,
+      "message": "sorry bout that. I think I have it right this time.",
+      "parentUuid": "b10dd013_22e2c36c",
+      "revId": "ba04e6e58839f6f6134cf41911ad961514a82ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
