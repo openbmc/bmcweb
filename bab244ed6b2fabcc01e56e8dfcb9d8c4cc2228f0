@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b486092f_5feea128",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 49
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-01-19T13:12:26Z",
+      "side": 1,
+      "message": "Done. Link not needed at all. Change in PDI has been abandoned.",
+      "parentUuid": "8f82a5c9_078a9140",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "bab244ed6b2fabcc01e56e8dfcb9d8c4cc2228f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d889fc2b_d02f545d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 49
