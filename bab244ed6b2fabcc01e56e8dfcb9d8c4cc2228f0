@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f82a5c9_078a9140",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 49
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-19T11:44:05Z",
+      "side": 1,
+      "message": "nit: link not needed. Also I think in general we want to write \"See \nchange in phosphor-dbus-interfaces [1]\" and then put [1] + link at the bottom of the commit message.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "bab244ed6b2fabcc01e56e8dfcb9d8c4cc2228f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d889fc2b_d02f545d",
@@ -14,6 +37,23 @@
       "writtenOn": "2026-01-15T08:02:53Z",
       "side": 1,
       "message": "Changed the commit message according to this thread:\nhttps://discord.com/channels/775381525260664832/1460281901922128007",
+      "revId": "bab244ed6b2fabcc01e56e8dfcb9d8c4cc2228f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19bd811_84c10ec2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-19T11:44:05Z",
+      "side": 1,
+      "message": "LGTM, only small remark in commit message.",
       "revId": "bab244ed6b2fabcc01e56e8dfcb9d8c4cc2228f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
