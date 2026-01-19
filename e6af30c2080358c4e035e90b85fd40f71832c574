@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1e3ed2a_092877f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 50
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-19T11:33:11Z",
+      "side": 1,
+      "message": "nit: since there is no need for PDI changes i don\u0027t think the link to PDI here is necessary anymore.",
+      "revId": "e6af30c2080358c4e035e90b85fd40f71832c574",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "03e7a252_a26618b2",
@@ -14,6 +31,23 @@
       "writtenOn": "2026-01-15T08:02:36Z",
       "side": 1,
       "message": "Updated the commit message according to the result of this thread:\nhttps://discord.com/channels/775381525260664832/1460281901922128007",
+      "revId": "e6af30c2080358c4e035e90b85fd40f71832c574",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44eaf231_c257de9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 50
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-19T11:33:11Z",
+      "side": 1,
+      "message": "LGTM, only small remark in the commit message.",
       "revId": "e6af30c2080358c4e035e90b85fd40f71832c574",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
