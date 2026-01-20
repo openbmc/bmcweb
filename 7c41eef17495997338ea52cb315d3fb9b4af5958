@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "744696cf_1377dcae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-20T22:37:34Z",
+      "side": 1,
+      "message": "To be clear, @oliver.brewka@9elements.com are you still taking responsibility for this long term path?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 69
+      },
+      "revId": "7c41eef17495997338ea52cb315d3fb9b4af5958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5f9cd8e2_ade451f6",
@@ -49,6 +72,23 @@
       "side": 1,
       "message": "There is an argument for keeping the expiry date; it puts pressure on the developer(s) to continue making progress, and we can continue to bump the expiry date if it takes longer. That said, we don\u0027t enforce removing the code/option when the date is hit, and at this time, I feel the multi-computer-system, although not complete, has made enough progress,it is something we will continue to support. Rather than bumping this every 6 months, I am good with just removing the date.",
       "parentUuid": "129591dd_34713f14",
+      "revId": "7c41eef17495997338ea52cb315d3fb9b4af5958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de8a199_0afd0971",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-20T22:37:34Z",
+      "side": 1,
+      "message": "The point of the expiration is to keep engagement.  If we\u0027re not making progress toward removing the option, I will add a \"delete by\" date again.  I didn\u0027t think a once every 6 months need to update a string was too invasive considering the scope of the changes being made, but I guess it was.\n\nSo long as we\u0027re on the same page on the below comment, I\u0027m in support.",
       "revId": "7c41eef17495997338ea52cb315d3fb9b4af5958",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
