@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "be680abc_84ce328d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1713b0c_815ea806",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9962bfe8_25bb0de7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "ok 👍",
       "parentUuid": "9397de66_adeb533e",
+      "range": {
+        "startLine": 880,
+        "startChar": 4,
+        "endLine": 891,
+        "endChar": 5
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2740358_aa4e2b0b",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce271e43_ccce4f8d",
       "range": {
         "startLine": 880,
         "startChar": 4,
@@ -171,6 +213,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9be1e120_4a521218",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "838d407d_794dcba5",
+      "range": {
+        "startLine": 893,
+        "startChar": 0,
+        "endLine": 895,
+        "endChar": 48
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26e9d46e_425a1113",
@@ -220,6 +286,24 @@
       "side": 1,
       "message": "\u003e This was just copy/paste from the existing Eventlog LogService.\n\nOh!  This was a lie.  the existing one is clearly 1.9.0.  I don\u0027t know where I got 1.19.0 from....  I will change it to 1.9.",
       "parentUuid": "cd0c2949_ab2491c6",
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00f8e317_2da77ecd",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:24:41Z",
+      "side": 1,
+      "message": "Went with v1.11.0 since the CPER type doesn\u0027t exist in v1.9.0.",
+      "parentUuid": "27670d06_245a4cc5",
       "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -296,6 +380,30 @@
       "side": 1,
       "message": "ok 👍",
       "parentUuid": "5a515189_058c6b0e",
+      "range": {
+        "startLine": 909,
+        "startChar": 12,
+        "endLine": 909,
+        "endChar": 19
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "700f10ab_4294a174",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6851a6e4_b4bede66",
       "range": {
         "startLine": 909,
         "startChar": 12,
