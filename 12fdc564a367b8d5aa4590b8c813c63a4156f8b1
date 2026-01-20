@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3953f6b_029fbfe0",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:14:48Z",
+      "side": 1,
+      "message": "Need to add calls to requestRoutesSystemsCPERLogService and requestRoutesManagersCPERLogService in order for the tested: statement to be accurate.",
+      "revId": "12fdc564a367b8d5aa4590b8c813c63a4156f8b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
