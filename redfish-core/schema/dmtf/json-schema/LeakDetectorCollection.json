@@ -94,13 +94,13 @@
                 "/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors",
                 "/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/LeakDetection/LeakDetectors",
                 "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/LeakDetection/LeakDetectors",
-                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors/"
+                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors"
             ],
             "urisDeprecated": [
                 "/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors",
                 "/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/LeakDetection/LeakDetectors",
                 "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/LeakDetection/LeakDetectors",
-                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors/"
+                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors"
             ]
         }
     },

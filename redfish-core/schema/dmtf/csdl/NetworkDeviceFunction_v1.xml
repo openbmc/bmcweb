@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkDeviceFunction v1.11.0                                       -->
+<!--# Redfish Schema:  NetworkDeviceFunction v1.11.1                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -925,14 +925,14 @@
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_1.NetworkDeviceFunction">
         <NavigationProperty Name="AssignablePhysicalNetworkPorts" Type="Collection(Port.Port)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of physical ports to which this network device function can be assigned."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that are the physical ports to which this network device function can be assigned."/>
+          <Annotation Term="OData.Description" String="An array of physical ports or logical aggregated ports to which this network device function can be assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that are the physical ports or logical aggregated ports to which this network device function can be assigned."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PhysicalNetworkPortAssignment" Type="Port.Port" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Port` that is the physical port to which this network device function is currently assigned.  This value shall be one of the `AssignablePhysicalNetworkPorts` array members."/>
+          <Annotation Term="OData.Description" String="The physical port or logical aggregated port to which this network device function is currently assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Port` to which this network device function is currently assigned.  This value shall be one of the `AssignablePhysicalPorts` array members."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -952,7 +952,7 @@
 
       <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_4_0.Links">
         <NavigationProperty Name="PhysicalNetworkPortAssignment" Type="Port.Port" Nullable="false">
-          <Annotation Term="OData.Description" String="The physical port to which this network device function is currently assigned."/>
+          <Annotation Term="OData.Description" String="The physical port or logical aggregated port to which this network device function is currently assigned."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Port` to which this network device function is currently assigned.  This value shall be one of the `AssignablePhysicalPorts` array members."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
@@ -1043,6 +1043,12 @@
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_5_3.NetworkDeviceFunction"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `PhysicalNetworkPortAssignment` and `AssignablePhysicalNetworkPorts` properties to allow references to aggregated ports."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_5_4.NetworkDeviceFunction"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1067,6 +1073,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_6_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `PhysicalNetworkPortAssignment` and `AssignablePhysicalNetworkPorts` properties to allow references to aggregated ports."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_6_2.NetworkDeviceFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_7_0">
@@ -1182,6 +1194,12 @@
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_7_2.NetworkDeviceFunction"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `PhysicalNetworkPortAssignment` and `AssignablePhysicalNetworkPorts` properties to allow references to aggregated ports."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_7_3.NetworkDeviceFunction"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1206,6 +1224,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `EthernetInterfaces` property inside `Links` to reference both physical and VLAN system Ethernet interfaces."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_8_2.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `PhysicalNetworkPortAssignment` and `AssignablePhysicalNetworkPorts` properties to allow references to aggregated ports."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_8_3.NetworkDeviceFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_9_0">
@@ -1250,6 +1274,12 @@
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_9_2.NetworkDeviceFunction"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `PhysicalNetworkPortAssignment` and `AssignablePhysicalNetworkPorts` properties to allow references to aggregated ports."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_9_3.NetworkDeviceFunction"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.1"/>
@@ -1265,6 +1295,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `PhysicalNetworkPortAssignment` and `AssignablePhysicalNetworkPorts` properties to allow references to aggregated ports."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_10_0.NetworkDeviceFunction"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.2"/>
@@ -1276,6 +1312,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the number virtual functions allocated to this device.  This property should contain a value that is a multiple of the value contained by the `MinAssignmentGroupSize` property of the corresponding `Controllers` array member within the parent `NetworkAdapter` resource.  The value shall not exceed the value contained in the `MaxVirtualFunctions` property."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `PhysicalNetworkPortAssignment` and `AssignablePhysicalNetworkPorts` properties to allow references to aggregated ports."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_11_0.NetworkDeviceFunction"/>
     </Schema>
 
   </edmx:DataServices>

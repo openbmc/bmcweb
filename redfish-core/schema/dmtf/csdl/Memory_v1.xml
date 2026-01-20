@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.22.0                                                      -->
+<!--# Redfish Schema:  Memory v1.23.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -2511,6 +2511,19 @@
       <Annotation Term="OData.Description" String="This version was created to add `GDDR7` to `MemoryDeviceType`."/>
 
       <EntityType Name="Memory" BaseType="Memory.v1_21_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_23_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="Memory" BaseType="Memory.v1_22_0.Memory">
+        <Property Name="ProductionDate" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The production or manufacturing date of this memory device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date of production or manufacture for this memory device."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

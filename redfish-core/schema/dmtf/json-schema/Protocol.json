@@ -46,7 +46,8 @@
                 "UPI",
                 "QPI",
                 "eMMC",
-                "UET"
+                "UET",
+                "UALink"
             ],
             "enumDescriptions": {
                 "AHCI": "Advanced Host Controller Interface (AHCI).",
@@ -82,6 +83,7 @@
                 "SMB": "Server Message Block (SMB).  Also known as the Common Internet File System (CIFS).",
                 "TCP": "Transmission Control Protocol (TCP).",
                 "TFTP": "Trivial File Transfer Protocol (TFTP).",
+                "UALink": "Ultra Accelerator Link (UALink).",
                 "UDP": "User Datagram Protocol (UDP).",
                 "UET": "Ultra Ethernet Transport.",
                 "UHCI": "Universal Host Controller Interface (UHCI).",
@@ -125,6 +127,7 @@
                 "SMB": "This value shall indicate conformance to the Server Message Block (SMB), or Common Internet File System (CIFS), protocol.",
                 "TCP": "This value shall indicate conformance to the IETF-defined Transmission Control Protocol (TCP).  For example, RFC7414 defines the roadmap of the TCP specification.",
                 "TFTP": "This value shall indicate conformance to the IETF-defined Trivial File Transfer Protocol (TFTP).  For example, RFC1350 defines the core TFTP version 2 specification.",
+                "UALink": "This value shall indicate conformance to the Ultra Accelerator Link specifications.",
                 "UDP": "This value shall indicate conformance to the IETF-defined User Datagram Protocol (UDP).  For example, RFC768 defines the core UDP specification.",
                 "UET": "This value shall indicate conformance to the Ultra Ethernet specifications.",
                 "UHCI": "This value shall indicate conformance to the Intel Universal Host Controller Interface (UHCI) Specification, Enhanced Host Controller Interface Specification, or the Extensible Host Controller Interface Specification.",
@@ -154,6 +157,7 @@
                 "RoCEv2": "2017.3",
                 "TCP": "2019.3",
                 "TFTP": "2019.3",
+                "UALink": "2025.4",
                 "UDP": "2019.3",
                 "UET": "2025.1",
                 "UPI": "2023.2",

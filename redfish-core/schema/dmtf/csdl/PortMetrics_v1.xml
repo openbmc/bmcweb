@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PortMetrics v1.8.0                                                  -->
+<!--# Redfish Schema:  PortMetrics v1.8.1                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -450,29 +450,29 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe the transceiver-related metrics."/>
         <Property Name="RXInputPowerMilliWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The RX input power value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the RX input power value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.Description" String="The RX input power value of the transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the RX input power value of the transceiver, aggregated across all lanes of this port."/>
           <Annotation Term="Measures.Unit" String="mW"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="TXBiasCurrentMilliAmps" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The TX bias current value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the TX bias current value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.Description" String="The TX bias current value of the transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TX bias current value of the transceiver, aggregated across all lanes of this port."/>
           <Annotation Term="Measures.Unit" String="mA"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="TXOutputPowerMilliWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The TX output power value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the TX output power value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.Description" String="The TX output power value of the transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TX output power value of the transceiver, aggregated across all lanes of this port."/>
           <Annotation Term="Measures.Unit" String="mW"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="SupplyVoltage" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The supply voltage of a small form-factor pluggable (SFP) transceiver."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the supply voltage of a small form-factor pluggable (SFP) transceiver."/>
+          <Annotation Term="OData.Description" String="The supply voltage for the transceiver."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the supply voltage for the transceiver."/>
           <Annotation Term="Measures.Unit" String="V"/>
         </Property>
       </ComplexType>
@@ -515,6 +515,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_1_2.PortMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_1_3.PortMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_2_0">
@@ -624,6 +630,12 @@
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_2_1.PortMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_2_2.PortMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -646,6 +658,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_3_1.PortMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_3_2.PortMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_4_0">
@@ -690,6 +708,12 @@
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_4_2.PortMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_4_3.PortMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -717,6 +741,12 @@
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_5_1.PortMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_5_2.PortMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -731,6 +761,12 @@
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_6_0.PortMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_6_1.PortMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -740,11 +776,17 @@
       <ComplexType Name="Transceiver" BaseType="PortMetrics.v1_1_0.Transceiver">
         <Property Name="WavelengthNanometers" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The laser wavelength, in nanometers, for a small form-factor pluggable (SFP) transceiver."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the laser wavelength, in nanometers, for a small form-factor pluggable (SFP) transceiver.  This property shall not be present for non-optic SFP mediums."/>
+          <Annotation Term="OData.Description" String="The laser wavelength, in nanometers, for the transceiver."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the laser wavelength, in nanometers, for the transceiver.  This property shall not be present for non-optic transceiver mediums."/>
           <Annotation Term="Measures.Unit" String="nm"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_7_0.PortMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_8_0">
@@ -777,26 +819,32 @@
         </Property>
         <Property Name="RXInputPowerMilliWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The RX input power value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the RX input power value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="OData.Description" String="The RX input power value of the transceiver for the lane identified as `LaneId`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the RX input power value of the transceiver for the lane identified as `LaneId`."/>
           <Annotation Term="Measures.Unit" String="mW"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="TXBiasCurrentMilliAmps" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The TX bias current value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the TX bias current value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="OData.Description" String="The TX bias current value of the transceiver for the lane identified as `LaneId`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TX bias current value of the transceiver for the lane identified as `LaneId`."/>
           <Annotation Term="Measures.Unit" String="mA"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="TXOutputPowerMilliWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The TX output power value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the TX output power value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="OData.Description" String="The TX output power value of the transceiver for the lane identified as `LaneId`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TX output power value of the transceiver for the lane identified as `LaneId`."/>
           <Annotation Term="Measures.Unit" String="mW"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_8_0.PortMetrics"/>
     </Schema>
 
   </edmx:DataServices>

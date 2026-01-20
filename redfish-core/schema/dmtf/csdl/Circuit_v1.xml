@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Circuit v1.8.1                                                      -->
+<!--# Redfish Schema:  Circuit v1.9.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -263,8 +263,32 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the device supports a nominal voltage of 240VDC."/>
         </Member>
         <Member Name="DC380V">
-          <Annotation Term="OData.Description" String="High-voltage DC (380V)."/>
+          <Annotation Term="OData.Description" String="DC 380V nominal."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the device supports a nominal voltage of 380VDC."/>
+        </Member>
+        <Member Name="DC400V">
+          <Annotation Term="OData.Description" String="DC 400V nominal."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the device supports a nominal voltage of 400VDC."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="DC800V">
+          <Annotation Term="OData.Description" String="DC 800V nominal."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the device supports a nominal voltage of 800VDC."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="DCNeg48V">
           <Annotation Term="OData.Description" String="-48V DC."/>
@@ -1179,6 +1203,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
       <EntityType Name="Circuit" BaseType="Circuit.v1_8_0.Circuit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `DC400V` and `DC800V` to `NominalVoltageType`."/>
+
+      <EntityType Name="Circuit" BaseType="Circuit.v1_8_1.Circuit"/>
     </Schema>
 
   </edmx:DataServices>

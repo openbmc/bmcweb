@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkAdapter v1.13.0                                              -->
+<!--# Redfish Schema:  NetworkAdapter v1.14.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -995,6 +995,49 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The configured link speed for each subport."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the configured link speed for each subport.  The number of members in this array shall equal the value contained in `SubportsPerPort` in the enclosing subconfiguration."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_14_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_13_0.NetworkAdapter">
+        <Property Name="PortAggregation" Type="NetworkAdapter.v1_14_0.PortAggregation">
+          <Annotation Term="OData.Description" String="The port aggregation capabilities for this controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain capability, status, and configuration values related to aggregating ports on this controller."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="PortAggregation">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The port aggregation capabilities for a controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain capability, status, and configuration values related to aggregating ports on a controller."/>
+        <Property Name="TotalPhysicalPorts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of physical ports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of physical ports."/>
+        </Property>
+        <Property Name="AllowablePhysicalPortsPerAggregation" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The allowable number of physical ports per aggregation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the allowable number of physical ports per aggregation."/>
+        </Property>
+        <Property Name="ConfiguredPhysicalPortsPerAggregation" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configured number of physical ports per aggregation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configured number of physical ports per aggregation."/>
+        </Property>
+        <Property Name="ConfiguredAggregatedPorts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configured number number of aggregated ports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configured number of aggregated ports."/>
+        </Property>
+        <Property Name="AggregationEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether port aggregation is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether port aggregation is enabled."/>
         </Property>
       </ComplexType>
     </Schema>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Switch v1.10.0                                                      -->
+<!--# Redfish Schema:  Switch v1.11.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -766,6 +766,73 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Switch.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="Switch" BaseType="Switch.v1_10_0.Switch"/>
+
+      <ComplexType Name="CXL" BaseType="Switch.v1_10_0.CXL">
+        <Property Name="MaxSupportedPIDs" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of port-based routing (PBR) identifiers (PIDs) supported in this switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of port-based routing (PBR) identifiers (PIDs) supported in this switch."/>
+        </Property>
+        <Property Name="PIDTargetList" Type="Collection(Switch.v1_11_0.PIDTargetList)">
+          <Annotation Term="OData.Description" String="The target list of port-based routing (PBR) identifiers (PIDs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Compute Express Link Specification-defined port-based routing (PBR) identifier (PID) target list for this CXL switch."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PIDTargetList">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The port-based routing (PBR) identifiers (PID) target list properties for a CXL switch."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the Compute Express Link Specification-defined port-based routing (PBR) identifier (PID) target list properties for a CXL switch."/>
+        <Property Name="TargetID" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier of the PID target for use in CXL 'Configure PID Assignment'."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the PID target for use in Compute Express Link Specification-defined 'Configure PID Assignment'."/>
+        </Property>
+        <Property Name="TargetType" Type="Switch.v1_11_0.TargetType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The port type for the assigned PID."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port type for the assigned PID."/>
+        </Property>
+        <Property Name="InstanceID" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The index of the PID for targets that support multiple PIDs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the index of the PID for targets that support multiple PIDs."/>
+        </Property>
+        <Property Name="VcsID" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The virtual CXL switch identifier of the target port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Compute Express Link Specification-defined virtual CXL switch identifier of the target port."/>
+        </Property>
+        <Property Name="PortID" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The physical port identifier of the target port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the physical port identifier of the target port."/>
+        </Property>
+        <Property Name="PID" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The PID assigned to this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Compute Express Link Specification-defined PID assigned to this port."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="TargetType">
+        <Member Name="FabricPort">
+          <Annotation Term="OData.Description" String="A fabric port."/>
+        </Member>
+        <Member Name="HostEdgePort">
+          <Annotation Term="OData.Description" String="A host edge port (USP/GAE)."/>
+        </Member>
+        <Member Name="DownstreamEdgePort">
+          <Annotation Term="OData.Description" String="A downstream edge port type."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>
