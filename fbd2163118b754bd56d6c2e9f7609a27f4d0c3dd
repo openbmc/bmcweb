@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2dcae7_d9e6a991",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "892e3118_4602ac4d",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96de6d78_d931946f",
@@ -153,6 +171,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b2bc76d_6ba344ac",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff24e27d_71000f67",
+      "range": {
+        "startLine": 916,
+        "startChar": 4,
+        "endLine": 927,
+        "endChar": 5
+      },
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c13be93e_7afc6c67",
@@ -190,6 +232,30 @@
       "side": 1,
       "message": "Right, I\u0027m not.  I can put [[maybe_unused]] on it?",
       "parentUuid": "c13be93e_7afc6c67",
+      "range": {
+        "startLine": 940,
+        "startChar": 25,
+        "endLine": 940,
+        "endChar": 31
+      },
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3396e08_5006a09b",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:25:32Z",
+      "side": 1,
+      "message": "Actually I can\u0027t:\n\n`structured bindings with attributed identifiers only available with \u0027-std\u003dc++2c\u0027 or \u0027-std\u003dgnu++2c\u0027 [-Werror\u003dc++26-extensions]`",
+      "parentUuid": "67f00443_3d6b4935",
       "range": {
         "startLine": 940,
         "startChar": 25,
@@ -253,6 +319,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fb1f4c4_c04b9d7d",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67453827_7c82a157",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56289157_7abced42",
@@ -284,6 +368,24 @@
       "side": 1,
       "message": "There really isn\u0027t a limit on the number of entries.\n\nYeah I just followed the same patterns that exist elsewhere because I thought that was the preference.  I\u0027m happy to add more interfaces to the dbus service if that makes things better.",
       "parentUuid": "56289157_7abced42",
+      "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "645e8bc7_e690bcbe",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75ebe981_a8e1c714",
       "revId": "fbd2163118b754bd56d6c2e9f7609a27f4d0c3dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
