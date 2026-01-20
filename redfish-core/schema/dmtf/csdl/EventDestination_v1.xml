@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.15.1                                            -->
+<!--# Redfish Schema:  EventDestination v1.16.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -958,9 +958,9 @@
         <Annotation Term="OData.Description" String="Settings for an SNMP event destination."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the settings for an SNMP event destination."/>
         <Property Name="TrapCommunity" Type="Edm.String">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The SNMP trap community string."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP trap community string.  The value shall be `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP trap community string.  If `HideCommunityStrings` contains `true` or is not supported, the value shall be `null` in responses.  Otherwise the trap community string shall be returned."/>
         </Property>
         <Property Name="AuthenticationKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
@@ -1790,6 +1790,21 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that terminating a subscription also deletes the resource."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_15_0.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_15_1.EventDestination"/>
+
+      <ComplexType Name="SNMPSettings" BaseType="EventDestination.v1_10_0.SNMPSettings">
+        <Property Name="HideCommunityStrings" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the SNMP trap community string is hidden in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the SNMP trap community string is hidden in responses.  If `true`, the `TrapCommunity` property shall be `null` in responses.  If `false`, the `TrapCommunity` property shall contain the trap community string in responses."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

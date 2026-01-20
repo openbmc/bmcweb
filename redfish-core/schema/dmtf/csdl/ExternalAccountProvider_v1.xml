@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ExternalAccountProvider v1.8.1                                      -->
+<!--# Redfish Schema:  ExternalAccountProvider v1.8.2                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -101,7 +101,7 @@
         </Property>
         <Property Name="RemoteRoleMapping" Type="Collection(ExternalAccountProvider.v1_0_0.RoleMapping)">
           <Annotation Term="OData.Description" String="The mapping rules to convert the external account providers account information to the local Redfish role."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a set of the mapping rules that are used to convert the external account providers account information to the local Redfish role."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a set of the mapping rules that are used to convert the external account providers account information to the local Redfish role.  The service shall return the HTTP `401 Unauthorized` status code to requests from accounts that do not map to a Redfish role in this property."/>
         </Property>
         <Property Name="Links" Type="ExternalAccountProvider.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
@@ -248,12 +248,12 @@
         <Property Name="RemoteGroup" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The name of the remote group, or the remote role in the case of a Redfish service, that maps to the local Redfish role to which this entity links."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the remote group, or the remote role in the case of a Redfish service, that maps to the local Redfish role to which this entity links."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the remote group, or the remote role in the case of a Redfish service, that maps to the local Redfish role to which this entity links.  If `AccountProviderType` contains `RedfishService`, this property shall contain the name of the Redfish role from the external Redfish service.  If `AccountProviderType` contains `ActiveDirectoryService`, this property shall contain the value of the 'Group Name' attribute from the Active Directory service.  If `AccountProviderType` contains `LDAPService`, this property shall contain the distinguished name for the group or the value of the attribute specified by the `GroupNameAttribute` property from the LDAP service."/>
         </Property>
         <Property Name="RemoteUser" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The name of the remote user that maps to the local Redfish role to which this entity links."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the remote user that maps to the local Redfish role to which this entity links."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the remote user that maps to the local Redfish role to which this entity links.  If `AccountProviderType` contains `RedfishService`, this property shall contain the username of the `ManagerAccount` resource from the external Redfish service.  If `AccountProviderType` contains `ActiveDirectoryService`, this property shall contain the value of the 'Username' attribute, with optional domain, from the Active Directory service.  If `AccountProviderType` contains `LDAPService`, this property shall contain the distinguished name for the user or the value of the attribute specified by the `UsernameAttribute` property from the LDAP service."/>
         </Property>
         <Property Name="LocalRole" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -342,6 +342,12 @@
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_0_8.ExternalAccountProvider"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_0_9.ExternalAccountProvider"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -402,6 +408,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_1_7.ExternalAccountProvider"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_1_8.ExternalAccountProvider"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_2_0">
@@ -506,6 +518,12 @@
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_2_4.ExternalAccountProvider"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_2_5.ExternalAccountProvider"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -597,6 +615,12 @@
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_3_6.ExternalAccountProvider"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_3_7.ExternalAccountProvider"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -654,6 +678,12 @@
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_4_6.ExternalAccountProvider"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_4_7.ExternalAccountProvider"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -690,6 +720,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_5_3.ExternalAccountProvider"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_5_4.ExternalAccountProvider"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_6_0">
@@ -753,6 +789,12 @@
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_6_3.ExternalAccountProvider"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_6_4.ExternalAccountProvider"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_7_0">
       <Annotation Term="Redfish.Release" String="2023.2"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -786,6 +828,12 @@
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_7_2.ExternalAccountProvider"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_7_3.ExternalAccountProvider"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_8_0">
       <Annotation Term="Redfish.Release" String="2024.3"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -810,6 +858,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_8_0.ExternalAccountProvider"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the expected values for the `RemoteGroup` and `RemoteUser` for different account providers.  It was also created to clarify the behavior when a user from an external provider does not map to any roles specified by the `RemoteRoleMapping` property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_8_1.ExternalAccountProvider"/>
     </Schema>
 
   </edmx:DataServices>
