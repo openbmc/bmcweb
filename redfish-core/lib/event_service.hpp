@@ -123,11 +123,11 @@ inline void requestRoutesEventService(App& app)
                     return;
                 }
                 std::optional<bool> serviceEnabled;
-                std::optional<uint32_t> retryAttemps;
+                std::optional<uint32_t> retryAttempts;
                 std::optional<uint32_t> retryInterval;
                 if (!json_util::readJsonPatch(                         //
                         req, asyncResp->res,                           //
-                        "DeliveryRetryAttempts", retryAttemps,         //
+                        "DeliveryRetryAttempts", retryAttempts,        //
                         "DeliveryRetryIntervalSeconds", retryInterval, //
                         "ServiceEnabled", serviceEnabled               //
                         ))
@@ -144,18 +144,18 @@ inline void requestRoutesEventService(App& app)
                     eventServiceConfig.enabled = *serviceEnabled;
                 }
 
-                if (retryAttemps)
+                if (retryAttempts)
                 {
                     // Supported range [1-3]
-                    if ((*retryAttemps < 1) || (*retryAttemps > 3))
+                    if ((*retryAttempts < 1) || (*retryAttempts > 3))
                     {
                         messages::queryParameterOutOfRange(
-                            asyncResp->res, std::to_string(*retryAttemps),
+                            asyncResp->res, std::to_string(*retryAttempts),
                             "DeliveryRetryAttempts", "[1-3]");
                     }
                     else
                     {
-                        eventServiceConfig.retryAttempts = *retryAttemps;
+                        eventServiceConfig.retryAttempts = *retryAttempts;
                     }
                 }
 
