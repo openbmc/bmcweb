@@ -397,6 +397,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0cccde3_af5fee1e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T14:59:10Z",
+      "side": 1,
+      "message": "Unresolving, seems there is a preference for boost: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83377",
+      "parentUuid": "3a3d8ffb_a8366ddb",
+      "range": {
+        "startLine": 940,
+        "startChar": 7,
+        "endLine": 942,
+        "endChar": 56
+      },
+      "revId": "0b06965198a8430899e093e927bd5a525856935e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a4ea652_3dce1e86",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
