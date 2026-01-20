@@ -7,9 +7,7 @@ from collections import OrderedDict
 
 import requests
 
-PRAGMA_ONCE: t.Final[
-    str
-] = """#pragma once
+PRAGMA_ONCE: t.Final[str] = """#pragma once
 """
 
 WARNING = """/****************************************************************
@@ -23,9 +21,7 @@ WARNING = """/****************************************************************
  * github organization.
  ***************************************************************/"""
 
-COPYRIGHT: t.Final[
-    str
-] = """// SPDX-License-Identifier: Apache-2.0
+COPYRIGHT: t.Final[str] = """// SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 """
 
@@ -50,16 +46,12 @@ INCLUDE_PATH: t.Final[str] = os.path.realpath(
     os.path.join(SCRIPT_DIR, "..", "redfish-core", "include", "registries")
 )
 
-PROXIES: t.Final[t.Dict[str, str]] = {
-    "https": os.environ.get("https_proxy", "")
-}
+PROXIES: t.Final[t.Dict[str, str]] = {"https": os.environ.get("https_proxy", "")}
 
 RegistryInfo: t.TypeAlias = t.Tuple[str, t.Dict[str, t.Any], str, str]
 
 
-def make_getter(
-    dmtf_name: str, header_name: str, type_name: str
-) -> RegistryInfo:
+def make_getter(dmtf_name: str, header_name: str, type_name: str) -> RegistryInfo:
     url = "https://redfish.dmtf.org/registries/{}".format(dmtf_name)
     dmtf = requests.get(url, proxies=PROXIES)
     dmtf.raise_for_status()
@@ -138,16 +130,12 @@ def update_registries(files: t.List[RegistryInfo]) -> None:
                     '            "{message[Message]}",\n'
                     '            "{message[MessageSeverity]}",\n'
                     "            {message[NumberOfArgs]},\n"
-                    "            {{".format(
-                        messageId=messageId, message=message
-                    )
+                    "            {{".format(messageId=messageId, message=message)
                 )
                 paramTypes = message.get("ParamTypes")
                 if paramTypes:
                     for paramType in paramTypes:
-                        registry.write(
-                            '\n                "{}",'.format(paramType)
-                        )
+                        registry.write('\n                "{}",'.format(paramType))
                     registry.write("\n            },\n")
                 else:
                     registry.write("},\n")
@@ -170,9 +158,7 @@ def update_registries(files: t.List[RegistryInfo]) -> None:
                 )
             )
             registry.write(
-                "{{ registerRegistry<{}>(); }}\n".format(
-                    to_pascal_case(namespace)
-                )
+                "{{ registerRegistry<{}>(); }}\n".format(to_pascal_case(namespace))
             )
             registry.write("\n")
             registry.write("} // namespace redfish::registries\n")
@@ -212,11 +198,7 @@ def get_variable_name_for_privilege_set(
     return "Or".join(names)
 
 
-PRIVILEGE_HEADER = (
-    COPYRIGHT
-    + PRAGMA_ONCE
-    + WARNING
-    + """
+PRIVILEGE_HEADER = COPYRIGHT + PRAGMA_ONCE + WARNING + """
 #include "privileges.hpp"
 
 #include <array>
@@ -226,7 +208,6 @@ PRIVILEGE_HEADER = (
 namespace redfish::privileges
 {
 """
-)
 
 
 def get_response_code(entry_id: str) -> str | None:
@@ -445,8 +426,7 @@ def create_error_registry(
     ) as out:
         out.write(PRAGMA_ONCE)
         out.write(WARNING)
-        out.write(
-            """
+        out.write("""
 // These generated headers are a superset of what is needed.
 // clang sees them as an error, so ignore
 // NOLINTBEGIN(misc-include-cleaner)
@@ -465,8 +445,7 @@ namespace redfish
 
 namespace messages
 {
-"""
-        )
+""")
         for entry_id, entry in messages.items():
             message = entry["Message"]
             for index in range(1, 10):
@@ -486,9 +465,7 @@ namespace messages
                         f"* @param[in] arg{arg_index} Parameter of message that will replace %{arg_index} in its body.\n"
                     )
                 out.write("*\n")
-                out.write(
-                    f"* @returns Message {entry_id} formatted to JSON */\n"
-                )
+                out.write(f"* @returns Message {entry_id} formatted to JSON */\n")
 
             out.write(
                 make_error_function(
@@ -532,8 +509,7 @@ namespace messages
         for header in headers:
             out.write(f"#include {header}\n")
 
-        out.write(
-            """
+        out.write("""
 // Clang can't seem to decide whether this header needs to be included or not,
 // and is inconsistent.  Include it for now
 // NOLINTNEXTLINE(misc-include-cleaner)
@@ -548,10 +524,8 @@ namespace redfish
 
 namespace messages
 {
-"""
-        )
-        out.write(
-            """
+""")
+        out.write("""
 static nlohmann::json::object_t getLog(redfish::registries::{struct_name}::Index name,
                              std::span<const std::string_view> args)
 {{
@@ -564,21 +538,16 @@ static nlohmann::json::object_t getLog(redfish::registries::{struct_name}::Index
                               redfish::registries::{struct_name}::registry, index, args);
 }}
 
-""".format(
-                struct_name=struct_name
-            )
-        )
+""".format(struct_name=struct_name))
         for entry_id, entry in messages.items():
-            out.write(
-                f"""/**
+            out.write(f"""/**
  * @internal
  * @brief Formats {entry_id} message into JSON
  *
  * See header file for more information
  * @endinternal
  */
-"""
-            )
+""")
             message = entry["Message"]
             out.write(
                 make_error_function(
@@ -604,9 +573,7 @@ def make_privilege_registry() -> None:
         for mapping in json_file["Mappings"]:
             # first pass, identify all the unique privilege sets
             for operation, privilege_list in mapping["OperationMap"].items():
-                privilege_dict[
-                    get_privilege_string_from_list(privilege_list)
-                ] = (
+                privilege_dict[get_privilege_string_from_list(privilege_list)] = (
                     privilege_list,
                     None,
                 )
@@ -622,7 +589,7 @@ def make_privilege_registry() -> None:
                             None,
                         )
         for index, key in enumerate(privilege_dict):
-            (privilege_list, _) = privilege_dict[key]
+            privilege_list, _ = privilege_dict[key]
             name = get_variable_name_for_privilege_set(privilege_list)
             registry.write(
                 "const std::array<Privileges, {length}> "
@@ -636,9 +603,7 @@ def make_privilege_registry() -> None:
             entity = mapping["Entity"]
             registry.write("// {}\n".format(entity))
             for operation, privilege_list in mapping["OperationMap"].items():
-                privilege_string = get_privilege_string_from_list(
-                    privilege_list
-                )
+                privilege_string = get_privilege_string_from_list(privilege_list)
                 operation = operation.lower()
 
                 registry.write(
@@ -673,9 +638,7 @@ def make_privilege_registry() -> None:
                             )
                         )
                     registry.write("\n")
-        registry.write(
-            "} // namespace redfish::privileges\n// clang-format on\n"
-        )
+        registry.write("} // namespace redfish::privileges\n// clang-format on\n")
 
 
 def to_pascal_case(text: str) -> str:
@@ -714,8 +677,7 @@ def main() -> None:
     parser.add_argument(
         "--registries",
         type=str,
-        default="privilege,openbmc,"
-        + ",".join([dmtf for dmtf in dmtf_registries]),
+        default="privilege,openbmc," + ",".join([dmtf for dmtf in dmtf_registries]),
         help="Comma delimited list of registries to update",
     )
 
