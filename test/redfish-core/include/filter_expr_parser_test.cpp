@@ -139,4 +139,22 @@ TEST(FilterParser, Failures)
     EXPECT_FALSE(parseFilter("eq ProcessorSummary/Count"));
     EXPECT_FALSE(parseFilter("not(ProcessorSummary/Count)"));
 }
+
+TEST(FilterParser, SizeLimit)
+{
+    // String limit is 1000 chars
+    std::string tooManyChars(1001U, '(');
+    EXPECT_FALSE(parseFilter(tooManyChars));
+}
+
+TEST(FilterParser, RecursionDepthLimit)
+{
+    // Test that reasonable nesting depth works
+    EXPECT_TRUE(parseFilter("((((foo eq 'bar'))))"));
+    // At the limit (10 levels)
+    EXPECT_TRUE(parseFilter("((((((((((foo eq 'bar'))))))))))"));
+
+    // Test that just past the limit (11 levels) fails
+    EXPECT_FALSE(parseFilter("(((((((((((foo eq 'bar')))))))))))"));
+}
 } // namespace redfish
