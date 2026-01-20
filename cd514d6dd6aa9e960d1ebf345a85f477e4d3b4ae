@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f794b56_aae4f6eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-20T15:59:16Z",
+      "side": 1,
+      "message": "I would think you would have a good chance of getting this into Redfish. OEM schemas are a mess to deal with.. Besides our the bmcweb requirement, I would think for both your clients and development it is worth getting into Redfish if you can.",
+      "parentUuid": "0083d9d5_02acd1b8",
+      "revId": "cd514d6dd6aa9e960d1ebf345a85f477e4d3b4ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f46a080_1392638a",
         "filename": "redfish-core/lib/nvidia/nvidia_processors.hpp",
         "patchSetId": 9
