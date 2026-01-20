@@ -16,6 +16,24 @@
       "message": "Do you need to explicitly set 204?",
       "revId": "74deafb9d1b8381c7c95724032cd4e931c91e8dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d5da89b_562bb91d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-20T16:19:29Z",
+      "side": 1,
+      "message": "The response would default to HTTP 200 OK, \n200 OK typically expects a response body\nbut HTTP 204 No Content indicates successful processing with no response body\nso, it\u0027s needed",
+      "parentUuid": "491a9ec2_570920c6",
+      "revId": "74deafb9d1b8381c7c95724032cd4e931c91e8dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
