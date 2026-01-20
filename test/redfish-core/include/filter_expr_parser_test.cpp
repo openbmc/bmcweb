@@ -139,4 +139,50 @@ TEST(FilterParser, Failures)
     EXPECT_FALSE(parseFilter("eq ProcessorSummary/Count"));
     EXPECT_FALSE(parseFilter("not(ProcessorSummary/Count)"));
 }
+
+TEST(FilterParser, RecursionDepthLimit)
+{
+    // Test that reasonable nesting depth works
+    std::string deepButValid = "((((foo eq 'bar'))))";
+    EXPECT_TRUE(parseFilter(deepButValid));
+
+    // Test that moderately deep nesting (30 levels) works
+    std::string moderateDepth;
+    for (int i = 0; i < 5; i++)
+    {
+        moderateDepth += '(';
+    }
+    moderateDepth += "foo eq 'bar'";
+    for (int i = 0; i < 5; i++)
+    {
+        moderateDepth += ')';
+    }
+    EXPECT_TRUE(parseFilter(moderateDepth));
+
+    // Test that excessive nesting depth (51+ levels) is rejected
+    std::string tooDeep;
+    for (int i = 0; i < 11; i++)
+    {
+        tooDeep += '(';
+    }
+    tooDeep += "foo eq 'bar'";
+    for (int i = 0; i < 11; i++)
+    {
+        tooDeep += ')';
+    }
+    EXPECT_FALSE(parseFilter(tooDeep));
+
+    // Test that just at the limit (50 levels) works
+    std::string atLimit;
+    for (int i = 0; i < 10; i++)
+    {
+        atLimit += '(';
+    }
+    atLimit += "foo eq 'bar'";
+    for (int i = 0; i < 10; i++)
+    {
+        atLimit += ')';
+    }
+    EXPECT_TRUE(parseFilter(atLimit));
+}
 } // namespace redfish

@@ -7,6 +7,7 @@
 #include <boost/spirit/home/x3/char/char.hpp>
 #include <boost/spirit/home/x3/char/negated_char_parser.hpp>
 #include <boost/spirit/home/x3/directive/lexeme.hpp>
+#include <boost/spirit/home/x3/directive/with.hpp>
 #include <boost/spirit/home/x3/nonterminal/rule.hpp>
 #include <boost/spirit/home/x3/numeric/int.hpp>
 #include <boost/spirit/home/x3/numeric/real.hpp>
@@ -19,8 +20,17 @@
 #include <boost/spirit/home/x3/string/literal_string.hpp>
 #include <boost/spirit/home/x3/string/symbols.hpp>
 
+#include <cstddef>
+
 namespace redfish::filter_grammar
 {
+
+// Tag for storing recursion depth in the parser context
+struct RecursionDepth
+{
+    // Maximum recursion depth to prevent stack overflow
+    constexpr static size_t max = 10;
+};
 
 // The below rules very intentionally use the same naming as section 7.3.4 of
 // the redfish specification and are declared in the order of the precedence
@@ -86,13 +96,51 @@ const symbols<ComparisonOpEnum> compare{
     {"ne", ComparisonOpEnum::NotEquals},
     {"eq", ComparisonOpEnum::Equals}};
 
+// paren parser that limits the depth of the max recursion.
+struct DepthCheckingParser : boost::spirit::x3::parser<DepthCheckingParser>
+{
+    using attribute_type = LogicalAnd;
+
+    template <typename Iterator, typename Context, typename RContext,
+              typename Attribute>
+    bool parse(Iterator& first, const Iterator& last, const Context& context,
+               RContext& rcontext, Attribute& attr) const
+    {
+        using boost::spirit::x3::get;
+        using boost::spirit::x3::with;
+
+        // Get current recursion depth from context
+        auto depthRefWrapper = get<RecursionDepth>(context);
+        unsigned int& currentDepth = depthRefWrapper.get();
+
+        // Check if we've exceeded the maximum depth
+        if (currentDepth >= RecursionDepth::max)
+        {
+            return false;
+        }
+
+        // Increment depth for this level
+        ++currentDepth;
+
+        // Parse with the current context (depth is already incremented via
+        // reference)
+        const auto parens = lit('(') >> logicalAnd >> lit(')');
+        bool result = parens.parse(first, last, context, rcontext, attr);
+
+        // Decrement depth after parsing
+        --currentDepth;
+
+        return result;
+    }
+};
+
+// Parenthesis with depth checking
+const DepthCheckingParser parens;
+
 // Note, unlike most other comparisons, spaces are required here (one or more)
 // to differentiate keys from values (ex Fooeq eq foo)
 const auto comparison_def =
     lexeme[arg >> +lit(' ') >> compare >> +lit(' ') >> arg];
-
-// Parenthesis
-const auto parens = lit('(') >> logicalAnd >> lit(')');
 
 // Logical values
 const auto booleanOp_def = comparison | parens;
