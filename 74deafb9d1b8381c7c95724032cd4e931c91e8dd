@@ -52,6 +52,24 @@
       "parentUuid": "3d5da89b_562bb91d",
       "revId": "74deafb9d1b8381c7c95724032cd4e931c91e8dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25db527a_b68bd81a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-20T16:59:05Z",
+      "side": 1,
+      "message": "yeah, Sure its defaults getting 200 ok only\n\nhttps://github.com/openbmc/bmcweb/commit/adee9f2e5b9e371a7e9bf9c817a340982658b341\nHere also getting 200 ok not 204, I cross verify here also\n\nEd Tanous also added command like below in this commit \n\"I probably would\u0027ve gone the other way and made the API not return 204, but this is fine too\"",
+      "parentUuid": "3d5da89b_562bb91d",
+      "revId": "74deafb9d1b8381c7c95724032cd4e931c91e8dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
