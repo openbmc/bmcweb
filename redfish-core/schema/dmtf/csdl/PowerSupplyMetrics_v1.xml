@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerSupplyMetrics v1.1.2                                           -->
+<!--# Redfish Schema:  PowerSupplyMetrics v1.2.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -207,6 +207,165 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.v1_1_1.PowerSupplyMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupplyMetrics.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add endpoints for triphase PSU input monitoring."/>
+
+      <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.v1_1_2.PowerSupplyMetrics">
+        <Property Name="PolyPhaseVoltage" Type="PowerSupplyMetrics.v1_2_0.VoltageSensors">
+          <Annotation Term="OData.Description" String="The input polyphase voltage readings for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input polyphase voltage sensors for this power supply."/>
+        </Property>
+        <Property Name="PolyPhaseCurrentAmps" Type="PowerSupplyMetrics.v1_2_0.CurrentSensors">
+          <Annotation Term="OData.Description" String="The input polyphase current readings for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input polyphase current sensors for this power supply."/>
+        </Property>
+        <Property Name="PolyPhasePowerWatts" Type="PowerSupplyMetrics.v1_2_0.PowerSensors">
+          <Annotation Term="OData.Description" String="The input polyphase power readings for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input polyphase power sensors for this power supply."/>
+        </Property>
+        <Property Name="PolyPhaseEnergykWh" Type="PowerSupplyMetrics.v1_2_0.EnergySensors">
+          <Annotation Term="OData.Description" String="The input polyphase energy consumption readings for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input polyphase energy sensors for this power supply."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="VoltageSensors">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The voltage sensors for this power supply."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe voltage sensor readings for a power supply."/>
+        <NavigationProperty Name="Line1ToLine2" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The Line 1 to Line 2 voltage (V) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L1 and L2.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L1-L2 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line2ToLine3" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The Line 2 to Line 3 voltage (V) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L2 and L3.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L2-L3 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line3ToLine1" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The Line 3 to Line 1 voltage (V) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L3 and L1.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L3-L1 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line1ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The Line 1 to Neutral voltage (V) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L1 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L1-Neutral measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line2ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The Line 2 to Neutral voltage (V) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L2 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L2-Neutral measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line3ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The Line 3 to Neutral voltage (V) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L3 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L3-Neutral measurement."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="CurrentSensors">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The current sensors for this power supply."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe current sensor readings for a power supply."/>
+        <NavigationProperty Name="Line1" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="Line 1 current (A)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L1.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if the equipment does not include an L1 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line2" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="Line 2 current (A)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L2.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if the equipment does not include an L2 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line3" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="Line 3 current (A)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L3.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if the equipment does not include an L3 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Neutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="Neutral line current (A)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for the Neutral line.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if the equipment does not include a Neutral line measurement."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="PowerSensors">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The power sensors for this power supply."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe power sensor readings for a power supply."/>
+        <NavigationProperty Name="Line1ToLine2" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The Line 1 to Line 2 power (W) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watt units, between L1 and L2.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`.  This property shall not be present if the equipment does not include an L1-L2 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line2ToLine3" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The Line 2 to Line 3 power (W) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watt units, between L2 and L3.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`.  This property shall not be present if the equipment does not include an L2-L3 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line3ToLine1" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The Line 3 to Line 1 power (W) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watt units, between L3 and L1.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`.  This property shall not be present if the equipment does not include an L3-L1 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line1ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The Line 1 to Neutral power (W) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watt units, between L1 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`.  This property shall not be present if the equipment does not include an L1-Neutral measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line2ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The Line 2 to Neutral power (W) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watt units, between L2 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`.  This property shall not be present if the equipment does not include an L2-Neutral measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line3ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
+          <Annotation Term="OData.Description" String="The Line 3 to Neutral power (W) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watt units, between L3 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`.  This property shall not be present if the equipment does not include an L3-Neutral measurement."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="EnergySensors">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The energy sensors for this power supply."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe energy sensor readings for a power supply."/>
+        <NavigationProperty Name="Line1ToLine2" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
+          <Annotation Term="OData.Description" String="The Line 1 to Line 2 energy (kWh) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the energy, in kilowatt-hour units, between L1 and L2.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L1-L2 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line2ToLine3" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
+          <Annotation Term="OData.Description" String="The Line 2 to Line 3 energy (kWh) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the energy, in kilowatt-hour units, between L2 and L3.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L2-L3 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line3ToLine1" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
+          <Annotation Term="OData.Description" String="The Line 3 to Line 1 energy (kWh) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the energy, in kilowatt-hour units, between L3 and L1.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L3-L1 measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line1ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
+          <Annotation Term="OData.Description" String="The Line 1 to Neutral energy (kWh) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the energy, in kilowatt-hour units, between L1 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L1-Neutral measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line2ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
+          <Annotation Term="OData.Description" String="The Line 2 to Neutral energy (kWh) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the energy, in kilowatt-hour units, between L2 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L2-Neutral measurement."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Line3ToNeutral" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
+          <Annotation Term="OData.Description" String="The Line 3 to Neutral energy (kWh) for this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the energy, in kilowatt-hour units, between L3 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L3-Neutral measurement."/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

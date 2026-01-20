@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerDistribution v1.5.0                                            -->
+<!--# Redfish Schema:  PowerDistribution v1.6.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -765,6 +765,18 @@
           <Annotation Term="OData.LongDescription" String="The service shall export only non-sensitive data."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_5_0.PowerDistribution">
+        <Property Name="PowerDistributionRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
+          <Annotation Term="OData.Description" String="The redundancy information for the groups of power distribution units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the groups of power distribution units."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Redundancy v1.6.0                                                   -->
+<!--# Redfish Schema:  Redundancy v1.7.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -64,8 +64,8 @@
         </Property>
         <Property Name="MinNumNeeded" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The minimum number of members needed for this group to be redundant."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of members allowed in the redundancy group for the current redundancy mode to still be fault tolerant."/>
+          <Annotation Term="OData.Description" String="The minimum number of members needed for this group to remain operational or functional."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of members needed in the redundancy group for the current redundancy mode to remain operational or functional."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
@@ -184,6 +184,12 @@
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_10.Redundancy"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the usage of `MinNumNeeded` to align with the design intent."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_11.Redundancy"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -249,6 +255,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_8.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the usage of `MinNumNeeded` to align with the design intent."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_9.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_2_0">
@@ -321,6 +333,12 @@
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_2_6.Redundancy"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the usage of `MinNumNeeded` to align with the design intent."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_2_7.Redundancy"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -371,6 +389,12 @@
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_3_6.Redundancy"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the usage of `MinNumNeeded` to align with the design intent."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_3_7.Redundancy"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -391,8 +415,8 @@
         </Property>
         <Property Name="MinNeededInGroup" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The minimum number of devices needed for this group to be redundant."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of functional devices needed in the redundancy group for the current redundancy mode to be fault tolerant."/>
+          <Annotation Term="OData.Description" String="The minimum number of devices needed for this group to remain operational or functional."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of members allowed in the redundancy group for the current redundancy mode to remain operational or functional."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
@@ -444,6 +468,13 @@
       <ComplexType Name="RedundantGroup" BaseType="Redundancy.v1_4_1.RedundantGroup"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the usage of `MinNumNeeded` and `MinNeededInGroup` to align with the design intent."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_4_2.Redundancy"/>
+      <ComplexType Name="RedundantGroup" BaseType="Redundancy.v1_4_2.RedundantGroup"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.4"/>
@@ -457,6 +488,13 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the name of the redundant group used to identify the particular group of redundant resources.  The value shall conform with the 'Name' clause of the Redfish Specification."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the usage of `MinNumNeeded` and `MinNeededInGroup` to align with the design intent."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_5_0.Redundancy"/>
+      <ComplexType Name="RedundantGroup" BaseType="Redundancy.v1_5_0.RedundantGroup"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_6_0">
@@ -479,6 +517,34 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the links to the active resources that represent the active devices that are part of this redundancy group.  When `RedundancyType` contains `Failover`, the failure of an active device shall cause a member of this redundancy group to take over its function.  When `RedundancyType` contains `NPlusM` or `Sharing`, all devices in the redundancy set in a non-failed state should be considered active.  When `RedundancyType` contains `Sparing`, the failure of an active device shall cause one or more spares that are available to take over the function."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the usage of `MinNumNeeded` and `MinNeededInGroup` to align with the design intent."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_6_0.Redundancy"/>
+      <ComplexType Name="RedundantGroup" BaseType="Redundancy.v1_6_0.RedundantGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_6_1.Redundancy">
+        <Property Name="MinNumNeededForFaultTolerance" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of members needed for this group to be redundant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of members needed in the redundancy group for the current redundancy mode to be fault tolerant."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="RedundantGroup" BaseType="Redundancy.v1_6_1.RedundantGroup">
+        <Property Name="MinNeededForFaultTolerance" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of devices needed for this group to be redundant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of functional devices needed in the redundancy group for the current redundancy mode to be fault tolerant."/>
+        </Property>
       </ComplexType>
     </Schema>
 
