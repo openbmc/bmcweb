@@ -249,6 +249,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fd6d66a_c94b0824",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:26:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e20ed7af_c0889e55",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47fe3aa6_02be2fd3",
@@ -286,6 +304,30 @@
       "side": 1,
       "message": "Sure, what does that look like?  Don\u0027t forget the manager name is also configurable (what goes in the ? field)\n\n Enable CPER log service transactions through Redfish.  Paths                     are under /redfish/v1/\u003cBMCWEB_REDFISH_EVENTLOG_LOCATION\u003e/\u003c?\u003e/LogServices/CPER.",
       "parentUuid": "47fe3aa6_02be2fd3",
+      "range": {
+        "startLine": 94,
+        "startChar": 74,
+        "endLine": 95,
+        "endChar": 74
+      },
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2015839f_f4704332",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:26:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b399f65_3648d8c1",
       "range": {
         "startLine": 94,
         "startChar": 74,
@@ -345,6 +387,24 @@
       "side": 1,
       "message": "I copy / pasted this from handleSystemsAndManagersEventLogServiceGet, which does not set LogEntryTypes.  I\u0027m happy to set that to Event if that\u0027s useful/more complete.",
       "parentUuid": "aefb7ad4_2c05b617",
+      "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "019030b8_40cb1f9a",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T16:26:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc68768b_cf2230a1",
       "revId": "d416c22ee940d614b0f266f48f6f8f28233552c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
