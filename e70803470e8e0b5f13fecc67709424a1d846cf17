@@ -149,6 +149,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "838d407d_794dcba5",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-20T14:58:14Z",
+      "side": 1,
+      "message": "I got my answer here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83377",
+      "parentUuid": "190eb019_6cc8e4e0",
+      "range": {
+        "startLine": 893,
+        "startChar": 0,
+        "endLine": 895,
+        "endChar": 48
+      },
+      "revId": "e70803470e8e0b5f13fecc67709424a1d846cf17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26e9d46e_425a1113",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 1
