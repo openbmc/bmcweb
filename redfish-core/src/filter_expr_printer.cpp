@@ -11,6 +11,7 @@
 
 #include <cstdint>
 #include <format>
+#include <functional>
 #include <list>
 #include <optional>
 #include <string>
@@ -134,6 +135,11 @@ std::string FilterExpressionPrinter::operator()(
 
 std::optional<filter_grammar::program> parseFilter(std::string_view expr)
 {
+    if (expr.size() > 1000)
+    {
+        BMCWEB_LOG_WARNING("Filter expression too long: {}", expr);
+        return std::nullopt;
+    }
     const auto& grammar = filter_grammar::grammar;
     filter_grammar::program program;
 
@@ -145,7 +151,15 @@ std::optional<filter_grammar::program> parseFilter(std::string_view expr)
     // spaces are allowed or disallowed.  Specification is not clear, so in
     // almost all cases we allow zero or more
     using boost::spirit::x3::space;
-    if (!boost::spirit::x3::phrase_parse(iter, end, grammar, space, program))
+    using boost::spirit::x3::with;
+
+    // Initialize recursion depth to 0 in the parsing context
+    unsigned int depth = 0;
+    auto grammarRunnable =
+        with<filter_grammar::RecursionDepth>(std::ref(depth))[grammar];
+
+    if (!boost::spirit::x3::phrase_parse(iter, end, grammarRunnable, space,
+                                         program))
     {
         std::string_view rest(iter, end);
 
