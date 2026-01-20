@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.20.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.21.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -256,6 +256,112 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_19_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="SetPersonalityKey" IsBound="true">
+        <Annotation Term="OData.Description" String="This action sets the personality key for the NVMe subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the personality key for the NVMe subsystem as defined by the 'Programmable Key Authentication Considerations' clause in the NVMe Base Specification."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Parameter Name="Algorithm" Type="Storage.v1_21_0.NMVePersonalityKeyAlgorithm" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of authentication algorithm for the key."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of authentication algorithm for the key as defined by the 'CDP Authentication Algorithm' field in the NVMe Base Specification."/>
+        </Parameter>
+        <Parameter Name="Key" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The personality key to set on the NVMe subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the personality key to set on the NVMe subsystem as a hex-encoded string."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9a-fA-F]{2})+$"/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_21_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="FreezePersonality" IsBound="true">
+        <Annotation Term="OData.Description" String="This action freezes a personality for the NVMe subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This action shall freeze a personality for the NVMe subsystem as defined by the 'Configurable Device Personality' feature in the NVMe Base Specification."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Parameter Name="Personality" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="The personality to freeze.  `255` indicates all personalities."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the personality to freeze as defined by the 'Personality Identifier List' figure in the NVMe Base Specification.  The value `255` shall indicate all personalities."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="255"/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_21_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="GetPersonalityNonce" IsBound="true">
+        <Annotation Term="OData.Description" String="This action obtains a nonce required to unfreeze personalities with a programmed key."/>
+        <Annotation Term="OData.LongDescription" String="This action shall obtain a nonce required to unfreeze personalities with a programmed key as defined by the 'CDP Random Nonce Data' clause in the NVMe Base Specification."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <ReturnType Type="Storage.v1_21_0.GetPersonalityNonceResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_21_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="UnfreezePersonality" IsBound="true">
+        <Annotation Term="OData.Description" String="This action unfreezes a personality for the NVMe subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This action shall unfreeze a personality for the NVMe subsystem as defined by the 'Authenticated Unfreeze Operation' clause in the NVMe Base Specification."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Parameter Name="Personality" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="The personality to freeze.  `255` indicates all personalities."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the personality to freeze as defined by the 'Personality Identifier List' figure in the NVMe Base Specification.  The value `255` shall indicate all personalities."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="255"/>
+        </Parameter>
+        <Parameter Name="AuthenticationMethod" Type="Storage.v1_21_0.NMVeUnfreezeAuthMode" Nullable="false">
+          <Annotation Term="OData.Description" String="The authentication method for the unfreeze operation."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the authentication method for the unfreeze operation as defined by the 'Authenticated Unfreeze Support' field in the NVMe Base Specification."/>
+        </Parameter>
+        <Parameter Name="Key" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The authentication key for the unfreeze operation."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the authentication key for the unfreeze operation as a hex-encoded string.  If `AuthenticationMethod` contains `ProgrammedKey`, this parameter contains a key that is derived from the original key provided in the `SetPersonalityKey` action.  If `AuthenticationMethod` contains `PhysicalId`, this parameter contains the physical secure ID (PSID) of the drive converted to a hex-encoded string."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9a-fA-F]{2})+$"/>
+        </Parameter>
+        <Parameter Name="Nonce" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The personality nonce provided by the `GetPersonalityNonce` action."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the personality nonce provided by the `GetPersonalityNonce` action.  This parameter shall be required if `AuthenticationMethod` contains `ProgrammedKey`."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9a-fA-F]{2})+$"/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_21_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="RevertPersonalitiesToDefaults" IsBound="true">
+        <Annotation Term="OData.Description" String="This action reverts all personalities to their manufacturing default state for the NVMe subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This action shall revert all personalities to their manufacturing default state for the NVMe subsystem as defined by the 'Manufacturing Default Personality' clause of the NVMe Base Specification."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_21_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -1705,8 +1811,8 @@
 
       <EntityType Name="Storage" BaseType="Storage.v1_15_2.Storage">
         <Property Name="NVMeSubsystemProperties" Type="Storage.v1_16_0.NVMeSubsystemProperties">
-          <Annotation Term="OData.Description" String="Information specific to NVMe Subsystems."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain information specific to NVMe Subsystems.  This property shall only be present if this resource represents an NVMe Subsystem."/>
+          <Annotation Term="OData.Description" String="Information specific to NVMe subsystems."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information specific to NVMe subsystems.  This property shall only be present if this resource represents an NVMe subsystem."/>
         </Property>
         <Property Name="ConfigurationLock" Type="Storage.v1_16_0.ConfigurationLock">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -1716,17 +1822,17 @@
       </EntityType>
 
       <ComplexType Name="NVMeSubsystemProperties">
-        <Annotation Term="OData.Description" String="Information specific to NVMe Subsystems."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain information specific to NVMe Subsystems."/>
+        <Annotation Term="OData.Description" String="Information specific to NVMe subsystems."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain information specific to NVMe subsystems."/>
         <Property Name="MaxNamespacesSupported" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum number of namespace attachments supported by this NVMe Subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of namespace attachments supported by this NVMe Subsystem.  If no maximum is specified, this property should not be implemented."/>
+          <Annotation Term="OData.Description" String="The maximum number of namespace attachments supported by this NVMe subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of namespace attachments supported by this NVMe subsystem.  If no maximum is specified, this property should not be implemented."/>
         </Property>
         <Property Name="SharedNamespaceControllerAttachmentSupported" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates whether the subsystem supports shared namespace controller attachment, allowing a shared namespace to be attached concurrently to two or more controllers in an NVMe Subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the subsystem supports shared namespace controller attachment, allowing a shared namespace to be attached concurrently to two or more controllers in an NVMe Subsystem."/>
+          <Annotation Term="OData.Description" String="Indicates whether the subsystem supports shared namespace controller attachment, allowing a shared namespace to be attached concurrently to two or more controllers in an NVMe subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the subsystem supports shared namespace controller attachment, allowing a shared namespace to be attached concurrently to two or more controllers in an NVMe subsystem."/>
         </Property>
       </ComplexType>
 
@@ -1862,6 +1968,8 @@
         </NavigationProperty>
       </EntityType>
 
+      <EntityType Name="StorageController" BaseType="Storage.v1_17_1.StorageController"/>
+
       <ComplexType Name="Links" BaseType="Storage.v1_15_0.Links">
         <NavigationProperty Name="BlockSecurityIDUnsupportedDrives" Type="Collection(Drive.Drive)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1884,6 +1992,7 @@
       <Annotation Term="OData.Description" String="This version was created to add the `ImportForeignDrive` action."/>
 
       <EntityType Name="Storage" BaseType="Storage.v1_18_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_18_0.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_20_0">
@@ -1896,6 +2005,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain multiple physical function-related properties for storage controllers in this storage subsystem.  This property should only be present if the storage subsystem supports the use of multiple physical functions to parallelize data transfer."/>
         </Property>
       </EntityType>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_19_0.StorageController"/>
 
       <ComplexType Name="MPF">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
@@ -1937,6 +2048,118 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Volume` that represent the volumes in this storage subsystem that are not assigned to a physical function.  This property should only be present if the storage subsystem supports the use of multiple physical functions to parallelize data transfer."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `SetPersonalityKey`, `FreezePersonality`, `GetPersonalityNonce`, `UnfreezePersonality`, and `RevertPersonalitiesToDefaults` actions."/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_20_0.Storage"/>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_20_0.StorageController"/>
+
+      <ComplexType Name="NVMeSubsystemProperties" BaseType="Storage.v1_17_0.NVMeSubsystemProperties">
+        <Property Name="ActivePersonalities" Type="Collection(Storage.v1_21_0.NVMePersonality)">
+          <Annotation Term="OData.Description" String="The active personality settings of the NVMe subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the active personality settings of the NVMe subsystem as defined by the NVMe Device Personalities log page and NVMe Configurable Device Personality feature."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="NVMePersonality">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="An active personality setting of an NVMe subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain an active personality setting of an NVMe subsystem as defined by the NVMe Device Personalities log page and NVMe Configurable Device Personality feature."/>
+        <Property Name="Identifier" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The personality identifier."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the personality identifier as defined by the 'Personality Identifier List' figure in the NVMe Base Specification."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="254"/>
+        </Property>
+        <Property Name="Default" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this personality is set to the manufacturing default values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this personality is set to the manufacturing default values as defined by the 'Personality Manufacturing Default Settings State' field in the NVMe Base Specification."/>
+        </Property>
+        <Property Name="Frozen" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this personality is frozen."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this personality is frozen as defined by the 'Personality Freeze State' field in the NVMe Base Specification."/>
+        </Property>
+        <Property Name="Pending" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this personality contains pending changes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this personality contains pending changes as defined by the 'Pending Personality Settings Change' field in the NVMe Base Specification."/>
+        </Property>
+        <Property Name="MinimumRequiredResetType" Type="Storage.v1_21_0.NMVeMinimumRequiredResetType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum reset type required to change the personality settings."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum reset type required to change the personality settings as defined by the 'Minimum Required Reset Type' field in the NVMe Base Specification."/>
+        </Property>
+        <Property Name="ChangeAffectsUserData" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether changing this personality affects user data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether changing this personality affects user data as defined by the 'Personality Settings Change User Data Effect' field in the NVMe Base Specification."/>
+        </Property>
+        <Property Name="UnfreezeAuthenticationModes" Type="Collection(Storage.v1_21_0.NMVeUnfreezeAuthMode)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The authentication modes supported to unfreeze this personality."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the authentication modes supported to unfreeze this personality as defined by the 'Authenticated Unfreeze Support' field in the NVMe Base Specification."/>
+        </Property>
+        <Property Name="Data" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The personality data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the personality data as a hex-encoded string."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9a-fA-F]{2})+$"/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="NMVeMinimumRequiredResetType">
+        <Member Name="NoReset">
+          <Annotation Term="OData.Description" String="No reset required."/>
+        </Member>
+        <Member Name="ControllerLevel">
+          <Annotation Term="OData.Description" String="A Controller Level Reset is required."/>
+        </Member>
+        <Member Name="LimitedControllerLevel">
+          <Annotation Term="OData.Description" String="A Controller Level Reset other than a Controller Level Reset initiated by a Controller Reset is required."/>
+        </Member>
+        <Member Name="NVMSubsystemReset">
+          <Annotation Term="OData.Description" String="An NVM Subsystem Reset is required."/>
+        </Member>
+        <Member Name="PowerCycle">
+          <Annotation Term="OData.Description" String="A power cycle is required."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="NMVeUnfreezeAuthMode">
+        <Member Name="ProgrammedKey">
+          <Annotation Term="OData.Description" String="Programmable Key Authentication."/>
+        </Member>
+        <Member Name="PhysicalId">
+          <Annotation Term="OData.Description" String="Physical Credential Authentication."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="NMVePersonalityKeyAlgorithm">
+        <Member Name="HMAC_SHA384">
+          <Annotation Term="OData.Description" String="HMAC-SHA-384."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="GetPersonalityNonceResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The personality nonce from a drive."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the personality nonce from a drive."/>
+        <Property Name="Nonce" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The personality nonce."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the personality nonce as a hex-encoded string as defined by the 'CDP Random Nonce Data' clause of the NVMe Base Specification."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9a-fA-F]{2})+$"/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
       </ComplexType>
     </Schema>
 

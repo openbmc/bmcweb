@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  StorageController v1.10.0                                           -->
+<!--# Redfish Schema:  StorageController v1.11.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -199,6 +199,24 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_7_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="Reset" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets this storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset this storage controller."/>
+        <Parameter Name="StorageController" Type="StorageController.v1_0_0.Actions"/>
+        <Parameter Name="ResetType" Type="Resource.ResetType">
+          <Annotation Term="OData.Description" String="The type of reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without this parameter and can complete an implementation-specific default reset."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_11_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -967,10 +985,24 @@
         <Annotation Term="OData.LongDescription" String="This type shall contain the physical function-related properties for a storage controller within a multiple physical function storage controller."/>
         <Property Name="IsSupervisor" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates whether this physical function is the supervisor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this physical function is the supervisor."/>
+          <Annotation Term="OData.Description" String="Indicates whether this physical function is the supervisor, which manages the other physical functions, manages the configuration of the controller, and controls management access."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this physical function is the supervisor, which manages the other physical functions, manages the configuration of the controller, and controls management access."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `IsSupervisor`."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_10_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Reset` action."/>
+
+      <EntityType Name="StorageController" BaseType="StorageController.v1_10_1.StorageController"/>
     </Schema>
 
   </edmx:DataServices>

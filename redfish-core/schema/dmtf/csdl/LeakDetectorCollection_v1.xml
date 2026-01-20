@@ -57,7 +57,7 @@
             <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors</String>
             <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/LeakDetection/LeakDetectors</String>
             <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/LeakDetection/LeakDetectors</String>
-            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors/</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors</String>
           </Collection>
         </Annotation>
         <Annotation Term="Redfish.DeprecatedUris">
@@ -65,7 +65,7 @@
             <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors</String>
             <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/LeakDetection/LeakDetectors</String>
             <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/LeakDetection/LeakDetectors</String>
-            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors/</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(LeakDetector.LeakDetector)">

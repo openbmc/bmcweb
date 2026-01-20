@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  TaskService v1.2.1                                                  -->
+<!--# Redfish Schema:  TaskService v1.3.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -16,6 +16,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -60,6 +63,20 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="DeleteAllCompletedTasks" IsBound="true">
+        <Annotation Term="OData.Description" String="Deletes all completed tasks."/>
+        <Annotation Term="OData.LongDescription" String="This action shall delete all `Task` resources whose `TaskState` property contains `Completed`, `Killed`, `Cancelled`, or `Exception`."/>
+        <Parameter Name="TaskService" Type="TaskService.v1_1_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_0_0">
@@ -251,6 +268,22 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_2_0.TaskService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `DeleteAllCompletedTasks` action."/>
+
+      <EntityType Name="TaskService" BaseType="TaskService.v1_2_1.TaskService">
+        <Property Name="TaskMonitorAutoExpirySeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of seconds after reading a task monitor for a completed task until the service deletes the task monitor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds after reading a task monitor for a completed task until the service deletes the task monitor.  If the task is cancelled before it completes the task monitor shall be removed at that time."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

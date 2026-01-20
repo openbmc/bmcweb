@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot v1.19.0                                                 -->
+<!--# Redfish Schema:  ServiceRoot v1.20.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1149,7 +1149,7 @@
         <Property Name="ServiceIdentification" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The vendor or user-provided product and service identifier."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a vendor-provided or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  The value of the property shall contain the value of the `ServiceIdentification` property in the `Manager` resource providing the Redfish service root resource.  The value of this property is used in conjunction with the `Product` and `Vendor` properties to match user credentials or other a priori product instance information necessary for initial deployment to the correct, matching Redfish service.  This property shall not be present if its value is an empty string or `null`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a vendor-provided or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  The value of the property shall contain the value of the `ServiceIdentification` property in the `Manager` resource providing the Redfish service root resource.  The value of this property is used in conjunction with the `Product` and `Vendor` properties to match user credentials or other a priori product instance information necessary for initial deployment to the correct, matching Redfish service.  This property shall not be present if the value of the `ServiceIdentification` property in the `Manager` resource providing the Redfish service root resource is an empty string or `null`."/>
         </Property>
       </EntityType>
 
@@ -1304,6 +1304,19 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `AutomationNodeCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_20_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_19_0.ServiceRoot">
+        <Property Name="ServiceUseNotification" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The usage notification message for this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the usage notification message for this service.  The value of the property shall contain the value of the `ServiceUseNotification` property in the `Manager` resource providing the Redfish service root resource.  This property shall not be present if the value of the `ServiceUseNotification` property in the `Manager` resource providing the Redfish service root resource is an empty string or `null`."/>
+        </Property>
       </EntityType>
     </Schema>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LeakDetector v1.5.0                                                 -->
+<!--# Redfish Schema:  LeakDetector v1.6.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -22,7 +22,6 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
-    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -31,11 +30,8 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PhysicalContext_v1.xml">
     <edmx:Include Namespace="PhysicalContext"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
-    <edmx:Include Namespace="Control"/>
-  </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Redundancy_v1.xml">
-    <edmx:Include Namespace="Redundancy"/>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -341,6 +337,24 @@
       <Annotation Term="OData.Description" String="This version was created to add `Unavailable` and `Absent` values to `DetectorState`.  It was also created to clarify the behavior of `DetectorState` when a fault condition occurs with a detector or when the `Enabled` property is set to `false`."/>
 
       <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_4_0.LeakDetector"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_5_0.LeakDetector">
+        <NavigationProperty Name="Voltage" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The voltage (V) measurement for this leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the measured voltage, in volt units, for this leak detector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="CurrentAmps" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The current (A) measurement for this leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the measured current, in ampere units, for this leak detector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`."/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
