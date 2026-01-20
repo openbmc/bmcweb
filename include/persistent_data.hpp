@@ -232,7 +232,7 @@ class ConfigFile
                                 .get_ptr<const nlohmann::json::array_t*>();
                         if (subarr == nullptr)
                         {
-                            BMCWEB_LOG_ERROR"Problem reading Subscriptions");
+                            BMCWEB_LOG_ERROR("Problem reading Subscriptions");
                             continue;
                         }
                         for (const auto& elem : *subarr)
