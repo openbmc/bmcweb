@@ -946,7 +946,7 @@ inline void handleAuthMethodsPatch(
     // Save configuration immediately
     persistent_data::getConfig().writeData();
 
-    messages::success(asyncResp->res);
+    asyncResp->res.result(boost::beast::http::status::no_content);
 }
 
 /**
