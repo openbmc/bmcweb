@@ -65,6 +65,26 @@ enum class VolumeAssignmentPolicy{
     WeightedRoundRobin,
 };
 
+enum class NMVeMinimumRequiredResetType{
+    Invalid,
+    NoReset,
+    ControllerLevel,
+    LimitedControllerLevel,
+    NVMSubsystemReset,
+    PowerCycle,
+};
+
+enum class NMVeUnfreezeAuthMode{
+    Invalid,
+    ProgrammedKey,
+    PhysicalId,
+};
+
+enum class NMVePersonalityKeyAlgorithm{
+    Invalid,
+    HMAC_SHA384,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::Invalid, "Invalid"},
     {ResetToDefaultsType::ResetAll, "ResetAll"},
@@ -121,6 +141,26 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VolumeAssignmentPolicy, {
     {VolumeAssignmentPolicy::Unassigned, "Unassigned"},
     {VolumeAssignmentPolicy::Supervisor, "Supervisor"},
     {VolumeAssignmentPolicy::WeightedRoundRobin, "WeightedRoundRobin"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(NMVeMinimumRequiredResetType, {
+    {NMVeMinimumRequiredResetType::Invalid, "Invalid"},
+    {NMVeMinimumRequiredResetType::NoReset, "NoReset"},
+    {NMVeMinimumRequiredResetType::ControllerLevel, "ControllerLevel"},
+    {NMVeMinimumRequiredResetType::LimitedControllerLevel, "LimitedControllerLevel"},
+    {NMVeMinimumRequiredResetType::NVMSubsystemReset, "NVMSubsystemReset"},
+    {NMVeMinimumRequiredResetType::PowerCycle, "PowerCycle"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(NMVeUnfreezeAuthMode, {
+    {NMVeUnfreezeAuthMode::Invalid, "Invalid"},
+    {NMVeUnfreezeAuthMode::ProgrammedKey, "ProgrammedKey"},
+    {NMVeUnfreezeAuthMode::PhysicalId, "PhysicalId"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(NMVePersonalityKeyAlgorithm, {
+    {NMVePersonalityKeyAlgorithm::Invalid, "Invalid"},
+    {NMVePersonalityKeyAlgorithm::HMAC_SHA384, "HMAC_SHA384"},
 });
 
 // clang-format on

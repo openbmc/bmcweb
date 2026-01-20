@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Event v1.12.0                                                       -->
+<!--# Redfish Schema:  Event v1.13.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -42,7 +42,7 @@
       <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Event" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The `Event` schema describes the JSON payload received by an event destination, which has subscribed to event notification, when events occur.  This resource contains data about events, including descriptions, severity, and a message identifier to a message registry that can be accessed for further information."/>
+        <Annotation Term="OData.Description" String="The `Event` schema describes the JSON payload received by an event destination, which has subscribed to event notification, when events occur.  This resource contains data about events, including descriptions, severity, and a `MessageId` reference to a message registry that can be accessed for further information.  For standard message definitions, see DSP2065."/>
         <Annotation Term="OData.LongDescription" String="This resource contains an event for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -1036,6 +1036,23 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether the `OriginOfCondition` link is unavailable, such as due to the deletion of the resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the `OriginOfCondition` link is unavailable.  If `true`, services shall not expand the `OriginOfCondition` link.  If this property is not present, the value shall be assumed to be `false`."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema description and add a reference to DSP2065."/>
+
+      <EntityType Name="Event" BaseType="Event.v1_12_0.Event"/>
+
+      <EntityType Name="EventRecord" BaseType="Event.v1_12_0.EventRecord">
+        <Property Name="OriginAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The IP address, with scheme, of the user associated with the log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IP address, with scheme, of the user associated with the log entry.  This should be used for audit logs that result from a user action."/>
+          <Annotation Term="Validation.Pattern" String="^.+:\/\/.+$"/>
         </Property>
       </EntityType>
     </Schema>

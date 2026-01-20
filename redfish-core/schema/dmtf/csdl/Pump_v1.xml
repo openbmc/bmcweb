@@ -17,9 +17,6 @@
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
-    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
-  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
@@ -27,23 +24,14 @@
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
-    <edmx:Include Namespace="Chassis"/>
-  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PhysicalContext_v1.xml">
     <edmx:Include Namespace="PhysicalContext"/>
-  </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Redundancy_v1.xml">
-    <edmx:Include Namespace="Redundancy"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
     <edmx:Include Namespace="Sensor"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Assembly_v1.xml">
     <edmx:Include Namespace="Assembly"/>
-  </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CoolingLoop_v1.xml">
-    <edmx:Include Namespace="CoolingLoop"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/FilterCollection_v1.xml">
     <edmx:Include Namespace="FilterCollection"/>

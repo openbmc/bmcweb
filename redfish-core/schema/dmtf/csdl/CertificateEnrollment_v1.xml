@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CertificateEnrollment v1.0.0                                        -->
+<!--# Redfish Schema:  CertificateEnrollment v1.0.1                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -238,8 +238,8 @@
         <Annotation Term="OData.LongDescription" String="This type shall contain the parameters for generating a certificate signing request."/>
         <Property Name="CommonName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The fully qualified domain name of the component to secure."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the fully qualified domain name of the component to secure, as defined by the RFC5280 'commonName' attribute."/>
+          <Annotation Term="OData.Description" String="The name of the component to secure."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the of the component to secure, as defined by the RFC5280 'commonName' attribute."/>
         </Property>
         <Property Name="AlternativeNames" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -367,6 +367,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateEnrollment.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of the `CommonName` property to allow for more general usage."/>
+      <EntityType Name="CertificateEnrollment" BaseType="CertificateEnrollment.v1_0_0.CertificateEnrollment"/>
     </Schema>
 
   </edmx:DataServices>

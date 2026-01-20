@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.23.0                                                     -->
+<!--# Redfish Schema:  Manager v1.24.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -2038,6 +2038,19 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the manager is prepared by the system for removal."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the manager is ready for removal.  Setting the value to `true` shall cause the service to perform appropriate actions to quiesce the device.  A task may spawn while the device is quiescing."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_24_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_23_0.Manager">
+        <Property Name="ServiceUseNotification" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The usage notification message displayed in the Redfish service root."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the usage notification message for this manager.  If this manager provides the Redfish service, the `ServiceUseNotification` property in the `ServiceRoot` resource shall contain the value of this property.  This property shall only be present if the manager provides the Redfish service."/>
         </Property>
       </EntityType>
     </Schema>

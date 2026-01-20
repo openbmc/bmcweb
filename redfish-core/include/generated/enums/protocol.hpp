@@ -51,6 +51,7 @@ enum class Protocol{
     QPI,
     eMMC,
     UET,
+    UALink,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
@@ -97,6 +98,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
     {Protocol::QPI, "QPI"},
     {Protocol::eMMC, "eMMC"},
     {Protocol::UET, "UET"},
+    {Protocol::UALink, "UALink"},
 });
 
 // clang-format on

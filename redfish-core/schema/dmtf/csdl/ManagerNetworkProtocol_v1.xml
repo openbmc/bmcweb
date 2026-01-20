@@ -28,9 +28,6 @@
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/IPAddresses_v1.xml">
-    <edmx:Include Namespace="IPAddresses"/>
-  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
   </edmx:Reference>
