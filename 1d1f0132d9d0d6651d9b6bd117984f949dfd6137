@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9db5fa3a_1d3c0640",
+        "filename": "meson.options",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-20T16:20:26Z",
+      "side": 1,
+      "message": "I think based on discord discussion something like\n\n\"It, as well as the code still beneath it will be removed on June 2026.\"\n\nwould be preferred.\n\nDisabling this can be a separate discussion / commit.\nThe wording I am using here is based on\nhttps://github.com/openbmc/bmcweb/blob/master/meson.options#L481",
+      "range": {
+        "startLine": 325,
+        "startChar": 30,
+        "endLine": 326,
+        "endChar": 30
+      },
+      "revId": "1d1f0132d9d0d6651d9b6bd117984f949dfd6137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
