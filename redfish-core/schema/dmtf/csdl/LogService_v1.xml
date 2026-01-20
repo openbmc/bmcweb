@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogService v1.8.1                                                   -->
+<!--# Redfish Schema:  LogService v1.9.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -201,6 +201,21 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_6_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="DownloadRawLog" IsBound="true">
+        <Annotation Term="OData.Description" String="The action to download a raw log for this log service."/>
+        <Annotation Term="OData.LongDescription" String="This action shall download a raw log for this log service."/>
+        <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
+        <ReturnType Type="LogService.v1_9_0.DownloadRawLogResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_9_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -862,6 +877,27 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify when to provide the `Location` response header for the `CollectDiagnosticData` action."/>
       <EntityType Name="LogService" BaseType="LogService.v1_8_0.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `DownloadRawLog` action."/>
+
+      <EntityType Name="LogService" BaseType="LogService.v1_8_1.LogService"/>
+
+      <ComplexType Name="DownloadRawLogResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response for the `DownloadRawLog` action."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the response for the `DownloadRawLog` action."/>
+        <Property Name="DownloadURI" Type="Edm.String"  Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI from which to download the raw log file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI from which to download the raw log file.  The value of this property should not contain a URI of a Redfish resource. See the 'Redfish-defined URIs and relative reference rules' clause in the Redfish Specification."/>
+          <Annotation Term="OData.IsURL"/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

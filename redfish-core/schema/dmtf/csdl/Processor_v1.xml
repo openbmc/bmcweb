@@ -2515,5 +2515,30 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_22_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_21_0.Processor">
+        <Property Name="UALink" Type="Processor.v1_22_0.UALink" Nullable="false">
+          <Annotation Term="OData.Description" String="The UALink properties of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain UALink attributes of the processor."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="UALink">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The UALink attributes of a processor."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain information about UALink fabric and port management within the processor."/>
+        <Property Name="AcceleratorID" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The UALink Accelerator ID of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that is unique within a UALink Pod and that serves as the Source and Destination Accelerator ID on the UALink network."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="1023"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>
