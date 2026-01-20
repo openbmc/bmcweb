@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.11.1                                                      -->
+<!--# Redfish Schema:  Sensor v1.12.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1550,6 +1550,24 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_11_0.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_11_1.Sensor">
+        <Property Name="PeakIntervalReading" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The peak sensor value over a time interval."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the peak sensor value over the time specified by the value of the `AveragingInterval` property.  The value shall be reset by the `ResetMetrics` action or by a service reset of time-based property values."/>
+        </Property>
+        <Property Name="LowestIntervalReading" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lowest sensor value over a time interval."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lowest sensor value over the time specified by the value of the `AveragingInterval` property.  The value shall be reset by the `ResetMetrics` action or by a service reset of time-based property values."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

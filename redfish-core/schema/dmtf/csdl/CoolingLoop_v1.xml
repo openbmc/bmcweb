@@ -40,9 +40,6 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
     <edmx:Include Namespace="Sensor"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
-    <edmx:Include Namespace="Control"/>
-  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection_v1.xml">
     <edmx:Include Namespace="CoolantConnectorCollection"/>
   </edmx:Reference>
