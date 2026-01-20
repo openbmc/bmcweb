@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.20.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.21.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1292,6 +1292,21 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The total number of of read requests dropped due to non-posted credit exhaustion."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the total number of of read requests dropped due to non-posted credit exhaustion."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_20_0.PCIeDevice"/>
+
+      <ComplexType Name="PCIeErrors" BaseType="PCIeDevice.v1_15_0.PCIeErrors">
+        <Property Name="FlowControlTimeoutErrors" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Flow Control Credit timeouts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Flow Control Credit timeouts, indicating a link-level problem that typically triggers link recovery."/>
         </Property>
       </ComplexType>
     </Schema>

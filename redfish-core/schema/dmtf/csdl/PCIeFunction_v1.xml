@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeFunction v1.6.0                                                 -->
+<!--# Redfish Schema:  PCIeFunction v1.7.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -573,14 +573,33 @@
         <Property Name="DeviceNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The device number of this PCIe function."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe device number of the PCIe device function.  This property shall not be present if the PCIe device function is fabric-attached or is shared with multiple systems."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe device number of the PCIe device function.  If `ARIModeEnabled` contains `true`, this property shall contain the value of the `ARIFunctionNumber` property shifted right three bits.  This property shall not be present if the PCIe device function is fabric-attached or is shared with multiple systems."/>
           <Annotation Term="Validation.Pattern" String="^0[xX][0-1][0-9a-fA-F]{1}$"/>
         </Property>
         <Property Name="FunctionNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The function number of this PCIe function."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe function number of the PCIe device function.  This property shall not be present if the PCIe device function is fabric-attached or is shared with multiple systems."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe function number of the PCIe device function.  If `ARIModeEnabled` contains `true`, this property shall contain the lower three bits of the value of the `ARIFunctionNumber` property.  This property shall not be present if the PCIe device function is fabric-attached or is shared with multiple systems."/>
           <Annotation Term="Validation.Pattern" String="^0[xX][0-7]$"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+
+      <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_6_0.PCIeFunction">
+        <Property Name="ARIModeEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether PCIe ARI (Alternative Routing-ID Interpretation) is enabled for this PCIe function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether PCIe ARI (Alternative Routing-ID Interpretation) is enabled for this PCIe function.  This property shall not be present if the PCIe device function is fabric-attached or is shared with multiple systems."/>
+        </Property>
+        <Property Name="ARIFunctionNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The ARI (Alternative Routing-ID Interpretation) function number of this PCIe function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe ARI (Alternative Routing-ID Interpretation) function number of the PCIe device function.  This property shall not be present if `ARIModeEnabled` contains `false` or is not supported.  This property shall not be present if the PCIe device function is fabric-attached or is shared with multiple systems."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX][0-9a-fA-F]{2}$"/>
         </Property>
       </EntityType>
     </Schema>

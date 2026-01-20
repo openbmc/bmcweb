@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LeakDetection v1.1.0                                                -->
+<!--# Redfish Schema:  LeakDetection v1.2.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -92,7 +92,7 @@
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
-                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
                 <PropertyValue Property="Description" String="This property has been deprecated in favor of the `LeakDetectors` property in the related `Chassis` resource."/>
               </Record>
             </Collection>
@@ -150,7 +150,6 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetection.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate the `LeakDetectors` property in favor of placing leak detectors under the related `Chassis` resource."/>
 
       <EntityType Name="LeakDetection" BaseType="LeakDetection.v1_0_1.LeakDetection"/>
 
@@ -161,6 +160,14 @@
           <Annotation Term="Redfish.Required"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetection.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `LeakDetectors` property in favor of placing leak detectors under the related `Chassis` resource."/>
+
+      <EntityType Name="LeakDetection" BaseType="LeakDetection.v1_1_0.LeakDetection"/>
     </Schema>
 
   </edmx:DataServices>
