@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55b16a6e_ebc15d3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-21T14:51:15Z",
+      "side": 1,
+      "message": "We should do some doc clean up first :/ \n\nhttps://github.com/openbmc/docs/blob/f4b579092747a8053d1a3a9d3347bda50634129f/REST-cheatsheet.md?plain\u003d1#L49\n\nhttps://github.com/openbmc/docs/blob/f4b579092747a8053d1a3a9d3347bda50634129f/REST-cheatsheet.md?plain\u003d1#L49\n\nhttps://github.com/openbmc/docs/blob/f4b579092747a8053d1a3a9d3347bda50634129f/REDFISH-cheatsheet.md?plain\u003d1#L39\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/6d2ab689e2482f8cd22455e0c0cbb7534f71f881/yaml/xyz/openbmc_project/Logging/README.md?plain\u003d1#L75",
+      "revId": "234be2fd50852b3ea81468733d3a1de29268616a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
