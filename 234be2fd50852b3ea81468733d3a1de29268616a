@@ -16,6 +16,24 @@
       "message": "We should do some doc clean up first :/ \n\nhttps://github.com/openbmc/docs/blob/f4b579092747a8053d1a3a9d3347bda50634129f/REST-cheatsheet.md?plain\u003d1#L49\n\nhttps://github.com/openbmc/docs/blob/f4b579092747a8053d1a3a9d3347bda50634129f/REST-cheatsheet.md?plain\u003d1#L49\n\nhttps://github.com/openbmc/docs/blob/f4b579092747a8053d1a3a9d3347bda50634129f/REDFISH-cheatsheet.md?plain\u003d1#L39\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/6d2ab689e2482f8cd22455e0c0cbb7534f71f881/yaml/xyz/openbmc_project/Logging/README.md?plain\u003d1#L75",
       "revId": "234be2fd50852b3ea81468733d3a1de29268616a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a556d133_c62f900c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-21T18:16:11Z",
+      "side": 1,
+      "message": "You linked the first blob twice (Rest-cheatsheet line 49).  That one is still supported by this change.  Looking there there was one example that was wrong, so it is corrected in https://gerrit.openbmc.org/c/openbmc/docs/+/86835\n\nThe Redfish cheatsheet on line 39 is also still supported.\n\nI\u0027ve proposed just removing PDI entirely:\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/86836\n\n\nLets see how these patches shake out.",
+      "parentUuid": "55b16a6e_ebc15d3b",
+      "revId": "234be2fd50852b3ea81468733d3a1de29268616a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
