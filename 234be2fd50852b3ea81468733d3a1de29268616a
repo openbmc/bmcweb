@@ -34,6 +34,24 @@
       "parentUuid": "55b16a6e_ebc15d3b",
       "revId": "234be2fd50852b3ea81468733d3a1de29268616a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92c895d4_737687be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-21T19:57:03Z",
+      "side": 1,
+      "message": "Pretty sure this can be closed out.  Both of the aformentioned reviews have bee +2ed.",
+      "parentUuid": "a556d133_c62f900c",
+      "revId": "234be2fd50852b3ea81468733d3a1de29268616a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
