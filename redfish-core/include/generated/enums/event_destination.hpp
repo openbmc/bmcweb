@@ -209,5 +209,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SyslogFacility, {
     {SyslogFacility::Local7, "Local7"},
 });
 
-}
 // clang-format on
+}

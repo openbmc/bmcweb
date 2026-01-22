@@ -141,5 +141,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BasicAuthState, {
     {BasicAuthState::Disabled, "Disabled"},
 });
 
-}
 // clang-format on
+}

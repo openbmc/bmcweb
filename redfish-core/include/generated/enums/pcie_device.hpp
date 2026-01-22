@@ -133,5 +133,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLProtocolVersion, {
     {CXLProtocolVersion::CXL3_2, "CXL3_2"},
 });
 
-}
 // clang-format on
+}

@@ -93,5 +93,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ContainerEngineTypes, {
     {ContainerEngineTypes::CRIO, "CRIO"},
 });
 
-}
 // clang-format on
+}

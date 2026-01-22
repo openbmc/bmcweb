@@ -95,5 +95,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFSecureHashType, {
     {NVMeoFSecureHashType::SHA512, "SHA512"},
 });
 
-}
 // clang-format on
+}

@@ -201,5 +201,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConfigLockOptions, {
     {ConfigLockOptions::CommandUnsupported, "CommandUnsupported"},
 });
 
-}
 // clang-format on
+}

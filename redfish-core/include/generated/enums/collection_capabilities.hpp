@@ -27,5 +27,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UseCase, {
     {UseCase::RegisterResourceBlock, "RegisterResourceBlock"},
 });
 
-}
 // clang-format on
+}

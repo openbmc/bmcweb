@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TaskState, {
     {TaskState::Cancelled, "Cancelled"},
 });
 
-}
 // clang-format on
+}

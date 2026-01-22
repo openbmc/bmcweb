@@ -69,5 +69,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
     {VoltageType::DC, "DC"},
 });
 
-}
 // clang-format on
+}

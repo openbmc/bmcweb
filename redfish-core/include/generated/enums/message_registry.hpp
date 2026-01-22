@@ -29,5 +29,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ClearingType, {
     {ClearingType::SameOriginOfCondition, "SameOriginOfCondition"},
 });
 
-}
 // clang-format on
+}

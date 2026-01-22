@@ -85,5 +85,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FunctionProtocol, {
     {FunctionProtocol::CXL, "CXL"},
 });
 
-}
 // clang-format on
+}

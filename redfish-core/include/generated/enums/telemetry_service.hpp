@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CollectionFunction, {
     {CollectionFunction::Summation, "Summation"},
 });
 
-}
 // clang-format on
+}

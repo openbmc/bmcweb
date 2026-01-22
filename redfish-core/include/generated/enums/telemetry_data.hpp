@@ -17,5 +17,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TelemetryDataTypes, {
     {TelemetryDataTypes::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

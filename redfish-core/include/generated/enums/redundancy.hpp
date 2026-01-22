@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RedundancyType, {
     {RedundancyType::NotRedundant, "NotRedundant"},
 });
 
-}
 // clang-format on
+}

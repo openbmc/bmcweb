@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ValidationPolicy, {
     {ValidationPolicy::Bypass, "Bypass"},
 });
 
-}
 // clang-format on
+}

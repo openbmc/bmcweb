@@ -123,5 +123,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VolumeAssignmentPolicy, {
     {VolumeAssignmentPolicy::WeightedRoundRobin, "WeightedRoundRobin"},
 });
 
-}
 // clang-format on
+}

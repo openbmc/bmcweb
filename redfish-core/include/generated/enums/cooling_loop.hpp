@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolingLoopType, {
     {CoolingLoopType::RowTCS, "RowTCS"},
 });
 
-}
 // clang-format on
+}

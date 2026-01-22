@@ -315,5 +315,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLEntryType, {
     {CXLEntryType::Fatal, "Fatal"},
 });
 
-}
 // clang-format on
+}

@@ -47,5 +47,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LicenseOrigin, {
     {LicenseOrigin::Installed, "Installed"},
 });
 
-}
 // clang-format on
+}

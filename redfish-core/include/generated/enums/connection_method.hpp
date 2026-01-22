@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TunnelingProtocolType, {
     {TunnelingProtocolType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

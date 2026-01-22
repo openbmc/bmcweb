@@ -295,5 +295,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LBARelativePerformanceType, {
     {LBARelativePerformanceType::Degraded, "Degraded"},
 });
 
-}
 // clang-format on
+}

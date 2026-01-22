@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TrustedComponentType, {
     {TrustedComponentType::Integrated, "Integrated"},
 });
 
-}
 // clang-format on
+}

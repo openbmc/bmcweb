@@ -49,5 +49,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DiagnosticDataTypes, {
     {DiagnosticDataTypes::CPERSection, "CPERSection"},
 });
 
-}
 // clang-format on
+}

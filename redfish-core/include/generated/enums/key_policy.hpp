@@ -87,5 +87,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFDHGroupType, {
     {NVMeoFDHGroupType::FFDHE8192, "FFDHE8192"},
 });
 
-}
 // clang-format on
+}

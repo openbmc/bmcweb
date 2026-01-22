@@ -201,5 +201,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AutoClearResolvedEntries, {
     {AutoClearResolvedEntries::None, "None"},
 });
 
-}
 // clang-format on
+}

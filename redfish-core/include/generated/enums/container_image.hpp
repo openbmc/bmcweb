@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ImageTypes, {
     {ImageTypes::OCI, "OCI"},
 });
 
-}
 // clang-format on
+}

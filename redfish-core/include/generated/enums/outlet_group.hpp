@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OutletGroupType, {
     {OutletGroupType::UserDefined, "UserDefined"},
 });
 
-}
 // clang-format on
+}

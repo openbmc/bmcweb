@@ -57,5 +57,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(JobType, {
     {JobType::ServiceGenerated, "ServiceGenerated"},
 });
 
-}
 // clang-format on
+}

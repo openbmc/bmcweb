@@ -49,5 +49,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccessState, {
     {AccessState::Transitioning, "Transitioning"},
 });
 
-}
 // clang-format on
+}

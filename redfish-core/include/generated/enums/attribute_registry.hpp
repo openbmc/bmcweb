@@ -139,5 +139,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MapToProperty, {
     {MapToProperty::ValueExpression, "ValueExpression"},
 });
 
-}
 // clang-format on
+}

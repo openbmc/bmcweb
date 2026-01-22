@@ -47,5 +47,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EnergyStorageType, {
     {EnergyStorageType::Supercapacitor, "Supercapacitor"},
 });
 
-}
 // clang-format on
+}

@@ -127,5 +127,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecurityModeTypes, {
     {SecurityModeTypes::Default, "Default"},
 });
 
-}
 // clang-format on
+}

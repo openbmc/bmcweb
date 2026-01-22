@@ -91,5 +91,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {
     {ImplementationType::Monitored, "Monitored"},
 });
 
-}
 // clang-format on
+}

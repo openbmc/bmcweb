@@ -269,5 +269,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConditionType, {
     {ConditionType::Subsystem, "Subsystem"},
 });
 
-}
 // clang-format on
+}

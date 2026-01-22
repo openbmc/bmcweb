@@ -83,5 +83,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(InputType, {
     {InputType::DC, "DC"},
 });
 
-}
 // clang-format on
+}

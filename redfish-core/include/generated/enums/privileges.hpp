@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PrivilegeType, {
     {PrivilegeType::OperateStorageBackup, "OperateStorageBackup"},
 });
 
-}
 // clang-format on
+}

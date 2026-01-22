@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetKeysType, {
     {ResetKeysType::DeleteAllKeys, "DeleteAllKeys"},
 });
 
-}
 // clang-format on
+}

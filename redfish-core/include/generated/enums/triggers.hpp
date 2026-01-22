@@ -87,5 +87,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TriggerActionMessage, {
     {TriggerActionMessage::ConnectionSpeed, "ConnectionSpeed"},
 });
 
-}
 // clang-format on
+}

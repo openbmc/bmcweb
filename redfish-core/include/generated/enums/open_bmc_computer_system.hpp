@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FirmwareProvisioningStatus, {
     {FirmwareProvisioningStatus::ProvisionedAndLocked, "ProvisionedAndLocked"},
 });
 
-}
 // clang-format on
+}

@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataType, {
     {DataType::String, "String"},
 });
 
-}
 // clang-format on
+}

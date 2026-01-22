@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(GroupType, {
     {GroupType::Target, "Target"},
 });
 
-}
 // clang-format on
+}

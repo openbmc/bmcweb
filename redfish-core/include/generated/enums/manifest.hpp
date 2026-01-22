@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(StanzaType, {
     {StanzaType::RegisterResourceBlock, "RegisterResourceBlock"},
 });
 
-}
 // clang-format on
+}

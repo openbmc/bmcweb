@@ -51,5 +51,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ValveStateReason, {
     {ValveStateReason::LeakDetected, "LeakDetected"},
 });
 
-}
 // clang-format on
+}

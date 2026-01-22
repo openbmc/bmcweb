@@ -65,5 +65,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PoolType, {
     {PoolType::Unassigned, "Unassigned"},
 });
 
-}
 // clang-format on
+}

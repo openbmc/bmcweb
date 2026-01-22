@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SlotTypes, {
     {SlotTypes::U2, "U2"},
 });
 
-}
 // clang-format on
+}

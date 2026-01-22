@@ -47,5 +47,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperationalState, {
     {OperationalState::Offline, "Offline"},
 });
 
-}
 // clang-format on
+}

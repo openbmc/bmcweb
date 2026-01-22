@@ -219,5 +219,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperatingMemoryModes, {
     {OperatingMemoryModes::Block, "Block"},
 });
 
-}
 // clang-format on
+}

@@ -51,5 +51,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReactionType, {
     {ReactionType::GracefulShutdown, "GracefulShutdown"},
 });
 
-}
 // clang-format on
+}

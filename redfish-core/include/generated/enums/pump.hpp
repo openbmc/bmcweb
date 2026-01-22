@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PumpMode, {
     {PumpMode::Disabled, "Disabled"},
 });
 
-}
 // clang-format on
+}

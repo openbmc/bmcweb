@@ -99,5 +99,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
     {Protocol::UET, "UET"},
 });
 
-}
 // clang-format on
+}

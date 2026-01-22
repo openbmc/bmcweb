@@ -71,5 +71,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AddressState, {
     {AddressState::Failed, "Failed"},
 });
 
-}
 // clang-format on
+}

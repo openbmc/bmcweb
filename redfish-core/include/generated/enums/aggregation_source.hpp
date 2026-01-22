@@ -73,5 +73,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UserAuthenticationMethod, {
     {UserAuthenticationMethod::Password, "Password"},
 });
 
-}
 // clang-format on
+}

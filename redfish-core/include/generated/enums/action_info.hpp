@@ -29,5 +29,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ParameterTypes, {
     {ParameterTypes::ObjectArray, "ObjectArray"},
 });
 
-}
 // clang-format on
+}

@@ -25,5 +25,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(vPPBStatusTypes, {
     {vPPBStatusTypes::BoundPID, "BoundPID"},
 });
 
-}
 // clang-format on
+}

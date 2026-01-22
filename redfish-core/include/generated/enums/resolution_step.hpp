@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResolutionType, {
     {ResolutionType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

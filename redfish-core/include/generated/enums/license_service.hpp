@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::NFS, "NFS"},
 });
 
-}
 // clang-format on
+}

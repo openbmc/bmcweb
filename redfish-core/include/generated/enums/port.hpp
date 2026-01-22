@@ -345,5 +345,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(HostDeviceType, {
     {HostDeviceType::Manager, "Manager"},
 });
 
-}
 // clang-format on
+}

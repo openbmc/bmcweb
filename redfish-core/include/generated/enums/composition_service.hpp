@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ComposeRequestFormat, {
     {ComposeRequestFormat::Manifest, "Manifest"},
 });
 
-}
 // clang-format on
+}

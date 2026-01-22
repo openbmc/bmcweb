@@ -95,5 +95,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EjectPolicy, {
     {EjectPolicy::Persistent, "Persistent"},
 });
 
-}
 // clang-format on
+}

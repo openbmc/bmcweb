@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccelerationFunctionType, {
     {AccelerationFunctionType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

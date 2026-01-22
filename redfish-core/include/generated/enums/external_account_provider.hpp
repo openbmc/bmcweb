@@ -73,5 +73,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OAuth2Mode, {
     {OAuth2Mode::Offline, "Offline"},
 });
 
-}
 // clang-format on
+}

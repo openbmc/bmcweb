@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ANAAccessState, {
     {ANAAccessState::PersistentLoss, "PersistentLoss"},
 });
 
-}
 // clang-format on
+}

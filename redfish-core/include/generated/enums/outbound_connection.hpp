@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationType, {
     {AuthenticationType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

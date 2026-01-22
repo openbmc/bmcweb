@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LineStatus, {
     {LineStatus::OutOfRange, "OutOfRange"},
 });
 
-}
 // clang-format on
+}

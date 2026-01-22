@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FacilityType, {
     {FacilityType::Site, "Site"},
 });
 
-}
 // clang-format on
+}

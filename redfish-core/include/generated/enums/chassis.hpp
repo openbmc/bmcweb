@@ -181,5 +181,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RackMountWidth, {
     {RackMountWidth::HalfWidth, "HalfWidth"},
 });
 
-}
 // clang-format on
+}

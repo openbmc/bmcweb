@@ -17,5 +17,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SignatureTypeRegistry, {
     {SignatureTypeRegistry::UEFI, "UEFI"},
 });
 
-}
 // clang-format on
+}

@@ -75,5 +75,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SupportedUpdateImageFormatType, {
     {SupportedUpdateImageFormatType::VendorDefined, "VendorDefined"},
 });
 
-}
 // clang-format on
+}

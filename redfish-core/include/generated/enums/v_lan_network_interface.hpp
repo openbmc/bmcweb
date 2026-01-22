@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VLANPriority, {
     {VLANPriority::Invalid, "Invalid"},
 });
 
-}
 // clang-format on
+}

@@ -91,5 +91,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(KeyUsage, {
     {KeyUsage::OCSPSigning, "OCSPSigning"},
 });
 
-}
 // clang-format on
+}

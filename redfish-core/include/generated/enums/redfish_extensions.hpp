@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RevisionKind, {
     {RevisionKind::Deprecated, "Deprecated"},
 });
 
-}
 // clang-format on
+}

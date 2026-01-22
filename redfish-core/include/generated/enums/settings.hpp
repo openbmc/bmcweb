@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::InMaintenanceWindowOnReset, "InMaintenanceWindowOnReset"},
 });
 
-}
 // clang-format on
+}

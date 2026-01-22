@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingUnits, {
     {ReadingUnits::Percent, "Percent"},
 });
 
-}
 // clang-format on
+}

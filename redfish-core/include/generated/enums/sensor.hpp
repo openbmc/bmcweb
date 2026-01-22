@@ -175,5 +175,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingBasisType, {
     {ReadingBasisType::Headroom, "Headroom"},
 });
 
-}
 // clang-format on
+}

@@ -103,5 +103,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CableStatus, {
     {CableStatus::SetByService, "SetByService"},
 });
 
-}
 // clang-format on
+}

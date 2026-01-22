@@ -95,5 +95,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecureSessionType, {
     {SecureSessionType::AuthenticatedOnly, "AuthenticatedOnly"},
 });
 
-}
 // clang-format on
+}

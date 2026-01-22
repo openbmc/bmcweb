@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataDirection, {
     {DataDirection::Egress, "Egress"},
 });
 
-}
 // clang-format on
+}

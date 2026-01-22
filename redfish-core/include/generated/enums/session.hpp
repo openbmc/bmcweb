@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SessionTypes, {
     {SessionTypes::OutboundConnection, "OutboundConnection"},
 });
 
-}
 // clang-format on
+}

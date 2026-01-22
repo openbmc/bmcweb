@@ -61,5 +61,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ACMEChallengeType, {
     {ACMEChallengeType::Dns01, "Dns01"},
 });
 
-}
 // clang-format on
+}

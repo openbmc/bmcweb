@@ -65,5 +65,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EntityRole, {
     {EntityRole::Both, "Both"},
 });
 
-}
 // clang-format on
+}

@@ -111,5 +111,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RoutingScope, {
     {RoutingScope::Limited, "Limited"},
 });
 
-}
 // clang-format on
+}

@@ -35,5 +35,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReleaseType, {
     {ReleaseType::Other, "Other"},
 });
 
-}
 // clang-format on
+}

@@ -93,5 +93,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CalculationAlgorithmEnum, {
     {CalculationAlgorithmEnum::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

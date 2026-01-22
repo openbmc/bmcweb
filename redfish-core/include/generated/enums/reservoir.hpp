@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReservoirType, {
     {ReservoirType::Immersion, "Immersion"},
 });
 
-}
 // clang-format on
+}

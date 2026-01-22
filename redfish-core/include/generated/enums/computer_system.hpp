@@ -469,5 +469,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
     {ExportSecurity::ExcludeSensitiveData, "ExcludeSensitiveData"},
 });
 
-}
 // clang-format on
+}

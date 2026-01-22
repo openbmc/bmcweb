@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RegionType, {
     {RegionType::Dynamic, "Dynamic"},
 });
 
-}
 // clang-format on
+}
