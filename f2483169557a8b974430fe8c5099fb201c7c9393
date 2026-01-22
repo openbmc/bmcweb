@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8ffca43_8a2da0ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-22T22:04:14Z",
+      "side": 1,
+      "message": "This is a 500+ line change.. Ideally a bit more here.\n\nE.g. \n\n\"Uses xyz.openbmc_project.Software.MultipartUpdate and start updates against multiple services instead of just 1\"\n\n\"Uses UpdateAggregationContext to aggregate results / track tasks\"\n\n\"Uses ActivationStatusMonitor to track progress\"",
+      "revId": "f2483169557a8b974430fe8c5099fb201c7c9393",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75d3348d_821b4149",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-22T22:04:14Z",
+      "side": 1,
+      "message": "Can you copy here as well? Because what is at bmc code management doesn\u0027t feel like enough..\n\nWorried about the error paths: \nPost a multiple multiparts and it fails, we get back a Redfish error right? \nStart 2 multiparts - 1 fails, get a 202 task and that ends with a warning as expected",
+      "revId": "f2483169557a8b974430fe8c5099fb201c7c9393",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5adee4dc_534f6158",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -32,6 +66,57 @@
       "side": 1,
       "message": "Huh, I thought I had fixed that. Thanks for catching that.",
       "parentUuid": "5adee4dc_534f6158",
+      "revId": "f2483169557a8b974430fe8c5099fb201c7c9393",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6b98e88_25b6b3e7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-22T22:04:14Z",
+      "side": 1,
+      "message": "5 hours..? How as that determined? Some comments please..",
+      "revId": "f2483169557a8b974430fe8c5099fb201c7c9393",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9de9724_4fcb38f6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-22T22:04:14Z",
+      "side": 1,
+      "message": "You sure this works? Are you sure results is empty if calls failed ?",
+      "revId": "f2483169557a8b974430fe8c5099fb201c7c9393",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bb40b94_4ca389a5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-22T22:04:14Z",
+      "side": 1,
+      "message": "So this just uses the first service per object?",
       "revId": "f2483169557a8b974430fe8c5099fb201c7c9393",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
