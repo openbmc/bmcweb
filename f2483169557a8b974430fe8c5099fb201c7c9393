@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5adee4dc_534f6158",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-22T21:10:06Z",
+      "side": 1,
+      "message": "Ideally your Gerrit Name matches your CCLA, Signed-Off name.. Thanks!\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86150",
+      "revId": "f2483169557a8b974430fe8c5099fb201c7c9393",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
