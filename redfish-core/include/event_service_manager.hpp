@@ -418,7 +418,8 @@ class EventServiceManager
         auto obj = subscriptionsMap.find(id);
         if (obj == subscriptionsMap.end())
         {
-            BMCWEB_LOG_WARNING("Could not find subscription with id {}", id);
+            BMCWEB_LOG_WARNING("Could not find subscription with id {}",
+                               id);
             return false;
         }
         subscriptionsMap.erase(obj);
@@ -426,7 +427,8 @@ class EventServiceManager
         auto persistentObj = event.subscriptionsConfigMap.find(id);
         if (persistentObj == event.subscriptionsConfigMap.end())
         {
-            BMCWEB_LOG_ERROR("Subscription {} wasn't in persistent data", id);
+            BMCWEB_LOG_ERROR("Subscription {} wasn't in persistent data",
+                             id);
             return true;
         }
         persistent_data::EventServiceStore::getInstance()
