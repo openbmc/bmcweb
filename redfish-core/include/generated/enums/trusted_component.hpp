@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace trusted_component
-{
 // clang-format off
 
+namespace trusted_component
+{
 enum class TrustedComponentType{
     Invalid,
     Discrete,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TrustedComponentType, {
     {TrustedComponentType::Integrated, "Integrated"},
 });
 
-}
 // clang-format on
+}

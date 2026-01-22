@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace protocol
-{
 // clang-format off
 
+namespace protocol
+{
 enum class Protocol{
     Invalid,
     PCIe,
@@ -99,5 +99,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
     {Protocol::UET, "UET"},
 });
 
-}
 // clang-format on
+}

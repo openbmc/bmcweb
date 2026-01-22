@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace cable
-{
 // clang-format off
 
+namespace cable
+{
 enum class CableClass{
     Invalid,
     Power,
@@ -103,5 +103,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CableStatus, {
     {CableStatus::SetByService, "SetByService"},
 });
 
-}
 // clang-format on
+}

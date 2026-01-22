@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace memory
-{
 // clang-format off
 
+namespace memory
+{
 enum class MemoryType{
     Invalid,
     DRAM,
@@ -219,5 +219,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperatingMemoryModes, {
     {OperatingMemoryModes::Block, "Block"},
 });
 
-}
 // clang-format on
+}

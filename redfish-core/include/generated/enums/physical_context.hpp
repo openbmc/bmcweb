@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace physical_context
-{
 // clang-format off
 
+namespace physical_context
+{
 enum class PhysicalContext{
     Invalid,
     Room,
@@ -155,5 +155,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogicalContext, {
     {LogicalContext::Storage, "Storage"},
 });
 
-}
 // clang-format on
+}

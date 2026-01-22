@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace connection
-{
 // clang-format off
 
+namespace connection
+{
 enum class ConnectionType{
     Invalid,
     Storage,
@@ -49,5 +49,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccessState, {
     {AccessState::Transitioning, "Transitioning"},
 });
 
-}
 // clang-format on
+}

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace cooling_loop
-{
 // clang-format off
 
+namespace cooling_loop
+{
 enum class CoolantType{
     Invalid,
     Water,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolingLoopType, {
     {CoolingLoopType::RowTCS, "RowTCS"},
 });
 
-}
 // clang-format on
+}

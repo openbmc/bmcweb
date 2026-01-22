@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace open_bmc_computer_system
-{
 // clang-format off
 
+namespace open_bmc_computer_system
+{
 enum class FirmwareProvisioningStatus{
     Invalid,
     NotProvisioned,
@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FirmwareProvisioningStatus, {
     {FirmwareProvisioningStatus::ProvisionedAndLocked, "ProvisionedAndLocked"},
 });
 
-}
 // clang-format on
+}

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace reservoir
-{
 // clang-format off
 
+namespace reservoir
+{
 enum class ReservoirType{
     Invalid,
     Reserve,
@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReservoirType, {
     {ReservoirType::Immersion, "Immersion"},
 });
 
-}
 // clang-format on
+}

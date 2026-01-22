@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace drive
-{
 // clang-format off
 
+namespace drive
+{
 enum class MediaType{
     Invalid,
     HDD,
@@ -201,5 +201,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConfigLockOptions, {
     {ConfigLockOptions::CommandUnsupported, "CommandUnsupported"},
 });
 
-}
 // clang-format on
+}

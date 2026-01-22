@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace resource
-{
 // clang-format off
 
+namespace resource
+{
 enum class Id{
     Invalid,
 };
@@ -269,5 +269,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConditionType, {
     {ConditionType::Subsystem, "Subsystem"},
 });
 
-}
 // clang-format on
+}

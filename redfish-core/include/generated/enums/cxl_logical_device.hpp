@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace cxl_logical_device
-{
 // clang-format off
 
+namespace cxl_logical_device
+{
 enum class CXLSemantic{
     Invalid,
     CXLio,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PassphraseType, {
     {PassphraseType::Master, "Master"},
 });
 
-}
 // clang-format on
+}

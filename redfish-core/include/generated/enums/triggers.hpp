@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace triggers
-{
 // clang-format off
 
+namespace triggers
+{
 enum class MetricTypeEnum{
     Invalid,
     Numeric,
@@ -87,5 +87,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TriggerActionMessage, {
     {TriggerActionMessage::ConnectionSpeed, "ConnectionSpeed"},
 });
 
-}
 // clang-format on
+}

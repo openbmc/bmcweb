@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace attribute_registry
-{
 // clang-format off
 
+namespace attribute_registry
+{
 enum class AttributeType{
     Invalid,
     Enumeration,
@@ -139,5 +139,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MapToProperty, {
     {MapToProperty::ValueExpression, "ValueExpression"},
 });
 
-}
 // clang-format on
+}

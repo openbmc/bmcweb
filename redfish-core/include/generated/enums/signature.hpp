@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace signature
-{
 // clang-format off
 
+namespace signature
+{
 enum class SignatureTypeRegistry{
     Invalid,
     UEFI,
@@ -17,5 +17,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SignatureTypeRegistry, {
     {SignatureTypeRegistry::UEFI, "UEFI"},
 });
 
-}
 // clang-format on
+}

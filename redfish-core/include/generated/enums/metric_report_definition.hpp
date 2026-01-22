@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace metric_report_definition
-{
 // clang-format off
 
+namespace metric_report_definition
+{
 enum class MetricReportDefinitionType{
     Invalid,
     Periodic,
@@ -79,5 +79,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CollectionTimeScope, {
     {CollectionTimeScope::StartupInterval, "StartupInterval"},
 });
 
-}
 // clang-format on
+}

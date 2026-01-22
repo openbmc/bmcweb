@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace zone
-{
 // clang-format off
 
+namespace zone
+{
 enum class ExternalAccessibility{
     Invalid,
     GloballyAccessible,
@@ -39,5 +39,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ZoneType, {
     {ZoneType::ZoneOfResourceBlocks, "ZoneOfResourceBlocks"},
 });
 
-}
 // clang-format on
+}

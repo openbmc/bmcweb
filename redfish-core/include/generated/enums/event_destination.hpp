@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace event_destination
-{
 // clang-format off
 
+namespace event_destination
+{
 enum class EventFormatType{
     Invalid,
     Event,
@@ -209,5 +209,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SyslogFacility, {
     {SyslogFacility::Local7, "Local7"},
 });
 
-}
 // clang-format on
+}

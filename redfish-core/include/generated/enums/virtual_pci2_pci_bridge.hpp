@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace virtual_pci2_pci_bridge
-{
 // clang-format off
 
+namespace virtual_pci2_pci_bridge
+{
 enum class vPPBStatusTypes{
     Invalid,
     Unbound,
@@ -25,5 +25,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(vPPBStatusTypes, {
     {vPPBStatusTypes::BoundPID, "BoundPID"},
 });
 
-}
 // clang-format on
+}

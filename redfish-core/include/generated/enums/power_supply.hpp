@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace power_supply
-{
 // clang-format off
 
+namespace power_supply
+{
 enum class PowerSupplyType{
     Invalid,
     AC,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LineStatus, {
     {LineStatus::OutOfRange, "OutOfRange"},
 });
 
-}
 // clang-format on
+}

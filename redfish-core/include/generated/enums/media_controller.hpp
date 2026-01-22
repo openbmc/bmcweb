@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace media_controller
-{
 // clang-format off
 
+namespace media_controller
+{
 enum class MediaControllerType{
     Invalid,
     Memory,
@@ -17,5 +17,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MediaControllerType, {
     {MediaControllerType::Memory, "Memory"},
 });
 
-}
 // clang-format on
+}

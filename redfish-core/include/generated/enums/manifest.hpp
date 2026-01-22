@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace manifest
-{
 // clang-format off
 
+namespace manifest
+{
 enum class Expand{
     Invalid,
     None,
@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(StanzaType, {
     {StanzaType::RegisterResourceBlock, "RegisterResourceBlock"},
 });
 
-}
 // clang-format on
+}

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace cooling_unit
-{
 // clang-format off
 
+namespace cooling_unit
+{
 enum class CoolingEquipmentType{
     Invalid,
     CDU,
@@ -77,5 +77,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
     {ExportSecurity::ExcludeSensitiveData, "ExcludeSensitiveData"},
 });
 
-}
 // clang-format on
+}

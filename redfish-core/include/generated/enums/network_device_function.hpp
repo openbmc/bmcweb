@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace network_device_function
-{
 // clang-format off
 
+namespace network_device_function
+{
 enum class NetworkDeviceTechnology{
     Invalid,
     Disabled,
@@ -99,5 +99,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataDirection, {
     {DataDirection::Egress, "Egress"},
 });
 
-}
 // clang-format on
+}

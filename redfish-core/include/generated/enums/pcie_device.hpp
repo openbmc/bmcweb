@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace pcie_device
-{
 // clang-format off
 
+namespace pcie_device
+{
 enum class PCIeTypes{
     Invalid,
     Gen1,
@@ -133,5 +133,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLProtocolVersion, {
     {CXLProtocolVersion::CXL3_2, "CXL3_2"},
 });
 
-}
 // clang-format on
+}

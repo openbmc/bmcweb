@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace thermal
-{
 // clang-format off
 
+namespace thermal
+{
 enum class ReadingUnits{
     Invalid,
     RPM,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingUnits, {
     {ReadingUnits::Percent, "Percent"},
 });
 
-}
 // clang-format on
+}

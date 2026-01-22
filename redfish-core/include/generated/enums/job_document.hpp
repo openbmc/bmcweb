@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace job_document
-{
 // clang-format off
 
+namespace job_document
+{
 enum class DataType{
     Invalid,
     Boolean,
@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataType, {
     {DataType::String, "String"},
 });
 
-}
 // clang-format on
+}

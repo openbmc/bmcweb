@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace metric_definition
-{
 // clang-format off
 
+namespace metric_definition
+{
 enum class MetricType{
     Invalid,
     Numeric,
@@ -93,5 +93,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CalculationAlgorithmEnum, {
     {CalculationAlgorithmEnum::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

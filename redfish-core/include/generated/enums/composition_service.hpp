@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace composition_service
-{
 // clang-format off
 
+namespace composition_service
+{
 enum class ComposeRequestType{
     Invalid,
     Preview,
@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ComposeRequestFormat, {
     {ComposeRequestFormat::Manifest, "Manifest"},
 });
 
-}
 // clang-format on
+}

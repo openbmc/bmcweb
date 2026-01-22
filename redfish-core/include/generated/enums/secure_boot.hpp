@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace secure_boot
-{
 // clang-format off
 
+namespace secure_boot
+{
 enum class SecureBootCurrentBootType{
     Invalid,
     Enabled,
@@ -49,5 +49,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetKeysType, {
     {ResetKeysType::DeletePK, "DeletePK"},
 });
 
-}
 // clang-format on
+}

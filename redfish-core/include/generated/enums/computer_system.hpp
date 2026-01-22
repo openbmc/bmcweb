@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace computer_system
-{
 // clang-format off
 
+namespace computer_system
+{
 enum class BootSource{
     Invalid,
     None,
@@ -469,5 +469,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
     {ExportSecurity::ExcludeSensitiveData, "ExcludeSensitiveData"},
 });
 
-}
 // clang-format on
+}

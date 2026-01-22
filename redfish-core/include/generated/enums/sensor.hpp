@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace sensor
-{
 // clang-format off
 
+namespace sensor
+{
 enum class VoltageType{
     Invalid,
     AC,
@@ -175,5 +175,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingBasisType, {
     {ReadingBasisType::Headroom, "Headroom"},
 });
 
-}
 // clang-format on
+}

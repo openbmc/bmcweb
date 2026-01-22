@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace storage
-{
 // clang-format off
 
+namespace storage
+{
 enum class ResetToDefaultsType{
     Invalid,
     ResetAll,
@@ -123,5 +123,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VolumeAssignmentPolicy, {
     {VolumeAssignmentPolicy::WeightedRoundRobin, "WeightedRoundRobin"},
 });
 
-}
 // clang-format on
+}

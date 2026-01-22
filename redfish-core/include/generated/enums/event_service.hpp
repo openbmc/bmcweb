@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace event_service
-{
 // clang-format off
 
+namespace event_service
+{
 enum class SMTPConnectionProtocol{
     Invalid,
     None,
@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SMTPAuthenticationMethods, {
     {SMTPAuthenticationMethods::CRAM_MD5, "CRAM_MD5"},
 });
 
-}
 // clang-format on
+}

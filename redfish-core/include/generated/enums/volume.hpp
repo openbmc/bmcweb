@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace volume
-{
 // clang-format off
 
+namespace volume
+{
 enum class InitializeType{
     Invalid,
     Fast,
@@ -295,5 +295,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LBARelativePerformanceType, {
     {LBARelativePerformanceType::Degraded, "Degraded"},
 });
 
-}
 // clang-format on
+}

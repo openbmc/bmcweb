@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace operating_system
-{
 // clang-format off
 
+namespace operating_system
+{
 enum class OperatingSystemTypes{
     Invalid,
     Linux,
@@ -93,5 +93,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ContainerEngineTypes, {
     {ContainerEngineTypes::CRIO, "CRIO"},
 });
 
-}
 // clang-format on
+}

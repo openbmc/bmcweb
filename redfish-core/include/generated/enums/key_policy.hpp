@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace key_policy
-{
 // clang-format off
 
+namespace key_policy
+{
 enum class KeyPolicyType{
     Invalid,
     NVMeoF,
@@ -87,5 +87,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NVMeoFDHGroupType, {
     {NVMeoFDHGroupType::FFDHE8192, "FFDHE8192"},
 });
 
-}
 // clang-format on
+}

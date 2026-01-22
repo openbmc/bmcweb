@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace port
-{
 // clang-format off
 
+namespace port
+{
 enum class PortType{
     Invalid,
     UpstreamPort,
@@ -345,5 +345,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(HostDeviceType, {
     {HostDeviceType::Manager, "Manager"},
 });
 
-}
 // clang-format on
+}

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace chassis
-{
 // clang-format off
 
+namespace chassis
+{
 enum class ChassisType{
     Invalid,
     Rack,
@@ -181,5 +181,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RackMountWidth, {
     {RackMountWidth::HalfWidth, "HalfWidth"},
 });
 
-}
 // clang-format on
+}

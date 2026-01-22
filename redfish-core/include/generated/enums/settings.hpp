@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace settings
-{
 // clang-format off
 
+namespace settings
+{
 enum class OperationApplyTime{
     Invalid,
     Immediate,
@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::InMaintenanceWindowOnReset, "InMaintenanceWindowOnReset"},
 });
 
-}
 // clang-format on
+}

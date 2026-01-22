@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace aggregation_source
-{
 // clang-format off
 
+namespace aggregation_source
+{
 enum class SNMPAuthenticationProtocols{
     Invalid,
     None,
@@ -73,5 +73,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UserAuthenticationMethod, {
     {UserAuthenticationMethod::Password, "Password"},
 });
 
-}
 // clang-format on
+}

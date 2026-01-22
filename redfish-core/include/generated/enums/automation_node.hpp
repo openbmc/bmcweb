@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace automation_node
-{
 // clang-format off
 
+namespace automation_node
+{
 enum class NodeState{
     Invalid,
     Idle,
@@ -77,5 +77,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MotionAxisType, {
     {MotionAxisType::ThreeAxis, "ThreeAxis"},
 });
 
-}
 // clang-format on
+}

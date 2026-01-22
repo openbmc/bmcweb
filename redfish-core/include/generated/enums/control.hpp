@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace control
-{
 // clang-format off
 
+namespace control
+{
 enum class ControlType{
     Invalid,
     Temperature,
@@ -91,5 +91,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {
     {ImplementationType::Monitored, "Monitored"},
 });
 
-}
 // clang-format on
+}

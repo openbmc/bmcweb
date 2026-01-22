@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace telemetry_service
-{
 // clang-format off
 
+namespace telemetry_service
+{
 enum class CollectionFunction{
     Invalid,
     Average,
@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CollectionFunction, {
     {CollectionFunction::Summation, "Summation"},
 });
 
-}
 // clang-format on
+}

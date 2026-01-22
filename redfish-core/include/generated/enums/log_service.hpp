@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace log_service
-{
 // clang-format off
 
+namespace log_service
+{
 enum class OverWritePolicy{
     Invalid,
     Unknown,
@@ -201,5 +201,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AutoClearResolvedEntries, {
     {AutoClearResolvedEntries::None, "None"},
 });
 
-}
 // clang-format on
+}
