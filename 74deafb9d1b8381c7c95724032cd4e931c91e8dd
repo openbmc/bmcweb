@@ -88,6 +88,24 @@
       "parentUuid": "25db527a_b68bd81a",
       "revId": "74deafb9d1b8381c7c95724032cd4e931c91e8dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bb01e6d_7c0624cf",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-22T19:55:40Z",
+      "side": 1,
+      "message": "Why does https://github.com/openbmc/bmcweb/commit/adee9f2e5b9e371a7e9bf9c817a340982658b341\nnot need a asyncResp-\u003eres.result(boost::beast::http::status::no_content); but you do here ?",
+      "parentUuid": "4fa6cc2b_48c56d2e",
+      "revId": "74deafb9d1b8381c7c95724032cd4e931c91e8dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
