@@ -5,7 +5,7 @@
 
 namespace storage_controller
 {
-// clang-format off
+    // clang-format off
 
 enum class NVMeControllerType{
     Invalid,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ANAAccessState, {
     {ANAAccessState::PersistentLoss, "PersistentLoss"},
 });
 
-}
 // clang-format on
+}

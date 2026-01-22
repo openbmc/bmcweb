@@ -5,7 +5,7 @@
 
 namespace secure_boot
 {
-// clang-format off
+    // clang-format off
 
 enum class SecureBootCurrentBootType{
     Invalid,
@@ -49,5 +49,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetKeysType, {
     {ResetKeysType::DeletePK, "DeletePK"},
 });
 
-}
 // clang-format on
+}

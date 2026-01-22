@@ -5,7 +5,7 @@
 
 namespace processor
 {
-// clang-format off
+    // clang-format off
 
 enum class ProcessorType{
     Invalid,
@@ -233,5 +233,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThrottleCause, {
     {ThrottleCause::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

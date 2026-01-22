@@ -5,7 +5,7 @@
 
 namespace manager
 {
-// clang-format off
+    // clang-format off
 
 enum class ManagerType{
     Invalid,
@@ -127,5 +127,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecurityModeTypes, {
     {SecurityModeTypes::Default, "Default"},
 });
 
-}
 // clang-format on
+}

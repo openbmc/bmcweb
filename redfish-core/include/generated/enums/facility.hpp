@@ -5,7 +5,7 @@
 
 namespace facility
 {
-// clang-format off
+    // clang-format off
 
 enum class FacilityType{
     Invalid,
@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FacilityType, {
     {FacilityType::Site, "Site"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace external_account_provider
 {
-// clang-format off
+    // clang-format off
 
 enum class AccountProviderTypes{
     Invalid,
@@ -73,5 +73,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OAuth2Mode, {
     {OAuth2Mode::Offline, "Offline"},
 });
 
-}
 // clang-format on
+}

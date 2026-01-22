@@ -5,7 +5,7 @@
 
 namespace operating_system
 {
-// clang-format off
+    // clang-format off
 
 enum class OperatingSystemTypes{
     Invalid,
@@ -93,5 +93,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ContainerEngineTypes, {
     {ContainerEngineTypes::CRIO, "CRIO"},
 });
 
-}
 // clang-format on
+}

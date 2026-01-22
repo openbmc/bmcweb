@@ -5,7 +5,7 @@
 
 namespace resource_block
 {
-// clang-format off
+    // clang-format off
 
 enum class ResourceBlockType{
     Invalid,
@@ -65,5 +65,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PoolType, {
     {PoolType::Unassigned, "Unassigned"},
 });
 
-}
 // clang-format on
+}

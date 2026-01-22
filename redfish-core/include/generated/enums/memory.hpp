@@ -5,7 +5,7 @@
 
 namespace memory
 {
-// clang-format off
+    // clang-format off
 
 enum class MemoryType{
     Invalid,
@@ -219,5 +219,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperatingMemoryModes, {
     {OperatingMemoryModes::Block, "Block"},
 });
 
-}
 // clang-format on
+}

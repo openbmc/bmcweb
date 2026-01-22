@@ -5,7 +5,7 @@
 
 namespace event_destination
 {
-// clang-format off
+    // clang-format off
 
 enum class EventFormatType{
     Invalid,
@@ -209,5 +209,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SyslogFacility, {
     {SyslogFacility::Local7, "Local7"},
 });
 
-}
 // clang-format on
+}

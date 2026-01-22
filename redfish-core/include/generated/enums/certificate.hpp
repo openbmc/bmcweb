@@ -5,7 +5,7 @@
 
 namespace certificate
 {
-// clang-format off
+    // clang-format off
 
 enum class CertificateType{
     Invalid,
@@ -91,5 +91,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(KeyUsage, {
     {KeyUsage::OCSPSigning, "OCSPSigning"},
 });
 
-}
 // clang-format on
+}

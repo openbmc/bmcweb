@@ -5,7 +5,7 @@
 
 namespace task
 {
-// clang-format off
+    // clang-format off
 
 enum class TaskState{
     Invalid,
@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TaskState, {
     {TaskState::Cancelled, "Cancelled"},
 });
 
-}
 // clang-format on
+}

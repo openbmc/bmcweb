@@ -5,7 +5,7 @@
 
 namespace job_service
 {
-// clang-format off
+    // clang-format off
 
 enum class ValidationPolicy{
     Invalid,
@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ValidationPolicy, {
     {ValidationPolicy::Bypass, "Bypass"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace cable
 {
-// clang-format off
+    // clang-format off
 
 enum class CableClass{
     Invalid,
@@ -103,5 +103,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CableStatus, {
     {CableStatus::SetByService, "SetByService"},
 });
 
-}
 // clang-format on
+}

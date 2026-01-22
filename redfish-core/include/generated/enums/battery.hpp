@@ -5,7 +5,7 @@
 
 namespace battery
 {
-// clang-format off
+    // clang-format off
 
 enum class ChargeState{
     Invalid,
@@ -47,5 +47,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EnergyStorageType, {
     {EnergyStorageType::Supercapacitor, "Supercapacitor"},
 });
 
-}
 // clang-format on
+}

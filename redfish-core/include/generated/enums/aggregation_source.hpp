@@ -5,7 +5,7 @@
 
 namespace aggregation_source
 {
-// clang-format off
+    // clang-format off
 
 enum class SNMPAuthenticationProtocols{
     Invalid,
@@ -73,5 +73,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UserAuthenticationMethod, {
     {UserAuthenticationMethod::Password, "Password"},
 });
 
-}
 // clang-format on
+}

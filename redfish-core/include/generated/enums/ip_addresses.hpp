@@ -5,7 +5,7 @@
 
 namespace ip_addresses
 {
-// clang-format off
+    // clang-format off
 
 enum class IPv4AddressOrigin{
     Invalid,
@@ -71,5 +71,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AddressState, {
     {AddressState::Failed, "Failed"},
 });
 
-}
 // clang-format on
+}

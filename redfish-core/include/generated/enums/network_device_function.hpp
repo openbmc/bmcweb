@@ -5,7 +5,7 @@
 
 namespace network_device_function
 {
-// clang-format off
+    // clang-format off
 
 enum class NetworkDeviceTechnology{
     Invalid,
@@ -99,5 +99,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataDirection, {
     {DataDirection::Egress, "Egress"},
 });
 
-}
 // clang-format on
+}

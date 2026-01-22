@@ -5,7 +5,7 @@
 
 namespace power
 {
-// clang-format off
+    // clang-format off
 
 enum class PowerLimitException{
     Invalid,
@@ -83,5 +83,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(InputType, {
     {InputType::DC, "DC"},
 });
 
-}
 // clang-format on
+}

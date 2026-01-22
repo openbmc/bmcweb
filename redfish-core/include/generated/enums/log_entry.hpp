@@ -5,7 +5,7 @@
 
 namespace log_entry
 {
-// clang-format off
+    // clang-format off
 
 enum class EventSeverity{
     Invalid,
@@ -315,5 +315,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLEntryType, {
     {CXLEntryType::Fatal, "Fatal"},
 });
 
-}
 // clang-format on
+}

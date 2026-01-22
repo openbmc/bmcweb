@@ -5,7 +5,7 @@
 
 namespace license
 {
-// clang-format off
+    // clang-format off
 
 enum class LicenseType{
     Invalid,
@@ -47,5 +47,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LicenseOrigin, {
     {LicenseOrigin::Installed, "Installed"},
 });
 
-}
 // clang-format on
+}

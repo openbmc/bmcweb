@@ -5,7 +5,7 @@
 
 namespace collection_capabilities
 {
-// clang-format off
+    // clang-format off
 
 enum class UseCase{
     Invalid,
@@ -27,5 +27,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UseCase, {
     {UseCase::RegisterResourceBlock, "RegisterResourceBlock"},
 });
 
-}
 // clang-format on
+}

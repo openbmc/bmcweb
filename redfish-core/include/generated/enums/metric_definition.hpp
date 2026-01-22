@@ -5,7 +5,7 @@
 
 namespace metric_definition
 {
-// clang-format off
+    // clang-format off
 
 enum class MetricType{
     Invalid,
@@ -93,5 +93,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CalculationAlgorithmEnum, {
     {CalculationAlgorithmEnum::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

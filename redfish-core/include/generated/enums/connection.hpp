@@ -5,7 +5,7 @@
 
 namespace connection
 {
-// clang-format off
+    // clang-format off
 
 enum class ConnectionType{
     Invalid,
@@ -49,5 +49,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccessState, {
     {AccessState::Transitioning, "Transitioning"},
 });
 
-}
 // clang-format on
+}

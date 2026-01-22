@@ -5,7 +5,7 @@
 
 namespace zone
 {
-// clang-format off
+    // clang-format off
 
 enum class ExternalAccessibility{
     Invalid,
@@ -39,5 +39,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ZoneType, {
     {ZoneType::ZoneOfResourceBlocks, "ZoneOfResourceBlocks"},
 });
 
-}
 // clang-format on
+}

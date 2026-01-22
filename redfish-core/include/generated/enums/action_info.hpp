@@ -5,7 +5,7 @@
 
 namespace action_info
 {
-// clang-format off
+    // clang-format off
 
 enum class ParameterTypes{
     Invalid,
@@ -29,5 +29,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ParameterTypes, {
     {ParameterTypes::ObjectArray, "ObjectArray"},
 });
 
-}
 // clang-format on
+}

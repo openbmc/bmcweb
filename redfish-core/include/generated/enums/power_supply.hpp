@@ -5,7 +5,7 @@
 
 namespace power_supply
 {
-// clang-format off
+    // clang-format off
 
 enum class PowerSupplyType{
     Invalid,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LineStatus, {
     {LineStatus::OutOfRange, "OutOfRange"},
 });
 
-}
 // clang-format on
+}

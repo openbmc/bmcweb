@@ -5,7 +5,7 @@
 
 namespace metric_report_definition
 {
-// clang-format off
+    // clang-format off
 
 enum class MetricReportDefinitionType{
     Invalid,
@@ -79,5 +79,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CollectionTimeScope, {
     {CollectionTimeScope::StartupInterval, "StartupInterval"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace secure_boot_database
 {
-// clang-format off
+    // clang-format off
 
 enum class ResetKeysType{
     Invalid,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetKeysType, {
     {ResetKeysType::DeleteAllKeys, "DeleteAllKeys"},
 });
 
-}
 // clang-format on
+}

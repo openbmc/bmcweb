@@ -5,7 +5,7 @@
 
 namespace physical_context
 {
-// clang-format off
+    // clang-format off
 
 enum class PhysicalContext{
     Invalid,
@@ -155,5 +155,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogicalContext, {
     {LogicalContext::Storage, "Storage"},
 });
 
-}
 // clang-format on
+}

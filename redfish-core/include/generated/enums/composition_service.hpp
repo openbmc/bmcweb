@@ -5,7 +5,7 @@
 
 namespace composition_service
 {
-// clang-format off
+    // clang-format off
 
 enum class ComposeRequestType{
     Invalid,
@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ComposeRequestFormat, {
     {ComposeRequestFormat::Manifest, "Manifest"},
 });
 
-}
 // clang-format on
+}

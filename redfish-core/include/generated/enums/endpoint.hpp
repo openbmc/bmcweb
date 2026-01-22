@@ -5,7 +5,7 @@
 
 namespace endpoint
 {
-// clang-format off
+    // clang-format off
 
 enum class EntityType{
     Invalid,
@@ -65,5 +65,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EntityRole, {
     {EntityRole::Both, "Both"},
 });
 
-}
 // clang-format on
+}

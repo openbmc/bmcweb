@@ -5,7 +5,7 @@
 
 namespace acceleration_function
 {
-// clang-format off
+    // clang-format off
 
 enum class AccelerationFunctionType{
     Invalid,
@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccelerationFunctionType, {
     {AccelerationFunctionType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace network_port
 {
-// clang-format off
+    // clang-format off
 
 enum class LinkStatus{
     Invalid,
@@ -87,5 +87,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PortConnectionType, {
     {PortConnectionType::ExtenderFabric, "ExtenderFabric"},
 });
 
-}
 // clang-format on
+}

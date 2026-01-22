@@ -5,7 +5,7 @@
 
 namespace registered_client
 {
-// clang-format off
+    // clang-format off
 
 enum class ClientType{
     Invalid,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ClientType, {
     {ClientType::Configure, "Configure"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace volume
 {
-// clang-format off
+    // clang-format off
 
 enum class InitializeType{
     Invalid,
@@ -295,5 +295,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LBARelativePerformanceType, {
     {LBARelativePerformanceType::Degraded, "Degraded"},
 });
 
-}
 // clang-format on
+}

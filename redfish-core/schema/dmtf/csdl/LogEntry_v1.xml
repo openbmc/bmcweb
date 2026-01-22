@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.20.0                                                    -->
+<!--# Redfish Schema:  LogEntry v1.21.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -42,7 +42,7 @@
       <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="LogEntry" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The `LogEntry` schema defines the record format for a log.  It is designed for Redfish event logs, OEM-specific log formats, and the IPMI System Event Log (SEL).  The `EntryType` field indicates the type of log and the resource includes several additional properties dependent on the `EntryType`."/>
+        <Annotation Term="OData.Description" String="The `LogEntry` schema defines the record format for a log.  It is designed for Redfish event logs, which utilize messages defined in a Message Registry and referenced by a `MessageId`.  For standard message definitions, see DSP2065.  Other log formats, including OEM-specific definitions and the IPMI System Event Log (SEL) are also supported.  The `EntryType` field indicates the type of log and the resource includes several additional properties dependent on the `EntryType`."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the log format for log services in a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -2165,6 +2165,21 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether the `OriginOfCondition` link is unavailable, such as after the deletion of the resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the `OriginOfCondition` link is unavailable.  If `true`, services shall not expand the `OriginOfCondition` link.  If this property is not present, the value shall be assumed to be `false`."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.4"/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema description and add a reference to DSP2065."/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_20_0.LogEntry">
+        <Property Name="OriginAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The IP address, with scheme, of the user associated with the log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IP address, with scheme, of the user associated with the log entry.  This should be used for audit logs that result from a user action."/>
+          <Annotation Term="Validation.Pattern" String="^.+:\/\/.+$"/>
         </Property>
       </EntityType>
     </Schema>

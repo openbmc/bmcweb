@@ -5,7 +5,7 @@
 
 namespace thermal
 {
-// clang-format off
+    // clang-format off
 
 enum class ReadingUnits{
     Invalid,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingUnits, {
     {ReadingUnits::Percent, "Percent"},
 });
 
-}
 // clang-format on
+}

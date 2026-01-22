@@ -5,7 +5,7 @@
 
 namespace media_controller
 {
-// clang-format off
+    // clang-format off
 
 enum class MediaControllerType{
     Invalid,
@@ -17,5 +17,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MediaControllerType, {
     {MediaControllerType::Memory, "Memory"},
 });
 
-}
 // clang-format on
+}

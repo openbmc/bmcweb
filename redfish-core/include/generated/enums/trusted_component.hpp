@@ -5,7 +5,7 @@
 
 namespace trusted_component
 {
-// clang-format off
+    // clang-format off
 
 enum class TrustedComponentType{
     Invalid,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TrustedComponentType, {
     {TrustedComponentType::Integrated, "Integrated"},
 });
 
-}
 // clang-format on
+}

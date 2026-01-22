@@ -5,7 +5,7 @@
 
 namespace job
 {
-// clang-format off
+    // clang-format off
 
 enum class JobState{
     New,
@@ -57,5 +57,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(JobType, {
     {JobType::ServiceGenerated, "ServiceGenerated"},
 });
 
-}
 // clang-format on
+}

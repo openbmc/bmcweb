@@ -5,7 +5,7 @@
 
 namespace task_service
 {
-// clang-format off
+    // clang-format off
 
 enum class OverWritePolicy{
     Invalid,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
     {OverWritePolicy::Oldest, "Oldest"},
 });
 
-}
 // clang-format on
+}

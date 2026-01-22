@@ -5,7 +5,7 @@
 
 namespace virtual_pci2_pci_bridge
 {
-// clang-format off
+    // clang-format off
 
 enum class vPPBStatusTypes{
     Invalid,
@@ -25,5 +25,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(vPPBStatusTypes, {
     {vPPBStatusTypes::BoundPID, "BoundPID"},
 });
 
-}
 // clang-format on
+}

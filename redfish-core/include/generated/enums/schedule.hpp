@@ -5,7 +5,7 @@
 
 namespace schedule
 {
-// clang-format off
+    // clang-format off
 
 enum class DayOfWeek{
     Invalid,
@@ -65,5 +65,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MonthOfYear, {
     {MonthOfYear::Every, "Every"},
 });
 
-}
 // clang-format on
+}

@@ -56,6 +56,7 @@
             <String>/redfish/v1/AccountService/Accounts/{ManagerAccountId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/AccountService/ActiveDirectory/Certificates/{CertificateId}</String>
             <String>/redfish/v1/AccountService/LDAP/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/AccountService/OAuth2/Certificates/{CertificateId}</String>
             <String>/redfish/v1/AccountService/ExternalAccountProviders/{ExternalAccountProviderId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{CertificateId}</String>
             <String>/redfish/v1/AccountService/MultiFactorAuth/SecurID/Certificates/{CertificateId}</String>
@@ -121,8 +122,11 @@
             <String>/redfish/v1/UpdateService/ClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/TrustedCertificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/RevokedCertificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/TrustedCertificates/{CertificateId}</String>

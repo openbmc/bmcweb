@@ -5,7 +5,7 @@
 
 namespace outlet
 {
-// clang-format off
+    // clang-format off
 
 enum class PowerState{
     Invalid,
@@ -69,5 +69,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
     {VoltageType::DC, "DC"},
 });
 
-}
 // clang-format on
+}

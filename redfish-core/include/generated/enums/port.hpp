@@ -5,7 +5,7 @@
 
 namespace port
 {
-// clang-format off
+    // clang-format off
 
 enum class PortType{
     Invalid,
@@ -110,6 +110,7 @@ enum class SFPType{
     MiniSASHD,
     QSFPDD,
     OSFP,
+    CDFP,
 };
 
 enum class MediumType{
@@ -174,6 +175,18 @@ enum class HostDeviceType{
     None,
     System,
     Manager,
+};
+
+enum class TransceiverManagementInterfaceType{
+    Invalid,
+    SFP,
+    CMIS,
+};
+
+enum class UALinkGeneration{
+    Invalid,
+    UALink128G,
+    UALink200G,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PortType, {
@@ -279,6 +292,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SFPType, {
     {SFPType::MiniSASHD, "MiniSASHD"},
     {SFPType::QSFPDD, "QSFPDD"},
     {SFPType::OSFP, "OSFP"},
+    {SFPType::CDFP, "CDFP"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MediumType, {
@@ -345,5 +359,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(HostDeviceType, {
     {HostDeviceType::Manager, "Manager"},
 });
 
-}
+NLOHMANN_JSON_SERIALIZE_ENUM(TransceiverManagementInterfaceType, {
+    {TransceiverManagementInterfaceType::Invalid, "Invalid"},
+    {TransceiverManagementInterfaceType::SFP, "SFP"},
+    {TransceiverManagementInterfaceType::CMIS, "CMIS"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALinkGeneration, {
+    {UALinkGeneration::Invalid, "Invalid"},
+    {UALinkGeneration::UALink128G, "UALink128G"},
+    {UALinkGeneration::UALink200G, "UALink200G"},
+});
+
 // clang-format on
+}

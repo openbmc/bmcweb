@@ -5,7 +5,7 @@
 
 namespace connection_method
 {
-// clang-format off
+    // clang-format off
 
 enum class ConnectionMethodType{
     Invalid,
@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TunnelingProtocolType, {
     {TunnelingProtocolType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

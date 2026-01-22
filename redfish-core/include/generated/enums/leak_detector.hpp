@@ -5,7 +5,7 @@
 
 namespace leak_detector
 {
-// clang-format off
+    // clang-format off
 
 enum class LeakDetectorType{
     Invalid,
@@ -51,5 +51,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReactionType, {
     {ReactionType::GracefulShutdown, "GracefulShutdown"},
 });
 
-}
 // clang-format on
+}

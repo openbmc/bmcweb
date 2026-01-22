@@ -5,7 +5,7 @@
 
 namespace allow_deny
 {
-// clang-format off
+    // clang-format off
 
 enum class IPAddressType{
     Invalid,
@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataDirection, {
     {DataDirection::Egress, "Egress"},
 });
 
-}
 // clang-format on
+}

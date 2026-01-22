@@ -5,7 +5,7 @@
 
 namespace automation_node
 {
-// clang-format off
+    // clang-format off
 
 enum class NodeState{
     Invalid,
@@ -77,5 +77,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MotionAxisType, {
     {MotionAxisType::ThreeAxis, "ThreeAxis"},
 });
 
-}
 // clang-format on
+}

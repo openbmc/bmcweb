@@ -5,7 +5,7 @@
 
 namespace cooling_loop
 {
-// clang-format off
+    // clang-format off
 
 enum class CoolantType{
     Invalid,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolingLoopType, {
     {CoolingLoopType::RowTCS, "RowTCS"},
 });
 
-}
 // clang-format on
+}

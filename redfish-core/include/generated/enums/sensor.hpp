@@ -5,7 +5,7 @@
 
 namespace sensor
 {
-// clang-format off
+    // clang-format off
 
 enum class VoltageType{
     Invalid,
@@ -175,5 +175,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingBasisType, {
     {ReadingBasisType::Headroom, "Headroom"},
 });
 
-}
 // clang-format on
+}

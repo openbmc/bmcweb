@@ -5,7 +5,7 @@
 
 namespace telemetry_data
 {
-// clang-format off
+    // clang-format off
 
 enum class TelemetryDataTypes{
     Invalid,
@@ -17,5 +17,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TelemetryDataTypes, {
     {TelemetryDataTypes::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

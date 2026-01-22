@@ -5,7 +5,7 @@
 
 namespace pcie_function
 {
-// clang-format off
+    // clang-format off
 
 enum class DeviceClass{
     Invalid,
@@ -85,5 +85,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FunctionProtocol, {
     {FunctionProtocol::CXL, "CXL"},
 });
 
-}
 // clang-format on
+}

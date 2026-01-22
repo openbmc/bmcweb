@@ -5,7 +5,7 @@
 
 namespace account_service
 {
-// clang-format off
+    // clang-format off
 
 enum class MFABypassType{
     Invalid,
@@ -141,5 +141,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BasicAuthState, {
     {BasicAuthState::Disabled, "Disabled"},
 });
 
-}
 // clang-format on
+}

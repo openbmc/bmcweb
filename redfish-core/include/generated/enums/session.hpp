@@ -5,7 +5,7 @@
 
 namespace session
 {
-// clang-format off
+    // clang-format off
 
 enum class SessionTypes{
     Invalid,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SessionTypes, {
     {SessionTypes::OutboundConnection, "OutboundConnection"},
 });
 
-}
 // clang-format on
+}

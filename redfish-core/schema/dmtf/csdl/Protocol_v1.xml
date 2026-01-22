@@ -386,6 +386,18 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="UALink">
+          <Annotation Term="OData.Description" String="Ultra Accelerator Link (UALink)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Ultra Accelerator Link specifications."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2025.4"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 

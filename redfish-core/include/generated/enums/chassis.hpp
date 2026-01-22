@@ -5,7 +5,7 @@
 
 namespace chassis
 {
-// clang-format off
+    // clang-format off
 
 enum class ChassisType{
     Invalid,
@@ -181,5 +181,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RackMountWidth, {
     {RackMountWidth::HalfWidth, "HalfWidth"},
 });
 
-}
 // clang-format on
+}

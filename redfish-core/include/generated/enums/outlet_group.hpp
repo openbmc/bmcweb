@@ -5,7 +5,7 @@
 
 namespace outlet_group
 {
-// clang-format off
+    // clang-format off
 
 enum class PowerState{
     Invalid,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OutletGroupType, {
     {OutletGroupType::UserDefined, "UserDefined"},
 });
 
-}
 // clang-format on
+}

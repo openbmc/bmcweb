@@ -5,7 +5,7 @@
 
 namespace signature
 {
-// clang-format off
+    // clang-format off
 
 enum class SignatureTypeRegistry{
     Invalid,
@@ -17,5 +17,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SignatureTypeRegistry, {
     {SignatureTypeRegistry::UEFI, "UEFI"},
 });
 
-}
 // clang-format on
+}

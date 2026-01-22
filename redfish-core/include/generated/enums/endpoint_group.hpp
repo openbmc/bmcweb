@@ -5,7 +5,7 @@
 
 namespace endpoint_group
 {
-// clang-format off
+    // clang-format off
 
 enum class AccessState{
     Invalid,
@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(GroupType, {
     {GroupType::Target, "Target"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace pcie_slots
 {
-// clang-format off
+    // clang-format off
 
 enum class SlotTypes{
     Invalid,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SlotTypes, {
     {SlotTypes::U2, "U2"},
 });
 
-}
 // clang-format on
+}

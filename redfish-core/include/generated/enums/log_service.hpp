@@ -5,7 +5,7 @@
 
 namespace log_service
 {
-// clang-format off
+    // clang-format off
 
 enum class OverWritePolicy{
     Invalid,
@@ -201,5 +201,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AutoClearResolvedEntries, {
     {AutoClearResolvedEntries::None, "None"},
 });
 
-}
 // clang-format on
+}

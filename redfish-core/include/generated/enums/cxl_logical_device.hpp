@@ -5,7 +5,7 @@
 
 namespace cxl_logical_device
 {
-// clang-format off
+    // clang-format off
 
 enum class CXLSemantic{
     Invalid,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PassphraseType, {
     {PassphraseType::Master, "Master"},
 });
 
-}
 // clang-format on
+}

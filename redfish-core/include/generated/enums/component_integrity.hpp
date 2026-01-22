@@ -5,7 +5,7 @@
 
 namespace component_integrity
 {
-// clang-format off
+    // clang-format off
 
 enum class ComponentIntegrityType{
     Invalid,
@@ -95,5 +95,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecureSessionType, {
     {SecureSessionType::AuthenticatedOnly, "AuthenticatedOnly"},
 });
 
-}
 // clang-format on
+}

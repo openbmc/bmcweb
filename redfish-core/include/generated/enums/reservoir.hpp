@@ -5,7 +5,7 @@
 
 namespace reservoir
 {
-// clang-format off
+    // clang-format off
 
 enum class ReservoirType{
     Invalid,
@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReservoirType, {
     {ReservoirType::Immersion, "Immersion"},
 });
 
-}
 // clang-format on
+}

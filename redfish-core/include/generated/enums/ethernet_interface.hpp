@@ -5,7 +5,7 @@
 
 namespace ethernet_interface
 {
-// clang-format off
+    // clang-format off
 
 enum class MACAddress{
     Invalid,
@@ -111,5 +111,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RoutingScope, {
     {RoutingScope::Limited, "Limited"},
 });
 
-}
 // clang-format on
+}

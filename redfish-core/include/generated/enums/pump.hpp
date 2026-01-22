@@ -5,7 +5,7 @@
 
 namespace pump
 {
-// clang-format off
+    // clang-format off
 
 enum class PumpType{
     Invalid,
@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PumpMode, {
     {PumpMode::Disabled, "Disabled"},
 });
 
-}
 // clang-format on
+}

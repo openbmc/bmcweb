@@ -5,7 +5,7 @@
 
 namespace job_document
 {
-// clang-format off
+    // clang-format off
 
 enum class DataType{
     Invalid,
@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DataType, {
     {DataType::String, "String"},
 });
 
-}
 // clang-format on
+}

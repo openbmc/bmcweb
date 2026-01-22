@@ -5,7 +5,7 @@
 
 namespace event
 {
-// clang-format off
+    // clang-format off
 
 enum class EventType{
     Invalid,
@@ -49,5 +49,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DiagnosticDataTypes, {
     {DiagnosticDataTypes::CPERSection, "CPERSection"},
 });
 
-}
 // clang-format on
+}

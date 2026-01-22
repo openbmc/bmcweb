@@ -5,7 +5,7 @@
 
 namespace manager_network_protocol
 {
-// clang-format off
+    // clang-format off
 
 enum class NotifyIPv6Scope{
     Invalid,
@@ -77,5 +77,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::CFB128_AES256, "CFB128_AES256"},
 });
 
-}
 // clang-format on
+}

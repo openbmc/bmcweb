@@ -5,7 +5,7 @@
 
 namespace cooling_unit
 {
-// clang-format off
+    // clang-format off
 
 enum class CoolingEquipmentType{
     Invalid,
@@ -77,5 +77,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
     {ExportSecurity::ExcludeSensitiveData, "ExcludeSensitiveData"},
 });
 
-}
 // clang-format on
+}

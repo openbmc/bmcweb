@@ -5,7 +5,7 @@
 
 namespace license_service
 {
-// clang-format off
+    // clang-format off
 
 enum class TransferProtocolType{
     Invalid,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::NFS, "NFS"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace v_lan_network_interface
 {
-// clang-format off
+    // clang-format off
 
 enum class VLANId{
     Invalid,
@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VLANPriority, {
     {VLANPriority::Invalid, "Invalid"},
 });
 
-}
 // clang-format on
+}

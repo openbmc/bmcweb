@@ -5,7 +5,7 @@
 
 namespace event_service
 {
-// clang-format off
+    // clang-format off
 
 enum class SMTPConnectionProtocol{
     Invalid,
@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SMTPAuthenticationMethods, {
     {SMTPAuthenticationMethods::CRAM_MD5, "CRAM_MD5"},
 });
 
-}
 // clang-format on
+}

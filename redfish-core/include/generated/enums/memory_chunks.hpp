@@ -5,7 +5,7 @@
 
 namespace memory_chunks
 {
-// clang-format off
+    // clang-format off
 
 enum class AddressRangeType{
     Invalid,
@@ -47,5 +47,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperationalState, {
     {OperationalState::Offline, "Offline"},
 });
 
-}
 // clang-format on
+}

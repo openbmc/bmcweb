@@ -5,7 +5,7 @@
 
 namespace outbound_connection
 {
-// clang-format off
+    // clang-format off
 
 enum class OutboundConnectionRetryPolicyType{
     Invalid,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationType, {
     {AuthenticationType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace virtual_media
 {
-// clang-format off
+    // clang-format off
 
 enum class MediaType{
     Invalid,
@@ -95,5 +95,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EjectPolicy, {
     {EjectPolicy::Persistent, "Persistent"},
 });
 
-}
 // clang-format on
+}

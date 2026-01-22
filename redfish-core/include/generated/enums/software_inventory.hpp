@@ -5,7 +5,7 @@
 
 namespace software_inventory
 {
-// clang-format off
+    // clang-format off
 
 enum class VersionScheme{
     Invalid,
@@ -35,5 +35,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReleaseType, {
     {ReleaseType::Other, "Other"},
 });
 
-}
 // clang-format on
+}

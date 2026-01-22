@@ -5,7 +5,7 @@
 
 namespace open_bmc_computer_system
 {
-// clang-format off
+    // clang-format off
 
 enum class FirmwareProvisioningStatus{
     Invalid,
@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FirmwareProvisioningStatus, {
     {FirmwareProvisioningStatus::ProvisionedAndLocked, "ProvisionedAndLocked"},
 });
 
-}
 // clang-format on
+}

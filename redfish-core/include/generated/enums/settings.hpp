@@ -5,7 +5,7 @@
 
 namespace settings
 {
-// clang-format off
+    // clang-format off
 
 enum class OperationApplyTime{
     Invalid,
@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::InMaintenanceWindowOnReset, "InMaintenanceWindowOnReset"},
 });
 
-}
 // clang-format on
+}

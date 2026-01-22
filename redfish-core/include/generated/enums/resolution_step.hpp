@@ -5,7 +5,7 @@
 
 namespace resolution_step
 {
-// clang-format off
+    // clang-format off
 
 enum class ResolutionType{
     Invalid,
@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResolutionType, {
     {ResolutionType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+}

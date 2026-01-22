@@ -5,7 +5,7 @@
 
 namespace serial_interface
 {
-// clang-format off
+    // clang-format off
 
 enum class SignalType{
     Invalid,
@@ -163,5 +163,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Role, {
     {Role::Server, "Server"},
 });
 
-}
 // clang-format on
+}

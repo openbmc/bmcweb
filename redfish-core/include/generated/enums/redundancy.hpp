@@ -5,7 +5,7 @@
 
 namespace redundancy
 {
-// clang-format off
+    // clang-format off
 
 enum class RedundancyMode{
     Invalid,
@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RedundancyType, {
     {RedundancyType::NotRedundant, "NotRedundant"},
 });
 
-}
 // clang-format on
+}

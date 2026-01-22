@@ -5,7 +5,7 @@
 
 namespace circuit
 {
-// clang-format off
+    // clang-format off
 
 enum class PowerState{
     Invalid,
@@ -57,6 +57,8 @@ enum class NominalVoltageType{
     DC48V,
     DC240V,
     DC380V,
+    DC400V,
+    DC800V,
     DCNeg48V,
     DC16V,
     DC12V,
@@ -167,6 +169,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NominalVoltageType, {
     {NominalVoltageType::DC48V, "DC48V"},
     {NominalVoltageType::DC240V, "DC240V"},
     {NominalVoltageType::DC380V, "DC380V"},
+    {NominalVoltageType::DC400V, "DC400V"},
+    {NominalVoltageType::DC800V, "DC800V"},
     {NominalVoltageType::DCNeg48V, "DCNeg48V"},
     {NominalVoltageType::DC16V, "DC16V"},
     {NominalVoltageType::DC12V, "DC12V"},
@@ -227,5 +231,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
     {VoltageType::DC, "DC"},
 });
 
-}
 // clang-format on
+}

@@ -5,7 +5,7 @@
 
 namespace triggers
 {
-// clang-format off
+    // clang-format off
 
 enum class MetricTypeEnum{
     Invalid,
@@ -87,5 +87,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TriggerActionMessage, {
     {TriggerActionMessage::ConnectionSpeed, "ConnectionSpeed"},
 });
 
-}
 // clang-format on
+}
