@@ -415,18 +415,21 @@ class EventServiceManager
 
     bool deleteSubscription(const std::string& id)
     {
-        auto obj = subscriptionsMap.find(id);
+        std::string subscriptionId = id;
+        auto obj = subscriptionsMap.find(subscriptionId);
         if (obj == subscriptionsMap.end())
         {
-            BMCWEB_LOG_WARNING("Could not find subscription with id {}", id);
+            BMCWEB_LOG_WARNING("Could not find subscription with id {}",
+                               subscriptionId);
             return false;
         }
         subscriptionsMap.erase(obj);
         auto& event = persistent_data::EventServiceStore::getInstance();
-        auto persistentObj = event.subscriptionsConfigMap.find(id);
+        auto persistentObj = event.subscriptionsConfigMap.find(subscriptionId);
         if (persistentObj == event.subscriptionsConfigMap.end())
         {
-            BMCWEB_LOG_ERROR("Subscription {} wasn't in persistent data", id);
+            BMCWEB_LOG_ERROR("Subscription {} wasn't in persistent data",
+                             subscriptionId);
             return true;
         }
         persistent_data::EventServiceStore::getInstance()

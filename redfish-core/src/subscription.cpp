@@ -76,15 +76,13 @@ void Subscription::resHandler(const std::shared_ptr<Subscription>& /*self*/,
     {
         return;
     }
-    if (client->isTerminated())
+
+    hbTimer.cancel();
+    if (deleter)
     {
-        hbTimer.cancel();
-        if (deleter)
-        {
-            BMCWEB_LOG_INFO("Subscription {} is deleted after MaxRetryAttempts",
-                            userSub->id);
-            deleter();
-        }
+        BMCWEB_LOG_INFO("Subscription {} is deleted after MaxRetryAttempts",
+                        userSub->id);
+        deleter();
     }
 }
 
