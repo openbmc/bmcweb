@@ -709,6 +709,15 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         // AsyncResponse shared_ptr to this callback
         conn->callback = nullptr;
 
+        // A terminated connection has exhausted all retry attempts.
+        // Don't reuse it for queued requests - it must stay terminated
+        // so that areAllConnectionsTerminated() can eventually return
+        // true and trigger subscription cleanup.
+        if (conn->state == ConnState::terminated)
+        {
+            return;
+        }
+
         // Reuse the connection to send the next request in the queue
         if (!requestQueue.empty())
         {
@@ -791,6 +800,27 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         // to the queue
         if (connections.size() < connPolicy->maxConnections)
         {
+            // Don't create new connections if any existing connection has
+            // been terminated.  A terminated connection means the
+            // destination is confirmed unreachable after exhausting all
+            // retry attempts.  Creating new connections would only grow
+            // the pool with doomed connections, preventing
+            // areAllConnectionsTerminated() from ever returning true.
+            for (const auto& c : connections)
+            {
+                if (c != nullptr && c->state == ConnState::terminated)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "Not creating new connection for pool {} - "
+                        "destination unreachable, retry attempts exhausted",
+                        id);
+                    Response dummyRes;
+                    dummyRes.result(boost::beast::http::status::bad_gateway);
+                    resHandler(dummyRes);
+                    return;
+                }
+            }
+
             BMCWEB_LOG_DEBUG("Adding new connection to pool {}", id);
             auto conn = addConnection();
             conn->req = std::move(thisReq);
