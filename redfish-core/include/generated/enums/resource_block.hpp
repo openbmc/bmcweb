@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace resource_block
-{
 // clang-format off
 
+namespace resource_block
+{
 enum class ResourceBlockType{
     Invalid,
     Compute,

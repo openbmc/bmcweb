@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace reservoir
-{
 // clang-format off
 
+namespace reservoir
+{
 enum class ReservoirType{
     Invalid,
     Reserve,

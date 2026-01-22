@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace network_port
-{
 // clang-format off
 
+namespace network_port
+{
 enum class LinkStatus{
     Invalid,
     Down,

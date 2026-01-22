@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace external_account_provider
-{
 // clang-format off
 
+namespace external_account_provider
+{
 enum class AccountProviderTypes{
     Invalid,
     RedfishService,

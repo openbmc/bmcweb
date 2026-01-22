@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace chassis
-{
 // clang-format off
 
+namespace chassis
+{
 enum class ChassisType{
     Invalid,
     Rack,

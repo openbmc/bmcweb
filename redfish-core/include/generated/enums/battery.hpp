@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace battery
-{
 // clang-format off
 
+namespace battery
+{
 enum class ChargeState{
     Invalid,
     Idle,

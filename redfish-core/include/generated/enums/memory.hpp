@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace memory
-{
 // clang-format off
 
+namespace memory
+{
 enum class MemoryType{
     Invalid,
     DRAM,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace pcie_slots
-{
 // clang-format off
 
+namespace pcie_slots
+{
 enum class SlotTypes{
     Invalid,
     FullLength,

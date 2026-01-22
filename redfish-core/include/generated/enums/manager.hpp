@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace manager
-{
 // clang-format off
 
+namespace manager
+{
 enum class ManagerType{
     Invalid,
     ManagementController,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace storage_controller
-{
 // clang-format off
 
+namespace storage_controller
+{
 enum class NVMeControllerType{
     Invalid,
     Admin,

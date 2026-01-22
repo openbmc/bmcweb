@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace secure_boot
-{
 // clang-format off
 
+namespace secure_boot
+{
 enum class SecureBootCurrentBootType{
     Invalid,
     Enabled,

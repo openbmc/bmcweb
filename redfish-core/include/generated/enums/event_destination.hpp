@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace event_destination
-{
 // clang-format off
 
+namespace event_destination
+{
 enum class EventFormatType{
     Invalid,
     Event,

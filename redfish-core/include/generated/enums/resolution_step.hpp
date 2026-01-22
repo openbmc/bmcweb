@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace resolution_step
-{
 // clang-format off
 
+namespace resolution_step
+{
 enum class ResolutionType{
     Invalid,
     ContactVendor,

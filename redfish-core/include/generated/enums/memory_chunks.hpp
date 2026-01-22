@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace memory_chunks
-{
 // clang-format off
 
+namespace memory_chunks
+{
 enum class AddressRangeType{
     Invalid,
     Volatile,

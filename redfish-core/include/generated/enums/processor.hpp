@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace processor
-{
 // clang-format off
 
+namespace processor
+{
 enum class ProcessorType{
     Invalid,
     CPU,

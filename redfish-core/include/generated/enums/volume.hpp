@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace volume
-{
 // clang-format off
 
+namespace volume
+{
 enum class InitializeType{
     Invalid,
     Fast,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace session
-{
 // clang-format off
 
+namespace session
+{
 enum class SessionTypes{
     Invalid,
     HostConsole,

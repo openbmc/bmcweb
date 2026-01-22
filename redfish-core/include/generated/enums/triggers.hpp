@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace triggers
-{
 // clang-format off
 
+namespace triggers
+{
 enum class MetricTypeEnum{
     Invalid,
     Numeric,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace acceleration_function
-{
 // clang-format off
 
+namespace acceleration_function
+{
 enum class AccelerationFunctionType{
     Invalid,
     Encryption,

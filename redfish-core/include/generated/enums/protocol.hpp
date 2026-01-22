@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace protocol
-{
 // clang-format off
 
+namespace protocol
+{
 enum class Protocol{
     Invalid,
     PCIe,

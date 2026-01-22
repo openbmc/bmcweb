@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace software_inventory
-{
 // clang-format off
 
+namespace software_inventory
+{
 enum class VersionScheme{
     Invalid,
     SemVer,

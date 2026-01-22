@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace circuit
-{
 // clang-format off
 
+namespace circuit
+{
 enum class PowerState{
     Invalid,
     On,

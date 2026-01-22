@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace storage
-{
 // clang-format off
 
+namespace storage
+{
 enum class ResetToDefaultsType{
     Invalid,
     ResetAll,

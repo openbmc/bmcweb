@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace ip_addresses
-{
 // clang-format off
 
+namespace ip_addresses
+{
 enum class IPv4AddressOrigin{
     Invalid,
     Static,

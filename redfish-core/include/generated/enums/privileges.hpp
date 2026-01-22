@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace privileges
-{
 // clang-format off
 
+namespace privileges
+{
 enum class PrivilegeType{
     Invalid,
     Login,

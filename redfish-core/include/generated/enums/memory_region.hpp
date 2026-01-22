@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace memory_region
-{
 // clang-format off
 
+namespace memory_region
+{
 enum class RegionType{
     Invalid,
     Static,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace virtual_pci2_pci_bridge
-{
 // clang-format off
 
+namespace virtual_pci2_pci_bridge
+{
 enum class vPPBStatusTypes{
     Invalid,
     Unbound,

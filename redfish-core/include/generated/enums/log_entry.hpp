@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace log_entry
-{
 // clang-format off
 
+namespace log_entry
+{
 enum class EventSeverity{
     Invalid,
     OK,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace connection_method
-{
 // clang-format off
 
+namespace connection_method
+{
 enum class ConnectionMethodType{
     Invalid,
     Redfish,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace outlet_group
-{
 // clang-format off
 
+namespace outlet_group
+{
 enum class PowerState{
     Invalid,
     On,

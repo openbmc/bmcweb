@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace manager_network_protocol
-{
 // clang-format off
 
+namespace manager_network_protocol
+{
 enum class NotifyIPv6Scope{
     Invalid,
     Link,

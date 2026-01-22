@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace manager_account
-{
 // clang-format off
 
+namespace manager_account
+{
 enum class AccountTypes{
     Invalid,
     Redfish,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace host_interface
-{
 // clang-format off
 
+namespace host_interface
+{
 enum class HostInterfaceType{
     Invalid,
     NetworkHostInterface,

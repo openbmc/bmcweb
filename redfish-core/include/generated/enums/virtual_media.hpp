@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace virtual_media
-{
 // clang-format off
 
+namespace virtual_media
+{
 enum class MediaType{
     Invalid,
     CD,

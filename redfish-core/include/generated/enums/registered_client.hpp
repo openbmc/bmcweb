@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace registered_client
-{
 // clang-format off
 
+namespace registered_client
+{
 enum class ClientType{
     Invalid,
     Monitor,

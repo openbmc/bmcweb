@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace account_service
-{
 // clang-format off
 
+namespace account_service
+{
 enum class MFABypassType{
     Invalid,
     All,

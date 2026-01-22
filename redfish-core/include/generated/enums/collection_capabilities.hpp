@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace collection_capabilities
-{
 // clang-format off
 
+namespace collection_capabilities
+{
 enum class UseCase{
     Invalid,
     ComputerSystemComposition,

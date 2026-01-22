@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace container_image
-{
 // clang-format off
 
+namespace container_image
+{
 enum class ImageTypes{
     Invalid,
     DockerV1,

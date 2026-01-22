@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace pcie_function
-{
 // clang-format off
 
+namespace pcie_function
+{
 enum class DeviceClass{
     Invalid,
     UnclassifiedDevice,

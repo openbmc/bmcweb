@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace task_service
-{
 // clang-format off
 
+namespace task_service
+{
 enum class OverWritePolicy{
     Invalid,
     Manual,
