@@ -54,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b753516a_30efe92c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-22T21:05:00Z",
+      "side": 1,
+      "message": "Ideally your Gerrit Name matches your CCLA, Signed-Off name..\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86150",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f46de10_c63a0d39",
         "filename": "redfish-core/src/subscription.cpp",
         "patchSetId": 5
