@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98d47a2f_fec3adfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-22T21:01:18Z",
+      "side": 1,
+      "message": "Also, would connectFailed state be an intermediate condition before setting it as `terminated` state.\n\nIn that case, should bmcweb attempt to connect multiple times (upto maxRetry) and then its state will become `terminated` state?\n\n- https://github.com/openbmc/bmcweb/blob/ca8790742803cf56283189f63feb37bb5c003912/http/http_client.hpp#L246\n\n```\nvoid afterConnect(const std::shared_ptr\u003cConnectionInfo\u003e\u0026 /*self*/,\n                      const boost::beast::error_code\u0026 ec,\n                      const boost::asio::ip::tcp::endpoint\u0026 endpoint)\n    {\n    ...\n                state \u003d ConnState::connectFailed;\n            waitAndRetry(); \u003c\u003d\u003d\u003d\n            return;\n     }\n```",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84585c07_56f0dce9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
