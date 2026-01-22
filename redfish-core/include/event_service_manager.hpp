@@ -413,7 +413,7 @@ class EventServiceManager
         return obj != subscriptionsMap.end();
     }
 
-    bool deleteSubscription(const std::string& id)
+    bool deleteSubscription(const std::string id)
     {
         auto obj = subscriptionsMap.find(id);
         if (obj == subscriptionsMap.end())

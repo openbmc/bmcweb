@@ -957,22 +957,5 @@ class HttpClient
         pool.first->second->sendData(std::move(data), destUrl, httpHeader, verb,
                                      resHandler);
     }
-
-    // Test whether all connections are terminated (after MaxRetryAttempts)
-    bool isTerminated()
-    {
-        for (const auto& pool : connectionPools)
-        {
-            if (pool.second != nullptr &&
-                !pool.second->areAllConnectionsTerminated())
-            {
-                BMCWEB_LOG_DEBUG(
-                    "Not all of client connections are terminated");
-                return false;
-            }
-        }
-        BMCWEB_LOG_DEBUG("All client connections are terminated");
-        return true;
-    }
 };
 } // namespace crow
