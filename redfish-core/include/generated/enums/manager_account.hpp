@@ -5,7 +5,7 @@
 
 namespace manager_account
 {
-// clang-format off
+    // clang-format off
 
 enum class AccountTypes{
     Invalid,

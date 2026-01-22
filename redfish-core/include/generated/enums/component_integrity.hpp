@@ -5,7 +5,7 @@
 
 namespace component_integrity
 {
-// clang-format off
+    // clang-format off
 
 enum class ComponentIntegrityType{
     Invalid,

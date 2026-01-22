@@ -5,7 +5,7 @@
 
 namespace power_supply
 {
-// clang-format off
+    // clang-format off
 
 enum class PowerSupplyType{
     Invalid,

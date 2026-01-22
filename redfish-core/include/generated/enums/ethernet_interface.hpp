@@ -5,7 +5,7 @@
 
 namespace ethernet_interface
 {
-// clang-format off
+    // clang-format off
 
 enum class MACAddress{
     Invalid,

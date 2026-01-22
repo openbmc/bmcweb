@@ -5,7 +5,7 @@
 
 namespace pcie_device
 {
-// clang-format off
+    // clang-format off
 
 enum class PCIeTypes{
     Invalid,

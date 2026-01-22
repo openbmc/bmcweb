@@ -5,7 +5,7 @@
 
 namespace attribute_registry
 {
-// clang-format off
+    // clang-format off
 
 enum class AttributeType{
     Invalid,

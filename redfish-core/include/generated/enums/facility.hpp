@@ -5,7 +5,7 @@
 
 namespace facility
 {
-// clang-format off
+    // clang-format off
 
 enum class FacilityType{
     Invalid,

@@ -5,7 +5,7 @@
 
 namespace secure_boot_database
 {
-// clang-format off
+    // clang-format off
 
 enum class ResetKeysType{
     Invalid,

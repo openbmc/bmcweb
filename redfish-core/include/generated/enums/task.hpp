@@ -5,7 +5,7 @@
 
 namespace task
 {
-// clang-format off
+    // clang-format off
 
 enum class TaskState{
     Invalid,

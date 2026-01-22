@@ -5,7 +5,7 @@
 
 namespace network_port
 {
-// clang-format off
+    // clang-format off
 
 enum class LinkStatus{
     Invalid,

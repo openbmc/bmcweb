@@ -5,7 +5,7 @@
 
 namespace protocol
 {
-// clang-format off
+    // clang-format off
 
 enum class Protocol{
     Invalid,

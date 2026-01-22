@@ -5,7 +5,7 @@
 
 namespace action_info
 {
-// clang-format off
+    // clang-format off
 
 enum class ParameterTypes{
     Invalid,

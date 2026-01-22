@@ -5,7 +5,7 @@
 
 namespace automation_node
 {
-// clang-format off
+    // clang-format off
 
 enum class NodeState{
     Invalid,

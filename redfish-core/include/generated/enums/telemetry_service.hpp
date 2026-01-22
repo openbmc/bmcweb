@@ -5,7 +5,7 @@
 
 namespace telemetry_service
 {
-// clang-format off
+    // clang-format off
 
 enum class CollectionFunction{
     Invalid,

@@ -5,7 +5,7 @@
 
 namespace external_account_provider
 {
-// clang-format off
+    // clang-format off
 
 enum class AccountProviderTypes{
     Invalid,

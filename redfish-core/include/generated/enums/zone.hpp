@@ -5,7 +5,7 @@
 
 namespace zone
 {
-// clang-format off
+    // clang-format off
 
 enum class ExternalAccessibility{
     Invalid,

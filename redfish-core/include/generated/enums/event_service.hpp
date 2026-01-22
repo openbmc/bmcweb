@@ -5,7 +5,7 @@
 
 namespace event_service
 {
-// clang-format off
+    // clang-format off
 
 enum class SMTPConnectionProtocol{
     Invalid,

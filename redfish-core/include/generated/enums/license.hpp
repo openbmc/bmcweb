@@ -5,7 +5,7 @@
 
 namespace license
 {
-// clang-format off
+    // clang-format off
 
 enum class LicenseType{
     Invalid,

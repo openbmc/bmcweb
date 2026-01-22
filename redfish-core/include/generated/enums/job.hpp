@@ -5,7 +5,7 @@
 
 namespace job
 {
-// clang-format off
+    // clang-format off
 
 enum class JobState{
     New,

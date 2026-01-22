@@ -5,7 +5,7 @@
 
 namespace schedule
 {
-// clang-format off
+    // clang-format off
 
 enum class DayOfWeek{
     Invalid,

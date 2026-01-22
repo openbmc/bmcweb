@@ -5,7 +5,7 @@
 
 namespace allow_deny
 {
-// clang-format off
+    // clang-format off
 
 enum class IPAddressType{
     Invalid,

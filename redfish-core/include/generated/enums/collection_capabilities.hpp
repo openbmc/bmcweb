@@ -5,7 +5,7 @@
 
 namespace collection_capabilities
 {
-// clang-format off
+    // clang-format off
 
 enum class UseCase{
     Invalid,

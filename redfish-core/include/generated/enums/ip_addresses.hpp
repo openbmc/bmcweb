@@ -5,7 +5,7 @@
 
 namespace ip_addresses
 {
-// clang-format off
+    // clang-format off
 
 enum class IPv4AddressOrigin{
     Invalid,

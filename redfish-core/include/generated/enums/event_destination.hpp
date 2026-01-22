@@ -5,7 +5,7 @@
 
 namespace event_destination
 {
-// clang-format off
+    // clang-format off
 
 enum class EventFormatType{
     Invalid,

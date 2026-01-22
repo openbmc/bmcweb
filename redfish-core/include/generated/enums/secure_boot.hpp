@@ -5,7 +5,7 @@
 
 namespace secure_boot
 {
-// clang-format off
+    // clang-format off
 
 enum class SecureBootCurrentBootType{
     Invalid,

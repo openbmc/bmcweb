@@ -5,7 +5,7 @@
 
 namespace privileges
 {
-// clang-format off
+    // clang-format off
 
 enum class PrivilegeType{
     Invalid,

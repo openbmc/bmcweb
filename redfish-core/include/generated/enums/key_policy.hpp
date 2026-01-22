@@ -5,7 +5,7 @@
 
 namespace key_policy
 {
-// clang-format off
+    // clang-format off
 
 enum class KeyPolicyType{
     Invalid,

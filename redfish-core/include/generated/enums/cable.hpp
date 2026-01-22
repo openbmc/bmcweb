@@ -5,7 +5,7 @@
 
 namespace cable
 {
-// clang-format off
+    // clang-format off
 
 enum class CableClass{
     Invalid,

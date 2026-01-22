@@ -5,7 +5,7 @@
 
 namespace media_controller
 {
-// clang-format off
+    // clang-format off
 
 enum class MediaControllerType{
     Invalid,

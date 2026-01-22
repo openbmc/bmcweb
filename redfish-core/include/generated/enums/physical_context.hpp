@@ -5,7 +5,7 @@
 
 namespace physical_context
 {
-// clang-format off
+    // clang-format off
 
 enum class PhysicalContext{
     Invalid,

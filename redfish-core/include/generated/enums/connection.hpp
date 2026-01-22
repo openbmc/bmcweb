@@ -5,7 +5,7 @@
 
 namespace connection
 {
-// clang-format off
+    // clang-format off
 
 enum class ConnectionType{
     Invalid,

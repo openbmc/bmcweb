@@ -5,7 +5,7 @@
 
 namespace battery
 {
-// clang-format off
+    // clang-format off
 
 enum class ChargeState{
     Invalid,

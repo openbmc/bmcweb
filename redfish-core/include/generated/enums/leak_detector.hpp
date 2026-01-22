@@ -5,7 +5,7 @@
 
 namespace leak_detector
 {
-// clang-format off
+    // clang-format off
 
 enum class LeakDetectorType{
     Invalid,

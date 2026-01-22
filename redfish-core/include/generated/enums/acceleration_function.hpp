@@ -5,7 +5,7 @@
 
 namespace acceleration_function
 {
-// clang-format off
+    // clang-format off
 
 enum class AccelerationFunctionType{
     Invalid,

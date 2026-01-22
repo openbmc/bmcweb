@@ -5,7 +5,7 @@
 
 namespace telemetry_data
 {
-// clang-format off
+    // clang-format off
 
 enum class TelemetryDataTypes{
     Invalid,

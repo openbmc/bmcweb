@@ -5,7 +5,7 @@
 
 namespace software_inventory
 {
-// clang-format off
+    // clang-format off
 
 enum class VersionScheme{
     Invalid,

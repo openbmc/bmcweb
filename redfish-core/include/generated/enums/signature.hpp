@@ -5,7 +5,7 @@
 
 namespace signature
 {
-// clang-format off
+    // clang-format off
 
 enum class SignatureTypeRegistry{
     Invalid,

@@ -5,7 +5,7 @@
 
 namespace pcie_function
 {
-// clang-format off
+    // clang-format off
 
 enum class DeviceClass{
     Invalid,

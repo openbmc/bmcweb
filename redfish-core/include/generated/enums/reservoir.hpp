@@ -5,7 +5,7 @@
 
 namespace reservoir
 {
-// clang-format off
+    // clang-format off
 
 enum class ReservoirType{
     Invalid,

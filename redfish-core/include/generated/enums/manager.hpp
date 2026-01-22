@@ -5,7 +5,7 @@
 
 namespace manager
 {
-// clang-format off
+    // clang-format off
 
 enum class ManagerType{
     Invalid,

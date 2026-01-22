@@ -5,7 +5,7 @@
 
 namespace serial_interface
 {
-// clang-format off
+    // clang-format off
 
 enum class SignalType{
     Invalid,

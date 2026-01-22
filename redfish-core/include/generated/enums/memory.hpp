@@ -5,7 +5,7 @@
 
 namespace memory
 {
-// clang-format off
+    // clang-format off
 
 enum class MemoryType{
     Invalid,

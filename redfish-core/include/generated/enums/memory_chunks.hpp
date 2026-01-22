@@ -5,7 +5,7 @@
 
 namespace memory_chunks
 {
-// clang-format off
+    // clang-format off
 
 enum class AddressRangeType{
     Invalid,

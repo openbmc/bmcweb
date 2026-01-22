@@ -5,7 +5,7 @@
 
 namespace manifest
 {
-// clang-format off
+    // clang-format off
 
 enum class Expand{
     Invalid,

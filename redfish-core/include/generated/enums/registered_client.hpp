@@ -5,7 +5,7 @@
 
 namespace registered_client
 {
-// clang-format off
+    // clang-format off
 
 enum class ClientType{
     Invalid,

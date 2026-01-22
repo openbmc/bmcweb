@@ -5,7 +5,7 @@
 
 namespace connection_method
 {
-// clang-format off
+    // clang-format off
 
 enum class ConnectionMethodType{
     Invalid,

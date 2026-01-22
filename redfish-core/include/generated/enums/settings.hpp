@@ -5,7 +5,7 @@
 
 namespace settings
 {
-// clang-format off
+    // clang-format off
 
 enum class OperationApplyTime{
     Invalid,

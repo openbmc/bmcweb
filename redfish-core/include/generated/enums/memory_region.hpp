@@ -5,7 +5,7 @@
 
 namespace memory_region
 {
-// clang-format off
+    // clang-format off
 
 enum class RegionType{
     Invalid,

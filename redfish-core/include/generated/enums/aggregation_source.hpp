@@ -5,7 +5,7 @@
 
 namespace aggregation_source
 {
-// clang-format off
+    // clang-format off
 
 enum class SNMPAuthenticationProtocols{
     Invalid,

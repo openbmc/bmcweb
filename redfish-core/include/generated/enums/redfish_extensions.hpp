@@ -5,7 +5,7 @@
 
 namespace redfish_extensions
 {
-// clang-format off
+    // clang-format off
 
 enum class ReleaseStatusType{
     Invalid,

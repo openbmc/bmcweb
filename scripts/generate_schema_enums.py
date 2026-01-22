@@ -84,7 +84,7 @@ def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
         "#include <nlohmann/json.hpp>\n\n"
         "namespace {}\n"
         "{{\n"
-        "// clang-format off\n\n".format(snake_case_namespace)
+        "    // clang-format off\n\n".format(snake_case_namespace)
     )
 
     for element in enum_list:

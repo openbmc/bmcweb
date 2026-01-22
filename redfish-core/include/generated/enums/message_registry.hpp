@@ -5,7 +5,7 @@
 
 namespace message_registry
 {
-// clang-format off
+    // clang-format off
 
 enum class ParamType{
     Invalid,

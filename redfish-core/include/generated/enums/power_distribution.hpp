@@ -5,7 +5,7 @@
 
 namespace power_distribution
 {
-// clang-format off
+    // clang-format off
 
 enum class PowerEquipmentType{
     Invalid,

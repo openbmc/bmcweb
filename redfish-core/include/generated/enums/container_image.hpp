@@ -5,7 +5,7 @@
 
 namespace container_image
 {
-// clang-format off
+    // clang-format off
 
 enum class ImageTypes{
     Invalid,

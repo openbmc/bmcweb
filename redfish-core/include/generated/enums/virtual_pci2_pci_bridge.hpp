@@ -5,7 +5,7 @@
 
 namespace virtual_pci2_pci_bridge
 {
-// clang-format off
+    // clang-format off
 
 enum class vPPBStatusTypes{
     Invalid,

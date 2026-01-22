@@ -5,7 +5,7 @@
 
 namespace host_interface
 {
-// clang-format off
+    // clang-format off
 
 enum class HostInterfaceType{
     Invalid,

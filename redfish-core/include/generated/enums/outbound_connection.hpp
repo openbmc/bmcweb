@@ -5,7 +5,7 @@
 
 namespace outbound_connection
 {
-// clang-format off
+    // clang-format off
 
 enum class OutboundConnectionRetryPolicyType{
     Invalid,

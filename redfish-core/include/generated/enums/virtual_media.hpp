@@ -5,7 +5,7 @@
 
 namespace virtual_media
 {
-// clang-format off
+    // clang-format off
 
 enum class MediaType{
     Invalid,

@@ -5,7 +5,7 @@
 
 namespace port
 {
-// clang-format off
+    // clang-format off
 
 enum class PortType{
     Invalid,

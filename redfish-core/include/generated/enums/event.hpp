@@ -5,7 +5,7 @@
 
 namespace event
 {
-// clang-format off
+    // clang-format off
 
 enum class EventType{
     Invalid,

@@ -5,7 +5,7 @@
 
 namespace cooling_loop
 {
-// clang-format off
+    // clang-format off
 
 enum class CoolantType{
     Invalid,

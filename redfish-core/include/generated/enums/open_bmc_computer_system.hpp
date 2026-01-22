@@ -5,7 +5,7 @@
 
 namespace open_bmc_computer_system
 {
-// clang-format off
+    // clang-format off
 
 enum class FirmwareProvisioningStatus{
     Invalid,

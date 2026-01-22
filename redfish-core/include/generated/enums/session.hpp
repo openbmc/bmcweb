@@ -5,7 +5,7 @@
 
 namespace session
 {
-// clang-format off
+    // clang-format off
 
 enum class SessionTypes{
     Invalid,

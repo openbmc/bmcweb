@@ -5,7 +5,7 @@
 
 namespace key
 {
-// clang-format off
+    // clang-format off
 
 enum class SSHKeyType{
     Invalid,

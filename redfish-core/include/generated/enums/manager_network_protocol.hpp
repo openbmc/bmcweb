@@ -5,7 +5,7 @@
 
 namespace manager_network_protocol
 {
-// clang-format off
+    // clang-format off
 
 enum class NotifyIPv6Scope{
     Invalid,

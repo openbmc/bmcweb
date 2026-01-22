@@ -5,7 +5,7 @@
 
 namespace trusted_component
 {
-// clang-format off
+    // clang-format off
 
 enum class TrustedComponentType{
     Invalid,

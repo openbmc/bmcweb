@@ -5,7 +5,7 @@
 
 namespace resource
 {
-// clang-format off
+    // clang-format off
 
 enum class Id{
     Invalid,

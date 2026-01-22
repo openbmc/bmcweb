@@ -5,7 +5,7 @@
 
 namespace coolant_connector
 {
-// clang-format off
+    // clang-format off
 
 enum class CoolantConnectorType{
     Invalid,

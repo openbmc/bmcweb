@@ -5,7 +5,7 @@
 
 namespace operating_system
 {
-// clang-format off
+    // clang-format off
 
 enum class OperatingSystemTypes{
     Invalid,

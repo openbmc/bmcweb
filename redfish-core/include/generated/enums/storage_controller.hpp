@@ -5,7 +5,7 @@
 
 namespace storage_controller
 {
-// clang-format off
+    // clang-format off
 
 enum class NVMeControllerType{
     Invalid,

@@ -5,7 +5,7 @@
 
 namespace network_device_function
 {
-// clang-format off
+    // clang-format off
 
 enum class NetworkDeviceTechnology{
     Invalid,

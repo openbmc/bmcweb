@@ -5,7 +5,7 @@
 
 namespace sensor
 {
-// clang-format off
+    // clang-format off
 
 enum class VoltageType{
     Invalid,

@@ -5,7 +5,7 @@
 
 namespace job_document
 {
-// clang-format off
+    // clang-format off
 
 enum class DataType{
     Invalid,

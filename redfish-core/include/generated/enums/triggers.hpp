@@ -5,7 +5,7 @@
 
 namespace triggers
 {
-// clang-format off
+    // clang-format off
 
 enum class MetricTypeEnum{
     Invalid,
