@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace leak_detector
-{
 // clang-format off
 
+namespace leak_detector
+{
 enum class LeakDetectorType{
     Invalid,
     Moisture,

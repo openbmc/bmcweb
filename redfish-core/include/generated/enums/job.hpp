@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace job
-{
 // clang-format off
 
+namespace job
+{
 enum class JobState{
     New,
     Starting,

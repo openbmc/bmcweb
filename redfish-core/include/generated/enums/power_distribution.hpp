@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace power_distribution
-{
 // clang-format off
 
+namespace power_distribution
+{
 enum class PowerEquipmentType{
     Invalid,
     RackPDU,

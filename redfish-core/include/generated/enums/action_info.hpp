@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace action_info
-{
 // clang-format off
 
+namespace action_info
+{
 enum class ParameterTypes{
     Invalid,
     Boolean,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace ethernet_interface
-{
 // clang-format off
 
+namespace ethernet_interface
+{
 enum class MACAddress{
     Invalid,
 };

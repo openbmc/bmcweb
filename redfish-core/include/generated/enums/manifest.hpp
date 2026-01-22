@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace manifest
-{
 // clang-format off
 
+namespace manifest
+{
 enum class Expand{
     Invalid,
     None,

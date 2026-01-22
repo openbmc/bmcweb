@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace connection
-{
 // clang-format off
 
+namespace connection
+{
 enum class ConnectionType{
     Invalid,
     Storage,

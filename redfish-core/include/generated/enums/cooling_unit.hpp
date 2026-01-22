@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace cooling_unit
-{
 // clang-format off
 
+namespace cooling_unit
+{
 enum class CoolingEquipmentType{
     Invalid,
     CDU,

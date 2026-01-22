@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace certificate
-{
 // clang-format off
 
+namespace certificate
+{
 enum class CertificateType{
     Invalid,
     PEM,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace coolant_connector
-{
 // clang-format off
 
+namespace coolant_connector
+{
 enum class CoolantConnectorType{
     Invalid,
     Pair,

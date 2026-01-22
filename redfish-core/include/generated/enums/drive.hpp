@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace drive
-{
 // clang-format off
 
+namespace drive
+{
 enum class MediaType{
     Invalid,
     HDD,

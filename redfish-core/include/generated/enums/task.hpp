@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace task
-{
 // clang-format off
 
+namespace task
+{
 enum class TaskState{
     Invalid,
     New,

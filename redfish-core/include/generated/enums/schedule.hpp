@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace schedule
-{
 // clang-format off
 
+namespace schedule
+{
 enum class DayOfWeek{
     Invalid,
     Monday,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace redundancy
-{
 // clang-format off
 
+namespace redundancy
+{
 enum class RedundancyMode{
     Invalid,
     Failover,

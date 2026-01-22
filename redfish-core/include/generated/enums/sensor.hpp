@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace sensor
-{
 // clang-format off
 
+namespace sensor
+{
 enum class VoltageType{
     Invalid,
     AC,

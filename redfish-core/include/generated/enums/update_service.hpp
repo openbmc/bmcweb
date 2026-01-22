@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace update_service
-{
 // clang-format off
 
+namespace update_service
+{
 enum class TransferProtocolType{
     Invalid,
     CIFS,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace power
-{
 // clang-format off
 
+namespace power
+{
 enum class PowerLimitException{
     Invalid,
     NoAction,

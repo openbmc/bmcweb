@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace endpoint_group
-{
 // clang-format off
 
+namespace endpoint_group
+{
 enum class AccessState{
     Invalid,
     Optimized,

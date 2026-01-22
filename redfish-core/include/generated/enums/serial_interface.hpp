@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace serial_interface
-{
 // clang-format off
 
+namespace serial_interface
+{
 enum class SignalType{
     Invalid,
     Rs232,

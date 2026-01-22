@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace pcie_device
-{
 // clang-format off
 
+namespace pcie_device
+{
 enum class PCIeTypes{
     Invalid,
     Gen1,

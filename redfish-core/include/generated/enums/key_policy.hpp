@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace key_policy
-{
 // clang-format off
 
+namespace key_policy
+{
 enum class KeyPolicyType{
     Invalid,
     NVMeoF,

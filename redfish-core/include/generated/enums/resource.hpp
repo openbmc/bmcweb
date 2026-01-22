@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace resource
-{
 // clang-format off
 
+namespace resource
+{
 enum class Id{
     Invalid,
 };

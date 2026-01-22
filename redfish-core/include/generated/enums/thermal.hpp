@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace thermal
-{
 // clang-format off
 
+namespace thermal
+{
 enum class ReadingUnits{
     Invalid,
     RPM,

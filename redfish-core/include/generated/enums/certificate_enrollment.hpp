@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace certificate_enrollment
-{
 // clang-format off
 
+namespace certificate_enrollment
+{
 enum class EnrollmentProtocolType{
     Invalid,
     ACME,

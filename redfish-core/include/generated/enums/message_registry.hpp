@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace message_registry
-{
 // clang-format off
 
+namespace message_registry
+{
 enum class ParamType{
     Invalid,
     string,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace event_service
-{
 // clang-format off
 
+namespace event_service
+{
 enum class SMTPConnectionProtocol{
     Invalid,
     None,

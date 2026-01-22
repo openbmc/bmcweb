@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace component_integrity
-{
 // clang-format off
 
+namespace component_integrity
+{
 enum class ComponentIntegrityType{
     Invalid,
     SPDM,

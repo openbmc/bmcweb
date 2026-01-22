@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace allow_deny
-{
 // clang-format off
 
+namespace allow_deny
+{
 enum class IPAddressType{
     Invalid,
     IPv4,

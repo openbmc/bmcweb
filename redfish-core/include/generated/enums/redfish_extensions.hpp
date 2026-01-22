@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace redfish_extensions
-{
 // clang-format off
 
+namespace redfish_extensions
+{
 enum class ReleaseStatusType{
     Invalid,
     Standard,

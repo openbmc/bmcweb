@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace key
-{
 // clang-format off
 
+namespace key
+{
 enum class SSHKeyType{
     Invalid,
     RSA,

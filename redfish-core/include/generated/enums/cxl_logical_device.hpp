@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace cxl_logical_device
-{
 // clang-format off
 
+namespace cxl_logical_device
+{
 enum class CXLSemantic{
     Invalid,
     CXLio,

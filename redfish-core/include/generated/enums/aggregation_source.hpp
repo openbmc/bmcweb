@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace aggregation_source
-{
 // clang-format off
 
+namespace aggregation_source
+{
 enum class SNMPAuthenticationProtocols{
     Invalid,
     None,

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace license
-{
 // clang-format off
 
+namespace license
+{
 enum class LicenseType{
     Invalid,
     Production,

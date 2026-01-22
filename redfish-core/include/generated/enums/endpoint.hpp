@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-namespace endpoint
-{
 // clang-format off
 
+namespace endpoint
+{
 enum class EntityType{
     Invalid,
     StorageInitiator,
