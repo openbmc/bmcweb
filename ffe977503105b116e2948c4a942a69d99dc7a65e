@@ -453,6 +453,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2264f091_a2ec3664",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-22T17:43:47Z",
+      "side": 1,
+      "message": "I\u0027m glad you all agree...... The point is that\u0027s not what the documentation says.\n\n\"\". Zero value means that the user password does not expire. Maximum value (default value) means that the user password expiration is not specified.\"\n\nThe point of this is that that statement isn\u0027t handled correctly on line 1126.\n\nIt looks like this was partially fixed.  Just move the declaration to line 1991, and remove this unused default entirely, then go make 1126 map max int to.... SOMETHING.",
+      "parentUuid": "f1cb5def_eee9047b",
+      "range": {
+        "startLine": 1940,
+        "startChar": 0,
+        "endLine": 1940,
+        "endChar": 45
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edd342cd_940994e0",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 7
