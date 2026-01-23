@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4924ab6_a98eb2f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-23T09:16:36Z",
+      "side": 1,
+      "message": "2024-10-17T18:12:04+00:00 \u003d\u003d YYYY-MM-DDTHH:MM:SSZ isn\u0027t by ISO8601?\n\n2024-10-17(YYYY-MM-DD) T 18:12:04(HH:MM:SS) +00:00(Z) looks ok for me or where it looks wrong?",
+      "parentUuid": "b0599431_c506cd21",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6bec0b6_724c0f2f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
@@ -37,6 +61,30 @@
       "writtenOn": "2026-01-22T21:28:15Z",
       "side": 1,
       "message": "nitpick: redfish",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 7
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5d8af7b_48c34af7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-23T09:16:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b6bec0b6_724c0f2f",
       "range": {
         "startLine": 14,
         "startChar": 1,
@@ -155,6 +203,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dda27eb_f8c261c1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-23T09:16:36Z",
+      "side": 1,
+      "message": "I don\u0027t mind, maybe warning will be more suitable for this case.",
+      "parentUuid": "1699783b_c1a0ea1e",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5b114bb_79a4383a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13
@@ -190,6 +256,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0744706d_d75cbc29",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-23T09:16:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "91a8b386_78d513bb",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61a1f008_f6aa4dc6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13
@@ -213,6 +297,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63354b7b_84acf148",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-23T09:16:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "61a1f008_f6aa4dc6",
+      "range": {
+        "startLine": 2057,
+        "startChar": 61,
+        "endLine": 2059,
+        "endChar": 27
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9bbc7db8_c4d43a36",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 13
@@ -224,6 +332,24 @@
       "writtenOn": "2026-01-22T21:28:15Z",
       "side": 1,
       "message": "Thanks for adding tests! I thought you would need to add the tests here: \nhttps://github.com/openbmc/bmcweb/blob/master/test/meson.build#L47",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc91084_593181db",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-23T09:16:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9bbc7db8_c4d43a36",
       "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
