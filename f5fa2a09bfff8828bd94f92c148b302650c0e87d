@@ -16,6 +16,24 @@
       "message": "IMHO, this is a good change.\nNote this affects only URI /login.  Authentication methods listed under Oem.OpenBMC.AuthMethods such as TLS, Cookie, and BasicAuth remain usable.@font-face\n\t{font-family:\"Cambria Math\";\n\tpanose-1:2 4 5 3 5 4 6 3 2 4;\n\tmso-font-charset:0;\n\tmso-generic-font-family:roman;\n\tmso-font-pitch:variable;\n\tmso-font-signature:-536870145 1107305727 0 0 415 0;}p.MsoNormal, li.MsoNormal, div.MsoNormal\n\t{mso-style-unhide:no;\n\tmso-style-qformat:yes;\n\tmso-style-parent:\"\";\n\tmargin-top:6.0pt;\n\tmargin-right:0in;\n\tmargin-bottom:0in;\n\tmargin-left:0in;\n\tmso-pagination:widow-orphan;\n\tfont-size:12.0pt;\n\tfont-family:\"Times New Roman\",serif;\n\tmso-fareast-font-family:\"Times New Roman\";}.MsoChpDefault\n\t{mso-style-type:export-only;\n\tmso-default-props:yes;\n\tfont-size:11.0pt;\n\tmso-ansi-font-size:11.0pt;\n\tmso-bidi-font-size:11.0pt;\n\tfont-family:\"Calibri\",sans-serif;\n\tmso-ascii-font-family:Calibri;\n\tmso-ascii-theme-font:minor-latin;\n\tmso-fareast-font-family:\"Times New Roman\";\n\tmso-fareast-theme-font:minor-fareast;\n\tmso-hansi-font-family:Calibri;\n\tmso-hansi-theme-font:minor-latin;\n\tmso-bidi-font-family:Arial;\n\tmso-bidi-theme-font:minor-bidi;\n\tmso-font-kerning:0pt;\n\tmso-ligatures:none;}.MsoPapDefault\n\t{mso-style-type:export-only;\n\tmargin-top:10.0pt;\n\tmargin-right:0in;\n\tmargin-bottom:10.0pt;\n\tmargin-left:0in;\n\tline-height:115%;}div.WordSection1\n\t{page:WordSection1;}",
       "revId": "f5fa2a09bfff8828bd94f92c148b302650c0e87d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6f7a1b6_c8a5f5c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-23T04:12:43Z",
+      "side": 1,
+      "message": "I\u0027m assuming the css blast wasn\u0027t intentional.  Appreciate the support.",
+      "parentUuid": "333ce0a2_e1576f2d",
+      "revId": "f5fa2a09bfff8828bd94f92c148b302650c0e87d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
