@@ -57,9 +57,9 @@ inline void handlePCIeDevicePath(
 {
     for (const std::string& pcieDevicePath : pcieDevicePaths)
     {
-        std::string pciecDeviceName =
+        std::string pcieDeviceName =
             sdbusplus::message::object_path(pcieDevicePath).filename();
-        if (pciecDeviceName.empty() || pciecDeviceName != pcieDeviceId)
+        if (pcieDeviceName.empty() || pcieDeviceName != pcieDeviceId)
         {
             continue;
         }
