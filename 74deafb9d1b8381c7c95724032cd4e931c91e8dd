@@ -106,6 +106,24 @@
       "parentUuid": "4fa6cc2b_48c56d2e",
       "revId": "74deafb9d1b8381c7c95724032cd4e931c91e8dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf9c1b8a_068df15f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-23T05:18:37Z",
+      "side": 1,
+      "message": "didn\u0027t add asyncResp-\u003eres.result(boost::beast::http::status::no_content); this here I\u0027m still getting 200 ok status code only",
+      "parentUuid": "2bb01e6d_7c0624cf",
+      "revId": "74deafb9d1b8381c7c95724032cd4e931c91e8dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
