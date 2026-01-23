@@ -30,6 +30,14 @@ namespace redfish
 namespace systems_utils
 {
 
+constexpr std::array<std::string_view, 1> computerSystemInterface{
+    "xyz.openbmc_project.Inventory.Item.System",
+};
+
+constexpr std::array<std::string_view, 1> managedHostInterface{
+    "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
+};
+
 inline void handleSystemCollectionMembers(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
@@ -51,29 +59,6 @@ inline void handleSystemCollectionMembers(
 
     nlohmann::json& membersArray = asyncResp->res.jsonValue["Members"];
     membersArray = nlohmann::json::array();
-
-    // consider an empty result as single-host, since single-host systems
-    // do not populate the ManagedHost dbus interface
-    if (objects.empty())
-    {
-        asyncResp->res.jsonValue["Members@odata.count"] = 1;
-        nlohmann::json::object_t system;
-        system["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-        membersArray.emplace_back(std::move(system));
-
-        if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
-        {
-            BMCWEB_LOG_DEBUG("Hypervisor is available");
-            asyncResp->res.jsonValue["Members@odata.count"] = 2;
-
-            nlohmann::json::object_t hypervisor;
-            hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
-            membersArray.emplace_back(std::move(hypervisor));
-        }
-
-        return;
-    }
 
     std::vector<std::string> pathNames;
     for (const auto& object : objects)
@@ -100,7 +85,7 @@ inline void handleSystemCollectionMembers(
 
 /**
  * @brief Populate the system collection members from a GetSubTreePaths search
- * of the inventory based of the ManagedHost dbus interface
+ * of the inventory based of the Inventory.Item.System dbus interface
  *
  * @param[i] asyncResp  Async response object
  *
@@ -109,14 +94,34 @@ inline void handleSystemCollectionMembers(
 inline void getSystemCollectionMembers(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    constexpr std::array<std::string_view, 1> interfaces{
-        "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
-    };
-
     BMCWEB_LOG_DEBUG("Get system collection members for /redfish/v1/Systems");
 
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        nlohmann::json& membersArray = asyncResp->res.jsonValue["Members"];
+        membersArray = nlohmann::json::array();
+
+        asyncResp->res.jsonValue["Members@odata.count"] = 1;
+        nlohmann::json::object_t system;
+        system["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        membersArray.emplace_back(std::move(system));
+
+        if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
+        {
+            BMCWEB_LOG_DEBUG("Hypervisor is available");
+            asyncResp->res.jsonValue["Members@odata.count"] = 2;
+
+            nlohmann::json::object_t hypervisor;
+            hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
+            membersArray.emplace_back(std::move(hypervisor));
+        }
+
+        return;
+    }
+
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        "/xyz/openbmc_project/inventory", 0, computerSystemInterface,
         std::bind_front(handleSystemCollectionMembers, asyncResp));
 }
 
@@ -201,10 +206,8 @@ inline void getComputerSystemIndex(
 {
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        constexpr std::array<std::string_view, 1> interfaces{
-            "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
         dbus::utility::getSubTreePaths(
-            "/xyz/openbmc_project/inventory", 0, interfaces,
+            "/xyz/openbmc_project/inventory", 0, managedHostInterface,
             std::bind_front(afterGetComputerSystemSubTreePaths, asyncResp,
                             systemName, std::move(callback)));
     }
@@ -304,11 +307,8 @@ inline void getValidSystemsPath(
 {
     BMCWEB_LOG_DEBUG("Get path for {}", systemId);
 
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
-        "xyz.openbmc_project.Inventory.Item.System"};
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        "/xyz/openbmc_project/inventory", 0, computerSystemInterface,
         [asyncResp, systemId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& systemsPaths) {
