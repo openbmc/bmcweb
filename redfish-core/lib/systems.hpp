@@ -259,10 +259,10 @@ inline void afterGetUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     BMCWEB_LOG_DEBUG("Got {} UUID properties.", properties.size());
 
-    const std::string* uUID = nullptr;
+    const std::string* uuid = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), properties, "UUID", uUID);
+        dbus_utils::UnpackErrorPrinter(), properties, "UUID", uuid);
 
     if (!success)
     {
@@ -270,9 +270,9 @@ inline void afterGetUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    if (uUID != nullptr)
+    if (uuid != nullptr)
     {
-        std::string valueStr = *uUID;
+        std::string valueStr = *uuid;
         if (valueStr.size() == 32)
         {
             valueStr.insert(8, 1, '-');
