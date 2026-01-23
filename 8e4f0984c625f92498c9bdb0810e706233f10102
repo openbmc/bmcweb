@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5c247b0_5165e04c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-23T18:01:54Z",
+      "side": 1,
+      "message": "This looks like we are going backwards",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 54
+      },
+      "revId": "8e4f0984c625f92498c9bdb0810e706233f10102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
