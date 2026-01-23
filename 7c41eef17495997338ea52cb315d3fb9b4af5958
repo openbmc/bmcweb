@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "19642ce9_9a5666cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-23T11:14:36Z",
+      "side": 1,
+      "message": "I\u0027ll do my best 👍",
+      "parentUuid": "744696cf_1377dcae",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 69
+      },
+      "revId": "7c41eef17495997338ea52cb315d3fb9b4af5958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5f9cd8e2_ade451f6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -89,6 +113,24 @@
       "writtenOn": "2026-01-20T22:37:34Z",
       "side": 1,
       "message": "The point of the expiration is to keep engagement.  If we\u0027re not making progress toward removing the option, I will add a \"delete by\" date again.  I didn\u0027t think a once every 6 months need to update a string was too invasive considering the scope of the changes being made, but I guess it was.\n\nSo long as we\u0027re on the same page on the below comment, I\u0027m in support.",
+      "revId": "7c41eef17495997338ea52cb315d3fb9b4af5958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db099e33_7d8b52ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-01-23T11:14:36Z",
+      "side": 1,
+      "message": "\u003e  If we\u0027re not making progress toward removing the option, I will add a \"delete by\" date again.\n\nFine by me.",
+      "parentUuid": "1de8a199_0afd0971",
       "revId": "7c41eef17495997338ea52cb315d3fb9b4af5958",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
