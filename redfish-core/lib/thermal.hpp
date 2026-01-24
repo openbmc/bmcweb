@@ -89,11 +89,11 @@ inline void requestRoutesThermal(App& app)
                 if (temperatureCollections)
                 {
                     allCollections.emplace("Temperatures",
-                                           *std::move(temperatureCollections));
+                                           std::move(*temperatureCollections));
                 }
                 if (fanCollections)
                 {
-                    allCollections.emplace("Fans", *std::move(fanCollections));
+                    allCollections.emplace("Fans", std::move(*fanCollections));
                 }
                 setSensorsOverride(sensorsAsyncResp, allCollections);
             });
