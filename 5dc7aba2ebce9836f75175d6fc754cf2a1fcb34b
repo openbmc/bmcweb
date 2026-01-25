@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d7cb70bb_84fcd035",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-25T22:41:00Z",
+      "side": 1,
+      "message": "2024-10-17T18:12:04+00:00 \u003d\u003d 2024-10-17T18:12:04Z \nThe difference is one is a Date and time with the offset format, the other is Date and time in UTC format\nhttps://en.wikipedia.org/wiki/ISO_8601\n\nBut I just wanted to point out, what your test is expecting/what you are outputting, isn\u0027t exactly what your commit msg states. That said, super minor. \n\nReplacing this with \u0027YYYY-MM-DDTHH:MM:SS±hh:mm\u0027 is more correct. Correct if you want, if not, I am good.",
+      "parentUuid": "c4924ab6_a98eb2f1",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6bec0b6_724c0f2f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
