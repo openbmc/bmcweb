@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88a66d12_a032cbf3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-25T23:24:29Z",
+      "side": 1,
+      "message": "Tested ?",
+      "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9759e5e2_56b583ac",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 10
@@ -20,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6504c7d6_ef31d7a0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-25T23:24:29Z",
+      "side": 1,
+      "message": "Nitpick: might as well make this case sensitive correct since someone might use to try to fix. \u0027None\u0027",
+      "range": {
+        "startLine": 523,
+        "startChar": 66,
+        "endLine": 523,
+        "endChar": 70
+      },
+      "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6e4accf_1d3dae0e",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 10
@@ -31,6 +71,75 @@
       "writtenOn": "2026-01-25T23:18:49Z",
       "side": 1,
       "message": "This is trivial to spoof.. Any external client can send this to bypass aggregation.. Not sure it is really a security concern...\n\nIsn\u0027t it common for proxys and such to already include this header?\n\nWondering if a custom header X-BMCWEB-AGGREGATION is better ?\nMight be worth mentioning as an alternative in the commit msg",
+      "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0cca84a_4414e3f4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-25T23:24:29Z",
+      "side": 1,
+      "message": "succeeded",
+      "range": {
+        "startLine": 1033,
+        "startChar": 57,
+        "endLine": 1033,
+        "endChar": 65
+      },
+      "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a957e2_95ca752b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-25T23:24:29Z",
+      "side": 1,
+      "message": "spelling. aggression  !\u003d aggregation",
+      "range": {
+        "startLine": 1306,
+        "startChar": 46,
+        "endLine": 1306,
+        "endChar": 57
+      },
+      "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "325a54d2_54de419d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-25T23:24:29Z",
+      "side": 1,
+      "message": "request",
+      "range": {
+        "startLine": 1313,
+        "startChar": 33,
+        "endLine": 1313,
+        "endChar": 39
+      },
       "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
