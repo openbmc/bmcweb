@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad76771_bad901e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-25T22:32:11Z",
+      "side": 1,
+      "message": "I find this change more readable but your reasoning I believe is incorrect.",
+      "revId": "d83f74c773fe4782bc02903b022663be9619589f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebc91520_b3d40dee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-25T22:32:11Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct. It is not UB. \n\nhttps://stackoverflow.com/questions/72088667/should-i-move-the-value-out-of-an-optional-or-move-the-whole-optional",
+      "range": {
+        "startLine": 10,
+        "startChar": 59,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "d83f74c773fe4782bc02903b022663be9619589f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
