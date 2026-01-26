@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace certificate
 {
+// clang-format off
+
 enum class CertificateType{
     Invalid,
     PEM,
@@ -91,5 +91,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(KeyUsage, {
     {KeyUsage::OCSPSigning, "OCSPSigning"},
 });
 
-}
 // clang-format on
+} // namespace certificate

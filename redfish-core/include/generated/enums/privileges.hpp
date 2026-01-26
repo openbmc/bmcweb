@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace privileges
 {
+// clang-format off
+
 enum class PrivilegeType{
     Invalid,
     Login,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PrivilegeType, {
     {PrivilegeType::OperateStorageBackup, "OperateStorageBackup"},
 });
 
-}
 // clang-format on
+} // namespace privileges

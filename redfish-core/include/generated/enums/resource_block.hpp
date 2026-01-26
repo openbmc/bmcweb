@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace resource_block
 {
+// clang-format off
+
 enum class ResourceBlockType{
     Invalid,
     Compute,
@@ -65,5 +65,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PoolType, {
     {PoolType::Unassigned, "Unassigned"},
 });
 
-}
 // clang-format on
+} // namespace resource_block

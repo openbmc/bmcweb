@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace outlet_group
 {
+// clang-format off
+
 enum class PowerState{
     Invalid,
     On,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OutletGroupType, {
     {OutletGroupType::UserDefined, "UserDefined"},
 });
 
-}
 // clang-format on
+} // namespace outlet_group

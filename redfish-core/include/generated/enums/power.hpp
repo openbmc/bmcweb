@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace power
 {
+// clang-format off
+
 enum class PowerLimitException{
     Invalid,
     NoAction,
@@ -83,5 +83,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(InputType, {
     {InputType::DC, "DC"},
 });
 
-}
 // clang-format on
+} // namespace power

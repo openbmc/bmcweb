@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace ip_addresses
 {
+// clang-format off
+
 enum class IPv4AddressOrigin{
     Invalid,
     Static,
@@ -71,5 +71,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AddressState, {
     {AddressState::Failed, "Failed"},
 });
 
-}
 // clang-format on
+} // namespace ip_addresses

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace rf_switch
 {
+// clang-format off
+
 enum class TargetType{
     Invalid,
     FabricPort,
@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TargetType, {
     {TargetType::DownstreamEdgePort, "DownstreamEdgePort"},
 });
 
-}
 // clang-format on
+} // namespace rf_switch

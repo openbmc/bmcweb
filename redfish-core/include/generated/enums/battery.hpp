@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace battery
 {
+// clang-format off
+
 enum class ChargeState{
     Invalid,
     Idle,
@@ -47,5 +47,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EnergyStorageType, {
     {EnergyStorageType::Supercapacitor, "Supercapacitor"},
 });
 
-}
 // clang-format on
+} // namespace battery

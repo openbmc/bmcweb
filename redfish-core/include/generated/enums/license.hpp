@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace license
 {
+// clang-format off
+
 enum class LicenseType{
     Invalid,
     Production,
@@ -47,5 +47,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LicenseOrigin, {
     {LicenseOrigin::Installed, "Installed"},
 });
 
-}
 // clang-format on
+} // namespace license

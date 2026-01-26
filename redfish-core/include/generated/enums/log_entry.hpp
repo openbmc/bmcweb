@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace log_entry
 {
+// clang-format off
+
 enum class EventSeverity{
     Invalid,
     OK,
@@ -315,5 +315,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLEntryType, {
     {CXLEntryType::Fatal, "Fatal"},
 });
 
-}
 // clang-format on
+} // namespace log_entry

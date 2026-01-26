@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace network_port
 {
+// clang-format off
+
 enum class LinkStatus{
     Invalid,
     Down,
@@ -87,5 +87,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PortConnectionType, {
     {PortConnectionType::ExtenderFabric, "ExtenderFabric"},
 });
 
-}
 // clang-format on
+} // namespace network_port

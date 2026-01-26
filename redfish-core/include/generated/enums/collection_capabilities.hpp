@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace collection_capabilities
 {
+// clang-format off
+
 enum class UseCase{
     Invalid,
     ComputerSystemComposition,
@@ -27,5 +27,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UseCase, {
     {UseCase::RegisterResourceBlock, "RegisterResourceBlock"},
 });
 
-}
 // clang-format on
+} // namespace collection_capabilities

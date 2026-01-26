@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace endpoint_group
 {
+// clang-format off
+
 enum class AccessState{
     Invalid,
     Optimized,
@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(GroupType, {
     {GroupType::Target, "Target"},
 });
 
-}
 // clang-format on
+} // namespace endpoint_group

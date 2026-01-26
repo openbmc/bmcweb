@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace facility
 {
+// clang-format off
+
 enum class FacilityType{
     Invalid,
     Room,
@@ -23,5 +23,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FacilityType, {
     {FacilityType::Site, "Site"},
 });
 
-}
 // clang-format on
+} // namespace facility

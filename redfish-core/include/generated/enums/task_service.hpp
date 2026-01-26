@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace task_service
 {
+// clang-format off
+
 enum class OverWritePolicy{
     Invalid,
     Manual,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
     {OverWritePolicy::Oldest, "Oldest"},
 });
 
-}
 // clang-format on
+} // namespace task_service

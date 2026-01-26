@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace manager
 {
+// clang-format off
+
 enum class ManagerType{
     Invalid,
     ManagementController,
@@ -127,5 +127,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecurityModeTypes, {
     {SecurityModeTypes::Default, "Default"},
 });
 
-}
 // clang-format on
+} // namespace manager

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace job
 {
+// clang-format off
+
 enum class JobState{
     New,
     Starting,
@@ -57,5 +57,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(JobType, {
     {JobType::ServiceGenerated, "ServiceGenerated"},
 });
 
-}
 // clang-format on
+} // namespace job
