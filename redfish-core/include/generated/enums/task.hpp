@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace task
 {
+// clang-format off
+
 enum class TaskState{
     Invalid,
     New,
@@ -41,5 +41,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TaskState, {
     {TaskState::Cancelled, "Cancelled"},
 });
 
-}
 // clang-format on
+} // namespace task

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace action_info
 {
+// clang-format off
+
 enum class ParameterTypes{
     Invalid,
     Boolean,
@@ -29,5 +29,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ParameterTypes, {
     {ParameterTypes::ObjectArray, "ObjectArray"},
 });
 
-}
 // clang-format on
+} // namespace action_info

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace component_integrity
 {
+// clang-format off
+
 enum class ComponentIntegrityType{
     Invalid,
     SPDM,
@@ -95,5 +95,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SecureSessionType, {
     {SecureSessionType::AuthenticatedOnly, "AuthenticatedOnly"},
 });
 
-}
 // clang-format on
+} // namespace component_integrity

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace redfish_extensions
 {
+// clang-format off
+
 enum class ReleaseStatusType{
     Invalid,
     Standard,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RevisionKind, {
     {RevisionKind::Deprecated, "Deprecated"},
 });
 
-}
 // clang-format on
+} // namespace redfish_extensions

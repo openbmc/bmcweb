@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace protocol
 {
+// clang-format off
+
 enum class Protocol{
     Invalid,
     PCIe,
@@ -101,5 +101,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
     {Protocol::UALink, "UALink"},
 });
 
-}
 // clang-format on
+} // namespace protocol

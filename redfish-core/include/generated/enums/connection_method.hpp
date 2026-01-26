@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace connection_method
 {
+// clang-format off
+
 enum class ConnectionMethodType{
     Invalid,
     Redfish,
@@ -43,5 +43,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TunnelingProtocolType, {
     {TunnelingProtocolType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+} // namespace connection_method

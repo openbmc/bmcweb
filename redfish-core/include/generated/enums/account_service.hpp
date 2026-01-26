@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace account_service
 {
+// clang-format off
+
 enum class MFABypassType{
     Invalid,
     All,
@@ -141,5 +141,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BasicAuthState, {
     {BasicAuthState::Disabled, "Disabled"},
 });
 
-}
 // clang-format on
+} // namespace account_service

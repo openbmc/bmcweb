@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace port
 {
+// clang-format off
+
 enum class PortType{
     Invalid,
     UpstreamPort,
@@ -371,5 +371,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UALinkGeneration, {
     {UALinkGeneration::UALink200G, "UALink200G"},
 });
 
-}
 // clang-format on
+} // namespace port

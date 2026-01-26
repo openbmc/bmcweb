@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace pcie_slots
 {
+// clang-format off
+
 enum class SlotTypes{
     Invalid,
     FullLength,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SlotTypes, {
     {SlotTypes::U2, "U2"},
 });
 
-}
 // clang-format on
+} // namespace pcie_slots

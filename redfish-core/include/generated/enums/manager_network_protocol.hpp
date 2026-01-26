@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace manager_network_protocol
 {
+// clang-format off
+
 enum class NotifyIPv6Scope{
     Invalid,
     Link,
@@ -77,5 +77,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::CFB128_AES256, "CFB128_AES256"},
 });
 
-}
 // clang-format on
+} // namespace manager_network_protocol

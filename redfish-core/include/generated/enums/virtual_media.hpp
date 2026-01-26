@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace virtual_media
 {
+// clang-format off
+
 enum class MediaType{
     Invalid,
     CD,
@@ -95,5 +95,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EjectPolicy, {
     {EjectPolicy::Persistent, "Persistent"},
 });
 
-}
 // clang-format on
+} // namespace virtual_media

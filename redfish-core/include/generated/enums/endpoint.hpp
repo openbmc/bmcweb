@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace endpoint
 {
+// clang-format off
+
 enum class EntityType{
     Invalid,
     StorageInitiator,
@@ -65,5 +65,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EntityRole, {
     {EntityRole::Both, "Both"},
 });
 
-}
 // clang-format on
+} // namespace endpoint

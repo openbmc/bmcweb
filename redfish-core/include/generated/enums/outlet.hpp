@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace outlet
 {
+// clang-format off
+
 enum class PowerState{
     Invalid,
     On,
@@ -69,5 +69,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
     {VoltageType::DC, "DC"},
 });
 
-}
 // clang-format on
+} // namespace outlet

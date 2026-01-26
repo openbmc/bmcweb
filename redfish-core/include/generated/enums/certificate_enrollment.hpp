@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace certificate_enrollment
 {
+// clang-format off
+
 enum class EnrollmentProtocolType{
     Invalid,
     ACME,
@@ -61,5 +61,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ACMEChallengeType, {
     {ACMEChallengeType::Dns01, "Dns01"},
 });
 
-}
 // clang-format on
+} // namespace certificate_enrollment

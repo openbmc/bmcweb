@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace secure_boot_database
 {
+// clang-format off
+
 enum class ResetKeysType{
     Invalid,
     ResetAllKeysToDefault,
@@ -19,5 +19,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetKeysType, {
     {ResetKeysType::DeleteAllKeys, "DeleteAllKeys"},
 });
 
-}
 // clang-format on
+} // namespace secure_boot_database

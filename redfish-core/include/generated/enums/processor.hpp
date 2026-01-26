@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace processor
 {
+// clang-format off
+
 enum class ProcessorType{
     Invalid,
     CPU,
@@ -233,5 +233,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ThrottleCause, {
     {ThrottleCause::OEM, "OEM"},
 });
 
-}
 // clang-format on
+} // namespace processor

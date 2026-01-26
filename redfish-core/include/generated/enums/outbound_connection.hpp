@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace outbound_connection
 {
+// clang-format off
+
 enum class OutboundConnectionRetryPolicyType{
     Invalid,
     None,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AuthenticationType, {
     {AuthenticationType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+} // namespace outbound_connection

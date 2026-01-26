@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace license_service
 {
+// clang-format off
+
 enum class TransferProtocolType{
     Invalid,
     CIFS,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::NFS, "NFS"},
 });
 
-}
 // clang-format on
+} // namespace license_service
