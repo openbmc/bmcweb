@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8d63c5d_10c1b866",
+        "filename": "test/redfish-core/include/utils/sensor_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-26T16:46:11Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve done this as well as a few others that can be enums.",
+      "parentUuid": "9d8eb9c2_6b6c4006",
+      "range": {
+        "startLine": 195,
+        "startChar": 65,
+        "endLine": 195,
+        "endChar": 72
+      },
+      "revId": "b071d7cbb40fa3865da8194f9f5339dfa639d5ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89d0960a_0acf3922",
@@ -54,6 +78,24 @@
       "writtenOn": "2026-01-25T23:06:46Z",
       "side": 1,
       "message": "So you are purposely not declaring a new list here?",
+      "revId": "b071d7cbb40fa3865da8194f9f5339dfa639d5ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d15b9c69_79f66db6",
+        "filename": "test/redfish-core/include/utils/sensor_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-26T16:46:11Z",
+      "side": 1,
+      "message": "Right, I was adding a special-case check for the fan_tach sensors that also have the SpeedRPM defined. Rather than recreate the expected properties I was just adding the additional one.\n\nComment on L501 was trying to convey that. I\u0027ll reword it.",
+      "parentUuid": "89d0960a_0acf3922",
       "revId": "b071d7cbb40fa3865da8194f9f5339dfa639d5ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
