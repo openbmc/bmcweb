@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d69b6cb3_84ef1b63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-26T08:31:37Z",
+      "side": 1,
+      "message": "Ah, I get it. I\u0027ll change it to \u0027YYYY-MM-DDTHH:MM:SS±hh:mm\u0027 on next patchest. Thanks for pointing it out.",
+      "parentUuid": "d7cb70bb_84fcd035",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6bec0b6_724c0f2f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
