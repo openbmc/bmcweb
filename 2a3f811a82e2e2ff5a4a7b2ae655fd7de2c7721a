@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66cc9427_1fdb3b77",
+        "filename": "test/redfish-core/include/utils/sensor_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:29:46Z",
+      "side": 1,
+      "message": "Nit, you generally don\u0027t want local variables for this.  Just inline, that way failure prints are more useful, with that said, this is still good.",
+      "range": {
+        "startLine": 458,
+        "startChar": 4,
+        "endLine": 458,
+        "endChar": 22
+      },
+      "revId": "2a3f811a82e2e2ff5a4a7b2ae655fd7de2c7721a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
