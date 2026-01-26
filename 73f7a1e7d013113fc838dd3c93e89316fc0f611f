@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89682e7f_bad1a8f8",
+        "filename": "features/webui_login/login_routes.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-26T21:44:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "71ebf1ee_1671f412",
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0486ddab_dd26c74e",
@@ -167,6 +185,30 @@
       "side": 1,
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/86801 obsoletes this.",
       "parentUuid": "78364be6_357263dd",
+      "range": {
+        "startLine": 76,
+        "startChar": 1,
+        "endLine": 131,
+        "endChar": 17
+      },
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52749b01_820ae73e",
+        "filename": "features/webui_login/login_routes.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-26T21:44:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "63b7b66d_200a3872",
       "range": {
         "startLine": 76,
         "startChar": 1,
