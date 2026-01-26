@@ -63,6 +63,30 @@
       },
       "revId": "d83f74c773fe4782bc02903b022663be9619589f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aae71d84_917c61f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-26T20:44:05Z",
+      "side": 1,
+      "message": "Yes, I prefer this code as well but your commit msg states something that isn\u0027t true: \"The previous implementation caused undefined behavior by dereferencing a moved-from optional\"\n\nIf you clean up the commit msg, this can go.",
+      "parentUuid": "ba58881e_4f57184d",
+      "range": {
+        "startLine": 10,
+        "startChar": 59,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "d83f74c773fe4782bc02903b022663be9619589f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
