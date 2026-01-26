@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd359fd4_bcea215b",
+        "filename": "docs/COMMON_ERRORS.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "003150ee_0d59daf8",
+      "range": {
+        "startLine": 109,
+        "startChar": 57,
+        "endLine": 109,
+        "endChar": 71
+      },
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b531ba27_b212375d",
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71ebf1ee_1671f412",
+        "filename": "features/webui_login/login_routes.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:16:51Z",
+      "side": 1,
+      "message": "Ultimately https://gerrit.openbmc.org/c/openbmc/bmcweb/+/86801 I think is the answer, which is the next patch stacked, and simplifies this a ton.",
+      "parentUuid": "b531ba27_b212375d",
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0486ddab_dd26c74e",
         "filename": "features/webui_login/login_routes.hpp",
         "patchSetId": 42
@@ -54,6 +96,30 @@
       "writtenOn": "2026-01-25T22:21:54Z",
       "side": 1,
       "message": "Nitpick: This",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3358671b_89a9eec0",
+        "filename": "features/webui_login/login_routes.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0486ddab_dd26c74e",
       "range": {
         "startLine": 59,
         "startChar": 15,
@@ -89,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63b7b66d_200a3872",
+        "filename": "features/webui_login/login_routes.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:16:51Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/86801 obsoletes this.",
+      "parentUuid": "78364be6_357263dd",
+      "range": {
+        "startLine": 76,
+        "startChar": 1,
+        "endLine": 131,
+        "endChar": 17
+      },
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1bb7287_d6f1e277",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 42
@@ -100,6 +190,24 @@
       "writtenOn": "2026-01-25T22:21:54Z",
       "side": 1,
       "message": "Why is an ERROR and below, subscriptions, is a DEBUG ? WARNING for both ?",
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a0b6fe8_255d2c5d",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:16:51Z",
+      "side": 1,
+      "message": "The thinking is that this should really be logged, because there\u0027s potential for an attach.  Also because line 183 is LOG_ERROR, so any parse error should be treated as error consistently.\n\nFWIW, I suspect this whole file should be LOG_ERROR, because anything getting hit here would imply a corruption, or a coding error.",
+      "parentUuid": "e1bb7287_d6f1e277",
       "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
