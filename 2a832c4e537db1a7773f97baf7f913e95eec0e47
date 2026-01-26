@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2873db00_3790040b",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:30:51Z",
+      "side": 1,
+      "message": "Tried to fix it for you, but formatter is angry about this whitespace here.",
+      "range": {
+        "startLine": 90,
+        "startChar": 5,
+        "endLine": 90,
+        "endChar": 8
+      },
+      "revId": "2a832c4e537db1a7773f97baf7f913e95eec0e47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
