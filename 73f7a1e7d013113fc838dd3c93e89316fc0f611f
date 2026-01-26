@@ -214,6 +214,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "701260e6_047eeeb8",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:22:32Z",
+      "side": 1,
+      "message": "I have changed subscriptions to be an error.",
+      "parentUuid": "5a0b6fe8_255d2c5d",
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a915a43_9e32a893",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 42
@@ -225,6 +243,24 @@
       "writtenOn": "2026-01-25T22:21:54Z",
       "side": 1,
       "message": "Do you want a WARNING or anything?",
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b909fa46_8da28c6c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:22:32Z",
+      "side": 1,
+      "message": "Added a warning.",
+      "parentUuid": "2a915a43_9e32a893",
       "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -246,6 +282,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7ab0b4b_aed48ee5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:22:32Z",
+      "side": 1,
+      "message": "Added suggested code.  Thanks for the catch.",
+      "parentUuid": "3094cc29_d1eec93c",
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fd6252c_b1cd56a2",
@@ -263,6 +317,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acd60303_c2210ec7",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:22:32Z",
+      "side": 1,
+      "message": "Added suggested code.",
+      "parentUuid": "8fd6252c_b1cd56a2",
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e064a3a4_54afce8f",
@@ -276,6 +348,24 @@
       "writtenOn": "2026-01-25T22:21:54Z",
       "side": 1,
       "message": "You have nullptr checks elsewhere in this commit..",
+      "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33260d3a_204ea1b7",
+        "filename": "src/json_html_serializer.cpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-26T18:22:32Z",
+      "side": 1,
+      "message": "Technically we can never hit that here, because we\u0027re in the case statement, but fair, we can add it.",
+      "parentUuid": "e064a3a4_54afce8f",
       "revId": "73f7a1e7d013113fc838dd3c93e89316fc0f611f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
