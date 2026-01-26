@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace job_service
 {
+// clang-format off
+
 enum class ValidationPolicy{
     Invalid,
     Automatic,
@@ -21,5 +21,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ValidationPolicy, {
     {ValidationPolicy::Bypass, "Bypass"},
 });
 
-}
 // clang-format on
+} // namespace job_service

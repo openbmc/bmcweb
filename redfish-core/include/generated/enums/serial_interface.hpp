@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace serial_interface
 {
+// clang-format off
+
 enum class SignalType{
     Invalid,
     Rs232,
@@ -163,5 +163,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Role, {
     {Role::Server, "Server"},
 });
 
-}
 // clang-format on
+} // namespace serial_interface

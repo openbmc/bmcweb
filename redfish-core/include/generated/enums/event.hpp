@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace event
 {
+// clang-format off
+
 enum class EventType{
     Invalid,
     StatusChange,
@@ -49,5 +49,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DiagnosticDataTypes, {
     {DiagnosticDataTypes::CPERSection, "CPERSection"},
 });
 
-}
 // clang-format on
+} // namespace event

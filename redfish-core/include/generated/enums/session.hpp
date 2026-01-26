@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace session
 {
+// clang-format off
+
 enum class SessionTypes{
     Invalid,
     HostConsole,
@@ -33,5 +33,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SessionTypes, {
     {SessionTypes::OutboundConnection, "OutboundConnection"},
 });
 
-}
 // clang-format on
+} // namespace session

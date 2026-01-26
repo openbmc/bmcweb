@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace power_distribution
 {
+// clang-format off
+
 enum class PowerEquipmentType{
     Invalid,
     RackPDU,
@@ -87,5 +87,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
     {ExportSecurity::ExcludeSensitiveData, "ExcludeSensitiveData"},
 });
 
-}
 // clang-format on
+} // namespace power_distribution

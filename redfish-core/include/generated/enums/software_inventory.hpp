@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace software_inventory
 {
+// clang-format off
+
 enum class VersionScheme{
     Invalid,
     SemVer,
@@ -35,5 +35,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReleaseType, {
     {ReleaseType::Other, "Other"},
 });
 
-}
 // clang-format on
+} // namespace software_inventory

@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace message_registry
 {
+// clang-format off
+
 enum class ParamType{
     Invalid,
     string,
@@ -29,5 +29,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ClearingType, {
     {ClearingType::SameOriginOfCondition, "SameOriginOfCondition"},
 });
 
-}
 // clang-format on
+} // namespace message_registry

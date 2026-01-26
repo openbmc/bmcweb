@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace storage
 {
+// clang-format off
+
 enum class ResetToDefaultsType{
     Invalid,
     ResetAll,
@@ -163,5 +163,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NMVePersonalityKeyAlgorithm, {
     {NMVePersonalityKeyAlgorithm::HMAC_SHA384, "HMAC_SHA384"},
 });
 
-}
 // clang-format on
+} // namespace storage

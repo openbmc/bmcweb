@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace leak_detector
 {
+// clang-format off
+
 enum class LeakDetectorType{
     Invalid,
     Moisture,
@@ -51,5 +51,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReactionType, {
     {ReactionType::GracefulShutdown, "GracefulShutdown"},
 });
 
-}
 // clang-format on
+} // namespace leak_detector

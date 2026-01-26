@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace schedule
 {
+// clang-format off
+
 enum class DayOfWeek{
     Invalid,
     Monday,
@@ -65,5 +65,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MonthOfYear, {
     {MonthOfYear::Every, "Every"},
 });
 
-}
 // clang-format on
+} // namespace schedule

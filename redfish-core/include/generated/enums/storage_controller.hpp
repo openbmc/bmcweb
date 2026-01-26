@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace storage_controller
 {
+// clang-format off
+
 enum class NVMeControllerType{
     Invalid,
     Admin,
@@ -37,5 +37,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ANAAccessState, {
     {ANAAccessState::PersistentLoss, "PersistentLoss"},
 });
 
-}
 // clang-format on
+} // namespace storage_controller

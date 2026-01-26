@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace pump
 {
+// clang-format off
+
 enum class PumpType{
     Invalid,
     Liquid,
@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PumpMode, {
     {PumpMode::Disabled, "Disabled"},
 });
 
-}
 // clang-format on
+} // namespace pump

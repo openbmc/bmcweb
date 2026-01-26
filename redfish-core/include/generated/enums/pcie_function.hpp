@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace pcie_function
 {
+// clang-format off
+
 enum class DeviceClass{
     Invalid,
     UnclassifiedDevice,
@@ -85,5 +85,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FunctionProtocol, {
     {FunctionProtocol::CXL, "CXL"},
 });
 
-}
 // clang-format on
+} // namespace pcie_function

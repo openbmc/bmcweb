@@ -3,10 +3,10 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
-// clang-format off
-
 namespace acceleration_function
 {
+// clang-format off
+
 enum class AccelerationFunctionType{
     Invalid,
     Encryption,
@@ -31,5 +31,5 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccelerationFunctionType, {
     {AccelerationFunctionType::OEM, "OEM"},
 });
 
-}
 // clang-format on
+} // namespace acceleration_function
