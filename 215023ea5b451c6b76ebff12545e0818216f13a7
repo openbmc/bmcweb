@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "562fb41f_f5c329bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-26T17:31:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you are looking for here.\n\n\nAn earlier comment from you asked for more details. I added these two references to the DMTF github to address that comment. You said you liked the updated commit message. [1]\n\nThe 2025.3 Overview document does not call out this change.[2] I do have the Schema link in the commit message, which is the most the spec documents it.\n\nI\u0027ll remove the PR link from the commit message since that seems to be the line you objected to in this review. But I don\u0027t see another reference I can add to the commit message from DMTF that calls out the details of the spec change prompting this bmcweb commit.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103/comment/0e3ce5e1_a7557084/\n[2] https://www.dmtf.org/sites/default/files/Redfish_Release_2025.3_Overview.pdf",
+      "parentUuid": "9b97d8eb_b2256fa4",
+      "revId": "215023ea5b451c6b76ebff12545e0818216f13a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54ca6317_b3a5205b",
         "filename": "meson.options",
         "patchSetId": 10
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dec6e373_f9256a32",
+        "filename": "meson.options",
+        "patchSetId": 10
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-26T17:31:11Z",
+      "side": 1,
+      "message": "I\u0027m confused by the bumping up of the date to remove the option.\n\nThe enabled option keeps the prior behavior of reporting the fan_tach sensors as Rotational/RPM and does not do the conversion to percent base. Removing the option and its code would result in removing the old behavior path.\n\nThis commit starts with the option enabled to not change existing behavior for any distribution that does not specifically modify a recipe to change the option setting.\n\nSo I would expect switching to the new percent base option to be something desired before removing the old code completely. Please advise how you would like this worded.",
+      "parentUuid": "54ca6317_b3a5205b",
+      "range": {
+        "startLine": 350,
+        "startChar": 52,
+        "endLine": 352,
+        "endChar": 56
+      },
+      "revId": "215023ea5b451c6b76ebff12545e0818216f13a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b1ab7388_7df62781",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 10
@@ -54,6 +96,24 @@
       "writtenOn": "2026-01-16T17:41:28Z",
       "side": 1,
       "message": "Is there a specific reason to use `std::optional\u003clong\u003e` type and `std::lround()`?\nWhat if use `double` type and use `std::round()`?\n\n```\ninline std::optional\u003cdouble\u003e getFanPercent()\n{\n    ...\n    return std::round(((*value - *minValue) * 100) / range);\n}\n```",
+      "revId": "215023ea5b451c6b76ebff12545e0818216f13a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05fe68b_f450f53c",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-26T17:31:11Z",
+      "side": 1,
+      "message": "I changed these to just round to the nearest percent because further precision is not important for our use cases. See earlier comment: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103/comment/992bdb6e_5e5c87cf/",
+      "parentUuid": "b1ab7388_7df62781",
       "revId": "215023ea5b451c6b76ebff12545e0818216f13a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
