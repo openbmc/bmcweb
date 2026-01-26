@@ -39,6 +39,30 @@
       },
       "revId": "d83f74c773fe4782bc02903b022663be9619589f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba58881e_4f57184d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-26T16:15:59Z",
+      "side": 1,
+      "message": "here also they preferred \"Personally I prefer v \u003d std::move(*ov); as v \u003d *std::move(ov);\"",
+      "parentUuid": "ebc91520_b3d40dee",
+      "range": {
+        "startLine": 10,
+        "startChar": 59,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "d83f74c773fe4782bc02903b022663be9619589f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
