@@ -5,7 +5,7 @@
 
 // clang-format off
 
-namespace switch
+namespace rf_switch
 {
 enum class TargetType{
     Invalid,

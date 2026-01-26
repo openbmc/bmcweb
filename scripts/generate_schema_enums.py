@@ -77,6 +77,15 @@ def camel_to_snake(name):
 
 
 def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
+    # Add a check for keywords. List so can be added to later.
+    cpp_keywords = [
+        "switch",
+    ]
+
+    # Rename to "rf_switch"
+    if snake_case_namespace in cpp_keywords:
+        snake_case_namespace = "rf_" + snake_case_namespace
+
     redfish_defs_file.write(
         "// SPDX-License-Identifier: Apache-2.0\n"
         "// SPDX-FileCopyrightText: Copyright OpenBMC Authors\n"
