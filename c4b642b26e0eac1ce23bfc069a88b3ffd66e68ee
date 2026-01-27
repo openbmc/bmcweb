@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "840ca1ef_ec919d38",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T06:25:05Z",
+      "side": 1,
+      "message": "\u003e I suspect we can just enforce this at configure time?\n\nI\u0027m not following either.\n\nUnrelated, this check has been added in several locations, and it could certainly be simplified with a helper function, which then only requires a single branch.\n\n```\nbool checkSingleHostSystemName(... asyncResp, const std::string\u0026 systemName) {\n\n    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n    {\n        if (systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return true;\n        }\n    }\n    return false;\n}\n```\n\nThen it simplifies to\n```\nif (checkSingleHostSystemName(asyncResp, systemName)){\n    return;\n}\n```\n\n@ed@tanous.net does that look good to you?",
+      "parentUuid": "2daa1653_002d85e3",
+      "range": {
+        "startLine": 910,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 69
+      },
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd277f2e_d923aef6",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "So do I need to change this? This is how we do it in multiple places apart from this patch\n\nAlso clang-tidy does not complain on my local machine, so I am a bit confused.",
       "parentUuid": "70318a48_8896e574",
+      "range": {
+        "startLine": 974,
+        "startChar": 20,
+        "endLine": 974,
+        "endChar": 30
+      },
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c9a72fb_04f48e72",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T06:25:05Z",
+      "side": 1,
+      "message": "Also confused. Tried to look at the jenkins log but it seems to have already gone away.\n\n\u003e but static analyzers complain.\n\nWhich one, which options ? Do we need to run anything besides tidy?\nI thought all our analyzers run in CI, and CI is green for this change.",
+      "parentUuid": "5cbf1872_7b1ed7fc",
       "range": {
         "startLine": 974,
         "startChar": 20,
