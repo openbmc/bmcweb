@@ -16,6 +16,24 @@
       "message": "nit, I probably would\u0027ve done\n\nif snake_case_namespace \u003d\u003d \u0027switch\u0027:\n   snake_case_namespace \u003d \"rf_\" + snake_case_namespace\n\n\njust to keep it simple.  but all good.",
       "revId": "6bb8c608e8c854fd4ff2e5b0d2908480b763746f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7cad51_7a78a913",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T18:43:54Z",
+      "side": 1,
+      "message": "Yeah, I couldn\u0027t decide.. maybe I overthought future proofing it",
+      "parentUuid": "d1c61e90_eee7b6f2",
+      "revId": "6bb8c608e8c854fd4ff2e5b0d2908480b763746f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
