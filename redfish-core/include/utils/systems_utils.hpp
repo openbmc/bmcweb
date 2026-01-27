@@ -369,5 +369,21 @@ inline bool indexMatchingSubTreeMapObjectPath(
 
     return false;
 }
+
+inline bool checkSingleHostSystemNotFound(
+    const std::string& systemName,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return true;
+        }
+    }
+    return false;
+}
 } // namespace systems_utils
 } // namespace redfish

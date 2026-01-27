@@ -2954,14 +2954,9 @@ inline void handleComputerSystemResetActionPost(
         }
     }
 
-    if (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    if (systems_utils::checkSingleHostSystemNotFound(systemName, asyncResp))
     {
-        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
+        return;
     }
 
     std::string resetType;
@@ -3196,14 +3191,9 @@ inline void handleComputerSystemGet(
         }
     }
 
-    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    if (systems_utils::checkSingleHostSystemNotFound(systemName, asyncResp))
     {
-        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
+        return;
     }
 
     BMCWEB_LOG_DEBUG("requested system = {}", systemName);
@@ -3373,14 +3363,9 @@ inline void handleComputerSystemPatch(
         return;
     }
 
-    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    if (systems_utils::checkSingleHostSystemNotFound(systemName, asyncResp))
     {
-        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
+        return;
     }
 
     asyncResp->res.addHeader(
@@ -3557,14 +3542,9 @@ inline void handleSystemCollectionResetActionGet(
         }
     }
 
-    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    if (systems_utils::checkSingleHostSystemNotFound(systemName, asyncResp))
     {
-        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
+        return;
     }
 
     asyncResp->res.addHeader(
