@@ -118,6 +118,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6422c775_f7decccc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T03:16:36Z",
+      "side": 1,
+      "message": "Since this comment thread has been stuck for over a month, here\u0027s my 2 cent\n\n\n\u003e Your change should not introduce any new validator errors. Please include\nsomething to the effect of \"Redfish service validator passing\" in your commit\nmessage.\n\nMaybe the tested statements should be split and more explicit. Something like\n\n\n```\nTested (RF Checklist 1.): documentation in Redfish.md up to date as per this schema\nTested (RF Checklist 2.): client facing change: in case multi-host option has been\n           enabled, resource X now contains additional items ...\nTested (RF Checklist 3.): properties confirmed exist in CDSL schema\nTested (RF Checklist 4.): properties used for infrastructure management\nTested (RF Checklist 5.): RF service validator: no new errors\nTested (RF Checklist 6.): no new unit tests, external dependency on D-Bus\nTested (RF Checklist 7.): checked patch against COMMON_ERRORS.md\nTested (RF Checklist 8.): no new D-Bus interfaces introduced\n```\n\nI realize it\u0027s somewhat verbose but perhaps this could help reviewers pinpoint issues with the testing more easily since there\u0027s separate points to raise a comment on.",
+      "parentUuid": "18485387_7214594c",
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4d4bdbc9_037f68ac",
@@ -172,6 +190,30 @@
       "side": 1,
       "message": "Currently no single-host implements the ManagedHost interface. I could however (and would rather like to) change the interface to xyz.openbmc_project.Inventory.Item.System, which at least some single-hosts configure looking at EM upstream configs.\n\nBut even then, I expect to have name mismatches between BMCWEB_REDFISH_SYSTEM_URI_NAME and what is used for the dbus object representing the computer system on at least a few platforms. In these cases the validator will fail which should be considered a regression?",
       "parentUuid": "74d5717c_370156a8",
+      "range": {
+        "startLine": 721,
+        "startChar": 7,
+        "endLine": 721,
+        "endChar": 16
+      },
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dabff55_e7a6fc03",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T03:16:36Z",
+      "side": 1,
+      "message": "\u003e What\u0027s the holdup just using the new version of this code in all cases?\n\n\n\u003e In these cases the validator will fail which should be considered a regression?\n\n@ed@tanous.net does this answer your question here? Is there any further query about this change.",
+      "parentUuid": "68549d8d_5c3bdd55",
       "range": {
         "startLine": 721,
         "startChar": 7,
