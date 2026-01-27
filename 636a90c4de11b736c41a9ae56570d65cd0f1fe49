@@ -49,6 +49,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7411745f_69b91fc1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T21:02:54Z",
+      "side": 1,
+      "message": "Multi host is now Inventory.Item.System ? Are there changes to move the rest of Multi host over to it ?",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64f63077_ef141cd5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
