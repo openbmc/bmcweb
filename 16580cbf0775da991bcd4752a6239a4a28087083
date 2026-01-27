@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d127a4_b4fd6d09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T21:57:13Z",
+      "side": 1,
+      "message": "It seems reasonable to me but not an expert here.",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2519cd88_b7170656",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T21:57:13Z",
+      "side": 1,
+      "message": "Ever make sense to reuse? ZSTD_CCtx_reset... ?",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c788d1b_22ddbb15",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T21:57:13Z",
+      "side": 1,
+      "message": "Seems like a reasonable choice.. \n\"Default (Level 3): Excellent balance, faster than gzip, often used for web content/data transfer.\"\n\nSince bmcweb is targeted for an AST2500/AST2600 or similar.. 1, least amount of CPU usage, could also be a consideration.",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d45e297_8499f935",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T21:57:13Z",
+      "side": 1,
+      "message": "Their example here \nhttps://github.com/facebook/zstd/blob/1168da0e567960d50cba1b58c9b0ba047ece4733/examples/streaming_compression.c#L78\nalso includes a check for input.. Do you need more in this while loop ?",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32869687_23ff074e",
+        "filename": "test/http/zstd_compressor_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T21:57:13Z",
+      "side": 1,
+      "message": "Zeros and Ones are pretty trivial to compress... Up to you if you want to do a random data test. I am good without\n\nTEST(ZstdCompressor, RandomData)\n{\n    ZstdCompressor comp;\n    constexpr size_t sizeOneMB \u003d 1024 * 1024;\n    ...",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
