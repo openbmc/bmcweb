@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00af85e8_22db6266",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T21:02:00Z",
+      "side": 1,
+      "message": "missing systemName here",
+      "range": {
+        "startLine": 115,
+        "startChar": 35,
+        "endLine": 115,
+        "endChar": 37
+      },
+      "revId": "792678bb90c3b2b34f0d5dc2cc302506910122b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25c4884_b661d92c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T21:02:00Z",
+      "side": 1,
+      "message": "Just to be sure: \n\nGET /redfish/v1/Systems/{systemName}/Memory returns only that system’s DIMMs \n\nGET /redfish/v1/Systems/{systemA}/Memory/{DIMMOnSystemB} → 404",
+      "revId": "792678bb90c3b2b34f0d5dc2cc302506910122b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
