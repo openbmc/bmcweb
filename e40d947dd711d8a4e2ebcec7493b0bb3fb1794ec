@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a790d342_f25f2128",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T05:21:54Z",
+      "side": 1,
+      "message": "Multi-chassis support was introduced to state manager in 70f36d8efab3e57f941f1e4eddbffdda84879f0f\n\nand it looks like the bus name without suffix was deprecated in that same patch. Could be interesting for the reader to know where and how things got deprecated.",
+      "range": {
+        "startLine": 9,
+        "startChar": 58,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "e40d947dd711d8a4e2ebcec7493b0bb3fb1794ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f54e2e_dcdc372c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T05:21:54Z",
+      "side": 1,
+      "message": "Is it expected, or is it the case?\n\nMaybe @geissonator@yahoo.com can kindly help review, to confirm there are no exceptions to this with current state manager code.",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "e40d947dd711d8a4e2ebcec7493b0bb3fb1794ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d1a0935_3b4b2ede",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T05:21:54Z",
+      "side": 1,
+      "message": "A couple of links would be nice in `References` section.\n\nBoth chassis and host state manager unconditionally request the indexed bus name.\n\nhttps://github.com/openbmc/phosphor-state-manager/blob/7aafceebec3982f83c98a1d1b9c3960df171de20/chassis_state_manager_main.cpp#L88\n\nhttps://github.com/openbmc/phosphor-state-manager/blob/7aafceebec3982f83c98a1d1b9c3960df171de20/host_state_manager_main.cpp#L84\n\nwhich should guarantee the same object tree and mapper output for index-suffixed and plain bus name.",
+      "revId": "e40d947dd711d8a4e2ebcec7493b0bb3fb1794ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5449ccf3_64f48dc8",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T05:21:54Z",
+      "side": 1,
+      "message": "Does it make sense to perform this change separately for the host state and chassis state? They are backed by different applications with separate main functions.",
+      "revId": "e40d947dd711d8a4e2ebcec7493b0bb3fb1794ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ea8675_1c5df4ce",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T05:21:54Z",
+      "side": 1,
+      "message": "not every code path is using this function, see `getChassisState`.\n\nWould it make sense to change these call sites first before making this change?",
+      "revId": "e40d947dd711d8a4e2ebcec7493b0bb3fb1794ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
