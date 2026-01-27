@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88e8537f_0209660c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-01-27T14:24:33Z",
+      "side": 1,
+      "message": "Yes, for a single connection connectFailed is an intermediate state - waitAndRetry() is called which either retries (if retryCount \u003c maxRetryAttempts) or transitions to terminated state.\n\nHowever, from my testing on the platform, I observed that typically only one connection in the pool transitions to terminated, while the remaining connections stay in connectFailed state indefinitely. They never transition to terminated.\n\nAs I understand it (please correct me if I\u0027m wrong), having one connection reach terminated state should be sufficient condition to delete the subscription with TerminateAfterRetries policy. The bad_gateway response already indicates that max retry attempts were exhausted for that event delivery.",
+      "parentUuid": "98d47a2f_fec3adfe",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84585c07_56f0dce9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-22T20:48:54Z",
       "side": 1,
       "message": "I think all callers already saved `id` locally or captured in a lambda before calling `deleteSubscription()`.\nFor example,\n- https://github.com/openbmc/bmcweb/blob/ca8790742803cf56283189f63feb37bb5c003912/redfish-core/include/event_service_manager.hpp#L120\n- https://github.com/openbmc/bmcweb/blob/ca8790742803cf56283189f63feb37bb5c003912/redfish-core/include/event_service_manager.hpp#L404\n\n\nIs there a specific log traces about the observation?",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6594f04b_a2b882fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-01-27T14:24:33Z",
+      "side": 1,
+      "message": "You\u0027re correct. I initially thought this might be causing some issue I observed previously, but after adding debug logs before and after erase(), I confirmed the ID remains valid. As you noted, callers already handle this properly. I reverted to const std::string\u0026.",
+      "parentUuid": "84585c07_56f0dce9",
       "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c138b27_e8cbdccc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-01-27T14:24:33Z",
+      "side": 1,
+      "message": "I considered extending isTerminated() as you mentioned, but it would require tracking all possible failure states (terminated, connectFailed, sendFailed, recvFailed...) and if a new state is added later, we\u0027d need to remember to update this check too.\n\nFrom my understanding (and please correct me if I\u0027m wrong), the resHandler() receiving bad_gateway with TerminateAfterRetries policy already indicates that retry attempts were exhausted - so this seems sufficient as a trigger for deletion, without checking connection pool state.\n\nBut if you think extending isTerminated() is the better approach, I can do that - we\u0027d just need to agree on the full list of \"terminal\" states.",
+      "parentUuid": "f85933c2_19854f6c",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b753516a_30efe92c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45af6226_41b2dd86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-01-27T14:24:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b753516a_30efe92c",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f46de10_c63a0d39",
         "filename": "redfish-core/src/subscription.cpp",
         "patchSetId": 5
@@ -82,6 +154,24 @@
       "writtenOn": "2026-01-22T20:48:54Z",
       "side": 1,
       "message": "It looks like the change seems unconditionally deleting the subscription after sendEventToSubscriber() - \nhttps://github.com/openbmc/bmcweb/blob/ca8790742803cf56283189f63feb37bb5c003912/redfish-core/src/subscription.cpp#L187",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e62e337a_6a47a1d0",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-01-27T14:24:33Z",
+      "side": 1,
+      "message": "I think the deletion is not unconditional. Looking at resHandler():\n\n- Early return if response is not bad_gateway - normal successful sends don\u0027t trigger deletion\n- Early return if policy is not TerminateAfterRetries\nSo, as I understand it, the deletion only happens when:\n\nResponse is bad_gateway (meaning all retry attempts exhausted)\nand\nRetry policy is TerminateAfterRetries\n\nThe bad_gateway is only returned by http_client.hpp when retryCount \u003e\u003d maxRetryAttempts (line 494-503), so it should already confirm that max retries were exhausted for that specific event delivery. Please let me know if I\u0027m misunderstanding the flow here.",
+      "parentUuid": "6f46de10_c63a0d39",
       "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
