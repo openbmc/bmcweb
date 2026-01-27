@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d270220_c2f46e27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T02:42:53Z",
+      "side": 1,
+      "message": "nit: could use a note saying that `ManagerInChassis` property was dropped.\n\nI\u0027m not against dropping it but it would be a change visible to redfish client, right?",
+      "revId": "2ff8e600829a5ea88886677ff33da44f15d48951",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6fffddbf_679269a2",
