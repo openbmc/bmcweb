@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e0e5be_4b933c78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-27T17:39:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d69b6cb3_84ef1b63",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6bec0b6_724c0f2f",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "b6bec0b6_724c0f2f",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 7
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b51be3d_b7423900",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-27T17:39:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5d8af7b_48c34af7",
       "range": {
         "startLine": 14,
         "startChar": 1,
@@ -267,6 +315,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cb69f79_b4a3b970",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-27T17:39:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dda27eb_f8c261c1",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5b114bb_79a4383a",
@@ -322,6 +388,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6bae1f8_238041b8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-27T17:39:15Z",
+      "side": 1,
+      "message": "Unfortunately, if I understand it right it needs to change phosphor dbus interface too  because dbus::utility::DBusPropertiesMap conflicts with current set of variables in interface which submitted, at least key element. I see 3 outcomes with these results:\n1. revert interface with PUM and make another one with correcting interface with dbus::utility::DBusPropertiesMap for whole\n2. make another set of patches for PUM and interface to correspond with interface user properties\n3. make this one as is and make another one set of patches which changes UserCreateMap to dbus::utility::DBusPropertiesMap\n\nFor me 2,3 are best approaches, I\u0027ll do this transition anyways, as I says before, I\u0027ve part for account expiration too but it depends on password expiration first.\n\nPlease, correct me if I\u0027m wrong about property map.",
+      "parentUuid": "0744706d_d75cbc29",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61a1f008_f6aa4dc6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13
@@ -369,6 +453,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f73d55b_0cd076d1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-27T17:39:15Z",
+      "side": 1,
+      "message": "That depends on property map work, I can pack it in current userCreateMap. I don\u0027t think it\u0027s needed if it\u0027ll be changed anyways in property map from dbus_utility.",
+      "parentUuid": "63354b7b_84acf148",
+      "range": {
+        "startLine": 2057,
+        "startChar": 61,
+        "endLine": 2059,
+        "endChar": 27
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9bbc7db8_c4d43a36",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 13
@@ -398,6 +506,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "9bbc7db8_c4d43a36",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c019df9_fb3a1a1f",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-01-27T17:39:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bc91084_593181db",
       "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
