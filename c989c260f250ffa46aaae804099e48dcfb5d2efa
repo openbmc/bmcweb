@@ -22,6 +22,86 @@
       },
       "revId": "c989c260f250ffa46aaae804099e48dcfb5d2efa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6d7bb50_0ad59b12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T18:50:16Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/docs/+/86927 needs to go but overall I am in support",
+      "revId": "c989c260f250ffa46aaae804099e48dcfb5d2efa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82e51306_b1176a4d",
+        "filename": "features/webui_login/login_routes.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T18:50:16Z",
+      "side": 1,
+      "message": "BMCWEB_LOG_DEBUG(\"Bad json in request\"); or like \"Couldn\u0027t get object\"",
+      "revId": "c989c260f250ffa46aaae804099e48dcfb5d2efa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ae36c8e_58c556d7",
+        "filename": "features/webui_login/login_routes.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T18:50:16Z",
+      "side": 1,
+      "message": "username",
+      "range": {
+        "startLine": 57,
+        "startChar": 45,
+        "endLine": 57,
+        "endChar": 53
+      },
+      "revId": "c989c260f250ffa46aaae804099e48dcfb5d2efa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d9565c_676e045e",
+        "filename": "features/webui_login/login_routes.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T18:50:16Z",
+      "side": 1,
+      "message": "username",
+      "range": {
+        "startLine": 64,
+        "startChar": 45,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c989c260f250ffa46aaae804099e48dcfb5d2efa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
