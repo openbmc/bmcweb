@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8046513e_5cde2937",
+        "filename": "redfish-core/lib/systems_logservices_hostlogger.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T03:31:09Z",
+      "side": 1,
+      "message": "not blocking, but why check the URI option instead of the multi-host option?\n\nDo you want to replace the multi-host option and instead branch on an empty RF system URI name instead?\n\nI mean it makes sense, an empty system URI name could indicate a multi-host system.\nOne less option to worry about.\n\nBut i am still confused since the branches in your other patches look different, where you mostly branch on the multi-host option.\n\nMaybe this would be easier if we passed an `std::optional\u003cstd::string\u003e` for the system name instead of having two symbols used throughout the code.\n\nThen there would only be one thing to branch on and clang-tidy could help check that any code path accessing the RF system name should have a check beforehand.",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 2
+      },
+      "revId": "b695aab8a2e4e0a1961920721c34a2e8436eeb0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
