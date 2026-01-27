@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5036d4b_ab63e4bf",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-01-27T10:49:28Z",
+      "side": 1,
+      "message": "That was rebase merge issue. I have fixed the code . Did not notice the commented line .",
+      "parentUuid": "9759e5e2_56b583ac",
+      "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6504c7d6_ef31d7a0",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 10
@@ -71,6 +89,24 @@
       "writtenOn": "2026-01-25T23:18:49Z",
       "side": 1,
       "message": "This is trivial to spoof.. Any external client can send this to bypass aggregation.. Not sure it is really a security concern...\n\nIsn\u0027t it common for proxys and such to already include this header?\n\nWondering if a custom header X-BMCWEB-AGGREGATION is better ?\nMight be worth mentioning as an alternative in the commit msg",
+      "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ab97e45_dcdf8f2e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-01-27T10:49:28Z",
+      "side": 1,
+      "message": "How? External client will send the request to first BMC and if it has the header the aggregation will not happen. That is not a problem right?  \n\nHere the headers are attached to new request created by aggregation internally. So it is applicable only to the internal request. The header name can be same but the value is BMC specific. So I don\u0027t see any issue in reusing the header.",
+      "parentUuid": "e6e4accf_1d3dae0e",
       "revId": "78f806b2b3a3ce5b42f89dbf86837b971d816256",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
