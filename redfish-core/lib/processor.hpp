@@ -20,6 +20,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/processor_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -78,6 +79,18 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             }
             asyncResp->res.jsonValue["UUID"] = property;
         });
+}
+
+inline void getPowerCapProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId)
+{
+    BMCWEB_LOG_DEBUG("Get processor power cap resources");
+
+    asyncResp->res.jsonValue["EnvironmentMetrics"]["@odata.id"] =
+        boost::urls::format(
+            "/redfish/v1/Systems/{}/Processors/{}/EnvironmentMetrics",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 }
 
 inline void getCpuDataByInterface(
@@ -735,90 +748,6 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
-inline void handleProcessorSubtree(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& processorId,
-    const std::function<
-        void(const std::string& objectPath,
-             const dbus::utility::MapperServiceMap& serviceMap)>& callback,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& subtree)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    for (const auto& [objectPath, serviceMap] : subtree)
-    {
-        // Ignore any objects which don't end with our desired cpu name
-        sdbusplus::message::object_path path(objectPath);
-        if (path.filename() == processorId)
-        {
-            // Filter out objects that don't have the CPU-specific
-            // interfaces to make sure we can return 404 on non-CPUs
-            // (e.g. /redfish/../Processors/dimm0)
-            for (const auto& [serviceName, interfaceList] : serviceMap)
-            {
-                if (std::ranges::find_first_of(interfaceList,
-                                               processorInterfaces) !=
-                    interfaceList.end())
-                {
-                    // Process the first object which matches cpu name and
-                    // required interfaces, and potentially ignore any other
-                    // matching objects. Assume all interfaces we want to
-                    // process must be on the same object path.
-
-                    callback(objectPath, serviceMap);
-                    return;
-                }
-            }
-        }
-    }
-    messages::resourceNotFound(asyncResp->res, "Processor", processorId);
-}
-
-/**
- * Find the D-Bus object representing the requested Processor, and call the
- * handler with the results. If matching object is not found, add 404 error to
- * response and don't call the handler.
- *
- * @param[in,out]   asyncResp       Async HTTP response.
- * @param[in]       processorId     Redfish Processor Id.
- * @param[in]       callback        Callback to continue processing request upon
- *                                  successfully finding object.
- */
-inline void getProcessorObject(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& processorId,
-    std::function<void(const std::string& objectPath,
-                       const dbus::utility::MapperServiceMap& serviceMap)>&&
-        callback)
-{
-    BMCWEB_LOG_DEBUG("Get available system processor resources.");
-
-    // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 9> interfaces = {
-        "xyz.openbmc_project.Common.UUID",
-        "xyz.openbmc_project.Inventory.Decorator.Asset",
-        "xyz.openbmc_project.Inventory.Decorator.Revision",
-        "xyz.openbmc_project.Inventory.Item.Cpu",
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode",
-        "xyz.openbmc_project.Inventory.Item.Accelerator",
-        "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
-        "xyz.openbmc_project.Control.Power.Throttle"};
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp, processorId, callback{std::move(callback)}](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            handleProcessorSubtree(asyncResp, processorId, callback, ec,
-                                   subtree);
-        });
-}
-
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -867,6 +796,10 @@ inline void getProcessorData(
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
             {
                 getCpuLocationCode(asyncResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Control.Power.Cap")
+            {
+                getPowerCapProperties(asyncResp, processorId);
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
@@ -1005,7 +938,7 @@ inline void handleProcessorGet(
         return;
     }
 
-    getProcessorObject(
+    processor_utils::getValidProcessorPath(
         asyncResp, processorId,
         std::bind_front(getProcessorData, asyncResp, processorId));
 }
@@ -1080,7 +1013,7 @@ inline void handleProcessorPatch(
 
     // Check for 404 and find matching D-Bus object, then run
     // property patch handlers if that all succeeds.
-    getProcessorObject(
+    processor_utils::getValidProcessorPath(
         asyncResp, processorId,
         std::bind_front(doPatchProcessor, asyncResp, processorId,
                         appliedConfigUri, locationIndicatorActive));
