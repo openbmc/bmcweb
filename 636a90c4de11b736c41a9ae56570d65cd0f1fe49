@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edeb74ef_9794e8e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T20:40:39Z",
+      "side": 1,
+      "message": "And this only includes processors from this system (Yosemite_4_Sentinel_Dome_T1_Slot_1) ?\n\nAnd a processor under the wrong system returns a 404 ?\n\nNote the Slot_0\n```\nhttps://127.0.0.1:4443/redfish/v1/Systems/Yosemite_4_Sentinel_Dome_T1_Slot_0/Processors/Yosemite_4_Sentinel_Dome_Slot_1_CPU\n```",
+      "range": {
+        "startLine": 109,
+        "startChar": 36,
+        "endLine": 109,
+        "endChar": 123
+      },
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf48d56_459c2a19",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T20:40:39Z",
+      "side": 1,
+      "message": "1 ?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 33,
+        "endLine": 1103,
+        "endChar": 34
+      },
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f63077_ef141cd5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T20:40:39Z",
+      "side": 1,
+      "message": "Isn\u0027t this already on line 1143 ?",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
