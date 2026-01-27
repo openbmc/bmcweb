@@ -1149,6 +1149,7 @@ functions the same like the default implementation under the System resource.
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz
+- Metrics
 - PartNumber
 - ProcessorArchitecture
 - ProcessorId
@@ -1193,6 +1194,13 @@ functions the same like the default implementation under the System resource.
 - Name
 - ProcessorType
 - Status
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/ProcessorMetrics/
+
+#### ProcessorMetrics
+
+- CacheMetricsTotal/LifeTime/CorrectableECCErrorCount
+- CacheMetricsTotal/LifeTime/UncorrectableECCErrorCount
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
