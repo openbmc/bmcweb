@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d077debf_536271ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-27T20:13:10Z",
+      "side": 1,
+      "message": "It is no change in behavior right? Just makes it easy to read?",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 13,
+        "endChar": 1
+      },
+      "revId": "cec0a5e3cc7a6def498745319ac65acfe7234ad9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
