@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b7c2043_860bdc3a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T04:07:38Z",
+      "side": 1,
+      "message": "nit (resolved): splitting these simple refactoring changes from the feature patch would make the diff smaller and easier to review.",
+      "range": {
+        "startLine": 987,
+        "startChar": 20,
+        "endLine": 990,
+        "endChar": 1
+      },
+      "revId": "8e678ec865ffc33a3ecdbf48a5aabc14eb3a0fa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f52f3274_c9356acd",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-27T04:07:38Z",
+      "side": 1,
+      "message": "not blocking(resolved), just wanted to leave this idea here\n\nYou have that code section in quite a few places (5 or so in this diff view)\n\n```\nif constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n{\n        if (systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n}\n```\ncan it be canned into a function?\n\nSomething like\n\n```\nif (checkSingleHostSystemNotFound(asyncResp, systemName)){\n    return;\n}\n```\nand\n```\nbool checkSingleHostSystemNotFound(... asyncResp, const std::string\u0026 systemName)\n{\n    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n    {\n        if (systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return true;\n        }\n    }\n    return false;\n}\n```",
+      "range": {
+        "startLine": 595,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 5
+      },
+      "revId": "8e678ec865ffc33a3ecdbf48a5aabc14eb3a0fa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
