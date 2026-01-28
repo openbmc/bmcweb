@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a48bff5_6019b1bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "The Redfish.md file should be updated to reflect the change, per https://github.com/openbmc/bmcweb/blob/master/docs/REDFISH_CHECKLIST.md guidelines.",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "631c1d40_521aff92",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -14,6 +37,282 @@
       "writtenOn": "2026-01-28T15:25:41Z",
       "side": 1,
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300 is the same change right ?",
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e05a1432_7f8f57b9",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "A template shouldn\u0027t be necessary here.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 28
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76e5b34_8bc88859",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "With this change we are going to be looking across much more of the D-Bus tree whenever we are looking for processors. Is this really desirable or correct? (I.e. Since this method is used for handleProcessorGet also.)",
+      "range": {
+        "startLine": 58,
+        "startChar": 9,
+        "endLine": 58,
+        "endChar": 29
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a28c560_f4d99564",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Should be using object_path methods for comparison.\n\nSee: https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#12-imprecise-matching",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 2
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56e09807_a01fdf36",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Looks like this loop was added due to the increase in the search of the getSubTree() call in order to support finding the Power.Cap object.\n\nWhy not use an association to get from the Processor to the object implementing the Power.Cap interface? I see a in-progress commit in phosphor-dbus-interfaces to define the association: https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/86744",
+      "range": {
+        "startLine": 80,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 17
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "578d0402_c83f37fc",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Should be able to use std::ranges here",
+      "range": {
+        "startLine": 99,
+        "startChar": 34,
+        "endLine": 101,
+        "endChar": 60
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7f624b0_5bf96f0b",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Guidelines for this repo is to not used lambdas longer than 10 lines. Please refactor this into a named function.\n\nSee: https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "range": {
+        "startLine": 144,
+        "startChar": 26,
+        "endLine": 151,
+        "endChar": 11
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4a948a3_f64aa0ed",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Use sdbusplus::unpackPropertiesNoThrow() instead for unpacking the properties.",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 282,
+        "endChar": 5
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c83284dd_b3660082",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "I don\u0027t see the definition of this value (std::numeric_limits\u003cuint32_t\u003e::max()) as undefined in the phosphor-dbus-interfaces. Is this specific to a distribution?\n\nI think the PDI should be updated to document the meaning of this value with community acceptance in order to add this special-case handling in bmcweb.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/bb79ddd0c8173b9a90ddcc578808e5c03e63ae30/yaml/xyz/openbmc_project/Control/Power/Cap.interface.yaml#L5",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 2
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf87f1c4_66466652",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Should be using object_path filename() method instead. See: https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#12-imprecise-matching",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 344,
+        "endChar": 9
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38c14a73_7548de28",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Should be using utility function instead.\nSee: https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#15-using-async_method_call-where-there-are-existing-helper-methods",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 2
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3533f029_0ba20593",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Work was just done to find the object and its interfaces, but that is not being used by the doProcessorEnvironmentMetricsGet() function and it is repeating the mapper call?\n\nThis doesn\u0027t seem correct to me and seems to be adding extra work just to avoid having an empty EnvironmentMetrics for a Processor? Why not have the handler in doProcessorEnvironmentMetricsGet() handle the missing D-Bus interface instead of all of this extra work?",
+      "range": {
+        "startLine": 411,
+        "startChar": 12,
+        "endLine": 412,
+        "endChar": 58
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61694ddb_75fe5de4",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-01-28T21:14:43Z",
+      "side": 1,
+      "message": "Is an equivalent verb::head route needed for this path? (I see one for the Chassis above but not for Systems.)",
+      "range": {
+        "startLine": 428,
+        "startChar": 4,
+        "endLine": 432,
+        "endChar": 66
+      },
       "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
