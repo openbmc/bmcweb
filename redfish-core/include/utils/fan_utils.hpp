@@ -7,6 +7,7 @@
 #include "error_messages.hpp"
 #include "human_sort.hpp"
 #include "logging.hpp"
+#include "utils/chassis_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -31,6 +32,15 @@ namespace fan_utils
 {
 constexpr std::array<std::string_view, 1> sensorInterface = {
     "xyz.openbmc_project.Sensor.Value"};
+
+constexpr std::string_view getFanLinkAssociationName()
+{
+    if constexpr (!BMCWEB_REDFISH_FAN_LINKS)
+    {
+        return "cooled_by";
+    }
+    return "containing";
+}
 
 inline void afterGetFanSensorObjects(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -104,17 +114,124 @@ inline void afterGetFanPaths(
 
 inline void getFanPaths(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& validChassisPath,
+    const sdbusplus::object_path& validChassisPath,
     const std::function<void(const dbus::utility::MapperGetSubTreePathsResponse&
                                  fanPaths)>& callback)
 {
     sdbusplus::object_path endpointPath{validChassisPath};
-    endpointPath /= "cooled_by";
+    endpointPath /= getFanLinkAssociationName();
 
     dbus::utility::getAssociatedSubTreePaths(
         endpointPath, sdbusplus::object_path("/xyz/openbmc_project/inventory"),
         0, fanInterface,
         std::bind_front(afterGetFanPaths, asyncResp, callback));
+}
+
+using FanMap =
+    std::map<std::string, std::pair<std::vector<sdbusplus::object_path>,
+                                    std::vector<sdbusplus::object_path>>>;
+
+// @returns both {'containing', 'cooled_by'} fans for the chassis
+// and depending on which links or collection we are populating
+// the caller can go with either one of them
+inline FanMap fanPathsByAssociation(
+    const dbus::utility::GetPathsByAssociationResult& result)
+{
+    FanMap res;
+
+    for (const auto& [skip1, chassisPath, assoc, skip2, fanPath] : result)
+    {
+        auto& pair = res[chassisPath.filename()];
+        auto& containingFans = std::get<0>(pair);
+        auto& cooledByFans = std::get<1>(pair);
+
+        if (assoc == "containing")
+        {
+            containingFans.push_back(fanPath);
+        }
+        if (assoc == "cooled_by")
+        {
+            cooledByFans.push_back(fanPath);
+        }
+    }
+
+    return res;
+}
+
+inline void getFanPathsByChassisId(
+    std::function<void(const boost::system::error_code& ec,
+                       const dbus::utility::GetPathsByAssociationResult& res)>&&
+        callback)
+{
+    const sdbusplus::object_path path("/xyz/openbmc_project/inventory");
+
+    const std::vector<std::string_view> associations{"containing", "cooled_by"};
+
+    dbus::utility::getPathsByAssociation(
+        path, chassisInterfaces, associations, path, fanInterface, 0,
+        std::move(callback));
+}
+
+// @returns a map of: owning chassis -> {fan path}
+// for any non-subordinate fan resources of the chassis provided as parameter
+inline std::map<std::string, std::vector<sdbusplus::object_path>>
+    getLinkedFanPaths(const std::string& chassisId, const FanMap& fanMap)
+{
+    std::map<std::string, std::vector<sdbusplus::object_path>> res;
+
+    if constexpr (!BMCWEB_REDFISH_FAN_LINKS)
+    {
+        return res;
+    }
+
+    if (!fanMap.contains(chassisId))
+    {
+        return res;
+    }
+
+    const auto& fanPaths = fanMap.at(chassisId);
+
+    const auto& fanPathsContaining = std::get<0>(fanPaths);
+    const auto& fanPathsCooledBy = std::get<1>(fanPaths);
+
+    std::set<sdbusplus::object_path> fpcontainSet(fanPathsContaining.begin(),
+                                                  fanPathsContaining.end());
+    std::set<sdbusplus::object_path> fpcoolSet(fanPathsCooledBy.begin(),
+                                               fanPathsCooledBy.end());
+
+    std::set<sdbusplus::object_path> linkedFans;
+
+    // TODO: make object_path work with ranges algorithms
+    auto pathLess = [](const sdbusplus::object_path& lhs,
+                       const sdbusplus::object_path& rhs) {
+        return AlphanumLess<std::string>()(lhs.string(), rhs.string());
+    };
+
+    // making sure all the linked fans are not also subordinate resources
+    // (which would be misconfiguration anyways, but we can easily check it
+    // here)
+    std::ranges::set_difference(fpcoolSet, fpcontainSet,
+                                std::inserter(linkedFans, linkedFans.begin()),
+                                pathLess);
+
+    for (const auto& fanPath : linkedFans)
+    {
+        for (const auto& [otherChassisId, pair] : fanMap)
+        {
+            if (otherChassisId == chassisId)
+            {
+                continue;
+            }
+            const auto& ownedFans = std::get<0>(pair);
+
+            if (std::ranges::find(ownedFans, fanPath) != ownedFans.end())
+            {
+                res[otherChassisId].emplace_back(fanPath);
+            }
+        }
+    }
+
+    return res;
 }
 
 } // namespace fan_utils
