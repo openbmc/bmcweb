@@ -21,6 +21,7 @@
 #include <string>
 #include <string_view>
 #include <utility>
+#include <vector>
 
 namespace dbus
 {
@@ -210,6 +211,25 @@ void getAssociatedSubTreePathsById(
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetAssociatedSubTreePathsById", id,
         path, subtreeInterfaces, association, endpointInterfaces);
+}
+
+void getPathsByAssociation(
+    const std::string& path1, std::span<const std::string_view> interfaces1,
+    std::span<const std::string_view> associations, const std::string& path2,
+    std::span<const std::string_view> interfaces2, int32_t depth,
+    std::function<void(const boost::system::error_code&,
+                       const GetPathsByAssociationResult&)>&& callback)
+{
+    dbus::utility::async_method_call(
+        [callback = std::move(callback)](
+            const boost::system::error_code& ec,
+            const std::vector<PathAssocPath>& subtreePaths) {
+            callback(ec, subtreePaths);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetPathsByAssociation", path1,
+        interfaces1, associations, path2, interfaces2, depth);
 }
 
 void getDbusObject(const std::string& path,
