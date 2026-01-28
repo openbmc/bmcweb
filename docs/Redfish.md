@@ -233,6 +233,7 @@ Fields common to all schemas
 - Drives
 - HotPluggable
 - Links/ComputerSystems
+- Links/Fans
 - Links/ManagedBy
 - Links/Processors
 - Location/PartLocation/ServiceLabel
@@ -397,6 +398,7 @@ Fields common to all schemas
 
 #### Fan
 
+- Links/CoolingChassis
 - Location
 - LocationIndicatorActive
 - Manufacturer
