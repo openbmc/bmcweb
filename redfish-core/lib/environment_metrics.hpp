@@ -248,7 +248,7 @@ inline void getFanSensorsExcerpt(
 inline void afterGetFanSpeedsPercent(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId,
-    const dbus::utility::MapperGetSubTreePathsResponse& fanPaths)
+    const std::vector<sdbusplus::object_path>& fanPaths)
 {
     if (fanPaths.empty())
     {
@@ -259,22 +259,23 @@ inline void afterGetFanSpeedsPercent(
     asyncResp->res.jsonValue["FanSpeedsPercent"] = nlohmann::json::array();
     asyncResp->res.jsonValue["FanSpeedsPercent@odata.count"] = 0;
 
-    for (const std::string& fanPath : fanPaths)
+    for (const sdbusplus::object_path& fanPath : fanPaths)
     {
-        sdbusplus::object_path endpointPath{fanPath};
-
         fan_utils::getFanSensorObjects(
-            asyncResp, endpointPath,
+            asyncResp, fanPath,
             std::bind_front(getFanSensorsExcerpt, asyncResp, chassisId));
     }
 }
 
+// @param chassisId : known (existing) chassis id
 inline void getFanSpeedsPercent(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& validChassisPath, const std::string& chassisId)
 {
-    fan_utils::getFanPaths(
-        asyncResp, validChassisPath,
+    const sdbusplus::object_path chassisPath(validChassisPath);
+
+    fan_utils::getOwnedFanPathsByChassisId(
+        asyncResp, chassisPath.filename(),
         std::bind_front(afterGetFanSpeedsPercent, asyncResp, chassisId));
 }
 

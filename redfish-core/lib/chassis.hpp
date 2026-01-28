@@ -22,6 +22,7 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/fan_utils.hpp"
 #include "utils/json_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -367,6 +368,50 @@ inline void getChassisContains(
     asyncResp->res.jsonValue["Links"]["Contains@odata.count"] = jValue.size();
 }
 
+inline void getChassisFanLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const fan_utils::FanMap& fanMap)
+{
+    if constexpr (!BMCWEB_REDFISH_FAN_LINKS)
+    {
+        // no links since we only have an owning association
+        BMCWEB_LOG_DEBUG("skipping chassis fan links due to option");
+        return;
+    }
+
+    nlohmann::json& jValue = asyncResp->res.jsonValue["Links"]["Fans"];
+    jValue = nlohmann::json::array();
+
+    auto* jArr = jValue.get_ptr<nlohmann::json::array_t*>();
+    if (jArr == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("failed get_ptr");
+        return;
+    }
+
+    const std::map<std::string, std::vector<sdbusplus::object_path>>
+        linkedFans = fan_utils::getLinkedFanPaths(chassisId, fanMap);
+
+    BMCWEB_LOG_DEBUG("querying linked fans from {} other chassis",
+                     linkedFans.size());
+
+    for (const auto& [otherChassisId, paths] : linkedFans)
+    {
+        for (const auto& path : paths)
+        {
+            const std::string& fanId = path.filename();
+
+            nlohmann::json link;
+            link["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Chassis/{}/ThermalSubsystem/Fans/{}",
+                otherChassisId, fanId);
+            jArr->push_back(std::move(link));
+        }
+    }
+    asyncResp->res.jsonValue["Links"]["Fans@odata.count"] = jArr->size();
+}
+
+// @paramet chassisId : known (existing) chassis id
 inline void getChassisConnectivity(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& chassisPath)
@@ -384,6 +429,10 @@ inline void getChassisConnectivity(
         sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
         chassisInterfaces,
         std::bind_front(getChassisContains, asyncResp, chassisId));
+
+    fan_utils::getFanPathsByChassisId(
+        asyncResp, chassisId,
+        std::bind_front(getChassisFanLinks, asyncResp, chassisId));
 }
 
 /**
