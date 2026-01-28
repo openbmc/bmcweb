@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e78f8471_3d90c790",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2026-01-28T09:22:00Z",
+      "side": 1,
+      "message": "Not all systems expose this. So should we check if the Interfaces exists and populate this URI ?",
+      "revId": "08c3ccb09474834e7b160d4f4dcb315af779c3c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
