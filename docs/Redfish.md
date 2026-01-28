@@ -394,6 +394,9 @@ Fields common to all schemas
 - SerialNumber
 - SparePartNumber
 - Status
+- Links
+- `CoolingChassis (this depends on meson option
+  experimental-redfish-multi-computer-system)
 
 ### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
 
