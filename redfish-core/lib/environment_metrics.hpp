@@ -266,8 +266,10 @@ inline void getFanSpeedsPercent(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& validChassisPath, const std::string& chassisId)
 {
-    fan_utils::getFanPaths(
-        asyncResp, validChassisPath,
+    const sdbusplus::object_path chassisPath(validChassisPath);
+
+    fan_utils::getFanPathsByChassisId(
+        asyncResp, chassisPath.filename(),
         std::bind_front(afterGetFanSpeedsPercent, asyncResp, chassisId));
 }
 

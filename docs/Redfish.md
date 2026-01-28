@@ -401,6 +401,7 @@ Fields common to all schemas
 - SpeedPercent/SpeedRPM
 - SpeedPercent/Reading
 - Status
+- Links/CoolingChassis
 
 ### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
 
