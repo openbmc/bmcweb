@@ -16,6 +16,24 @@
       "message": "just make a copy of entriesPath here.",
       "revId": "bfe8aa92047b276d2bf3a2e0df5c4c699bd5f52c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7712a530_0399998b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-28T17:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d348f94_bd33c6fe",
+      "revId": "bfe8aa92047b276d2bf3a2e0df5c4c699bd5f52c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
