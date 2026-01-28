@@ -234,6 +234,7 @@ Fields common to all schemas
 - HotPluggable
 - Links/ComputerSystems
 - Links/ManagedBy
+- Links/Fans
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
@@ -406,6 +407,7 @@ Fields common to all schemas
 - SpeedPercent/SpeedRPM
 - SpeedPercent/Reading
 - Status
+- Links/CoolingChassis
 
 ### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
 
