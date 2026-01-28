@@ -304,6 +304,14 @@ option(
                     sensors in the SensorCollection.''',
 )
 
+# BMCWEB_REDFISH_MULTI_HOST_FAN_INVENTORY
+option(
+    'redfish-multi-host-fan-inventory',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable/disable the multi-host fan inventory which provides `CoolingChassis` property. This option depends on 'containing' and 'cooling' association to work correctly.''',
+)
+
 # BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED
 option(
     'redfish-allow-deprecated-indicatorled',

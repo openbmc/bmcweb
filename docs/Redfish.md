@@ -389,6 +389,9 @@ Fields common to all schemas
 - SerialNumber
 - SparePartNumber
 - Status
+- Links
+- `CoolingChassis (this depends on meson option
+  redfish-multi-host-fan-inventory)
 
 ### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
 
