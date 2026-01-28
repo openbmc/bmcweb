@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d45f5499_33f431a6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-28T19:16:03Z",
+      "side": 1,
+      "message": "I think when combined with your other patch this works, but as written i think this will escape the / in your string.  Just squash all the commits for updating log service together and we\u0027ll review them as one refactor.",
+      "revId": "e7f50abac7a1e8a2b36e6589cc72ae718dcda3ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
