@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2037fad6_b57dcdba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-28T15:38:25Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/commit/9c929bea78857633f2b71b356abf4aa4b1ac56d2 added Cables Jan 2022 \n\nJsonSchemas looks like it was there from the start.\n\nhttps://github.com/openbmc/bmcweb/commit/ad5d7e7130db7c99d6d4d3c3a465b28c33f9be21 added the test Feb 2022 \n\n\nSo I guess the test didn\u0027t check all the children. \nLooks reasonable to me.",
+      "revId": "a29fd40d87675b995e0754d2ada09ac59c448f77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
