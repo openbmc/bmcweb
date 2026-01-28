@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "856ea460_2fd7212e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-28T20:32:12Z",
+      "side": 1,
+      "message": "Just want to make sure the association is working.\n\nGET /redfish/v1/Systems/{systemA}/Processor/{ProcessorOnSystemB} → 404",
+      "parentUuid": "7bf5342b_0a045b6b",
+      "range": {
+        "startLine": 109,
+        "startChar": 36,
+        "endLine": 109,
+        "endChar": 123
+      },
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eaf48d56_459c2a19",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
@@ -126,6 +150,24 @@
       "side": 1,
       "message": "https://gerrit.openbmc.org/c/openbmc/entity-manager/+/85875\nhttps://discord.com/channels/775381525260664832/1385306077188460545\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60793\n\nI think these links suggest that, yes.",
       "parentUuid": "7411745f_69b91fc1",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b79b7a8_cf2ae182",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-28T20:32:12Z",
+      "side": 1,
+      "message": "From discord, I would expect to see that change everyone.. Moving from .Decorator.ManagedHost to Inventory.Item.System for multi-system.. \nI don\u0027t for like (unless I missed the commit):\nhttps://github.com/openbmc/bmcweb/blob/ac69e77ea938e8c2a5bd3dad258cdafd9d3182b7/redfish-core/include/utils/systems_utils.hpp#L112",
+      "parentUuid": "08b7bbde_7e9c0525",
       "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
