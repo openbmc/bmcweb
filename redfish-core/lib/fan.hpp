@@ -273,6 +273,77 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void getCoolingChassisCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths)
+
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error querying cooling association: {}",
+                         ec.value());
+        return;
+    }
+
+    if (subtreePaths.empty())
+    {
+        BMCWEB_LOG_DEBUG("No chassis found for 'CoolingChassis' property");
+        return;
+    }
+
+    // redfish data model spec:
+    // "This property shall not be present if the fan is only providing cooling
+    // to its containing chassis."
+    if (subtreePaths.size() == 1)
+    {
+        const sdbusplus::message::object_path chassisPath(subtreePaths.front());
+        if (chassisPath.filename() == chassisId)
+        {
+            BMCWEB_LOG_DEBUG(
+                "Only surrounding chassis found for 'CoolingChassis' property, discarding.");
+            return;
+        }
+    }
+
+    asyncResp->res.jsonValue["Links"] = nlohmann::json::object();
+    asyncResp->res.jsonValue["Links"]["CoolingChassis"] =
+        nlohmann::json::array();
+
+    nlohmann::json& coolingChassis =
+        asyncResp->res.jsonValue.at("Links").at("CoolingChassis");
+
+    asyncResp->res.jsonValue["Links"]["CoolingChassis@odata.count"] =
+        subtreePaths.size();
+
+    for (const auto& path : subtreePaths)
+    {
+        const sdbusplus::message::object_path objPath(path);
+
+        nlohmann::json::object_t link;
+        link["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}", objPath.filename());
+
+        coolingChassis.push_back(link);
+    }
+}
+
+inline void getCoolingChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& fanPath)
+{
+    sdbusplus::message::object_path endpointPath(fanPath);
+    endpointPath /= "cooling";
+
+    BMCWEB_LOG_DEBUG("querying cooled_by chassis for fan: {}", fanPath);
+
+    dbus::utility::getAssociatedSubTreePaths(
+        endpointPath,
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisInterfaces,
+        std::bind_front(getCoolingChassisCallback, asyncResp, chassisId));
+}
+
 inline void afterGetValidFanObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& fanId,
@@ -285,6 +356,11 @@ inline void afterGetValidFanObject(
                               true);
     getFanLocation(asyncResp, fanPath, service);
     getLocationIndicatorActive(asyncResp, fanPath);
+
+    if constexpr (BMCWEB_REDFISH_MULTI_HOST_FAN_INVENTORY)
+    {
+        getCoolingChassis(asyncResp, chassisId, fanPath);
+    }
 }
 
 inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -401,7 +477,7 @@ inline void handleFanPatch(App& app, const crow::Request& req,
     {
         dbus::utility::getAssociatedSubTreePathsById(
             chassisId, "/xyz/openbmc_project/inventory", chassisInterfaces,
-            "cooled_by", fanInterface,
+            fan_utils::getChassisFanAssociation(), fanInterface,
             [asyncResp, chassisId, fanId, locationIndicatorActive](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreePathsResponse&
