@@ -193,6 +193,19 @@ void getAssociatedSubTreePathsById(
     std::function<void(const boost::system::error_code&,
                        const MapperGetSubTreePathsResponse&)>&& callback);
 
+using ServicePathAssocServicePath =
+    std::tuple<std::string, sdbusplus::object_path, std::string, std::string,
+               sdbusplus::object_path>;
+using GetPathsByAssociationResult = std::vector<ServicePathAssocServicePath>;
+void getPathsByAssociation(
+    const sdbusplus::object_path& path1,
+    std::span<const std::string_view> interfaces1,
+    std::span<const std::string_view> associations,
+    const sdbusplus::object_path& path2,
+    std::span<const std::string_view> interfaces2, int32_t depth,
+    std::function<void(const boost::system::error_code&,
+                       const GetPathsByAssociationResult&)>&& callback);
+
 void getDbusObject(const std::string& path,
                    std::span<const std::string_view> interfaces,
                    std::function<void(const boost::system::error_code&,
