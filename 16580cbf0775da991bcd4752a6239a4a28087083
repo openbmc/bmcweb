@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a98d0d4f_b39d5cad",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-28T23:04:43Z",
+      "side": 1,
+      "message": "The way bmwceb operates, we free all the memory when we\u0027re done.  Maybe in other cases it might make sense to make a reusable object, but I don\u0027t think that makes sense here.",
+      "parentUuid": "2519cd88_b7170656",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3c788d1b_22ddbb15",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18b09416_9af31a33",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-28T23:04:43Z",
+      "side": 1,
+      "message": "👍\n\nIf we find this value sucks, we can always mess with it.",
+      "parentUuid": "3c788d1b_22ddbb15",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d45e297_8499f935",
@@ -65,6 +101,24 @@
       "writtenOn": "2026-01-27T21:57:13Z",
       "side": 1,
       "message": "Their example here \nhttps://github.com/facebook/zstd/blob/1168da0e567960d50cba1b58c9b0ba047ece4733/examples/streaming_compression.c#L78\nalso includes a check for input.. Do you need more in this while loop ?",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e49abc17_fc07036e",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-28T23:04:43Z",
+      "side": 1,
+      "message": "Good catch....  That might be a bug here.",
+      "parentUuid": "7d45e297_8499f935",
       "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
