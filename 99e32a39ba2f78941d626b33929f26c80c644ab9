@@ -16,6 +16,24 @@
       "message": "1. should this be boost::urls::format.\n2. Now this is duplciated in all the paths.  Should we moved it to line 1155?",
       "revId": "99e32a39ba2f78941d626b33929f26c80c644ab9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27e57096_f00d285e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-28T20:31:14Z",
+      "side": 1,
+      "message": "1 - I think I got this in the next patch in the series.\n2 - There is a subtle diff - one is under Systems the other two are under Manager.",
+      "parentUuid": "2cb057ae_75ec1fe0",
+      "revId": "99e32a39ba2f78941d626b33929f26c80c644ab9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
