@@ -84,6 +84,15 @@ inline void getFanSensorObjects(
         std::bind_front(afterGetFanSensorObjects, asyncResp, callback));
 }
 
+inline std::string getChassisFanAssociation()
+{
+    if constexpr (BMCWEB_REDFISH_MULTI_HOST_FAN_INVENTORY)
+    {
+        return "containing";
+    }
+    return "cooled_by";
+}
+
 inline void getFanPaths(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& validChassisPath,
@@ -91,7 +100,8 @@ inline void getFanPaths(
                                  fanPaths)>& callback)
 {
     sdbusplus::message::object_path endpointPath{validChassisPath};
-    endpointPath /= "cooled_by";
+
+    endpointPath /= getChassisFanAssociation();
 
     dbus::utility::getAssociatedSubTreePaths(
         endpointPath,
