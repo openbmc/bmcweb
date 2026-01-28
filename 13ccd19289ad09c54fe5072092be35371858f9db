@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e46c05ef_0220d5dd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-28T19:13:41Z",
+      "side": 1,
+      "message": "I have no idea how this behaves when your input to boost::urls::format is a already a boost::urls::url.\n\nWe do have a utility function for this exact case though that I suspect we should use instead.\nhttps://github.com/openbmc/bmcweb/blob/ac69e77ea938e8c2a5bd3dad258cdafd9d3182b7/http/utility.hpp#L340",
+      "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
