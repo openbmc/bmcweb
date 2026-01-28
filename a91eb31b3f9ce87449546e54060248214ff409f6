@@ -16,6 +16,23 @@
       "message": "Needs some testing (just add a test result for RSV at the end of the series, don\u0027t feel the need to test them individually)",
       "revId": "a91eb31b3f9ce87449546e54060248214ff409f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "718a4a2c_7f5598d2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-28T19:31:06Z",
+      "side": 1,
+      "message": "I see it set at lines 755 and 775 \nhttps://github.com/openbmc/bmcweb/commit/fdd26906ef8884977df85c915444206c8a183639 June 22\n\nhttps://github.com/openbmc/bmcweb/commit/5907571df69a5e1a6f3e0633ad42f2dc7fa6ba25 Aug 22 \n\nSeem to have added but then made unnecessary",
+      "revId": "a91eb31b3f9ce87449546e54060248214ff409f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
