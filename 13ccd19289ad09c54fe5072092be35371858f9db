@@ -34,6 +34,24 @@
       "parentUuid": "e46c05ef_0220d5dd",
       "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75b9ab4d_319726fb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-28T21:25:27Z",
+      "side": 1,
+      "message": "I wrote this little program:\n```\nboost::urls::url testUrl \u003d boost::urls::format(\"/foo/bar/baz\");\nboost::urls::url another \u003d boost::urls::format(\"{}/bod\", testUrl);\nstd::cerr \u003c\u003c testUrl \u003c\u003c \"\\n\";\nstd::cerr \u003c\u003c another \u003c\u003c \"\\n\";\n```\n\nand this was the output:\n\n```\n/foo/bar/baz\n/foo/bar/baz/bod\n```\n\nIt seems to work as expected?",
+      "parentUuid": "9b5798b7_44687e03",
+      "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
