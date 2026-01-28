@@ -1749,7 +1749,9 @@ inline void handleIPv4StaticPatch(
 
     // now update to the new gateway.
     // Default gateway is already empty, so no need to update if we're clearing
-    if (!gatewayOut.empty() && ethData.defaultGateway != gatewayOut)
+    bool ipv4Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
+    if (!gatewayOut.empty() &&
+        (ipv4Active || ethData.defaultGateway != gatewayOut))
     {
         updateIPv4DefaultGateway(ifaceId, gatewayOut, asyncResp);
     }
