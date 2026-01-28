@@ -32,6 +32,7 @@ feature_options = [
     'redfish-cpu-log',
     'redfish-dbus-log',
     'redfish-dump-log',
+    'redfish-fan-links',
     'redfish-host-logger',
     'redfish-new-powersubsystem-thermalsubsystem',
     'redfish-oem-manager-fan-data',

@@ -363,6 +363,19 @@ option(
                     option will be removed by June 2027.''',
 )
 
+# BMCWEB_REDFISH_FAN_LINKS
+option(
+    'redfish-fan-links',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable/disable the Fans to be owned via `contained_by`
+                    associated to a chassis. `cooling` association is then
+                    used to determine which chassis (may be multiple) the
+                    fan is cooling. Also provides additional links
+                    such as Chassis resource `Fans` link and Fan resource
+                    `CoolingChassis` link.`''',
+)
+
 # BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA
 option(
     'redfish-oem-manager-fan-data',
