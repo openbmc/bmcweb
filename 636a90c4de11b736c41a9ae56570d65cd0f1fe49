@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7bf5342b_0a045b6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-01-28T07:41:21Z",
+      "side": 1,
+      "message": "I think the mechanism placing the slot numbers begin with 1 and counts up. Why you may ask? I dont know. \n\n\nI had error cases tested in the beginning but that confused people, so I removed them from the Tested section and did not bother to do them again after removing them.",
+      "parentUuid": "edeb74ef_9794e8e4",
+      "range": {
+        "startLine": 109,
+        "startChar": 36,
+        "endLine": 109,
+        "endChar": 123
+      },
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eaf48d56_459c2a19",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
@@ -37,6 +61,30 @@
       "writtenOn": "2026-01-27T20:40:39Z",
       "side": 1,
       "message": "1 ?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 33,
+        "endLine": 1103,
+        "endChar": 34
+      },
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1d919d_7b382a70",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-01-28T07:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaf48d56_459c2a19",
       "range": {
         "startLine": 1103,
         "startChar": 33,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08b7bbde_7e9c0525",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-01-28T07:41:21Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/entity-manager/+/85875\nhttps://discord.com/channels/775381525260664832/1385306077188460545\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/60793\n\nI think these links suggest that, yes.",
+      "parentUuid": "7411745f_69b91fc1",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64f63077_ef141cd5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
@@ -77,6 +143,24 @@
       "writtenOn": "2026-01-27T20:40:39Z",
       "side": 1,
       "message": "Isn\u0027t this already on line 1143 ?",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01a6b0bc_75b2d465",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-01-28T07:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64f63077_ef141cd5",
       "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
