@@ -1115,6 +1115,7 @@ inline void getDumpServiceInfo(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& dumpType)
 {
+    std::string serviceId;
     std::string dumpPath;
     log_service::OverWritePolicy overWritePolicy =
         log_service::OverWritePolicy::Invalid;
@@ -1122,22 +1123,25 @@ inline void getDumpServiceInfo(
 
     if (dumpType == "BMC")
     {
-        dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/Dump",
-                               BMCWEB_REDFISH_MANAGER_URI_NAME);
+        serviceId = "Dump";
+        dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/{}",
+                               BMCWEB_REDFISH_MANAGER_URI_NAME, serviceId);
         overWritePolicy = log_service::OverWritePolicy::WrapsWhenFull;
         collectDiagnosticDataSupported = true;
     }
     else if (dumpType == "FaultLog")
     {
-        dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/FaultLog",
-                               BMCWEB_REDFISH_MANAGER_URI_NAME);
+        serviceId = "FaultLog";
+        dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/{}",
+                               BMCWEB_REDFISH_MANAGER_URI_NAME, serviceId);
         overWritePolicy = log_service::OverWritePolicy::Unknown;
         collectDiagnosticDataSupported = false;
     }
     else if (dumpType == "System")
     {
-        dumpPath = std::format("/redfish/v1/Systems/{}/LogServices/Dump",
-                               BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        serviceId = "Dump";
+        dumpPath = std::format("/redfish/v1/Systems/{}/LogServices/{}",
+                               BMCWEB_REDFISH_SYSTEM_URI_NAME, serviceId);
         overWritePolicy = log_service::OverWritePolicy::WrapsWhenFull;
         collectDiagnosticDataSupported = true;
     }
@@ -1153,7 +1157,7 @@ inline void getDumpServiceInfo(
     asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
     asyncResp->res.jsonValue["Name"] = "Dump LogService";
     asyncResp->res.jsonValue["Description"] = dumpType + " Dump LogService";
-    asyncResp->res.jsonValue["Id"] = std::filesystem::path(dumpPath).filename();
+    asyncResp->res.jsonValue["Id"] = serviceId;
     asyncResp->res.jsonValue["OverWritePolicy"] = overWritePolicy;
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
