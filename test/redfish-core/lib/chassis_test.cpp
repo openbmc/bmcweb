@@ -157,5 +157,23 @@ TEST(HandleChassisProperties, TypeNotFound)
     ASSERT_EQ("RackMount", response->res.jsonValue["ChassisType"]);
 }
 
+TEST(HandleChassisPatch, EmptyChassissIdReturnsError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    std::error_code err;
+    crow::Request request{{boost::beast::http::verb::patch, "/whatever", 11},
+                          err};
+
+    std::string emptyChassis = "";
+    response->res.setCompleteRequestHandler([](crow::Response&) {});
+
+    crow::App app;
+    handleChassisPatch(app, request, response, emptyChassis);
+
+    // Verify that error response was set
+    EXPECT_EQ(boost::beast::http::status::not_found, response->res.result());
+    EXPECT_TRUE(response->res.jsonValue.contains("error"));
+}
+
 } // namespace
 } // namespace redfish
