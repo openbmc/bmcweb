@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad28dfcf_32c85968",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-01-29T09:48:23Z",
+      "side": 1,
+      "message": "Added the to the tested section:\n\n```\ncurl --insecure --user root:0penBmc https://127.0.0.1:4443/redfish/v1/Systems/Yosemite_4_Sentinel_Dome_T1_Slot_1/Processors/Yosemite_4_Sentinel_Dome_Slot_5_CPU\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The requested resource of type Processor named \u0027Yosemite_4_Sentinel_Dome_Slot_5_CPU\u0027 was not found.\",\n        \"MessageArgs\": [\n          \"Processor\",\n          \"Yosemite_4_Sentinel_Dome_Slot_5_CPU\"\n        ],\n        \"MessageId\": \"Base.1.19.ResourceNotFound\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n      }\n    ],\n    \"code\": \"Base.1.19.ResourceNotFound\",\n    \"message\": \"The requested resource of type Processor named \u0027Yosemite_4_Sentinel_Dome_Slot_5_CPU\u0027 was not found.\"\n\n}\n```",
+      "parentUuid": "856ea460_2fd7212e",
+      "range": {
+        "startLine": 109,
+        "startChar": 36,
+        "endLine": 109,
+        "endChar": 123
+      },
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaf48d56_459c2a19",
@@ -168,6 +192,24 @@
       "side": 1,
       "message": "From discord, I would expect to see that change everyone.. Moving from .Decorator.ManagedHost to Inventory.Item.System for multi-system.. \nI don\u0027t for like (unless I missed the commit):\nhttps://github.com/openbmc/bmcweb/blob/ac69e77ea938e8c2a5bd3dad258cdafd9d3182b7/redfish-core/include/utils/systems_utils.hpp#L112",
       "parentUuid": "08b7bbde_7e9c0525",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62ce24e8_19da35a6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-01-29T09:48:23Z",
+      "side": 1,
+      "message": "Why do you request this? The mechanism of determine the system name is independent from my change, as long as the Item.System interface is in the EM config, which it is on master as https://gerrit.openbmc.org/c/openbmc/entity-manager/+/85875 has been merged already.",
+      "parentUuid": "0b79b7a8_cf2ae182",
       "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
