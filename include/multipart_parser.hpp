@@ -27,6 +27,7 @@ enum class ParserError
     ERROR_HEADER_ENDING,
     ERROR_UNEXPECTED_END_OF_HEADER,
     ERROR_UNEXPECTED_END_OF_INPUT,
+    ERROR_DATA_AFTER_FINAL_BOUNDARY,
     ERROR_OUT_OF_RANGE
 };
 
@@ -214,6 +215,27 @@ class MultipartParser
                     break;
                 }
                 case State::END:
+                    switch (index)
+                    {
+                        case 0:
+                            if (c != cr)
+                            {
+                                return ParserError::
+                                    ERROR_DATA_AFTER_FINAL_BOUNDARY;
+                            }
+                            index++;
+                            break;
+                        case 1:
+                            if (c != lf)
+                            {
+                                return ParserError::
+                                    ERROR_DATA_AFTER_FINAL_BOUNDARY;
+                            }
+                            index++;
+                            break;
+                        default:
+                            return ParserError::ERROR_DATA_AFTER_FINAL_BOUNDARY;
+                    }
                     break;
                 default:
                     return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
@@ -352,6 +374,10 @@ class MultipartParser
             // reconsider the current character even so it interrupted
             // the sequence it could be the beginning of a new sequence
             i--;
+        }
+        if (state == State::END)
+        {
+            index = 0;
         }
         return ParserError::PARSER_SUCCESS;
     }
