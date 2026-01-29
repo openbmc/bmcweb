@@ -70,6 +70,24 @@
       "parentUuid": "75b9ab4d_319726fb",
       "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eefebb8_bdfc4d96",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-29T14:59:46Z",
+      "side": 1,
+      "message": "\u003e Probably still best to use the utility function, considering that it\u0027s more clear that\u0027s the behavior.\n\nWhere I\u0027m coming from is - the whole reason I did this cleanup was because I copy/pasted code that used std::format, and was told to use boost::urls::format (reasonable).  I thought if I got rid of the instances of url formatting with std::format, I\u0027d save the next person from making the same mistake I did.\n\nIf we mix use of boost::urls::format and appendUrlPieces, we aren\u0027t any better off - people will end up copy/pasting boost::urls::format in situations where appendUrlPieces is wanted.  Considering that boost::urls::format works fine, wouldn\u0027t we be better off using it uniformly?\n\n\u003e I\u0027d be curious what\n\nMy guess is it will try to coerce something after that first http:// into a hostname (properly encoded), and try to coerce everything after that into a path (again, properly encoded).  Why is this particular set of inputs interesting or relevant - all we ever do in bmcweb is encode paths isn\u0027t it?",
+      "parentUuid": "7920cc7a_a929bae8",
+      "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
