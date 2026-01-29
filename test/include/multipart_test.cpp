@@ -48,16 +48,16 @@ TEST_F(MultipartTest, TestGoodMultipartParser)
               "\r\n-----------------------------d74496d66958873e");
     EXPECT_EQ(parser.mime_fields.size(), 3);
 
-    EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
               "form-data; name=\"Test1\"");
     EXPECT_EQ(parser.mime_fields[0].content,
               "111111111111111111111111112222222222222222222222222222222");
 
-    EXPECT_EQ(parser.mime_fields[1].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[1].fields["Content-Disposition"],
               "form-data; name=\"Test2\"");
     EXPECT_EQ(parser.mime_fields[1].content,
               "{\r\n-----------------------------d74496d66958873e123456");
-    EXPECT_EQ(parser.mime_fields[2].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[2].fields["Content-Disposition"],
               "form-data; name=\"Test3\"");
     EXPECT_EQ(parser.mime_fields[2].content, "{\r\n--------d74496d6695887}");
 }
@@ -279,9 +279,9 @@ TEST_F(MultipartTest, TestGoodMultipartParserMultipleHeaders)
               "\r\n-----------------------------d74496d66958873e");
     ASSERT_EQ(parser.mime_fields.size(), 1);
 
-    EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
               "form-data; name=\"Test1\"");
-    EXPECT_EQ(parser.mime_fields[0].fields.at("Other-Header"), "value=\"v1\"");
+    EXPECT_EQ(parser.mime_fields[0].fields["Other-Header"], "value=\"v1\"");
     EXPECT_EQ(parser.mime_fields[0].content, "Data1");
 }
 
@@ -322,7 +322,7 @@ TEST_F(MultipartTest, TestUnknownHeaderIsCorrectlyParsed)
     ASSERT_EQ(parser.mime_fields.size(), 1);
 
     EXPECT_EQ(
-        parser.mime_fields[0].fields.at("t-DiPpcccc"),
+        parser.mime_fields[0].fields["t-DiPpcccc"],
         "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccgcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaa");
     EXPECT_EQ(parser.mime_fields[0].content, "Data1");
 }
@@ -413,7 +413,7 @@ TEST_F(MultipartTest, TestIgnoreDataAfterFinalBoundary)
     EXPECT_EQ(parser.boundary, "\r\n----XX");
     EXPECT_EQ(parser.mime_fields.size(), 1);
 
-    EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
               "form-data; name=\"Test1\"");
     EXPECT_EQ(parser.mime_fields[0].content, "Data1");
 }
@@ -439,7 +439,7 @@ TEST_F(MultipartTest, TestFinalBoundaryIsCorrectlyRecognized)
     EXPECT_EQ(parser.boundary, "\r\n----XX");
     EXPECT_EQ(parser.mime_fields.size(), 1);
 
-    EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
               "form-data; name=\"Test1\"");
     EXPECT_EQ(parser.mime_fields[0].content,
               "Data1\r\n"
