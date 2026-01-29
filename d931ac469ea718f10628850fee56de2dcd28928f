@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "484f4eaa_0ccf58f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:34:20Z",
+      "side": 1,
+      "message": "Then, should we need to find the reason why it does not retry to connect?\nIn semantics, I think only one connectionFailed should not result in as a terminatedState \u0026  max-retry to reconnection should be tried.",
+      "parentUuid": "88e8537f_0209660c",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84585c07_56f0dce9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "You\u0027re correct. I initially thought this might be causing some issue I observed previously, but after adding debug logs before and after erase(), I confirmed the ID remains valid. As you noted, callers already handle this properly. I reverted to const std::string\u0026.",
       "parentUuid": "84585c07_56f0dce9",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d94eba_0008feee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:34:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6594f04b_a2b882fd",
       "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -102,6 +138,24 @@
       "side": 1,
       "message": "I considered extending isTerminated() as you mentioned, but it would require tracking all possible failure states (terminated, connectFailed, sendFailed, recvFailed...) and if a new state is added later, we\u0027d need to remember to update this check too.\n\nFrom my understanding (and please correct me if I\u0027m wrong), the resHandler() receiving bad_gateway with TerminateAfterRetries policy already indicates that retry attempts were exhausted - so this seems sufficient as a trigger for deletion, without checking connection pool state.\n\nBut if you think extending isTerminated() is the better approach, I can do that - we\u0027d just need to agree on the full list of \"terminal\" states.",
       "parentUuid": "f85933c2_19854f6c",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72bcaa3b_d60bd886",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:34:20Z",
+      "side": 1,
+      "message": "I think it is better to find the cause of not-retying on connectFail case and make a change to retry so that the end-state always becomes `terminated` - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/86859/comment/98d47a2f_fec3adfe/",
+      "parentUuid": "4c138b27_e8cbdccc",
       "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -190,6 +244,24 @@
       "side": 1,
       "message": "I think the deletion is not unconditional. Looking at resHandler():\n\n- Early return if response is not bad_gateway - normal successful sends don\u0027t trigger deletion\n- Early return if policy is not TerminateAfterRetries\nSo, as I understand it, the deletion only happens when:\n\nResponse is bad_gateway (meaning all retry attempts exhausted)\nand\nRetry policy is TerminateAfterRetries\n\nThe bad_gateway is only returned by http_client.hpp when retryCount \u003e\u003d maxRetryAttempts (line 494-503), so it should already confirm that max retries were exhausted for that specific event delivery. Please let me know if I\u0027m misunderstanding the flow here.",
       "parentUuid": "6f46de10_c63a0d39",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "901fed2c_d32c9230",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:34:20Z",
+      "side": 1,
+      "message": "If that\u0027s the case (e.g. max-retry is already exhausted), `isTerminated()` is already satisfied. Then, there is no reason to remove it.\n\nSecond, I\u0027m not sure whether `resHandler` is called only after max-retry.\n`resHandler` seems invoked unconditionally in `afterSendData()` - \n\nhttps://github.com/openbmc/bmcweb/blob/ac69e77ea938e8c2a5bd3dad258cdafd9d3182b7/http/http_client.hpp#L824\n\n\n\n```\n    static void afterSendData(const std::weak_ptr\u003cConnectionPool\u003e\u0026 weakSelf,\n                              const std::function\u003cvoid(Response\u0026)\u003e\u0026 resHandler,\n                              bool keepAlive, uint32_t connId, Response\u0026 res)\n    {\n        // Allow provided callback to perform additional processing of the\n        // request\n        resHandler(res); \u003c\u003d\u003d\u003d\n        \n\n```\n\nIf `isTerminated()` is correctly derived, I would be better to leave to check it before invoking `deleter()`.",
+      "parentUuid": "e62e337a_6a47a1d0",
       "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
