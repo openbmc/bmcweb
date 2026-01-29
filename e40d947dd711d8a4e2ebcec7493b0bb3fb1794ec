@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3806f7ae_dbd5b559",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-01-29T14:44:42Z",
+      "side": 1,
+      "message": "Correct, Host0 and Chassis0 will exist on every phosphor-state-manager enabled system. I can not comment on x86-power-control (alternative to PSM) based systems.",
+      "parentUuid": "e1f54e2e_dcdc372c",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "e40d947dd711d8a4e2ebcec7493b0bb3fb1794ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d1a0935_3b4b2ede",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
