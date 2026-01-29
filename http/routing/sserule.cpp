@@ -31,7 +31,7 @@ SseSocketRule::SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
 
 void SseSocketRule::validate() {}
 
-void SseSocketRule::handle(const Request& /*req*/,
+void SseSocketRule::handle(Request& /*req*/,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::vector<std::string>& /*params*/)
 {

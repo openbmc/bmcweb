@@ -43,7 +43,7 @@ class BaseRule
         return {};
     }
 
-    virtual void handle(const Request& /*req*/,
+    virtual void handle(Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>&,
                         const std::vector<std::string>&) = 0;
     virtual void handleUpgrade(
