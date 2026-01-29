@@ -64,16 +64,30 @@ class MultipartParser
   public:
     MultipartParser() = default;
 
-    [[nodiscard]] ParserError parse(const crow::Request& req)
+    [[nodiscard]] ParserError parse(std::string_view contentType,
+                                    std::string_view body)
     {
-        std::string_view contentType = req.getHeaderValue("content-type");
+        ParserError ret = start(contentType);
+        if (ret != ParserError::PARSER_SUCCESS)
+        {
+            return ret;
+        }
 
+        ret = parsePart(body);
+        if (ret != ParserError::PARSER_SUCCESS)
+        {
+            return ret;
+        }
+        return finish();
+    }
+
+    [[nodiscard]] ParserError start(std::string_view contentType)
+    {
         const std::string boundaryFormat = "multipart/form-data; boundary=";
         if (!contentType.starts_with(boundaryFormat))
         {
             return ParserError::ERROR_BOUNDARY_FORMAT;
         }
-
         std::string_view ctBoundary = contentType.substr(boundaryFormat.size());
 
         boundary = "\r\n--";
@@ -82,7 +96,11 @@ class MultipartParser
         lookbehind.resize(boundary.size() + 8);
         state = State::START;
 
-        const std::string& buffer = req.body();
+        return ParserError::PARSER_SUCCESS;
+    }
+
+    ParserError parsePart(std::string_view buffer)
+    {
         size_t len = buffer.size();
         char cl = 0;
 
@@ -242,13 +260,18 @@ class MultipartParser
             }
         }
 
+        return ParserError::PARSER_SUCCESS;
+    }
+
+    ParserError finish()
+    {
         if (state != State::END)
         {
             return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
         }
-
         return ParserError::PARSER_SUCCESS;
     }
+
     std::vector<FormPart> mime_fields;
     std::string boundary;
 
@@ -272,8 +295,7 @@ class MultipartParser
         return boundaryIndex[static_cast<unsigned char>(c)];
     }
 
-    void skipNonBoundary(const std::string& buffer, size_t boundaryEnd,
-                         size_t& i)
+    void skipNonBoundary(std::string_view buffer, size_t boundaryEnd, size_t& i)
     {
         // boyer-moore derived algorithm to safely skip non-boundary data
         while (i + boundary.size() <= buffer.length())
@@ -286,7 +308,7 @@ class MultipartParser
         }
     }
 
-    ParserError processPartData(const std::string& buffer, size_t& i, char c)
+    ParserError processPartData(std::string_view buffer, size_t& i, char c)
     {
         size_t prevIndex = index;
 
