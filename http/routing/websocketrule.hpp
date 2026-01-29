@@ -34,7 +34,7 @@ class WebSocketRule : public BaseRule
 
     void validate() override {}
 
-    void handle(const Request& /*req*/,
+    void handle(Request& /*req*/,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const std::vector<std::string>& /*params*/) override
     {
