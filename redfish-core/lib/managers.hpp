@@ -121,6 +121,25 @@ inline std::string getBMCUpdateServicePath()
     return "/xyz/openbmc_project/software";
 }
 
+inline void setBMCTransition(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& transitionValue)
+{
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
+        "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
+        "RequestedBMCTransition", transitionValue,
+        [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        });
+}
+
 /**
  * Function reboots the BMC.
  *
@@ -129,55 +148,15 @@ inline std::string getBMCUpdateServicePath()
 inline void doBMCGracefulRestart(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    const char* processName = "xyz.openbmc_project.State.BMC";
-    const char* objectPath = "/xyz/openbmc_project/state/bmc0";
-    const char* interfaceName = "xyz.openbmc_project.State.BMC";
-    const std::string& propertyValue =
-        "xyz.openbmc_project.State.BMC.Transition.Reboot";
-    const char* destProperty = "RequestedBMCTransition";
-
-    // Create the D-Bus variant for D-Bus call.
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, processName, objectPath, interfaceName,
-        destProperty, propertyValue,
-        [asyncResp](const boost::system::error_code& ec) {
-            // Use "Set" method to set the property value.
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("[Set] Bad D-Bus request error: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            messages::success(asyncResp->res);
-        });
+    setBMCTransition(asyncResp,
+                     "xyz.openbmc_project.State.BMC.Transition.Reboot");
 }
 
 inline void doBMCForceRestart(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    const char* processName = "xyz.openbmc_project.State.BMC";
-    const char* objectPath = "/xyz/openbmc_project/state/bmc0";
-    const char* interfaceName = "xyz.openbmc_project.State.BMC";
-    const std::string& propertyValue =
-        "xyz.openbmc_project.State.BMC.Transition.HardReboot";
-    const char* destProperty = "RequestedBMCTransition";
-
-    // Create the D-Bus variant for D-Bus call.
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, processName, objectPath, interfaceName,
-        destProperty, propertyValue,
-        [asyncResp](const boost::system::error_code& ec) {
-            // Use "Set" method to set the property value.
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("[Set] Bad D-Bus request error: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            messages::success(asyncResp->res);
-        });
+    setBMCTransition(asyncResp,
+                     "xyz.openbmc_project.State.BMC.Transition.HardReboot");
 }
 
 /**
