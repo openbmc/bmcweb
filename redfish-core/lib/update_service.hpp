@@ -1164,7 +1164,7 @@ inline void handleUpdateServiceMultipartUpdatePost(
     {
         MultipartParser parser;
 
-        ParserError ec = parser.parse(req);
+        ParserError ec = parser.parse(contentType, req.body());
         if (ec != ParserError::PARSER_SUCCESS)
         {
             // handle error
