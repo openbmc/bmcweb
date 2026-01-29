@@ -391,7 +391,7 @@ TEST_F(MultipartTest, TestErrorMissingFinalBoundry)
     EXPECT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_INPUT);
 }
 
-TEST_F(MultipartTest, TestIgnoreDataAfterFinalBoundary)
+TEST_F(MultipartTest, TestErrorOnDataAfterFinalBoundary)
 {
     std::string_view body =
         "----XX\r\n"
@@ -408,14 +408,7 @@ TEST_F(MultipartTest, TestIgnoreDataAfterFinalBoundary)
 
     ParserError rc = parser.parse(reqIn);
 
-    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
-
-    EXPECT_EQ(parser.boundary, "\r\n----XX");
-    EXPECT_EQ(parser.mime_fields.size(), 1);
-
-    EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
-              "form-data; name=\"Test1\"");
-    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+    ASSERT_EQ(rc, ParserError::ERROR_DATA_AFTER_FINAL_BOUNDARY);
 }
 
 TEST_F(MultipartTest, TestFinalBoundaryIsCorrectlyRecognized)
