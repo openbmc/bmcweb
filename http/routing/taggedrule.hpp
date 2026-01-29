@@ -37,12 +37,12 @@ class TaggedRule :
     void operator()(Func&& f)
     {
         static_assert(
-            std::is_invocable_v<Func, Request,
+            std::is_invocable_v<Func, Request&,
                                 std::shared_ptr<bmcweb::AsyncResp>&, Args...>,
             "Handler type is mismatched with URL parameters");
         static_assert(
             std::is_same_v<
-                void, std::invoke_result_t<Func, Request,
+                void, std::invoke_result_t<Func, Request&,
                                            std::shared_ptr<bmcweb::AsyncResp>&,
                                            Args...>>,
             "Handler function with response argument should have void return type");
@@ -50,7 +50,7 @@ class TaggedRule :
         handler = std::forward<Func>(f);
     }
 
-    void handle(const Request& req,
+    void handle(Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const std::vector<std::string>& params) override
     {
@@ -83,8 +83,8 @@ class TaggedRule :
     }
 
   private:
-    std::function<void(const Request&,
-                       const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>
+    std::function<void(Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+                       Args...)>
         handler;
 };
 } // namespace crow
