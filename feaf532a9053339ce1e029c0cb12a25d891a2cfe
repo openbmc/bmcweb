@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8768a6a3_08e254af",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "I think there is better to avoid the copy-value semantic.\n```\nconst boost::system::error_code\u0026 ec,\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cec94ee9_4594c75e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "How about to use `std::format`\n```\n   sdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65c63c32_eb05d62c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\n   sdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af711f0_0da6e7b7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6801b57_4199d61f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\n  sdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a19463_a69f24bc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2441f944_7a6fc524",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b69bc1_8599f9fc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cded92a2_66104a34",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3c471b_42b9da76",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "Since it leads into `internalError`, it would be better to use `BMCWEB_LOG_ERROR()`.",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd2efa3a_a4e61b97",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1503,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nBMCWEB_LOG_ERROR()\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9787a192_c63f0237",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nBMCWEB_LOG_ERROR\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "178be305_64733275",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nBMCWEB_LOG_ERROR\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7329a4e6_93d14927",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1603,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\n   sdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fa4ae44_208632bd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n````",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5925a0da_02ed4b04",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ab2c537_5e288af8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2633,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-01-29T15:10:42Z",
+      "side": 1,
+      "message": "```\nBMCWEB_LOG_ERROR\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
