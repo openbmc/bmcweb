@@ -350,7 +350,7 @@ inline void afterAvailbleTimerAsyncWait(
     }
     if (asyncResp)
     {
-        redfish::messages::internalError(asyncResp->res);
+	messages::firmwareImageUploadFailed(asyncResp->res);
     }
 }
 
@@ -1101,6 +1101,14 @@ inline void updateMultipartContext(
 inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const crow::Request& req)
 {
+    //  Check for empty body
+    if (req.body().empty())
+    {
+        BMCWEB_LOG_DEBUG("Upload body is empty");
+        messages::propertyMissing(asyncResp->res, "FirmwareImage");
+        return;
+    }
+
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
         task::Payload payload(req);
