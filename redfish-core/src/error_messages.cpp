@@ -2338,5 +2338,16 @@ void generateSecretKeyRequired(crow::Response& res,
     addMessageToErrorJson(res.jsonValue, generateSecretKeyRequired(arg1));
 }
 
+nlohmann::json firmwareImageUploadFailed()
+{
+    return getLog(redfish::registries::Base::Index::firmwareImageUploadFailed,
+                  {});
+}
+
+void firmwareImageUploadFailed(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, firmwareImageUploadFailed());
+}
 } // namespace messages
 } // namespace redfish
