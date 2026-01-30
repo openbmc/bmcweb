@@ -3081,8 +3081,23 @@ inline void processComputerSystemGet(
         boost::urls::format("/redfish/v1/Systems/{}/ResetActionInfo",
                             systemName);
 
-    asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/LogServices", systemName);
+    if (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
+    {
+        // The OpenBMC EventLog implementation currently
+        // does not support per-system entries.
+        if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
+                boost::urls::format("/redfish/v1/Systems/{}/LogServices",
+                                    systemName);
+        }
+    }
+    else if (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
+    {
+        asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Managers/{}/LogServices",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
+    }
 
     nlohmann::json::array_t managedBy;
     nlohmann::json& manager = managedBy.emplace_back();
