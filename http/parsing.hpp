@@ -22,17 +22,18 @@ enum class JsonParseResult
 
 inline bool isJsonContentType(std::string_view contentType)
 {
-    return http_helpers::getContentType(contentType) ==
+    return http_helpers::getContentType(contentType).contentType ==
            http_helpers::ContentType::JSON;
 }
 
 inline JsonParseResult parseRequestAsJson(const crow::Request& req,
                                           nlohmann::json& jsonOut)
 {
-    if (!isJsonContentType(
-            req.getHeaderValue(boost::beast::http::field::content_type)))
+    std::string_view contentType =
+        req.getHeaderValue(boost::beast::http::field::content_type);
+    if (!isJsonContentType(contentType))
     {
-        BMCWEB_LOG_WARNING("Failed to parse content type on request");
+        BMCWEB_LOG_WARNING("Request was not json content type, ignoring");
         if constexpr (!BMCWEB_INSECURE_IGNORE_CONTENT_TYPE)
         {
             return JsonParseResult::BadContentType;
