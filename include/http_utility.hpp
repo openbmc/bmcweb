@@ -2,11 +2,13 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/spirit/home/x3/char/char.hpp>
 #include <boost/spirit/home/x3/char/char_class.hpp>
 #include <boost/spirit/home/x3/core/parse.hpp>
 #include <boost/spirit/home/x3/directive/no_case.hpp>
 #include <boost/spirit/home/x3/directive/omit.hpp>
+#include <boost/spirit/home/x3/directive/repeat.hpp>
 #include <boost/spirit/home/x3/numeric/uint.hpp>
 #include <boost/spirit/home/x3/operator/alternative.hpp>
 #include <boost/spirit/home/x3/operator/kleene.hpp>
@@ -35,15 +37,37 @@ enum class ContentType
     JSON,
     OctetStream,
     EventStream,
+    MultipartFormData,
 };
 
-inline ContentType getContentType(std::string_view contentTypeHeader)
+struct Parameter
+{
+    std::string paramName;
+    std::string paramValue;
+};
+
+struct ContentTypeParameters
+{
+    ContentType contentType;
+    std::vector<Parameter> parameters;
+};
+} // namespace http_helpers
+
+BOOST_FUSION_ADAPT_STRUCT(http_helpers::Parameter, paramName, paramValue);
+
+BOOST_FUSION_ADAPT_STRUCT(http_helpers::ContentTypeParameters, contentType,
+                          parameters);
+
+namespace http_helpers
+{
+inline ContentTypeParameters getContentType(std::string_view contentTypeHeader)
 {
     using boost::spirit::x3::char_;
     using boost::spirit::x3::lit;
     using boost::spirit::x3::no_case;
     using boost::spirit::x3::omit;
     using boost::spirit::x3::parse;
+    using boost::spirit::x3::repeat;
     using boost::spirit::x3::space;
     using boost::spirit::x3::symbols;
 
@@ -52,23 +76,24 @@ inline ContentType getContentType(std::string_view contentTypeHeader)
         {"application/json", ContentType::JSON},
         {"application/octet-stream", ContentType::OctetStream},
         {"text/event-stream", ContentType::EventStream},
-        {"text/html", ContentType::HTML}};
+        {"text/html", ContentType::HTML},
+        {"multipart/form-data", ContentType::MultipartFormData}};
 
-    ContentType ct = ContentType::NoMatch;
+    ContentTypeParameters ct;
 
     auto typeCharset = +(char_("a-zA-Z0-9.+-"));
 
     auto parameters =
-        *(lit(';') >> *space >> typeCharset >> lit("=") >> typeCharset);
-    auto parser = no_case[knownMimeType] >> omit[parameters];
+        *(lit(';') >> omit[*space] >> typeCharset >> lit("=") >> typeCharset);
+    auto parser = no_case[knownMimeType] >> parameters;
     std::string_view::iterator begin = contentTypeHeader.begin();
     if (!parse(begin, contentTypeHeader.end(), parser, ct))
     {
-        return ContentType::NoMatch;
+        ct.contentType = ContentType::NoMatch;
     }
-    if (begin != contentTypeHeader.end())
+    else if (begin != contentTypeHeader.end())
     {
-        return ContentType::NoMatch;
+        ct.contentType = ContentType::NoMatch;
     }
 
     return ct;
