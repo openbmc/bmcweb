@@ -77,6 +77,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0992bba5_f84df434",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-30T09:15:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "656e5205_7504a164",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c466955_3f575ae2",
@@ -125,6 +149,24 @@
       "writtenOn": "2026-01-13T04:08:00Z",
       "side": 1,
       "message": "Overall, I don\u0027t understand why this is needed.  The implementation is compliant with the spec, I see no reason to change.  If a user wants to \"verify\" the thing, they can just call GET again.",
+      "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3acf357_71bc5de2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-01-30T09:15:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9bfaab8e_75ca2f9c",
       "revId": "7af2afd38b5f742883bd0f752021edffefa0d1b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
