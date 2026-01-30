@@ -1362,6 +1362,16 @@ static constexpr std::array registry =
             {},
             "Correct the request body and resubmit the request if it failed.",
         }},
+    MessageEntry{
+        "FirmwareImageUploadFailed",
+        {
+            "The firmware image validation timed out.",
+            "This may be due to an invalid firmware image or D-Bus service unavailability.",
+            "Warning",
+            0,
+            {},
+            "The firmware image may be invalid or the D-Bus service is currently unavailable. Please check the format and try again later.",
+       }},
 
 };
 
@@ -1481,6 +1491,7 @@ enum class Index
     success = 111,
     undeterminedFault = 112,
     unrecognizedRequestBody = 113,
+    firmwareImageUploadFailed = 114,
 };
 }; // struct base
 
