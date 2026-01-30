@@ -97,6 +97,14 @@ class App
             return HttpType::BOTH;
         }
 
+        if (BMCWEB_INSECURE_DISABLE_SSL)
+        {
+            BMCWEB_LOG_ERROR(
+                "Unknown http type={} and TLS is disabled, assuming HTTP",
+                socketTypeString);
+            return HttpType::HTTP;
+        }
+
         // all other types https
         BMCWEB_LOG_ERROR("Unknown http type={} assuming HTTPS only",
                          socketTypeString);
@@ -129,13 +137,31 @@ class App
 
             std::vector<std::string> socknameComponents;
             bmcweb::split(socknameComponents, socketName, '_');
-            HttpType httpType = getHttpType(socknameComponents[2]);
+            HttpType httpType = HttpType::HTTPS;
+            if (socknameComponents.size() >= 3)
+            {
+                httpType = getHttpType(socknameComponents[2]);
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR("Invalid socket name={}, assuming HTTPS only",
+                                 socketName);
+                if (BMCWEB_INSECURE_DISABLE_SSL)
+                {
+                    httpType = HttpType::HTTP;
+                }
+                else
+                {
+                    httpType = HttpType::HTTPS;
+                }
+            }
 
             int listenFd = socketIndex + SD_LISTEN_FDS_START;
             if (sd_is_socket_inet(listenFd, AF_UNSPEC, SOCK_STREAM, 1, 0) > 0)
             {
-                BMCWEB_LOG_INFO("Starting webserver on socket handle {}",
-                                listenFd);
+                BMCWEB_LOG_INFO(
+                    "Starting webserver on socket handle {} with type {}",
+                    listenFd, static_cast<int>(httpType));
                 acceptors.emplace_back(Acceptor{
                     boost::asio::ip::tcp::acceptor(
                         getIoContext(), boost::asio::ip::tcp::v6(), listenFd),
