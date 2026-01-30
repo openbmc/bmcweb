@@ -182,7 +182,7 @@ inline void getPersistentMemoryProperties(
     const uint64_t* volatileSizeInKiB = nullptr;
     const uint64_t* pmSizeInKiB = nullptr;
     const uint64_t* cacheSizeInKB = nullptr;
-    const uint64_t* voltaileRegionMaxSizeInKib = nullptr;
+    const uint64_t* volatileRegionMaxSizeInKiB = nullptr;
     const uint64_t* pmRegionMaxSizeInKiB = nullptr;
     const uint64_t* allocationIncrementInKiB = nullptr;
     const uint64_t* allocationAlignmentInKiB = nullptr;
@@ -209,7 +209,7 @@ inline void getPersistentMemoryProperties(
         volatileRegionSizeLimitInKiB, "PmRegionSizeLimitInKiB",
         pmRegionSizeLimitInKiB, "VolatileSizeInKiB", volatileSizeInKiB,
         "PmSizeInKiB", pmSizeInKiB, "CacheSizeInKB", cacheSizeInKB,
-        "VoltaileRegionMaxSizeInKib", voltaileRegionMaxSizeInKib,
+        "VolatileRegionMaxSizeInKiB", volatileRegionMaxSizeInKiB,
         "PmRegionMaxSizeInKiB", pmRegionMaxSizeInKiB,
         "AllocationIncrementInKiB", allocationIncrementInKiB,
         "AllocationAlignmentInKiB", allocationAlignmentInKiB,
@@ -268,10 +268,10 @@ inline void getPersistentMemoryProperties(
             (*cacheSizeInKB >> 10);
     }
 
-    if (voltaileRegionMaxSizeInKib != nullptr)
+    if (volatileRegionMaxSizeInKiB != nullptr)
     {
         asyncResp->res.jsonValue[jsonPtr]["VolatileRegionSizeMaxMiB"] =
-            (*voltaileRegionMaxSizeInKib) >> 10;
+            (*volatileRegionMaxSizeInKiB) >> 10;
     }
 
     if (pmRegionMaxSizeInKiB != nullptr)
