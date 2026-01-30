@@ -696,10 +696,10 @@ class Connection :
 
     void afterRead(const std::shared_ptr<self_type>& /*self*/,
                    const boost::system::error_code& ec,
-                   std::size_t bytesTransferred)
+                   std::size_t /*bytesTransferred*/)
     {
-        BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
-                         bytesTransferred);
+        // BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
+        //                  bytesTransferred);
 
         if (ec)
         {
@@ -752,7 +752,7 @@ class Connection :
 
     void doRead()
     {
-        BMCWEB_LOG_DEBUG("{} doRead", logPtr(this));
+        // BMCWEB_LOG_DEBUG("{} doRead", logPtr(this));
         if (!parser)
         {
             return;
@@ -903,7 +903,7 @@ class Connection :
         {
             if (ec == boost::asio::error::operation_aborted)
             {
-                BMCWEB_LOG_DEBUG("{} Timer canceled", logPtr(self.get()));
+                // BMCWEB_LOG_DEBUG("{} Timer canceled", logPtr(self.get()));
                 return;
             }
             BMCWEB_LOG_CRITICAL("{} Timer failed {}", logPtr(self.get()), ec);
@@ -939,7 +939,7 @@ class Connection :
                                          weak_from_this()));
 
         timerStarted = true;
-        BMCWEB_LOG_DEBUG("{} timer started", logPtr(this));
+        // BMCWEB_LOG_DEBUG("{} timer started", logPtr(this));
     }
 
     bool authenticationEnabled = !BMCWEB_INSECURE_DISABLE_AUTH;
