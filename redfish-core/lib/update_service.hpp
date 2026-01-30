@@ -847,7 +847,8 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
             BMCWEB_LOG_ERROR("Couldn't find Content-Disposition");
             return std::nullopt;
         }
-        BMCWEB_LOG_INFO("Parsing value {}", it->value());
+        std::string_view val = it->value();
+        BMCWEB_LOG_INFO("Parsing value {}", val);
 
         auto formFieldNameOpt = parseFormPartName(it);
         if (!formFieldNameOpt.has_value())
