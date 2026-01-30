@@ -124,6 +124,13 @@ conf_h_dep = declare_dependency(
 # Configure and install systemd unit files
 https_port = get_option('https_port')
 if https_port > 0
+    http_level_allowed = 'https'
+    if get_option('insecure-disable-ssl').allowed()
+        http_level_allowed = 'http'
+        if https_port == 443
+          https_port = 80
+        endif
+    endif
     configure_file(
         input: 'bmcweb.socket.in',
         output: 'bmcweb.socket',
@@ -132,7 +139,7 @@ if https_port > 0
         configuration: configuration_data(
             {
                 'BMCWEB_PORT': https_port,
-                'HTTP_LEVEL_ALLOWED': 'https',
+                'HTTP_LEVEL_ALLOWED': http_level_allowed,
                 'HTTP_AUTH_LEVEL': 'auth',
                 'HTTP_BIND': '',
             },
