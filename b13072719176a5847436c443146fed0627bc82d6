@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1623c691_c31eede3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-30T02:33:42Z",
+      "side": 1,
+      "message": "Initially i wanted to keep the amount of code inside that branch to a minimum to produce a more uniform response ([Links][ComputerSystems] array always present).\n\nChanged it to match your preference here and not include that array if we have no link.",
+      "parentUuid": "d891025d_87e261dd",
+      "revId": "b13072719176a5847436c443146fed0627bc82d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79a87171_589ebbcb",
@@ -48,6 +66,24 @@
       "writtenOn": "2025-12-05T18:47:13Z",
       "side": 1,
       "message": "I think a todo would be helpful \n\nTODO: Support Multi Computer System\n\nUp to you.",
+      "revId": "b13072719176a5847436c443146fed0627bc82d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd390a2a_f4cb47e0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-01-30T02:33:42Z",
+      "side": 1,
+      "message": "Added the TODO 👍",
+      "parentUuid": "79a87171_589ebbcb",
       "revId": "b13072719176a5847436c443146fed0627bc82d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
