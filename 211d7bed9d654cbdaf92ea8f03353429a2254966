@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1525d18_719aa37b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-01-30T06:38:05Z",
+      "side": 1,
+      "message": "Thanks for the question.\nThese are different changes. 47300 is for the Chassis collection, while my change (87018) focuses on the Systems/Processors collection. Although they both retrieve data from the xyz.openbmc_project.Control.Power.Cap interface on D-Bus, they represent power limits at different hardware levels.",
+      "parentUuid": "631c1d40_521aff92",
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e05a1432_7f8f57b9",
         "filename": "redfish-core/include/utils/processor_utils.hpp",
         "patchSetId": 2
