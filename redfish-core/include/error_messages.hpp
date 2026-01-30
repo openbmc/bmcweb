@@ -1462,5 +1462,15 @@ nlohmann::json::object_t generateSecretKeyRequired(
 void generateSecretKeyRequired(crow::Response& res,
                                const boost::urls::url_view_base& arg1);
 
+/**
+ * @brief Formats FirmwareImageUploadFailed message into JSON
+ * Message body: "This may indicate an invalid firmware format
+ * or incompatible image."
+ *
+ * @returns Message FirmwareUpdateFailed formatted to JSON */
+nlohmann::json firmwareImageUploadFailed();
+
+void firmwareImageUploadFailed(crow::Response& res);
+
 } // namespace messages
 } // namespace redfish
