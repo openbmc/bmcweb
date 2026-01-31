@@ -125,6 +125,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "43450712_de55ab99",
+        "filename": "http/zstd_compressor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-01-31T00:03:50Z",
+      "side": 1,
+      "message": "I\u0027ve added that behavior.  In the docs it only seems to matter if you call flush, but it\u0027s good to have the same behavior as the reference in case they change.",
+      "parentUuid": "e49abc17_fc07036e",
+      "revId": "16580cbf0775da991bcd4752a6239a4a28087083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "32869687_23ff074e",
         "filename": "test/http/zstd_compressor_test.cpp",
         "patchSetId": 16
