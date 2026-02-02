@@ -1070,6 +1070,7 @@ functions the same like the default implementation under the System resource.
 - FirmwareRevision
 - LocationIndicatorActive
 - Manufacturer
+- Metrics
 - Model
 - OperatingSpeedMhz
 - PartNumber
@@ -1082,8 +1083,8 @@ functions the same like the default implementation under the System resource.
 
 #### MemoryMetrics
 
-- Description
-- HealthData
+- LifeTime/CorrectableECCErrorCount
+- LifeTime/UncorrectableECCErrorCount
 
 ### /redfish/v1/Systems/system/PCIeDevices/
 
