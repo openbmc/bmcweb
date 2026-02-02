@@ -45,6 +45,29 @@
       },
       "revId": "25c4fbaea61f7ad2c0fa04846bde6cda80ccb9e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94623da5_77642001",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-02T18:51:13Z",
+      "side": 1,
+      "message": "Please include a functional test.  \"Verifying function signatures\" is a code review, not a test.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "25c4fbaea61f7ad2c0fa04846bde6cda80ccb9e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
