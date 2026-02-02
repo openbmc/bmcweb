@@ -45,6 +45,30 @@
       },
       "revId": "8e678ec865ffc33a3ecdbf48a5aabc14eb3a0fa5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd4f90e6_85c14168",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-02T21:10:13Z",
+      "side": 1,
+      "message": "I have followed up on your suggestion and introduced the function in [1]. \n\nDone\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87159/1",
+      "parentUuid": "f52f3274_c9356acd",
+      "range": {
+        "startLine": 595,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 5
+      },
+      "revId": "8e678ec865ffc33a3ecdbf48a5aabc14eb3a0fa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
