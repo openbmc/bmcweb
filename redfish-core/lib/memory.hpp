@@ -816,6 +816,9 @@ inline void afterGetDimmData(
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+    asyncResp->res.jsonValue["Metrics"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
 }
 
 inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
