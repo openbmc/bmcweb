@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cec30361_9db7fd3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a48bff5_6019b1bb",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "631c1d40_521aff92",
@@ -59,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1a6beb3_f2316807",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a1525d18_719aa37b",
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e05a1432_7f8f57b9",
@@ -72,6 +114,30 @@
       "writtenOn": "2026-01-28T21:14:43Z",
       "side": 1,
       "message": "A template shouldn\u0027t be necessary here.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 28
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c599cf3c_d2bc7733",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e05a1432_7f8f57b9",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -105,6 +171,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ecf172_26bcb6a8",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a76e5b34_8bc88859",
+      "range": {
+        "startLine": 58,
+        "startChar": 9,
+        "endLine": 58,
+        "endChar": 29
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a28c560_f4d99564",
@@ -118,6 +208,30 @@
       "writtenOn": "2026-01-28T21:14:43Z",
       "side": 1,
       "message": "Should be using object_path methods for comparison.\n\nSee: https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#12-imprecise-matching",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 2
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e35e031_906b9f34",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a28c560_f4d99564",
       "range": {
         "startLine": 83,
         "startChar": 0,
@@ -175,6 +289,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21408c1f_0f027bde",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3a0f2ee_eff28de8",
+      "range": {
+        "startLine": 80,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 17
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "578d0402_c83f37fc",
@@ -188,6 +326,30 @@
       "writtenOn": "2026-01-28T21:14:43Z",
       "side": 1,
       "message": "Should be able to use std::ranges here",
+      "range": {
+        "startLine": 99,
+        "startChar": 34,
+        "endLine": 101,
+        "endChar": 60
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2de00319_62fd5d85",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "578d0402_c83f37fc",
       "range": {
         "startLine": 99,
         "startChar": 34,
@@ -221,6 +383,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78431e3b_b944a3ca",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7f624b0_5bf96f0b",
+      "range": {
+        "startLine": 144,
+        "startChar": 26,
+        "endLine": 151,
+        "endChar": 11
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4a948a3_f64aa0ed",
@@ -234,6 +420,30 @@
       "writtenOn": "2026-01-28T21:14:43Z",
       "side": 1,
       "message": "Use sdbusplus::unpackPropertiesNoThrow() instead for unpacking the properties.",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 282,
+        "endChar": 5
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c57ac73_17f9ce25",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4a948a3_f64aa0ed",
       "range": {
         "startLine": 264,
         "startChar": 4,
@@ -314,6 +524,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "018abaf7_07f34175",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf87f1c4_66466652",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 344,
+        "endChar": 9
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38c14a73_7548de28",
@@ -327,6 +561,30 @@
       "writtenOn": "2026-01-28T21:14:43Z",
       "side": 1,
       "message": "Should be using utility function instead.\nSee: https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#15-using-async_method_call-where-there-are-existing-helper-methods",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 2
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5382111_60d42559",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38c14a73_7548de28",
       "range": {
         "startLine": 352,
         "startChar": 0,
@@ -360,6 +618,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1def53ed_4690f537",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3533f029_0ba20593",
+      "range": {
+        "startLine": 411,
+        "startChar": 12,
+        "endLine": 412,
+        "endChar": 58
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61694ddb_75fe5de4",
@@ -373,6 +655,30 @@
       "writtenOn": "2026-01-28T21:14:43Z",
       "side": 1,
       "message": "Is an equivalent verb::head route needed for this path? (I see one for the Chassis above but not for Systems.)",
+      "range": {
+        "startLine": 428,
+        "startChar": 4,
+        "endLine": 432,
+        "endChar": 66
+      },
+      "revId": "211d7bed9d654cbdaf92ea8f03353429a2254966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ef25e1a_56d59375",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-02T08:13:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61694ddb_75fe5de4",
       "range": {
         "startLine": 428,
         "startChar": 4,
