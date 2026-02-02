@@ -769,6 +769,7 @@ inline void afterGetDimmData(
 
         bool dimmInterface = false;
         bool associationInterface = false;
+        bool metricsInterface = false;
         /* Note: Multiple D-Bus objects can provide details for the Memory
          * object: 1) Dimm is the primary object 2) Additional partitions could
          * exist per Dimm. Only consider the object found if the Dimm is found.
@@ -797,6 +798,13 @@ inline void afterGetDimmData(
                      */
                     associationInterface = true;
                 }
+                else if (interface == "xyz.openbmc_project.Memory.MemoryECC")
+                {
+                    /* The Dimm exposes ECC metrics, so a MemoryMetrics
+                     * resource exists for it and the link can be advertised.
+                     */
+                    metricsInterface = true;
+                }
                 else if (
                     interface ==
                         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition" &&
@@ -815,6 +823,18 @@ inline void afterGetDimmData(
         if (associationInterface && dimmInterface)
         {
             getLocationIndicatorActive(asyncResp, objectPath);
+        }
+
+        /* Only advertise the MemoryMetrics link when the Dimm exposes the
+         * metrics interface on D-Bus; otherwise the link would resolve to a
+         * 404.
+         */
+        if (metricsInterface && dimmInterface)
+        {
+            asyncResp->res.jsonValue["Metrics"]["@odata.id"] =
+                boost::urls::format(
+                    "/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
         }
     }
 
@@ -835,9 +855,10 @@ inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 2> interfaces = {
+    constexpr std::array<std::string_view, 3> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Dimm",
-        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
+        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition",
+        "xyz.openbmc_project.Memory.MemoryECC"};
 
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
