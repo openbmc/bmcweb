@@ -737,6 +737,53 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void afterGetAssociatedSubTreeForEnvMetricsLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No controlled_by association for processor");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error for getAssociatedSubTree: {}",
+                         ec);
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG("No Power.Cap control found for processor");
+        return;
+    }
+
+    asyncResp->res.jsonValue["EnvironmentMetrics"]["@odata.id"] =
+        boost::urls::format(
+            "/redfish/v1/Systems/{}/Processors/{}/EnvironmentMetrics",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+}
+
+inline void getEnvironmentMetricsLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& objectPath)
+{
+    BMCWEB_LOG_DEBUG("getEnvironmentMetricsLink: {}", objectPath);
+
+    sdbusplus::object_path associationPath(objectPath);
+    associationPath /= "controlled_by";
+    constexpr std::array<std::string_view, 1> powerCapInterface = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+
+    dbus::utility::getAssociatedSubTree(
+        associationPath, sdbusplus::object_path("/xyz/openbmc_project/control"),
+        0, powerCapInterface,
+        std::bind_front(afterGetAssociatedSubTreeForEnvMetricsLink, asyncResp,
+                        processorId));
+}
+
 inline void handleProcessorSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -886,6 +933,7 @@ inline void getProcessorData(
             else if (interface == "xyz.openbmc_project.Association.Definitions")
             {
                 getLocationIndicatorActive(asyncResp, objectPath);
+                getEnvironmentMetricsLink(asyncResp, processorId, objectPath);
             }
         }
     }

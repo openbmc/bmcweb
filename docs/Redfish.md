@@ -1126,6 +1126,7 @@ functions the same like the default implementation under the System resource.
 
 #### Processor
 
+- EnvironmentMetrics
 - InstructionSet
 - LocationIndicatorActive
 - Manufacturer
@@ -1143,6 +1144,16 @@ functions the same like the default implementation under the System resource.
 - TotalCores
 - TotalThreads
 - Version
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/EnvironmentMetrics/
+
+#### EnvironmentMetrics
+
+- PowerLimitWatts/AllowableMax
+- PowerLimitWatts/AllowableMin
+- PowerLimitWatts/ControlMode
+- PowerLimitWatts/DefaultSetPoint
+- PowerLimitWatts/SetPoint
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
