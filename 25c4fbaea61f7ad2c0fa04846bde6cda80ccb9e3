@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f785fdbf_535abaaf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-02T18:48:43Z",
+      "side": 1,
+      "message": "??????",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "25c4fbaea61f7ad2c0fa04846bde6cda80ccb9e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fba97c83_a53c58dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-02T18:48:43Z",
+      "side": 1,
+      "message": "This reads like it was written by an LLM, which is fine for support, but please make sure you\u0027re answering WHY in the commit message.  This largely covers \"what\" and is duplicated with the commit.\n\nPlease just write as prose.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "25c4fbaea61f7ad2c0fa04846bde6cda80ccb9e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
