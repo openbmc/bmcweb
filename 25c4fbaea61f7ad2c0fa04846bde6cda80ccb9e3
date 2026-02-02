@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3405b757_c2936322",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-02T20:04:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f785fdbf_535abaaf",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "25c4fbaea61f7ad2c0fa04846bde6cda80ccb9e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fba97c83_a53c58dc",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb851ac2_76b8efa8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-02T20:04:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fba97c83_a53c58dc",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "25c4fbaea61f7ad2c0fa04846bde6cda80ccb9e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94623da5_77642001",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-02-02T18:51:13Z",
       "side": 1,
       "message": "Please include a functional test.  \"Verifying function signatures\" is a code review, not a test.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "25c4fbaea61f7ad2c0fa04846bde6cda80ccb9e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b40ee33_b854676c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-02T20:04:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "94623da5_77642001",
       "range": {
         "startLine": 27,
         "startChar": 0,
