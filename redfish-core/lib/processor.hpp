@@ -735,6 +735,61 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void afterGetControlledByEndpoints(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No controlled_by association for processor");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error for association: {}", ec);
+        return;
+    }
+
+    if (endpoints.empty())
+    {
+        BMCWEB_LOG_DEBUG("No control endpoints found for processor");
+        return;
+    }
+
+    const std::string& controlPath = endpoints[0];
+    constexpr std::array<std::string_view, 1> powerCapInterface = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+
+    dbus::utility::getDbusObject(
+        controlPath, powerCapInterface,
+        [asyncResp, processorId](const boost::system::error_code& ec2,
+                                 const dbus::utility::MapperGetObject& object) {
+            if (ec2 || object.empty())
+            {
+                BMCWEB_LOG_DEBUG("No Power.Cap interface on control path");
+                return;
+            }
+
+            asyncResp->res.jsonValue["EnvironmentMetrics"]["@odata.id"] =
+                boost::urls::format(
+                    "/redfish/v1/Systems/{}/Processors/{}/EnvironmentMetrics",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+        });
+}
+
+inline void getEnvironmentMetricsLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& objectPath)
+{
+    BMCWEB_LOG_DEBUG("getEnvironmentMetricsLink: {}", objectPath);
+
+    std::string associationPath = objectPath + "/controlled_by";
+    dbus::utility::getAssociationEndPoints(
+        associationPath,
+        std::bind_front(afterGetControlledByEndpoints, asyncResp, processorId));
+}
+
 inline void handleProcessorSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -884,6 +939,7 @@ inline void getProcessorData(
             else if (interface == "xyz.openbmc_project.Association.Definitions")
             {
                 getLocationIndicatorActive(asyncResp, objectPath);
+                getEnvironmentMetricsLink(asyncResp, processorId, objectPath);
             }
         }
     }

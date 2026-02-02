@@ -182,6 +182,7 @@ RedfishService::RedfishService(App& app)
     }
 
     requestRoutesProcessor(app);
+    requestRoutesProcessorEnvironmentMetrics(app);
     requestRoutesOperatingConfig(app);
     requestRoutesMemory(app);
 
