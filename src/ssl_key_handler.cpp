@@ -334,7 +334,7 @@ static std::string constructX509(const std::string& cn, EVP_PKEY* pPrivKey)
     }
 
     char* data = nullptr;
-    long int dataLen = BIO_get_mem_data(bufio, &data);
+    long dataLen = BIO_get_mem_data(bufio, &data);
     buffer += std::string_view(data, static_cast<size_t>(dataLen));
     BIO_free(bufio);
 

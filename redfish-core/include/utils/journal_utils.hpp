@@ -46,7 +46,7 @@ inline int getJournalMetadata(sd_journal* journal, const char* field,
 }
 
 inline int getJournalMetadataInt(sd_journal* journal, const char* field,
-                                 long int& contents)
+                                 long& contents)
 {
     std::string_view metadata;
     // Get the metadata from the requested field of the journal entry
@@ -113,7 +113,7 @@ inline bool fillBMCJournalLogEntryJson(
     message += std::string(msg);
 
     // Get the severity from the PRIORITY field
-    long int severity = 8; // Default to an invalid priority
+    long severity = 8; // Default to an invalid priority
     ret = getJournalMetadataInt(journal, "PRIORITY", severity);
     if (ret < 0)
     {
