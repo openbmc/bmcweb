@@ -34,7 +34,7 @@ namespace log_services_utils
 
 inline bool checkSizeLimit(int fd, crow::Response& res)
 {
-    long long int size = lseek(fd, 0, SEEK_END);
+    off_t size = lseek(fd, 0, SEEK_END);
     if (size <= 0)
     {
         BMCWEB_LOG_ERROR("Failed to get size of file, lseek() returned {}",
@@ -44,7 +44,7 @@ inline bool checkSizeLimit(int fd, crow::Response& res)
     }
 
     // Arbitrary max size of 20MB to accommodate BMC dumps
-    constexpr long long int maxFileSize = 20LL * 1024LL * 1024LL;
+    constexpr off_t maxFileSize = 20LL * 1024LL * 1024LL;
     if (size > maxFileSize)
     {
         BMCWEB_LOG_ERROR("File size {} exceeds maximum allowed size of {}",
