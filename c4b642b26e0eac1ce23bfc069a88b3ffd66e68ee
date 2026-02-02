@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4dd8db_6de9ccad",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-02T21:09:45Z",
+      "side": 1,
+      "message": "I have followed your suggestion and introduced the function in this patch [1]. \n\nMarking this as resolved. Feel free to unresolve if there is still sth we are overlooking.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87159/1",
+      "parentUuid": "840ca1ef_ec919d38",
+      "range": {
+        "startLine": 910,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 69
+      },
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd277f2e_d923aef6",
