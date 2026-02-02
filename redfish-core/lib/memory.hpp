@@ -816,6 +816,9 @@ inline void afterGetDimmData(
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+    asyncResp->res.jsonValue["Metrics"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
 }
 
 inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -885,8 +888,9 @@ inline void getValidDimmPath(
     std::function<void(const std::string& dimmPath)>&& callback)
 {
     BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Dimm"};
+    constexpr std::array<std::string_view, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Memory"};
 
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, interfaces,
