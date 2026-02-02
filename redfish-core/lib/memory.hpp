@@ -877,8 +877,9 @@ inline void getValidDimmPath(
     std::function<void(const std::string& dimmPath)>&& callback)
 {
     BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Dimm"};
+    constexpr std::array<std::string_view, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Dram"};
 
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, interfaces,
