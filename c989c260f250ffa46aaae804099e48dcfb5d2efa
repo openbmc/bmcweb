@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ae98c9b_686a22c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-03T18:17:01Z",
+      "side": 1,
+      "message": "Sorry, I did test that.",
+      "parentUuid": "8aaf184f_56ddb0cc",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "c989c260f250ffa46aaae804099e48dcfb5d2efa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6d7bb50_0ad59b12",
