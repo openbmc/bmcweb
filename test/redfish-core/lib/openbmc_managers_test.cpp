@@ -181,8 +181,14 @@ TEST(AfterAsyncPopulatePid, FanZoneIsPopulatedWithDoubles)
     interfaces.emplace_back("xyz.openbmc_project.Configuration.Pid.Zone",
                             std::move(props));
 
+    dbus::utility::DBusInterfacesMap chassisIfaces;
+    chassisIfaces.emplace_back("xyz.openbmc_project.Inventory.Item.Chassis",
+                               dbus::utility::DBusPropertiesMap{});
+
     dbus::utility::ManagedObjectType managed;
     managed.emplace_back(sdbusplus::object_path("/xyz/chassis/MyChassis"),
+                         std::move(chassisIfaces));
+    managed.emplace_back(sdbusplus::object_path("/xyz/chassis/MyChassis/Zone0"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -197,7 +203,7 @@ TEST(AfterAsyncPopulatePid, FanZoneIsPopulatedWithDoubles)
     EXPECT_DOUBLE_EQ(zone["FailSafePercent"].get<double>(), 75.0);
 }
 
-TEST(AfterAsyncPopulatePid, FanZoneIllegalChassisGetsPlaceholder)
+TEST(AfterAsyncPopulatePid, FanZoneWithNoChassisMatchHasNoChassis)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
 
@@ -209,16 +215,15 @@ TEST(AfterAsyncPopulatePid, FanZoneIllegalChassisGetsPlaceholder)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    // empty filename portion -> chassis becomes "#IllegalValue"
-    managed.emplace_back(sdbusplus::object_path("/"), std::move(interfaces));
+    // No chassis interface in managed objects -> Chassis key is not populated.
+    managed.emplace_back(sdbusplus::object_path("/xyz/zone0"),
+                         std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
 
     const nlohmann::json& zone =
         asyncResp->res.jsonValue["Fan"]["FanZones"]["Zone0"];
-    // The '#' must be percent-encoded in the path segment.
-    EXPECT_EQ(zone["Chassis"]["@odata.id"],
-              "/redfish/v1/Chassis/%23IllegalValue");
+    EXPECT_FALSE(zone.contains("Chassis"));
 }
 
 TEST(AfterAsyncPopulatePid, UnknownInterfacesAreIgnored)
