@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f381ae9a_d6c08cc6",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-03T04:48:28Z",
+      "side": 1,
+      "message": "nit: on line `1058` you have the same thing with a different name\n\n```\n constexpr std::array\u003cstd::string_view, 1\u003e interfaces{\n            \"xyz.openbmc_project.Inventory.Item.Dimm\"};\n```\n\nIMO it would be more consistent to either\n- use the same variable name for the same thing (e.g. `dimmInterfaces`)\n- extract that outside the function, similar to `memoryInterfaces`\n\nThis will make it easier to search for places where the collection (not the single interface) is used throughout this file.\n\nI\u0027ll mark this as resolved since it\u0027s such a minor concern. Maybe something to think about if another revision is required due to a real (not nitpick) issue with the code.",
+      "range": {
+        "startLine": 1010,
+        "startChar": 0,
+        "endLine": 1012,
+        "endChar": 6
+      },
+      "revId": "7e03225292c0b766aa7090976344a7a5a788e2ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
