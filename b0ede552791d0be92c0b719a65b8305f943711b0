@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a10b7631_efdfae20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-03T00:41:23Z",
+      "side": 1,
+      "message": "solid cleanup, did not find any leftover instances of that pattern.",
+      "revId": "b0ede552791d0be92c0b719a65b8305f943711b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
