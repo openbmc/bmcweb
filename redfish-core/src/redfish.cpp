@@ -40,6 +40,7 @@
 #include "power_subsystem.hpp"
 #include "power_supply.hpp"
 #include "processor.hpp"
+#include "processor_memory_summary_metrics.hpp"
 #include "processor_operating_config.hpp"
 #include "redfish_sessions.hpp"
 #include "redfish_v1.hpp"
@@ -186,6 +187,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesOperatingConfig(app);
     requestRoutesMemory(app);
     requestRoutesMemoryMetrics(app);
+    requestRoutesProcessorMemorySummaryMetrics(app);
 
     requestRoutesSystems(app);
 
