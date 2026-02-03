@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba4febff_cc5999dc",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-02-03T11:17:09Z",
+      "side": 1,
+      "message": "I wonder if we can use Item.System here as well. \n\n\nIs there any good reason to not move the property ist \u0027HostIndex\u0027 over to Item.System?",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 62
+      },
+      "revId": "ae875e493808ea68a100d914a3c556c85d5a51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
