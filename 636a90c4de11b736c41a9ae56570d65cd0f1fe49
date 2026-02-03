@@ -216,6 +216,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36999fe8_ca34f5ed",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-03T05:40:02Z",
+      "side": 1,
+      "message": "\u003e From discord, I would expect to see that change everyone..\n\nI don\u0027t have full context here but `HostIndex` is still required in some contexts to find services in cases where associations are not present.\n\n@gunnar@gmills.xyz i believe this change explains it well\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87160\n\nSo realistically multi-host systems would have both `ManagedHost` and `Item.System` interfaces for a while.\n\nSince in this case the associations are present (`containing`) there is no need to require the `ManagedHost` and `HostIndex` to find anything.\n\n@gunnar@gmills.xyz do you agree/disagree with this direction?\n\nDo we need to follow a specific order of making these changes in the experimental code path, are we blocked on 87160 ?\n\nFrom my perspective it\u0027s possible for users of experimental multi-host option to have all the things enabled which have been developed so far in the multi-host code path both before and after this change, independently of 87160. I could be wrong there but that\u0027s my current understanding. \n\nSo we are\n- not regressing on multi-host implementation progress by relying on `Item.System`\n- enabling a new collection for multi-host (processor subtree)",
+      "parentUuid": "62ce24e8_19da35a6",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64f63077_ef141cd5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
