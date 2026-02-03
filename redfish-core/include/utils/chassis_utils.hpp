@@ -10,9 +10,11 @@
 
 #include <sdbusplus/message/native_types.hpp>
 
+#include <algorithm>
 #include <array>
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 #include <string_view>
 
@@ -71,6 +73,27 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             callback(chassisPath);
         });
     BMCWEB_LOG_DEBUG("checkChassisId exit");
+}
+
+/**
+ * @brief Retrieves valid chassis paths from managed objects response
+ * @param managedObj  The getManagedObjects response
+ */
+inline std::set<sdbusplus::message::object_path> getChassisFromManagedObj(
+    const dbus::utility::ManagedObjectType& managedObj)
+{
+    std::set<sdbusplus::message::object_path> res;
+    for (const auto& pathPair : managedObj)
+    {
+        for (const auto& intfPair : pathPair.second)
+        {
+            if (std::ranges::contains(chassisInterfaces, intfPair.first))
+            {
+                res.insert(pathPair.first);
+            }
+        }
+    }
+    return res;
 }
 
 } // namespace chassis_utils
