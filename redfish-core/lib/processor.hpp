@@ -983,6 +983,12 @@ inline void getProcessorData(
             "/redfish/v1/Systems/{}/Processors/{}/SubProcessors",
             BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 
+    // Add MemorySummary with link to MemoryMetrics
+    asyncResp->res.jsonValue["MemorySummary"]["Metrics"]["@odata.id"] =
+        boost::urls::format(
+            "/redfish/v1/Systems/{}/Processors/{}/MemorySummary/MemoryMetrics",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
         for (const auto& interface : interfaceList)

@@ -1188,6 +1188,13 @@ functions the same like the default implementation under the System resource.
 - Name
 - ProcessorType
 
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/MemorySummary/MemoryMetrics/
+
+#### MemoryMetrics
+
+- LifeTime/CorrectableECCErrorCount
+- LifeTime/UncorrectableECCErrorCount
+
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
 #### ActionInfo
