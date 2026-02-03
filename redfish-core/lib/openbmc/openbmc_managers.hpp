@@ -179,16 +179,7 @@ inline void asyncPopulatePid(
                                             BMCWEB_REDFISH_MANAGER_URI_NAME));
                     if (intfPair.first == pidZoneConfigurationIface)
                     {
-                        sdbusplus::message::object_path pidPath(
-                            pathPair.first.str);
-                        std::string chassis = pidPath.filename();
-                        if (chassis.empty())
-                        {
-                            chassis = "#IllegalValue";
-                        }
                         nlohmann::json& zone = zones[name];
-                        zone["Chassis"]["@odata.id"] = boost::urls::format(
-                            "/redfish/v1/Chassis/{}", chassis);
                         url.set_fragment(
                             ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
                                 .to_string());
