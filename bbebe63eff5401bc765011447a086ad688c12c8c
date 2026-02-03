@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99af2114_e26ec672",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-03T18:18:50Z",
+      "side": 1,
+      "message": "Unsafe cast.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 68
+      },
+      "revId": "bbebe63eff5401bc765011447a086ad688c12c8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74302090_a4484477",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-03T18:18:50Z",
+      "side": 1,
+      "message": "Please don\u0027t construct dbus paths using std::string.  Use object_path",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 66
+      },
+      "revId": "bbebe63eff5401bc765011447a086ad688c12c8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
