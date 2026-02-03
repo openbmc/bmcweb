@@ -27,6 +27,7 @@
 #include "manager_logservices_journal_eventlog.hpp"
 #include "managers.hpp"
 #include "memory.hpp"
+#include "processor_memory_summary_metrics.hpp"
 #include "message_registries.hpp"
 #include "metadata.hpp"
 #include "metric_report.hpp"
@@ -184,6 +185,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesProcessor(app);
     requestRoutesOperatingConfig(app);
     requestRoutesMemory(app);
+    requestRoutesProcessorMemorySummaryMetrics(app);
 
     requestRoutesSystems(app);
 
