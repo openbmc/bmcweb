@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c540cf22_69e175ed",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Following this patch [1] we should get rid of this interface.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87160",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 58
+      },
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8768a6a3_08e254af",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 21
@@ -14,6 +37,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "I think there is better to avoid the copy-value semantic.\n```\nconst boost::system::error_code\u0026 ec,\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdfa83a8_58afe083",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "This is not related to this change and should be fixed in a separated patch.",
+      "parentUuid": "8768a6a3_08e254af",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -35,6 +76,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ab04d4_dd013277",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "There is already a patch[1] that cleans this up.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85598",
+      "parentUuid": "cec94ee9_4594c75e",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65c63c32_eb05d62c",
@@ -48,6 +107,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "```\n   sdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d498d10_3acca720",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65c63c32_eb05d62c",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +146,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac50081d_e8544ae4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2af711f0_0da6e7b7",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6801b57_4199d61f",
@@ -82,6 +177,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "```\n  sdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b742d7_d9b034fa",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6801b57_4199d61f",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -103,6 +216,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77dd0811_b95d94ae",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46a19463_a69f24bc",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2441f944_7a6fc524",
@@ -116,6 +247,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c183612_1343c0ea",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2441f944_7a6fc524",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -137,6 +286,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f5e0eb_9823e3a5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38b69bc1_8599f9fc",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cded92a2_66104a34",
@@ -150,6 +317,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc4cac23_638a9524",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cded92a2_66104a34",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -171,6 +356,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbdf8071_9243e88a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "This is not related to this change and should be fixed in a separated patch.",
+      "parentUuid": "3e3c471b_42b9da76",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd2efa3a_a4e61b97",
@@ -184,6 +387,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "```\nBMCWEB_LOG_ERROR()\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a45f6457_4370312f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1503,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "This is not related to this change and should be fixed in a separated patch.",
+      "parentUuid": "fd2efa3a_a4e61b97",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -205,6 +426,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efedbdcb_9f711a9f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "This is not related to this change and should be fixed in a separated patch.",
+      "parentUuid": "9787a192_c63f0237",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "178be305_64733275",
@@ -218,6 +457,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "```\nBMCWEB_LOG_ERROR\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f93516c_7b57d1c3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "This is not related to this change and should be fixed in a separated patch.",
+      "parentUuid": "178be305_64733275",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -239,6 +496,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b92422_97a690e0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1603,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7329a4e6_93d14927",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fa4ae44_208632bd",
@@ -252,6 +527,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "```\nsdbusplus::message::object_path path( std::format(\"/xyz/openbmc_project/control/host/{}\", computerSystemIndex));\n````",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b520009_ee5f461d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fa4ae44_208632bd",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -273,6 +566,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca5b07c_1203efc1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5925a0da_02ed4b04",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ab2c537_5e288af8",
@@ -286,6 +597,24 @@
       "writtenOn": "2026-01-29T15:10:42Z",
       "side": 1,
       "message": "```\nBMCWEB_LOG_ERROR\n```",
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3260690_670270b4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2633,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-03T15:03:02Z",
+      "side": 1,
+      "message": "This is not related to this change and should be fixed in a separated patch.",
+      "parentUuid": "6ab2c537_5e288af8",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
