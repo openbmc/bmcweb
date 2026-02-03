@@ -10,6 +10,7 @@
 #include "logging.hpp"
 #include "redfish.hpp"
 #include "sub_request.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "verb.hpp"
@@ -32,6 +33,7 @@
 #include <map>
 #include <memory>
 #include <optional>
+#include <ranges>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -51,6 +53,24 @@ static constexpr const char* stepwiseConfigurationIface =
     "xyz.openbmc_project.Configuration.Stepwise";
 static constexpr const char* thermalModeIface =
     "xyz.openbmc_project.Control.ThermalMode";
+
+inline void getChassisForZone(
+    nlohmann::json& zone,
+    const std::vector<sdbusplus::message::object_path>& chassisPaths,
+    const sdbusplus::message::object_path& pidPath)
+{
+    sdbusplus::message::object_path currentPath = pidPath;
+    do
+    {
+        currentPath = currentPath.parent_path();
+        if (std::ranges::contains(chassisPaths, currentPath))
+        {
+            zone["Chassis"]["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Chassis/{}", currentPath.filename());
+            return;
+        }
+    } while (currentPath.str.size() > 1);
+}
 
 inline void asyncPopulatePid(
     const std::string& connection, const std::string& path,
@@ -108,6 +128,9 @@ inline void asyncPopulatePid(
                 configRoot["Profile"] = currentProfile;
             }
             BMCWEB_LOG_DEBUG("profile = {} !", currentProfile);
+
+            const std::vector<sdbusplus::message::object_path> chassisPaths =
+                chassis_utils::getChassisFromManagedObj(managedObj);
 
             for (const auto& pathPair : managedObj)
             {
@@ -179,16 +202,8 @@ inline void asyncPopulatePid(
                                             BMCWEB_REDFISH_MANAGER_URI_NAME));
                     if (intfPair.first == pidZoneConfigurationIface)
                     {
-                        sdbusplus::message::object_path pidPath(
-                            pathPair.first.str);
-                        std::string chassis = pidPath.filename();
-                        if (chassis.empty())
-                        {
-                            chassis = "#IllegalValue";
-                        }
                         nlohmann::json& zone = zones[name];
-                        zone["Chassis"]["@odata.id"] = boost::urls::format(
-                            "/redfish/v1/Chassis/{}", chassis);
+                        getChassisForZone(zone, chassisPaths, pathPair.first);
                         url.set_fragment(
                             ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
                                 .to_string());

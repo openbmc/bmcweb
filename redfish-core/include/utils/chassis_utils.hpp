@@ -10,11 +10,14 @@
 
 #include <sdbusplus/message/native_types.hpp>
 
+#include <algorithm>
 #include <array>
 #include <memory>
 #include <optional>
+#include <ranges>
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace redfish
 {
@@ -71,6 +74,31 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             callback(chassisPath);
         });
     BMCWEB_LOG_DEBUG("checkChassisId exit");
+}
+
+/**
+ * @brief Retrieves valid chassis paths from managed objects response
+ * @param managedObj  The getManagedObjects response
+ */
+inline std::vector<sdbusplus::message::object_path> getChassisFromManagedObj(
+    const dbus::utility::ManagedObjectType& managedObj)
+{
+    std::set<sdbusplus::message::object_path> res;
+    for (const auto& pathPair : managedObj)
+    {
+        const sdbusplus::message::object_path path = pathPair.first;
+
+        for (const auto& intfPair : pathPair.second)
+        {
+            const std::string& interface = intfPair.first;
+
+            if (std::ranges::contains(chassisInterfaces, interface))
+            {
+                res.insert(path);
+            }
+        }
+    }
+    return {res.begin(), res.end()};
 }
 
 } // namespace chassis_utils
