@@ -33,6 +33,42 @@
       "message": "https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#compatibility\n\nOutright dropping a property isn\u0027t something we should really do.  Lets understand why this is providing the wrong value on your system and just fix it.  I\u0027m not aware of this being wrong on other systems.",
       "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eb2ade0_1a9aef5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-04T06:58:51Z",
+      "side": 1,
+      "message": "I\u0027m aware of the compatibility thing that\u0027s why i asked on discord first if it\u0027s ok to drop the property.\n\nCompatibility has to be weighed against passing redfish validation which is somewhat important when making patches which link various redfish resources.\n\nWhen using the `Tree` validation the validator will follow links to other resources and at some point it will have queried the complete tree when starting from a resource with links. Not possible to pass the validator if any of these resources is wrong.\n\nEssentially i won\u0027t be able to make changes to bmcweb as easily if there are redfish validator errors since passing the validator is part of your checklist.\n\nI would have to disable the meson option for the OEM schema and run non default options.\n\n#### inspection inside `asyncPopulatePid`\n\n- at some point we arrive in `asyncPopulatePid`\n- first it does `dbus::utility::getManagedObjects`\n- we then proceed to interate over the result\n\n```\n   112             for (const auto\u0026 pathPair : managedObj)\n   113             {\n   114                 for (const auto\u0026 intfPair : pathPair.second)\n```\n\nand discard any interface which is not pid/zone/... related\n\n```\n   116                     if (intfPair.first !\u003d pidConfigurationIface \u0026\u0026\n   117                         intfPair.first !\u003d pidZoneConfigurationIface \u0026\u0026\n   118                         intfPair.first !\u003d stepwiseConfigurationIface)\n   119                     {\n   120                         continue;\n   121                     }\n```\n\nafter this check, further code in the loop is only processing object paths which have at least one of these interfaces on them.\n\nThen a further check happens for pid zone config intf\n\n```\n   180                     if (intfPair.first \u003d\u003d pidZoneConfigurationIface)\n   181                     {\n   182                         sdbusplus::message::object_path pidPath(\n   183                             pathPair.first.str);\n   184                         std::string chassis \u003d pidPath.filename();\n   185                         if (chassis.empty())\n   186                         {\n   187                             chassis \u003d \"#IllegalValue\";\n   188                         }\n```\n\nat that point it\u0027s clear we have a pid zone configuration intf on that object path.\n\n\u003e I\u0027m not aware of this being wrong on other systems.\n\nCan you kindly share your output of this endpoint + output of chassis collection.\n\nDoes your redfish chassis happen to be the same name as the PID zone?\n\nAlternatively, the pid zone config intf would need to be on the same object path as the board/chassis interface which seems odd to me.\n\nFor me it looks like this\n```\n        |- /xyz/openbmc_project/inventory/system/chassis\n        | `- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/Fan_Control\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/GenericContainPort\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/GenericCoolingPort\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/NIC_1_Ignore\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/NIC_2_Ignore\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/NIC_FRU_1\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/NIC_FRU_2\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/SYS_FAN_2\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/SYS_FAN_3\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/Temperature_Control\n        |   `- /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/Zone0\n```\n\nand\n\n```\nbusctl introspect xyz.openbmc_project.EntityManager /xyz/openbmc_project/inventory/system/chassis/MBX_1_57_Chassis/Zone0 xyz.openbmc_project.Configuration.Pid.Zone\nNAME                                       TYPE      SIGNATURE RESULT/VALUE FLAGS\n.Delete                                    method    -         -            -\n.FailSafePercent                           property  d         100          emits-change\n.MinThermalOutput                          property  d         10           emits-change\n.Name                                      property  s         \"Zone0\"      emits-change\n.Type                                      property  s         \"Pid.Zone\"   emits-change\n```",
+      "parentUuid": "172a0055_b525b312",
+      "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6797ed8_90e8141b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-04T06:58:51Z",
+      "side": 1,
+      "message": "\u003e OEM schema and verification VI files\n\nI\u0027m not super familiar with the validator / OEM schema, does it need special files?\n\nOr is it about the validator output.\n\nIf there is a preferred way to run the validator for this schema, kindly let me know 😊",
+      "parentUuid": "7f176cf4_23a1066e",
+      "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
