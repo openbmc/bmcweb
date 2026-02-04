@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fdab91a_004ee5fe",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-04T20:44:59Z",
+      "side": 1,
+      "message": "Should be using bmcweb utility function instead. See: https://github.com/openbmc/bmcweb/blob/3132dacead062fa63c070fc7f404f8cf93df43a0/docs/COMMON_ERRORS.md#15-using-async_method_call-where-there-are-existing-helper-methods",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 37
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2275bdbf_eb18d1af",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-04T20:44:59Z",
+      "side": 1,
+      "message": "L106 prevents this function from being called if this interface doesn\u0027t exist for the objPath object. So should this be treated as an error here?",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c9828a0_9ec050e1",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-04T20:44:59Z",
+      "side": 1,
+      "message": "Should this be returning an error?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 2
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c8215a7_b3957955",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-04T20:44:59Z",
+      "side": 1,
+      "message": "Should both of these be nlohmann::json::object_t?",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11920729_5ee91d9c",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-04T20:44:59Z",
+      "side": 1,
+      "message": "Seems like it would be clearer to not use the local variable for the JSON object since this is a simple assignment.\n\ni.e.\nasyncResp-\u003erec.jsonValue[\"CacheMetricsTotal\"][\"LifeTime\"][\"Corr...\n\n(Same comment below for other use of lifeTime variable.",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "475f7774_12e461a9",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-04T20:44:59Z",
+      "side": 1,
+      "message": "Convention in this repo is to not use lambdas longer than 10 lines. See: https://github.com/openbmc/bmcweb/blob/3132dacead062fa63c070fc7f404f8cf93df43a0/docs/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "range": {
+        "startLine": 47,
+        "startChar": 72,
+        "endLine": 85,
+        "endChar": 11
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
