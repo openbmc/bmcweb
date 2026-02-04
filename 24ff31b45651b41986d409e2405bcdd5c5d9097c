@@ -33,6 +33,41 @@
       "message": "There was an open comment from @ed@tanous.net here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87037/2/redfish-core/lib/log_services.hpp#1207 before the squash that I don\u0027t want to get lost.",
       "revId": "24ff31b45651b41986d409e2405bcdd5c5d9097c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec27f8e8_0707897e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-02-04T13:07:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94ef233e_c1c77d09",
+      "revId": "24ff31b45651b41986d409e2405bcdd5c5d9097c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f98a9cee_962724bf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-02-04T13:07:53Z",
+      "side": 1,
+      "message": "@ed@tanous.net https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87037/2/redfish-core/lib/log_services.hpp#1207 - please lets continue the discussion here.",
+      "revId": "24ff31b45651b41986d409e2405bcdd5c5d9097c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
