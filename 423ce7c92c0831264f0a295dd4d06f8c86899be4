@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4917d37_f2a501b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-05T16:38:12Z",
+      "side": 1,
+      "message": "After those two, LGTM",
+      "revId": "423ce7c92c0831264f0a295dd4d06f8c86899be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e942e75_6df8161a",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-05T16:38:12Z",
+      "side": 1,
+      "message": "```\nis (!std::isfinite(value)){\n    asyncResp-\u003eres.jsonValue[jsonPtr] \u003d nullptr;\n    return;\n}\n```",
+      "revId": "423ce7c92c0831264f0a295dd4d06f8c86899be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c245808f_9cf58762",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-05T16:38:12Z",
+      "side": 1,
+      "message": "nit: Don\u0027t use auto here.",
+      "range": {
+        "startLine": 260,
+        "startChar": 10,
+        "endLine": 260,
+        "endChar": 14
+      },
+      "revId": "423ce7c92c0831264f0a295dd4d06f8c86899be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
