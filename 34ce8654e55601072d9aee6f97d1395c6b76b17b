@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d1f0b66_9a224e6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-05T16:44:52Z",
+      "side": 1,
+      "message": "Need this fixed the LGTM.",
+      "revId": "34ce8654e55601072d9aee6f97d1395c6b76b17b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd61199_d24bf76c",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-05T16:44:52Z",
+      "side": 1,
+      "message": "```\nsdbusplus::message::object_path path(service.begin()-\u003efirst);\n\nstd::string fname \u003d path.filename():\n\nif (fname \u003d\u003d \"rx_bytes\"){\n   ....\n}\n```",
+      "revId": "34ce8654e55601072d9aee6f97d1395c6b76b17b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
