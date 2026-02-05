@@ -569,6 +569,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d1c0772_e8b291e8",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-05T23:02:29Z",
+      "side": 1,
+      "message": "Ed: From the +2 you gave this on Jan 30 I\u0027m assuming you are okay with the current structure. Please reopen if you are not.",
+      "parentUuid": "c56f4f0f_498cb458",
+      "range": {
+        "startLine": 627,
+        "startChar": 48,
+        "endLine": 628,
+        "endChar": 44
+      },
+      "revId": "9882e2e9b1e298bc94f9b32456c100210a24124f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83bc09f8_8a8eb0a8",
