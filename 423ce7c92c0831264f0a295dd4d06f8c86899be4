@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "566ce919_ed139f62",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-05T16:45:14Z",
+      "side": 1,
+      "message": "Fix this similar to the next patch.",
+      "revId": "423ce7c92c0831264f0a295dd4d06f8c86899be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c245808f_9cf58762",
         "filename": "redfish-core/lib/switch_port.hpp",
         "patchSetId": 16
