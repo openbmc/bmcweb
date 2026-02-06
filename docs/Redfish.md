@@ -1140,6 +1140,7 @@ functions the same like the default implementation under the System resource.
 
 #### Processor
 
+- BaseSpeedMHz
 - EnvironmentMetrics
 - FirmwareVersion
 - InstructionSet
@@ -1147,6 +1148,13 @@ functions the same like the default implementation under the System resource.
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz
+- MinSpeedMHz
+- OperatingSpeedMHz
+- OperatingSpeedRangeMHz
+  - AllowableMax
+  - AllowableMin
+  - SettingMax
+  - SettingMin
 - PartNumber
 - ProcessorArchitecture
 - ProcessorId
@@ -1154,6 +1162,8 @@ functions the same like the default implementation under the System resource.
 - SerialNumber
 - Socket
 - SparePartNumber
+- SpeedLimitMHz
+- SpeedLocked
 - Status
 - SubProcessors
 - ThrottleCauses
