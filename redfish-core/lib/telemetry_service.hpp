@@ -29,14 +29,9 @@
 namespace redfish
 {
 
-inline void handleTelemetryServiceGet(
-    crow::App& app, const crow::Request& req,
+inline void handleTelemetryServiceGetImpl(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
     asyncResp->res.jsonValue["@odata.type"] =
         "#TelemetryService.v1_2_1.TelemetryService";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/TelemetryService";
@@ -104,6 +99,18 @@ inline void handleTelemetryServiceGet(
             asyncResp->res.jsonValue["SupportedCollectionFunctions"] =
                 std::move(supportedCollectionFunctions);
         });
+}
+
+inline void handleTelemetryServiceGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    handleTelemetryServiceGetImpl(asyncResp);
 }
 
 inline void requestRoutesTelemetryService(App& app)
