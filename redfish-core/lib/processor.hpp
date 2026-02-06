@@ -16,7 +16,9 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
+#include "utils/control_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -350,6 +352,278 @@ inline void getThrottleProperties(
                     const dbus::utility::DBusPropertiesMap& properties) {
             readThrottleProperties(asyncResp, ec, properties);
         });
+}
+
+inline void afterGetParentChassisForDataSourceUri(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR(
+                "GetAssociatedSubTree error for parent_chassis: {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG("No parent_chassis association for processor");
+        return;
+    }
+
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "More than one parent_chassis association for processor");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto& [chassisPath, serviceMap] = subtree.front();
+    sdbusplus::message::object_path chassisObjPath(chassisPath);
+    const std::string chassisId = chassisObjPath.filename();
+    if (chassisId.empty())
+    {
+        return;
+    }
+
+    std::optional<std::string_view> prefix =
+        control_utils::getControlPrefixForInterface(
+            "xyz.openbmc_project.Control.Processor");
+    if (!prefix)
+    {
+        return;
+    }
+    const std::string controlName =
+        control_utils::makeControlName(*prefix, processorId);
+    asyncResp->res.jsonValue["OperatingSpeedRangeMHz"]["DataSourceUri"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Controls/{}", chassisId,
+                            controlName);
+}
+
+constexpr uint64_t hzPerMhz = 1000000;
+
+inline void afterGetAcceleratorClockProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& objectPath,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error for Accelerator clocks: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const uint64_t* baseSpeedInHz = nullptr;
+    const uint64_t* maxSpeedInHz = nullptr;
+    const uint64_t* minSpeedInHz = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "BaseSpeedInHz",
+        baseSpeedInHz, "MaxSpeedInHz", maxSpeedInHz, "MinSpeedInHz",
+        minSpeedInHz);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json& json = asyncResp->res.jsonValue;
+
+    if (baseSpeedInHz != nullptr)
+    {
+        json["BaseSpeedMHz"] = *baseSpeedInHz / hzPerMhz;
+    }
+    if (maxSpeedInHz != nullptr)
+    {
+        uint64_t mhz = *maxSpeedInHz / hzPerMhz;
+        json["MaxSpeedMHz"] = mhz;
+        json["OperatingSpeedRangeMHz"]["AllowableMax"] = mhz;
+    }
+    if (minSpeedInHz != nullptr)
+    {
+        uint64_t mhz = *minSpeedInHz / hzPerMhz;
+        json["MinSpeedMHz"] = mhz;
+        json["OperatingSpeedRangeMHz"]["AllowableMin"] = mhz;
+    }
+
+    // Look up parent chassis via contained_by association for DataSourceUri
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::message::object_path(objectPath + "/contained_by"),
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        redfish::chassisInterfaces,
+        std::bind_front(afterGetParentChassisForDataSourceUri, asyncResp,
+                        processorId));
+}
+
+inline void getAcceleratorClockProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& service,
+    const std::string& objectPath)
+{
+    dbus::utility::getAllProperties(
+        service, objectPath, "xyz.openbmc_project.Inventory.Item.Accelerator",
+        std::bind_front(afterGetAcceleratorClockProperties, asyncResp,
+                        processorId, objectPath));
+}
+
+inline void afterGetControlProcessorProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error for Control.Processor: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const uint64_t* speedLimitHz = nullptr;
+    const bool* speedLimitLocked = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "SpeedLimitHz",
+        speedLimitHz, "SpeedLimitLocked", speedLimitLocked);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (speedLimitHz != nullptr)
+    {
+        asyncResp->res.jsonValue["SpeedLimitMHz"] = *speedLimitHz / hzPerMhz;
+    }
+    if (speedLimitLocked != nullptr)
+    {
+        asyncResp->res.jsonValue["SpeedLocked"] = *speedLimitLocked;
+    }
+}
+
+inline void afterGetControlProcessorAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("GetAssociatedSubTree error for controlled_by: {}",
+                             ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.empty() || subtree.front().second.empty())
+    {
+        return;
+    }
+
+    const auto& [controlPath, serviceMap] = subtree.front();
+    const std::string& controlService = serviceMap.front().first;
+
+    dbus::utility::getAllProperties(
+        controlService, controlPath, "xyz.openbmc_project.Control.Processor",
+        std::bind_front(afterGetControlProcessorProperties, asyncResp));
+}
+
+inline void getProcessorControlSpeedProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    constexpr std::array<std::string_view, 1> controlProcessorIface = {
+        "xyz.openbmc_project.Control.Processor"};
+
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::message::object_path(objectPath + "/controlled_by"),
+        sdbusplus::message::object_path("/xyz/openbmc_project/control"), 0,
+        controlProcessorIface,
+        std::bind_front(afterGetControlProcessorAssociation, asyncResp));
+}
+
+inline void afterGetMetricValueProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error for Metric.Value: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const double* value = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "Value", value);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (value != nullptr)
+    {
+        asyncResp->res.jsonValue["OperatingSpeedMHz"] =
+            static_cast<uint64_t>(*value / hzPerMhz);
+    }
+}
+
+inline void afterGetMetricAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("GetAssociatedSubTree error for measured_by: {}",
+                             ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.empty() || subtree.front().second.empty())
+    {
+        return;
+    }
+
+    const auto& [metricPath, serviceMap] = subtree.front();
+    const std::string& metricService = serviceMap.front().first;
+
+    dbus::utility::getAllProperties(
+        metricService, metricPath, "xyz.openbmc_project.Metric.Value",
+        std::bind_front(afterGetMetricValueProperties, asyncResp));
+}
+
+inline void getOperatingFrequencyMetric(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    constexpr std::array<std::string_view, 1> metricValueIface = {
+        "xyz.openbmc_project.Metric.Value"};
+
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::message::object_path(objectPath + "/measured_by"),
+        sdbusplus::message::object_path("/xyz/openbmc_project/metric"), 0,
+        metricValueIface,
+        std::bind_front(afterGetMetricAssociation, asyncResp));
 }
 
 inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
@@ -855,6 +1129,10 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getAcceleratorClockProperties(asyncResp, processorId,
+                                              serviceName, objectPath);
+                getProcessorControlSpeedProperties(asyncResp, objectPath);
+                getOperatingFrequencyMetric(asyncResp, objectPath);
             }
             else if (
                 interface ==
