@@ -33,6 +33,24 @@
       "message": "```\nsdbusplus::message::object_path path(service.begin()-\u003efirst);\n\nstd::string fname \u003d path.filename():\n\nif (fname \u003d\u003d \"rx_bytes\"){\n   ....\n}\n```",
       "revId": "34ce8654e55601072d9aee6f97d1395c6b76b17b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37fde267_9c2c8a1d",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-02-06T10:35:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bd61199_d24bf76c",
+      "revId": "34ce8654e55601072d9aee6f97d1395c6b76b17b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
