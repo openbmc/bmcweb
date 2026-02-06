@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2412dcb8_2767a684",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-02-06T10:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e942e75_6df8161a",
+      "revId": "423ce7c92c0831264f0a295dd4d06f8c86899be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "566ce919_ed139f62",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8840bd2b_c24e147c",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-02-06T10:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "566ce919_ed139f62",
+      "revId": "423ce7c92c0831264f0a295dd4d06f8c86899be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c245808f_9cf58762",
@@ -65,6 +101,30 @@
       "writtenOn": "2026-02-05T16:38:12Z",
       "side": 1,
       "message": "nit: Don\u0027t use auto here.",
+      "range": {
+        "startLine": 260,
+        "startChar": 10,
+        "endLine": 260,
+        "endChar": 14
+      },
+      "revId": "423ce7c92c0831264f0a295dd4d06f8c86899be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e8a2235_298b1019",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-02-06T10:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c245808f_9cf58762",
       "range": {
         "startLine": 260,
         "startChar": 10,
