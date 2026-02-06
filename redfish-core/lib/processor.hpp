@@ -16,6 +16,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
@@ -350,6 +351,146 @@ inline void getThrottleProperties(
                     const dbus::utility::DBusPropertiesMap& properties) {
             readThrottleProperties(asyncResp, ec, properties);
         });
+}
+
+inline void afterGetParentChassisForDataSourceUri(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR(
+                "GetAssociatedSubTree error for parent_chassis: {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG("No parent_chassis association for processor");
+        return;
+    }
+
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "More than one parent_chassis association for processor");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto& [chassisPath, serviceMap] = subtree.front();
+    sdbusplus::message::object_path chassisObjPath(chassisPath);
+    const std::string chassisId = chassisObjPath.filename();
+    if (chassisId.empty())
+    {
+        return;
+    }
+
+    const std::string controlName = std::format("ClockLimit_{}", processorId);
+    asyncResp->res.jsonValue["OperatingSpeedRangeMHz"]["DataSourceUri"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Controls/{}", chassisId,
+                            controlName);
+}
+
+inline void afterGetOperatingConfigProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& objectPath,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("DBUS response error for OperatingConfig");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const uint32_t* operatingSpeed = nullptr;
+    const uint32_t* baseSpeed = nullptr;
+    const uint32_t* speedLimit = nullptr;
+    const bool* speedLocked = nullptr;
+    const uint32_t* maxSpeed = nullptr;
+    const uint32_t* minSpeed = nullptr;
+    const uint32_t* requestedSpeedLimitMin = nullptr;
+    const uint32_t* requestedSpeedLimitMax = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "OperatingSpeed",
+        operatingSpeed, "BaseSpeed", baseSpeed, "SpeedLimit", speedLimit,
+        "SpeedLocked", speedLocked, "MaxSpeed", maxSpeed, "MinSpeed", minSpeed,
+        "RequestedSpeedLimitMin", requestedSpeedLimitMin,
+        "RequestedSpeedLimitMax", requestedSpeedLimitMax);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json& json = asyncResp->res.jsonValue;
+
+    if (operatingSpeed != nullptr)
+    {
+        json["OperatingSpeedMHz"] = *operatingSpeed;
+    }
+    if (baseSpeed != nullptr)
+    {
+        json["BaseSpeedMHz"] = *baseSpeed;
+    }
+    if (speedLimit != nullptr)
+    {
+        json["SpeedLimitMHz"] = *speedLimit;
+    }
+    if (speedLocked != nullptr)
+    {
+        json["SpeedLocked"] = *speedLocked;
+    }
+    if (maxSpeed != nullptr)
+    {
+        json["MaxSpeedMHz"] = *maxSpeed;
+        json["OperatingSpeedRangeMHz"]["AllowableMax"] = *maxSpeed;
+    }
+    if (minSpeed != nullptr)
+    {
+        json["MinSpeedMHz"] = *minSpeed;
+        json["OperatingSpeedRangeMHz"]["AllowableMin"] = *minSpeed;
+    }
+    if (requestedSpeedLimitMin != nullptr)
+    {
+        json["OperatingSpeedRangeMHz"]["SettingMin"] = *requestedSpeedLimitMin;
+    }
+    if (requestedSpeedLimitMax != nullptr)
+    {
+        json["OperatingSpeedRangeMHz"]["SettingMax"] = *requestedSpeedLimitMax;
+    }
+
+    // Look up parent chassis to construct DataSourceUri for
+    // OperatingSpeedRangeMHz pointing to the ClockLimit control
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::message::object_path(objectPath + "/parent_chassis"),
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisInterfaces,
+        std::bind_front(afterGetParentChassisForDataSourceUri, asyncResp,
+                        processorId));
+}
+
+inline void getOperatingConfigProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& service,
+    const std::string& objectPath)
+{
+    BMCWEB_LOG_DEBUG("Get processor OperatingConfig properties");
+
+    dbus::utility::getAllProperties(
+        service, objectPath,
+        "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
+        std::bind_front(afterGetOperatingConfigProperties, asyncResp,
+                        processorId, objectPath));
 }
 
 inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
@@ -799,7 +940,7 @@ inline void getProcessorObject(
     BMCWEB_LOG_DEBUG("Get available system processor resources.");
 
     // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 9> interfaces = {
+    constexpr std::array<std::string_view, 10> interfaces = {
         "xyz.openbmc_project.Common.UUID",
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         "xyz.openbmc_project.Inventory.Decorator.Revision",
@@ -808,7 +949,8 @@ inline void getProcessorObject(
         "xyz.openbmc_project.Inventory.Item.Accelerator",
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
-        "xyz.openbmc_project.Control.Power.Throttle"};
+        "xyz.openbmc_project.Control.Power.Throttle",
+        "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         [asyncResp, processorId, callback{std::move(callback)}](
@@ -880,6 +1022,12 @@ inline void getProcessorData(
             else if (interface == "xyz.openbmc_project.Control.Power.Throttle")
             {
                 getThrottleProperties(asyncResp, serviceName, objectPath);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig")
+            {
+                getOperatingConfigProperties(asyncResp, processorId,
+                                             serviceName, objectPath);
             }
             else if (interface == "xyz.openbmc_project.Association.Definitions")
             {
