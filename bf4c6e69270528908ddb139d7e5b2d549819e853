@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3565f1b_ce125d89",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-06T07:31:15Z",
+      "side": 1,
+      "message": "Thanks. Changed to use dbus::utility::getAllProperties() as recommended.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/7/redfish-core/lib/processor_metrics.hpp#89",
+      "parentUuid": "9fdab91a_004ee5fe",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 37
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2275bdbf_eb18d1af",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-02-04T20:44:59Z",
       "side": 1,
       "message": "L106 prevents this function from being called if this interface doesn\u0027t exist for the objPath object. So should this be treated as an error here?",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4562532b_da825daf",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-06T07:31:15Z",
+      "side": 1,
+      "message": "Thanks. Added messages::internalError() since this function is only called when interface exists (per L106 check), so D-Bus failure here indicates a real error.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/7/redfish-core/lib/processor_metrics.hpp#45",
+      "parentUuid": "2275bdbf_eb18d1af",
       "range": {
         "startLine": 50,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d4d6a3e_f436f260",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-06T07:31:15Z",
+      "side": 1,
+      "message": "Thanks. Yes, added messages::internalError(). If getAllProperties succeeds but unpackPropertiesNoThrow fails, it indicates unexpected property type mismatch - this is a real error that should be reported.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/7/redfish-core/lib/processor_metrics.hpp#59",
+      "parentUuid": "9c9828a0_9ec050e1",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 2
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c8215a7_b3957955",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-02-04T20:44:59Z",
       "side": 1,
       "message": "Should both of these be nlohmann::json::object_t?",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ab51e2_88e4744a",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-06T07:31:15Z",
+      "side": 1,
+      "message": "Thanks.Removed the local variables entirely. Now using direct assignment to asyncResp-\u003eres.jsonValue[\"CacheMetricsTotal\"][\"LifeTime\"][\"...\"] instead, which avoids the type question.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/7/redfish-core/lib/processor_metrics.hpp#65",
+      "parentUuid": "4c8215a7_b3957955",
       "range": {
         "startLine": 72,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc830fd_1c5ea8be",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-06T07:31:15Z",
+      "side": 1,
+      "message": "Done. Changed to direct assignment as suggested.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/7/redfish-core/lib/processor_metrics.hpp#65",
+      "parentUuid": "11920729_5ee91d9c",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "475f7774_12e461a9",
@@ -129,6 +249,30 @@
       "writtenOn": "2026-02-04T20:44:59Z",
       "side": 1,
       "message": "Convention in this repo is to not use lambdas longer than 10 lines. See: https://github.com/openbmc/bmcweb/blob/3132dacead062fa63c070fc7f404f8cf93df43a0/docs/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "range": {
+        "startLine": 47,
+        "startChar": 72,
+        "endLine": 85,
+        "endChar": 11
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102191cd_4ea95e81",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-06T07:31:15Z",
+      "side": 1,
+      "message": "Done. Extracted lambda into separate function afterGetProcessorMetricsECCData() and using std::bind_front() as per bmcweb convention.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/7/redfish-core/lib/processor_metrics.hpp#37",
+      "parentUuid": "475f7774_12e461a9",
       "range": {
         "startLine": 47,
         "startChar": 72,
