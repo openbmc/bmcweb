@@ -29,6 +29,20 @@
 namespace redfish
 {
 
+inline void setTelemetryServiceStaticAttributes(nlohmann::json& json)
+{
+    json["@odata.type"] = "#TelemetryService.v1_2_1.TelemetryService";
+    json["@odata.id"] = "/redfish/v1/TelemetryService";
+    json["Id"] = "TelemetryService";
+    json["Name"] = "Telemetry Service";
+
+    json["MetricReportDefinitions"]["@odata.id"] =
+        "/redfish/v1/TelemetryService/MetricReportDefinitions";
+    json["MetricReports"]["@odata.id"] =
+        "/redfish/v1/TelemetryService/MetricReports";
+    json["Triggers"]["@odata.id"] = "/redfish/v1/TelemetryService/Triggers";
+}
+
 inline void handleTelemetryServiceGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -37,18 +51,8 @@ inline void handleTelemetryServiceGet(
     {
         return;
     }
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#TelemetryService.v1_2_1.TelemetryService";
-    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/TelemetryService";
-    asyncResp->res.jsonValue["Id"] = "TelemetryService";
-    asyncResp->res.jsonValue["Name"] = "Telemetry Service";
 
-    asyncResp->res.jsonValue["MetricReportDefinitions"]["@odata.id"] =
-        "/redfish/v1/TelemetryService/MetricReportDefinitions";
-    asyncResp->res.jsonValue["MetricReports"]["@odata.id"] =
-        "/redfish/v1/TelemetryService/MetricReports";
-    asyncResp->res.jsonValue["Triggers"]["@odata.id"] =
-        "/redfish/v1/TelemetryService/Triggers";
+    setTelemetryServiceStaticAttributes(asyncResp->res.jsonValue);
 
     dbus::utility::getAllProperties(
         telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
