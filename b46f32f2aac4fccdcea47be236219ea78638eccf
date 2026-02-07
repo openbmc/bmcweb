@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7813d4_9653a9b2",
+        "filename": "redfish-core/schema/oem/nvidia/csdl/NvidiaProcessor_v1.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-07T11:11:24Z",
+      "side": 1,
+      "message": "Thanks for the feedback! Removed the D-Bus implementation detail (\"the value shall be the maximum value of uint64\") from the LongDescription. Now it simply states: \"If the property is not supported by the hardware, the property shall be omitted from the response.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86375/14..15/redfish-core/schema/oem/nvidia/csdl/NvidiaProcessor_v1.xml#36",
+      "parentUuid": "524411bc_58ca1127",
+      "range": {
+        "startLine": 36,
+        "startChar": 137,
+        "endLine": 36,
+        "endChar": 286
+      },
+      "revId": "b46f32f2aac4fccdcea47be236219ea78638eccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c9d50f9_63c1be38",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-01-20T15:59:16Z",
       "side": 1,
       "message": "Do we normally have the unversioned and the versioned?\n\nThe unversioned normally doesn\u0027t have the properties \n\n https://github.com/openbmc/bmcweb/blob/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCAccountService.json\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCVirtualMedia.json",
+      "revId": "b46f32f2aac4fccdcea47be236219ea78638eccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa3fe152_1c3e636f",
+        "filename": "redfish-core/schema/oem/nvidia/json-schema/NvidiaProcessor.json",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-07T11:11:24Z",
+      "side": 1,
+      "message": "Updated NvidiaProcessor.json to follow the OpenBMC pattern - the unversioned file now has empty definitions, while only the versioned file (NvidiaProcessor.v1_0_0.json) contains the property definitions.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86375/14..15/redfish-core/schema/oem/nvidia/json-schema/NvidiaProcessor.json#5",
+      "parentUuid": "6c9d50f9_63c1be38",
       "revId": "b46f32f2aac4fccdcea47be236219ea78638eccf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c81e46d8_60e7fd61",
+        "filename": "redfish-core/schema/oem/nvidia/json-schema/NvidiaProcessor.json",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-07T11:11:24Z",
+      "side": 1,
+      "message": "Fixed, updated copyright year to 2026.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86375/14..15/redfish-core/schema/oem/nvidia/json-schema/NvidiaProcessor.json#4",
+      "parentUuid": "663bfc10_d9fb14f0",
+      "range": {
+        "startLine": 4,
+        "startChar": 28,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "b46f32f2aac4fccdcea47be236219ea78638eccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3151fc7_f207a119",
@@ -77,6 +143,30 @@
       "writtenOn": "2026-01-20T15:59:16Z",
       "side": 1,
       "message": "2026",
+      "range": {
+        "startLine": 4,
+        "startChar": 28,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "b46f32f2aac4fccdcea47be236219ea78638eccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f68a01_89ea05a5",
+        "filename": "redfish-core/schema/oem/nvidia/json-schema/NvidiaProcessor.v1_0_0.json",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-07T11:11:24Z",
+      "side": 1,
+      "message": "Fixed, updated copyright year to 2026.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86375/14/redfish-core/schema/oem/nvidia/json-schema/NvidiaProcessor.v1_0_0.json#4",
+      "parentUuid": "f3151fc7_f207a119",
       "range": {
         "startLine": 4,
         "startChar": 28,

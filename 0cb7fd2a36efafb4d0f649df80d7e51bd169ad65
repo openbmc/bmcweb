@@ -226,6 +226,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1262cd64_bdbaf921",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-07T11:11:24Z",
+      "side": 1,
+      "message": "I’ve discussed this with the Redfish reviewer, but we haven\u0027t reached a conclusion yet. I\u0027ll provide an update here as soon as there\u0027s any progress.",
+      "parentUuid": "26569ba1_8500dc59",
+      "revId": "0cb7fd2a36efafb4d0f649df80d7e51bd169ad65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d367002_e501f2ab",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 5
