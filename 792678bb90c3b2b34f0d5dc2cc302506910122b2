@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f0f1a30_65dee736",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-02-09T08:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f880d0ac_42b24114",
+      "range": {
+        "startLine": 115,
+        "startChar": 35,
+        "endLine": 115,
+        "endChar": 37
+      },
+      "revId": "792678bb90c3b2b34f0d5dc2cc302506910122b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f25c4884_b661d92c",
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "@christopher.meis@9elements.com can you add the output of\n\n```\ncurl --insecure --user root:0penBmc https://127.0.0.1:4443/redfish/v1/Systems/Yosemite_4_Sentinel_Dome_T1_Slot_1/Memory/Yosemite_4_Sentinel_Dome_Slot_2_DIMM\n```\n\nor similar query to confirm.",
       "parentUuid": "f25c4884_b661d92c",
+      "revId": "792678bb90c3b2b34f0d5dc2cc302506910122b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bae41167_82e31fc8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 51
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-02-09T08:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03f2376e_7ba54eec",
       "revId": "792678bb90c3b2b34f0d5dc2cc302506910122b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
