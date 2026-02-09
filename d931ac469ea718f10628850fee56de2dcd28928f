@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7250e01c_c9dcdf14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-02-09T13:42:41Z",
+      "side": 1,
+      "message": "I investigated why only one connection at a time remains in the terminated state - the root cause and proposed fix are described in detail in the comment below. I\u0027m not certain this is the correct approach though - if you see a better alternative, I\u0027m open to suggestions.",
+      "parentUuid": "484f4eaa_0ccf58f2",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84585c07_56f0dce9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -162,6 +180,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6163990a_604d9fce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-02-09T13:42:41Z",
+      "side": 1,
+      "message": "The issue is not that connections fail to reach the terminated state - they do. The problem is that the terminated state is not preserved: two code paths transition the connection out of terminated or grow the pool with doomed connections before areAllConnectionsTerminated() can observe all connections as terminated, causing connections to be recycled indefinitely.\n\nHardware testing with diagnostic logging confirmed the pattern:\n\nPool states cycle: [15,4,4,4] -\u003e [4,15,4,4] -\u003e [4,4,15,4] - terminated state rotates between connections instead of accumulating.\n\nThe two code paths responsible:\n\n1. sendNext() - reuses terminated connections for queued requests\nAfter a connection completes (including reaching terminated via waitAndRetry() -\u003e callback()), afterSendData() calls sendNext(). If the requestQueue is not empty, sendNext() calls setConnProps() + sendMessage()/restartConnection() on the terminated connection, overwriting its state.\n\nFix: Early return in sendNext() if conn-\u003estate \u003d\u003d ConnState::terminated.\n\n2. sendData() - creates new doomed connections\nWhen new events arrive, sendData() looks for idle/initialized/closed connections. Terminated and connectFailed connections don\u0027t match any of those states, so sendData() creates new connections via addConnection() up to the maxConnections limit. These new connections are also doomed to fail against an unreachable destination, which delays areAllConnectionsTerminated() from returning true - each new connection must independently exhaust its own retry cycle before reaching terminated. With events arriving periodically, this cycle continues until maxConnections is reached, unnecessarily growing the pool with doomed connections and significantly delaying subscription cleanup.\n\nFix: Inside the if (connections.size() \u003c maxConnections) branch, check if any existing connection is terminated before creating a new one. If so, return bad_gateway via resHandler. The check is scoped to the \"create new connection\" branch only - when maxConnections is already reached, requests go to the queue where they can still be picked up by connections that have not yet exhausted their retries. If all connections eventually reach terminated, queued requests become moot as the subscription itself will be cleaned up by areAllConnectionsTerminated().\n\nAfter the fix, pool states accumulate cleanly: [15,4,4,4] -\u003e [15,15,4,4] -\u003e [15,15,15,4] -\u003e [15,15,15,15] -\u003e areAllConnectionsTerminated() returns true -\u003e subscription removed.",
+      "parentUuid": "72bcaa3b_d60bd886",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b753516a_30efe92c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -262,6 +298,24 @@
       "side": 1,
       "message": "If that\u0027s the case (e.g. max-retry is already exhausted), `isTerminated()` is already satisfied. Then, there is no reason to remove it.\n\nSecond, I\u0027m not sure whether `resHandler` is called only after max-retry.\n`resHandler` seems invoked unconditionally in `afterSendData()` - \n\nhttps://github.com/openbmc/bmcweb/blob/ac69e77ea938e8c2a5bd3dad258cdafd9d3182b7/http/http_client.hpp#L824\n\n\n\n```\n    static void afterSendData(const std::weak_ptr\u003cConnectionPool\u003e\u0026 weakSelf,\n                              const std::function\u003cvoid(Response\u0026)\u003e\u0026 resHandler,\n                              bool keepAlive, uint32_t connId, Response\u0026 res)\n    {\n        // Allow provided callback to perform additional processing of the\n        // request\n        resHandler(res); \u003c\u003d\u003d\u003d\n        \n\n```\n\nIf `isTerminated()` is correctly derived, I would be better to leave to check it before invoking `deleter()`.",
       "parentUuid": "e62e337a_6a47a1d0",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f10b4949_dec1709a",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-02-09T13:42:41Z",
+      "side": 1,
+      "message": "If we decide to fix the issue where not all connections are entering the terminated state, then you are right - the isTerminated() logic should remain unchanged. Once terminated connections are preserved rather than recycled, the existing check will correctly return true and trigger subscription cleanup.",
+      "parentUuid": "901fed2c_d32c9230",
       "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
