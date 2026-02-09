@@ -22,6 +22,30 @@
       },
       "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffd97eea_6b12a6a1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-02-09T16:11:39Z",
+      "side": 1,
+      "message": "Furthermore, bad_gateway result must already been sent - if the state is `ConnState::terminated`.\n\nhttps://github.com/openbmc/bmcweb/blob/433c9193b0d086f009d53a5860f1ee586cf45792/http/http_client.hpp#L480",
+      "parentUuid": "81475e48_6d50e228",
+      "range": {
+        "startLine": 809,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 13
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
