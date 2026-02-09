@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81475e48_6d50e228",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-02-09T15:57:37Z",
+      "side": 1,
+      "message": "I\u0027m not sure whether this code block L809-L822 is correct?\nIf there are multiple connections and one of them is `terminated`, I think this code block may cause the bad_gateway even if the connection is for the different target??\nCan this block L809-L822 is removed?",
+      "range": {
+        "startLine": 809,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 13
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
