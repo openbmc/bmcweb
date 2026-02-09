@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ff36302_1328a4fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-09T18:18:24Z",
+      "side": 1,
+      "message": "Overall I am in support",
+      "revId": "01bdc001ec067453baeb739a73d4caec3dbb777e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "091c9510_9f618a0f",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-09T18:18:24Z",
+      "side": 1,
+      "message": "Would it be better to accept object_path \n\nhttps://github.com/openbmc/bmcweb/blob/433c9193b0d086f009d53a5860f1ee586cf45792/src/dbus_utility.cpp#L111\n\nSince you are already calling with \n\n        sdbusplus::message::object_path endpointPath{fanPath};\n\n        fan_utils::getFanSensorObjects(\n            asyncResp, endpointPath,",
+      "revId": "01bdc001ec067453baeb739a73d4caec3dbb777e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf5e17c_1e18b36f",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-09T18:18:24Z",
+      "side": 1,
+      "message": "this can\u0027t be simplified to just \n\n    const vector\u003c...\u003e\u0026 \n\n?\n\ncallers don\u0027t need to modify the vector right ? Don\u0027t need mutable access right?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 75
+      },
+      "revId": "01bdc001ec067453baeb739a73d4caec3dbb777e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
