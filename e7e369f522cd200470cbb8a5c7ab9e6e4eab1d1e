@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38766c3f_d3e508c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-09T18:00:37Z",
+      "side": 1,
+      "message": "We should bump this schema and deprecate (I would also be okay just removing Chassis from the schema) \n\nhttps://github.com/openbmc/bmcweb/blob/433c9193b0d086f009d53a5860f1ee586cf45792/redfish-core/schema/oem/openbmc/csdl/OpenBMCManager_v1.xml#L216",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2495d161_6a4cd4df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-09T18:00:37Z",
+      "side": 1,
+      "message": "I think you need changes to the JSON / XML as well",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
