@@ -12,6 +12,7 @@
 #include <nlohmann/json.hpp>
 
 #include <cstddef>
+#include <optional>
 #include <string_view>
 
 enum class JsonParseResult
@@ -189,7 +190,7 @@ class BmcwebSaxParse : public nlohmann::json::json_sax_t
 };
 } // namespace details
 
-inline std::optional<nlohmann::json> parseStringAsJson(const std::string& body)
+inline std::optional<nlohmann::json> parseStringAsJson(std::string_view body)
 {
     nlohmann::json jsonOut;
     // Arbitrarily limit to 1MB payloads
