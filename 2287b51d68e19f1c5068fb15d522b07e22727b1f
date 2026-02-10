@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "2287b51d68e19f1c5068fb15d522b07e22727b1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5274aa8_1a98d922",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T19:58:04Z",
+      "side": 1,
+      "message": "The PDI change only supports 1 type.. https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/86504\n\nCan PDI change to reflect these ?",
+      "revId": "2287b51d68e19f1c5068fb15d522b07e22727b1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
