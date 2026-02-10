@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0ae03d0_63df736e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T16:06:40Z",
+      "side": 1,
+      "message": "Then why not just fix it here if we think we will use it one day?\n\nDropping it without schema changes seems like the least desirable choice to me.\nFixing it here or removing it completely (schema + implementation) seem like better paths to me.",
+      "parentUuid": "17a609e5_194d56cd",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2495d161_6a4cd4df",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "You mean schema changes?\n\nI thought since `Chassis` is an optional property (no `Nullable\u003d\"false\"`) it is ok to drop it..\n\nCan you kindly explain why we need to change the schema in this case.",
       "parentUuid": "2495d161_6a4cd4df",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4678aa0f_b59e3122",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T16:06:40Z",
+      "side": 1,
+      "message": "Yes, schema changes.\n\nWhy have a property in the schema if we aren\u0027t going to use it?\n\nBumping the version to like OpenBMCManager.v1_1_0.Manager.FanZone will help clients handle this.",
+      "parentUuid": "f74207a6_7047f4bb",
       "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
