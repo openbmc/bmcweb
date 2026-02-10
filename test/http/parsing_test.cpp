@@ -31,4 +31,19 @@ TEST(HttpParsing, isJsonContentType)
     EXPECT_FALSE(isJsonContentType("application/json; "));
     EXPECT_FALSE(isJsonContentType("json"));
 }
+
+TEST(HttpParsing, parseRequestAsJson)
+{
+    std::string veryDeepArray;
+    for (size_t i = 0; i < 10; i++)
+    {
+        veryDeepArray = "[" + veryDeepArray + "]";
+    }
+
+    EXPECT_TRUE(parseStringAsJson(veryDeepArray));
+
+    veryDeepArray = "[" + veryDeepArray + "]";
+    EXPECT_FALSE(parseStringAsJson(veryDeepArray));
+}
+
 } // namespace
