@@ -234,6 +234,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd8f6b37_9f401c3a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:46:57Z",
+      "side": 1,
+      "message": "\u003e So realistically multi-host systems would have both ManagedHost and Item.System interfaces for a while.\n\nThis I find odd.. Just choose one and let\u0027s go with it. \n\n\u003e not regressing on multi-host implementation progress by relying on Item.System\n\nIt is unexpected.. Like everywhere else for multi-host uses ManagedHost \n\n\u003e do you agree/disagree with this direction?\n\nIt is confusing.. What is the multi-host interface, let\u0027s choose it and go with it",
+      "parentUuid": "36999fe8_ca34f5ed",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64f63077_ef141cd5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
