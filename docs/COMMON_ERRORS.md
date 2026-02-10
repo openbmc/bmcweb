@@ -98,7 +98,7 @@ Commonly used methods that fall into this pattern:
 `nlohmann::json::parse` by default
 [throws](https://json.nlohmann.me/api/basic_json/parse/) on failure, but also
 accepts an optional argument that causes it to not throw: set the 3rd argument
-to `false`.
+to `false`. Do not call nlohmann::json::parse directly.
 
 `nlohmann::json::dump` by default
 [throws](https://json.nlohmann.me/api/basic_json/dump/) on failure, but also
