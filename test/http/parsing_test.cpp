@@ -2,6 +2,9 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "http/parsing.hpp"
 
+#include <format>
+#include <string>
+
 #include <gtest/gtest.h>
 
 namespace
@@ -31,4 +34,16 @@ TEST(HttpParsing, isJsonContentType)
     EXPECT_FALSE(isJsonContentType("application/json; "));
     EXPECT_FALSE(isJsonContentType("json"));
 }
+
+TEST(HttpParsing, parseRequestAsJson)
+{
+    // 10 levels deep
+    std::string veryDeepArray = "[[[[[[[[[[]]]]]]]]]]";
+
+    EXPECT_TRUE(parseStringAsJson(veryDeepArray));
+
+    veryDeepArray = std::format("[{}]", veryDeepArray);
+    EXPECT_FALSE(parseStringAsJson(veryDeepArray));
+}
+
 } // namespace
