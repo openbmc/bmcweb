@@ -799,11 +799,9 @@ inline std::optional<nlohmann::json> getMetricReportDefinitions(
         std::string reportId = path.filename();
         if (reportId.empty())
         {
-            {
-                BMCWEB_LOG_ERROR("Property Reports contains invalid value: {}",
-                                 path.str);
-                return std::nullopt;
-            }
+            BMCWEB_LOG_ERROR("Property Reports contains invalid value: {}",
+                             path.str);
+            return std::nullopt;
         }
 
         nlohmann::json::object_t report;
