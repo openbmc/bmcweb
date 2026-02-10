@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95c813be_c8bedaae",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:31:33Z",
+      "side": 1,
+      "message": "Nitpick: How about jsonObj to match jsonVal above ?",
+      "range": {
+        "startLine": 1078,
+        "startChar": 38,
+        "endLine": 1078,
+        "endChar": 43
+      },
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd02ace_c0f20f7c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:31:33Z",
+      "side": 1,
+      "message": "nitpick: membersIt or satMembersIt might fit better with what I see other places",
+      "range": {
+        "startLine": 1098,
+        "startChar": 24,
+        "endLine": 1098,
+        "endChar": 32
+      },
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9753a1d2_67375e6e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:31:33Z",
+      "side": 1,
+      "message": "is this right? Not supposed to be *jsonVal ?",
+      "range": {
+        "startLine": 1120,
+        "startChar": 54,
+        "endLine": 1120,
+        "endChar": 58
+      },
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4ffd1af_148c3c81",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:31:33Z",
+      "side": 1,
+      "message": "Didn\u0027t you already do this check on line 1102 ? Shouldn\u0027t this be checking the localMemebers like line 1148-1162?",
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
