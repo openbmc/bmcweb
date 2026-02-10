@@ -140,6 +140,24 @@
       "message": "It will be better to pass timeout as in_arg rather than a static 5 mins in common code.",
       "revId": "d8198f149d9d213c2502ebc7709f7bb5578671c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5db3782f_c90f8e48",
+        "filename": "redfish-core/include/task_generation.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-10T04:23:04Z",
+      "side": 1,
+      "message": "This is not a completion timeout.  This is a timeout between updates, and is not used at all unless the backend is very... very broken.  If a service needs longer than 5 minutes between subsequent updates, they haven\u0027t implemented the progress API correctly.",
+      "parentUuid": "b459fc6e_9aeb80c0",
+      "revId": "d8198f149d9d213c2502ebc7709f7bb5578671c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
