@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98beae22_3ef6de82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:12:49Z",
+      "side": 1,
+      "message": "Overall in support. Thanks Ed.",
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29308c2d_749144bd",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:12:49Z",
+      "side": 1,
+      "message": "Why not increment totalValues here?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b3c903f_8fb6086f",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:12:49Z",
+      "side": 1,
+      "message": "totalValues++ ?\n\nWithout these, couldn\u0027t I just pass an object with thousands of key/value pairs where they are strings..",
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "454134fd_5814301b",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:12:49Z",
+      "side": 1,
+      "message": "totalValues++ ?",
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "544de4cb_6a53f650",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:12:49Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 9
+      },
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df310b1a_8232b126",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:12:49Z",
+      "side": 1,
+      "message": "nitpick would prefer contentType or something easier to quickly search / understand",
+      "range": {
+        "startLine": 173,
+        "startChar": 21,
+        "endLine": 173,
+        "endChar": 24
+      },
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bffe3e32_df4f5cee",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:12:49Z",
+      "side": 1,
+      "message": "Feel like writing a test that tests 501 keys..? \n\n```\nEXPECT_TRUE(parseStringAsJson(makeObjectWithNKeys(500))) \nEXPECT_FALSE(parseStringAsJson(makeObjectWithNKeys(501)))\n```",
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
