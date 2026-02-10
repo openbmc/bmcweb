@@ -46,6 +46,30 @@
       },
       "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4271c9b8_83039b93",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-02-10T14:46:03Z",
+      "side": 1,
+      "message": "As far as I understand, all connections within a single ConnectionPool share the same destination. So a terminated connection in the pool always corresponds to the same target as all other connections.\n\nThis code block is only reached when no existing connection is in an idle, initialized, or closed state - meaning all connections are in transient or failure states (connectFailed, sendFailed, recvFailed, terminated, etc.) and at least one of them is terminated. Since we already know the destination is unreachable (at least one connection exhausted all retry attempts), creating new connections would only grow the pool with doomed connections that will also inevitably fail.\n\nWithout this block, each time a new event arrives, sendData() would create another connection via addConnection() because none of the existing connections match the idle/initialized/closed check. The pool keeps growing until maxConnections is reached, and only then - after every single connection independently exhausts its own retry cycle - can areAllConnectionsTerminated() finally return true.\n\nHere are the logs from a test run with only the sendNext() fix but without this block - you can see the pool growing by one connection every ~10 seconds as events keep arriving:\n\n15:28:22  conn[0] terminated  → pool: 4 conns [15, 4, 4, 4]\n15:28:32  conn[4] created     → pool: 5 conns [15, 15, 4, 4, 4]\n15:28:42  conn[5] created     → pool: 6 conns [15, 15, 15, 4, 4, 4]\n15:28:52  conn[6] created     → pool: 7 conns [15, 15, 15, 15, 4, 4, 4]\n15:29:02  conn[7] created     → pool: 8 conns [15, 15, 15, 15, 15, 4, 4, 4]\n...\n15:29:42  conn[11] created    → pool: 12 conns [15,15,15,15,15,15,15,15,15, 4, 4, 4]\n\nThis would continue all the way up to maxConnections, with each new connection doomed to fail against the same unreachable destination. With the block in place, the pool stays at 4 connections and the subscription is cleaned up as soon as all 4 reach terminated. That said, this block could technically be removed - the subscription would still eventually be cleaned up once the pool hits maxConnections and all connections exhaust their retries. However, based on the logs above, that would delay subscription removal by couple of minutes compared to the immediate cleanup with this block in place.\n\n\nYou\u0027re right that waitAndRetry() already sends bad_gateway via callback() when a connection reaches terminated - but that response is for the request that was being processed when retries were exhausted.\n\nThe dummyRes here serves a different purpose: it responds to the new event that just arrived via sendData(). Since we\u0027re declining to create a connection for it (destination is known - unreachable), we still need to invoke resHandler to fulfill the callback contract and - more importantly - to trigger the isTerminated() check in Subscription::resHandler(), which is how subscription cleanup gets initiated.",
+      "parentUuid": "ffd97eea_6b12a6a1",
+      "range": {
+        "startLine": 809,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 13
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
