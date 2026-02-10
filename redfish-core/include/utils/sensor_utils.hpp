@@ -556,7 +556,7 @@ inline void convertToFanPercent(
         getFanPercent(sensorName, maxValue, minValue, value);
     if (percentValue.has_value())
     {
-        sensorJson["Reading"] = percentValue;
+        sensorJson["Reading"] = *percentValue;
     }
     else
     {
