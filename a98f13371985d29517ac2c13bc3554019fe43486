@@ -69,6 +69,24 @@
       "parentUuid": "7f176cf4_23a1066e",
       "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee5bf46_5426983f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-10T01:28:52Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not aware of this being wrong on other systems.\n\n@ed@tanous.net can you kindly share some output of this working on your system with a recent bmcweb version",
+      "parentUuid": "3eb2ade0_1a9aef5f",
+      "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

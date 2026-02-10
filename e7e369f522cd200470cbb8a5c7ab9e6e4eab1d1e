@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17a609e5_194d56cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-10T01:28:52Z",
+      "side": 1,
+      "message": "\u003e We should bump this schema and deprecate\n\nSince the `Chassis` property does not have `Nullable\u003d\"false\"`,\nit is optional and we can omit it without schema changes, right?\n\nI was assuming someone put that optional property for a reason and that they may want to put it back (in a working state). Which is why i did not do any schema changes.\n\nCan you kindly explain why deprecating the property is the right move here as opposed to just dropping it (since it\u0027s optional).\n\nDid you confirm with the people who contributed this schema that deprecating the property is the direction they want to take here?\n\nTaking a look at other deprecated properties, they usually provide reason/replacement for the deprecated property. Why would we be deprecating the property here? Do we have / need a replacement property?\n\n\u003e I would also be okay just removing Chassis from the schema\n\nKeep in mind that I\u0027m just an external contributor trying to get RF validator to pass. I don\u0027t have any opinion on how this oem schema should look like.\n\nAt this point i have 3 different takes from 3 different people on what to do here\n(not counting myself).",
+      "parentUuid": "38766c3f_d3e508c5",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2495d161_6a4cd4df",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-09T18:00:37Z",
       "side": 1,
       "message": "I think you need changes to the JSON / XML as well",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f74207a6_7047f4bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-10T01:28:52Z",
+      "side": 1,
+      "message": "You mean schema changes?\n\nI thought since `Chassis` is an optional property (no `Nullable\u003d\"false\"`) it is ok to drop it..\n\nCan you kindly explain why we need to change the schema in this case.",
+      "parentUuid": "2495d161_6a4cd4df",
       "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
