@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc103268_fb57fd0a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2026-02-10T10:38:59Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "d66dd43eee2c7f839522825ea92d9da0436939a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
