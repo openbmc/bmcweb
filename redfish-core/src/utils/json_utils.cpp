@@ -28,15 +28,13 @@ bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
         messages::unrecognizedRequestBody(res);
         return false;
     }
-    reqJson = nlohmann::json::parse(req.body(), nullptr, false);
-
-    if (reqJson.is_discarded())
+    if (ret == JsonParseResult::BadJsonData)
     {
         messages::malformedJSON(res);
         return false;
     }
 
-    return true;
+    return ret == JsonParseResult::Success;
 }
 
 uint64_t getEstimatedJsonSize(const nlohmann::json& root)
