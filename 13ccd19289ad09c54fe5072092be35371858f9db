@@ -106,6 +106,24 @@
       "parentUuid": "7eefebb8_bdfc4d96",
       "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7e97382_20a6e5a6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-02-10T18:43:00Z",
+      "side": 1,
+      "message": "\u003e in fact, this is the only instance I know of\n\nthis was not my finding.\n\n\u003e Wouldn\u0027t it be nice if that were all we parsed :). We do parse full URIs.\n\nOk, but do we format URLs with protocols and hostnames into existing URLs on purpose?  And if we don\u0027t, is your point that appendUrlPieces would fail in a better way than boost::urls::format?\n\n\u003e If this isn\u0027t a change you want to make, this is fine, I can go fix it.\n\nIt isn\u0027t that I don\u0027t want to make a change.  Rather, it doesn\u0027t seem like the ask is trivial, and before doing the work I just want to understand why it is necessary.",
+      "parentUuid": "c0251afa_c844ee89",
+      "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
