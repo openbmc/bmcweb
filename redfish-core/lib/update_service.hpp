@@ -750,13 +750,13 @@ inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
     std::string_view content)
 {
     MultiPartUpdate::UpdateParameters multiRet;
-    nlohmann::json jsonContent = nlohmann::json::parse(content, nullptr, false);
-    if (jsonContent.is_discarded())
+    std::optional<nlohmann::json> jsonContent = parseStringAsJson(content);
+    if (!jsonContent)
     {
         return std::nullopt;
     }
     nlohmann::json::object_t* obj =
-        jsonContent.get_ptr<nlohmann::json::object_t*>();
+        jsonContent->get_ptr<nlohmann::json::object_t*>();
     if (obj == nullptr)
     {
         messages::propertyValueTypeError(asyncResp->res, content,
