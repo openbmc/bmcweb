@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2ed64c2_d9978df8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:49:18Z",
+      "side": 1,
+      "message": "Thanks for this commit! We follow \nhttps://cbea.ms/git-commit/ for commit msgs, please try to limit the summary to 50 chars",
+      "revId": "9d6b08353b86f2a88eaf205eb42e6a1f12102fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76fd243d_a14ca8fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T21:49:18Z",
+      "side": 1,
+      "message": "As https://cbea.ms/git-commit/ states \n\nWrap the body at 72 characters \n\nNot a custom length",
+      "revId": "9d6b08353b86f2a88eaf205eb42e6a1f12102fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
