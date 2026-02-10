@@ -152,18 +152,27 @@ inline void requestRoutes(App& app)
             }
             DbusWebsocketSession& thisSession = sessionPair->second;
             BMCWEB_LOG_DEBUG("Connection {} received {}", logPtr(&conn), data);
-            nlohmann::json j = nlohmann::json::parse(data, nullptr, false);
-            if (j.is_discarded())
+            std::optional<nlohmann::json> j = parseStringAsJson(data);
+            if (!j)
             {
                 BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
                 conn.close("Unable to parse json request");
                 return;
             }
-            nlohmann::json::iterator interfaces = j.find("interfaces");
-            if (interfaces != j.end())
+            nlohmann::json::object_t* obj =
+                j->get_ptr<nlohmann::json::object_t*>();
+            if (obj == nullptr)
             {
-                thisSession.interfaces.reserve(interfaces->size());
-                for (auto& interface : *interfaces)
+                BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
+                conn.close("Unable to parse json request");
+                return;
+            }
+            nlohmann::json::object_t::iterator interfaces =
+                obj->find("interfaces");
+            if (interfaces != obj->end())
+            {
+                thisSession.interfaces.reserve(interfaces->second.size());
+                for (const auto& interface : interfaces->second)
                 {
                     const std::string* str =
                         interface.get_ptr<const std::string*>();
@@ -174,8 +183,8 @@ inline void requestRoutes(App& app)
                 }
             }
 
-            nlohmann::json::iterator paths = j.find("paths");
-            if (paths == j.end())
+            nlohmann::json::object_t::iterator paths = obj->find("paths");
+            if (paths == obj->end())
             {
                 BMCWEB_LOG_ERROR("Unable to find paths in json data");
                 conn.close("Unable to find paths in json data");
@@ -194,7 +203,7 @@ inline void requestRoutes(App& app)
             static std::regex validInterface(
                 "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$");
 
-            for (const auto& thisPath : *paths)
+            for (const auto& thisPath : paths->second)
             {
                 const std::string* thisPathString =
                     thisPath.get_ptr<const std::string*>();
