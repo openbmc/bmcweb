@@ -7,6 +7,7 @@
 #include "ossl_random.hpp"
 #include "sessions.hpp"
 // NOLINTNEXTLINE(misc-include-cleaner)
+#include "parsing.hpp"
 #include "utility.hpp"
 
 #include <boost/beast/core/file_base.hpp>
@@ -96,15 +97,15 @@ class ConfigFile
                 return;
             }
             // call with exceptions disabled
-            auto data = nlohmann::json::parse(str, nullptr, false);
-            if (data.is_discarded())
+            std::optional<nlohmann::json> data = parseStringAsJson(str);
+            if (!data)
             {
                 BMCWEB_LOG_ERROR("Error parsing persistent data in json file.");
             }
             else
             {
                 const nlohmann::json::object_t* obj =
-                    data.get_ptr<nlohmann::json::object_t*>();
+                    data->get_ptr<nlohmann::json::object_t*>();
                 if (obj == nullptr)
                 {
                     return;
