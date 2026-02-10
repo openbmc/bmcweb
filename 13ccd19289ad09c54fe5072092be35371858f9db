@@ -88,6 +88,24 @@
       "parentUuid": "7920cc7a_a929bae8",
       "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0251afa_c844ee89",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-10T00:58:59Z",
+      "side": 1,
+      "message": "\u003e \u003e Probably still best to use the utility function, considering that it\u0027s more clear that\u0027s the behavior.\n\u003e \n\u003e Where I\u0027m coming from is - the whole reason I did this cleanup was because I copy/pasted code that used std::format, and was told to use boost::urls::format (reasonable).  I thought if I got rid of the instances of url formatting with std::format, I\u0027d save the next person from making the same mistake I did.\n\nAll of this is great, and I appreciate you cleaning it up.\n\n\u003e \n\u003e If we mix use of boost::urls::format and appendUrlPieces, we aren\u0027t any better off - people will end up copy/pasting boost::urls::format in situations where appendUrlPieces is wanted.  Considering that boost::urls::format works fine, wouldn\u0027t we be better off using it uniformly?\n\nIt\u0027s pretty rare we hit this pattern.  Generally we would not be putting a URL type into a piece of another URL (in fact, this is the only instance I know of).  Normally we\u0027d pass through the variable pieces, possibly in a struct, and reconstruct the string we wanted without using a URI as input.  Obviously that doesn\u0027t work in this case.\n\n\u003e \n\u003e \u003e I\u0027d be curious what\n\u003e \n\u003e My guess is it will try to coerce something after that first http:// into a hostname (properly encoded), and try to coerce everything after that into a path (again, properly encoded).  Why is this particular set of inputs interesting or relevant - all we ever do in bmcweb is encode paths isn\u0027t it?\n\nWouldn\u0027t it be nice if that were all we parsed :).  We do parse full URIs.\n\nFWIW, I really wish there were a fixed type for \"URI path\" so we could trust it, but I\u0027m not aware there is.\n\nIf this isn\u0027t a change you want to make, this is fine, I can go fix it.",
+      "parentUuid": "7eefebb8_bdfc4d96",
+      "revId": "13ccd19289ad09c54fe5072092be35371858f9db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
