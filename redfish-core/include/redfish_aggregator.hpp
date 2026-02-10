@@ -999,9 +999,9 @@ class RedfishAggregator
         // We need to create a json from resp's stringResponse
         if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
-            nlohmann::json jsonVal =
-                nlohmann::json::parse(*resp.body(), nullptr, false);
-            if (jsonVal.is_discarded())
+            std::optional<nlohmann::json> jsonVal =
+                parseStringAsJson(*resp.body());
+            if (!jsonVal)
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
                 messages::operationFailed(asyncResp->res);
@@ -1010,12 +1010,12 @@ class RedfishAggregator
 
             BMCWEB_LOG_DEBUG("Successfully parsed satellite response");
 
-            addPrefixes(jsonVal, prefix);
+            addPrefixes(*jsonVal, prefix);
 
             BMCWEB_LOG_DEBUG("Added prefix to parsed satellite response");
 
             asyncResp->res.result(resp.result());
-            asyncResp->res.jsonValue = std::move(jsonVal);
+            asyncResp->res.jsonValue = std::move(*jsonVal);
 
             BMCWEB_LOG_DEBUG("Finished writing asyncResp");
         }
@@ -1061,9 +1061,9 @@ class RedfishAggregator
         // We need to create a json from resp's stringResponse
         if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
-            nlohmann::json jsonVal =
-                nlohmann::json::parse(*resp.body(), nullptr, false);
-            if (jsonVal.is_discarded())
+            std::optional<nlohmann::json> jsonVal =
+                parseStringAsJson(*resp.body());
+            if (!jsonVal)
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
 
@@ -1075,11 +1075,19 @@ class RedfishAggregator
                 return;
             }
 
+            nlohmann::json::object_t* jsonObj =
+                jsonVal->get_ptr<nlohmann::json::object_t*>();
+            if (jsonObj == nullptr)
+            {
+                BMCWEB_LOG_ERROR("Parsed JSON was not an object?");
+                return;
+            }
+
             BMCWEB_LOG_DEBUG("Successfully parsed satellite response");
 
             // Now we need to add the prefix to the URIs contained in the
             // response.
-            addPrefixes(jsonVal, prefix);
+            addPrefixes(*jsonVal, prefix);
 
             BMCWEB_LOG_DEBUG("Added prefix to parsed satellite response");
 
@@ -1087,39 +1095,35 @@ class RedfishAggregator
             // and has not already been added from processing the response from
             // a different satellite then we need to completely overwrite
             // asyncResp
+            const auto membersIt = jsonObj->find("Members");
+
+            // We only want to aggregate collections that contain a
+            // "Members" array
+            if (membersIt == jsonObj->end())
+            {
+                BMCWEB_LOG_DEBUG("Skipping aggregating unsupported resource");
+                return;
+            }
+            nlohmann::json::array_t* satMembersArr =
+                membersIt->second.get_ptr<nlohmann::json::array_t*>();
+            if (satMembersArr == nullptr)
+            {
+                BMCWEB_LOG_WARNING(
+                    "Sat collection Members field was not an array");
+                return;
+            }
             if (asyncResp->res.resultInt() != 200)
             {
-                // We only want to aggregate collections that contain a
-                // "Members" array
-                if ((!jsonVal.contains("Members")) &&
-                    (!jsonVal["Members"].is_array()))
-                {
-                    BMCWEB_LOG_DEBUG(
-                        "Skipping aggregating unsupported resource");
-                    return;
-                }
-
                 BMCWEB_LOG_DEBUG(
                     "Collection does not exist, overwriting asyncResp");
                 asyncResp->res.result(resp.result());
-                asyncResp->res.jsonValue = std::move(jsonVal);
+                asyncResp->res.jsonValue = std::move(*jsonVal);
                 asyncResp->res.addHeader("Content-Type", "application/json");
 
                 BMCWEB_LOG_DEBUG("Finished overwriting asyncResp");
             }
             else
             {
-                // We only want to aggregate collections that contain a
-                // "Members" array
-                if ((!asyncResp->res.jsonValue.contains("Members")) &&
-                    (!asyncResp->res.jsonValue["Members"].is_array()))
-
-                {
-                    BMCWEB_LOG_DEBUG(
-                        "Skipping aggregating unsupported resource");
-                    return;
-                }
-
                 BMCWEB_LOG_DEBUG(
                     "Adding aggregated resources from \"{}\" to collection",
                     prefix);
@@ -1132,22 +1136,21 @@ class RedfishAggregator
                 // satellite since the aggregating bmc should have completed
                 // before the response is received from the satellite.
 
-                auto& members = asyncResp->res.jsonValue["Members"];
-                auto& satMembers = jsonVal["Members"];
-                nlohmann::json::array_t* satMembersArr =
-                    satMembers.get_ptr<nlohmann::json::array_t*>();
-                if (satMembersArr == nullptr)
+                auto& localMembers = asyncResp->res.jsonValue["Members"];
+                nlohmann::json::array_t* localMembersArr =
+                    localMembers.get_ptr<nlohmann::json::array_t*>();
+                if (localMembersArr == nullptr)
                 {
-                    BMCWEB_LOG_WARNING(
-                        "Sat collection didn't include a members array");
-                    return;
+                    localMembers = nlohmann::json::array();
+                    localMembersArr =
+                        localMembers.get_ptr<nlohmann::json::array_t*>();
                 }
                 for (auto& satMem : *satMembersArr)
                 {
-                    members.emplace_back(std::move(satMem));
+                    localMembersArr->emplace_back(std::move(satMem));
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
-                    members.size();
+                    localMembersArr->size();
 
                 // TODO: Do we need to sort() after updating the array?
             }
@@ -1202,9 +1205,9 @@ class RedfishAggregator
         if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
             bool addedLinks = false;
-            nlohmann::json jsonVal =
-                nlohmann::json::parse(*resp.body(), nullptr, false);
-            if (jsonVal.is_discarded())
+            std::optional<nlohmann::json> jsonVal =
+                parseStringAsJson(*resp.body());
+            if (!jsonVal)
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
 
@@ -1224,7 +1227,7 @@ class RedfishAggregator
             // multiple properties such that
             // {"<property>":{"@odata.id": "<URI>"}}
             nlohmann::json::object_t* object =
-                jsonVal.get_ptr<nlohmann::json::object_t*>();
+                jsonVal->get_ptr<nlohmann::json::object_t*>();
             if (object == nullptr)
             {
                 BMCWEB_LOG_ERROR("Parsed JSON was not an object?");
