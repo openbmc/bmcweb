@@ -16,6 +16,23 @@
       "message": "Can you add to the Redfish.md?",
       "revId": "6dd4ccdf3c348398ffb61864978011addf5736ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69b3ea05_e3b32cef",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-10T22:09:04Z",
+      "side": 1,
+      "message": "Is this documented in PDI ?",
+      "revId": "6dd4ccdf3c348398ffb61864978011addf5736ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
