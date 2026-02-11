@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3286241e_8e89ef51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-11T22:08:40Z",
+      "side": 1,
+      "message": "Why can\u0027t we just switch to Item.System now? \nIs there a separate commit to do that?",
+      "revId": "ae875e493808ea68a100d914a3c556c85d5a51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba4febff_cc5999dc",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 1
