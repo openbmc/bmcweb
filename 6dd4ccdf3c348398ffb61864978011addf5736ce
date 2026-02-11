@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18ea1230_de8e9ba7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-11T11:34:16Z",
+      "side": 1,
+      "message": "Done, thanks!\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/6/docs/Redfish.md#1055",
+      "parentUuid": "f48a4f2a_6e530e92",
+      "revId": "6dd4ccdf3c348398ffb61864978011addf5736ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69b3ea05_e3b32cef",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-10T22:09:04Z",
       "side": 1,
       "message": "Is this documented in PDI ?",
+      "revId": "6dd4ccdf3c348398ffb61864978011addf5736ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60f54caf_0727ff92",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-11T11:34:16Z",
+      "side": 1,
+      "message": "Thanks, will add PDI patch later.",
+      "parentUuid": "69b3ea05_e3b32cef",
       "revId": "6dd4ccdf3c348398ffb61864978011addf5736ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
