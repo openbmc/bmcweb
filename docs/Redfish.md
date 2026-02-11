@@ -225,6 +225,7 @@ Fields common to all schemas
 - Actions
 - AssetTag
 - ChassisType
+- Controls
 - Drives
 - HotPluggable
 - Links/ComputerSystems
@@ -246,6 +247,26 @@ Fields common to all schemas
 - ThermalSubsystem
 - UUID
 - Version
+
+### /redfish/v1/Chassis/{ChassisId}/Controls/
+
+#### ControlCollection
+
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Chassis/{ChassisId}/Controls/{ControlId}/
+
+#### Control
+
+- AllowableMax
+- AllowableMin
+- ControlMode
+- ControlType
+- RelatedItem
+- SetPointUnits
+- SettingMax
+- SettingMin
 
 ### /redfish/v1/Chassis/{ChassisId}/Drive/
 
