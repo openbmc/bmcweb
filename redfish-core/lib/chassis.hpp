@@ -50,6 +50,12 @@
 namespace redfish
 {
 
+// Interfaces that support indicator LED functionality
+constexpr std::array<const char*, 3> hasIndicatorLedInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.Chassis",
+    "xyz.openbmc_project.Inventory.Item.Panel",
+    "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
+
 inline chassis::ChassisType translateChassisTypeToRedfish(
     const std::string_view& chassisType)
 {
@@ -585,10 +591,6 @@ inline void handleChassisGetSubTree(
         const std::string& connectionName = connectionNames[0].first;
 
         const std::vector<std::string>& interfaces2 = connectionNames[0].second;
-        const std::array<const char*, 3> hasIndicatorLed = {
-            "xyz.openbmc_project.Inventory.Item.Chassis",
-            "xyz.openbmc_project.Inventory.Item.Panel",
-            "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
 
         const std::string assetTagInterface =
             "xyz.openbmc_project.Inventory.Decorator.AssetTag";
@@ -661,7 +663,7 @@ inline void handleChassisGetSubTree(
             }
         }
 
-        for (const char* interface : hasIndicatorLed)
+        for (const char* interface : hasIndicatorLedInterfaces)
         {
             if (std::ranges::find(interfaces2, interface) != interfaces2.end())
             {
@@ -807,12 +809,8 @@ inline void handleChassisPatch(
                 const std::vector<std::string>& interfaces3 =
                     connectionNames[0].second;
 
-                const std::array<const char*, 3> hasIndicatorLed = {
-                    "xyz.openbmc_project.Inventory.Item.Chassis",
-                    "xyz.openbmc_project.Inventory.Item.Panel",
-                    "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
                 bool indicatorChassis = false;
-                for (const char* interface : hasIndicatorLed)
+                for (const char* interface : hasIndicatorLedInterfaces)
                 {
                     if (std::ranges::find(interfaces3, interface) !=
                         interfaces3.end())
