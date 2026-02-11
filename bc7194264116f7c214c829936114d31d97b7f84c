@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "741d9ed6_4a483445",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T17:23:26Z",
+      "side": 1,
+      "message": "Because I\u0027m better at writing bugs than I am at writing code 😊\n\nFixed.",
+      "parentUuid": "29308c2d_749144bd",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b3c903f_8fb6086f",
@@ -75,6 +99,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d035782_6a306639",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T17:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "454134fd_5814301b",
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "544de4cb_6a53f650",
@@ -88,6 +130,30 @@
       "writtenOn": "2026-02-10T21:12:49Z",
       "side": 1,
       "message": "remove?",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 9
+      },
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "856f1fcf_0bbd672d",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T17:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "544de4cb_6a53f650",
       "range": {
         "startLine": 145,
         "startChar": 8,
@@ -121,6 +187,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63bd295f_554716b6",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T17:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df310b1a_8232b126",
+      "range": {
+        "startLine": 173,
+        "startChar": 21,
+        "endLine": 173,
+        "endChar": 24
+      },
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bffe3e32_df4f5cee",
@@ -134,6 +224,24 @@
       "writtenOn": "2026-02-10T21:12:49Z",
       "side": 1,
       "message": "Feel like writing a test that tests 501 keys..? \n\n```\nEXPECT_TRUE(parseStringAsJson(makeObjectWithNKeys(500))) \nEXPECT_FALSE(parseStringAsJson(makeObjectWithNKeys(501)))\n```",
+      "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11aad0a2_b693e588",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T17:23:26Z",
+      "side": 1,
+      "message": "Fair.  I added this later.",
+      "parentUuid": "bffe3e32_df4f5cee",
       "revId": "bc7194264116f7c214c829936114d31d97b7f84c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
