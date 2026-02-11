@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eebeea05_b0b8c50a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-11T05:00:51Z",
+      "side": 1,
+      "message": "\u003e Then why not just fix it here if we think we will use it one day?\n\nI tried to fix it in the latest revision.",
+      "parentUuid": "c0ae03d0_63df736e",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2495d161_6a4cd4df",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "Yes, schema changes.\n\nWhy have a property in the schema if we aren\u0027t going to use it?\n\nBumping the version to like OpenBMCManager.v1_1_0.Manager.FanZone will help clients handle this.",
       "parentUuid": "f74207a6_7047f4bb",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2dc2f01_e6b4af6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-11T05:00:51Z",
+      "side": 1,
+      "message": "\u003e Why have a property in the schema if we aren\u0027t going to use it?\n\nThere\u0027s tons of optional properties in redfish schemas that are not used in bmcweb. I had the impression that\u0027s kind of the default state for an optional property to be absent.\n\nAnyways i resolved to fix the property instead of removing it since that\u0027s the outcome both you and Ed seem to be ok with.",
+      "parentUuid": "4678aa0f_b59e3122",
       "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
