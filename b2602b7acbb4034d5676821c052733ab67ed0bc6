@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "515a4346_2842b505",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2026-02-11T17:29:10Z",
+      "side": 1,
+      "message": "nit: typo",
+      "revId": "b2602b7acbb4034d5676821c052733ab67ed0bc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
