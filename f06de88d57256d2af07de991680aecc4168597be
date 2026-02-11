@@ -142,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a75c7ecf_1b60b23a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T19:24:01Z",
+      "side": 1,
+      "message": "oh, I see now, jsonVal and JsonObj are functionally the same.  I\u0027ve made the change, but they have the same behavior.",
+      "parentUuid": "690e0035_55fbdcbd",
+      "range": {
+        "startLine": 1120,
+        "startChar": 54,
+        "endLine": 1120,
+        "endChar": 58
+      },
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4ffd1af_148c3c81",
