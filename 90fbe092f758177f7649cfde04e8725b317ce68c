@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bd5eaea_705e9a5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-11T05:10:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dc24e70d_6b9894d2",
+      "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b598e5c5_5713bd4a",
@@ -84,6 +102,24 @@
       "writtenOn": "2026-01-06T18:19:31Z",
       "side": 1,
       "message": "This call throws an exception on bad input.",
+      "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "244d56a4_ac4051c0",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-11T05:10:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b598e5c5_5713bd4a",
       "revId": "90fbe092f758177f7649cfde04e8725b317ce68c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
