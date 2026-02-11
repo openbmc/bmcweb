@@ -16,6 +16,23 @@
       "message": "From https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85103",
       "revId": "ea4f4e8bcf11eb8a745c888ca67ac6a211087269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e3cf69f_14a1702b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-11T20:10:57Z",
+      "side": 1,
+      "message": "Oof, strange that wasn\u0027t caught by CI.",
+      "revId": "ea4f4e8bcf11eb8a745c888ca67ac6a211087269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
