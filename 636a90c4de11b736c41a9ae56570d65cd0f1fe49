@@ -252,6 +252,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6385cee0_e9d56fee",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-11T02:49:18Z",
+      "side": 1,
+      "message": "\u003e  It is confusing.. What is the multi-host interface, let\u0027s choose it and go with it\n\nI can see how it would be simpler for maintainers to keep track of if we did not use multiple interfaces. Unfortunately it is not that simple currently but maybe we can pretend that it is for a little while longer 😊\n\n\u003e The mechanism of determine the system name is independent from my \nchange\n\nAgree. Let\u0027s not get hung up on exactly which interface to use, it\u0027s a \nsmall detail we can fix at a later point. It\u0027s a separate discussion \nfrom this feature patch.\n\n@oliver.brewka@9elements.com\n\nWhat if we backpedal here to go back to using the `ManagedHost` (just for this patch) and change it to `Item.System` again in `87160`. With both patches merged the final outcome would be the same. And in case `87160` does not go in anytime soon, then we at least have the processor collection merged. Is it ok for you if we go this route.",
+      "parentUuid": "cd8f6b37_9f401c3a",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64f63077_ef141cd5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 52
