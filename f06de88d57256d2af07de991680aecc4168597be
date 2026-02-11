@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1218f28_37434d05",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T19:10:35Z",
+      "side": 1,
+      "message": "Changed",
+      "parentUuid": "95c813be_c8bedaae",
+      "range": {
+        "startLine": 1078,
+        "startChar": 38,
+        "endLine": 1078,
+        "endChar": 43
+      },
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebd02ace_c0f20f7c",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-02-10T21:31:33Z",
       "side": 1,
       "message": "nitpick: membersIt or satMembersIt might fit better with what I see other places",
+      "range": {
+        "startLine": 1098,
+        "startChar": 24,
+        "endLine": 1098,
+        "endChar": 32
+      },
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9adc5a05_e50e42d0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T19:10:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebd02ace_c0f20f7c",
       "range": {
         "startLine": 1098,
         "startChar": 24,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "690e0035_55fbdcbd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T19:10:35Z",
+      "side": 1,
+      "message": "Yep.... not sure why unit tests didn\u0027t catch that.... now I\u0027m worried.  Fixed it.",
+      "parentUuid": "9753a1d2_67375e6e",
+      "range": {
+        "startLine": 1120,
+        "startChar": 54,
+        "endLine": 1120,
+        "endChar": 58
+      },
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4ffd1af_148c3c81",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -83,6 +155,24 @@
       "writtenOn": "2026-02-10T21:31:33Z",
       "side": 1,
       "message": "Didn\u0027t you already do this check on line 1102 ? Shouldn\u0027t this be checking the localMemebers like line 1148-1162?",
+      "revId": "f06de88d57256d2af07de991680aecc4168597be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92d26db4_ef683fad",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-11T19:10:35Z",
+      "side": 1,
+      "message": "Yes we did.  It was duplicated before, but I\u0027ve fixed it now.",
+      "parentUuid": "f4ffd1af_148c3c81",
       "revId": "f06de88d57256d2af07de991680aecc4168597be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
