@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b0c9d6b_a737545c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T17:56:14Z",
+      "side": 1,
+      "message": "Please give a little more details here.  Why is this useful.",
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d39cfb_b11d81bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T17:56:14Z",
+      "side": 1,
+      "message": "please document what you tested.  Knowing you tested on an EVB is useful, but doesn\u0027t tell me how I can make sure I see the same behavior.",
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc678d08_90e49a09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T17:56:14Z",
+      "side": 1,
+      "message": "Overall, I suspect this is solving a problem that needs handled in the backend.",
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "443aaae9_322955be",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T17:56:14Z",
+      "side": 1,
+      "message": "You look like you\u0027ve ignored this.  Please don\u0027t ignore it.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 37
+      },
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bd70800_c8e510b6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T17:56:14Z",
+      "side": 1,
+      "message": "I think the previous message here was correct.  The internal service failed to provide updates and has locked up.\n\nIf we want to provide this information to the user, do it via the backend service.",
+      "range": {
+        "startLine": 353,
+        "startChar": 18,
+        "endLine": 353,
+        "endChar": 43
+      },
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
