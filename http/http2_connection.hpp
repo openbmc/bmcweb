@@ -55,6 +55,7 @@ struct Http2StreamData
     std::optional<bmcweb::HttpBody::reader> reqReader;
     std::string accept;
     std::string acceptEnc;
+    boost::optional<uint64_t> contentLength;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
 };
@@ -278,7 +279,7 @@ class HTTP2Connection :
 
     int onRequestRecv(int32_t streamId)
     {
-        BMCWEB_LOG_DEBUG("on_request_recv");
+        BMCWEB_LOG_DEBUG("onRequestRecv streamId:{}", streamId);
 
         auto it = streams.find(streamId);
         if (it == streams.end())
@@ -367,6 +368,13 @@ class HTTP2Connection :
         {
             Request::Body& req = thisStream->second.req->req;
             reqReader.emplace(req.base(), req.body());
+            boost::beast::error_code initEc;
+            reqReader->init(thisStream->second.contentLength, initEc);
+            if (initEc)
+            {
+                BMCWEB_LOG_CRITICAL("Failed to initialize payload");
+                return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+            }
         }
         boost::beast::error_code ec;
         reqReader->put(boost::asio::const_buffer(data, len), ec);
@@ -510,6 +518,18 @@ class HTTP2Connection :
         else
         {
             thisReq.addHeader(nameSv, valueSv);
+            if (nameSv == "content-length")
+            {
+                uint64_t contentLength = 0;
+                auto [ptr, err] = std::from_chars(valueSv.begin(),
+                                                  valueSv.end(), contentLength);
+                if (err != std::errc() || ptr != valueSv.end())
+                {
+                    BMCWEB_LOG_ERROR("Invalid content length {}", valueSv);
+                    return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+                }
+                thisStream->second.contentLength = contentLength;
+            }
         }
         return 0;
     }
