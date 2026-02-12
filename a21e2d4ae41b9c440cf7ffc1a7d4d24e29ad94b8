@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2c2d7f2_9962d91c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T15:58:16Z",
+      "side": 1,
+      "message": "Can you update Redfish.md ? Looks good though.",
+      "revId": "a21e2d4ae41b9c440cf7ffc1a7d4d24e29ad94b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

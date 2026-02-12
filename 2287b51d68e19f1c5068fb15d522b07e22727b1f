@@ -69,6 +69,24 @@
       "parentUuid": "f3608185_aae4d332",
       "revId": "2287b51d68e19f1c5068fb15d522b07e22727b1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39dbaf5b_5b6eb202",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T15:58:16Z",
+      "side": 1,
+      "message": "Would have preferred PDI add support for the other types, but this works.",
+      "parentUuid": "3bea5acc_0b94cec7",
+      "revId": "2287b51d68e19f1c5068fb15d522b07e22727b1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
