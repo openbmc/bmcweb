@@ -76,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c06bfb69_24de467b",
+        "filename": "docs/COMMON_ERRORS.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:55:41Z",
+      "side": 1,
+      "message": "Added a pointer.",
+      "parentUuid": "b10583b1_cbcdde0d",
+      "range": {
+        "startLine": 101,
+        "startChar": 46,
+        "endLine": 101,
+        "endChar": 54
+      },
+      "revId": "98e3e4eaf53117d3f00307bd71edc350ac71e167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e45c318c_7f755424",
