@@ -146,6 +146,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "11a8cfed_0b6a063d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-02-12T04:07:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e566c6a4_608240cf",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "96ada8aa_ec801e2a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -464,6 +488,30 @@
       "range": {
         "startLine": 1195,
         "startChar": 8,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea6e76d8_9c3ebe04",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-02-12T04:07:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3ec6856e_f4a08a72",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
         "endLine": 1200,
         "endChar": 9
       },
