@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d19594c_5292b7f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:53:05Z",
+      "side": 1,
+      "message": "Updated to be more clear.  Reopenen if you think there\u0027s still work to do.",
+      "parentUuid": "a7c49fdd_6f4a8ef5",
+      "range": {
+        "startLine": 14,
+        "startChar": 66,
+        "endLine": 14,
+        "endChar": 70
+      },
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6bb9f0e_df956c2e",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-02-12T19:26:18Z",
       "side": 1,
       "message": "Tested: Unit tests passes.",
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3bdc13_6cc9f40a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:53:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6bb9f0e_df956c2e",
       "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -81,6 +123,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92ec801f_fc18c90c",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:53:05Z",
+      "side": 1,
+      "message": "Yep, I like that better.  Changed.",
+      "parentUuid": "871c6324_270cfc7a",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 14
+      },
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15b09a8e_8314ed72",
@@ -94,6 +160,30 @@
       "writtenOn": "2026-02-12T19:26:18Z",
       "side": 1,
       "message": "9 or change/keep this at 10 and modify makeDeepObject",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 15
+      },
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c01e464_8236e81c",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:53:05Z",
+      "side": 1,
+      "message": "Modified",
+      "parentUuid": "15b09a8e_8314ed72",
       "range": {
         "startLine": 113,
         "startChar": 12,
@@ -121,6 +211,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "733bb45b_a623225e",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:53:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94d28469_26fa3d42",
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b337b3fc_a4c35a4d",
@@ -134,6 +242,30 @@
       "writtenOn": "2026-02-12T19:26:18Z",
       "side": 1,
       "message": "nitpick 501. Or makeWideArray(500)",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 123,
+        "endChar": 16
+      },
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa8e235_ffe2a584",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:53:05Z",
+      "side": 1,
+      "message": "changed to test 500 and 561.",
+      "parentUuid": "b337b3fc_a4c35a4d",
       "range": {
         "startLine": 123,
         "startChar": 12,
