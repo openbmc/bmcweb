@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b2006fd_a7c86ff7",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T20:39:04Z",
+      "side": 1,
+      "message": "why can\u0027t this be std::optional?",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "2c53f37e300fd460badccde8c4c6b8369210fd7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58b055e0_688d63ad",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T20:39:04Z",
+      "side": 1,
+      "message": "on_headers_complete ?",
+      "range": {
+        "startLine": 398,
+        "startChar": 26,
+        "endLine": 398,
+        "endChar": 41
+      },
+      "revId": "2c53f37e300fd460badccde8c4c6b8369210fd7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1efc595_294b16f4",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T20:39:04Z",
+      "side": 1,
+      "message": "BMC_LOG_ERROR ?",
+      "revId": "2c53f37e300fd460badccde8c4c6b8369210fd7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ff84d8c_2151fd4b",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T20:39:04Z",
+      "side": 1,
+      "message": "How does this work with the  \"Trailer:\" header?  https://www.geeksforgeeks.org/computer-networks/http-headers-trailer/ ?",
+      "revId": "2c53f37e300fd460badccde8c4c6b8369210fd7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c598f593_e941f9dd",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T20:39:04Z",
+      "side": 1,
+      "message": "Do you need a close() here?\nWARNING here since isn\u0027t this a 4xx error ?",
+      "revId": "2c53f37e300fd460badccde8c4c6b8369210fd7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd52fae5_669a4807",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T20:39:04Z",
+      "side": 1,
+      "message": "You could check if it is already set.. But HTTP says multiple Content-Lengths are okay if they are the same value :/ \n\nFrom Google:\n```\nHandling Mismatched Values: If a recipient receives multiple Content-Length headers with different values, the message is malformed,\n```\n\n```\n\n    if (req.contentLength)\n    {\n\n       // If new length \n       if \n       {\n            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;\n```\n\n\nOh well.",
+      "revId": "2c53f37e300fd460badccde8c4c6b8369210fd7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
