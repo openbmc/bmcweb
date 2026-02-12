@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7c49fdd_6f4a8ef5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T19:26:18Z",
+      "side": 1,
+      "message": "NitPick: keys is the wrong word.. (since keys mean something else). values?\n\nYou could mention this is incremented on the start of objects and arrays, keys, and primitive values (bool, string, etc)",
+      "range": {
+        "startLine": 14,
+        "startChar": 66,
+        "endLine": 14,
+        "endChar": 70
+      },
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6bb9f0e_df956c2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T19:26:18Z",
+      "side": 1,
+      "message": "Tested: Unit tests passes.",
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e6a18b7_31d8afdf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T19:26:18Z",
+      "side": 1,
+      "message": "A couple minor things but looks good to me.",
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "871c6324_270cfc7a",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T19:26:18Z",
+      "side": 1,
+      "message": "This makes n+1 right? \n\nWould something like \n```\n std::string os; \n for (int i \u003d 0; i \u003c n; ++i)\n {\n     os +\u003d std::format(R\"({{\"{}\": )\", i);\n }\n\n os +\u003d \"null\";\n\n for (int i \u003d 0; i \u003c n; ++i)\n {\n      os +\u003d \"}\";\n }\n return os;\n```\n\nbe better ?\n\nI believe the output looks like: \n{\"0\": null}\n\n{\"0\": {\"1\": null}}\n\n{\"0\": {\"1\": {\"2\": {\"3\": {\"4\": null}}}}}\n\nVs \n{\"0\": {\"1\": {}}}\nfor the current function",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 14
+      },
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15b09a8e_8314ed72",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T19:26:18Z",
+      "side": 1,
+      "message": "9 or change/keep this at 10 and modify makeDeepObject",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 15
+      },
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94d28469_26fa3d42",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T19:26:18Z",
+      "side": 1,
+      "message": "I vote make this 11 and modify makeDeepObject",
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b337b3fc_a4c35a4d",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-12T19:26:18Z",
+      "side": 1,
+      "message": "nitpick 501. Or makeWideArray(500)",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 123,
+        "endChar": 16
+      },
+      "revId": "154a31e0fa06649ddfbc2978f4958282abf04e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
