@@ -33,6 +33,24 @@
       "message": "The PDI change only supports 1 type.. https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/86504\n\nCan PDI change to reflect these ?",
       "revId": "2287b51d68e19f1c5068fb15d522b07e22727b1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3608185_aae4d332",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-12T04:48:48Z",
+      "side": 1,
+      "message": "Acknowledged. I\u0027ll remove the unsupported types and only retain \u0027Accelerator\u0027 for now as per the PDI change in #86504.",
+      "parentUuid": "e5274aa8_1a98d922",
+      "revId": "2287b51d68e19f1c5068fb15d522b07e22727b1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
