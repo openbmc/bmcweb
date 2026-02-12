@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "49a24be2_b6612cfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:54:29Z",
+      "side": 1,
+      "message": "Yeah, I was planning on doing some sanity testing.",
+      "parentUuid": "902c3b4c_8f06a955",
+      "revId": "98e3e4eaf53117d3f00307bd71edc350ac71e167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "543f88a4_259a6de5",
@@ -71,6 +89,24 @@
       "writtenOn": "2026-02-12T19:43:24Z",
       "side": 1,
       "message": "not your commit but should include optional. oh well",
+      "revId": "98e3e4eaf53117d3f00307bd71edc350ac71e167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf48f90_f2b2e9bf",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-12T22:54:29Z",
+      "side": 1,
+      "message": "Added in this patch.",
+      "parentUuid": "e45c318c_7f755424",
       "revId": "98e3e4eaf53117d3f00307bd71edc350ac71e167",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
