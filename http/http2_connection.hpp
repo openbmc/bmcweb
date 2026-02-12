@@ -55,6 +55,7 @@ struct Http2StreamData
     std::optional<bmcweb::HttpBody::reader> reqReader;
     std::string accept;
     std::string acceptEnc;
+    boost::optional<uint64_t> contentLength;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
 };
@@ -278,7 +279,7 @@ class HTTP2Connection :
 
     int onRequestRecv(int32_t streamId)
     {
-        BMCWEB_LOG_DEBUG("on_request_recv");
+        BMCWEB_LOG_DEBUG("onRequestRecv streamId:{}", streamId);
 
         auto it = streams.find(streamId);
         if (it == streams.end())
@@ -392,13 +393,48 @@ class HTTP2Connection :
             flags, streamId, data, len);
     }
 
+    int onHeadersComplete(int32_t streamId)
+    {
+        BMCWEB_LOG_DEBUG("onHeadersComplete streamId:{}", streamId);
+
+        auto it = streams.find(streamId);
+        if (it == streams.end())
+        {
+            close();
+            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+        }
+        auto& reqReader = it->second.reqReader;
+        if (reqReader)
+        {
+            boost::beast::error_code ec;
+            reqReader->init(it->second.contentLength, ec);
+            if (ec)
+            {
+                BMCWEB_LOG_CRITICAL("Failed to initialize payload");
+                close();
+                return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+            }
+        }
+
+        return 0;
+    }
+
     int onFrameRecvCallback(const nghttp2_frame& frame)
     {
         BMCWEB_LOG_DEBUG("frame type {}", static_cast<int>(frame.hd.type));
         switch (frame.hd.type)
         {
-            case NGHTTP2_DATA:
             case NGHTTP2_HEADERS:
+                if ((frame.hd.flags & NGHTTP2_FLAG_END_HEADERS) != 0)
+                {
+                    int ret = onHeadersComplete(frame.hd.stream_id);
+                    if (ret != 0)
+                    {
+                        return ret;
+                    }
+                }
+                [[fallthrough]];
+            case NGHTTP2_DATA:
                 // Check that the client request has finished
                 if ((frame.hd.flags & NGHTTP2_FLAG_END_STREAM) != 0)
                 {
@@ -510,6 +546,18 @@ class HTTP2Connection :
         else
         {
             thisReq.addHeader(nameSv, valueSv);
+            if (nameSv == "content-length")
+            {
+                uint64_t contentLength = 0;
+                auto [ptr, err] = std::from_chars(valueSv.begin(),
+                                                  valueSv.end(), contentLength);
+                if (err != std::errc() || ptr != valueSv.end())
+                {
+                    BMCWEB_LOG_ERROR("Invalid content length {}", valueSv);
+                    return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+                }
+                thisStream->second.contentLength = contentLength;
+            }
         }
         return 0;
     }
