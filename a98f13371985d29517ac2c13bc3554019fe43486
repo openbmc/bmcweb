@@ -123,6 +123,24 @@
       "parentUuid": "f6797ed8_90e8141b",
       "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9472e9a0_bcc6b27e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001843
+      },
+      "writtenOn": "2026-02-12T13:36:12Z",
+      "side": 1,
+      "message": "I am not sure if this approach is entirely correct as it hasn\u0027t been merged yet, but you can refer to the files in my commit for more details: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85785",
+      "parentUuid": "be282f99_c4ac66ec",
+      "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
