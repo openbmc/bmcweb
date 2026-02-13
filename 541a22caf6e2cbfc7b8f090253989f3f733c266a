@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2385581a_45e40497",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T17:28:05Z",
+      "side": 1,
+      "message": "I think I understand what\u0027s going on here.  Backend services have evolved, and now have more interfaces that might have string matches.  We weren\u0027t ever checking the interface names (because why would we) and we could not potentially point to a zone instead of a chassis.\n\nOverall, I think this patch is headed in the right direction",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2bc5cac_22657900",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T17:28:05Z",
+      "side": 1,
+      "message": "unordered_set or flat_set please\n\nIf we\u0027re going to enforce a sort order, it needs to be based on the \"human sort\" methods.\n\n(post reading the rest of the review) nowhere is this used as a set, it\u0027s only looped over in getChassisForZone, so just return a vector here.",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 15
+      },
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c259256_2b6013c3",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T17:28:05Z",
+      "side": 1,
+      "message": "I suspect this isn\u0027t doing what you think it\u0027s doing, contains is searching for these two interfaces in order.  There\u0027s no order promised in this container, and there might be interfaces in between.  I think you want !std::ranges::set_intersection(....).empty()",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25140eec_e3fdf185",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T17:28:05Z",
+      "side": 1,
+      "message": "As written this is going to match every chassis, not just one.",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14ce7863_425f2cc3",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T17:28:05Z",
+      "side": 1,
+      "message": "Do we want to break here?  potentially (unlikely) we\u0027d have more than one thing that matches.",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
