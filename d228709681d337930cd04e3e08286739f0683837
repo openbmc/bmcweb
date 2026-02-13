@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75cc61a3_c4dc19dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T19:17:13Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "755da985_c368d319",
+      "revId": "d228709681d337930cd04e3e08286739f0683837",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc8cf6e9_4b7a9962",
@@ -85,6 +103,24 @@
       "side": 1,
       "message": "https://gerrit.openbmc.org/c/openbmc/webui-vue/+/87436 would unblock.\nHowever, we still would like this Etag fix in ASAP.  I updated to add the unit test but was unable to run it as I can\u0027t access my openbmc workspace today.",
       "parentUuid": "7e832f48_0febd1c4",
+      "revId": "d228709681d337930cd04e3e08286739f0683837",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70c03f91_ddc60054",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T19:17:13Z",
+      "side": 1,
+      "message": "Unit tests added.",
+      "parentUuid": "3588520a_3b270e11",
       "revId": "d228709681d337930cd04e3e08286739f0683837",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
