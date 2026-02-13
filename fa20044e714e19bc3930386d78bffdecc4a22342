@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c34ca82_d04fc3b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-13T15:58:00Z",
+      "side": 1,
+      "message": "I am good",
+      "revId": "fa20044e714e19bc3930386d78bffdecc4a22342",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca07d397_de534129",
+        "filename": "test/http/parsing_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-13T15:58:00Z",
+      "side": 1,
+      "message": "11",
+      "range": {
+        "startLine": 115,
+        "startChar": 12,
+        "endLine": 115,
+        "endChar": 15
+      },
+      "revId": "fa20044e714e19bc3930386d78bffdecc4a22342",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
