@@ -69,6 +69,24 @@
       "parentUuid": "3a04292a_a5ca54f2",
       "revId": "d228709681d337930cd04e3e08286739f0683837",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3588520a_3b270e11",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002106
+      },
+      "writtenOn": "2026-02-13T19:02:49Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/webui-vue/+/87436 would unblock.\nHowever, we still would like this Etag fix in ASAP.  I updated to add the unit test but was unable to run it as I can\u0027t access my openbmc workspace today.",
+      "parentUuid": "7e832f48_0febd1c4",
+      "revId": "d228709681d337930cd04e3e08286739f0683837",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
