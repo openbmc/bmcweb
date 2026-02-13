@@ -141,6 +141,24 @@
       "parentUuid": "4678aa0f_b59e3122",
       "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6ad5d6c_a9bf8455",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T17:18:39Z",
+      "side": 1,
+      "message": "I do think fixing this is the right answer vs outright removal.",
+      "parentUuid": "b2dc2f01_e6b4af6a",
+      "revId": "e7e369f522cd200470cbb8a5c7ab9e6e4eab1d1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
