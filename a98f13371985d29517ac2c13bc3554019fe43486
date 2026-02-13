@@ -159,6 +159,24 @@
       "parentUuid": "9472e9a0_bcc6b27e",
       "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74cd9794_875ec0dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-13T17:18:18Z",
+      "side": 1,
+      "message": "\u003e I\u0027m aware of the compatibility thing that\u0027s why i asked on discord first if it\u0027s ok to drop the property.\n\nDiscord doesn\u0027t override what\u0027s written down.  If the bmcweb maintainers (myself or Gunnar) told you to remove it, that\u0027s one thing, but discord is a way to build consensus on policy changes, not outright ignore what we wrote down.\n\n\u003e Can you kindly share your output\n\nThis isn\u0027t a priority for me, but will add to my back burner.  Coming up with a correct example to follow should be pretty doable.  There are lots of examples of odata links.",
+      "parentUuid": "3eb2ade0_1a9aef5f",
+      "revId": "a98f13371985d29517ac2c13bc3554019fe43486",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
