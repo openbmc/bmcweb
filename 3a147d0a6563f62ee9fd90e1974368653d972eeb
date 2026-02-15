@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c879c33d_ed8d9ec6",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2026-02-15T17:31:49Z",
+      "side": 1,
+      "message": "init() may never be called as the reader doesn\u0027t exist at this stage. the reader is actually constructed later via emplace() inside onDataChunkRecvCallback()",
+      "revId": "3a147d0a6563f62ee9fd90e1974368653d972eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
