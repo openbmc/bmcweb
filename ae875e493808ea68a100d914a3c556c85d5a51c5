@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57685084_584608ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-15T18:13:10Z",
+      "side": 1,
+      "message": "\u003e Why can\u0027t we just switch to Item.System now?\n\nWe could, if we move the HostIndex property from ManagedHost interface to Item.System. However, depending on how we want to proceed with merging single- and multi-host paths, we might not need the property.  \n\nI\u0027ll try to follow-up with a discord thread today, where we should discuss the merge strategy for single- and multi-host code paths to get all on the same page.\n\nResolving this for now.",
+      "parentUuid": "3286241e_8e89ef51",
+      "revId": "ae875e493808ea68a100d914a3c556c85d5a51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba4febff_cc5999dc",
@@ -79,6 +97,30 @@
       "side": 1,
       "message": "Can you explain how associations may help in avoiding the property?",
       "parentUuid": "05b5bfab_00847d1b",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 62
+      },
+      "revId": "ae875e493808ea68a100d914a3c556c85d5a51c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c245b09_4fdff3d0",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-15T18:13:10Z",
+      "side": 1,
+      "message": "Same as with inventory related associations. For those, we don\u0027t need the property too.",
+      "parentUuid": "f22c6a14_67ec5485",
       "range": {
         "startLine": 209,
         "startChar": 8,
