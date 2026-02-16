@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f836fad3_800c6b78",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 1183,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2026-02-16T20:02:48Z",
+      "side": 0,
+      "message": "We should continue to have this check before updateMultipartContext is called ?",
+      "revId": "cef2b8740f9751117890ba91e4176a5e3bfaaa96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
