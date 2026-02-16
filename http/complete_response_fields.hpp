@@ -107,12 +107,15 @@ inline void handleEncoding(std::string_view acceptEncoding, Response& res)
                 http_helpers::getPreferredEncoding(acceptEncoding, allowedEnc);
             if (encoding == ZSTD)
             {
-                BMCWEB_LOG_ERROR("Content can be compressed with zstd.");
+                BMCWEB_LOG_DEBUG("Content can be compressed with zstd.");
+                BMCWEB_LOG_DEBUG("Not compressing due to bug");
+                /*
                 if (!attemptZstdCompression(res))
                 {
                     BMCWEB_LOG_ERROR(
                         "Failed to compress content with zstd.  Continuing.");
                 }
+                */
             }
         }
         break;
