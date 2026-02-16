@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e81d58a8_3427893b",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-16T19:30:39Z",
+      "side": 1,
+      "message": "onHeadersComplete is no longer doing anything and can be removed.",
+      "revId": "a2212a0cd9298d9181bb57d396db093c1e05fe07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
