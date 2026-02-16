@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78d16489_2b94f9a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-16T02:08:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2385581a_45e40497",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cb16392_81da3273",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-13T20:16:14Z",
       "side": 1,
       "message": "#include ranges",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b26004ac_ea2b8afc",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-16T02:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cb16392_81da3273",
       "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "558db7f9_b6cdd546",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-16T02:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2bc5cac_22657900",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 15
+      },
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c259256_2b6013c3",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-02-13T17:28:05Z",
       "side": 1,
       "message": "I suspect this isn\u0027t doing what you think it\u0027s doing, contains is searching for these two interfaces in order.  There\u0027s no order promised in this container, and there might be interfaces in between.  I think you want !std::ranges::set_intersection(....).empty()",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c312253b_1401345d",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-16T02:08:09Z",
+      "side": 1,
+      "message": "Added a few const symbols to clarify the code.",
+      "parentUuid": "6c259256_2b6013c3",
       "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -92,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "487f939a_87551709",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-16T02:08:09Z",
+      "side": 1,
+      "message": "Yes, exactly, it is a utility function to return all chassis paths from the managed object type.",
+      "parentUuid": "25140eec_e3fdf185",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f119170_2bff4cb5",
@@ -105,6 +201,24 @@
       "writtenOn": "2026-02-13T20:16:14Z",
       "side": 1,
       "message": "#include set",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35638fc8_72acbde2",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-16T02:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f119170_2bff4cb5",
       "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -156,6 +270,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08c8934a_87250c98",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-16T02:08:09Z",
+      "side": 1,
+      "message": "Changed it to support cases where the pid zone may be nested further down 👍",
+      "parentUuid": "453d3874_5937df09",
+      "range": {
+        "startLine": 63,
+        "startChar": 12,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14ce7863_425f2cc3",
@@ -169,6 +307,24 @@
       "writtenOn": "2026-02-13T17:28:05Z",
       "side": 1,
       "message": "Do we want to break here?  potentially (unlikely) we\u0027d have more than one thing that matches.",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b799bc35_cf369e44",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-16T02:08:09Z",
+      "side": 1,
+      "message": "Added the early return 👍",
+      "parentUuid": "14ce7863_425f2cc3",
       "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
