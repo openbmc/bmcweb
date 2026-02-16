@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "716e75a0_09e5d039",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be an nlohmann::json::object_t?",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 18
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "970f2e9e_7b5a3578",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Why the division here? The D-Bus says this is Watts which should be the same unit for the Redfish.",
+      "range": {
+        "startLine": 301,
+        "startChar": 55,
+        "endLine": 301,
+        "endChar": 61
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9adb0e52_077228a8",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Why the division here? The D-Bus says this is Watts which should be the same unit for the Redfish.",
+      "range": {
+        "startLine": 306,
+        "startChar": 55,
+        "endLine": 306,
+        "endChar": 61
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93193e37_7ee26209",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Why the division here? The D-Bus says this is Watts which should be the same unit for the Redfish.",
+      "range": {
+        "startLine": 323,
+        "startChar": 57,
+        "endLine": 323,
+        "endChar": 63
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "701a3c0c_855a5d4b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Why the division here? The D-Bus says this is Watts which should be the same unit for the Redfish.",
+      "range": {
+        "startLine": 334,
+        "startChar": 47,
+        "endLine": 334,
+        "endChar": 53
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a5f2ea7_eafefac1",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Is it correct to assume there is only one associated \"controlled_by\" object? What is the correct behavior if there is more than one?",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 2
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de45e22e_ea4c357d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Might as well use mapper that gets the objects and their interfaces since it can constrain the search to interfaces implemented.\nSee: https://github.com/openbmc/docs/blob/master/architecture/object-mapper.md#getassociatedsubtree",
+      "range": {
+        "startLine": 401,
+        "startChar": 19,
+        "endLine": 401,
+        "endChar": 42
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e5e8296_e713a005",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Why split these routes out? There have been recent changes combining \nmultiple requestRoutes* functions into single ones per file. This change\n goes against that direction.",
+      "range": {
+        "startLine": 537,
+        "startChar": 12,
+        "endLine": 537,
+        "endChar": 52
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cae9f2f0_de6e0ec7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-16T18:59:32Z",
+      "side": 1,
+      "message": "Similar to other file, seems like using GetAssociatedSubtree here would be better.\nhttps://github.com/openbmc/docs/blob/master/architecture/object-mapper.md#getassociatedsubtree",
+      "range": {
+        "startLine": 788,
+        "startChar": 19,
+        "endLine": 788,
+        "endChar": 42
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
