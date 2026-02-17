@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7ea9efc_03c6cda0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-17T17:07:07Z",
+      "side": 1,
+      "message": "Can you document (or link openssl defaults) for how session storage is accomplished?  I\u0027m assuming it\u0027s in ram.  Do we think the defaults are good enough for BMC use cases, or do we need to reduce the number of allowed resumable connections?  Presumably each connection would require storage of a certificate;  I could imagine that getting very large in memory if not constrained somehow.",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cf998bc_44c77a49",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-17T17:07:07Z",
+      "side": 1,
+      "message": "I don\u0027t see a #include for this.  Can we make sure this is also done in the ssl compile unit please?",
+      "range": {
+        "startLine": 258,
+        "startChar": 16,
+        "endLine": 258,
+        "endChar": 34
+      },
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20f2b90d_0fd357f2",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-17T17:07:07Z",
+      "side": 1,
+      "message": "Why are we needing to verify this by hand now?  is verifyMtlsUser callback not called in the resumption case?",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a05d758b_8c050c4c",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-17T17:07:07Z",
+      "side": 1,
+      "message": "this method looks like more or less a copy paste of the above?  Can we consolidate at all?  Considering these are security functions, I’d prefer if we were more careful about ensuring there’s a single path through.",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a83d9ec_8d9eeec3",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-17T17:07:07Z",
+      "side": 1,
+      "message": "As much as possible I\u0027m trying to keep openssl out of the public headers.  I think we can just pass boost::asio::ssl::verify_context and pull native_handle() out within the method?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
