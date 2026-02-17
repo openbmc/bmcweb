@@ -41,6 +41,7 @@ inline void handleFabricSwitchPathSwitchGet(
         "/redfish/v1/Fabrics/{}/Switches/{}", fabricId, switchId);
     asyncResp->res.jsonValue["Id"] = switchId;
     asyncResp->res.jsonValue["Name"] = switchId;
+    asyncResp->res.jsonValue["Description"] = "Fabric Switch resource";
 
     nlohmann::json& status = asyncResp->res.jsonValue["Status"];
     status["Health"] = resource::Health::OK;

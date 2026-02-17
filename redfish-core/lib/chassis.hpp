@@ -274,6 +274,7 @@ inline void handleChassisCollectionGet(
         "#ChassisCollection.ChassisCollection";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
+    asyncResp->res.jsonValue["Description"] = "Collection of Chassis Entries";
 
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::url("/redfish/v1/Chassis"), chassisInterfaces,

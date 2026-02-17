@@ -2823,6 +2823,8 @@ inline void handleComputerSystemCollectionGet(
         "#ComputerSystemCollection.ComputerSystemCollection";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
     asyncResp->res.jsonValue["Name"] = "Computer System Collection";
+    asyncResp->res.jsonValue["Description"] =
+        "Collection of computer system resources";
 
     systems_utils::getSystemCollectionMembers(asyncResp);
 }
@@ -3049,7 +3051,7 @@ inline void processComputerSystemGet(
     asyncResp->res.jsonValue["Id"] = systemName;
     asyncResp->res.jsonValue["SystemType"] =
         computer_system::SystemType::Physical;
-    asyncResp->res.jsonValue["Description"] = "Computer System";
+    asyncResp->res.jsonValue["Description"] = "Computer system resource";
     asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
     asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
         double(0);
@@ -3573,6 +3575,8 @@ inline void handleSystemCollectionResetActionGet(
     asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+    asyncResp->res.jsonValue["Description"] =
+        "Supported parameters for ComputerSystem reset action";
 
     // Look to see if system defines AllowedHostTransitions
     systems_utils::getComputerSystemIndex(
