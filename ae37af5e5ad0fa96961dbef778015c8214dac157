@@ -96,6 +96,23 @@
       },
       "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c3260a_0930540d",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-17T17:11:26Z",
+      "side": 1,
+      "message": "No error codes to check on any of these?",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
