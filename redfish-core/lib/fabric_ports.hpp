@@ -157,6 +157,7 @@ inline void getFabricPortProperties(
                             systemName, adapterId, portId);
     asyncResp->res.jsonValue["Id"] = portId;
     asyncResp->res.jsonValue["Name"] = "Fabric Port";
+    asyncResp->res.jsonValue["Description"] = "Fabric Port";
 
     getFabricPortLocation(asyncResp, portPath, serviceName);
     getFabricPortState(asyncResp, portPath, serviceName);

@@ -338,6 +338,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
         boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Drives/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
     asyncResp->res.jsonValue["Name"] = driveId;
+    asyncResp->res.jsonValue["Description"] = "Drive";
     asyncResp->res.jsonValue["Id"] = driveId;
 
     if (connectionNames.size() != 1)

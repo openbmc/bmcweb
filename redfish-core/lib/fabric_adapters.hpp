@@ -127,6 +127,7 @@ inline void doAdapterGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#FabricAdapter.v1_4_0.FabricAdapter";
     asyncResp->res.jsonValue["Name"] = "Fabric Adapter";
+    asyncResp->res.jsonValue["Description"] = "Fabric Adapter";
     asyncResp->res.jsonValue["Id"] = adapterId;
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/FabricAdapters/{}", systemName, adapterId);
@@ -344,6 +345,7 @@ inline void handleFabricAdapterCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#FabricAdapterCollection.FabricAdapterCollection";
     asyncResp->res.jsonValue["Name"] = "Fabric Adapter Collection";
+    asyncResp->res.jsonValue["Description"] = "Collection of Fabric Adapters";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/FabricAdapters", systemName);
 

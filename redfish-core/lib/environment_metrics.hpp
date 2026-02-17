@@ -216,6 +216,7 @@ inline void doEnvironmentMetricsGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#EnvironmentMetrics.v1_3_0.EnvironmentMetrics";
     asyncResp->res.jsonValue["Name"] = "Chassis Environment Metrics";
+    asyncResp->res.jsonValue["Description"] = "Chassis Environment Metrics";
     asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/EnvironmentMetrics", chassisId);

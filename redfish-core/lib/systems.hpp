@@ -2823,6 +2823,7 @@ inline void handleComputerSystemCollectionGet(
         "#ComputerSystemCollection.ComputerSystemCollection";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
     asyncResp->res.jsonValue["Name"] = "Computer System Collection";
+    asyncResp->res.jsonValue["Description"] = "Collection of Computer Systems";
 
     systems_utils::getSystemCollectionMembers(asyncResp);
 }
@@ -3573,6 +3574,7 @@ inline void handleSystemCollectionResetActionGet(
     asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+    asyncResp->res.jsonValue["Description"] = "Reset Action Info";
 
     // Look to see if system defines AllowedHostTransitions
     systems_utils::getComputerSystemIndex(

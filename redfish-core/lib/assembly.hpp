@@ -250,6 +250,7 @@ inline void afterHandleChassisAssemblyGet(
         boost::urls::format("/redfish/v1/Chassis/{}/Assembly", chassisID);
     asyncResp->res.jsonValue["Name"] = "Assembly Collection";
     asyncResp->res.jsonValue["Id"] = "Assembly";
+    asyncResp->res.jsonValue["Description"] = "Collection of Assemblies";
 
     asyncResp->res.jsonValue["Assemblies"] = nlohmann::json::array();
     asyncResp->res.jsonValue["Assemblies@odata.count"] = 0;

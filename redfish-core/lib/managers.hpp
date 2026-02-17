@@ -321,6 +321,7 @@ inline void handleManagerResetActionInfo(
         boost::urls::format("/redfish/v1/Managers/{}/ResetActionInfo",
                             BMCWEB_REDFISH_MANAGER_URI_NAME);
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
+    asyncResp->res.jsonValue["Description"] = "Reset Action Info";
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
     nlohmann::json::object_t parameter;
     parameter["Name"] = "ResetType";
@@ -920,6 +921,7 @@ inline void handleManagerCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#ManagerCollection.ManagerCollection";
     asyncResp->res.jsonValue["Name"] = "Manager Collection";
+    asyncResp->res.jsonValue["Description"] = "Collection of Managers";
     asyncResp->res.jsonValue["Members@odata.count"] = 1;
     nlohmann::json::array_t members;
     nlohmann::json& bmc = members.emplace_back();

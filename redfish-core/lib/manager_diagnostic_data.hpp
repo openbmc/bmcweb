@@ -259,6 +259,7 @@ inline void handleManagerDiagnosticDataGet(
                             BMCWEB_REDFISH_MANAGER_URI_NAME);
     asyncResp->res.jsonValue["Id"] = "ManagerDiagnosticData";
     asyncResp->res.jsonValue["Name"] = "Manager Diagnostic Data";
+    asyncResp->res.jsonValue["Description"] = "Manager Diagnostic Data";
 
     managerGetServiceRootUptime(asyncResp);
     managerGetProcessorStatistics(asyncResp);

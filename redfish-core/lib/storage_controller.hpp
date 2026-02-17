@@ -25,6 +25,7 @@ inline void populateStorageController(
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, controllerId);
     asyncResp->res.jsonValue["Name"] = controllerId;
     asyncResp->res.jsonValue["Id"] = controllerId;
+    asyncResp->res.jsonValue["Description"] = "Storage Controller";
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     dbus::utility::getProperty<bool>(
