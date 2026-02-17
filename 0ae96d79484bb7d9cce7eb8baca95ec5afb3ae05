@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeb34fc6_9da96a43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-17T01:25:27Z",
+      "side": 1,
+      "message": "You have made changes that could affect function though.",
+      "revId": "0ae96d79484bb7d9cce7eb8baca95ec5afb3ae05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9447a065_6cee517b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-17T01:25:27Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "0ae96d79484bb7d9cce7eb8baca95ec5afb3ae05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
