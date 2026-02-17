@@ -34,6 +34,24 @@
       "parentUuid": "65013bd7_0bdcb4e8",
       "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31d5cf66_1f803385",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-17T01:36:46Z",
+      "side": 1,
+      "message": "i did not try it, but what about an\n\n```\nif constexpr (false) {\n\tBMCWEB_LOG_DEBUG(\"...\");\n}\n```\n\n, that would rot less and not much effort to implement.\n\nIt\u0027s local to a function and does not need any extra symbol. Also relatively easy to grep for when someone needs to enable these logs.",
+      "parentUuid": "b3afcfc8_c123465b",
+      "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
