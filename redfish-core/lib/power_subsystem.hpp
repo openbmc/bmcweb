@@ -41,6 +41,8 @@ inline void doPowerSubsystemCollection(
     asyncResp->res.jsonValue["@odata.type"] =
         "#PowerSubsystem.v1_1_0.PowerSubsystem";
     asyncResp->res.jsonValue["Name"] = "Power Subsystem";
+    asyncResp->res.jsonValue["Description"] =
+        "Power subsystem resource for this chassis";
     asyncResp->res.jsonValue["Id"] = "PowerSubsystem";
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/PowerSubsystem", chassisId);

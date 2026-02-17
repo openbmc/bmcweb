@@ -322,6 +322,7 @@ inline void getDumpEntryCollection(
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Name"] = dumpType + " Dump Entry";
+                thisEntry["Description"] = dumpType + " Dump Entry";
                 thisEntry["Created"] =
                     redfish::time_utils::getDateTimeUintUs(timestampUs);
 
