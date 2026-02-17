@@ -35,6 +35,10 @@ int addExt(X509* cert, int nid, const char* value);
 
 std::string generateSslCertificate(const std::string& cn);
 
+X509* constructX509(const std::string& cn, EVP_PKEY* pPrivKey);
+
+EVP_PKEY* createEcKey();
+
 void writeCertificateToFile(const std::string& filepath,
                             const std::string& certificate);
 

@@ -34,6 +34,7 @@ extern "C"
 #include <openssl/x509v3.h>
 }
 
+#include <array>
 #include <bit>
 #include <cstddef>
 #include <filesystem>
@@ -48,8 +49,6 @@ extern "C"
 namespace ensuressl
 {
 
-static EVP_PKEY* createEcKey();
-
 // Mozilla intermediate cipher suites v5.7
 // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
 constexpr const char* mozillaIntermediate =
@@ -62,6 +61,9 @@ constexpr const char* mozillaIntermediate =
     "DHE-RSA-AES128-GCM-SHA256:"
     "DHE-RSA-AES256-GCM-SHA384:"
     "DHE-RSA-CHACHA20-POLY1305";
+
+constexpr std::array<unsigned char, 6> sessionIdContext = {
+    'b', 'm', 'c', 'w', 'e', 'b'};
 
 // Trust chain related errors.`
 bool isTrustChainError(int errnum)
@@ -268,13 +270,12 @@ void writeCertificateToFile(const std::string& filepath,
     }
 }
 
-static std::string constructX509(const std::string& cn, EVP_PKEY* pPrivKey)
+X509* constructX509(const std::string& cn, EVP_PKEY* pPrivKey)
 {
-    std::string buffer;
     X509* x509 = X509_new();
     if (x509 == nullptr)
     {
-        return buffer;
+        return nullptr;
     }
 
     // get a random number from the RNG for the certificate serial
@@ -323,35 +324,7 @@ static std::string constructX509(const std::string& cn, EVP_PKEY* pPrivKey)
     // Sign the certificate with our private key
     X509_sign(x509, pPrivKey, EVP_sha256());
 
-    BIO* bufio = BIO_new(BIO_s_mem());
-
-    int pkeyRet = PEM_write_bio_PrivateKey(bufio, pPrivKey, nullptr, nullptr, 0,
-                                           nullptr, nullptr);
-    if (pkeyRet <= 0)
-    {
-        BMCWEB_LOG_ERROR("Failed to write pkey with code {}.  Ignoring.",
-                         pkeyRet);
-    }
-
-    char* data = nullptr;
-    long int dataLen = BIO_get_mem_data(bufio, &data);
-    buffer += std::string_view(data, static_cast<size_t>(dataLen));
-    BIO_free(bufio);
-
-    bufio = BIO_new(BIO_s_mem());
-    pkeyRet = PEM_write_bio_X509(bufio, x509);
-    if (pkeyRet <= 0)
-    {
-        BMCWEB_LOG_ERROR("Failed to write X509 with code {}.  Ignoring.",
-                         pkeyRet);
-    }
-    dataLen = BIO_get_mem_data(bufio, &data);
-    buffer += std::string_view(data, static_cast<size_t>(dataLen));
-
-    BIO_free(bufio);
-    BMCWEB_LOG_INFO("Cert size is {}", buffer.size());
-    X509_free(x509);
-    return buffer;
+    return x509;
 }
 
 std::string generateSslCertificate(const std::string& cn)
@@ -364,8 +337,38 @@ std::string generateSslCertificate(const std::string& cn)
     if (pPrivKey != nullptr)
     {
         BMCWEB_LOG_INFO("Generating x509 Certificates");
-        // Use this code to directly generate a certificate
-        buffer = constructX509(cn, pPrivKey);
+        X509* x509 = constructX509(cn, pPrivKey);
+        if (x509 != nullptr)
+        {
+            BIO* bufio = BIO_new(BIO_s_mem());
+
+            int pkeyRet = PEM_write_bio_PrivateKey(
+                bufio, pPrivKey, nullptr, nullptr, 0, nullptr, nullptr);
+            if (pkeyRet <= 0)
+            {
+                BMCWEB_LOG_ERROR(
+                    "Failed to write pkey with code {}.  Ignoring.", pkeyRet);
+            }
+
+            char* data = nullptr;
+            long int dataLen = BIO_get_mem_data(bufio, &data);
+            buffer += std::string_view(data, static_cast<size_t>(dataLen));
+            BIO_free(bufio);
+
+            bufio = BIO_new(BIO_s_mem());
+            pkeyRet = PEM_write_bio_X509(bufio, x509);
+            if (pkeyRet <= 0)
+            {
+                BMCWEB_LOG_ERROR(
+                    "Failed to write X509 with code {}.  Ignoring.", pkeyRet);
+            }
+            dataLen = BIO_get_mem_data(bufio, &data);
+            buffer += std::string_view(data, static_cast<size_t>(dataLen));
+
+            BIO_free(bufio);
+            BMCWEB_LOG_INFO("Cert size is {}", buffer.size());
+            X509_free(x509);
+        }
     }
 
     EVP_PKEY_free(pPrivKey);
@@ -580,6 +583,25 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
 
         SSL_CTX_set_alpn_select_cb(sslCtx.native_handle(),
                                    alpnSelectProtoCallback, nullptr);
+    }
+
+    // Enable server-side in memory session caching, so they can be looked up
+    // by ID.
+    SSL_CTX_set_session_cache_mode(sslCtx.native_handle(), SSL_SESS_CACHE_BOTH);
+
+    // Set session cache size to prevent session ID DoS attack
+    SSL_CTX_sess_set_cache_size(sslCtx.native_handle(), 100);
+
+    // Set the Session ID Context
+    // OpenSSL REQUIRES this to be set for the server to support session
+    // caching. It prevents sessions from one application context (e.g., a
+    // different port/app) from being used in another.
+    if (SSL_CTX_set_session_id_context(sslCtx.native_handle(),
+                                       sessionIdContext.data(),
+                                       sessionIdContext.size()) != 1)
+    {
+        BMCWEB_LOG_ERROR("Error setting session ID context");
+        return nullptr;
     }
 
     return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
