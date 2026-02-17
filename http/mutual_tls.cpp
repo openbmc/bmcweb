@@ -6,10 +6,10 @@
 #include "mutual_tls_private.hpp"
 #include "sessions.hpp"
 
+#include <openssl/x509_vfy.h>
+
 #include <bit>
 #include <cstddef>
-#include <cstdint>
-#include <optional>
 #include <string>
 
 extern "C"
@@ -17,16 +17,15 @@ extern "C"
 #include <openssl/asn1.h>
 #include <openssl/obj_mac.h>
 #include <openssl/objects.h>
+#include <openssl/ssl.h>
 #include <openssl/types.h>
 #include <openssl/x509.h>
-#include <openssl/x509_vfy.h>
 #include <openssl/x509v3.h>
 }
 
 #include "logging.hpp"
 
 #include <boost/asio/ip/address.hpp>
-#include <boost/asio/ssl/verify_context.hpp>
 
 #include <memory>
 #include <string_view>
@@ -176,10 +175,8 @@ std::string getUsernameFromCert(X509* cert)
 }
 
 std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
-    const boost::asio::ip::address& clientIp,
-    boost::asio::ssl::verify_context& ctx)
+    const boost::asio::ip::address& clientIp, SSL* ssl)
 {
-    // do nothing if TLS is disabled
     if (!persistent_data::SessionStore::getInstance()
              .getAuthMethodsConfig()
              .tls)
@@ -188,49 +185,37 @@ std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
         return nullptr;
     }
 
-    X509_STORE_CTX* cts = ctx.native_handle();
-    if (cts == nullptr)
+    if (ssl == nullptr)
     {
-        BMCWEB_LOG_DEBUG("Cannot get native TLS handle.");
+        BMCWEB_LOG_DEBUG("SSL pointer is null");
         return nullptr;
     }
 
-    // Get certificate
-    X509* peerCert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
+    long verifyResult = SSL_get_verify_result(ssl);
+    if (verifyResult != X509_V_OK)
+    {
+        BMCWEB_LOG_INFO("TLS peer certificate verification error: {}",
+                        verifyResult);
+        return nullptr;
+    }
+
+    X509* peerCert = SSL_get1_peer_certificate(ssl);
     if (peerCert == nullptr)
     {
         BMCWEB_LOG_DEBUG("Cannot get current TLS certificate.");
         return nullptr;
     }
 
-    // Check if certificate is OK
-    int ctxError = X509_STORE_CTX_get_error(cts);
-    if (ctxError != X509_V_OK)
-    {
-        BMCWEB_LOG_INFO("Last TLS error is: {}", ctxError);
-        return nullptr;
-    }
-
-    // Check that we have reached final certificate in chain
-    int32_t depth = X509_STORE_CTX_get_error_depth(cts);
-    if (depth != 0)
-    {
-        BMCWEB_LOG_DEBUG(
-            "Certificate verification in progress (depth {}), waiting to reach final depth",
-            depth);
-        return nullptr;
-    }
-
-    BMCWEB_LOG_DEBUG("Certificate verification of final depth");
-
     if (X509_check_purpose(peerCert, X509_PURPOSE_SSL_CLIENT, 0) != 1)
     {
         BMCWEB_LOG_DEBUG(
             "Chain does not allow certificate to be used for SSL client authentication");
+        X509_free(peerCert);
         return nullptr;
     }
 
     std::string sslUser = getUsernameFromCert(peerCert);
+    X509_free(peerCert);
     if (sslUser.empty())
     {
         BMCWEB_LOG_WARNING("Failed to get user from peer certificate");

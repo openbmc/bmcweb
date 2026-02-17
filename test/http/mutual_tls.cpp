@@ -5,24 +5,27 @@
 #include "mutual_tls_private.hpp"
 #include "sessions.hpp"
 
+#include <openssl/x509_vfy.h>
+
+#include <algorithm>
 #include <cstring>
 #include <string>
 
 extern "C"
 {
 #include <openssl/asn1.h>
+#include <openssl/bio.h>
 #include <openssl/ec.h>
 #include <openssl/evp.h>
 #include <openssl/obj_mac.h>
 #include <openssl/objects.h>
+#include <openssl/ssl.h>
 #include <openssl/types.h>
 #include <openssl/x509.h>
-#include <openssl/x509_vfy.h>
 #include <openssl/x509v3.h>
 }
 
 #include <boost/asio/ip/address.hpp>
-#include <boost/asio/ssl/verify_context.hpp>
 
 #include <array>
 #include <memory>
@@ -68,9 +71,14 @@ class OSSLX509
         EVP_PKEY_CTX_free(pctx);
 
         // Sign cert with key
+        signWithKey(pkey);
+        EVP_PKEY_free(pkey);
+    }
+
+    void signWithKey(EVP_PKEY* pkey)
+    {
         ASSERT_EQ(X509_set_pubkey(ptr, pkey), 1);
         ASSERT_GT(X509_sign(ptr, pkey, EVP_sha256()), 0);
-        EVP_PKEY_free(pkey);
     }
 
     X509* get()
@@ -83,25 +91,162 @@ class OSSLX509
     }
 };
 
-class OSSLX509StoreCTX
+// Helper that performs a TLS handshake over memory BIOs so the server-side
+// SSL object sees the client certificate as its peer certificate.
+class MtlsHandshake
 {
-    X509_STORE_CTX* ptr = X509_STORE_CTX_new();
+    SSL_CTX* serverCtx = nullptr;
+    SSL_CTX* clientCtx = nullptr;
+    SSL* serverSsl = nullptr;
+    SSL* clientSsl = nullptr;
+
+    static EVP_PKEY* generateKey()
+    {
+        EVP_PKEY* pkey = nullptr;
+        EVP_PKEY_CTX* pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, nullptr);
+        EVP_PKEY_keygen_init(pctx);
+        EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime256v1);
+        EVP_PKEY_keygen(pctx, &pkey);
+        EVP_PKEY_CTX_free(pctx);
+        return pkey;
+    }
+
+    // Pump data between the two SSL objects via their memory BIOs
+    // until both sides report completion (or error).
+    static void doHandshake(SSL* client, SSL* server)
+    {
+        for (int i = 0; i < 100; ++i)
+        {
+            int clientRet = SSL_do_handshake(client);
+            transferBioData(client, server);
+
+            int serverRet = SSL_do_handshake(server);
+            transferBioData(server, client);
+
+            if (clientRet == 1 && serverRet == 1)
+            {
+                return;
+            }
+        }
+    }
+
+    static void transferBioData(SSL* from, SSL* to)
+    {
+        BIO* fromWbio = SSL_get_wbio(from);
+        BIO* toRbio = SSL_get_rbio(to);
+        std::array<char, 4096> buf{};
+        int pending = static_cast<int>(BIO_ctrl_pending(fromWbio));
+        while (pending > 0)
+        {
+            int n = BIO_read(fromWbio, buf.data(),
+                             std::min(pending, static_cast<int>(buf.size())));
+            if (n > 0)
+            {
+                BIO_write(toRbio, buf.data(), n);
+            }
+            pending = static_cast<int>(BIO_ctrl_pending(fromWbio));
+        }
+    }
 
   public:
-    OSSLX509StoreCTX& operator=(const OSSLX509StoreCTX&) = delete;
-    OSSLX509StoreCTX& operator=(OSSLX509StoreCTX&&) = delete;
+    MtlsHandshake& operator=(const MtlsHandshake&) = delete;
+    MtlsHandshake& operator=(MtlsHandshake&&) = delete;
 
-    OSSLX509StoreCTX(const OSSLX509StoreCTX&) = delete;
-    OSSLX509StoreCTX(OSSLX509StoreCTX&&) = delete;
+    MtlsHandshake(const MtlsHandshake&) = delete;
+    MtlsHandshake(MtlsHandshake&&) = delete;
 
-    OSSLX509StoreCTX() = default;
-    X509_STORE_CTX* get()
+    // clientCert: the X509 certificate the client presents to the server.
+    //             If nullptr, the client will not present a certificate.
+    explicit MtlsHandshake(X509* clientCert) :
+        serverCtx(SSL_CTX_new(TLS_server_method())),
+        clientCtx(SSL_CTX_new(TLS_client_method()))
     {
-        return ptr;
+        // ---- Generate a self-signed server certificate + key ----
+        EVP_PKEY* serverKey = generateKey();
+        OSSLX509 serverCert;
+        X509_NAME* sn = X509_get_subject_name(serverCert.get());
+        std::array<unsigned char, 7> serverCN = {'s', 'e', 'r', 'v',
+                                                 'e', 'r', '\0'};
+        X509_NAME_add_entry_by_txt(sn, "CN", MBSTRING_ASC, serverCN.data(), -1,
+                                   -1, 0);
+        X509_set_issuer_name(serverCert.get(), sn);
+        ASN1_INTEGER_set(X509_get_serialNumber(serverCert.get()), 1);
+        X509_gmtime_adj(X509_get_notBefore(serverCert.get()), 0);
+        X509_gmtime_adj(X509_get_notAfter(serverCert.get()),
+                        static_cast<long>(60 * 60));
+        serverCert.signWithKey(serverKey);
+
+        SSL_CTX_use_certificate(serverCtx, serverCert.get());
+        SSL_CTX_use_PrivateKey(serverCtx, serverKey);
+        // Ask the client for a certificate but don't verify it ourselves
+        // (we let verifyMtlsUser handle the verification logic)
+        SSL_CTX_set_verify(serverCtx, SSL_VERIFY_PEER, nullptr);
+
+        // Trust the server certificate
+        X509_STORE* clientStore = SSL_CTX_get_cert_store(clientCtx);
+        X509_STORE_add_cert(clientStore, serverCert.get());
+        SSL_CTX_set_verify(clientCtx, SSL_VERIFY_PEER, nullptr);
+
+        // ---- Prepare client certificate with a matching private key ----
+        EVP_PKEY* clientKey = nullptr;
+        if (clientCert != nullptr)
+        {
+            // Set required fields for TLS verification to succeed
+            X509_NAME* cn = X509_get_subject_name(clientCert);
+            X509_set_issuer_name(clientCert, cn);
+            ASN1_INTEGER_set(X509_get_serialNumber(clientCert), 2);
+            X509_gmtime_adj(X509_get_notBefore(clientCert), 0);
+            X509_gmtime_adj(X509_get_notAfter(clientCert),
+                            static_cast<long>(60 * 60));
+
+            // Generate a new key and re-sign the cert so we have both
+            // the certificate and its private key for the handshake.
+            clientKey = generateKey();
+            X509_set_pubkey(clientCert, clientKey);
+            X509_sign(clientCert, clientKey, EVP_sha256());
+
+            // Trust the (re-signed) client cert on the server side
+            X509_STORE* store = SSL_CTX_get_cert_store(serverCtx);
+            X509_STORE_add_cert(store, clientCert);
+        }
+
+        // ---- Create SSL objects with memory BIOs ----
+        serverSsl = SSL_new(serverCtx);
+        BIO* serverRbio = BIO_new(BIO_s_mem());
+        BIO* serverWbio = BIO_new(BIO_s_mem());
+        SSL_set_bio(serverSsl, serverRbio, serverWbio);
+        SSL_set_accept_state(serverSsl);
+
+        clientSsl = SSL_new(clientCtx);
+        BIO* clientRbio = BIO_new(BIO_s_mem());
+        BIO* clientWbio = BIO_new(BIO_s_mem());
+        SSL_set_bio(clientSsl, clientRbio, clientWbio);
+        SSL_set_connect_state(clientSsl);
+
+        if (clientCert != nullptr)
+        {
+            SSL_use_certificate(clientSsl, clientCert);
+            SSL_use_PrivateKey(clientSsl, clientKey);
+            EVP_PKEY_free(clientKey);
+        }
+
+        EVP_PKEY_free(serverKey);
+
+        // ---- Perform the handshake ----
+        doHandshake(clientSsl, serverSsl);
     }
-    ~OSSLX509StoreCTX()
+
+    SSL* serverHandle()
     {
-        X509_STORE_CTX_free(ptr);
+        return serverSsl;
+    }
+
+    ~MtlsHandshake()
+    {
+        SSL_free(serverSsl);
+        SSL_free(clientSsl);
+        SSL_CTX_free(serverCtx);
+        SSL_CTX_free(clientCtx);
     }
 };
 
@@ -122,13 +267,11 @@ TEST(MutualTLS, GoodCert)
 
     x509.sign();
 
-    OSSLX509StoreCTX x509Store;
-    X509_STORE_CTX_set_current_cert(x509Store.get(), x509.get());
+    MtlsHandshake handshake(x509.get());
 
     boost::asio::ip::address ip;
-    boost::asio::ssl::verify_context ctx(x509Store.get());
     std::shared_ptr<persistent_data::UserSession> session =
-        verifyMtlsUser(ip, ctx);
+        verifyMtlsUser(ip, handshake.serverHandle());
     ASSERT_THAT(session, NotNull());
     EXPECT_THAT(session->username, "user");
 }
@@ -154,25 +297,30 @@ TEST(MutualTLS, MissingKeyUsage)
         X509_EXTENSION_free(ex);
         x509.sign();
 
-        OSSLX509StoreCTX x509Store;
-        X509_STORE_CTX_set_current_cert(x509Store.get(), x509.get());
+        MtlsHandshake handshake(x509.get());
 
         boost::asio::ip::address ip;
-        boost::asio::ssl::verify_context ctx(x509Store.get());
         std::shared_ptr<persistent_data::UserSession> session =
-            verifyMtlsUser(ip, ctx);
+            verifyMtlsUser(ip, handshake.serverHandle());
         ASSERT_THAT(session, NotNull());
     }
 }
 
 TEST(MutualTLS, MissingCert)
 {
-    OSSLX509StoreCTX x509Store;
+    MtlsHandshake handshake(nullptr);
 
     boost::asio::ip::address ip;
-    boost::asio::ssl::verify_context ctx(x509Store.get());
     std::shared_ptr<persistent_data::UserSession> session =
-        verifyMtlsUser(ip, ctx);
+        verifyMtlsUser(ip, handshake.serverHandle());
+    ASSERT_THAT(session, IsNull());
+}
+
+TEST(MutualTLS, NullSSL)
+{
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, nullptr);
     ASSERT_THAT(session, IsNull());
 }
 
