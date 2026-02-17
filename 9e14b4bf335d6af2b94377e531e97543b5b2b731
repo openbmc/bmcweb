@@ -70,6 +70,24 @@
       "parentUuid": "31d5cf66_1f803385",
       "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6572a2c_d36a6f51",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-17T02:13:48Z",
+      "side": 1,
+      "message": "Wouldn\u0027t `BMCWEB_LOG_VERBOSE` solve both the bit rot and the code size issue?\n\nIs it really so much work to introduce that extra function.\n\nAt least then there would be a single place to patch to enable all these logs.\nAnd then later someone could spin it into a meson option / CLI argument.\n\nIf they are not useful then perhaps just delete them. But commenting out does not seem like the right solution to me.",
+      "parentUuid": "77ec9ad6_72231138",
+      "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
