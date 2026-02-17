@@ -7,8 +7,16 @@
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/verify_context.hpp>
 
+extern "C"
+{
+#include <openssl/ssl.h>
+}
+
 #include <memory>
 
 std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     const boost::asio::ip::address& clientIp,
     boost::asio::ssl::verify_context& ctx);
+
+std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
+    const boost::asio::ip::address& clientIp, SSL* ssl);

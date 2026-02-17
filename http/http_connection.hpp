@@ -252,6 +252,23 @@ class Connection :
             return;
         }
         BMCWEB_LOG_DEBUG("{} SSL handshake succeeded", logPtr(this));
+
+        if constexpr (BMCWEB_MUTUAL_TLS_AUTH)
+        {
+            if (SSL_session_reused(adaptor.native_handle()) != 0 &&
+                mtlsSession == nullptr)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "{} TLS session was resumed, re-establishing mTLS session",
+                    logPtr(this));
+                mtlsSession = verifyMtlsUser(ip, adaptor.native_handle());
+                if (mtlsSession != nullptr)
+                {
+                    BMCWEB_LOG_DEBUG("{} Resumed TLS session: {}", logPtr(this),
+                                     mtlsSession->uniqueId);
+                }
+            }
+        }
         // If http2 is enabled, negotiate the protocol
         if constexpr (BMCWEB_HTTP2)
         {
