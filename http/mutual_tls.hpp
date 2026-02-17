@@ -9,6 +9,12 @@
 
 #include <memory>
 
+struct ssl_st;
+using SSL = ssl_st;
+
 std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     const boost::asio::ip::address& clientIp,
     boost::asio::ssl::verify_context& ctx);
+
+std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
+    const boost::asio::ip::address& clientIp, SSL* ssl);

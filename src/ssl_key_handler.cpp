@@ -34,6 +34,7 @@ extern "C"
 #include <openssl/x509v3.h>
 }
 
+#include <array>
 #include <bit>
 #include <cstddef>
 #include <filesystem>
@@ -62,6 +63,9 @@ constexpr const char* mozillaIntermediate =
     "DHE-RSA-AES128-GCM-SHA256:"
     "DHE-RSA-AES256-GCM-SHA384:"
     "DHE-RSA-CHACHA20-POLY1305";
+
+constexpr std::array<unsigned char, 6> sessionIdContext = {
+    'b', 'm', 'c', 'w', 'e', 'b'};
 
 // Trust chain related errors.`
 bool isTrustChainError(int errnum)
@@ -581,6 +585,25 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         SSL_CTX_set_alpn_select_cb(sslCtx.native_handle(),
                                    alpnSelectProtoCallback, nullptr);
     }
+
+    // Enable server-side in memory session caching, so they can be looked up
+    // by ID.
+    SSL_CTX_set_session_cache_mode(sslCtx.native_handle(), SSL_SESS_CACHE_BOTH);
+
+    // Set the Session ID Context
+    // OpenSSL REQUIRES this to be set for the server to support session
+    // caching. It prevents sessions from one application context (e.g., a
+    // different port/app) from being used in another.
+    if (SSL_CTX_set_session_id_context(sslCtx.native_handle(),
+                                       sessionIdContext.data(),
+                                       sessionIdContext.size()) != 1)
+    {
+        BMCWEB_LOG_ERROR("Error setting session ID context");
+        return nullptr;
+    }
+
+    // Disable Session Tickets, Force Session ID
+    SSL_CTX_set_options(sslCtx.native_handle(), SSL_OP_NO_TICKET);
 
     return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
 }

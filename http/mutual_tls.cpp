@@ -17,6 +17,7 @@ extern "C"
 #include <openssl/asn1.h>
 #include <openssl/obj_mac.h>
 #include <openssl/objects.h>
+#include <openssl/ssl.h>
 #include <openssl/types.h>
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
@@ -175,6 +176,35 @@ std::string getUsernameFromCert(X509* cert)
     }
 }
 
+static std::shared_ptr<persistent_data::UserSession> verifyMtlsUserCert(
+    const boost::asio::ip::address& clientIp, X509* peerCert)
+{
+    if (peerCert == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Cannot get current TLS certificate.");
+        return nullptr;
+    }
+
+    if (X509_check_purpose(peerCert, X509_PURPOSE_SSL_CLIENT, 0) != 1)
+    {
+        BMCWEB_LOG_DEBUG(
+            "Chain does not allow certificate to be used for SSL client authentication");
+        return nullptr;
+    }
+
+    std::string sslUser = getUsernameFromCert(peerCert);
+    if (sslUser.empty())
+    {
+        BMCWEB_LOG_WARNING("Failed to get user from peer certificate");
+        return nullptr;
+    }
+
+    std::string unsupportedClientId;
+    return persistent_data::SessionStore::getInstance().generateUserSession(
+        sslUser, clientIp, unsupportedClientId,
+        persistent_data::SessionType::MutualTLS);
+}
+
 std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     const boost::asio::ip::address& clientIp,
     boost::asio::ssl::verify_context& ctx)
@@ -192,14 +222,6 @@ std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     if (cts == nullptr)
     {
         BMCWEB_LOG_DEBUG("Cannot get native TLS handle.");
-        return nullptr;
-    }
-
-    // Get certificate
-    X509* peerCert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
-    if (peerCert == nullptr)
-    {
-        BMCWEB_LOG_DEBUG("Cannot get current TLS certificate.");
         return nullptr;
     }
 
@@ -223,22 +245,37 @@ std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
 
     BMCWEB_LOG_DEBUG("Certificate verification of final depth");
 
-    if (X509_check_purpose(peerCert, X509_PURPOSE_SSL_CLIENT, 0) != 1)
+    X509* peerCert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
+    return verifyMtlsUserCert(clientIp, peerCert);
+}
+
+std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
+    const boost::asio::ip::address& clientIp, SSL* ssl)
+{
+    if (!persistent_data::SessionStore::getInstance()
+             .getAuthMethodsConfig()
+             .tls)
     {
-        BMCWEB_LOG_DEBUG(
-            "Chain does not allow certificate to be used for SSL client authentication");
+        BMCWEB_LOG_DEBUG("TLS auth_config is disabled");
         return nullptr;
     }
 
-    std::string sslUser = getUsernameFromCert(peerCert);
-    if (sslUser.empty())
+    if (ssl == nullptr)
     {
-        BMCWEB_LOG_WARNING("Failed to get user from peer certificate");
+        BMCWEB_LOG_DEBUG("SSL pointer is null");
         return nullptr;
     }
 
-    std::string unsupportedClientId;
-    return persistent_data::SessionStore::getInstance().generateUserSession(
-        sslUser, clientIp, unsupportedClientId,
-        persistent_data::SessionType::MutualTLS);
+    long verifyResult = SSL_get_verify_result(ssl);
+    if (verifyResult != X509_V_OK)
+    {
+        BMCWEB_LOG_INFO("TLS peer certificate verification error: {}",
+                        verifyResult);
+        return nullptr;
+    }
+
+    X509* peerCert = SSL_get1_peer_certificate(ssl);
+    auto session = verifyMtlsUserCert(clientIp, peerCert);
+    X509_free(peerCert);
+    return session;
 }
