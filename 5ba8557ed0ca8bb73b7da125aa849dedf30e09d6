@@ -188,6 +188,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84412f39_0d8701ea",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-17T08:19:57Z",
+      "side": 1,
+      "message": "That\u0027s a great suggestion. I will switch to getAssociatedSubTree instead. This will not only allow me to constrain the search to specific interfaces but also help address the previous concern about handling multiple associations more robustly. Thanks!",
+      "parentUuid": "de45e22e_ea4c357d",
+      "range": {
+        "startLine": 401,
+        "startChar": 19,
+        "endLine": 401,
+        "endChar": 42
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e5e8296_e713a005",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 3
