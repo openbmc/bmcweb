@@ -504,6 +504,8 @@ inline void requestRoutesTaskCollection(App& app)
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/TaskService/Tasks";
                 asyncResp->res.jsonValue["Name"] = "Task Collection";
+                asyncResp->res.jsonValue["Description"] =
+                    "Collection of Tasks";
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     task::tasks.size();
                 nlohmann::json& members = asyncResp->res.jsonValue["Members"];
@@ -541,6 +543,7 @@ inline void requestRoutesTaskService(App& app)
                     "/redfish/v1/TaskService";
                 asyncResp->res.jsonValue["Name"] = "Task Service";
                 asyncResp->res.jsonValue["Id"] = "TaskService";
+                asyncResp->res.jsonValue["Description"] = "Task Service";
                 asyncResp->res.jsonValue["DateTime"] =
                     redfish::time_utils::getDateTimeOffsetNow().first;
                 asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] =

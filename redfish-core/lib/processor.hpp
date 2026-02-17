@@ -1117,6 +1117,7 @@ inline void handleProcessorCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#ProcessorCollection.ProcessorCollection";
     asyncResp->res.jsonValue["Name"] = "Processor Collection";
+    asyncResp->res.jsonValue["Description"] = "Collection of Processors";
 
     asyncResp->res.jsonValue["@odata.id"] = std::format(
         "/redfish/v1/Systems/{}/Processors", BMCWEB_REDFISH_SYSTEM_URI_NAME);

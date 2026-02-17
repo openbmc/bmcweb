@@ -185,6 +185,7 @@ inline void afterHandleCableGet(
             boost::urls::format("/redfish/v1/Cables/{}", cableId);
         asyncResp->res.jsonValue["Id"] = cableId;
         asyncResp->res.jsonValue["Name"] = "Cable";
+        asyncResp->res.jsonValue["Description"] = "Cable";
         asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
         getCableProperties(asyncResp, objectPath, serviceMap);

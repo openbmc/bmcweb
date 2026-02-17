@@ -1325,6 +1325,8 @@ inline void handleMetricReportDefinitionCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/TelemetryService/MetricReportDefinitions";
     asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";
+    asyncResp->res.jsonValue["Description"] =
+        "Collection of Metric Report Definitions";
     constexpr std::array<std::string_view, 1> interfaces{
         telemetry::reportInterface};
     collection_util::getCollectionMembers(

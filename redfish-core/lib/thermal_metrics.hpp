@@ -146,6 +146,7 @@ inline void doThermalMetrics(
         "/redfish/v1/Chassis/{}/ThermalSubsystem/ThermalMetrics", chassisId);
     asyncResp->res.jsonValue["Id"] = "ThermalMetrics";
     asyncResp->res.jsonValue["Name"] = "Thermal Metrics";
+    asyncResp->res.jsonValue["Description"] = "Thermal Metrics";
 
     getTemperatureReadingsCelsius(asyncResp, *validChassisPath, chassisId);
 }
