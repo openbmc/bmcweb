@@ -141,6 +141,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e61faca_59f76e31",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-17T07:13:48Z",
+      "side": 1,
+      "message": "You are correct. It’s safer not to assume there’s only one endpoint. \nI will update the logic to handle cases with multiple \u0027controlled_by\u0027 objects or at least add a check for it. Thanks for pointing this out!",
+      "parentUuid": "2a5f2ea7_eafefac1",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 2
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de45e22e_ea4c357d",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 3
