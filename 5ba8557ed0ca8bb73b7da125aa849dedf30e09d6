@@ -309,6 +309,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fab2425c_e2dae9c9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-18T15:55:55Z",
+      "side": 1,
+      "message": "Only the first in the subtree is being used, but I\u0027m still wondering what the behavior should be if there is more than one?\n\nWhether to handle multiple control objects as an error, debug info, or just use the first is something I\u0027d like one of the maintainers to set the direction for.",
+      "parentUuid": "5950cf8b_aa8f86de",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 2
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de45e22e_ea4c357d",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 3
