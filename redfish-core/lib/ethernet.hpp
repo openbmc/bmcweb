@@ -1056,13 +1056,14 @@ inline void handleIPv6DefaultGateway(
             std::get_if<nlohmann::json::object_t>(&thisJson);
         if (obj == nullptr)
         {
-            if (staticGatewayEntry == staticGatewayData.end())
+            // Handle null entry - delete gateway if exists, otherwise skip
+            if (staticGatewayEntry != staticGatewayData.end())
             {
-                messages::resourceCannotBeDeleted(asyncResp->res);
-                return;
+                deleteIPv6Gateway(ifaceId, staticGatewayEntry->id, asyncResp);
+                staticGatewayEntry++;
             }
-            deleteIPv6Gateway(ifaceId, staticGatewayEntry->id, asyncResp);
-            return;
+            entryIdx++;
+            continue;
         }
         if (obj->empty())
         {
@@ -1106,6 +1107,16 @@ inline void handleIPv6DefaultGateway(
             createIPv6DefaultGateway(ifaceId, *addr, asyncResp);
         }
         entryIdx++;
+    }
+    // Delete any remaining gateways that weren't in the input array
+    while (staticGatewayEntry != staticGatewayData.end())
+    {
+        if (staticGatewayEntry->protocol ==
+            "xyz.openbmc_project.Network.IP.Protocol.IPv6")
+        {
+            deleteIPv6Gateway(ifaceId, staticGatewayEntry->id, asyncResp);
+        }
+        staticGatewayEntry++;
     }
 }
 
