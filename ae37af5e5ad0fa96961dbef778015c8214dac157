@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8944e1d8_ccab09ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:52:42Z",
+      "side": 1,
+      "message": "Sure.\n\nI don\u0027t think we need to reduce numbers, I will put this to the description.",
+      "parentUuid": "d7ea9efc_03c6cda0",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cf998bc_44c77a49",
         "filename": "http/http_connection.hpp",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2026-02-17T17:07:07Z",
       "side": 1,
       "message": "I don\u0027t see a #include for this.  Can we make sure this is also done in the ssl compile unit please?",
+      "range": {
+        "startLine": 258,
+        "startChar": 16,
+        "endLine": 258,
+        "endChar": 34
+      },
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a83dbf_7e82914a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:52:42Z",
+      "side": 1,
+      "message": "This file includes mutual_tls.hpp which includes openssl/ssl.h. I will move it here since we\u0027re going not to use openssl/ssl.h in mutual_tls.hpp.",
+      "parentUuid": "9cf998bc_44c77a49",
       "range": {
         "startLine": 258,
         "startChar": 16,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d7fed69_6d62c8f0",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:52:42Z",
+      "side": 1,
+      "message": "No it\u0027s not, this is the point. Here are the flows:\n1. First connection.\nClient presents client certs and no session id.\nServer does handshake, cert validation (self-signed, expiration, etc) and calls the callback if it\u0027s set. The callback calls verifyMtlsUser for certificates it received, and populates mtlsSession.\nServer assigns session id, stores session -\u003e certificates in the cache and returns session id to the client.\n\n2. Subsequent connections\nClient presents session id and no client certs.\nServer does cache lookup using the session id and populates certs into connection object. It does NOT do re-validation, thus it does not call the callback, so verifyMtlsUser is not called and the mtlsSession is not populated.\n\nThat\u0027s the problem I\u0027m solving here, as the mtlsSession is not populated, requests received via subsequent connections are not authenticated from the server perspective.\n\nTo solve this, I call verifyMtlsUser and populate results to mtlsSession as the callback does for the first connection, but now, I use the SSL object openssl constructed from cache using session id to retrieve certs for validation.",
+      "parentUuid": "20f2b90d_0fd357f2",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a05d758b_8c050c4c",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 1
@@ -71,6 +131,24 @@
       "writtenOn": "2026-02-17T17:07:07Z",
       "side": 1,
       "message": "this method looks like more or less a copy paste of the above?  Can we consolidate at all?  Considering these are security functions, I’d prefer if we were more careful about ensuring there’s a single path through.",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c104dc8e_53439a12",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:52:42Z",
+      "side": 1,
+      "message": "Since they accept different types, there are not quite the same, but they have common part, I\u0027ve moved common parts to a separate one, and kept differences in the own methods.",
+      "parentUuid": "a05d758b_8c050c4c",
       "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -100,6 +178,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a26cf94e_fbe25271",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:52:42Z",
+      "side": 1,
+      "message": "No, unfortunately we cannot pass that type, as we don\u0027t get boost::asio::ssl::verify_context on the caller side (in the afterSslHandshake function). The boost::asio::ssl::verify_context object is a temp object constructed only on the Certificate validation on the handshake phase (the callback is called from this phase), and it gets destroyed after Certificate validation/handshake is completed, so it\u0027s not available later in afterSslHandshake (full SSL object is available there).\n\nIn resumption case, the subsequent requests do not pass client cert, but session ID. So, OpenSSL does not do cert validation (they are not provided, but they are already validated and cached), so it does not call the call back. Instead, it does a lookup in the session cache, and reconstructs SSL object. This object persists until the connection is destroyed. So, in the afterSslHandshake function the only source of the certs is the SSL object, we retrieve it using adaptor.native_handle(). Though, I added a workaround, not to include openssl to the header.",
+      "parentUuid": "0a83d9ec_8d9eeec3",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64c3260a_0930540d",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 1
@@ -111,6 +213,24 @@
       "writtenOn": "2026-02-17T17:11:26Z",
       "side": 1,
       "message": "No error codes to check on any of these?",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "764820a0_99f43328",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:52:42Z",
+      "side": 1,
+      "message": "Only SSL_CTX_set_session_id_context does and only in case if the context is longer than SSL_MAX_SID_CTX_LENGTH, which is 32 bytes - https://github.com/openssl/openssl/blob/master/include/openssl/ssl.h.in#L65. I will fail it in this case.",
+      "parentUuid": "64c3260a_0930540d",
       "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
