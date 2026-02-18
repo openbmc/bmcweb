@@ -1056,13 +1056,15 @@ inline void handleIPv6DefaultGateway(
             std::get_if<nlohmann::json::object_t>(&thisJson);
         if (obj == nullptr)
         {
-            if (staticGatewayEntry == staticGatewayData.end())
+           if (staticGatewayEntry == staticGatewayData.end())
             {
                 messages::resourceCannotBeDeleted(asyncResp->res);
                 return;
             }
             deleteIPv6Gateway(ifaceId, staticGatewayEntry->id, asyncResp);
-            return;
+            staticGatewayEntry++;
+            entryIdx++;
+            continue;
         }
         if (obj->empty())
         {
