@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fd00c71_23216def",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "716e75a0_09e5d039",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 18
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "970f2e9e_7b5a3578",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-02-16T18:59:32Z",
       "side": 1,
       "message": "Why the division here? The D-Bus says this is Watts which should be the same unit for the Redfish.",
+      "range": {
+        "startLine": 301,
+        "startChar": 55,
+        "endLine": 301,
+        "endChar": 61
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03cd3acc_97724941",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "970f2e9e_7b5a3578",
       "range": {
         "startLine": 301,
         "startChar": 55,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "443b0778_5d70c710",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adb0e52_077228a8",
+      "range": {
+        "startLine": 306,
+        "startChar": 55,
+        "endLine": 306,
+        "endChar": 61
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93193e37_7ee26209",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "750caf80_70f108dc",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93193e37_7ee26209",
+      "range": {
+        "startLine": 323,
+        "startChar": 57,
+        "endLine": 323,
+        "endChar": 63
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "701a3c0c_855a5d4b",
@@ -106,6 +202,30 @@
       "writtenOn": "2026-02-16T18:59:32Z",
       "side": 1,
       "message": "Why the division here? The D-Bus says this is Watts which should be the same unit for the Redfish.",
+      "range": {
+        "startLine": 334,
+        "startChar": 47,
+        "endLine": 334,
+        "endChar": 53
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f0e3d90_58561b78",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "701a3c0c_855a5d4b",
       "range": {
         "startLine": 334,
         "startChar": 47,
@@ -163,6 +283,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5950cf8b_aa8f86de",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e61faca_59f76e31",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 2
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de45e22e_ea4c357d",
@@ -210,6 +354,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acfcef93_5e83ba1d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84412f39_0d8701ea",
+      "range": {
+        "startLine": 401,
+        "startChar": 19,
+        "endLine": 401,
+        "endChar": 42
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e5e8296_e713a005",
@@ -233,6 +401,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6286971_36d6641f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e5e8296_e713a005",
+      "range": {
+        "startLine": 537,
+        "startChar": 12,
+        "endLine": 537,
+        "endChar": 52
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cae9f2f0_de6e0ec7",
@@ -246,6 +438,30 @@
       "writtenOn": "2026-02-16T18:59:32Z",
       "side": 1,
       "message": "Similar to other file, seems like using GetAssociatedSubtree here would be better.\nhttps://github.com/openbmc/docs/blob/master/architecture/object-mapper.md#getassociatedsubtree",
+      "range": {
+        "startLine": 788,
+        "startChar": 19,
+        "endLine": 788,
+        "endChar": 42
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2034ae01_d8de94a7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-18T03:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cae9f2f0_de6e0ec7",
       "range": {
         "startLine": 788,
         "startChar": 19,
