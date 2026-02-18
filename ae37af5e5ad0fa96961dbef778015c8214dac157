@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ce6d67b_14c2aede",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:56:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8944e1d8_ccab09ac",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cf998bc_44c77a49",
@@ -83,6 +101,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12fdad1c_081b9c57",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:56:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a83dbf_7e82914a",
+      "range": {
+        "startLine": 258,
+        "startChar": 16,
+        "endLine": 258,
+        "endChar": 34
+      },
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20f2b90d_0fd357f2",
@@ -118,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e499cdb_23b302f0",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:56:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7fed69_6d62c8f0",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a05d758b_8c050c4c",
@@ -149,6 +209,24 @@
       "side": 1,
       "message": "Since they accept different types, there are not quite the same, but they have common part, I\u0027ve moved common parts to a separate one, and kept differences in the own methods.",
       "parentUuid": "a05d758b_8c050c4c",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8aea951_65669bae",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:56:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c104dc8e_53439a12",
       "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -200,6 +278,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae618e01_91e1588b",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:56:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a26cf94e_fbe25271",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64c3260a_0930540d",
@@ -231,6 +333,24 @@
       "side": 1,
       "message": "Only SSL_CTX_set_session_id_context does and only in case if the context is longer than SSL_MAX_SID_CTX_LENGTH, which is 32 bytes - https://github.com/openssl/openssl/blob/master/include/openssl/ssl.h.in#L65. I will fail it in this case.",
       "parentUuid": "64c3260a_0930540d",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a86d8e70_8b4c478f",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-18T14:56:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "764820a0_99f43328",
       "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
