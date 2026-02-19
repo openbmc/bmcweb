@@ -230,7 +230,7 @@ def get_response_code(entry_id: str) -> str | None:
         "Created": "created",
         "EventSubscriptionLimitExceeded": "service_unavailable",
         "GeneralError": "internal_server_error",
-        "GenerateSecretKeyRequired": "forbidden",
+        "GenerateSecretKeyRequired": None,
         "InsufficientPrivilege": "forbidden",
         "InsufficientStorage": "insufficient_storage",
         "InternalError": "internal_server_error",
