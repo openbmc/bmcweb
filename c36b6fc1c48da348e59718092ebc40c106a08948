@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b88a38e8_d3f246f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "I tested this using a hardware simulator for p10bmc. I hand-edited the fan config file to add the priorities to force the various cases. I\u0027ve updated the commit message with this information.",
+      "parentUuid": "a7391de5_cfa0955b",
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "751212be_496b5313",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 44
@@ -106,6 +124,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de91a781_84293cf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "I have rebased this on top of the other commits that do the conversion of rotational fans to percent based fans. Since these are new properties not part of responses before they are not added into the response if the ReadingType of the fan sensor is not Percent. The existing meson option redfish-allow-rotational-fans controls the conversion.\n\nI could remove the check for Percent based fans if the direction desired is to include these for rotational fans as well. Please let me know your preference.",
+      "parentUuid": "db13dd47_0ad23e1c",
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bde76999_861b3a74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "145440a0_02e80883",
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "feb2e697_875ac253",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 44
@@ -117,6 +171,30 @@
       "writtenOn": "2024-08-08T15:24:39Z",
       "side": 1,
       "message": "Please deduplicate this complex lookup between the branches.",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 382,
+        "endChar": 57
+      },
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "365e40a2_ad0c2774",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "I\u0027ve restructured the code to use utility functions so the flow is much simpler.",
+      "parentUuid": "feb2e697_875ac253",
       "range": {
         "startLine": 382,
         "startChar": 8,
@@ -150,6 +228,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc0b384_c4f79fbb",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "Now using the sensor_utils::objectExcerptToJson() utility function to get the excerpt properties.",
+      "parentUuid": "dfc5990a_26fca574",
+      "range": {
+        "startLine": 385,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 5
+      },
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f66d41b1_37452fa0",
@@ -163,6 +265,24 @@
       "writtenOn": "2024-08-08T15:24:39Z",
       "side": 1,
       "message": "Remove this function and just inline please.  It\u0027s one line of code that\u0027s used in one place.  The function definition requires as many lines as the actual code it\u0027s running.",
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef62b287_1e5682f3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f66d41b1_37452fa0",
       "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -190,6 +310,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffb6502d_e720b7b5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "I\u0027m now using the sensor_utils::objectExcerptToJson() utility function which builds the DataSourceUri correctly.",
+      "parentUuid": "abb2c43d_2b8a2ea5",
+      "range": {
+        "startLine": 411,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 63
+      },
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2645aee_f3497d87",
@@ -203,6 +347,30 @@
       "writtenOn": "2024-08-08T15:24:39Z",
       "side": 1,
       "message": "Set an error.",
+      "range": {
+        "startLine": 415,
+        "startChar": 8,
+        "endLine": 415,
+        "endChar": 14
+      },
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "251629b0_552b40a1",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "The common utility function sensor_utils::objectExcerptToJson() handles this now.",
+      "parentUuid": "e2645aee_f3497d87",
       "range": {
         "startLine": 415,
         "startChar": 8,
@@ -260,6 +428,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4794288f_18fd2c2d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "I\u0027ve considered various cases including if no priority exists. I\u0027ve updated the commit message to call out how the cases are handled and tested the cases.",
+      "parentUuid": "f2b382ba_91628476",
+      "range": {
+        "startLine": 437,
+        "startChar": 0,
+        "endLine": 437,
+        "endChar": 15
+      },
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83a5d769_417b3f6f",
@@ -283,6 +475,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a86d751c_9fb46a44",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "Yes, I\u0027ve removed it.",
+      "parentUuid": "83a5d769_417b3f6f",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 465,
+        "endChar": 5
+      },
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e87eb83a_61783974",
@@ -296,6 +512,24 @@
       "writtenOn": "2024-08-08T15:24:39Z",
       "side": 1,
       "message": "This doesn\u0027t look like it will handle 404 properly.",
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8744cf2_a2531077",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-19T21:46:41Z",
+      "side": 1,
+      "message": "I\u0027ve restructured the flow. I believe the 404 cases are handled.",
+      "parentUuid": "e87eb83a_61783974",
       "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
