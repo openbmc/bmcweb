@@ -333,6 +333,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3e5e75b_b8c11315",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-19T16:00:48Z",
+      "side": 1,
+      "message": "Hi Janet,\n\nThanks for the heads-up. To my knowledge, there should only be one control object associated with this path in our current architecture. However, I will sync with Ed and Gunnar to confirm the expected behavior for edge cases.\n\nAdditionally, since I’ll be working on the PATCH method next, I’d like to get your thoughts on a refactoring idea:\n\nI’m planning to refactor afterGetAssociatedSubTreeForPowerCap by adding a callback function as an input. This would allow us to reuse the same GetAssociatedSubTree logic for both GET and PATCH operations, avoiding code duplication.\n\nDoes this approach sound good to you? I\u0027ll update the patch once I have feedback from the maintainers.",
+      "parentUuid": "fab2425c_e2dae9c9",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 2
+      },
+      "revId": "5ba8557ed0ca8bb73b7da125aa849dedf30e09d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de45e22e_ea4c357d",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 3
