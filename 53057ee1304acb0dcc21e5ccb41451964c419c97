@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "314df028_7065f814",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-19T22:32:32Z",
+      "side": 1,
+      "message": "huh? you are using the 2nd one.. std::move(*optional)",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "53057ee1304acb0dcc21e5ccb41451964c419c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662f5bf9_4d252328",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-19T22:32:32Z",
+      "side": 1,
+      "message": "What standard practices?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "53057ee1304acb0dcc21e5ccb41451964c419c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45fe05ed_f89971e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-19T22:32:32Z",
+      "side": 1,
+      "message": "I prefer `std::move(*ov);` over `*std::move(ov);` (your code) as does a commenter at https://stackoverflow.com/questions/72088667/should-i-move-the-value-out-of-an-optional-or-move-the-whole-optional \n\nBut WHY do we need this in bmcweb, if there is a standard practice, please quote and link that.",
+      "revId": "53057ee1304acb0dcc21e5ccb41451964c419c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
