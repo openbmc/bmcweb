@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b34f9bb_5e7f51aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-19T21:55:02Z",
+      "side": 1,
+      "message": "Because long int and long are identical? \nlong is simply a shorthand for long int?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "5b75faf766401ec7c5c438117ede7f407f4991fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fd7fa42_fa370b3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-19T21:55:02Z",
+      "side": 1,
+      "message": "Use off_t when interfacing with functions from the POSIX standard library that deal with file positions and sizes, such as lseek or stat, as this is the standard data type for file offsets defined by the POSIX standard. [1] \n\n[1]: https://man7.org/linux/man-pages/man3/off_t.3type.html",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "5b75faf766401ec7c5c438117ede7f407f4991fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e911ade_20f04803",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-19T21:55:02Z",
+      "side": 1,
+      "message": "I am okay with the code changes but I feel like I had to search for reasons why this is needed. Please be super clear in your commit msg why bmcweb needs these changes",
+      "revId": "5b75faf766401ec7c5c438117ede7f407f4991fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
