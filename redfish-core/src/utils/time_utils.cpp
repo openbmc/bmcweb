@@ -226,6 +226,23 @@ std::optional<std::string> toDurationStringFromUint(uint64_t timeMs)
 
 namespace details
 {
+
+// Helper function to format timezone offset string from seconds
+inline std::string formatOffsetString(long offsetSeconds)
+{
+    char sign = '+';
+    if (offsetSeconds < 0)
+    {
+        sign = '-';
+        offsetSeconds = -offsetSeconds;
+    }
+
+    int offsetHours = static_cast<int>(offsetSeconds / 3600);
+    int offsetMinutes = static_cast<int>((offsetSeconds % 3600) / 60);
+
+    return std::format("{}{:02}:{:02}", sign, offsetHours, offsetMinutes);
+}
+
 // This code is left for support of gcc < 13 which didn't have support for
 // timezones. It should be removed at some point in the future.
 #if __cpp_lib_chrono < 201907L
@@ -263,6 +280,15 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
     using hours = std::chrono::duration<int, std::ratio<3600>>;
     using days = std::chrono::duration<
         IntType, std::ratio_multiply<hours::period, std::ratio<24>>>;
+    using SubType = std::chrono::duration<IntType, Period>;
+
+    const auto* tz = std::chrono::current_zone();
+    auto sysTime = std::chrono::sys_time<SubType>(t);
+    auto localTime = tz->to_local(sysTime);
+    long offsetSeconds = static_cast<long>(
+        (localTime.time_since_epoch() - sysTime.time_since_epoch()).count());
+
+    t = localTime.time_since_epoch();
 
     // d is days since 1970-01-01
     days d = std::chrono::duration_cast<days>(t);
@@ -316,20 +342,29 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
         subseconds = std::format(".{:06}", subsec.count());
     }
 
-    return std::format("{:04}-{:02}-{:02}T{:02}:{:02}:{:02}{}+00:00", year,
-                       month, day, hr.count(), mt.count(), se.count(),
-                       subseconds);
+    std::string offsetStr = formatOffsetString(offsetSeconds);
+
+    return std::format("{:04}-{:02}-{:02}T{:02}:{:02}:{:02}{}{}", year, month,
+                       day, hr.count(), mt.count(), se.count(), subseconds,
+                       offsetStr);
 }
 
 #else
 
 template <typename IntType, typename Period>
-
 std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> dur)
 {
     using namespace std::literals::chrono_literals;
 
     using SubType = std::chrono::duration<IntType, Period>;
+
+    const auto* tz = std::chrono::current_zone();
+    auto sysTime = std::chrono::sys_time<SubType>(dur);
+    auto localTime = tz->to_local(sysTime);
+    long offsetSeconds = static_cast<long>(
+        (localTime.time_since_epoch() - sysTime.time_since_epoch()).count());
+
+    dur = localTime.time_since_epoch();
 
     // d is days since 1970-01-01
     std::chrono::days days = std::chrono::floor<std::chrono::days>(dur);
@@ -371,7 +406,9 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> dur)
     }
     std::chrono::hh_mm_ss<SubType> hms(dur);
 
-    return std::format("{}T{}+00:00", ymd, hms);
+    std::string offsetStr = formatOffsetString(offsetSeconds);
+
+    return std::format("{}T{}{}", ymd, hms, offsetStr);
 }
 
 #endif
