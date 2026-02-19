@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "718cad1a_31ec24d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-02-19T16:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7250e01c_c9dcdf14",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84585c07_56f0dce9",
@@ -196,6 +214,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54714ea2_e5226c65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-02-19T16:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6163990a_604d9fce",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b753516a_30efe92c",
@@ -316,6 +352,24 @@
       "side": 1,
       "message": "If we decide to fix the issue where not all connections are entering the terminated state, then you are right - the isTerminated() logic should remain unchanged. Once terminated connections are preserved rather than recycled, the existing check will correctly return true and trigger subscription cleanup.",
       "parentUuid": "901fed2c_d32c9230",
+      "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97eee5df_55e33862",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-02-19T16:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f10b4949_dec1709a",
       "revId": "d931ac469ea718f10628850fee56de2dcd28928f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
