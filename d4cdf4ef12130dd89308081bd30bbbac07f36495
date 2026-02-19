@@ -70,6 +70,30 @@
       },
       "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e59a3ae_952f3b18",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-02-19T15:11:44Z",
+      "side": 1,
+      "message": "\u003eThis code block is only reached when no existing connection is in an idle, initialized, or closed state - meaning all connections are in transient or failure states (connectFailed, sendFailed, recvFailed, terminated, etc.) and at least one of them is terminated. \n\u003e...\n\u003eWithout this block, each time a new event arrives, sendData() would create another connection via addConnection() because none of the existing connections match the idle/initialized/closed check. \n\n\u003e ...\n\n\u003eThis would continue all the way up to maxConnections, with each new connection doomed to fail against the same unreachable destination.  ...\n\nSo, the goal is to hit \u0027maxRetry\u0027 situation before hitting maxConnection, right?\n\nDoes this mean that sendData() should try again to \u0027maxRetry\u0027 before creating a new connection?\n\nIn other words, something like\n\n```\nsendData(...)\n{\n\n     // Reuse an existing connection if one is available\n        for (unsigned int i \u003d 0; i \u003c connections.size(); i++)\n        {\n            auto conn \u003d connections[i];\n            if (conn-\u003estate \u003d\u003d ConnState::terminated)  \u0026\u0026 \n                (retryCount \u003c MaxRetry...) ) \n            {\n                  waitAndRetry();  //with some modification\n                  return;\n            }\n\n\n```",
+      "parentUuid": "4271c9b8_83039b93",
+      "range": {
+        "startLine": 809,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 13
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
