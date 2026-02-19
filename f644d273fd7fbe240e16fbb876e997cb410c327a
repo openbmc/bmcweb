@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ac4d7a6_ce405ea5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-19T21:33:53Z",
+      "side": 1,
+      "message": "You could talk more here if you wanted",
+      "revId": "f644d273fd7fbe240e16fbb876e997cb410c327a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6241c7a2_6191a010",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -31,6 +48,23 @@
       "writtenOn": "2026-02-19T20:03:17Z",
       "side": 1,
       "message": "I hit the same validator error. I pulled this commit into my build and the validator then ran to completion and passed.",
+      "revId": "f644d273fd7fbe240e16fbb876e997cb410c327a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1a8f70c_bba74a2e",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-19T21:33:53Z",
+      "side": 1,
+      "message": "Could add a TODO, your call",
       "revId": "f644d273fd7fbe240e16fbb876e997cb410c327a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
