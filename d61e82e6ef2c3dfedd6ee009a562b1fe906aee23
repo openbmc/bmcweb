@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "35fb497f_451716a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:36:10Z",
+      "side": 1,
+      "message": "Where does the Redfish standard say this?  Please quote it.  If this is an opinion or a grey area in the RF spec, happy to have a discussion, but this commit message needs more info.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "d61e82e6ef2c3dfedd6ee009a562b1fe906aee23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07dcb10e_a8ff587d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:36:10Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "d61e82e6ef2c3dfedd6ee009a562b1fe906aee23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f46d5257_5a4a29e5",
@@ -14,6 +54,29 @@
       "writtenOn": "2026-02-20T15:19:50Z",
       "side": 1,
       "message": "It looks good to me",
+      "revId": "d61e82e6ef2c3dfedd6ee009a562b1fe906aee23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37cd7fba_f4dcd228",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:36:10Z",
+      "side": 1,
+      "message": "You seem to have ignored this.  Please don\u0027t ignore warnings. If you don\u0027t understand it, happy to discuss.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 30
+      },
       "revId": "d61e82e6ef2c3dfedd6ee009a562b1fe906aee23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
