@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7325829_10263e33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:18:29Z",
+      "side": 1,
+      "message": "Your system defaulted to +9?  Surely you set this somewhere?  Can you include the Redfish command you used to set this?  Goal is that you tests can be reproduced in the future by others.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 8
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b76c4c7_1f488ce0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:18:29Z",
+      "side": 1,
+      "message": "No need to include commands run on the internal shell.  Goal is that as a user of the box sees this, the result is correct, so setting the timezone and date works correctly, then reads back correctly.  date could be used to verify as a second source.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bfb5986_418a2dd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:18:29Z",
+      "side": 1,
+      "message": "Overall in support of this.",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b377fde_e5c25b3e",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:18:29Z",
+      "side": 1,
+      "message": "I\u0027m not an expert on to_local, so I have no idea what this type is as written.  to_local is also a template, which further confuses the situation.\n\nPlease just include the correct type.",
+      "range": {
+        "startLine": 287,
+        "startChar": 4,
+        "endLine": 287,
+        "endChar": 8
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1baa7943_9a28d2d4",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:18:29Z",
+      "side": 1,
+      "message": "This is going to give the wrong result if SubType::IntType is unsigned given you\u0027re subtracting two unsigned numbers from one another.  Please look at the unit tests where we have checks for over/under flow on all of these across the various int32/int64 clocks.  Please make sure you have equivalent coverage for this new feature.\n\nThere\u0027s only 24 timezones, so it\u0027s likely worth it to loop through all 24 in your unit tests.",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "950479ea_92f2edd9",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:18:29Z",
+      "side": 1,
+      "message": "Lets use a new variable for this please.",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cd65acd_16979bea",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:18:29Z",
+      "side": 1,
+      "message": "Lets make sure the timezone is passed in so that we can make unit tests for this.  There\u0027s also no guarantee that we want Redfish to return local time.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 49
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "998d9ed2_a8f0a3d4",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:18:29Z",
+      "side": 1,
+      "message": "I\u0027m not understanding how unit tests would be passing on any system where the timezone is set.",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
