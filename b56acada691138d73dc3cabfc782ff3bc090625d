@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3a4d6e8_636ee9d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:26:14Z",
+      "side": 1,
+      "message": "I\u0027m also reading \"If size is not given, it is equal to 20480 sessions. Use of the built-in cache can cause memory fragmentation.\"\n\n20,000 sessions seems like waaaaay too many for a BMC use case.\n\nBelow we say a cert is 2kB, so potentially we\u0027re taking 40MB for resumable sessions?  That seems really high to be possible to consume all the time.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2fab64b_ca99191e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:26:14Z",
+      "side": 1,
+      "message": "I\u0027m not understanding this.  The session cache persists between number of connections.  The 200 limit in bmcweb is MAX CONCURRENT connections, not total for the lifetime of the process, so technically we\u0027d be bounded at the 20000 limit, right?",
+      "range": {
+        "startLine": 29,
+        "startChar": 60,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a3d227_ef1a26e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:26:14Z",
+      "side": 1,
+      "message": "Agreed, I\u0027m looking for the \"I\u0027m a security researcher trying to attack a bmcweb implementation\" behavior.\n\nYou\u0027ll note that in the nginx example, their documentation example explicitly limits to 1000;\n\nCould we start with an explicit limit of say, 100, and if we find we\u0027re having issues where things aren\u0027t being resumed, we can increase then?  I would expect 100 is an order of magnitude more than the BMC would use.",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "724d1f98_a8d13025",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:26:14Z",
+      "side": 1,
+      "message": "I\u0027m confused why we would see a 401?  Shouldn\u0027t we just see a sessions resumption cache miss, which should silently still connect?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b839cc_40ffa3f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-20T18:26:14Z",
+      "side": 1,
+      "message": "Could you please run scripts/generate_auth_certificate.py ?\n\nThat runs through the mtls of the flows you\u0027ve modified here and does some basic sanity tests.  I don\u0027t think openbmc-test-automation has an equivalent test at this moment.",
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
