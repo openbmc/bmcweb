@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f1c0603_e000e92f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-21T00:21:55Z",
+      "side": 1,
+      "message": "Can you quote the Redfish specification\u0027s words here?  Otherwise this is a pretty vague handwavy indication.  I suspect Redfish allows either but if you find language that inherently specifies 204, please raise it explicitly.\n\nI asked an LLM for an analysis here, because I don\u0027t actually know, and it seemed to indicate that either approach was valid both from a REST and Redfish perspective.\n\n```\nValidity:\n     - HTTP 204 is a valid response for successful PATCH operations when no response body is needed\n     - The Redfish specification allows both 200 and 204 for successful PATCH operations\n     - Many REST APIs use 204 for successful updates where the client doesn\u0027t need confirmation\n\nAdvantages of using 204:\n     1. Bandwidth efficiency: No response body means less data transmitted\n     2. Clearer semantics: 204 explicitly indicates \"success with no content\"                                         \n     3. Simpler client handling: Clients know they won\u0027t receive any data\n     4. Consistent with REST principles: When the operation is purely about state change\n\nDisadvantages/Considerations:                                                                                          \n     1. Less feedback: Clients don\u0027t get explicit confirmation of what changed\n     2. Debugging harder: No success message to help with troubleshooting                                             \n     3. Inconsistent with current pattern: Other operations in the codebase use 200 with success messages\n\nWhich is better?\n     Both approaches are valid. The choice depends on your API design philosophy:                                     \n     - Use 200 with success message if you want explicit confirmation and better debugging\n     - Use 204 with no content if you prefer minimal responses and bandwidth efficiency\n```",
+      "revId": "59b1805ed1ec5ed9902f154eb664071ed5db43e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
