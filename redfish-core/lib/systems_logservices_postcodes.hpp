@@ -87,7 +87,8 @@ inline void handleSystemsLogServicesPostCodesGet(
         BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow();
+        redfish::time_utils::getDateTimeOffsetNow(
+            redfish::time_utils::DateFormat::UTC);
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;

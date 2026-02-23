@@ -19,6 +19,12 @@ namespace redfish
 namespace time_utils
 {
 
+enum class DateFormat
+{
+    UTC,
+    LocalTimezone,
+};
+
 /**
  * @brief Convert string that represents value in Duration Format to its numeric
  *        equivalent.
@@ -35,6 +41,7 @@ std::string toDurationString(std::chrono::milliseconds ms);
 std::optional<std::string> toDurationStringFromUint(uint64_t timeMs);
 
 // Returns the formatted date time string.
+// If tz is not provided, the UTC time is used.
 // Note that the maximum supported date is 9999-12-31T23:59:59+00:00, if
 // the given |secondsSinceEpoch| is too large, we return the maximum supported
 // date.
@@ -50,17 +57,20 @@ std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch);
 std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch);
 
 std::string getDateTimeStdtime(std::time_t secondsSinceEpoch);
+std::string getDateTimeStdtimeTz(std::time_t secondsSinceEpoch,
+                                 const std::chrono::time_zone& tz);
 
 /**
  * Returns the current Date, Time & the local Time Offset
  * information in a pair
  *
- * @param[in] None
+ * @param[in] bool - true if the time is to be returned in local time, false if
+ * in UTC time
  *
  * @return std::pair<std::string, std::string>, which consist
  * of current DateTime & the TimeOffset strings respectively.
  */
-std::pair<std::string, std::string> getDateTimeOffsetNow();
+std::pair<std::string, std::string> getDateTimeOffsetNow(DateFormat dateFormat);
 
 using usSinceEpoch = std::chrono::duration<int64_t, std::micro>;
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime);
