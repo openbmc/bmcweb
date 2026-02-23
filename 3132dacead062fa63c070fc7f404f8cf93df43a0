@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c000346f_28a7c3d0",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T17:11:12Z",
+      "side": 0,
+      "message": "Why was this changed?  Separating out handleTelemetryServiceGetImpl doesn\u0027t add a lot of value unless you\u0027re testing handleTelemetryServiceGetImpl",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "3132dacead062fa63c070fc7f404f8cf93df43a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

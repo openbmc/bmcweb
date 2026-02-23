@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0b6c05_3bc19dd7",
+        "filename": "test/redfish-core/lib/telemetry_service_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T17:11:12Z",
+      "side": 1,
+      "message": "nit, in general we want to use operator[] here so that we get assertions on failures, not thrown exceptions.",
+      "range": {
+        "startLine": 21,
+        "startChar": 19,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "5876b9f23856d39dcd5ffbb06704f6552ba05196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
