@@ -203,6 +203,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b8a25a9_096ee213",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T19:38:48Z",
+      "side": 1,
+      "message": "Is there another patch coming?  You\u0027ve closed out a bunch of items that weren\u0027t fixed.",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67c5b7a7_bf6702f9",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
