@@ -538,6 +538,44 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         interactive);
 }
 
+inline void getTimeZoneName(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    BMCWEB_LOG_DEBUG("Get time zone name");
+
+    dbus::utility::getProperty<std::string>(
+        "org.freedesktop.timedate1", "/org/freedesktop/timedate1",
+        "org.freedesktop.timedate1", "Timezone",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& timeZone) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error for Timezone: {}", ec);
+                return;
+            }
+            asyncResp->res.jsonValue["TimeZoneName"] = timeZone;
+        });
+}
+
+inline void setTimeZoneName(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& timeZoneName)
+{
+    BMCWEB_LOG_DEBUG("Set time zone: {}", timeZoneName);
+
+    bool interactive = false;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Failed to set time zone. DBUS response error: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        "org.freedesktop.timedate1", "/org/freedesktop/timedate1",
+        "org.freedesktop.timedate1", "SetTimezone", timeZoneName, interactive);
+}
+
 inline void checkForQuiesced(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -730,11 +768,13 @@ inline void handleManagerGet(
         nlohmann::json::array_t({"ResetAll"});
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow();
+        redfish::time_utils::getDateTimeOffsetNow(true /* localTime */);
 
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
+
+    getTimeZoneName(asyncResp);
 
     if constexpr (BMCWEB_KVM)
     {
@@ -833,6 +873,7 @@ inline void handleManagerPatch(
 
     std::optional<std::string> activeSoftwareImageOdataId;
     std::optional<std::string> datetime;
+    std::optional<std::string> timeZoneName;
     std::optional<bool> locationIndicatorActive;
     std::optional<nlohmann::json::object_t> pidControllers;
     std::optional<nlohmann::json::object_t> fanControllers;
@@ -854,7 +895,8 @@ inline void handleManagerPatch(
             "Oem/OpenBmc/Fan/Profile", profile,               //
             "Oem/OpenBmc/Fan/StepwiseControllers",
             stepwiseControllers,                              //
-            "ServiceIdentification", serviceIdentification    //
+            "ServiceIdentification", serviceIdentification,   //
+            "TimeZoneName", timeZoneName                      //
             ))
     {
         return;
@@ -868,6 +910,11 @@ inline void handleManagerPatch(
     if (datetime)
     {
         setDateTime(asyncResp, *datetime);
+    }
+
+    if (timeZoneName)
+    {
+        setTimeZoneName(asyncResp, *timeZoneName);
     }
 
     if (locationIndicatorActive)
