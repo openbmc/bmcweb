@@ -16,6 +16,23 @@
       "message": "Was added by https://github.com/openbmc/bmcweb/commit/1aa375b80075c7e1acdc9188440a62bab21b8651",
       "revId": "fab7374c5be4f9ac1a6ee63b5d3627e0ceb6b170",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccc3b38a_ba89528d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-23T18:18:17Z",
+      "side": 1,
+      "message": "Happy to discuss.. But pretty sure this is a correct change and the RSV is correct here.",
+      "revId": "fab7374c5be4f9ac1a6ee63b5d3627e0ceb6b170",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
