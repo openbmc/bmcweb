@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e313cc2_e8730daf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-23T12:27:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3b34f9bb_5e7f51aa",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "5b75faf766401ec7c5c438117ede7f407f4991fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fd7fa42_fa370b3f",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6ab9793_0bd36d67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-23T12:27:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4fd7fa42_fa370b3f",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "5b75faf766401ec7c5c438117ede7f407f4991fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e911ade_20f04803",
@@ -60,6 +108,24 @@
       "writtenOn": "2026-02-19T21:55:02Z",
       "side": 1,
       "message": "I am okay with the code changes but I feel like I had to search for reasons why this is needed. Please be super clear in your commit msg why bmcweb needs these changes",
+      "revId": "5b75faf766401ec7c5c438117ede7f407f4991fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7920dcf8_b1d07147",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-23T12:27:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2e911ade_20f04803",
       "revId": "5b75faf766401ec7c5c438117ede7f407f4991fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
