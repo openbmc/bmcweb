@@ -198,6 +198,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc8b3ba9_e390b10d",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-23T18:14:09Z",
+      "side": 1,
+      "message": "I think it\u0027s possible. I will try to do this tomorrow and update the change.",
+      "parentUuid": "df596078_d0025ccf",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a05d758b_8c050c4c",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 1
@@ -334,6 +352,30 @@
       "side": 1,
       "message": "\u003e I\u0027m trying to keep openssl out of the public headers\n\nIs it possible to get this result?  I don\u0027t see that answered above.",
       "parentUuid": "ae618e01_91e1588b",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97f90f01_1bbcf716",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-23T18:14:09Z",
+      "side": 1,
+      "message": "The `#include \u003copenssl/ssl\u003e` is not in the version 2 - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87511/2/http/mutual_tls.hpp\n\nIf this is not what you mean, then I don\u0027t understand.",
+      "parentUuid": "261841f3_1ed1a428",
       "range": {
         "startLine": 12,
         "startChar": 0,

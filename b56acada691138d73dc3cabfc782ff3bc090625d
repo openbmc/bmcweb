@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75267187_dcd2df45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-23T18:14:09Z",
+      "side": 1,
+      "message": "I think, it\u0027s is potentially possible. I agree, it\u0027s better to limit cache size.",
+      "parentUuid": "d3a4d6e8_636ee9d4",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2fab64b_ca99191e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2026-02-20T18:26:14Z",
       "side": 1,
       "message": "I\u0027m not understanding this.  The session cache persists between number of connections.  The 200 limit in bmcweb is MAX CONCURRENT connections, not total for the lifetime of the process, so technically we\u0027d be bounded at the 20000 limit, right?",
+      "range": {
+        "startLine": 29,
+        "startChar": 60,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2da54d65_e7829229",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-23T18:14:09Z",
+      "side": 1,
+      "message": "OpenSSL cleans up expired entries from the cache every on 255th new session: https://docs.openssl.org/3.6/man3/SSL_CTX_flush_sessions/#notes. So the only case all the 20K entries will be used is some sort of DoS. But to play on the safe side, I think it worth to set limit.",
+      "parentUuid": "c2fab64b_ca99191e",
       "range": {
         "startLine": 29,
         "startChar": 60,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b9f0f5b_c20f8fc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-23T18:14:09Z",
+      "side": 1,
+      "message": "Yeah, let\u0027s set the explicit limit. 100 sessions should be plenty for normal use.",
+      "parentUuid": "10a3d227_ef1a26e3",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "724d1f98_a8d13025",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d679d8a_dc59cbfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-23T18:14:09Z",
+      "side": 1,
+      "message": "No. There are 3 moving parts here:\n1. Boost that passes client certs in boost::asio::ssl::verify_context to BMCWeb. This happens only when client passed the certs (TLS session resumption is disable or it\u0027s the 1st connection in a session).\n2. OpenSSL that constructs SSL object that contain clients certs, the object exists during connection lifetime - for the 1st connection or TLS session resumption disabled case the client certs are taken from the client request; for the TLS session resumption subsequent connections associated with existing session, it picks up the certs corresponding to the session from the cache.\n3. BMCweb. It does client auth using certificates. Before this change, the only place where auth was happening had been the callback which is called only when client passes certificates - TLS session resumption disabled, or it\u0027s a 1st connection of TLS session resumption session.\n\nSo, before this change, for subsequent connections OpenSSL tried to populate certificates from the cache to SSL object, but as cache was not created, it could not, but it did not fail on this, it just did not populate certs. That\u0027s why the connection did not fail with anything like \"cache miss\". However, even if it could, since BMCweb did not do user cert auth except of in the callback that covers only the 1st connection, and a user is not authenticated by default, attempt to access to a \"restricted\" area failed with 401.\n\n\nSo to fix this, we need to do 2 things - enable cache, so OpenSSL would link certificates presented by a client in the 1st connection to subsequent ones; and have BMCweb to auth user not only in the callback, but after the SSL object is reconstructed. This is what this diff does.",
+      "parentUuid": "724d1f98_a8d13025",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45b839cc_40ffa3f2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -106,6 +202,24 @@
       "writtenOn": "2026-02-20T18:26:14Z",
       "side": 1,
       "message": "Could you please run scripts/generate_auth_certificate.py ?\n\nThat runs through the mtls of the flows you\u0027ve modified here and does some basic sanity tests.  I don\u0027t think openbmc-test-automation has an equivalent test at this moment.",
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9176c93f_e8c953fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-23T18:14:09Z",
+      "side": 1,
+      "message": "Ran, it worked, but I had to modify a script to accept custom port and timeout (I deployed the image to QEMU and used port forwarding) and also, replaced deprecated parameters. I ran this against image without and with this change both, and will publish script changes in the stack tomorrow.",
+      "parentUuid": "45b839cc_40ffa3f2",
       "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
