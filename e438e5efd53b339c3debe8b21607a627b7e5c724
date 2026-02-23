@@ -220,6 +220,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9ae4d1a_ec741f01",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T19:41:02Z",
+      "side": 1,
+      "message": "Should this operate using a std::chrono::seconds or std::duration\u003cIntType\u003e ?\n\nI suspect that\u0027s the more complete fix to your below static_cast\u003cint\u003e",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67c5b7a7_bf6702f9",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
