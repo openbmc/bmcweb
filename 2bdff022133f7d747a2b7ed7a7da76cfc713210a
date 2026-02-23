@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "590ed6c3_908bd9e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-23T10:31:20Z",
+      "side": 1,
+      "message": "provide the test log for more clarity",
+      "revId": "2bdff022133f7d747a2b7ed7a7da76cfc713210a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3a126df_11b4ba63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-23T10:31:20Z",
+      "side": 1,
+      "message": "add here the respective issue url",
+      "revId": "2bdff022133f7d747a2b7ed7a7da76cfc713210a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
