@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79604489_fa3c1c58",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-23T12:20:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "58d1a514_93a0cd51",
+      "revId": "0bc63351c1c12d1ca6b667e2bca9a9473a047467",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "319d117b_fada2537",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b07e86bf_297bfa82",
+        "filename": "test/redfish-core/lib/telemetry_service_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-23T12:20:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "319d117b_fada2537",
+      "revId": "0bc63351c1c12d1ca6b667e2bca9a9473a047467",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b554028_1f24ba48",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-02-20T18:44:27Z",
       "side": 1,
       "message": "This is a static function, there\u0027s no need for AsyncResp semantics.  Just run the method, and assert the output.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 51
+      },
+      "revId": "0bc63351c1c12d1ca6b667e2bca9a9473a047467",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd4480cd_a46ebb37",
+        "filename": "test/redfish-core/lib/telemetry_service_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002749
+      },
+      "writtenOn": "2026-02-23T12:20:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2b554028_1f24ba48",
       "range": {
         "startLine": 38,
         "startChar": 0,
