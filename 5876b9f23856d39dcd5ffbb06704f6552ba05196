@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "edd91e6b_323a110d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T17:11:32Z",
+      "side": 1,
+      "message": "Remove.  \"Code builds\" is the default.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "5876b9f23856d39dcd5ffbb06704f6552ba05196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5d0b6c05_3bc19dd7",
         "filename": "test/redfish-core/lib/telemetry_service_test.cpp",
         "patchSetId": 11
