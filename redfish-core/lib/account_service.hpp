@@ -1408,14 +1408,8 @@ inline void handleAccountServiceGet(
     nlohmann::json::object_t certificates;
     certificates["@odata.id"] =
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates";
-    certificates["@odata.type"] =
-        "#CertificateCollection.CertificateCollection";
     clientCertificate["Certificates"] = std::move(certificates);
     json["MultiFactorAuth"]["ClientCertificate"] = std::move(clientCertificate);
-
-    getClientCertificates(
-        asyncResp,
-        "/MultiFactorAuth/ClientCertificate/Certificates/Members"_json_pointer);
 
     json["Oem"]["OpenBMC"]["@odata.type"] =
         "#OpenBMCAccountService.v1_0_0.AccountService";
