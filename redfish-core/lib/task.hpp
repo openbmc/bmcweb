@@ -542,7 +542,9 @@ inline void requestRoutesTaskService(App& app)
                 asyncResp->res.jsonValue["Name"] = "Task Service";
                 asyncResp->res.jsonValue["Id"] = "TaskService";
                 asyncResp->res.jsonValue["DateTime"] =
-                    redfish::time_utils::getDateTimeOffsetNow().first;
+                    redfish::time_utils::getDateTimeOffsetNow(
+                        redfish::time_utils::DateFormat::UTC)
+                        .first;
                 asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] =
                     task_service::OverWritePolicy::Oldest;
 
