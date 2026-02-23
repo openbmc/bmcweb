@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9d889ee_5bb2032f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T19:13:55Z",
+      "side": 1,
+      "message": "Ah, ok, link that then I think we\u0027re ok?  Not sure how the 20000 interacts with that.",
+      "parentUuid": "2da54d65_e7829229",
+      "range": {
+        "startLine": 29,
+        "startChar": 60,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10a3d227_ef1a26e3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -191,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98a01019_ed0c41ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T19:13:55Z",
+      "side": 1,
+      "message": "\u003e OpenSSL tried to populate certificates from the cache to SSL object\n\nThis is the part I\u0027m confused about.  We didn\u0027t enable certificate caching or resumption, so how could this be true?\n\nIf this is true, yes, I agree, the rest makes sense.",
+      "parentUuid": "4d679d8a_dc59cbfa",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45b839cc_40ffa3f2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -220,6 +268,41 @@
       "side": 1,
       "message": "Ran, it worked, but I had to modify a script to accept custom port and timeout (I deployed the image to QEMU and used port forwarding) and also, replaced deprecated parameters. I ran this against image without and with this change both, and will publish script changes in the stack tomorrow.",
       "parentUuid": "45b839cc_40ffa3f2",
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40185f52_3d0ece5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T19:13:55Z",
+      "side": 1,
+      "message": "Sounds good.  Thank you.",
+      "parentUuid": "9176c93f_e8c953fd",
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45ba5b5_56a00fd1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T19:13:55Z",
+      "side": 1,
+      "message": "Include is still here.",
       "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
