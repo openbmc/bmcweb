@@ -1,4 +1,28 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b244c277_97d7fe79",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2219,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-23T15:36:46Z",
+      "side": 1,
+      "message": "Does this have the same problem?",
+      "range": {
+        "startLine": 2218,
+        "startChar": 19,
+        "endLine": 2219,
+        "endChar": 79
+      },
+      "revId": "47ecd03368c4407464080cfeef4013229f0eb26d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
