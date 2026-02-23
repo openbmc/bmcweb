@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52119215_d1e9821a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-02-23T05:02:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db6e3b04_d54a05ec",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "c4d15b2948874c0eeba6d47ac518be3c84556f37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99627ae9_974f902d",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-02-20T15:08:29Z",
       "side": 1,
       "message": "I think it is still better to add the actual example like\n\nTested By:\n\n1. Case 1: Add \u0026 Replace \u0026 add more gateways:\n    - Add 3 gateways,  \n    - Replace with 2 gateways, \n    - Add 4 gateways\n    - Clear all gateways\n    \n```\nPATCH -H \"Content-Type: application/json\" -d\n\t\u0027{\"IPv6StaticDefaultGateways\":[{\"Address\":\"2001:db8::1\"},\n\t{\"Address\":\"2001:db8::2\"},{\"Address\":\"2001:db8::3\"}]}\u0027 \\\n  \t3 \\\n    \t\"$(echo -e \u00272001:db8::1\\n2001:db8::2\\n2001:db8::3\u0027 | sort)\"\n\nPATCH -H \"Content-Type: application/json\" -d\n   \u0027{\"IPv6StaticDefaultGateways\":[{\"Address\":\"2001:db8::10\"},\n\t{\"Address\":\"2001:db8::20\"}]}\u0027 \\\n  \t2 \\\n  \t\"$(echo -e \u00272001:db8::10\\n2001:db8::20\u0027 | sort)\"\n\nPATCH -H \"Content-Type: application/json\" -d\t\u0027{\"IPv6StaticDefaultGateways\":[{\"Address\":\"2001:db8::100\"}\n\t,{\"Address\":\"2001:db8::101\"},\n\t{\"Address\":\"2001:db8::102\"},\n\t{\"Address\":\"2001:db8::103\"}]}\u0027 \\\n  \t4 \\\n\nPATCH -H \"Content-Type: application/json\" -d \u0027{\"IPv6StaticDefaultGateways\":[]}\u0027 \\\n  \t0 \\\n\n```",
+      "revId": "c4d15b2948874c0eeba6d47ac518be3c84556f37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1244663_28f2012f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-02-23T05:02:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99627ae9_974f902d",
       "revId": "c4d15b2948874c0eeba6d47ac518be3c84556f37",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
