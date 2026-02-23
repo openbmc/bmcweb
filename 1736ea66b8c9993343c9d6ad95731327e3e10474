@@ -62,6 +62,29 @@
       },
       "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e05fbee_0ac9072d",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T17:15:48Z",
+      "side": 1,
+      "message": "need to handle when these values are unpopulated or undefined.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
