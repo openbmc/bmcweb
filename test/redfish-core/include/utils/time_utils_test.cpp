@@ -100,6 +100,52 @@ TEST(GetDateTimeStdtime, ConversionTests)
               "1970-01-01T00:00:00+00:00");
 }
 
+TEST(GetDateTimeStdtime, TimezoneTests)
+{
+    // 2021-11-30T22:41:35 UTC (1638312095)
+    constexpr std::time_t testTime = 1638312095;
+
+    // UTC (offset +00:00)
+    const std::chrono::time_zone* utc = std::chrono::locate_zone("UTC");
+    EXPECT_EQ(getDateTimeStdtime(testTime, utc), "2021-11-30T22:41:35+00:00");
+
+    // Positive offset: Europe/Berlin (+01:00 in winter)
+    const std::chrono::time_zone* berlin =
+        std::chrono::locate_zone("Europe/Berlin");
+    EXPECT_EQ(getDateTimeStdtime(testTime, berlin),
+              "2021-11-30T23:41:35+01:00");
+
+    // Negative offset: America/New_York (-05:00 in winter)
+    const std::chrono::time_zone* newYork =
+        std::chrono::locate_zone("America/New_York");
+    EXPECT_EQ(getDateTimeStdtime(testTime, newYork),
+              "2021-11-30T17:41:35-05:00");
+
+    // Non-hour-aligned offset: Asia/Kolkata (+05:30)
+    const std::chrono::time_zone* kolkata =
+        std::chrono::locate_zone("Asia/Kolkata");
+    EXPECT_EQ(getDateTimeStdtime(testTime, kolkata),
+              "2021-12-01T04:11:35+05:30");
+
+    // Non-hour-aligned offset: Asia/Kathmandu (+05:45)
+    const std::chrono::time_zone* kathmandu =
+        std::chrono::locate_zone("Asia/Kathmandu");
+    EXPECT_EQ(getDateTimeStdtime(testTime, kathmandu),
+              "2021-12-01T04:26:35+05:45");
+
+    // Extreme westerly timezone: Etc/GMT+12 (-12:00)
+    const std::chrono::time_zone* gmt12West =
+        std::chrono::locate_zone("Etc/GMT+12");
+    EXPECT_EQ(getDateTimeStdtime(testTime, gmt12West),
+              "2021-11-30T10:41:35-12:00");
+
+    // Extreme easterly timezone: Pacific/Kiritimati (+14:00)
+    const std::chrono::time_zone* kiritimati =
+        std::chrono::locate_zone("Pacific/Kiritimati");
+    EXPECT_EQ(getDateTimeStdtime(testTime, kiritimati),
+              "2021-12-01T12:41:35+14:00");
+}
+
 TEST(GetDateTimeUint, ConversionTests)
 {
     EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}),
@@ -117,6 +163,51 @@ TEST(GetDateTimeUint, ConversionTests)
 
     EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::min()),
               "1970-01-01T00:00:00+00:00");
+}
+
+TEST(GetDateTimeUint, TimezoneTests)
+{
+    // 2021-11-30T22:41:35 UTC (1638312095)
+    constexpr uint64_t testTime = 1638312095;
+
+    // UTC (offset +00:00)
+    const std::chrono::time_zone* utc = std::chrono::locate_zone("UTC");
+    EXPECT_EQ(getDateTimeUint(testTime, utc), "2021-11-30T22:41:35+00:00");
+
+    // Positive offset: Europe/Berlin (+01:00 in winter)
+    const std::chrono::time_zone* berlin =
+        std::chrono::locate_zone("Europe/Berlin");
+    EXPECT_EQ(getDateTimeUint(testTime, berlin), "2021-11-30T23:41:35+01:00");
+
+    // Negative offset: America/New_York (-05:00 in winter)
+    // This tests the fix for unsigned integer subtraction overflow
+    const std::chrono::time_zone* newYork =
+        std::chrono::locate_zone("America/New_York");
+    EXPECT_EQ(getDateTimeUint(testTime, newYork), "2021-11-30T17:41:35-05:00");
+
+    // Non-hour-aligned offset: Asia/Kolkata (+05:30)
+    const std::chrono::time_zone* kolkata =
+        std::chrono::locate_zone("Asia/Kolkata");
+    EXPECT_EQ(getDateTimeUint(testTime, kolkata), "2021-12-01T04:11:35+05:30");
+
+    // Non-hour-aligned offset: Asia/Kathmandu (+05:45)
+    const std::chrono::time_zone* kathmandu =
+        std::chrono::locate_zone("Asia/Kathmandu");
+    EXPECT_EQ(getDateTimeUint(testTime, kathmandu),
+              "2021-12-01T04:26:35+05:45");
+
+    // Extreme westerly timezone: Etc/GMT+12 (-12:00)
+    // This is a critical test for unsigned subtraction overflow
+    const std::chrono::time_zone* gmt12West =
+        std::chrono::locate_zone("Etc/GMT+12");
+    EXPECT_EQ(getDateTimeUint(testTime, gmt12West),
+              "2021-11-30T10:41:35-12:00");
+
+    // Extreme easterly timezone: Pacific/Kiritimati (+14:00)
+    const std::chrono::time_zone* kiritimati =
+        std::chrono::locate_zone("Pacific/Kiritimati");
+    EXPECT_EQ(getDateTimeUint(testTime, kiritimati),
+              "2021-12-01T12:41:35+14:00");
 }
 
 TEST(GetDateTimeUintMs, ConverstionTests)
