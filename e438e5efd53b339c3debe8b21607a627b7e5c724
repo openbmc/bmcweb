@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe9f563a_b0e3b64a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T17:08:59Z",
+      "side": 1,
+      "message": "Specifically, I\u0027d expect you to PATCH the redfish timezone, and observe the change.",
+      "parentUuid": "4b76c4c7_1f488ce0",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0bfb5986_418a2dd1",
