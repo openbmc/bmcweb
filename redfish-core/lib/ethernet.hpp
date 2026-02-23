@@ -1402,12 +1402,12 @@ inline void handleDHCPPatch(
     bool ipv4Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
     bool ipv6Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, false);
 
-    if (ipv4Active)
+    bool nextv4DHCPState =
+        v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
+    if (ipv4Active && nextv4DHCPState)
     {
         updateIPv4DefaultGateway(ifaceId, "", asyncResp);
     }
-    bool nextv4DHCPState =
-        v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
 
     bool nextv6DHCPState{};
     if (v6dhcpParms.dhcpv6OperatingMode)
