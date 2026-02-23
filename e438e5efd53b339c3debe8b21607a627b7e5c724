@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92ba77de_ba628faa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T19:19:00Z",
+      "side": 1,
+      "message": "No, I want you to include tests setting this via Redfish (as would be expected if a users were to use this).",
+      "parentUuid": "4465ef67_b51a7d8f",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 8
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b76c4c7_1f488ce0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "I\u0027m afraid bmcweb currently does not support DateTimeLocalOffset \npatching. I\u0027m thinking of looking into this, later, but it\u0027s a bit \ntricky as the org.freedesktop.timedate1 interface\u0027s SetTimezone method \naccepts a timezone name from /usr/share/zoneinfo/zone.tab like \n\"Europe/Berlin\", while we have offset, so we will need to maintain a map\n offset-\u003eTZ name, which is IMO not ideal, so before working on a code\n we will need to see what would be the best way to do this.",
       "parentUuid": "fe9f563a_b0e3b64a",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9090a85a_1ecee716",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T19:19:00Z",
+      "side": 1,
+      "message": "\u003e I\u0027m afraid bmcweb currently does not support DateTimeLocalOffset \n\u003e patching.\n\nYes, I know.  This is kind of the point.  If we\u0027re going to support timezones in Redfish, we need to actually support timezones;  We can\u0027t be implementing half the feature.\n\n\u003eI\u0027m thinking of looking into this, later, but it\u0027s a bit \n\u003e tricky as the org.freedesktop.timedate1 interface\u0027s SetTimezone method \n\u003e accepts a timezone name from /usr/share/zoneinfo/zone.tab like \n\u003e \"Europe/Berlin\", while we have offset, so we will need to maintain a map\n\u003e  offset-\u003eTZ name, which is IMO not ideal, so before working on a code\n\u003e  we will need to see what would be the best way to do this.\n\n👍. Let me know when it\u0027s done, and I agree, the implementation is subtle.\n\nManager.TimeZoneName is probably the direction I would go, which can directly support these strings through Redfish.  Should be pretty easy to map directly to datetime1.",
+      "parentUuid": "8542df90_fe6a9d6e",
       "range": {
         "startLine": 29,
         "startChar": 0,
