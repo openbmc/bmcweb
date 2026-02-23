@@ -83,6 +83,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67c5b7a7_bf6702f9",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T17:04:43Z",
+      "side": 1,
+      "message": "Do we need to check this pointer for null here?\n\nAlso auto isn\u0027t very descriptive.",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b377fde_e5c25b3e",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
