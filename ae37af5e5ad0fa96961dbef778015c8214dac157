@@ -180,6 +180,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df596078_d0025ccf",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T17:03:00Z",
+      "side": 1,
+      "message": "Where I worry is that we\u0027ve now split the \"how do we turn a certificate into a user\" path.  Just because the session is resumed doesn\u0027t mean the user is still valid.\n\nIs there any way we can deduplicate?  If we\u0027re now no longer relying on the callback, should we just take the \"normal\" path at all times?",
+      "parentUuid": "6e499cdb_23b302f0",
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a05d758b_8c050c4c",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 1
@@ -292,6 +310,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "a26cf94e_fbe25271",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "ae37af5e5ad0fa96961dbef778015c8214dac157",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "261841f3_1ed1a428",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-23T17:03:00Z",
+      "side": 1,
+      "message": "\u003e I\u0027m trying to keep openssl out of the public headers\n\nIs it possible to get this result?  I don\u0027t see that answered above.",
+      "parentUuid": "ae618e01_91e1588b",
       "range": {
         "startLine": 12,
         "startChar": 0,
