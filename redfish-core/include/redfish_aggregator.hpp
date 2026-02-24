@@ -1416,7 +1416,7 @@ class RedfishAggregator
     bool segmentHasPrefix(const std::string& urlSegment) const
     {
         // TODO: handle this better
-        // For now 5B247A_ wont be in the aggregationSources map so
+        // For now 5B247A_ won't be in the aggregationSources map so
         // check explicitly for now
         if (urlSegment.starts_with("5B247A_"))
         {

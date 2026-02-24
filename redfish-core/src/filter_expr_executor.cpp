@@ -211,7 +211,7 @@ bool doDoubleComparison(double left, filter_ast::ComparisonOpEnum comparator,
 {
     if (!std::isfinite(left) || !std::isfinite(right))
     {
-        BMCWEB_LOG_ERROR("Refusing to do comparision of non finite numbers");
+        BMCWEB_LOG_ERROR("Refusing to do comparison of non finite numbers");
         return false;
     }
     switch (comparator)

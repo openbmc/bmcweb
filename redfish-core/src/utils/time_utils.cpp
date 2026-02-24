@@ -337,7 +337,7 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> dur)
     std::chrono::year_month_day ymd(sysDays);
 
     // Enforce 3 constraints
-    // the result cant under or overflow the calculation
+    // the result can't under or overflow the calculation
     // the resulting string needs to be representable as 4 digits
     // The resulting string can't be before epoch
     if (dur.count() <= 0)
