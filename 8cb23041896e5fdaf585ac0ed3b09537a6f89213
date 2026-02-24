@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70e415d_f2b55638",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T17:23:14Z",
+      "side": 1,
+      "message": "Can\u0027t imagine anyone cares here.  This is just a deprecation fix.  Happy to discuss further if anyone sees issues.",
+      "revId": "8cb23041896e5fdaf585ac0ed3b09537a6f89213",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
