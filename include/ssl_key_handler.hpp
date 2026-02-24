@@ -10,6 +10,17 @@
 #include <memory>
 #include <optional>
 #include <string>
+// Common SNI hostname for mTLS
+constexpr const char* kMtlsSniHostname = "mtls.bmc";
+
+// SNI parsing macros
+#define SNI_OFFSET_SIZE 2
+#define SNI_NAME_TYPE_SIZE 1
+#define SNI_PARSE_START_POS (SNI_OFFSET_SIZE + SNI_NAME_TYPE_SIZE)
+#define SNI_GET_HOST_LENGTH(sni, pos)                                          \
+    (((uint16_t)(sni)[(pos)] << 8) | (sni)[(pos) + 1])
+#define SNI_HOST_START_POS(pos) ((pos) + SNI_OFFSET_SIZE)
+#define SNI_MIN_LENGTH 5
 
 namespace ensuressl
 {

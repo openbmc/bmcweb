@@ -644,6 +644,19 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 return;
             }
             sslConn.emplace(conn, *sslCtx);
+            // set SNI hostname
+            if (!SSL_set_tlsext_host_name(sslConn->native_handle(),
+                                          kMtlsSniHostname))
+            {
+                BMCWEB_LOG_ERROR("Failed to set SNI hostname");
+                // Continue - server to detect the mtls connection
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Successfully set SNI to {} for mTLS aggregation",
+                    kMtlsSniHostname);
+            }
             setCipherSuiteTLSext();
         }
     }
