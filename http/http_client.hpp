@@ -597,13 +597,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             return;
         }
 
-        if (host.host_type() != boost::urls::host_type::name)
-        {
-            // Avoid setting SNI hostname if its IP address
-            return;
-        }
         // Create a null terminated string for SSL
         std::string hostname(host.encoded_host_address());
+        if (hostname.empty())
+        {
+            BMCWEB_LOG_DEBUG("No hostname for SNI, skipping");
+            return;
+        }
         if (SSL_set_tlsext_host_name(sslConn->native_handle(),
                                      hostname.data()) == 0)
 
