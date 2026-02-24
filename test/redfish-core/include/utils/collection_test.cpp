@@ -158,5 +158,26 @@ TEST(CollectionUtil, HandleCollectionMembersSkipsObjectsWithEmptyLeaf)
     EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
 }
 
+TEST(CollectionUtil, HandleCollectionMembersNoDuplicateMembers)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    dbus::utility::MapperGetSubTreePathsResponse objects = {
+        "/xyz/openbmc_project/software/a/A",
+        "/xyz/openbmc_project/software/b/A",
+    };
+
+    handleCollectionMembers(
+        asyncResp,
+        boost::urls::url("/redfish/v1/UpdateService/SoftwareInventory"),
+        nlohmann::json::json_pointer("/Members"), {}, objects);
+
+    const nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+    ASSERT_TRUE(members.is_array());
+    ASSERT_EQ(members.size(), 1);
+    EXPECT_EQ(members[0]["@odata.id"],
+              "/redfish/v1/UpdateService/SoftwareInventory/A");
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
+}
+
 } // namespace
 } // namespace redfish::collection_util
