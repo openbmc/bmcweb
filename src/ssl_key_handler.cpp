@@ -534,7 +534,7 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
 std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
 {
     boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
-
+    
     auto certFile = ensureCertificate();
     if (!getSslContext(sslCtx, certFile))
     {
@@ -543,7 +543,7 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
     }
     const persistent_data::AuthConfigMethods& c =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
-
+    
     boost::asio::ssl::verify_mode mode = boost::asio::ssl::verify_none;
     if (c.tlsStrict)
     {
@@ -565,7 +565,6 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         BMCWEB_LOG_DEBUG("Setting verify peer only");
         mode |= boost::asio::ssl::verify_peer;
     }
-
     boost::system::error_code ec;
     sslCtx.set_verify_mode(mode, ec);
     if (ec)
@@ -573,25 +572,19 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         BMCWEB_LOG_DEBUG("Failed to set verify mode {}", ec.message());
         return nullptr;
     }
-
     SSL_CTX_set_options(sslCtx.native_handle(), SSL_OP_NO_RENEGOTIATION);
-
     if constexpr (BMCWEB_HTTP2)
     {
         SSL_CTX_set_next_protos_advertised_cb(sslCtx.native_handle(),
                                               nextProtoCallback, nullptr);
-
         SSL_CTX_set_alpn_select_cb(sslCtx.native_handle(),
                                    alpnSelectProtoCallback, nullptr);
     }
-
     // Enable server-side in memory session caching, so they can be looked up
     // by ID.
     SSL_CTX_set_session_cache_mode(sslCtx.native_handle(), SSL_SESS_CACHE_BOTH);
-
     // Set session cache size to prevent session ID DoS attack
     SSL_CTX_sess_set_cache_size(sslCtx.native_handle(), 100);
-
     // Set the Session ID Context
     // OpenSSL REQUIRES this to be set for the server to support session
     // caching. It prevents sessions from one application context (e.g., a
@@ -603,7 +596,6 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         BMCWEB_LOG_ERROR("Error setting session ID context");
         return nullptr;
     }
-
     return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
 }
 
