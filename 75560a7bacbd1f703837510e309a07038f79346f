@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d9c225_e77f9733",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T17:22:35Z",
+      "side": 1,
+      "message": "Overall in support",
+      "revId": "75560a7bacbd1f703837510e309a07038f79346f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b903dbb8_6dfcdfd4",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T17:22:35Z",
+      "side": 1,
+      "message": "Should we increase the defaults here to something that works in all cases?  This has worked for me in the past, but you might have slower systems/higher latency.  Whatever value you found to work, just update it here.",
+      "revId": "75560a7bacbd1f703837510e309a07038f79346f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4e14b3b_96037922",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T17:22:35Z",
+      "side": 1,
+      "message": "Do we need this conditional?  Just set port at all times?",
+      "revId": "75560a7bacbd1f703837510e309a07038f79346f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
