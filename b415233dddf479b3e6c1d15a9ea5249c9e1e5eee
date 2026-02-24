@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bd54fcc_03dcd8fb",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:10:41Z",
+      "side": 0,
+      "message": "Before null with no corresponding existing gateway is a resourceCannotBeDeleted.. Why just fail silently ?\n\nPlease call out in your commit msg.. It is not clear to me, this code is better (failing silently)",
+      "range": {
+        "startLine": 1059,
+        "startChar": 0,
+        "endLine": 1063,
+        "endChar": 13
+      },
+      "revId": "b415233dddf479b3e6c1d15a9ea5249c9e1e5eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

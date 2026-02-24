@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f0d4acb_84917699",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:10:41Z",
+      "side": 1,
+      "message": "How about \n\n\"Fix IPv6 static gateway PATCH entry preservation\"\nunder 50 chars and has the same information.",
+      "revId": "0ceb9d6e46f02e7e25311a3482a989a3268f50f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6b0b74b_d9f9d212",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:10:41Z",
+      "side": 1,
+      "message": "Does something like below work? \n\n            if (staticGatewayEntry \u003d\u003d staticGatewayData.end())\n            {\n                messages::resourceCannotBeDeleted(asyncResp-\u003eres);\n                return;\n            }\n\n            deleteIPv6Gateway(ifaceId, staticGatewayEntry-\u003eid, asyncResp);\n            staticGatewayEntry++;\n\nDo you need a check for \n\n    if (staticGatewayEntry-\u003eprotocol \u003d\u003d \"xyz.openbmc_project.Network.IP.Protocol.IPv6\")\n\n\nlike you do below?",
+      "revId": "0ceb9d6e46f02e7e25311a3482a989a3268f50f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
