@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd86899d_7d767bf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:29:56Z",
+      "side": 1,
+      "message": "please wrap the body at 72 chars \nhttps://cbea.ms/git-commit/",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7f9d46a_3b4a24f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:29:56Z",
+      "side": 1,
+      "message": "Not sure why this needs to be inside a code block - it isn\u0027t code",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9db807d3_facd1d41",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:29:56Z",
+      "side": 1,
+      "message": "Why can\u0027t you just do \n\ninline constexpr size_t sniMinLength \u003d 5; ?",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e367dee0_b156d9df",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:29:56Z",
+      "side": 1,
+      "message": "Global macro pollution..",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cde99dbb_f96bebaa",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:29:56Z",
+      "side": 1,
+      "message": "This is odd, wouldn\u0027t you want the new context\u0027s callback?\n\nSSL_CTX_get_verify_callback(newCtx)",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "400b9dc5_441e8f80",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:29:56Z",
+      "side": 1,
+      "message": "This is surprising.. Also I thought even when tls strict is false, bmcweb still uses VERIFY_PEER \n\nauto newCallback \u003d SSL_CTX_get_verify_callback(newCtx);\nint newMode \u003d SSL_CTX_get_verify_mode(newCtx);\n\nSSL_set_SSL_CTX(ssl, newCtx);\n\nSSL_set_verify(ssl, newMode, newCb);",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dfb80ae_30951328",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T18:29:56Z",
+      "side": 1,
+      "message": "Use brackets please",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
