@@ -33,6 +33,24 @@
       "message": "This is going to be a breaking change.. For no value, let\u0027s just remove.",
       "revId": "237cefb58114ccf735136fb802d4268696724d4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1802f87b_4d295b4d",
+        "filename": "features/openbmc_rest/openbmc_dbus_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2513,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2026-02-24T03:41:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a816735a_0e39de60",
+      "revId": "237cefb58114ccf735136fb802d4268696724d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
