@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "315cda3d_b06694d7",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-24T18:54:42Z",
+      "side": 1,
+      "message": "Good catch. Originally I thought it\u0027s needed to enforce Session ID Resumption, but in fact, it enforces TLS session resumption behavior in OpenSSL for TLS 1.3 to be the same as in TLS 1.2 and before, but not the mechanism itself. So, it\u0027s irrelevant to this change and is not needed.\n\nI will remove this completely and update the change after all my tests pass.",
+      "parentUuid": "94bc90ff_dec4c2bb",
+      "revId": "824846bda8e25786b62559a4c7d9ee9b1ab395e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bf61be14_57ae138a",
