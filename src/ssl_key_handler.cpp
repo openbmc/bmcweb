@@ -48,6 +48,32 @@ extern "C"
 namespace ensuressl
 {
 
+// Structure to hold both SSL contexts
+struct SslContextPair
+{
+    std::shared_ptr<boost::asio::ssl::context> httpsCtx;
+    std::shared_ptr<boost::asio::ssl::context> mtlsCtx;
+};
+
+// Ex_data index for storing context pair in SSL_CTX
+static int g_contextPairIndex = -1;
+static std::once_flag exDataIndex_flag;
+static void contextPairCleanup(void*, void* ptr, CRYPTO_EX_DATA*, int, long,
+                               void*)
+{
+    delete static_cast<std::shared_ptr<SslContextPair>*>(ptr);
+}
+
+static void initializeExDataIndex()
+{
+    std::call_once(exDataIndex_flag, []() {
+        g_contextPairIndex = SSL_CTX_get_ex_new_index(
+            0, nullptr, nullptr, nullptr, contextPairCleanup);
+        BMCWEB_LOG_DEBUG("Initialized g_contextPairIndex: {}",
+                         g_contextPairIndex);
+    });
+}
+
 static EVP_PKEY* createEcKey();
 
 // Mozilla intermediate cipher suites v5.7
@@ -461,6 +487,168 @@ static std::string ensureCertificate()
     return ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
 }
 
+static std::string ensureMtlsCertificate()
+{
+    namespace fs = std::filesystem;
+    fs::path certPath = "/etc/ssl/certs/https/";
+    fs::path certFile = certPath / "server_bmc.pem";
+
+    BMCWEB_LOG_INFO("Building mtls SSL Context file= {}", certFile.string());
+    std::string sslPemFile(certFile);
+    return ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
+}
+
+// Common helper for context initialization (before connections)
+void setVerifyMode(const std::shared_ptr<boost::asio::ssl::context>& ctx,
+                   bool fail_if_no_peer_cert, const std::string& ctxName)
+{
+    if (!ctx)
+    {
+        BMCWEB_LOG_ERROR("Failed to set verify mode for {} context", ctxName);
+        return;
+    }
+
+    if (fail_if_no_peer_cert)
+    {
+        ctx->set_verify_mode(boost::asio::ssl::verify_peer |
+                             boost::asio::ssl::verify_fail_if_no_peer_cert);
+        BMCWEB_LOG_DEBUG("{} context set verify mode with peer cert required",
+                         ctxName);
+    }
+    else
+    {
+        ctx->set_verify_mode(boost::asio::ssl::verify_peer);
+        BMCWEB_LOG_DEBUG("{} context set verify mode", ctxName);
+    }
+}
+
+// Helper: switch SSL context and preserve verify callback
+static void switchSslContext(SSL* ssl, SSL_CTX* newCtx, bool strict,
+                             const char* ctxName)
+{
+    if (!ssl || !newCtx)
+    {
+        BMCWEB_LOG_ERROR("Invalid parameters to switchSslContext");
+        return;
+    }
+
+    SSL_CTX* oldCtx = SSL_get_SSL_CTX(ssl);
+    if (!oldCtx)
+    {
+        BMCWEB_LOG_ERROR("Failed to get current SSL context");
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("Switching to {} context (strict={})", ctxName, strict);
+
+    // Preserve the verify callback from old context
+    auto oldCallback = SSL_CTX_get_verify_callback(oldCtx);
+
+    // Switch to new context
+    SSL_set_SSL_CTX(ssl, newCtx);
+
+    // Set verify mode based on strict flag
+    int verifyMode = strict
+                         ? (SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT)
+                         : SSL_VERIFY_NONE;
+    SSL_set_verify(ssl, verifyMode, oldCallback);
+}
+
+// Helper function to get SNI hostname from SSL client hello
+// Returns hostname as std::string (empty string if not found)
+static std::string mtls_SSL_get_servername(SSL* ssl, int type)
+{
+    if (!ssl || type != TLSEXT_NAMETYPE_host_name)
+    {
+        return "";
+    }
+
+    const unsigned char* sni = nullptr;
+    size_t sniLen = 0;
+
+    // Get SNI extension from client hello
+    if (SSL_client_hello_get0_ext(ssl, TLSEXT_TYPE_server_name, &sni,
+                                  &sniLen) != 1 ||
+        sniLen <= SNI_MIN_LENGTH)
+    {
+        return "";
+    }
+
+    // Parse SNI using macros: | list_len(2) | name_type(1) | host_len(2) | host
+    size_t pos = SNI_PARSE_START_POS;
+    uint16_t hostLen = SNI_GET_HOST_LENGTH(sni, pos);
+    pos = SNI_HOST_START_POS(pos);
+
+    if (pos + hostLen <= sniLen)
+    {
+        return std::string(reinterpret_cast<const char*>(&sni[pos]), hostLen);
+    }
+    return "";
+}
+
+static int clientHelloCallback(SSL* ssl, int* /*al*/, void* /*arg*/)
+{
+    BMCWEB_LOG_DEBUG("clientHelloCallback ");
+    if (!ssl)
+        return SSL_CLIENT_HELLO_ERROR;
+
+    // Get context pair from ex_data
+    SSL_CTX* currentCtx = SSL_get_SSL_CTX(ssl);
+
+    auto* pairPtr = static_cast<std::shared_ptr<SslContextPair>*>(
+        SSL_CTX_get_ex_data(currentCtx, g_contextPairIndex));
+
+    if (!pairPtr)
+    {
+        BMCWEB_LOG_ERROR("Failed to get context pair from ex_data");
+        return SSL_CLIENT_HELLO_ERROR;
+    }
+
+    SslContextPair* ctxPair = pairPtr->get();
+    if (!ctxPair)
+    {
+        BMCWEB_LOG_ERROR("Context pair pointer is null");
+        return SSL_CLIENT_HELLO_ERROR;
+    }
+
+    // Validate context pair contents
+    if (!ctxPair->httpsCtx || !ctxPair->mtlsCtx)
+    {
+        BMCWEB_LOG_ERROR("Invalid context pair - missing httpsCtx or mtlsCtx");
+        return SSL_CLIENT_HELLO_ERROR;
+    }
+    // Get SNI hostname using mtls_SSL_get_servername
+    std::string hostname =
+        mtls_SSL_get_servername(ssl, TLSEXT_NAMETYPE_host_name);
+
+    if (!hostname.empty())
+    {
+        BMCWEB_LOG_DEBUG("clientHelloCallback SNI Hostname: {}", hostname);
+
+        // Switch to mTLS context if SNI matches
+        if (hostname == kMtlsSniHostname && ctxPair->mtlsCtx)
+        {
+            BMCWEB_LOG_DEBUG(
+                "clientHelloCallback Setting mtls context for client cert");
+            switchSslContext(ssl, ctxPair->mtlsCtx->native_handle(), true,
+                             "mtlsCtx");
+            return SSL_CLIENT_HELLO_SUCCESS;
+        }
+    }
+
+    // Default: HTTPS context
+    if (ctxPair->httpsCtx)
+    {
+        const persistent_data::AuthConfigMethods& c =
+            persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
+        BMCWEB_LOG_DEBUG("Setting https context for tlsStrict {}", c.tlsStrict);
+        switchSslContext(ssl, ctxPair->httpsCtx->native_handle(), c.tlsStrict,
+                         "httpsCtx");
+    }
+
+    return SSL_CLIENT_HELLO_SUCCESS;
+}
+
 static int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
                              unsigned int* len, void* /*unused*/)
 {
@@ -528,25 +716,68 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
     return true;
 }
 
+// Create mTLS server context
+static std::shared_ptr<boost::asio::ssl::context> getSslMtlsServerContext()
+{
+    BMCWEB_LOG_DEBUG("getSslMtlsServerContext");
+    auto mtlsCtx = std::make_shared<boost::asio::ssl::context>(
+        boost::asio::ssl::context::tls_server);
+
+    auto mtlsCertFile = ensureMtlsCertificate();
+    if (!getSslContext(*mtlsCtx, mtlsCertFile))
+    {
+        return nullptr;
+    }
+
+    setVerifyMode(mtlsCtx, true, "mtlsCtx");
+    SSL_CTX_set_options(mtlsCtx->native_handle(), SSL_OP_NO_RENEGOTIATION);
+
+    if constexpr (BMCWEB_HTTP2)
+    {
+        SSL_CTX_set_next_protos_advertised_cb(mtlsCtx->native_handle(),
+                                              nextProtoCallback, nullptr);
+        SSL_CTX_set_alpn_select_cb(mtlsCtx->native_handle(),
+                                   alpnSelectProtoCallback, nullptr);
+    }
+
+    return mtlsCtx;
+}
+
 std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
 {
-    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    initializeExDataIndex();
+    auto ctxPair = std::make_shared<SslContextPair>();
+
+    // Create HTTPS context
+    ctxPair->httpsCtx = std::make_shared<boost::asio::ssl::context>(
+        boost::asio::ssl::context::tls_server);
 
     auto certFile = ensureCertificate();
-    if (!getSslContext(sslCtx, certFile))
+    if (!getSslContext(*ctxPair->httpsCtx, certFile))
     {
         BMCWEB_LOG_CRITICAL("Couldn't get server context");
         return nullptr;
     }
+    SSL_CTX_set_options(ctxPair->httpsCtx->native_handle(),
+                        SSL_OP_NO_RENEGOTIATION);
+
+    // Create mTLS context
+    ctxPair->mtlsCtx = getSslMtlsServerContext();
+
     const persistent_data::AuthConfigMethods& c =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
-    boost::asio::ssl::verify_mode mode = boost::asio::ssl::verify_none;
     if (c.tlsStrict)
     {
         BMCWEB_LOG_DEBUG("Setting verify peer and fail if no peer cert");
-        mode |= boost::asio::ssl::verify_peer;
-        mode |= boost::asio::ssl::verify_fail_if_no_peer_cert;
+        if (ctxPair->mtlsCtx)
+        {
+            setVerifyMode(ctxPair->mtlsCtx, true, "mtlsCtx");
+        }
+        if (ctxPair->httpsCtx)
+        {
+            setVerifyMode(ctxPair->httpsCtx, true, "httpsCtx");
+        }
     }
     else if (!forward_unauthorized::hasWebuiRoute())
     {
@@ -560,29 +791,52 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         // only request peer authentication if it's not present.
         // This will likely need revisited in the future.
         BMCWEB_LOG_DEBUG("Setting verify peer only");
-        mode |= boost::asio::ssl::verify_peer;
+        if (ctxPair->httpsCtx)
+        {
+            setVerifyMode(ctxPair->httpsCtx, false, "httpsCtx");
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR("Failed to set verify mode for httpsCtx context");
+            return nullptr;
+        }
     }
-
-    boost::system::error_code ec;
-    sslCtx.set_verify_mode(mode, ec);
-    if (ec)
+    else
     {
-        BMCWEB_LOG_DEBUG("Failed to set verify mode {}", ec.message());
-        return nullptr;
+        if (ctxPair->mtlsCtx)
+        {
+            BMCWEB_LOG_DEBUG("tlsStrict is disabled mtlsCtx is set");
+            setVerifyMode(ctxPair->mtlsCtx, c.tlsStrict, "mtlsCtx");
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR("Failed to set verify mode for mtlsCtx context");
+        }
     }
-
-    SSL_CTX_set_options(sslCtx.native_handle(), SSL_OP_NO_RENEGOTIATION);
 
     if constexpr (BMCWEB_HTTP2)
     {
-        SSL_CTX_set_next_protos_advertised_cb(sslCtx.native_handle(),
-                                              nextProtoCallback, nullptr);
+        SSL_CTX_set_next_protos_advertised_cb(
+            ctxPair->httpsCtx->native_handle(), nextProtoCallback, nullptr);
 
-        SSL_CTX_set_alpn_select_cb(sslCtx.native_handle(),
+        SSL_CTX_set_alpn_select_cb(ctxPair->httpsCtx->native_handle(),
                                    alpnSelectProtoCallback, nullptr);
     }
+    // Store context pair and register callback
+    SSL_CTX* rawHttpsCtx = ctxPair->httpsCtx->native_handle();
+    auto* pairPtr = new std::shared_ptr<SslContextPair>(ctxPair);
+    SSL_CTX_set_ex_data(rawHttpsCtx, g_contextPairIndex, pairPtr);
 
-    return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
+    SSL_CTX_set_client_hello_cb(rawHttpsCtx, clientHelloCallback, nullptr);
+
+    if (ctxPair->mtlsCtx)
+    {
+        SSL_CTX* rawMtlsCtx = ctxPair->mtlsCtx->native_handle();
+        SSL_CTX_set_ex_data(rawMtlsCtx, g_contextPairIndex, pairPtr);
+        SSL_CTX_set_client_hello_cb(rawMtlsCtx, clientHelloCallback, nullptr);
+    }
+
+    return (*pairPtr)->httpsCtx;
 }
 
 std::optional<boost::asio::ssl::context> getSSLClientContext(
