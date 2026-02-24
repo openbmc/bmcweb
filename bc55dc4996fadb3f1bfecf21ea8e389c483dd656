@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0536b074_fe7b583b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T21:45:09Z",
+      "side": 1,
+      "message": "Can you elaborate on the \"This enables\" part (in your commit message please).  What we\u0027re trying to enable should be more descriptive than this.\n\nWhy does Redfish aggregation not use SNI if we\u0027re going to enforce it?\n\nThis also enables SNI checking for https sockets, which probably deserves it\u0027s own explanation to ensure we\u0027re not breaking use cases.",
+      "range": {
+        "startLine": 17,
+        "startChar": 39,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7f9d46a_3b4a24f5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -37,6 +60,46 @@
       "writtenOn": "2026-02-24T18:29:56Z",
       "side": 1,
       "message": "Not sure why this needs to be inside a code block - it isn\u0027t code",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ab50272_62e30139",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T21:45:09Z",
+      "side": 1,
+      "message": "I stopped reviewing after the 10th violation.  Please read and understand the coding rules.  If you need examples, there\u0027s a vast bmcweb codebase that\u0027s more or less consistent on these you can learn from, or there\u0027s lots of people willing to help you.\n\n\nOverall, I want to get an understanding of what this patch is trying to enable in the commit message, then we can go from there.  Enforcing Hostnames on the BMC have a lot of baggage that generally we don\u0027t want to enable.  I\u0027m happy to revisit that discussion and come up with options, but as written just enabling SNI will break things (as you\u0027ve found).",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b70575d_b85dffae",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T21:45:09Z",
+      "side": 1,
+      "message": "?  How is this the common name, and how can we know the common name at compile time?  Isn\u0027t this based on dns/hostname?\n\n\nnit, use constexpr string_view for any new code.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 52
+      },
       "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +123,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6744d6e_cce41fee",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T21:45:09Z",
+      "side": 1,
+      "message": "Don\u0027t use macros please.",
+      "parentUuid": "9db807d3_facd1d41",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e367dee0_b156d9df",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 10
@@ -71,6 +152,70 @@
       "writtenOn": "2026-02-24T18:29:56Z",
       "side": 1,
       "message": "Global macro pollution..",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db95a85c_622543f3",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T21:45:09Z",
+      "side": 1,
+      "message": "+",
+      "parentUuid": "e367dee0_b156d9df",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec6b7c4_c394d3d1",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T21:45:09Z",
+      "side": 1,
+      "message": "Why shared_ptr for these?",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 20
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59751f47_223ff386",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T21:45:09Z",
+      "side": 1,
+      "message": "No.  please wrap these in appropriate RAII objects, not things in the global namespace.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 1
+      },
       "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
