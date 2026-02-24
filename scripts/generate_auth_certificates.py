@@ -572,7 +572,7 @@ def generateIntermediateCA(ca_key, ca_cert, name_prefix):
 
 
 def generate_and_load_certs(
-    url, username, password, use_http2, use_intermediate=False
+    url, username, password, use_http2, timeout: float, use_intermediate=False
 ):
     certs_dir = os.path.expanduser("~/certs")
     print(f"Writing certs to {certs_dir}")
@@ -671,6 +671,7 @@ def generate_and_load_certs(
         verify=False,
         follow_redirects=False,
         http2=use_http2,
+        timeout=timeout,
     ) as redfish_session:
         with RedfishSessionContext(
             redfish_session, username, password
@@ -747,14 +748,27 @@ def main():
         default=False,
         help="Use HTTP2 for testing",
     )
+    parser.add_argument(
+        "--port",
+        help="Port to connect to",
+        type=int,
+        default=443,
+    )
+    parser.add_argument(
+        "--timeout",
+        help="Timeout for connecting to the BMC",
+        type=float,
+        default=30.0,
+    )
     parser.add_argument("host", help="Host to connect to")
 
     args = parser.parse_args()
     generate_and_load_certs(
-        args.host,
+        f"{args.host}:{args.port}",
         args.username,
         args.password,
         args.http2,
+        args.timeout,
         args.use_intermediate,
     )
 
