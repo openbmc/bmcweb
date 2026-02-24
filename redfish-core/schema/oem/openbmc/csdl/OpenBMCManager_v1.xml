@@ -38,6 +38,12 @@
           <Annotation Term="OData.Description" String="OpenBMC fan configuration."/>
           <Annotation Term="OData.LongDescription" String="OpenBMC fan configuration."/>
         </Property>
+        <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
       </ComplexType>
       <ComplexType Name="Fan">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
