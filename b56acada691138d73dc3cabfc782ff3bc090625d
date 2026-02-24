@@ -214,6 +214,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bac1edb1_7e2d4e5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T18:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b9f0f5b_c20f8fc7",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "724d1f98_a8d13025",
@@ -435,6 +459,24 @@
       "side": 1,
       "message": "Oh, I confused this with the other header file.",
       "parentUuid": "b45ba5b5_56a00fd1",
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00f29592_224ddd0b",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T18:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd22793a_f22e3a53",
       "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
