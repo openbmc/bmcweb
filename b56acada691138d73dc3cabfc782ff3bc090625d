@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b1a6bb_a436c961",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T17:34:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75267187_dcd2df45",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2fab64b_ca99191e",
@@ -275,6 +299,30 @@
       "side": 1,
       "message": "I did some more digging and found my previous assumption about default cache state was wrong - I though it does not exist by default, and the code just bypasses cache lookup, so the SSL object created for resumption case does not have certificates. \nIn fact the cache does exist by default, its size set to 20K, mode to SSL_SESS_CACHE_SERVER. So, for the first connection / resumption disabled a client sends certs, openssl put them to the cache and auth happened in the callback; for subsequent connections within the session, openssl populated certs from the cache, but as bmcweb did not do auth in the afterSslHandshake (the callback was not called either), despite the cert was in the SSL object, user was not authorized and server sent 401.",
       "parentUuid": "98a01019_ed0c41ef",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b478f643_9e19d28e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T17:34:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b773e77f_36cc1467",
       "range": {
         "startLine": 37,
         "startChar": 0,
