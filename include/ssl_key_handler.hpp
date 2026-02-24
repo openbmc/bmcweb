@@ -10,6 +10,19 @@
 #include <memory>
 #include <optional>
 #include <string>
+// Common SNI hostname for mTLS
+constexpr const char* kMtlsSniHostname = "mtls.bmc";
+
+// SNI parsing helper macros for safe buffer access
+#define SNI_MIN_LENGTH 5 // list_len(2) + type(1) + name_len(2)
+
+// Read 2-byte big-endian value from span at position
+#define SNI_READ_UINT16(span, pos)                                     \
+    static_cast<uint16_t>((static_cast<uint16_t>((span)[(pos)]) << 8) |\
+                          static_cast<uint16_t>((span)[(pos) + 1]))
+
+// Read 1-byte value from span at position
+#define SNI_READ_UINT8(span, pos) (static_cast<uint8_t>((span)[(pos)]))
 
 namespace ensuressl
 {
