@@ -30,16 +30,20 @@ inline int tlsVerifyCallback([[maybe_unused]] int preverified,
     return preverified;
 }
 
-// Create and configure createClientAuthContext context with certificate verification
-inline std::shared_ptr<boost::asio::ssl::context> 
-createClientAuthContext(const std::string& certFile,
-                        const std::string& keyFile,
-                        const std::string& trustStorePath)
+// Create and configure createClientAuthContext context with certificate
+// verification
+inline bool createClientAuthContext(
+    std::optional<boost::asio::ssl::context>& clientAuthContext,
+    const std::string& certFile, const std::string& keyFile,
+    const std::string& trustStorePath)
 {
-    try {
-        auto clientAuthContext = std::make_shared<boost::asio::ssl::context>(
-            boost::asio::ssl::context::tls_server);
-
+    if (clientAuthContext)
+    {
+        return true;
+    }
+    try
+    {
+        clientAuthContext.emplace(boost::asio::ssl::context::tls_server);
         clientAuthContext->set_options(
             boost::asio::ssl::context::default_workarounds |
             boost::asio::ssl::context::no_sslv2 |
@@ -50,34 +54,33 @@ createClientAuthContext(const std::string& certFile,
 
         BMCWEB_LOG_INFO("Loading certificate from: {}", certFile);
         clientAuthContext->use_certificate_chain_file(certFile);
-        
+
         BMCWEB_LOG_INFO("Loading private key from: {}", keyFile);
-        clientAuthContext->use_private_key_file(keyFile, 
+        clientAuthContext->use_private_key_file(keyFile,
                                                 boost::asio::ssl::context::pem);
-        
+
         BMCWEB_LOG_INFO("Loading trust store from: {}", trustStorePath);
         clientAuthContext->add_verify_path(trustStorePath);
-        
-        clientAuthContext->set_verify_mode(boost::asio::ssl::verify_peer |
-                                 boost::asio::ssl::verify_fail_if_no_peer_cert);
+
+        clientAuthContext->set_verify_mode(
+            boost::asio::ssl::verify_peer |
+            boost::asio::ssl::verify_fail_if_no_peer_cert);
 
         BMCWEB_LOG_INFO("Client auth context created successfully");
-        return clientAuthContext;
+        return true;
     }
-    catch (const boost::system::system_error& e) {
-        BMCWEB_LOG_ERROR("Boost system error: {}", e.what());
-        BMCWEB_LOG_ERROR("  Error code: {}", e.code().value());
-        BMCWEB_LOG_ERROR("  Error category: {}", e.code().category().name());
-        BMCWEB_LOG_ERROR("  Error message: {}", e.code().message());
-        return nullptr;  // Return nullptr instead of throwing
+    catch (const std::exception& e)
+    {
+        BMCWEB_LOG_ERROR("Exception creating client auth context: {}",
+                         e.what());
+        clientAuthContext = std::nullopt;
+        return false;
     }
-    catch (const std::exception& e) {
-        BMCWEB_LOG_ERROR("Exception creating client auth context: {}", e.what());
-        return nullptr;
-    }
-    catch (...) {
+    catch (...)
+    {
         BMCWEB_LOG_ERROR("Unknown exception creating client auth context");
-        return nullptr;
+        clientAuthContext = std::nullopt;
+        return false;
     }
 }
 
@@ -89,51 +92,25 @@ class SslContextFactoryWithSni : public ISslContextFactory
     using SniCheckerFunc = std::function<bool(const std::string&)>;
 
     explicit SslContextFactoryWithSni(
-        SniCheckerFunc sniCheckerIn, 
-        const std::string& mtlsCertFile,    
-        const std::string& mtlsKeyFile,     
-        const std::string& mtlsTrustStore) :
-        sniChecker(std::move(sniCheckerIn))
-    {
-        // Create context in constructor body to catch exceptions
-        try {
-            BMCWEB_LOG_INFO("Creating client auth context...");
-            BMCWEB_LOG_INFO("  Cert file: {}", mtlsCertFile);
-            BMCWEB_LOG_INFO("  Key file: {}", mtlsKeyFile);
-            BMCWEB_LOG_INFO("  Trust store: {}", mtlsTrustStore);
-            
-            clientAuthContext = createClientAuthContext(mtlsCertFile, 
-                                                        mtlsKeyFile, 
-                                                        mtlsTrustStore);
-            
-            if (clientAuthContext) {
-                BMCWEB_LOG_INFO("Client auth context created successfully");
-            }
-            else {
-                BMCWEB_LOG_ERROR("Client auth context is null");
-            }
-        }
-        catch (const boost::system::system_error& e) {
-            BMCWEB_LOG_ERROR("Boost system error creating client auth context: {}", 
-                             e.what());
-            BMCWEB_LOG_ERROR("  Error code: {}", e.code().value());
-            BMCWEB_LOG_ERROR("  Error message: {}", e.code().message());
-        }
-        catch (const std::exception& e) {
-            BMCWEB_LOG_ERROR("Exception creating client auth context: {}", e.what());
-        }
-        catch (...) {
-            BMCWEB_LOG_ERROR("Unknown exception creating client auth context");
-        }
-    }
+        SniCheckerFunc sniCheckerIn, const std::string& mtlsCertFile,
+        const std::string& mtlsKeyFile, const std::string& mtlsTrustStore) :
+        sniChecker(std::move(sniCheckerIn)), mtlsCertFile_(mtlsCertFile),
+        mtlsKeyFile_(mtlsKeyFile), mtlsTrustStore_(mtlsTrustStore)
+    {}
+
     std::shared_ptr<boost::asio::ssl::context> createContext() override
     {
+        clientAuthContext_ = std::nullopt;
         return createSslContextWithSniImpl();
     }
 
   private:
     SniCheckerFunc sniChecker;
-    std::shared_ptr<boost::asio::ssl::context> clientAuthContext;
+    std::string mtlsCertFile_;
+    std::string mtlsKeyFile_;
+    std::string mtlsTrustStore_;
+    std::optional<boost::asio::ssl::context> clientAuthContext_;
+
     // Static SNI callback wrapper that delegates to member function
     static int sniCallbackStatic(SSL* ssl, int* ad, void* arg)
     {
@@ -167,11 +144,13 @@ class SslContextFactoryWithSni : public ISslContextFactory
         }
 
         // Use the checker function to determine if we should switch to mTLS
-        if (sniChecker(sni))
+        if (sniChecker(sni) &&
+            createClientAuthContext(clientAuthContext_, mtlsCertFile_,
+                                    mtlsKeyFile_, mtlsTrustStore_))
         {
             BMCWEB_LOG_INFO("SNI: Switching to mTLS context for {}", sni);
 
-            SSL_set_SSL_CTX(ssl, clientAuthContext->native_handle());
+            SSL_set_SSL_CTX(ssl, clientAuthContext_->native_handle());
 
             // After switching context, explicitly set verify mode and
             // callback The verify callback is NOT automatically inherited from
