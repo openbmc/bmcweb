@@ -67,7 +67,7 @@ int runWebserver()
 
     iface->initialize();
 
-    // Load the peristent data
+    // Load the persistent data
     persistent_data::getConfig();
 
     // Static assets need to be initialized before Authorization, because auth

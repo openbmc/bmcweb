@@ -232,7 +232,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `LeakDetection` in single-chassis equipments as compared to multi-chassis cooling equipment."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `LeakDetection` in single-chassis equipment as compared to multi-chassis cooling equipment."/>
       <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_3_2.ThermalSubsystem"/>
     </Schema>
 

@@ -635,7 +635,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type `EthernetInterface` that represent physical or VLAN Ethernet interfaces for systems that use this network device funciton.  The members shall be subordinate to a `ComputerSystem` resource.",
+                    "longDescription": "This property shall contain an array of links to resources of type `EthernetInterface` that represent physical or VLAN Ethernet interfaces for systems that use this network device function.  The members shall be subordinate to a `ComputerSystem` resource.",
                     "type": "array",
                     "versionAdded": "v1_7_0"
                 },

@@ -1138,7 +1138,7 @@
       <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_5_0.Links">
         <NavigationProperty Name="EthernetInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
           <Annotation Term="OData.Description" String="The system Ethernet interfaces that use this network device function.  This includes physical Ethernet interfaces or VLANs.  Each member of this property is subordinate a `ComputerSystem` resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EthernetInterface` that represent physical or VLAN Ethernet interfaces for systems that use this network device funciton.  The members shall be subordinate to a `ComputerSystem` resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EthernetInterface` that represent physical or VLAN Ethernet interfaces for systems that use this network device function.  The members shall be subordinate to a `ComputerSystem` resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="OffloadSystem" Type="ComputerSystem.ComputerSystem" Nullable="false">

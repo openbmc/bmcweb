@@ -125,7 +125,7 @@ option(
         enabled.
         This option is currently non-functional, given Redfish requirements for
         MessageId support in Events.
-        Option will be removed begining of Q2-2026.
+        Option will be removed beginning of Q2-2026.
         Should not be enabled on any production systems.
     ''',
 )
