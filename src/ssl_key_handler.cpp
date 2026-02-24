@@ -8,6 +8,7 @@
 #include "logging.hpp"
 #include "ossl_random.hpp"
 #include "sessions.hpp"
+#include "ssl_dual_context.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/ssl/context.hpp>
@@ -528,25 +529,93 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
     return true;
 }
 
-std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
+static boost::asio::ssl::context* getSslMtlsServerContext()
 {
-    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto* mtlsCtx =
+        new boost::asio::ssl::context(boost::asio::ssl::context::tls_server);
 
-    auto certFile = ensureCertificate();
-    if (!getSslContext(sslCtx, certFile))
+    // Get certificate file path
+    auto mtlsCertFile = ensureMtlsCertificate();
+    if (mtlsCertFile.empty())
     {
-        BMCWEB_LOG_CRITICAL("Couldn't get server context");
+        BMCWEB_LOG_ERROR("mTLS certificate file not found");
+        delete mtlsCtx;
         return nullptr;
     }
+
+    // Validate certificate exists and is valid
+    std::string cert = verifyOpensslKeyCert(mtlsCertFile);
+    if (cert.empty())
+    {
+        BMCWEB_LOG_ERROR("mTLS certificate validation failed: {}. "
+                         "Certificate must be pre-provisioned.",
+                         mtlsCertFile);
+        delete mtlsCtx;
+        return nullptr;
+    }
+
+    // Load the validated certificate into context
+    if (!getSslContext(*mtlsCtx, cert))
+    {
+        BMCWEB_LOG_ERROR("Failed to load mTLS certificate into context");
+        delete mtlsCtx;
+        return nullptr;
+    }
+
+    mtlsCtx->set_verify_mode(boost::asio::ssl::verify_peer |
+                             boost::asio::ssl::verify_fail_if_no_peer_cert);
+    SSL_CTX_set_options(mtlsCtx->native_handle(), SSL_OP_NO_RENEGOTIATION);
+    if constexpr (BMCWEB_HTTP2)
+    {
+        SSL_CTX_set_next_protos_advertised_cb(mtlsCtx->native_handle(),
+                                              nextProtoCallback, nullptr);
+        SSL_CTX_set_alpn_select_cb(mtlsCtx->native_handle(),
+                                   alpnSelectProtoCallback, nullptr);
+    }
+
+    BMCWEB_LOG_INFO("mTLS context created successfully");
+    return mtlsCtx;
+}
+
+std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
+{
+    auto* ctxPair = new SslContextPair();
+    ctxPair->httpsCtx =
+        new boost::asio::ssl::context(boost::asio::ssl::context::tls_server);
+
+    auto certFile = ensureCertificate();
+    if (!getSslContext(*ctxPair->httpsCtx, certFile))
+    {
+        BMCWEB_LOG_CRITICAL("Couldn't get server context");
+        delete ctxPair;
+        return nullptr;
+    }
+    SSL_CTX_set_options(ctxPair->httpsCtx->native_handle(),
+                        SSL_OP_NO_RENEGOTIATION);
+
+    ctxPair->mtlsCtx = getSslMtlsServerContext();
+
     const persistent_data::AuthConfigMethods& c =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
-    boost::asio::ssl::verify_mode mode = boost::asio::ssl::verify_none;
     if (c.tlsStrict)
     {
-        BMCWEB_LOG_DEBUG("Setting verify peer and fail if no peer cert");
-        mode |= boost::asio::ssl::verify_peer;
-        mode |= boost::asio::ssl::verify_fail_if_no_peer_cert;
+        if (ctxPair->mtlsCtx != nullptr)
+        {
+            ctxPair->mtlsCtx->set_verify_mode(
+                boost::asio::ssl::verify_peer |
+                boost::asio::ssl::verify_fail_if_no_peer_cert);
+        }
+        else
+        {
+            BMCWEB_LOG_WARNING(
+                "mTLS context creation failed. Verify certificate exists: "
+                "/etc/ssl/certs/https/server_bmc.pem. "
+                "Continuing with HTTPS only.");
+        }
+        ctxPair->httpsCtx->set_verify_mode(
+            boost::asio::ssl::verify_peer |
+            boost::asio::ssl::verify_fail_if_no_peer_cert);
     }
     else if (!forward_unauthorized::hasWebuiRoute())
     {
@@ -560,29 +629,21 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         // only request peer authentication if it's not present.
         // This will likely need revisited in the future.
         BMCWEB_LOG_DEBUG("Setting verify peer only");
-        mode |= boost::asio::ssl::verify_peer;
+        ctxPair->httpsCtx->set_verify_mode(boost::asio::ssl::verify_peer);
     }
-
-    boost::system::error_code ec;
-    sslCtx.set_verify_mode(mode, ec);
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG("Failed to set verify mode {}", ec.message());
-        return nullptr;
-    }
-
-    SSL_CTX_set_options(sslCtx.native_handle(), SSL_OP_NO_RENEGOTIATION);
+    SSL_CTX* rawHttpsCtx = ctxPair->httpsCtx->native_handle();
 
     if constexpr (BMCWEB_HTTP2)
     {
-        SSL_CTX_set_next_protos_advertised_cb(sslCtx.native_handle(),
-                                              nextProtoCallback, nullptr);
-
-        SSL_CTX_set_alpn_select_cb(sslCtx.native_handle(),
-                                   alpnSelectProtoCallback, nullptr);
+        SSL_CTX_set_next_protos_advertised_cb(rawHttpsCtx, nextProtoCallback,
+                                              nullptr);
+        SSL_CTX_set_alpn_select_cb(rawHttpsCtx, alpnSelectProtoCallback,
+                                   nullptr);
     }
-
-    return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
+    // Register dual context callbacks
+    registerDualContextCallbacks(ctxPair);
+    return {ctxPair->httpsCtx,
+            [ctxPair](boost::asio::ssl::context*) { delete ctxPair; }};
 }
 
 std::optional<boost::asio::ssl::context> getSSLClientContext(
