@@ -11,6 +11,7 @@ import errno
 import ipaddress
 import os
 import socket
+import ssl
 import time
 from typing import Optional
 
@@ -383,13 +384,17 @@ def generate_pk12(certs_dir, key, client_cert, username):
 
 
 def test_mtls_auth(url, certs_dir, use_http2):
+    ssl_context = ssl.create_default_context(
+        cafile=os.path.join(certs_dir, "CA-cert.cer")
+    )
+    ssl_context.load_cert_chain(
+        certfile=os.path.join(certs_dir, "client-cert.pem"),
+        keyfile=os.path.join(certs_dir, "client-key.pem"),
+    )
+
     with httpx.Client(
         base_url=f"https://{url}",
-        verify=os.path.join(certs_dir, "CA-cert.cer"),
-        cert=(
-            os.path.join(certs_dir, "client-cert.pem"),
-            os.path.join(certs_dir, "client-key.pem"),
-        ),
+        verify=ssl_context,
         http2=use_http2,
     ) as client:
         print("Testing mTLS auth with CommonName")
@@ -412,13 +417,16 @@ def test_mtls_auth(url, certs_dir, use_http2):
         )
         response.raise_for_status()
 
+    upn_ssl_context = ssl.create_default_context(
+        cafile=os.path.join(certs_dir, "CA-cert.cer")
+    )
+    upn_ssl_context.load_cert_chain(
+        certfile=os.path.join(certs_dir, "upn-client-cert.pem"),
+        keyfile=os.path.join(certs_dir, "upn-client-key.pem"),
+    )
     with httpx.Client(
         base_url=f"https://{url}",
-        verify=os.path.join(certs_dir, "CA-cert.cer"),
-        cert=(
-            os.path.join(certs_dir, "upn-client-cert.pem"),
-            os.path.join(certs_dir, "upn-client-key.pem"),
-        ),
+        verify=upn_ssl_context,
         http2=use_http2,
     ) as client:
         print("Retesting mTLS auth with UPN")
