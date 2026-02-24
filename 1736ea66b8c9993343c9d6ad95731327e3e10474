@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc22995a_3628bc6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-24T05:29:36Z",
+      "side": 1,
+      "message": "Done. Rewrapped all commit message body lines to ≤72 chars.\n\nSee PS10:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/10//COMMIT_MSG",
+      "parentUuid": "4f994093_38c4cf06",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b06688dc_75c3c398",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-02-23T17:14:26Z",
       "side": 1,
       "message": "THese mappings don\u0027t appear to be correct.  Nothing about the dbus properties indicate that they are lifetime values.",
+      "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f821b96_37fbb279",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-24T05:29:36Z",
+      "side": 1,
+      "message": "Done. Added explanation: \"These D-Bus properties represent the cumulative ECC error counts\" to clarify why they map to the Redfish LifeTime structure. Also removed the CacheMetricsTotal.LifeTime prefix from the mapping list for clarity.\n\nSee PS10:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/10//COMMIT_MSG",
+      "parentUuid": "b06688dc_75c3c398",
       "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d27d94_39363d5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-24T05:29:36Z",
+      "side": 1,
+      "message": "Done. Removed the entire Changes section from commit message.\n\nSee PS10:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/10//COMMIT_MSG",
+      "parentUuid": "df6b39a5_dd3cc98c",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e05fbee_0ac9072d",
@@ -77,6 +143,30 @@
       "writtenOn": "2026-02-23T17:15:48Z",
       "side": 1,
       "message": "need to handle when these values are unpopulated or undefined.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2cf8921_7b87d106",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-24T05:29:36Z",
+      "side": 1,
+      "message": "Done. Changed to check both ceCount and ueCount for nullptr before populating JSON. If either is unpopulated, logs debug and returns without partial data.\n\nSee PS10:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/10/redfish-core/lib/processor_metrics.hpp#63",
+      "parentUuid": "9e05fbee_0ac9072d",
       "range": {
         "startLine": 62,
         "startChar": 0,
