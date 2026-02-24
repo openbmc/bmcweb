@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "856a0c6a_1bb8e86e",
+        "filename": "redfish-core/schema/dmtf/csdl/ThermalSubsystem_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-24T03:14:02Z",
+      "side": 0,
+      "message": "this is a DMTF spec, please take this up with them. We are just pulling it in.",
+      "range": {
+        "startLine": 235,
+        "startChar": 134,
+        "endLine": 235,
+        "endChar": 145
+      },
+      "revId": "fab7374c5be4f9ac1a6ee63b5d3627e0ceb6b170",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
