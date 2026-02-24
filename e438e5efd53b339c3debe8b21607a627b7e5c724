@@ -354,6 +354,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7dbe2f6_bcf4a059",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-24T17:39:48Z",
+      "side": 1,
+      "message": "and there\u0027s more than 24 timezones, the point is we can loop all of them.",
+      "parentUuid": "0b849b8b_fe999d9e",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "950479ea_92f2edd9",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
