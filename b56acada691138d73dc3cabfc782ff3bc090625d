@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02fbd026_d230e89a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-24T16:18:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9d889ee_5bb2032f",
+      "range": {
+        "startLine": 29,
+        "startChar": 60,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10a3d227_ef1a26e3",
@@ -239,6 +263,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b773e77f_36cc1467",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-24T16:18:02Z",
+      "side": 1,
+      "message": "I did some more digging and found my previous assumption about default cache state was wrong - I though it does not exist by default, and the code just bypasses cache lookup, so the SSL object created for resumption case does not have certificates. \nIn fact the cache does exist by default, its size set to 20K, mode to SSL_SESS_CACHE_SERVER. So, for the first connection / resumption disabled a client sends certs, openssl put them to the cache and auth happened in the callback; for subsequent connections within the session, openssl populated certs from the cache, but as bmcweb did not do auth in the afterSslHandshake (the callback was not called either), despite the cert was in the SSL object, user was not authorized and server sent 401.",
+      "parentUuid": "98a01019_ed0c41ef",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45b839cc_40ffa3f2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -290,6 +338,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c35afdd6_7840eeab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-24T16:18:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40185f52_3d0ece5d",
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b45ba5b5_56a00fd1",
@@ -303,6 +369,24 @@
       "writtenOn": "2026-02-23T19:13:55Z",
       "side": 1,
       "message": "Include is still here.",
+      "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd22793a_f22e3a53",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-24T16:18:02Z",
+      "side": 1,
+      "message": "Oh, I confused this with the other header file.",
+      "parentUuid": "b45ba5b5_56a00fd1",
       "revId": "b56acada691138d73dc3cabfc782ff3bc090625d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
