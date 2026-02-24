@@ -14,6 +14,8 @@
 namespace ensuressl
 {
 
+constexpr std::string_view kMtlsSniHostname = "mtls.bmc";
+
 enum class VerifyCertificate
 {
     Verify,
