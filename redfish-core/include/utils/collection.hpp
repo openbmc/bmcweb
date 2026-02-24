@@ -17,6 +17,7 @@
 #include <functional>
 #include <memory>
 #include <ranges>
+#include <set>
 #include <span>
 #include <string>
 #include <string_view>
@@ -60,7 +61,7 @@ inline void handleCollectionMembers(
         return;
     }
 
-    std::vector<std::string> pathNames;
+    std::set<std::string> leafNames;
     for (const auto& object : objects)
     {
         sdbusplus::message::object_path path(object);
@@ -69,8 +70,9 @@ inline void handleCollectionMembers(
         {
             continue;
         }
-        pathNames.push_back(leaf);
+        leafNames.insert(leaf);
     }
+    std::vector<std::string> pathNames(leafNames.begin(), leafNames.end());
     std::ranges::sort(pathNames, AlphanumLess<std::string>());
 
     nlohmann::json& members = asyncResp->res.jsonValue[jsonKeyName];
