@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be95d142_01d91c86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T20:04:07Z",
+      "side": 1,
+      "message": "This fixes 3 separate problems: \n1) that extra slash \n2) Certificates should have been part of OpenBMCManager \n3) OpenBMCManager and OpenBMCManager should always be there since they have properties like Certificates and AuthMethods\n\nYou could make that a bit more clear in the commit msg..",
+      "revId": "88901e90f82bef05a800720fc812950dc48023ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d1c9432_31699ae0",
+        "filename": "redfish-core/schema/oem/openbmc/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T20:04:07Z",
+      "side": 1,
+      "message": "The Account Service is \n\n          \"AuthMethods\": {\n            \"BasicAuth\": true,\n            \"Cookie\": true,\n            \"SessionToken\": true,\n            \"TLS\": false,\n            \"XToken\": true\n          }\n\nI am good with it always being there.",
+      "revId": "88901e90f82bef05a800720fc812950dc48023ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
