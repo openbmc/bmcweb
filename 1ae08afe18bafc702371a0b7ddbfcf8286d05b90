@@ -281,6 +281,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3e01811_457dbd2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-25T07:27:19Z",
+      "side": 1,
+      "message": "\u003e npm package for RF validator.\n\nRedfish service validator is a python package......  Possibly you meant pip?",
+      "parentUuid": "6103f6ef_ab9f6b61",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b583333_e3140742",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
