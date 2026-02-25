@@ -65,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8bca03a_c8e4762a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-25T07:06:55Z",
+      "side": 1,
+      "message": "Hi Ed, sorry, I\u0027m a bit confused. I have already set my name to \u0027Ender Hsieh\u0027 in the settings. Is it still appearing incorrectly on your end? \nPlease let me know if there’s a specific field I should update. \nThanks!",
+      "parentUuid": "4e7b3055_bcf6eb39",
+      "revId": "1a160cd93149c10a86dff29bec045a85d9776b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f62e21f_cdbac7ae",
