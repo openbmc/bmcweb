@@ -199,6 +199,30 @@
       },
       "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48838766_4e014512",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-25T07:33:51Z",
+      "side": 1,
+      "message": "Not done.  \"nullptr\" means the properties didn\u0027t exist in teh response, and is arguably an internal error.  You need to handle when they\u0027re unavailable..",
+      "parentUuid": "d2cf8921_7b87d106",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
