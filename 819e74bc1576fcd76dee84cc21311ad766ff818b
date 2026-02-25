@@ -16,6 +16,24 @@
       "message": "I don\u0027t see a path for this, at least upstream. please remove",
       "revId": "819e74bc1576fcd76dee84cc21311ad766ff818b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19fa1fca_1d22d778",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-02-25T20:59:45Z",
+      "side": 1,
+      "message": "Thanks for finding this.  Removed it.",
+      "parentUuid": "752bca3c_51ae1ab5",
+      "revId": "819e74bc1576fcd76dee84cc21311ad766ff818b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
