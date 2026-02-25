@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3b3119e_084818f4",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-25T11:05:05Z",
+      "side": 1,
+      "message": "I set this to align with httpx default, but sure, I think 30 seconds is reasonable one.",
+      "parentUuid": "b903dbb8_6dfcdfd4",
+      "revId": "75560a7bacbd1f703837510e309a07038f79346f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4e14b3b_96037922",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 1
@@ -65,6 +83,24 @@
       "writtenOn": "2026-02-24T17:22:35Z",
       "side": 1,
       "message": "Do we need this conditional?  Just set port at all times?",
+      "revId": "75560a7bacbd1f703837510e309a07038f79346f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e5c9ff3_1c6646d4",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-25T11:05:05Z",
+      "side": 1,
+      "message": "Did this to preserve original url, changed in the next revision.",
+      "parentUuid": "e4e14b3b_96037922",
       "revId": "75560a7bacbd1f703837510e309a07038f79346f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
