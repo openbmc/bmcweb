@@ -1173,6 +1173,7 @@ functions the same like the default implementation under the System resource.
 
 - CacheMetricsTotal/LifeTime/CorrectableECCErrorCount
 - CacheMetricsTotal/LifeTime/UncorrectableECCErrorCount
+- OperatingSpeedMHz
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
