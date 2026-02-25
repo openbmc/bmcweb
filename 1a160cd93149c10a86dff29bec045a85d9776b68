@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "030416f6_9f965709",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:28:42Z",
+      "side": 1,
+      "message": "Can you mark as a WIP until the PDI is up for review ?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 69
+      },
+      "revId": "1a160cd93149c10a86dff29bec045a85d9776b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f62e21f_cdbac7ae",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:28:42Z",
+      "side": 1,
+      "message": "ERROR level and log the ec ?",
+      "revId": "1a160cd93149c10a86dff29bec045a85d9776b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84678ec3_58313a21",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:28:42Z",
+      "side": 1,
+      "message": "Is this documented in PDI ?",
+      "revId": "1a160cd93149c10a86dff29bec045a85d9776b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "820b27c1_ca36158e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:28:42Z",
+      "side": 1,
+      "message": "Does this work ? You don\u0027t need\nchassis_utils::chassisInterfaces ?",
+      "range": {
+        "startLine": 477,
+        "startChar": 8,
+        "endLine": 477,
+        "endChar": 25
+      },
+      "revId": "1a160cd93149c10a86dff29bec045a85d9776b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
