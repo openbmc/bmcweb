@@ -16,6 +16,24 @@
       "message": "Ender, do you mind looking at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300 ? \nLooking for this change and 47300 to be on the page.",
       "revId": "85f922a513f9712685aeb141415c2e48506a6be5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16aa729b_fa181f01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-02-25T08:03:20Z",
+      "side": 1,
+      "message": "Hi Gunnar, thanks for the link. Just to clarify, are you suggesting I use 47300 as a reference for my implementation, or would you like me to review that change as well? \nThanks!",
+      "parentUuid": "23c0bcd0_0e15bf7c",
+      "revId": "85f922a513f9712685aeb141415c2e48506a6be5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
