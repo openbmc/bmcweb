@@ -9,6 +9,7 @@
 #include "async_resp.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "error_message_utils.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/update_service.hpp"
@@ -19,6 +20,7 @@
 #include "multipart_parser.hpp"
 #include "ossl_random.hpp"
 #include "query.hpp"
+#include "registries/openbmc_message_registry.hpp"
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
 #include "task.hpp"
@@ -87,6 +89,110 @@ static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
 /* @brief String that indicates the Software Update D-Bus interface */
 constexpr const char* updateInterface = "xyz.openbmc_project.Software.Update";
 
+enum class UpdateFailureCategory
+{
+    transportFailure,
+    signatureValidationFailure,
+    compatibilityFailure,
+    activationTimeout,
+    postActivationHealthFailure,
+    rollbackTriggered,
+};
+
+struct UpdateFailureInfo
+{
+    UpdateFailureCategory category;
+    std::string detail;
+    std::string recovery;
+    std::string source;
+};
+
+inline std::string_view getFailureCategory(UpdateFailureCategory category)
+{
+    switch (category)
+    {
+        case UpdateFailureCategory::transportFailure:
+            return "TransportFailure";
+        case UpdateFailureCategory::signatureValidationFailure:
+            return "SignatureValidationFailure";
+        case UpdateFailureCategory::compatibilityFailure:
+            return "CompatibilityFailure";
+        case UpdateFailureCategory::activationTimeout:
+            return "ActivationTimeout";
+        case UpdateFailureCategory::postActivationHealthFailure:
+            return "PostActivationHealthFailure";
+        case UpdateFailureCategory::rollbackTriggered:
+            return "RollbackTriggered";
+        default:
+            return "PostActivationHealthFailure";
+    }
+}
+
+inline std::string_view getRecoveryAction(UpdateFailureCategory category)
+{
+    switch (category)
+    {
+        case UpdateFailureCategory::transportFailure:
+            return "Verify transport path and updater availability, then retry the update.";
+        case UpdateFailureCategory::signatureValidationFailure:
+            return "Use a signed image with a valid access key/certificate trusted by this platform.";
+        case UpdateFailureCategory::compatibilityFailure:
+            return "Use firmware that matches the target platform and component.";
+        case UpdateFailureCategory::activationTimeout:
+            return "Check updater daemon and activation logs, then retry after ensuring BMC responsiveness.";
+        case UpdateFailureCategory::postActivationHealthFailure:
+            return "Review post-activation health checks and restore a known-good image if needed.";
+        case UpdateFailureCategory::rollbackTriggered:
+            return "Inspect rollback policy/health logs, validate image integrity, and retry with a known-good image.";
+        default:
+            return "Check firmware activation and updater logs, then retry.";
+    }
+}
+
+inline nlohmann::json::object_t makeFirmwareUpdateFailureMessage(
+    const UpdateFailureInfo& failure)
+{
+    std::string category(getFailureCategory(failure.category));
+    std::string reason = std::format("{}: {} Recovery: {}", category,
+                                     failure.detail, failure.recovery);
+    const std::array<std::string_view, 3> args = {"BMC", "N/A", reason};
+    return registries::getLogFromRegistry(
+        registries::Openbmc::header, registries::Openbmc::registry,
+        static_cast<size_t>(registries::Openbmc::Index::firmwareUpdateFailed),
+        args);
+}
+
+inline void addFailureToErrorResponse(crow::Response& res,
+                                      const UpdateFailureInfo& failure)
+{
+    messages::addMessageToErrorJson(res.jsonValue,
+                                    makeFirmwareUpdateFailureMessage(failure));
+
+    nlohmann::json& fwFailure =
+        res.jsonValue["error"]["Oem"]["OpenBMC"]["FirmwareUpdateFailure"];
+    fwFailure["Category"] = getFailureCategory(failure.category);
+    fwFailure["Message"] = failure.detail;
+    fwFailure["Recovery"] = failure.recovery;
+    fwFailure["Source"] = failure.source;
+}
+
+inline void addFailureToTask(const std::shared_ptr<task::TaskData>& taskData,
+                             const UpdateFailureInfo& failure)
+{
+    taskData->setFailureInfo(std::string(getFailureCategory(failure.category)),
+                             failure.detail, failure.recovery, failure.source);
+    taskData->messages.emplace_back(makeFirmwareUpdateFailureMessage(failure));
+}
+
+inline UpdateFailureInfo makeFailureInfo(UpdateFailureCategory category,
+                                         std::string detail,
+                                         std::string source)
+{
+    return UpdateFailureInfo{category, std::move(detail),
+                             std::string(getRecoveryAction(category)),
+                             std::move(source)};
+}
+
 struct MemoryFileDescriptor
 {
     int fd = -1;
@@ -152,6 +258,16 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
 {
     if (ec2)
     {
+        if (ec2 == boost::asio::error::operation_aborted &&
+            taskData->state == "Cancelled")
+        {
+            addFailureToTask(
+                taskData,
+                makeFailureInfo(
+                    UpdateFailureCategory::activationTimeout,
+                    "Timed out waiting for firmware activation to complete.",
+                    "Task timeout"));
+        }
         return task::completed;
     }
 
@@ -184,9 +300,21 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
 
         if (state->ends_with("Invalid") || state->ends_with("Failed"))
         {
+            UpdateFailureCategory category =
+                state->ends_with("Invalid")
+                    ? UpdateFailureCategory::rollbackTriggered
+                    : UpdateFailureCategory::postActivationHealthFailure;
+
             taskData->state = "Exception";
             taskData->status = "Warning";
             taskData->messages.emplace_back(messages::taskAborted(index));
+            addFailureToTask(
+                taskData,
+                makeFailureInfo(
+                    category,
+                    std::format("Activation state transitioned to '{}'.",
+                                *state),
+                    "xyz.openbmc_project.Software.Activation"));
             return task::completed;
         }
 
@@ -350,14 +478,73 @@ inline void afterAvailbleTimerAsyncWait(
     }
     if (asyncResp)
     {
-        redfish::messages::internalError(asyncResp->res);
+        messages::internalError(asyncResp->res);
+        addFailureToErrorResponse(
+            asyncResp->res,
+            makeFailureInfo(
+                UpdateFailureCategory::activationTimeout,
+                "Timed out waiting for software object creation after image upload.",
+                "software availability monitor"));
     }
+}
+
+inline std::optional<UpdateFailureInfo> classifyUpdateFailure(
+    const std::string& type)
+{
+    if (type == "xyz.openbmc_project.Software.Version.Error.InvalidSignature" ||
+        type == "xyz.openbmc_project.Software.Version.Error.ExpiredAccessKey")
+    {
+        return makeFailureInfo(UpdateFailureCategory::signatureValidationFailure,
+                               std::format("Software update error '{}'.", type),
+                               type);
+    }
+    if (type == "xyz.openbmc_project.Software.Version.Error.Incompatible" ||
+        type == "xyz.openbmc_project.Software.Version.Error.AlreadyExists" ||
+        type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure" ||
+        type == "xyz.openbmc_project.Software.Image.Error.ManifestFileFailure" ||
+        type == "xyz.openbmc_project.Software.Image.Error.ImageFailure")
+    {
+        return makeFailureInfo(UpdateFailureCategory::compatibilityFailure,
+                               std::format("Software update error '{}'.", type),
+                               type);
+    }
+    if (type == "xyz.openbmc_project.Software.Image.Error.BusyFailure" ||
+        type == "xyz.openbmc_project.Software.Version.Error.HostFile")
+    {
+        return makeFailureInfo(UpdateFailureCategory::transportFailure,
+                               std::format("Software update error '{}'.", type),
+                               type);
+    }
+    if (type.find("Rollback") != std::string::npos)
+    {
+        return makeFailureInfo(UpdateFailureCategory::rollbackTriggered,
+                               std::format("Software update error '{}'.", type),
+                               type);
+    }
+    if (type.find("Health") != std::string::npos ||
+        type == "xyz.openbmc_project.Software.Image.Error.InternalFailure")
+    {
+        return makeFailureInfo(UpdateFailureCategory::postActivationHealthFailure,
+                               std::format("Software update error '{}'.", type),
+                               type);
+    }
+    return std::nullopt;
 }
 
 inline void handleUpdateErrorType(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& url,
     const std::string& type)
 {
+    if (!asyncResp)
+    {
+        BMCWEB_LOG_INFO(
+            "Software update error without response context: {}", type);
+        fwAvailableTimer = nullptr;
+        return;
+    }
+
+    std::optional<UpdateFailureInfo> failureInfo = classifyUpdateFailure(type);
+
     // NOLINTBEGIN(bugprone-branch-clone)
     if (type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
     {
@@ -409,6 +596,10 @@ inline void handleUpdateErrorType(
         return;
     }
     // NOLINTEND(bugprone-branch-clone)
+    if (failureInfo)
+    {
+        addFailureToErrorResponse(asyncResp->res, *failureInfo);
+    }
     // Clear the timer
     fwAvailableTimer = nullptr;
 }
@@ -859,6 +1050,25 @@ inline void handleStartUpdate(
         BMCWEB_LOG_ERROR("error_code = {}", ec);
         BMCWEB_LOG_ERROR("error msg = {}", ec.message());
         messages::internalError(asyncResp->res);
+
+        UpdateFailureCategory category =
+            UpdateFailureCategory::postActivationHealthFailure;
+        if (ec == boost::asio::error::host_unreachable)
+        {
+            category = UpdateFailureCategory::transportFailure;
+        }
+        else if (ec == boost::asio::error::timed_out)
+        {
+            category = UpdateFailureCategory::activationTimeout;
+        }
+
+        addFailureToErrorResponse(
+            asyncResp->res,
+            makeFailureInfo(
+                category,
+                std::format("D-Bus StartUpdate failed for '{}': {}", objectPath,
+                            ec.message()),
+                "StartUpdate"));
         return;
     }
 

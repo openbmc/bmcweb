@@ -170,8 +170,33 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
     void populateResp(crow::Response& res, size_t retryAfterSeconds = 30)
     {
+        auto populateFailureMetadata = [this, &res]() {
+            if (!failureCategory)
+            {
+                return;
+            }
+
+            nlohmann::json& fwFailure =
+                res.jsonValue["Oem"]["OpenBMC"]["FirmwareUpdateFailure"];
+            fwFailure["Category"] = *failureCategory;
+
+            if (failureMessage)
+            {
+                fwFailure["Message"] = *failureMessage;
+            }
+            if (failureRecovery)
+            {
+                fwFailure["Recovery"] = *failureRecovery;
+            }
+            if (failureSource)
+            {
+                fwFailure["Source"] = *failureSource;
+            }
+        };
+
         if (!endTime)
         {
+            populateFailureMetadata();
             res.result(boost::beast::http::status::accepted);
             std::string strIdx = std::to_string(index);
             boost::urls::url uri =
@@ -223,6 +248,20 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     {
         endTime = std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now());
+    }
+
+    void setFailureInfo(std::string_view category, std::string detail,
+                        std::string recovery, std::string source)
+    {
+        failureCategory = std::string(category);
+        failureMessage = std::move(detail);
+        failureRecovery = std::move(recovery);
+        if (source.empty())
+        {
+            failureSource.reset();
+            return;
+        }
+        failureSource = std::move(source);
     }
 
     void extendTimer(const std::chrono::seconds& timeout)
@@ -362,6 +401,10 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     std::optional<Payload> payload;
     bool gave204 = false;
     int percentComplete = 0;
+    std::optional<std::string> failureCategory;
+    std::optional<std::string> failureMessage;
+    std::optional<std::string> failureRecovery;
+    std::optional<std::string> failureSource;
 };
 
 } // namespace task
@@ -485,6 +528,26 @@ inline void requestRoutesTask(App& app)
                 }
                 asyncResp->res.jsonValue["PercentComplete"] =
                     ptr->percentComplete;
+
+                if (ptr->failureCategory)
+                {
+                    nlohmann::json& fwFailure =
+                        asyncResp->res.jsonValue["Oem"]["OpenBMC"]
+                                                ["FirmwareUpdateFailure"];
+                    fwFailure["Category"] = *ptr->failureCategory;
+                    if (ptr->failureMessage)
+                    {
+                        fwFailure["Message"] = *ptr->failureMessage;
+                    }
+                    if (ptr->failureRecovery)
+                    {
+                        fwFailure["Recovery"] = *ptr->failureRecovery;
+                    }
+                    if (ptr->failureSource)
+                    {
+                        fwFailure["Source"] = *ptr->failureSource;
+                    }
+                }
             });
 }
 
