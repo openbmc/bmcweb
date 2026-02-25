@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da468e61_d3ab9ee5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-25T19:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b9c209a_c4522f52",
+      "range": {
+        "startLine": 292,
+        "startChar": 49,
+        "endLine": 292,
+        "endChar": 52
+      },
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9961ae9c_ec633a50",
@@ -60,6 +84,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "74b9529f_f364e49c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-25T19:15:28Z",
+      "side": 1,
+      "message": "Oops, fixed it.",
+      "parentUuid": "9961ae9c_ec633a50",
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "87956b57_1655b42d",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 45
@@ -71,6 +113,24 @@
       "writtenOn": "2026-02-25T03:17:24Z",
       "side": 1,
       "message": "If you had multiple priorities 0. You would use the last one... But I am okay without a check.. A check would look like\n\n```\nif (*priority \u003d\u003d 0)  \n    if (asyncResp-\u003eres.contains(\"SpeedPercent\"))\n    {\n        BMCWEB_LOG_WARNING(\n            \"Duplicate fan sensor with Priority 0...\n        return;\n    }\n```",
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc1c1789_a61fbbc3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-25T19:15:28Z",
+      "side": 1,
+      "message": "Good point, I\u0027ve gone ahead and added the check. I added a case to my testing as well and updated the commit message to reflect it.",
+      "parentUuid": "87956b57_1655b42d",
       "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +165,24 @@
       "writtenOn": "2026-02-25T03:17:24Z",
       "side": 1,
       "message": "I think if you had 2 associations but only 1 valid percentage sensor and no priority, it gets skipped but I am fine with that.",
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "580f23ef_c0c71836",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-02-25T19:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff79fd88_2ffe8a10",
       "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
