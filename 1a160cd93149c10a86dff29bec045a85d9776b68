@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f068030b_e1bf05cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-25T07:24:59Z",
+      "side": 1,
+      "message": "Yes, I\"m seeing an unset name.  Please make sure \"Full name\" is set in your profile.",
+      "parentUuid": "c8bca03a_c8e4762a",
+      "revId": "1a160cd93149c10a86dff29bec045a85d9776b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f62e21f_cdbac7ae",
