@@ -243,6 +243,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0be765d1_ed6be1fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-02-25T14:43:30Z",
+      "side": 1,
+      "message": "Hmm, I acked those and did not mean to resolve. Unresolved then.\nYes, I\u0027m going to work on addressing those comments and adding patching functionality. This will take some time though.",
+      "parentUuid": "2b8a25a9_096ee213",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9ae4d1a_ec741f01",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
