@@ -22,6 +22,30 @@
       },
       "revId": "1b6cc5c666511613658d558e294f955c12428704",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aa11a92_acd0af7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-02-25T12:06:14Z",
+      "side": 1,
+      "message": "Thanks for remind, refine message again, thanks.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/11..12//COMMIT_MSG",
+      "parentUuid": "a3bc516b_366bcf81",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "1b6cc5c666511613658d558e294f955c12428704",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
