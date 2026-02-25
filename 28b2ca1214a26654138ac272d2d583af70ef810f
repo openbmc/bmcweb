@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46001445_cff53fab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:17:24Z",
+      "side": 1,
+      "message": "Overall I am good",
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b9c209a_c4522f52",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:17:24Z",
+      "side": 1,
+      "message": "space here",
+      "range": {
+        "startLine": 292,
+        "startChar": 49,
+        "endLine": 292,
+        "endChar": 52
+      },
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9961ae9c_ec633a50",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:17:24Z",
+      "side": 1,
+      "message": "messages::internalError(asyncResp-\u003eres);",
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87956b57_1655b42d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:17:24Z",
+      "side": 1,
+      "message": "If you had multiple priorities 0. You would use the last one... But I am okay without a check.. A check would look like\n\n```\nif (*priority \u003d\u003d 0)  \n    if (asyncResp-\u003eres.contains(\"SpeedPercent\"))\n    {\n        BMCWEB_LOG_WARNING(\n            \"Duplicate fan sensor with Priority 0...\n        return;\n    }\n```",
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff79fd88_2ffe8a10",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:17:24Z",
+      "side": 1,
+      "message": "It could be const size_t",
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8574853f_48b3e7d3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-25T03:17:24Z",
+      "side": 1,
+      "message": "I think if you had 2 associations but only 1 valid percentage sensor and no priority, it gets skipped but I am fine with that.",
+      "revId": "28b2ca1214a26654138ac272d2d583af70ef810f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
