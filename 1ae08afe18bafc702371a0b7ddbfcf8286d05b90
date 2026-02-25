@@ -297,6 +297,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4440e5c2_603f9cc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-02-25T22:45:06Z",
+      "side": 1,
+      "message": "So, I had updated the tested with the RF validator result (https://gerrit.openbmc.org/plugins/gitiles/openbmc/bmcweb/+/d24b307d1ebc389a0a24a9df0d9733c1e42b7607) but I made the mistake of doing that in the webui of gerrit and not my actual commit. So, the next time I rebased and pushed, it overwrote it with the commit message I had in my checkout which did not contain the tested section.\n\n@gunnar@gmills.xyz it should have it now. Thanks for catching it.",
+      "parentUuid": "d3e01811_457dbd2e",
+      "revId": "1ae08afe18bafc702371a0b7ddbfcf8286d05b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b583333_e3140742",
