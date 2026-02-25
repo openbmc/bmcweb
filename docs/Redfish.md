@@ -1143,6 +1143,12 @@ functions the same like the default implementation under the System resource.
 - TotalThreads
 - Version
 
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/ProcessorMetrics/
+
+#### ProcessorMetrics
+
+- OperatingSpeedMHz
+
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
 #### ActionInfo

@@ -19,6 +19,8 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <array>
+#include <cmath>
 #include <functional>
 #include <memory>
 #include <string>
@@ -91,9 +93,80 @@ inline void getProcessorMetricsECCData(
         std::bind_front(afterGetProcessorMetricsECCData, asyncResp));
 }
 
+inline void afterGetOperatingFrequency(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("No OperatingFrequency metric: {}", ec.message());
+        return;
+    }
+
+    if (!std::isfinite(value))
+    {
+        return;
+    }
+
+    constexpr double hzPerMhz = 1000000.0;
+    asyncResp->res.jsonValue["OperatingSpeedMHz"] =
+        static_cast<int64_t>(value / hzPerMhz);
+}
+
+inline void afterGetProcessorMetricsMetricPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree: {}",
+                             ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    for (const auto& [path, services] : subtree)
+    {
+        if (services.size() != 1)
+        {
+            continue;
+        }
+
+        sdbusplus::message::object_path objPath(path);
+        const std::string metricName = objPath.filename();
+
+        if (metricName != "OperatingFrequency")
+        {
+            continue;
+        }
+
+        const auto& serviceName = services.begin()->first;
+        dbus::utility::getProperty<double>(
+            serviceName, path, "xyz.openbmc_project.Metric.Value", "Value",
+            std::bind_front(afterGetOperatingFrequency, asyncResp));
+        return;
+    }
+}
+
+inline void getProcessorMetricsOperatingSpeed(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    const sdbusplus::message::object_path assocPath =
+        sdbusplus::message::object_path(objectPath) / "measured_by";
+    dbus::utility::getAssociatedSubTree(
+        assocPath,
+        sdbusplus::message::object_path("/xyz/openbmc_project/metric"), 0,
+        std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
+        std::bind_front(afterGetProcessorMetricsMetricPaths, asyncResp));
+}
+
 /**
- * @brief Populate ProcessorMetrics with ECC data from the processor's
- *        service map
+ * @brief Populate ProcessorMetrics from the processor's service map
  *
  * @param[in,out]   asyncResp   Async HTTP response.
  * @param[in]       objectPath  D-Bus object path of the processor.
@@ -111,11 +184,11 @@ inline void getProcessorMetricsData(
             if (interface == "xyz.openbmc_project.Memory.MemoryECC")
             {
                 getProcessorMetricsECCData(asyncResp, serviceName, objectPath);
-                return;
             }
         }
     }
-    BMCWEB_LOG_DEBUG("No MemoryECC interface found for {}", objectPath);
+
+    getProcessorMetricsOperatingSpeed(asyncResp, objectPath);
 }
 
 /**
