@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e32a2cc_7256ad69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 56
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-26T21:35:25Z",
+      "side": 1,
+      "message": "Besides nit, LGTM",
+      "revId": "d8f07d508c4b4337f258ecb9ff29b2f9b9f3b91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed4a1f38_622bc314",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-26T21:35:25Z",
+      "side": 1,
+      "message": "nit: we might want to make this array global similar to the processor interfaces. It gets created here and on L1121",
+      "revId": "d8f07d508c4b4337f258ecb9ff29b2f9b9f3b91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

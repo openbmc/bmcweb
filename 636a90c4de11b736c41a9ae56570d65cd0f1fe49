@@ -268,6 +268,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd8c3260_5b7a71bc",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-26T21:35:25Z",
+      "side": 1,
+      "message": "The important part here is the fact PDI defines containing/contained_by on Inventory.Item. The related PDI discussion resulted in ManagedHost not being suitable for this.\n\n\nAlso as discussed on discord recently, we are fine with having both interfaces around for now. Closing this, reopen if you feel like we are still missing sth here.",
+      "parentUuid": "6385cee0_e9d56fee",
+      "revId": "636a90c4de11b736c41a9ae56570d65cd0f1fe49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64f63077_ef141cd5",
