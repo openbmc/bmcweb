@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f7b6b46_52753836",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 57
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-26T22:39:58Z",
+      "side": 1,
+      "message": "Only small nit, else LGTM",
+      "revId": "85a7a5cf00ec59639c9960cdc725711fa20acb47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6c3ba6a_fdd2b789",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-02-26T22:39:58Z",
+      "side": 1,
+      "message": "nit: pull memoryInterfaces, dimmInterfaces and systemInterface into global namespace to not redefine them",
+      "revId": "85a7a5cf00ec59639c9960cdc725711fa20acb47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
