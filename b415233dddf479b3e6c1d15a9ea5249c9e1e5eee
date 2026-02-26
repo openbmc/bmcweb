@@ -22,6 +22,30 @@
       },
       "revId": "b415233dddf479b3e6c1d15a9ea5249c9e1e5eee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1005cc1_16a382b8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-02-26T10:18:22Z",
+      "side": 0,
+      "message": "The current code treats null as a positional placeholder in an array-based operations which is more RESTful and user-friendly. The \"fail silently\" behavior supports:\n- Sequential addition: [null, {\"Address\":\"...\"}] when starting empty\n- Graceful handling: [null, null, null] when fewer gateways exist\n- Array-based operations: null acts as positional placeholder, not \n  explicit delete command\n\nCommit message:Encountering a null IPv6 default gateway entry with no\ncorresponding existing gateway resulted in resourceCannotBeDeleted and\nan early return. This caused mixed/null test cases to fail because the\nloop aborted before processing subsequent entries.\n\nThis change modifies the behavior to skip null entries silently:\n- If a matching gateway exists, delete it and advance the iterator.\n- If no gateway exists, simply continue without error.\n- After processing all input entries, delete any remaining gateways\n  not present in the input array.\n\nThis ensures that scenarios with nulls, empty objects, and clear-all\noperations are handled consistently, without prematurely failing.",
+      "parentUuid": "3bd54fcc_03dcd8fb",
+      "range": {
+        "startLine": 1059,
+        "startChar": 0,
+        "endLine": 1063,
+        "endChar": 13
+      },
+      "revId": "b415233dddf479b3e6c1d15a9ea5249c9e1e5eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
