@@ -332,6 +332,18 @@ class HttpBody::reader
     {
         if (contentLength)
         {
+            constexpr size_t maxReserveSize =
+                1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+
+            if (*contentLength > maxReserveSize)
+            {
+                BMCWEB_LOG_WARNING(
+                    "Content-Length {} exceeds max body size {}, rejecting.",
+                    *contentLength, maxReserveSize);
+                ec = boost::beast::http::error::body_limit;
+                return;
+            }
+
             if (!value.file().is_open())
             {
                 value.str().reserve(static_cast<size_t>(*contentLength));
