@@ -1046,11 +1046,34 @@ functions the same like the default implementation under the System resource.
 - Socket
 - SparePartNumber
 - Status
+- SystemInterface/InterfaceType
+- SystemInterface/PCIe/LanesInUse
+- SystemInterface/PCIe/MaxLanes
+- SystemInterface/PCIe/MaxPCIeType
+- SystemInterface/PCIe/PCIeType
 - ThrottleCauses
 - Throttled
 - TotalCores
 - TotalThreads
 - Version
+
+### /redfish/v1/Chassis/{ChassisId}/PCIeDevices/
+
+#### PCIeDeviceCollection
+
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/
+
+#### PCIeDevice
+
+- Links/Processors
+- PCIeInterface/LanesInUse
+- PCIeInterface/MaxLanes
+- PCIeInterface/MaxPCIeType
+- PCIeInterface/PCIeType
+- Status
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
