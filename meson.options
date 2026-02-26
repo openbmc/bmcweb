@@ -295,7 +295,7 @@ option(
     min: 0,
     max: 512,
     value: 30,
-    description: 'Specifies the http request body length limit',
+    description: 'Specifies the http request body length limit in MiB.',
 )
 
 # BMCWEB_HTTP_ZSTD
