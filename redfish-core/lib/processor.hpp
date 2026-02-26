@@ -20,6 +20,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/pcie_util.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -819,6 +820,117 @@ inline void getProcessorObject(
         });
 }
 
+inline void addProcessorSystemInterfaceProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::DBusPropertiesMap& pcieDevProperties)
+{
+    const std::string* generationInUse = nullptr;
+    const std::string* generationSupported = nullptr;
+    const size_t* lanesInUse = nullptr;
+    const size_t* maxLanes = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), pcieDevProperties, "GenerationInUse",
+        generationInUse, "GenerationSupported", generationSupported,
+        "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["SystemInterface"]["InterfaceType"] = "PCIe";
+
+    if (generationInUse != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> redfishGen =
+            pcie_util::redfishPcieGenerationFromDbus(*generationInUse);
+        if (redfishGen && *redfishGen != pcie_device::PCIeTypes::Invalid)
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["PCIeType"] =
+                *redfishGen;
+        }
+    }
+
+    if (generationSupported != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> redfishGen =
+            pcie_util::redfishPcieGenerationFromDbus(*generationSupported);
+        if (redfishGen && *redfishGen != pcie_device::PCIeTypes::Invalid)
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["MaxPCIeType"] =
+                *redfishGen;
+        }
+    }
+
+    if (lanesInUse != nullptr)
+    {
+        if (*lanesInUse == std::numeric_limits<size_t>::max())
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["LanesInUse"] =
+                nullptr;
+        }
+        else
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["LanesInUse"] =
+                *lanesInUse;
+        }
+    }
+
+    if (maxLanes != nullptr && *maxLanes != 0)
+    {
+        asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["MaxLanes"] =
+            *maxLanes;
+    }
+}
+
+inline void getProcessorSystemInterface(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+
+    dbus::utility::getAssociatedSubTree(
+        objectPath + "/connecting",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieDeviceInterface,
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                return;
+            }
+            if (subtree.empty())
+            {
+                return;
+            }
+
+            const auto& [pcieDevicePath, serviceMap] = subtree[0];
+            if (serviceMap.empty())
+            {
+                return;
+            }
+
+            const std::string& serviceName = serviceMap[0].first;
+
+            sdbusplus::asio::getAllProperties(
+                *crow::connections::systemBus, serviceName, pcieDevicePath,
+                "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+                [asyncResp](
+                    const boost::system::error_code& ec2,
+                    const dbus::utility::DBusPropertiesMap& properties) {
+                    if (ec2)
+                    {
+                        return;
+                    }
+                    addProcessorSystemInterfaceProperties(asyncResp,
+                                                          properties);
+                });
+        });
+}
+
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -887,6 +999,8 @@ inline void getProcessorData(
             }
         }
     }
+
+    getProcessorSystemInterface(asyncResp, objectPath);
 }
 
 /**

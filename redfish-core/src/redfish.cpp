@@ -213,6 +213,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesSystemPCIeFunction(app);
     requestRoutesSystemPCIeDeviceCollection(app);
     requestRoutesSystemPCIeDevice(app);
+    requestRoutesChassisPCIeDeviceCollection(app);
+    requestRoutesChassisPCIeDevice(app);
 
     requestRoutesSensorCollection(app);
     requestRoutesSensor(app);
