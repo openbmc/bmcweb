@@ -3,6 +3,92 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11fd70ee_1af487c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-27T19:38:43Z",
+      "side": 1,
+      "message": "Remove.  Please write in prose, not in headlines.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9cc5b17_b8be5dbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-27T19:38:43Z",
+      "side": 1,
+      "message": "What result does this have on the subscription?  On a host server going down, eventually all connections will drop, right?",
+      "range": {
+        "startLine": 13,
+        "startChar": 61,
+        "endLine": 16,
+        "endChar": 9
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67e9900e_7799a078",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-27T19:38:43Z",
+      "side": 1,
+      "message": "This reads a lot like it was written by an LLM.  Use of LLMs are wonderful tools, but please make sure you\u0027re personally reviewing it for correctness before making maintainers review it.\n\nThis line for example appears to be a hallucination, there are no changes to isTerminated in this patchset.",
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "028bc3aa_bd0f7ae6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-27T19:38:43Z",
+      "side": 1,
+      "message": "Internal logging is not a functional test, which is what we expect for these kinds of things.  Please read TESTING.md",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 54,
+        "endChar": 28
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec0ba142_d68d2610",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -14,6 +100,29 @@
       "writtenOn": "2026-02-27T18:19:42Z",
       "side": 1,
       "message": "Please add \"Tested:\" section.\n- An example of setup/scenario and verification for the case.\n- Redfish Service Validator verification.",
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ea0a020_ae53f80b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-27T19:38:43Z",
+      "side": 1,
+      "message": "Doesn\u0027t this break retries though?  Right now the connections lifetime is infinite and they are reused.",
+      "range": {
+        "startLine": 713,
+        "startChar": 11,
+        "endLine": 713,
+        "endChar": 46
+      },
       "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
