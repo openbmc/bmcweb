@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a822be8b_66b7e1fe",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-27T16:32:25Z",
+      "side": 1,
+      "message": "Typically just // for a single line in bmcweb, oh well.",
+      "range": {
+        "startLine": 326,
+        "startChar": 8,
+        "endLine": 326,
+        "endChar": 10
+      },
+      "revId": "d11fe99f6e44aac2f269a612ca36877af3f5027d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
