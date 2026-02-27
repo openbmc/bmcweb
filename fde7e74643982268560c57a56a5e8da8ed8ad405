@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc20ae80_d3e9be48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-27T16:42:29Z",
+      "side": 1,
+      "message": "Can you please run the Redfish validator and add a Tested tag?\nhttps://github.com/openbmc/bmcweb/blob/4d0666743cc39543cd3be6bcc315b5d6781f8efa/docs/TESTING.md?plain\u003d1#L5?\n\nThanks!",
+      "revId": "fde7e74643982268560c57a56a5e8da8ed8ad405",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85f4e7cc_41702206",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -14,6 +31,23 @@
       "writtenOn": "2026-02-27T16:39:38Z",
       "side": 1,
       "message": "Hi Rahul, thank you for the commit. Did you sign a Contributor License Agreement (CLA)? A Corporate or Individual? If you signed a Corporate CLA, your company should have an approved Gerrit list, and the maintainer of that group can add you, and Gerrit will start automatically.",
+      "revId": "fde7e74643982268560c57a56a5e8da8ed8ad405",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b32425a_14eb0e46",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-27T16:42:29Z",
+      "side": 1,
+      "message": "Can you talk to Redfish about adding these as standard Redfish?\n\nhttps://github.com/openbmc/bmcweb/blob/4d0666743cc39543cd3be6bcc315b5d6781f8efa/docs/OEM_SCHEMAS.md",
       "revId": "fde7e74643982268560c57a56a5e8da8ed8ad405",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
