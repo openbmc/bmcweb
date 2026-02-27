@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85f4e7cc_41702206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-02-27T16:39:38Z",
+      "side": 1,
+      "message": "Hi Rahul, thank you for the commit. Did you sign a Contributor License Agreement (CLA)? A Corporate or Individual? If you signed a Corporate CLA, your company should have an approved Gerrit list, and the maintainer of that group can add you, and Gerrit will start automatically.",
+      "revId": "fde7e74643982268560c57a56a5e8da8ed8ad405",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
