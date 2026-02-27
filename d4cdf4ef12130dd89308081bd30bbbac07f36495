@@ -129,6 +129,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc81d853_95c6000a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-02-27T19:39:23Z",
+      "side": 1,
+      "message": "Not necessarily it doesn\u0027t.  Connections are not required to support keepalive.",
+      "range": {
+        "startLine": 804,
+        "startChar": 33,
+        "endLine": 806,
+        "endChar": 30
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81475e48_6d50e228",
         "filename": "http/http_client.hpp",
         "patchSetId": 10
