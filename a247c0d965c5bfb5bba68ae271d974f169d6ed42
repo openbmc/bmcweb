@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "018d8e27_c1e8a2d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-02-27T22:26:56Z",
+      "side": 1,
+      "message": "If you stretch the definition of multi-host a bit, it\u0027s a multi-host \nsystem with `n \u003d\u003d 1` hosts. It\u0027s a matter of perspective and configuration i guess.\n\nOverall i have limited options for testing since i don\u0027t have a functional multi-host hardware with `n \u003e 1` hosts.\n\nWhich is why i sometimes get creative with using whatever hw is available to me.\n\nI understand this behavior increases maintainer load, but that development approach (no access to real multi-host hw) is not something i can influence from my side.\n\nTesting with qemu yv4 would also be an option here but it does not make a difference for this specific bug and the qemu yv4 is pretty slow. Which means it\u0027s hard to run the full Tree Redfish Service Validator.",
+      "parentUuid": "47703f65_7602baa8",
+      "revId": "a247c0d965c5bfb5bba68ae271d974f169d6ed42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4dd4f250_53d2bc2d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
