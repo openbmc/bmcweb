@@ -68,6 +68,41 @@
       "message": "@oliver.brewka@9elements.com Do you have an understanding of how this passed RSV when you tested originally?  I would\u0027ve expected this to show up in your testing too.",
       "revId": "a247c0d965c5bfb5bba68ae271d974f169d6ed42",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afaf7879_094c767e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-01T02:33:43Z",
+      "side": 1,
+      "message": "\u003e RSV\n\nRegression Suite Verification ? \n\n\nFor my patches submitted I did start to only validate the respective resource tree (mainly Systems tree) back in the day.",
+      "parentUuid": "c6eb14e8_b4af6752",
+      "revId": "a247c0d965c5bfb5bba68ae271d974f169d6ed42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adc80bf3_135eb645",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-01T02:33:43Z",
+      "side": 1,
+      "message": "Technically most of the headers logic does not support yosemite4, as it \nworks off /xyz/openbmc_project/state/chassis0 for the most part which \ndoes not exist on yv4.\n\nDo we want to disable the handlers instead similar to how we do it \nwith other resources until we properly support it to stay consistent with the rest of the codebase? \n    \n`if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n{\n    // Option currently returns no systems.  TBD\n    messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                   systemName);\n    return;\n}`",
+      "revId": "a247c0d965c5bfb5bba68ae271d974f169d6ed42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
