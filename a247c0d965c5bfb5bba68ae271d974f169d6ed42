@@ -103,6 +103,24 @@
       "message": "Technically most of the headers logic does not support yosemite4, as it \nworks off /xyz/openbmc_project/state/chassis0 for the most part which \ndoes not exist on yv4.\n\nDo we want to disable the handlers instead similar to how we do it \nwith other resources until we properly support it to stay consistent with the rest of the codebase? \n    \n`if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n{\n    // Option currently returns no systems.  TBD\n    messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                   systemName);\n    return;\n}`",
       "revId": "a247c0d965c5bfb5bba68ae271d974f169d6ed42",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49756ce1_ac99af6d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-02T01:17:19Z",
+      "side": 1,
+      "message": "If we were to disable the whole thing, it would be a regression on a bunch of things which already work for the chassis collection. I don\u0027t want to create any regression here.\n\nI still believe this fix is a good band-aid and if anyone wants to do\n something else i would prefer it to be done in another patch.",
+      "parentUuid": "adc80bf3_135eb645",
+      "revId": "a247c0d965c5bfb5bba68ae271d974f169d6ed42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
