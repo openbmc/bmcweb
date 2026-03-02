@@ -136,6 +136,18 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     {
         return "HBM3";
     }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dram.DeviceType.HBM")
+    {
+        return "HBM";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dram.DeviceType.HBM2")
+    {
+        return "HBM2";
+    }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dram.DeviceType.HBM3")
+    {
+        return "HBM3";
+    }
     // This is values like Other or Unknown
     // Also D-Bus values:
     // DRAM
@@ -436,6 +448,7 @@ inline void assembleDimmProperties(
     const std::string* model = nullptr;
     const std::string* locationCode = nullptr;
     const bool* functional = nullptr;
+    const std::string* locationType = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "MemoryDataWidth",
@@ -448,7 +461,8 @@ inline void assembleDimmProperties(
         memoryConfiguredSpeedInMhz, "MemoryType", memoryType, "Channel",
         channel, "MemoryController", memoryController, "Slot", slot, "Socket",
         socket, "SparePartNumber", sparePartNumber, "Model", model,
-        "LocationCode", locationCode, "Functional", functional);
+        "LocationCode", locationCode, "Functional", functional, "LocationType",
+        locationType);
 
     if (!success)
     {
@@ -573,7 +587,8 @@ inline void assembleDimmProperties(
             asyncResp->res.jsonValue[jsonPtr]["MemoryDeviceType"] =
                 memoryDeviceType;
         }
-        if (memoryType->find("DDR") != std::string::npos)
+        if (memoryType->find("DDR") != std::string::npos ||
+            memoryType->find("HBM") != std::string::npos)
         {
             asyncResp->res.jsonValue[jsonPtr]["MemoryType"] =
                 memory::MemoryType::DRAM;
@@ -623,6 +638,13 @@ inline void assembleDimmProperties(
         asyncResp->res
             .jsonValue[jsonPtr]["Location"]["PartLocation"]["ServiceLabel"] =
             *locationCode;
+    }
+
+    if (locationType != nullptr && locationType->ends_with("Embedded"))
+    {
+        asyncResp->res
+            .jsonValue[jsonPtr]["Location"]["PartLocation"]["LocationType"] =
+            resource::LocationType::Embedded;
     }
 
     getPersistentMemoryProperties(asyncResp, properties, jsonPtr);
@@ -756,10 +778,11 @@ inline void afterGetDimmData(
         {
             for (const auto& interface : interfaceList)
             {
-                if (interface == "xyz.openbmc_project.Inventory.Item.Dimm" &&
+                if ((interface == "xyz.openbmc_project.Inventory.Item.Dimm" ||
+                     interface == "xyz.openbmc_project.Inventory.Item.Dram") &&
                     path.filename() == dimmId)
                 {
-                    // Found the single Dimm
+                    // Found the single Dimm or Dram object
                     getDimmDataByService(asyncResp, dimmId, serviceName,
                                          objectPath);
                     dimmInterface = true;
@@ -814,8 +837,9 @@ inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 2> interfaces = {
+    constexpr std::array<std::string_view, 3> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Dram",
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
 
     dbus::utility::getSubTree(
@@ -988,8 +1012,9 @@ inline void handleMemoryCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/Memory", BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-    constexpr std::array<std::string_view, 1> interfaces{
-        "xyz.openbmc_project.Inventory.Item.Dimm"};
+    constexpr std::array<std::string_view, 2> interfaces{
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Dram"};
     collection_util::getCollectionMembers(
         asyncResp,
         boost::urls::format("/redfish/v1/Systems/{}/Memory",
