@@ -1080,8 +1080,11 @@ functions the same like the default implementation under the System resource.
 - DataWidthBits
 - ErrorCorrection
 - FirmwareRevision
+- Location/PartLocation/LocationType
 - LocationIndicatorActive
 - Manufacturer
+- MemoryDeviceType
+- MemoryType
 - Metrics
 - Model
 - OperatingSpeedMhz
