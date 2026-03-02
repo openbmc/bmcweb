@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e34524b4_ed7e8711",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T18:12:46Z",
+      "side": 1,
+      "message": "Getting closer.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b933313_b5752211",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T18:12:46Z",
+      "side": 1,
+      "message": "Lets avoid default params on these.  Make new functions that follow the form getDateTimeStdtimeTz",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 75
+      },
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9fe23d8_1c7162e6",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T18:12:46Z",
+      "side": 1,
+      "message": "Can we make an enum for this:\nenum class DateFormat {\n   UTC,\n   LocalTimezone,\n}\n\nThat\u0027s a lot more clear than a bool.  Also, lets make it explicit which one we\u0027re requesting and avoid the default argument.  There\u0027s only a few calls to getDateTimeOffsetNow, making this not a default arg will ensure that we\u0027ve corrected every place we need to.  As written, things like the Redfish journal will now be incorrect after this change, and still report UTC.",
+      "range": {
+        "startLine": 70,
+        "startChar": 9,
+        "endLine": 70,
+        "endChar": 18
+      },
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114a12d4_37f77464",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T18:12:46Z",
+      "side": 1,
+      "message": "This error handling doesn\u0027t look correct.  If we requested with a timezone, and we fail to find one, we can\u0027t just fall back to utc, we need to log an error and return.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14dab68_9a6a03b0",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T18:12:46Z",
+      "side": 1,
+      "message": "Please put this on its own line.  It\u0027s also not clear to me on looking at it that common_type_t is the correct thing to do here?\n\nOnce we get the unit test coverage finished, we can go from there.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a009aff5_c4bd902f",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T18:12:46Z",
+      "side": 1,
+      "message": "Is there a way to make this block easier to read?  As written it\u0027s difficult to tell if it\u0027s correct. You\u0027re casting two different things that might have signed/unsigned behavior issues.",
+      "range": {
+        "startLine": 395,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 49
+      },
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "892ac502_8a24b371",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T18:12:46Z",
+      "side": 1,
+      "message": "Please look at the existing tests;  I would expect these to be similar.  They test the limits of max/min for all inputs, and verify the correct behavior.  Considering these inputs come from untrusted sources (the user) we need to make sure all over/underflow behaviors result in the correct error and log being created.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
