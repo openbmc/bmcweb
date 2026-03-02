@@ -87,6 +87,24 @@
       "parentUuid": "8475f763_f4815918",
       "revId": "0ceb9d6e46f02e7e25311a3482a989a3268f50f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf6f0191_b0ee008f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-03-02T05:49:31Z",
+      "side": 1,
+      "message": "The resourceCannotBeDeleted error response is retained and the cleanup code for {\"IPv6StaticDefaultGateways\":[]} has been removed. Per DMTF DSP0266, an empty array in a PATCH request should delete all members, so the expected output is \"IPv6StaticDefaultGateways\": []. This behavior will be implemented in a follow-up PR. This patch focuses only on fixing the early-return issue that prevented subsequent entries from being processed.\n\nTested the updated patch\n\n - 3.1: Add one gateway, then patch [null, gateway], and get\n       PATCH -d \u0027{\"IPv6StaticDefaultGateways\":[\n         {\"Address\":\"2001:db8:a::11\"}]}\u0027\n       GET \u003cbmc_ip\u003e/redfish/v1/Managers/bmc/EthernetInterfaces/eth0 | jq\n        \u0027.IPv6StaticDefaultGateways\u0027\n      {\n        \"Address\": \"2001:db8:a::11\"\n      }\n      PATCH -d \u0027{\"IPv6StaticDefaultGateways\":[null,\n        {\"Address\":\"2001:db8:a::21\"}]}\u0027\n      GET \u003cbmc_ip\u003e/redfish/v1/Managers/bmc/EthernetInterfaces/eth0 | jq\n        \u0027.IPv6StaticDefaultGateways\u0027\n      {\n        \"Address\": \"2001:db8:a::21\"\n      }\n    \n    - 3.2: No gateway configured, then patch [Gateway, null]\n      PATCH -d \u0027{\"IPv6StaticDefaultGateways\":[{\"Address\":\"2001:db8:b::10\"},\n        null]}\u0027\n      {\n      \"code\": \"Base.1.19.ResourceCannotBeDeleted\",\n        \"message\": \"The delete request failed because the resource\n          requested cannot be deleted.\"\n      }",
+      "parentUuid": "32f04dc2_88d88e8f",
+      "revId": "0ceb9d6e46f02e7e25311a3482a989a3268f50f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
