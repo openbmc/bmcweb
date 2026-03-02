@@ -117,6 +117,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9af3479_ee697b17",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T21:21:16Z",
+      "side": 1,
+      "message": "(Full disclosure, I\u0027m on t",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c083c5ea_c53f7450",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T21:21:16Z",
+      "side": 1,
+      "message": "Do we need to make sure that offset was a round number of hours/minutes?\n\nMaybe just change the argument in to std::chrono::minutes, that way we can be sure it\u0027s correct not 1 hour + 1 second, or something like that?\n\nWould also save us one duration cast.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "114a12d4_37f77464",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 3
