@@ -902,6 +902,8 @@ inline void handleManagerPatch(
         return;
     }
 
+    asyncResp->res.result(boost::beast::http::status::no_content);
+
     if (activeSoftwareImageOdataId)
     {
         setActiveFirmwareImage(asyncResp, *activeSoftwareImageOdataId);
