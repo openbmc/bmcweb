@@ -75,6 +75,24 @@
       "parentUuid": "26801284_ee8d5cc0",
       "revId": "b847d2547adb32ce600f19cc2f2313d30fbf9537",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5604040_56f7bb82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-02T20:21:47Z",
+      "side": 1,
+      "message": "Please follow our documentation and add a \"Tested\" footer\n\nhttps://github.com/openbmc/bmcweb/blob/9973de7bb1f92a6c6815c9b5d3f69a16e722b1ff/docs/TESTING.md?plain\u003d1#L5\n\nhttps://github.com/openbmc/docs/blob/1699350553e3ff27feb363be56cf08e45b2de659/CONTRIBUTING.md?plain\u003d1#L266",
+      "parentUuid": "45fa8b18_cb64523c",
+      "revId": "b847d2547adb32ce600f19cc2f2313d30fbf9537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
