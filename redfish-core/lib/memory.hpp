@@ -576,7 +576,8 @@ inline void assembleDimmProperties(
             asyncResp->res.jsonValue[jsonPtr]["MemoryDeviceType"] =
                 memoryDeviceType;
         }
-        if (memoryType->find("DDR") != std::string::npos)
+        if (memoryType->find("DDR") != std::string::npos ||
+            memoryType->find("HBM") != std::string::npos)
         {
             asyncResp->res.jsonValue[jsonPtr]["MemoryType"] =
                 memory::MemoryType::DRAM;
@@ -756,6 +757,7 @@ inline void afterGetDimmData(
 
         bool dimmInterface = false;
         bool associationInterface = false;
+        bool embeddedInterface = false;
         /* Note: Multiple D-Bus objects can provide details for the Memory
          * object: 1) Dimm is the primary object 2) Additional partitions could
          * exist per Dimm. Only consider the object found if the Dimm is found.
@@ -784,6 +786,11 @@ inline void afterGetDimmData(
                      */
                     associationInterface = true;
                 }
+                else if (interface ==
+                         "xyz.openbmc_project.Inventory.Connector.Embedded")
+                {
+                    embeddedInterface = true;
+                }
                 else if (
                     interface ==
                         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition" &&
@@ -802,6 +809,13 @@ inline void afterGetDimmData(
         if (associationInterface && dimmInterface)
         {
             getLocationIndicatorActive(asyncResp, objectPath);
+        }
+
+        if (embeddedInterface && dimmInterface)
+        {
+            asyncResp->res
+                .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                resource::LocationType::Embedded;
         }
     }
 
@@ -825,8 +839,9 @@ inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 2> interfaces = {
+    constexpr std::array<std::string_view, 3> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Connector.Embedded",
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
 
     dbus::utility::getSubTree(
