@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7693e0f_4a5fc039",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-03-02T05:58:23Z",
+      "side": 1,
+      "message": "The body is wrapped at a maximum of 72 characters, All lines are within the 72-character limit.",
+      "parentUuid": "46a889b9_18889109",
+      "revId": "0ceb9d6e46f02e7e25311a3482a989a3268f50f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6b0b74b_d9f9d212",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 14
