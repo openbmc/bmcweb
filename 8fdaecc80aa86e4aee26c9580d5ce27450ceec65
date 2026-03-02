@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db85c0d8_862ccf9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-02T18:47:00Z",
+      "side": 1,
+      "message": "What is the behavior when PATCHing DateTime with a timezone included?  I\u0027m not sure the spec makes an opinion there, but we should explicitly define what happens (Does the timezone change?)",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ab482df_992501ae",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
