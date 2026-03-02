@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9e3596b_f1ecd844",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000584
+      },
+      "writtenOn": "2026-03-02T20:18:59Z",
+      "side": 1,
+      "message": "You are missing a \".\" at the end.",
+      "range": {
+        "startLine": 11,
+        "startChar": 53,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "b847d2547adb32ce600f19cc2f2313d30fbf9537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ee0fd6b_81b8e795",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
