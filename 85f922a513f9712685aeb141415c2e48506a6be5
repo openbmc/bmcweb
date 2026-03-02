@@ -70,6 +70,24 @@
       "parentUuid": "e9942165_551cd563",
       "revId": "85f922a513f9712685aeb141415c2e48506a6be5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4493311_35085905",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-02T23:11:35Z",
+      "side": 1,
+      "message": "Hi Ender,\nI\u0027ve pushed a new commit [1] on top of this one. It makes some interface changes to some of the PowerLimitWatts functions added in this commit. The changes are intended to make reuse of these functions for the Chassis commit simpler.\n\nI\u0027ve tested with the Chassis commit [2] and pushed an update to that commit which uses these functions.\n\nIf you could review these commits to make sure the Processor/Chassis PowerLimitWatts commits are heading in the same direction. \n\nNote: I tested with the Chassis paths but couldn\u0027t test the updated functions for the Processor paths.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87955\n[2] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300",
+      "parentUuid": "cc5fb69b_8d4d8a26",
+      "revId": "85f922a513f9712685aeb141415c2e48506a6be5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
