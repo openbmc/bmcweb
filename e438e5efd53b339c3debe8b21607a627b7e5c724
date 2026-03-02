@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d6110e5_41f254c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Changed message.",
+      "parentUuid": "5f6a77d9_82084eee",
+      "range": {
+        "startLine": 12,
+        "startChar": 27,
+        "endLine": 13,
+        "endChar": 22
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7325829_10263e33",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "No, I want you to include tests setting this via Redfish (as would be expected if a users were to use this).",
       "parentUuid": "4465ef67_b51a7d8f",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 8
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5ffff49_0fab1436",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Added exposing \"TimeZoneName\" property, and patching code, used it in the tests.",
+      "parentUuid": "92ba77de_ba628faa",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -192,6 +240,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c836e5a0_22866fbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9090a85a_1ecee716",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0bfb5986_418a2dd1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -277,6 +349,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b33bac8d_d10c9bbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Sent another patch.",
+      "parentUuid": "2994583a_c5d11f0e",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8453fefc_f8703328",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f0b7d59_1632df32",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9ae4d1a_ec741f01",
@@ -329,6 +437,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce35da63_ab7454f4",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Changed code, and as it accepts the pointer as an argument, it\u0027s being checked naturally.",
+      "parentUuid": "e4f34b41_385085c4",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b377fde_e5c25b3e",
@@ -366,6 +492,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "5b377fde_e5c25b3e",
+      "range": {
+        "startLine": 287,
+        "startChar": 4,
+        "endLine": 287,
+        "endChar": 8
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e3cd8ae_4c4d5a35",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Specified correct types.",
+      "parentUuid": "0f58ef05_d91f955b",
       "range": {
         "startLine": 287,
         "startChar": 4,
@@ -429,6 +579,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c4d8b5_66ba1dc3",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Added unit test to cover TZs with positive and negative offsets, extremes (most western and eastern) ones, TZs that are not hour aligned.",
+      "parentUuid": "f7dbe2f6_bcf4a059",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "950479ea_92f2edd9",
@@ -460,6 +628,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "950479ea_92f2edd9",
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "467f0750_ec4f2093",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e279a28_663f8225",
       "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -501,6 +687,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "4cd65acd_16979bea",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 49
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce4c0f74_f31979a0",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-02T15:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0715e521_c7db3593",
       "range": {
         "startLine": 361,
         "startChar": 0,
