@@ -167,7 +167,7 @@ inline void getCpuDataByInterface(
                 {
                     asyncResp->res.jsonValue["ProcessorId"]["EffectiveFamily"] =
 
-                        std::format("{:#04X}", *value);
+                        std::format("{:#04x}", *value);
                 }
             }
             else if (property.first == "EffectiveModel")
@@ -181,7 +181,7 @@ inline void getCpuDataByInterface(
                 if (*value != 0)
                 {
                     asyncResp->res.jsonValue["ProcessorId"]["EffectiveModel"] =
-                        std::format("{:#04X}", *value);
+                        std::format("{:#04x}", *value);
                 }
             }
             else if (property.first == "Id")
@@ -191,7 +191,7 @@ inline void getCpuDataByInterface(
                 {
                     asyncResp->res
                         .jsonValue["ProcessorId"]["IdentificationRegisters"] =
-                        std::format("{:#016X}", *value);
+                        std::format("{:#016x}", *value);
                 }
             }
             else if (property.first == "Microcode")
@@ -205,7 +205,7 @@ inline void getCpuDataByInterface(
                 if (*value != 0)
                 {
                     asyncResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
-                        std::format("{:#08X}", *value);
+                        std::format("{:#08x}", *value);
                 }
             }
             else if (property.first == "Step")
@@ -219,7 +219,7 @@ inline void getCpuDataByInterface(
                 if (*value != std::numeric_limits<uint16_t>::max())
                 {
                     asyncResp->res.jsonValue["ProcessorId"]["Step"] =
-                        std::format("{:#04X}", *value);
+                        std::format("{:#04x}", *value);
                 }
             }
         }
