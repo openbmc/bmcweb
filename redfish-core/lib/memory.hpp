@@ -20,6 +20,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -576,7 +577,8 @@ inline void assembleDimmProperties(
             asyncResp->res.jsonValue[jsonPtr]["MemoryDeviceType"] =
                 memoryDeviceType;
         }
-        if (memoryType->find("DDR") != std::string::npos)
+        if (memoryType->find("DDR") != std::string::npos ||
+            memoryType->find("HBM") != std::string::npos)
         {
             asyncResp->res.jsonValue[jsonPtr]["MemoryType"] =
                 memory::MemoryType::DRAM;
@@ -758,6 +760,7 @@ inline void afterGetDimmData(
         bool dimmInterface = false;
         bool associationInterface = false;
         bool metricsInterface = false;
+        std::optional<std::string> locationType;
         /* Note: Multiple D-Bus objects can provide details for the Memory
          * object: 1) Dimm is the primary object 2) Additional partitions could
          * exist per Dimm. Only consider the object found if the Dimm is found.
@@ -793,6 +796,12 @@ inline void afterGetDimmData(
                      */
                     metricsInterface = true;
                 }
+                else if (std::optional<std::string> type =
+                             location_util::getLocationType(interface);
+                         type.has_value())
+                {
+                    locationType = std::move(type);
+                }
                 else if (
                     interface ==
                         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition" &&
@@ -824,6 +833,12 @@ inline void afterGetDimmData(
                     "/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
                     BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
         }
+        if (locationType.has_value() && dimmInterface)
+        {
+            asyncResp->res
+                .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                *locationType;
+        }
     }
 
     if (!found)
@@ -843,8 +858,9 @@ inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 3> interfaces = {
+    constexpr std::array<std::string_view, 4> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Connector.Embedded",
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition",
         "xyz.openbmc_project.Memory.MemoryECC"};
 
