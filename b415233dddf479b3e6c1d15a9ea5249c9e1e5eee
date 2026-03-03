@@ -46,6 +46,30 @@
       },
       "revId": "b415233dddf479b3e6c1d15a9ea5249c9e1e5eee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c888d19_8239aa53",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-03-03T09:54:31Z",
+      "side": 0,
+      "message": "1)updated the latest patch, and resourceCannotBeDeleted error response is retained and thus avoiding silent failure\n2)clear all operations will be handled by seperate PR",
+      "parentUuid": "c1005cc1_16a382b8",
+      "range": {
+        "startLine": 1059,
+        "startChar": 0,
+        "endLine": 1063,
+        "endChar": 13
+      },
+      "revId": "b415233dddf479b3e6c1d15a9ea5249c9e1e5eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
