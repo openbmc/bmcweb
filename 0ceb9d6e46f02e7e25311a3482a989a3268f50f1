@@ -141,6 +141,24 @@
       "parentUuid": "32f04dc2_88d88e8f",
       "revId": "0ceb9d6e46f02e7e25311a3482a989a3268f50f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ffedef_29b345d2",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-03T19:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf6f0191_b0ee008f",
+      "revId": "0ceb9d6e46f02e7e25311a3482a989a3268f50f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
