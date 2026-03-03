@@ -1148,6 +1148,13 @@ functions the same like the default implementation under the System resource.
 - Socket
 - SparePartNumber
 - Status
+- SystemInterface
+  - InterfaceType
+  - PCIe
+    - LanesInUse
+    - MaxLanes
+    - MaxPCIeType
+    - PCIeType
 - ThrottleCauses
 - Throttled
 - TotalCores
