@@ -9,6 +9,8 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/pcie_device.hpp"
+#include "generated/enums/port.hpp"
 #include "generated/enums/processor.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -20,6 +22,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/pcie_util.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -779,6 +782,279 @@ inline void handleProcessorSubtree(
     messages::resourceNotFound(asyncResp->res, "Processor", processorId);
 }
 
+inline void afterGetProcessorPCIeProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG(
+            "PCIe device properties not available for processor: {}",
+            processorId);
+        return;
+    }
+
+    const std::string* generationInUse = nullptr;
+    const std::string* generationSupported = nullptr;
+    const size_t* lanesInUse = nullptr;
+    const size_t* maxLanes = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "GenerationInUse",
+        generationInUse, "GenerationSupported", generationSupported,
+        "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["SystemInterface"]["InterfaceType"] =
+        processor::SystemInterfaceType::PCIe;
+
+    if (generationInUse != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> pcieType =
+            pcie_util::redfishPcieGenerationFromDbus(*generationInUse);
+        if (pcieType && *pcieType != pcie_device::PCIeTypes::Invalid)
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["PCIeType"] =
+                *pcieType;
+        }
+    }
+
+    if (generationSupported != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> maxPcieType =
+            pcie_util::redfishPcieGenerationFromDbus(*generationSupported);
+        if (maxPcieType && *maxPcieType != pcie_device::PCIeTypes::Invalid)
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["MaxPCIeType"] =
+                *maxPcieType;
+        }
+    }
+
+    if (lanesInUse != nullptr)
+    {
+        if (*lanesInUse == std::numeric_limits<size_t>::max())
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["LanesInUse"] =
+                nullptr;
+        }
+        else
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["LanesInUse"] =
+                *lanesInUse;
+        }
+    }
+
+    if (maxLanes != nullptr && *maxLanes != 0)
+    {
+        asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["MaxLanes"] =
+            *maxLanes;
+    }
+
+    asyncResp->res.jsonValue["Ports"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Processors/{}/Ports",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+}
+
+inline void afterGetProcessorPCIeSubTree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("PCIe device not found for processor: {}",
+                         processorId);
+        return;
+    }
+
+    const std::string& pcieDeviceName = processorId;
+    for (const auto& [objectPath, serviceMap] : subtree)
+    {
+        sdbusplus::message::object_path path(objectPath);
+        if (path.filename() != pcieDeviceName)
+        {
+            continue;
+        }
+
+        if (serviceMap.empty())
+        {
+            continue;
+        }
+
+        const std::string& service = serviceMap.front().first;
+        dbus::utility::getAllProperties(
+            service, objectPath,
+            "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+            std::bind_front(afterGetProcessorPCIeProperties, asyncResp,
+                            processorId));
+        return;
+    }
+}
+
+inline void getProcessorPCIeData(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId)
+{
+    static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, pcieDeviceInterface,
+        std::bind_front(afterGetProcessorPCIeSubTree, asyncResp, processorId));
+}
+
+inline void afterGetPCIeDeviceForPortCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& /*object*/)
+{
+    if (ec)
+    {
+        // PCIe device not found, return empty collection
+        return;
+    }
+
+    nlohmann::json::object_t port;
+    port["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Processors/{}/Ports/PCIe_0",
+                            systemName, processorId);
+    asyncResp->res.jsonValue["Members"].emplace_back(std::move(port));
+    asyncResp->res.jsonValue["Members@odata.count"] = 1;
+}
+
+inline void afterGetProcessorObjectForPortCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& /*objectPath*/,
+    const dbus::utility::MapperServiceMap& /*serviceMap*/)
+{
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/PortCollection/PortCollection.json>; rel=describedby");
+    asyncResp->res.jsonValue["@odata.type"] = "#PortCollection.PortCollection";
+    asyncResp->res.jsonValue["Name"] = "Port Collection";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors/{}/Ports", systemName, processorId);
+    asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+    asyncResp->res.jsonValue["Members@odata.count"] = 0;
+
+    static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+    const std::string pcieDevicePath =
+        "/xyz/openbmc_project/inventory/" + processorId;
+
+    dbus::utility::getDbusObject(
+        pcieDevicePath, pcieDeviceInterface,
+        std::bind_front(afterGetPCIeDeviceForPortCollection, asyncResp,
+                        systemName, processorId));
+}
+
+inline void afterGetPCIeDevicePropertiesForPort(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("PCIe device properties error for processor port: {}",
+                         ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const size_t* lanesInUse = nullptr;
+    const size_t* maxLanes = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "LanesInUse", lanesInUse,
+        "MaxLanes", maxLanes);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (lanesInUse != nullptr)
+    {
+        if (*lanesInUse != std::numeric_limits<size_t>::max())
+        {
+            asyncResp->res.jsonValue["ActiveWidth"] = *lanesInUse;
+        }
+    }
+
+    if (maxLanes != nullptr && *maxLanes != 0 &&
+        *maxLanes != std::numeric_limits<size_t>::max())
+    {
+        asyncResp->res.jsonValue["Width"] = *maxLanes;
+    }
+}
+
+inline void afterGetPCIeDeviceServiceForPort(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& portId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        BMCWEB_LOG_WARNING("PCIe device not found for processor port: {}",
+                           portId);
+        messages::resourceNotFound(asyncResp->res, "Port", portId);
+        return;
+    }
+
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Port/Port.json>; rel=describedby");
+    asyncResp->res.jsonValue["@odata.type"] = "#Port.v1_11_0.Port";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Processors/{}/Ports/{}",
+                            systemName, processorId, portId);
+    asyncResp->res.jsonValue["Id"] = portId;
+    asyncResp->res.jsonValue["Name"] = "PCIe Port";
+    asyncResp->res.jsonValue["PortProtocol"] = "PCIe";
+    asyncResp->res.jsonValue["PortType"] = port::PortType::UpstreamPort;
+
+    const std::string& service = object.begin()->first;
+    const std::string pcieDevicePath =
+        "/xyz/openbmc_project/inventory/" + processorId;
+
+    dbus::utility::getAllProperties(
+        service, pcieDevicePath,
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+        std::bind_front(afterGetPCIeDevicePropertiesForPort, asyncResp));
+}
+
+inline void afterGetProcessorObjectForPort(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& portId, const std::string& /*objectPath*/,
+    const dbus::utility::MapperServiceMap& /*serviceMap*/)
+{
+    if (portId != "PCIe_0")
+    {
+        messages::resourceNotFound(asyncResp->res, "Port", portId);
+        return;
+    }
+
+    static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+    const std::string pcieDevicePath =
+        "/xyz/openbmc_project/inventory/" + processorId;
+
+    dbus::utility::getDbusObject(
+        pcieDevicePath, pcieDeviceInterface,
+        std::bind_front(afterGetPCIeDeviceServiceForPort, asyncResp, systemName,
+                        processorId, portId));
+}
+
 /**
  * Find the D-Bus object representing the requested Processor, and call the
  * handler with the results. If matching object is not found, add 404 error to
@@ -855,6 +1131,7 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getProcessorPCIeData(asyncResp, processorId);
             }
             else if (
                 interface ==
@@ -1128,6 +1405,64 @@ inline void handleProcessorCollectionGet(
         processorInterfaces, "/xyz/openbmc_project/inventory");
 }
 
+inline void handleProcessorPortCollectionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    getProcessorObject(asyncResp, processorId,
+                       std::bind_front(afterGetProcessorObjectForPortCollection,
+                                       asyncResp, systemName, processorId));
+}
+
+inline void handleProcessorPortGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& portId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    getProcessorObject(
+        asyncResp, processorId,
+        std::bind_front(afterGetProcessorObjectForPort, asyncResp, systemName,
+                        processorId, portId));
+}
+
 inline void requestRoutesProcessor(App& app)
 {
     /**
@@ -1157,6 +1492,16 @@ inline void requestRoutesProcessor(App& app)
         .privileges(redfish::privileges::patchProcessor)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleProcessorPatch, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/Ports/")
+        .privileges(redfish::privileges::getPortCollection)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleProcessorPortCollectionGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/Ports/<str>/")
+        .privileges(redfish::privileges::getPort)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleProcessorPortGet, std::ref(app)));
 }
 
 } // namespace redfish
