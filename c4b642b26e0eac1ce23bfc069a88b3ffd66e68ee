@@ -237,6 +237,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f0b883_b1b8117b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-03T20:01:26Z",
+      "side": 1,
+      "message": "A move on a const has no effect. Trying to do so my static analyzer actually starts to complain. Leaving as is.",
+      "parentUuid": "3c9a72fb_04f48e72",
+      "range": {
+        "startLine": 974,
+        "startChar": 20,
+        "endLine": 974,
+        "endChar": 30
+      },
+      "revId": "c4b642b26e0eac1ce23bfc069a88b3ffd66e68ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd540dfc_b3aa611c",
