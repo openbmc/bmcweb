@@ -9,6 +9,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/pcie_device.hpp"
 #include "generated/enums/processor.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -20,6 +21,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/pcie_util.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -779,6 +781,124 @@ inline void handleProcessorSubtree(
     messages::resourceNotFound(asyncResp->res, "Processor", processorId);
 }
 
+inline void afterGetProcessorPCIeProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG(
+            "PCIe device properties not available for processor: {}",
+            processorId);
+        return;
+    }
+
+    const std::string* generationInUse = nullptr;
+    const std::string* generationSupported = nullptr;
+    const size_t* lanesInUse = nullptr;
+    const size_t* maxLanes = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "GenerationInUse",
+        generationInUse, "GenerationSupported", generationSupported,
+        "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["SystemInterface"]["InterfaceType"] =
+        processor::SystemInterfaceType::PCIe;
+
+    if (generationInUse != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> pcieType =
+            pcie_util::redfishPcieGenerationFromDbus(*generationInUse);
+        if (!pcieType)
+        {
+            BMCWEB_LOG_WARNING("Unknown PCIe GenerationInUse: {}",
+                               *generationInUse);
+        }
+        else if (*pcieType == pcie_device::PCIeTypes::Invalid)
+        {
+            BMCWEB_LOG_ERROR("Invalid PCIe GenerationInUse: {}",
+                             *generationInUse);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        else
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["PCIeType"] =
+                *pcieType;
+        }
+    }
+
+    if (generationSupported != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> maxPcieType =
+            pcie_util::redfishPcieGenerationFromDbus(*generationSupported);
+        if (!maxPcieType)
+        {
+            BMCWEB_LOG_WARNING("Unknown PCIe GenerationSupported: {}",
+                               *generationSupported);
+        }
+        else if (*maxPcieType == pcie_device::PCIeTypes::Invalid)
+        {
+            BMCWEB_LOG_ERROR("Invalid PCIe GenerationSupported: {}",
+                             *generationSupported);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        else
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["MaxPCIeType"] =
+                *maxPcieType;
+        }
+    }
+
+    if (lanesInUse != nullptr)
+    {
+        if (*lanesInUse == std::numeric_limits<size_t>::max())
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["LanesInUse"] =
+                nullptr;
+        }
+        else
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["LanesInUse"] =
+                *lanesInUse;
+        }
+    }
+
+    if (maxLanes != nullptr)
+    {
+        if (*maxLanes == 0)
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["MaxLanes"] =
+                nullptr;
+        }
+        else
+        {
+            asyncResp->res.jsonValue["SystemInterface"]["PCIe"]["MaxLanes"] =
+                *maxLanes;
+        }
+    }
+}
+
+inline void getProcessorPCIeDataByService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& service,
+    const std::string& objectPath)
+{
+    dbus::utility::getAllProperties(
+        service, objectPath, "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+        std::bind_front(afterGetProcessorPCIeProperties, asyncResp,
+                        processorId));
+}
+
 /**
  * Find the D-Bus object representing the requested Processor, and call the
  * handler with the results. If matching object is not found, add 404 error to
@@ -799,13 +919,14 @@ inline void getProcessorObject(
     BMCWEB_LOG_DEBUG("Get available system processor resources.");
 
     // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 9> interfaces = {
+    constexpr std::array<std::string_view, 10> interfaces = {
         "xyz.openbmc_project.Common.UUID",
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         "xyz.openbmc_project.Inventory.Decorator.Revision",
         "xyz.openbmc_project.Inventory.Item.Cpu",
         "xyz.openbmc_project.Inventory.Decorator.LocationCode",
         "xyz.openbmc_project.Inventory.Item.Accelerator",
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice",
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "xyz.openbmc_project.Control.Power.Throttle"};
@@ -855,6 +976,12 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Item.PCIeDevice")
+            {
+                getProcessorPCIeDataByService(asyncResp, processorId,
+                                              serviceName, objectPath);
             }
             else if (
                 interface ==
