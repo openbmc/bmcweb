@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "181dc1f5_11b2ba0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-03-03T22:17:43Z",
+      "side": 1,
+      "message": "Hummm. I am not sure here. I did not added these \"ReadingRangeMin/Max\" and \"ReadingRangeMax\" attributes. Looking at https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml such attributes are not even supported by the value interface. I am suspecting bmcweb is just defaulting to 0.\n\nBut again, I would consider that unrelated to this change right?",
+      "parentUuid": "1fe6e508_94efd298",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4c43e39_01da353b",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 8
@@ -37,6 +61,24 @@
       "writtenOn": "2026-03-02T21:32:11Z",
       "side": 1,
       "message": "Looking at this, is this valid for ALL the sensor properties?\n\nFor MaxValue and MinValue, they default to -infinity and +infinity.  For those default cases, I would assume we would want to completely omit the properties rather than include them and have them be null?\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L32",
+      "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f8c11ac_dfd93d51",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2026-03-03T22:17:43Z",
+      "side": 1,
+      "message": "Thats true for the thresholds as well\nhttps://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Sensor/Threshold/*.yaml\nwhich default to NaN.\n\nAre you suggesting instead to just delete the \n```\nBMCWEB_LOG_WARNING(\"Sensor value for {} was unexpectedly {}\",\n                                   valueName, *doubleValue);\n```\nline and call it good?",
+      "parentUuid": "e4c43e39_01da353b",
       "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
