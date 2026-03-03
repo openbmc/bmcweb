@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67514d83_31e1d127",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-03T20:59:37Z",
+      "side": 1,
+      "message": "Let\u0027s do 2 separate commits here\n1) A refactor, no functional changes \n2) Add the NTP validation",
+      "revId": "59a34f4940ae13b889798a58eefac2666eb96226",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
