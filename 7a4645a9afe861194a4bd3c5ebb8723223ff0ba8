@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b67c3e_297b6a0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-03T22:47:53Z",
+      "side": 1,
+      "message": "But can\u0027t you express this already with two distinct URIs \n\n/redfish/v1/Chassis/Chassis1/ThermalSubsystem/Fans/FAN_0\n/redfish/v1/Chassis/Chassis2/ThermalSubsystem/Fans/FAN_0\n\n\n? I would think creating two cooling / cooled_by assocs between both chassis and the single fan would get you this behavior?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "415a1348_e52d0841",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-03T22:47:53Z",
+      "side": 1,
+      "message": "Not sure how the tyan board could reliably test this, since it only consists of a single chassis and the baseboard. Testing on yv4 qemu could help understanding the goal better, considering we actually have 1 superchassis / N subchassis / N fan configuration that should be exposed on dbus.",
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "725589c4_d574d632",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-03T22:47:53Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to list the warnings here. Also, are you calling redfish_service_validator with pointing to the bmcweb schema directory? this might remove some of them",
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
