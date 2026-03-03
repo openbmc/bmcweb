@@ -756,10 +756,10 @@ inline void afterGetDimmData(
         {
             for (const auto& interface : interfaceList)
             {
-                if (interface == "xyz.openbmc_project.Inventory.Item.Dimm" &&
+                if ((interface == "xyz.openbmc_project.Inventory.Item.Dimm" ||
+                     interface == "xyz.openbmc_project.Inventory.Item.Dram") &&
                     path.filename() == dimmId)
                 {
-                    // Found the single Dimm
                     getDimmDataByService(asyncResp, dimmId, serviceName,
                                          objectPath);
                     dimmInterface = true;
@@ -814,8 +814,9 @@ inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 2> interfaces = {
+    constexpr std::array<std::string_view, 3> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Dram",
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
 
     dbus::utility::getSubTree(
@@ -988,8 +989,9 @@ inline void handleMemoryCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/Memory", BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-    constexpr std::array<std::string_view, 1> interfaces{
-        "xyz.openbmc_project.Inventory.Item.Dimm"};
+    constexpr std::array<std::string_view, 2> interfaces{
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Dram"};
     collection_util::getCollectionMembers(
         asyncResp,
         boost::urls::format("/redfish/v1/Systems/{}/Memory",
