@@ -2142,7 +2142,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                                 },
                                 taskMatchStr);
 
-                        task->startTimer(std::chrono::minutes(5));
+                        task->startTimer(std::chrono::minutes(30));
                         task->payload.emplace(std::move(payload));
                         task->populateResp(asyncResp->res);
                     };
