@@ -88,6 +88,24 @@
       "parentUuid": "cc5fb69b_8d4d8a26",
       "revId": "85f922a513f9712685aeb141415c2e48506a6be5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf0bf9f8_41b8466d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-03T08:52:30Z",
+      "side": 1,
+      "message": "I reviewed the PDI and noticed that the controlled_by association used in this patch — from the GPU inventory path to the Power.Cap object — is not formally defined in xyz/openbmc_project/Control/Power/Cap.interface.yaml. The spec only defines the\n  controlling/controlled_by association with xyz.openbmc_project.Inventory.Item.Chassis as the required endpoint interface, not Inventory.Item.Accelerator.\n\nI will address this by either adding Inventory.Item.Accelerator to the PDI\n\nAlso, I have tested and reviewed your change 87955. It does not affect the /redfish/v1/Systems/\u003cstr\u003e/Processors/GPU_*/EnvironmentMetrics path, and I think the refactoring looks great",
+      "parentUuid": "c4493311_35085905",
+      "revId": "85f922a513f9712685aeb141415c2e48506a6be5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
