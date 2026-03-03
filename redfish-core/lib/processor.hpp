@@ -19,6 +19,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/pcie_util.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -930,6 +931,44 @@ inline void handleProcessorSubtree(
     messages::resourceNotFound(asyncResp->res, "Processor", processorId);
 }
 
+inline void afterGetProcessorPCIeProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG(
+                "PCIe device properties not available for processor: {}",
+                processorId);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error getting PCIe properties for {}: {}",
+                         processorId, ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["SystemInterface"]["InterfaceType"] =
+        processor::SystemInterfaceType::PCIe;
+
+    pcie_util::addPcieInterfaceProperties(
+        asyncResp, "/SystemInterface/PCIe"_json_pointer, properties);
+}
+
+inline void getProcessorPCIeDataByService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& service,
+    const std::string& objectPath)
+{
+    dbus::utility::getAllProperties(
+        service, objectPath, "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+        std::bind_front(afterGetProcessorPCIeProperties, asyncResp,
+                        processorId));
+}
+
 /**
  * Find the D-Bus object representing the requested Processor, and call the
  * handler with the results. If matching object is not found, add 404 error to
@@ -950,13 +989,14 @@ inline void getProcessorObject(
     BMCWEB_LOG_DEBUG("Get available system processor resources.");
 
     // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 9> interfaces = {
+    constexpr std::array<std::string_view, 10> interfaces = {
         "xyz.openbmc_project.Common.UUID",
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         "xyz.openbmc_project.Inventory.Decorator.Revision",
         "xyz.openbmc_project.Inventory.Item.Cpu",
         "xyz.openbmc_project.Inventory.Decorator.LocationCode",
         "xyz.openbmc_project.Inventory.Item.Accelerator",
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice",
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "xyz.openbmc_project.Control.Power.Throttle"};
@@ -1006,6 +1046,12 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Item.PCIeDevice")
+            {
+                getProcessorPCIeDataByService(asyncResp, processorId,
+                                              serviceName, objectPath);
             }
             else if (
                 interface ==
