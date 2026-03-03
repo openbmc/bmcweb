@@ -33,6 +33,42 @@
       "message": "add here the respective issue url",
       "revId": "2bdff022133f7d747a2b7ed7a7da76cfc713210a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "377ea8d5_c74e4288",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002754
+      },
+      "writtenOn": "2026-03-03T05:43:44Z",
+      "side": 1,
+      "message": "I added the related backend change in the same topic, and this bmcweb update is needed to match that backend behavior.",
+      "parentUuid": "f3a126df_11b4ba63",
+      "revId": "2bdff022133f7d747a2b7ed7a7da76cfc713210a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbbb4a9d_aa0da656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002754
+      },
+      "writtenOn": "2026-03-03T05:43:44Z",
+      "side": 1,
+      "message": "Updated the test log.",
+      "parentUuid": "590ed6c3_908bd9e2",
+      "revId": "2bdff022133f7d747a2b7ed7a7da76cfc713210a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
