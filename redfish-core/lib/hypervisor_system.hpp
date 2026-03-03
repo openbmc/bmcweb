@@ -19,6 +19,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/ip_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/hostname_utils.hpp"
 
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -602,7 +603,7 @@ inline void handleHypervisorHostnamePatch(
     const std::string& hostName,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!isHostnameValid(hostName))
+    if (!redfish::hostname_utils::isHostnameValid(hostName))
     {
         messages::propertyValueFormatError(asyncResp->res, hostName,
                                            "HostName");
