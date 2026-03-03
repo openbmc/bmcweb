@@ -19,6 +19,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utility.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/hostname_utils.hpp"
 #include "utils/ip_utils.hpp"
 #include "utils/json_utils.hpp"
 
@@ -1267,33 +1268,6 @@ inline void handleDomainnamePatch(
         vectorDomainname);
 }
 
-inline bool isHostnameValid(const std::string& hostname)
-{
-    // A valid host name can never have the dotted-decimal form (RFC 1123)
-    if (std::ranges::all_of(hostname, ::isdigit))
-    {
-        return false;
-    }
-    // Each label(hostname/subdomains) within a valid FQDN
-    // MUST handle host names of up to 63 characters (RFC 1123)
-    // labels cannot start or end with hyphens (RFC 952)
-    // labels can start with numbers (RFC 1123)
-    const static std::regex pattern(
-        "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
-
-    return std::regex_match(hostname, pattern);
-}
-
-inline bool isDomainnameValid(const std::string& domainname)
-{
-    // Can have multiple subdomains
-    // Top Level Domain's min length is 2 character
-    const static std::regex pattern(
-        "^([A-Za-z0-9][a-zA-Z0-9\\-]{1,61}|[a-zA-Z0-9]{1,30}\\.)*[a-zA-Z]{2,}$");
-
-    return std::regex_match(domainname, pattern);
-}
-
 inline void handleFqdnPatch(const std::string& ifaceId, const std::string& fqdn,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -1316,7 +1290,8 @@ inline void handleFqdnPatch(const std::string& ifaceId, const std::string& fqdn,
     domainname = (fqdn).substr(pos + 1);
     hostname = (fqdn).substr(0, pos);
 
-    if (!isHostnameValid(hostname) || !isDomainnameValid(domainname))
+    if (!redfish::hostname_utils::isHostnameValid(hostname) ||
+        !redfish::hostname_utils::isDomainnameValid(domainname))
     {
         messages::propertyValueFormatError(asyncResp->res, fqdn, "FQDN");
         return;
