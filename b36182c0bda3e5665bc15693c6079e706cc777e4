@@ -138,6 +138,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d60afb43_768f850b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-03T20:38:26Z",
+      "side": 1,
+      "message": "I have added a comment on the new behavior for ManagerForChassis on multi-host.",
+      "parentUuid": "6422c775_f7decccc",
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4d4bdbc9_037f68ac",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -214,6 +232,30 @@
       "side": 1,
       "message": "\u003e What\u0027s the holdup just using the new version of this code in all cases?\n\n\n\u003e In these cases the validator will fail which should be considered a regression?\n\n@ed@tanous.net does this answer your question here? Is there any further query about this change.",
       "parentUuid": "68549d8d_5c3bdd55",
+      "range": {
+        "startLine": 721,
+        "startChar": 7,
+        "endLine": 721,
+        "endChar": 16
+      },
+      "revId": "b36182c0bda3e5665bc15693c6079e706cc777e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1be7c92_504d3f6f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-03T20:38:26Z",
+      "side": 1,
+      "message": "Closing this for now. As explained, this version regresses every single-host. However, as i am preparing a new thread on merging single- and multi-host code paths, correct handling should be discussed there.",
+      "parentUuid": "8dabff55_e7a6fc03",
       "range": {
         "startLine": 721,
         "startChar": 7,
