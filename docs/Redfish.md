@@ -1152,6 +1152,13 @@ functions the same like the default implementation under the System resource.
 - SparePartNumber
 - Status
 - SubProcessors
+- SystemInterface
+  - InterfaceType
+  - PCIe
+    - LanesInUse
+    - MaxLanes
+    - MaxPCIeType
+    - PCIeType
 - ThrottleCauses
 - Throttled
 - TotalCores
