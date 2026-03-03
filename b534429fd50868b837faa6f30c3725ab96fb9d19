@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7d7d057_94dab920",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-03T19:50:15Z",
+      "side": 1,
+      "message": "There is already a patch up that actually enables the LogService support for multi-host [1].\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85600",
+      "revId": "b534429fd50868b837faa6f30c3725ab96fb9d19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
