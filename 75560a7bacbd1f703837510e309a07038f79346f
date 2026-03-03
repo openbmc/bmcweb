@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27949386_4d0eee1e",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-03T09:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3b3119e_084818f4",
+      "revId": "75560a7bacbd1f703837510e309a07038f79346f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4e14b3b_96037922",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Did this to preserve original url, changed in the next revision.",
       "parentUuid": "e4e14b3b_96037922",
+      "revId": "75560a7bacbd1f703837510e309a07038f79346f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e619f05b_60f6b276",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-03T09:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e5c9ff3_1c6646d4",
       "revId": "75560a7bacbd1f703837510e309a07038f79346f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
