@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd01e073_e46d812e",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-03T09:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cc2448a_4ce91a1f",
+      "revId": "824846bda8e25786b62559a4c7d9ee9b1ab395e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e46433a_46ea8397",
@@ -138,6 +156,24 @@
       "writtenOn": "2026-02-24T19:46:19Z",
       "side": 1,
       "message": "Can you deduplicate this.?",
+      "revId": "824846bda8e25786b62559a4c7d9ee9b1ab395e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fccf03c8_7b8bb58d",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-03T09:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e46433a_46ea8397",
       "revId": "824846bda8e25786b62559a4c7d9ee9b1ab395e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
