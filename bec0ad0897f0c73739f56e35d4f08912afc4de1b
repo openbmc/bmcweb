@@ -33,6 +33,24 @@
       "message": "Don\u0027t you need the same \n\n            staticGatewayEntry++;\n            entryIdx++;\n            continue;\n\nhere for empty ? \n\nCould be a separate commit",
       "revId": "bec0ad0897f0c73739f56e35d4f08912afc4de1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e87e0436_5ebba129",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-03-03T19:56:25Z",
+      "side": 1,
+      "message": "Good catch! Yes, this can be added and would be tested. I\u0027ll create a separate commit to address the empty entry handling, thus keeping the changes focussed.",
+      "parentUuid": "af932f9c_0df0c1f5",
+      "revId": "bec0ad0897f0c73739f56e35d4f08912afc4de1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
