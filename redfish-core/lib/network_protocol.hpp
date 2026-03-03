@@ -19,6 +19,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/network_utils.hpp"
 #include "utils/stl_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
@@ -348,6 +349,14 @@ inline void handleNTPServersPatch(
         if (ntpServerStr == nullptr)
         {
             messages::internalError(asyncResp->res);
+            return;
+        }
+        // Validate NTP server format (hostname, domain, or IP address)
+        if (!redfish::network_utils::isValidNtpServer(*ntpServerStr))
+        {
+            messages::propertyValueFormatError(
+                asyncResp->res, *ntpServerStr,
+                "NTP/NTPServers/" + std::to_string(index));
             return;
         }
         if (currentNtpServer == currentNtpServers.end())
