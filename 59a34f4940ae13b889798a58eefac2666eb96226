@@ -16,6 +16,40 @@
       "message": "Let\u0027s do 2 separate commits here\n1) A refactor, no functional changes \n2) Add the NTP validation",
       "revId": "59a34f4940ae13b889798a58eefac2666eb96226",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd76454_619684c2",
+        "filename": "redfish-core/include/utils/hostname_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-03T21:08:07Z",
+      "side": 1,
+      "message": "I could live with the filename/namespace but I think there is better.. \n\nutils/network_validation.hpp ?\nutils/host_validation.hpp ?\nutils/network_utils.hpp\nutils/dns_utils.hpp\n\nnamespace network_utils\nnamespace dns_utils \nnamespace network_validation",
+      "revId": "59a34f4940ae13b889798a58eefac2666eb96226",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c67636_03f526b7",
+        "filename": "redfish-core/include/utils/hostname_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-03T21:08:07Z",
+      "side": 1,
+      "message": "Bonus if you write some unit tests for these (probably a 3rd, separate commit)",
+      "revId": "59a34f4940ae13b889798a58eefac2666eb96226",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
