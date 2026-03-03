@@ -350,6 +350,14 @@ inline void handleNTPServersPatch(
             messages::internalError(asyncResp->res);
             return;
         }
+        // Validate NTP server format (hostname, domain, or IP address)
+        if (!redfish::hostname_utils::isValidNtpServer(*ntpServerStr))
+        {
+            messages::propertyValueFormatError(
+                asyncResp->res, *ntpServerStr,
+                "NTP/NTPServers/" + std::to_string(index));
+            return;
+        }
         if (currentNtpServer == currentNtpServers.end())
         {
             // if we're at the end of the list, append to the end
