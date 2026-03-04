@@ -28,6 +28,29 @@ namespace redfish
 namespace collection_util
 {
 
+inline nlohmann::json::array_t& ensureJsonArrayAt(nlohmann::json& v)
+{
+    auto* arr = v.get_ptr<nlohmann::json::array_t*>();
+    if (arr == nullptr)
+    {
+        v = nlohmann::json::array();
+        arr = v.get_ptr<nlohmann::json::array_t*>();
+    }
+    return *arr;
+}
+
+inline nlohmann::json::array_t& ensureJsonArray(nlohmann::json& parent,
+                                                std::string_view key)
+{
+    return ensureJsonArrayAt(parent[std::string(key)]);
+}
+
+inline nlohmann::json::array_t& ensureJsonArrayByPointer(
+    nlohmann::json& root, const nlohmann::json::json_pointer& ptr)
+{
+    return ensureJsonArrayAt(root[ptr]);
+}
+
 inline void handleCollectionMembers(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::urls::url& collectionPath,
@@ -46,10 +69,12 @@ inline void handleCollectionMembers(
     jsonCountKeyName.pop_back();
     jsonCountKeyName /= back + "@odata.count";
 
+    nlohmann::json::array_t& membersArr =
+        ensureJsonArrayByPointer(asyncResp->res.jsonValue, jsonKeyName);
+
     if (ec == boost::system::errc::io_error)
     {
-        asyncResp->res.jsonValue[jsonKeyName] = nlohmann::json::array();
-        asyncResp->res.jsonValue[jsonCountKeyName] = 0;
+        asyncResp->res.jsonValue[jsonCountKeyName] = membersArr.size();
         return;
     }
 
@@ -73,17 +98,15 @@ inline void handleCollectionMembers(
     }
     std::ranges::sort(pathNames, AlphanumLess<std::string>());
 
-    nlohmann::json& members = asyncResp->res.jsonValue[jsonKeyName];
-    members = nlohmann::json::array();
     for (const std::string& leaf : pathNames)
     {
         boost::urls::url url = collectionPath;
         crow::utility::appendUrlPieces(url, leaf);
         nlohmann::json::object_t member;
         member["@odata.id"] = std::move(url);
-        members.emplace_back(std::move(member));
+        membersArr.emplace_back(std::move(member));
     }
-    asyncResp->res.jsonValue[jsonCountKeyName] = members.size();
+    asyncResp->res.jsonValue[jsonCountKeyName] = membersArr.size();
 }
 
 /**
