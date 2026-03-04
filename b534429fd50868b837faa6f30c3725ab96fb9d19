@@ -51,6 +51,24 @@
       "message": "Let\u0027s add a comment as to why here?",
       "revId": "b534429fd50868b837faa6f30c3725ab96fb9d19",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0326edc8_ea5f5dd8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-04T13:54:00Z",
+      "side": 1,
+      "message": "You might use the `BMCWEB_REDFISH_EVENTLOG_LOCATION \u003d\u003d \"managers\"` instead?  Or in addition.",
+      "parentUuid": "8198621c_91ff34a3",
+      "revId": "b534429fd50868b837faa6f30c3725ab96fb9d19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
