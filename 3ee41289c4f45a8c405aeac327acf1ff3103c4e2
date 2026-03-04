@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47f15aa3_0ac62923",
+        "filename": "redfish-core/include/utils/network_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-04T18:10:55Z",
+      "side": 1,
+      "message": "You added these but don\u0027t use them or remove them from the Ethernet file",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 3
+      },
+      "revId": "3ee41289c4f45a8c405aeac327acf1ff3103c4e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
