@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4b5854e_6c9b4d39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-03-04T13:15:53Z",
+      "side": 1,
+      "message": "Ok, This PR will focus on \n2) Add the NTP validation, \nupdated the patch, by renaming hostname_utils.hpp to network_utils.hpp",
+      "parentUuid": "67514d83_31e1d127",
+      "revId": "59a34f4940ae13b889798a58eefac2666eb96226",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3dd76454_619684c2",
         "filename": "redfish-core/include/utils/hostname_utils.hpp",
         "patchSetId": 5
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9791e465_921d7f0f",
+        "filename": "redfish-core/include/utils/hostname_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-03-04T13:15:53Z",
+      "side": 1,
+      "message": "renamed hostname_utils.hpp to utils/network_utils.hpp and namespace as \nnamespace network_utils",
+      "parentUuid": "3dd76454_619684c2",
+      "revId": "59a34f4940ae13b889798a58eefac2666eb96226",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8c67636_03f526b7",
         "filename": "redfish-core/include/utils/hostname_utils.hpp",
         "patchSetId": 5
@@ -48,6 +84,24 @@
       "writtenOn": "2026-03-03T21:08:07Z",
       "side": 1,
       "message": "Bonus if you write some unit tests for these (probably a 3rd, separate commit)",
+      "revId": "59a34f4940ae13b889798a58eefac2666eb96226",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d0b49f_ad02f2f3",
+        "filename": "redfish-core/include/utils/hostname_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-03-04T13:15:53Z",
+      "side": 1,
+      "message": "Sure will address the unit test in seperate commit",
+      "parentUuid": "f8c67636_03f526b7",
       "revId": "59a34f4940ae13b889798a58eefac2666eb96226",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
