@@ -92,6 +92,19 @@ inline void getProcessorMemorySummaryDramEcc(
         service, memoryPath, "xyz.openbmc_project.Memory.MemoryECC",
         std::bind_front(afterGetDramEccProperties, asyncResp, sramCeCount,
                         sramUeCount));
+
+    dbus::utility::getProperty<uint16_t>(
+        service, memoryPath, "xyz.openbmc_project.Inventory.Item.Dram",
+        "MemoryConfiguredSpeedInMhz",
+        [asyncResp](const boost::system::error_code& ec, const uint16_t speed) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("No MemoryConfiguredSpeedInMhz: {}",
+                                 ec.message());
+                return;
+            }
+            asyncResp->res.jsonValue["OperatingSpeedMHz"] = speed;
+        });
 }
 
 /**
