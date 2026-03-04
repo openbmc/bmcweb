@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4572ed66_53e05057",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:43:24Z",
+      "side": 1,
+      "message": "Need to address comment that this is wrong error message to use. (Code here was factored out to a separate commit to enable re-use.)\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300/comment/d57e2a38_080b92db/",
+      "range": {
+        "startLine": 306,
+        "startChar": 18,
+        "endLine": 306,
+        "endChar": 40
+      },
+      "revId": "cb565a3718631ca7b11a3973b6aaa98d85481f6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
