@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29bd5a1a_07a7fbd3",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Code has been restructured to use getPowerCapObject().[1] This function uses an association to find the object controlled_by associated with the chassis which implements the Power.Cap interface.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87955",
+      "parentUuid": "358dff21_ceffba17",
+      "range": {
+        "startLine": 265,
+        "startChar": 8,
+        "endLine": 265,
+        "endChar": 54
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99540d63_1abc8a24",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "I\u0027ve removed the hardcoded path.\n\nSee comment https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300/comment/ef848f61_2974b1e0/ about the relation between power_cap and chassis.",
       "parentUuid": "99540d63_1abc8a24",
+      "range": {
+        "startLine": 286,
+        "startChar": 9,
+        "endLine": 286,
+        "endChar": 53
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72f46f8e_5306fae1",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Restructure of the code uses association, see comment: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300/comment/ef848f61_2974b1e0/",
+      "parentUuid": "ffe8a631_a58fc05f",
       "range": {
         "startLine": 286,
         "startChar": 9,
@@ -206,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d9806e_04f0e4d1",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Restructure of code uses common getPowerLimitWatts() function.",
+      "parentUuid": "977edcb6_5de2648b",
+      "range": {
+        "startLine": 310,
+        "startChar": 56,
+        "endLine": 311,
+        "endChar": 45
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6b231f1_7c44f5b6",
@@ -243,6 +315,30 @@
       "side": 1,
       "message": "I\u0027m not clear on what this change this comment is requesting.\n\nHere for the GET path if any of the PowerLimitWatts properties are not retrieved from the D-Bus that equivalent property in the Json response won\u0027t be filled in. Is that not the behavior that is desired?",
       "parentUuid": "a6b231f1_7c44f5b6",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 340,
+        "endChar": 9
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e60ad82_e8be85bb",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Restructure of code uses common getPowerLimitWatts() function.",
+      "parentUuid": "37e88303_4d392809",
       "range": {
         "startLine": 319,
         "startChar": 0,

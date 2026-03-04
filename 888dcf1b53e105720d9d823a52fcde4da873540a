@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba0f3e86_039f08af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "This commit does extend the GET for EnvironmentMetrics to include the new PowerLimitWatts property. (So doEnvironmentMetricsGet() already existed. New to this commit is call to getPowerLimitWatts() to fill in the PowerLimitWatts.)\n\nI\u0027ve updated the commit message to make it clear that GET is extending the existing EnvironmentMetrics URI response.",
+      "parentUuid": "fd34d2e9_9b787f87",
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f09c04f7_39a1e794",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94f9191c_0cd106cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "I\u0027ve restructured the code to use common function with the Processor EnvironmentMetrics commit. I\u0027ve updated the commit message as well. Please take another look.",
+      "parentUuid": "f09c04f7_39a1e794",
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "396a4283_dde22a8a",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-11-06T16:42:38Z",
       "side": 1,
       "message": "Please don\u0027t use a pair when it\u0027s not necessary.  If you need a struct, make a struct and name the members appropriately",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e84c1ad_27e4910f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Restructure of code has removed this.",
+      "parentUuid": "396a4283_dde22a8a",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -105,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94e76ce2_4a06572e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Restructure of code uses association. See comment: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300/comment/ef848f61_2974b1e0/",
+      "parentUuid": "882f3e05_e09bc0e2",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 80
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96a37fef_9ed49520",
@@ -118,6 +202,24 @@
       "writtenOn": "2024-11-06T16:42:38Z",
       "side": 1,
       "message": "invert this please to go from more specific error to less specific error.",
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d3ea224_d39859cb",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Restructure of the code is using a common function. There is a separate commit that makes adjustments to the common function. I addressed this comment in that commit: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87955",
+      "parentUuid": "96a37fef_9ed49520",
       "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -145,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ac5a4d_f687328b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Restructure of the code removed this.",
+      "parentUuid": "8af38c04_0c946f6c",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 8
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d57e2a38_080b92db",
@@ -158,6 +284,30 @@
       "writtenOn": "2024-11-06T16:42:38Z",
       "side": 1,
       "message": "Wrong error message, wrong args.",
+      "range": {
+        "startLine": 79,
+        "startChar": 22,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9dab16b_c5ba3791",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Addition of this code is moved to a different commit for re-use. I\u0027ve changed the message being used in that commit to propertyUnknown. If that is not correct please comment in that commit.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87955",
+      "parentUuid": "d57e2a38_080b92db",
       "range": {
         "startLine": 79,
         "startChar": 22,
@@ -193,6 +343,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5bc388b_9d8eef94",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Code has been restructured to use a common function for getting the control object. That function is used for both GET and PATCH. For GET there are multiple operations on the Chassis object to get the various environment metrics. So it gets the chassis object first and passes that to all the sub-functions in order to only do a single mapper call for the chassis.\n\nFor PATCH path I could switch to the getAssociated...Id() mapper call instead but it would result in not sharing code for the GET and PATCH path. I chose code re-use but could change if the id version of the mapper call is a higher priority. Please let me know what you think.",
+      "parentUuid": "1dcc1daa_575151af",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 29
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5089f56_e5cb85bd",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 28
@@ -204,6 +378,30 @@
       "writtenOn": "2024-11-06T16:42:38Z",
       "side": 1,
       "message": "Please use the generated enums for this and the line above.",
+      "range": {
+        "startLine": 220,
+        "startChar": 70,
+        "endLine": 220,
+        "endChar": 78
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dbd31a6_119383e4",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-04T20:44:49Z",
+      "side": 1,
+      "message": "Restructured to use common function, it does use the enums.",
+      "parentUuid": "f5089f56_e5cb85bd",
       "range": {
         "startLine": 220,
         "startChar": 70,
