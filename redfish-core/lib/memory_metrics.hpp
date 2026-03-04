@@ -122,6 +122,21 @@ inline void afterGetMemorySubTree(
         for (const auto& [service, ifaces] : serviceMap)
         {
             getMemoryMetricsECCData(asyncResp, service, path);
+
+            dbus::utility::getProperty<uint16_t>(
+                service, path, "xyz.openbmc_project.Inventory.Item.Dram",
+                "MemoryConfiguredSpeedInMhz",
+                [asyncResp](const boost::system::error_code& ec2,
+                            const uint16_t speed) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG("No MemoryConfiguredSpeedInMhz: {}",
+                                         ec2.message());
+                        return;
+                    }
+                    asyncResp->res.jsonValue["OperatingSpeedMHz"] = speed;
+                });
+
             return;
         }
     }
@@ -141,8 +156,9 @@ inline void getMemoryObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG("Get Memory object for {}", memoryId);
 
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Dimm"};
+    constexpr std::array<std::string_view, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Dram"};
 
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
