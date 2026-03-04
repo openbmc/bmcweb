@@ -27,6 +27,77 @@ namespace redfish
 {
 namespace collection_util
 {
+namespace details
+{
+inline nlohmann::json::array_t& getJsonArrayAt(nlohmann::json& v)
+{
+    auto* arr = v.get_ptr<nlohmann::json::array_t*>();
+    if (arr == nullptr)
+    {
+        v = nlohmann::json::array();
+        arr = v.get_ptr<nlohmann::json::array_t*>();
+    }
+    return *arr;
+}
+
+inline std::string_view getMemberOdataId(const nlohmann::json& member)
+{
+    if (!member.is_object())
+    {
+        return {};
+    }
+
+    auto it = member.find("@odata.id");
+    if (it == member.end())
+    {
+        return {};
+    }
+
+    const auto* odataId = it->get_ptr<const std::string*>();
+    if (odataId == nullptr)
+    {
+        return {};
+    }
+
+    return *odataId;
+}
+
+} // namespace details
+
+inline nlohmann::json::array_t& getJsonArray(nlohmann::json& parent,
+                                             std::string_view key)
+{
+    return details::getJsonArrayAt(parent[key]);
+}
+
+inline nlohmann::json::array_t& getJsonArrayByPointer(
+    nlohmann::json& root, const nlohmann::json::json_pointer& ptr)
+{
+    return details::getJsonArrayAt(root[ptr]);
+}
+
+inline void sortMembersByOdataId(nlohmann::json::array_t& members)
+{
+    std::sort(members.begin(), members.end(),
+              [](const nlohmann::json& lhs, const nlohmann::json& rhs) {
+                  return details::getMemberOdataId(lhs) <
+                         details::getMemberOdataId(rhs);
+              });
+}
+
+inline void sortMembersByOdataId(nlohmann::json::array_t& members)
+{
+    std::sort(members.begin(), members.end(),
+              [](const nlohmann::json& lhs, const nlohmann::json& rhs) {
+                  const std::string* l =
+                      lhs["@odata.id"].get_ptr<const std::string*>();
+                  const std::string* r =
+                      rhs["@odata.id"].get_ptr<const std::string*>();
+
+                  return std::string_view(l == nullptr ? "" : *l) <
+                         std::string_view(r == nullptr ? "" : *r);
+              });
+}
 
 inline void handleCollectionMembers(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -46,10 +117,12 @@ inline void handleCollectionMembers(
     jsonCountKeyName.pop_back();
     jsonCountKeyName /= back + "@odata.count";
 
+    nlohmann::json::array_t& membersArr =
+        getJsonArrayByPointer(asyncResp->res.jsonValue, jsonKeyName);
+
     if (ec == boost::system::errc::io_error)
     {
-        asyncResp->res.jsonValue[jsonKeyName] = nlohmann::json::array();
-        asyncResp->res.jsonValue[jsonCountKeyName] = 0;
+        asyncResp->res.jsonValue[jsonCountKeyName] = membersArr.size();
         return;
     }
 
@@ -71,19 +144,17 @@ inline void handleCollectionMembers(
         }
         pathNames.push_back(leaf);
     }
-    std::ranges::sort(pathNames, AlphanumLess<std::string>());
 
-    nlohmann::json& members = asyncResp->res.jsonValue[jsonKeyName];
-    members = nlohmann::json::array();
     for (const std::string& leaf : pathNames)
     {
         boost::urls::url url = collectionPath;
         crow::utility::appendUrlPieces(url, leaf);
         nlohmann::json::object_t member;
         member["@odata.id"] = std::move(url);
-        members.emplace_back(std::move(member));
+        membersArr.emplace_back(std::move(member));
     }
-    asyncResp->res.jsonValue[jsonCountKeyName] = members.size();
+    sortMembersByOdataId(membersArr);
+    asyncResp->res.jsonValue[jsonCountKeyName] = membersArr.size();
 }
 
 /**
