@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3829d034_f09633ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-03-04T05:32:13Z",
+      "side": 1,
+      "message": "Sure @ed@tanous.net . \n\nTest 1 – Valid Image Upload\n\nRequest:\n\nMethod: POST\n\nURL: https://\u003cbmc-ip\u003e/redfish/v1/UpdateService/update\n\nAuthentication: Basic Auth (root / 0penBmc)\n\nBody: binary → select valid firmware image\n\nExpected Result:\n\nHTTP 202 Accepted\n\nTask created at /redfish/v1/TaskService/Tasks/\u003cTaskId\u003e\n\nTask state transitions normally (Running → Completed)\n\nObserved Result:\n\nHTTP 202 returned\n\nTask created successfully\n\nUpdate flow completed without errors\n\nTest 2 – Invalid / Corrupted Image Upload\n\nRequest:\n\nMethod: POST\n\nURL: https://\u003cbmc-ip\u003e/redfish/v1/UpdateService/update\n\nAuthentication: Basic Auth\n\nBody: binary → select corrupted or invalid file\n\n\n\nExpected Result (After This Change):\n\nImmediate HTTP 4xx error response\n\nNo task created\n\nObserved Result:\n\nHTTP 4xx returned immediately\n\nNo entry created under /redfish/v1/TaskService/Tasks",
+      "parentUuid": "64d39cfb_b11d81bd",
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc678d08_90e49a09",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-02-12T17:56:14Z",
       "side": 1,
       "message": "Overall, I suspect this is solving a problem that needs handled in the backend.",
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "945fc31a_379e561e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-03-04T05:32:13Z",
+      "side": 1,
+      "message": "@ed@tanous.net This commit wont allow to create a task itself unless the valid image is selected during POST operation in POSTMAN of the URI : https://\u003cbmc-ip\u003e/redfish/v1/UpdateService/update  that is why we avoided 500 internal error that would create a task in  /redfish/v1/TaskService/Tasks",
+      "parentUuid": "cc678d08_90e49a09",
       "revId": "5597a68936599fde3149f3316694d08b9667f587",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -77,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1524d6d9_73943847",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-03-04T05:32:13Z",
+      "side": 1,
+      "message": "Could you please elaborate what i have ignored?",
+      "parentUuid": "443aaae9_322955be",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 37
+      },
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bd70800_c8e510b6",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 12
@@ -88,6 +148,30 @@
       "writtenOn": "2026-02-12T17:56:14Z",
       "side": 1,
       "message": "I think the previous message here was correct.  The internal service failed to provide updates and has locked up.\n\nIf we want to provide this information to the user, do it via the backend service.",
+      "range": {
+        "startLine": 353,
+        "startChar": 18,
+        "endLine": 353,
+        "endChar": 43
+      },
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62a7790e_298e99f0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-03-04T05:32:13Z",
+      "side": 1,
+      "message": "Hi @ed@tanous.net We added this message to handle cases where a user uploads an invalid image during the POST operation to /redfish/v1/UpdateService/update.\n\nWith this change, the service immediately returns an error and prevents creation of a task at /redfish/v1/TaskService/Tasks/\u003cTaskId\u003e. Previously, a task would still be created, and only afterward would it fail with a 500 Internal Server Error. \n\nVerified that uploading a valid image successfully creates a task and completes the update flow as expected.\n\nVerified that uploading an invalid or corrupted image now returns an appropriate error response without creating a task.\n\nConfirmed that no /redfish/v1/TaskService/Tasks/\u003cTaskId\u003e entry is created in the failure scenario.",
+      "parentUuid": "5bd70800_c8e510b6",
       "range": {
         "startLine": 353,
         "startChar": 18,
