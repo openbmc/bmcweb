@@ -88,6 +88,24 @@
       "parentUuid": "77ec9ad6_72231138",
       "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5abb724e_c8e39788",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-04T23:26:44Z",
+      "side": 1,
+      "message": "\u003e Wouldn\u0027t BMCWEB_LOG_VERBOSE solve both the bit rot and the code size issue?\n\nAt the expense of having yet another log level, when the majority of people use Error, info, or debug.  If you want to try to go push for a new log level, that\u0027s something we can discuss in another MR (I\u0027d probably still be against it).\n\nFor this MR, these have been commented out in the past in the same way I\u0027m doing here.",
+      "parentUuid": "a6572a2c_d36a6f51",
+      "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
