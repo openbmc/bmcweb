@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb39d5ea_7d94f6cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-04T02:03:36Z",
+      "side": 1,
+      "message": "Then you have 2 URIs for the same physical fan. I don\u0027t think that\u0027s allowed in redfish.\n\nIf that were the solution i would wonder why `CoolingChassis` property is part of redfish.",
+      "parentUuid": "86b67c3e_297b6a0c",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "415a1348_e52d0841",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b37ce09f_20363a82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-04T02:03:36Z",
+      "side": 1,
+      "message": "Yep, it would probably be better for understanding to test it with yv4.\n\nI will leave this open to wait for maintainer feedback on the overall direction and also feedback on the entity-manager change.\n\nIf the EM change is accepted i can try to work that into the yv4 configs and provide a new testing for a better example.",
+      "parentUuid": "415a1348_e52d0841",
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "725589c4_d574d632",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -54,6 +96,24 @@
       "writtenOn": "2026-03-03T22:47:53Z",
       "side": 1,
       "message": "I don\u0027t think you need to list the warnings here. Also, are you calling redfish_service_validator with pointing to the bmcweb schema directory? this might remove some of them",
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6413f71_f01edc58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-04T02:03:36Z",
+      "side": 1,
+      "message": "Thanks, i will keep that in mind for my next test run. I\u0027ll leave this open until the testing is updated.",
+      "parentUuid": "725589c4_d574d632",
       "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
