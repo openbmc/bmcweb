@@ -92,6 +92,24 @@ inline void getProcessorMemorySummaryDramEcc(
         service, memoryPath, "xyz.openbmc_project.Memory.MemoryECC",
         std::bind_front(afterGetDramEccProperties, asyncResp, sramCeCount,
                         sramUeCount));
+
+    dbus::utility::getProperty<uint16_t>(
+        service, memoryPath, "xyz.openbmc_project.Inventory.Item.Memory",
+        "MemoryConfiguredSpeedInMhz",
+        [asyncResp](const boost::system::error_code& ec, const uint16_t speed) {
+            if (ec)
+            {
+                if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBus error on GetProperty for MemoryConfiguredSpeedInMhz: {}",
+                        ec.message());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            asyncResp->res.jsonValue["OperatingSpeedMHz"] = speed;
+        });
 }
 
 /**
@@ -129,7 +147,7 @@ inline void afterGetAssociationEndpoints(
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG("No all_memory association found: {}", ec.message());
+        BMCWEB_LOG_DEBUG("No containing association found: {}", ec.message());
         setSramOnlyEccCounts(asyncResp, sramCeCount, sramUeCount);
         return;
     }
@@ -167,7 +185,7 @@ inline void findProcessorMemoryObject(
                      processorPath);
 
     dbus::utility::getAssociationEndPoints(
-        processorPath + "/all_memory",
+        processorPath + "/containing",
         std::bind_front(afterGetAssociationEndpoints, asyncResp, service,
                         sramCeCount, sramUeCount));
 }
