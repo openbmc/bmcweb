@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "234aac6d_0543a870",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:21:43Z",
+      "side": 1,
+      "message": "Remove this sentence as it isn\u0027t true.  I\u0027m happy to support this as a feature, but saying that the Redfish spec \"implies\" local time isn\u0027t accurate.  Lots of BMCs only support UTC correctly to the Redfish spec and the Redfish spec allows supporting UTC as an option.",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 56
+      },
+      "revId": "e438e5efd53b339c3debe8b21607a627b7e5c724",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f6a77d9_82084eee",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
