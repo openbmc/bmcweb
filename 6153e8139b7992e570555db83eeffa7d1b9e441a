@@ -52,6 +52,24 @@
       "parentUuid": "c4f8c59d_dae4b563",
       "revId": "6153e8139b7992e570555db83eeffa7d1b9e441a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd8ed684_5553332d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2026-03-05T23:20:08Z",
+      "side": 1,
+      "message": "Patching only one parameter is fine because the user should know that enter must be less than or equal to the exit.\n\nThe order of the setDbusProperty requests is sequential in this function, why are you saying it is not guaranteed?\n\nThe dbus SET can only set one property at a time, which is the root problem with this situation.\n\nAnother option would be for the app to wait some period of time (for any new dbus requests before doing the checking), but I really think that is a must less desirable solution because of the time dependency (how long do you wait, etc).",
+      "parentUuid": "92a74e04_5bcb7866",
+      "revId": "6153e8139b7992e570555db83eeffa7d1b9e441a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
