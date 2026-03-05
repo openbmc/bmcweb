@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c77bf2_df4b07ae",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T18:29:26Z",
+      "side": 0,
+      "message": "Now that arrays might already exist, this sort function is incorrect.  We need to now insert at the correct position, or sort the final result.  Otherwise the resulting collection order will be wrong.",
+      "revId": "82a92ac8e45e82cb654a89bc987c767a614ea909",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

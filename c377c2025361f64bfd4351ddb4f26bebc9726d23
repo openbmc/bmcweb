@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c58a9cd4_e5aafe73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T18:29:26Z",
+      "side": 1,
+      "message": "Please note that this is enforcing Common error 13, and link this link.\nhttps://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#13-complete-replacement-of-the-response-object",
+      "revId": "c377c2025361f64bfd4351ddb4f26bebc9726d23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a85e35a_63ba32eb",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -32,6 +49,75 @@
       "side": 1,
       "message": "Added",
       "parentUuid": "1a85e35a_63ba32eb",
+      "revId": "c377c2025361f64bfd4351ddb4f26bebc9726d23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0166025_15686a31",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T18:29:26Z",
+      "side": 1,
+      "message": "Nit, please call these \"getJsonArray\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "c377c2025361f64bfd4351ddb4f26bebc9726d23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "541c3a60_6dc465ee",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T18:29:26Z",
+      "side": 1,
+      "message": "Why do we have to convert to std::string here?",
+      "range": {
+        "startLine": 45,
+        "startChar": 36,
+        "endLine": 45,
+        "endChar": 47
+      },
+      "revId": "c377c2025361f64bfd4351ddb4f26bebc9726d23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d9dce2d_e1540f4e",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T18:29:26Z",
+      "side": 1,
+      "message": "Please put these in a details namespace.  They\u0027re not intended to be used outside this file.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 1
+      },
       "revId": "c377c2025361f64bfd4351ddb4f26bebc9726d23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
