@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ccca456_7c33aefd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:14:49Z",
+      "side": 1,
+      "message": "Can you please also run some negative tests on non matching certificates, bad certificates, ones that don\u0027t match the root.  Ideally these would be automated, but I don\u0027t think anyone has done that yet.\n\n\nWe\u0027re changing a security layer here, so we need the next level of testing on this stuff compared to other patches.",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28089283_54dbb166",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:14:49Z",
+      "side": 1,
+      "message": "This is fine, but saying that the test you ran doesn\u0027t have coverage of the code you fixed doesn\u0027t exactly inspire confidence.  Can we get a little more testing?  I don\u0027t care if it shows up in the commit message, but at least enumerating the various auth mechanisms across http1 and http2 is something that seems worthwhile",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11c053b4_f7988da5",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:14:49Z",
+      "side": 1,
+      "message": "why did this move outside the extern C?",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11f57cf2_ea0a3686",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:14:49Z",
+      "side": 1,
+      "message": "This moved as well?",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

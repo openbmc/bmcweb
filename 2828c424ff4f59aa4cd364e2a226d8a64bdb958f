@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8af1466_c003287e",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:14:49Z",
+      "side": 0,
+      "message": "Where did these two calls move to in your new code?  Are we just no longer checking this?",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 49
+      },
+      "revId": "2828c424ff4f59aa4cd364e2a226d8a64bdb958f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
