@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c24a5356_a2d1848b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T16:47:10Z",
+      "side": 1,
+      "message": "\u003e My change simply extends this pattern to NTP server validation for consistency.\n\nYes, there are other places that violate this.  That\u0027s not a reason to continue to make it worse.  Ideally these would be rolled into the backend.\n\n\u003e how do we translate that to the required Redfish-compliant format?\n\nThere\u0027s lots of prior art there.  Take a look at AccountService which does a good job of this error conversion.\n\n\u003e Prevents potentially expensive backend operations (DNS lookups, D-Bus calls, systemd service restarts) for obviously invalid input.\n\nI\u0027m not understanding this.  The backend can choose to not do this if it wants.",
+      "parentUuid": "7d006114_cba6c5c7",
+      "revId": "3ee41289c4f45a8c405aeac327acf1ff3103c4e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82ef0390_f5b78c0e",
         "filename": "redfish-core/include/utils/network_utils.hpp",
         "patchSetId": 7
