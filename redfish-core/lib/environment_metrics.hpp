@@ -101,9 +101,8 @@ inline void handleTotalPowerList(
 
     const std::string& serviceName = (*sensorList)[0].first;
     const std::string& sensorPath = (*sensorList)[0].second;
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, serviceName, sensorPath,
-        "xyz.openbmc_project.Sensor.Value",
+    dbus::utility::getAllProperties(
+        serviceName, sensorPath, "xyz.openbmc_project.Sensor.Value",
         [asyncResp, chassisId,
          sensorPath](const boost::system::error_code& ec1,
                      const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -228,9 +227,8 @@ inline void getFanSensorsExcerpt(
 {
     for (const auto& [service, sensorPath] : sensorsPathAndService)
     {
-        sdbusplus::asio::getAllProperties(
-            *crow::connections::systemBus, service, sensorPath,
-            "xyz.openbmc_project.Sensor.Value",
+        dbus::utility::getAllProperties(
+            service, sensorPath, "xyz.openbmc_project.Sensor.Value",
             [asyncResp, chassisId, sensorPath](
                 const boost::system::error_code& ec,
                 const dbus::utility::DBusPropertiesMap& propertiesList) {
