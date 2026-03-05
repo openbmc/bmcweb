@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14d3b092_1f2b7b3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T18:02:58Z",
+      "side": 1,
+      "message": "\u003e Hummm. I am not sure here. I did not added these \"ReadingRangeMin/Max\" and \"ReadingRangeMax\" attributes. Looking at https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml\n\u003e such attributes are not even supported by the value interface. I am suspecting bmcweb is just defaulting to 0.\n\nyes, they are, they\u0027re sourced from MinValue and MaxValue.\n\nI\u0027m not aware of any code that defaults these values to 0.0, and any code would be in the block you modified here.\n\n\u003e \n\u003e But again, I would consider that unrelated to this change right?\n\nYou\u0027re changing the behavior of how these properties operate, so no, I would assume it\u0027s related until we know otherwise.",
+      "parentUuid": "181dc1f5_11b2ba0a",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4c43e39_01da353b",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 8
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "Thats true for the thresholds as well\nhttps://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Sensor/Threshold/*.yaml\nwhich default to NaN.\n\nAre you suggesting instead to just delete the \n```\nBMCWEB_LOG_WARNING(\"Sensor value for {} was unexpectedly {}\",\n                                   valueName, *doubleValue);\n```\nline and call it good?",
       "parentUuid": "e4c43e39_01da353b",
+      "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d59bcfc_e1e41735",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T18:02:58Z",
+      "side": 1,
+      "message": "No, I\u0027m suggesting we need to go through each property and determine what the behavior is.  The commit message talks about changing thresholds, which is fine, but functionally this patch is changing behavior for every property across 4 resource classes.  I\u0027d like at least some analysis that we\u0027re doing the right thing here.\n\nIn general the \"not populated\" defaults shouldn\u0027t show up on Redfish, so at a minimum you\u0027d need to keep MinValue/MaxValue in this check.\n\nThresholds are different in that a user might want to modify them, so I\u0027m happy to see them have different rules, but the point is we need to consider all the properties that flow through this.",
+      "parentUuid": "2f8c11ac_dfd93d51",
       "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
