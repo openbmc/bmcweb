@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d5c3fac_dc35fab0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T20:46:41Z",
+      "side": 1,
+      "message": "Why do we care?  500 means we have a bug in error handling somewhere.  Lets fix it at the source of where it\u0027s called, not by adding new rules upstream.\n\nOne character of a firmware update would cause the same bug.  BMCWEB doesn\u0027t have the ability to validate \"is this payload correct\", so we need the backend to tell us.",
+      "parentUuid": "945fc31a_379e561e",
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "443aaae9_322955be",
         "filename": "redfish-core/include/error_messages.hpp",
         "patchSetId": 12
