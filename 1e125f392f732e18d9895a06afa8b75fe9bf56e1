@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26b4c261_3909f84b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T20:45:01Z",
+      "side": 1,
+      "message": "I\u0027m not following.  5 minutes, 1% update at a time would be updates every 3 seconds.  Why is a 5 minute timeout by updates a problem?\n\nThis sounds like a bug in crashdump, in that it\u0027s not providing progress updates at all.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 42
+      },
+      "revId": "1e125f392f732e18d9895a06afa8b75fe9bf56e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
