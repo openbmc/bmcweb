@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e46a72a3_92b0c480",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T17:41:07Z",
+      "side": 1,
+      "message": "This breaks several abstraction boundaries as written in bad ways.  HTTP should have no knowledge of Redfish.  We shouldn\u0027t have to duplicate this logic between.  There\u0027s plenty of memory usage cleanups we need to do that I suspect are why you wrote this patch.  Lets get those landed, and see if you still have issues.  If you do, there\u0027s likely fixes.",
+      "revId": "9b0adc902a113e76ad8948ac2f151e72d6370eda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
