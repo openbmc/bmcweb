@@ -16,6 +16,24 @@
       "message": "Hi, Thank you for the commit! Can you get someone from Nvidia to add you to Nvidia\u0027s CCLA and Gerrit Approval List?",
       "revId": "c377c2025361f64bfd4351ddb4f26bebc9726d23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70b8ca6a_c31062f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T18:25:15Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "1a85e35a_63ba32eb",
+      "revId": "c377c2025361f64bfd4351ddb4f26bebc9726d23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
