@@ -34,6 +34,24 @@
       "parentUuid": "0a45b47e_31851943",
       "revId": "6153e8139b7992e570555db83eeffa7d1b9e441a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92a74e04_5bcb7866",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:05:47Z",
+      "side": 1,
+      "message": "\u003e app gets exit value first and sees that (new enter) 18 \u003e (current exit) 12, so it updates both to the current exit value (12)\n\nIsn\u0027t this a bug?  Why wouldn\u0027t it set both enter and exit to the new value?  (Ie, one value bumps, the other value bumps automatically so that it\u0027s always valid).  How does this work if you PATCH only one parameter?\n\n\nIf we\u0027re relying on the order of dbus requests and it\u0027s required, I suspect there\u0027s something broken in our API definition.  Technically there\u0027s nothing in this code that guarantees the order (although it is very...very likely).\n\nIf we can\u0027t do the above, and we have constraints on set order, I suspect the property set interface isn\u0027t really what we should be using here, because technically the property API sets no constraint on order.\n\nOverall, I\u0027d really like to see a solution that resolves this in the backend.   Randomly rearranging working code doesn\u0027t guarantee that someone won\u0027t immediately rearrange it back, and if there are multiple backends for this per-cpu interface, I\u0027m worried we\u0027re going to impose silent constraints on this.",
+      "parentUuid": "c4f8c59d_dae4b563",
+      "revId": "6153e8139b7992e570555db83eeffa7d1b9e441a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
