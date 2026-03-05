@@ -832,6 +832,44 @@ inline void getProcessorData(
         boost::urls::format("/redfish/v1/Systems/{}/Processors/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 
+    // TotalMemorySizeMiB via all_memory association
+    dbus::utility::getAssociationEndPoints(
+        objectPath + "/all_memory",
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperEndPoints& endpoints) {
+            if (ec || endpoints.empty())
+            {
+                return;
+            }
+            const std::string& memoryPath = endpoints.front();
+            constexpr std::array<std::string_view, 1> ifaces = {
+                "xyz.openbmc_project.Inventory.Item.Dram"};
+            dbus::utility::getDbusObject(
+                memoryPath, ifaces,
+                [asyncResp,
+                 memoryPath](const boost::system::error_code& ec2,
+                             const dbus::utility::MapperGetObject& object) {
+                    if (ec2 || object.empty())
+                    {
+                        return;
+                    }
+                    dbus::utility::getProperty<size_t>(
+                        object.begin()->first, memoryPath,
+                        "xyz.openbmc_project.Inventory.Item.Dram",
+                        "MemorySizeInKB",
+                        [asyncResp](const boost::system::error_code& ec3,
+                                    const size_t memorySizeInKB) {
+                            if (ec3)
+                            {
+                                return;
+                            }
+                            asyncResp->res.jsonValue["MemorySummary"]
+                                                    ["TotalMemorySizeMiB"] =
+                                memorySizeInKB / 1024;
+                        });
+                });
+        });
+
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
         for (const auto& interface : interfaceList)
