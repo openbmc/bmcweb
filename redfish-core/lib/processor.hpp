@@ -819,6 +819,113 @@ inline void getProcessorObject(
         });
 }
 
+struct ProcessorMemorySizeAccumulator
+{
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+    bool endpointsFound = false;
+    bool hasError = false;
+    uint64_t totalKiB = 0;
+
+    ~ProcessorMemorySizeAccumulator()
+    {
+        if (hasError)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (endpointsFound)
+        {
+            // Convert D-Bus MemorySizeInKB (KiB) to Redfish
+            // TotalMemorySizeMiB (MiB)
+            asyncResp->res.jsonValue["MemorySummary"]["TotalMemorySizeMiB"] =
+                totalKiB / 1024;
+        }
+    }
+
+    ProcessorMemorySizeAccumulator(
+        const std::shared_ptr<bmcweb::AsyncResp>& resp) : asyncResp(resp)
+    {}
+    ProcessorMemorySizeAccumulator(const ProcessorMemorySizeAccumulator&) =
+        delete;
+    ProcessorMemorySizeAccumulator& operator=(
+        const ProcessorMemorySizeAccumulator&) = delete;
+    ProcessorMemorySizeAccumulator(ProcessorMemorySizeAccumulator&&) = delete;
+    ProcessorMemorySizeAccumulator& operator=(
+        ProcessorMemorySizeAccumulator&&) = delete;
+};
+
+inline void afterGetMemorySize(
+    const std::shared_ptr<ProcessorMemorySizeAccumulator>& acc,
+    const std::string& dramPath, const boost::system::error_code& ec,
+    const size_t memorySizeInKB)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("D-Bus error for MemorySizeInKB on {}: {}",
+                             dramPath, ec.message());
+            acc->hasError = true;
+            return;
+        }
+        BMCWEB_LOG_DEBUG("MemorySizeInKB not populated for {}", dramPath);
+        return;
+    }
+    acc->totalKiB += memorySizeInKB;
+    acc->endpointsFound = true;
+}
+
+inline void afterGetMemoryAssociation(
+    const std::shared_ptr<ProcessorMemorySizeAccumulator>& acc,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("D-Bus error for containing association: {}",
+                             ec.message());
+            acc->hasError = true;
+        }
+        return;
+    }
+
+    for (const auto& [dramPath, serviceMap] : subtree)
+    {
+        if (serviceMap.size() != 1)
+        {
+            BMCWEB_LOG_ERROR(
+                "Expected exactly one service for memory {}, got {}", dramPath,
+                serviceMap.size());
+            acc->hasError = true;
+            continue;
+        }
+
+        const std::string& service = serviceMap.begin()->first;
+
+        dbus::utility::getProperty<size_t>(
+            service, dramPath, "xyz.openbmc_project.Inventory.Item.Dimm",
+            "MemorySizeInKB",
+            std::bind_front(afterGetMemorySize, acc, dramPath));
+    }
+}
+
+inline void getProcessorMemorySummary(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    auto acc = std::make_shared<ProcessorMemorySizeAccumulator>(asyncResp);
+
+    constexpr std::array<std::string_view, 1> memoryInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm"};
+
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::message::object_path(objectPath) / "containing",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        memoryInterfaces, std::bind_front(afterGetMemoryAssociation, acc));
+}
+
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -855,6 +962,7 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getProcessorMemorySummary(asyncResp, objectPath);
             }
             else if (
                 interface ==

@@ -1141,6 +1141,7 @@ functions the same like the default implementation under the System resource.
 - Throttled
 - TotalCores
 - TotalThreads
+- MemorySummary/TotalMemorySizeMiB
 - Version
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
