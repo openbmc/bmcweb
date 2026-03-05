@@ -51,6 +51,24 @@
       "message": "While this is potentially a client breaking change, it is:\n1. In line with the specification\n2. Something where there has been significant change over the years in the spec\n3. Something a reasonably correct client would generally code against, or only use the value as a string directly (not interpret as an int).\n4. Might be a regression recently.\n\nTherefore I think it\u0027s acceptable to not have a backward compatibility path.  If we find anyone hits a problem, we can offer a backward compatibility path at a later time.",
       "revId": "82a92ac8e45e82cb654a89bc987c767a614ea909",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8bea426_7a0353a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000584
+      },
+      "writtenOn": "2026-03-05T21:34:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "90a79485_83c569ac",
+      "revId": "82a92ac8e45e82cb654a89bc987c767a614ea909",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
