@@ -819,6 +819,165 @@ inline void getProcessorObject(
         });
 }
 
+struct ProcessorMemorySizeAccumulator
+{
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+    bool endpointsFound = false;
+    bool allSuccess = true;
+    bool hasError = false;
+    uint64_t totalKiB = 0;
+
+    ~ProcessorMemorySizeAccumulator()
+    {
+        if (hasError)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (endpointsFound && allSuccess)
+        {
+            // Convert D-Bus MemorySizeInKB (KiB) to Redfish
+            // TotalMemorySizeMiB (MiB)
+            asyncResp->res.jsonValue["MemorySummary"]["TotalMemorySizeMiB"] =
+                totalKiB / 1024;
+        }
+    }
+
+    ProcessorMemorySizeAccumulator(
+        const std::shared_ptr<bmcweb::AsyncResp>& resp) : asyncResp(resp)
+    {}
+    ProcessorMemorySizeAccumulator(const ProcessorMemorySizeAccumulator&) =
+        delete;
+    ProcessorMemorySizeAccumulator& operator=(
+        const ProcessorMemorySizeAccumulator&) = delete;
+    ProcessorMemorySizeAccumulator(ProcessorMemorySizeAccumulator&&) = delete;
+    ProcessorMemorySizeAccumulator& operator=(
+        ProcessorMemorySizeAccumulator&&) = delete;
+};
+
+inline void afterGetMemorySize(
+    const std::shared_ptr<ProcessorMemorySizeAccumulator>& acc,
+    const boost::system::error_code& ec, const size_t memorySizeInKB)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("D-Bus error for MemorySizeInKB: {}",
+                             ec.message());
+            acc->hasError = true;
+            return;
+        }
+        acc->allSuccess = false;
+        return;
+    }
+    acc->totalKiB += memorySizeInKB;
+}
+
+inline void afterGetMemoryService(
+    const std::shared_ptr<ProcessorMemorySizeAccumulator>& acc,
+    const std::string& dramPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("D-Bus error for memory service: {}",
+                             ec.message());
+            acc->hasError = true;
+            return;
+        }
+        acc->allSuccess = false;
+        return;
+    }
+
+    if (object.size() != 1)
+    {
+        BMCWEB_LOG_ERROR("Expected exactly one service for memory {}, got {}",
+                         dramPath, object.size());
+        acc->hasError = true;
+        return;
+    }
+
+    const std::string& service = object.begin()->first;
+    const auto& interfaces = object.begin()->second;
+
+    std::string readIface;
+    for (const std::string& iface : interfaces)
+    {
+        if (iface == "xyz.openbmc_project.Inventory.Item.Memory")
+        {
+            readIface = iface;
+            break;
+        }
+        if (iface == "xyz.openbmc_project.Inventory.Item.Dimm")
+        {
+            readIface = iface;
+        }
+    }
+    if (readIface.empty())
+    {
+        acc->allSuccess = false;
+        return;
+    }
+
+    dbus::utility::getProperty<size_t>(
+        service, dramPath, readIface, "MemorySizeInKB",
+        std::bind_front(afterGetMemorySize, acc));
+}
+
+inline void afterGetMemoryAssociation(
+    const std::shared_ptr<ProcessorMemorySizeAccumulator>& acc,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& endpoints)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("D-Bus error for containing association: {}",
+                             ec.message());
+            acc->hasError = true;
+            return;
+        }
+        return;
+    }
+
+    if (endpoints.empty())
+    {
+        return;
+    }
+
+    acc->endpointsFound = true;
+    constexpr std::array<std::string_view, 2> memoryInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Memory"};
+
+    for (const std::string& dramPath : endpoints)
+    {
+        dbus::utility::getDbusObject(
+            dramPath, memoryInterfaces,
+            std::bind_front(afterGetMemoryService, acc, dramPath));
+    }
+}
+
+inline void getProcessorMemorySummary(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    auto acc = std::make_shared<ProcessorMemorySizeAccumulator>(asyncResp);
+
+    constexpr std::array<std::string_view, 2> memoryInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.Memory"};
+
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::message::object_path(objectPath) / "containing",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        memoryInterfaces, std::bind_front(afterGetMemoryAssociation, acc));
+}
+
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -855,6 +1014,7 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getProcessorMemorySummary(asyncResp, objectPath);
             }
             else if (
                 interface ==
