@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b851305f_e675e460",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-05T05:54:22Z",
+      "side": 1,
+      "message": "I\u0027ve verified the Redfish URI structure and the EnvironmentMetrics implementation. The power limit properties are correctly exposed under the Processor resource as expected.\n\n# Verified Processor resource links to EnvironmentMetrics\n$ curl -k -u root:0penBmc -H \"Content-Type: application/json\" \\\n  -X GET https://\"${BMC}\"/redfish/v1/Systems/system/Processors/GPU_*_*\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/Processors/GPU_*_*\",\n  \"@odata.type\": \"#Processor.v1_18_0.Processor\",\n  ...\n  \"EnvironmentMetrics\": {\n    \"@odata.id\": \"/redfish/v1/Systems/system/Processors/GPU_*_*/EnvironmentMetrics\"\n  },\n  ...\n}\n\n# Verified EnvironmentMetrics content and PowerLimitWatts properties\n$ curl -k -u root:0penBmc -H \"Content-Type: application/json\" \\\n  -X GET https://\"${BMC}\"/redfish/v1/Systems/system/Processors/GPU_*_*/EnvironmentMetrics\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/Processors/GPU_*_*/EnvironmentMetrics\",\n  \"@odata.type\": \"#EnvironmentMetrics.v1_3_0.EnvironmentMetrics\",\n  \"Id\": \"EnvironmentMetrics\",\n  \"Name\": \"Processor Environment Metrics\",\n  \"PowerLimitWatts\": {\n    \"AllowableMax\": {},\n    \"AllowableMin\": {},\n    \"ControlMode\": {},\n    \"DefaultSetPoint\": {},\n    \"SetPoint\": {}\n  }\n}\n\nThe results look good.",
+      "revId": "84fe781cc4b1bc7e14fa55c2ceaeb4e5dbe4a3cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
