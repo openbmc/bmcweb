@@ -16,6 +16,24 @@
       "message": "Haven\u0027t you now just caused the same bug in reverse?",
       "revId": "6153e8139b7992e570555db83eeffa7d1b9e441a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4f8c59d_dae4b563",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2026-03-05T22:58:28Z",
+      "side": 1,
+      "message": "No, because when the app finds this condition is will always replace the enter util with the exit util. Here are examples of original, fix, and reverse:\n\nOriginal code example:\n  initial utils: enter \u003d 8, exit \u003d 12\n  user requests: enter \u003d 18, exit \u003d 22\n  app gets exit value first and sees that (new enter) 18 \u003e (current exit) 12, so it updates both to the current exit value (12)\n  app then gets exit value and updates the exit to 22\n  BAD resulting values: enter \u003d 12, exit \u003d 22\n\nWith fix:\n  initial utils: enter \u003d 8, exit \u003d 12\n  user requests: enter \u003d 18, exit \u003d 22\n  app gets exit value first and updates it -\u003e enter \u003d 8 and exit \u003d 22\n  app then gets enter value and updates the enter to 18\n  GOOD resulting values: enter \u003d 18, exit \u003d 22\n\nReverse case with fix:\n  initial utils: enter \u003d 8, exit \u003d 12\n  user requests: enter \u003d 4, exit \u003d 6\n  app gets exit value first and sees that (current enter) 8 \u003e (new exit) 6, so it updates both to the new exit value (6)\n  app then gets enter value and updates the enter to 4\n  GOOD resulting values: enter \u003d 4, exit \u003d 6",
+      "parentUuid": "0a45b47e_31851943",
+      "revId": "6153e8139b7992e570555db83eeffa7d1b9e441a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
