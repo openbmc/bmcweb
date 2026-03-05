@@ -134,6 +134,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c03f41e1_d528600d",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:33:34Z",
+      "side": 1,
+      "message": "Per the other patch, I think this is where you forgot to set 204.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9af3479_ee697b17",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 3
