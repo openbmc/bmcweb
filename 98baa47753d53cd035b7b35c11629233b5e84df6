@@ -73,6 +73,40 @@
       "message": "This moved as well?",
       "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb4870e8_740f9222",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:17:49Z",
+      "side": 1,
+      "message": "Is there a reason you wrote this yourself rather than use constructX509?",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61607844_55242f06",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T23:17:49Z",
+      "side": 1,
+      "message": "Seeing a ton of missed error codes here.  X509_set_pubkey for example returns 1 for success.\n\nWe\u0027re in a test here, so you probably want something like\nASSERT_EQ(X509_set_pubkey...., 1)\n\nAnd that needs applied to nearly everything here.",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
