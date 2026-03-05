@@ -819,6 +819,47 @@ inline void getProcessorObject(
         });
 }
 
+inline void afterGetDramSubTreeForMemorySummary(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        return;
+    }
+
+    sdbusplus::message::object_path processorObjPath(objectPath);
+    std::string processorName = processorObjPath.filename();
+
+    for (const auto& [path, serviceMap] : subtree)
+    {
+        sdbusplus::message::object_path dramObjPath(path);
+        if (!dramObjPath.filename().starts_with(processorName))
+        {
+            continue;
+        }
+
+        for (const auto& [service, ifaces] : serviceMap)
+        {
+            dbus::utility::getProperty<size_t>(
+                service, path, "xyz.openbmc_project.Inventory.Item.Dram",
+                "MemorySizeInKB",
+                [asyncResp](const boost::system::error_code& ec2,
+                            const size_t memorySizeInKB) {
+                    if (ec2)
+                    {
+                        return;
+                    }
+                    asyncResp->res
+                        .jsonValue["MemorySummary"]["TotalMemorySizeMiB"] =
+                        memorySizeInKB / 1024;
+                });
+            return;
+        }
+    }
+}
+
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -831,6 +872,14 @@ inline void getProcessorData(
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/Processors/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+
+    // TotalMemorySizeMiB via getSubTree with Dram interface
+    constexpr std::array<std::string_view, 1> dramInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dram"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, dramInterfaces,
+        std::bind_front(afterGetDramSubTreeForMemorySummary, asyncResp,
+                        objectPath));
 
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
