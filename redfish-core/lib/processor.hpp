@@ -819,6 +819,40 @@ inline void getProcessorObject(
         });
 }
 
+inline void afterGetMemorySummaryEndpoints(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec || endpoints.empty())
+    {
+        return;
+    }
+
+    const std::string& dramPath = endpoints.front();
+    dbus::utility::getProperty<size_t>(
+        service, dramPath, "xyz.openbmc_project.Inventory.Item.Dram",
+        "MemorySizeInKB",
+        [asyncResp](const boost::system::error_code& ec2,
+                    const size_t memorySizeInKB) {
+            if (ec2)
+            {
+                return;
+            }
+            asyncResp->res.jsonValue["MemorySummary"]["TotalMemorySizeMiB"] =
+                memorySizeInKB / 1024;
+        });
+}
+
+inline void getProcessorMemorySummary(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& objectPath)
+{
+    dbus::utility::getAssociationEndPoints(
+        objectPath + "/all_memory",
+        std::bind_front(afterGetMemorySummaryEndpoints, asyncResp, service));
+}
+
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -855,6 +889,7 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getProcessorMemorySummary(asyncResp, serviceName, objectPath);
             }
             else if (
                 interface ==
