@@ -52,6 +52,24 @@
       "parentUuid": "7418801c_d27f407f",
       "revId": "9b0adc902a113e76ad8948ac2f151e72d6370eda",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76c121cc_9ded4e01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-05T21:59:46Z",
+      "side": 1,
+      "message": "\u003e The example of parallel-or-continuous code update requests is used to illustrate the quicker consumption which easily leads into the bmcweb coredump.\n\nYes, I don\u0027t need examples.  It\u0027s pretty trivial to reproduce with an authenticated user.  If you intentionally try to run the system out of memory, that\u0027s been a bug ever since we allowed people to set their payload size.\n\nYes, the pseudocode you\u0027ve provided is the route i would go.  Remember that we check the payload size in a bunch of places, so please make sure they\u0027re not duplicated.  Do the check where we set the payload size in the max config.",
+      "parentUuid": "d5beb0c8_29a21e29",
+      "revId": "9b0adc902a113e76ad8948ac2f151e72d6370eda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
