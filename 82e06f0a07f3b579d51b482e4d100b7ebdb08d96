@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f7ee6f_a6f7b6e5",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-05T05:45:51Z",
+      "side": 1,
+      "message": "Done. Declared as sdbusplus::message::object_path and passed directly.",
+      "parentUuid": "4ede66fb_29ab4ff3",
+      "range": {
+        "startLine": 486,
+        "startChar": 10,
+        "endLine": 486,
+        "endChar": 21
+      },
+      "revId": "82e06f0a07f3b579d51b482e4d100b7ebdb08d96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc5cdeeb_a1ebb52f",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "addbe92c_84c6bf8c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-05T05:45:51Z",
+      "side": 1,
+      "message": "Done. Removed it from the function signature and updated the call site. \n\nI originally wrote const dbus::utility::MapperServiceMap\u0026 /*unused*/, but clang-format-21 reformatted it to const dbus::utility::/*unused*/ MapperServiceMap\u0026 /*unused*/, which looks odd.\n\nRemoving the parameter entirely is cleaner.",
+      "parentUuid": "dc5cdeeb_a1ebb52f",
+      "range": {
+        "startLine": 498,
+        "startChar": 25,
+        "endLine": 498,
+        "endChar": 64
+      },
+      "revId": "82e06f0a07f3b579d51b482e4d100b7ebdb08d96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9efd4d4_01530e43",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-03-04T20:42:25Z",
       "side": 1,
       "message": "This check shouldn\u0027t be necessary. The interfaces used for the getSubTree() call match this list. So the getSubTree() should only be returning objects which implement one of these interfaces.",
+      "range": {
+        "startLine": 545,
+        "startChar": 12,
+        "endLine": 547,
+        "endChar": 13
+      },
+      "revId": "82e06f0a07f3b579d51b482e4d100b7ebdb08d96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d02ae057_6e92ed21",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-05T05:45:51Z",
+      "side": 1,
+      "message": "Done. Removed the redundant check since getSubTree() already filters by those interfaces.",
+      "parentUuid": "c9efd4d4_01530e43",
       "range": {
         "startLine": 545,
         "startChar": 12,
