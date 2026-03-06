@@ -1402,12 +1402,13 @@ inline void handleDHCPPatch(
     bool ipv4Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
     bool ipv6Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, false);
 
-    if (ipv4Active)
+    bool nextv4DHCPState =
+        v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
+
+    if (!ipv4Active && nextv4DHCPState)
     {
         updateIPv4DefaultGateway(ifaceId, "", asyncResp);
     }
-    bool nextv4DHCPState =
-        v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
 
     bool nextv6DHCPState{};
     if (v6dhcpParms.dhcpv6OperatingMode)
@@ -1695,13 +1696,6 @@ inline void handleIPv4StaticPatch(
         return;
     }
 
-    // If we're setting the gateway to something new, delete the
-    // existing so we won't conflict
-    if (!ethData.defaultGateway.empty() && ethData.defaultGateway != gatewayOut)
-    {
-        updateIPv4DefaultGateway(ifaceId, "", asyncResp);
-    }
-
     for (const AddressPatch& address : addresses)
     {
         switch (address.operation)
@@ -1746,11 +1740,14 @@ inline void handleIPv4StaticPatch(
         }
     }
 
-    // now update to the new gateway.
-    // Default gateway is already empty, so no need to update if we're clearing
+    // Update gateway: set new value, or clear if all IPs removed
     if (!gatewayOut.empty() && ethData.defaultGateway != gatewayOut)
     {
         updateIPv4DefaultGateway(ifaceId, gatewayOut, asyncResp);
+    }
+    else if (gatewayOut.empty() && !ethData.defaultGateway.empty())
+    {
+        updateIPv4DefaultGateway(ifaceId, "", asyncResp);
     }
 }
 
