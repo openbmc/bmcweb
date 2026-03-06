@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16480b5b_138958f7",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-06T13:54:23Z",
+      "side": 1,
+      "message": "```\n  std::ranges::sort(members, [](...){});\n```",
+      "revId": "8ad7ad964201e63dc935133f63703b3b9ba9f461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f4b2653_0a419fe7",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-06T13:54:23Z",
+      "side": 1,
+      "message": "```\n  std::ranges::sort(members, [](...){});\n```",
+      "revId": "8ad7ad964201e63dc935133f63703b3b9ba9f461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d54ee8_3857b47b",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-06T13:54:23Z",
+      "side": 1,
+      "message": "Should `asyncResp-\u003eres.jsonValue[jsonKeyName]` always be initialized as an empty array here?\n\nMay it be clearer to keep the old way for the case \u0027io_error\u0027 (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88012/4/redfish-core/include/utils/collection.hpp#b51), \nand initialize the array when the members are constructed at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88012/4/redfish-core/include/utils/collection.hpp#147?\n\n\n```\nDEL\u003e    nlohmann::json::array_t\u0026 membersArr \u003d\nDEL\u003e      getJsonArrayByPointer(asyncResp-\u003eres.jsonValue, jsonKeyName);\n        \n    if (ec \u003d\u003d boost::system::errc::io_error)\n    {\n        asyncResp-\u003eres.jsonValue[jsonKeyName] \u003d nlohmann::json::array();\n        asyncResp-\u003eres.jsonValue[jsonCountKeyName] \u003d 0;\n        return;\n    }\n```",
+      "revId": "8ad7ad964201e63dc935133f63703b3b9ba9f461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48bb4e60_68b7acee",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-06T13:54:23Z",
+      "side": 1,
+      "message": "Initialize the members here?\n\n```\n    nlohmann::json::array_t\u0026 membersArr \u003d\n        getJsonArrayByPointer(asyncResp-\u003eres.jsonValue, jsonKeyName);\n```\n\nPerhaps, if getJsonArrayByPointer() is not used elsewhere, what if not use getJsonArrayByPointer() ?\n\n```\n    nlohmann::json\u0026 members \u003d asyncResp-\u003eres.jsonValue[jsonKeyName];\n    members \u003d nlohmann::json::array();\n\n```\nand change to use `nlohmann::json\u0026 members` ?\n```\ninline void sortMembersByOdataId(nlohmann::json\u0026 members)\n```",
+      "revId": "8ad7ad964201e63dc935133f63703b3b9ba9f461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
