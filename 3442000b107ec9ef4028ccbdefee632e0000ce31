@@ -16,6 +16,24 @@
       "message": "Did you test that the Gateway value persists after setting Static IPv4 address with same gateway?",
       "revId": "3442000b107ec9ef4028ccbdefee632e0000ce31",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf595bb0_d6958f20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-03-06T13:51:45Z",
+      "side": 1,
+      "message": "Yes — I verified end-to-end on an evb-ast2600 QEMU image with this change. When the DefaultGateway D-Bus property is populated (either via DHCP or set directly), the Gateway field is correctly returned in the Redfish GET response for all IPv4 addresses.                                                                                                                  \n                                                                                                                               \nBut this fix only changes the GET path — it extracts the Gateway property from D-Bus where it was previously being discarded alongside the Type property. The SET/PATCH path is unchanged.                                                                \n                                                                                                                               \nNote that setting a static address via PATCH does not always persist the gateway due to what appears to be a race condition in the async D-Bus calls in handleIPv4StaticPatch(). That\u0027s a pre-existing issue unrelated to this change — I\u0027ll look into filing a separate bug for it.",
+      "parentUuid": "2fe14078_52afa623",
+      "revId": "3442000b107ec9ef4028ccbdefee632e0000ce31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
