@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4909fb89_93780285",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-06T17:53:34Z",
+      "side": 1,
+      "message": "I thought of this more as \"These callbacks are registered with type\u003d\u0027signal\u0027  so is_method_error() can never be true”",
+      "revId": "8ac8e4904d91c4dfa2d7209f09ef8cd380abe7cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "695af81a_9067ff34",
