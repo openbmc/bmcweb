@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49e5b4e8_6d67467b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-06T14:05:00Z",
+      "side": 1,
+      "message": "Did that based on a discussion we had in a different patch together with alex. Will throw this patch out then.",
+      "parentUuid": "1861578e_f033c08e",
+      "revId": "7bcf43120fd80774776fc1c8fed04b5bfca4c6c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "515f0ff9_21a9382b",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-05T23:07:20Z",
       "side": 1,
       "message": "The point was that these start going away over time, not that we promote them to a utility class and use them more.",
+      "revId": "7bcf43120fd80774776fc1c8fed04b5bfca4c6c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0959aaed_731046a9",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-06T14:05:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "515f0ff9_21a9382b",
       "revId": "7bcf43120fd80774776fc1c8fed04b5bfca4c6c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
