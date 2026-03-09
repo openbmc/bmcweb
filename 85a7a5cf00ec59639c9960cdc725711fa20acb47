@@ -33,6 +33,24 @@
       "message": "nit: pull memoryInterfaces, dimmInterfaces and systemInterface into global namespace to not redefine them",
       "revId": "85a7a5cf00ec59639c9960cdc725711fa20acb47",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6881bf34_8ba502d5",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2026-03-09T06:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6c3ba6a_fdd2b789",
+      "revId": "85a7a5cf00ec59639c9960cdc725711fa20acb47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
