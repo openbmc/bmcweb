@@ -91,9 +91,32 @@ inline void getProcessorMetricsECCData(
         std::bind_front(afterGetProcessorMetricsECCData, asyncResp));
 }
 
+inline void afterGetOperatingSpeed(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const uint32_t operatingSpeed)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("No OperatingSpeed property: {}", ec.message());
+        return;
+    }
+    asyncResp->res.jsonValue["OperatingSpeedMHz"] = operatingSpeed;
+}
+
+inline void getProcessorMetricsOperatingSpeed(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG("Get processor operating speed for {}", objPath);
+
+    dbus::utility::getProperty<uint32_t>(
+        service, objPath,
+        "xyz.openbmc_project.Inventory.Item.Accelerator.OperatingConfig",
+        "OperatingSpeed", std::bind_front(afterGetOperatingSpeed, asyncResp));
+}
+
 /**
- * @brief Populate ProcessorMetrics with ECC data from the processor's
- *        service map
+ * @brief Populate ProcessorMetrics from the processor's service map
  *
  * @param[in,out]   asyncResp   Async HTTP response.
  * @param[in]       objectPath  D-Bus object path of the processor.
@@ -111,11 +134,15 @@ inline void getProcessorMetricsData(
             if (interface == "xyz.openbmc_project.Memory.MemoryECC")
             {
                 getProcessorMetricsECCData(asyncResp, serviceName, objectPath);
-                return;
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Item.Accelerator")
+            {
+                getProcessorMetricsOperatingSpeed(asyncResp, serviceName,
+                                                  objectPath);
             }
         }
     }
-    BMCWEB_LOG_DEBUG("No MemoryECC interface found for {}", objectPath);
 }
 
 /**
