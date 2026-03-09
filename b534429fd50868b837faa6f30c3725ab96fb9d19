@@ -69,6 +69,24 @@
       "parentUuid": "8198621c_91ff34a3",
       "revId": "b534429fd50868b837faa6f30c3725ab96fb9d19",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e9586e3_c7ad73a0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-09T16:42:47Z",
+      "side": 1,
+      "message": "Changed it here to make a more informed choice as to which link to append and under which circumstances.\n\nI\u0027m assuming both event log backends currently do not support per-host entries so  i only put the per-system log link in the non multi-host case.\n\nThanks for the feedback and please review again 👍",
+      "parentUuid": "8198621c_91ff34a3",
+      "revId": "b534429fd50868b837faa6f30c3725ab96fb9d19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
