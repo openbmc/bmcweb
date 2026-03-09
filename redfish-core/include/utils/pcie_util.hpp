@@ -6,6 +6,7 @@
 
 #include "async_resp.hpp"
 #include "generated/enums/pcie_device.hpp"
+#include "generated/enums/pcie_function.hpp"
 #include "generated/enums/pcie_slots.hpp"
 #include "utils/collection.hpp"
 
@@ -47,6 +48,178 @@ inline void getPCIeDeviceList(
     collection_util::getCollectionToKey(
         asyncResp, pcieDeviceUrl, pcieDeviceInterface,
         "/xyz/openbmc_project/inventory", jsonKeyName);
+}
+
+inline std::optional<pcie_function::DeviceClass> dbusDeviceClassToRf(
+    const std::string& deviceClass)
+{
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses.Bridge")
+    {
+        return pcie_function::DeviceClass::Bridge;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".CommunicationController")
+    {
+        return pcie_function::DeviceClass::CommunicationController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".Coprocessor")
+    {
+        return pcie_function::DeviceClass::Coprocessor;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".DisplayController")
+    {
+        return pcie_function::DeviceClass::DisplayController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".DockingStation")
+    {
+        return pcie_function::DeviceClass::DockingStation;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".EncryptionController")
+    {
+        return pcie_function::DeviceClass::EncryptionController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".GenericSystemPeripheral")
+    {
+        return pcie_function::DeviceClass::GenericSystemPeripheral;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".InputDeviceController")
+    {
+        return pcie_function::DeviceClass::InputDeviceController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".IntelligentController")
+    {
+        return pcie_function::DeviceClass::IntelligentController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".MassStorageController")
+    {
+        return pcie_function::DeviceClass::MassStorageController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".MemoryController")
+    {
+        return pcie_function::DeviceClass::MemoryController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".MultimediaController")
+    {
+        return pcie_function::DeviceClass::MultimediaController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".NetworkController")
+    {
+        return pcie_function::DeviceClass::NetworkController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".NonEssentialInstrumentation")
+    {
+        return pcie_function::DeviceClass::NonEssentialInstrumentation;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses.Other")
+    {
+        return pcie_function::DeviceClass::Other;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".ProcessingAccelerators")
+    {
+        return pcie_function::DeviceClass::ProcessingAccelerators;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".Processor")
+    {
+        return pcie_function::DeviceClass::Processor;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".SatelliteCommunicationsController")
+    {
+        return pcie_function::DeviceClass::SatelliteCommunicationsController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".SerialBusController")
+    {
+        return pcie_function::DeviceClass::SerialBusController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".SignalProcessingController")
+    {
+        return pcie_function::DeviceClass::SignalProcessingController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".UnassignedClass")
+    {
+        return pcie_function::DeviceClass::UnassignedClass;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".UnclassifiedDevice")
+    {
+        return pcie_function::DeviceClass::UnclassifiedDevice;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".WirelessController")
+    {
+        return pcie_function::DeviceClass::WirelessController;
+    }
+    if (deviceClass ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.DeviceClasses"
+        ".Unknown")
+    {
+        return std::nullopt;
+    }
+    return pcie_function::DeviceClass::Invalid;
+}
+
+inline std::optional<pcie_function::FunctionType> dbusFunctionTypeToRf(
+    const std::string& functionType)
+{
+    if (functionType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.FunctionTypes"
+        ".Physical")
+    {
+        return pcie_function::FunctionType::Physical;
+    }
+    if (functionType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.FunctionTypes"
+        ".Virtual")
+    {
+        return pcie_function::FunctionType::Virtual;
+    }
+    if (functionType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction.FunctionTypes"
+        ".Unknown")
+    {
+        return std::nullopt;
+    }
+    return pcie_function::FunctionType::Invalid;
 }
 
 inline std::optional<pcie_slots::SlotTypes> dbusSlotTypeToRf(
