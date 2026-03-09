@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce688486_8e824e23",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-09T08:04:08Z",
+      "side": 1,
+      "message": "I\u0027ve updated the code. Please help review it again, thanks!",
+      "parentUuid": "c32f9aac_df5ae3d7",
+      "revId": "8ad7ad964201e63dc935133f63703b3b9ba9f461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48bb4e60_68b7acee",
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "Sure, we can do that here. We need to keep this path non-destructive for aggregated responses. Otherwise, a later async callback may reset Members.\n\nAnother option is to use `nlohmann::json\u0026 members` first, and materialize it as an array in the append path, for example:\n```\nnlohmann::json\u0026 members \u003d asyncResp-\u003eres.jsonValue[jsonKeyName];\nnlohmann::json::array_t\u0026 membersArr \u003d details::getJsonArrayAt(members);\n\nfor (const std::string\u0026 leaf : pathNames)\n{\n    ....\n}\n```\n\nWe still need the helper because we need to ensure the target value is materialized as an array before appending. If it is not initialized yet, we need to create it first. This also lets us preserve existing entries so aggregated responses are handled correctly.",
       "parentUuid": "48bb4e60_68b7acee",
+      "revId": "8ad7ad964201e63dc935133f63703b3b9ba9f461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c7b4fd1_2fe955d4",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-09T08:04:08Z",
+      "side": 1,
+      "message": "I\u0027ve updated the code, please help review it again, thanks!",
+      "parentUuid": "fefb82c5_6050fe01",
       "revId": "8ad7ad964201e63dc935133f63703b3b9ba9f461",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
