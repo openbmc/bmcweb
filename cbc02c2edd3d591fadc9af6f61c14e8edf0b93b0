@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a6c4cf8_5b1dc64b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 0,
+      "message": "you drop this, is this a problem ?",
+      "range": {
+        "startLine": 751,
+        "startChar": 0,
+        "endLine": 754,
+        "endChar": 9
+      },
+      "revId": "cbc02c2edd3d591fadc9af6f61c14e8edf0b93b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c35e04b1_93c474b6",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 0,
+      "message": "you drop revisionId as well.. Is this a problem ?",
+      "range": {
+        "startLine": 755,
+        "startChar": 1,
+        "endLine": 758,
+        "endChar": 9
+      },
+      "revId": "cbc02c2edd3d591fadc9af6f61c14e8edf0b93b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

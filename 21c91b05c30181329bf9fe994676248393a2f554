@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059dfee4_b68ed063",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 1,
+      "message": "I didn\u0027t think we put versions here because it hard to keep updated",
+      "range": {
+        "startLine": 1039,
+        "startChar": 17,
+        "endLine": 1039,
+        "endChar": 55
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25de5d70_3381086a",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 1,
+      "message": "Typically we don\u0027t do this.. Do you need ?",
+      "range": {
+        "startLine": 1041,
+        "startChar": 0,
+        "endLine": 1043,
+        "endChar": 56
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc739087_5b183a67",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 1,
+      "message": "A variable name more than 2 chars helps for readability and searching.. deviceClass and functionType ?",
+      "range": {
+        "startLine": 653,
+        "startChar": 35,
+        "endLine": 653,
+        "endChar": 38
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99600b16_73f7fb35",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 1,
+      "message": "don\u0027t we need a enum mapping for this?\n\nhttps://github.com/openbmc/bmcweb/blob/00813af9e77827ba31d90992c497652d85bd6a0e/redfish-core/lib/systems.hpp#L538",
+      "range": {
+        "startLine": 654,
+        "startChar": 1,
+        "endLine": 655,
+        "endChar": 51
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b97891e3_74ba5ed0",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 1,
+      "message": "Same comment here.. dbusToRedfish ?",
+      "range": {
+        "startLine": 670,
+        "startChar": 0,
+        "endLine": 672,
+        "endChar": 52
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4fb7c8d_45b90bd7",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 1,
+      "message": "This seems more complicated than expected.. Why do you need the pending count?",
+      "range": {
+        "startLine": 692,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 5
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8767645_ece4c3af",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 1,
+      "message": "don\u0027t we still want to return on a EBADR ? Or we are assuming on EBADR, subtree is empty ?",
+      "range": {
+        "startLine": 721,
+        "startChar": 14,
+        "endLine": 721,
+        "endChar": 33
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc1cc2d7_56a01bb5",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-09T18:26:07Z",
+      "side": 1,
+      "message": "Why pending count?",
+      "range": {
+        "startLine": 743,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 13
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
