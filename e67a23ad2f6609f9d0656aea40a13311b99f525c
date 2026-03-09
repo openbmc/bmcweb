@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b5d891b_90e6cf32",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-09T12:34:05Z",
+      "side": 1,
+      "message": "openbmc/c++ coding guide suggests \n\n```\n  if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n  {\n        ...\n        return;\n  }\n  ...\n```\n\n- https://github.com/openbmc/docs/blame/master/anti-patterns.md#L457\n- https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f56-avoid-unnecessary-condition-nesting",
+      "revId": "e67a23ad2f6609f9d0656aea40a13311b99f525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
