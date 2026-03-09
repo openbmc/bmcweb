@@ -1027,6 +1027,28 @@ functions the same like the default implementation under the System resource.
 - SparePartNumber
 - Status
 
+### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/PCIeFunctions/
+
+#### PCIeFunctionCollection
+
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/PCIeFunctions/{PCIeFunction}/
+
+#### PCIeFunction
+
+- ClassCode
+- DeviceClass
+- DeviceId
+- FunctionId
+- FunctionType
+- Links/PCIeDevice
+- RevisionId
+- SubsystemId
+- SubsystemVendorId
+- VendorId
+
 ### /redfish/v1/Systems/system/Processors/
 
 #### ProcessorCollection
