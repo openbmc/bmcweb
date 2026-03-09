@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b2f9460_d52973cf",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-09T11:28:03Z",
+      "side": 1,
+      "message": "Is this place to set the empty array?\nOr is the member array accumulated?\nIf it is an empty member, the old code seems better.\n```\n        asyncResp-\u003eres.jsonValue[jsonKeyName] \u003d nlohmann::json::array();\n        asyncResp-\u003eres.jsonValue[jsonCountKeyName] \u003d 0;\n```",
+      "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b88bbea3_8c8d86d7",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-09T11:28:03Z",
+      "side": 1,
+      "message": "Is `getJsonArrayByPointer()` used/needed at the different places?\nIf not, I think the direct use of `getJsonArrayAt()` seems better.\n\n```\n   nlohmann::json::array_t\u0026 membersArr \u003d\n       details::getJsonArrayAt(asyncResp-\u003eres.jsonValue[jsonKeyName]);\n```",
+      "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
