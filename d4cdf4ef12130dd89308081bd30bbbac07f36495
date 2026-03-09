@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "269dc5c2_05e881aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-03-09T15:00:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11fd70ee_1af487c9",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9cc5b17_b8be5dbf",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-02-27T19:38:43Z",
       "side": 1,
       "message": "What result does this have on the subscription?  On a host server going down, eventually all connections will drop, right?",
+      "range": {
+        "startLine": 13,
+        "startChar": 61,
+        "endLine": 16,
+        "endChar": 9
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dcee6c0_d65309c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-03-09T15:00:59Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t keep the commit message up to date during our discussion with Myung Bae. This comment no longer applies - please see the updated commit message for the current description.",
+      "parentUuid": "d9cc5b17_b8be5dbf",
       "range": {
         "startLine": 13,
         "startChar": 61,
@@ -82,6 +130,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b09654d_068fa655",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-03-09T15:00:59Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t keep the commit message up to date during our discussion with Myung Bae. Please check the updated description.",
+      "parentUuid": "ee35fc00_25b8561e",
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "028bc3aa_bd0f7ae6",
@@ -95,6 +161,30 @@
       "writtenOn": "2026-02-27T19:38:43Z",
       "side": 1,
       "message": "Internal logging is not a functional test, which is what we expect for these kinds of things.  Please read TESTING.md",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 54,
+        "endChar": 28
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cdd0349_91850138",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-03-09T15:00:59Z",
+      "side": 1,
+      "message": "The updated commit message now includes a Tested section describing the functional tests performed.",
+      "parentUuid": "028bc3aa_bd0f7ae6",
       "range": {
         "startLine": 51,
         "startChar": 43,
@@ -122,6 +212,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3801bb5_c31c5997",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-03-09T15:00:59Z",
+      "side": 1,
+      "message": "Done. I added the Tested section to the commit message.\n\nWhile running the tests, I noticed that this fix only has an effect\nwhen maxConnections \u003e 1. In the current upstream code, maxConnections\nis always hardcoded to 1 for EventService subscriptions, so the bug\ncannot actually manifest. If there are no plans to increase\nmaxConnections in the future, this patch can be dropped.",
+      "parentUuid": "ec0ba142_d68d2610",
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ea0a020_ae53f80b",
@@ -145,6 +253,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e999b08_aace2dbc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-03-09T15:00:59Z",
+      "side": 1,
+      "message": "Before we continue - please check the NOTE in the updated commit message. If there are no plans to ever increase maxConnections beyond 1, this patch can be dropped. But to answer your question: ConnState::terminated means all retries have already been exhausted. If we allow a terminated connection to be reused and re-enter a non-terminated state without knowing the destination is reachable again, the terminated state loses its meaning.",
+      "parentUuid": "1ea0a020_ae53f80b",
+      "range": {
+        "startLine": 713,
+        "startChar": 11,
+        "endLine": 713,
+        "endChar": 46
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc81d853_95c6000a",
@@ -158,6 +290,30 @@
       "writtenOn": "2026-02-27T19:39:23Z",
       "side": 1,
       "message": "Not necessarily it doesn\u0027t.  Connections are not required to support keepalive.",
+      "range": {
+        "startLine": 804,
+        "startChar": 33,
+        "endLine": 806,
+        "endChar": 30
+      },
+      "revId": "d4cdf4ef12130dd89308081bd30bbbac07f36495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e234293b_93c7aa2b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-03-09T15:00:59Z",
+      "side": 1,
+      "message": "Before we continue - please check the NOTE in the updated commit message. If there are no plans to ever increase maxConnections beyond 1, this patch can be dropped.",
+      "parentUuid": "bc81d853_95c6000a",
       "range": {
         "startLine": 804,
         "startChar": 33,
