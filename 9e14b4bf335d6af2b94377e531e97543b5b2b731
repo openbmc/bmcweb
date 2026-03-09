@@ -106,6 +106,24 @@
       "parentUuid": "a6572a2c_d36a6f51",
       "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc3023f_f887f446",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-09T09:30:27Z",
+      "side": 1,
+      "message": "i don\u0027t think this should go in like this.\n\nLet\u0027s just implement it properly to be able to enable these logs without applying patches.",
+      "parentUuid": "5abb724e_c8e39788",
+      "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
