@@ -1027,6 +1027,30 @@ functions the same like the default implementation under the System resource.
 - SparePartNumber
 - Status
 
+### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/PCIeFunctions/
+
+#### PCIeFunctionCollection
+
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/PCIeFunctions/{PCIeFunction}/
+
+#### PCIeFunction (`#PCIeFunction.v1_2_3.PCIeFunction`)
+
+Properties are sourced from the
+`xyz.openbmc_project.Inventory.Item.PCIeFunction` D-Bus interface, discovered
+via the `exposing` association on the PCIeDevice object.
+
+- DeviceClass
+- DeviceId
+- FunctionId
+- FunctionType
+- Links/PCIeDevice
+- SubsystemId
+- SubsystemVendorId
+- VendorId
+
 ### /redfish/v1/Systems/system/Processors/
 
 #### ProcessorCollection
