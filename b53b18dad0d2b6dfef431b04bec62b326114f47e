@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96dead2e_6120ebfb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-03-09T16:26:12Z",
+      "side": 1,
+      "message": "Yes Gateway property from each IP object was ignored since each interface can\u0027t have multiple gateways working.\n\nplease refer, Each Interface\u0027s DefaultGateway is populated in redfish Gateway property\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/ethernet.hpp#L1158\n\nwe dont need this commit considering single gateway supported for each interface",
+      "revId": "b53b18dad0d2b6dfef431b04bec62b326114f47e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
