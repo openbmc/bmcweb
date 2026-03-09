@@ -11,6 +11,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_device.hpp"
+#include "generated/enums/pcie_function.hpp"
 #include "generated/enums/pcie_slots.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -30,7 +31,6 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
-#include <charconv>
 #include <cstddef>
 #include <cstdint>
 #include <format>
@@ -40,7 +40,6 @@
 #include <optional>
 #include <string>
 #include <string_view>
-#include <system_error>
 #include <utility>
 #include <variant>
 
@@ -618,42 +617,152 @@ inline void requestRoutesSystemPCIeDevice(App& app)
             std::bind_front(handlePCIeDeviceGet, std::ref(app)));
 }
 
-inline void addPCIeFunctionList(
-    crow::Response& res, const std::string& pcieDeviceId,
-    const dbus::utility::DBusPropertiesMap& pcieDevProperties)
+inline void addPCIeFunctionPropertiesFromInterface(
+    crow::Response& resp, const dbus::utility::DBusPropertiesMap& props)
 {
-    nlohmann::json& pcieFunctionList = res.jsonValue["Members"];
-    pcieFunctionList = nlohmann::json::array();
-    static constexpr const int maxPciFunctionNum = 8;
+    const uint16_t* vendorId = nullptr;
+    const uint16_t* deviceId = nullptr;
+    const uint16_t* subsystemVendorId = nullptr;
+    const uint16_t* subsystemId = nullptr;
+    const uint8_t* functionNumber = nullptr;
+    const uint8_t* revisionId = nullptr;
+    const uint8_t* baseClassCode = nullptr;
+    const uint8_t* subClassCode = nullptr;
+    const uint8_t* programmingInterface = nullptr;
+    const std::string* deviceClass = nullptr;
+    const std::string* functionType = nullptr;
 
-    for (int functionNum = 0; functionNum < maxPciFunctionNum; functionNum++)
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), props, "VendorId", vendorId,
+        "DeviceId", deviceId, "SubsystemVendorId", subsystemVendorId,
+        "SubsystemId", subsystemId, "FunctionNumber", functionNumber,
+        "RevisionId", revisionId, "BaseClassCode", baseClassCode,
+        "SubClassCode", subClassCode, "ProgrammingInterface",
+        programmingInterface, "DeviceClass", deviceClass, "FunctionType",
+        functionType);
+
+    if (!success)
     {
-        // Check if this function exists by
-        // looking for a device ID
-        std::string devIDProperty =
-            "Function" + std::to_string(functionNum) + "DeviceId";
-        const std::string* property = nullptr;
-        for (const auto& propEntry : pcieDevProperties)
+        messages::internalError(resp);
+        return;
+    }
+
+    if (functionNumber != nullptr)
+    {
+        resp.jsonValue["FunctionId"] = *functionNumber;
+    }
+
+    if (vendorId != nullptr)
+    {
+        resp.jsonValue["VendorId"] = std::format("0x{:04X}", *vendorId);
+    }
+    if (deviceId != nullptr)
+    {
+        resp.jsonValue["DeviceId"] = std::format("0x{:04X}", *deviceId);
+    }
+    if (subsystemVendorId != nullptr)
+    {
+        resp.jsonValue["SubsystemVendorId"] =
+            std::format("0x{:04X}", *subsystemVendorId);
+    }
+    if (subsystemId != nullptr)
+    {
+        resp.jsonValue["SubsystemId"] = std::format("0x{:04X}", *subsystemId);
+    }
+    if (revisionId != nullptr)
+    {
+        resp.jsonValue["RevisionId"] = std::format("0x{:02X}", *revisionId);
+    }
+    if (baseClassCode != nullptr && subClassCode != nullptr &&
+        programmingInterface != nullptr)
+    {
+        resp.jsonValue["ClassCode"] =
+            std::format("0x{:02X}{:02X}{:02X}", *baseClassCode, *subClassCode,
+                        *programmingInterface);
+    }
+
+    if (deviceClass != nullptr)
+    {
+        std::optional<pcie_function::DeviceClass> redfishDeviceClass =
+            pcie_util::dbusDeviceClassToRf(*deviceClass);
+        if (!redfishDeviceClass)
         {
-            if (propEntry.first == devIDProperty)
-            {
-                property = std::get_if<std::string>(&propEntry.second);
-                break;
-            }
+            BMCWEB_LOG_WARNING("Unknown PCIeFunction DeviceClass: {}",
+                               *deviceClass);
         }
-        if (property == nullptr || property->empty())
+        else
         {
+            if (*redfishDeviceClass == pcie_function::DeviceClass::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Invalid PCIeFunction DeviceClass: {}",
+                                 *deviceClass);
+                messages::internalError(resp);
+                return;
+            }
+            resp.jsonValue["DeviceClass"] = *redfishDeviceClass;
+        }
+    }
+
+    if (functionType != nullptr)
+    {
+        std::optional<pcie_function::FunctionType> redfishFunctionType =
+            pcie_util::dbusFunctionTypeToRf(*functionType);
+        if (!redfishFunctionType)
+        {
+            BMCWEB_LOG_WARNING("Unknown PCIeFunction FunctionType: {}",
+                               *functionType);
+        }
+        else
+        {
+            if (*redfishFunctionType == pcie_function::FunctionType::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Invalid PCIeFunction FunctionType: {}",
+                                 *functionType);
+                messages::internalError(resp);
+                return;
+            }
+            resp.jsonValue["FunctionType"] = *redfishFunctionType;
+        }
+    }
+}
+
+inline void afterGetPCIeFunctionPathsForCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDeviceId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& paths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+            asyncResp->res.jsonValue["Members@odata.count"] = 0;
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error for PCIeFunction paths: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json& pcieFunctionList = asyncResp->res.jsonValue["Members"];
+    pcieFunctionList = nlohmann::json::array();
+
+    for (const std::string& path : paths)
+    {
+        std::string filename = sdbusplus::message::object_path(path).filename();
+        if (filename.empty())
+        {
+            BMCWEB_LOG_WARNING("Malformed PCIeFunction path: {}", path);
             continue;
         }
-
         nlohmann::json::object_t pcieFunction;
         pcieFunction["@odata.id"] = boost::urls::format(
             "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions/{}",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId,
-            std::to_string(functionNum));
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId, filename);
         pcieFunctionList.emplace_back(std::move(pcieFunction));
     }
-    res.jsonValue["Members@odata.count"] = pcieFunctionList.size();
+
+    asyncResp->res.jsonValue["Members@odata.count"] = pcieFunctionList.size();
 }
 
 inline void handlePCIeFunctionCollectionGet(
@@ -676,7 +785,7 @@ inline void handlePCIeFunctionCollectionGet(
     getValidPCIeDevicePath(
         pcieDeviceId, asyncResp,
         [asyncResp, pcieDeviceId](const std::string& pcieDevicePath,
-                                  const std::string& service) {
+                                  const std::string& /*service*/) {
             asyncResp->res.addHeader(
                 boost::beast::http::field::link,
                 "</redfish/v1/JsonSchemas/PCIeFunctionCollection/PCIeFunctionCollection.json>; rel=describedby");
@@ -688,13 +797,16 @@ inline void handlePCIeFunctionCollectionGet(
             asyncResp->res.jsonValue["Name"] = "PCIe Function Collection";
             asyncResp->res.jsonValue["Description"] =
                 "Collection of PCIe Functions for PCIe Device " + pcieDeviceId;
-            getPCIeDeviceProperties(
-                asyncResp, pcieDevicePath, service,
-                [asyncResp, pcieDeviceId](
-                    const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
-                    addPCIeFunctionList(asyncResp->res, pcieDeviceId,
-                                        pcieDevProperties);
-                });
+
+            constexpr std::array<std::string_view, 1> pcieFunctionInterface = {
+                "xyz.openbmc_project.Inventory.Item.PCIeFunction"};
+            dbus::utility::getAssociatedSubTreePaths(
+                pcieDevicePath + "/exposing",
+                sdbusplus::message::object_path(
+                    "/xyz/openbmc_project/inventory"),
+                0, pcieFunctionInterface,
+                std::bind_front(afterGetPCIeFunctionPathsForCollection,
+                                asyncResp, pcieDeviceId));
         });
 }
 
@@ -710,66 +822,9 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
             std::bind_front(handlePCIeFunctionCollectionGet, std::ref(app)));
 }
 
-inline void addPCIeFunctionProperties(
-    crow::Response& resp, uint64_t pcieFunctionId,
-    const dbus::utility::DBusPropertiesMap& pcieDevProperties)
-{
-    std::string functionName = "Function" + std::to_string(pcieFunctionId);
-    for (const auto& property : pcieDevProperties)
-    {
-        const std::string* strProperty =
-            std::get_if<std::string>(&property.second);
-        if (strProperty == nullptr)
-        {
-            continue;
-        }
-        if (property.first == functionName + "DeviceId")
-        {
-            resp.jsonValue["DeviceId"] = *strProperty;
-        }
-        if (property.first == functionName + "VendorId")
-        {
-            resp.jsonValue["VendorId"] = *strProperty;
-        }
-        // TODO: FunctionType and DeviceClass are Redfish enums. The D-Bus
-        // property strings should be mapped correctly to ensure these
-        // strings are Redfish enum values. For now just check for empty.
-        if (property.first == functionName + "FunctionType")
-        {
-            if (!strProperty->empty())
-            {
-                resp.jsonValue["FunctionType"] = *strProperty;
-            }
-        }
-        if (property.first == functionName + "DeviceClass")
-        {
-            if (!strProperty->empty())
-            {
-                resp.jsonValue["DeviceClass"] = *strProperty;
-            }
-        }
-        if (property.first == functionName + "ClassCode")
-        {
-            resp.jsonValue["ClassCode"] = *strProperty;
-        }
-        if (property.first == functionName + "RevisionId")
-        {
-            resp.jsonValue["RevisionId"] = *strProperty;
-        }
-        if (property.first == functionName + "SubsystemId")
-        {
-            resp.jsonValue["SubsystemId"] = *strProperty;
-        }
-        if (property.first == functionName + "SubsystemVendorId")
-        {
-            resp.jsonValue["SubsystemVendorId"] = *strProperty;
-        }
-    }
-}
-
 inline void addPCIeFunctionCommonProperties(crow::Response& resp,
                                             const std::string& pcieDeviceId,
-                                            uint64_t pcieFunctionId)
+                                            const std::string& pcieFunctionId)
 {
     resp.addHeader(
         boost::beast::http::field::link,
@@ -777,21 +832,102 @@ inline void addPCIeFunctionCommonProperties(crow::Response& resp,
     resp.jsonValue["@odata.type"] = "#PCIeFunction.v1_2_3.PCIeFunction";
     resp.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId,
-        std::to_string(pcieFunctionId));
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId, pcieFunctionId);
     resp.jsonValue["Name"] = "PCIe Function";
-    resp.jsonValue["Id"] = std::to_string(pcieFunctionId);
-    resp.jsonValue["FunctionId"] = pcieFunctionId;
+    resp.jsonValue["Id"] = pcieFunctionId;
     resp.jsonValue["Links"]["PCIeDevice"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
+}
+
+inline void afterGetPCIeFunctionPropsForGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDeviceId, const std::string& pcieFunctionId,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& props)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error for PCIeFunction properties: {}",
+                         ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    addPCIeFunctionCommonProperties(asyncResp->res, pcieDeviceId,
+                                    pcieFunctionId);
+    addPCIeFunctionPropertiesFromInterface(asyncResp->res, props);
+}
+
+inline void afterGetPCIeFunctionObjectForGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDeviceId, const std::string& pcieFunctionId,
+    const std::string& functionPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        BMCWEB_LOG_ERROR("DBUS response error for PCIeFunction object: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    const std::string& service = object.begin()->first;
+    dbus::utility::getAllProperties(
+        service, functionPath,
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction",
+        std::bind_front(afterGetPCIeFunctionPropsForGet, asyncResp,
+                        pcieDeviceId, pcieFunctionId));
+}
+
+inline void afterGetPCIeFunctionPathsForSearch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDeviceId, const std::string& pcieFunctionId,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& paths)
+{
+    if (ec || paths.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "PCIeFunction",
+                                   pcieFunctionId);
+        return;
+    }
+
+    constexpr std::array<std::string_view, 1> pcieFunctionInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction"};
+    for (const std::string& path : paths)
+    {
+        if (sdbusplus::message::object_path(path).filename() == pcieFunctionId)
+        {
+            dbus::utility::getDbusObject(
+                path, pcieFunctionInterface,
+                std::bind_front(afterGetPCIeFunctionObjectForGet, asyncResp,
+                                pcieDeviceId, pcieFunctionId, path));
+            return;
+        }
+    }
+
+    messages::resourceNotFound(asyncResp->res, "PCIeFunction", pcieFunctionId);
+}
+
+inline void afterGetPCIeDevicePathForFunction(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDeviceId, const std::string& pcieFunctionId,
+    const std::string& pcieDevicePath, const std::string& /*service*/)
+{
+    constexpr std::array<std::string_view, 1> pcieFunctionInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeFunction"};
+    dbus::utility::getAssociatedSubTreePaths(
+        pcieDevicePath + "/exposing",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieFunctionInterface,
+        std::bind_front(afterGetPCIeFunctionPathsForSearch, asyncResp,
+                        pcieDeviceId, pcieFunctionId));
 }
 
 inline void handlePCIeFunctionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& pcieDeviceId,
-    const std::string& pcieFunctionIdStr)
+    const std::string& pcieFunctionId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -810,32 +946,11 @@ inline void handlePCIeFunctionGet(
                                    systemName);
         return;
     }
-    std::string_view pcieFunctionIdView = pcieFunctionIdStr;
-
-    uint64_t pcieFunctionId = 0;
-    std::from_chars_result result = std::from_chars(
-        pcieFunctionIdView.begin(), pcieFunctionIdView.end(), pcieFunctionId);
-    if (result.ec != std::errc{} || result.ptr != pcieFunctionIdView.end())
-    {
-        messages::resourceNotFound(asyncResp->res, "PCIeFunction",
-                                   pcieFunctionIdStr);
-        return;
-    }
 
     getValidPCIeDevicePath(
         pcieDeviceId, asyncResp,
-        [asyncResp, pcieDeviceId, pcieFunctionId](
-            const std::string& pcieDevicePath, const std::string& service) {
-            getPCIeDeviceProperties(
-                asyncResp, pcieDevicePath, service,
-                [asyncResp, pcieDeviceId, pcieFunctionId](
-                    const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
-                    addPCIeFunctionCommonProperties(
-                        asyncResp->res, pcieDeviceId, pcieFunctionId);
-                    addPCIeFunctionProperties(asyncResp->res, pcieFunctionId,
-                                              pcieDevProperties);
-                });
-        });
+        std::bind_front(afterGetPCIeDevicePathForFunction, asyncResp,
+                        pcieDeviceId, pcieFunctionId));
 }
 
 inline void requestRoutesSystemPCIeFunction(App& app)
