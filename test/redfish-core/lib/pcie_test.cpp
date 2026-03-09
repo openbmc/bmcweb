@@ -69,14 +69,18 @@ TEST(AfterGetPCIeDeviceUUID, SuccessSetsUUID)
               "11111111-2222-3333-4444-555566667777");
 }
 
-TEST(AddPCIeFunctionProperties, ValidEnumsArePublished)
+TEST(AddPCIeFunctionPropertiesFromInterface, ValidEnumsArePublished)
 {
     crow::Response resp;
     dbus::utility::DBusPropertiesMap properties = {
-        {"Function0FunctionType", std::string("Physical")},
-        {"Function0DeviceClass", std::string("MassStorageController")}};
+        {"FunctionType",
+         std::string("xyz.openbmc_project.Inventory.Item.PCIeFunction."
+                     "FunctionTypes.Physical")},
+        {"DeviceClass",
+         std::string("xyz.openbmc_project.Inventory.Item.PCIeFunction."
+                     "DeviceClasses.MassStorageController")}};
 
-    addPCIeFunctionProperties(resp, 0, properties);
+    addPCIeFunctionPropertiesFromInterface(resp, properties);
 
     EXPECT_EQ(resp.jsonValue["FunctionType"],
               pcie_function::FunctionType::Physical);
@@ -84,29 +88,33 @@ TEST(AddPCIeFunctionProperties, ValidEnumsArePublished)
               pcie_function::DeviceClass::MassStorageController);
 }
 
-TEST(AddPCIeFunctionProperties, UnknownEnumsAreOmitted)
+TEST(AddPCIeFunctionPropertiesFromInterface, UnknownEnumsAreOmitted)
 {
     crow::Response resp;
     dbus::utility::DBusPropertiesMap properties = {
-        {"Function0FunctionType", std::string("Logical")},
-        {"Function0DeviceClass", std::string("Mass Storage Controller")}};
+        {"FunctionType",
+         std::string("xyz.openbmc_project.Inventory.Item.PCIeFunction."
+                     "FunctionTypes.Unknown")},
+        {"DeviceClass",
+         std::string("xyz.openbmc_project.Inventory.Item.PCIeFunction."
+                     "DeviceClasses.Unknown")}};
 
-    addPCIeFunctionProperties(resp, 0, properties);
+    addPCIeFunctionPropertiesFromInterface(resp, properties);
 
+    EXPECT_EQ(resp.result(), boost::beast::http::status::ok);
     EXPECT_FALSE(resp.jsonValue.contains("FunctionType"));
     EXPECT_FALSE(resp.jsonValue.contains("DeviceClass"));
 }
 
-TEST(AddPCIeFunctionProperties, EmptyAndInvalidEnumsAreOmitted)
+TEST(AddPCIeFunctionPropertiesFromInterface, UnmappedEnumSetsInternalError)
 {
     crow::Response resp;
     dbus::utility::DBusPropertiesMap properties = {
-        {"Function0FunctionType", std::string("")},
-        {"Function0DeviceClass", std::string("Invalid")}};
+        {"DeviceClass", std::string("Mass Storage Controller")}};
 
-    addPCIeFunctionProperties(resp, 0, properties);
+    addPCIeFunctionPropertiesFromInterface(resp, properties);
 
-    EXPECT_FALSE(resp.jsonValue.contains("FunctionType"));
+    EXPECT_EQ(resp.result(), boost::beast::http::status::internal_server_error);
     EXPECT_FALSE(resp.jsonValue.contains("DeviceClass"));
 }
 
