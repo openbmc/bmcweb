@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45468c68_40d7bea8",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T16:21:54Z",
+      "side": 1,
+      "message": "This should be\n\nnlohmann::json::object_t jObj \u003d member.get_if\u003cnlohmann::json::object_t\u003e();\nif (jObj \u003d\u003d nullptr){\n   return {};\n}",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 39
+      },
+      "revId": "c62524d39268749f38e3eea8012aa8d107b518fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e5e5858_e58b8d1f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T16:21:54Z",
+      "side": 1,
+      "message": "You\u0027ve basically recreated the helper functions here:\nhttps://github.com/openbmc/bmcweb/blob/628599c73d69502ba886f081f097482d3c2069a1/redfish-core/include/utils/json_utils.hpp#L912\n\nPlease deduplicate",
+      "revId": "c62524d39268749f38e3eea8012aa8d107b518fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95cf226d_bfdb22da",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T16:21:54Z",
+      "side": 1,
+      "message": "Lets just delete this code.  ON an io_error, we can leave the array unchanged.",
+      "revId": "c62524d39268749f38e3eea8012aa8d107b518fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
