@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8abe4e3_969dd781",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:54:15Z",
+      "side": 1,
+      "message": "Partial review.  Overall, this patch seems to be breaking the mold a bit.  While I\u0027m all for new design patterns, i\u0027m against adding them as part of a new feature (especially one this simple in practice.)\n\nIf you want to check in Controls, do it the normal way we write code\n\nIf you want to make new things that make our mapping of dbus-\u003eredfish easier, lets prove that they work holistically by moving some existing feature forward, and showing that it\u0027s less code or less complex.",
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09cbcae4_c6dd37b4",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:54:15Z",
+      "side": 1,
+      "message": "Please just implement these the \"normal\" way using methods.  These kinds of property mapping tables have been pitched before and rejected because they bloat code size.  If we\u0027re going to do something like this, lets do it holistically, and not as part of a new feature.  FWIW, we do something similar to this in sensors.hpp, and it\u0027s been a mess to maintain.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 2
+      },
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c865fa03_62359e7b",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:54:15Z",
+      "side": 1,
+      "message": "These lambdas violate our rules on lambda usage.  As written they are non trivial.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 7
+      },
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e3edaa5_d363ea66",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:54:15Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be state?",
+      "range": {
+        "startLine": 166,
+        "startChar": 62,
+        "endLine": 166,
+        "endChar": 70
+      },
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "359f70d3_d465e3ea",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:54:15Z",
+      "side": 1,
+      "message": "Don\u0027t look for all interfaces.  Look for a specific interface.",
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "990a3126_972fd8db",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:54:15Z",
+      "side": 1,
+      "message": "nit \"res\" by convention.",
+      "range": {
+        "startLine": 194,
+        "startChar": 55,
+        "endLine": 194,
+        "endChar": 59
+      },
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a83cf84c_2845c033",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:54:15Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct?  This is a control path underneath the Chassis.  It shouldn\u0027t be related.",
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a66d7fb_75850e4c",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:54:15Z",
+      "side": 1,
+      "message": "Please use the helper functions for this.  As written you haven\u0027t handled all errors correctly.",
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
