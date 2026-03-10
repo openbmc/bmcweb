@@ -600,6 +600,30 @@
       },
       "revId": "21c91b05c30181329bf9fe994676248393a2f554",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8da71e80_2e49d990",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T07:13:02Z",
+      "side": 1,
+      "message": "The numeric URL (/PCIeFunctions/0) was a requirement of the old interface, where properties were named Function0FunctionType, Function1FunctionType, etc. — the number in the URL was needed to construct the correct property name to look up.\n\nSince I\u0027m now switching to the new xyz.openbmc_project.Inventory.Item.PCIeFunction interface (one object per function), there\u0027s no longer a need to carry a numeric ID in the URL. So I\u0027d like to follow the same pattern as getChassisContainedBy() and use the object path filename directly as the Redfish Id (e.g. /PCIeFunctions/Function0).\n\nThe Redfish spec only requires Id to be a unique string — it doesn\u0027t need to be numeric. The integer FunctionId property can still be populated separately by extracting the trailing digits from the filename.",
+      "parentUuid": "cb9fbf66_b5bcbf81",
+      "range": {
+        "startLine": 795,
+        "startChar": 27,
+        "endLine": 795,
+        "endChar": 47
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
