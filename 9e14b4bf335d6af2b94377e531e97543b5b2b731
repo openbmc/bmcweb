@@ -124,6 +124,24 @@
       "parentUuid": "5abb724e_c8e39788",
       "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7986bb5b_0b566e72",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:20:45Z",
+      "side": 1,
+      "message": "\u003e Let\u0027s just implement it properly \n\nIf \"properly\" means adding yet another logging level, that\u0027s not something I\u0027m interested in taking the time to go define how we\u0027d use.  This patchset doesn\u0027t preclude someone from doing that if they choose to in the future, and this patch as written solves the problem.\n\nWith respect, I suspect we need to agree to disagree here.  If adding a new level is something you\u0027d like to see happen, please start a discussion (ideally starting with the docs change to define it) and we can go from there.\n\nLong term, if I\u0027m going to apply effort to logging, it\u0027ll be to add something like open telemetry, but that\u0027s also a larger change.",
+      "parentUuid": "2dc3023f_f887f446",
+      "revId": "9e14b4bf335d6af2b94377e531e97543b5b2b731",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
