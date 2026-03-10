@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3abbc23_938c08fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T03:33:26Z",
+      "side": 1,
+      "message": "same answer below",
+      "parentUuid": "345d956c_a818c905",
+      "range": {
+        "startLine": 19,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 35
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7554c956_3613d0e9",
@@ -323,6 +347,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "834b3c0d_5e681837",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T03:33:26Z",
+      "side": 1,
+      "message": "same answer below",
+      "parentUuid": "7853c568_2865ee26",
+      "range": {
+        "startLine": 692,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 5
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8767645_ece4c3af",
@@ -394,6 +442,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3cd813_5056c190",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T03:33:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad43c2e7_e1247482",
+      "range": {
+        "startLine": 721,
+        "startChar": 14,
+        "endLine": 721,
+        "endChar": 33
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc1cc2d7_56a01bb5",
@@ -417,6 +489,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8547db0b_2a4f4aec",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T03:33:26Z",
+      "side": 1,
+      "message": "same answer below",
+      "parentUuid": "dc1cc2d7_56a01bb5",
+      "range": {
+        "startLine": 743,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 13
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5f3ffaf_daf1e492",
@@ -430,6 +526,30 @@
       "writtenOn": "2026-03-09T19:32:28Z",
       "side": 1,
       "message": "If you didn\u0027t have \"decoupled from D-Bus object path naming conventions. The FunctionNumber property on Item.PCIeFunction identifies the BDF function number.\" you use getAssociatedSubTreePaths here.. That would match other places in bmcweb.. \nIt is not clear to me, why we should be special here \n\n\nhttps://github.com/openbmc/bmcweb/blob/00813af9e77827ba31d90992c497652d85bd6a0e/redfish-core/lib/chassis.hpp#L370",
+      "range": {
+        "startLine": 795,
+        "startChar": 27,
+        "endLine": 795,
+        "endChar": 47
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2011aa7c_a1d85b15",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T03:33:26Z",
+      "side": 1,
+      "message": "I understand your point and have replied in the comment thread.\n \nI originally implemented it that way too, but I wasn\u0027t sure whether  extracting trailing digits from the path segment is also a form of hardcoding — it assumes the path name always ends with the function number, which is a convention rather than a contract. That\u0027s why I switched to reading FunctionNumber property instead. \n\nHappy to revert if you prefer the simpler approach.",
+      "parentUuid": "c5f3ffaf_daf1e492",
       "range": {
         "startLine": 795,
         "startChar": 27,
