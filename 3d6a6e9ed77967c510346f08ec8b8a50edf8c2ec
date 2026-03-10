@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd4a3450_a55b1cb5",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-10T16:07:28Z",
+      "side": 1,
+      "message": "Sorry for the confusion - my earlier comment was not precise.\n\nI was not referring to nested calls to handleCollectionMembers() itself. The case I had in mind is the aggregation flow, where the shared response may already contain Members entries appended by the aggregator merge path.\n\nThis is a needed case when aggregation is enabled, since valid aggregated members may already have been merged into the shared response before the local io_error path runs. Resetting Members here could then drop those previously merged entries.\n\nRef: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88012/8/redfish-core/include/redfish_aggregator.hpp#1136",
+      "parentUuid": "b09946a8_a5295481",
+      "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b88bbea3_8c8d86d7",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 7
