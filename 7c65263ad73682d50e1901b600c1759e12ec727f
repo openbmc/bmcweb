@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d285aea_2801a6e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T21:37:47Z",
+      "side": 1,
+      "message": "\u003e I check one without his change and it has the same\n\nThat\u0027s good enough for me.\n\nSounds like a bug in PLDM we need to fix.",
+      "parentUuid": "4e4a7f47_a314fd75",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4c43e39_01da353b",
@@ -187,6 +211,24 @@
       "side": 1,
       "message": "ok. so something more like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/86007/3 but one set which allows nan and another set which skips.",
       "parentUuid": "6d59bcfc_e1e41735",
+      "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56326b0b_27260a63",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T21:37:47Z",
+      "side": 1,
+      "message": "Yeah, that patch was closer to what I\u0027d expect.  MOST importantly is that you\u0027ve done some rudimentary analysis of all the properties that flow through this code and we have some understanding that what you did was correct for all of them.  Ideally we\u0027d have unit tests for this stuff, but here we are.\n\nWe\u0027ll never be perfect, and this isn\u0027t intended to be exhaustive, but the commit message makes it sound like only thresholds on sensor were considered, whereas the patchset changes all the properties.",
+      "parentUuid": "ab42e427_7c65cbe3",
       "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
