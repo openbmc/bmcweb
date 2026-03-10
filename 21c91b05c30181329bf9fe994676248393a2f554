@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e46b675_9314e329",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-10T20:20:18Z",
+      "side": 1,
+      "message": "I think that is what you have done.",
+      "parentUuid": "ab012698_4ed6a268",
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "059dfee4_b68ed063",
         "filename": "docs/Redfish.md",
         "patchSetId": 1
@@ -658,6 +676,30 @@
       "side": 1,
       "message": "\u003e /PCIeDevices/GPU_SXM_1/PCIeFunctions/Function0 instead of /PCIeDevices/GPU_SXM_1/PCIeFunctions/0.\nThe Redfish spec doesn\u0027t require the URL segment to be a number — only FunctionId (a separate integer property) needs to carry the actual PCIe function number, which we can still extract from the filename.\n\n\u003e Would you prefer to go with this approach (use filename() directly as the Id), or keep the numeric-only URL (which requires extracting trailing digits from the filename)?\n\nI think the {PCIeFunctionId} (e.g. Function0, 0, Function_0, PCIeFunc0) should be pulled from the backend, the last segment of the dbus path, like we do for Dimms, PowerSupplies, Fans, PCIeDevices, etc. \n\nI think the FunctionId should come from a separate D-Bus property.",
       "parentUuid": "8da71e80_2e49d990",
+      "range": {
+        "startLine": 795,
+        "startChar": 27,
+        "endLine": 795,
+        "endChar": 47
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156135ee_6cefeee3",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-10T20:20:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1457fd41_01badc3d",
       "range": {
         "startLine": 795,
         "startChar": 27,
