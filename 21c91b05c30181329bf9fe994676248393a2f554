@@ -65,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc950ea_c1931d9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T05:44:22Z",
+      "side": 1,
+      "message": "After thinking more about it, I agree with your suggestion.\n\nIn practice each PCIeDevice exposes a single Function0, and extracting the trailing digits from the path filename (Function0 → 0) is sufficient. \n\nI\u0027ll switch to getAssociatedSubTreePaths and drop the pendingCount approach.",
+      "parentUuid": "7554c956_3613d0e9",
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "059dfee4_b68ed063",
