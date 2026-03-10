@@ -231,6 +231,24 @@
       "parentUuid": "ab42e427_7c65cbe3",
       "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2e2dbb3_a4741d76",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T21:41:33Z",
+      "side": 1,
+      "message": "FWIW, I had forgotten the history here.  I suspect the code we have now is fine, just need a commit message that talks about what properties we\u0027re functionally changing, and what the new behavior will be.",
+      "parentUuid": "56326b0b_27260a63",
+      "revId": "7c65263ad73682d50e1901b600c1759e12ec727f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
