@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1da3ef00_91c3575a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-10T07:30:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "875b8698_6902497d",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 79
+      },
+      "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b2f9460_d52973cf",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-03-09T11:28:03Z",
       "side": 1,
       "message": "Is this place to set the empty array?\nOr is the member array accumulated?\nIf it is an empty member, the old code seems better.\n```\n        asyncResp-\u003eres.jsonValue[jsonKeyName] \u003d nlohmann::json::array();\n        asyncResp-\u003eres.jsonValue[jsonCountKeyName] \u003d 0;\n```",
+      "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bacb0ce_7a4b9d7c",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-10T07:30:17Z",
+      "side": 1,
+      "message": "Yes, `Members` can be accumulated in this path, so we should not reset it on io_error.\n\nFor the legacy path without the aggregator enabled, I think the old behavior would still be fine. However, when the aggregator is enabled on a platform, two response resources are merged. If we reset the array here, the entries from the aggregated response may be lost.",
+      "parentUuid": "0b2f9460_d52973cf",
       "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af1ea67d_27841b52",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-10T07:30:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b88bbea3_8c8d86d7",
+      "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9890be61_b61ab6e8",
@@ -71,6 +131,30 @@
       "writtenOn": "2026-03-09T13:32:11Z",
       "side": 1,
       "message": "What should be handling if the \"Members\" is not an array but just an object? Looking at the code it seems like it might wipe out the non-array Members, is that intention? If so it should be tested to confirm.",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 90,
+        "endChar": 75
+      },
+      "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b33f8db0_47a041d6",
+        "filename": "test/redfish-core/include/utils/collection_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-10T07:30:17Z",
+      "side": 1,
+      "message": "Yes, that is intentional. If Members is not an array, we normalize it to an array and discard the previous non-array value. Added a test case: GetJsonArrayAtConvertsNonArrayToArray",
+      "parentUuid": "9890be61_b61ab6e8",
       "range": {
         "startLine": 90,
         "startChar": 21,
