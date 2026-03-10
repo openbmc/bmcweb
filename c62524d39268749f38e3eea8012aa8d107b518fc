@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b65b2525_1ed0518c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T16:23:13Z",
+      "side": 1,
+      "message": "Please also mention this is fixing a common error #13\n\nhttps://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#13-complete-replacement-of-the-response-object",
+      "revId": "c62524d39268749f38e3eea8012aa8d107b518fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45468c68_40d7bea8",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 8
