@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7554c956_3613d0e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T02:08:37Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz\nBecause the object path name has no enforced format. \nFor example,Function0, Function_0, and PCIeFunc0 all represent function 0 but require different parsing rules. Reading the FunctionNumber property avoids guessing — it is the value the interface guarantees.\nI could also just extract trailing digits from the path segment as a simpler alternative. \nWhich approach do you prefer?",
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "059dfee4_b68ed063",
         "filename": "docs/Redfish.md",
         "patchSetId": 1
