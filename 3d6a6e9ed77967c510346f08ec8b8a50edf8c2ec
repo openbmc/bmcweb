@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b09946a8_a5295481",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-10T14:38:55Z",
+      "side": 1,
+      "message": "I don\u0027t see the nested code-paths of calling `handleCollectionMembers()`.\nCould you show the cases that may accumulate Members (and which are needed)?",
+      "parentUuid": "9bacb0ce_7a4b9d7c",
+      "revId": "3d6a6e9ed77967c510346f08ec8b8a50edf8c2ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b88bbea3_8c8d86d7",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 7
