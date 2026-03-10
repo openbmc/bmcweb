@@ -70,6 +70,24 @@
       "parentUuid": "92a74e04_5bcb7866",
       "revId": "6153e8139b7992e570555db83eeffa7d1b9e441a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eefee162_f6ecea7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-10T20:42:13Z",
+      "side": 1,
+      "message": "\u003e Patching only one parameter is fine because the user should know that enter must be less than or equal to the exit.\n\nShould they?\n\n\u003e \n\u003e The order of the setDbusProperty requests is sequential in this function, why are you saying it is not guaranteed?\n\u003e \n\u003e The dbus SET can only set one property at a time, which is the root problem with this situation.\n\nRight.\n\n\u003e \n\u003e Another option would be for the app to wait some period of time (for any new dbus requests before doing the checking), but I really think that is a must less desirable solution because of the time dependency (how long do you wait, etc).\n\nOther options:\n1. A method call that lets us set both at once\n2. Make max push min, and min push max.  Ie, if you PATCH max \u003c min, min is changed to match max to keep everything valid.  We did this in IPMI somewhere else in the past and it worked well for customers.  There are customers that patch each value independently with reckless disregard for ordering.",
+      "parentUuid": "cd8ed684_5553332d",
+      "revId": "6153e8139b7992e570555db83eeffa7d1b9e441a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
