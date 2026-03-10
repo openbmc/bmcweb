@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "887f33fe_ba831b1c",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-10T20:21:11Z",
+      "side": 1,
+      "message": "ClassCode and RevisionId too please",
+      "revId": "1f3cdbd22e388c68ace3abecce52cea6a0a655a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb875ed9_6b6f0c08",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 3
