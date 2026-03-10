@@ -64,6 +64,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff9eb022_5560d4c9",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T02:34:31Z",
+      "side": 1,
+      "message": "Got it. I will removed the @odata.type version. Will update in the next patch set.",
+      "parentUuid": "059dfee4_b68ed063",
+      "range": {
+        "startLine": 1039,
+        "startChar": 17,
+        "endLine": 1039,
+        "endChar": 55
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25de5d70_3381086a",
@@ -77,6 +101,30 @@
       "writtenOn": "2026-03-09T18:26:07Z",
       "side": 1,
       "message": "Typically we don\u0027t do this.. Do you need ?",
+      "range": {
+        "startLine": 1041,
+        "startChar": 0,
+        "endLine": 1043,
+        "endChar": 56
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf6210fa_1598a051",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T02:34:31Z",
+      "side": 1,
+      "message": "I will removed this too. Will update in the next patch set.",
+      "parentUuid": "25de5d70_3381086a",
       "range": {
         "startLine": 1041,
         "startChar": 0,
@@ -110,6 +158,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb1c5d6_08826ef5",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T02:34:31Z",
+      "side": 1,
+      "message": "The short variable names dc and ft will be gone after refactoring to explicit dbusToRedfish mapping functions.\nThe converted value will be held in a std::string directly, so there will be no naming conflict with the existing deviceClass and functionType D-Bus string variables.\nThanks for remind.",
+      "parentUuid": "cc739087_5b183a67",
+      "range": {
+        "startLine": 653,
+        "startChar": 35,
+        "endLine": 653,
+        "endChar": 38
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99600b16_73f7fb35",
@@ -133,6 +205,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccf6f60d_d489e74b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T02:34:31Z",
+      "side": 1,
+      "message": "I will modify the code to enum mapping.",
+      "parentUuid": "99600b16_73f7fb35",
+      "range": {
+        "startLine": 654,
+        "startChar": 1,
+        "endLine": 655,
+        "endChar": 51
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b97891e3_74ba5ed0",
@@ -146,6 +242,30 @@
       "writtenOn": "2026-03-09T18:26:07Z",
       "side": 1,
       "message": "Same comment here.. dbusToRedfish ?",
+      "range": {
+        "startLine": 670,
+        "startChar": 0,
+        "endLine": 672,
+        "endChar": 52
+      },
+      "revId": "21c91b05c30181329bf9fe994676248393a2f554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a42fbb2b_ffc2f8c7",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-10T02:34:31Z",
+      "side": 1,
+      "message": "I will modify the code to enum mapping.",
+      "parentUuid": "b97891e3_74ba5ed0",
       "range": {
         "startLine": 670,
         "startChar": 0,
