@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3edaa90_53975fd9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-11T12:26:01Z",
+      "side": 1,
+      "message": "I think this can be more clearer by doing\n```\n        if (!redfishDeviceClass)\n        {\n            BMCWEB_LOG_WARNING(\"Unknown PCIeFunction DeviceClass: {}\",\n                               *deviceClass);\n        }\n        else\n        {\n           if (*redfishDeviceClass \u003d\u003d pcie_function::DeviceClass::Invalid)\n           {\n               BMCWEB_LOG_ERROR(\"Invalid PCIeFunction DeviceClass: {}\",\n                             *deviceClass);\n               messages::internalError(resp);\n               return;\n           }\n           resp.jsonValue[\"DeviceClass\"] \u003d *redfishDeviceClass;\n        }\n```",
+      "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57345888_d430d865",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-11T12:26:01Z",
+      "side": 1,
+      "message": "This does not need to be static.\n```\n           constexpr std::array\u003cstd::string_view, 1\u003e\n                pcieFunctionInterface \u003d {\n                    \"xyz.openbmc_project.Inventory.Item.PCIeFunction\"};\n```",
+      "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae05923_02144e01",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-11T12:26:01Z",
+      "side": 1,
+      "message": "This does not needed to be `static`",
+      "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a6d16c_c997ede2",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-11T12:26:01Z",
+      "side": 1,
+      "message": "This does not needed to be `static`",
+      "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
