@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44c48894_fad9fb09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-11T20:18:45Z",
+      "side": 1,
+      "message": "Tested? Please add the Tested statement to the commit message detailing how this was tested.\n\nSee: https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#testing",
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1aec939f_a7f4f58c",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 9
@@ -14,6 +31,29 @@
       "writtenOn": "2026-03-11T12:12:17Z",
       "side": 1,
       "message": "In most places, bmcweb is doing like\n\n```\n    if (ec)\n    {\n        if(ec !\u003d boost::system::errc::io_error)\n        {\n            BMCWEB_LOG_DEBUG(\"DBUS response error {}\", ec.value());\n             messages::internalError(asyncResp-\u003eres);\n        }\n        return;\n    }\n```",
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e2aa98_4d6912c1",
+        "filename": "test/redfish-core/include/utils/collection_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-11T20:18:45Z",
+      "side": 1,
+      "message": "Interesting that it ends up with two duplicated entries. Is that an existing bug in handleCollectionMembers()?\n\n(In real world we are just using the D-Bus response to report. So I can see not doing error checking for the duplicate case.)",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 63
+      },
       "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
