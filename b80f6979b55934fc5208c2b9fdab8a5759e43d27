@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e84ddcd4_2aa8b2b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-11T20:58:17Z",
+      "side": 1,
+      "message": "Don\u0027t we need to change documentation in PDI first?",
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e1036e_7d3de79b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-11T20:58:17Z",
+      "side": 1,
+      "message": "Why can\u0027t you make the existing code work? \n\nchassis 1 cooled_by fan 1 \nchassis 1 cooled_by fan 2\n\nchassis 2 cooled_by fan 1 \nchassis 2 cooled_by fan 2\n\n...",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
