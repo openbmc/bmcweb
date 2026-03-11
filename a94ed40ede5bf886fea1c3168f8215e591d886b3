@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aec939f_a7f4f58c",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-03-11T12:12:17Z",
+      "side": 1,
+      "message": "In most places, bmcweb is doing like\n\n```\n    if (ec)\n    {\n        if(ec !\u003d boost::system::errc::io_error)\n        {\n            BMCWEB_LOG_DEBUG(\"DBUS response error {}\", ec.value());\n             messages::internalError(asyncResp-\u003eres);\n        }\n        return;\n    }\n```",
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
