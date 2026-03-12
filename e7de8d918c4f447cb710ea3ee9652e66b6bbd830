@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d51dbdd_d2a93fa0",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-12T11:27:07Z",
+      "side": 1,
+      "message": "Done. Restructured to use if/else { if ... } as suggested.",
+      "parentUuid": "d3edaa90_53975fd9",
+      "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57345888_d430d865",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-11T12:26:01Z",
       "side": 1,
       "message": "This does not need to be static.\n```\n           constexpr std::array\u003cstd::string_view, 1\u003e\n                pcieFunctionInterface \u003d {\n                    \"xyz.openbmc_project.Inventory.Item.PCIeFunction\"};\n```",
+      "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d1265b_8df3d1c3",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-12T11:27:07Z",
+      "side": 1,
+      "message": "Done. Removed static from the constexpr array. Same fix applied to L895 and L917 as well.",
+      "parentUuid": "57345888_d430d865",
       "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "437312cb_184af862",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-12T11:27:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ae05923_02144e01",
+      "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29a6d16c_c997ede2",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-03-11T12:26:01Z",
       "side": 1,
       "message": "This does not needed to be `static`",
+      "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f527e97_9e28a80f",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-12T11:27:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29a6d16c_c997ede2",
       "revId": "e7de8d918c4f447cb710ea3ee9652e66b6bbd830",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
