@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0672b0a_edd29e6e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-12T16:03:46Z",
+      "side": 1,
+      "message": "YOu\u0027ve now implemented this TODO.  Please remove the comment",
+      "range": {
+        "startLine": 1156,
+        "startChar": 0,
+        "endLine": 1156,
+        "endChar": 71
+      },
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1aec939f_a7f4f58c",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 9
@@ -49,6 +72,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "1aec939f_a7f4f58c",
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f20c1a7b_53f04fcf",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-12T16:03:46Z",
+      "side": 1,
+      "message": "This isn\u0027t new code, and the result here is generally the mapper.  If the mapper is down, thats an internal error.",
+      "parentUuid": "be643358_5d3b9921",
       "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -90,6 +131,30 @@
       "side": 1,
       "message": "Hi @janeta@us.ibm.com\nI think this is an existing behavior in handleCollectionMembers(). Please see the logic here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88012/9/redfish-core/include/utils/collection.hpp#81\n\nIf we consider this a bug, would you like me to include a fix for it in this patch as well? I will change it to use set().",
       "parentUuid": "25e2aa98_4d6912c1",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c81b3f_1c7409f2",
+        "filename": "test/redfish-core/include/utils/collection_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-12T16:03:46Z",
+      "side": 1,
+      "message": "At a system level getting a duplicate would be a bug in the mapper, and in theory this is an invalid input.  We could change the unit test to check A, B, and C, just to make it clear there\u0027s no duplicates, but I\u0027m not that worried about it.  behavior is clear to me.",
+      "parentUuid": "a7bce9e3_f721e5dc",
       "range": {
         "startLine": 115,
         "startChar": 4,
