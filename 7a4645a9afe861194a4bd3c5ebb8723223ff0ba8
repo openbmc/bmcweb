@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96c5f160_6b997fb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-12T01:27:47Z",
+      "side": 1,
+      "message": "After giving it another thought you might be right. I bamboozled myself with cooling/ coolied_by which we use analogous to Redfish\u0027s \"contains\" for the ThermalSubsystem resource. \nA fan shouldn\u0027t be contained by two chassis I guess.",
+      "parentUuid": "bb39d5ea_7d94f6cb",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "415a1348_e52d0841",
