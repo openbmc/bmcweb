@@ -137,7 +137,9 @@ ValueVisitor::result_type ValueVisitor::operator()(
     {
         BMCWEB_LOG_ERROR("Key {} doesn't exist in output, cannot filter",
                          static_cast<std::string>(x));
-        BMCWEB_LOG_DEBUG("Output {}", body.dump());
+        BMCWEB_LOG_DEBUG(
+            "Output {}",
+            body.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace));
         return {};
     }
 
