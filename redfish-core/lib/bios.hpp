@@ -115,7 +115,8 @@ inline void handleBiosResetPost(
                 return;
             }
         },
-        "org.open_power.Software.Host.Updater", "/xyz/openbmc_project/software",
+        "xyz.openbmc_project.Software.Host.Updater",
+        "/xyz/openbmc_project/software",
         "xyz.openbmc_project.Common.FactoryReset", "Reset");
 }
 
