@@ -117,14 +117,14 @@ inline void uploadImageHandler(
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/upload/image/<str>")
+    BMCWEB_ROUTE(app, "/upload/image/<str>/")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string&) { uploadImageHandler(req, asyncResp); });
 
-    BMCWEB_ROUTE(app, "/upload/image")
+    BMCWEB_ROUTE(app, "/upload/image/")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
             [](const crow::Request& req,
