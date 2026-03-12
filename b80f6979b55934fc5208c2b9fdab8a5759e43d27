@@ -107,6 +107,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "50cacfe3_b7bb17ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-12T15:15:25Z",
+      "side": 1,
+      "message": "### my spec interpretation\n\n\u003e Can you quote the spec here ?\n  I don\u0027t read below to mean you can\u0027t do this:\n\nI believe you already found the most relevant section in the spec.\n\n`redfish/v1/Chassis/Yv3_Chassis_1/ThermalSubsystem/Fans/FAN_1`\n\nhas service root `redfish/v1` and resource path `Chassis/Yv3_Chassis_1/ThermalSubsystem/Fans/FAN_1`.\n\nquoting from redfish spec:\n\nIf we had 2 URIs refer to the same physical fan (FAN_1) like\n```\nredfish/v1/Chassis/Yv3_Chassis_1/ThermalSubsystem/Fans/FAN_1\nredfish/v1/Chassis/Yv3_Chassis_2/ThermalSubsystem/Fans/FAN_1```\n\nthen the URI would not uniquely identify the resource anymore.\n\nAnother section from the spec:\n```\nA Universal Resource Identifier (URI) identifies a resource, including the service root and all Redfish resources.\n• A URI shall identify each unique instance of a resource.\n```\n\nI interpret\n```\nThe service root and resource path component parts\nuniquely identify the resource in a Redfish service.\n```\nto mean that from the URI alone we know which one it is and there is no need for the client to de-duplicate copies of it.\n\nIf aliases were allowed to exist, i would expect wording like\n`The service root and resource path component parts **identify** the resource\nin a Redfish service.` (without the additional word \"**uniquely**\")\n\n### HTTP Redirect\n\nThe spec contains a section on HTTP Redirects\n\n```\n6.3 HTTP redirect\nHTTP redirect enables a service to redirect a request to another URL. Among other things, HTTP redirect enables\nRedfish resources to alias areas of the data model.\nAll Redfish clients shall correctly handle HTTP redirect.\n```\n\nAnd i assume it\u0027s okay to use them, but we still require one real instance to redirect to. So we would need to know which links redirect (`cooling`) and where the real resource is (`containing`). \n\nI have not seen redirects used extensively in bmcweb. I would prefer to not use them here since it introduces extra round-trips and indirection for the redfish client.\n\n\n\n### summary of problems caused by allowing copies of a resource\n\n- redfish client now has to do a full query on all instances of a resource to know how many instances actually exist\n\n- redfish client has to implement deduplication logic for resources to know which ones are copies (AFAIK there exists no implementation yet to do this)\n\n- since different copies of the same resources may be fetched at different times,\n  the response content may be different even if the refer to the same resource, making deduplication even harder\n\n- deduplication of copies is only possible if there are properties like serial number or other unique identifier\n\n- redfish client must choose one of the copy of the resource if it wants to do PATCH/POST request. It\u0027s not clear which one to choose?\n\n- `RelatedItem` also becomes less clear. Do we list all copies of a resource here or just one of them ? If we list one, which one is it?\n\n### summary of problems caused by using HTTP redirects (alias)\n\n- redfish client now has to do a full query on all instances of a resource to know how many instances actually exist\n\n- redirects have to be resolved before `PATCH/POST` ?\n\n- What do we put in `RelatedItem`? Do we put the link to the real resource or the alias?\n\n### my opinion\n\nFrom my perspective an interpretation of redfish spec allowing copies of a resource on a different resource path is less useful to a Redfish client.",
+      "parentUuid": "069fdfae_562d5c9f",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4f3cdc8a_269c9706",
