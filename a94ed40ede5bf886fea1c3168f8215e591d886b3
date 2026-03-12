@@ -163,6 +163,30 @@
       },
       "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a864116_f8d5b527",
+        "filename": "test/redfish-core/include/utils/collection_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-12T18:13:14Z",
+      "side": 1,
+      "message": "I\u0027m not really worried about this one, since we are reporting what is returned from D-Bus. It just caught my eye looking at this testcase.",
+      "parentUuid": "26c81b3f_1c7409f2",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
