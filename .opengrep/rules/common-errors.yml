@@ -1,0 +1,242 @@
+# SPDX-License-Identifier: Apache-2.0
+# Machine-enforceable rules for patterns documented in docs/COMMON_ERRORS.md.
+# Existing violations are suppressed with inline "nosemgrep" comments.
+rules:
+    - id: bmcweb.common-errors.unsafe-int-parse
+      message: >
+          Avoid atoi/stoi/stol/stoll in bmcweb. These APIs can throw or accept
+          invalid input in unsafe ways. Use std::from_chars with explicit error
+          handling per docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: ERROR
+      metadata:
+          category: security
+          confidence: HIGH
+          source: docs/COMMON_ERRORS.md
+          common_error: "2, 3, 5"
+      pattern-either:
+          - pattern: std::atoi(...)
+          - pattern: atoi(...)
+          - pattern: std::stoi(...)
+          - pattern: stoi(...)
+          - pattern: std::stol(...)
+          - pattern: stol(...)
+          - pattern: std::stoll(...)
+          - pattern: stoll(...)
+
+    - id: bmcweb.common-errors.throwing-filesystem-apis
+      message: >
+          Avoid throwing std::filesystem APIs in request handling paths. Prefer
+          overloads with std::error_code and explicit error handling per
+          docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: reliability
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "5"
+      patterns:
+          - pattern-either:
+                - pattern: std::filesystem::create_directory(...)
+                - pattern: std::filesystem::rename(...)
+                - pattern: std::filesystem::file_size(...)
+          - pattern-not: std::filesystem::create_directory(..., $EC)
+          - pattern-not: std::filesystem::rename(..., ..., $EC)
+          - pattern-not: std::filesystem::file_size(..., $EC)
+
+    - id: bmcweb.common-errors.throwing-json-parse
+      message: >
+          nlohmann::json::parse throws by default. Prefer the non-throwing form
+          with allow_exceptions=false and explicit handling per
+          docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: reliability
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "5"
+      patterns:
+          - pattern: nlohmann::json::parse(...)
+          - pattern-not: nlohmann::json::parse(..., ..., false)
+          - pattern-not: nlohmann::json::parse(..., ..., false, ...)
+
+    - id: bmcweb.common-errors.throwing-json-dump
+      message: >
+          nlohmann::json::dump throws by default. Prefer using
+          error_handler_t::replace and explicit handling per
+          docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: reliability
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "5"
+      patterns:
+          - pattern: $J.dump(...)
+          - pattern-not:
+                $J.dump(..., ..., ..., nlohmann::json::error_handler_t::replace)
+
+    - id: bmcweb.common-errors.throwing-json-get-ref
+      message: >
+          nlohmann::json::get_ref can throw on type mismatch. Prefer explicit
+          type checks and non-throwing access patterns per
+          docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: reliability
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "5"
+      pattern-regex: '\.\s*get_ref\s*<'
+
+    - id: bmcweb.common-errors.throwing-json-get-to
+      message: >
+          nlohmann::json::get_to can throw on bad input/type mismatch. Prefer
+          validated parsing and explicit error handling per
+          docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: reliability
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "5"
+      pattern-regex: '\.\s*get_to\s*\('
+
+    - id: bmcweb.common-errors.throwing-json-items
+      message: >
+          nlohmann::json::items can throw for non-object JSON. Validate shape
+          before iterating per docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: reliability
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "5"
+      pattern-regex: '\.\s*items\s*\('
+
+    - id: bmcweb.common-errors.wildcard-lambda-capture
+      message: >
+          Avoid wildcard lambda captures ([&] or [=]) in bmcweb async code.
+          Capture variables explicitly by name per docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: correctness
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "8"
+      pattern-regex: '\[[[:space:]]*[&=][[:space:]]*\][[:space:]]*\('
+
+    - id: bmcweb.common-errors.wildcard-lambda-capture-async-context
+      message: >
+          Avoid wildcard lambda captures in async callbacks. Capture variables
+          explicitly by name in async flows per docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: correctness
+          confidence: HIGH
+          source: docs/COMMON_ERRORS.md
+          common_error: "8"
+      pattern-either:
+          - pattern-regex: 'async_method_call\s*\(\s*\[[[:space:]]*[&=][[:space:]]*\][[:space:]]*\('
+          - pattern-regex: 'async_wait\s*\(\s*\[[[:space:]]*[&=][[:space:]]*\][[:space:]]*\('
+          - pattern-regex: 'async_read\s*\(\s*\[[[:space:]]*[&=][[:space:]]*\][[:space:]]*\('
+          - pattern-regex: 'async_write\s*\(\s*\[[[:space:]]*[&=][[:space:]]*\][[:space:]]*\('
+
+    - id: bmcweb.common-errors.route-constructed-in-aggregate
+      message: >
+          Avoid constructing BMCWEB_ROUTE URLs with string concatenation. Keep
+          route strings directly in the macro to preserve grepability per
+          docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: maintainability
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "10"
+      patterns:
+          - pattern: BMCWEB_ROUTE($APP, $ROUTE)
+          - metavariable-regex:
+                metavariable: $ROUTE
+                regex: \+
+
+    - id: bmcweb.common-errors.route-missing-trailing-slash
+      message: >
+          BMCWEB_ROUTE URLs should usually end in '/'. Use trailing slash routes
+          unless there is a documented exception per docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: maintainability
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "9"
+      patterns:
+          - pattern: BMCWEB_ROUTE($APP, $ROUTE)
+          - metavariable-regex:
+                metavariable: $ROUTE
+                regex: ^"\/.*[^\/]"$
+
+    - id: bmcweb.common-errors.blocking-call-sleep
+      message: >
+          Avoid blocking sleep calls in bmcweb reactor paths. Use async timers
+          or callback-driven flow per docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: performance
+          confidence: HIGH
+          source: docs/COMMON_ERRORS.md
+          common_error: "6"
+      pattern-either:
+          - pattern: sleep(...)
+          - pattern: usleep(...)
+          - pattern: nanosleep(...)
+
+    - id: bmcweb.common-errors.blocking-call-sync-socket-api
+      message: >
+          Avoid blocking socket APIs in bmcweb request paths. Use async APIs per
+          docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: performance
+          confidence: MEDIUM
+          source: docs/COMMON_ERRORS.md
+          common_error: "6"
+      pattern-regex: '\bboost::asio::ip::tcp::socket::(read|read_some|write|write_some|connect|send|wait)\s*\('
+
+    - id: bmcweb.common-errors.blocking-call-sync-timer-wait
+      message: >
+          Avoid blocking timer wait calls in bmcweb request paths. Use
+          async_wait per docs/COMMON_ERRORS.md.
+      languages:
+          - cpp
+      severity: WARNING
+      metadata:
+          category: performance
+          confidence: HIGH
+          source: docs/COMMON_ERRORS.md
+          common_error: "6"
+      pattern-regex: '\bboost::asio::steady_timer::wait\s*\('
