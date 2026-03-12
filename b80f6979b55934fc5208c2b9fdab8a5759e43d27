@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "069fdfae_562d5c9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-12T13:24:19Z",
+      "side": 1,
+      "message": "\u003e Which is not allowed in redfish from my understanding.\n\nCan you quote the spec here ? \nI don\u0027t read below to mean you can\u0027t do this: \n\"\u0027The service root and resource path component parts uniquely identify the resource in a Redfish service.`.\"",
+      "parentUuid": "9d8e9bc4_9a21bbc8",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4f3cdc8a_269c9706",
