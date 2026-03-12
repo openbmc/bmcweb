@@ -546,14 +546,14 @@ inline void requestRoutes(App& app)
 
     if constexpr (BMCWEB_VM_NBDPROXY)
     {
-        BMCWEB_ROUTE(app, "/nbd/<str>")
+        BMCWEB_ROUTE(app, "/nbd/<str>/")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
             .onopen(nbd_proxy::onOpen)
             .onclose(nbd_proxy::onClose)
             .onmessageex(nbd_proxy::onMessage);
 
-        BMCWEB_ROUTE(app, "/vm/0/0")
+        BMCWEB_ROUTE(app, "/vm/0/0/")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
             .onopen(nbd_proxy::onOpen)
@@ -562,7 +562,7 @@ inline void requestRoutes(App& app)
     }
     if constexpr (BMCWEB_VM_WEBSOCKET)
     {
-        BMCWEB_ROUTE(app, "/vm/0/0")
+        BMCWEB_ROUTE(app, "/vm/0/0/")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
             .onopen([](crow::websocket::Connection& conn) {

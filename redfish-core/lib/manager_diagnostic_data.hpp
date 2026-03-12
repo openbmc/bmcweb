@@ -268,6 +268,7 @@ inline void handleManagerDiagnosticDataGet(
 
 inline void requestRoutesManagerDiagnosticData(App& app)
 {
+    // nosemgrep: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ManagerDiagnosticData")
         .privileges(redfish::privileges::getManagerDiagnosticData)
         .methods(boost::beast::http::verb::get)(
