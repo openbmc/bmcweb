@@ -61,6 +61,7 @@ inline bool populateUserInfo(
     // ignores the results from both pamAuthenticateUser and the
     // value from any previous use of this session.
     session.isConfigureSelfOnly = passwordExpired.value_or(false);
+    session.isRemoteUser = remoteUser;
 
     session.userGroups.clear();
     if (userGroups)

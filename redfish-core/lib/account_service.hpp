@@ -1740,6 +1740,16 @@ inline void handleAccountServicePatch(
         return;
     }
 
+    if (req.session != nullptr && req.session->isRemoteUser)
+    {
+        if ((ldapObject.serviceEnabled && !(*ldapObject.serviceEnabled)) ||
+            (activeDirectoryObject.serviceEnabled &&
+             !(*activeDirectoryObject.serviceEnabled)))
+        {
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+    }
     handleLDAPPatch(std::move(activeDirectoryObject), asyncResp,
                     "ActiveDirectory");
     handleLDAPPatch(std::move(ldapObject), asyncResp, "LDAP");
