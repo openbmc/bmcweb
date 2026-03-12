@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9da7d9a0_5676309d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-12T11:09:58Z",
+      "side": 1,
+      "message": "Yes, thanks for pointing this out. I did not do this initially since i was under the impression that Redfish mapping shall not be documented in PDI, but apparently that\u0027s not the case or at least not anymore.\n\nI created the PDI change https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/88235\nand added you for review there 👍",
+      "parentUuid": "e84ddcd4_2aa8b2b7",
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96e1036e_7d3de79b",
@@ -37,6 +55,47 @@
         "endLine": 66,
         "endChar": 31
       },
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d8e9bc4_9a21bbc8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-12T11:09:58Z",
+      "side": 1,
+      "message": "Because redfish resources can\u0027t be present underneath multiple URIs.\n\nThe `cooling/cooled_by` directly determines resource placement currently.\n\nSo we would have something like\n\n```\nredfish/v1/Chassis/Yv3_Chassis_1/ThermalSubsystem/Fans/FAN_1\nredfish/v1/Chassis/Yv3_Chassis_1/ThermalSubsystem/Fans/FAN_2\n\nredfish/v1/Chassis/Yv3_Chassis_2/ThermalSubsystem/Fans/FAN_1\nredfish/v1/Chassis/Yv3_Chassis_2/ThermalSubsystem/Fans/FAN_2\n```\n\nWhich is not allowed in redfish from my understanding.\n\nAn alternative would be to use `cooling/cooled_by` for the resource placement as before and yet another association to determine which chassis the fan is actually cooling.\n\nBut that\u0027s conceptually wrong since bmcweb conventionally uses `containing` association to determine resource placement and the  `cooling` association describes a concept that\u0027s not `1:1`.\n\nIt\u0027s more like an `1:n` where one fan can be cooling multiple things.\n\nSo if we were to continue with the existing code it would be conceptually inconsistent in bmcweb and require introducing yet another association.",
+      "parentUuid": "96e1036e_7d3de79b",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f3cdc8a_269c9706",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-03-12T11:09:58Z",
+      "side": 1,
+      "message": "Thanks @gunnar@gmills.xyz for looking into this",
       "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
