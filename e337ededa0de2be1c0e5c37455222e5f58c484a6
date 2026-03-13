@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd77407_9f0bfc48",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T20:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cbc385f_95ac914c",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a92bcd2f_97c5f213",
@@ -83,6 +101,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06c864d8_1ddff7b5",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T20:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26c9fc6c_cf084e6b",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 12
+      },
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec026b52_95218017",
@@ -114,6 +156,24 @@
       "side": 1,
       "message": "Will fix in next patchset to match the fourth arg specifically.",
       "parentUuid": "ec026b52_95218017",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20af7835_8fa4b7f7",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T20:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f32790fa_48ab54fc",
       "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -165,6 +225,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49b323c1_bd618007",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T20:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bc3ebd3_01ff0c9f",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 64
+      },
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "763c256c_c4e71835",
@@ -200,6 +284,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97102bc2_37e0a70e",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T20:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47ee2630_d2938646",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c4046cd_b33fb428",
@@ -231,6 +333,24 @@
       "side": 1,
       "message": "It does not have block ignores, but I can put a file-level ignore at the top of this file.",
       "parentUuid": "8c4046cd_b33fb428",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faf71d01_fc7b03f2",
+        "filename": "test/http/crow_getroutes_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T20:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87d7c905_13a212c9",
       "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

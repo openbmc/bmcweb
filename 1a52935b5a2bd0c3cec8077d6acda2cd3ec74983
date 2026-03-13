@@ -16,6 +16,24 @@
       "message": "does ... match only a single arg?",
       "revId": "1a52935b5a2bd0c3cec8077d6acda2cd3ec74983",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bf90522_1bc6437c",
+        "filename": ".opengrep/rules/common-errors.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T20:32:48Z",
+      "side": 1,
+      "message": "These are the old opengrep rules. It matches any number of arguments up to the next single argument metavar ($EC). In ast-grep the equivalent is $$$",
+      "parentUuid": "0c8139d1_da31f94d",
+      "revId": "1a52935b5a2bd0c3cec8077d6acda2cd3ec74983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
