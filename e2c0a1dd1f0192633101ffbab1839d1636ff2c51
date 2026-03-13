@@ -16,6 +16,46 @@
       "message": "It looks good to me",
       "revId": "e2c0a1dd1f0192633101ffbab1839d1636ff2c51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b8842a_9904706a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-13T16:57:41Z",
+      "side": 1,
+      "message": "Overall, I am good here. I am must worried about breaking other machines. Are there folks still using the old interface?",
+      "revId": "e2c0a1dd1f0192633101ffbab1839d1636ff2c51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae0bcbb1_b51e733c",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-13T16:57:41Z",
+      "side": 1,
+      "message": "We do this other places too, I don\u0027t feel all ec should be resourceNotFound",
+      "range": {
+        "startLine": 887,
+        "startChar": 8,
+        "endLine": 887,
+        "endChar": 11
+      },
+      "revId": "e2c0a1dd1f0192633101ffbab1839d1636ff2c51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
