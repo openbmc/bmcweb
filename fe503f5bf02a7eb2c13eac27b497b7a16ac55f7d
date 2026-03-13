@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "034088f5_05dfeada",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-13T15:39:15Z",
+      "side": 1,
+      "message": "Not how I exactly understand the old code, but I agree with the change.",
+      "revId": "fe503f5bf02a7eb2c13eac27b497b7a16ac55f7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81682f6c_7dc10722",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-13T15:39:15Z",
+      "side": 1,
+      "message": "This is really helpful testing. Nice job.",
+      "revId": "fe503f5bf02a7eb2c13eac27b497b7a16ac55f7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9af58b9c_b0bbba04",
+        "filename": "redfish-core/include/utils/journal_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-13T15:39:15Z",
+      "side": 1,
+      "message": "Could add a comment, I\u0027m good without but might help the next person. \n\n// Needed to free cursor",
+      "revId": "fe503f5bf02a7eb2c13eac27b497b7a16ac55f7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
