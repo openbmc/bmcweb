@@ -1,3 +1,5 @@
+// ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
+
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "app.hpp"

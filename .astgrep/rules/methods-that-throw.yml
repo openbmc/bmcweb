@@ -1,0 +1,134 @@
+# SPDX-License-Identifier: Apache-2.0
+# Common Error #5: Methods that throw
+# Machine-enforceable rules for patterns documented in docs/COMMON_ERRORS.md.
+
+# Unqualified calls match via plain pattern; qualified (std::) calls use
+# context/selector to work around tree-sitter's qualified-name parse ambiguity.
+id: bmcweb.common-errors.unsafe-int-parse
+language: cpp
+severity: error
+message: >
+    Avoid atoi/stoi/stol/stoll in bmcweb. These APIs can throw or accept invalid
+    input in unsafe ways. Use std::from_chars with explicit error handling per
+    docs/COMMON_ERRORS.md.
+rule:
+    any:
+        - pattern: atoi($$$)
+        - pattern: stoi($$$)
+        - pattern: stol($$$)
+        - pattern: stoll($$$)
+        - pattern:
+              context: "auto x = std::atoi($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = std::stoi($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = std::stol($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = std::stoll($$$);"
+              selector: call_expression
+---
+# Match throwing overloads by excluding calls with extra error_code argument.
+id: bmcweb.common-errors.throwing-filesystem-apis
+language: cpp
+severity: error
+message: >
+    Avoid throwing std::filesystem APIs in request handling paths. Prefer
+    overloads with std::error_code and explicit error handling per
+    docs/COMMON_ERRORS.md.
+rule:
+    any:
+        - all:
+              - pattern:
+                    context: "auto x = std::filesystem::create_directory($A);"
+                    selector: call_expression
+              - not:
+                    pattern:
+                        context:
+                            "auto x = std::filesystem::create_directory($A,
+                            $EC);"
+                        selector: call_expression
+        - all:
+              - pattern:
+                    context: "auto x = std::filesystem::file_size($A);"
+                    selector: call_expression
+              - not:
+                    pattern:
+                        context: "auto x = std::filesystem::file_size($A, $EC);"
+                        selector: call_expression
+        - all:
+              - pattern:
+                    context: "auto x = std::filesystem::rename($A, $B);"
+                    selector: call_expression
+              - not:
+                    pattern:
+                        context:
+                            "auto x = std::filesystem::rename($A, $B, $EC);"
+                        selector: call_expression
+---
+# Exclude calls with allow_exceptions=false (second-to-last arg is false).
+id: bmcweb.common-errors.throwing-json-parse
+language: cpp
+severity: error
+message: >
+    nlohmann::json::parse throws by default. Prefer the non-throwing form with
+    allow_exceptions=false and explicit handling per docs/COMMON_ERRORS.md.
+rule:
+    all:
+        - pattern:
+              context: "auto x = nlohmann::json::parse($$$);"
+              selector: call_expression
+        - not:
+              pattern:
+                  context: "auto x = nlohmann::json::parse($A, $B, false);"
+                  selector: call_expression
+        - not:
+              pattern:
+                  context: "auto x = nlohmann::json::parse($A, $B, false, $C);"
+                  selector: call_expression
+---
+# Exclude the safe 4-arg form where error_handler_t::replace is the 4th arg.
+# Matching by position so dump("error_handler_t::replace") is still flagged.
+id: bmcweb.common-errors.throwing-json-dump
+language: cpp
+severity: error
+message: >
+    nlohmann::json::dump throws by default. Prefer using
+    error_handler_t::replace and explicit handling per docs/COMMON_ERRORS.md.
+rule:
+    all:
+        - pattern: $J.dump($$$)
+        - not:
+              pattern: $J.dump($A, $B, $C, $D)
+constraints:
+    D:
+        regex: "error_handler_t::replace"
+---
+id: bmcweb.common-errors.throwing-json-get-ref
+language: cpp
+severity: error
+message: >
+    nlohmann::json::get_ref can throw on type mismatch. Prefer explicit type
+    checks and non-throwing access patterns per docs/COMMON_ERRORS.md.
+rule:
+    pattern: $OBJ.get_ref<$$$>()
+---
+id: bmcweb.common-errors.throwing-json-get-to
+language: cpp
+severity: error
+message: >
+    nlohmann::json::get_to can throw on bad input/type mismatch. Prefer
+    validated parsing and explicit error handling per docs/COMMON_ERRORS.md.
+rule:
+    pattern: $OBJ.get_to($$$)
+---
+id: bmcweb.common-errors.throwing-json-items
+language: cpp
+severity: error
+message: >
+    nlohmann::json::items can throw for non-object JSON. Validate shape before
+    iterating per docs/COMMON_ERRORS.md.
+rule:
+    pattern: $OBJ.items()

@@ -1,0 +1,56 @@
+# SPDX-License-Identifier: Apache-2.0
+# Common Error #6: Blocking functions
+# Machine-enforceable rules for patterns documented in docs/COMMON_ERRORS.md.
+
+id: bmcweb.common-errors.blocking-call-sleep
+language: cpp
+severity: error
+message: >
+    Avoid blocking sleep calls in bmcweb reactor paths. Use async timers or
+    callback-driven flow per docs/COMMON_ERRORS.md.
+rule:
+    any:
+        - pattern: sleep($$$)
+        - pattern: usleep($$$)
+        - pattern: nanosleep($$$)
+---
+id: bmcweb.common-errors.blocking-call-sync-socket-api
+language: cpp
+severity: error
+message: >
+    Avoid blocking socket APIs in bmcweb request paths. Use async APIs per
+    docs/COMMON_ERRORS.md.
+rule:
+    any:
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::read($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::read_some($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::write($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::write_some($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::connect($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::send($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::wait($$$);"
+              selector: call_expression
+---
+id: bmcweb.common-errors.blocking-call-sync-timer-wait
+language: cpp
+severity: error
+message: >
+    Avoid blocking timer wait calls in bmcweb request paths. Use async_wait per
+    docs/COMMON_ERRORS.md.
+rule:
+    pattern:
+        context: "auto x = boost::asio::steady_timer::wait($$$);"
+        selector: call_expression
