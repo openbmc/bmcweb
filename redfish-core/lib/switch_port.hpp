@@ -13,6 +13,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/collection.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -347,7 +348,8 @@ inline void getAssociatedPortPath(
                        const std::string& serviceName)>&& callback,
     const std::string& switchPath)
 {
-    std::string associationPath = switchPath + "/connecting";
+    sdbusplus::message::object_path associationPath =
+        sdbusplus::message::object_path(switchPath) / "connecting";
     dbus::utility::getAssociatedSubTree(
         associationPath,
         sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"}, 0,
@@ -370,25 +372,15 @@ inline void handleFabricSwitchPathPortCollection(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.type"] = "#PortCollection.PortCollection";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+    const boost::urls::url collectionUrl = boost::urls::format(
         "/redfish/v1/Fabrics/{}/Switches/{}/Ports", fabricId, switchId);
+
+    asyncResp->res.jsonValue["@odata.type"] = "#PortCollection.PortCollection";
+    asyncResp->res.jsonValue["@odata.id"] = collectionUrl;
     asyncResp->res.jsonValue["Name"] = switchId + " Port Collection";
 
-    asyncResp->res.jsonValue["Members@odata.count"] = object.size();
-
-    nlohmann::json::array_t members;
-    for (const std::string& path : object)
-    {
-        std::string name = sdbusplus::message::object_path(path).filename();
-        nlohmann::json::object_t member;
-        member["@odata.id"] =
-            boost::urls::format("/redfish/v1/Fabrics/{}/Switches/{}/Ports/{}",
-                                fabricId, switchId, name);
-        members.emplace_back(std::move(member));
-    }
-
-    asyncResp->res.jsonValue["Members"] = std::move(members);
+    collection_util::handleCollectionMembers(
+        asyncResp, collectionUrl, "/Members"_json_pointer, ec, object);
 }
 
 inline void getFabricSwitchPortPaths(
@@ -396,7 +388,8 @@ inline void getFabricSwitchPortPaths(
     const std::string& fabricId, const std::string& switchId,
     const std::string& switchPath)
 {
-    std::string associationPath = switchPath + "/connecting";
+    sdbusplus::message::object_path associationPath =
+        sdbusplus::message::object_path(switchPath) / "connecting";
     dbus::utility::getAssociatedSubTreePaths(
         associationPath,
         sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"}, 0,
@@ -418,25 +411,16 @@ inline void handleFabricSwitchPortPathsSwitchCollection(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.id"] =
+    const boost::urls::url collectionUrl =
         boost::urls::format("/redfish/v1/Fabrics/{}/Switches", fabricId);
+
+    asyncResp->res.jsonValue["@odata.id"] = collectionUrl;
     asyncResp->res.jsonValue["@odata.type"] =
         "#SwitchCollection.SwitchCollection";
     asyncResp->res.jsonValue["Name"] = fabricId + " Switch Collection";
 
-    asyncResp->res.jsonValue["Members@odata.count"] = object.size();
-
-    nlohmann::json::array_t members;
-    for (const std::string& path : object)
-    {
-        nlohmann::json::object_t member;
-        std::string name = sdbusplus::message::object_path(path).filename();
-        member["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Fabrics/{}/Switches/{}", fabricId, name);
-        members.emplace_back(std::move(member));
-    }
-
-    asyncResp->res.jsonValue["Members"] = std::move(members);
+    collection_util::handleCollectionMembers(
+        asyncResp, collectionUrl, "/Members"_json_pointer, ec, object);
 }
 
 inline void handleFabricSwitchPortMetricsGet(
