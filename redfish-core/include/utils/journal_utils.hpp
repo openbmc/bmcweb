@@ -15,6 +15,7 @@
 #include <charconv>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <format>
 #include <memory>
 #include <string>
@@ -87,7 +88,9 @@ inline bool fillBMCJournalLogEntryJson(
     {
         return false;
     }
-    std::unique_ptr<char*> cursorptr = std::make_unique<char*>(cursor);
+    // sd_journal_get_cursor() uses malloc() to allocate cursor memory, so set
+    // the deleter to std::free to deallocate it on delete
+    std::unique_ptr<char, decltype(&std::free)> cursorPtr(cursor, &std::free);
     std::string bmcJournalLogEntryID(cursor);
 
     // Get the Log Entry contents
