@@ -30,6 +30,7 @@ srcfiles_unittest = files(
     'redfish-core/include/event_matches_filter_test.cpp',
     'redfish-core/include/filter_expr_executor_test.cpp',
     'redfish-core/include/filter_expr_parser_test.cpp',
+    'redfish-core/include/journal_read_state.cpp',
     'redfish-core/include/privileges_test.cpp',
     'redfish-core/include/redfish_aggregator_test.cpp',
     'redfish-core/include/redfish_oem_routing_test.cpp',
@@ -78,6 +79,7 @@ if (get_option('tests').allowed())
     )
     # generate the test executable
     foreach test_src : srcfiles_unittest
+        data_dir = fs.parent(meson.current_source_dir()) / fs.parent(test_src)
         test_bin = executable(
             fs.stem(test_src),
             test_src,
@@ -85,6 +87,7 @@ if (get_option('tests').allowed())
             include_directories: [incdir, include_directories('..')],
             install_dir: bindir,
             dependencies: bmcweb_dependencies + [gtestdep],
+            cpp_args: ['-DTEST_DATA_DIR="' + data_dir + '"'],
         )
         test(fs.stem(test_src), test_bin, protocol: 'gtest')
     endforeach
