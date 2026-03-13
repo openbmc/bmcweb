@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84d163d7_87bb28aa",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2271,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T19:40:20Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "86935b2b_5873f029",
+      "range": {
+        "startLine": 2271,
+        "startChar": 0,
+        "endLine": 2271,
+        "endChar": 67
+      },
+      "revId": "1ca24ef4f1a6d767ffb0ad9b9865db9d97eff428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60239f18_178474b0",
         "filename": "redfish-core/src/subscription.cpp",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2026-03-13T15:38:31Z",
       "side": 1,
       "message": "Lets load this into its own variable please.  as written this is tough to read.",
+      "range": {
+        "startLine": 223,
+        "startChar": 16,
+        "endLine": 225,
+        "endChar": 67
+      },
+      "revId": "1ca24ef4f1a6d767ffb0ad9b9865db9d97eff428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbe0de82_7dd4d6e2",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T19:40:20Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "60239f18_178474b0",
       "range": {
         "startLine": 223,
         "startChar": 16,
