@@ -13,6 +13,7 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/collection.hpp"
 
 #include <boost/beast/http/verb.hpp>
 
@@ -184,7 +185,8 @@ inline void handleNetworkAdapterPortPathPortMetricsGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port Metrics", networkAdapterId, portId);
 
-    const std::string associationPath = portPath / "measured_by";
+    const sdbusplus::message::object_path associationPath =
+        portPath / "measured_by";
     dbus::utility::getAssociatedSubTree(
         associationPath, sdbusplus::object_path("/xyz/openbmc_project/metric"),
         0, std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
@@ -266,7 +268,8 @@ inline void getNetworkAdapterPortPath(
                        const std::string& serviceName)>&& callback,
     const std::string& path, [[maybe_unused]] const std::string& serviceName)
 {
-    std::string associationPath = path + "/connecting";
+    sdbusplus::message::object_path associationPath =
+        sdbusplus::message::object_path(path) / "connecting";
     dbus::utility::getAssociatedSubTree(
         associationPath,
         sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
@@ -289,26 +292,16 @@ inline void handleNetworkAdapterPortPathPortCollection(
         return;
     }
 
+    const boost::urls::url collectionUrl =
+        boost::urls::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
+                            chassisId, networkAdapterId);
+
     asyncResp->res.jsonValue["@odata.type"] = "#PortCollection.PortCollection";
-    asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
-                    chassisId, networkAdapterId);
+    asyncResp->res.jsonValue["@odata.id"] = collectionUrl;
     asyncResp->res.jsonValue["Name"] = networkAdapterId + " Port Collection";
 
-    asyncResp->res.jsonValue["Members@odata.count"] = object.size();
-
-    nlohmann::json::array_t members;
-    for (const std::string& path : object)
-    {
-        std::string name = sdbusplus::object_path(path).filename();
-        nlohmann::json::object_t member;
-        member["@odata.id"] =
-            std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports/{}",
-                        chassisId, networkAdapterId, name);
-        members.emplace_back(std::move(member));
-    }
-
-    asyncResp->res.jsonValue["Members"] = std::move(members);
+    collection_util::handleCollectionMembers(
+        asyncResp, collectionUrl, "/Members"_json_pointer, ec, object);
 }
 
 inline void getNetworkAdapterPortPaths(
@@ -316,7 +309,8 @@ inline void getNetworkAdapterPortPaths(
     const std::string& chassisId, const std::string& networkAdapterId,
     const std::string& networkAdapterPath)
 {
-    std::string associationPath = networkAdapterPath + "/connecting";
+    sdbusplus::message::object_path associationPath =
+        sdbusplus::message::object_path(networkAdapterPath) / "connecting";
     dbus::utility::getAssociatedSubTreePaths(
         associationPath,
         sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
@@ -339,7 +333,7 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Id"] = networkAdapterId;
     asyncResp->res.jsonValue["Name"] = networkAdapterId + " Network Adapter";
 
-    auto& status = asyncResp->res.jsonValue["Status"];
+    nlohmann::json& status = asyncResp->res.jsonValue["Status"];
     status["Health"] = resource::Health::OK;
     status["HealthRollup"] = resource::Health::OK;
     status["State"] = resource::State::Enabled;
@@ -402,25 +396,17 @@ inline void handleNetworkAdapterPathsNetworkAdapterCollection(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Chassis/{}/NetworkAdapters", chassisId);
+    const boost::urls::url collectionUrl = boost::urls::format(
+        "/redfish/v1/Chassis/{}/NetworkAdapters", chassisId);
+
+    asyncResp->res.jsonValue["@odata.id"] = collectionUrl;
     asyncResp->res.jsonValue["@odata.type"] =
         "#NetworkAdapterCollection.NetworkAdapterCollection";
     asyncResp->res.jsonValue["Name"] =
         chassisId + " Network Adapter Collection";
 
-    asyncResp->res.jsonValue["Members@odata.count"] = object.size();
-
-    nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-    members = nlohmann::json::array();
-    for (const std::string& path : object)
-    {
-        std::string name = sdbusplus::object_path(path).filename();
-        nlohmann::json member;
-        member["@odata.id"] = std::format(
-            "/redfish/v1/Chassis/{}/NetworkAdapters/{}", chassisId, name);
-        members.push_back(std::move(member));
-    }
+    collection_util::handleCollectionMembers(
+        asyncResp, collectionUrl, "/Members"_json_pointer, ec, object);
 }
 
 inline void handleNetworkAdapterGet(
