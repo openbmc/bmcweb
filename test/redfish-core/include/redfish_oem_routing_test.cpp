@@ -147,6 +147,7 @@ TEST(OemRouter, PatchHandlerWithJsonObject)
         std::shared_ptr<crow::Request> req = std::make_shared<crow::Request>(
             crow::Request::Body{
                 boost::beast::http::verb::patch, reqUrl, 11,
+                // ast-grep-ignore: bmcweb.common-errors.throwing-json-dump
                 reqBody.dump() // Pass body string directly in the constructor
             },
             ec);
