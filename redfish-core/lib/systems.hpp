@@ -2268,6 +2268,7 @@ inline std::string validatePowerMode(
     }
     else
     {
+        // ast-grep-ignore: bmcweb.common-errors.throwing-json-dump
         messages::propertyValueNotInList(asyncResp->res, modeValue.dump(),
                                          "PowerMode");
     }
