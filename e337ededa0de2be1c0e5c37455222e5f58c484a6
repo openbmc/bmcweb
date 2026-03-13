@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97c5e7e_aeba613d",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-13T15:51:04Z",
+      "side": 1,
+      "message": "Just for my understanding, if I wanted to match on \n\natoi(...)\nstd::atoi(...)\n\nbut not\n\ndefinitely_not_atoi(...)\n\nHow would I write this rule?  In grep I\u0027d start with something like a carrot, not sure how to do an exact word match here?",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a92bcd2f_97c5f213",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-13T15:51:04Z",
+      "side": 1,
+      "message": "Nit, can we make these the common error numbers?  I realize they\u0027re not 1:1",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 12
+      },
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec026b52_95218017",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-13T15:51:04Z",
+      "side": 1,
+      "message": "Is there a way to declare this all as one pattern?  It seems unlikely, but \n\njson.dump(\"error_handler_t::replace\");\n\nWould succeed, even though the argument is in the wrong position and is a quoted string.",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06344375_d4e1d9c7",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-13T15:51:04Z",
+      "side": 1,
+      "message": "This description looks wrong?  This looks like it went into the rule about using utility functions.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 64
+      },
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763c256c_c4e71835",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-13T15:51:04Z",
+      "side": 1,
+      "message": "This rule confuses me, the pattern we want to search for is\n\nBMCWEB_ROUTE(App, \u003cnot a string\u003e);\n\nSo \n\nBMCWEB_ROUTE(app, \"foo\") -\u003e Good\n\nBMCWEB_ROUTE(app, foo) -\u003e bad\n\nBMCWEB_ROUTE(app, \"foo\" + bar) -\u003e bad",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c4046cd_b33fb428",
+        "filename": "test/http/crow_getroutes_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-13T15:51:04Z",
+      "side": 1,
+      "message": "Does this have a ast-grep-ignore-begin and end variant to ignore a block?",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25e94f0_b8166681",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-13T15:51:04Z",
+      "side": 1,
+      "message": "We should just clean this up at some point even though it\u0027s in a test.  FIne as is.",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
