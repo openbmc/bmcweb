@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: Apache-2.0
+# Common Error #10: URLs constructed in aggregate
+# Machine-enforceable rules for patterns documented in docs/COMMON_ERRORS.md.
+
+id: bmcweb.common-errors.route-constructed-in-aggregate
+language: cpp
+severity: error
+message: >
+    Avoid constructing BMCWEB_ROUTE URLs with string concatenation. Keep route
+    strings directly in the macro to preserve grepability per
+    docs/COMMON_ERRORS.md.
+rule:
+    pattern: BMCWEB_ROUTE($APP, $ROUTE)
+constraints:
+    ROUTE:
+        not:
+            kind: string_literal

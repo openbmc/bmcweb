@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: Apache-2.0
+# Common Error #8: Wildcard reference captures in lambdas
+# Machine-enforceable rules for patterns documented in docs/COMMON_ERRORS.md.
+
+id: bmcweb.common-errors.wildcard-lambda-capture
+language: cpp
+severity: error
+message: >
+    Avoid wildcard lambda captures ([&] or [=]) in bmcweb async code. Capture
+    variables explicitly by name per docs/COMMON_ERRORS.md.
+rule:
+    # ^ anchor prevents matching [&] inside a nested lambda when the outer
+    # lambda_expression node text contains both.  The regex matches [&]( or [=](
+    # at the very start of the lambda text.
+    regex: '^\[\s*[&=]\s*\]\s*\('
+    kind: lambda_expression
