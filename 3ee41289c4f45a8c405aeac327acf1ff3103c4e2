@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22bc072b_466c6f98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-03-13T04:53:03Z",
+      "side": 1,
+      "message": "Hi @ed@tanous.net Added validation is phosphor-networkd as below, bur for curl request \nPATCH -d \u0027{\"NTP\":{\"NTPServers\":[\"-8.-8.-8.-8\"], \"ProtocolEnabled\":true}}\n\nMultiple setDbusProperty calls are made (one per ethernet interface) from bmcweb\nEach call is asynchronous and completes at different times\n1) First call (invalid NTP): Sets error to 400 \n2) Second call (ProtocolEnabled): Succeeds and sets status to 204\nOVERWRITES the 400! hence does not raise the propertyValueFormat error. \nTo prevent errors from being overwritten by subsequent successful operations we need to address the issue in bmcweb.\n \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/88215",
+      "parentUuid": "c24a5356_a2d1848b",
+      "revId": "3ee41289c4f45a8c405aeac327acf1ff3103c4e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82ef0390_f5b78c0e",
         "filename": "redfish-core/include/utils/network_utils.hpp",
         "patchSetId": 7
