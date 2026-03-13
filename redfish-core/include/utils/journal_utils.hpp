@@ -15,6 +15,7 @@
 #include <charconv>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <format>
 #include <memory>
 #include <string>
@@ -87,7 +88,7 @@ inline bool fillBMCJournalLogEntryJson(
     {
         return false;
     }
-    std::unique_ptr<char*> cursorptr = std::make_unique<char*>(cursor);
+    std::unique_ptr<char, decltype(&std::free)> cursorPtr(cursor, &std::free);
     std::string bmcJournalLogEntryID(cursor);
 
     // Get the Log Entry contents
