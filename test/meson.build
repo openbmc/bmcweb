@@ -30,6 +30,7 @@ srcfiles_unittest = files(
     'redfish-core/include/event_matches_filter_test.cpp',
     'redfish-core/include/filter_expr_executor_test.cpp',
     'redfish-core/include/filter_expr_parser_test.cpp',
+    'redfish-core/include/journal_read_state.cpp',
     'redfish-core/include/privileges_test.cpp',
     'redfish-core/include/redfish_aggregator_test.cpp',
     'redfish-core/include/redfish_oem_routing_test.cpp',
