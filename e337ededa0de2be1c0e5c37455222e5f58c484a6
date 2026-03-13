@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2cbc385f_95ac914c",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T18:54:04Z",
+      "side": 1,
+      "message": "This won\u0027t match on `definitely_not_atoi`. It\u0027s using AST identifiers rather than text matching. Here\u0027s an example to confirm:\n\n```\n  $ cat test.cpp  \n  int a \u003d atoi(\"42\");\n  int b \u003d std::atoi(\"42\");\n  int c \u003d definitely_not_atoi(\"42\");\n\n  $ ast-grep scan --rule common-errors.yml test.cpp\n  error[unsafe-int-parse]:\n    4 │     int a \u003d atoi(\"42\");\n      │             ^^^^^^^^^^\n  error[unsafe-int-parse]:\n    5 │     int b \u003d std::atoi(\"42\");\n      │             ^^^^^^^^^^^^^^^\n```",
+      "parentUuid": "d97c5e7e_aeba613d",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a92bcd2f_97c5f213",
         "filename": ".astgrep/rules/common-errors.yml",
         "patchSetId": 3
@@ -31,6 +49,30 @@
       "writtenOn": "2026-03-13T15:51:04Z",
       "side": 1,
       "message": "Nit, can we make these the common error numbers?  I realize they\u0027re not 1:1",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 12
+      },
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c9fc6c_cf084e6b",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T18:54:04Z",
+      "side": 1,
+      "message": "Will align in next patchset.",
+      "parentUuid": "a92bcd2f_97c5f213",
       "range": {
         "startLine": 73,
         "startChar": 6,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f32790fa_48ab54fc",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T18:54:04Z",
+      "side": 1,
+      "message": "Will fix in next patchset to match the fourth arg specifically.",
+      "parentUuid": "ec026b52_95218017",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06344375_d4e1d9c7",
         "filename": ".astgrep/rules/common-errors.yml",
         "patchSetId": 3
@@ -71,6 +131,30 @@
       "writtenOn": "2026-03-13T15:51:04Z",
       "side": 1,
       "message": "This description looks wrong?  This looks like it went into the rule about using utility functions.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 64
+      },
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc3ebd3_01ff0c9f",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T18:54:04Z",
+      "side": 1,
+      "message": "Good catch. The stuff with the async methods is actually redundant after the other wildcard lambda capture rule. Will remove.",
+      "parentUuid": "06344375_d4e1d9c7",
       "range": {
         "startLine": 158,
         "startChar": 0,
@@ -100,6 +184,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47ee2630_d2938646",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T18:54:04Z",
+      "side": 1,
+      "message": "Will fix in next patchset to match any case where the route is not a string literal",
+      "parentUuid": "763c256c_c4e71835",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c4046cd_b33fb428",
         "filename": "test/http/crow_getroutes_test.cpp",
         "patchSetId": 3
@@ -111,6 +213,24 @@
       "writtenOn": "2026-03-13T15:51:04Z",
       "side": 1,
       "message": "Does this have a ast-grep-ignore-begin and end variant to ignore a block?",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87d7c905_13a212c9",
+        "filename": "test/http/crow_getroutes_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-13T18:54:04Z",
+      "side": 1,
+      "message": "It does not have block ignores, but I can put a file-level ignore at the top of this file.",
+      "parentUuid": "8c4046cd_b33fb428",
       "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
