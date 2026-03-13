@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8cffbb8_8f51a230",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-13T08:24:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44c48894_fad9fb09",
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0672b0a_edd29e6e",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-03-12T16:03:46Z",
       "side": 1,
       "message": "YOu\u0027ve now implemented this TODO.  Please remove the comment",
+      "range": {
+        "startLine": 1156,
+        "startChar": 0,
+        "endLine": 1156,
+        "endChar": 71
+      },
+      "revId": "a94ed40ede5bf886fea1c3168f8215e591d886b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0bde6f3_9fdb5559",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 1002887
+      },
+      "writtenOn": "2026-03-13T08:24:11Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b0672b0a_edd29e6e",
       "range": {
         "startLine": 1156,
         "startChar": 0,
