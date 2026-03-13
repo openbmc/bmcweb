@@ -16,6 +16,24 @@
       "message": "This is clearly more subtle than I thought, and I\u0027m not sure I truly understand why this is a fix.  The default deleter for char* IS free, right?  Should we just make an RAII object for a cursor and avoid unique_ptr entirely to make this more clear?\n\n\nFWIW, an RAII object for journal pointers might also make sense.",
       "revId": "bd69864d294359175b4ceb0836511bd4ba7ab302",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88bc5e63_a5e6991d",
+        "filename": "redfish-core/include/utils/journal_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-13T22:34:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c60c154_73b9fc5c",
+      "revId": "bd69864d294359175b4ceb0836511bd4ba7ab302",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
