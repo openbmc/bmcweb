@@ -116,10 +116,10 @@ inline void handleLogout(const crow::Request& req,
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/login")
+    BMCWEB_ROUTE(app, "/login/")
         .methods(boost::beast::http::verb::post)(handleLogin);
 
-    BMCWEB_ROUTE(app, "/logout")
+    BMCWEB_ROUTE(app, "/logout/")
         .methods(boost::beast::http::verb::post)(handleLogout);
 }
 } // namespace login_routes

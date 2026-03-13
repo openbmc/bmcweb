@@ -183,7 +183,7 @@ inline void requestRoutes(App& app)
 {
     sessions.reserve(maxSessions);
 
-    BMCWEB_ROUTE(app, "/kvm/0")
+    BMCWEB_ROUTE(app, "/kvm/0/")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {

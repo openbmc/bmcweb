@@ -935,14 +935,14 @@ inline void requestNBDVirtualMediaRoutes(App& app)
 {
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia")
+        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia/")
         .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagersVirtualMediaActionInsertPost, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia")
+        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia/")
         .privileges(redfish::privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagersVirtualMediaActionEject, std::ref(app)));
