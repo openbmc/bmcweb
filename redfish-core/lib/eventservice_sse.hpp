@@ -86,7 +86,7 @@ inline void requestRoutesEventServiceSse(App& app)
 {
     // Note, this endpoint is given the same privilege level as creating a
     // subscription, because functionally, that's the operation being done
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/SSE")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/SSE/")
         .privileges(redfish::privileges::postEventDestinationCollection)
         .serverSentEvent()
         .onopen(createSubscription)

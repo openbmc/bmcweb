@@ -2554,6 +2554,7 @@ inline void requestRoutes(App& app)
                 handleList(asyncResp, "/");
             });
 
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/xyz/<path>")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
@@ -2564,6 +2565,7 @@ inline void requestRoutes(App& app)
                 handleDBusUrl(req, asyncResp, objectPath);
             });
 
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/xyz/<path>")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
@@ -2575,6 +2577,7 @@ inline void requestRoutes(App& app)
                 handleDBusUrl(req, asyncResp, objectPath);
             });
 
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/org/<path>")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
@@ -2585,6 +2588,7 @@ inline void requestRoutes(App& app)
                 handleDBusUrl(req, asyncResp, objectPath);
             });
 
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/org/<path>")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
@@ -2674,6 +2678,7 @@ inline void requestRoutes(App& app)
                 introspectObjects(connection, "/", asyncResp);
             });
 
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/bus/system/<str>/<path>")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get,

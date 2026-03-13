@@ -248,7 +248,7 @@ inline void requestRoutesRedfish(App& app)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(redfishGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/<str>")
+    BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/<str>/")
         .privileges(redfish::privileges::getJsonSchemaFile)
         .methods(boost::beast::http::verb::get)(jsonSchemaGetFile);
 
@@ -263,11 +263,13 @@ inline void requestRoutesRedfish(App& app)
             std::bind_front(jsonSchemaIndexGet, std::ref(app)));
 
     // Note, this route must always be registered last
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/redfish/<path>")
         .notFound()
         .privileges(redfish::privileges::privilegeSetLogin)(
             std::bind_front(redfish404, std::ref(app)));
 
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/redfish/<path>")
         .methodNotAllowed()
         .privileges(redfish::privileges::privilegeSetLogin)(
