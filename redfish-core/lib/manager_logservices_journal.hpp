@@ -18,8 +18,6 @@
 #include "utils/query_param.hpp"
 #include "utils/time_utils.hpp"
 
-#include <systemd/sd-journal.h>
-
 #include <boost/asio/post.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
@@ -73,10 +71,6 @@ inline void handleManagersLogServiceJournalGet(
     etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 }
 
-struct JournalReadState
-{
-    std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal;
-};
 
 inline void readJournalEntries(
     uint64_t topEntryCount, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -117,7 +111,7 @@ inline void readJournalEntries(
         }
 
         nlohmann::json::object_t bmcJournalLogEntry;
-        if (!fillBMCJournalLogEntryJson(readState.journal.get(),
+        if (!fillBMCJournalLogEntryJson(readState,
                                         bmcJournalLogEntry))
         {
             messages::internalError(asyncResp->res);
@@ -125,7 +119,7 @@ inline void readJournalEntries(
         }
         logEntryArray->emplace_back(std::move(bmcJournalLogEntry));
 
-        int ret = sd_journal_next(readState.journal.get());
+        int ret = readState.next();
         if (ret < 0)
         {
             messages::internalError(asyncResp->res);
@@ -178,28 +172,17 @@ inline void handleManagersJournalLogEntryCollectionGet(
 
     // Go through the journal and use the timestamp to create a
     // unique ID for each entry
-    sd_journal* journalTmp = nullptr;
-    int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
-    if (ret < 0)
-    {
-        BMCWEB_LOG_ERROR("failed to open journal: {}", ret);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
-        journalTmp, sd_journal_close);
-    journalTmp = nullptr;
+    JournalReadState journal;
 
     // Seek to the end
-    if (sd_journal_seek_tail(journal.get()) < 0)
+    if (journal.seek_tail() < 0)
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
     // Get the last entry
-    if (sd_journal_previous(journal.get()) < 0)
+    if (journal.previous() < 0)
     {
         messages::internalError(asyncResp->res);
         return;
@@ -207,25 +190,22 @@ inline void handleManagersJournalLogEntryCollectionGet(
 
     // Get the last sequence number
     uint64_t endSeqNum = 0;
-#if LIBSYSTEMD_VERSION >= 254
-    {
-        if (sd_journal_get_seqnum(journal.get(), &endSeqNum, nullptr) < 0)
+        if (journal.get_seqnum(endSeqNum) < 0)
         {
             messages::internalError(asyncResp->res);
             return;
         }
-    }
-#endif
+
 
     // Seek to the beginning
-    if (sd_journal_seek_head(journal.get()) < 0)
+    if (journal.seek_head() < 0)
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
     // Get the first entry
-    if (sd_journal_next(journal.get()) < 0)
+    if (journal.next() < 0)
     {
         messages::internalError(asyncResp->res);
         return;
@@ -233,15 +213,11 @@ inline void handleManagersJournalLogEntryCollectionGet(
 
     // Get the first sequence number
     uint64_t startSeqNum = 0;
-#if LIBSYSTEMD_VERSION >= 254
+    if (journal.get_seqnum(startSeqNum) < 0)
     {
-        if (sd_journal_get_seqnum(journal.get(), &startSeqNum, nullptr) < 0)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
+        messages::internalError(asyncResp->res);
+        return;
     }
-#endif
 
     BMCWEB_LOG_DEBUG("journal Sequence IDs start:{} end:{}", startSeqNum,
                      endSeqNum);
@@ -259,7 +235,7 @@ inline void handleManagersJournalLogEntryCollectionGet(
     uint64_t index = 0;
     if (skip > 0)
     {
-        if (sd_journal_next_skip(journal.get(), skip) < 0)
+        if (journal.next_skip(skip) < 0)
         {
             messages::internalError(asyncResp->res);
             return;
@@ -285,17 +261,7 @@ inline void handleManagersJournalEntriesLogEntryGet(
         return;
     }
 
-    sd_journal* journalTmp = nullptr;
-    int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
-    if (ret < 0)
-    {
-        BMCWEB_LOG_ERROR("failed to open journal: {}", ret);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
-        journalTmp, sd_journal_close);
-    journalTmp = nullptr;
+    JournalReadState journal;
 
     std::string cursor;
     if (!crow::utility::base64Decode(entryID, cursor))
@@ -305,20 +271,20 @@ inline void handleManagersJournalEntriesLogEntryGet(
     }
 
     // Go to the cursor in the log
-    ret = sd_journal_seek_cursor(journal.get(), cursor.c_str());
+    int ret = journal.seek_cursor(cursor.c_str());
     if (ret < 0)
     {
         messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
         return;
     }
 
-    if (sd_journal_next(journal.get()) < 0)
+    if (journal.next() < 0)
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
-    ret = sd_journal_test_cursor(journal.get(), cursor.c_str());
+    ret = journal.test_cursor(cursor.c_str());
     if (ret == 0)
     {
         messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
@@ -331,7 +297,7 @@ inline void handleManagersJournalEntriesLogEntryGet(
     }
 
     nlohmann::json::object_t bmcJournalLogEntry;
-    if (!fillBMCJournalLogEntryJson(journal.get(), bmcJournalLogEntry))
+    if (!fillBMCJournalLogEntryJson(journal, bmcJournalLogEntry))
     {
         messages::internalError(asyncResp->res);
         return;
