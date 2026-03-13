@@ -133,7 +133,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/subscribe")
+    BMCWEB_ROUTE(app, "/subscribe/")
         .privileges({{"Login"}})
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {

@@ -220,17 +220,17 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/google/v1/")
         .methods(boost::beast::http::verb::get)(handleGoogleV1Get);
 
-    BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection")
+    BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection/")
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(handleRootOfTrustCollectionGet);
 
-    BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection/<str>")
+    BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection/<str>/")
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(handleRootOfTrustGet);
 
     BMCWEB_ROUTE(
         app,
-        "/google/v1/RootOfTrustCollection/<str>/Actions/RootOfTrust.SendCommand")
+        "/google/v1/RootOfTrustCollection/<str>/Actions/RootOfTrust.SendCommand/")
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(handleRoTSendCommandPost);
 }

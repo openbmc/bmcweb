@@ -336,14 +336,14 @@ inline void onMessage(crow::websocket::Connection& conn,
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/console0")
+    BMCWEB_ROUTE(app, "/console0/")
         .privileges({{"OpenBMCHostConsole"}})
         .websocket()
         .onopen(onOpen)
         .onclose(onClose)
         .onmessage(onMessage);
 
-    BMCWEB_ROUTE(app, "/console/<str>")
+    BMCWEB_ROUTE(app, "/console/<str>/")
         .privileges({{"OpenBMCHostConsole"}})
         .websocket()
         .onopen(onOpen)
