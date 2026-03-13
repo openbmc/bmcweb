@@ -5,10 +5,10 @@
 #include "generated/enums/log_entry.hpp"
 #include "logging.hpp"
 #include "utility.hpp"
+#include "utils/journal_read_state.hpp"
 #include "utils/time_utils.hpp"
 
-#include <systemd/sd-journal.h>
-
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -25,109 +25,74 @@
 namespace redfish
 {
 
-inline int getJournalMetadata(sd_journal* journal, const char* field,
-                              std::string_view& contents)
+inline std::optional<long int> getJournalMetadataInt(JournalReadState& journal,
+                                                     const char* field)
 {
-    const char* data = nullptr;
-    size_t length = 0;
-    int ret = 0;
     // Get the metadata from the requested field of the journal entry
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    const void** dataVoid = reinterpret_cast<const void**>(&data);
-
-    ret = sd_journal_get_data(journal, field, dataVoid, &length);
-    if (ret < 0)
+    std::string metadata = journal.getData(field);
+    if (metadata.empty())
     {
-        return ret;
+        return std::nullopt;
     }
-    contents = std::string_view(data, length);
-    // Only use the content after the "=" character.
-    contents.remove_prefix(std::min(contents.find('=') + 1, contents.size()));
-    return ret;
-}
-
-inline int getJournalMetadataInt(sd_journal* journal, const char* field,
-                                 long int& contents)
-{
-    std::string_view metadata;
-    // Get the metadata from the requested field of the journal entry
-    int ret = getJournalMetadata(journal, field, metadata);
-    if (ret < 0)
-    {
-        return ret;
-    }
+    long int contents = 0;
     std::from_chars_result res =
         std::from_chars(&*metadata.begin(), &*metadata.end(), contents);
     if (res.ec != std::error_code{} || res.ptr != &*metadata.end())
     {
-        return -1;
+        return std::nullopt;
     }
-    return 0;
+    return contents;
 }
 
-inline bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
+inline std::optional<std::string> getEntryTimestamp(JournalReadState& journal)
 {
-    int ret = 0;
-    uint64_t timestamp = 0;
-    ret = sd_journal_get_realtime_usec(journal, &timestamp);
-    if (ret < 0)
+    std::optional<uint64_t> timestamp = journal.getRealtimeUsec();
+    if (!timestamp)
     {
-        BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}", ret);
-        return false;
+        return std::nullopt;
     }
-    entryTimestamp = redfish::time_utils::getDateTimeUintUs(timestamp);
-    return true;
+    return redfish::time_utils::getDateTimeUintUs(*timestamp);
 }
 
 inline bool fillBMCJournalLogEntryJson(
-    sd_journal* journal, nlohmann::json::object_t& bmcJournalLogEntryJson)
+    JournalReadState& journal, nlohmann::json::object_t& bmcJournalLogEntryJson)
 {
-    char* cursor = nullptr;
-    int ret = sd_journal_get_cursor(journal, &cursor);
-    if (ret < 0)
+    std::string bmcJournalLogEntryID = journal.getCursor();
+    if (bmcJournalLogEntryID.empty())
     {
         return false;
     }
-    // sd_journal_get_cursor() uses malloc() to allocate cursor memory, so set
-    // the deleter to std::free to deallocate it on delete
-    std::unique_ptr<char, decltype(&std::free)> cursorPtr(cursor, &std::free);
-    std::string bmcJournalLogEntryID(cursor);
 
     // Get the Log Entry contents
     std::string message;
-    std::string_view syslogID;
-    ret = getJournalMetadata(journal, "SYSLOG_IDENTIFIER", syslogID);
-    if (ret < 0)
-    {
-        BMCWEB_LOG_DEBUG("Failed to read SYSLOG_IDENTIFIER field: {}", ret);
-    }
+    std::string syslogID = journal.getData("SYSLOG_IDENTIFIER");
     if (!syslogID.empty())
     {
         message += std::string(syslogID) + ": ";
     }
 
-    std::string_view msg;
-    ret = getJournalMetadata(journal, "MESSAGE", msg);
-    if (ret < 0)
+    std::string msg = journal.getData("MESSAGE");
+    if (msg.empty())
     {
-        BMCWEB_LOG_ERROR("Failed to read MESSAGE field: {}", ret);
+        BMCWEB_LOG_ERROR("Failed to read MESSAGE field");
         return false;
     }
     message += std::string(msg);
 
     // Get the severity from the PRIORITY field
-    long int severity = 8; // Default to an invalid priority
-    ret = getJournalMetadataInt(journal, "PRIORITY", severity);
-    if (ret < 0)
+    std::optional<long int> severity =
+        getJournalMetadataInt(journal, "PRIORITY");
+    if (!severity)
     {
-        BMCWEB_LOG_DEBUG("Failed to read PRIORITY field: {}", ret);
+        BMCWEB_LOG_DEBUG("Failed to read PRIORITY field");
+        severity = 8; // Default to an invalid priority
     }
 
     // Get the Created time from the timestamp
-    std::string entryTimeStr;
-    if (!getEntryTimestamp(journal, entryTimeStr))
+    std::optional<std::string> entryTimeStr = getEntryTimestamp(journal);
+    if (entryTimeStr)
     {
-        return false;
+        bmcJournalLogEntryJson["Created"] = std::move(*entryTimeStr);
     }
 
     // Fill in the log entry with the gathered data
@@ -136,7 +101,7 @@ inline bool fillBMCJournalLogEntryJson(
     std::string entryIdBase64 =
         crow::utility::base64encode(bmcJournalLogEntryID);
 
-    bmcJournalLogEntryJson["@odata.id"] = boost_swap_impl::format(
+    bmcJournalLogEntryJson["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}/LogServices/Journal/Entries/{}",
         BMCWEB_REDFISH_MANAGER_URI_NAME, entryIdBase64);
     bmcJournalLogEntryJson["Name"] = "BMC Journal Entry";
@@ -155,7 +120,7 @@ inline bool fillBMCJournalLogEntryJson(
 
     bmcJournalLogEntryJson["Severity"] = rfseverity;
     bmcJournalLogEntryJson["OemRecordFormat"] = "BMC Journal Entry";
-    bmcJournalLogEntryJson["Created"] = std::move(entryTimeStr);
+
     return true;
 }
 
