@@ -49,14 +49,19 @@ TEST(GetRoutes, TestlotsOfRoutes)
     App app;
     BMCWEB_ROUTE(app, "/")
     ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/foo")
     ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/bar")
     ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/baz")
     ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/boo")
     ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
+    // ast-grep-ignore: bmcweb.common-errors.route-missing-trailing-slash
     BMCWEB_ROUTE(app, "/moo")
     ([](const Request& /*req*/, const std::shared_ptr<AsyncResp>& /*res*/) {});
 

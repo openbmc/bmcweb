@@ -1,0 +1,255 @@
+# SPDX-License-Identifier: Apache-2.0
+# Machine-enforceable rules for patterns documented in docs/COMMON_ERRORS.md.
+# Existing violations are suppressed with inline "ast-grep-ignore" comments.
+
+# --- Rule 1: unsafe-int-parse ---
+# Unqualified calls match via plain pattern; qualified (std::) calls use
+# context/selector to work around tree-sitter's qualified-name parse ambiguity.
+id: bmcweb.common-errors.unsafe-int-parse
+language: cpp
+severity: error
+message: >
+    Avoid atoi/stoi/stol/stoll in bmcweb. These APIs can throw or accept invalid
+    input in unsafe ways. Use std::from_chars with explicit error handling per
+    docs/COMMON_ERRORS.md.
+rule:
+    any:
+        - pattern: atoi($$$)
+        - pattern: stoi($$$)
+        - pattern: stol($$$)
+        - pattern: stoll($$$)
+        - pattern:
+              context: "auto x = std::atoi($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = std::stoi($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = std::stol($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = std::stoll($$$);"
+              selector: call_expression
+---
+# --- Rule 2: throwing-filesystem-apis ---
+# Match throwing overloads by excluding calls with extra error_code argument.
+id: bmcweb.common-errors.throwing-filesystem-apis
+language: cpp
+severity: error
+message: >
+    Avoid throwing std::filesystem APIs in request handling paths. Prefer
+    overloads with std::error_code and explicit error handling per
+    docs/COMMON_ERRORS.md.
+rule:
+    any:
+        - all:
+              - pattern:
+                    context: "auto x = std::filesystem::create_directory($A);"
+                    selector: call_expression
+              - not:
+                    pattern:
+                        context:
+                            "auto x = std::filesystem::create_directory($A,
+                            $EC);"
+                        selector: call_expression
+        - all:
+              - pattern:
+                    context: "auto x = std::filesystem::file_size($A);"
+                    selector: call_expression
+              - not:
+                    pattern:
+                        context: "auto x = std::filesystem::file_size($A, $EC);"
+                        selector: call_expression
+        - all:
+              - pattern:
+                    context: "auto x = std::filesystem::rename($A, $B);"
+                    selector: call_expression
+              - not:
+                    pattern:
+                        context:
+                            "auto x = std::filesystem::rename($A, $B, $EC);"
+                        selector: call_expression
+---
+# --- Rule 3: throwing-json-parse ---
+# Exclude calls with allow_exceptions=false (second-to-last arg is false).
+id: bmcweb.common-errors.throwing-json-parse
+language: cpp
+severity: error
+message: >
+    nlohmann::json::parse throws by default. Prefer the non-throwing form with
+    allow_exceptions=false and explicit handling per docs/COMMON_ERRORS.md.
+rule:
+    all:
+        - pattern:
+              context: "auto x = nlohmann::json::parse($$$);"
+              selector: call_expression
+        - not:
+              pattern:
+                  context: "auto x = nlohmann::json::parse($A, $B, false);"
+                  selector: call_expression
+        - not:
+              pattern:
+                  context: "auto x = nlohmann::json::parse($A, $B, false, $C);"
+                  selector: call_expression
+---
+# --- Rule 4: throwing-json-dump ---
+# Exclude calls that pass error_handler_t::replace as the last argument.
+id: bmcweb.common-errors.throwing-json-dump
+language: cpp
+severity: error
+message: >
+    nlohmann::json::dump throws by default. Prefer using
+    error_handler_t::replace and explicit handling per docs/COMMON_ERRORS.md.
+rule:
+    all:
+        - pattern: $J.dump($$$)
+        - not:
+              regex: "error_handler_t::replace"
+---
+# --- Rule 5: throwing-json-get-ref ---
+id: bmcweb.common-errors.throwing-json-get-ref
+language: cpp
+severity: error
+message: >
+    nlohmann::json::get_ref can throw on type mismatch. Prefer explicit type
+    checks and non-throwing access patterns per docs/COMMON_ERRORS.md.
+rule:
+    pattern: $OBJ.get_ref<$$$>()
+---
+# --- Rule 6: throwing-json-get-to ---
+id: bmcweb.common-errors.throwing-json-get-to
+language: cpp
+severity: error
+message: >
+    nlohmann::json::get_to can throw on bad input/type mismatch. Prefer
+    validated parsing and explicit error handling per docs/COMMON_ERRORS.md.
+rule:
+    pattern: $OBJ.get_to($$$)
+---
+# --- Rule 7: throwing-json-items ---
+id: bmcweb.common-errors.throwing-json-items
+language: cpp
+severity: error
+message: >
+    nlohmann::json::items can throw for non-object JSON. Validate shape before
+    iterating per docs/COMMON_ERRORS.md.
+rule:
+    pattern: $OBJ.items()
+---
+# --- Rule 8: wildcard-lambda-capture ---
+id: bmcweb.common-errors.wildcard-lambda-capture
+language: cpp
+severity: error
+message: >
+    Avoid wildcard lambda captures ([&] or [=]) in bmcweb async code. Capture
+    variables explicitly by name per docs/COMMON_ERRORS.md.
+rule:
+    # ^ anchor prevents matching [&] inside a nested lambda when the outer
+    # lambda_expression node text contains both.  The regex matches [&]( or [=](
+    # at the very start of the lambda text.
+    regex: '^\[\s*[&=]\s*\]\s*\('
+    kind: lambda_expression
+---
+# --- Rule 9: wildcard-lambda-capture-async-context ---
+id: bmcweb.common-errors.wildcard-lambda-capture-async-context
+language: cpp
+severity: error
+message: >
+    Avoid wildcard lambda captures in async callbacks. Capture variables
+    explicitly by name in async flows per docs/COMMON_ERRORS.md.
+rule:
+    # Each regex matches an async call whose first argument is a lambda with a
+    # wildcard capture: e.g. async_method_call( [&]( ...
+    any:
+        - regex: 'async_method_call\s*\(\s*\[\s*[&=]\s*\]\s*\('
+          kind: call_expression
+        - regex: 'async_wait\s*\(\s*\[\s*[&=]\s*\]\s*\('
+          kind: call_expression
+        - regex: 'async_read\s*\(\s*\[\s*[&=]\s*\]\s*\('
+          kind: call_expression
+        - regex: 'async_write\s*\(\s*\[\s*[&=]\s*\]\s*\('
+          kind: call_expression
+---
+# --- Rule 10: route-constructed-in-aggregate ---
+id: bmcweb.common-errors.route-constructed-in-aggregate
+language: cpp
+severity: error
+message: >
+    Avoid constructing BMCWEB_ROUTE URLs with string concatenation. Keep route
+    strings directly in the macro to preserve grepability per
+    docs/COMMON_ERRORS.md.
+rule:
+    pattern: BMCWEB_ROUTE($APP, $ROUTE)
+constraints:
+    ROUTE:
+        regex: \+
+---
+# --- Rule 11: route-missing-trailing-slash ---
+id: bmcweb.common-errors.route-missing-trailing-slash
+language: cpp
+severity: error
+message: >
+    BMCWEB_ROUTE URLs should usually end in '/'. Use trailing slash routes
+    unless there is a documented exception per docs/COMMON_ERRORS.md.
+rule:
+    pattern: BMCWEB_ROUTE($APP, $ROUTE)
+constraints:
+    ROUTE:
+        # Match route strings that start with "/" but do not end with "/".
+        regex: ^"\/.*[^\/]"$
+---
+# --- Rule 12: blocking-call-sleep ---
+id: bmcweb.common-errors.blocking-call-sleep
+language: cpp
+severity: error
+message: >
+    Avoid blocking sleep calls in bmcweb reactor paths. Use async timers or
+    callback-driven flow per docs/COMMON_ERRORS.md.
+rule:
+    any:
+        - pattern: sleep($$$)
+        - pattern: usleep($$$)
+        - pattern: nanosleep($$$)
+---
+# --- Rule 13: blocking-call-sync-socket-api ---
+id: bmcweb.common-errors.blocking-call-sync-socket-api
+language: cpp
+severity: error
+message: >
+    Avoid blocking socket APIs in bmcweb request paths. Use async APIs per
+    docs/COMMON_ERRORS.md.
+rule:
+    any:
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::read($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::read_some($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::write($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::write_some($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::connect($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::send($$$);"
+              selector: call_expression
+        - pattern:
+              context: "auto x = boost::asio::ip::tcp::socket::wait($$$);"
+              selector: call_expression
+---
+# --- Rule 14: blocking-call-sync-timer-wait ---
+id: bmcweb.common-errors.blocking-call-sync-timer-wait
+language: cpp
+severity: error
+message: >
+    Avoid blocking timer wait calls in bmcweb request paths. Use async_wait per
+    docs/COMMON_ERRORS.md.
+rule:
+    pattern:
+        context: "auto x = boost::asio::steady_timer::wait($$$);"
+        selector: call_expression
