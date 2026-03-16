@@ -34,6 +34,24 @@
       "parentUuid": "d405fdf2_64470dbb",
       "revId": "c76846290eb098c62d67a67e3a041d9602c53010",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af61e2e6_93604dcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-16T23:04:06Z",
+      "side": 1,
+      "message": "Yours is simpler and more correct, I think we keep that one.",
+      "parentUuid": "7f0649e2_1ec7ce78",
+      "revId": "c76846290eb098c62d67a67e3a041d9602c53010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
