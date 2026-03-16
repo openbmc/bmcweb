@@ -216,7 +216,10 @@ inline JsonParseResult parseRequestAsJson(const crow::Request& req,
         req.getHeaderValue(boost::beast::http::field::content_type);
     if (!isJsonContentType(contentType))
     {
-        BMCWEB_LOG_WARNING("Failed to parse content type on request");
+        if (contentType.empty())
+        {
+            BMCWEB_LOG_WARNING("Content-Type header was empty");
+        }
         if constexpr (!BMCWEB_INSECURE_IGNORE_CONTENT_TYPE)
         {
             return JsonParseResult::BadContentType;
@@ -225,7 +228,6 @@ inline JsonParseResult parseRequestAsJson(const crow::Request& req,
     std::optional<nlohmann::json> obj = parseStringAsJson(req.body());
     if (!obj)
     {
-        BMCWEB_LOG_WARNING("Failed to parse json in request");
         return JsonParseResult::BadJsonData;
     }
 
