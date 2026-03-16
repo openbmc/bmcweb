@@ -16,6 +16,24 @@
       "message": "Might be good to call out the commit",
       "revId": "c76846290eb098c62d67a67e3a041d9602c53010",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0649e2_1ec7ce78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2026-03-16T16:07:20Z",
+      "side": 1,
+      "message": "Good point. I can make that change. I also see now that https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85979 is doing something similar. Should I abandon this one instead?",
+      "parentUuid": "d405fdf2_64470dbb",
+      "revId": "c76846290eb098c62d67a67e3a041d9602c53010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
