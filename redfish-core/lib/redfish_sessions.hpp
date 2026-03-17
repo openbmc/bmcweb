@@ -51,6 +51,7 @@ inline void fillSessionObject(crow::Response& res,
     res.jsonValue["Name"] = "User Session";
     res.jsonValue["Description"] = "Manager User Session";
     res.jsonValue["ClientOriginIPAddress"] = session.clientIp;
+    res.jsonValue["UserType"] = session.userType;
     if (session.clientId)
     {
         res.jsonValue["Context"] = *session.clientId;
