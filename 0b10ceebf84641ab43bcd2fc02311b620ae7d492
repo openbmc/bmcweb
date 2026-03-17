@@ -50,6 +50,24 @@
       "message": "This API is used in cases where the user isn\u0027t necessarily logged in.  Because of that we don\u0027t want to reflect user input back to the logs (as it might be an attack)\n\nImagine a 1MB valid URI, that would get reflected to the logs here.",
       "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47fff763_ea2e7431",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-03-17T14:22:19Z",
+      "side": 1,
+      "message": "Thanks for pointing this out @ed@tanous.net\nI understand that logging user-controlled input like the URL or headers can lead to log flooding or potential abuse.I\u0027ve updated the patch to remove those fields and keep the log messages generic and safe.Please let me know if you\u0027d like any additional context included in a safe way.",
+      "parentUuid": "82b8469a_68a7ec48",
+      "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
