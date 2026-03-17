@@ -51,6 +51,12 @@ inline void fillSessionObject(crow::Response& res,
     res.jsonValue["Name"] = "User Session";
     res.jsonValue["Description"] = "Manager User Session";
     res.jsonValue["ClientOriginIPAddress"] = session.clientIp;
+    res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
+        "#OpenBMCSession.v1_0_0.Session";
+    res.jsonValue["Oem"]["OpenBMC"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/SessionService/Sessions/{}#/Oem/OpenBMC",
+        session.uniqueId);
+    res.jsonValue["Oem"]["OpenBMC"]["UserType"] = session.userType;
     if (session.clientId)
     {
         res.jsonValue["Context"] = *session.clientId;

@@ -1,5 +1,5 @@
 # Schemas to install
-schemas_to_install = ['OpenBMCAccountService', 'OpenBMCManager']
+schemas_to_install = ['OpenBMCAccountService', 'OpenBMCManager', 'OpenBMCSession']
 
 # Mapping from option key name to schemas that should be installed if that option is enabled
 schemas = {

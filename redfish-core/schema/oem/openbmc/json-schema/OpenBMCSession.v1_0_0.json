@@ -1,0 +1,40 @@
+{
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCSession.v1_0_0.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2024 OpenBMC.",
+    "definitions": {
+        "Session": {
+            "additionalProperties": false,
+            "description": "OpenBMC OEM extension for Session.",
+            "longDescription": "OpenBMC OEM extension for Session providing authentication backend information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "UserType": {
+                    "description": "The authentication backend of the user.",
+                    "longDescription": "The value of this property shall indicate the authentication backend of the logged-in user. Supported values are Internal, LDAP, and AD.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "OpenBMC",
+    "title": "#OpenBMCSession.v1_0_0"
+}
