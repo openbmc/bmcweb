@@ -281,6 +281,30 @@
       },
       "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "972b5ec4_4a81e538",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-03-17T00:02:47Z",
+      "side": 1,
+      "message": "Hi @janeta@us.ibm.com, I have addressed all comments, could you please re-review? Thanks!",
+      "parentUuid": "102191cd_4ea95e81",
+      "range": {
+        "startLine": 47,
+        "startChar": 72,
+        "endLine": 85,
+        "endChar": 11
+      },
+      "revId": "bf4c6e69270528908ddb139d7e5b2d549819e853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
