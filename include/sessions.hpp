@@ -54,6 +54,7 @@ struct UserSession
     bool isConfigureSelfOnly = false;
     std::string userRole;
     std::vector<std::string> userGroups;
+    std::string userType;
 
     // There are two sources of truth for isConfigureSelfOnly:
     //  1. When pamAuthenticateUser() returns PAM_NEW_AUTHTOK_REQD.
@@ -291,7 +292,8 @@ class SessionStore
             false,
             isConfigureSelfOnly,
             "",
-            {}});
+            {},
+            ""});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = sessionType != SessionType::Basic &&

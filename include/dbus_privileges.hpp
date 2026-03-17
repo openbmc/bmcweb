@@ -35,11 +35,12 @@ inline bool populateUserInfo(
     bool remoteUser = false;
     std::optional<bool> passwordExpired;
     std::optional<std::vector<std::string>> userGroups;
+    std::string userType;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap, "UserPrivilege",
         userRole, "RemoteUser", remoteUser, "UserPasswordExpired",
-        passwordExpired, "UserGroups", userGroups);
+        passwordExpired, "UserGroups", userGroups, "UserType", userType);
 
     if (!success)
     {
@@ -55,6 +56,7 @@ inline bool populateUserInfo(
     }
 
     session.userRole = userRole;
+    session.userType = userType;
     BMCWEB_LOG_DEBUG("userName = {} userRole = {}", session.username, userRole);
 
     // Set isConfigureSelfOnly based on D-Bus results.  This
