@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9152164_a668ecc2",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-17T03:39:57Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "ae6d8b36_1342a5d7",
+      "revId": "e337ededa0de2be1c0e5c37455222e5f58c484a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a92bcd2f_97c5f213",
