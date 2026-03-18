@@ -46,6 +46,30 @@
       },
       "revId": "64be1eeff67ddfa32beec3608684de1c2d148a41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32afbde6_13903b0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-18T21:38:21Z",
+      "side": 1,
+      "message": "Please add that to your commit msg. Your commit msg doesn\u0027t have a \"Why\" at this time.",
+      "parentUuid": "fe6a00de_6dc01334",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "64be1eeff67ddfa32beec3608684de1c2d148a41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
