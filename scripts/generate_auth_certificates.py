@@ -145,6 +145,9 @@ def generate_client_key_and_cert(
     ca_key,
     common_name: Optional[str] = None,
     upn: Optional[str] = None,
+    not_valid_before: Optional[datetime.datetime] = None,
+    not_valid_after: Optional[datetime.datetime] = None,
+    extended_key_usages: Optional[list] = None,
 ):
     private_key = ec.generate_private_key(ec.SECP256R1())
     public_key = private_key.public_key()
@@ -165,12 +168,16 @@ def generate_client_key_and_cert(
     builder = builder.issuer_name(ca_cert.subject)
     builder = builder.public_key(public_key)
     builder = builder.serial_number(x509.random_serial_number())
-    builder = builder.not_valid_before(
-        datetime.datetime(1970, 1, 1, 0, 0, tzinfo=datetime.timezone.utc)
-    )
-    builder = builder.not_valid_after(
-        datetime.datetime(2070, 1, 1, 0, 0, tzinfo=datetime.timezone.utc)
-    )
+    if not_valid_before is None:
+        not_valid_before = datetime.datetime(
+            1970, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
+        )
+    if not_valid_after is None:
+        not_valid_after = datetime.datetime(
+            2070, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
+        )
+    builder = builder.not_valid_before(not_valid_before)
+    builder = builder.not_valid_after(not_valid_after)
 
     usage = x509.KeyUsage(
         content_commitment=False,
@@ -185,7 +192,9 @@ def generate_client_key_and_cert(
     )
     builder = builder.add_extension(usage, critical=False)
 
-    exusage = x509.ExtendedKeyUsage([x509.oid.ExtendedKeyUsageOID.CLIENT_AUTH])
+    if extended_key_usages is None:
+        extended_key_usages = [x509.oid.ExtendedKeyUsageOID.CLIENT_AUTH]
+    exusage = x509.ExtendedKeyUsage(extended_key_usages)
     builder = builder.add_extension(exusage, critical=True)
 
     auth_key = x509.AuthorityKeyIdentifier.from_issuer_public_key(public_key)
@@ -448,6 +457,175 @@ def test_mtls_auth(url, certs_dir, use_http2):
             json=patch_json,
         )
         response.raise_for_status()
+
+
+def write_cert_and_key(certs_dir, prefix, key, cert):
+    key_dump = key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption(),
+    )
+    cert_dump = cert.public_bytes(encoding=serialization.Encoding.PEM)
+    key_path = os.path.join(certs_dir, f"{prefix}-key.pem")
+    cert_path = os.path.join(certs_dir, f"{prefix}-cert.pem")
+    with open(key_path, "wb") as f:
+        f.write(key_dump)
+    with open(cert_path, "wb") as f:
+        f.write(cert_dump)
+    return key_path, cert_path
+
+
+def test_mtls_auth_expect_failure(
+    url, ca_cert_file, cert_file, key_file, use_http2, description
+):
+    ssl_context = ssl.create_default_context(cafile=ca_cert_file)
+    ssl_context.load_cert_chain(certfile=cert_file, keyfile=key_file)
+    try:
+        with httpx.Client(
+            base_url=f"https://{url}",
+            verify=ssl_context,
+            http2=use_http2,
+        ) as client:
+            response = client.get("/redfish/v1/SessionService/Sessions")
+            if response.is_success:
+                raise Exception(
+                    f"FAIL: {description} - Expected auth failure but got "
+                    f"HTTP {response.status_code}"
+                )
+            print(
+                f"PASS: {description} - Got expected HTTP error "
+                f"{response.status_code}"
+            )
+    except (httpx.ConnectError, ssl.SSLError, OSError) as e:
+        print(f"PASS: {description} - Connection rejected: {e}")
+
+
+def test_mtls_negative_cases(url, certs_dir, ca_cert, ca_key, use_http2):
+    print("\nTesting mTLS negative cases (expect all to be rejected)...")
+    ca_cert_file = os.path.join(certs_dir, "CA-cert.cer")
+
+    # 1. Expired certificate
+    key, cert = generate_client_key_and_cert(
+        ca_cert,
+        ca_key,
+        common_name="root",
+        not_valid_before=datetime.datetime(
+            2020, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
+        ),
+        not_valid_after=datetime.datetime(
+            2021, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
+        ),
+    )
+    key_path, cert_path = write_cert_and_key(
+        certs_dir, "neg-expired", key, cert
+    )
+    test_mtls_auth_expect_failure(
+        url,
+        ca_cert_file,
+        cert_path,
+        key_path,
+        use_http2,
+        "Expired certificate",
+    )
+
+    # 2. Not-yet-valid certificate
+    key, cert = generate_client_key_and_cert(
+        ca_cert,
+        ca_key,
+        common_name="root",
+        not_valid_before=datetime.datetime(
+            2060, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
+        ),
+        not_valid_after=datetime.datetime(
+            2070, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
+        ),
+    )
+    key_path, cert_path = write_cert_and_key(
+        certs_dir, "neg-not-yet-valid", key, cert
+    )
+    test_mtls_auth_expect_failure(
+        url,
+        ca_cert_file,
+        cert_path,
+        key_path,
+        use_http2,
+        "Not-yet-valid certificate",
+    )
+
+    # 3. Certificate signed by untrusted CA
+    untrusted_ca_key, untrusted_ca_cert = generateCA()
+    key, cert = generate_client_key_and_cert(
+        untrusted_ca_cert,
+        untrusted_ca_key,
+        common_name="root",
+    )
+    key_path, cert_path = write_cert_and_key(
+        certs_dir, "neg-untrusted-ca", key, cert
+    )
+    test_mtls_auth_expect_failure(
+        url,
+        ca_cert_file,
+        cert_path,
+        key_path,
+        use_http2,
+        "Certificate signed by untrusted CA",
+    )
+
+    # 4. Certificate with non-existent username
+    key, cert = generate_client_key_and_cert(
+        ca_cert,
+        ca_key,
+        common_name="nonexistentuser",
+    )
+    key_path, cert_path = write_cert_and_key(
+        certs_dir, "neg-bad-username", key, cert
+    )
+    test_mtls_auth_expect_failure(
+        url,
+        ca_cert_file,
+        cert_path,
+        key_path,
+        use_http2,
+        "Certificate with non-existent username",
+    )
+
+    # 5. Certificate with wrong Extended Key Usage (ServerAuth instead of ClientAuth)
+    key, cert = generate_client_key_and_cert(
+        ca_cert,
+        ca_key,
+        common_name="root",
+        extended_key_usages=[x509.oid.ExtendedKeyUsageOID.SERVER_AUTH],
+    )
+    key_path, cert_path = write_cert_and_key(
+        certs_dir, "neg-wrong-eku", key, cert
+    )
+    test_mtls_auth_expect_failure(
+        url,
+        ca_cert_file,
+        cert_path,
+        key_path,
+        use_http2,
+        "Certificate with wrong Extended Key Usage (ServerAuth)",
+    )
+
+    # 6. Certificate with no username mapping (no CN, no UPN)
+    key, cert = generate_client_key_and_cert(
+        ca_cert,
+        ca_key,
+    )
+    key_path, cert_path = write_cert_and_key(
+        certs_dir, "neg-no-username", key, cert
+    )
+    test_mtls_auth_expect_failure(
+        url,
+        ca_cert_file,
+        cert_path,
+        key_path,
+        use_http2,
+        "Certificate with no username mapping (no CN, no UPN)",
+    )
+
+    print("All mTLS negative test cases passed!\n")
 
 
 def setup_server_cert(
@@ -722,6 +900,8 @@ def generate_and_load_certs(
     time.sleep(2)
     test_mtls_auth(url, certs_dir, use_http2)
     print("Redfish TLS authentication success!")
+
+    test_mtls_negative_cases(url, certs_dir, ca_cert, ca_key, use_http2)
 
 
 def main():
