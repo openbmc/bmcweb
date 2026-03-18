@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d44c1494_9d010bef",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-18T22:08:56Z",
+      "side": 1,
+      "message": "as in each of the rules in its own file, seems reasonable to me.   @Davy ?  If you don\u0027t have time I can go make this change before this merges.",
+      "parentUuid": "6d7a0ab1_dd1ff017",
+      "revId": "3dc94638d58094c30df6d8fccf2d7e1408465f91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aff4babf_991e6ee5",
