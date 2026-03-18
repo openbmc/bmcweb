@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8da9fc76_f3bbe0bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-18T11:50:14Z",
+      "side": 1,
+      "message": "I created a separate change for the scripts/generate_auth_certificates.py that adds negative cases, I ran them against image in QEMU using HTTP1 and HTTP2 both.",
+      "parentUuid": "6ccca456_7c33aefd",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28089283_54dbb166",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-03-05T23:14:49Z",
       "side": 1,
       "message": "This is fine, but saying that the test you ran doesn\u0027t have coverage of the code you fixed doesn\u0027t exactly inspire confidence.  Can we get a little more testing?  I don\u0027t care if it shows up in the commit message, but at least enumerating the various auth mechanisms across http1 and http2 is something that seems worthwhile",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "136c6550_5066b151",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-18T11:50:14Z",
+      "side": 1,
+      "message": "Apart from the positive and negative cases in the scripts/generate_auth_certificates.py, I flashed this code to a real BMC and ran my client (which was actually the one revealed problem) in different modes. It\u0027s in rust, it uses 2 TLS backends - nativessl (openssl) that has session resumption disabled and rustls that has session resumption enabled. So I tested this using 4 permutations:\n1. forced http1 \u0026\u0026 nativtls - session resumption disabled\n2. forced http1 \u0026\u0026 rustls - session resumption enabled\n3. not forced http1 (upgraded to http2) \u0026\u0026 nativtls - session resumption disabled\n4. not forced http1 (upgraded to http2) \u0026\u0026 rustls - session resumption enabled\n\nWhen I was running tests I had `journalctl -f bmcweb | grep TLS` running to make sure resumption is working, so I had these (show for 2 runs only):\n```\nMar 18 03:12:16 \u003chostname redacted\u003e bmcweb[560]: [http_connection.hpp:249] 0x1c4ee18 Establishing mTLS session after handshake, session reused: false\nMar 18 03:15:04 \u003chostname redacted\u003e bmcweb[560]: [http_connection.hpp:249] 0x14433d0 Establishing mTLS session after handshake, session reused: false\n\nMar 18 03:20:20 \u003chostname redacted\u003e bmcweb[560]: [http_connection.hpp:249] 0x14433d0 Establishing mTLS session after handshake, session reused: false\nMar 18 03:20:25 \u003chostname redacted\u003e bmcweb[560]: [http_connection.hpp:249] 0x141f330 Establishing mTLS session after handshake, session reused: true\n```\n\nThis is a test client that pulls various info from BMC - logs, sensors, Firmwares and Chassis object, etc. It makes more than a dozen requests as part of one session, some of them concurrently. All the operations succeeded.",
+      "parentUuid": "28089283_54dbb166",
       "range": {
         "startLine": 43,
         "startChar": 33,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d676807b_c00180a1",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-18T11:50:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11c053b4_f7988da5",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11f57cf2_ea0a3686",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-03-05T23:14:49Z",
       "side": 1,
       "message": "This moved as well?",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6947ac52_b8af1aca",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-18T11:50:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11f57cf2_ea0a3686",
       "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -92,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "462d4e46_79de790e",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-18T11:50:14Z",
+      "side": 1,
+      "message": "constructX509 is not quite re-usable here:\n1. It\u0027s a static and is not exposed in hpp file.\n2. It generates a key+cert bundle as a string, here we need just X509, if the test reuses the function, the string will need to be parsed.\n3. constructX509 generates production cert with particular extensions and properties (country, org). So constructX509 is a \"give me a complete cert file\" function. MtlsHandshake needs fine-grained control to set up specific test scenarios (null certs, missing extensions, etc.).",
+      "parentUuid": "eb4870e8_740f9222",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61607844_55242f06",
@@ -105,6 +201,24 @@
       "writtenOn": "2026-03-05T23:17:49Z",
       "side": 1,
       "message": "Seeing a ton of missed error codes here.  X509_set_pubkey for example returns 1 for success.\n\nWe\u0027re in a test here, so you probably want something like\nASSERT_EQ(X509_set_pubkey...., 1)\n\nAnd that needs applied to nearly everything here.",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1710f8f_43693243",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-18T11:50:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61607844_55242f06",
       "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
