@@ -68,6 +68,9 @@ inline void handleCollectionMembers(
 
     if (ec == boost::system::errc::io_error)
     {
+        nlohmann::json::array_t& membersArr =
+            details::getJsonArrayAt(asyncResp->res.jsonValue[jsonKeyName]);
+        asyncResp->res.jsonValue[jsonCountKeyName] = membersArr.size();
         return;
     }
 

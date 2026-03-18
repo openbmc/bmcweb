@@ -74,7 +74,22 @@ TEST(CollectionUtil, HandleCollectionMembersIoErrorPreservesExistingMembers)
 
     ASSERT_TRUE(asyncResp->res.jsonValue["Members"].is_array());
     EXPECT_EQ(asyncResp->res.jsonValue["Members"].size(), 1);
-    EXPECT_FALSE(asyncResp->res.jsonValue.contains("Members@odata.count"));
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
+}
+
+TEST(CollectionUtil, HandleCollectionMembersIoErrorCreatesEmptyMembersArray)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    handleCollectionMembers(
+        asyncResp,
+        boost::urls::url("/redfish/v1/UpdateService/SoftwareInventory"),
+        nlohmann::json::json_pointer("/Members"),
+        make_error_code(boost::system::errc::io_error), {});
+
+    ASSERT_TRUE(asyncResp->res.jsonValue["Members"].is_array());
+    EXPECT_TRUE(asyncResp->res.jsonValue["Members"].empty());
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 0);
 }
 
 TEST(CollectionUtil, HandleCollectionMembersEmptyJsonKeyReturnsInternalError)
