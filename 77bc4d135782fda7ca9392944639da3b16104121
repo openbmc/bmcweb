@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19106fc6_8823b4fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-18T18:23:08Z",
+      "side": 1,
+      "message": "Merging quickly to fix the regression.  Happy to discuss code changes, testing improvements, or anything else, but this is a regression;  Lets fix it to autobump can go through.",
+      "revId": "77bc4d135782fda7ca9392944639da3b16104121",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
