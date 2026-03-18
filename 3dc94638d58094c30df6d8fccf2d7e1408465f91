@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dcde404_2a589f0c",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-18T22:58:28Z",
+      "side": 1,
+      "message": "Yeah, exactly. Just ask your favorite coding agent to split them and it’ll do it.",
+      "parentUuid": "d44c1494_9d010bef",
+      "revId": "3dc94638d58094c30df6d8fccf2d7e1408465f91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aff4babf_991e6ee5",
