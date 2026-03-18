@@ -271,6 +271,30 @@
       },
       "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9254d7c_2b1f5868",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-03-18T16:10:39Z",
+      "side": 1,
+      "message": "The xyz.openbmc_project.Memory.MemoryECC PDI definition does not include default properties for these two properties. I\u0027m wondering if internalError here is too strict? Maybe it should be a WARNING instead?",
+      "parentUuid": "88180142_05618cd0",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
