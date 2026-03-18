@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35c22e0b_ce643306",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-18T22:18:42Z",
+      "side": 1,
+      "message": "I appreciate you writing this, and will accept this as your testing of the previous commit, but I\u0027m not sure I want this scripts directory to turn into a full fledged test harness.  That doesn\u0027t feel appropriate to do to the rest of the project.",
+      "revId": "980f384d6cbfb3af58e418c06f252c47ec853ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
