@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26cb406a_9ab1c45b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-19T20:42:14Z",
+      "side": 1,
+      "message": "I agree with you this behavior is probably better, but I don\u0027t see where the spec says this.\n\nI do see under \"409 conflict\" in table 14:\n\n\"Creation or update request could not be completed because it would cause a conflict in the current state of the resources that the platform supports. \"\n\nbut that doesn\u0027t \"require\" it, unless there\u0027s a \"shall\" statement somewhere in the spec, so I don\u0027t see how we got to this conclusion.  If I\u0027m wrong here, please add enough detail in your commit message so someone can find what you\u0027re talking about here.\n\nFWIW, I agree, this behavior is probably better, and am willing to take a commit message to the effect of \"this is better, even if the Redfish spec isn\u0027t clear.\"\n\n\nFWIW, ResourceCreationConflict isn\u0027t used in the codebase, so I\u0027m not sure why this matters at this point, but sure, we can change it.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "74b40dbc630b8aeebc1a057d371e7d22e314b0b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1193fd42_4cb226b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-19T20:42:14Z",
+      "side": 1,
+      "message": "Please note the above, that ResourceCreationConflict isn\u0027t used so there\u0027s no test for it.",
+      "revId": "74b40dbc630b8aeebc1a057d371e7d22e314b0b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
