@@ -85,6 +85,24 @@
       "parentUuid": "82b8469a_68a7ec48",
       "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc46d8ff_84c0a26b",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-19T22:04:28Z",
+      "side": 1,
+      "message": "you\u0027ve still reflected back URL, which is from the user, as well as content-type, which is from the user.\n\nIn general when you see this error not as part of an attack, it\u0027s because the user omitted the field.  What I suspect you want here is really something like\n\n```\nif (contentType.empty(){\n     BMCWEB_LOG_WARNING(\"Content type was empty\");\n}\n```\n\nWould that do what you need?",
+      "parentUuid": "47fff763_ea2e7431",
+      "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
