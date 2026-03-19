@@ -248,6 +248,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78101efa_29748935",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-19T14:25:29Z",
+      "side": 1,
+      "message": "I\u0027ve refactored this code (semantically constructX509 was constructing PEM and not X509) and re-used it and key generation in tests.\n\nAs testing, apart from unit testing, I deployed the image with this change to QEMU and checked generated server SSL cert with `openssl s_client -connect 127.0.0.1 8443` and made sure it\u0027s the same (has same properties, validity dates were obviously different) as the one generated without this change.",
+      "parentUuid": "f0d97868_ffdf395e",
+      "revId": "98baa47753d53cd035b7b35c11629233b5e84df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61607844_55242f06",
