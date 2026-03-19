@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b63fcf_8b3a153d",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-19T18:18:13Z",
+      "side": 1,
+      "message": "FWIW, this code has now defeated the purpose of hanving a common path for all the floating point values, and could be cleaned up in the future to just do what the other handlers do, loop over each key, and do the transforms in helper functions as needed.\n\nOh well, we\u0027re here now, and I don\u0027t want to hold this up any longer than I already have.",
+      "revId": "3a07ad33fc245dbab1d10284676ba1f9ef2c16e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
