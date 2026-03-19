@@ -65,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3750af3_caf1a4c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-03-19T08:18:28Z",
+      "side": 1,
+      "message": "Ran the redfish service validator against the specific session object.\nThe failure is on the UserType property as it is not part of the standard DMTF Session schema. \nWill revisit this once we get further guidance on the recommended approach.",
+      "parentUuid": "c2b7f359_02b5a390",
+      "revId": "4c7ed09d65d5d87cce54be58c2aea5167da1b885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f646a1da_d23f751c",
@@ -78,6 +96,24 @@
       "writtenOn": "2026-03-18T22:04:33Z",
       "side": 1,
       "message": "This property doesn\u0027t exist in Redfish, and if it did wouldn\u0027t have these names.  Please read OEM_SCHEMAS.md, if you\u0027re trying to get these added to OEM namespaces, or the DMTF contributing docs if you\u0027re trying to add to DMTF.",
+      "revId": "4c7ed09d65d5d87cce54be58c2aea5167da1b885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11c2df8d_1c3a8f59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-03-19T08:18:28Z",
+      "side": 1,
+      "message": "The intent is to expose the authentication backend of a user to Redfish clients. This enables clients to make informed decisions based on the user origin\nfor example, conditionally rendering operations that are only applicable to locally managed users.\n\nTo my knowledge, there is no existing standard Redfish property that conveys this information.\nCould you advise on the recommended path forward - should this fall under the OpenBMC OEM namespace?",
+      "parentUuid": "f646a1da_d23f751c",
       "revId": "4c7ed09d65d5d87cce54be58c2aea5167da1b885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
