@@ -11,6 +11,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -31,10 +32,53 @@ static constexpr std::array<std::string_view, 1> switchInterfaces = {
 namespace redfish
 {
 
+inline void afterGetSwitchContainedBy(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& switchPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBus error getting switch chassis: {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (chassisPaths.empty())
+    {
+        return;
+    }
+
+    std::string chassisId =
+        sdbusplus::message::object_path(chassisPaths[0]).filename();
+    std::string pcieDeviceName =
+        sdbusplus::message::object_path(switchPath).filename();
+
+    asyncResp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
+    asyncResp->res.jsonValue["Links"]["PCIeDevice"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceName);
+}
+
+inline void getSwitchLinks(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& switchPath)
+{
+    dbus::utility::getAssociatedSubTreePaths(
+        switchPath + "/contained_by",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        redfish::chassisInterfaces,
+        std::bind_front(afterGetSwitchContainedBy, asyncResp, switchPath));
+}
+
 inline void handleFabricSwitchPathSwitchGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
-    [[maybe_unused]] const std::string& switchPath)
+    const std::string& switchPath)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#Switch.v1_7_0.Switch";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
@@ -48,6 +92,8 @@ inline void handleFabricSwitchPathSwitchGet(
 
     asyncResp->res.jsonValue["Ports"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Fabrics/{}/Switches/{}/Ports", fabricId, switchId);
+
+    getSwitchLinks(asyncResp, switchPath);
 }
 
 inline void handleFabricSwitchPaths(
