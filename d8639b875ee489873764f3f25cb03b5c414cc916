@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fa47a4a_0ac14380",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-19T20:21:46Z",
+      "side": 1,
+      "message": "This sounds like a bug in that userErrorMessageHandler method.  There\u0027s lots of inputs that should result in 400 bad request here more than just an empty string.  Invalid unicode characters for example should be (probably) rejected.  To enumerate all of the rules all would require bmcweb to understand more about how phosphor-user-manager works internally.\n\nYour path forward here is:\n1. Make sure that phosphor-user-manager is returning the correct error message when create is called with an empty argument (or any invalid username for that matter)\n2. Update userErrorMessageHandler with whatever error message phosphor-user-manager is producing to make sure it returns 400 bad request.\n\nThis handling of dbus errors is documented in DBUS_USAGE.md if you are interested to read about the intent.",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "d8639b875ee489873764f3f25cb03b5c414cc916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
