@@ -1368,6 +1368,9 @@ functions the same like the default implementation under the System resource.
 - @odata.id
 - @odata.type
 - Id
+- Links
+  - Chassis
+  - PCIeDevice
 - Name
 - Ports
 - PowerState
