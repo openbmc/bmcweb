@@ -1819,7 +1819,7 @@ nlohmann::json::object_t resourceCreationConflict(
 void resourceCreationConflict(crow::Response& res,
                               const boost::urls::url_view_base& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
+    res.result(boost::beast::http::status::conflict);
     addMessageToErrorJson(res.jsonValue, resourceCreationConflict(arg1));
 }
 
