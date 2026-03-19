@@ -1934,6 +1934,12 @@ inline void handleAccountCollectionPost(
         return;
     }
 
+    if (username.empty())
+    {
+        messages::propertyValueFormatError(asyncResp->res, "", "UserName");
+        return;
+    }
+
     std::string roleId = roleIdJson.value_or("User");
     std::string priv = getPrivilegeFromRoleId(roleId);
     if (priv.empty())
