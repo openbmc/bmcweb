@@ -16,6 +16,24 @@
       "message": "I\u0027m confused why this was failing before.\n\nhttps://github.com/openbmc/bmcweb/blob/40c288a6672019b1b4124e0a6528ebb49ddc3a52/redfish-core/lib/managers.hpp#L512\n\nSets 204.\n\nTimeZoneName was something you added in the previous patch......  it looks like you just missed adding 204 after the set was complete?",
       "revId": "019683dde96d7f3c1319b1621d4285c5e363503d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f099062_ef8548d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-19T14:46:39Z",
+      "side": 1,
+      "message": "That\u0027s another function. I did not defined \"after\" function and used lambda. You\u0027re right, I missed to add asyncResp-\u003eres.result(boost::beast::http::status::no_content);. Will add in the previous patch and abandon this.",
+      "parentUuid": "c34fc221_ae2ab92a",
+      "revId": "019683dde96d7f3c1319b1621d4285c5e363503d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
