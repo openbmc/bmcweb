@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "278c0711_44f23e3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-19T09:29:24Z",
+      "side": 1,
+      "message": "I\u0027ve sent an email to Jason Bills (peci-pcie owner, jason.m.bills@linux.intel.com) notifying him about the deprecated Function0* properties and the need to migrate to Item.PCIeFunction objects. \nI\u0027ve included a link to this patch and the phosphor-dbus-interfaces deprecation notice.",
+      "parentUuid": "c95c7086_692ba2c9",
+      "revId": "e2c0a1dd1f0192633101ffbab1839d1636ff2c51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae0bcbb1_b51e733c",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 5
