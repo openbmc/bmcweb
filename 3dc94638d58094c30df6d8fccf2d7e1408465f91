@@ -74,6 +74,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e2f43e84_aa1ef331",
+        "filename": ".astgrep/rules/common-errors.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T00:35:40Z",
+      "side": 1,
+      "message": "my dearest clippy, please split these files for me into 26 word documents.",
+      "parentUuid": "d548bacf_26269a85",
+      "revId": "3dc94638d58094c30df6d8fccf2d7e1408465f91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "aff4babf_991e6ee5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
