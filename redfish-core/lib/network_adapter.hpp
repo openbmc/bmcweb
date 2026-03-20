@@ -13,6 +13,7 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/metrics_util.hpp"
 
 #include <boost/beast/http/verb.hpp>
 
@@ -84,8 +85,8 @@ inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
             continue;
         }
 
-        getMappedMetricProperty(asyncResp, service.begin()->first, path,
-                                metricName, nicPortMetrics);
+        metrics_util::getMappedMetricProperty(asyncResp, service.begin()->first,
+                                              path, metricName, nicPortMetrics);
     }
 }
 
