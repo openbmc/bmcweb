@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f56e74b1_e91e4e8d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T18:35:11Z",
+      "side": 1,
+      "message": "Not seeing the below, but if we\u0027re doing this intentionally, lets make that clear in the commit message.",
+      "parentUuid": "4512b339_c9353572",
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4346ad01_662467da",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 4
