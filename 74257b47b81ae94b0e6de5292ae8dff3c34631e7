@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0e1d98c_88df66f4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T15:45:26Z",
+      "side": 1,
+      "message": "This is the manager log, don\u0027t we want TZ aware here?",
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4346ad01_662467da",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T15:45:26Z",
+      "side": 1,
+      "message": "in terms of an API, lets just keep this a pointer.  an optional pointer gives two ways to represent the optional value.\n\nAlternatively, could we just make const std::chrono::time_zone\u0026 required, and use locate_zone(\"Etc/UTC\") when in that mode?  That way we avoid the need for the branch entirely.",
+      "range": {
+        "startLine": 280,
+        "startChar": 24,
+        "endLine": 280,
+        "endChar": 53
+      },
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918561ec_c2950b56",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T15:45:26Z",
+      "side": 1,
+      "message": "Don\u0027t all these need updated with TZ support as well?  Otherwise things like journal logs will still respond in UTC.",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 62
+      },
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d24f2a_8e000581",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T15:45:26Z",
+      "side": 1,
+      "message": "Lets not use a branch here.  Just get UTC timezone or current_zone.\n\nAs is, this ternary isn\u0027t the easiest to read.",
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
