@@ -16,6 +16,24 @@
       "message": "I can run redfish service validator on this, which I\u0027ll add to tested.\n\nwe should probably update the commit message that this is a change that functionally does not change anything for existing clients;  If the router sees a / at the end, it registers both the / and the non / versions.",
       "revId": "6fb63b0103053f0a04f1a13e4af7c05c2d89ba5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9dcecc1_9839ff9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002898
+      },
+      "writtenOn": "2026-03-20T01:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d497a10_7e4b14e8",
+      "revId": "6fb63b0103053f0a04f1a13e4af7c05c2d89ba5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
