@@ -93,6 +93,13 @@ inline void handleCollectionMembers(
         pathNames.push_back(leaf);
     }
 
+    // Sort and remove duplicates to handle cases where multiple D-Bus paths
+    // have the same leaf name (e.g., /xyz/openbmc_project/software/abc and
+    // /xyz/openbmc_project/software/bmc/abc both have leaf "abc")
+    std::ranges::sort(pathNames);
+    auto [first, last] = std::ranges::unique(pathNames);
+    pathNames.erase(first, last);
+
     nlohmann::json::array_t& membersArr =
         details::getJsonArrayAt(asyncResp->res.jsonValue[jsonKeyName]);
     for (const std::string& leaf : pathNames)

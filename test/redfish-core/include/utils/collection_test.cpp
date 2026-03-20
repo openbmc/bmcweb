@@ -158,5 +158,33 @@ TEST(CollectionUtil, HandleCollectionMembersSkipsObjectsWithEmptyLeaf)
     EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
 }
 
+TEST(CollectionUtil, HandleCollectionMembersDeduplicatesSameLeafNames)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    // Simulate multiple D-Bus paths with same leaf name (e.g., different
+    // hierarchies)
+    dbus::utility::MapperGetSubTreePathsResponse objects = {
+        "/xyz/openbmc_project/software/abc123",
+        "/xyz/openbmc_project/software/bmc/abc123",
+        "/xyz/openbmc_project/software/xyz789",
+        "/xyz/openbmc_project/software/bios/xyz789",
+    };
+
+    handleCollectionMembers(
+        asyncResp,
+        boost::urls::url("/redfish/v1/UpdateService/SoftwareInventory"),
+        nlohmann::json::json_pointer("/Members"), {}, objects);
+
+    const nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+    ASSERT_TRUE(members.is_array());
+    // Should only have 2 unique entries, not 4
+    ASSERT_EQ(members.size(), 2);
+    EXPECT_EQ(members[0]["@odata.id"],
+              "/redfish/v1/UpdateService/SoftwareInventory/abc123");
+    EXPECT_EQ(members[1]["@odata.id"],
+              "/redfish/v1/UpdateService/SoftwareInventory/xyz789");
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 2);
+}
+
 } // namespace
 } // namespace redfish::collection_util
