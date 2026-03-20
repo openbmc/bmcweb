@@ -295,6 +295,30 @@
       },
       "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c39364f3_2c551a65",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-03-20T05:41:26Z",
+      "side": 1,
+      "message": "Done. Removed messages::internalError() and changed BMCWEB_LOG_ERROR to BMCWEB_LOG_WARNING. Properties that are nullptr are now individually skipped instead of returning HTTP 500, matching the codebase pattern in systems.hpp for nullable D-Bus properties.\n\nSee PS16:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/16/redfish-core/lib/processor_metrics.hpp#63",
+      "parentUuid": "c9254d7c_2b1f5868",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "1736ea66b8c9993343c9d6ad95731327e3e10474",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

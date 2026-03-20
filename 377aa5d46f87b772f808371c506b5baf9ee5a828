@@ -22,6 +22,30 @@
       },
       "revId": "377aa5d46f87b772f808371c506b5baf9ee5a828",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae411c6d_0f49cd25",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-03-20T05:41:26Z",
+      "side": 1,
+      "message": "Done. Replaced lambda with std::bind_front(getProcessorMetricsData, asyncResp), matching the existing pattern in processor.hpp for getProcessorObject callbacks.\n\nSee PS16:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86977/16/redfish-core/lib/processor_metrics.hpp#149",
+      "parentUuid": "12c6d160_7c787631",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 70
+      },
+      "revId": "377aa5d46f87b772f808371c506b5baf9ee5a828",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
