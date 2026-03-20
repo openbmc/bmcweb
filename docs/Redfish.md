@@ -479,11 +479,16 @@ Fields common to all schemas
 
 ###### Assembly
 
+- Location
 - LocationIndicatorActive
 - Model
 - PartNumber
+- PhysicalContext
+- ProductionDate
 - SerialNumber
 - SparePartNumber
+- Status
+- Vendor
 
 ### /redfish/v1/EventService/
 
