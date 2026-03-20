@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a250bd9_35937ec8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "I don\u0027t think the timezone should change in this case. There are 2 distinct properties:\nTimeZoneName - shows and allows to manage configured time zone.\nDateTime - shows and allows to manage date/time. On setting (patching) it should respect provided TZ, i.e. convert time from local in the provided TZ to the local BMC TZ. But it should not change the TZ.\n\nMy logic is this - a user should not need to do conversion, they should be able to just take their local time and send it to BMC, and the BMC code handles conversion for them. But should a user want to re-configure BMC TZ, they should explicitly request this.\n\nI will put this to the commit message.",
+      "parentUuid": "db85c0d8_862ccf9d",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ab482df_992501ae",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-03-02T18:13:37Z",
       "side": 1,
       "message": "NIT, The below aren\u0027t unit tests, these are integration tests.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a90092_9f01528d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2a5f7ed_2d9edc2a",
       "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -177,6 +213,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dffa9e55_62c1a720",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "What do you mean here?",
+      "parentUuid": "301bc062_983df390",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b933313_b5752211",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 3
@@ -188,6 +242,30 @@
       "writtenOn": "2026-03-02T18:12:46Z",
       "side": 1,
       "message": "Lets avoid default params on these.  Make new functions that follow the form getDateTimeStdtimeTz",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 75
+      },
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d8c3744_e7d47b8b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b933313_b5752211",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -221,6 +299,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a653ff8f_ccbc2b73",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9fe23d8_1c7162e6",
+      "range": {
+        "startLine": 70,
+        "startChar": 9,
+        "endLine": 70,
+        "endChar": 18
+      },
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c03f41e1_d528600d",
@@ -234,6 +336,24 @@
       "writtenOn": "2026-03-05T23:33:34Z",
       "side": 1,
       "message": "Per the other patch, I think this is where you forgot to set 204.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad0b3b18_6ece43f3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Yes, sorry. You\u0027re right, abandoned that one, fixed here.",
+      "parentUuid": "c03f41e1_d528600d",
       "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -272,6 +392,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dd6f306_cf158899",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c083c5ea_c53f7450",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "114a12d4_37f77464",
@@ -289,6 +427,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6223d3c_0ebaf479",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "114a12d4_37f77464",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f14dab68_9a6a03b0",
@@ -302,6 +458,24 @@
       "writtenOn": "2026-03-02T18:12:46Z",
       "side": 1,
       "message": "Please put this on its own line.  It\u0027s also not clear to me on looking at it that common_type_t is the correct thing to do here?\n\nOnce we get the unit test coverage finished, we can go from there.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "765ab246_fdd8f18e",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f14dab68_9a6a03b0",
       "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -329,6 +503,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee1ad66_e879636e",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a009aff5_c4bd902f",
+      "range": {
+        "startLine": 395,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 49
+      },
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "892ac502_8a24b371",
@@ -342,6 +540,24 @@
       "writtenOn": "2026-03-02T18:12:46Z",
       "side": 1,
       "message": "Please look at the existing tests;  I would expect these to be similar.  They test the limits of max/min for all inputs, and verify the correct behavior.  Considering these inputs come from untrusted sources (the user) we need to make sure all over/underflow behaviors result in the correct error and log being created.",
+      "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ce7a33a_6cd856c4",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T15:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "892ac502_8a24b371",
       "revId": "8fdaecc80aa86e4aee26c9580d5ce27450ceec65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
