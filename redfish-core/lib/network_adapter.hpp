@@ -13,6 +13,7 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/metrics_util.hpp"
 
 #include <boost/beast/http/verb.hpp>
 
@@ -63,109 +64,127 @@ inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
 
         if (metricName == "rx_bytes")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/RXBytes"_json_pointer);
+            metrics_util::getMetricProperty(asyncResp, serviceName, path,
+                                            "/RXBytes"_json_pointer);
         }
         else if (metricName == "tx_bytes")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/TXBytes"_json_pointer);
+            metrics_util::getMetricProperty(asyncResp, serviceName, path,
+                                            "/TXBytes"_json_pointer);
         }
         else if (metricName == "rx_multicast_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXMulticastFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXMulticastFrames"_json_pointer);
         }
         else if (metricName == "tx_multicast_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXMulticastFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXMulticastFrames"_json_pointer);
         }
         else if (metricName == "rx_broadcast_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXBroadcastFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXBroadcastFrames"_json_pointer);
         }
         else if (metricName == "tx_broadcast_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXBroadcastFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXBroadcastFrames"_json_pointer);
         }
         else if (metricName == "rx_unicast_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXUnicastFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXUnicastFrames"_json_pointer);
         }
         else if (metricName == "tx_unicast_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXUnicastFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXUnicastFrames"_json_pointer);
         }
         else if (metricName == "rx_fcs_errors")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXFCSErrors"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXFCSErrors"_json_pointer);
         }
         else if (metricName == "rx_frame_alignment_errors")
         {
-            getMetricProperty(
+            metrics_util::getMetricProperty(
                 asyncResp, serviceName, path,
                 "/Networking/RXFrameAlignmentErrors"_json_pointer);
         }
         else if (metricName == "rx_false_carrier_errors")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXFalseCarrierErrors"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXFalseCarrierErrors"_json_pointer);
         }
         else if (metricName == "rx_undersize_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXUndersizeFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXUndersizeFrames"_json_pointer);
         }
         else if (metricName == "rx_oversize_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXOversizeFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXOversizeFrames"_json_pointer);
         }
         else if (metricName == "rx_pause_xon_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXPauseXONFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXPauseXONFrames"_json_pointer);
         }
         else if (metricName == "rx_pause_xoff_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/RXPauseXOFFFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/RXPauseXOFFFrames"_json_pointer);
         }
         else if (metricName == "tx_pause_xon_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXPauseXONFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXPauseXONFrames"_json_pointer);
         }
         else if (metricName == "tx_pause_xoff_frames")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXPauseXOFFFrames"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXPauseXOFFFrames"_json_pointer);
         }
         else if (metricName == "tx_single_collisions")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXSingleCollisions"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXSingleCollisions"_json_pointer);
         }
         else if (metricName == "tx_multiple_collisions")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXMultipleCollisions"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXMultipleCollisions"_json_pointer);
         }
         else if (metricName == "tx_late_collisions")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXLateCollisions"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXLateCollisions"_json_pointer);
         }
         else if (metricName == "tx_excessive_collisions")
         {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/Networking/TXExcessiveCollisions"_json_pointer);
+            metrics_util::getMetricProperty(
+                asyncResp, serviceName, path,
+                "/Networking/TXExcessiveCollisions"_json_pointer);
         }
     }
 }
