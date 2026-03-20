@@ -1163,8 +1163,24 @@ functions the same like the default implementation under the System resource.
 
 - ActiveWidth
 - CurrentSpeedGbps
+- Metrics
 - PortProtocol
 - PortType
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Ports/{PortId}/Metrics/
+
+#### PortMetrics
+
+- PCIeErrors
+  - CorrectableErrorCount
+  - FatalErrorCount
+  - L0ToRecoveryCount
+  - NAKReceivedCount
+  - NAKSentCount
+  - NonFatalErrorCount
+  - ReplayCount
+  - ReplayRolloverCount
+  - UnsupportedRequestCount
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
