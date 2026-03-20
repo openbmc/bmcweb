@@ -13,6 +13,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/metrics_util.hpp"
 #include "utils/pcie_util.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -123,122 +124,6 @@ inline void afterGetFabricSwitchPortInfo(
     }
 }
 
-inline void populateMetricsProperty(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const nlohmann::json::json_pointer& jsonPtr,
-    const boost::system::error_code& ec, double value)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG(
-            "DBus response error on GetProperty {} for property {}", ec,
-            jsonPtr.to_string());
-        return;
-    }
-
-    if (!std::isfinite(value))
-    {
-        BMCWEB_LOG_DEBUG("Received non-finite value for property {}",
-                         jsonPtr.to_string());
-
-        asyncResp->res.jsonValue[jsonPtr] = nullptr;
-    }
-    else
-    {
-        asyncResp->res.jsonValue[jsonPtr] = static_cast<int64_t>(value);
-    }
-}
-
-inline void getMetricProperty(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& serviceName, const sdbusplus::object_path& objectPath,
-    const nlohmann::json::json_pointer& jsonPtr)
-{
-    dbus::utility::getProperty<double>(
-        serviceName, objectPath, "xyz.openbmc_project.Metric.Value", "Value",
-        std::bind_front(populateMetricsProperty, asyncResp, jsonPtr));
-}
-
-inline void handleFabricSwitchPortMetricsPathPortMetricsGet(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& object)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree{}", ec);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    for (const auto& [path, service] : object)
-    {
-        if (service.size() != 1)
-        {
-            continue;
-        }
-
-        sdbusplus::object_path objectPah(path);
-
-        const std::string metricType = objectPah.parent_path().filename();
-        const std::string metricName = objectPah.filename();
-
-        if (metricType != "pcie")
-        {
-            continue;
-        }
-
-        const auto& serviceName = service.begin()->first;
-
-        if (metricName == "correctable_error_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/CorrectableErrorCount"_json_pointer);
-        }
-        else if (metricName == "non_fatal_error_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/NonFatalErrorCount"_json_pointer);
-        }
-        else if (metricName == "fatal_error_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/FatalErrorCount"_json_pointer);
-        }
-        else if (metricName == "l0_to_recovery_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/L0ToRecoveryCount"_json_pointer);
-        }
-        else if (metricName == "replay_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/ReplayCount"_json_pointer);
-        }
-        else if (metricName == "replay_rollover_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/ReplayRolloverCount"_json_pointer);
-        }
-        else if (metricName == "nak_sent_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/NAKSentCount"_json_pointer);
-        }
-        else if (metricName == "nak_received_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/NAKReceivedCount"_json_pointer);
-        }
-        else if (metricName == "unsupported_request_count")
-        {
-            getMetricProperty(
-                asyncResp, serviceName, path,
-                "/PCIeErrors/UnsupportedRequestCount"_json_pointer);
-        }
-    }
-}
-
 inline void handleFabricSwitchPortPathPortMetricsGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
@@ -253,13 +138,7 @@ inline void handleFabricSwitchPortPathPortMetricsGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port Metrics", switchId, portId);
 
-    const sdbusplus::object_path associationPath =
-        sdbusplus::object_path(portPath) / "measured_by";
-    dbus::utility::getAssociatedSubTree(
-        associationPath, sdbusplus::object_path("/xyz/openbmc_project/metric"),
-        0, std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
-        std::bind_front(handleFabricSwitchPortMetricsPathPortMetricsGet,
-                        asyncResp));
+    metrics_util::getPortPCIeMetrics(asyncResp, portPath);
 }
 
 inline void handleFabricSwitchPortPathPortGet(
