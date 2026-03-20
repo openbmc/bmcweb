@@ -490,11 +490,16 @@ Fields common to all schemas
 
 ###### Assembly
 
+- Location
 - LocationIndicatorActive
 - Model
 - PartNumber
+- PhysicalContext
+- Producer
+- ProductionDate
 - SerialNumber
 - SparePartNumber
+- Status
 
 ### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/
 
