@@ -1371,12 +1371,26 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
              obj : subtree)
     {
         sdbusplus::message::object_path path(obj.first);
-        std::string id = path.filename();
-        if (id.empty())
+        std::string leaf = path.filename();
+        if (leaf.empty())
         {
             BMCWEB_LOG_DEBUG("Failed to find software id in {}", obj.first);
             continue;
         }
+
+        // To handle unique IDs with parent_leaf format (e.g., bios1_xyz123),
+        // we need to construct the same format and compare
+        std::string parent = path.parent_path().filename();
+        std::string id;
+        if (!parent.empty() && parent != "software")
+        {
+            id = parent + "_" + leaf;
+        }
+        else
+        {
+            id = leaf;
+        }
+
         if (id != *swId)
         {
             continue;
@@ -1386,8 +1400,18 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
             continue;
         }
         found = true;
-        sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
-        sw_util::getSwMinimumVersion(asyncResp, swId, obj.second[0].first);
+        // For sw_util functions that build D-Bus paths from swId, we need to
+        // pass the path suffix after /xyz/openbmc_project/software/
+        std::string softwareBasePath = "/xyz/openbmc_project/software/";
+        std::string pathSuffix = obj.first;
+        if (pathSuffix.starts_with(softwareBasePath))
+        {
+            pathSuffix = pathSuffix.substr(softwareBasePath.length());
+        }
+        std::shared_ptr<std::string> dbusPathId =
+            std::make_shared<std::string>(pathSuffix);
+        sw_util::getSwStatus(asyncResp, dbusPathId, obj.second[0].first);
+        sw_util::getSwMinimumVersion(asyncResp, dbusPathId, obj.second[0].first);
         getSoftwareVersion(asyncResp, obj.second[0].first, obj.first, *swId);
     }
     if (!found)
