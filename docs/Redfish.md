@@ -1150,6 +1150,22 @@ functions the same like the default implementation under the System resource.
 - TotalThreads
 - Version
 
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Ports/
+
+#### PortCollection
+
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Ports/{PortId}/
+
+#### Port
+
+- ActiveWidth
+- CurrentSpeedGbps
+- PortProtocol
+- PortType
+
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
 #### ActionInfo
