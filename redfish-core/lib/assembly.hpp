@@ -7,6 +7,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/physical_context.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -134,6 +135,90 @@ void getAssemblyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void getAssemblyProducer(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& assembly,
+    const nlohmann::json::json_pointer& assemblyJsonPtr)
+{
+    dbus::utility::getProperty<std::string>(
+        serviceName, assembly, "xyz.openbmc_project.Inventory.Decorator.Asset",
+        "Manufacturer",
+        [asyncResp, assemblyJsonPtr](const boost::system::error_code& ec,
+                                     const std::string& value) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Manufacturer {}",
+                                     ec.value());
+                }
+                return;
+            }
+            if (!value.empty())
+            {
+                asyncResp->res.jsonValue[assemblyJsonPtr]["Producer"] = value;
+            }
+        });
+}
+
+inline void getAssemblyProductionDate(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& assembly,
+    const nlohmann::json::json_pointer& assemblyJsonPtr)
+{
+    dbus::utility::getProperty<std::string>(
+        serviceName, assembly, "xyz.openbmc_project.Inventory.Decorator.Asset",
+        "BuildDate",
+        [asyncResp, assemblyJsonPtr](const boost::system::error_code& ec,
+                                     const std::string& value) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for BuildDate {}",
+                                     ec.value());
+                }
+                return;
+            }
+            if (!value.empty())
+            {
+                asyncResp->res.jsonValue[assemblyJsonPtr]["ProductionDate"] =
+                    value;
+            }
+        });
+}
+
+inline void getAssemblyPhysicalContext(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& assembly,
+    const nlohmann::json::json_pointer& assemblyJsonPtr)
+{
+    dbus::utility::getProperty<std::string>(
+        serviceName, assembly, "xyz.openbmc_project.Common.PhysicalContext",
+        "Type",
+        [asyncResp, assemblyJsonPtr](const boost::system::error_code& ec,
+                                     const std::string& value) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBUS response error for PhysicalContext {}",
+                        ec.value());
+                }
+                return;
+            }
+            if (value ==
+                "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.Accelerator")
+            {
+                asyncResp->res.jsonValue[assemblyJsonPtr]["PhysicalContext"] =
+                    physical_context::PhysicalContext::Accelerator;
+                return;
+            }
+            BMCWEB_LOG_WARNING("Unknown PhysicalContext: {}", value);
+        });
+}
+
 inline void afterGetDbusObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& assembly,
@@ -157,6 +242,10 @@ inline void afterGetDbusObject(
             {
                 asset_utils::getAssetInfo(asyncResp, serviceName, assembly,
                                           assemblyJsonPtr, true, false);
+                getAssemblyProducer(asyncResp, serviceName, assembly,
+                                    assemblyJsonPtr);
+                getAssemblyProductionDate(asyncResp, serviceName, assembly,
+                                          assemblyJsonPtr);
             }
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
@@ -174,6 +263,18 @@ inline void afterGetDbusObject(
             {
                 getAssemblyHealth(asyncResp, serviceName, assembly,
                                   assemblyJsonPtr);
+            }
+            else if (interface == "xyz.openbmc_project.Common.PhysicalContext")
+            {
+                getAssemblyPhysicalContext(asyncResp, serviceName, assembly,
+                                           assemblyJsonPtr);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Connector.Embedded")
+            {
+                asyncResp->res.jsonValue[assemblyJsonPtr]["Location"]
+                                        ["PartLocation"]["LocationType"] =
+                    resource::LocationType::Embedded;
             }
         }
     }
