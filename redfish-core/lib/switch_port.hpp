@@ -12,6 +12,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/metrics_util.hpp"
 #include "utils/pcie_util.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -23,114 +24,12 @@
 #include <format>
 #include <functional>
 #include <memory>
-#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
 
 namespace redfish
 {
-
-inline void populateMetricsProperty(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const nlohmann::json::json_pointer& jsonPtr,
-    const boost::system::error_code& ec, double value)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG(
-            "DBus response error on GetProperty {} for property {}", ec,
-            jsonPtr.to_string());
-        return;
-    }
-
-    if (!std::isfinite(value))
-    {
-        BMCWEB_LOG_DEBUG("Received non-finite value for property {}",
-                         jsonPtr.to_string());
-
-        asyncResp->res.jsonValue[jsonPtr] = nullptr;
-    }
-    else
-    {
-        asyncResp->res.jsonValue[jsonPtr] = static_cast<int64_t>(value);
-    }
-}
-
-inline void getMetricProperty(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& serviceName, const sdbusplus::object_path& objectPath,
-    const nlohmann::json::json_pointer& jsonPtr)
-{
-    dbus::utility::getProperty<double>(
-        serviceName, objectPath, "xyz.openbmc_project.Metric.Value", "Value",
-        std::bind_front(populateMetricsProperty, asyncResp, jsonPtr));
-}
-
-inline void getMappedMetricProperty(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& serviceName, const sdbusplus::object_path& objectPath,
-    std::string_view metricName,
-    std::span<const std::pair<std::string_view, std::string_view>> table)
-{
-    for (const auto& [name, pointer] : table)
-    {
-        if (name != metricName)
-        {
-            continue;
-        }
-        getMetricProperty(asyncResp, serviceName, objectPath,
-                          nlohmann::json::json_pointer(std::string(pointer)));
-        return;
-    }
-}
-
-static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
-    pciePortMetrics = {{
-        {"correctable_error_count", "/PCIeErrors/CorrectableErrorCount"},
-        {"non_fatal_error_count", "/PCIeErrors/NonFatalErrorCount"},
-        {"fatal_error_count", "/PCIeErrors/FatalErrorCount"},
-        {"l0_to_recovery_count", "/PCIeErrors/L0ToRecoveryCount"},
-        {"replay_count", "/PCIeErrors/ReplayCount"},
-        {"replay_rollover_count", "/PCIeErrors/ReplayRolloverCount"},
-        {"nak_sent_count", "/PCIeErrors/NAKSentCount"},
-        {"nak_received_count", "/PCIeErrors/NAKReceivedCount"},
-        {"unsupported_request_count", "/PCIeErrors/UnsupportedRequestCount"},
-    }};
-
-inline void handleFabricSwitchPortMetricsPathPortMetricsGet(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& object)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree{}", ec);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    for (const auto& [path, service] : object)
-    {
-        if (service.size() != 1)
-        {
-            continue;
-        }
-
-        sdbusplus::object_path objectPah(path);
-
-        const std::string metricType = objectPah.parent_path().filename();
-        const std::string metricName = objectPah.filename();
-
-        if (metricType != "pcie")
-        {
-            continue;
-        }
-
-        getMappedMetricProperty(asyncResp, service.begin()->first, path,
-                                metricName, pciePortMetrics);
-    }
-}
 
 inline void handleFabricSwitchPortPathPortMetricsGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -146,13 +45,7 @@ inline void handleFabricSwitchPortPathPortMetricsGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port Metrics", switchId, portId);
 
-    const sdbusplus::object_path associationPath =
-        sdbusplus::object_path(portPath) / "measured_by";
-    dbus::utility::getAssociatedSubTree(
-        associationPath, sdbusplus::object_path("/xyz/openbmc_project/metric"),
-        0, std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
-        std::bind_front(handleFabricSwitchPortMetricsPathPortMetricsGet,
-                        asyncResp));
+    metrics_util::getPortPCIeMetrics(asyncResp, portPath);
 }
 
 inline void handleFabricSwitchPortPathPortGet(
