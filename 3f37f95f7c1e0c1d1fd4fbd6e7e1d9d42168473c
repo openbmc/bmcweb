@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd184aed_af2dc450",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T19:05:34Z",
+      "side": 1,
+      "message": "This is no longer used, right?",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "3f37f95f7c1e0c1d1fd4fbd6e7e1d9d42168473c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e51eeea_fb719c71",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T19:05:34Z",
+      "side": 1,
+      "message": "First patch commented on this, I have no idea what the type on info is.  Looking at cppreference, it\u0027s std::chrono::sys_info",
+      "range": {
+        "startLine": 388,
+        "startChar": 19,
+        "endLine": 388,
+        "endChar": 27
+      },
+      "revId": "3f37f95f7c1e0c1d1fd4fbd6e7e1d9d42168473c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
