@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7537df3_a417755d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T18:36:20Z",
+      "side": 1,
+      "message": "To be clear, you intend to fix this, just in another patch?",
+      "parentUuid": "f56e74b1_e91e4e8d",
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4346ad01_662467da",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 4
