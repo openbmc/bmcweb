@@ -16,6 +16,29 @@
       "message": "This property now exists in PDI which is great, but doesn\u0027t exist in the Redfish schema you\u0027ve modified.  Please give me some indication of what your intent is here;  Do you plan to go to DMTF and add your property to the schemas?",
       "revId": "697e6aff9d58d765adc021577950dde82710765b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4407f3c1_a5f3cd18",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-20T22:03:36Z",
+      "side": 1,
+      "message": "Empty string here doesn\u0027t seem right?  That would mean the UserType is dropped on a reboot.",
+      "range": {
+        "startLine": 296,
+        "startChar": 12,
+        "endLine": 296,
+        "endChar": 14
+      },
+      "revId": "697e6aff9d58d765adc021577950dde82710765b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
