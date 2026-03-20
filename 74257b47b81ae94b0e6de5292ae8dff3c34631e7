@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bb5f499_735d9bc4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T16:18:36Z",
+      "side": 1,
+      "message": "Yes, sure.",
+      "parentUuid": "b0e1d98c_88df66f4",
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4346ad01_662467da",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 4
@@ -71,6 +89,30 @@
       "writtenOn": "2026-03-20T15:45:26Z",
       "side": 1,
       "message": "Don\u0027t all these need updated with TZ support as well?  Otherwise things like journal logs will still respond in UTC.",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 62
+      },
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51b5bef2_d4489c18",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T16:18:36Z",
+      "side": 1,
+      "message": "The question is do we want to expose every timestamp under /redfish/v1/Managers/\u003cID\u003e/ or just time of the manager itself and show its TZ. There are places like https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L247-L327, they produce output for Manager and System both, and implementation of the former will require decent amount of work.",
+      "parentUuid": "918561ec_c2950b56",
       "range": {
         "startLine": 504,
         "startChar": 0,
