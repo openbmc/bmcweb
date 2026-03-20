@@ -7,6 +7,8 @@
 #include "async_resp.hpp"
 #include "generated/enums/pcie_device.hpp"
 #include "generated/enums/pcie_slots.hpp"
+#include "generated/enums/port.hpp"
+#include "generated/enums/protocol.hpp"
 #include "utils/collection.hpp"
 
 #include <boost/system/error_code.hpp>
@@ -174,6 +176,43 @@ inline std::optional<pcie_device::DeviceType> redfishPcieDeviceTypeFromDbus(
     }
 
     return pcie_device::DeviceType::Invalid;
+}
+
+inline std::optional<protocol::Protocol> dbusPortProtocolToRf(
+    const std::string& portProtocol)
+{
+    if (portProtocol ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.PCIe")
+    {
+        return protocol::Protocol::PCIe;
+    }
+    if (portProtocol ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.Unknown")
+    {
+        return std::nullopt;
+    }
+    return protocol::Protocol::Invalid;
+}
+
+inline std::optional<port::PortType> dbusPortTypeToRf(
+    const std::string& portType)
+{
+    if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Upstream")
+    {
+        return port::PortType::UpstreamPort;
+    }
+    if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Downstream")
+    {
+        return port::PortType::DownstreamPort;
+    }
+    if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Unknown")
+    {
+        return std::nullopt;
+    }
+    return port::PortType::Invalid;
 }
 
 } // namespace pcie_util

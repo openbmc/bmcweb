@@ -13,6 +13,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/pcie_util.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -33,34 +34,6 @@
 
 namespace redfish
 {
-inline port::PortType dBusSensorPortTypeToRedfish(const std::string& portType)
-{
-    if (portType ==
-        "xyz.openbmc_project.Inventory.Connector.Port.PortType.DownstreamPort")
-    {
-        return port::PortType::DownstreamPort;
-    }
-
-    if (portType ==
-        "xyz.openbmc_project.Inventory.Connector.Port.PortType.UpstreamPort")
-    {
-        return port::PortType::UpstreamPort;
-    }
-
-    return port::PortType::Invalid;
-}
-
-inline std::string dBusSensorPortProtocolToRedfish(
-    const std::string& portProtocol)
-{
-    if (portProtocol ==
-        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.PCIe")
-    {
-        return "PCIe";
-    }
-
-    return "Unknown";
-}
 
 inline void afterGetFabricSwitchPortInfo(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -111,20 +84,41 @@ inline void afterGetFabricSwitchPortInfo(
     }
     if (portType.has_value())
     {
-        const port::PortType portTypeEnum =
-            dBusSensorPortTypeToRedfish(*portType);
-        if (portTypeEnum != port::PortType::Invalid)
+        std::optional<port::PortType> portTypeEnum =
+            pcie_util::dbusPortTypeToRf(*portType);
+        if (!portTypeEnum)
         {
-            asyncResp->res.jsonValue["PortType"] = portTypeEnum;
+            BMCWEB_LOG_WARNING("Unknown Port PortType: {}", *portType);
+        }
+        else
+        {
+            if (*portTypeEnum == port::PortType::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Invalid Port PortType: {}", *portType);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["PortType"] = *portTypeEnum;
         }
     }
     if (portProtocol.has_value())
     {
-        const std::string portProtocolStr =
-            dBusSensorPortProtocolToRedfish(*portProtocol);
-        if (portProtocolStr != "Unknown")
+        std::optional<protocol::Protocol> protocolEnum =
+            pcie_util::dbusPortProtocolToRf(*portProtocol);
+        if (!protocolEnum)
         {
-            asyncResp->res.jsonValue["PortProtocol"] = portProtocolStr;
+            BMCWEB_LOG_WARNING("Unknown Port PortProtocol: {}", *portProtocol);
+        }
+        else
+        {
+            if (*protocolEnum == protocol::Protocol::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Invalid Port PortProtocol: {}",
+                                 *portProtocol);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["PortProtocol"] = *protocolEnum;
         }
     }
 }
