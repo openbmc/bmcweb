@@ -14,6 +14,7 @@
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/location_utils.hpp"
+#include "utils/metrics_util.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -89,8 +90,8 @@ inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
             continue;
         }
 
-        getMappedMetricProperty(asyncResp, service.begin()->first, path,
-                                metricName, nicPortMetrics);
+        metrics_util::getMappedMetricProperty(asyncResp, service.begin()->first,
+                                              path, metricName, nicPortMetrics);
     }
 }
 
