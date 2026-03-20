@@ -90,15 +90,38 @@ inline void handleCollectionMembers(
         {
             continue;
         }
-        pathNames.push_back(leaf);
+
+        // To handle cases where multiple D-Bus paths have the same leaf name
+        // (e.g., /xyz/openbmc_project/software/bios1/abc and
+        // /xyz/openbmc_project/software/bios2/abc both have leaf "abc"),
+        // we need to create unique IDs by incorporating parent information.
+        std::string parent = path.parent_path().filename();
+        std::string uniqueId;
+        if (!parent.empty() && parent != "software")
+        {
+            // Use parent_leaf format for uniqueness
+            uniqueId = parent + "_" + leaf;
+        }
+        else
+        {
+            // No parent or parent is base "software", just use leaf
+            uniqueId = leaf;
+        }
+
+        pathNames.push_back(uniqueId);
     }
+
+    // Remove duplicates if the same full D-Bus path appears multiple times
+    std::ranges::sort(pathNames);
+    auto [first, last] = std::ranges::unique(pathNames);
+    pathNames.erase(first, last);
 
     nlohmann::json::array_t& membersArr =
         details::getJsonArrayAt(asyncResp->res.jsonValue[jsonKeyName]);
-    for (const std::string& leaf : pathNames)
+    for (const std::string& id : pathNames)
     {
         boost::urls::url url = collectionPath;
-        crow::utility::appendUrlPieces(url, leaf);
+        crow::utility::appendUrlPieces(url, id);
         nlohmann::json::object_t member;
         member["@odata.id"] = std::move(url);
         membersArr.emplace_back(std::move(member));

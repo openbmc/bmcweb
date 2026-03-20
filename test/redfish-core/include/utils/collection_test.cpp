@@ -158,5 +158,37 @@ TEST(CollectionUtil, HandleCollectionMembersSkipsObjectsWithEmptyLeaf)
     EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
 }
 
+TEST(CollectionUtil, HandleCollectionMembersWithSameLeafNames)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    // Simulate multiple D-Bus paths with same leaf name but different parents
+    // (e.g., different hardware instances like bios1/xyz789 and bios2/xyz789)
+    dbus::utility::MapperGetSubTreePathsResponse objects = {
+        "/xyz/openbmc_project/software/abc123",
+        "/xyz/openbmc_project/software/bmc/abc123",
+        "/xyz/openbmc_project/software/xyz789",
+        "/xyz/openbmc_project/software/bios/xyz789",
+    };
+
+    handleCollectionMembers(
+        asyncResp,
+        boost::urls::url("/redfish/v1/UpdateService/SoftwareInventory"),
+        nlohmann::json::json_pointer("/Members"), {}, objects);
+
+    const nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+    ASSERT_TRUE(members.is_array());
+    // Should have 4 unique entries with parent_leaf format for uniqueness
+    ASSERT_EQ(members.size(), 4);
+    EXPECT_EQ(members[0]["@odata.id"],
+              "/redfish/v1/UpdateService/SoftwareInventory/abc123");
+    EXPECT_EQ(members[1]["@odata.id"],
+              "/redfish/v1/UpdateService/SoftwareInventory/bios_xyz789");
+    EXPECT_EQ(members[2]["@odata.id"],
+              "/redfish/v1/UpdateService/SoftwareInventory/bmc_abc123");
+    EXPECT_EQ(members[3]["@odata.id"],
+              "/redfish/v1/UpdateService/SoftwareInventory/xyz789");
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 4);
+}
+
 } // namespace
 } // namespace redfish::collection_util
