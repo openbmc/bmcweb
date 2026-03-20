@@ -227,6 +227,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "345112c0_510ba611",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-20T18:55:12Z",
+      "side": 1,
+      "message": "Let\u0027s do this in another patch. I\u0027m fine to do this, but it will require some time and may make this patch much larger (I\u0027m not sure how many places need to be updated).\n\nSo, I\u0027d split this to 2 parts:\n1. Manager itself + TZ patching - this change.\n2. Timestamps in nested endpoints.\n\nIf you\u0027re fine with this - LMK what you want me to update in this change (update commit message, etc so we will merge this one), and I will look into the nested places next week.",
+      "parentUuid": "c94788ce_064c163b",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 62
+      },
+      "revId": "74257b47b81ae94b0e6de5292ae8dff3c34631e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00d24f2a_8e000581",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 4
