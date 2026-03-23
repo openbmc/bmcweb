@@ -142,6 +142,24 @@
       "parentUuid": "79e841c5_0b0136a7",
       "revId": "85f922a513f9712685aeb141415c2e48506a6be5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d101b5b_d61e5a9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-03-23T02:08:32Z",
+      "side": 1,
+      "message": "Here is the Inventory.Item.Accelerator association PDI gerrit patch:\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/88553",
+      "parentUuid": "e44a4720_87fd02c0",
+      "revId": "85f922a513f9712685aeb141415c2e48506a6be5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
