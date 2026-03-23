@@ -188,6 +188,24 @@
       "parentUuid": "9e178fff_77bb3cd8",
       "revId": "4c7ed09d65d5d87cce54be58c2aea5167da1b885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "673c5ffd_7d2cef16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-23T15:25:35Z",
+      "side": 1,
+      "message": "What does the docs say about this?  Do they say \"Post on Redfish forum then merge the patch?\"",
+      "parentUuid": "10c2d868_1a76ad2d",
+      "revId": "4c7ed09d65d5d87cce54be58c2aea5167da1b885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
