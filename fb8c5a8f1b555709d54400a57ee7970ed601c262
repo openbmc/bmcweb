@@ -34,6 +34,24 @@
       "parentUuid": "3fac8b1e_afd8689e",
       "revId": "fb8c5a8f1b555709d54400a57ee7970ed601c262",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca1ee045_eeaaff0e",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCSession_v1.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-23T18:00:03Z",
+      "side": 1,
+      "message": "Gotcha, you have some modeling issues, please correct them.  DMTF has documentation on how to write schemas that you can discuss.",
+      "parentUuid": "33db3724_18f6d3fa",
+      "revId": "fb8c5a8f1b555709d54400a57ee7970ed601c262",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
