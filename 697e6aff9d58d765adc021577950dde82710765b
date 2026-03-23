@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "549a16e9_0fa92e38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-03-23T02:35:12Z",
+      "side": 1,
+      "message": "Moved UserType under the OpenBMC OEM namespace. The Redfish Service Validator passes with no failures.",
+      "parentUuid": "7b2c4369_acc2c5c5",
+      "revId": "697e6aff9d58d765adc021577950dde82710765b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4407f3c1_a5f3cd18",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-03-20T22:03:36Z",
       "side": 1,
       "message": "Empty string here doesn\u0027t seem right?  That would mean the UserType is dropped on a reboot.",
+      "range": {
+        "startLine": 296,
+        "startChar": 12,
+        "endLine": 296,
+        "endChar": 14
+      },
+      "revId": "697e6aff9d58d765adc021577950dde82710765b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23cf618d_90c79a7d",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-03-23T02:35:12Z",
+      "side": 1,
+      "message": "The empty string is only the initial value set during session creation. UserType is always re-populated via GetUserInfo call before any response is sent to the client; on login through the explicit getUserInfo call in processAfterSessionCreation, and on every subsequent request including after reboot through the privilege validation which calls GetUserInfo before any handler is invoked.",
+      "parentUuid": "4407f3c1_a5f3cd18",
       "range": {
         "startLine": 296,
         "startChar": 12,
