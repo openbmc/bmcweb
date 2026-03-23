@@ -16,6 +16,24 @@
       "message": "How was this CSDL generated?  I see several issues with it that would lead me to believe that the generator isn\u0027t familiar with Redfish modeling in general.  Rather than going through all of them, lets see if DMTF wants to just include this in theirs, and we can review in their repository.",
       "revId": "fb8c5a8f1b555709d54400a57ee7970ed601c262",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33db3724_18f6d3fa",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCSession_v1.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-03-23T17:49:55Z",
+      "side": 1,
+      "message": "The CSDL was created using OpenBMCAccountService_v1.xml as a reference. Used the DMTF Redfish Tools to generate the corresponding JSON schemas. I’ll proceed based on the response from the Redfish Forum.",
+      "parentUuid": "3fac8b1e_afd8689e",
+      "revId": "fb8c5a8f1b555709d54400a57ee7970ed601c262",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
