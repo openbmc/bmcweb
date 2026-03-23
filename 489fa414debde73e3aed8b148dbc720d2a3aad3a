@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4482061f_e3d0bec1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-23T15:24:46Z",
+      "side": 1,
+      "message": "Ideally we\u0027d remove the \"this is clearly not\", and make it more about being specific.  400 definition is\n\n```\nRequest could not be processed because it contains invalid information, such as an invalid input\nfield, or is missing a required value. The response body shall return an extended error as\ndefined in the Error responses clause.\n```\n\nOne could ague that the conflicting ID WAS the invalid input.  I\u0027m not here to stand on ceremony to a commit message, so I will leave this open, and merge as-is, because I think functionally this commit is an improvement.",
+      "range": {
+        "startLine": 13,
+        "startChar": 21,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "489fa414debde73e3aed8b148dbc720d2a3aad3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
