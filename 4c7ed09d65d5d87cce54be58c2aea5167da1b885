@@ -170,6 +170,24 @@
       "parentUuid": "4a7ba8cb_8679805a",
       "revId": "4c7ed09d65d5d87cce54be58c2aea5167da1b885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10c2d868_1a76ad2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-03-23T03:19:34Z",
+      "side": 1,
+      "message": "I\u0027ve read OEM_SCHEMAS.md . I\u0027ve posted on the Redfish forum to get DMTF feedback before proceeding.  Is your concern that I should wait for the forum response before pushing further changes, or is there something else I missed in the process?",
+      "parentUuid": "9e178fff_77bb3cd8",
+      "revId": "4c7ed09d65d5d87cce54be58c2aea5167da1b885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
