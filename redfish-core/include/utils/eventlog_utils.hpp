@@ -141,9 +141,12 @@ inline void handleSystemsAndManagersEventLogServiceGet(
     asyncResp->res.jsonValue["OverWritePolicy"] =
         log_service::OverWritePolicy::WrapsWhenFull;
 
+    redfish::time_utils::DateFormat dateFormat =
+        (collection == LogServiceParentCollection::Managers)
+            ? redfish::time_utils::DateFormat::LocalTimezone
+            : redfish::time_utils::DateFormat::UTC;
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow(
-            redfish::time_utils::DateFormat::UTC);
+        redfish::time_utils::getDateTimeOffsetNow(dateFormat);
 
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
@@ -598,10 +601,14 @@ inline void fillEventLogLogEntryFromDbusLogEntry(
     objectToFillOut["EntryType"] = "Event";
     objectToFillOut["Severity"] =
         translateSeverityDbusToRedfish(entry.Severity);
+    redfish::time_utils::DateFormat dateFormat =
+        (collectionStr == rfManagersStr)
+            ? redfish::time_utils::DateFormat::LocalTimezone
+            : redfish::time_utils::DateFormat::UTC;
     objectToFillOut["Created"] =
-        redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
-    objectToFillOut["Modified"] =
-        redfish::time_utils::getDateTimeUintMs(entry.UpdateTimestamp);
+        redfish::time_utils::getDateTimeUintMs(entry.Timestamp, dateFormat);
+    objectToFillOut["Modified"] = redfish::time_utils::getDateTimeUintMs(
+        entry.UpdateTimestamp, dateFormat);
     if (entry.Path != nullptr)
     {
         objectToFillOut["AdditionalDataURI"] = boost::urls::format(

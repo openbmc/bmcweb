@@ -25,6 +25,24 @@ enum class DateFormat
     LocalTimezone,
 };
 
+// Apply timezone offset to a duration with overflow/underflow protection.
+// Uses offset (signed std::chrono::seconds) for the sign check to avoid
+// unsigned wraparound when casting negative offsets to SubType.
+template <typename SubType>
+SubType applyOffsetClamped(SubType val, std::chrono::seconds offset)
+{
+    bool pos = offset >= std::chrono::seconds::zero();
+    auto absDur = std::chrono::duration_cast<SubType>(pos ? offset : -offset);
+    auto clamp = pos ? SubType::max() : SubType::min();
+    bool overflow = pos ? val.count() > (clamp.count() - absDur.count())
+                        : val.count() < (clamp.count() + absDur.count());
+    if (overflow)
+    {
+        return clamp;
+    }
+    return pos ? val + absDur : val - absDur;
+}
+
 /**
  * @brief Convert string that represents value in Duration Format to its numeric
  *        equivalent.
@@ -56,9 +74,24 @@ std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch);
 // Returns the formatted date time string with microsecond precision
 std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch);
 
-std::string getDateTimeStdtime(std::time_t secondsSinceEpoch);
+// Tz variants: format using the provided timezone
+std::string getDateTimeUintTz(uint64_t secondsSinceEpoch,
+                              const std::chrono::time_zone& outputTimezone);
+std::string getDateTimeUintMsTz(uint64_t milliSecondsSinceEpoch,
+                                const std::chrono::time_zone& outputTimezone);
+std::string getDateTimeUintUsTz(uint64_t microSecondsSinceEpoch,
+                                const std::chrono::time_zone& outputTimezone);
 std::string getDateTimeStdtimeTz(std::time_t secondsSinceEpoch,
-                                 const std::chrono::time_zone& tz);
+                                 const std::chrono::time_zone& outputTimezone);
+
+// DateFormat overloads: caller specifies UTC or LocalTimezone
+std::string getDateTimeUint(uint64_t secondsSinceEpoch, DateFormat dateFormat);
+std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch,
+                              DateFormat dateFormat);
+std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch,
+                              DateFormat dateFormat);
+std::string getDateTimeStdtime(std::time_t secondsSinceEpoch,
+                               DateFormat dateFormat);
 
 /**
  * Returns the current Date, Time & the local Time Offset

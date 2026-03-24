@@ -255,12 +255,16 @@ inline void getDumpEntryCollection(
         return;
     }
 
+    redfish::time_utils::DateFormat dateFormat =
+        (dumpType == "System") ? redfish::time_utils::DateFormat::UTC
+                               : redfish::time_utils::DateFormat::LocalTimezone;
+
     sdbusplus::message::object_path path("/xyz/openbmc_project/dump");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager", path,
-        [asyncResp, entriesPath,
-         dumpType](const boost::system::error_code& ec,
-                   const dbus::utility::ManagedObjectType& objects) {
+        [asyncResp, entriesPath, dumpType,
+         dateFormat](const boost::system::error_code& ec,
+                     const dbus::utility::ManagedObjectType& objects) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DumpEntry resp_handler got error {}", ec);
@@ -322,8 +326,8 @@ inline void getDumpEntryCollection(
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Name"] = dumpType + " Dump Entry";
-                thisEntry["Created"] =
-                    redfish::time_utils::getDateTimeUintUs(timestampUs);
+                thisEntry["Created"] = redfish::time_utils::getDateTimeUintUs(
+                    timestampUs, dateFormat);
 
                 if (!originatorId.empty())
                 {
@@ -365,12 +369,16 @@ inline void getDumpEntryById(
         return;
     }
 
+    redfish::time_utils::DateFormat dateFormat =
+        (dumpType == "System") ? redfish::time_utils::DateFormat::UTC
+                               : redfish::time_utils::DateFormat::LocalTimezone;
+
     sdbusplus::message::object_path path("/xyz/openbmc_project/dump");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager", path,
-        [asyncResp, entryID, dumpType,
-         entriesPath](const boost::system::error_code& ec,
-                      const dbus::utility::ManagedObjectType& resp) {
+        [asyncResp, entryID, dumpType, entriesPath,
+         dateFormat](const boost::system::error_code& ec,
+                     const dbus::utility::ManagedObjectType& resp) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DumpEntry resp_handler got error {}", ec);
@@ -419,7 +427,8 @@ inline void getDumpEntryById(
                 asyncResp->res.jsonValue["EntryType"] = "Event";
                 asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
                 asyncResp->res.jsonValue["Created"] =
-                    redfish::time_utils::getDateTimeUintUs(timestampUs);
+                    redfish::time_utils::getDateTimeUintUs(timestampUs,
+                                                           dateFormat);
 
                 if (!originatorId.empty())
                 {
@@ -1122,6 +1131,8 @@ inline void getDumpServiceInfo(
     log_service::OverWritePolicy overWritePolicy =
         log_service::OverWritePolicy::Invalid;
     bool collectDiagnosticDataSupported = false;
+    redfish::time_utils::DateFormat dateFormat =
+        redfish::time_utils::DateFormat::UTC;
 
     if (dumpType == "BMC")
     {
@@ -1131,6 +1142,7 @@ inline void getDumpServiceInfo(
                                 BMCWEB_REDFISH_MANAGER_URI_NAME, serviceId);
         overWritePolicy = log_service::OverWritePolicy::WrapsWhenFull;
         collectDiagnosticDataSupported = true;
+        dateFormat = redfish::time_utils::DateFormat::LocalTimezone;
     }
     else if (dumpType == "FaultLog")
     {
@@ -1140,6 +1152,7 @@ inline void getDumpServiceInfo(
                                 BMCWEB_REDFISH_MANAGER_URI_NAME, serviceId);
         overWritePolicy = log_service::OverWritePolicy::Unknown;
         collectDiagnosticDataSupported = false;
+        dateFormat = redfish::time_utils::DateFormat::LocalTimezone;
     }
     else if (dumpType == "System")
     {
@@ -1166,8 +1179,7 @@ inline void getDumpServiceInfo(
     asyncResp->res.jsonValue["OverWritePolicy"] = overWritePolicy;
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow(
-            redfish::time_utils::DateFormat::UTC);
+        redfish::time_utils::getDateTimeOffsetNow(dateFormat);
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
