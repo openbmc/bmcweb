@@ -4,6 +4,8 @@
 #include "event_logs_object_type.hpp"
 
 #include <sdbusplus/bus/match.hpp>
+
+#include <chrono>
 namespace redfish
 {
 class DbusEventLogMonitor
@@ -13,8 +15,8 @@ class DbusEventLogMonitor
     sdbusplus::bus::match_t dbusEventLogMonitor;
 
     static bool eventLogObjectFromDBus(
-        const dbus::utility::DBusPropertiesMap& map,
-        EventLogObjectsType& event);
+        const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event,
+        const std::chrono::time_zone* tz = nullptr);
 };
 
 class DbusTelemetryMonitor

@@ -14,6 +14,7 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
+#include <chrono>
 #include <optional>
 #include <string>
 #include <variant>
@@ -23,7 +24,8 @@ namespace redfish
 {
 
 bool DbusEventLogMonitor::eventLogObjectFromDBus(
-    const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event)
+    const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event,
+    const std::chrono::time_zone* tz)
 {
     std::optional<DbusEventLogEntry> optEntry =
         fillDbusEventLogEntryFromPropertyMap(map);
@@ -36,7 +38,8 @@ bool DbusEventLogMonitor::eventLogObjectFromDBus(
     }
     DbusEventLogEntry& entry = optEntry.value();
     event.id = std::to_string(entry.Id);
-    event.timestamp = redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
+    event.timestamp =
+        redfish::time_utils::getDateTimeUintMs(entry.Timestamp, tz);
 
     // This dbus property is not documented to contain the Redfish Message Id,
     // but can be used as such. As a temporary solution that is sufficient,
