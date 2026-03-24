@@ -16,6 +16,24 @@
       "message": "I still need to test the previous patch on a real system.  standby, but this commit in isolation LGTM.",
       "revId": "606568936f9eb7bfeb62cfedd52c76fc31ca523f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aca4e612_faa81f0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-24T21:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bad7004_023679e5",
+      "revId": "606568936f9eb7bfeb62cfedd52c76fc31ca523f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
