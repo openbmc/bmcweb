@@ -7,6 +7,7 @@
 #include "dbus_singleton.hpp"
 #include "logging.hpp"
 
+#include <boost/system/errc.hpp>
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -99,6 +100,16 @@ void getSubTreePaths(
         [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
+            // Treat io_error (which means no objects found) as success with
+            // empty list, not an error. This is a common case when querying
+            // for objects that may not exist (e.g., no certificates installed).
+            if (ec && ec.value() == boost::system::errc::io_error)
+            {
+                callback(boost::system::errc::make_error_code(
+                             boost::system::errc::success),
+                         MapperGetSubTreePathsResponse{});
+                return;
+            }
             callback(ec, subtreePaths);
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -135,6 +146,16 @@ void getAssociatedSubTreePaths(
         [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
+            // Treat io_error (which means no objects found) as success with
+            // empty list, not an error. This is a common case when querying
+            // for objects that may not exist.
+            if (ec && ec.value() == boost::system::errc::io_error)
+            {
+                callback(boost::system::errc::make_error_code(
+                             boost::system::errc::success),
+                         MapperGetSubTreePathsResponse{});
+                return;
+            }
             callback(ec, subtreePaths);
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -173,6 +194,16 @@ void getAssociatedSubTreePathsById(
         [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
+            // Treat io_error (which means no objects found) as success with
+            // empty list, not an error. This is a common case when querying
+            // for objects that may not exist.
+            if (ec && ec.value() == boost::system::errc::io_error)
+            {
+                callback(boost::system::errc::make_error_code(
+                             boost::system::errc::success),
+                         MapperGetSubTreePathsResponse{});
+                return;
+            }
             callback(ec, subtreePaths);
         },
         "xyz.openbmc_project.ObjectMapper",
