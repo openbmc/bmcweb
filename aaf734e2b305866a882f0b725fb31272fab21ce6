@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15459a84_bb26e33c",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-24T19:31:42Z",
+      "side": 1,
+      "message": "I don\u0027t know why we are deleting duplicate leaves, but I don\u0027t think that is correct.\n\nTwo different dbus objects are different entities.  We need to create two different REST end points for them, not attempt to merge them into a single (now undefined) entity.\n\nI gave an example in the test case of \"bios1/xyz123\" and \"bios2/xyz123\".  Do you really want those to show up as a single firmware object?  How do you target the specific one you want to update if you\u0027re only updating a single BIOS (host)?  How do we associate them to the hardware they\u0027re running on (because each one is running on a different hardware)?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 33
+      },
+      "revId": "aaf734e2b305866a882f0b725fb31272fab21ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "febdfce1_0584a492",
+        "filename": "test/redfish-core/include/utils/collection_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-24T19:31:42Z",
+      "side": 1,
+      "message": "These examples are somewhat problematic and hide the problem that we are seeing.  You\u0027d be better showing `bios1/xyz789` and `bios2/xyz789` because that\u0027s the behavior we\u0027re actually running into.\n\nThose are two different software entities on two different pieces of hardware.  They just happen to have the same leaf node.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 52
+      },
+      "revId": "aaf734e2b305866a882f0b725fb31272fab21ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff506e41_aed08819",
+        "filename": "test/redfish-core/include/utils/collection_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-24T19:31:42Z",
+      "side": 1,
+      "message": "This is not correct.",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 33
+      },
+      "revId": "aaf734e2b305866a882f0b725fb31272fab21ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
