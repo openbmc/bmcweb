@@ -35,7 +35,7 @@ TEST(DBusLogWatcher, EventLogObjectFromDBusSuccess)
     EventLogObjectsType event;
 
     const bool status =
-        DbusEventLogMonitor::eventLogObjectFromDBus(propMapStub, event);
+        DbusEventLogMonitor::eventLogObjectFromDBus(propMapStub, event, "UTC");
 
     EXPECT_TRUE(status);
 

@@ -142,8 +142,7 @@ inline void handleSystemsAndManagersEventLogServiceGet(
         log_service::OverWritePolicy::WrapsWhenFull;
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow(
-            redfish::time_utils::DateFormat::UTC);
+        redfish::time_utils::getDateTimeOffsetNow();
 
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
