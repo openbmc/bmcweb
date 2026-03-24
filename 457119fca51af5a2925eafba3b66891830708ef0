@@ -22,6 +22,30 @@
       },
       "revId": "457119fca51af5a2925eafba3b66891830708ef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67ece2cc_12d50506",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-24T17:10:16Z",
+      "side": 1,
+      "message": "I can\u0027t really reconcile their commit message with their diff.\n\nContent-Transfer-Encoding I think is actually just a bug in our code, and should probably just be omitted.  It was originally added to prevent executable injection attacks, but browsers have a better way to do that these days, Redfish added base64 inline in the log entry, so we could probably just drop the base64 stuff entirely.\n\nHTTP2-Settings, I have no idea why boost removed it.  Mozilla doesn\u0027t list it on the page linked\nhttps://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers\n\nBut iana does\nhttps://www.iana.org/assignments/http-fields/http-fields.xhtml\n\nI can dig deeper later.",
+      "parentUuid": "f5804fc5_923538ad",
+      "range": {
+        "startLine": 11,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 35
+      },
+      "revId": "457119fca51af5a2925eafba3b66891830708ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
