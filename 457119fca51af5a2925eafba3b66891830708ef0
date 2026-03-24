@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5804fc5_923538ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-24T16:59:25Z",
+      "side": 1,
+      "message": "fwiw, it seems that the commit is implying they are \"non-standard\".  The \"HTTP2-Settings\" one is listed by the IANA as deprecated, but I don\u0027t know how you do HTTP2 without it.  The \"Content-Transfer-Encoding\" one I can\u0027t find documented anywhere, other than maybe a really old RFC.",
+      "range": {
+        "startLine": 11,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 35
+      },
+      "revId": "457119fca51af5a2925eafba3b66891830708ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
