@@ -46,6 +46,30 @@
       },
       "revId": "457119fca51af5a2925eafba3b66891830708ef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f606918c_e07b8a8e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-24T17:27:04Z",
+      "side": 1,
+      "message": "The commit message in beast is pretty worthless; no more than a few words.  If this is what the latest maintainers are going to do as standard practice, maybe we should reconsidering using it... It seemed that they tried to filter out any headers that weren\u0027t considered \"standard\" and left URLs buried in comments in as to where they obtained \"standard\" from.\n\nI\u0027m fine if we merge this as-is since it doesn\u0027t actually change behavior.  But, I think it might be pointing out potential problems.\n\nHTTP2-Settings on IANA says \"obsolete\".  This might be pointing to some minor changes we need to do?\n\n\u003e HTTP2-Settings\tobsoleted\t\t[RFC 7540, Section 3.2.1: Hypertext Transfer Protocol Version 2 (HTTP/2)]\tObsolete; see Section 11.1 of [RFC9113]\n\nhttps://www.rfc-editor.org/rfc/rfc9113.html#section-11.1\n\nAgree Content-Transfer-Encoding can be removed later if desired.",
+      "parentUuid": "67ece2cc_12d50506",
+      "range": {
+        "startLine": 11,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 35
+      },
+      "revId": "457119fca51af5a2925eafba3b66891830708ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
