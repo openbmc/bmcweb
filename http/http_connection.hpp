@@ -334,7 +334,7 @@ class Connection :
 
         if (BMCWEB_HTTP2 && isH2c)
         {
-            std::string_view base64settings = req->req[field::http2_settings];
+            std::string_view base64settings = req->req["HTTP2-Settings"];
             if (utility::base64Decode<true>(base64settings, http2settings))
             {
                 res.result(boost::beast::http::status::switching_protocols);

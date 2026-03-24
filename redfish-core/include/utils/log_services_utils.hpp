@@ -109,8 +109,7 @@ inline void downloadEntryCallback(
             close(fd);
             return;
         }
-        asyncResp->res.addHeader(
-            boost::beast::http::field::content_transfer_encoding, "Base64");
+        asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
         return;
     }
     if (!asyncResp->res.openFd(fd))
