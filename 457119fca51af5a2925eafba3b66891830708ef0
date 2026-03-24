@@ -70,6 +70,30 @@
       },
       "revId": "457119fca51af5a2925eafba3b66891830708ef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02fddf56_4290da27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-24T17:58:01Z",
+      "side": 1,
+      "message": "\u003e The commit message in beast is pretty worthless; no more than a few words.  If this is what the latest maintainers are going to do as standard practice, maybe we should reconsidering using it... It seemed that they tried to filter out any headers that weren\u0027t considered \"standard\" and left URLs buried in comments in as to where they obtained \"standard\" from.\n\nIt\u0027s not clear what happened here.  From my perspective this seems to be the exception not the rule, but if someone wants to go hunt down another http1.2 parser and do the engineering, I wouldn\u0027t be against it.  We changed once for security issues in the hand-rolled crow parser, no reason we couldn\u0027t do that again.\n\nAlternatively we could come up with our own Fields implementation and inject it into the existing parser and isolate ourselves from this.  At one point I looked at doing this anyway to drop the binary size of all the header strings it supports, but didn\u0027t seem worth the maintenance burden.\n\n\u003e \n\u003e I\u0027m fine if we merge this as-is since it doesn\u0027t actually change behavior.  But, I think it might be pointing out potential problems.\n\u003e \n\u003e HTTP2-Settings on IANA says \"obsolete\".  This might be pointing to some minor changes we need to do?\n\nI\u0027m not sure how to reconcile that with the actual RFC, which specifies this header as a \"MUST\"\nhttps://httpwg.org/specs/rfc7540.html#rfc.section.3.2.1\n\nI guess it must be because h2c upgrades are deprecated on the whole?\n\n\u003e \n\u003e \u003e HTTP2-Settings\tobsoleted\t\t[RFC 7540, Section 3.2.1: Hypertext Transfer Protocol Version 2 (HTTP/2)]\tObsolete; see Section 11.1 of [RFC9113]\n\u003e \n\u003e https://www.rfc-editor.org/rfc/rfc9113.html#section-11.1\n\u003e \n\u003e Agree Content-Transfer-Encoding can be removed later if desired.",
+      "parentUuid": "f606918c_e07b8a8e",
+      "range": {
+        "startLine": 11,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 35
+      },
+      "revId": "457119fca51af5a2925eafba3b66891830708ef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
