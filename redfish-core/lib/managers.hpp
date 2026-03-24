@@ -372,7 +372,9 @@ inline void managerGetLastResetTime(
 
             // Convert to ISO 8601 standard
             asyncResp->res.jsonValue["LastResetTime"] =
-                redfish::time_utils::getDateTimeUint(lastResetTimeStamp);
+                redfish::time_utils::getDateTimeUint(
+                    lastResetTimeStamp,
+                    redfish::time_utils::DateFormat::LocalTimezone);
         });
 }
 

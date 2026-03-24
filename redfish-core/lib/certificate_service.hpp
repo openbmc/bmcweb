@@ -401,13 +401,17 @@ inline void getCertificateProperties(
             if (validNotAfter != nullptr)
             {
                 asyncResp->res.jsonValue["ValidNotAfter"] =
-                    redfish::time_utils::getDateTimeUint(*validNotAfter);
+                    redfish::time_utils::getDateTimeUint(
+                        *validNotAfter,
+                        redfish::time_utils::DateFormat::LocalTimezone);
             }
 
             if (validNotBefore != nullptr)
             {
                 asyncResp->res.jsonValue["ValidNotBefore"] =
-                    redfish::time_utils::getDateTimeUint(*validNotBefore);
+                    redfish::time_utils::getDateTimeUint(
+                        *validNotBefore,
+                        redfish::time_utils::DateFormat::LocalTimezone);
             }
 
             asyncResp->res.addHeader(

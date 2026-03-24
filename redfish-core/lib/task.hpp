@@ -192,7 +192,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                           std::to_string(retryAfterSeconds));
             res.jsonValue["Name"] = "Task " + strIdx;
             res.jsonValue["StartTime"] =
-                redfish::time_utils::getDateTimeStdtime(startTime);
+                redfish::time_utils::getDateTimeStdtime(
+                    startTime, redfish::time_utils::DateFormat::LocalTimezone);
             res.jsonValue["Messages"] = messages;
             res.jsonValue["TaskMonitor"] = taskMonitor;
             res.jsonValue["HidePayload"] = !payload;
@@ -448,12 +449,15 @@ inline void requestRoutesTask(App& app)
                 asyncResp->res.jsonValue["Name"] = "Task " + strParam;
                 asyncResp->res.jsonValue["TaskState"] = ptr->state;
                 asyncResp->res.jsonValue["StartTime"] =
-                    redfish::time_utils::getDateTimeStdtime(ptr->startTime);
+                    redfish::time_utils::getDateTimeStdtime(
+                        ptr->startTime,
+                        redfish::time_utils::DateFormat::LocalTimezone);
                 if (ptr->endTime)
                 {
                     asyncResp->res.jsonValue["EndTime"] =
                         redfish::time_utils::getDateTimeStdtime(
-                            *(ptr->endTime));
+                            *(ptr->endTime),
+                            redfish::time_utils::DateFormat::LocalTimezone);
                 }
                 asyncResp->res.jsonValue["TaskStatus"] = ptr->status;
                 asyncResp->res.jsonValue["Messages"] = ptr->messages;
@@ -543,7 +547,7 @@ inline void requestRoutesTaskService(App& app)
                 asyncResp->res.jsonValue["Id"] = "TaskService";
                 asyncResp->res.jsonValue["DateTime"] =
                     redfish::time_utils::getDateTimeOffsetNow(
-                        redfish::time_utils::DateFormat::UTC)
+                        redfish::time_utils::DateFormat::LocalTimezone)
                         .first;
                 asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] =
                     task_service::OverWritePolicy::Oldest;

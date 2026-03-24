@@ -88,7 +88,7 @@ inline void handleSystemsLogServicesPostCodesGet(
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
         redfish::time_utils::getDateTimeOffsetNow(
-            redfish::time_utils::DateFormat::UTC);
+            redfish::time_utils::DateFormat::LocalTimezone);
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
@@ -252,7 +252,8 @@ static bool fillPostCodeEntry(
 
         // Get the Created time from the timestamp
         std::string entryTimeStr;
-        entryTimeStr = redfish::time_utils::getDateTimeUintUs(usecSinceEpoch);
+        entryTimeStr = redfish::time_utils::getDateTimeUintUs(
+            usecSinceEpoch, redfish::time_utils::DateFormat::LocalTimezone);
 
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
         std::ostringstream timeOffsetStr;
