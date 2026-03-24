@@ -583,7 +583,7 @@ class EventServiceManager
 
         eventMessage["EventTimestamp"] =
             redfish::time_utils::getDateTimeOffsetNow(
-                redfish::time_utils::DateFormat::UTC)
+                redfish::time_utils::DateFormat::LocalTimezone)
                 .first;
 
         if (!origin.empty())

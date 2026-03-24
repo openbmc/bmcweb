@@ -36,7 +36,8 @@ bool DbusEventLogMonitor::eventLogObjectFromDBus(
     }
     DbusEventLogEntry& entry = optEntry.value();
     event.id = std::to_string(entry.Id);
-    event.timestamp = redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
+    event.timestamp = redfish::time_utils::getDateTimeUintMs(
+        entry.Timestamp, redfish::time_utils::DateFormat::LocalTimezone);
 
     // This dbus property is not documented to contain the Redfish Message Id,
     // but can be used as such. As a temporary solution that is sufficient,

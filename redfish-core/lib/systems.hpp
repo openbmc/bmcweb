@@ -811,7 +811,9 @@ inline void getBootProgressLastStateTime(
 
             // Convert to ISO 8601 standard
             asyncResp->res.jsonValue["BootProgress"]["LastStateTime"] =
-                redfish::time_utils::getDateTimeUintUs(lastStateTime);
+                redfish::time_utils::getDateTimeUintUs(
+                    lastStateTime,
+                    redfish::time_utils::DateFormat::LocalTimezone);
         });
 }
 
@@ -1112,7 +1114,9 @@ inline void getLastResetTime(
 
             // Convert to ISO 8601 standard
             asyncResp->res.jsonValue["LastResetTime"] =
-                redfish::time_utils::getDateTimeUint(lastResetTimeStamp);
+                redfish::time_utils::getDateTimeUint(
+                    lastResetTimeStamp,
+                    redfish::time_utils::DateFormat::LocalTimezone);
         });
 }
 

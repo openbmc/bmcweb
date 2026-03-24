@@ -322,8 +322,9 @@ inline void getDumpEntryCollection(
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Name"] = dumpType + " Dump Entry";
-                thisEntry["Created"] =
-                    redfish::time_utils::getDateTimeUintUs(timestampUs);
+                thisEntry["Created"] = redfish::time_utils::getDateTimeUintUs(
+                    timestampUs,
+                    redfish::time_utils::DateFormat::LocalTimezone);
 
                 if (!originatorId.empty())
                 {
@@ -419,7 +420,9 @@ inline void getDumpEntryById(
                 asyncResp->res.jsonValue["EntryType"] = "Event";
                 asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
                 asyncResp->res.jsonValue["Created"] =
-                    redfish::time_utils::getDateTimeUintUs(timestampUs);
+                    redfish::time_utils::getDateTimeUintUs(
+                        timestampUs,
+                        redfish::time_utils::DateFormat::LocalTimezone);
 
                 if (!originatorId.empty())
                 {
@@ -1122,6 +1125,8 @@ inline void getDumpServiceInfo(
     log_service::OverWritePolicy overWritePolicy =
         log_service::OverWritePolicy::Invalid;
     bool collectDiagnosticDataSupported = false;
+    redfish::time_utils::DateFormat dateFormat =
+        redfish::time_utils::DateFormat::LocalTimezone;
 
     if (dumpType == "BMC")
     {
@@ -1166,8 +1171,7 @@ inline void getDumpServiceInfo(
     asyncResp->res.jsonValue["OverWritePolicy"] = overWritePolicy;
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow(
-            redfish::time_utils::DateFormat::UTC);
+        redfish::time_utils::getDateTimeOffsetNow(dateFormat);
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
@@ -1663,7 +1667,7 @@ inline void requestRoutesCrashdumpService(App& app)
 
             std::pair<std::string, std::string> redfishDateTimeOffset =
                 redfish::time_utils::getDateTimeOffsetNow(
-                    redfish::time_utils::DateFormat::UTC);
+                    redfish::time_utils::DateFormat::LocalTimezone);
             asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
             asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                 redfishDateTimeOffset.second;
