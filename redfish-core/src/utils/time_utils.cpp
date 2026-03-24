@@ -286,28 +286,43 @@ std::string toISO8061ExtendedStr(const std::chrono::duration<IntType, Period> t,
     using SubType = std::chrono::duration<IntType, Period>;
 
     std::chrono::sys_time<SubType> sysTime(t);
-    auto info = tz.get_info(sysTime);
+    std::chrono::sys_info info = tz.get_info(sysTime);
     std::chrono::minutes offset =
         std::chrono::duration_cast<std::chrono::minutes>(info.offset);
 
-    // Protect against integer overflow/underflow when adding offset
+    // Protect against integer overflow/underflow when adding offset.
+    // Use info.offset (signed std::chrono::seconds) for the sign check
+    // to avoid unsigned wraparound when casting negative offsets to SubType.
     auto sysSeconds = sysTime.time_since_epoch();
-    auto offsetAsDur = std::chrono::duration_cast<SubType>(info.offset);
     SubType duration{};
-    if (offsetAsDur.count() > 0 &&
-        sysSeconds.count() > SubType::max().count() - offsetAsDur.count())
+    if (info.offset > std::chrono::seconds::zero())
     {
-        duration = SubType::max();
+        auto offsetAsDur = std::chrono::duration_cast<SubType>(info.offset);
+        if (sysSeconds.count() > SubType::max().count() - offsetAsDur.count())
+        {
+            duration = SubType::max();
+        }
+        else
+        {
+            duration = sysSeconds + offsetAsDur;
+        }
     }
-    else if (offsetAsDur.count() < 0 &&
-             sysSeconds.count() < SubType::min().count() - offsetAsDur.count())
+    else if (info.offset < std::chrono::seconds::zero())
     {
-        duration = SubType::min();
+        auto absOffsetAsDur = std::chrono::duration_cast<SubType>(-info.offset);
+        if (sysSeconds.count() <
+            SubType::min().count() + absOffsetAsDur.count())
+        {
+            duration = SubType::min();
+        }
+        else
+        {
+            duration = sysSeconds - absOffsetAsDur;
+        }
     }
     else
     {
-        duration =
-            std::chrono::duration_cast<SubType>(sysSeconds + info.offset);
+        duration = sysSeconds;
     }
 
     // d is days since 1970-01-01
@@ -385,28 +400,43 @@ std::string toISO8061ExtendedStr(
     using SubType = std::chrono::duration<IntType, Period>;
 
     std::chrono::sys_time<SubType> sysTime(dur);
-    auto info = tz.get_info(sysTime);
+    std::chrono::sys_info info = tz.get_info(sysTime);
     std::chrono::minutes offset =
         std::chrono::duration_cast<std::chrono::minutes>(info.offset);
 
-    // Protect against integer overflow/underflow when adding offset
+    // Protect against integer overflow/underflow when adding offset.
+    // Use info.offset (signed std::chrono::seconds) for the sign check
+    // to avoid unsigned wraparound when casting negative offsets to SubType.
     auto sysSeconds = sysTime.time_since_epoch();
-    auto offsetAsDur = std::chrono::duration_cast<SubType>(info.offset);
     SubType duration{};
-    if (offsetAsDur.count() > 0 &&
-        sysSeconds.count() > SubType::max().count() - offsetAsDur.count())
+    if (info.offset > std::chrono::seconds::zero())
     {
-        duration = SubType::max();
+        auto offsetAsDur = std::chrono::duration_cast<SubType>(info.offset);
+        if (sysSeconds.count() > SubType::max().count() - offsetAsDur.count())
+        {
+            duration = SubType::max();
+        }
+        else
+        {
+            duration = sysSeconds + offsetAsDur;
+        }
     }
-    else if (offsetAsDur.count() < 0 &&
-             sysSeconds.count() < SubType::min().count() - offsetAsDur.count())
+    else if (info.offset < std::chrono::seconds::zero())
     {
-        duration = SubType::min();
+        auto absOffsetAsDur = std::chrono::duration_cast<SubType>(-info.offset);
+        if (sysSeconds.count() <
+            SubType::min().count() + absOffsetAsDur.count())
+        {
+            duration = SubType::min();
+        }
+        else
+        {
+            duration = sysSeconds - absOffsetAsDur;
+        }
     }
     else
     {
-        duration =
-            std::chrono::duration_cast<SubType>(sysSeconds + info.offset);
+        duration = sysSeconds;
     }
 
     // d is days since 1970-01-01
@@ -490,12 +520,28 @@ std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch)
                                          *std::chrono::locate_zone("Etc/UTC"));
 }
 
-std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
+std::string getDateTimeUintTz(uint64_t secondsSinceEpoch,
+                              const std::chrono::time_zone& tz)
 {
-    using DurationType = std::chrono::duration<std::time_t>;
+    using DurationType = std::chrono::duration<uint64_t>;
     DurationType sinceEpoch(secondsSinceEpoch);
-    return details::toISO8061ExtendedStr(sinceEpoch,
-                                         *std::chrono::locate_zone("Etc/UTC"));
+    return details::toISO8061ExtendedStr(sinceEpoch, tz);
+}
+
+std::string getDateTimeUintMsTz(uint64_t milliSecondsSinceEpoch,
+                                const std::chrono::time_zone& tz)
+{
+    using DurationType = std::chrono::duration<uint64_t, std::milli>;
+    DurationType sinceEpoch(milliSecondsSinceEpoch);
+    return details::toISO8061ExtendedStr(sinceEpoch, tz);
+}
+
+std::string getDateTimeUintUsTz(uint64_t microSecondsSinceEpoch,
+                                const std::chrono::time_zone& tz)
+{
+    using DurationType = std::chrono::duration<uint64_t, std::micro>;
+    DurationType sinceEpoch(microSecondsSinceEpoch);
+    return details::toISO8061ExtendedStr(sinceEpoch, tz);
 }
 
 std::string getDateTimeStdtimeTz(std::time_t secondsSinceEpoch,
@@ -518,10 +564,7 @@ std::string getDateTimeStdtimeTz(std::time_t secondsSinceEpoch,
 std::pair<std::string, std::string> getDateTimeOffsetNow(DateFormat dateFormat)
 {
     std::time_t time = std::time(nullptr);
-    const std::chrono::time_zone& tz =
-        (dateFormat == DateFormat::LocalTimezone)
-            ? *std::chrono::current_zone()
-            : *std::chrono::locate_zone("Etc/UTC");
+    const std::chrono::time_zone& tz = dateFormatToTz(dateFormat);
     std::string dateTime = getDateTimeStdtimeTz(time, tz);
 
     /* extract the local Time Offset value from the

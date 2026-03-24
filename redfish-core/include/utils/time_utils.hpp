@@ -25,6 +25,13 @@ enum class DateFormat
     LocalTimezone,
 };
 
+inline const std::chrono::time_zone& dateFormatToTz(DateFormat dateFormat)
+{
+    return (dateFormat == DateFormat::LocalTimezone)
+               ? *std::chrono::current_zone()
+               : *std::chrono::locate_zone("Etc/UTC");
+}
+
 /**
  * @brief Convert string that represents value in Duration Format to its numeric
  *        equivalent.
@@ -56,9 +63,42 @@ std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch);
 // Returns the formatted date time string with microsecond precision
 std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch);
 
-std::string getDateTimeStdtime(std::time_t secondsSinceEpoch);
+// Tz variants: format using the provided timezone
+std::string getDateTimeUintTz(uint64_t secondsSinceEpoch,
+                              const std::chrono::time_zone& tz);
+std::string getDateTimeUintMsTz(uint64_t milliSecondsSinceEpoch,
+                                const std::chrono::time_zone& tz);
+std::string getDateTimeUintUsTz(uint64_t microSecondsSinceEpoch,
+                                const std::chrono::time_zone& tz);
 std::string getDateTimeStdtimeTz(std::time_t secondsSinceEpoch,
                                  const std::chrono::time_zone& tz);
+
+// DateFormat overloads: caller specifies UTC or LocalTimezone
+inline std::string getDateTimeUint(uint64_t secondsSinceEpoch,
+                                   DateFormat dateFormat)
+{
+    return getDateTimeUintTz(secondsSinceEpoch, dateFormatToTz(dateFormat));
+}
+
+inline std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch,
+                                     DateFormat dateFormat)
+{
+    return getDateTimeUintMsTz(milliSecondsSinceEpoch,
+                               dateFormatToTz(dateFormat));
+}
+
+inline std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch,
+                                     DateFormat dateFormat)
+{
+    return getDateTimeUintUsTz(microSecondsSinceEpoch,
+                               dateFormatToTz(dateFormat));
+}
+
+inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch,
+                                      DateFormat dateFormat)
+{
+    return getDateTimeStdtimeTz(secondsSinceEpoch, dateFormatToTz(dateFormat));
+}
 
 /**
  * Returns the current Date, Time & the local Time Offset

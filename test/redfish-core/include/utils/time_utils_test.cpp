@@ -84,22 +84,6 @@ TEST(ToDurationStringFromUintTest, NegativeTests)
               std::nullopt);
 }
 
-TEST(GetDateTimeStdtime, ConversionTests)
-{
-    // some time before the epoch
-    EXPECT_EQ(getDateTimeStdtime(std::time_t{-1234567}),
-              "1970-01-01T00:00:00+00:00");
-
-    // epoch
-    EXPECT_EQ(getDateTimeStdtime(std::time_t{0}), "1970-01-01T00:00:00+00:00");
-
-    // Limits
-    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max()),
-              "9999-12-31T23:59:59+00:00");
-    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min()),
-              "1970-01-01T00:00:00+00:00");
-}
-
 TEST(GetDateTimeStdtimeTz, TimezoneTests)
 {
     // 2021-11-30T22:41:35 UTC (1638312095)
@@ -204,6 +188,60 @@ TEST(Utility, GetDateTimeUintUs)
               "9999-12-31T23:59:59.999999+00:00");
     EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::min()),
               "1970-01-01T00:00:00.000000+00:00");
+}
+
+TEST(GetDateTimeUintTz, TimezoneTests)
+{
+    const std::chrono::time_zone& utc = *std::chrono::locate_zone("Etc/UTC");
+    const std::chrono::time_zone& newYork =
+        *std::chrono::locate_zone("America/New_York");
+
+    // UTC produces same output as getDateTimeUint
+    EXPECT_EQ(getDateTimeUintTz(uint64_t{1638312095}, utc),
+              "2021-11-30T22:41:35+00:00");
+    // New York in winter (-05:00)
+    EXPECT_EQ(getDateTimeUintTz(uint64_t{1638312095}, newYork),
+              "2021-11-30T17:41:35-05:00");
+
+    // DateFormat::UTC produces same output as non-Tz variant
+    EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}, DateFormat::UTC),
+              "2021-11-30T22:41:35+00:00");
+}
+
+TEST(GetDateTimeUintMsTz, TimezoneTests)
+{
+    const std::chrono::time_zone& utc = *std::chrono::locate_zone("Etc/UTC");
+    const std::chrono::time_zone& newYork =
+        *std::chrono::locate_zone("America/New_York");
+
+    // UTC produces same output as getDateTimeUintMs
+    EXPECT_EQ(getDateTimeUintMsTz(uint64_t{1638312095123}, utc),
+              "2021-11-30T22:41:35.123+00:00");
+    // New York in winter (-05:00)
+    EXPECT_EQ(getDateTimeUintMsTz(uint64_t{1638312095123}, newYork),
+              "2021-11-30T17:41:35.123-05:00");
+
+    // DateFormat::UTC produces same output as non-Tz variant
+    EXPECT_EQ(getDateTimeUintMs(uint64_t{1638312095123}, DateFormat::UTC),
+              "2021-11-30T22:41:35.123+00:00");
+}
+
+TEST(GetDateTimeUintUsTz, TimezoneTests)
+{
+    const std::chrono::time_zone& utc = *std::chrono::locate_zone("Etc/UTC");
+    const std::chrono::time_zone& newYork =
+        *std::chrono::locate_zone("America/New_York");
+
+    // UTC produces same output as getDateTimeUintUs
+    EXPECT_EQ(getDateTimeUintUsTz(uint64_t{1638312095123456}, utc),
+              "2021-11-30T22:41:35.123456+00:00");
+    // New York in winter (-05:00)
+    EXPECT_EQ(getDateTimeUintUsTz(uint64_t{1638312095123456}, newYork),
+              "2021-11-30T17:41:35.123456-05:00");
+
+    // DateFormat::UTC produces same output as non-Tz variant
+    EXPECT_EQ(getDateTimeUintUs(uint64_t{1638312095123456}, DateFormat::UTC),
+              "2021-11-30T22:41:35.123456+00:00");
 }
 
 TEST(Utility, DateStringToEpoch)
