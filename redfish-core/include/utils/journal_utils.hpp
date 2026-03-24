@@ -51,7 +51,8 @@ inline std::optional<std::string> getEntryTimestamp(JournalReadState& journal)
     {
         return std::nullopt;
     }
-    return redfish::time_utils::getDateTimeUintUs(*timestamp);
+    return redfish::time_utils::getDateTimeUintUs(
+        *timestamp, redfish::time_utils::DateFormat::LocalTimezone);
 }
 
 inline bool fillBMCJournalLogEntryJson(

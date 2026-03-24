@@ -1,12 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "utils/time_utils.hpp"
+#include "utils/time_utils_internal.hpp"
 
 #include <chrono>
 #include <cstdint>
 #include <ctime>
 #include <limits>
 #include <optional>
+#include <ratio>
+#include <string>
 #include <version>
 
 #include <gtest/gtest.h>
@@ -84,126 +87,386 @@ TEST(ToDurationStringFromUintTest, NegativeTests)
               std::nullopt);
 }
 
-TEST(GetDateTimeStdtime, ConversionTests)
+TEST(ToISO8061ExtendedStr, OffsetTests)
 {
-    // some time before the epoch
-    EXPECT_EQ(getDateTimeStdtime(std::time_t{-1234567}),
-              "1970-01-01T00:00:00+00:00");
+    using std::chrono::minutes;
 
-    // epoch
-    EXPECT_EQ(getDateTimeStdtime(std::time_t{0}), "1970-01-01T00:00:00+00:00");
+    // UTC offset (0)
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(0)),
+              "2021-11-30T22:41:35+00:00");
 
-    // Limits
-    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max()),
+    // Berlin winter (+1h = 60min)
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(60)),
+              "2021-11-30T23:41:35+01:00");
+
+    // New York winter (-5h = -300min)
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(-300)),
+              "2021-11-30T17:41:35-05:00");
+
+    // Kolkata (+5:30 = 330min)
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(330)),
+              "2021-12-01T04:11:35+05:30");
+
+    // Kathmandu (+5:45 = 345min)
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(345)),
+              "2021-12-01T04:26:35+05:45");
+
+    // Extreme west (-12h = -720min)
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(-720)),
+              "2021-11-30T10:41:35-12:00");
+
+    // Extreme east (+14h = 840min)
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(840)),
+              "2021-12-01T12:41:35+14:00");
+
+    // Limits with offset (+02:00 = 120min)
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(
+                  std::numeric_limits<std::time_t>::max(), minutes(120)),
+              "9999-12-31T23:59:59+02:00");
+
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(
+                  std::numeric_limits<std::time_t>::min(), minutes(120)),
+              "1970-01-01T00:00:00+02:00");
+
+    // Limits with UTC offset
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(
+                  std::numeric_limits<std::time_t>::max(), minutes(0)),
               "9999-12-31T23:59:59+00:00");
-    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min()),
+
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(
+                  std::numeric_limits<std::time_t>::min(), minutes(0)),
               "1970-01-01T00:00:00+00:00");
 }
 
-TEST(GetDateTimeStdtimeTz, TimezoneTests)
+TEST(ToISO8061ExtendedStr, InvalidOffsets)
 {
-    // 2021-11-30T22:41:35 UTC (1638312095)
-    constexpr std::time_t testTime = 1638312095;
+    using std::chrono::minutes;
 
-    // UTC (offset +00:00)
-    const std::chrono::time_zone& utc = *std::chrono::locate_zone("UTC");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, utc), "2021-11-30T22:41:35+00:00");
+    // Offset beyond +14h (+15h = 900min) — falls back to UTC
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(900)),
+              "2021-11-30T22:41:35+00:00");
 
-    // Positive offset: Europe/Berlin (+01:00 in winter)
-    const std::chrono::time_zone& berlin =
-        *std::chrono::locate_zone("Europe/Berlin");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, berlin),
-              "2021-11-30T23:41:35+01:00");
+    // Offset beyond -12h (-13h = -780min) — falls back to UTC
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(-780)),
+              "2021-11-30T22:41:35+00:00");
 
-    // Negative offset: America/New_York (-05:00 in winter)
-    const std::chrono::time_zone& newYork =
-        *std::chrono::locate_zone("America/New_York");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, newYork),
-              "2021-11-30T17:41:35-05:00");
+    // Very large positive offset (+24h = 1440min) — falls back to UTC
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(1440)),
+              "2021-11-30T22:41:35+00:00");
 
-    // Non-hour-aligned offset: Asia/Kolkata (+05:30)
-    const std::chrono::time_zone& kolkata =
-        *std::chrono::locate_zone("Asia/Kolkata");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, kolkata),
-              "2021-12-01T04:11:35+05:30");
+    // Very large negative offset (-24h = -1440min) — falls back to UTC
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(-1440)),
+              "2021-11-30T22:41:35+00:00");
 
-    // Non-hour-aligned offset: Asia/Kathmandu (+05:45)
-    const std::chrono::time_zone& kathmandu =
-        *std::chrono::locate_zone("Asia/Kathmandu");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, kathmandu),
-              "2021-12-01T04:26:35+05:45");
-
-    // Extreme westerly timezone: Etc/GMT+12 (-12:00)
-    const std::chrono::time_zone& gmt12West =
-        *std::chrono::locate_zone("Etc/GMT+12");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, gmt12West),
-              "2021-11-30T10:41:35-12:00");
-
-    // Extreme easterly timezone: Pacific/Kiritimati (+14:00)
-    const std::chrono::time_zone& kiritimati =
-        *std::chrono::locate_zone("Pacific/Kiritimati");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, kiritimati),
+    // Boundary: exactly at +14h (840min) — valid, not clamped
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(840)),
               "2021-12-01T12:41:35+14:00");
 
-    // Limits (using std::time_t, not uint64_t, to match the function signature)
+    // Boundary: exactly at -12h (-720min) — valid, not clamped
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(-720)),
+              "2021-11-30T10:41:35-12:00");
+
+    // Just beyond +14h (+841min) — falls back to UTC
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(841)),
+              "2021-11-30T22:41:35+00:00");
+
+    // Just beyond -12h (-721min) — falls back to UTC
+    EXPECT_EQ(details::toISO8061ExtendedStrStdtime(1638312095, minutes(-721)),
+              "2021-11-30T22:41:35+00:00");
+}
+
+TEST(ToISO8061ExtendedStr, SecondsUint)
+{
+    using std::chrono::minutes;
+
+    // UTC
     EXPECT_EQ(
-        getDateTimeStdtimeTz(std::numeric_limits<std::time_t>::max(), utc),
-        "9999-12-31T23:59:59+00:00");
+        details::toISO8061ExtendedStrSeconds(uint64_t{1638312095}, minutes(0)),
+        "2021-11-30T22:41:35+00:00");
+
+    // New York winter (-05:00 = -300min)
+    EXPECT_EQ(details::toISO8061ExtendedStrSeconds(uint64_t{1638312095},
+                                                   minutes(-300)),
+              "2021-11-30T17:41:35-05:00");
+
+    // Limits
+    EXPECT_EQ(details::toISO8061ExtendedStrSeconds(
+                  std::numeric_limits<uint64_t>::max(), minutes(0)),
+              "9999-12-31T23:59:59+00:00");
+
+    EXPECT_EQ(details::toISO8061ExtendedStrSeconds(
+                  std::numeric_limits<uint64_t>::min(), minutes(0)),
+              "1970-01-01T00:00:00+00:00");
+}
+
+TEST(ToISO8061ExtendedStr, MillisecondPrecision)
+{
+    using std::chrono::minutes;
 
     EXPECT_EQ(
-        getDateTimeStdtimeTz(std::numeric_limits<std::time_t>::min(), utc),
-        "1970-01-01T00:00:00+00:00");
-
-    // Use fixed-offset CEST (+02:00) to avoid DST ambiguity at extreme values
-    const std::chrono::time_zone& cest = *std::chrono::locate_zone("Etc/GMT-2");
-    EXPECT_EQ(
-        getDateTimeStdtimeTz(std::numeric_limits<std::time_t>::max(), cest),
-        "9999-12-31T23:59:59+02:00");
+        details::toISO8061ExtendedStrMs(uint64_t{1638312095123}, minutes(-300)),
+        "2021-11-30T17:41:35.123-05:00");
 
     EXPECT_EQ(
-        getDateTimeStdtimeTz(std::numeric_limits<std::time_t>::min(), cest),
-        "1970-01-01T00:00:00+02:00");
+        details::toISO8061ExtendedStrMs(uint64_t{1638312095123}, minutes(0)),
+        "2021-11-30T22:41:35.123+00:00");
+
+    // Limits
+    EXPECT_EQ(details::toISO8061ExtendedStrMs(
+                  std::numeric_limits<uint64_t>::max(), minutes(0)),
+              "9999-12-31T23:59:59.999+00:00");
+
+    EXPECT_EQ(details::toISO8061ExtendedStrMs(
+                  std::numeric_limits<uint64_t>::min(), minutes(0)),
+              "1970-01-01T00:00:00.000+00:00");
+}
+
+TEST(ToISO8061ExtendedStr, MicrosecondPrecision)
+{
+    using std::chrono::minutes;
+
+    EXPECT_EQ(details::toISO8061ExtendedStrUs(uint64_t{1638312095123456},
+                                              minutes(-300)),
+              "2021-11-30T17:41:35.123456-05:00");
+
+    EXPECT_EQ(
+        details::toISO8061ExtendedStrUs(uint64_t{1638312095123456}, minutes(0)),
+        "2021-11-30T22:41:35.123456+00:00");
+
+    // Limits
+    EXPECT_EQ(details::toISO8061ExtendedStrUs(
+                  std::numeric_limits<uint64_t>::max(), minutes(0)),
+              "9999-12-31T23:59:59.999999+00:00");
+
+    EXPECT_EQ(details::toISO8061ExtendedStrUs(
+                  std::numeric_limits<uint64_t>::min(), minutes(0)),
+              "1970-01-01T00:00:00.000000+00:00");
+}
+
+TEST(GetDateTimeStdtime, UTCTests)
+{
+    EXPECT_EQ(getDateTimeStdtime(std::time_t{1638312095}, DateFormat::UTC),
+              "2021-11-30T22:41:35+00:00");
+
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max(),
+                                 DateFormat::UTC),
+              "9999-12-31T23:59:59+00:00");
+
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min(),
+                                 DateFormat::UTC),
+              "1970-01-01T00:00:00+00:00");
+
+    EXPECT_EQ(getDateTimeStdtime(std::time_t{0}, DateFormat::UTC),
+              "1970-01-01T00:00:00+00:00");
+}
+
+TEST(ResolveOffset, UTCAlwaysReturnsZero)
+{
+    using minutes = std::chrono::minutes;
+    using DurationType = std::chrono::duration<uint64_t>;
+    std::chrono::sys_time<DurationType> sysTime{DurationType(1638312095)};
+
+    EXPECT_EQ(resolveOffset(DateFormat::UTC, sysTime), minutes(0));
+}
+
+TEST(ResolveOffset, LocalTimezoneMatchesCurrentZone)
+{
+    using minutes = std::chrono::minutes;
+    using DurationType = std::chrono::duration<uint64_t>;
+    std::chrono::sys_time<DurationType> sysTime{DurationType(1638312095)};
+
+    minutes expected = std::chrono::duration_cast<minutes>(
+        std::chrono::current_zone()->get_info(sysTime).offset);
+    EXPECT_EQ(resolveOffset(DateFormat::LocalTimezone, sysTime), expected);
 }
 
 TEST(GetDateTimeUint, ConversionTests)
 {
-    EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}),
+    EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}, DateFormat::UTC),
               "2021-11-30T22:41:35+00:00");
     // some time in the future, beyond 2038
-    EXPECT_EQ(getDateTimeUint(uint64_t{41638312095}),
+    EXPECT_EQ(getDateTimeUint(uint64_t{41638312095}, DateFormat::UTC),
               "3289-06-18T21:48:15+00:00");
     // the maximum time we support
-    EXPECT_EQ(getDateTimeUint(uint64_t{253402300799}),
+    EXPECT_EQ(getDateTimeUint(uint64_t{253402300799}, DateFormat::UTC),
               "9999-12-31T23:59:59+00:00");
 
     // returns the maximum Redfish date
-    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::max()),
+    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::max(),
+                              DateFormat::UTC),
               "9999-12-31T23:59:59+00:00");
 
-    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::min()),
+    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::min(),
+                              DateFormat::UTC),
               "1970-01-01T00:00:00+00:00");
 }
 
 TEST(GetDateTimeUintMs, ConverstionTests)
 {
-    EXPECT_EQ(getDateTimeUintMs(uint64_t{1638312095123}),
+    EXPECT_EQ(getDateTimeUintMs(uint64_t{1638312095123}, DateFormat::UTC),
               "2021-11-30T22:41:35.123+00:00");
     // returns the maximum Redfish date
-    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::max()),
+    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::max(),
+                                DateFormat::UTC),
               "9999-12-31T23:59:59.999+00:00");
-    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::min()),
+    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::min(),
+                                DateFormat::UTC),
               "1970-01-01T00:00:00.000+00:00");
 }
 
 TEST(Utility, GetDateTimeUintUs)
 {
-    EXPECT_EQ(getDateTimeUintUs(uint64_t{1638312095123456}),
+    EXPECT_EQ(getDateTimeUintUs(uint64_t{1638312095123456}, DateFormat::UTC),
               "2021-11-30T22:41:35.123456+00:00");
     // returns the maximum Redfish date
-    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::max()),
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::max(),
+                                DateFormat::UTC),
               "9999-12-31T23:59:59.999999+00:00");
-    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::min()),
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::min(),
+                                DateFormat::UTC),
               "1970-01-01T00:00:00.000000+00:00");
+}
+
+TEST(GetDateTimeUint, LocalTimezoneTests)
+{
+    using DurationType = std::chrono::duration<uint64_t>;
+    std::chrono::sys_time<DurationType> sysTime{DurationType(1638312095)};
+    std::chrono::minutes offset =
+        std::chrono::duration_cast<std::chrono::minutes>(
+            std::chrono::current_zone()->get_info(sysTime).offset);
+
+    // LocalTimezone result should match manual offset calculation
+    EXPECT_EQ(
+        getDateTimeUint(uint64_t{1638312095}, DateFormat::LocalTimezone),
+        details::toISO8061ExtendedStrSeconds(uint64_t{1638312095}, offset));
+}
+
+TEST(GetDateTimeUintMs, LocalTimezoneTests)
+{
+    using DurationType = std::chrono::duration<uint64_t, std::milli>;
+    std::chrono::sys_time<DurationType> sysTime{DurationType(1638312095123)};
+    std::chrono::minutes offset =
+        std::chrono::duration_cast<std::chrono::minutes>(
+            std::chrono::current_zone()->get_info(sysTime).offset);
+
+    EXPECT_EQ(
+        getDateTimeUintMs(uint64_t{1638312095123}, DateFormat::LocalTimezone),
+        details::toISO8061ExtendedStrMs(uint64_t{1638312095123}, offset));
+}
+
+TEST(GetDateTimeUintUs, LocalTimezoneTests)
+{
+    using DurationType = std::chrono::duration<uint64_t, std::micro>;
+    std::chrono::sys_time<DurationType> sysTime{DurationType(1638312095123456)};
+    std::chrono::minutes offset =
+        std::chrono::duration_cast<std::chrono::minutes>(
+            std::chrono::current_zone()->get_info(sysTime).offset);
+
+    EXPECT_EQ(
+        getDateTimeUintUs(uint64_t{1638312095123456},
+                          DateFormat::LocalTimezone),
+        details::toISO8061ExtendedStrUs(uint64_t{1638312095123456}, offset));
+}
+
+TEST(GetDateTimeStdtime, LocalTimezoneTests)
+{
+    using DurationType = std::chrono::duration<std::time_t>;
+    std::chrono::sys_time<DurationType> sysTime{DurationType(1638312095)};
+    std::chrono::minutes offset =
+        std::chrono::duration_cast<std::chrono::minutes>(
+            std::chrono::current_zone()->get_info(sysTime).offset);
+
+    EXPECT_EQ(
+        getDateTimeStdtime(std::time_t{1638312095}, DateFormat::LocalTimezone),
+        details::toISO8061ExtendedStrStdtime(std::time_t{1638312095}, offset));
+}
+
+TEST(ApplyOffsetClamped, SecondsUnsigned)
+{
+    using Dur = std::chrono::duration<uint64_t>;
+
+    // Zero offset returns duration unchanged
+    EXPECT_EQ(applyOffsetClamped(Dur(1000), std::chrono::seconds(0)),
+              Dur(1000));
+
+    // Positive offset adds normally
+    EXPECT_EQ(applyOffsetClamped(Dur(1000), std::chrono::seconds(500)),
+              Dur(1500));
+
+    // Negative offset subtracts normally
+    EXPECT_EQ(applyOffsetClamped(Dur(1000), std::chrono::seconds(-500)),
+              Dur(500));
+
+    // Positive offset overflow clamps to max
+    EXPECT_EQ(applyOffsetClamped(Dur(Dur::max().count() - 10),
+                                 std::chrono::seconds(20)),
+              Dur::max());
+
+    // Negative offset underflow clamps to min (0 for unsigned)
+    EXPECT_EQ(applyOffsetClamped(Dur(10), std::chrono::seconds(-20)),
+              Dur::min());
+
+    // Positive offset exactly reaches max (no clamp)
+    EXPECT_EQ(applyOffsetClamped(Dur(Dur::max().count() - 10),
+                                 std::chrono::seconds(10)),
+              Dur::max());
+
+    // Negative offset exactly reaches min (no clamp)
+    EXPECT_EQ(applyOffsetClamped(Dur(10), std::chrono::seconds(-10)),
+              Dur::min());
+}
+
+TEST(ApplyOffsetClamped, MicrosecondsUnsigned)
+{
+    using Dur = std::chrono::duration<uint64_t, std::micro>;
+
+    // Normal positive offset (5 seconds = 5000000 us)
+    EXPECT_EQ(applyOffsetClamped(Dur(1000000), std::chrono::seconds(5)),
+              Dur(6000000));
+
+    // Normal negative offset
+    EXPECT_EQ(applyOffsetClamped(Dur(6000000), std::chrono::seconds(-5)),
+              Dur(1000000));
+
+    // Overflow clamps to max
+    EXPECT_EQ(applyOffsetClamped(Dur(Dur::max().count() - 1000000),
+                                 std::chrono::seconds(2)),
+              Dur::max());
+
+    // Underflow clamps to min
+    EXPECT_EQ(applyOffsetClamped(Dur(1000000), std::chrono::seconds(-2)),
+              Dur::min());
+}
+
+TEST(ApplyOffsetClamped, SignedSeconds)
+{
+    using Dur = std::chrono::duration<int64_t>;
+
+    // Normal positive offset
+    EXPECT_EQ(applyOffsetClamped(Dur(1000), std::chrono::seconds(500)),
+              Dur(1500));
+
+    // Normal negative offset
+    EXPECT_EQ(applyOffsetClamped(Dur(1000), std::chrono::seconds(-500)),
+              Dur(500));
+
+    // Negative offset on large positive value (no overflow)
+    EXPECT_EQ(applyOffsetClamped(Dur(1638312095), std::chrono::seconds(-18000)),
+              Dur(1638294095));
+
+    // Positive offset overflow clamps to max
+    EXPECT_EQ(applyOffsetClamped(Dur(Dur::max().count() - 10),
+                                 std::chrono::seconds(20)),
+              Dur::max());
+
+    // Negative offset underflow clamps to min
+    EXPECT_EQ(applyOffsetClamped(Dur(Dur::min().count() + 10),
+                                 std::chrono::seconds(-20)),
+              Dur::min());
+
+    // Negative value with negative offset
+    EXPECT_EQ(applyOffsetClamped(Dur(-1000), std::chrono::seconds(-500)),
+              Dur(-1500));
 }
 
 TEST(Utility, DateStringToEpoch)
@@ -295,10 +558,19 @@ TEST(Utility, DateStringToEpochWithInvalidDateTimeFormats)
 
 TEST(Utility, GetDateTimeIso8601)
 {
-    EXPECT_EQ(getDateTimeIso8601("20230531"), "2023-05-31T00:00:00+00:00");
+    // 2023-05-31T00:00:00 UTC = 1685491200 seconds since epoch
+    constexpr uint64_t epoch20230531 = 1685491200;
+    using DurationType = std::chrono::duration<uint64_t>;
+    std::chrono::sys_time<DurationType> sysTime{DurationType(epoch20230531)};
+    std::chrono::minutes offset =
+        std::chrono::duration_cast<std::chrono::minutes>(
+            std::chrono::current_zone()->get_info(sysTime).offset);
+    std::string expected =
+        details::toISO8061ExtendedStrSeconds(epoch20230531, offset);
 
-    EXPECT_EQ(getDateTimeIso8601("20230531T000000Z"),
-              "2023-05-31T00:00:00+00:00");
+    EXPECT_EQ(getDateTimeIso8601("20230531"), expected);
+
+    EXPECT_EQ(getDateTimeIso8601("20230531T000000Z"), expected);
 
     // invalid datetime
     EXPECT_EQ(getDateTimeIso8601("202305"), std::nullopt);

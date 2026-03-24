@@ -30,8 +30,8 @@ inline nlohmann::json toMetricValues(const Readings& readings)
         nlohmann::json::object_t metricReport;
         metricReport["MetricProperty"] = metadata;
         metricReport["MetricValue"] = std::to_string(sensorValue);
-        metricReport["Timestamp"] =
-            redfish::time_utils::getDateTimeUintMs(timestamp);
+        metricReport["Timestamp"] = redfish::time_utils::getDateTimeUintMs(
+            timestamp, redfish::time_utils::DateFormat::LocalTimezone);
         metricValues.emplace_back(std::move(metricReport));
     }
 
@@ -50,7 +50,8 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
         "/redfish/v1/TelemetryService/MetricReportDefinitions/{}", id);
 
     const auto& [timestamp, readings] = timestampReadings;
-    json["Timestamp"] = redfish::time_utils::getDateTimeUintMs(timestamp);
+    json["Timestamp"] = redfish::time_utils::getDateTimeUintMs(
+        timestamp, redfish::time_utils::DateFormat::LocalTimezone);
     json["MetricValues"] = toMetricValues(readings);
     return true;
 }
