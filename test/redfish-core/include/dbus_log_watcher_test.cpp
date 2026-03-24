@@ -34,8 +34,9 @@ TEST(DBusLogWatcher, EventLogObjectFromDBusSuccess)
 
     EventLogObjectsType event;
 
+    const std::chrono::time_zone* tz = std::chrono::locate_zone("UTC");
     const bool status =
-        DbusEventLogMonitor::eventLogObjectFromDBus(propMapStub, event);
+        DbusEventLogMonitor::eventLogObjectFromDBus(propMapStub, event, tz);
 
     EXPECT_TRUE(status);
 
