@@ -1166,8 +1166,7 @@ inline void getDumpServiceInfo(
     asyncResp->res.jsonValue["OverWritePolicy"] = overWritePolicy;
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow(
-            redfish::time_utils::DateFormat::UTC);
+        redfish::time_utils::getDateTimeOffsetNow();
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
@@ -1662,8 +1661,7 @@ inline void requestRoutesCrashdumpService(App& app)
             asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
 
             std::pair<std::string, std::string> redfishDateTimeOffset =
-                redfish::time_utils::getDateTimeOffsetNow(
-                    redfish::time_utils::DateFormat::UTC);
+                redfish::time_utils::getDateTimeOffsetNow();
             asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
             asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                 redfishDateTimeOffset.second;

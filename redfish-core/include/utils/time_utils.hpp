@@ -19,12 +19,6 @@ namespace redfish
 namespace time_utils
 {
 
-enum class DateFormat
-{
-    UTC,
-    LocalTimezone,
-};
-
 /**
  * @brief Convert string that represents value in Duration Format to its numeric
  *        equivalent.
@@ -41,24 +35,24 @@ std::string toDurationString(std::chrono::milliseconds ms);
 std::optional<std::string> toDurationStringFromUint(uint64_t timeMs);
 
 // Returns the formatted date time string.
-// If tz is not provided, the UTC time is used.
 // Note that the maximum supported date is 9999-12-31T23:59:59+00:00, if
 // the given |secondsSinceEpoch| is too large, we return the maximum supported
 // date.
-std::string getDateTimeUint(uint64_t secondsSinceEpoch);
+std::string getDateTimeUint(uint64_t secondsSinceEpoch,
+                            const std::chrono::time_zone* tz = nullptr);
 
-// Returns the formatted date time string with millisecond precision
+// Returns the tz-aware formatted date time string with millisecond precision
 // Note that the maximum supported date is 9999-12-31T23:59:59+00:00, if
 // the given |secondsSinceEpoch| is too large, we return the maximum supported
 // date.
-std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch);
+std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch,
+                              const std::chrono::time_zone* tz = nullptr);
 
-// Returns the formatted date time string with microsecond precision
-std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch);
-
-std::string getDateTimeStdtime(std::time_t secondsSinceEpoch);
-std::string getDateTimeStdtimeTz(std::time_t secondsSinceEpoch,
-                                 const std::chrono::time_zone& tz);
+// Returns the tz-aware formatted date time string with microsecond precision
+std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch,
+                              const std::chrono::time_zone* tz = nullptr);
+std::string getDateTimeStdtime(std::time_t secondsSinceEpoch,
+                               const std::chrono::time_zone* tz = nullptr);
 
 /**
  * Returns the current Date, Time & the local Time Offset
@@ -70,7 +64,7 @@ std::string getDateTimeStdtimeTz(std::time_t secondsSinceEpoch,
  * @return std::pair<std::string, std::string>, which consist
  * of current DateTime & the TimeOffset strings respectively.
  */
-std::pair<std::string, std::string> getDateTimeOffsetNow(DateFormat dateFormat);
+std::pair<std::string, std::string> getDateTimeOffsetNow();
 
 using usSinceEpoch = std::chrono::duration<int64_t, std::micro>;
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime);
