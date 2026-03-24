@@ -1,6 +1,7 @@
 #include "dbus_log_watcher.hpp"
 #include "dbus_utility.hpp"
 #include "event_logs_object_type.hpp"
+#include "utils/time_utils.hpp"
 
 #include <cstdint>
 #include <string>
@@ -41,7 +42,8 @@ TEST(DBusLogWatcher, EventLogObjectFromDBusSuccess)
 
     EXPECT_EQ(event.id, "1838");
 
-    EXPECT_EQ(event.timestamp, "2021-11-30T22:41:35.123+00:00");
+    EXPECT_EQ(event.timestamp,
+              redfish::time_utils::getDateTimeUintMs(uint64_t{1638312095123}));
 
     EXPECT_EQ(event.messageId, "OpenBMC.0.1.PowerButtonPressed");
 

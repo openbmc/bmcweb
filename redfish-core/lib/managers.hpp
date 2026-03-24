@@ -769,8 +769,7 @@ inline void handleManagerGet(
         nlohmann::json::array_t({"ResetAll"});
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow(
-            redfish::time_utils::DateFormat::LocalTimezone);
+        redfish::time_utils::getDateTimeOffsetNow();
 
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
