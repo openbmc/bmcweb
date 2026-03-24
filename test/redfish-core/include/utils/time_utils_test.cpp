@@ -7,6 +7,8 @@
 #include <ctime>
 #include <limits>
 #include <optional>
+#include <ratio>
+#include <string>
 #include <version>
 
 #include <gmock/gmock.h>
@@ -18,6 +20,8 @@ namespace redfish::time_utils
 {
 namespace
 {
+
+using namespace std::string_view_literals;
 
 TEST(FromDurationTest, PositiveTests)
 {
@@ -87,125 +91,127 @@ TEST(ToDurationStringFromUintTest, NegativeTests)
               std::nullopt);
 }
 
-TEST(GetDateTimeStdtime, ConversionTests)
+TEST(GetDateTimeStdtime, UTCTests)
 {
-    // some time before the epoch
-    EXPECT_EQ(getDateTimeStdtime(std::time_t{-1234567}),
+    const std::chrono::time_zone* utc = std::chrono::locate_zone("UTC");
+    EXPECT_EQ(getDateTimeStdtime(std::time_t{1638312095}, utc),
+              "2021-11-30T22:41:35+00:00");
+
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max(), utc),
+              "9999-12-31T23:59:59+00:00");
+
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min(), utc),
               "1970-01-01T00:00:00+00:00");
 
-    // epoch
-    EXPECT_EQ(getDateTimeStdtime(std::time_t{0}), "1970-01-01T00:00:00+00:00");
-
-    // Limits
-    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max()),
-              "9999-12-31T23:59:59+00:00");
-    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min()),
+    EXPECT_EQ(getDateTimeStdtime(std::time_t{0}, utc),
               "1970-01-01T00:00:00+00:00");
 }
 
-TEST(GetDateTimeStdtimeTz, TimezoneTests)
+TEST(getDateTimeStdtime, TimezoneTests)
 {
     // 2021-11-30T22:41:35 UTC (1638312095)
     constexpr std::time_t testTime = 1638312095;
 
     // UTC (offset +00:00)
-    const std::chrono::time_zone& utc = *std::chrono::locate_zone("UTC");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, utc), "2021-11-30T22:41:35+00:00");
+    const std::chrono::time_zone* utc = std::chrono::locate_zone("UTC");
+    EXPECT_EQ(getDateTimeStdtime(testTime, utc), "2021-11-30T22:41:35+00:00");
 
     // Positive offset: Europe/Berlin (+01:00 in winter)
-    const std::chrono::time_zone& berlin =
-        *std::chrono::locate_zone("Europe/Berlin");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, berlin),
+    const std::chrono::time_zone* berlin =
+        std::chrono::locate_zone("Europe/Berlin");
+    EXPECT_EQ(getDateTimeStdtime(testTime, berlin),
               "2021-11-30T23:41:35+01:00");
 
     // Negative offset: America/New_York (-05:00 in winter)
-    const std::chrono::time_zone& newYork =
-        *std::chrono::locate_zone("America/New_York");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, newYork),
+    const std::chrono::time_zone* newYork =
+        std::chrono::locate_zone("America/New_York");
+    EXPECT_EQ(getDateTimeStdtime(testTime, newYork),
               "2021-11-30T17:41:35-05:00");
 
     // Non-hour-aligned offset: Asia/Kolkata (+05:30)
-    const std::chrono::time_zone& kolkata =
-        *std::chrono::locate_zone("Asia/Kolkata");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, kolkata),
+    const std::chrono::time_zone* kolkata =
+        std::chrono::locate_zone("Asia/Kolkata");
+    EXPECT_EQ(getDateTimeStdtime(testTime, kolkata),
               "2021-12-01T04:11:35+05:30");
 
     // Non-hour-aligned offset: Asia/Kathmandu (+05:45)
-    const std::chrono::time_zone& kathmandu =
-        *std::chrono::locate_zone("Asia/Kathmandu");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, kathmandu),
+    const std::chrono::time_zone* kathmandu =
+        std::chrono::locate_zone("Asia/Kathmandu");
+    EXPECT_EQ(getDateTimeStdtime(testTime, kathmandu),
               "2021-12-01T04:26:35+05:45");
 
     // Extreme westerly timezone: Etc/GMT+12 (-12:00)
-    const std::chrono::time_zone& gmt12West =
-        *std::chrono::locate_zone("Etc/GMT+12");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, gmt12West),
+    const std::chrono::time_zone* gmt12West =
+        std::chrono::locate_zone("Etc/GMT+12");
+    EXPECT_EQ(getDateTimeStdtime(testTime, gmt12West),
               "2021-11-30T10:41:35-12:00");
 
     // Extreme easterly timezone: Pacific/Kiritimati (+14:00)
-    const std::chrono::time_zone& kiritimati =
-        *std::chrono::locate_zone("Pacific/Kiritimati");
-    EXPECT_EQ(getDateTimeStdtimeTz(testTime, kiritimati),
+    const std::chrono::time_zone* kiritimati =
+        std::chrono::locate_zone("Pacific/Kiritimati");
+    EXPECT_EQ(getDateTimeStdtime(testTime, kiritimati),
               "2021-12-01T12:41:35+14:00");
 
     // Limits (using std::time_t, not uint64_t, to match the function signature)
-    EXPECT_EQ(
-        getDateTimeStdtimeTz(std::numeric_limits<std::time_t>::max(), utc),
-        "9999-12-31T23:59:59+00:00");
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max(), utc),
+              "9999-12-31T23:59:59+00:00");
 
-    EXPECT_EQ(
-        getDateTimeStdtimeTz(std::numeric_limits<std::time_t>::min(), utc),
-        "1970-01-01T00:00:00+00:00");
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min(), utc),
+              "1970-01-01T00:00:00+00:00");
 
     // Use fixed-offset CEST (+02:00) to avoid DST ambiguity at extreme values
-    const std::chrono::time_zone& cest = *std::chrono::locate_zone("Etc/GMT-2");
-    EXPECT_EQ(
-        getDateTimeStdtimeTz(std::numeric_limits<std::time_t>::max(), cest),
-        "9999-12-31T23:59:59+02:00");
+    const std::chrono::time_zone* cest = std::chrono::locate_zone("Etc/GMT-2");
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max(), cest),
+              "9999-12-31T23:59:59+02:00");
 
-    EXPECT_EQ(
-        getDateTimeStdtimeTz(std::numeric_limits<std::time_t>::min(), cest),
-        "1970-01-01T00:00:00+02:00");
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min(), cest),
+              "1970-01-01T00:00:00+02:00");
 }
 
 TEST(GetDateTimeUint, ConversionTests)
 {
-    EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}),
+    const std::chrono::time_zone* utc = std::chrono::locate_zone("UTC");
+
+    EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}, utc),
               "2021-11-30T22:41:35+00:00");
     // some time in the future, beyond 2038
-    EXPECT_EQ(getDateTimeUint(uint64_t{41638312095}),
+    EXPECT_EQ(getDateTimeUint(uint64_t{41638312095}, utc),
               "3289-06-18T21:48:15+00:00");
     // the maximum time we support
-    EXPECT_EQ(getDateTimeUint(uint64_t{253402300799}),
+    EXPECT_EQ(getDateTimeUint(uint64_t{253402300799}, utc),
               "9999-12-31T23:59:59+00:00");
 
     // returns the maximum Redfish date
-    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::max()),
+    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::max(), utc),
               "9999-12-31T23:59:59+00:00");
 
-    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::min()),
+    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::min(), utc),
               "1970-01-01T00:00:00+00:00");
 }
 
 TEST(GetDateTimeUintMs, ConverstionTests)
 {
-    EXPECT_EQ(getDateTimeUintMs(uint64_t{1638312095123}),
+    const std::chrono::time_zone* utc = std::chrono::locate_zone("UTC");
+
+    EXPECT_EQ(getDateTimeUintMs(uint64_t{1638312095123}, utc),
               "2021-11-30T22:41:35.123+00:00");
     // returns the maximum Redfish date
-    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::max()),
+    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::max(), utc),
               "9999-12-31T23:59:59.999+00:00");
-    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::min()),
+    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::min(), utc),
               "1970-01-01T00:00:00.000+00:00");
 }
 
 TEST(Utility, GetDateTimeUintUs)
 {
-    EXPECT_EQ(getDateTimeUintUs(uint64_t{1638312095123456}),
+    const std::chrono::time_zone* utc = std::chrono::locate_zone("UTC");
+
+    EXPECT_EQ(getDateTimeUintUs(uint64_t{1638312095123456}, utc),
               "2021-11-30T22:41:35.123456+00:00");
     // returns the maximum Redfish date
-    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::max()),
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::max(), utc),
               "9999-12-31T23:59:59.999999+00:00");
-    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::min()),
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::min(), utc),
               "1970-01-01T00:00:00.000000+00:00");
 }
 
@@ -312,10 +318,10 @@ TEST(Utility, GetDateTimeOffsetNow)
     // Not a lot of good ways to verify "now" is correct, but we can at least
     // verify the format is correct
     EXPECT_THAT(
-        getDateTimeOffsetNow(DateFormat::UTC).first,
+        getDateTimeOffsetNow().first,
         MatchesRegex(
             "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[-+][0-9]{2}:[0-9]{2}"));
-    EXPECT_THAT(getDateTimeOffsetNow(DateFormat::UTC).second,
+    EXPECT_THAT(getDateTimeOffsetNow().second,
                 MatchesRegex("[-+][0-9]{2}:[0-9]{2}"));
 }
 
