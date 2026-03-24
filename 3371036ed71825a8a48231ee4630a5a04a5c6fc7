@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67aba245_8e8eed76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-24T03:15:45Z",
+      "side": 1,
+      "message": "First off, THANK YOU for putting this clearly.  It\u0027s much easier to have disccusions about.\n\n\u003e Asset.Manufacturer       -\u003e Vendor\n\nDoesn\u0027t look correct to me.  Manufacturer should map to Manufacturer, right?",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbc224ba_0154753b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-24T03:15:45Z",
+      "side": 1,
+      "message": "?  What daemon is producing this?  The overall accelerator is owned by EM, so where does this come from?",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a4aa74f_108a8612",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-24T03:15:45Z",
+      "side": 1,
+      "message": "No lambdas more than a few lines please",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d791f15_b6b4dce8",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-24T03:15:45Z",
+      "side": 1,
+      "message": "Please map this directly.  xyz.openbmc_project.Common.PhysicalContext.Type isn\u0027t neccesarily the same as Redfish, even if it is on your system.",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c79b37e_72995072",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-24T03:15:45Z",
+      "side": 1,
+      "message": "nit, this is one line, used in one place.  just inline it.",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
