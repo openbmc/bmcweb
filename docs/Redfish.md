@@ -1155,6 +1155,9 @@ functions the same like the default implementation under the System resource.
 
 - EnvironmentMetrics
 - InstructionSet
+- Links/Chassis
+- Links/PCIeDevice
+- Links/PCIeFunctions
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz
