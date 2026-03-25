@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2ab929e_3c38d5c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:00:04Z",
+      "side": 1,
+      "message": "n",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03159ca2_95d0161a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:00:04Z",
+      "side": 1,
+      "message": "1. Lets not use a ternary here.\n2. locate_zone and current_zone can throw an exception here that you\u0027ve failed to catch.\n3. You\u0027ve dereferenced two pointers without checking for validity.",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e474036d_80deb70b",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:00:04Z",
+      "side": 1,
+      "message": "nit, can we call this \"outputTimezone\"",
+      "range": {
+        "startLine": 68,
+        "startChar": 60,
+        "endLine": 68,
+        "endChar": 62
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8b621ae_aa104ee3",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:00:04Z",
+      "side": 1,
+      "message": "Please just load these into a separate variable.  You\u0027re going over the line boundary on a few of them anyway.",
+      "range": {
+        "startLine": 80,
+        "startChar": 48,
+        "endLine": 80,
+        "endChar": 62
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e824c170_8b2c1c60",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:00:04Z",
+      "side": 1,
+      "message": "Any reason these are the only implementations not in the compile unit?",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a3a751_54fd4976",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:00:04Z",
+      "side": 1,
+      "message": "Please don\u0027t execute code in a lambda invocation.  This is tough to read.\n\nAlso, why is System dump not in local time?  Shouldn\u0027t both be in local time?",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 74
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07a4ed6a_39568657",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:00:04Z",
+      "side": 1,
+      "message": "Can this be simplified at all?",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef4c2b94_bc66f30d",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:00:04Z",
+      "side": 1,
+      "message": "Can this block be simplified at all?  As written it\u0027s pretty tough to read.  creating an abs variable just to then be able to add it instead of subtract at a minimum I don\u0027t understand, but lets try to make this code more clear, then we can get to individual issues.",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
