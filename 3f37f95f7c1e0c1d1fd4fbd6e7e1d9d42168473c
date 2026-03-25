@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "155e6cee_7b0dddcc",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-25T11:00:34Z",
+      "side": 1,
+      "message": "No, TaskService uses it. I will update this in the follow up diff.",
+      "parentUuid": "dd184aed_af2dc450",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "3f37f95f7c1e0c1d1fd4fbd6e7e1d9d42168473c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e51eeea_fb719c71",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-03-20T19:05:34Z",
       "side": 1,
       "message": "First patch commented on this, I have no idea what the type on info is.  Looking at cppreference, it\u0027s std::chrono::sys_info",
+      "range": {
+        "startLine": 388,
+        "startChar": 19,
+        "endLine": 388,
+        "endChar": 27
+      },
+      "revId": "3f37f95f7c1e0c1d1fd4fbd6e7e1d9d42168473c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b3650f_eed1a5fa",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-25T11:00:34Z",
+      "side": 1,
+      "message": "Right, I will the type in the follow up diff.",
+      "parentUuid": "6e51eeea_fb719c71",
       "range": {
         "startLine": 388,
         "startChar": 19,
