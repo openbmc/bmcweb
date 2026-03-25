@@ -1165,6 +1165,9 @@ functions the same like the default implementation under the System resource.
 - EnvironmentMetrics
 - FirmwareVersion
 - InstructionSet
+- Links/Chassis
+- Links/PCIeDevice
+- Links/PCIeFunctions
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
