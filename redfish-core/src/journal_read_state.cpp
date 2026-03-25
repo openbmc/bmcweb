@@ -79,7 +79,7 @@ std::string JournalReadState::getCursor() const
     {
         return "";
     }
-    std::unique_ptr<char, decltype(&free)> cursorPtr(cursor, &free);
+    std::unique_ptr<char> cursorPtr(cursor);
     return {cursorPtr.get()};
 }
 std::optional<uint64_t> JournalReadState::getRealtimeUsec() const
