@@ -68,7 +68,6 @@ incdir = [
 
 # Add compiler arguments
 boost_flags = ['-Wno-pedantic']
-nghttp2_flags = []
 if (cxx.get_id() == 'clang')
     if (cxx.version().version_compare('<17.0'))
         error('This project requires clang-17 or higher')
@@ -111,7 +110,6 @@ if (cxx.get_id() == 'clang')
     endif
 
     boost_flags += ['-Wno-strict-prototypes', '-Wno-unused-but-set-variable']
-    nghttp2_flags += ['-Wno-extra-semi']
 endif
 
 if (cxx.get_id() == 'gcc')
@@ -220,14 +218,12 @@ if zstd.found()
     bmcweb_dependencies += zstd
 endif
 
-nghttp2 = dependency('libnghttp2', version: '>=1.52.0', required: false)
+nghttp2 = dependency('libnghttp2', version: '>=1.66.0', required: false)
 if not nghttp2.found()
     cmake = import('cmake')
     opt_var = cmake.subproject_options()
     opt_var.add_cmake_defines(
         {
-            'CMAKE_C_FLAGS': ' '.join(nghttp2_flags),
-            'CMAKE_CXX_FLAGS': ' '.join(nghttp2_flags),
             'ENABLE_LIB_ONLY': true,
             'ENABLE_STATIC_LIB': true,
         },
