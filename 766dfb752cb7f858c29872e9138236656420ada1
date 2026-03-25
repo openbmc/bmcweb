@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c5d69e8_8eca99f9",
+        "filename": "redfish-core/src/journal_read_state.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2026-03-25T17:08:15Z",
+      "side": 1,
+      "message": "Not sure compile-wise, but this might be more explicit and easier to read:\n```suggestion\n    if (cursor \u003d\u003d nullptr)\n    {\n        return \"\";\n    }\n    std::string cursorStr(cursor);\n    free(cursor);\n    return cursorStr;\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 29
+      },
+      "revId": "766dfb752cb7f858c29872e9138236656420ada1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
