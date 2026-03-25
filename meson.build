@@ -145,13 +145,11 @@ if (get_option('buildtype') != 'plain')
         # dynamic symbol table entries
 
         add_project_arguments(
-            cxx.get_supported_arguments(
-                [
-                    '-fno-fat-lto-objects',
-                    '-fvisibility=hidden',
-                    '-fvisibility-inlines-hidden',
-                ],
-            ),
+            [
+                '-fno-fat-lto-objects',
+                '-fvisibility=hidden',
+                '-fvisibility-inlines-hidden',
+            ],
             language: 'cpp',
         )
 
@@ -175,34 +173,29 @@ security_flags = [
 plain = get_option('buildtype') == 'plain'
 debug = get_option('buildtype').startswith('debug')
 if not (plain or debug)
-    add_project_arguments(
-        cxx.get_supported_arguments([security_flags]),
-        language: 'cpp',
-    )
+    add_project_arguments(security_flags, language: 'cpp')
 endif
 
 # Boost dependency configuration
 
 add_project_arguments(
-    cxx.get_supported_arguments(
-        [
-            '-DBOOST_ALL_NO_LIB',
-            '-DBOOST_ALLOW_DEPRECATED_HEADERS',
-            '-DBOOST_ASIO_DISABLE_THREADS',
-            '-DBOOST_ASIO_NO_DEPRECATED',
-            '-DBOOST_ASIO_SEPARATE_COMPILATION',
-            '-DBOOST_BEAST_SEPARATE_COMPILATION',
-            '-DBOOST_EXCEPTION_DISABLE',
-            '-DBOOST_NO_EXCEPTIONS',
-            '-DBOOST_URL_NO_SOURCE_LOCATION',
-            '-DBOOST_SPIRIT_X3_NO_RTTI',
-            '-DJSON_NOEXCEPTION',
-            '-DJSON_NO_IO',
-            '-DJSON_USE_IMPLICIT_CONVERSIONS=0',
-            '-DOPENSSL_NO_FILENAMES',
-            '-DSDBUSPLUS_DISABLE_BOOST_COROUTINES',
-        ],
-    ),
+    [
+        '-DBOOST_ALL_NO_LIB',
+        '-DBOOST_ALLOW_DEPRECATED_HEADERS',
+        '-DBOOST_ASIO_DISABLE_THREADS',
+        '-DBOOST_ASIO_NO_DEPRECATED',
+        '-DBOOST_ASIO_SEPARATE_COMPILATION',
+        '-DBOOST_BEAST_SEPARATE_COMPILATION',
+        '-DBOOST_EXCEPTION_DISABLE',
+        '-DBOOST_NO_EXCEPTIONS',
+        '-DBOOST_URL_NO_SOURCE_LOCATION',
+        '-DBOOST_SPIRIT_X3_NO_RTTI',
+        '-DJSON_NOEXCEPTION',
+        '-DJSON_NO_IO',
+        '-DJSON_USE_IMPLICIT_CONVERSIONS=0',
+        '-DOPENSSL_NO_FILENAMES',
+        '-DSDBUSPLUS_DISABLE_BOOST_COROUTINES',
+    ],
     language: 'cpp',
 )
 
