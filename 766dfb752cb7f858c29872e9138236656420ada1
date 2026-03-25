@@ -70,6 +70,30 @@
       },
       "revId": "766dfb752cb7f858c29872e9138236656420ada1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d15eeabf_4ccec99f",
+        "filename": "redfish-core/src/journal_read_state.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T19:29:44Z",
+      "side": 1,
+      "message": "According to the docs it can\u0027t, but that\u0027s a fair ask, lets keep the static analyzers from working too hard.  Added a nullptr check.",
+      "parentUuid": "f4a43e03_7b87ba9c",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 29
+      },
+      "revId": "766dfb752cb7f858c29872e9138236656420ada1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
