@@ -1062,6 +1062,9 @@ functions the same like the default implementation under the System resource.
 #### Processor
 
 - InstructionSet
+- Links/Chassis
+- Links/PCIeDevice
+- Links/PCIeFunctions
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz

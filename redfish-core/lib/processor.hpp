@@ -819,6 +819,104 @@ inline void getProcessorObject(
         });
 }
 
+inline void afterGetProcessorChassisLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec)
+    {
+        if (ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    if (endpoints.size() != 1)
+    {
+        BMCWEB_LOG_WARNING(
+            "Chassis association returned {} endpoints, expected 1",
+            endpoints.size());
+        return;
+    }
+    sdbusplus::message::object_path chassisObjPath(endpoints.front());
+    std::string chassisName = chassisObjPath.filename();
+    if (chassisName.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}", chassisName);
+}
+
+inline void getProcessorChassisLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    sdbusplus::message::object_path path(objectPath);
+    dbus::utility::getAssociationEndPoints(
+        path / "contained_by",
+        std::bind_front(afterGetProcessorChassisLink, asyncResp));
+}
+
+inline void afterGetPCIeFunctionsLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDeviceId, const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec)
+    {
+        if (ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    nlohmann::json::array_t pcieFunctionList;
+    for (const std::string& functionPath : endpoints)
+    {
+        sdbusplus::message::object_path funcObjPath(functionPath);
+        std::string functionName = funcObjPath.filename();
+        if (functionName.empty())
+        {
+            continue;
+        }
+        nlohmann::json::object_t function;
+        function["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions/{}",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId, functionName);
+        pcieFunctionList.emplace_back(std::move(function));
+    }
+    std::ranges::sort(pcieFunctionList);
+    asyncResp->res.jsonValue["Links"]["PCIeFunctions"] =
+        std::move(pcieFunctionList);
+}
+
+inline void getLinksForAccelerator(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath, const std::string& processorId,
+    const std::vector<std::string>& interfaceList)
+{
+    if (std::ranges::find(interfaceList,
+                          "xyz.openbmc_project.Inventory.Item.PCIeDevice") ==
+        interfaceList.end())
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue["Links"]["PCIeDevice"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+
+    sdbusplus::message::object_path path(objectPath);
+    dbus::utility::getAssociationEndPoints(
+        path / "exposing",
+        std::bind_front(afterGetPCIeFunctionsLinks, asyncResp, processorId));
+}
+
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -855,6 +953,8 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getLinksForAccelerator(asyncResp, objectPath, processorId,
+                                       interfaceList);
             }
             else if (
                 interface ==
@@ -887,6 +987,8 @@ inline void getProcessorData(
             }
         }
     }
+
+    getProcessorChassisLink(asyncResp, objectPath);
 }
 
 /**
