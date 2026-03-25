@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8a478c3_e67ccd58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-25T19:03:47Z",
+      "side": 1,
+      "message": "Cool!!\n35/61 bmcweb:journal_read_state           FAIL             5.49s   exit status 1",
+      "revId": "76f93d02b9305408c9e005a3c9966787e587a329",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
