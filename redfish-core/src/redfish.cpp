@@ -12,6 +12,7 @@
 #include "cable.hpp"
 #include "certificate_service.hpp"
 #include "chassis.hpp"
+#include "control.hpp"
 #include "environment_metrics.hpp"
 #include "ethernet.hpp"
 #include "event_service.hpp"
@@ -111,6 +112,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesChassisResetAction(app);
     requestRoutesChassisResetActionInfo(app);
     requestRoutesChassisNetworkAdapter(app);
+    requestRoutesControl(app);
     requestRoutesUpdateService(app);
     requestRoutesStorage(app);
     requestRoutesStorageController(app);
