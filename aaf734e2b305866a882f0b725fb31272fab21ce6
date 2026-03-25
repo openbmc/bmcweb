@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ffc56a5_924b9b30",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1002220
+      },
+      "writtenOn": "2026-03-25T19:35:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15459a84_bb26e33c",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 33
+      },
+      "revId": "aaf734e2b305866a882f0b725fb31272fab21ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "febdfce1_0584a492",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8c3154_4500ee56",
+        "filename": "test/redfish-core/include/utils/collection_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002220
+      },
+      "writtenOn": "2026-03-25T19:35:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "febdfce1_0584a492",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 52
+      },
+      "revId": "aaf734e2b305866a882f0b725fb31272fab21ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff506e41_aed08819",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-03-24T19:31:42Z",
       "side": 1,
       "message": "This is not correct.",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 33
+      },
+      "revId": "aaf734e2b305866a882f0b725fb31272fab21ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "140c0017_22f98cc9",
+        "filename": "test/redfish-core/include/utils/collection_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1002220
+      },
+      "writtenOn": "2026-03-25T19:35:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff506e41_aed08819",
       "range": {
         "startLine": 180,
         "startChar": 0,
