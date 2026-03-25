@@ -16,6 +16,24 @@
       "message": "Cool!!\n35/61 bmcweb:journal_read_state           FAIL             5.49s   exit status 1",
       "revId": "76f93d02b9305408c9e005a3c9966787e587a329",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03786d7_5cab7ff3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T19:45:19Z",
+      "side": 1,
+      "message": "That\u0027s not the best part of the logs.  Best part is that it pointed to EXACTLY what hte failure was:\n\n```\n\u003d\u003d7398\u003d\u003d Mismatched free() / delete / delete []\n\u003d\u003d7398\u003d\u003d    at 0x4889504: operator delete(void*, unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)\n\u003d\u003d7398\u003d\u003d    by 0x10D357: UnknownInlinedFun (unique_ptr.h:93)\n\u003d\u003d7398\u003d\u003d    by 0x10D357: std::unique_ptr\u003cchar, std::default_delete\u003cchar\u003e \u003e::~unique_ptr() (unique_ptr.h:399)\n\u003d\u003d7398\u003d\u003d    by 0x10F8F3: redfish::JournalReadState::getCursor[abi:cxx11]() const (journal_read_state.cpp:84)\n\u003d\u003d7398\u003d\u003d    by 0x118F23: redfish::(anonymous namespace)::JournalReadState_TestDataFile_Test::TestBody() (journal_read_state.cpp:47)\n\u003d\u003d7398\u003d\u003d    by 0x4A7C78B: HandleSehExceptionsInMethodIfSupported\u003ctesting::Test, void\u003e (gtest.cc:2653)\n\u003d\u003d7398\u003d\u003d    by 0x4A7C78B: void testing::internal::HandleExceptionsInMethodIfSupported\u003ctesting::Test, void\u003e(testing::Test*, void (testing::Test::*)(), char const*) (gtest.cc:2689)\n```",
+      "parentUuid": "d8a478c3_e67ccd58",
+      "revId": "76f93d02b9305408c9e005a3c9966787e587a329",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
