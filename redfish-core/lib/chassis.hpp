@@ -472,6 +472,9 @@ inline void handleDecoratorAssetProperties(
         boost::urls::format("/redfish/v1/Chassis/{}/NetworkAdapters",
                             chassisId);
 
+    asyncResp->res.jsonValue["Controls"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Controls", chassisId);
+
     // SensorCollection
     asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/Sensors", chassisId);
