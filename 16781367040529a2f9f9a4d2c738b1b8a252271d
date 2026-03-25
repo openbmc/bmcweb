@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a6c3ba4_8ef9c741",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:13:04Z",
+      "side": 1,
+      "message": "Unique leaves has been a requirement of Redfish bmcweb collections since forever.  The problem this patch has overall is that now the rest APIs aren\u0027t generated consistently\n\n/xyz/openbmc_project/my_id -\u003e turns into my_id\n\nbut now if another path gets added, suddenly that resource (that\u0027s supposed to be the same) changes to openbmc_project/my_id, which isn\u0027t how Redfish is supposed to work (see tree stability in the spec).\n\nI understand dbus and Redfish are in conflict here.  If you wanted to have a mode where we just expose the entire path (xyz_openbmc_project_my_id) and add it as a compile mode, that might work, but we shouldn\u0027t be changing resource URIs at runtime.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 76
+      },
+      "revId": "16781367040529a2f9f9a4d2c738b1b8a252271d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "282ddf13_8f51ee9e",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-25T21:13:04Z",
+      "side": 1,
+      "message": "Why is the word \"software\" special here?",
+      "revId": "16781367040529a2f9f9a4d2c738b1b8a252271d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
