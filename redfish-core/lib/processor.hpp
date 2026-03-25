@@ -819,6 +819,119 @@ inline void getProcessorObject(
         });
 }
 
+inline void getProcessorPCIeFunctionsLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath, const std::string& pcieDeviceLink)
+{
+    BMCWEB_LOG_DEBUG("Get processor PCIe functions links");
+    dbus::utility::getAssociationEndPoints(
+        objectPath + "/exposing",
+        [asyncResp,
+         pcieDeviceLink](const boost::system::error_code& ec,
+                         const dbus::utility::MapperEndPoints& endpoints) {
+            if (ec)
+            {
+                BMCWEB_LOG_WARNING("No PCIe functions found for processor: {}",
+                                   ec.message());
+                return;
+            }
+            nlohmann::json& pcieFunctionList =
+                asyncResp->res.jsonValue["Links"]["PCIeFunctions"];
+            pcieFunctionList = nlohmann::json::array();
+            for (const std::string& functionPath : endpoints)
+            {
+                sdbusplus::message::object_path funcObjPath(functionPath);
+                std::string functionName = funcObjPath.filename();
+                if (functionName.empty())
+                {
+                    continue;
+                }
+                std::string functionLink = pcieDeviceLink;
+                functionLink += "/PCIeFunctions/";
+                functionLink += functionName;
+                pcieFunctionList.push_back({{"@odata.id", functionLink}});
+            }
+        });
+}
+
+inline void getProcessorLinksFromAccelerator(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath, const std::string& processorId)
+{
+    std::string pcieDeviceLink = "/redfish/v1/Systems/";
+    pcieDeviceLink += BMCWEB_REDFISH_SYSTEM_URI_NAME;
+    pcieDeviceLink += "/PCIeDevices/";
+    pcieDeviceLink += processorId;
+
+    asyncResp->res.jsonValue["Links"]["PCIeDevice"] = {
+        {"@odata.id", pcieDeviceLink}};
+
+    getProcessorPCIeFunctionsLinks(asyncResp, objectPath, pcieDeviceLink);
+
+    // Resolve chassis via contained_by association
+    dbus::utility::getAssociationEndPoints(
+        objectPath + "/contained_by",
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperEndPoints& endpoints) {
+            if (ec)
+            {
+                return;
+            }
+            if (endpoints.size() != 1)
+            {
+                return;
+            }
+            const std::string& chassisPath = endpoints.front();
+            sdbusplus::message::object_path chassisObjPath(chassisPath);
+            std::string chassisName = chassisObjPath.filename();
+            if (chassisName.empty())
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["Links"]["Chassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+        });
+}
+
+inline void getProcessorChassisLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath, const std::string& processorId,
+    const std::string& deviceType)
+{
+    if (deviceType == "xyz.openbmc_project.Inventory.Item.Accelerator")
+    {
+        getProcessorLinksFromAccelerator(asyncResp, objectPath, processorId);
+        return;
+    }
+
+    // CPU path: resolve chassis via /chassis association
+    BMCWEB_LOG_DEBUG("Get CPU chassis link");
+    dbus::utility::getAssociationEndPoints(
+        objectPath + "/chassis",
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperEndPoints& endpoints) {
+            if (ec)
+            {
+                return;
+            }
+            if (endpoints.size() != 1)
+            {
+                return;
+            }
+            const std::string& chassisPath = endpoints.front();
+            sdbusplus::message::object_path chassisObjPath(chassisPath);
+            std::string chassisName = chassisObjPath.filename();
+            if (chassisName.empty())
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["Links"]["Chassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisName}};
+        });
+}
+
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -884,6 +997,20 @@ inline void getProcessorData(
             else if (interface == "xyz.openbmc_project.Association.Definitions")
             {
                 getLocationIndicatorActive(asyncResp, objectPath);
+            }
+        }
+    }
+
+    for (const auto& [serviceName, interfaceList] : serviceMap)
+    {
+        for (const auto& interface : interfaceList)
+        {
+            if (interface == "xyz.openbmc_project.Inventory.Item.Accelerator" ||
+                interface == "xyz.openbmc_project.Inventory.Item.Cpu")
+            {
+                getProcessorChassisLink(asyncResp, objectPath, processorId,
+                                        interface);
+                break;
             }
         }
     }
