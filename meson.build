@@ -201,29 +201,25 @@ add_project_arguments(
 
 # Find the dependency modules, if not found use meson wrap to get them
 # automatically during the configure step
-bmcweb_dependencies = []
+bmcweb_dependencies = [
+    cxx.find_library('pam'),
+    cxx.find_library('atomic'),
+]
 
-pam = cxx.find_library('pam', required: true)
-atomic = cxx.find_library('atomic', required: true)
-bmcweb_dependencies += [pam, atomic]
-
-openssl = dependency('openssl', required: false, version: '>=3.0.0')
-if not openssl.found()
-    openssl_proj = subproject(
-        'openssl',
-        required: true,
-        default_options: ['warning_level=0', 'werror=false'],
-    )
-    openssl = openssl_proj.get_variable('openssl_dep')
-    openssl = openssl.as_system('system')
-endif
-bmcweb_dependencies += [openssl]
+openssl = dependency(
+    'openssl',
+    version: '>=3.0.0',
+    include_type: 'system',
+    default_options: ['warning_level=0', 'werror=false'],
+)
+bmcweb_dependencies += openssl
 
 zstd = dependency('libzstd', required: get_option('http-zstd').allowed())
 if zstd.found()
     add_project_arguments('-DHAVE_ZSTD', language: 'cpp')
-    bmcweb_dependencies += [zstd]
+    bmcweb_dependencies += zstd
 endif
+
 nghttp2 = dependency('libnghttp2', version: '>=1.52.0', required: false)
 if not nghttp2.found()
     cmake = import('cmake')
@@ -244,12 +240,7 @@ bmcweb_dependencies += nghttp2
 sdbusplus = dependency('sdbusplus')
 bmcweb_dependencies += sdbusplus
 
-cli11 = dependency('CLI11', required: false, include_type: 'system')
-if not cli11.found()
-    cli11_proj = subproject('cli11', required: true)
-    cli11 = cli11_proj.get_variable('CLI11_dep')
-    cli11 = cli11.as_system('system')
-endif
+cli11 = dependency('CLI11', include_type: 'system')
 bmcweb_dependencies += cli11
 
 tinyxml = dependency(
@@ -258,11 +249,6 @@ tinyxml = dependency(
     version: '>=9.0.0',
     default_options: ['tests=false'],
 )
-if not tinyxml.found()
-    tinyxml_proj = subproject('tinyxml2', required: true)
-    tinyxml = tinyxml_proj.get_variable('tinyxml_dep')
-    tinyxml = tinyxml.as_system('system')
-endif
 bmcweb_dependencies += tinyxml
 
 systemd = dependency('systemd')
