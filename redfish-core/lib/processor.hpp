@@ -16,10 +16,13 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+
+#include <asm-generic/errno.h>
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -52,6 +55,9 @@ namespace redfish
 constexpr std::array<std::string_view, 2> processorInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Cpu",
     "xyz.openbmc_project.Inventory.Item.Accelerator"};
+
+constexpr std::array<std::string_view, 1> pcieFunctionInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.PCIeFunction"};
 
 /**
  * @brief Fill out uuid info of a processor by
@@ -819,6 +825,98 @@ inline void getProcessorObject(
         });
 }
 
+inline void afterGetProcessorChassisLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    if (chassisPaths.size() != 1)
+    {
+        BMCWEB_LOG_WARNING("Chassis association returned {} paths, expected 1",
+                           chassisPaths.size());
+        return;
+    }
+    sdbusplus::message::object_path chassisObjPath(chassisPaths.front());
+    std::string chassisName = chassisObjPath.filename();
+    if (chassisName.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}", chassisName);
+}
+
+inline void getProcessorChassisLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    sdbusplus::message::object_path path(objectPath);
+    dbus::utility::getAssociatedSubTreePaths(
+        path / "contained_by",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisInterfaces,
+        std::bind_front(afterGetProcessorChassisLink, asyncResp));
+}
+
+inline void afterGetPCIeFunctionLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& pcieFunctionPaths)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_DEBUG("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    boost::urls::url pcieFunctionsCollection = boost::urls::format(
+        "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+
+    collection_util::handleCollectionMembers(
+        asyncResp, pcieFunctionsCollection,
+        nlohmann::json::json_pointer("/Links/PCIeFunctions"), ec,
+        pcieFunctionPaths);
+}
+
+inline void getLinksForAccelerator(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath, const std::string& processorId,
+    const std::vector<std::string>& interfaceList)
+{
+    if (std::ranges::find(interfaceList,
+                          "xyz.openbmc_project.Inventory.Item.PCIeDevice") ==
+        interfaceList.end())
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue["Links"]["PCIeDevice"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+
+    sdbusplus::object_path path(objectPath);
+    dbus::utility::getAssociatedSubTreePaths(
+        path / "exposing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieFunctionInterfaces,
+        std::bind_front(afterGetPCIeFunctionLinks, asyncResp, processorId));
+}
+
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -855,6 +953,8 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getLinksForAccelerator(asyncResp, objectPath, processorId,
+                                       interfaceList);
             }
             else if (
                 interface ==
@@ -887,6 +987,8 @@ inline void getProcessorData(
             }
         }
     }
+
+    getProcessorChassisLink(asyncResp, objectPath);
 }
 
 /**
