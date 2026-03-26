@@ -736,6 +736,7 @@ inline void handleChassisPatch(
 
     if (param.empty())
     {
+        messages::resourceNotFound(asyncResp->res, "Chassis", param);
         return;
     }
 
