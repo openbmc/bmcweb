@@ -123,6 +123,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c866490_3cb79e78",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-27T16:55:56Z",
+      "side": 1,
+      "message": "1. Yeah, you\u0027re right, this should not be in lambda (I overlooked), I will move it.\n\n2. I though we wanted date/times under manager to be in local time zone. dumpType \u003d\u003d \"System\" is used in https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1269-L1284 to handle LogServices under the \"/redfish/v1/Systems/\u003cstr\u003e/LogServices/Dump/Entries/\" (https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1573-L1580).\n\nLet\u0027s agree whether we want to expand this to other places, if so, what places - all the Systems, only some things there, etc.",
+      "parentUuid": "23a3a751_54fd4976",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 74
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07a4ed6a_39568657",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
@@ -134,6 +158,24 @@
       "writtenOn": "2026-03-25T21:00:04Z",
       "side": 1,
       "message": "Can this be simplified at all?",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "192bf980_eb289a6f",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-27T16:55:56Z",
+      "side": 1,
+      "message": "Will take a look",
+      "parentUuid": "07a4ed6a_39568657",
       "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
