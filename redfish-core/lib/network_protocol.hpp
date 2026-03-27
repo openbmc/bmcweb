@@ -421,6 +421,12 @@ inline void handleProtocolEnabled(
             {
                 if (entry.first.starts_with(netBasePath))
                 {
+                    if (entry.second.empty())
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Protocol handler: Mapper returned entry with no service");
+                        continue;
+                    }
                     setDbusProperty(
                         asyncResp, "IPMI/ProtocolEnabled",
                         entry.second.begin()->first, entry.first,
