@@ -6,6 +6,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/network_device_function.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
@@ -13,8 +14,10 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
 #include <format>
@@ -348,6 +351,11 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    asyncResp->res.jsonValue["NetworkDeviceFunctions"]["@odata.id"] =
+        std::format(
+            "/redfish/v1/Chassis/{}/NetworkAdapters/{}/NetworkDeviceFunctions",
+            chassisId, networkAdapterId);
 }
 
 inline void handleNetworkAdapterPaths(
@@ -510,6 +518,149 @@ inline void handleNetworkAdapterPortCollectionGet(
                                           chassisId, networkAdapterId));
 }
 
+inline void afterGetNDFLinkType(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        return;
+    }
+
+    const std::string* linkType = nullptr;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "LinkType", linkType);
+
+    if (!success || linkType == nullptr)
+    {
+        return;
+    }
+
+    if (*linkType ==
+        "xyz.openbmc_project.Network.LinkType.PossibleLinks.Ethernet")
+    {
+        asyncResp->res.jsonValue["NetDevFuncType"] =
+            network_device_function::NetworkDeviceTechnology::Ethernet;
+    }
+    else if (*linkType ==
+             "xyz.openbmc_project.Network.LinkType.PossibleLinks.InfiniBand")
+    {
+        asyncResp->res.jsonValue["NetDevFuncType"] =
+            network_device_function::NetworkDeviceTechnology::InfiniBand;
+    }
+}
+
+inline void handleNDFPortProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& networkAdapterId,
+    const std::string& ndfId, const std::string& portPath,
+    const std::string& serviceName)
+{
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#NetworkDeviceFunction.v1_9_0.NetworkDeviceFunction";
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Chassis/{}/NetworkAdapters/{}/NetworkDeviceFunctions/{}",
+        chassisId, networkAdapterId, ndfId);
+    asyncResp->res.jsonValue["Id"] = ndfId;
+    asyncResp->res.jsonValue["Name"] = ndfId + " Network Device Function";
+
+    nlohmann::json::array_t ports;
+    nlohmann::json::object_t portRef;
+    portRef["@odata.id"] =
+        std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports/{}",
+                    chassisId, networkAdapterId, ndfId);
+    ports.emplace_back(std::move(portRef));
+    asyncResp->res.jsonValue["AssignablePhysicalNetworkPorts"] =
+        std::move(ports);
+
+    dbus::utility::getAllProperties(
+        serviceName, portPath, "xyz.openbmc_project.Network.LinkType",
+        std::bind_front(afterGetNDFLinkType, asyncResp));
+}
+
+inline void handleNDFCollectionPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& networkAdapterId,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& objects)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBus response error on GetSubTreePaths {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection";
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Chassis/{}/NetworkAdapters/{}/NetworkDeviceFunctions",
+        chassisId, networkAdapterId);
+    asyncResp->res.jsonValue["Name"] =
+        networkAdapterId + " Network Device Function Collection";
+    asyncResp->res.jsonValue["Members@odata.count"] = objects.size();
+
+    nlohmann::json::array_t members;
+    for (const std::string& path : objects)
+    {
+        const std::string ndfName =
+            sdbusplus::message::object_path(path).filename();
+        nlohmann::json::object_t member;
+        member["@odata.id"] = std::format(
+            "/redfish/v1/Chassis/{}/NetworkAdapters/{}/NetworkDeviceFunctions/{}",
+            chassisId, networkAdapterId, ndfName);
+        members.emplace_back(std::move(member));
+    }
+    asyncResp->res.jsonValue["Members"] = std::move(members);
+}
+
+inline void handleNDFCollectionGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& networkAdapterId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    getNetworkAdapterPath(
+        asyncResp, chassisId, networkAdapterId,
+        [asyncResp, chassisId,
+         networkAdapterId](const std::string& adapterPath) {
+            const sdbusplus::message::object_path associationPath =
+                sdbusplus::message::object_path(adapterPath) / "connecting";
+            dbus::utility::getAssociatedSubTreePaths(
+                associationPath,
+                sdbusplus::message::object_path{
+                    "/xyz/openbmc_project/inventory"},
+                0,
+                std::array<std::string_view, 1>{
+                    "xyz.openbmc_project.Inventory.Connector.Port"},
+                std::bind_front(handleNDFCollectionPaths, asyncResp, chassisId,
+                                networkAdapterId));
+        });
+}
+
+inline void handleNDFGet(crow::App& app, const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& chassisId,
+                         const std::string& networkAdapterId,
+                         const std::string& ndfId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    getNetworkAdapterPath(
+        asyncResp, chassisId, networkAdapterId,
+        std::bind_front(getAssociatedPortPath, asyncResp, ndfId,
+                        std::bind_front(handleNDFPortProperties, asyncResp,
+                                        chassisId, networkAdapterId, ndfId)));
+}
+
 inline void requestRoutesChassisNetworkAdapter(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/NetworkAdapters/")
@@ -539,5 +690,19 @@ inline void requestRoutesChassisNetworkAdapter(App& app)
         .privileges(redfish::privileges::getPortMetrics)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleNetworkAdapterPortMetricsGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Chassis/<str>/NetworkAdapters/<str>/NetworkDeviceFunctions/")
+        .privileges(redfish::privileges::getNetworkDeviceFunctionCollection)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleNDFCollectionGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Chassis/<str>/NetworkAdapters/<str>/NetworkDeviceFunctions/<str>/")
+        .privileges(redfish::privileges::getNetworkDeviceFunction)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleNDFGet, std::ref(app)));
 }
 } // namespace redfish
