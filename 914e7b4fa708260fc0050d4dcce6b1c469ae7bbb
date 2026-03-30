@@ -279,6 +279,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "208d33af_3d00e855",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-30T18:28:58Z",
+      "side": 1,
+      "message": "I don’t have a strong opinion here (except of probably certificates). Do we want ALL the places to be updated, or there are some places we want to keep in UTC?",
+      "parentUuid": "68ea2fe6_0df8e688",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 74
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07a4ed6a_39568657",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
