@@ -674,6 +674,20 @@ inline void getCpuConfigData(
         });
 }
 
+inline void afterGetProcessorLocationCode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& property)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        property;
+}
+
 /**
  * @brief Fill out location info of a processor by
  * requesting data from the given D-Bus object.
@@ -682,27 +696,15 @@ inline void getCpuConfigData(
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-                               const std::string& service,
-                               const std::string& objPath)
+inline void getProcessorLocationCode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& objPath)
 {
-    BMCWEB_LOG_DEBUG("Get Cpu Location Data");
+    BMCWEB_LOG_DEBUG("Get Processor Location Code");
     dbus::utility::getProperty<std::string>(
         service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [objPath, asyncResp{std::move(asyncResp)}](
-            const boost::system::error_code& ec, const std::string& property) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("DBUS response error");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            asyncResp->res
-                .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-                property;
-        });
+        std::bind_front(afterGetProcessorLocationCode, asyncResp));
 }
 
 /**
@@ -866,7 +868,7 @@ inline void getProcessorData(
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
             {
-                getCpuLocationCode(asyncResp, serviceName, objectPath);
+                getProcessorLocationCode(asyncResp, serviceName, objectPath);
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
