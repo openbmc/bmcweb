@@ -1126,7 +1126,9 @@ functions the same like the default implementation under the System resource.
 
 #### Processor
 
+- FirmwareVersion
 - InstructionSet
+- Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz
