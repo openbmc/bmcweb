@@ -466,6 +466,29 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         });
 }
 
+inline void afterGetAcceleratorFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& version)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["FirmwareVersion"] = version;
+}
+
+inline void getAcceleratorFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG("Get Accelerator Firmware Version");
+    dbus::utility::getProperty<std::string>(
+        service, objPath, "xyz.openbmc_project.Software.Version", "Version",
+        std::bind_front(afterGetAcceleratorFirmwareVersion, asyncResp));
+}
+
 inline void getAcceleratorDataByService(
     std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& acclrtrId,
     const std::string& service, const std::string& objPath)
@@ -801,16 +824,18 @@ inline void getProcessorObject(
     BMCWEB_LOG_DEBUG("Get available system processor resources.");
 
     // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 9> interfaces = {
+    constexpr std::array<std::string_view, 11> interfaces = {
         "xyz.openbmc_project.Common.UUID",
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         "xyz.openbmc_project.Inventory.Decorator.Revision",
         "xyz.openbmc_project.Inventory.Item.Cpu",
         "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+        "xyz.openbmc_project.Inventory.Connector.Embedded",
         "xyz.openbmc_project.Inventory.Item.Accelerator",
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
-        "xyz.openbmc_project.Control.Power.Throttle"};
+        "xyz.openbmc_project.Control.Power.Throttle",
+        "xyz.openbmc_project.Software.Version"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         [asyncResp, processorId, callback{std::move(callback)}](
@@ -847,6 +872,11 @@ inline void getProcessorData(
             {
                 getCpuRevisionData(asyncResp, serviceName, objectPath);
             }
+            else if (interface == "xyz.openbmc_project.Software.Version")
+            {
+                getAcceleratorFirmwareVersion(asyncResp, serviceName,
+                                              objectPath);
+            }
             else if (interface == "xyz.openbmc_project.Inventory.Item.Cpu")
             {
                 getCpuDataByService(asyncResp, processorId, serviceName,
@@ -869,6 +899,13 @@ inline void getProcessorData(
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
             {
                 getProcessorLocationCode(asyncResp, serviceName, objectPath);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Connector.Embedded")
+            {
+                asyncResp->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    resource::LocationType::Embedded;
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
