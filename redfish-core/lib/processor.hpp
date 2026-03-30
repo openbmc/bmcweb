@@ -466,6 +466,70 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         });
 }
 
+inline void afterGetProcessorFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& version)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (version.empty())
+    {
+        return;
+    }
+    asyncResp->res.jsonValue["FirmwareVersion"] = version;
+}
+
+inline void afterGetProcessorFirmwareVersionService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& softwarePath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& objectInfo)
+{
+    if (ec || objectInfo.empty())
+    {
+        BMCWEB_LOG_DEBUG("No service owns {}", softwarePath);
+        return;
+    }
+    const std::string& service = objectInfo.front().first;
+    dbus::utility::getProperty<std::string>(
+        service, softwarePath, "xyz.openbmc_project.Software.Version",
+        "Version",
+        std::bind_front(afterGetProcessorFirmwareVersion, asyncResp));
+}
+
+inline void afterGetProcessorFirmwareVersionAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec || endpoints.empty())
+    {
+        // No "ran_on" association — processor has no firmware to report.
+        return;
+    }
+    const std::string& softwarePath = endpoints.front();
+    static constexpr std::array<std::string_view, 1> softwareIfaces = {
+        "xyz.openbmc_project.Software.Version"};
+    dbus::utility::getDbusObject(
+        softwarePath, softwareIfaces,
+        std::bind_front(afterGetProcessorFirmwareVersionService, asyncResp,
+                        softwarePath));
+}
+
+inline void getProcessorFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorPath)
+{
+    BMCWEB_LOG_DEBUG("Get Processor Firmware Version");
+    dbus::utility::getAssociationEndPoints(
+        processorPath + "/ran_on",
+        std::bind_front(afterGetProcessorFirmwareVersionAssociation,
+                        asyncResp));
+}
+
 inline void getAcceleratorDataByService(
     std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& acclrtrId,
     const std::string& service, const std::string& objPath)
@@ -889,6 +953,8 @@ inline void getProcessorData(
             }
         }
     }
+
+    getProcessorFirmwareVersion(asyncResp, objectPath);
 }
 
 /**
