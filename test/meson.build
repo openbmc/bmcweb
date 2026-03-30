@@ -56,6 +56,7 @@ srcfiles_unittest = files(
     'redfish-core/lib/manager_diagnostic_data_test.cpp',
     'redfish-core/lib/metadata_test.cpp',
     'redfish-core/lib/power_subsystem_test.cpp',
+    'redfish-core/lib/processor_test.cpp',
     'redfish-core/lib/service_root_test.cpp',
     'redfish-core/lib/system_test.cpp',
     'redfish-core/lib/systems_logservices_postcode.cpp',
