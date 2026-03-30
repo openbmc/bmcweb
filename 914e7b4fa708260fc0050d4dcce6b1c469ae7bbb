@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24aeff21_9b3194b4",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-30T15:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03159ca2_95d0161a",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e474036d_80deb70b",
@@ -48,6 +66,30 @@
       "writtenOn": "2026-03-25T21:00:04Z",
       "side": 1,
       "message": "nit, can we call this \"outputTimezone\"",
+      "range": {
+        "startLine": 68,
+        "startChar": 60,
+        "endLine": 68,
+        "endChar": 62
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "153a7766_8ca965b5",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-30T15:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e474036d_80deb70b",
       "range": {
         "startLine": 68,
         "startChar": 60,
@@ -81,6 +123,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2986cacf_cdc2cac7",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-30T15:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8b621ae_aa104ee3",
+      "range": {
+        "startLine": 80,
+        "startChar": 48,
+        "endLine": 80,
+        "endChar": 62
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e824c170_8b2c1c60",
@@ -94,6 +160,24 @@
       "writtenOn": "2026-03-25T21:00:04Z",
       "side": 1,
       "message": "Any reason these are the only implementations not in the compile unit?",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58235284_1fd8b495",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-30T15:44:42Z",
+      "side": 1,
+      "message": "I originally planned to use these somewhere else, now it is not used outside of the time_utils.cpp, moved.",
+      "parentUuid": "e824c170_8b2c1c60",
       "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -147,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e6df202_f5b0aff1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-30T15:44:42Z",
+      "side": 1,
+      "message": "Moved outside of lambda, the Systems remains in UTC, let\u0027s agree where we want date/time in Local and where in UTC.",
+      "parentUuid": "2c866490_3cb79e78",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 74
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07a4ed6a_39568657",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
@@ -180,6 +288,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d6aba62_36c4a6aa",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-30T15:44:42Z",
+      "side": 1,
+      "message": "Moved to separate function, simplified, added unit tests for the function.",
+      "parentUuid": "192bf980_eb289a6f",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef4c2b94_bc66f30d",
@@ -193,6 +319,24 @@
       "writtenOn": "2026-03-25T21:00:04Z",
       "side": 1,
       "message": "Can this block be simplified at all?  As written it\u0027s pretty tough to read.  creating an abs variable just to then be able to add it instead of subtract at a minimum I don\u0027t understand, but lets try to make this code more clear, then we can get to individual issues.",
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b14250_3dc1afc0",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-03-30T15:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef4c2b94_bc66f30d",
       "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
