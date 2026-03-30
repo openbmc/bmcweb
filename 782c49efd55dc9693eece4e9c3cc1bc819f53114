@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "624b5efe_7f264bc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12fbe4e6_a59bcde8",
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90148717_7775e986",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-01-05T21:13:40Z",
       "side": 1,
       "message": "link the redfish aggregation doc please.",
+      "range": {
+        "startLine": 6,
+        "startChar": 26,
+        "endLine": 6,
+        "endChar": 45
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27fc0e55_f41bcfce",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90148717_7775e986",
       "range": {
         "startLine": 6,
         "startChar": 26,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb20a07a_a7b6dd42",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b3a42d_d2531630",
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e64847db_3cfa5f49",
@@ -71,6 +131,30 @@
       "writtenOn": "2026-01-05T21:13:40Z",
       "side": 1,
       "message": "This belongs in general docs, not bmcweb docs.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 60
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a77bf5ab_5bb33270",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Removed the paragraph. Done",
+      "parentUuid": "e64847db_3cfa5f49",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -104,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21770df3_65ecf4b0",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Fair point. Done",
+      "parentUuid": "25af766e_a77fdf3b",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 187
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f75a51fa_26744fa6",
@@ -127,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0003d8e1_df0e2847",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f75a51fa_26744fa6",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 74
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "662e9be9_04a04687",
@@ -140,6 +272,30 @@
       "writtenOn": "2026-01-05T21:13:40Z",
       "side": 1,
       "message": "Remove.  I\u0027m not interested in maintaining this list separate from the normal Redfish documentation.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 0
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543cc7ab_47b68ce0",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662e9be9_04a04687",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -175,6 +331,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b4948e9_73038115",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "As @gunnar@gmills.xyz noted already, both can be considered implemented correctly to DMTF standards. Checking the rf data model spec, there is one occurrence of an URI for EventLog under Managers too. \n\nI rephrased the paragraph to be unbiased towards one or the other, are you ok with the wording?",
+      "parentUuid": "ac024fb8_23c25241",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 7
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "abc59405_d9a9029c",
         "filename": "docs/MULTI_HOST.md",
         "patchSetId": 13
@@ -186,6 +366,30 @@
       "writtenOn": "2026-01-05T21:13:40Z",
       "side": 1,
       "message": "I would put this more as a dbus deficiency than a bmcweb one.  s/bmcweb/dbus/g",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 67
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f9e03c7_5d8662da",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Fair point. I rephrased the paragraph to clarify that. Done",
+      "parentUuid": "abc59405_d9a9029c",
       "range": {
         "startLine": 116,
         "startChar": 0,
@@ -219,6 +423,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88b6ed30_b00ec6c6",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "00165310_192b632f",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 93
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35a82e44_dc42d33f",
@@ -232,6 +460,30 @@
       "writtenOn": "2026-01-05T21:13:40Z",
       "side": 1,
       "message": "Remove.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 34
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156f33bc_904fdaa7",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35a82e44_dc42d33f",
       "range": {
         "startLine": 125,
         "startChar": 0,
@@ -259,6 +511,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "048153f4_ccf6aade",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "865a0409_8892ef1c",
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acaca6b9_70e76d1a",
@@ -272,6 +542,24 @@
       "writtenOn": "2026-01-05T21:13:40Z",
       "side": 1,
       "message": "Remove.  If we want to start documenting all the things \"not\" done, it\u0027s a much longer list than this.",
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b1171ac_296773b8",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-30T10:46:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acaca6b9_70e76d1a",
       "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
