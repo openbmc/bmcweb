@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d60bb68f_ce56c7f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-03-30T02:25:40Z",
+      "side": 1,
+      "message": "Thanks for the feedback. Assembly.v1_0_0 schema defines\n\"Producer\" for the manufacturer.\nDMTF LongDescription: \"shall be equal to the\nManufacturer field value in a PLDM FRU structure\".\nChanged mapping to Asset.Manufacturer -\u003e Producer in PS2.\n\nSee PS2:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88571/1..2/redfish-core/lib/assembly.hpp#159\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88571/1..2/docs/Redfish.md#498",
+      "parentUuid": "67aba245_8e8eed76",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbc224ba_0154753b",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-24T03:15:45Z",
       "side": 1,
       "message": "?  What daemon is producing this?  The overall accelerator is owned by EM, so where does this come from?",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0415ce9_c65b1f3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-03-30T02:25:40Z",
+      "side": 1,
+      "message": "Thanks for asking. These D-Bus properties are created\nby dbus-sensors (nvidiagpusensor).\n\nSee dbus-sensors patch:\nhttps://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/88572/2/src/nvidia-gpu/NvidiaGpuChassisAssembly.cpp#103",
+      "parentUuid": "fbc224ba_0154753b",
       "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc791347_73b14435",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-03-30T02:25:40Z",
+      "side": 1,
+      "message": "Thanks. Split into getAssemblyProducer() and\ngetAssemblyProductionDate(), each using\nsdbusplus::asio::getProperty for a single property.\nLambdas ~8 lines, consistent with\ngetAssemblyLocationCode().\n\nSee PS2:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88571/1..2/redfish-core/lib/assembly.hpp#138\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88571/1..2/redfish-core/lib/assembly.hpp#164",
+      "parentUuid": "1a4aa74f_108a8612",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d791f15_b6b4dce8",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7199d9ac_cd505e94",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-03-30T02:25:40Z",
+      "side": 1,
+      "message": "Thanks. Replaced substr with full D-Bus string\ncomparison and generated physical_context::PhysicalContext\nenum, consistent with dBusSensorPhysicalContextToRedfish()\nin sensor_utils.hpp.\nSee PS2:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88571/1..2/redfish-core/lib/assembly.hpp#215",
+      "parentUuid": "6d791f15_b6b4dce8",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c79b37e_72995072",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-03-24T03:15:45Z",
       "side": 1,
       "message": "nit, this is one line, used in one place.  just inline it.",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcd1c343_d198a9ae",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-03-30T02:25:40Z",
+      "side": 1,
+      "message": "Thanks. Inlined in the Connector.Embedded branch of\nafterGetDbusObject.\n\nSee PS2:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88571/1..2/redfish-core/lib/assembly.hpp#275",
+      "parentUuid": "2c79b37e_72995072",
       "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
