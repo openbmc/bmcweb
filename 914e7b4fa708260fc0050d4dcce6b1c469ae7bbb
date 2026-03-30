@@ -255,6 +255,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68ea2fe6_0df8e688",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-30T17:22:43Z",
+      "side": 1,
+      "message": "\u003e the Systems remains in UTC\n\nI would expect all of Redfish to change to local if we\u0027re changing the timezone.  Any reason we want the system to stick in UTC?",
+      "parentUuid": "1e6df202_f5b0aff1",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 74
+      },
+      "revId": "914e7b4fa708260fc0050d4dcce6b1c469ae7bbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07a4ed6a_39568657",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 1
