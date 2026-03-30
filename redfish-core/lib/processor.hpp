@@ -528,6 +528,85 @@ inline void afterGetAcceleratorDataByService(
         processor::ProcessorType::Accelerator;
 }
 
+inline void afterGetProcessorFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& version)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            // Software.Version not present on this object
+            BMCWEB_LOG_DEBUG("No Version property to report");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (version.empty())
+    {
+        return;
+    }
+    asyncResp->res.jsonValue["FirmwareVersion"] = version;
+}
+
+inline void afterGetProcessorFirmwareVersionSubTree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            // No "ran_on" association — processor has no firmware to report
+            BMCWEB_LOG_DEBUG("No firmware association for processor");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (subtree.empty())
+    {
+        // Association resolves to no Software.Version object
+        return;
+    }
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR("Processor maps to more than one firmware object");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    const auto& [softwarePath, serviceMap] = subtree.front();
+    if (serviceMap.empty())
+    {
+        BMCWEB_LOG_ERROR("No service owns {}", softwarePath);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    const std::string& service = serviceMap.front().first;
+    dbus::utility::getProperty<std::string>(
+        service, softwarePath, "xyz.openbmc_project.Software.Version",
+        "Version",
+        std::bind_front(afterGetProcessorFirmwareVersion, asyncResp));
+}
+
+inline void getProcessorFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorPath)
+{
+    BMCWEB_LOG_DEBUG("Get Processor Firmware Version");
+    constexpr std::array<std::string_view, 1> softwareIfaces = {
+        "xyz.openbmc_project.Software.Version"};
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path(processorPath) / "ran_on",
+        sdbusplus::object_path("/xyz/openbmc_project/software"), 0,
+        softwareIfaces,
+        std::bind_front(afterGetProcessorFirmwareVersionSubTree, asyncResp));
+}
+
 inline void getAcceleratorDataByService(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& acceleratorId, const std::string& service,
@@ -955,6 +1034,7 @@ inline void getProcessorData(
             {
                 getLocationIndicatorActive(asyncResp, objectPath);
                 getEnvironmentMetricsLink(asyncResp, processorId, objectPath);
+                getProcessorFirmwareVersion(asyncResp, objectPath);
             }
         }
     }
