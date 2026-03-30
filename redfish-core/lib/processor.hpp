@@ -16,7 +16,9 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
+#include "utils/control_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -354,6 +356,63 @@ inline void getThrottleProperties(
         });
 }
 
+inline void afterGetContainedByChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& endpointName, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR(
+                "GetAssociatedSubTreePaths error for contained_by: {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (chassisPaths.empty())
+    {
+        return;
+    }
+
+    sdbusplus::object_path chassisObjPath(chassisPaths.front());
+    std::string chassisName = chassisObjPath.filename();
+    if (chassisName.empty())
+    {
+        return;
+    }
+
+    std::optional<std::string_view> prefix =
+        control_utils::getControlPrefixForInterface(
+            "xyz.openbmc_project.Control.OperatingClockSpeed");
+    if (!prefix)
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue["OperatingSpeedRangeMHz"]["DataSourceUri"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Controls/{}_{}",
+                            chassisName, *prefix, endpointName);
+}
+
+inline void getProcessorClockLimitDataSourceUri(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    std::string endpointName = sdbusplus::object_path(objectPath).filename();
+    if (endpointName.empty())
+    {
+        return;
+    }
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::object_path(objectPath) / "contained_by",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        redfish::chassisInterfaces,
+        std::bind_front(afterGetContainedByChassis, asyncResp, endpointName));
+}
+
 inline void afterGetControlProcessorProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
@@ -409,7 +468,7 @@ inline void afterGetControlProcessorProperties(
 
 inline void afterGetControlProcessorAssociation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
+    const std::string& objectPath, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
@@ -443,6 +502,8 @@ inline void afterGetControlProcessorAssociation(
         controlService, controlPath,
         "xyz.openbmc_project.Control.OperatingClockSpeed",
         std::bind_front(afterGetControlProcessorProperties, asyncResp));
+
+    getProcessorClockLimitDataSourceUri(asyncResp, objectPath);
 }
 
 inline void getProcessorControlSpeedProperties(
@@ -456,7 +517,8 @@ inline void getProcessorControlSpeedProperties(
         sdbusplus::object_path(objectPath) / "controlled_by",
         sdbusplus::object_path("/xyz/openbmc_project/control"), 0,
         controlClockSpeedIface,
-        std::bind_front(afterGetControlProcessorAssociation, asyncResp));
+        std::bind_front(afterGetControlProcessorAssociation, asyncResp,
+                        objectPath));
 }
 
 inline void afterGetMetricValueProperties(
