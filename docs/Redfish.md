@@ -1178,6 +1178,7 @@ functions the same like the default implementation under the System resource.
 - OperatingSpeedRangeMHz
   - AllowableMax
   - AllowableMin
+  - DataSourceUri
   - SettingMax
   - SettingMin
 - PartNumber
