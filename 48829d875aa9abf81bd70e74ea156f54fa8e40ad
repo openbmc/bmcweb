@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc29044b_df2f4c34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-30T17:29:02Z",
+      "side": 1,
+      "message": "Why?  We\u0027re changing the Manager timezone, the manager at a minimum owns TaskService, TelemetryService.  I would argue that because we don\u0027t know the System timezone (as there\u0027s no connection to bios), we should set everything to local.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 4
+      },
+      "revId": "48829d875aa9abf81bd70e74ea156f54fa8e40ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a780fa2_8879c4db",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-30T17:29:02Z",
+      "side": 1,
+      "message": "This is still really tough to read.\n\nDoes this function need to be able to return that a value overflowed?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 73
+      },
+      "revId": "48829d875aa9abf81bd70e74ea156f54fa8e40ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
