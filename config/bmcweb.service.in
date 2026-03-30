@@ -1,5 +1,5 @@
 [Unit]
-Description=Start bmcweb server
+Description=bmcweb server
 
 Wants=network.target
 After=network.target
