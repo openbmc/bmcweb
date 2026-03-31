@@ -16,6 +16,24 @@
       "message": "Yes, tested! Added unit test `EmptyChassissIdReturnsError` that verifies:\n1. Empty chassis ID now returns proper 404 error response\n2. Error message is included in response\n3. Fix prevents hanging/timeout scenarios\n\nTest is included in this patchset and will run with CI.",
       "revId": "2982a6b51a362d78d967d467d108068c22e881fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7be7cf27_e8bc8265",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-03-31T16:53:51Z",
+      "side": 1,
+      "message": "I see no tested statement in your commit message other than unit tests.",
+      "parentUuid": "307ffa4f_b5669567",
+      "revId": "2982a6b51a362d78d967d467d108068c22e881fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
