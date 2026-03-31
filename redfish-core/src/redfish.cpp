@@ -12,6 +12,7 @@
 #include "cable.hpp"
 #include "certificate_service.hpp"
 #include "chassis.hpp"
+#include "component_integrity.hpp"
 #include "environment_metrics.hpp"
 #include "ethernet.hpp"
 #include "event_service.hpp"
@@ -117,6 +118,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesChassisDrive(app);
     requestRoutesCable(app);
     requestRoutesCableCollection(app);
+    requestRoutesComponentIntegrity(app);
+    requestRoutesComponentIntegrityCollection(app);
     requestRoutesFabrics(app);
     requestRoutesFabricSwitchPort(app);
 
