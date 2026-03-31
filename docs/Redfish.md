@@ -34,6 +34,7 @@ Fields common to all schemas
 - Cables
 - CertificateService
 - Chassis
+- ComponentIntegrity
 - EventService
 - JsonSchemas
 - Links/ManagerProvidingService
@@ -574,6 +575,26 @@ Fields common to all schemas
   - TXUnicastFrames
 - RXBytes
 - TXBytes
+
+### /redfish/v1/ComponentIntegrity/
+
+#### ComponentIntegrityCollection
+
+- Description
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/ComponentIntegrity/{ComponentIntegrityId}/
+
+#### ComponentIntegrity
+
+- Actions
+- ComponentIntegrityEnabled
+- ComponentIntegrityType
+- ComponentIntegrityTypeVersion
+- LastUpdated
+- SPDM/IdentityAuthentication/ResponderAuthentication/VerificationStatus
+- TargetComponentURI
 
 ### /redfish/v1/EventService/
 
