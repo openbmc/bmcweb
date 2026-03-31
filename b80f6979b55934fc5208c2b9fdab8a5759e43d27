@@ -131,6 +131,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b9d8384_80196b53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-03-31T14:24:32Z",
+      "side": 1,
+      "message": "\u003e then the URI would not uniquely identify the resource anymore.\n\nYeah I believe so too. These two URIs now uniquely identify **two distinct** fans, that both happen to be called \u0027FAN_1\u0027 as I understand. \n\nRedfish seem to allow for that since both URIs are unique, however we don\u0027t describe what we intend to describe..considering these are two distinct resources from a Redfish perspective, I wonder if we breach the odata uniqueness of odata@id then? \n\n\u003e So if we were to continue with the existing code it would be \nconceptually inconsistent in bmcweb and require introducing yet another \nassociation.\n\nI agree, it would be more consistent with the spec using \u0027containing/contained_by\u0027 to determine the correct ThermalSubsystem FanCollection, and \u0027cooling/cooled_by\u0027 to determine the correct `CoolingChassis` arrays.",
+      "parentUuid": "50cacfe3_b7bb17ec",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4f3cdc8a_269c9706",
