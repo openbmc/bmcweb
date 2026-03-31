@@ -39,6 +39,10 @@ void assertServiceRootGet(crow::Response& res)
     EXPECT_EQ(json["Chassis"]["@odata.id"], "/redfish/v1/Chassis");
     EXPECT_EQ(json["Chassis"].size(), 1);
 
+    EXPECT_EQ(json["ComponentIntegrity"]["@odata.id"],
+              "/redfish/v1/ComponentIntegrity");
+    EXPECT_EQ(json["ComponentIntegrity"].size(), 1);
+
     EXPECT_EQ(json["EventService"]["@odata.id"], "/redfish/v1/EventService");
     EXPECT_EQ(json["EventService"].size(), 1);
 
@@ -118,7 +122,7 @@ void assertServiceRootGet(crow::Response& res)
         json["ProtocolFeaturesSupported"]["DeepOperations"]["DeepPATCH"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["DeepOperations"].size(), 2);
 
-    size_t expectedSize = 22;
+    size_t expectedSize = 23;
 
     if (BMCWEB_REDFISH_AGGREGATION)
     {
