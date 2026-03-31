@@ -170,6 +170,23 @@
       "message": "Thanks @gunnar@gmills.xyz for looking into this",
       "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03c738bc_6a2ae473",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-03-31T14:55:12Z",
+      "side": 1,
+      "message": "Multi Chassis !\u003d Multi Computer system..",
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
