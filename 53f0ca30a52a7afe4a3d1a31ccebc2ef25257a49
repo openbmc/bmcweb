@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9726df2_29beee04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002543
+      },
+      "writtenOn": "2026-04-01T13:14:26Z",
+      "side": 1,
+      "message": "Added detailed testing information to commit message:\n- Unit test HandleChassisPatch_EmptyChassissIdReturnsError verifies\n  the fix works correctly by ensuring empty chassis ID returns HTTP\n  404 Not Found with proper error message\n- Test has been compiled and verified locally to pass with the fix\n- Testing confirms the fix prevents the silent return case and\n  ensures proper error handling for edge cases\n- Tested: Ran unit test on BMC Environment",
+      "revId": "53f0ca30a52a7afe4a3d1a31ccebc2ef25257a49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
