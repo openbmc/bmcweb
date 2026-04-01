@@ -16,6 +16,24 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61702 was an attempt before \n\nCan you update the Redfish.md doc ?",
       "revId": "c320e5f6f022a3c17d63c5e3c77c7095543293f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69105dbb_411370c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-01T22:38:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c13bd5f_ef46d9be",
+      "revId": "c320e5f6f022a3c17d63c5e3c77c7095543293f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
