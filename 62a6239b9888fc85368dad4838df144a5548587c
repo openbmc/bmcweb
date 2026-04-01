@@ -1,0 +1,312 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9137ee8_bc4ff893",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "Let\u0027s also mention that the patch looks for controlled_by association for all `contained` object path as well.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74425d91_d43ee039",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "Why is ControlId `ClockLimit_GPU_*_*` instead of just `ClockLimit`?",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84ec2d0c_3d0bcb68",
+        "filename": "redfish-core/include/utils/control_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "Don\u0027t use auto here.",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 14
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb30ff25_82bbafd5",
+        "filename": "redfish-core/include/utils/control_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "Don\u0027t use auto here.",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9879a24_11c1685a",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "There is an util function to populate collection members. See if you can use it.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bedb3d9_580fdaca",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "Can we use getAssociatedSubTreePaths?",
+      "range": {
+        "startLine": 246,
+        "startChar": 19,
+        "endLine": 246,
+        "endChar": 39
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53888fc5_a0c2559a",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "use operator / of sdbusplus::message::object_path instead of string concatenation.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7f1bbf5_d517f404",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we return from this function if chassis Name is empty?",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "134a45ae_a0f589c8",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "Can we use getAssociatedSubTreePaths?",
+      "range": {
+        "startLine": 315,
+        "startChar": 19,
+        "endLine": 315,
+        "endChar": 39
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9db0073_261c4251",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "use operator / of sdbusplus::message::object_path instead of string concatenation.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd364255_754a3d67",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "This only being used at two places. Better to just put the value here directly instead of defining a variable.",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c76fa69_44ae28a7",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "This function should be called if controlled it is chassis since it is populating ClockLimit from Item.Accelerator.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa6f8cbc_0920f18c",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "Do we really need this since we already mentioned dbus interface in the call to getAssociatedSubTree.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4940b7d6_18384e41",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "This will be only applicable if controlled item is Accelerator and not chassis?",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c51750f_af0f6943",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "How is this determined from only ControlId?",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a5498bc_20ac26f7",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-01T06:43:07Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem correct. This function assumes the controlled item is accelerator and not chassis.",
+      "range": {
+        "startLine": 496,
+        "startChar": 28,
+        "endLine": 496,
+        "endChar": 57
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
