@@ -16,6 +16,40 @@
       "message": "Hi\n\nI removed the old OpenBMCManager.v1_0_0.json and generated a new OpenBMCManager.v1_1_0.json using the csdl-to-json-converter provided by Redfish-Tools, based on OpenBMCManager_v1.xml.",
       "revId": "05865110b38425934e395fb1ede8726cbebec0cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6feb3b4f_2322a076",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-01T13:45:42Z",
+      "side": 1,
+      "message": "once more, C++ core guidelines for function size.\n\nI feel like one way this could be simplified is to perform 2 steps\n\nfirst step: query D-Bus and put the result into some kind of struct\nsecond step: convert that struct to json\n\nAnother way this could be simplified is to extract the lambda from line 66 and put it as a separate function. That would already reduce the indentation.\n\nAnother way is to extract the inner part of a loop into a separate function.\n\n\nOverall, it is not clear to me how and by which maintainer we got to the point of having this enormous function...",
+      "revId": "05865110b38425934e395fb1ede8726cbebec0cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a4ecf85_a112b6cd",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-01T13:45:42Z",
+      "side": 1,
+      "message": "please look into C++ core guidelines on function length.\n\nThis function is already way too long and the patch is not helping there.",
+      "revId": "05865110b38425934e395fb1ede8726cbebec0cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
