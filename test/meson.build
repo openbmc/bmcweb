@@ -189,5 +189,24 @@ if (get_option('tests').allowed())
         )
         test('fuzz_sessionservice_sessions_json', fuzz_sessionservice_sessions_json_exe, is_parallel: false, timeout: 0)
 
+        fuzz_streamed_body_login_and_sessions_exe = executable(
+            'fuzz_streamed_body_login_and_sessions',
+            'fuzzers/fuzz_streamed_body_login_and_sessions.cpp',
+            include_directories: [incdir, include_directories('..')],
+            dependencies: bmcweb_dependencies,
+            link_with: bmcweblib,
+            cpp_args: [
+                '-DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION',
+                '-fsanitize=fuzzer,address,undefined',
+                '-Wno-missing-prototypes',
+                '-Wno-unsafe-buffer-usage',
+            ],
+            link_args: [
+                '-fsanitize=fuzzer,address,undefined',
+                '-Wl,--gc-sections',
+            ],
+        )
+        test('fuzz_streamed_body_login_and_sessions', fuzz_streamed_body_login_and_sessions_exe, is_parallel: false, timeout: 0)
+
     endif
 endif
