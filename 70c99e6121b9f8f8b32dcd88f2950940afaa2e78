@@ -16,6 +16,24 @@
       "message": "Please add a tested statement.",
       "revId": "70c99e6121b9f8f8b32dcd88f2950940afaa2e78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99404dbf_15e8a55d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-02T19:10:00Z",
+      "side": 1,
+      "message": "Done - thanks!",
+      "parentUuid": "c5980a80_54bd4b5d",
+      "revId": "70c99e6121b9f8f8b32dcd88f2950940afaa2e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
