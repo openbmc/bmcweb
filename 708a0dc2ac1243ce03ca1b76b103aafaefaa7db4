@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "683c3ba3_a74c108b",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-02T08:49:07Z",
+      "side": 1,
+      "message": "To handle these exceptions, I had to do serious code refactoring here.\n\nWhat I did was:\n1. API of the functions in this file only accept DateFormat enum and not TZs, this guarantees the code outside of this file (that uses these functions) will not try to retrieve TZ, so it does not need to handle exceptions.\n2. Byproduct of #1 - *Tz functions not needed and were deleted.\n3. details::toISO8061ExtendedStr accept offset in minutes and not TZ, this what it needs really, but also allows to limit number of places calling locate_zone/current_zone functions.\n4. This function was changed to return offset and not TZ, this allows to call locate_zone/current_zone and handle exception only here, and fall back to UTC (offset 0).\n\nThis also required refactoring unit tests, in particular, most of this logic is not exposed directly outside of this cpp, so to test it without exposure, I introduced a new time_utils_internal.hpp which is supposed to be used only in tests.",
+      "parentUuid": "be84aec2_0098a8bc",
+      "revId": "708a0dc2ac1243ce03ca1b76b103aafaefaa7db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d06f7b33_c0eb0aee",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-31T16:52:36Z",
       "side": 1,
       "message": "? This exception isn\u0027t caught anywhere.",
+      "revId": "708a0dc2ac1243ce03ca1b76b103aafaefaa7db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec5e02dd_ed1f901a",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-02T08:49:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d06f7b33_c0eb0aee",
       "revId": "708a0dc2ac1243ce03ca1b76b103aafaefaa7db4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
