@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8161ed87_da20284f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-03T22:39:40Z",
+      "side": 1,
+      "message": "I pushed a modified version of your patch here, as well as some cleanups that make your patch simpler (removing the old gcc backports):\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88895\n\nPlease review the series, and if the tip is something you\u0027d like to see, please incorporate it with your patch.\n\nUnit tests still need written for the various methods.  I\u0027ll note that I did revert back to a default parameter in that version.  I understand the complexity of not having it now.",
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfa54be2_cf000a1f",
         "filename": "redfish-core/include/utils/time_utils_internal.hpp",
         "patchSetId": 5
