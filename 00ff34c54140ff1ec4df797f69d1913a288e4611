@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "875f137f_54bc1d9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-03T18:11:35Z",
+      "side": 1,
+      "message": "I\u0027ve fixed the merge conflict here, and resolved the merge conflict with my patch.  We\u0027re writing a bunch of code that (unless I\u0027m mistaken) is already handled in zoned_time, we just need to update some of our types to handle that correctly.  Was that considered?",
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfa54be2_cf000a1f",
         "filename": "redfish-core/include/utils/time_utils_internal.hpp",
         "patchSetId": 5
