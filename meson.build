@@ -233,6 +233,9 @@ if not nghttp2.found()
 endif
 bmcweb_dependencies += nghttp2
 
+phosphor_logging = dependency('phosphor-logging')
+bmcweb_dependencies += phosphor_logging
+
 sdbusplus = dependency('sdbusplus')
 bmcweb_dependencies += sdbusplus
 
