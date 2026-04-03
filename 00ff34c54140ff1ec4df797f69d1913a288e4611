@@ -77,6 +77,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0e3b007_179c2a63",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-03T18:17:31Z",
+      "side": 1,
+      "message": "As written this isn\u0027t safe.  You can\u0027t load an unsigned 64 bit value into a type that potentially won\u0027t support 64 bits (and on BMC is very likely uint32)",
+      "range": {
+        "startLine": 466,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 35
+      },
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9aa3400_a6c508f7",
         "filename": "redfish-core/src/utils/time_utils.cpp",
         "patchSetId": 5
