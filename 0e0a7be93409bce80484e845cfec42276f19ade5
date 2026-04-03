@@ -16,6 +16,24 @@
       "message": "I don\u0027t see the PCIeFunctionCollection populated on my system with peci-pcie:\n```\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/S0B0D0/PCIeFunctions\",\n\"@odata.type\": \"#PCIeFunctionCollection.PCIeFunctionCollection\",\n\"Description\": \"Collection of PCIe Functions for PCIe Device S0B0D0\",\n\"Members\": [],\n\"Members@odata.count\": 0,\n\"Name\": \"PCIe Function Collection\"\n}\n```\n\nThis is my D-Bus tree:\n```\n`- /xyz\n  `- /xyz/openbmc_project\n    `- /xyz/openbmc_project/inventory\n      `- /xyz/openbmc_project/inventory/pcie\n        |- /xyz/openbmc_project/inventory/pcie/S0B0D0\n        | |- /xyz/openbmc_project/inventory/pcie/S0B0D0/Function0\n        | `- /xyz/openbmc_project/inventory/pcie/S0B0D0/Function4\n```\n\nShould I have an association under the S0B0D0 path pointing to the Function* paths?\n\nThis is what I have:\n```\nNAME                                          TYPE      SIGNATURE RESULT/VALUE                                                              FLAGS\norg.freedesktop.DBus.Introspectable           interface -         -                                                                         -\n.Introspect                                   method    -         s                                                                         -\norg.freedesktop.DBus.Peer                     interface -         -                                                                         -\n.GetMachineId                                 method    -         s                                                                         -\n.Ping                                         method    -         -                                                                         -\norg.freedesktop.DBus.Properties               interface -         -                                                                         -\n.Get                                          method    ss        v                                                                         -\n.GetAll                                       method    s         a{sv}                                                                     -\n.Set                                          method    ssv       -                                                                         -\n.PropertiesChanged                            signal    sa{sv}as  -                                                                         -\nxyz.openbmc_project.Inventory.Decorator.Asset interface -         -                                                                         -\n.Manufacturer                                 property  s         \"Intel Corporation\"                                                       emits-change\nxyz.openbmc_project.Inventory.Item.PCIeDevice interface -         -                                                                         -\n.DeviceType                                   property  s         \"xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceTypes.MultiFunction\" emits-change\n.GenerationInUse                              property  s         \"\"                                                                        emits-change\n```",
       "revId": "0e0a7be93409bce80484e845cfec42276f19ade5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bc90e36_c2503122",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-03T04:22:59Z",
+      "side": 1,
+      "message": "Yes, you are correct. To populate the PCIeFunctionCollection, you need to establish an association between the PCIeDevice object path and the Function* paths.\n\nIn my implementation, for example, the Function0 has an association pointing back to the device:\n```\n$ busctl get-property xyz.openbmc_project.GpuSensor \\\n  /xyz/openbmc_project/inventory/GPU_0_0/Function0 \\\n  xyz.openbmc_project.Association.Definitions Associations\n\na(sss) 1 \"exposed_by\" \"exposing\" \"/xyz/openbmc_project/inventory/GPU_0_0\"\n```\nYou should add an association (exposed_by/exposing) under your Function* paths to link them to the S0B0D0 parent device path. This will allow bmcweb to correctly discover and list the members in the collection",
+      "parentUuid": "ec847ba1_9dcf909b",
+      "revId": "0e0a7be93409bce80484e845cfec42276f19ade5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
