@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf300a2b_8df7b311",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-03T04:05:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd86899d_7d767bf6",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7f9d46a_3b4a24f5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -60,6 +84,24 @@
       "writtenOn": "2026-02-24T18:29:56Z",
       "side": 1,
       "message": "Not sure why this needs to be inside a code block - it isn\u0027t code",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2406fee9_ccdf5e02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-03T04:05:44Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz\nRemoved the block from Testing section",
+      "parentUuid": "e7f9d46a_3b4a24f5",
       "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +181,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbfeaf45_2592d79b",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-03T04:05:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c6744d6e_cce41fee",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e367dee0_b156d9df",
@@ -197,6 +257,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f34a0031_b1cb7105",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-03T04:05:44Z",
+      "side": 1,
+      "message": "@ed@tanous.net, \nAcknowledged\nRemoved shared_ptr and added a structure that holds raw pointers to both HTTPS and mTLS SSL contexts",
+      "parentUuid": "7ec6b7c4_c394d3d1",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 20
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59751f47_223ff386",
@@ -210,6 +294,30 @@
       "writtenOn": "2026-02-24T21:45:09Z",
       "side": 1,
       "message": "No.  please wrap these in appropriate RAII objects, not things in the global namespace.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 1
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a708fe0e_169b7aaf",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-03T04:05:44Z",
+      "side": 1,
+      "message": "@ed@tanous.net\nAdded new file to handle RAII objects and mtls context related code",
+      "parentUuid": "59751f47_223ff386",
       "range": {
         "startLine": 58,
         "startChar": 0,
@@ -239,6 +347,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5e3cc34_aab681ab",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-03T04:05:44Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz, Good catch,\n\nRemoved the dependence with old context, added new context\n// Switch to new context\n    int (*savedCallback)(int, X509_STORE_CTX*) \u003d SSL_get_verify_callback(ssl);\n        \n    SSL_set_SSL_CTX(ssl, newCtx);\n    int verifyMode \u003d strict\n                         ? (SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT)\n                         : SSL_VERIFY_PEER;\n    SSL_set_verify(ssl, verifyMode, savedCallback);",
+      "parentUuid": "cde99dbb_f96bebaa",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "400b9dc5_441e8f80",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 10
@@ -256,6 +382,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa8dbf6b_721f965e",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-03T04:05:44Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz,\nwhen tls strict is false, bmcweb still uses VERIFY_PEER\n// Switched to new context \n    int (*savedCallback)(int, X509_STORE_CTX*) \u003d SSL_get_verify_callback(ssl);\n        \n    SSL_set_SSL_CTX(ssl, newCtx);\n    int verifyMode \u003d strict\n                         ? (SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT)\n                         : SSL_VERIFY_PEER;\n    SSL_set_verify(ssl, verifyMode, savedCallback);",
+      "parentUuid": "400b9dc5_441e8f80",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0dfb80ae_30951328",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 10
@@ -267,6 +411,24 @@
       "writtenOn": "2026-02-24T18:29:56Z",
       "side": 1,
       "message": "Use brackets please",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78cd8104_29f04d26",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-03T04:05:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dfb80ae_30951328",
       "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
