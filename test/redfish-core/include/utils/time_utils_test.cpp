@@ -9,7 +9,10 @@
 #include <optional>
 #include <version>
 
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
+
+using ::testing::MatchesRegex;
 
 namespace redfish::time_utils
 {
@@ -302,6 +305,18 @@ TEST(Utility, GetDateTimeIso8601)
 
     // invalid datetime
     EXPECT_EQ(getDateTimeIso8601("202305"), std::nullopt);
+}
+
+TEST(Utility, GetDateTimeOffsetNow)
+{
+    // Not a lot of good ways to verify "now" is correct, but we can at least
+    // verify the format is correct
+    const auto [dateTime, offset] = getDateTimeOffsetNow(DateFormat::UTC);
+    EXPECT_THAT(
+        dateTime,
+        MatchesRegex(
+            "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[-+][0-9]{2}:[0-9]{2}"));
+    EXPECT_THAT(offset, MatchesRegex("[-+][0-9]{2}:[0-9]{2}"));
 }
 
 } // namespace
