@@ -7,6 +7,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "audit.hpp"
 #include "boost_formatters.hpp"
 #include "certificate_service.hpp"
 #include "dbus_utility.hpp"
@@ -1134,20 +1135,30 @@ inline void afterVerifyUserExists(
     {
         int retval = pamUpdatePassword(params.username, *params.password);
 
+        // pathId 0 = "/redfish/v1/AccountService/Accounts/<str>/"
+        /*
+         * still not sure how to treat bmcweb paths as keys for audit calls.
+         * I assume unordered_map with pathId -> string uri.
+         */
+        uint32_t pathId = 0;
+
         if (retval == PAM_USER_UNKNOWN)
         {
             messages::resourceNotFound(asyncResp->res, "ManagerAccount",
                                        params.username);
+            redfish::bmcwebAuEvent(pathId, retval, *params.session);
         }
         else if (retval == PAM_AUTHTOK_ERR)
         {
             // If password is invalid
             messages::propertyValueFormatError(asyncResp->res, nullptr,
                                                "Password");
+            redfish::bmcwebAuEvent(pathId, retval, *params.session);
             BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
         }
         else if (retval != PAM_SUCCESS)
         {
+            redfish::bmcwebAuEvent(pathId, retval, *params.session);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -1160,6 +1171,7 @@ inline void afterVerifyUserExists(
                                                        params.session);
             asyncResp->res.result(boost::beast::http::status::no_content);
         }
+        redfish::bmcwebAuEvent(pathId, retval, *params.session);
     }
 
     if (params.enabled)
