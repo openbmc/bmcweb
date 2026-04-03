@@ -7,6 +7,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "audit.hpp"
 #include "boost_formatters.hpp"
 #include "certificate_service.hpp"
 #include "dbus_utility.hpp"
@@ -1138,16 +1139,22 @@ inline void afterVerifyUserExists(
         {
             messages::resourceNotFound(asyncResp->res, "ManagerAccount",
                                        params.username);
+            redfish::bmcwebAuEvent(pathId, retval, *params.session);
         }
         else if (retval == PAM_AUTHTOK_ERR)
         {
             // If password is invalid
             messages::propertyValueFormatError(asyncResp->res, nullptr,
                                                "Password");
+
+            redfish::bmcwebAuEvent(redfish::REDFISH_V1_ACCOUNT_SERVICE_ACCOUNTS,
+                                   retval, *params.session);
             BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
         }
         else if (retval != PAM_SUCCESS)
         {
+            redfish::bmcwebAuEvent(redfish::REDFISH_V1_ACCOUNT_SERVICE_ACCOUNTS,
+                                   retval, *params.session);
             messages::internalError(asyncResp->res);
             return;
         }
@@ -1160,6 +1167,8 @@ inline void afterVerifyUserExists(
                                                        params.session);
             asyncResp->res.result(boost::beast::http::status::no_content);
         }
+        redfish::bmcwebAuEvent(redfish::REDFISH_V1_ACCOUNT_SERVICE_ACCOUNTS,
+                               retval, *params.session);
     }
 
     if (params.enabled)
