@@ -228,26 +228,7 @@ std::optional<std::string> toDurationStringFromUint(uint64_t timeMs)
 namespace details
 {
 
-// Helper function to format timezone offset string from seconds
-inline std::string formatOffsetString(std::chrono::minutes offset)
-{
-    char sign = '+';
-    if (offset < std::chrono::minutes::zero())
-    {
-        sign = '-';
-        offset = -offset;
-    }
-
-    std::chrono::hours offsetHours =
-        std::chrono::duration_cast<std::chrono::hours>(offset);
-    std::chrono::minutes offsetMinutes = offset - offsetHours;
-
-    return std::format("{}{:02}:{:02}", sign, offsetHours.count(),
-                       offsetMinutes.count());
-}
-
 static const std::chrono::time_zone* getTimeZone(std::string_view tzName = "")
-
 {
     const std::chrono::time_zone* tz = nullptr;
     try
