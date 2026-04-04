@@ -1,0 +1,30 @@
+From db176e06cf6a961f4a83761cf9f41baf17e57643 Mon Sep 17 00:00:00 2001
+From: Ed Tanous <etanous@nvidia.com>
+Date: Fri, 3 Apr 2026 17:02:20 -0700
+Subject: [PATCH] Change name of nghttp2 library
+
+meson seems to have a bug where it incorrectly detects recursion if a
+target matches the name of the project.  Unclear what the fix is, so
+rename the target for now.
+
+Signed-off-by: Ed Tanous <etanous@nvidia.com>
+---
+ lib/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index 98e3dbe7..971ed070 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -32,7 +32,7 @@ set(NGHTTP2_SOURCES
+ 
+ set(NGHTTP2_RES "")
+ set(STATIC_LIB "nghttp2_static")
+-set(SHARED_LIB "nghttp2")
++set(SHARED_LIB "nghttp2_shared")
+ 
+ if(BUILD_SHARED_LIBS AND BUILD_STATIC_LIBS AND MSVC AND NOT STATIC_LIB_SUFFIX)
+   set(STATIC_LIB_SUFFIX "_static")
+-- 
+2.43.0
+
