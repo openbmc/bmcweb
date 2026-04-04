@@ -3,10 +3,16 @@
 // SPDX-FileCopyrightText: Copyright 2020 Intel Corporation
 #include "event_log.hpp"
 
+#include "bmcweb_config.h"
+
+#include "generated/enums/resource.hpp"
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include "utility.hpp"
 
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cerrno>
@@ -111,6 +117,23 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
     return 0;
 }
 
+inline resource::Health healthFromString(std::string_view severity)
+{
+    if (severity == "OK")
+    {
+        return resource::Health::OK;
+    }
+    if (severity == "Warning")
+    {
+        return resource::Health::Warning;
+    }
+    if (severity == "Critical")
+    {
+        return resource::Health::Critical;
+    }
+    return resource::Health::Invalid;
+}
+
 int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
                         const std::string& messageID,
                         const std::span<std::string_view> messageArgs,
@@ -169,7 +192,14 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = std::to_string(eventId);
 
-    logEntryJson["Severity"] = message->messageSeverity;
+    resource::Health severity = healthFromString(message->messageSeverity);
+    // If unknown severity,log a warning and surface the issue in response
+    if (severity == resource::Health::Invalid)
+    {
+        BMCWEB_LOG_WARNING("Unknown severity '{}'", message->messageSeverity);
+    }
+    logEntryJson["MessageSeverity"] = severity;
+
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] =
         std::format("{}.{}.{}.{}", msgComponents->registryName, versionMajor,
@@ -177,6 +207,21 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
+    std::string_view eventLogParent;
+    std::string_view eventLogPath;
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
+    {
+        eventLogParent = "Systems";
+        eventLogPath = BMCWEB_REDFISH_SYSTEM_URI_NAME;
+    }
+    else
+    {
+        eventLogParent = "Managers";
+        eventLogPath = BMCWEB_REDFISH_MANAGER_URI_NAME;
+    }
+    logEntryJson["LogEntry"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}",
+                            eventLogParent, eventLogPath, logEntryID);
     return 0;
 }
 
