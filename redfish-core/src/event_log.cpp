@@ -3,10 +3,13 @@
 // SPDX-FileCopyrightText: Copyright 2020 Intel Corporation
 #include "event_log.hpp"
 
+#include "bmcweb_config.h"
+
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
 
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cerrno>
@@ -177,6 +180,18 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
+    {
+        logEntryJson["LogEntry"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, logEntryID);
+    }
+    else if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
+    {
+        logEntryJson["LogEntry"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Managers/{}/LogServices/EventLog/Entries/{}",
+            BMCWEB_REDFISH_MANAGER_URI_NAME, logEntryID);
+    }
     return 0;
 }
 
