@@ -225,11 +225,11 @@ if not nghttp2.found()
     opt_var.add_cmake_defines(
         {
             'ENABLE_LIB_ONLY': true,
-            'ENABLE_STATIC_LIB': true,
+            'BUILD_STATIC_LIBS': true,
         },
     )
     nghttp2_ex = cmake.subproject('nghttp2', options: opt_var)
-    nghttp2 = nghttp2_ex.dependency('nghttp2')
+    nghttp2 = nghttp2_ex.dependency('nghttp2_static')
 endif
 bmcweb_dependencies += nghttp2
 

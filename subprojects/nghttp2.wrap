@@ -1,5 +1,5 @@
-[wrap-file]
-directory = nghttp2-1.68.1
-source_url = https://github.com/nghttp2/nghttp2/releases/download/v1.68.1/nghttp2-1.68.1.tar.xz
-source_filename = nghttp2-1.68.1.tar.xz
-source_hash = 6abd7ab0a7f1580d5914457cb3c85eb80455657ee5119206edbd7f848c14f0b2
+[wrap-git]
+url = https://github.com/nghttp2/nghttp2.git
+revision = v1.68.1
+clone-recursive = true
+diff_files = nghttp2/Change-name-of-nghttp2-library.patch
