@@ -247,7 +247,7 @@ void Subscription::filterAndSendEventLogs(
     }
 
     nlohmann::json msg;
-    msg["@odata.type"] = "#Event.v1_4_0.Event";
+    msg["@odata.type"] = "#Event.v1_7_0.Event";
     msg["Id"] = std::to_string(eventId);
     msg["Name"] = "Event Log";
     msg["Events"] = std::move(logEntryArray);
