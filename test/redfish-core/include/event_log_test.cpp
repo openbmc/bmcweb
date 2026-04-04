@@ -1,5 +1,8 @@
+#include "bmcweb_config.h"
+
 #include "event_log.hpp"
 
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cerrno>
@@ -163,6 +166,22 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
 
     ASSERT_TRUE(logEntryJson.contains("Context"));
     ASSERT_EQ(logEntryJson["Context"], "customText");
+
+    ASSERT_TRUE(logEntryJson.contains("MessageSeverity"));
+    ASSERT_EQ(logEntryJson["MessageSeverity"], "Warning");
+
+    ASSERT_TRUE(logEntryJson.contains("LogEntry"));
+    const auto [eventLogUri, eventLogParent] =
+        BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems"
+            ? std::pair(
+                  "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
+                  BMCWEB_REDFISH_SYSTEM_URI_NAME)
+            : std::pair(
+                  "/redfish/v1/Managers/{}/LogServices/EventLog/Entries/{}",
+                  BMCWEB_REDFISH_MANAGER_URI_NAME);
+    ASSERT_EQ(
+        logEntryJson["LogEntry"]["@odata.id"],
+        boost::urls::format(eventLogUri, eventLogParent, logEntryID).buffer());
 }
 
 TEST(RedfishEventLog, FormatEventLogEntryFail)

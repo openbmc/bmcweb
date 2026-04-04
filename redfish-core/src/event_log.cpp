@@ -3,10 +3,14 @@
 // SPDX-FileCopyrightText: Copyright 2020 Intel Corporation
 #include "event_log.hpp"
 
+#include "bmcweb_config.h"
+
+#include "generated/enums/resource.hpp"
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
 
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cerrno>
@@ -169,7 +173,16 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = std::to_string(eventId);
 
-    logEntryJson["Severity"] = message->messageSeverity;
+    resource::Health severity =
+        nlohmann::json(message->messageSeverity).get<resource::Health>();
+    if (severity == resource::Health::Invalid)
+    {
+        BMCWEB_LOG_WARNING("Unknown severity '{}', defaulting to OK",
+                           message->messageSeverity);
+        severity = resource::Health::OK;
+    }
+    logEntryJson["MessageSeverity"] = severity;
+
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] =
         std::format("{}.{}.{}.{}", msgComponents->registryName, versionMajor,
@@ -177,6 +190,16 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
+    const auto [eventLogUri, eventLogParent] =
+        BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems"
+            ? std::pair(
+                  "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
+                  BMCWEB_REDFISH_SYSTEM_URI_NAME)
+            : std::pair(
+                  "/redfish/v1/Managers/{}/LogServices/EventLog/Entries/{}",
+                  BMCWEB_REDFISH_MANAGER_URI_NAME);
+    logEntryJson["LogEntry"]["@odata.id"] =
+        boost::urls::format(eventLogUri, eventLogParent, logEntryID).buffer();
     return 0;
 }
 
