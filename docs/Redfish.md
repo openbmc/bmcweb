@@ -622,6 +622,22 @@ Fields common to all schemas
 - Protocol
 - SendHeartbeat
 
+### Event (payload sent to EventDestination subscribers)
+
+#### Event
+
+- @odata.type
+- Events[]/Context
+- Events[]/EventId
+- Events[]/EventTimestamp
+- Events[]/LogEntry
+- Events[]/Message
+- Events[]/MessageArgs
+- Events[]/MessageId
+- Events[]/MessageSeverity
+- Id
+- Name
+
 ### /redfish/v1/JsonSchemas/
 
 #### JsonSchemaFileCollection
