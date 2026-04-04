@@ -2,6 +2,7 @@
 
 #include "utils/time_utils.hpp"
 
+#include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cstdint>
@@ -28,6 +29,10 @@ bool getUniqueEntryID(UniqueEntryIDState& state, const std::string& logEntry,
 int getEventLogParams(const std::string& logEntry, std::string& timestamp,
                       std::string& messageID,
                       std::vector<std::string>& messageArgs);
+
+boost::urls::url formatEventLogEntryUri(std::string_view eventLogParent,
+                                        std::string_view eventLogPath,
+                                        const std::string& logEntryID);
 
 int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
                         const std::string& messageID,

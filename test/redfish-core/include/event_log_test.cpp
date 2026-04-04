@@ -1,5 +1,7 @@
+
 #include "event_log.hpp"
 
+#include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cerrno>
@@ -157,6 +159,26 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
 
     ASSERT_TRUE(logEntryJson.contains("Context"));
     ASSERT_EQ(logEntryJson["Context"], "customText");
+
+    ASSERT_TRUE(logEntryJson.contains("MessageSeverity"));
+    ASSERT_EQ(logEntryJson["MessageSeverity"], "Warning");
+
+    ASSERT_TRUE(logEntryJson.contains("LogEntry"));
+}
+
+TEST(RedfishEventLog, FormatEventLogEntryUriSystems)
+{
+    ASSERT_EQ(
+        formatEventLogEntryUri("Systems", "system", "123"),
+        boost::urls::url_view(
+            "/redfish/v1/Systems/system/LogServices/EventLog/Entries/123"));
+}
+
+TEST(RedfishEventLog, FormatEventLogEntryUriManagers)
+{
+    ASSERT_EQ(formatEventLogEntryUri("Managers", "bmc", "456"),
+              boost::urls::url_view(
+                  "/redfish/v1/Managers/bmc/LogServices/EventLog/Entries/456"));
 }
 
 TEST(RedfishEventLog, FormatEventLogEntryFail)
