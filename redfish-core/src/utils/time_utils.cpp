@@ -229,6 +229,9 @@ std::optional<std::string> toDurationStringFromUint(uint64_t timeMs)
 namespace details
 {
 
+<<<<<<< PATCH SET (727b4d WIP: Remove now unused function)
+const std::chrono::time_zone* getTimeZone()
+=======
 // Helper function to format timezone offset string from seconds
 inline std::string formatOffsetString(std::chrono::minutes offset)
 {
@@ -249,6 +252,7 @@ inline std::string formatOffsetString(std::chrono::minutes offset)
 
 static const std::chrono::time_zone* getTimeZone()
 
+>>>>>>> BASE      (f3de3b WIP: Expose date/time in local timezone)
 {
     const std::chrono::time_zone* tz = nullptr;
     try
