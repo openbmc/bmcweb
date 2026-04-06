@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f193500_4f5dfafb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-06T14:14:07Z",
+      "side": 1,
+      "message": "Nothing new here. gcc-13 came out in 2023. The project picked it up soonish after. As mentioned now required.",
+      "revId": "3fc4470066bc539656edf9e5253df70470252de4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
