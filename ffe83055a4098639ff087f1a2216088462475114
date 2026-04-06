@@ -3,6 +3,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14b5ab54_200d71f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T20:33:15Z",
+      "side": 1,
+      "message": "what is \"tlsStrict\u003dfalse\"?  The internal check?",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33e426f_474d93f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T20:33:15Z",
+      "side": 1,
+      "message": "This is functionally just testing the normal mtls flow, which we have a script for that you should just use.  How are you testing the new features that you\u0027ve added?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 11
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "816fbd6d_e10e9c58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T20:33:15Z",
+      "side": 1,
+      "message": "I\u0027m still not sure what this patch is trying to accomplish.  The commit message goes directly into \"what\" without talking about the why at all, which is arguably more important.  The patchset itself is making lots of changes to core existing data structures and I really have no idea why.  I can\u0027t figure out why you made those changes unless you put that in the commit message.  Before you send your next patch, lets get what you\u0027re trying to accomplish laid out.\n\nI can\u0027t find any description of SNI where setting a hardcoded fixed hostname would be correct usage.  If there\u0027s a standard I\u0027m not aware of that specifies a hostname of \"mtls\" please add it to your commit message",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "677d18a6_10079541",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T20:33:15Z",
+      "side": 1,
+      "message": "This should be coming from the hostname URI.",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc4a2786_b2b67ccf",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 13
@@ -20,6 +100,23 @@
         "endLine": 535,
         "endChar": 11
       },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52356c7a_82b6dd6d",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T20:33:15Z",
+      "side": 1,
+      "message": "?  Why are you modifying the server ssl context?  The server is hosting aggregation, the client is querying aggregation.  If you are intentionally making changes to both, please make that explicit.",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
