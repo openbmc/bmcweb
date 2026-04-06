@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8605dada_d395772a",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:00:28Z",
+      "side": 1,
+      "message": "Can be added later once mapping is known.",
+      "parentUuid": "e4bcd0b2_9722b2ea",
+      "revId": "c357bba3e0313a630d852a1f6e7b80895452bbda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9191b1b_6b71a9bb",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3279f5b0_bf35596d",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9191b1b_6b71a9bb",
+      "range": {
+        "startLine": 59,
+        "startChar": 62,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "c357bba3e0313a630d852a1f6e7b80895452bbda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faf32f58_0cc02437",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-10-04T19:33:42Z",
       "side": 1,
       "message": "Can you log ec.value() in addition to the error message, which will be helpful for debugging purposes.",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "c357bba3e0313a630d852a1f6e7b80895452bbda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03aab2c8_f30e577c",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:00:28Z",
+      "side": 1,
+      "message": "Not required in this case.",
+      "parentUuid": "faf32f58_0cc02437",
       "range": {
         "startLine": 65,
         "startChar": 16,
