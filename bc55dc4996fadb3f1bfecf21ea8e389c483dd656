@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b22e2c7_29cc82de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T20:16:34Z",
+      "side": 1,
+      "message": "looks like you wrapped it on 66 char boundaries?",
+      "parentUuid": "bf300a2b_8df7b311",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7f9d46a_3b4a24f5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
