@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32bbd430_1c010eb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:02:41Z",
+      "side": 1,
+      "message": "What\u0027s the status here?  As written, this is doing things the mapper should just do.  Call the mapper with the appropriate interface calls rather than try to parse them out later.",
+      "revId": "ad4d56517b2b094657de574cbb6d440cefe0fbff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
