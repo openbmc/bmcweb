@@ -151,5 +151,24 @@ if (get_option('tests').allowed())
         )
         test('fuzz_http_parsing', fuzz_http_parsing_exe, is_parallel: false, timeout: 0)
 
+        fuzz_query_param_select_exe = executable(
+            'fuzz_query_param_select',
+            'fuzzers/fuzz_query_param_select.cpp',
+            include_directories: [incdir, include_directories('..')],
+            dependencies: bmcweb_dependencies,
+            link_with: bmcweblib,
+            cpp_args: [
+                '-DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION',
+                '-fsanitize=fuzzer,address,undefined',
+                '-Wno-missing-prototypes',
+                '-Wno-unsafe-buffer-usage',
+            ],
+            link_args: [
+                '-fsanitize=fuzzer,address,undefined',
+                '-Wl,--gc-sections',
+            ],
+        )
+        test('fuzz_query_param_select', fuzz_query_param_select_exe, is_parallel: false, timeout: 0)
+
     endif
 endif
