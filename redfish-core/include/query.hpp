@@ -124,6 +124,13 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
 {
     BMCWEB_LOG_DEBUG("setup redfish route");
 
+    // Only process query params if the user has authenticated.  This is to
+    // reduce the possible attack surface.
+    if (req.session != nullptr || BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        return true;
+    }
+
     // Section 7.4 of the redfish spec "Redfish Services shall process the
     // [OData-Version header] in the following table as defined by the HTTP 1.1
     // specification..."
@@ -136,25 +143,16 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     }
 
     asyncResp->res.addHeader("OData-Version", "4.0");
-
-    std::optional<query_param::Query> queryOpt =
-        query_param::parseParameters(req.url().params(), asyncResp->res);
-    if (!queryOpt)
+    if (req.session != nullptr)
     {
         return false;
     }
+    std::optional<query_param::Query> queryOpt;
 
-    if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+    query_param::parseParameters(req.url().params(), asyncResp->res);
+    if (!queryOpt)
     {
-        // Handle unauthorized expand query parameters for service root example
-        // /redfish/v1/?$expand=< >
-        if (req.session == nullptr &&
-            queryOpt->expandType != query_param::ExpandType::None)
-        {
-            messages::resourceAtUriUnauthorized(asyncResp->res, req.url(),
-                                                "Invalid username or password");
-            return false;
-        }
+        return false;
     }
 
     if (!handleIfMatch(app, req, asyncResp))
