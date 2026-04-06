@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "450a2061_c574794a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:24:42Z",
+      "side": 1,
+      "message": "@alexander.hansen@9elements.com what\u0027s the plan here?  Are you planning on reworking?",
+      "revId": "3e02fb66d60727cad9a5ae9d5a3c34b86d3a7705",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99b64ff3_b0ce5e8b",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
