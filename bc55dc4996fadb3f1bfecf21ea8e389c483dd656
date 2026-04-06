@@ -354,6 +354,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cdaa5361_b5775d36",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T20:18:11Z",
+      "side": 1,
+      "message": "This still doesn\u0027t appear done.  i see significant numbers of new and delete in your latest patch.",
+      "parentUuid": "a708fe0e_169b7aaf",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 1
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cde99dbb_f96bebaa",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 10
