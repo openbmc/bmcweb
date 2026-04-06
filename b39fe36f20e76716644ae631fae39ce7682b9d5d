@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af1d6d80_a583cb37",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:23:26Z",
+      "side": 1,
+      "message": "remove the !empty().  It doesn\u0027t change the logic.",
+      "range": {
+        "startLine": 97,
+        "startChar": 30,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39e5e01e_40e37f67",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:23:26Z",
+      "side": 1,
+      "message": "How was this mapping determined?  It doesn\u0027t seem right to me, but if DMTF publishes that somewhere, I\u0027m happy to read it.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 48
+      },
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c56a28c6_46c57fd8",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:23:26Z",
+      "side": 1,
+      "message": "We set \"OK\" in all 3 branches?  Why duplicate?",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 80
+      },
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b08a5974_cc73c43f",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-06T21:23:26Z",
+      "side": 1,
+      "message": "else, internal error.",
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
