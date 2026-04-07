@@ -155,6 +155,24 @@
       "message": "?  Why are you modifying the server ssl context?  The server is hosting aggregation, the client is querying aggregation.  If you are intentionally making changes to both, please make that explicit.",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27e9c170_2088c240",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-07T17:57:07Z",
+      "side": 1,
+      "message": "@ed@tanous.net\nThe SERVER context (getSslServerContext) is only modified and , \nnot the client context (getSSLClientContext).\n\nThe dual context is needed because:\n- Satellite BMCs connect TO the aggregator (server role) for registration\n- Aggregator connects TO satellites (client role) for data collection\n\nBoth directions use mTLS, but the server role needs to also support \nHTTPS for HMC/GUI clients, hence the dual context.\n\nSNI-Based Context Selection:\n\nThe client (satellite BMC) sets SNI hostname to \"mtls.bmc\" before\nconnecting (in http_client.hpp). This SNI value is transmitted in\nthe TLS Client Hello message.\n\nThe server (aggregator BMC) examines the SNI in clientHelloCallback()\nand switches to the appropriate SSL context:\n- SNI\u003d\"mtls.bmc\" → mTLS context (require client certificate)\n- Any other SNI → HTTPS context (no client certificate)\n\n\nClient-side changes (http_client.hpp):\n- Set SNI to \"mtls.bmc\" for aggregation connections, before connection\n- Already implemented in existing code\n\nServer-side changes (ssl_key_handler.cpp, ssl_dual_context.hpp):\n- Dual SSL contexts (HTTPS + mTLS)\n- SNI-based context switching in clientHelloCallback()\n- This patch implements the server-side changes",
+      "parentUuid": "52356c7a_82b6dd6d",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
