@@ -41,16 +41,16 @@ TEST(AfterAsyncPopulatePid, EmptyManagedObjectsPopulatesStaticFields)
     afterAsyncPopulatePid(asyncResp, "", {"ProfileA", "ProfileB"}, {}, {});
 
     const nlohmann::json& fan = asyncResp->res.jsonValue["Fan"];
-    EXPECT_EQ(fan["@odata.type"], "#OpenBMCManager.v1_0_0.Manager.Fan");
+    EXPECT_EQ(fan["@odata.type"], "#OpenBMCManager.v1_1_0.Manager.Fan");
     EXPECT_EQ(fan["@odata.id"], "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan");
     EXPECT_EQ(fan["FanControllers"]["@odata.type"],
-              "#OpenBMCManager.v1_0_0.Manager.FanControllers");
+              "#OpenBMCManager.v1_1_0.Manager.FanControllers");
     EXPECT_EQ(fan["PidControllers"]["@odata.type"],
-              "#OpenBMCManager.v1_0_0.Manager.PidControllers");
+              "#OpenBMCManager.v1_1_0.Manager.PidControllers");
     EXPECT_EQ(fan["StepwiseControllers"]["@odata.type"],
-              "#OpenBMCManager.v1_0_0.Manager.StepwiseControllers");
+              "#OpenBMCManager.v1_1_0.Manager.StepwiseControllers");
     EXPECT_EQ(fan["FanZones"]["@odata.type"],
-              "#OpenBMCManager.v1_0_0.Manager.FanZones");
+              "#OpenBMCManager.v1_1_0.Manager.FanZones");
 
     std::vector<std::string> profiles =
         fan["Profile@Redfish.AllowableValues"].get<std::vector<std::string>>();
@@ -93,7 +93,7 @@ TEST(AfterAsyncPopulatePid, FanControllerEntryIsPopulated)
         asyncResp->res.jsonValue["Fan"]["FanControllers"];
     ASSERT_TRUE(fans.contains("MyFan"));
     EXPECT_EQ(fans["MyFan"]["@odata.type"],
-              "#OpenBMCManager.v1_0_0.Manager.FanController");
+              "#OpenBMCManager.v1_1_0.Manager.FanController");
     EXPECT_EQ(fans["MyFan"]["@odata.id"],
               "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanControllers/MyFan");
     EXPECT_DOUBLE_EQ(fans["MyFan"]["PCoefficient"].get<double>(), 1.5);
@@ -124,7 +124,7 @@ TEST(AfterAsyncPopulatePid, PidControllerEntryIsPopulated)
         asyncResp->res.jsonValue["Fan"]["PidControllers"];
     ASSERT_TRUE(pids.contains("MyPid"));
     EXPECT_EQ(pids["MyPid"]["@odata.type"],
-              "#OpenBMCManager.v1_0_0.Manager.PidController");
+              "#OpenBMCManager.v1_1_0.Manager.PidController");
     EXPECT_EQ(pids["MyPid"]["@odata.id"],
               "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers/MyPid");
 }
@@ -154,7 +154,7 @@ TEST(AfterAsyncPopulatePid, StepwiseControllerStepsAssembled)
     const nlohmann::json& step =
         asyncResp->res.jsonValue["Fan"]["StepwiseControllers"]["MyStep"];
     EXPECT_EQ(step["@odata.type"],
-              "#OpenBMCManager.v1_0_0.Manager.StepwiseController");
+              "#OpenBMCManager.v1_1_0.Manager.StepwiseController");
     EXPECT_EQ(step["Direction"], "Ceiling");
     EXPECT_DOUBLE_EQ(step["PositiveHysteresis"].get<double>(), 1.0);
     EXPECT_DOUBLE_EQ(step["NegativeHysteresis"].get<double>(), 2.0);
@@ -190,7 +190,7 @@ TEST(AfterAsyncPopulatePid, FanZoneIsPopulatedWithDoubles)
 
     const nlohmann::json& zone =
         asyncResp->res.jsonValue["Fan"]["FanZones"]["Zone0"];
-    EXPECT_EQ(zone["@odata.type"], "#OpenBMCManager.v1_0_0.Manager.FanZone");
+    EXPECT_EQ(zone["@odata.type"], "#OpenBMCManager.v1_1_0.Manager.FanZone");
     EXPECT_EQ(zone["Chassis"]["@odata.id"], "/redfish/v1/Chassis/MyChassis");
     EXPECT_EQ(zone["@odata.id"],
               "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/Zone0");
