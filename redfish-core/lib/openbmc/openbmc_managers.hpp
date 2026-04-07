@@ -67,20 +67,20 @@ inline void afterAsyncPopulatePid(
     }
     nlohmann::json& configRoot = asyncResp->res.jsonValue["Fan"];
     nlohmann::json& fans = configRoot["FanControllers"];
-    fans["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.FanControllers";
+    fans["@odata.type"] = "#OpenBMCManager.v1_1_0.Manager.FanControllers";
     fans["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/FanControllers",
         BMCWEB_REDFISH_MANAGER_URI_NAME);
 
     nlohmann::json& pids = configRoot["PidControllers"];
-    pids["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.PidControllers";
+    pids["@odata.type"] = "#OpenBMCManager.v1_1_0.Manager.PidControllers";
     pids["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/PidControllers",
         BMCWEB_REDFISH_MANAGER_URI_NAME);
 
     nlohmann::json& stepwise = configRoot["StepwiseControllers"];
     stepwise["@odata.type"] =
-        "#OpenBMCManager.v1_0_0.Manager.StepwiseControllers";
+        "#OpenBMCManager.v1_1_0.Manager.StepwiseControllers";
     stepwise["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/StepwiseControllers",
         BMCWEB_REDFISH_MANAGER_URI_NAME);
@@ -89,11 +89,11 @@ inline void afterAsyncPopulatePid(
     zones["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/FanZones",
                             BMCWEB_REDFISH_MANAGER_URI_NAME);
-    zones["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.FanZones";
+    zones["@odata.type"] = "#OpenBMCManager.v1_1_0.Manager.FanZones";
     configRoot["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan",
                             BMCWEB_REDFISH_MANAGER_URI_NAME);
-    configRoot["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.Fan";
+    configRoot["@odata.type"] = "#OpenBMCManager.v1_1_0.Manager.Fan";
     configRoot["Profile@Redfish.AllowableValues"] = supportedProfiles;
 
     if (!currentProfile.empty())
@@ -179,7 +179,7 @@ inline void afterAsyncPopulatePid(
                     ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
                         .to_string());
                 zone["@odata.id"] = std::move(url);
-                zone["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.FanZone";
+                zone["@odata.type"] = "#OpenBMCManager.v1_1_0.Manager.FanZone";
                 config = &zone;
             }
 
@@ -199,7 +199,7 @@ inline void afterAsyncPopulatePid(
                         .to_string());
                 controller["@odata.id"] = std::move(url);
                 controller["@odata.type"] =
-                    "#OpenBMCManager.v1_0_0.Manager.StepwiseController";
+                    "#OpenBMCManager.v1_1_0.Manager.StepwiseController";
 
                 controller["Direction"] = *classPtr;
             }
@@ -223,7 +223,7 @@ inline void afterAsyncPopulatePid(
                             .to_string());
                     element["@odata.id"] = std::move(url);
                     element["@odata.type"] =
-                        "#OpenBMCManager.v1_0_0.Manager.FanController";
+                        "#OpenBMCManager.v1_1_0.Manager.FanController";
                 }
                 else
                 {
@@ -232,7 +232,7 @@ inline void afterAsyncPopulatePid(
                             .to_string());
                     element["@odata.id"] = std::move(url);
                     element["@odata.type"] =
-                        "#OpenBMCManager.v1_0_0.Manager.PidController";
+                        "#OpenBMCManager.v1_1_0.Manager.PidController";
                 }
             }
             else
@@ -246,6 +246,27 @@ inline void afterAsyncPopulatePid(
             const std::vector<double>* keys = nullptr;
             const std::vector<double>* values = nullptr;
 
+            // Optional PID-only properties (do NOT fail GET if missing)
+            const bool* checkHysteresisWithSetpoint = nullptr;
+            const double* dCoefficient = nullptr;
+            if (intfPair.first == pidConfigurationIface)
+            {
+                (void)sdbusplus::unpackPropertiesNoThrow(
+                    dbus_utils::UnpackErrorPrinter(), intfPair.second,
+                    "CheckHysteresisWithSetpoint", checkHysteresisWithSetpoint,
+                    "DCoefficient", dCoefficient);
+
+                if (checkHysteresisWithSetpoint != nullptr)
+                {
+                    (*config)["CheckHysteresisWithSetpoint"] =
+                        (*checkHysteresisWithSetpoint) ? "Setpoint" : "Input";
+                }
+                if (dCoefficient != nullptr)
+                {
+                    (*config)["DCoefficient"] = *dCoefficient;
+                }
+            }
+
             for (const auto& propertyPair : intfPair.second)
             {
                 if (propertyPair.first == "Type" ||
@@ -255,7 +276,13 @@ inline void afterAsyncPopulatePid(
                 {
                     continue;
                 }
-
+                // handled above via unpackPropertiesNoThrow (PID only)
+                if (intfPair.first == pidConfigurationIface &&
+                    (propertyPair.first == "CheckHysteresisWithSetpoint" ||
+                     propertyPair.first == "DCoefficient"))
+                {
+                    continue;
+                }
                 // zones
                 if (intfPair.first == pidZoneConfigurationIface)
                 {
@@ -695,9 +722,13 @@ inline CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> inputs;
         std::optional<std::vector<std::string>> outputs;
         std::map<std::string, std::optional<double>> doubles;
+        std::optional<std::string> hysteresisEval;
+
         std::optional<std::string> setpointOffset;
         if (!redfish::json_util::readJson(                           //
                 jsonValue, response->res,                            //
+                "CheckHysteresisWithSetpoint", hysteresisEval,       //
+                "DCoefficient", doubles["DCoefficient"],             //
                 "FFGainCoefficient", doubles["FFGainCoefficient"],   //
                 "FFOffCoefficient", doubles["FFOffCoefficient"],     //
                 "ICoefficient", doubles["ICoefficient"],             //
@@ -784,6 +815,27 @@ inline CreatePIDRet createPidInterface(
                                                  "SetPointOffset");
                 return CreatePIDRet::fail;
             }
+        }
+        if (hysteresisEval)
+        {
+            bool value = false;
+
+            if (*hysteresisEval == "Input")
+            {
+                value = false;
+            }
+            else if (*hysteresisEval == "Setpoint")
+            {
+                value = true;
+            }
+            else
+            {
+                messages::propertyValueNotInList(response->res, *hysteresisEval,
+                                                 "CheckHysteresisWithSetpoint");
+                return CreatePIDRet::fail;
+            }
+
+            output.emplace_back("CheckHysteresisWithSetpoint", value);
         }
 
         // doubles
@@ -1491,7 +1543,7 @@ inline void handleGetManagerOpenBmc(
 {
     // Default OEM data
     nlohmann::json& oemOpenbmc = asyncResp->res.jsonValue;
-    oemOpenbmc["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager";
+    oemOpenbmc["@odata.type"] = "#OpenBMCManager.v1_1_0.Manager";
     oemOpenbmc["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc",
                             BMCWEB_REDFISH_MANAGER_URI_NAME);
