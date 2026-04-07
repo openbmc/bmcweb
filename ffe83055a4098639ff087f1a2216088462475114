@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0edb3b1d_61db55ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-07T18:22:13Z",
+      "side": 1,
+      "message": "@ed@tanous.net\n\n1. tlsStrict\u003dfalse, then external client uses AUTH token for authentication, with fallback mechanism \n\nAllow self-signed certs\nIgnore hostname mismatches\nEasier testing\n\n\n2. tlsStrict\u003dtrue, then external client strictly uses ONLY CERT for authentication (server.pem), AUTH token authentication is not supported\n\nEnforce proper certificates\nVerify hostnames\nReject self-signed certs\nMaximum security\n\n\n3. mTLS (Always Strict) configured using Satellite.json file for peer BMC communication to be secure, using server_bmc.pem\n\nAlways require client cert\nAlways verify client cert\nAlways verify server cert\n\n\nsatellite.json for aggregation enabled, between BMC use only certificates for authentication\n{                              \n      \"AuthType\": \"MTLS\",          \n      \"Hostname\": \"x.x.x.x\",    \n      \"Name\": \"aggregated26\",      \n      \"Port\": 443,                 \n      \"Type\": \"SatelliteController\"\n}",
+      "parentUuid": "14b5ab54_200d71f9",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a33e426f_474d93f8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
