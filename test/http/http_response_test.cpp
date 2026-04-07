@@ -35,17 +35,17 @@ void verifyHeaders(Response& res)
 
 std::string getData(boost::beast::http::response<bmcweb::HttpBody>& m)
 {
-    std::string ret;
+    std::shared_ptr<std::string> ret = std::make_shared<std::string>();
 
     boost::beast::http::response_serializer<bmcweb::HttpBody> sr{m};
     sr.split(true);
     // Reads buffers into ret
     auto reader =
-        [&sr, &ret](const boost::system::error_code& ec2, const auto& buffer) {
+        [&sr, ret](const boost::system::error_code& ec2, const auto& buffer) {
             EXPECT_FALSE(ec2);
             std::string ret2 = boost::beast::buffers_to_string(buffer);
             sr.consume(ret2.size());
-            ret += ret2;
+            *ret += ret2;
         };
     boost::system::error_code ec;
 
@@ -55,7 +55,7 @@ std::string getData(boost::beast::http::response<bmcweb::HttpBody>& m)
         sr.next(ec, reader);
         EXPECT_FALSE(ec);
     }
-    ret.clear();
+    ret->clear();
 
     // Read body
     while (!sr.is_done())
@@ -64,7 +64,7 @@ std::string getData(boost::beast::http::response<bmcweb::HttpBody>& m)
         EXPECT_FALSE(ec);
     }
 
-    return ret;
+    return *ret;
 }
 
 TEST(HttpResponse, Headers)

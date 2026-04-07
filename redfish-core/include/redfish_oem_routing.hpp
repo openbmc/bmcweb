@@ -66,51 +66,45 @@ class OemRouter
         {
             using RuleT = OemRule<>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             perMethod.internalAdd(rule, std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(perMethod.rules.back().get());
         }
         else if constexpr (numArgs == 1)
         {
             using RuleT = OemRule<std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             perMethod.internalAdd(rule, std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(perMethod.rules.back().get());
         }
         else if constexpr (numArgs == 2)
         {
             using RuleT = OemRule<std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             perMethod.internalAdd(rule, std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(perMethod.rules.back().get());
         }
         else if constexpr (numArgs == 3)
         {
             using RuleT = OemRule<std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             perMethod.internalAdd(rule, std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(perMethod.rules.back().get());
         }
         else if constexpr (numArgs == 4)
         {
             using RuleT =
                 OemRule<std::string, std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             perMethod.internalAdd(rule, std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(perMethod.rules.back().get());
         }
         else
         {
             using RuleT = OemRule<std::string, std::string, std::string,
                                   std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             perMethod.internalAdd(rule, std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(perMethod.rules.back().get());
         }
     }
 

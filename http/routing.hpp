@@ -43,10 +43,8 @@ class Router
     {
         std::unique_ptr<DynamicRule> ruleObject =
             std::make_unique<DynamicRule>(rule);
-        DynamicRule* ptr = ruleObject.get();
         allRules.emplace_back(std::move(ruleObject));
-
-        return *ptr;
+        return *reinterpret_cast<DynamicRule*>(allRules.back().get());
     }
 
     template <uint64_t NumArgs>
@@ -56,51 +54,45 @@ class Router
         {
             using RuleT = TaggedRule<>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(allRules.back().get());
         }
         else if constexpr (NumArgs == 1)
         {
             using RuleT = TaggedRule<std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(allRules.back().get());
         }
         else if constexpr (NumArgs == 2)
         {
             using RuleT = TaggedRule<std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(allRules.back().get());
         }
         else if constexpr (NumArgs == 3)
         {
             using RuleT = TaggedRule<std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(allRules.back().get());
         }
         else if constexpr (NumArgs == 4)
         {
             using RuleT =
                 TaggedRule<std::string, std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(allRules.back().get());
         }
         else
         {
             using RuleT = TaggedRule<std::string, std::string, std::string,
                                      std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
-            RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
-            return *ptr;
+            return *reinterpret_cast<RuleT*>(allRules.back().get());
         }
         static_assert(NumArgs <= 5, "Max number of args supported is 5");
     }
