@@ -109,6 +109,14 @@ if (cxx.get_id() == 'clang')
         )
     endif
 
+    if (cxx.version().version_compare('>=23.0'))
+        add_project_arguments(
+            # This code is definitely not prepared to lifetime safety annotations
+            '-Wno-lifetime-safety-intra-tu-suggestions',
+            language: 'cpp',
+        )
+    endif
+
     boost_flags += ['-Wno-strict-prototypes', '-Wno-unused-but-set-variable']
 endif
 
