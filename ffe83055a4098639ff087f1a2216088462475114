@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e2594ac_d3c4e6bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-07T23:03:49Z",
+      "side": 1,
+      "message": "\u003e @ed@tanous.net\n\u003e \n\u003e 1. tlsStrict\u003dfalse, then external client uses AUTH token for authentication, with fallback mechanism \n\u003e \n\u003e Allow self-signed certs\n\u003e Ignore hostname mismatches\n\u003e Easier testing\n\nPlease update your tests with what you actually ran.  We have scripts for testing MTLS flows in the scripts directory, so please use them rather than lay out a complex setup in your commit message.\n\n\u003e \n\u003e \n\u003e 2. tlsStrict\u003dtrue, then external client strictly uses ONLY CERT for authentication (server.pem), AUTH token authentication is not supported\n\u003e \n\u003e Enforce proper certificates\n\u003e Verify hostnames\n\u003e Reject self-signed certs\n\u003e Maximum security\n\u003e \n\u003e \n\u003e 3. mTLS (Always Strict) configured using Satellite.json file for peer BMC communication to be secure, using server_bmc.pem\n\u003e \n\u003e Always require client cert\n\u003e Always verify client cert\n\u003e Always verify server cert\n\u003e \n\u003e \n\u003e satellite.json for aggregation enabled, between BMC use only certificates for authentication\n\u003e {                              \n\u003e       \"AuthType\": \"MTLS\",          \n\u003e       \"Hostname\": \"x.x.x.x\",    \n\u003e       \"Name\": \"aggregated26\",      \n\u003e       \"Port\": 443,                 \n\u003e       \"Type\": \"SatelliteController\"\n\u003e }",
+      "parentUuid": "0edb3b1d_61db55ab",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a33e426f_474d93f8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
@@ -126,6 +150,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06f79ebd_2b5920f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-07T23:03:49Z",
+      "side": 1,
+      "message": "As an aside, I\u0027m having a lot of trouble responding to you given the wall of text above.  Please make sure your commit message has a SUCCINCT version of the problem statement, what you are trying to accomplish, and what specifications you\u0027re trying to implement (namely SNI).  Lots of details on WHAT the change is doing isn\u0027t needed, as we can see that from the code.  we need a good explanation of WHY you\u0027re doing it, and what you expect the result to be.\n\n\u003e Currently, bmcweb uses a single SSL context for all connections\n\nThis is verifiably not true, as you can see in the diff, there are already two, one for incoming connections and one for outgoing\n```\nstd::shared_ptr\u003cboost::asio::ssl::context\u003e getSslServerContext();\n\nstd::optional\u003cboost::asio::ssl::context\u003e getSSLClientContext(\n    VerifyCertificate verifyCertificate);\n```\n\n\u003e HTTPS certs: Customer-managed, replaced during deployment\nmTLS certs: TPM-provisioned\n\nLets call these server certificates, and client certificates, because that\u0027s what the code calls it.\n\u003e For Redfish aggregation in future system designs, peer BMCs need\nmutual TLS (mTLS) authentication using certificates provisioned in\nTPM (Trusted Platform Module).\n\nHow does that work if the private keys are in the TPM?\n\n\n\u003e HTTPS context, standard TLS\nPeer BMCs (SNI\u003d\"mtls.bmc\")\n\nWhere in the TLS specification is \"mtls.bmc\" specified.  This looks to be a violation of SNI, and it should be set to the hostname of the connection in question.",
+      "parentUuid": "7db082e5_e604b5b1",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "677d18a6_10079541",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -195,6 +237,24 @@
       "side": 1,
       "message": "@ed@tanous.net\nThe SERVER context (getSslServerContext) is only modified and , \nnot the client context (getSSLClientContext).\n\nThe dual context is needed because:\n- Satellite BMCs connect TO the aggregator (server role) for registration\n- Aggregator connects TO satellites (client role) for data collection\n\nBoth directions use mTLS, but the server role needs to also support \nHTTPS for HMC/GUI clients, hence the dual context.\n\nSNI-Based Context Selection:\n\nThe client (satellite BMC) sets SNI hostname to \"mtls.bmc\" before\nconnecting (in http_client.hpp). This SNI value is transmitted in\nthe TLS Client Hello message.\n\nThe server (aggregator BMC) examines the SNI in clientHelloCallback()\nand switches to the appropriate SSL context:\n- SNI\u003d\"mtls.bmc\" → mTLS context (require client certificate)\n- Any other SNI → HTTPS context (no client certificate)\n\n\nClient-side changes (http_client.hpp):\n- Set SNI to \"mtls.bmc\" for aggregation connections, before connection\n- Already implemented in existing code\n\nServer-side changes (ssl_key_handler.cpp, ssl_dual_context.hpp):\n- Dual SSL contexts (HTTPS + mTLS)\n- SNI-based context switching in clientHelloCallback()\n- This patch implements the server-side changes",
       "parentUuid": "52356c7a_82b6dd6d",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a6f5669_5adda32c",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-07T23:03:49Z",
+      "side": 1,
+      "message": "\u003e @ed@tanous.net\n\u003e The SERVER context (getSslServerContext) is only modified and , \n\u003e not the client context (getSSLClientContext).\n\nThe server context is used for the server.  the client context is used for aggregation.\n\n\u003e \n\u003e The dual context is needed because:\n\u003e - Satellite BMCs connect TO the aggregator (server role) for registration\n\u003e - Aggregator connects TO satellites (client role) for data collection\n\u003e \n\u003e Both directions use mTLS, but the server role needs to also support \n\nTHere\u0027s not \"both directions\" in aggregation connections.  Aggregation makes GET requests to the satellite.  \n\n\u003e HTTPS for HMC/GUI clients, hence the dual context.\n\u003e \n\u003e SNI-Based Context Selection:\n\u003e \n\u003e The client (satellite BMC) sets SNI hostname to \"mtls.bmc\" before\n\u003e connecting (in http_client.hpp). This SNI value is transmitted in\n\u003e the TLS Client Hello message.\n\u003e \n\u003e The server (aggregator BMC) examines the SNI in clientHelloCallback()\n\u003e and switches to the appropriate SSL context:\n\u003e - SNI\u003d\"mtls.bmc\" → mTLS context (require client certificate)\n\u003e - Any other SNI → HTTPS context (no client certificate)\n\u003e \n\u003e \n\u003e Client-side changes (http_client.hpp):\n\u003e - Set SNI to \"mtls.bmc\" for aggregation connections, before connection\n\u003e - Already implemented in existing code\n\u003e \n\u003e Server-side changes (ssl_key_handler.cpp, ssl_dual_context.hpp):\n\u003e - Dual SSL contexts (HTTPS + mTLS)\n\u003e - SNI-based context switching in clientHelloCallback()\n\u003e - This patch implements the server-side changes",
+      "parentUuid": "27e9c170_2088c240",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
