@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1da86a5c_e140fb37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-07T23:11:35Z",
+      "side": 1,
+      "message": "SNI is not a requirement for MTLS, and is an optional extension.  It\u0027s not clear what it has to do with securing aggregation comms.",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af49d3f8_c1a79a6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-07T23:11:35Z",
+      "side": 1,
+      "message": "Where is \"mtls.bmc\" coming from?  SNI is by definition the hostname of the satelite.  When you look at the scripts, please take note that the example scripts use both an IP address as common name and a hostname as common name.\n\nI see no mention anywhere publicly that an implementation is allowed to just \"pick\" an SNI hostname.",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec090fd_28c10d36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-07T23:11:35Z",
+      "side": 1,
+      "message": "This statement makes no sense.  HTTP is a protocol that rides on top of TLS, and can optionally use mutual certificate auth.  There is no \"one or the other\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14b5ab54_200d71f9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
