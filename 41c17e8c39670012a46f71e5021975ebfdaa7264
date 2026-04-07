@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d66b614_d157d9a8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-07T02:40:00Z",
+      "side": 1,
+      "message": "Please use the Redfish namespaced versions of these, setDbusProperty;  They handle errors correctly.  This patch does not.",
+      "revId": "41c17e8c39670012a46f71e5021975ebfdaa7264",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
