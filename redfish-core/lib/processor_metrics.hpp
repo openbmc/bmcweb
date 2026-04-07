@@ -4,6 +4,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
@@ -12,6 +13,9 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/sensor_utils.hpp"
+
+#include <asm-generic/errno.h>
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -97,6 +101,131 @@ inline void getProcessorMetricsECCData(
 }
 
 /**
+ * @brief Callback after fetching voltage sensor Value property
+ */
+inline void afterGetCoreVoltageProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& sensorPath,
+    const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error for CoreVoltage Value: {}",
+                         ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (!std::isfinite(value))
+    {
+        return;
+    }
+
+    sdbusplus::object_path objPath(sensorPath);
+    std::string sensorName = objPath.filename();
+    std::string sensorType = objPath.parent_path().filename();
+
+    asyncResp->res.jsonValue["CoreVoltage"]["Reading"] = value;
+    asyncResp->res.jsonValue["CoreVoltage"]["DataSourceUri"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Sensors/{}", chassisId,
+                            sensor_utils::getSensorId(sensorName, sensorType));
+}
+
+/**
+ * @brief Handle the voltage sensor subtree found via the processor's
+ *        inventory-sensors association
+ */
+inline void handleCoreVoltageSensors(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error for CoreVoltage getAssociatedSubTree {}",
+                ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        return;
+    }
+
+    // CoreVoltage is a single SensorVoltageExcerpt; more than one voltage
+    // sensor associated with a processor indicates a configuration error.
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "Multiple voltage sensors associated with processor; expected exactly one");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto& [sensorPath, serviceMaps] = subtree.front();
+    if (serviceMaps.size() != 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "Expected exactly one service for voltage sensor {}, got {}",
+            sensorPath, serviceMaps.size());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    const std::string& service = serviceMaps.front().first;
+
+    // Resolve chassisId from the sensor's chassis association
+    dbus::utility::getAssociationEndPoints(
+        sensorPath + "/chassis",
+        [asyncResp, service,
+         sensorPath](const boost::system::error_code& ec2,
+                     const dbus::utility::MapperEndPoints& endpoints) {
+            if (ec2 || endpoints.empty())
+            {
+                BMCWEB_LOG_ERROR(
+                    "No chassis association for voltage sensor {}: {}",
+                    sensorPath, ec2.message());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            sdbusplus::object_path chassisPath(endpoints.front());
+            std::string chassisId = chassisPath.filename();
+
+            dbus::utility::getProperty<double>(
+                service, sensorPath, "xyz.openbmc_project.Sensor.Value",
+                "Value",
+                std::bind_front(afterGetCoreVoltageProperties, asyncResp,
+                                chassisId, sensorPath));
+        });
+}
+
+/**
+ * @brief Get CoreVoltage data for ProcessorMetrics
+ *
+ * Discover the voltage sensor associated with the processor via the
+ * inventory-sensors association registered by dbus-sensors.
+ */
+inline void getCoreVoltage(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& processorPath)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Sensor.Value"};
+
+    sdbusplus::object_path associatedPath(processorPath);
+    associatedPath /= "sensors";
+
+    dbus::utility::getAssociatedSubTree(
+        associatedPath,
+        sdbusplus::object_path("/xyz/openbmc_project/sensors/voltage"), 1,
+        interfaces, std::bind_front(handleCoreVoltageSensors, asyncResp));
+}
+
+/**
  * @brief Populate ProcessorMetrics with ECC data from the processor's
  *        service map
  *
@@ -116,11 +245,9 @@ inline void getProcessorMetricsData(
             if (interface == "xyz.openbmc_project.Memory.MemoryECC")
             {
                 getProcessorMetricsECCData(asyncResp, serviceName, objectPath);
-                return;
             }
         }
     }
-    BMCWEB_LOG_DEBUG("No MemoryECC interface found for {}", objectPath);
 }
 
 /**
@@ -145,8 +272,13 @@ inline void doProcessorMetricsGet(
     asyncResp->res.jsonValue["Id"] = "ProcessorMetrics";
     asyncResp->res.jsonValue["Name"] = "Processor Metrics";
 
-    getProcessorObject(asyncResp, processorId,
-                       std::bind_front(getProcessorMetricsData, asyncResp));
+    getProcessorObject(
+        asyncResp, processorId,
+        [asyncResp](const std::string& objectPath,
+                    const dbus::utility::MapperServiceMap& serviceMap) {
+            getProcessorMetricsData(asyncResp, objectPath, serviceMap);
+            getCoreVoltage(asyncResp, objectPath);
+        });
 }
 
 inline void handleProcessorMetricsHead(
