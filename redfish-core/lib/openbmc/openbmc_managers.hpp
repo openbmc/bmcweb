@@ -52,6 +52,414 @@ static constexpr const char* stepwiseConfigurationIface =
 static constexpr const char* thermalModeIface =
     "xyz.openbmc_project.Control.ThermalMode";
 
+inline void afterAsyncPopulatePid(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& currentProfile,
+    const std::vector<std::string>& supportedProfiles,
+    const boost::system::error_code& ec,
+    const dbus::utility::ManagedObjectType& managedObj)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("{}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    nlohmann::json& configRoot = asyncResp->res.jsonValue["Fan"];
+    nlohmann::json& fans = configRoot["FanControllers"];
+    fans["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.FanControllers";
+    fans["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/FanControllers",
+        BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+    nlohmann::json& pids = configRoot["PidControllers"];
+    pids["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.PidControllers";
+    pids["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/PidControllers",
+        BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+    nlohmann::json& stepwise = configRoot["StepwiseControllers"];
+    stepwise["@odata.type"] =
+        "#OpenBMCManager.v1_0_0.Manager.StepwiseControllers";
+    stepwise["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/StepwiseControllers",
+        BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+    nlohmann::json& zones = configRoot["FanZones"];
+    zones["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/FanZones",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    zones["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.FanZones";
+    configRoot["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    configRoot["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.Fan";
+    configRoot["Profile@Redfish.AllowableValues"] = supportedProfiles;
+
+    if (!currentProfile.empty())
+    {
+        configRoot["Profile"] = currentProfile;
+    }
+    BMCWEB_LOG_DEBUG("profile = {} !", currentProfile);
+
+    for (const auto& pathPair : managedObj)
+    {
+        for (const auto& intfPair : pathPair.second)
+        {
+            if (intfPair.first != pidConfigurationIface &&
+                intfPair.first != pidZoneConfigurationIface &&
+                intfPair.first != stepwiseConfigurationIface)
+            {
+                continue;
+            }
+
+            std::string name;
+
+            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
+                     propPair : intfPair.second)
+            {
+                if (propPair.first == "Name")
+                {
+                    const std::string* namePtr =
+                        std::get_if<std::string>(&propPair.second);
+                    if (namePtr == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("Pid Name Field illegal");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    name = *namePtr;
+                    dbus::utility::escapePathForDbus(name);
+                }
+                else if (propPair.first == "Profiles")
+                {
+                    const std::vector<std::string>* profiles =
+                        std::get_if<std::vector<std::string>>(&propPair.second);
+                    if (profiles == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("Pid Profiles Field illegal");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (std::ranges::find(*profiles, currentProfile) ==
+                        profiles->end())
+                    {
+                        BMCWEB_LOG_INFO("{} not supported in current profile",
+                                        name);
+                        continue;
+                    }
+                }
+            }
+            nlohmann::json* config = nullptr;
+            const std::string* classPtr = nullptr;
+
+            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
+                     propPair : intfPair.second)
+            {
+                if (propPair.first == "Class")
+                {
+                    classPtr = std::get_if<std::string>(&propPair.second);
+                }
+            }
+
+            boost::urls::url url(boost::urls::format(
+                "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME));
+            if (intfPair.first == pidZoneConfigurationIface)
+            {
+                sdbusplus::object_path pidPath(pathPair.first.str);
+                std::string chassis = pidPath.filename();
+                if (chassis.empty())
+                {
+                    chassis = "#IllegalValue";
+                }
+                nlohmann::json& zone = zones[name];
+                zone["Chassis"]["@odata.id"] =
+                    boost::urls::format("/redfish/v1/Chassis/{}", chassis);
+                url.set_fragment(
+                    ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
+                        .to_string());
+                zone["@odata.id"] = std::move(url);
+                zone["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.FanZone";
+                config = &zone;
+            }
+
+            else if (intfPair.first == stepwiseConfigurationIface)
+            {
+                if (classPtr == nullptr)
+                {
+                    BMCWEB_LOG_ERROR("Pid Class Field illegal");
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                nlohmann::json& controller = stepwise[name];
+                config = &controller;
+                url.set_fragment(
+                    ("/Oem/OpenBmc/Fan/StepwiseControllers"_json_pointer / name)
+                        .to_string());
+                controller["@odata.id"] = std::move(url);
+                controller["@odata.type"] =
+                    "#OpenBMCManager.v1_0_0.Manager.StepwiseController";
+
+                controller["Direction"] = *classPtr;
+            }
+
+            // pid and fans are off the same configuration
+            else if (intfPair.first == pidConfigurationIface)
+            {
+                if (classPtr == nullptr)
+                {
+                    BMCWEB_LOG_ERROR("Pid Class Field illegal");
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                bool isFan = *classPtr == "fan";
+                nlohmann::json& element = isFan ? fans[name] : pids[name];
+                config = &element;
+                if (isFan)
+                {
+                    url.set_fragment(
+                        ("/Oem/OpenBmc/Fan/FanControllers"_json_pointer / name)
+                            .to_string());
+                    element["@odata.id"] = std::move(url);
+                    element["@odata.type"] =
+                        "#OpenBMCManager.v1_0_0.Manager.FanController";
+                }
+                else
+                {
+                    url.set_fragment(
+                        ("/Oem/OpenBmc/Fan/PidControllers"_json_pointer / name)
+                            .to_string());
+                    element["@odata.id"] = std::move(url);
+                    element["@odata.type"] =
+                        "#OpenBMCManager.v1_0_0.Manager.PidController";
+                }
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR("Unexpected configuration");
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            // used for making maps out of 2 vectors
+            const std::vector<double>* keys = nullptr;
+            const std::vector<double>* values = nullptr;
+
+            for (const auto& propertyPair : intfPair.second)
+            {
+                if (propertyPair.first == "Type" ||
+                    propertyPair.first == "Class" ||
+                    propertyPair.first == "Name" ||
+                    propertyPair.first == "AccumulateSetPoint")
+                {
+                    continue;
+                }
+
+                // zones
+                if (intfPair.first == pidZoneConfigurationIface)
+                {
+                    const double* ptr =
+                        std::get_if<double>(&propertyPair.second);
+                    if (ptr == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("Field Illegal {}",
+                                         propertyPair.first);
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    (*config)[propertyPair.first] = *ptr;
+                }
+
+                if (intfPair.first == stepwiseConfigurationIface)
+                {
+                    if (propertyPair.first == "Reading" ||
+                        propertyPair.first == "Output")
+                    {
+                        const std::vector<double>* ptr =
+                            std::get_if<std::vector<double>>(
+                                &propertyPair.second);
+
+                        if (ptr == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Field Illegal {}",
+                                             propertyPair.first);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        if (propertyPair.first == "Reading")
+                        {
+                            keys = ptr;
+                        }
+                        else
+                        {
+                            values = ptr;
+                        }
+                        if (keys != nullptr && values != nullptr)
+                        {
+                            if (keys->size() != values->size())
+                            {
+                                BMCWEB_LOG_ERROR(
+                                    "Reading and Output size don't match ");
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            nlohmann::json& steps = (*config)["Steps"];
+                            steps = nlohmann::json::array();
+                            for (size_t ii = 0; ii < keys->size(); ii++)
+                            {
+                                nlohmann::json::object_t step;
+                                step["Target"] = (*keys)[ii];
+                                step["Output"] = (*values)[ii];
+                                steps.emplace_back(std::move(step));
+                            }
+                        }
+                    }
+                    if (propertyPair.first == "NegativeHysteresis" ||
+                        propertyPair.first == "PositiveHysteresis")
+                    {
+                        const double* ptr =
+                            std::get_if<double>(&propertyPair.second);
+                        if (ptr == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Field Illegal {}",
+                                             propertyPair.first);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        (*config)[propertyPair.first] = *ptr;
+                    }
+                }
+
+                // pid and fans are off the same configuration
+                if (intfPair.first == pidConfigurationIface ||
+                    intfPair.first == stepwiseConfigurationIface)
+                {
+                    if (propertyPair.first == "Zones")
+                    {
+                        const std::vector<std::string>* inputs =
+                            std::get_if<std::vector<std::string>>(
+                                &propertyPair.second);
+
+                        if (inputs == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Zones Pid Field Illegal");
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        auto& data = (*config)[propertyPair.first];
+                        data = nlohmann::json::array();
+                        for (std::string itemCopy : *inputs)
+                        {
+                            dbus::utility::escapePathForDbus(itemCopy);
+                            nlohmann::json::object_t input;
+                            boost::urls::url managerUrl = boost::urls::format(
+                                "/redfish/v1/Managers/{}#{}",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME,
+                                ("/Oem/OpenBmc/Fan/FanZones"_json_pointer /
+                                 itemCopy)
+                                    .to_string());
+                            input["@odata.id"] = std::move(managerUrl);
+                            data.emplace_back(std::move(input));
+                        }
+                    }
+                    // todo(james): may never happen, but this
+                    // assumes configuration data referenced in the
+                    // PID config is provided by the same daemon, we
+                    // could add another loop to cover all cases,
+                    // but I'm okay kicking this can down the road a
+                    // bit
+
+                    else if (propertyPair.first == "Inputs" ||
+                             propertyPair.first == "Outputs")
+                    {
+                        auto& data = (*config)[propertyPair.first];
+                        const std::vector<std::string>* inputs =
+                            std::get_if<std::vector<std::string>>(
+                                &propertyPair.second);
+
+                        if (inputs == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Field Illegal {}",
+                                             propertyPair.first);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        data = *inputs;
+                    }
+                    else if (propertyPair.first == "SetPointOffset")
+                    {
+                        const std::string* ptr =
+                            std::get_if<std::string>(&propertyPair.second);
+
+                        if (ptr == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Field Illegal {}",
+                                             propertyPair.first);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        // translate from dbus to redfish
+                        if (*ptr == "WarningHigh")
+                        {
+                            (*config)["SetPointOffset"] =
+                                "UpperThresholdNonCritical";
+                        }
+                        else if (*ptr == "WarningLow")
+                        {
+                            (*config)["SetPointOffset"] =
+                                "LowerThresholdNonCritical";
+                        }
+                        else if (*ptr == "CriticalHigh")
+                        {
+                            (*config)["SetPointOffset"] =
+                                "UpperThresholdCritical";
+                        }
+                        else if (*ptr == "CriticalLow")
+                        {
+                            (*config)["SetPointOffset"] =
+                                "LowerThresholdCritical";
+                        }
+                        else
+                        {
+                            BMCWEB_LOG_ERROR("Value Illegal {}", *ptr);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    }
+                    // doubles
+                    else if (propertyPair.first == "FFGainCoefficient" ||
+                             propertyPair.first == "FFOffCoefficient" ||
+                             propertyPair.first == "ICoefficient" ||
+                             propertyPair.first == "ILimitMax" ||
+                             propertyPair.first == "ILimitMin" ||
+                             propertyPair.first == "PositiveHysteresis" ||
+                             propertyPair.first == "NegativeHysteresis" ||
+                             propertyPair.first == "OutLimitMax" ||
+                             propertyPair.first == "OutLimitMin" ||
+                             propertyPair.first == "PCoefficient" ||
+                             propertyPair.first == "SetPoint" ||
+                             propertyPair.first == "SlewNeg" ||
+                             propertyPair.first == "SlewPos")
+                    {
+                        const double* ptr =
+                            std::get_if<double>(&propertyPair.second);
+                        if (ptr == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR("Field Illegal {}",
+                                             propertyPair.first);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        (*config)[propertyPair.first] = *ptr;
+                    }
+                }
+            }
+        }
+    }
+}
+
 inline void asyncPopulatePid(
     const std::string& connection, const std::string& path,
     const std::string& currentProfile,
@@ -61,427 +469,8 @@ inline void asyncPopulatePid(
     sdbusplus::object_path objPath(path);
     dbus::utility::getManagedObjects(
         connection, objPath,
-        [asyncResp, currentProfile, supportedProfiles](
-            const boost::system::error_code& ec,
-            const dbus::utility::ManagedObjectType& managedObj) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("{}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            nlohmann::json& configRoot = asyncResp->res.jsonValue["Fan"];
-            nlohmann::json& fans = configRoot["FanControllers"];
-            fans["@odata.type"] =
-                "#OpenBMCManager.v1_0_0.Manager.FanControllers";
-            fans["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/FanControllers",
-                BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            nlohmann::json& pids = configRoot["PidControllers"];
-            pids["@odata.type"] =
-                "#OpenBMCManager.v1_0_0.Manager.PidControllers";
-            pids["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/PidControllers",
-                BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            nlohmann::json& stepwise = configRoot["StepwiseControllers"];
-            stepwise["@odata.type"] =
-                "#OpenBMCManager.v1_0_0.Manager.StepwiseControllers";
-            stepwise["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/StepwiseControllers",
-                BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            nlohmann::json& zones = configRoot["FanZones"];
-            zones["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan/FanZones",
-                BMCWEB_REDFISH_MANAGER_URI_NAME);
-            zones["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.FanZones";
-            configRoot["@odata.id"] =
-                boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc/Fan",
-                                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-            configRoot["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager.Fan";
-            configRoot["Profile@Redfish.AllowableValues"] = supportedProfiles;
-
-            if (!currentProfile.empty())
-            {
-                configRoot["Profile"] = currentProfile;
-            }
-            BMCWEB_LOG_DEBUG("profile = {} !", currentProfile);
-
-            for (const auto& pathPair : managedObj)
-            {
-                for (const auto& intfPair : pathPair.second)
-                {
-                    if (intfPair.first != pidConfigurationIface &&
-                        intfPair.first != pidZoneConfigurationIface &&
-                        intfPair.first != stepwiseConfigurationIface)
-                    {
-                        continue;
-                    }
-
-                    std::string name;
-
-                    for (const std::pair<std::string,
-                                         dbus::utility::DbusVariantType>&
-                             propPair : intfPair.second)
-                    {
-                        if (propPair.first == "Name")
-                        {
-                            const std::string* namePtr =
-                                std::get_if<std::string>(&propPair.second);
-                            if (namePtr == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR("Pid Name Field illegal");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            name = *namePtr;
-                            dbus::utility::escapePathForDbus(name);
-                        }
-                        else if (propPair.first == "Profiles")
-                        {
-                            const std::vector<std::string>* profiles =
-                                std::get_if<std::vector<std::string>>(
-                                    &propPair.second);
-                            if (profiles == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR("Pid Profiles Field illegal");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            if (std::ranges::find(*profiles, currentProfile) ==
-                                profiles->end())
-                            {
-                                BMCWEB_LOG_INFO(
-                                    "{} not supported in current profile",
-                                    name);
-                                continue;
-                            }
-                        }
-                    }
-                    nlohmann::json* config = nullptr;
-                    const std::string* classPtr = nullptr;
-
-                    for (const std::pair<std::string,
-                                         dbus::utility::DbusVariantType>&
-                             propPair : intfPair.second)
-                    {
-                        if (propPair.first == "Class")
-                        {
-                            classPtr =
-                                std::get_if<std::string>(&propPair.second);
-                        }
-                    }
-
-                    boost::urls::url url(
-                        boost::urls::format("/redfish/v1/Managers/{}",
-                                            BMCWEB_REDFISH_MANAGER_URI_NAME));
-                    if (intfPair.first == pidZoneConfigurationIface)
-                    {
-                        sdbusplus::object_path pidPath(pathPair.first.str);
-                        std::string chassis = pidPath.filename();
-                        if (chassis.empty())
-                        {
-                            chassis = "#IllegalValue";
-                        }
-                        nlohmann::json& zone = zones[name];
-                        zone["Chassis"]["@odata.id"] = boost::urls::format(
-                            "/redfish/v1/Chassis/{}", chassis);
-                        url.set_fragment(
-                            ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
-                                .to_string());
-                        zone["@odata.id"] = std::move(url);
-                        zone["@odata.type"] =
-                            "#OpenBMCManager.v1_0_0.Manager.FanZone";
-                        config = &zone;
-                    }
-
-                    else if (intfPair.first == stepwiseConfigurationIface)
-                    {
-                        if (classPtr == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR("Pid Class Field illegal");
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-
-                        nlohmann::json& controller = stepwise[name];
-                        config = &controller;
-                        url.set_fragment(
-                            ("/Oem/OpenBmc/Fan/StepwiseControllers"_json_pointer /
-                             name)
-                                .to_string());
-                        controller["@odata.id"] = std::move(url);
-                        controller["@odata.type"] =
-                            "#OpenBMCManager.v1_0_0.Manager.StepwiseController";
-
-                        controller["Direction"] = *classPtr;
-                    }
-
-                    // pid and fans are off the same configuration
-                    else if (intfPair.first == pidConfigurationIface)
-                    {
-                        if (classPtr == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR("Pid Class Field illegal");
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        bool isFan = *classPtr == "fan";
-                        nlohmann::json& element =
-                            isFan ? fans[name] : pids[name];
-                        config = &element;
-                        if (isFan)
-                        {
-                            url.set_fragment(
-                                ("/Oem/OpenBmc/Fan/FanControllers"_json_pointer /
-                                 name)
-                                    .to_string());
-                            element["@odata.id"] = std::move(url);
-                            element["@odata.type"] =
-                                "#OpenBMCManager.v1_0_0.Manager.FanController";
-                        }
-                        else
-                        {
-                            url.set_fragment(
-                                ("/Oem/OpenBmc/Fan/PidControllers"_json_pointer /
-                                 name)
-                                    .to_string());
-                            element["@odata.id"] = std::move(url);
-                            element["@odata.type"] =
-                                "#OpenBMCManager.v1_0_0.Manager.PidController";
-                        }
-                    }
-                    else
-                    {
-                        BMCWEB_LOG_ERROR("Unexpected configuration");
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-
-                    // used for making maps out of 2 vectors
-                    const std::vector<double>* keys = nullptr;
-                    const std::vector<double>* values = nullptr;
-
-                    for (const auto& propertyPair : intfPair.second)
-                    {
-                        if (propertyPair.first == "Type" ||
-                            propertyPair.first == "Class" ||
-                            propertyPair.first == "Name" ||
-                            propertyPair.first == "AccumulateSetPoint")
-                        {
-                            continue;
-                        }
-
-                        // zones
-                        if (intfPair.first == pidZoneConfigurationIface)
-                        {
-                            const double* ptr =
-                                std::get_if<double>(&propertyPair.second);
-                            if (ptr == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR("Field Illegal {}",
-                                                 propertyPair.first);
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            (*config)[propertyPair.first] = *ptr;
-                        }
-
-                        if (intfPair.first == stepwiseConfigurationIface)
-                        {
-                            if (propertyPair.first == "Reading" ||
-                                propertyPair.first == "Output")
-                            {
-                                const std::vector<double>* ptr =
-                                    std::get_if<std::vector<double>>(
-                                        &propertyPair.second);
-
-                                if (ptr == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR("Field Illegal {}",
-                                                     propertyPair.first);
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-
-                                if (propertyPair.first == "Reading")
-                                {
-                                    keys = ptr;
-                                }
-                                else
-                                {
-                                    values = ptr;
-                                }
-                                if (keys != nullptr && values != nullptr)
-                                {
-                                    if (keys->size() != values->size())
-                                    {
-                                        BMCWEB_LOG_ERROR(
-                                            "Reading and Output size don't match ");
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    nlohmann::json& steps = (*config)["Steps"];
-                                    steps = nlohmann::json::array();
-                                    for (size_t ii = 0; ii < keys->size(); ii++)
-                                    {
-                                        nlohmann::json::object_t step;
-                                        step["Target"] = (*keys)[ii];
-                                        step["Output"] = (*values)[ii];
-                                        steps.emplace_back(std::move(step));
-                                    }
-                                }
-                            }
-                            if (propertyPair.first == "NegativeHysteresis" ||
-                                propertyPair.first == "PositiveHysteresis")
-                            {
-                                const double* ptr =
-                                    std::get_if<double>(&propertyPair.second);
-                                if (ptr == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR("Field Illegal {}",
-                                                     propertyPair.first);
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                (*config)[propertyPair.first] = *ptr;
-                            }
-                        }
-
-                        // pid and fans are off the same configuration
-                        if (intfPair.first == pidConfigurationIface ||
-                            intfPair.first == stepwiseConfigurationIface)
-                        {
-                            if (propertyPair.first == "Zones")
-                            {
-                                const std::vector<std::string>* inputs =
-                                    std::get_if<std::vector<std::string>>(
-                                        &propertyPair.second);
-
-                                if (inputs == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR("Zones Pid Field Illegal");
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                auto& data = (*config)[propertyPair.first];
-                                data = nlohmann::json::array();
-                                for (std::string itemCopy : *inputs)
-                                {
-                                    dbus::utility::escapePathForDbus(itemCopy);
-                                    nlohmann::json::object_t input;
-                                    boost::urls::url managerUrl =
-                                        boost::urls::format(
-                                            "/redfish/v1/Managers/{}#{}",
-                                            BMCWEB_REDFISH_MANAGER_URI_NAME,
-                                            ("/Oem/OpenBmc/Fan/FanZones"_json_pointer /
-                                             itemCopy)
-                                                .to_string());
-                                    input["@odata.id"] = std::move(managerUrl);
-                                    data.emplace_back(std::move(input));
-                                }
-                            }
-                            // todo(james): may never happen, but this
-                            // assumes configuration data referenced in the
-                            // PID config is provided by the same daemon, we
-                            // could add another loop to cover all cases,
-                            // but I'm okay kicking this can down the road a
-                            // bit
-
-                            else if (propertyPair.first == "Inputs" ||
-                                     propertyPair.first == "Outputs")
-                            {
-                                auto& data = (*config)[propertyPair.first];
-                                const std::vector<std::string>* inputs =
-                                    std::get_if<std::vector<std::string>>(
-                                        &propertyPair.second);
-
-                                if (inputs == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR("Field Illegal {}",
-                                                     propertyPair.first);
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                data = *inputs;
-                            }
-                            else if (propertyPair.first == "SetPointOffset")
-                            {
-                                const std::string* ptr =
-                                    std::get_if<std::string>(
-                                        &propertyPair.second);
-
-                                if (ptr == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR("Field Illegal {}",
-                                                     propertyPair.first);
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                // translate from dbus to redfish
-                                if (*ptr == "WarningHigh")
-                                {
-                                    (*config)["SetPointOffset"] =
-                                        "UpperThresholdNonCritical";
-                                }
-                                else if (*ptr == "WarningLow")
-                                {
-                                    (*config)["SetPointOffset"] =
-                                        "LowerThresholdNonCritical";
-                                }
-                                else if (*ptr == "CriticalHigh")
-                                {
-                                    (*config)["SetPointOffset"] =
-                                        "UpperThresholdCritical";
-                                }
-                                else if (*ptr == "CriticalLow")
-                                {
-                                    (*config)["SetPointOffset"] =
-                                        "LowerThresholdCritical";
-                                }
-                                else
-                                {
-                                    BMCWEB_LOG_ERROR("Value Illegal {}", *ptr);
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                            }
-                            // doubles
-                            else if (propertyPair.first ==
-                                         "FFGainCoefficient" ||
-                                     propertyPair.first == "FFOffCoefficient" ||
-                                     propertyPair.first == "ICoefficient" ||
-                                     propertyPair.first == "ILimitMax" ||
-                                     propertyPair.first == "ILimitMin" ||
-                                     propertyPair.first ==
-                                         "PositiveHysteresis" ||
-                                     propertyPair.first ==
-                                         "NegativeHysteresis" ||
-                                     propertyPair.first == "OutLimitMax" ||
-                                     propertyPair.first == "OutLimitMin" ||
-                                     propertyPair.first == "PCoefficient" ||
-                                     propertyPair.first == "SetPoint" ||
-                                     propertyPair.first == "SlewNeg" ||
-                                     propertyPair.first == "SlewPos")
-                            {
-                                const double* ptr =
-                                    std::get_if<double>(&propertyPair.second);
-                                if (ptr == nullptr)
-                                {
-                                    BMCWEB_LOG_ERROR("Field Illegal {}",
-                                                     propertyPair.first);
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                (*config)[propertyPair.first] = *ptr;
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        std::bind_front(&afterAsyncPopulatePid, asyncResp, currentProfile,
+                        supportedProfiles));
 }
 
 enum class CreatePIDRet
