@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cb3f7f2_d515f5e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-08T18:44:43Z",
+      "side": 1,
+      "message": "Under the assumption that that would improve things, I\u0027ve updated the patch above with that behavior.  PTAL and integrate into your patch if you think it\u0027s correct.  I believe the only thing left to do is to update unit tests to test the range of all timezones instead of just UTC.",
+      "parentUuid": "55574191_af617976",
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfa54be2_cf000a1f",
         "filename": "redfish-core/include/utils/time_utils_internal.hpp",
         "patchSetId": 5
