@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64283e8a_e47905f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:12:54Z",
+      "side": 1,
+      "message": "Thanks for the catch. I\u0027ve double-checked the commit body and the only line exceeding 72 char is the lore.kernel.org URL on line 48(82 chars). Please check the following logs:\n\n➜ bmcweb git:(-) git log -1 --format\u003d%B | awk \u0027length \u003e 72 {print NR\": (\"length\") \" $0}\u0027\n\n48: (82) https://lore.kernel.org/openbmc/20251121-msx4-v1-0-fc0118b666c1@nvidia.com/T/#t```\n\nSince breaking the URL would make it non-functional for many terminal users, I kept it on oneline as an exception. Let me know if you\u0027d prefer me to try a different formatting for that link!",
+      "parentUuid": "99915cc5_2e1616d5",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "864f4e1e_b6f17764",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2026-03-25T19:07:52Z",
       "side": 1,
       "message": "Can you get added to the nvidia CCLA and Gerrit Approved list?",
+      "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41aea12c_60f539bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:12:54Z",
+      "side": 1,
+      "message": "Thanks for the reminding.\nI have been added to the list and able to contribute.",
+      "parentUuid": "864f4e1e_b6f17764",
       "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7a045401_b282f774",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:12:54Z",
+      "side": 1,
+      "message": "Hi @gunnar@gmills.xyz, I have modified the implementation so that it will now logs as an error message.",
+      "parentUuid": "a4cabbfe_7e6de506",
+      "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dfb835c3_c5f48b62",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
@@ -71,6 +131,24 @@
       "writtenOn": "2026-03-25T19:07:52Z",
       "side": 1,
       "message": "ERROR ? and add the ec?",
+      "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ad03e46_530991ee",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:12:54Z",
+      "side": 1,
+      "message": "Hi @gunnar@gmills.xyz, I have modified the implementation so that it will now logs as an error message.",
+      "parentUuid": "dfb835c3_c5f48b62",
       "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

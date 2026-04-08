@@ -22,6 +22,30 @@
       },
       "revId": "793bce1895f015ae27a0ce5fa4c75e38c2dadfd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b36101fd_ba054037",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:12:54Z",
+      "side": 0,
+      "message": "Hi @gunnar@gmills.xyz, I have separate the refactoring into another commit as you suggested. Please check at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88781/1",
+      "parentUuid": "f289a852_a56c51a6",
+      "range": {
+        "startLine": 685,
+        "startChar": 0,
+        "endLine": 705,
+        "endChar": 11
+      },
+      "revId": "793bce1895f015ae27a0ce5fa4c75e38c2dadfd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
