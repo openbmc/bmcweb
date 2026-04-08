@@ -339,6 +339,7 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
 
     // Oldest logs are in the last file, so start there and loop
     // backwards
+    event_log::UniqueEntryIDState state;
     for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend(); it++)
     {
         std::ifstream logStream(*it);
@@ -351,7 +352,7 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
         while (std::getline(logStream, logEntry))
         {
             std::string idStr;
-            if (!event_log::getUniqueEntryID(logEntry, idStr))
+            if (!event_log::getUniqueEntryID(state, logEntry, idStr))
             {
                 continue;
             }
@@ -418,6 +419,7 @@ inline void handleSystemsAndManagersLogServiceEventLogEntriesGet(
 
     // Oldest logs are in the last file, so start there and loop
     // backwards
+    event_log::UniqueEntryIDState state;
     for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend(); it++)
     {
         std::ifstream logStream(*it);
@@ -430,7 +432,7 @@ inline void handleSystemsAndManagersLogServiceEventLogEntriesGet(
         while (std::getline(logStream, logEntry))
         {
             std::string idStr;
-            if (!event_log::getUniqueEntryID(logEntry, idStr))
+            if (!event_log::getUniqueEntryID(state, logEntry, idStr))
             {
                 continue;
             }
