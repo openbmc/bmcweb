@@ -104,6 +104,24 @@
       "parentUuid": "8fd5be58_9e061c54",
       "revId": "e3e803e04655364b41731874513305a37dd7ed75",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c986c940_234354be",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-08T23:23:18Z",
+      "side": 1,
+      "message": "THe rebase button in gerrit and I don\u0027t get along.  Its back to being correct again.",
+      "parentUuid": "2c800d60_bb39044a",
+      "revId": "e3e803e04655364b41731874513305a37dd7ed75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
