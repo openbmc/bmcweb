@@ -71,6 +71,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d98ba29_dd3ab8f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-08T15:47:11Z",
+      "side": 1,
+      "message": "My main concern about your implementation - you got rid of DateFormat enum and accept const std::chrono::time_zone* in \"getDateTimeUint*\" functions, developers who need to call one of these function with non default TZ may use `std::chrono::current_zone()` at the call site without properly handling exceptions. Yes, this might be caught on review, but this introduces human factor, so it might be safer to keep the DateFormat enum in place, use \"DateFormat::LocalTimezone\" as default and keep TZ retrieval logic in one place with the error handing. Otherwise LGTM.\n\nWDYT?",
+      "parentUuid": "8161ed87_da20284f",
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2a20016_e411c67b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-08T15:47:11Z",
+      "side": 1,
+      "message": "Sorry, it was a long holiday in the UK and I was AFK. Looked now.",
+      "parentUuid": "a04b9872_5af7b234",
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfa54be2_cf000a1f",
         "filename": "redfish-core/include/utils/time_utils_internal.hpp",
         "patchSetId": 5
@@ -185,6 +221,30 @@
       "writtenOn": "2026-04-03T18:46:47Z",
       "side": 1,
       "message": "Why did we change the namespace here?",
+      "range": {
+        "startLine": 178,
+        "startChar": 5,
+        "endLine": 178,
+        "endChar": 25
+      },
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2baa2e39_6d4b9cc8",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-08T15:47:11Z",
+      "side": 1,
+      "message": "I do not understand this, it\u0027s a new test we did not change the namespace.",
+      "parentUuid": "c17700b1_6c513605",
       "range": {
         "startLine": 178,
         "startChar": 5,
