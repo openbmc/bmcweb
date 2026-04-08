@@ -66,6 +66,8 @@ void FilesystemLogWatcher::readEventLogsFromFile()
     // Get the read pointer to the next log to be read.
     logStream.seekg(redfishLogFilePosition);
 
+    event_log::UniqueEntryIDState state;
+
     while (std::getline(logStream, logEntry))
     {
         BMCWEB_LOG_DEBUG("Redfish log file: found new event log entry");
@@ -73,7 +75,7 @@ void FilesystemLogWatcher::readEventLogsFromFile()
         redfishLogFilePosition = logStream.tellg();
 
         std::string idStr;
-        if (!event_log::getUniqueEntryID(logEntry, idStr))
+        if (!event_log::getUniqueEntryID(state, logEntry, idStr))
         {
             BMCWEB_LOG_DEBUG(
                 "Redfish log file: could not get unique entry id for {}",
