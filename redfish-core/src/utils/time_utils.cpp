@@ -319,7 +319,8 @@ std::string toISO8061ExtendedStr(
 // Note that the maximum supported date is 9999-12-31T23:59:59+00:00, if
 // the given |secondsSinceEpoch| is too large, we return the maximum supported
 // date.
-std::string getDateTimeUint(uint64_t secondsSinceEpoch, std::string_view timezoneName)
+std::string getDateTimeUint(uint64_t secondsSinceEpoch,
+                            std::string_view timezoneName)
 {
     using DurationType = std::chrono::duration<uint64_t>;
     DurationType sinceEpoch(secondsSinceEpoch);
@@ -347,12 +348,13 @@ std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch,
     return details::toISO8061ExtendedStr(sinceEpoch, timezoneName);
 }
 
-std::string getDateTimeStdtime(std::time_t secondsSinceEpoch,
+std::string getDateTimeStdtime(std::chrono::system_clock::time_point timePoint,
                                std::string_view timezoneName)
 {
-    using DurationType = std::chrono::duration<std::time_t>;
-    DurationType sinceEpoch(secondsSinceEpoch);
-    return details::toISO8061ExtendedStr(sinceEpoch, timezoneName);
+    // Convert to seconds
+    auto secondsDuration =
+        std::chrono::floor<std::chrono::seconds>(timePoint.time_since_epoch());
+    return details::toISO8061ExtendedStr(secondsDuration, timezoneName);
 }
 
 /**
