@@ -2,6 +2,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include "utils/time_utils.hpp"
+
 #include <cstdint>
 #include <span>
 #include <string>
@@ -14,7 +16,14 @@ namespace redfish
 namespace event_log
 {
 
-bool getUniqueEntryID(const std::string& logEntry, std::string& entryID);
+struct UniqueEntryIDState
+{
+    time_utils::usSinceEpoch prevTs = time_utils::usSinceEpoch::min();
+    int index = 0;
+};
+
+bool getUniqueEntryID(UniqueEntryIDState& state, const std::string& logEntry,
+                      std::string& entryID);
 
 int getEventLogParams(const std::string& logEntry, std::string& timestamp,
                       std::string& messageID,
