@@ -6,9 +6,9 @@ This component attempts to be a "do everything" embedded webserver for OpenBMC.
 
 The webserver implements a few distinct interfaces:
 
-- DBus event websocket. Allows registering on changes to specific dbus paths,
+- DBus event websocket. Allows registering for changes to specific dbus paths,
   properties, and will send an event from the websocket if those filters match.
-- OpenBMC DBus REST api. Allows direct, low interference, high fidelity access
+- OpenBMC DBus REST API. Allows direct, low interference, high fidelity access
   to dbus and the objects it represents.
 - Serial: A serial websocket for interacting with the host serial console
   through websockets.
@@ -19,8 +19,8 @@ The webserver implements a few distinct interfaces:
 ## Protocols
 
 bmcweb at a protocol level supports http and https. TLS is supported through
-OpenSSL. Http1 and http2 are supported using ALPN registration for TLS
-connections and h2c upgrade header for http connections.
+OpenSSL. HTTP/1 and HTTP/2 are supported using ALPN registration for TLS
+connections and H2C upgrade header for http connections.
 
 ## AuthX
 
@@ -42,7 +42,7 @@ to libpam, to allow for customization in authentication implementations.
 ### Authorization
 
 All authorization in bmcweb is determined at routing time, and per route, and
-conform to the Redfish PrivilegeRegistry.
+conforms to the Redfish PrivilegeRegistry.
 
 \*Note: Non-Redfish functions are mapped to the closest equivalent Redfish
 privilege level.
@@ -51,7 +51,7 @@ privilege level.
 
 bmcweb is configured per the
 [meson build files](https://mesonbuild.com/Build-options.html). Available
-options are documented in `meson_options.txt`
+options are documented in `meson.options` (`meson_options.txt` for versions of meson before 1.1).
 
 ## Compile bmcweb with default options
 
@@ -68,7 +68,7 @@ mentioned in `bmcweb/subprojects`.
 
 bmcweb relies on some on-system data for storage of persistent data that is
 internal to the process. Details on the exact data stored and when it is
-read/written can seen from the `persistent_data` namespace.
+read/written can be seen from the `persistent_data` namespace.
 
 ## Temporary files
 
@@ -79,7 +79,7 @@ restart via the `TemporaryFileSystem` directive in the service file.
 ## TLS certificate generation
 
 When SSL support is enabled and a usable certificate is not found, bmcweb will
-generate a self-signed a certificate before launching the server. Please see the
+generate a self-signed certificate before launching the server. Please see the
 bmcweb source code for details on the parameters this certificate is built with.
 
 ## Compression
