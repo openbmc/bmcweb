@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39d98dfc_1702f92b",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-04-08T19:38:15Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ff50b492_352e12bc",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "2dd635ade729560e3cc172e48cc4f37d27abf819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63e13475_0b5e4abe",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Sounds good, I\u0027ll remove the text and parentheses.",
       "parentUuid": "63e13475_0b5e4abe",
+      "range": {
+        "startLine": 54,
+        "startChar": 42,
+        "endLine": 54,
+        "endChar": 97
+      },
+      "revId": "2dd635ade729560e3cc172e48cc4f37d27abf819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d0c767_119be894",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-04-08T19:38:15Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "59262580_41c95052",
       "range": {
         "startLine": 54,
         "startChar": 42,
