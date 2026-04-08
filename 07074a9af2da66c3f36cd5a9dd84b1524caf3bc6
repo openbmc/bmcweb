@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97e7a21f_e334d6c5",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-08T17:03:26Z",
+      "side": 1,
+      "message": "I\u0027m wrong here, it\u0027s only called from the subscription.cpp.",
+      "parentUuid": "1af3ae61_ce3e916d",
+      "revId": "07074a9af2da66c3f36cd5a9dd84b1524caf3bc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a902f3d_36211529",
