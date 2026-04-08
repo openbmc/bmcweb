@@ -16,6 +16,24 @@
       "message": "Hi @janeta@us.ibm.com\n\nPS18 restores the exact same code and commit message as PS16(already + 1). The +1 was removed because I accidentally pushed a related chain update (PS17), which Gerrit classified as REWORK and cleared all votes. This has now been reverted back to PS16.\n\nCould you please re-apply your Code-Review+1? Sorry for the churn.",
       "revId": "b065f42e5a386b42243328731af44333bc26d228",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39af7958_915be5a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-08T15:42:57Z",
+      "side": 1,
+      "message": "No worries, I\u0027ve confirmed and given a +1 again.",
+      "parentUuid": "f3961ed9_91f31541",
+      "revId": "b065f42e5a386b42243328731af44333bc26d228",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
