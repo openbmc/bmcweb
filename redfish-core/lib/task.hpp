@@ -110,9 +110,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                            const std::shared_ptr<TaskData>&)>&& handler,
         const std::string& matchIn, size_t idx) :
         callback(std::move(handler)), matchStr(matchIn), index(idx),
-        startTime(std::chrono::system_clock::to_time_t(
-            std::chrono::system_clock::now())),
-        status("OK"), state("Running"), messages(nlohmann::json::array()),
+        startTime(std::chrono::system_clock::now()), status("OK"),
+        state("Running"), messages(nlohmann::json::array()),
         timer(crow::connections::systemBus->get_io_context())
 
     {}
@@ -221,8 +220,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
     void finishTask()
     {
-        endTime = std::chrono::system_clock::to_time_t(
-            std::chrono::system_clock::now());
+        endTime = std::chrono::system_clock::now();
     }
 
     void extendTimer(const std::chrono::seconds& timeout)
@@ -352,13 +350,13 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         callback;
     std::string matchStr;
     size_t index;
-    time_t startTime;
+    std::chrono::system_clock::time_point startTime;
     std::string status;
     std::string state;
     nlohmann::json messages;
     boost::asio::steady_timer timer;
     std::unique_ptr<sdbusplus::bus::match_t> match;
-    std::optional<time_t> endTime;
+    std::optional<std::chrono::system_clock::time_point> endTime;
     std::optional<Payload> payload;
     bool gave204 = false;
     int percentComplete = 0;

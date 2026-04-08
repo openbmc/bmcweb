@@ -6,7 +6,6 @@
 
 #include <chrono>
 #include <cstdint>
-#include <ctime>
 #include <optional>
 #include <ratio>
 #include <string>
@@ -52,7 +51,7 @@ std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch,
 // Returns the tz-aware formatted date time string with microsecond precision
 std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch,
                               std::string_view timezoneName = "");
-std::string getDateTimeStdtime(std::time_t secondsSinceEpoch,
+std::string getDateTimeStdtime(std::chrono::system_clock::time_point timePoint,
                                std::string_view timezoneName = "");
 
 /**
