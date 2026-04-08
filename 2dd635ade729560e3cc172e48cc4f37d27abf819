@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff50b492_352e12bc",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-04-08T18:44:25Z",
+      "side": 1,
+      "message": "Yeah I shouldn\u0027t have been capitalized. I\u0027ll go ahead and revert this.",
+      "parentUuid": "98f50541_9bf032b6",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "2dd635ade729560e3cc172e48cc4f37d27abf819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "63e13475_0b5e4abe",
         "filename": "README.md",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2026-04-08T17:39:23Z",
       "side": 1,
       "message": "no need to put the text in parens.  Meson can document their behavior just fine.",
+      "range": {
+        "startLine": 54,
+        "startChar": 42,
+        "endLine": 54,
+        "endChar": 97
+      },
+      "revId": "2dd635ade729560e3cc172e48cc4f37d27abf819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59262580_41c95052",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-04-08T18:44:25Z",
+      "side": 1,
+      "message": "Sounds good, I\u0027ll remove the text and parentheses.",
+      "parentUuid": "63e13475_0b5e4abe",
       "range": {
         "startLine": 54,
         "startChar": 42,
