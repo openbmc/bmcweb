@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55574191_af617976",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-08T17:07:47Z",
+      "side": 1,
+      "message": "\u003e My main concern about your implementation - you got rid of DateFormat enum\n\nTo be clear, I did this so we could unit test it across multiple timezones.  The UTC/localtime enum didn\u0027t let us unit test across all timezones, and didn\u0027t give us the ability to test localtime at all, because we don\u0027t know what timezone the system running the unit tests is in.\n\n\u003e and accept const std::chrono::time_zone* in \"getDateTimeUint*\" functions, developers who need to call one of these function with non default TZ may use `std::chrono::current_zone()` at the call site without properly handling exceptions.\n\nWhile I agree it\u0027s a potential for issues, I don\u0027t have control of the std library implementation.\n\n\u003e Yes, this might be caught on review, but this introduces human factor, so it might be safer to keep the DateFormat enum in place, use \"DateFormat::LocalTimezone\" as default and keep TZ retrieval logic in one place with the error handing. Otherwise LGTM.\n\u003e \n\u003e WDYT?\n\nWhat if we changed that argument to just passing in a timezone string that\u0027s then looked up internally?  That way we can unit test across a bunch of timezones, while still keeping the current_zone() call internal to the implementation?\n\nThe intent with what\u0027s there is that only unit tests should be explicitly setting a timezone",
+      "parentUuid": "4d98ba29_dd3ab8f5",
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfa54be2_cf000a1f",
         "filename": "redfish-core/include/utils/time_utils_internal.hpp",
         "patchSetId": 5
@@ -245,6 +263,30 @@
       "side": 1,
       "message": "I do not understand this, it\u0027s a new test we did not change the namespace.",
       "parentUuid": "c17700b1_6c513605",
+      "range": {
+        "startLine": 178,
+        "startChar": 5,
+        "endLine": 178,
+        "endChar": 25
+      },
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "424290a3_a243e264",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-08T17:07:47Z",
+      "side": 1,
+      "message": "This file is a mess.  Arguably by convention all of these should be TimeUtils, but I can clean that up later.",
+      "parentUuid": "2baa2e39_6d4b9cc8",
       "range": {
         "startLine": 178,
         "startChar": 5,
