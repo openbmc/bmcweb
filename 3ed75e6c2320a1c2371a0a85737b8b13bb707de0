@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "638b2527_9cda0c2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:04:53Z",
+      "side": 1,
+      "message": "I have tested the commit message with the local CI test and it seems to have no alert regarding its formatting.\n\nPlease enlighten me if there is any part that I have missed.\nThanks!",
+      "parentUuid": "48c06af4_a1e919cb",
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edf826c5_a75879c5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-31T17:24:03Z",
       "side": 1,
       "message": "Can someone from Nvidia add you to their CCLA and Gerrit approved list?",
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc82abc2_c71111de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:04:53Z",
+      "side": 1,
+      "message": "I was just added to the CCLA and the Gerrit approved list.\nThanks for reminding!",
+      "parentUuid": "edf826c5_a75879c5",
       "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "401b5afd_db620b1c",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:04:53Z",
+      "side": 1,
+      "message": "I have resolved the merge conflict. \nPlease check at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88781/3/test/meson.build\n\nAppreciated for your noticing!",
+      "parentUuid": "99b43503_e363dfa7",
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40e123b0_6ce144af",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
@@ -65,6 +119,30 @@
       "writtenOn": "2026-03-31T16:55:53Z",
       "side": 1,
       "message": "Can we unit test this code?",
+      "range": {
+        "startLine": 677,
+        "startChar": 12,
+        "endLine": 677,
+        "endChar": 41
+      },
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaa7a1e8_1c9345ea",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-08T10:04:53Z",
+      "side": 1,
+      "message": "I was just added to the Gerrit approval list and I have triggered the CI test again.\nPlease check the CI test result as below.",
+      "parentUuid": "40e123b0_6ce144af",
       "range": {
         "startLine": 677,
         "startChar": 12,
