@@ -1745,6 +1745,8 @@ inline void setBootModeOrSource(
 }
 
 /**
+         addSourcesList](const boost::system::error_code& ec,
+                if (addSourcesList)
  * @brief Sets Boot source override properties.
  *
  * @param[in] asyncResp  Shared pointer for generating response message.
