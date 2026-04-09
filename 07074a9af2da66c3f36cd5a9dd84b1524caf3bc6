@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3da3bd86_c4fc205e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-09T15:15:24Z",
+      "side": 1,
+      "message": "Please review the redfish checklist.  At a minimum you\u0027ve missed both the testing requirement and the documentation requirement for your newly added properties.",
+      "revId": "07074a9af2da66c3f36cd5a9dd84b1524caf3bc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1af3ae61_ce3e916d",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 7
