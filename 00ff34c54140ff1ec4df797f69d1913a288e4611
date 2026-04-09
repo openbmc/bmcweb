@@ -179,6 +179,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3497b9c3_ee230543",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-09T18:00:07Z",
+      "side": 1,
+      "message": "The existing unit tests should be good, we will just want to loop all the existing asserts over the range of {UTC, +14 (max), -12 (min)} timezones to make sure we get the expected result for all max/min ranges.\n\nGreat, once that\u0027s done, I suspect this can merge.",
+      "parentUuid": "b75bc9fb_6a2da55d",
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfa54be2_cf000a1f",
         "filename": "redfish-core/include/utils/time_utils_internal.hpp",
         "patchSetId": 5
