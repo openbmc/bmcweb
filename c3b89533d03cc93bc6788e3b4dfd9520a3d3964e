@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15572286_e5329c78",
+        "filename": "docs/COMMON_ERRORS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-09T18:54:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2db9d1fc_59ad72f2",
+      "revId": "c3b89533d03cc93bc6788e3b4dfd9520a3d3964e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7fb1d4e_212920df",
