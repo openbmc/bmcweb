@@ -122,6 +122,24 @@
       "parentUuid": "2c800d60_bb39044a",
       "revId": "e3e803e04655364b41731874513305a37dd7ed75",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d14df3a_df27e112",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-09T13:43:51Z",
+      "side": 1,
+      "message": "😂",
+      "parentUuid": "c986c940_234354be",
+      "revId": "e3e803e04655364b41731874513305a37dd7ed75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
