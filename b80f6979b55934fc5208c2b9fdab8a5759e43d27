@@ -157,6 +157,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5dd5e0a2_a878fb06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-09T16:10:24Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz - i believe the matter has been conclusively resolved in the specification forum.\n\nhttps://redfishforum.com/thread/1276/clarification-uri-redfish-resources-inventory\n\nIf you disagree with it, please re-open this but i would also like to encourage you to **reply on the linked forum thread** in that case.",
+      "parentUuid": "3b9d8384_80196b53",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4f3cdc8a_269c9706",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -185,6 +209,24 @@
       "writtenOn": "2026-03-31T14:55:12Z",
       "side": 1,
       "message": "Multi Chassis !\u003d Multi Computer system..",
+      "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e8b21c_b242b56f",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-09T16:10:24Z",
+      "side": 1,
+      "message": "Yes, i just needed a way to opt into that code path and using the experimental option seemed like a good idea to me.\n\nSince it looks like separating multi-host option from fan inventory rework is preferred, i have gone another route in the latest patchset which does not branch on `BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM` anymore.\n\nThanks again for looking into this 👍",
+      "parentUuid": "03c738bc_6a2ae473",
       "revId": "b80f6979b55934fc5208c2b9fdab8a5759e43d27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
