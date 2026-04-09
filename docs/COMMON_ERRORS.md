@@ -1,4 +1,4 @@
-# Commonly recurring errors in bmcweb
+#Commonly recurring errors in bmcweb
 
 What follows is a list of common errors that new users to bmcweb tend to make
 when operating within its bounds for the first time. If this is your first time
@@ -12,30 +12,35 @@ multiple times.
 ## 1. Directly dereferencing a pointer without checking for validity first
 
 ```cpp
-int myBadMethod(const nlohmann::json& j){
+int myBadMethod(const nlohmann::json& j)
+{
     const int* myPtr = j.get_if<int>();
     return *myPtr;
 }
 ```
 
-This pointer is not guaranteed to be filled, and could be a null dereference.
+    This pointer is not guaranteed to be filled,
+    and could be a null dereference.
 
-## 2. String views aren't null terminated
+        ##2. String views aren't null terminated
 
-```cpp
-int getIntFromString(std::string_view s){
+```cpp int
+        getIntFromString(std::string_view s)
+{
     return std::atoi(s.data());
 }
 ```
 
-This will give the right answer much of the time, but has the possibility to
-fail when `string_view` is not null terminated. Use `from_chars` instead, which
-takes both a pointer and a length
+    This will give the right answer much of the time,
+    but has the possibility to fail
+        when `string_view` is not null terminated.Use `from_chars` instead,
+    which takes both a pointer and a length
 
-## 3. Not handling input errors
+    ##3. Not handling input errors
 
-```cpp
-int getIntFromString(const std::string& s){
+```cpp int
+    getIntFromString(const std::string& s)
+{
     return std::atoi(s.c_str());
 }
 ```
@@ -185,7 +190,7 @@ std::string x; auto mylambda = [&](){
 do_async_read(mylambda)
 ```
 
-Numerous times, lifetime issues of const references have been injected into
+Numerous times, lifetime issues  const of  references have been injected into
 async bmcweb code. While capturing by reference can be useful, given how
 difficult these types of bugs are to triage, bmcweb explicitly requires that all
 code captures variables by name explicitly, and calls out each variable being
@@ -228,19 +233,18 @@ whole.
 ```cpp
 BMCWEB_ROUTE("/myendpoint/<str>",
     [](Request& req, Response& res, const std::string& id){
-     dbus::utility::async_method_call(
-          [asyncResp](const boost::system::error_code& ec,
-                      const std::string& myProperty) {
-              if (ec)
-              {
-                  messages::internalError(asyncResp->res);
-                  return;
-              }
-              ... handle code
-          },
-          "xyz.openbmc_project.Logging",
-          "/xyz/openbmc_project/mypath/" + id,
-          "xyz.MyInterface", "GetAll", "");
+    dbus::utility::async_method_call(
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& myProperty) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            ... handle code
+        },
+        "xyz.openbmc_project.Logging", "/xyz/openbmc_project/mypath/" + id,
+        "xyz.MyInterface", "GetAll", "");
 });
 ```
 
@@ -260,23 +264,23 @@ An implementation of the above that handles 404 would look like:
 ```cpp
 BMCWEB_ROUTE("/myendpoint/<str>",
     [](Request& req, Response& res, const std::string& id){
-     dbus::utility::async_method_call(
-          [asyncResp](const boost::system::error_code& ec,
-                      const std::string& myProperty) {
-              if (ec == <error code that gets returned by not found>){
-                  messages::resourceNotFound(res);
-                  return;
-              }
-              if (ec)
-              {
-                  messages::internalError(asyncResp->res);
-                  return;
-              }
-              ... handle code
-          },
-          "xyz.openbmc_project.Logging",
-          "/xyz/openbmc_project/mypath/" + id,
-          "xyz.MyInterface", "GetAll", "");
+    dbus::utility::async_method_call(
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& myProperty) {
+            if (ec == <error code that gets returned by not found>)
+            {
+                messages::resourceNotFound(res);
+                return;
+            }
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            ... handle code
+        },
+        "xyz.openbmc_project.Logging", "/xyz/openbmc_project/mypath/" + id,
+        "xyz.MyInterface", "GetAll", "");
 });
 ```
 
@@ -289,7 +293,8 @@ assumed to be
 
 ```cpp
 void isInventoryPath(const std::string& path){
-    if (path.find("inventory")){
+    if (path.find("inventory"))
+    {
         return true;
     }
     return false;
@@ -301,7 +306,7 @@ avoid doing direct string containment matching. Doing so can lead to errors
 where fan1 and fan11 both report to the same object, and cause behavior breaks
 in subtle ways.
 
-When using dbus paths, rely on the methods on `sdbusplus::message::object_path`.
+When using dbus paths, rely on the methods on `sdbusplus::object_path`.
 When parsing HTTP field and lists, use the RFC7230 implementations from
 boost::beast.
 
@@ -324,7 +329,7 @@ removing just the field you need.
 
 ```cpp
 void getMembers(crow::Response& res){
-  res.jsonValue = {{"Value", 2}};
+    res.jsonValue = {{"Value", 2}};
 }
 ```
 
@@ -336,7 +341,7 @@ completing, which cannot be guaranteed, and has many time caused bugs.
 
 ```cpp
 void getMembers(crow::Response& res){
-  res.jsonValue["Value"] = 2;
+    res.jsonValue["Value"] = 2;
 }
 ```
 
@@ -354,7 +359,7 @@ correct data that was already filled in from other sources.
 dbus::utility::getSubTree("/", interfaces,
                          [asyncResp](boost::system::error_code& ec,
                                      MapperGetSubTreeResult& res){
-                            <many lines of code>
+<many lines of code>
                          })
 ```
 

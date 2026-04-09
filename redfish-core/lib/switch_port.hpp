@@ -157,8 +157,7 @@ inline void populateMetricsProperty(
 
 inline void getMetricProperty(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& serviceName,
-    const sdbusplus::message::object_path& objectPath,
+    const std::string& serviceName, const sdbusplus::object_path& objectPath,
     const nlohmann::json::json_pointer& jsonPtr)
 {
     dbus::utility::getProperty<double>(
@@ -185,7 +184,7 @@ inline void handleFabricSwitchPortMetricsPathPortMetricsGet(
             continue;
         }
 
-        sdbusplus::message::object_path objectPah(path);
+        sdbusplus::object_path objectPah(path);
 
         const std::string metricType = objectPah.parent_path().filename();
         const std::string metricName = objectPah.filename();
@@ -260,12 +259,11 @@ inline void handleFabricSwitchPortPathPortMetricsGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port Metrics", switchId, portId);
 
-    const sdbusplus::message::object_path associationPath =
-        sdbusplus::message::object_path(portPath) / "measured_by";
+    const sdbusplus::object_path associationPath =
+        sdbusplus::object_path(portPath) / "measured_by";
     dbus::utility::getAssociatedSubTree(
-        associationPath,
-        sdbusplus::message::object_path("/xyz/openbmc_project/metric"), 0,
-        std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
+        associationPath, sdbusplus::object_path("/xyz/openbmc_project/metric"),
+        0, std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
         std::bind_front(handleFabricSwitchPortMetricsPathPortMetricsGet,
                         asyncResp));
 }
@@ -317,7 +315,7 @@ inline void afterHandleFabricSwitchPortPaths(
     std::string serviceName;
     for (const auto& [path, service] : object)
     {
-        std::string portName = sdbusplus::message::object_path(path).filename();
+        std::string portName = sdbusplus::object_path(path).filename();
         if (portName == portId)
         {
             portPath = path;
@@ -350,7 +348,7 @@ inline void getAssociatedPortPath(
     std::string associationPath = switchPath + "/connecting";
     dbus::utility::getAssociatedSubTree(
         associationPath,
-        sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"}, 0,
+        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
         std::array<std::string_view, 1>{
             "xyz.openbmc_project.Inventory.Connector.Port"},
         std::bind_front(afterHandleFabricSwitchPortPaths, asyncResp, portId,
@@ -380,7 +378,7 @@ inline void handleFabricSwitchPathPortCollection(
     nlohmann::json::array_t members;
     for (const std::string& path : object)
     {
-        std::string name = sdbusplus::message::object_path(path).filename();
+        std::string name = sdbusplus::object_path(path).filename();
         nlohmann::json::object_t member;
         member["@odata.id"] =
             boost::urls::format("/redfish/v1/Fabrics/{}/Switches/{}/Ports/{}",
@@ -399,7 +397,7 @@ inline void getFabricSwitchPortPaths(
     std::string associationPath = switchPath + "/connecting";
     dbus::utility::getAssociatedSubTreePaths(
         associationPath,
-        sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"}, 0,
+        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
         std::array<std::string_view, 1>{
             "xyz.openbmc_project.Inventory.Connector.Port"},
         std::bind_front(handleFabricSwitchPathPortCollection, asyncResp,
@@ -430,7 +428,7 @@ inline void handleFabricSwitchPortPathsSwitchCollection(
     for (const std::string& path : object)
     {
         nlohmann::json::object_t member;
-        std::string name = sdbusplus::message::object_path(path).filename();
+        std::string name = sdbusplus::object_path(path).filename();
         member["@odata.id"] = boost::urls::format(
             "/redfish/v1/Fabrics/{}/Switches/{}", fabricId, name);
         members.emplace_back(std::move(member));

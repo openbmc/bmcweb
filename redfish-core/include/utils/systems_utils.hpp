@@ -77,7 +77,7 @@ inline void handleSystemCollectionMembers(
     std::vector<std::string> pathNames;
     for (const auto& object : objects)
     {
-        sdbusplus::message::object_path path(object);
+        sdbusplus::object_path path(object);
         std::string leaf = path.filename();
         if (leaf.empty())
         {
@@ -148,7 +148,7 @@ inline void afterGetComputerSystemSubTreePaths(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& objects)
 {
-    sdbusplus::message::object_path systemPath;
+    sdbusplus::object_path systemPath;
     if (ec)
     {
         if (ec.value() == boost::system::errc::io_error)
@@ -165,7 +165,7 @@ inline void afterGetComputerSystemSubTreePaths(
     }
 
     const auto& found = std::ranges::find_if(
-        objects, [systemName](const sdbusplus::message::object_path& path) {
+        objects, [systemName](const sdbusplus::object_path& path) {
             return path.filename() == systemName;
         });
 
@@ -216,10 +216,10 @@ inline void getComputerSystemIndex(
     }
 }
 
-inline sdbusplus::message::object_path getHostStateObjectPath(
+inline sdbusplus::object_path getHostStateObjectPath(
     const uint64_t computerSystemIndex)
 {
-    const sdbusplus::message::object_path hostStatePath(
+    const sdbusplus::object_path hostStatePath(
         "/xyz/openbmc_project/state/host" +
         std::to_string(computerSystemIndex));
 
@@ -237,10 +237,10 @@ inline std::string getHostStateServiceName(const uint64_t computerSystemIndex)
     return hostStateService;
 }
 
-inline sdbusplus::message::object_path getChassisStateObjectPath(
+inline sdbusplus::object_path getChassisStateObjectPath(
     const uint64_t computerSystemIndex)
 {
-    const sdbusplus::message::object_path chassisStatePath(
+    const sdbusplus::object_path chassisStatePath(
         "/xyz/openbmc_project/state/chassis" +
         std::to_string(computerSystemIndex));
 
@@ -281,7 +281,7 @@ inline void afterGetValidSystemsPath(
 
     for (const std::string& system : systemsPaths)
     {
-        sdbusplus::message::object_path path(system);
+        sdbusplus::object_path path(system);
         if (path.filename() == systemId)
         {
             callback(path);
@@ -336,7 +336,7 @@ inline bool indexMatchingSubTreeMapObjectPath(
     for (const auto& obj : subtree)
     {
         std::string tmp = host;
-        const sdbusplus::message::object_path path{obj.first};
+        const sdbusplus::object_path path{obj.first};
         const std::string serv = obj.second.begin()->first;
 
         if (path.str.empty() || obj.second.size() != 1)

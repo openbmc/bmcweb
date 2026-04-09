@@ -561,7 +561,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
                 return;
             }
             std::string service = resp.begin()->first;
-            sdbusplus::message::object_path path(ldapRootObject);
+            sdbusplus::object_path path(ldapRootObject);
             dbus::utility::getManagedObjects(
                 service, path,
                 [callback, ldapType](const boost::system::error_code& ec2,
@@ -1215,7 +1215,7 @@ inline void updateUserProperties(
     const std::optional<std::vector<std::string>>& accountTypes, bool userSelf,
     const std::shared_ptr<persistent_data::UserSession>& session)
 {
-    sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
+    sdbusplus::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     std::string dbusObjectPath(tempObjPath);
 
@@ -1283,7 +1283,7 @@ inline void handleAccountServiceClientCertificatesInstanceGet(
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{}",
         id);
     std::string objPath =
-        sdbusplus::message::object_path(certs::authorityObjectPath) / id;
+        sdbusplus::object_path(certs::authorityObjectPath) / id;
     getCertificateProperties(
         asyncResp, objPath,
         "xyz.openbmc_project.Certs.Manager.Authority.Truststore", id, certURL,
@@ -1648,11 +1648,11 @@ inline void handleAccountServicePatch(
 
     if (minPasswordLength)
     {
-        setDbusProperty(
-            asyncResp, "MinPasswordLength", "xyz.openbmc_project.User.Manager",
-            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
-            "xyz.openbmc_project.User.AccountPolicy", "MinPasswordLength",
-            *minPasswordLength);
+        setDbusProperty(asyncResp, "MinPasswordLength",
+                        "xyz.openbmc_project.User.Manager",
+                        sdbusplus::object_path("/xyz/openbmc_project/user"),
+                        "xyz.openbmc_project.User.AccountPolicy",
+                        "MinPasswordLength", *minPasswordLength);
     }
 
     if (maxPasswordLength)
@@ -1668,21 +1668,19 @@ inline void handleAccountServicePatch(
 
     if (unlockTimeout)
     {
-        setDbusProperty(
-            asyncResp, "AccountLockoutDuration",
-            "xyz.openbmc_project.User.Manager",
-            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
-            "xyz.openbmc_project.User.AccountPolicy", "AccountUnlockTimeout",
-            *unlockTimeout);
+        setDbusProperty(asyncResp, "AccountLockoutDuration",
+                        "xyz.openbmc_project.User.Manager",
+                        sdbusplus::object_path("/xyz/openbmc_project/user"),
+                        "xyz.openbmc_project.User.AccountPolicy",
+                        "AccountUnlockTimeout", *unlockTimeout);
     }
     if (lockoutThreshold)
     {
-        setDbusProperty(
-            asyncResp, "AccountLockoutThreshold",
-            "xyz.openbmc_project.User.Manager",
-            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
-            "xyz.openbmc_project.User.AccountPolicy",
-            "MaxLoginAttemptBeforeLockout", *lockoutThreshold);
+        setDbusProperty(asyncResp, "AccountLockoutThreshold",
+                        "xyz.openbmc_project.User.Manager",
+                        sdbusplus::object_path("/xyz/openbmc_project/user"),
+                        "xyz.openbmc_project.User.AccountPolicy",
+                        "MaxLoginAttemptBeforeLockout", *lockoutThreshold);
     }
 }
 
@@ -1733,7 +1731,7 @@ inline void handleAccountCollectionGet(
     {
         thisUser = req.session->username;
     }
-    sdbusplus::message::object_path path("/xyz/openbmc_project/user");
+    sdbusplus::object_path path("/xyz/openbmc_project/user");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.User.Manager", path,
         [asyncResp, thisUser, effectiveUserPrivileges](
@@ -1801,7 +1799,7 @@ inline void processAfterCreateUser(
         // created, but the password set
         // failed.Something is wrong, so delete the user
         // that we've already created
-        sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
+        sdbusplus::object_path tempObjPath(rootUserDbusPath);
         tempObjPath /= username;
         const std::string userPath(tempObjPath);
 
@@ -2029,7 +2027,7 @@ inline void handleAccountGet(
         }
     }
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/user");
+    sdbusplus::object_path path("/xyz/openbmc_project/user");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.User.Manager", path,
         [asyncResp,
@@ -2043,7 +2041,7 @@ inline void handleAccountGet(
             const auto userIt = std::ranges::find_if(
                 users,
                 [accountName](
-                    const std::pair<sdbusplus::message::object_path,
+                    const std::pair<sdbusplus::object_path,
                                     dbus::utility::DBusInterfacesMap>& user) {
                     return accountName == user.first.filename();
                 });
@@ -2174,7 +2172,7 @@ inline void handleAccountDelete(
         messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
         return;
     }
-    sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
+    sdbusplus::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
 

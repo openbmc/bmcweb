@@ -165,7 +165,7 @@ inline void afterGetValidFabricAdapterPath(
     for (const auto& [adapterPath, serviceMap] : subtree)
     {
         std::string fabricAdapterName =
-            sdbusplus::message::object_path(adapterPath).filename();
+            sdbusplus::object_path(adapterPath).filename();
         if (fabricAdapterName == adapterId)
         {
             fabricAdapterPath = adapterPath;

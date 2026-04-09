@@ -75,8 +75,7 @@ inline void handleFabricSwitchPaths(
 
     for (const auto& path : object)
     {
-        std::string switchName =
-            sdbusplus::message::object_path(path).filename();
+        std::string switchName = sdbusplus::object_path(path).filename();
         if (switchName == switchId)
         {
             if (!switchPath.empty())
