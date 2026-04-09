@@ -108,8 +108,8 @@ void getSubTreePaths(
 }
 
 void getAssociatedSubTree(
-    const sdbusplus::message::object_path& associatedPath,
-    const sdbusplus::message::object_path& path, int32_t depth,
+    const sdbusplus::object_path& associatedPath,
+    const sdbusplus::object_path& path, int32_t depth,
     std::span<const std::string_view> interfaces,
     std::function<void(const boost::system::error_code&,
                        const MapperGetSubTreeResponse&)>&& callback)
@@ -125,8 +125,8 @@ void getAssociatedSubTree(
 }
 
 void getAssociatedSubTreePaths(
-    const sdbusplus::message::object_path& associatedPath,
-    const sdbusplus::message::object_path& path, int32_t depth,
+    const sdbusplus::object_path& associatedPath,
+    const sdbusplus::object_path& path, int32_t depth,
     std::span<const std::string_view> interfaces,
     std::function<void(const boost::system::error_code&,
                        const MapperGetSubTreePathsResponse&)>&& callback)
@@ -207,7 +207,7 @@ void getAssociationEndPoints(
 }
 
 void getManagedObjects(const std::string& service,
-                       const sdbusplus::message::object_path& path,
+                       const sdbusplus::object_path& path,
                        std::function<void(const boost::system::error_code&,
                                           const ManagedObjectType&)>&& callback)
 {

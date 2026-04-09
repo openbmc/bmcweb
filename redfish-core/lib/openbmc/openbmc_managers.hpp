@@ -58,7 +58,7 @@ inline void asyncPopulatePid(
     const std::vector<std::string>& supportedProfiles,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::message::object_path objPath(path);
+    sdbusplus::object_path objPath(path);
     dbus::utility::getManagedObjects(
         connection, objPath,
         [asyncResp, currentProfile, supportedProfiles](
@@ -179,8 +179,7 @@ inline void asyncPopulatePid(
                                             BMCWEB_REDFISH_MANAGER_URI_NAME));
                     if (intfPair.first == pidZoneConfigurationIface)
                     {
-                        sdbusplus::message::object_path pidPath(
-                            pathPair.first.str);
+                        sdbusplus::object_path pidPath(pathPair.first.str);
                         std::string chassis = pidPath.filename();
                         if (chassis.empty())
                         {
@@ -515,7 +514,7 @@ inline const dbus::utility::ManagedObjectType::value_type* findChassis(
         return nullptr;
     }
     // /xyz/openbmc_project/inventory/system/chassis/<chassis-name>
-    sdbusplus::message::object_path path(it->first.str);
+    sdbusplus::object_path path(it->first.str);
     chassis = path.filename();
 
     return &(*it);
@@ -1167,8 +1166,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
         // todo(james): might make sense to do a mapper call here if this
         // interface gets more traction
-        sdbusplus::message::object_path objPath(
-            "/xyz/openbmc_project/inventory");
+        sdbusplus::object_path objPath("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", objPath,
             [self](const boost::system::error_code& ec,

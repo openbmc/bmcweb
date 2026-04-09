@@ -428,8 +428,7 @@ using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
 static SessionMap sessions;
 
 inline void afterGetSocket(
-    crow::websocket::Connection& conn,
-    const sdbusplus::message::object_path& path,
+    crow::websocket::Connection& conn, const sdbusplus::object_path& path,
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& propertiesList)
 {

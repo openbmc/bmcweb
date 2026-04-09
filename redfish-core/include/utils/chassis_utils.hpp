@@ -55,7 +55,7 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             std::optional<std::string> chassisPath;
             for (const std::string& chassis : chassisPaths)
             {
-                sdbusplus::message::object_path path(chassis);
+                sdbusplus::object_path path(chassis);
                 std::string chassisName = path.filename();
                 if (chassisName.empty())
                 {

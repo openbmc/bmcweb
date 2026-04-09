@@ -247,7 +247,7 @@ inline void doSubscriptionCollection(
     nlohmann::json& memberArray = asyncResp->res.jsonValue["Members"];
     for (const auto& objpath : resp)
     {
-        sdbusplus::message::object_path path(objpath.first);
+        sdbusplus::object_path path(objpath.first);
         const std::string snmpId = path.filename();
         if (snmpId.empty())
         {
