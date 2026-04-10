@@ -408,7 +408,7 @@ inline void setActiveFirmwareImage(
     std::string firmwareId = runningFirmwareTarget.substr(idPos);
 
     // Make sure the image is valid before setting priority
-    sdbusplus::message::object_path objPath("/xyz/openbmc_project/software");
+    sdbusplus::object_path objPath("/xyz/openbmc_project/software");
     dbus::utility::getManagedObjects(
         getBMCUpdateServiceName(), objPath,
         [asyncResp, firmwareId, runningFirmwareTarget](

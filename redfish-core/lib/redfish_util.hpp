@@ -57,8 +57,8 @@ enum NetworkProtocolListenResponseElements
  */
 using UnitStruct =
     std::tuple<std::string, std::string, std::string, std::string, std::string,
-               std::string, sdbusplus::message::object_path, uint32_t,
-               std::string, sdbusplus::message::object_path>;
+               std::string, sdbusplus::object_path, uint32_t, std::string,
+               sdbusplus::object_path>;
 
 template <typename CallbackFunc>
 void getMainChassisId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

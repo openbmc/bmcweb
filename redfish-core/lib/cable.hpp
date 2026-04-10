@@ -174,7 +174,7 @@ inline void afterHandleCableGet(
 
     for (const auto& [objectPath, serviceMap] : subtree)
     {
-        sdbusplus::message::object_path path(objectPath);
+        sdbusplus::object_path path(objectPath);
         if (path.filename() != cableId)
         {
             continue;

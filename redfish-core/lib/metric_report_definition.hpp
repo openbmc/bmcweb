@@ -60,9 +60,9 @@ namespace redfish
 namespace telemetry
 {
 
-using ReadingParameters = std::vector<std::tuple<
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string>>,
-    std::string, std::string, uint64_t>>;
+using ReadingParameters = std::vector<
+    std::tuple<std::vector<std::tuple<sdbusplus::object_path, std::string>>,
+               std::string, std::string, uint64_t>>;
 
 inline bool formatMessageOnError(crow::Response& res, const std::string& id,
                                  const boost::system::error_code& ec)
@@ -241,11 +241,11 @@ inline std::string toDbusReportUpdates(std::string_view redfishValue)
 }
 
 inline std::optional<nlohmann::json::array_t> getLinkedTriggers(
-    std::span<const sdbusplus::message::object_path> triggerPaths)
+    std::span<const sdbusplus::object_path> triggerPaths)
 {
     nlohmann::json::array_t triggers;
 
-    for (const sdbusplus::message::object_path& path : triggerPaths)
+    for (const sdbusplus::object_path& path : triggerPaths)
     {
         if (path.parent_path() !=
             "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService")
@@ -283,7 +283,7 @@ inline void fillReportDefinition(
     uint64_t appendLimit = 0;
     uint64_t interval = 0;
     bool enabled = false;
-    std::vector<sdbusplus::message::object_path> triggers;
+    std::vector<sdbusplus::object_path> triggers;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "ReportingType",
@@ -805,8 +805,7 @@ class AddReport
 
         for (const auto& metric : args.metrics)
         {
-            std::vector<
-                std::tuple<sdbusplus::message::object_path, std::string>>
+            std::vector<std::tuple<sdbusplus::object_path, std::string>>
                 sensorParams;
             sensorParams.reserve(metric.uris.size());
 
@@ -864,14 +863,13 @@ class AddReport
 };
 
 inline std::optional<
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string>>>
+    std::vector<std::tuple<sdbusplus::object_path, std::string>>>
     sensorPathToUri(
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         std::span<const std::string> uris,
         const std::map<std::string, std::string>& metricPropertyToDbusPaths)
 {
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string>>
-        result;
+    std::vector<std::tuple<sdbusplus::object_path, std::string>> result;
 
     for (const std::string& uri : uris)
     {
@@ -929,8 +927,8 @@ inline void setReadingParams(
     {
         std::span<const std::string> newUris = readingParamsUris[index];
 
-        const std::optional<std::vector<
-            std::tuple<sdbusplus::message::object_path, std::string>>>
+        const std::optional<
+            std::vector<std::tuple<sdbusplus::object_path, std::string>>>
             readingParam =
                 sensorPathToUri(asyncResp, newUris, metricPropertyToDbusPaths);
 
@@ -939,8 +937,8 @@ inline void setReadingParams(
             return;
         }
 
-        for (const std::tuple<sdbusplus::message::object_path, std::string>&
-                 value : *readingParam)
+        for (const std::tuple<sdbusplus::object_path, std::string>& value :
+             *readingParam)
         {
             std::get<0>(readingParams[index]).emplace_back(value);
         }
@@ -992,8 +990,7 @@ class UpdateMetrics
     }
 
     void emplace(
-        std::span<
-            const std::tuple<sdbusplus::message::object_path, std::string>>
+        std::span<const std::tuple<sdbusplus::object_path, std::string>>
             pathAndUri,
         const AddReportArgs::MetricArgs& metricArgs)
     {
@@ -1236,8 +1233,7 @@ inline void setReportMetrics(
                 }
 
                 AddReportArgs::MetricArgs metricArgs;
-                std::vector<
-                    std::tuple<sdbusplus::message::object_path, std::string>>
+                std::vector<std::tuple<sdbusplus::object_path, std::string>>
                     pathAndUri;
 
                 if (index < readingParams.size())

@@ -694,7 +694,7 @@ inline void dBusEventLogEntryCollection(
 
     // DBus implementation of EventLog/Entries
     // Make call to Logging Service to find all log entry objects
-    sdbusplus::message::object_path path("/xyz/openbmc_project/logging");
+    sdbusplus::object_path path("/xyz/openbmc_project/logging");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Logging", path,
         [asyncResp, collectionStr, memberId,
@@ -853,8 +853,7 @@ inline void downloadEventLogEntry(
     const std::string& entryID, const std::string& downloadEntryType)
 {
     std::string entryPath =
-        sdbusplus::message::object_path("/xyz/openbmc_project/logging/entry") /
-        entryID;
+        sdbusplus::object_path("/xyz/openbmc_project/logging/entry") / entryID;
 
     auto downloadEventLogEntryHandler =
         [asyncResp, entryID,

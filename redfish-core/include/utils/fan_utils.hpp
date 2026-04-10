@@ -70,16 +70,15 @@ inline void afterGetFanSensorObjects(
 
 inline void getFanSensorObjects(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const sdbusplus::message::object_path& fanPath,
+    const sdbusplus::object_path& fanPath,
     const std::function<void(
         const std::vector<std::pair<std::string, std::string>>&)>& callback)
 {
-    sdbusplus::message::object_path endpointPath{fanPath};
+    sdbusplus::object_path endpointPath{fanPath};
     endpointPath /= "sensors";
 
     dbus::utility::getAssociatedSubTree(
-        endpointPath,
-        sdbusplus::message::object_path("/xyz/openbmc_project/sensors"), 0,
+        endpointPath, sdbusplus::object_path("/xyz/openbmc_project/sensors"), 0,
         sensorInterface,
         std::bind_front(afterGetFanSensorObjects, asyncResp, callback));
 }
@@ -90,13 +89,12 @@ inline void getFanPaths(
     const std::function<void(const dbus::utility::MapperGetSubTreePathsResponse&
                                  fanPaths)>& callback)
 {
-    sdbusplus::message::object_path endpointPath{validChassisPath};
+    sdbusplus::object_path endpointPath{validChassisPath};
     endpointPath /= "cooled_by";
 
     dbus::utility::getAssociatedSubTreePaths(
-        endpointPath,
-        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
-        fanInterface,
+        endpointPath, sdbusplus::object_path("/xyz/openbmc_project/inventory"),
+        0, fanInterface,
         [asyncResp, callback](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {

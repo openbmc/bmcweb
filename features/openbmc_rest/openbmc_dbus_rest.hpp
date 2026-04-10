@@ -265,7 +265,7 @@ inline void getManagedObjectsForEnumerate(
     BMCWEB_LOG_DEBUG(
         "getManagedObjectsForEnumerate {} object_manager_path {} connection_name {}",
         objectName, objectManagerPath, connectionName);
-    sdbusplus::message::object_path path(objectManagerPath);
+    sdbusplus::object_path path(objectManagerPath);
     dbus::utility::getManagedObjects(
         connectionName, path,
         [transaction, objectName,
