@@ -879,6 +879,14 @@ inline void getProcessorData(
         boost::urls::format("/redfish/v1/Systems/{}/Processors/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 
+    if constexpr (BMCWEB_REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM)
+    {
+        asyncResp->res.jsonValue["EnvironmentMetrics"]["@odata.id"] =
+            boost::urls::format(
+                "/redfish/v1/Systems/{}/Processors/{}/EnvironmentMetrics",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+    }
+
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
         for (const auto& interface : interfaceList)

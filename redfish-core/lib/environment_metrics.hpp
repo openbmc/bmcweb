@@ -596,6 +596,162 @@ inline void getPowerCapObject(
         std::bind_front(afterGetPowerCapObject, callback));
 }
 
+inline void afterGetProcessorSensorProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& sensorPath,
+    const std::string& redfishProperty, sensor::ReadingType readingType,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesDict)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("D-Bus response error for {} sensor: {}",
+                             redfishProperty, ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    nlohmann::json item = nlohmann::json::object();
+
+    if (!sensor_utils::objectExcerptToJson(
+            sensorPath, chassisId,
+            sensor_utils::ChassisSubNode::environmentMetricsNode, readingType,
+            propertiesDict, item))
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue[redfishProperty] = std::move(item);
+
+    if (readingType == sensor::ReadingType::EnergyJoules)
+    {
+        const double* value = nullptr;
+        sdbusplus::unpackPropertiesNoThrow(dbus_utils::UnpackErrorPrinter(),
+                                           propertiesDict, "Value", value);
+        if (value != nullptr && std::isfinite(*value))
+        {
+            asyncResp->res.jsonValue["EnergykWh"]["Reading"] =
+                *value / 3600000.0;
+        }
+    }
+}
+
+inline void afterGetProcessorSensorChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& sensorService, const std::string& sensorPath,
+    const std::string& redfishProperty, sensor::ReadingType readingType,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("D-Bus response error for chassis association: {}",
+                             ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (endpoints.empty())
+    {
+        BMCWEB_LOG_DEBUG("No chassis association for sensor {}", sensorPath);
+        return;
+    }
+
+    if (endpoints.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "Sensor {} is associated with more than one chassis: {}",
+            sensorPath, endpoints.size());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    sdbusplus::message::object_path chassisPath(endpoints[0]);
+    std::string chassisId = chassisPath.filename();
+
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, sensorService, sensorPath,
+        "xyz.openbmc_project.Sensor.Value",
+        [asyncResp, chassisId, sensorPath, redfishProperty,
+         readingType](const boost::system::error_code& ec2,
+                      const dbus::utility::DBusPropertiesMap& propertiesDict) {
+            afterGetProcessorSensorProperties(asyncResp, chassisId, sensorPath,
+                                              redfishProperty, readingType, ec2,
+                                              propertiesDict);
+        });
+}
+
+inline void afterGetProcessorSensorExcerpt(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& redfishProperty, sensor::ReadingType readingType,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No sensor association for {}", redfishProperty);
+            return;
+        }
+        BMCWEB_LOG_ERROR("D-Bus response error for {} sensors: {}",
+                         redfishProperty, ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG("No {} sensors found", redfishProperty);
+        return;
+    }
+
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "More than one {} sensor in processor sensor association: {}",
+            redfishProperty, subtree.size());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto& [sensorPath, serviceMaps] = subtree.front();
+    const std::string& sensorService = serviceMaps.front().first;
+
+    dbus::utility::getAssociationEndPoints(
+        sensorPath + "/chassis",
+        std::bind_front(afterGetProcessorSensorChassis, asyncResp,
+                        sensorService, sensorPath, redfishProperty,
+                        readingType));
+}
+
+inline void getProcessorSensorExcerpt(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorPath, const std::string& sensorTypePath,
+    const std::string& redfishProperty, sensor::ReadingType readingType)
+{
+    BMCWEB_LOG_DEBUG("getProcessorSensorExcerpt: {} {}", processorPath,
+                     redfishProperty);
+
+    sdbusplus::message::object_path endpointPath{processorPath};
+    endpointPath /= "sensors";
+
+    constexpr std::array<std::string_view, 1> sensorValueIface = {
+        "xyz.openbmc_project.Sensor.Value"};
+
+    dbus::utility::getAssociatedSubTree(
+        endpointPath, sdbusplus::message::object_path(sensorTypePath), 0,
+        sensorValueIface,
+        std::bind_front(afterGetProcessorSensorExcerpt, asyncResp,
+                        redfishProperty, readingType));
+}
+
 inline void afterGetProcessorForEnvMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& objectPath,
@@ -616,6 +772,16 @@ inline void afterGetProcessorForEnvMetrics(
         BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 
     getPowerCapObject(objectPath, callback);
+
+    getProcessorSensorExcerpt(
+        asyncResp, objectPath, "/xyz/openbmc_project/sensors/temperature",
+        "TemperatureCelsius", sensor::ReadingType::Temperature);
+    getProcessorSensorExcerpt(asyncResp, objectPath,
+                              "/xyz/openbmc_project/sensors/power",
+                              "PowerWatts", sensor::ReadingType::Power);
+    getProcessorSensorExcerpt(
+        asyncResp, objectPath, "/xyz/openbmc_project/sensors/energy",
+        "EnergyJoules", sensor::ReadingType::EnergyJoules);
 }
 
 inline void handleProcessorEnvMetricsSubtree(
