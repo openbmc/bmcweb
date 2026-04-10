@@ -55,7 +55,11 @@ string_options = [
     'redfish-eventlog-location',
 ]
 
-int_options = ['http-body-limit', 'watchdog-timeout-seconds']
+int_options = [
+    'http-body-limit',
+    'watchdog-timeout-seconds',
+    'upn-min-domain-labels',
+]
 
 feature_options_string = '\n// Feature options\n'
 string_options_string = '\n// String options\n'
