@@ -270,6 +270,19 @@ option(
                     client's x509 certificate''',
 )
 
+# BMCWEB_UPN_MIN_DOMAIN_LABELS
+option(
+    'upn-min-domain-labels',
+    type: 'integer',
+    min: 1,
+    max: 10,
+    value: 2,
+    description: '''Minimum number of domain labels required in UPN for
+                    authentication. Prevents use of TLD-only certificates like
+                    user@com. Default 2 allows example.com, set to 3 for longer
+                    domains like example.co.uk.''',
+)
+
 # BMCWEB_IBM_MANAGEMENT_CONSOLE
 option(
     'ibm-management-console',
