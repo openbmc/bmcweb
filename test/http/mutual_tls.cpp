@@ -402,7 +402,7 @@ TEST(IsUPNMatch, MultipleCases)
     EXPECT_TRUE(isUPNMatch("user@domain.com", "hostname.domain.com"));
     EXPECT_FALSE(isUPNMatch("user@domain.com", "hostname.domain.org"));
     EXPECT_FALSE(isUPNMatch("user@region.com", "hostname.domain.com"));
-    EXPECT_TRUE(isUPNMatch("user@com", "hostname.region.domain.com"));
+    EXPECT_FALSE(isUPNMatch("user@com", "hostname.region.domain.com"));
 }
 
 TEST(IsUPNMatch, CaseSensitivity)
@@ -577,10 +577,55 @@ TEST(GetUPNFromCert, UPNWithEmptyDomain)
     EXPECT_THAT(upn, "");
 }
 
+TEST(IsUPNMatch, SubdomainVariations)
+{
+    // Test various subdomain matching scenarios
+    EXPECT_TRUE(isUPNMatch("user@sub.domain.com", "host.sub.domain.com"));
+    EXPECT_TRUE(isUPNMatch("user@domain.com", "a.b.c.domain.com"));
+    EXPECT_FALSE(isUPNMatch("user@other.com", "host.domain.com"));
+    EXPECT_FALSE(isUPNMatch("user@com", "host.domain.com"));
+    EXPECT_FALSE(isUPNMatch("user@domain.com", "host.otherdomain.com"));
+}
+
 TEST(IsUPNMatch, InternationalizedDomain)
 {
     EXPECT_TRUE(isUPNMatch("user@münchen.de", "host.münchen.de"));
     EXPECT_FALSE(isUPNMatch("user@münchen.de", "host.berlin.de"));
+}
+
+TEST(IsUPNMatch, MinimumLabelEnforcement)
+{
+    // With default min=2, TLDs should be rejected
+    EXPECT_FALSE(isUPNMatch("user@com", "host.com"));
+    EXPECT_FALSE(isUPNMatch("user@org", "host.org"));
+    EXPECT_FALSE(isUPNMatch("user@net", "host.net"));
+    EXPECT_FALSE(isUPNMatch("user@edu", "host.edu"));
+
+    // 2-label domains should work
+    EXPECT_TRUE(isUPNMatch("user@example.com", "host.example.com"));
+    EXPECT_TRUE(isUPNMatch("user@co.uk", "host.co.uk"));
+    EXPECT_TRUE(isUPNMatch("user@test.org", "host.test.org"));
+}
+
+TEST(IsUPNMatch, DeepWildcardMatching)
+{
+    // user@example.com should match at any subdomain depth
+    EXPECT_TRUE(isUPNMatch("user@example.com", "example.com"));
+    EXPECT_TRUE(isUPNMatch("user@example.com", "a.example.com"));
+    EXPECT_TRUE(isUPNMatch("user@example.com", "a.b.example.com"));
+    EXPECT_TRUE(isUPNMatch("user@example.com", "a.b.c.d.e.example.com"));
+    EXPECT_TRUE(isUPNMatch("user@example.com",
+                           "very.deep.subdomain.hierarchy.example.com"));
+    EXPECT_TRUE(isUPNMatch("user@sub.example.com", "other.sub.example.com"));
+}
+
+TEST(IsUPNMatch, SecurityBoundaries)
+{
+    // Should NOT match similar but different domains
+    EXPECT_FALSE(isUPNMatch("user@example.com", "evilexample.com"));
+    EXPECT_FALSE(isUPNMatch("user@example.com", "example.com.evil.com"));
+    EXPECT_FALSE(isUPNMatch("user@example.com", "notexample.com"));
+    EXPECT_FALSE(isUPNMatch("user@sub.example.com", "example.com"));
 }
 
 TEST(GetUPNFromCert, UPNWithSpecialCharacters)
