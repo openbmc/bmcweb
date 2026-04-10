@@ -34,6 +34,24 @@
       "parentUuid": "66537caf_3270af63",
       "revId": "de8f47f22f41f0aed6cbff8a164c97e6906f9557",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68eab2d4_a9ccfe57",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-10T13:46:54Z",
+      "side": 1,
+      "message": "Looking above the diff, (around line 1220), i still hit a bug with current upstream master when `BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM` is enabled.\n\non `/redfish/v1/UpdateService/FirmwareInventory/bios_active`\nwhich is created by `phosphor-bmc-code-mgmt`\n\n```\nelse if (purpose \u003d\u003d sw_util::biosPurpose)\n    {\n        auto url \u003d boost::urls::format(\"/redfish/v1/Systems/{}/Bios\",\n                                       BMCWEB_REDFISH_SYSTEM_URI_NAME);\n\n        addRelatedItem(asyncResp, url);\n    }\n```\n\nThere is no check if the hardcoded system even exists.\n\nWhich approach is preferred to resolve this bug?\n\nShould we query systems collection before setting the link?",
+      "parentUuid": "d60374af_701bb7e9",
+      "revId": "de8f47f22f41f0aed6cbff8a164c97e6906f9557",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
