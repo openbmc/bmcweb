@@ -6,6 +6,7 @@
 #include "mutual_tls_private.hpp"
 #include "ossl_wrappers.hpp"
 #include "sessions.hpp"
+#include "str_utility.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -76,7 +77,10 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
             hostDomainMatching = hostname.substr(dotHostPos + 1);
         }
 
-        if (upnDomainMatching != hostDomainMatching)
+        // "comparisons on name lookup for DNS queries should be case
+        // insensitive".
+        // https://datatracker.ietf.org/doc/html/rfc4343
+        if (!bmcweb::asciiIEquals(upnDomainMatching, hostDomainMatching))
         {
             return false;
         }
