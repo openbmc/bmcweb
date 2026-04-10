@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bd48bea_7f916f67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:14:03Z",
+      "side": 1,
+      "message": "Did redfish service validator get run, per TESTING.md?  I suspect it would\u0027ve caught the bug below.",
+      "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcb043b9_0e13b8a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:14:03Z",
+      "side": 1,
+      "message": "Please do research into how redfish odata trees work.  If you need help, I\u0027m always available on discord to help you 1:1, but as written this patch is broken assuming you can arbitrarily change URIs in an Odata model. The URIs are specified by the tree itself.\n\nI suspect redfish service validator would\u0027ve flagged this, but if you ran it and it didnt\u0027, I can open a bug with DMTF.  Please let me know if you\u0027re seeing a passing result with this, if so it\u0027s a test bug.",
+      "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
