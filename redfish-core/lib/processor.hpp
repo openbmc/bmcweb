@@ -21,6 +21,8 @@
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -735,6 +737,56 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void afterGetProcessorMemoryLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec)
+    {
+        if (ec.value() != boost::system::errc::io_error && ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    if (endpoints.empty())
+    {
+        return;
+    }
+    nlohmann::json::array_t memoryArray;
+    for (const auto& memoryPath : endpoints)
+    {
+        std::string memoryName =
+            sdbusplus::message::object_path(memoryPath).filename();
+        if (memoryName.empty())
+        {
+            continue;
+        }
+        nlohmann::json::object_t memory;
+        memory["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME, memoryName);
+        memoryArray.emplace_back(std::move(memory));
+    }
+    std::ranges::sort(memoryArray,
+                      [](const nlohmann::json& a, const nlohmann::json& b) {
+                          return a["@odata.id"] < b["@odata.id"];
+                      });
+    asyncResp->res.jsonValue["Links"]["Memory"] = std::move(memoryArray);
+}
+
+inline void getProcessorMemoryLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorPath)
+{
+    sdbusplus::message::object_path path(processorPath);
+    path /= "all_memory";
+    dbus::utility::getAssociationEndPoints(
+        path, std::bind_front(afterGetProcessorMemoryLinks, asyncResp));
+}
+
 inline void handleProcessorSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -861,6 +913,7 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getProcessorMemoryLinks(asyncResp, objectPath);
             }
             else if (
                 interface ==
