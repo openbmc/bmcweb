@@ -2,6 +2,8 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "mutual_tls.hpp"
 
+#include "bmcweb_config.h"
+
 #include "identity.hpp"
 #include "mutual_tls_private.hpp"
 #include "ossl_wrappers.hpp"
@@ -61,6 +63,22 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
 
     // The hostname should match the domain part of the UPN
     std::string_view upnDomain = upn.substr(upnDomainPos + 1);
+
+    // Enforce minimum domain label depth to prevent TLD-only certificates
+    // e.g., user@com should be rejected
+    size_t labelCount = 1;
+    for (char c : upnDomain)
+    {
+        if (c == '.')
+        {
+            labelCount++;
+        }
+    }
+    if (labelCount < BMCWEB_UPN_MIN_DOMAIN_LABELS)
+    {
+        return false;
+    }
+
     while (true)
     {
         std::string_view upnDomainMatching = upnDomain;
