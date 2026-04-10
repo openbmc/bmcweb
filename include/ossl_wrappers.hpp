@@ -570,6 +570,33 @@ class OpenSSLX509
         return X509_set_pubkey(ptr, pkey.get()) == 1;
     }
 
+    bool addAltNameUpns(std::initializer_list<std::string_view> upns)
+    {
+        return addAltNames(NID_ms_upn, upns);
+    }
+
+    bool addAltNameEmails(std::initializer_list<std::string_view> altNames)
+    {
+        return addAltNames(GEN_EMAIL, altNames);
+    }
+
+    bool addAltNames(int gnType,
+                     std::initializer_list<std::string_view> altNames)
+    {
+        OpenSSLGeneralNames gens;
+        for (const std::string_view altName : altNames)
+        {
+            OpenSSLASN1String altNameStr(altName);
+            OpenSSLGeneralName gen(gnType, altNameStr);
+            if (!gens.push(std::move(gen)))
+            {
+                return false;
+            }
+        }
+
+        return add1ExtI2d(NID_subject_alt_name, gens) > 0;
+    }
+
     int add1ExtI2d(int nid, OpenSSLGeneralNames& names) const
     {
         return X509_add1_ext_i2d(ptr, nid, names.get(), 0, 0);
