@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5069228e_cb41fe08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-10T14:42:30Z",
+      "side": 1,
+      "message": "\u003e I\u0027m confused at this statement;  The cooled_by association was literally created to fulfill this Redfish property\n\nMaybe it was applied wrong in bmcweb. In PDI it is documented like this:\n\n```\ncat xyz/openbmc_project/Inventory/Item/Fan.interface.yaml\ndescription: \u003e\n    Implement to provide Fan attributes.\n\nassociations:\n    - name: cooling\n      description: \u003e\n          Objects that implement Fan can optionally implement the \u0027cooling\u0027\n          association to provide a link back to a Item.\n      reverse_name: cooled_by\n      required_endpoint_interfaces:\n          - xyz.openbmc_project.Inventory.Item\n```\n\nThere is no mention of any chassis or resource placement.\n\nAlso the `xyz/openbmc_project/Inventory/Item/README.md` says nothing about fan resource placement. It only documents that fans can associate to inventory items.\n\nDo you know where the current usage was documented?\n\nWhy are we using \u0027cooling\u0027 type association to model redfish containment? \n\nIsn\u0027t that what \u0027containing\u0027 association is for?\n\n\u003e Are you attaching sub-items to the cooled by in your config?\n\nI\u0027m configuring associations as per EM physical topology design,\nwith adjustments made to enable fan inventory rework.\n\nUsing `containing` type association to determine location/containment and `cooling` type association to determine which chassis is enjoying the breeze!\n\nThe EM patch in gerrit topic, direct link for reference:\nhttps://gerrit.openbmc.org/c/openbmc/entity-manager/+/87062",
+      "parentUuid": "aa23a924_c0b69f36",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fac14d9_b835518f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -37,6 +61,30 @@
       "writtenOn": "2026-04-10T00:26:17Z",
       "side": 1,
       "message": "Soemthing seems off with this modeling.  In the above, you\u0027d have\n\nMain chassis -\u003e Contains -\u003e fanbox      -\u003e Fan 1-4\n                            \"chassis 1\"\n                            \"chassis 2\"\n\n\nFan1 -\u003e Cools -\u003e Chassis 1-4\n\n\n\nJust because a fan is contained with a chassis doesn\u0027t mean it cools that component, that\u0027s why Redfish separates them.\n\n\nHave you talked through any of this modeling with the DMTF specification or have examples?  They write the spec so they have a better handle on this stuff.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 28
+      },
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25bd82b6_2efbb8b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-10T14:42:30Z",
+      "side": 1,
+      "message": "\u003e Soemthing seems off with this modeling.  In the above, you\u0027d have\n\nYou\u0027re right 😊, technically there could be an extra fan box chassis- i did not model that here to keep it simple. The code should work in both cases.\n\n\u003e Just because a fan is contained with a chassis doesn\u0027t mean it cools that component, that\u0027s why Redfish separates them.\n\nYes, but currently i don\u0027t see a way to query that with bmcweb.\n\n\u003e Have you talked through any of this modeling with the DMTF specification\n or have examples?  They write the spec so they have a better handle on \nthis stuff.\n\nI went to redfish forum to clarify the preferred resource placement in my situation:\n\nhttps://redfishforum.com/thread/1276/clarification-uri-redfish-resources-inventory\n\n\nI don\u0027t think i can ask them about OpenBMC specifics though.\n\nMade a PDI review to get input for how it should look like on DBus,\nthat\u0027s also part of the gerrit topic.\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/88235\n\nI don\u0027t have examples of other redfish implementations or how they handle it.\n\nLet me know in case you have a link/repo and i can try to start digging there.",
+      "parentUuid": "6fac14d9_b835518f",
       "range": {
         "startLine": 44,
         "startChar": 0,
