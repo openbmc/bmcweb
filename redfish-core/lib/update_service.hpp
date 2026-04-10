@@ -1293,6 +1293,7 @@ inline void getSoftwareVersionCallback(
 {
     if (ec)
     {
+        BMCWEB_LOG_ERROR("D-Bus error {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -1360,6 +1361,7 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
     BMCWEB_LOG_DEBUG("doGet callback...");
     if (ec)
     {
+        BMCWEB_LOG_ERROR("D-Bus error {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
