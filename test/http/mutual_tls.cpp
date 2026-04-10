@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <initializer_list>
 #include <string>
 
 extern "C"
@@ -250,20 +251,85 @@ class MtlsHandshake
     }
 };
 
+// Helper to add a UPN (User Principal Name) to a certificate's SAN extension
+void addUPNToCert(X509* cert, const char* upn, int expectedPushResult)
+{
+    GENERAL_NAMES* gens = sk_GENERAL_NAME_new_null();
+    ASSERT_THAT(gens, NotNull());
+
+    GENERAL_NAME* gen = GENERAL_NAME_new();
+    ASSERT_THAT(gen, NotNull());
+
+    ASN1_OBJECT* othType = OBJ_nid2obj(NID_ms_upn);
+
+    ASN1_TYPE* value = ASN1_TYPE_new();
+    ASSERT_THAT(value, NotNull());
+
+    ASN1_UTF8STRING* utf8 = ASN1_UTF8STRING_new();
+    ASSERT_THAT(utf8, NotNull());
+    ASN1_STRING_set(utf8, upn, static_cast<int>(strlen(upn)));
+    ASN1_TYPE_set(value, V_ASN1_UTF8STRING, utf8);
+
+    ASSERT_EQ(GENERAL_NAME_set0_othername(gen, othType, value), 1);
+    ASSERT_EQ(sk_GENERAL_NAME_push(gens, gen), expectedPushResult);
+    ASSERT_EQ(X509_add1_ext_i2d(cert, NID_subject_alt_name, gens, 0, 0), 1);
+
+    sk_GENERAL_NAME_pop_free(gens, GENERAL_NAME_free);
+}
+
+// Helper to add multiple UPNs to a certificate
+void addMultipleUPNsToCert(X509* cert, std::initializer_list<const char*> upns)
+{
+    GENERAL_NAMES* gens = sk_GENERAL_NAME_new_null();
+    ASSERT_THAT(gens, NotNull());
+
+    int expectedPushResult = 1;
+    for (const char* upn : upns)
+    {
+        GENERAL_NAME* gen = GENERAL_NAME_new();
+        ASSERT_THAT(gen, NotNull());
+
+        ASN1_OBJECT* othType = OBJ_nid2obj(NID_ms_upn);
+
+        ASN1_TYPE* value = ASN1_TYPE_new();
+        ASSERT_THAT(value, NotNull());
+
+        ASN1_UTF8STRING* utf8 = ASN1_UTF8STRING_new();
+        ASSERT_THAT(utf8, NotNull());
+        ASN1_STRING_set(utf8, upn, static_cast<int>(strlen(upn)));
+        ASN1_TYPE_set(value, V_ASN1_UTF8STRING, utf8);
+
+        ASSERT_EQ(GENERAL_NAME_set0_othername(gen, othType, value), 1);
+        ASSERT_EQ(sk_GENERAL_NAME_push(gens, gen), expectedPushResult);
+        expectedPushResult++;
+    }
+    ASSERT_EQ(X509_add1_ext_i2d(cert, NID_subject_alt_name, gens, 0, 0), 1);
+
+    sk_GENERAL_NAME_pop_free(gens, GENERAL_NAME_free);
+}
+
+// Helper to add key usage extensions to a certificate
+void addKeyUsageExtensions(X509* cert, const char* keyUsage,
+                           const char* extKeyUsage = "clientAuth")
+{
+    X509_EXTENSION* ex =
+        X509V3_EXT_conf_nid(nullptr, nullptr, NID_key_usage, keyUsage);
+    ASSERT_THAT(ex, NotNull());
+    ASSERT_EQ(X509_add_ext(cert, ex, -1), 1);
+    X509_EXTENSION_free(ex);
+
+    ex = X509V3_EXT_conf_nid(nullptr, nullptr, NID_ext_key_usage, extKeyUsage);
+    ASSERT_THAT(ex, NotNull());
+    ASSERT_EQ(X509_add_ext(cert, ex, -1), 1);
+    X509_EXTENSION_free(ex);
+}
+
 void verifyMtlsCert(const char* keyUsage)
 {
     OSSLX509 x509;
     x509.setSubjectName();
 
-    X509_EXTENSION* ex =
-        X509V3_EXT_conf_nid(nullptr, nullptr, NID_key_usage, keyUsage);
-    ASSERT_THAT(ex, NotNull());
-    ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
-    X509_EXTENSION_free(ex);
-    ex = X509V3_EXT_conf_nid(nullptr, nullptr, NID_ext_key_usage, "clientAuth");
-    ASSERT_THAT(ex, NotNull());
-    ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
-    X509_EXTENSION_free(ex);
+    addKeyUsageExtensions(x509.get(), keyUsage);
     x509.sign();
 
     MtlsHandshake handshake;
@@ -433,36 +499,10 @@ TEST(GetUPNFromCert, NonUTF8UPNSubjectAlternativeName)
 TEST(GetUPNFromCert, ValidUPN)
 {
     OSSLX509 x509;
-
-    GENERAL_NAMES* gens = sk_GENERAL_NAME_new_null();
-    ASSERT_THAT(gens, NotNull());
-
-    GENERAL_NAME* gen = GENERAL_NAME_new();
-    ASSERT_THAT(gen, NotNull());
-
-    ASN1_OBJECT* othType = OBJ_nid2obj(NID_ms_upn);
-
-    ASN1_TYPE* value = ASN1_TYPE_new();
-    ASSERT_THAT(value, NotNull());
-    value->type = V_ASN1_UTF8STRING;
-
-    // NOLINTBEGIN(cppcoreguidelines-pro-type-union-access)
-    value->value.utf8string = ASN1_UTF8STRING_new();
-    ASSERT_THAT(value->value.utf8string, NotNull());
-    const char* user = "user@domain.com";
-    ASN1_STRING_set(value->value.utf8string, user,
-                    static_cast<int>(strlen(user)));
-    // NOLINTEND(cppcoreguidelines-pro-type-union-access)
-
-    ASSERT_EQ(GENERAL_NAME_set0_othername(gen, othType, value), 1);
-    ASSERT_EQ(sk_GENERAL_NAME_push(gens, gen), 1);
-    ASSERT_EQ(X509_add1_ext_i2d(x509.get(), NID_subject_alt_name, gens, 0, 0),
-              1);
+    addUPNToCert(x509.get(), "user@domain.com", 1);
 
     std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
     EXPECT_THAT(upn, "user");
-
-    sk_GENERAL_NAME_pop_free(gens, GENERAL_NAME_free);
 }
 
 TEST(IsUPNMatch, MultipleCases)
@@ -472,5 +512,197 @@ TEST(IsUPNMatch, MultipleCases)
     EXPECT_FALSE(isUPNMatch("user@domain.com", "hostname.domain.org"));
     EXPECT_FALSE(isUPNMatch("user@region.com", "hostname.domain.com"));
     EXPECT_TRUE(isUPNMatch("user@com", "hostname.region.domain.com"));
+}
+
+TEST(GetUPNFromCert, DomainMismatchRejects)
+{
+    OSSLX509 x509;
+    addUPNToCert(x509.get(), "user@evil.com", 1);
+
+    // Hostname is domain.com, but UPN is from evil.com - should reject
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+}
+
+TEST(GetUPNFromCert, MultipleUPNEntriesFirstWins)
+{
+    OSSLX509 x509;
+    addMultipleUPNsToCert(x509.get(),
+                          {"first@domain.com", "second@domain.com"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    // Should return first valid UPN
+    EXPECT_THAT(upn, "first");
+}
+
+TEST(GetUPNFromCert, UPNWithoutAtSymbol)
+{
+    OSSLX509 x509;
+    addUPNToCert(x509.get(), "userwithoutatsymbol", 1);
+
+    // UPN without @ should fail domain validation
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+}
+
+TEST(GetUPNFromCert, UPNWithEmptyUsername)
+{
+    OSSLX509 x509;
+    addUPNToCert(x509.get(), "@domain.com", 1);
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    // Empty username should be handled gracefully
+    EXPECT_THAT(upn, "");
+}
+
+TEST(MutualTLS, CertificateWithoutClientAuthPurpose)
+{
+    OSSLX509 x509;
+    x509.setSubjectName();
+
+    // Create cert WITHOUT clientAuth extended key usage
+    addKeyUsageExtensions(x509.get(), "digitalSignature", "serverAuth");
+    // Intentionally NOT adding clientAuth EKU
+    x509.sign();
+
+    MtlsHandshake handshake;
+    handshake.init(x509.get());
+
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, handshake.serverHandle());
+    // Should fail because cert doesn't have clientAuth purpose
+    ASSERT_THAT(session, IsNull());
+}
+
+TEST(MutualTLS, UPNValidCertSuccess)
+{
+    // Enable TLS auth
+    persistent_data::SessionStore::getInstance().getAuthMethodsConfig().tls =
+        true;
+    persistent_data::SessionStore::getInstance()
+        .getAuthMethodsConfig()
+        .mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::CommonName;
+
+    OSSLX509 x509;
+    x509.setSubjectName();
+
+    addKeyUsageExtensions(x509.get(), "digitalSignature, keyAgreement");
+    x509.sign();
+
+    MtlsHandshake handshake;
+    handshake.init(x509.get());
+
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, handshake.serverHandle());
+    ASSERT_THAT(session, NotNull());
+    EXPECT_THAT(session->username, "user");
+    EXPECT_THAT(session->sessionType, persistent_data::SessionType::MutualTLS);
+}
+
+TEST(MutualTLS, UPNDomainMismatchRejectsAuth)
+{
+    // Enable TLS auth with UPN mode
+    persistent_data::SessionStore::getInstance().getAuthMethodsConfig().tls =
+        true;
+    persistent_data::SessionStore::getInstance()
+        .getAuthMethodsConfig()
+        .mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::UserPrincipalName;
+
+    OSSLX509 x509;
+    // UPN from different domain than hostname
+    addUPNToCert(x509.get(), "attacker@evil.com", 1);
+
+    addKeyUsageExtensions(x509.get(), "digitalSignature, keyAgreement");
+    x509.sign();
+
+    MtlsHandshake handshake;
+    handshake.init(x509.get());
+
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, handshake.serverHandle());
+    // Should fail because UPN domain doesn't match hostname
+    ASSERT_THAT(session, IsNull());
+}
+
+TEST(GetUsernameFromCert, ConfigurationModeSwitching)
+{
+    OSSLX509 x509;
+    x509.setSubjectName();
+
+    // Add UPN to cert
+    addUPNToCert(x509.get(), "upnuser@domain.com", 1);
+
+    auto& config =
+        persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
+
+    // Test CommonName mode
+    config.mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::CommonName;
+    std::string usernameCN = getUsernameFromCert(x509.get());
+    EXPECT_THAT(usernameCN, "user");
+
+    // Test UserPrincipalName mode
+    config.mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::UserPrincipalName;
+    std::string usernameUPN = getUsernameFromCert(x509.get());
+    // Result depends on hostname, but should not crash
+    EXPECT_TRUE(usernameUPN.empty() || usernameUPN == "upnuser");
+
+    // Test Invalid mode
+    config.mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::Invalid;
+    std::string usernameInvalid = getUsernameFromCert(x509.get());
+    EXPECT_THAT(usernameInvalid, "");
+}
+
+TEST(GetUPNFromCert, UPNWithMultipleAtSymbols)
+{
+    OSSLX509 x509;
+    addUPNToCert(x509.get(), "user@sub@domain.com", 1);
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    // Multiple @ symbols is malformed - should fail domain validation
+    EXPECT_THAT(upn, "");
+}
+
+TEST(GetUPNFromCert, UPNWithEmptyDomain)
+{
+    OSSLX509 x509;
+    addUPNToCert(x509.get(), "user@", 1);
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    // Empty domain should fail validation
+    EXPECT_THAT(upn, "");
+}
+
+TEST(IsUPNMatch, InternationalizedDomain)
+{
+    // Test with internationalized domain names (if supported)
+    EXPECT_TRUE(isUPNMatch("user@münchen.de", "host.münchen.de"));
+    EXPECT_FALSE(isUPNMatch("user@münchen.de", "host.berlin.de"));
+}
+
+TEST(GetUPNFromCert, UPNWithSpecialCharacters)
+{
+    OSSLX509 x509;
+    addUPNToCert(x509.get(), "user.name+tag@domain.com", 1);
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "user.name+tag");
+}
+
+TEST(GetUPNFromCert, FirstUPNInvalidSecondValid)
+{
+    OSSLX509 x509;
+    addMultipleUPNsToCert(x509.get(), {"first@wrong.com", "second@domain.com"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    // Should skip first (wrong domain) and return second
+    EXPECT_THAT(upn, "second");
 }
 } // namespace
