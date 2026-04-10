@@ -74,7 +74,13 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
             hostDomainMatching = hostname.substr(dotHostPos + 1);
         }
 
-        if (upnDomainMatching != hostDomainMatching)
+        if (upnDomainMatching.size() != hostDomainMatching.size() ||
+            !std::equal(upnDomainMatching.begin(), upnDomainMatching.end(),
+                        hostDomainMatching.begin(), [](char a, char b) {
+                            return std::tolower(
+                                       static_cast<unsigned char>(a)) ==
+                                   std::tolower(static_cast<unsigned char>(b));
+                        }))
         {
             return false;
         }
