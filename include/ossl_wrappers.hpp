@@ -95,9 +95,10 @@ class OpenSSLX509Extension
   public:
     friend OpenSSLX509;
 
-    OpenSSLX509Extension(X509V3_CTX* ctx, int nid, const char* value) :
-        ptr(X509V3_EXT_conf_nid(nullptr, ctx, nid, value))
+    OpenSSLX509Extension(X509V3_CTX* ctx, int nid, std::string_view value)
     {
+        std::string valueStr(value);
+        ptr = X509V3_EXT_conf_nid(nullptr, ctx, nid, valueStr.c_str());
         if (ptr == nullptr)
         {
             throw std::runtime_error(
@@ -570,6 +571,34 @@ class OpenSSLX509
         return X509_set_pubkey(ptr, pkey.get()) == 1;
     }
 
+    bool addAltNameUpns(std::initializer_list<std::string_view> upns) const
+    {
+        return addAltNames(NID_ms_upn, upns);
+    }
+
+    bool addAltNameEmails(
+        std::initializer_list<std::string_view> altNames) const
+    {
+        return addAltNames(GEN_EMAIL, altNames);
+    }
+
+    bool addAltNames(int gnType,
+                     std::initializer_list<std::string_view> altNames) const
+    {
+        OpenSSLGeneralNames gens;
+        for (const std::string_view altName : altNames)
+        {
+            OpenSSLASN1String altNameStr(altName);
+            OpenSSLGeneralName gen(gnType, altNameStr);
+            if (!gens.push(std::move(gen)))
+            {
+                return false;
+            }
+        }
+
+        return add1ExtI2d(NID_subject_alt_name, gens) > 0;
+    }
+
     int add1ExtI2d(int nid, OpenSSLGeneralNames& names) const
     {
         return X509_add1_ext_i2d(ptr, nid, names.get(), 0, 0);
@@ -627,7 +656,7 @@ class OpenSSLX509
         return X509_verify(ptr, key.ptr);
     }
 
-    int addExt(int nid, const char* value) const
+    int addExt(int nid, std::string_view value) const
     {
         X509V3_CTX ctx{};
         X509V3_set_ctx(&ctx, ptr, ptr, nullptr, nullptr, 0);

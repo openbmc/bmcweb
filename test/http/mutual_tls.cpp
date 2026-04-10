@@ -12,7 +12,9 @@
 
 #include <algorithm>
 #include <array>
+#include <initializer_list>
 #include <string>
+#include <string_view>
 
 extern "C"
 {
@@ -23,13 +25,11 @@ extern "C"
 #include <openssl/obj_mac.h>
 #include <openssl/ssl.h>
 #include <openssl/types.h>
-#include <openssl/x509v3.h>
 }
 
 #include <boost/asio/ip/address.hpp>
 
 #include <memory>
-#include <utility>
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -236,20 +236,13 @@ class MtlsHandshake
     }
 };
 
-void verifyMtlsCert(const char* keyUsage)
+void verifyMtlsCert(std::string_view keyUsage)
 {
     OpenSSLX509 x509;
     x509.setSubjectName();
 
-    X509_EXTENSION* ex =
-        X509V3_EXT_conf_nid(nullptr, nullptr, NID_key_usage, keyUsage);
-    ASSERT_THAT(ex, NotNull());
-    ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
-    X509_EXTENSION_free(ex);
-    ex = X509V3_EXT_conf_nid(nullptr, nullptr, NID_ext_key_usage, "clientAuth");
-    ASSERT_THAT(ex, NotNull());
-    ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
-    X509_EXTENSION_free(ex);
+    x509.addExt(NID_key_usage, keyUsage);
+    x509.addExt(NID_ext_key_usage, "clientAuth");
 
     MtlsHandshake handshake;
     handshake.init(x509.get());
@@ -319,14 +312,7 @@ TEST(GetUPNFromCert, EmptySubjectAlternativeName)
 TEST(GetUPNFromCert, NonOthernameSubjectAlternativeName)
 {
     OpenSSLX509 x509;
-
-    OpenSSLASN1String ia5("user@domain.com");
-
-    OpenSSLGeneralNames gens;
-    OpenSSLGeneralName gen(GEN_EMAIL, ia5);
-    ASSERT_TRUE(gens.push(std::move(gen)));
-
-    ASSERT_EQ(x509.add1ExtI2d(NID_subject_alt_name, gens), 1);
+    ASSERT_TRUE(x509.addAltNameEmails({"user@domain.com"}));
     std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
     EXPECT_THAT(upn, "");
 }
@@ -334,14 +320,7 @@ TEST(GetUPNFromCert, NonOthernameSubjectAlternativeName)
 TEST(GetUPNFromCert, NonUPNSubjectAlternativeName)
 {
     OpenSSLX509 x509;
-    OpenSSLASN1String upnstr("user@domain.com");
-
-    OpenSSLGeneralName gen(NID_SRVName, upnstr);
-    OpenSSLGeneralNames gens;
-
-    ASSERT_TRUE(gens.push(std::move(gen)));
-
-    ASSERT_EQ(x509.add1ExtI2d(NID_subject_alt_name, gens), 1);
+    ASSERT_TRUE(x509.addAltNames(NID_SRVName, {"user@domain.com"}));
     std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
     EXPECT_THAT(upn, "");
 }
@@ -349,14 +328,7 @@ TEST(GetUPNFromCert, NonUPNSubjectAlternativeName)
 TEST(GetUPNFromCert, NonUTF8UPNSubjectAlternativeName)
 {
     OpenSSLX509 x509;
-    OpenSSLGeneralNames gens;
-
-    OpenSSLASN1String ia5("0123456789");
-
-    OpenSSLGeneralName gen(NID_ms_upn, ia5);
-
-    ASSERT_TRUE(gens.push(std::move(gen)));
-    ASSERT_EQ(x509.add1ExtI2d(NID_subject_alt_name, gens), 1);
+    ASSERT_TRUE(x509.addAltNameUpns({"0123456789"}));
 
     std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
     EXPECT_THAT(upn, "");
@@ -365,14 +337,7 @@ TEST(GetUPNFromCert, NonUTF8UPNSubjectAlternativeName)
 TEST(GetUPNFromCert, ValidUPN)
 {
     OpenSSLX509 x509;
-    OpenSSLGeneralNames gens;
-
-    std::string_view user = "user@domain.com";
-    OpenSSLASN1String ia5(user);
-    OpenSSLGeneralName gen(NID_ms_upn, ia5);
-
-    ASSERT_TRUE(gens.push(std::move(gen)));
-    ASSERT_EQ(x509.add1ExtI2d(NID_subject_alt_name, gens), 1);
+    ASSERT_TRUE(x509.addAltNameUpns({"user@domain.com"}));
 
     std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
     EXPECT_THAT(upn, "user");
@@ -395,4 +360,196 @@ TEST(IsUPNMatch, CaseSensitivity)
     EXPECT_TRUE(isUPNMatch("user@domain.com", "host.DOMAIN.COM"));
 }
 
+TEST(GetUPNFromCert, DomainMismatchRejects)
+{
+    OpenSSLX509 x509;
+    x509.addAltNameUpns({"user@evil.com"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+}
+
+TEST(GetUPNFromCert, MultipleUPNEntriesFirstWins)
+{
+    OpenSSLX509 x509;
+    ASSERT_TRUE(x509.addAltNameUpns({"first@domain.com", "second@domain.com"}));
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "first");
+}
+
+TEST(GetUPNFromCert, UPNWithoutAtSymbol)
+{
+    OpenSSLX509 x509;
+    x509.addAltNameUpns({"userwithoutatsymbol"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+}
+
+TEST(GetUPNFromCert, UPNWithEmptyUsername)
+{
+    OpenSSLX509 x509;
+    x509.addAltNameUpns({"@domain.com"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+}
+
+TEST(MutualTLS, CertificateWithoutClientAuthPurpose)
+{
+    OpenSSLX509 x509;
+    x509.setSubjectName();
+
+    x509.addExt(NID_key_usage, "digitalSignature");
+    x509.addExt(NID_ext_key_usage, "serverAuth");
+
+    MtlsHandshake handshake;
+    handshake.init(x509.get());
+
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, handshake.serverHandle());
+    ASSERT_THAT(session, IsNull());
+}
+
+TEST(MutualTLS, UPNValidCertSuccess)
+{
+    persistent_data::SessionStore::getInstance().getAuthMethodsConfig().tls =
+        true;
+    persistent_data::SessionStore::getInstance()
+        .getAuthMethodsConfig()
+        .mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::CommonName;
+
+    OpenSSLX509 x509;
+    x509.setSubjectName();
+
+    x509.addExt(NID_key_usage, "digitalSignature, keyAgreement");
+    x509.addExt(NID_ext_key_usage, "clientAuth");
+
+    MtlsHandshake handshake;
+    handshake.init(x509.get());
+
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, handshake.serverHandle());
+    ASSERT_THAT(session, NotNull());
+    EXPECT_THAT(session->username, "user");
+    EXPECT_THAT(session->sessionType, persistent_data::SessionType::MutualTLS);
+}
+
+TEST(MutualTLS, UPNDomainMismatchRejectsAuth)
+{
+    persistent_data::SessionStore::getInstance().getAuthMethodsConfig().tls =
+        true;
+    persistent_data::SessionStore::getInstance()
+        .getAuthMethodsConfig()
+        .mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::UserPrincipalName;
+
+    OpenSSLX509 x509;
+    x509.addAltNameUpns({"attacker@evil.com"});
+
+    x509.addExt(NID_key_usage, "digitalSignature, keyAgreement");
+    x509.addExt(NID_ext_key_usage, "clientAuth");
+
+    MtlsHandshake handshake;
+    handshake.init(x509.get());
+
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, handshake.serverHandle());
+    ASSERT_THAT(session, IsNull());
+}
+
+TEST(MutualTLS, CommonNameModeReturnsCommonName)
+{
+    persistent_data::SessionStore::getInstance().getAuthMethodsConfig().tls =
+        true;
+    persistent_data::SessionStore::getInstance()
+        .getAuthMethodsConfig()
+        .mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::CommonName;
+
+    OpenSSLX509 x509;
+    x509.setSubjectName();
+    x509.addAltNameUpns({"upnuser@domain.com"});
+    x509.addExt(NID_key_usage, "digitalSignature, keyAgreement");
+    x509.addExt(NID_ext_key_usage, "clientAuth");
+
+    MtlsHandshake handshake;
+    handshake.init(x509.get());
+
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, handshake.serverHandle());
+    ASSERT_THAT(session, NotNull());
+    EXPECT_THAT(session->username, "user");
+}
+
+TEST(MutualTLS, InvalidModeRejectsAuth)
+{
+    persistent_data::SessionStore::getInstance().getAuthMethodsConfig().tls =
+        true;
+    persistent_data::SessionStore::getInstance()
+        .getAuthMethodsConfig()
+        .mTLSCommonNameParsingMode =
+        persistent_data::MTLSCommonNameParseMode::Invalid;
+
+    OpenSSLX509 x509;
+    x509.setSubjectName();
+    x509.addExt(NID_key_usage, "digitalSignature, keyAgreement");
+    x509.addExt(NID_ext_key_usage, "clientAuth");
+
+    MtlsHandshake handshake;
+    handshake.init(x509.get());
+
+    boost::asio::ip::address ip;
+    std::shared_ptr<persistent_data::UserSession> session =
+        verifyMtlsUser(ip, handshake.serverHandle());
+    ASSERT_THAT(session, IsNull());
+}
+
+TEST(GetUPNFromCert, UPNWithMultipleAtSymbols)
+{
+    OpenSSLX509 x509;
+    x509.addAltNameUpns({"user@sub@domain.com"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+}
+
+TEST(GetUPNFromCert, UPNWithEmptyDomain)
+{
+    OpenSSLX509 x509;
+    x509.addAltNameUpns({"user@"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+}
+
+TEST(IsUPNMatch, InternationalizedDomain)
+{
+    EXPECT_TRUE(isUPNMatch("user@münchen.de", "host.münchen.de"));
+    EXPECT_FALSE(isUPNMatch("user@münchen.de", "host.berlin.de"));
+}
+
+TEST(GetUPNFromCert, UPNWithSpecialCharacters)
+{
+    OpenSSLX509 x509;
+    x509.addAltNameUpns({"user.name+tag@domain.com"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "user.name+tag");
+}
+
+TEST(GetUPNFromCert, FirstUPNInvalidSecondValid)
+{
+    OpenSSLX509 x509;
+    x509.addAltNameUpns({"first@wrong.com", "second@domain.com"});
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "second");
+}
 } // namespace

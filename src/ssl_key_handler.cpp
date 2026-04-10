@@ -318,7 +318,7 @@ static std::string constructX509(const std::string& cn, OpenSSLEVPKey& pPrivKey)
     X509_set_version(x509, 2);
     x509Obj.addExt(NID_basic_constraints, "critical,CA:TRUE");
     std::string subjectAltName = std::format("DNS:{}", cn);
-    x509Obj.addExt(NID_subject_alt_name, subjectAltName.c_str());
+    x509Obj.addExt(NID_subject_alt_name, subjectAltName);
     x509Obj.addExt(NID_subject_key_identifier, "hash");
     x509Obj.addExt(NID_authority_key_identifier, "keyid");
     x509Obj.addExt(NID_key_usage, "digitalSignature, keyEncipherment");
