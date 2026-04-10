@@ -328,9 +328,9 @@ class OpenSSLGeneralNames
     // element has been effectively moved out of even if std::move isn't
     // used.
     // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
-    bool push(OpenSSLGeneralName&& name) const
+    int push(OpenSSLGeneralName&& name) const
     {
-        return sk_GENERAL_NAME_push(ptr, name.release()) == 1;
+        return sk_GENERAL_NAME_push(ptr, name.release());
     }
 
     OpenSSLGeneralNames(const OpenSSLGeneralNames&) = delete;
