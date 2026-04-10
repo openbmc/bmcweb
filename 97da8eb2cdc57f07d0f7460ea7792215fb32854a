@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cc57158_0b28b758",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T18:50:43Z",
+      "side": 1,
+      "message": "\u001b[1m../test/redfish-core/include/utils/time_utils_test.cpp:332:10: \u001b[0m\u001b[0;1;31merror: \u001b[0m\u001b[1mno header providing \"std::string\" is directly included [misc-include-cleaner,-warnings-as-errors]\u001b[0m\n   10 |     std::string localResult \u003d getDateTimeUint(testTime, \"\");\u001b[0m\n      | \u001b[0;1;32m",
+      "revId": "97da8eb2cdc57f07d0f7460ea7792215fb32854a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b341b731_d07697c1",
         "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
         "patchSetId": 6
