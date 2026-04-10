@@ -735,6 +735,46 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void afterGetProcessorMemoryLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec)
+    {
+        return;
+    }
+    if (endpoints.empty())
+    {
+        return;
+    }
+    nlohmann::json& memoryArray = asyncResp->res.jsonValue["Links"]["Memory"];
+    memoryArray = nlohmann::json::array();
+    for (const auto& memoryPath : endpoints)
+    {
+        std::string memoryName =
+            sdbusplus::message::object_path(memoryPath).filename();
+        if (memoryName.empty())
+        {
+            continue;
+        }
+        nlohmann::json::object_t memory;
+        memory["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME, memoryName);
+        memoryArray.emplace_back(std::move(memory));
+    }
+}
+
+inline void getProcessorMemoryLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorPath)
+{
+    dbus::utility::getAssociationEndPoints(
+        processorPath + "/all_memory",
+        std::bind_front(afterGetProcessorMemoryLinks, asyncResp));
+}
+
 inline void handleProcessorSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -890,6 +930,18 @@ inline void getProcessorData(
             else if (interface == "xyz.openbmc_project.Association.Definitions")
             {
                 getLocationIndicatorActive(asyncResp, objectPath);
+            }
+        }
+    }
+
+    for (const auto& [serviceName, interfaceList] : serviceMap)
+    {
+        for (const auto& interface : interfaceList)
+        {
+            if (interface == "xyz.openbmc_project.Inventory.Item.Accelerator")
+            {
+                getProcessorMemoryLinks(asyncResp, objectPath);
+                break;
             }
         }
     }
