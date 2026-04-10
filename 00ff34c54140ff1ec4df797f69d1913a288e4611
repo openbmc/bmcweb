@@ -311,6 +311,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c6c5d8_8aeacf3c",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T18:50:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0e3b007_179c2a63",
+      "range": {
+        "startLine": 466,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 35
+      },
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9aa3400_a6c508f7",
@@ -334,6 +358,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee18c990_85a61d24",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T18:50:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9aa3400_a6c508f7",
+      "range": {
+        "startLine": 499,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 75
+      },
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd684b51_f183d3d2",
@@ -347,6 +395,24 @@
       "writtenOn": "2026-04-03T18:45:23Z",
       "side": 1,
       "message": "Lets avoid writing tests for things in the details namespace (like was being done previously).  The API for these functions is clearly defined, and has 4 method calls, one for each time input type we support.  We should test each of those to the limits of what it allows, which internally will call toISO8061ExtendedStr",
+      "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9a4ab6c_a9788d4e",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T18:50:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd684b51_f183d3d2",
       "revId": "00ff34c54140ff1ec4df797f69d1913a288e4611",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

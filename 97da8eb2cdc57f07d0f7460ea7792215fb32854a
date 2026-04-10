@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b341b731_d07697c1",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T18:50:22Z",
+      "side": 1,
+      "message": "This test looks like it\u0027s mostly duplicated with the one above, with the exception of the comment and the offset.empty() check, (which I think is redundant to the regex)\n\nCan be removed.",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 0
+      },
+      "revId": "97da8eb2cdc57f07d0f7460ea7792215fb32854a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b567bb8e_9cb39d7d",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T18:50:22Z",
+      "side": 1,
+      "message": "This will overflow on 32 bit.  I have a patch here to completely remove the time_t usage in this, so I\u0027ll make sure we have coverage.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/89019/5\n\n\nOr I can just remove it when I get there.",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 63
+      },
+      "revId": "97da8eb2cdc57f07d0f7460ea7792215fb32854a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c77e607_a5e49310",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T18:50:22Z",
+      "side": 1,
+      "message": "Why are these split?  You check the start and the end of the string, just check each string exactly?\n\nEXPECT_EQ(s1, \"2021-11-30T22:41:35+00:00\");\n\nis the same, right?",
+      "range": {
+        "startLine": 399,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 40
+      },
+      "revId": "97da8eb2cdc57f07d0f7460ea7792215fb32854a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
