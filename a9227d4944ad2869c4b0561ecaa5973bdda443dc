@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa23a924_c0b69f36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:26:17Z",
+      "side": 1,
+      "message": "?  I\u0027m confused at this statement;  The cooled_by association was literally created to fulfill this Redfish property.  Are you attaching sub-items to the cooled by in your config?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fac14d9_b835518f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:26:17Z",
+      "side": 1,
+      "message": "Soemthing seems off with this modeling.  In the above, you\u0027d have\n\nMain chassis -\u003e Contains -\u003e fanbox      -\u003e Fan 1-4\n                            \"chassis 1\"\n                            \"chassis 2\"\n\n\nFan1 -\u003e Cools -\u003e Chassis 1-4\n\n\n\nJust because a fan is contained with a chassis doesn\u0027t mean it cools that component, that\u0027s why Redfish separates them.\n\n\nHave you talked through any of this modeling with the DMTF specification or have examples?  They write the spec so they have a better handle on this stuff.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 28
+      },
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5139b11e_adb5cc3e",
@@ -14,6 +60,63 @@
       "writtenOn": "2026-04-09T16:10:24Z",
       "side": 1,
       "message": "Thanks for all the last round\u0027s reviews 👍",
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "118de5de_6332e7ab",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:26:17Z",
+      "side": 1,
+      "message": "Oracle?",
+      "range": {
+        "startLine": 88,
+        "startChar": 39,
+        "endLine": 88,
+        "endChar": 45
+      },
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72023e92_d60b75ac",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:26:17Z",
+      "side": 1,
+      "message": "Missed error handling.  Need to check for empty after this conversion.",
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e28a593_a2811ce8",
+        "filename": "src/dbus_utility.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:26:17Z",
+      "side": 1,
+      "message": "https://github.com/search?q\u003drepo%3Aopenbmc%2Fphosphor-objmgr%20GetPathsByAssociation\u0026type\u003dcode\n\nNew patch you need to link?",
       "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

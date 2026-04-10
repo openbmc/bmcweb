@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "049d0f28_f361c4de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:26:17Z",
+      "side": 1,
+      "message": "Not sure what an EM review has to do with this.  If you don\u0027t have the hardware, you at least need to come up with a reasonable simulation (usually qemu) that can show it working, or you need to mock up enough \"fake\" em configs (that will never merge) to prove that this works as designed.\n\nPlease also run redfish service validator on both.",
+      "parentUuid": "6354dd25_32c7387f",
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "725589c4_d574d632",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -174,6 +192,24 @@
       "side": 1,
       "message": "Leaving testing open until we get alignment on the implementation.",
       "parentUuid": "c6413f71_f01edc58",
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2acd4981_8957a385",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-10T00:26:17Z",
+      "side": 1,
+      "message": "I agree, no need to list warnings if you can judge that they\u0027re unrelated to what you\u0027re working on.",
+      "parentUuid": "83f72caa_ece22937",
       "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
