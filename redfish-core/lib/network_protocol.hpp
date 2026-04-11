@@ -115,7 +115,7 @@ inline void extractNTPServersAndDomainNamesData(
 template <typename CallbackFunc>
 void getEthernetIfaceData(CallbackFunc&& callback)
 {
-    sdbusplus::message::object_path path("/xyz/openbmc_project/network");
+    sdbusplus::object_path path("/xyz/openbmc_project/network");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
         [callback = std::forward<CallbackFunc>(callback)](
@@ -462,8 +462,7 @@ inline void getNTPProtocolEnabled(
 
 inline std::string encodeServiceObjectPath(std::string_view serviceName)
 {
-    sdbusplus::message::object_path objPath(
-        "/xyz/openbmc_project/control/service");
+    sdbusplus::object_path objPath("/xyz/openbmc_project/control/service");
     objPath /= serviceName;
     return objPath.str;
 }

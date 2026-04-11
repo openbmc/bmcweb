@@ -58,7 +58,7 @@ inline void handlePCIeDevicePath(
     for (const std::string& pcieDevicePath : pcieDevicePaths)
     {
         std::string pcieDeviceName =
-            sdbusplus::message::object_path(pcieDevicePath).filename();
+            sdbusplus::object_path(pcieDevicePath).filename();
         if (pcieDeviceName.empty() || pcieDeviceName != pcieDeviceId)
         {
             continue;
@@ -188,7 +188,7 @@ inline void afterGetAssociatedSubTreePaths(
     for (const std::string& processorPath : processorPaths)
     {
         std::string processorName =
-            sdbusplus::message::object_path(processorPath).filename();
+            sdbusplus::object_path(processorPath).filename();
         if (processorName.empty())
         {
             continue;
@@ -215,7 +215,7 @@ inline void linkAssociatedProcessor(
 
     dbus::utility::getAssociatedSubTreePaths(
         pcieDevicePath + "/connected_to",
-        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
         processorInterfaces,
         std::bind_front(afterGetAssociatedSubTreePaths, asyncResp));
 }
@@ -291,7 +291,7 @@ inline void getPCIeDeviceSlotPath(
     std::function<void(const std::string& pcieDeviceSlot)>&& callback)
 {
     std::string associationPath = pcieDevicePath + "/contained_by";
-    sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
+    sdbusplus::object_path path("/xyz/openbmc_project/inventory");
     static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
         "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
     dbus::utility::getAssociatedSubTreePaths(

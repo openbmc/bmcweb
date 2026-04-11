@@ -328,7 +328,7 @@ template <typename CallbackFunc>
 void getHypervisorIfaceData(const std::string& ethIfaceId,
                             CallbackFunc&& callback)
 {
-    sdbusplus::message::object_path path("/");
+    sdbusplus::object_path path("/");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Settings", path,
         [ethIfaceId{std::string{ethIfaceId}},
@@ -415,12 +415,12 @@ inline void setHypervisorIPv4Gateway(
     BMCWEB_LOG_DEBUG(
         "Setting the DefaultGateway to the last configured gateway");
 
-    setDbusProperty(asyncResp, "IPv4StaticAddresses/1/Gateway",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/network/hypervisor"),
-                    "xyz.openbmc_project.Network.SystemConfiguration",
-                    "DefaultGateway", gateway);
+    setDbusProperty(
+        asyncResp, "IPv4StaticAddresses/1/Gateway",
+        "xyz.openbmc_project.Settings",
+        sdbusplus::object_path("/xyz/openbmc_project/network/hypervisor"),
+        "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
+        gateway);
 }
 
 /**
@@ -507,8 +507,7 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
 
     setDbusProperty(
         asyncResp, "DHCPv4/DHCPEnabled", "xyz.openbmc_project.Settings",
-        sdbusplus::message::object_path(
-            "/xyz/openbmc_project/network/hypervisor") /
+        sdbusplus::object_path("/xyz/openbmc_project/network/hypervisor") /
             ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled", dhcp);
 
@@ -610,11 +609,11 @@ inline void handleHypervisorHostnamePatch(
     }
 
     asyncResp->res.jsonValue["HostName"] = hostName;
-    setDbusProperty(asyncResp, "HostName", "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/network/hypervisor"),
-                    "xyz.openbmc_project.Network.SystemConfiguration",
-                    "HostName", hostName);
+    setDbusProperty(
+        asyncResp, "HostName", "xyz.openbmc_project.Settings",
+        sdbusplus::object_path("/xyz/openbmc_project/network/hypervisor"),
+        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+        hostName);
 }
 
 inline void setIPv4InterfaceEnabled(
@@ -664,7 +663,7 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
             ifaceArray = nlohmann::json::array();
             for (const std::string& iface : ifaceList)
             {
-                sdbusplus::message::object_path path(iface);
+                sdbusplus::object_path path(iface);
                 std::string name = path.filename();
                 if (name.empty())
                 {
@@ -925,8 +924,7 @@ inline void handleHypervisorSystemResetPost(
 
     setDbusPropertyAction(
         asyncResp, "xyz.openbmc_project.State.Hypervisor",
-        sdbusplus::message::object_path(
-            "/xyz/openbmc_project/state/hypervisor0"),
+        sdbusplus::object_path("/xyz/openbmc_project/state/hypervisor0"),
         "xyz.openbmc_project.State.Host", "RequestedHostTransition",
         "ResetType", "ComputerSystem.Reset", command);
 }

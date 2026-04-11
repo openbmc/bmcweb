@@ -254,7 +254,7 @@ inline void afterGetFanSpeedsPercent(
 
     for (const std::string& fanPath : fanPaths)
     {
-        sdbusplus::message::object_path endpointPath{fanPath};
+        sdbusplus::object_path endpointPath{fanPath};
 
         fan_utils::getFanSensorObjects(
             asyncResp, endpointPath,

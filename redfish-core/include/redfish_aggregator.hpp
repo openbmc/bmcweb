@@ -944,7 +944,7 @@ class RedfishAggregator
             satelliteInfo.emplace(prefix, source.url);
         }
 
-        sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
+        sdbusplus::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", path,
             [handler{std::move(handler)},
