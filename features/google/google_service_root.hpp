@@ -87,7 +87,7 @@ inline void hothGetSubtreeCallback(
     }
     for (const auto& [path, services] : subtree)
     {
-        sdbusplus::message::object_path objPath(path);
+        sdbusplus::object_path objPath(path);
         if (objPath.filename() != rotId || services.empty())
         {
             continue;

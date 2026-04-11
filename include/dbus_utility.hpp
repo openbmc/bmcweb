@@ -47,17 +47,17 @@ using DbusVariantType = std::variant<
     bool,
     std::vector<uint32_t>,
     std::vector<uint16_t>,
-    sdbusplus::message::object_path,
+    sdbusplus::object_path,
     std::tuple<uint64_t, std::vector<std::tuple<std::string, double, uint64_t>>>,
     std::tuple<uint64_t, std::vector<std::tuple<std::string, std::string, double, uint64_t>>>,
-    std::vector<sdbusplus::message::object_path>,
+    std::vector<sdbusplus::object_path>,
     std::vector<std::tuple<std::string, std::string>>,
     std::vector<std::tuple<uint32_t, std::vector<uint32_t>>>,
     std::vector<std::tuple<uint32_t, size_t>>,
     std::vector<std::tuple<
-      std::vector<std::tuple<sdbusplus::message::object_path, std::string>>,
+      std::vector<std::tuple<sdbusplus::object_path, std::string>>,
       std::string, std::string, uint64_t>>,
-    std::vector<std::pair<sdbusplus::message::object_path, std::string>>,
+    std::vector<std::pair<sdbusplus::object_path, std::string>>,
     std::vector<std::tuple<std::string, uint64_t, std::string, double>>,
     std::vector<std::tuple<std::string, std::string, uint64_t, std::string>>
  >;
@@ -67,7 +67,7 @@ using DBusPropertiesMap = std::vector<std::pair<std::string, DbusVariantType>>;
 using DBusInterfacesMap =
     std::vector<std::pair<std::string, DBusPropertiesMap>>;
 using ManagedObjectType =
-    std::vector<std::pair<sdbusplus::message::object_path, DBusInterfacesMap>>;
+    std::vector<std::pair<sdbusplus::object_path, DBusInterfacesMap>>;
 
 // Map of service name to list of interfaces
 using MapperServiceMap =
@@ -164,15 +164,15 @@ void getSubTreePaths(
                        const MapperGetSubTreePathsResponse&)>&& callback);
 
 void getAssociatedSubTree(
-    const sdbusplus::message::object_path& associatedPath,
-    const sdbusplus::message::object_path& path, int32_t depth,
+    const sdbusplus::object_path& associatedPath,
+    const sdbusplus::object_path& path, int32_t depth,
     std::span<const std::string_view> interfaces,
     std::function<void(const boost::system::error_code&,
                        const MapperGetSubTreeResponse&)>&& callback);
 
 void getAssociatedSubTreePaths(
-    const sdbusplus::message::object_path& associatedPath,
-    const sdbusplus::message::object_path& path, int32_t depth,
+    const sdbusplus::object_path& associatedPath,
+    const sdbusplus::object_path& path, int32_t depth,
     std::span<const std::string_view> interfaces,
     std::function<void(const boost::system::error_code&,
                        const MapperGetSubTreePathsResponse&)>&& callback);
@@ -204,7 +204,7 @@ void getAssociationEndPoints(
                        const MapperEndPoints&)>&& callback);
 
 void getManagedObjects(
-    const std::string& service, const sdbusplus::message::object_path& path,
+    const std::string& service, const sdbusplus::object_path& path,
     std::function<void(const boost::system::error_code&,
                        const ManagedObjectType&)>&& callback);
 } // namespace utility

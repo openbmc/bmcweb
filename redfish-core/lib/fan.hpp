@@ -48,8 +48,7 @@ inline void updateFanList(
     nlohmann::json& fanList = asyncResp->res.jsonValue["Members"];
     for (const std::string& fanPath : fanPaths)
     {
-        std::string fanName =
-            sdbusplus::message::object_path(fanPath).filename();
+        std::string fanName = sdbusplus::object_path(fanPath).filename();
         if (fanName.empty())
         {
             continue;
@@ -135,7 +134,7 @@ inline void handleFanCollectionGet(
 
 inline bool checkFanId(const std::string& fanPath, const std::string& fanId)
 {
-    std::string fanName = sdbusplus::message::object_path(fanPath).filename();
+    std::string fanName = sdbusplus::object_path(fanPath).filename();
 
     return !(fanName.empty() || fanName != fanId);
 }
