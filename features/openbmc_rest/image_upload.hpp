@@ -78,7 +78,7 @@ inline void uploadImageHandler(
         [asyncResp](sdbusplus::message_t& m) {
             BMCWEB_LOG_DEBUG("Match fired");
 
-            sdbusplus::message::object_path path;
+            sdbusplus::object_path path;
             dbus::utility::DBusInterfacesMap interfaces;
             m.read(path, interfaces);
 

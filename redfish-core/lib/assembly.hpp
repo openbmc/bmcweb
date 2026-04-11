@@ -202,7 +202,7 @@ inline void getAssemblyProperties(
             "/redfish/v1/Chassis/{}/Assembly#/Assemblies/{}", chassisId,
             std::to_string(assemblyIndex));
         item["MemberId"] = std::to_string(assemblyIndex);
-        item["Name"] = sdbusplus::message::object_path(assembly).filename();
+        item["Name"] = sdbusplus::object_path(assembly).filename();
 
         asyncResp->res.jsonValue["Assemblies"].emplace_back(item);
 

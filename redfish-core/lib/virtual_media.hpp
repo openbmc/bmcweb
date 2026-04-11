@@ -47,8 +47,8 @@ enum class VmMode
     Proxy
 };
 
-inline VmMode parseObjectPathAndGetMode(
-    const sdbusplus::message::object_path& itemPath, const std::string& resName)
+inline VmMode parseObjectPathAndGetMode(const sdbusplus::object_path& itemPath,
+                                        const std::string& resName)
 {
     std::string thisPath = itemPath.filename();
     BMCWEB_LOG_DEBUG("Filename: {}, ThisPath: {}", itemPath.str, thisPath);
@@ -90,7 +90,7 @@ inline VmMode parseObjectPathAndGetMode(
 using CheckItemHandler =
     std::function<void(const std::string& service, const std::string& resName,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
-                       const std::pair<sdbusplus::message::object_path,
+                       const std::pair<sdbusplus::object_path,
                                        dbus::utility::DBusInterfacesMap>&)>;
 
 inline void findAndParseObject(
@@ -98,7 +98,7 @@ inline void findAndParseObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     CheckItemHandler&& handler)
 {
-    sdbusplus::message::object_path path("/xyz/openbmc_project/VirtualMedia");
+    sdbusplus::object_path path("/xyz/openbmc_project/VirtualMedia");
     dbus::utility::getManagedObjects(
         service, path,
         [service, resName, asyncResp, handler = std::move(handler)](
@@ -277,8 +277,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                               const std::string& name)
 {
     BMCWEB_LOG_DEBUG("Get available Virtual Media resources.");
-    sdbusplus::message::object_path objPath(
-        "/xyz/openbmc_project/VirtualMedia");
+    sdbusplus::object_path objPath("/xyz/openbmc_project/VirtualMedia");
     dbus::utility::getManagedObjects(
         service, objPath,
         [name, asyncResp{std::move(asyncResp)}](
@@ -313,8 +312,8 @@ inline void afterGetVmData(
     const std::string& name, const std::string& /*service*/,
     const std::string& resName,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::pair<sdbusplus::message::object_path,
-                    dbus::utility::DBusInterfacesMap>& item)
+    const std::pair<sdbusplus::object_path, dbus::utility::DBusInterfacesMap>&
+        item)
 {
     VmMode mode = parseObjectPathAndGetMode(item.first, resName);
     if (mode == VmMode::Invalid)
@@ -498,8 +497,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     sdbusplus::message::unix_fd unixFd(fd);
 
-    sdbusplus::message::object_path path(
-        "/xyz/openbmc_project/VirtualMedia/Legacy");
+    sdbusplus::object_path path("/xyz/openbmc_project/VirtualMedia/Legacy");
     path /= name;
     dbus::utility::async_method_call(
         asyncResp,
@@ -753,8 +751,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
             std::string service = getObjectType.begin()->first;
             BMCWEB_LOG_DEBUG("GetObjectType: {}", service);
 
-            sdbusplus::message::object_path path(
-                "/xyz/openbmc_project/VirtualMedia");
+            sdbusplus::object_path path("/xyz/openbmc_project/VirtualMedia");
             dbus::utility::getManagedObjects(
                 service, path,
                 [service, resName, action, actionParams, asyncResp](
@@ -823,8 +820,7 @@ inline void handleManagersVirtualMediaActionEject(
             std::string service = getObjectType.begin()->first;
             BMCWEB_LOG_DEBUG("GetObjectType: {}", service);
 
-            sdbusplus::message::object_path path(
-                "/xyz/openbmc_project/VirtualMedia");
+            sdbusplus::object_path path("/xyz/openbmc_project/VirtualMedia");
             dbus::utility::getManagedObjects(
                 service, path,
                 [resName, service, action,

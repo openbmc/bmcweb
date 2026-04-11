@@ -109,7 +109,7 @@ inline void getSnmpTrapClient(
 
             for (const auto& objpath : resp)
             {
-                sdbusplus::message::object_path path(objpath.first);
+                sdbusplus::object_path path(objpath.first);
                 const std::string snmpId = path.filename();
                 if (snmpId.empty())
                 {
@@ -164,7 +164,7 @@ inline void afterSnmpClientCreate(
         messages::internalError(asyncResp->res);
         return;
     }
-    sdbusplus::message::object_path path(dbusSNMPid);
+    sdbusplus::object_path path(dbusSNMPid);
     const std::string snmpId = path.filename();
     if (snmpId.empty())
     {
@@ -222,9 +222,8 @@ inline void deleteSnmpTrapClient(
     // request is "snmp1", which will be "1" after being erased.
     snmpTrapId.remove_prefix(4);
 
-    sdbusplus::message::object_path snmpPath =
-        sdbusplus::message::object_path(
-            "/xyz/openbmc_project/network/snmp/manager") /
+    sdbusplus::object_path snmpPath =
+        sdbusplus::object_path("/xyz/openbmc_project/network/snmp/manager") /
         std::string(snmpTrapId);
 
     dbus::utility::async_method_call(

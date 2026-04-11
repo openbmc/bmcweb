@@ -232,7 +232,7 @@ inline void getCpuDataByService(
 {
     BMCWEB_LOG_DEBUG("Get available system cpu resources by service.");
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
+    sdbusplus::object_path path("/xyz/openbmc_project/inventory");
     dbus::utility::getManagedObjects(
         service, path,
         [cpuId, service, objPath, asyncResp{std::move(asyncResp)}](
@@ -600,7 +600,7 @@ inline void getCpuConfigData(
 
             nlohmann::json& json = asyncResp->res.jsonValue;
 
-            const sdbusplus::message::object_path* appliedConfig = nullptr;
+            const sdbusplus::object_path* appliedConfig = nullptr;
             const bool* baseSpeedPriorityEnabled = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
@@ -753,7 +753,7 @@ inline void handleProcessorSubtree(
     for (const auto& [objectPath, serviceMap] : subtree)
     {
         // Ignore any objects which don't end with our desired cpu name
-        sdbusplus::message::object_path path(objectPath);
+        sdbusplus::object_path path(objectPath);
         if (path.filename() == processorId)
         {
             // Filter out objects that don't have the CPU-specific
@@ -942,7 +942,7 @@ inline void patchAppliedOperatingConfig(
     // append to the CPU's path.
     std::string configBaseName =
         appliedConfigUri.buffer().substr(expectedPrefix.buffer().size());
-    sdbusplus::message::object_path configPath(cpuObjectPath);
+    sdbusplus::object_path configPath(cpuObjectPath);
     configPath /= configBaseName;
 
     BMCWEB_LOG_INFO("Setting config to {}", configPath.str);

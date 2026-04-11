@@ -301,7 +301,7 @@ avoid doing direct string containment matching. Doing so can lead to errors
 where fan1 and fan11 both report to the same object, and cause behavior breaks
 in subtle ways.
 
-When using dbus paths, rely on the methods on `sdbusplus::message::object_path`.
+When using dbus paths, rely on the methods on `sdbusplus::object_path`.
 When parsing HTTP field and lists, use the RFC7230 implementations from
 boost::beast.
 
