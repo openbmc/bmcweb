@@ -303,8 +303,7 @@ inline void onOpen(crow::websocket::Connection& conn)
         consoleLeaf = conn.url().segments().back();
     }
     std::string consolePath =
-        sdbusplus::message::object_path("/xyz/openbmc_project/console") /
-        consoleLeaf;
+        sdbusplus::object_path("/xyz/openbmc_project/console") / consoleLeaf;
 
     BMCWEB_LOG_DEBUG("Console Object path = {} Request target = {}",
                      consolePath, conn.url().path());

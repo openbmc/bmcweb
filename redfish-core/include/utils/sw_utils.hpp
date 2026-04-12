@@ -43,19 +43,19 @@ constexpr const char* biosPurpose =
 constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
-inline std::optional<sdbusplus::message::object_path> getFunctionalSoftwarePath(
+inline std::optional<sdbusplus::object_path> getFunctionalSoftwarePath(
     const std::string& swType)
 {
     if (swType == bmcPurpose)
     {
         if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
         {
-            return sdbusplus::message::object_path(
+            return sdbusplus::object_path(
                 "/xyz/openbmc_project/software/bmc/functional");
         }
         else
         {
-            return sdbusplus::message::object_path(
+            return sdbusplus::object_path(
                 "/xyz/openbmc_project/software/functional");
         }
     }
@@ -63,12 +63,12 @@ inline std::optional<sdbusplus::message::object_path> getFunctionalSoftwarePath(
     {
         if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
         {
-            return sdbusplus::message::object_path(
+            return sdbusplus::object_path(
                 "/xyz/openbmc_project/software/bios/functional");
         }
         else
         {
-            return sdbusplus::message::object_path(
+            return sdbusplus::object_path(
                 "/xyz/openbmc_project/software/functional");
         }
     }
@@ -194,7 +194,7 @@ inline void afterGetSubtree(
              std::vector<std::pair<std::string, std::vector<std::string>>>>&
              obj : subtree)
     {
-        sdbusplus::message::object_path path(obj.first);
+        sdbusplus::object_path path(obj.first);
         std::string swId = path.filename();
         if (swId.empty())
         {
@@ -260,7 +260,7 @@ inline void afterAssociatedEndpoints(
     //        "/xyz/openbmc_project/software/230fb078"
     for (const auto& sw : functionalSw)
     {
-        sdbusplus::message::object_path path(sw);
+        sdbusplus::object_path path(sw);
         std::string leaf = path.filename();
         if (leaf.empty())
         {
@@ -393,7 +393,7 @@ inline void getSwMinimumVersion(
 {
     BMCWEB_LOG_DEBUG("getSwMinimumVersion: svc {}, swId {}", dbusSvc, *swId);
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/software");
+    sdbusplus::object_path path("/xyz/openbmc_project/software");
     path /= *swId;
 
     dbus::utility::getProperty<std::string>(
@@ -486,8 +486,7 @@ inline void handleUpdateableEndpoints(
         // so don't throw error here.
         return;
     }
-    sdbusplus::message::object_path reqSwObjPath(
-        "/xyz/openbmc_project/software");
+    sdbusplus::object_path reqSwObjPath("/xyz/openbmc_project/software");
     reqSwObjPath = reqSwObjPath / *swId;
 
     if (std::ranges::find(objPaths, reqSwObjPath.str) != objPaths.end())
@@ -535,8 +534,7 @@ inline void getSwUpdatableStatus(
 {
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
-        sdbusplus::message::object_path swObjectPath(
-            "/xyz/openbmc_project/software");
+        sdbusplus::object_path swObjectPath("/xyz/openbmc_project/software");
         swObjectPath = swObjectPath / *swId;
         constexpr std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Software.Update"};

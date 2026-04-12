@@ -104,7 +104,7 @@ inline void afterChassisDriveCollectionSubtree(
 
     for (const std::string& drive : driveList)
     {
-        sdbusplus::message::object_path object(drive);
+        sdbusplus::object_path object(drive);
         if (object.filename().empty())
         {
             BMCWEB_LOG_ERROR("Failed to find filename in {}", drive);
@@ -145,8 +145,7 @@ inline void afterSystemsStorageGetSubtree(
         subtree,
         [&storageId](const std::pair<std::string,
                                      dbus::utility::MapperServiceMap>& object) {
-            return sdbusplus::message::object_path(object.first).filename() ==
-                   storageId;
+            return sdbusplus::object_path(object.first).filename() == storageId;
         });
     if (storage == subtree.end())
     {
@@ -209,8 +208,7 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         subtree,
         [&storageId](const std::pair<std::string,
                                      dbus::utility::MapperServiceMap>& object) {
-            return sdbusplus::message::object_path(object.first).filename() ==
-                   storageId;
+            return sdbusplus::object_path(object.first).filename() == storageId;
         });
     if (storage == subtree.end())
     {
