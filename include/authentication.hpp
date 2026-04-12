@@ -231,6 +231,11 @@ inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
         {
             return true;
         }
+        // Allow schema files to be accessed without authentication
+        if (url.starts_with("/redfish/v1/schema/"))
+        {
+            return true;
+        }
         if (crow::webroutes::routes.contains(std::string(url)))
         {
             return true;
