@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b445f4f7_05e7e054",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-13T19:59:50Z",
+      "side": 0,
+      "message": "As written you will now introduce a bug if you change the gateway, or multiple IP addresses have the same gateway, some of hte ip addresses will fail to create.",
+      "revId": "00813af9e77827ba31d90992c497652d85bd6a0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

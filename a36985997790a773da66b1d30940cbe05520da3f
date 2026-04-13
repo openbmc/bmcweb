@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "00311d86_036db9e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-13T19:59:50Z",
+      "side": 1,
+      "message": "This isn\u0027t really sufficient.  This array update stuff is a mess of corner cases, and you need to handle all of them.  Please take a look at the Redfish spec for all the possibilities.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "a36985997790a773da66b1d30940cbe05520da3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0e062d95_64e05a87",
@@ -14,6 +37,23 @@
       "writtenOn": "2026-04-13T18:47:54Z",
       "side": 1,
       "message": "Gentle ping — this small bmcweb ethernet fix has been sitting on PS4 for about 5 weeks with Verified+1 and no review activity. Small change (+9/-12) that closes openbmc/bmcweb#308. Would appreciate a look when you get a chance. Thank you!",
+      "revId": "a36985997790a773da66b1d30940cbe05520da3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01a8d4e2_6880b488",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-13T19:59:50Z",
+      "side": 1,
+      "message": "At least based on reading this, this looks like a bug.",
       "revId": "a36985997790a773da66b1d30940cbe05520da3f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
