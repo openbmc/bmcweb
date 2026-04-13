@@ -12,6 +12,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
+#include "utils/association_utils.hpp"
 #include "utils/chassis_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -216,66 +217,6 @@ inline void handleNetworkAdapterPathPortGet(
         networkAdapterId, portId);
 }
 
-inline void afterNetworkAdapterPortPaths(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portId,
-    const std::function<void(const std::string& portPath,
-                             const std::string& serviceName)>& callback,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& object)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTreeById {}",
-                         ec);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    std::string portPath;
-    std::string serviceName;
-    for (const auto& [path, service] : object)
-    {
-        std::string portName = sdbusplus::object_path(path).filename();
-        if (portName == portId)
-        {
-            portPath = path;
-            if (service.size() != 1)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            serviceName = service.begin()->first;
-            break;
-        }
-    }
-
-    if (portPath.empty())
-    {
-        messages::resourceNotFound(asyncResp->res, "Port", portId);
-        return;
-    }
-
-    callback(portPath, serviceName);
-}
-
-inline void getNetworkAdapterPortPath(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portId,
-    std::function<void(const std::string& portPath,
-                       const std::string& serviceName)>&& callback,
-    const std::string& path, [[maybe_unused]] const std::string& serviceName)
-{
-    std::string associationPath = path + "/connecting";
-    dbus::utility::getAssociatedSubTree(
-        associationPath,
-        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
-        std::array<std::string_view, 1>{
-            "xyz.openbmc_project.Inventory.Connector.Port"},
-        std::bind_front(afterNetworkAdapterPortPaths, asyncResp, portId,
-                        std::move(callback)));
-}
-
 inline void handleNetworkAdapterPortPathPortCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
@@ -347,6 +288,11 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    asyncResp->res.jsonValue["NetworkDeviceFunctions"]["@odata.id"] =
+        std::format(
+            "/redfish/v1/Chassis/{}/NetworkAdapters/{}/NetworkDeviceFunctions",
+            chassisId, networkAdapterId);
 }
 
 inline void handleNetworkAdapterPaths(

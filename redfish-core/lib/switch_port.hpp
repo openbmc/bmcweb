@@ -13,6 +13,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/association_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -293,66 +294,6 @@ inline void handleFabricSwitchPortPathPortGet(
     dbus::utility::getAllProperties(
         serviceName, portPath, "xyz.openbmc_project.Inventory.Connector.Port",
         std::bind_front(afterGetFabricSwitchPortInfo, asyncResp));
-}
-
-inline void afterHandleFabricSwitchPortPaths(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portId,
-    const std::function<void(const std::string& portPath,
-                             const std::string& serviceName)>& callback,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& object)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTreeById {}",
-                         ec);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    std::string portPath;
-    std::string serviceName;
-    for (const auto& [path, service] : object)
-    {
-        std::string portName = sdbusplus::object_path(path).filename();
-        if (portName == portId)
-        {
-            portPath = path;
-            if (service.size() != 1)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            serviceName = service.begin()->first;
-            break;
-        }
-    }
-
-    if (portPath.empty())
-    {
-        messages::resourceNotFound(asyncResp->res, "Port", portId);
-        return;
-    }
-
-    callback(portPath, serviceName);
-}
-
-inline void getAssociatedPortPath(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portId,
-    std::function<void(const std::string& portPath,
-                       const std::string& serviceName)>&& callback,
-    const std::string& switchPath)
-{
-    std::string associationPath = switchPath + "/connecting";
-    dbus::utility::getAssociatedSubTree(
-        associationPath,
-        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
-        std::array<std::string_view, 1>{
-            "xyz.openbmc_project.Inventory.Connector.Port"},
-        std::bind_front(afterHandleFabricSwitchPortPaths, asyncResp, portId,
-                        std::move(callback)));
 }
 
 inline void handleFabricSwitchPathPortCollection(
