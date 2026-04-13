@@ -1,5 +1,7 @@
 #pragma once
 
+#include "utils/time_utils.hpp"
+
 #include <nlohmann/json.hpp>
 
 #include <cstdint>
