@@ -575,6 +575,29 @@ Fields common to all schemas
 - RXBytes
 - TXBytes
 
+### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/
+
+#### NetworkDeviceFunctionCollection
+
+- @odata.id
+- @odata.type
+- Members
+- `Members@odata.count`
+- Name
+
+### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/
+
+#### NetworkDeviceFunction
+
+- @odata.id
+- @odata.type
+- AssignablePhysicalNetworkPorts
+- Ethernet
+  - PermanentMACAddress
+- Id
+- Name
+- NetDevFuncType
+
 ### /redfish/v1/EventService/
 
 #### EventService
