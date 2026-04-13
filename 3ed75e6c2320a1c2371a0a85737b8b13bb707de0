@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b27ad7e_6a5f7437",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-13T06:36:49Z",
+      "side": 1,
+      "message": "I have re-wrap the commit message. \nPlease check it again if it fix the problem.\nThanks for the reminder!",
+      "parentUuid": "a67b5057_16e3884e",
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edf826c5_a75879c5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
