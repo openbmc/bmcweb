@@ -6,18 +6,17 @@
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
+#include "utils/time_utils.hpp"
 
 #include <nlohmann/json.hpp>
 
 #include <cerrno>
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
-#include <ctime>
 #include <format>
-#include <iomanip>
 #include <optional>
 #include <span>
-#include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -29,33 +28,31 @@ namespace redfish
 namespace event_log
 {
 
-bool getUniqueEntryID(const std::string& logEntry, std::string& entryID)
+bool getUniqueEntryID(UniqueEntryIDState& state, const std::string& logEntry,
+                      std::string& entryID)
 {
-    static time_t prevTs = 0;
-    static int index = 0;
-
     // Get the entry timestamp
-    std::time_t curTs = 0;
-    std::tm timeStruct = {};
-    std::istringstream entryStream(logEntry);
-    if (entryStream >> std::get_time(&timeStruct, "%Y-%m-%dT%H:%M:%S"))
+    std::optional<time_utils::usSinceEpoch> curTs =
+        time_utils::dateStringToEpoch(logEntry);
+    if (!curTs)
     {
-        curTs = std::mktime(&timeStruct);
-        if (curTs == -1)
-        {
-            return false;
-        }
+        return false;
     }
+    using std::chrono::floor;
+    // Convert to seconds.  Journal doesn't give sub-seconds resolution (yet)
+    // so this should be no op.
+    std::chrono::seconds curTsSec = floor<std::chrono::seconds>(*curTs);
+    std::chrono::sys_seconds curTsSys(curTsSec);
     // If the timestamp isn't unique, increment the index
-    index = (curTs == prevTs) ? index + 1 : 0;
+    state.index = (curTsSys == state.prevTs) ? state.index + 1 : 0;
 
     // Save the timestamp
-    prevTs = curTs;
+    state.prevTs = curTsSys;
 
-    entryID = std::to_string(curTs);
-    if (index > 0)
+    entryID = std::to_string(curTsSys.time_since_epoch().count());
+    if (state.index > 0)
     {
-        entryID += "_" + std::to_string(index);
+        entryID += "_" + std::to_string(state.index);
     }
     return true;
 }
