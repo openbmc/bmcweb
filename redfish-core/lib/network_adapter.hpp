@@ -13,8 +13,10 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
 #include <format>
@@ -348,6 +350,11 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    asyncResp->res.jsonValue["NetworkDeviceFunctions"]["@odata.id"] =
+        std::format(
+            "/redfish/v1/Chassis/{}/NetworkAdapters/{}/NetworkDeviceFunctions",
+            chassisId, networkAdapterId);
 }
 
 inline void handleNetworkAdapterPaths(
