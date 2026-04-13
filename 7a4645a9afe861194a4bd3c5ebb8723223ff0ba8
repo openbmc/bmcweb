@@ -212,6 +212,24 @@
       "parentUuid": "83f72caa_ece22937",
       "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55b4d600_98708fd9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-13T10:01:54Z",
+      "side": 1,
+      "message": "removed the irrelevant warnings.",
+      "parentUuid": "2acd4981_8957a385",
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
