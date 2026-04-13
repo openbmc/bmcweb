@@ -5,7 +5,6 @@
 #include <cerrno>
 #include <cstddef>
 #include <cstdint>
-#include <ctime>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -22,7 +21,8 @@ TEST(RedfishEventLog, GetUniqueEntryIDSuccess)
     bool success = false;
     std::string entryID;
     std::string example = "2000-01-02T03:04:05";
-    success = getUniqueEntryID(example, entryID);
+    UniqueEntryIDState state;
+    success = getUniqueEntryID(state, example, entryID);
 
     ASSERT_EQ(success, true);
 
@@ -35,12 +35,12 @@ TEST(RedfishEventLog, GetUniqueEntryIDUnique)
     std::string entryID1;
     std::string example = "2000-08-02T03:04:05";
 
-    ASSERT_TRUE(getUniqueEntryID(example, entryID1));
-
+    UniqueEntryIDState state;
+    ASSERT_TRUE(getUniqueEntryID(state, example, entryID1));
     ASSERT_EQ(entryID1, "965185445");
 
     std::string entryID2;
-    ASSERT_TRUE(getUniqueEntryID(example, entryID2));
+    ASSERT_TRUE(getUniqueEntryID(state, example, entryID2));
     ASSERT_EQ(entryID2, "965185445_1");
 }
 
@@ -51,9 +51,10 @@ TEST(RedfishEventLog, GetUniqueEntryIDIndex)
     std::string entryID3;
     std::string example = "2000-08-02T03:04:05";
 
-    getUniqueEntryID(example, entryID1);
-    getUniqueEntryID(example, entryID2);
-    getUniqueEntryID(example, entryID3);
+    UniqueEntryIDState state;
+    getUniqueEntryID(state, example, entryID1);
+    getUniqueEntryID(state, example, entryID2);
+    getUniqueEntryID(state, example, entryID3);
 
     const size_t index = entryID2.find('_');
 
