@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3bfa4a6_3b170063",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-13T16:34:13Z",
+      "side": 1,
+      "message": "Do you have access to openbmc-security@lists.ozlabs.org? If so, please search for \"mTLS UPN domain suffix matching in bmcweb\" (note, this is a part of the subject).",
+      "parentUuid": "4cb52d06_3b88da30",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 70
+      },
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "315e68d5_800f5940",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c18af958_bfbad27d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-13T16:34:13Z",
+      "side": 1,
+      "message": "We want to avoid using TLDs and common top level domains.\nThe rational here is, 2 will work great for TLDs like .com, org, .edu (it will require user@domain.com, and fail for user@com). This is why it\u0027s a default. But it will still allow to use some common domains under country TLDs like (user@co.uk, user@com.au, etc), so if there is a company building their own image used only on hosts in such domains, they might want to increase this.",
+      "parentUuid": "315e68d5_800f5940",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d92947d_269f8b31",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -60,6 +108,24 @@
       "writtenOn": "2026-04-13T16:13:08Z",
       "side": 1,
       "message": "In general please don\u0027t submit security vulnerabilities in code review.",
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "570151dd_ffaaa123",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-13T16:34:13Z",
+      "side": 1,
+      "message": "I was not aware. Is there some guidelines how to do this?",
+      "parentUuid": "6d92947d_269f8b31",
       "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
