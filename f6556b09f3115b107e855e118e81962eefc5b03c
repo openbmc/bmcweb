@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ec0988b_639fb08f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-13T15:46:54Z",
+      "side": 1,
+      "message": "Was there confirmation no change for systems which don\u0027t use the containing association?",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 6
+      },
+      "revId": "f6556b09f3115b107e855e118e81962eefc5b03c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74746dbf_5115f65f",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-13T15:46:54Z",
+      "side": 1,
+      "message": "Should this be checked after checking for chassisId?\n\nI.e. If we have a containing association to an object not matching our chassis that doesn\u0027t seem like confirmation of the use of containing for the chassis we are returning response for.",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 9
+      },
+      "revId": "f6556b09f3115b107e855e118e81962eefc5b03c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
