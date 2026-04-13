@@ -33,6 +33,24 @@
       "message": "Gunnar, I\u0027m fine with this patch, but now that we have everything calling through utils, would it be possible to handle this at a higher level in dbus_utility.hpp?  We\u0027d need to mask out certain error types (not found) to make it not chatty, but logging in one spot seems better than one off patches like this, because we\u0027ll never hit everything.  WDYT?",
       "revId": "7fe2c0795c6629489dce3f0ba5cb2885bc5368dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0e3b67f_a036ab7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-13T18:43:24Z",
+      "side": 1,
+      "message": "I agree. \nI stared at this for a bit this morning, but requires some thought. Someone asked me about future enhancements for bmcweb a few weeks ago, so I went ahead and opened https://github.com/openbmc/bmcweb/issues/320. Myself or someone else will hopefully pick up in the future, at least it is documented. This commit moves these to the existing pattern so going to merge.",
+      "parentUuid": "7b549cfe_191de88c",
+      "revId": "7fe2c0795c6629489dce3f0ba5cb2885bc5368dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
