@@ -21,7 +21,6 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
-#include <ctime>
 #include <functional>
 #include <memory>
 #include <utility>

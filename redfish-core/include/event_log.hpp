@@ -16,7 +16,16 @@ namespace redfish
 namespace event_log
 {
 
-bool getUniqueEntryID(const std::string& logEntry, std::string& entryID);
+struct UniqueEntryIDState
+{
+    using time_point = std::chrono::time_point<std::chrono::system_clock,
+                                               std::chrono::seconds>;
+    time_point prevTs = time_point::min();
+    int index = 0;
+};
+
+bool getUniqueEntryID(UniqueEntryIDState& state, const std::string& logEntry,
+                      std::string& entryID);
 
 int getEventLogParams(const std::string& logEntry, std::string& timestamp,
                       std::string& messageID,
