@@ -10,7 +10,7 @@
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
-#include <ctime>
+#include <cstddef>
 #include <functional>
 #include <string>
 #include <string_view>
