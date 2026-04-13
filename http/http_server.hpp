@@ -20,7 +20,6 @@
 #include <chrono>
 #include <csignal>
 #include <cstddef>
-#include <ctime>
 #include <functional>
 #include <memory>
 #include <string>
