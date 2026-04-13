@@ -20,6 +20,7 @@
 #include <format>
 #include <functional>
 #include <memory>
+#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -216,64 +217,55 @@ inline void handleNetworkAdapterPathPortGet(
         networkAdapterId, portId);
 }
 
-inline void afterNetworkAdapterPortPaths(
+inline void afterGetNetworkAdapterAssociatedSubResource(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portId,
-    const std::function<void(const std::string& portPath,
+    std::string_view resourceType, const std::string& resourceId,
+    const std::function<void(const std::string& path,
                              const std::string& serviceName)>& callback,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& object)
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTreeById {}",
-                         ec);
+        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
 
-    std::string portPath;
-    std::string serviceName;
-    for (const auto& [path, service] : object)
+    for (const auto& [path, services] : object)
     {
-        std::string portName = sdbusplus::object_path(path).filename();
-        if (portName == portId)
+        if (sdbusplus::object_path(path).filename() != resourceId)
         {
-            portPath = path;
-            if (service.size() != 1)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            serviceName = service.begin()->first;
-            break;
+            continue;
         }
-    }
-
-    if (portPath.empty())
-    {
-        messages::resourceNotFound(asyncResp->res, "Port", portId);
+        if (services.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        callback(path, services.begin()->first);
         return;
     }
 
-    callback(portPath, serviceName);
+    messages::resourceNotFound(asyncResp->res, resourceType, resourceId);
 }
 
-inline void getNetworkAdapterPortPath(
+inline void getNetworkAdapterAssociatedSubResource(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portId,
-    std::function<void(const std::string& portPath,
+    std::string_view associationName,
+    std::span<const std::string_view> interfaces, std::string_view resourceType,
+    const std::string& resourceId,
+    std::function<void(const std::string& path,
                        const std::string& serviceName)>&& callback,
-    const std::string& path, [[maybe_unused]] const std::string& serviceName)
+    const std::string& adapterPath)
 {
-    std::string associationPath = path + "/connecting";
+    sdbusplus::object_path associationPath =
+        sdbusplus::object_path(adapterPath) / associationName;
     dbus::utility::getAssociatedSubTree(
         associationPath,
-        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
-        std::array<std::string_view, 1>{
-            "xyz.openbmc_project.Inventory.Connector.Port"},
-        std::bind_front(afterNetworkAdapterPortPaths, asyncResp, portId,
-                        std::move(callback)));
+        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0, interfaces,
+        std::bind_front(afterGetNetworkAdapterAssociatedSubResource, asyncResp,
+                        resourceType, resourceId, std::move(callback)));
 }
 
 inline void handleNetworkAdapterPortPathPortCollection(
@@ -347,6 +339,11 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    asyncResp->res.jsonValue["NetworkDeviceFunctions"]["@odata.id"] =
+        std::format(
+            "/redfish/v1/Chassis/{}/NetworkAdapters/{}/NetworkDeviceFunctions",
+            chassisId, networkAdapterId);
 }
 
 inline void handleNetworkAdapterPaths(
