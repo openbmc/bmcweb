@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a58a3f34_4e2dbbdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-13T17:01:25Z",
+      "side": 1,
+      "message": "By the rules we try to keep those embargoed until we have a fix available that\u0027s been reviewed.  It\u0027s fine.\n\nYes, I have access to that and I don\u0027t understand the potential for attack.",
+      "parentUuid": "d3bfa4a6_3b170063",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 70
+      },
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "315e68d5_800f5940",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -97,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ab91cdf_7e521f9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-13T17:01:25Z",
+      "side": 1,
+      "message": "\u003e fail for user@com\n\nIsn\u0027t this invalid anyway?  \"com\" isn\u0027t a valid domain name?  Also, to hit this would require the certificate authority to sign a certificate with \"user@com\", right?  Why is that in the openbmc security domain?\n\n\n\u003e so if there is a company building their own image used only on hosts in such domains, they might want to increase this.\n\nIf the company is building their own image based on that host, it SHOULDN\u0027T SIGN requests with a hostname that isn\u0027t recognized.  It\u0027s not bmcwebs job to police what hostnames are valid if the certificate authority has signed them, right?\n\n\nOverall, I don\u0027t find the description of the option actionable.  A length check isn\u0027t a security boundary, especially if there are examples of domains that make no sense.\n\n\"user@com.au\" would only be an issue if we\u0027re using a starts_with check, which I don\u0027t believe we are?",
+      "parentUuid": "c18af958_bfbad27d",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d92947d_269f8b31",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -126,6 +174,24 @@
       "side": 1,
       "message": "I was not aware. Is there some guidelines how to do this?",
       "parentUuid": "6d92947d_269f8b31",
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eb8f775_d22bfaf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-13T17:01:25Z",
+      "side": 1,
+      "message": "You would submit to the security mailing list, and we\u0027d open a vulnerability report with the diff.",
+      "parentUuid": "570151dd_ffaaa123",
       "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
