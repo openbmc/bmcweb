@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f4d8490_f613fe9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-13T17:20:06Z",
+      "side": 1,
+      "message": "This is going to conflict very heavily with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84608\n\nCan you please review the above, and we can look to build one set of code that works for both behaviors?",
+      "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
