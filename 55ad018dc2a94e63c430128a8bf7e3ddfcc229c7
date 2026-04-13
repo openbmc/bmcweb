@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a48f87b2_015c1a50",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-13T07:06:58Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be a ERROR?",
+      "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44f88ccf_6e2d9aac",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-13T07:06:58Z",
+      "side": 1,
+      "message": "Please process the value with same pattern as this - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84459/19/redfish-core/lib/switch_port.hpp#145.",
+      "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
