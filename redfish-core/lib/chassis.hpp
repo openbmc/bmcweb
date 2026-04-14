@@ -110,7 +110,7 @@ inline chassis::ChassisType translateChassisTypeToRedfish(
  * @return None.
  */
 inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const sdbusplus::message::object_path& path)
+                           const sdbusplus::object_path& path)
 {
     dbus::utility::getProperty<std::vector<std::string>>(
         "xyz.openbmc_project.ObjectMapper", (path / "storage").str,
@@ -126,8 +126,7 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             nlohmann::json::array_t storages;
             for (const std::string& storagePath : storageList)
             {
-                std::string id =
-                    sdbusplus::message::object_path(storagePath).filename();
+                std::string id = sdbusplus::object_path(storagePath).filename();
                 if (id.empty())
                 {
                     continue;
@@ -305,8 +304,7 @@ inline void getChassisContainedBy(
         return;
     }
 
-    sdbusplus::message::object_path upstreamChassisPath(
-        upstreamChassisPaths[0]);
+    sdbusplus::object_path upstreamChassisPath(upstreamChassisPaths[0]);
     std::string upstreamChassis = upstreamChassisPath.filename();
     if (upstreamChassis.empty())
     {
@@ -345,7 +343,7 @@ inline void getChassisContains(
     }
     for (const auto& p : downstreamChassisPaths)
     {
-        sdbusplus::message::object_path downstreamChassisPath(p);
+        sdbusplus::object_path downstreamChassisPath(p);
         std::string downstreamChassis = downstreamChassisPath.filename();
         if (downstreamChassis.empty())
         {
@@ -369,13 +367,13 @@ inline void getChassisConnectivity(
 
     dbus::utility::getAssociatedSubTreePaths(
         chassisPath + "/contained_by",
-        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
         chassisInterfaces,
         std::bind_front(getChassisContainedBy, asyncResp, chassisId));
 
     dbus::utility::getAssociatedSubTreePaths(
         chassisPath + "/containing",
-        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
         chassisInterfaces,
         std::bind_front(getChassisContains, asyncResp, chassisId));
 }
@@ -552,7 +550,7 @@ inline void handleChassisGetSubTree(
         const std::vector<std::pair<std::string, std::vector<std::string>>>&
             connectionNames = object.second;
 
-        sdbusplus::message::object_path objPath(path);
+        sdbusplus::object_path objPath(path);
         if (objPath.filename() != chassisId)
         {
             continue;
@@ -802,7 +800,7 @@ inline void handleChassisPatch(
                     std::pair<std::string, std::vector<std::string>>>&
                     connectionNames = object.second;
 
-                sdbusplus::message::object_path objPath(path);
+                sdbusplus::object_path objPath(path);
                 if (objPath.filename() != chassisId)
                 {
                     continue;

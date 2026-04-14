@@ -320,8 +320,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
         subtree,
         [&driveId](const std::pair<std::string,
                                    dbus::utility::MapperServiceMap>& object) {
-            return sdbusplus::message::object_path(object.first).filename() ==
-                   driveId;
+            return sdbusplus::object_path(object.first).filename() == driveId;
         });
 
     if (drive == subtree.end())
@@ -381,7 +380,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
     // Iterate over all retrieved ObjectPaths.
     for (const auto& [path, connectionNames] : subtree)
     {
-        sdbusplus::message::object_path objPath(path);
+        sdbusplus::object_path objPath(path);
         if (objPath.filename() != chassisId)
         {
             continue;
@@ -415,7 +414,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
                 std::vector<std::string> leafNames;
                 for (const auto& drive : resp)
                 {
-                    sdbusplus::message::object_path drivePath(drive);
+                    sdbusplus::object_path drivePath(drive);
                     leafNames.push_back(drivePath.filename());
                 }
 
@@ -473,7 +472,7 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Iterate over all retrieved ObjectPaths.
     for (const auto& [path, connectionNames] : subtree)
     {
-        sdbusplus::message::object_path objPath(path);
+        sdbusplus::object_path objPath(path);
         if (objPath.filename() != driveName)
         {
             continue;
@@ -511,7 +510,7 @@ inline void matchAndFillDrive(
 {
     for (const std::string& drivePath : resp)
     {
-        sdbusplus::message::object_path path(drivePath);
+        sdbusplus::object_path path(drivePath);
         std::string leaf = path.filename();
         if (leaf != driveName)
         {
@@ -555,7 +554,7 @@ inline void handleChassisDriveGet(
             // Iterate over all retrieved ObjectPaths.
             for (const auto& [path, connectionNames] : subtree)
             {
-                sdbusplus::message::object_path objPath(path);
+                sdbusplus::object_path objPath(path);
                 if (objPath.filename() != chassisId)
                 {
                     continue;

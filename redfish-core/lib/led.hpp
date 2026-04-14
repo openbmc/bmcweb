@@ -147,7 +147,7 @@ inline void setIndicatorLedState(
             setDbusProperty(
                 asyncResp, "IndicatorLED",
                 "xyz.openbmc_project.LED.GroupManager",
-                sdbusplus::message::object_path(
+                sdbusplus::object_path(
                     "/xyz/openbmc_project/led/groups/enclosure_identify"),
                 "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng);
         });
@@ -236,7 +236,7 @@ inline void setSystemLocationIndicatorActive(
                 setDbusProperty(
                     asyncResp, "LocationIndicatorActive",
                     "xyz.openbmc_project.LED.GroupManager",
-                    sdbusplus::message::object_path(
+                    sdbusplus::object_path(
                         "/xyz/openbmc_project/led/groups/enclosure_identify"),
                     "xyz.openbmc_project.Led.Group", "Asserted", ledState);
             }
@@ -291,12 +291,11 @@ inline void getLedGroupPath(
 {
     static constexpr const char* ledObjectPath =
         "/xyz/openbmc_project/led/groups";
-    sdbusplus::message::object_path ledGroupAssociatedPath =
-        objPath + "/identifying";
+    sdbusplus::object_path ledGroupAssociatedPath = objPath + "/identifying";
 
     dbus::utility::getAssociatedSubTree(
-        ledGroupAssociatedPath, sdbusplus::message::object_path(ledObjectPath),
-        0, ledGroupInterface,
+        ledGroupAssociatedPath, sdbusplus::object_path(ledObjectPath), 0,
+        ledGroupInterface,
         [asyncResp, objPath, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {

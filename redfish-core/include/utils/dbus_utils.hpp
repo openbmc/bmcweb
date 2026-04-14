@@ -54,7 +54,7 @@ template <typename PropertyType>
 void setDbusProperty(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::string_view redfishPropertyName, std::string_view processName,
-    const sdbusplus::message::object_path& path, std::string_view interface,
+    const sdbusplus::object_path& path, std::string_view interface,
     std::string_view dbusProperty, const PropertyType& prop)
 {
     std::string processNameStr(processName);
@@ -75,7 +75,7 @@ void setDbusProperty(
 template <typename DbusPropertyType>
 void setDbusPropertyAction(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    std::string_view processName, const sdbusplus::message::object_path& path,
+    std::string_view processName, const sdbusplus::object_path& path,
     std::string_view interface, std::string_view dbusProperty,
     std::string_view redfishActionParameterName,
     std::string_view redfishActionName, const DbusPropertyType& prop)

@@ -84,7 +84,7 @@ inline void handleCollectionMembers(
     std::vector<std::string> pathNames;
     for (const auto& object : objects)
     {
-        sdbusplus::message::object_path path(object);
+        sdbusplus::object_path path(object);
         std::string leaf = path.filename();
         if (leaf.empty())
         {

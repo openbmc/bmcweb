@@ -32,14 +32,14 @@ constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
 
 inline std::string getDbusReportPath(std::string_view id)
 {
-    sdbusplus::message::object_path reportsPath(
+    sdbusplus::object_path reportsPath(
         "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
     return {reportsPath / id};
 }
 
 inline std::string getDbusTriggerPath(std::string_view id)
 {
-    sdbusplus::message::object_path triggersPath(
+    sdbusplus::object_path triggersPath(
         "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService");
     return {triggersPath / id};
 }
@@ -47,7 +47,7 @@ inline std::string getDbusTriggerPath(std::string_view id)
 inline std::optional<std::string> getTriggerIdFromDbusPath(
     const std::string& dbusPath)
 {
-    sdbusplus::message::object_path converted(dbusPath);
+    sdbusplus::object_path converted(dbusPath);
 
     if (converted.parent_path() !=
         "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService")

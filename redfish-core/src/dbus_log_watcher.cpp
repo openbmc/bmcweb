@@ -79,7 +79,7 @@ static void onDbusEventLogCreated(sdbusplus::message_t& msg)
 {
     BMCWEB_LOG_DEBUG("Handling new DBus Event Log Entry");
 
-    sdbusplus::message::object_path objectPath;
+    sdbusplus::object_path objectPath;
     dbus::utility::DBusInterfacesMap interfaces;
 
     msg.read(objectPath, interfaces);
@@ -111,7 +111,7 @@ DbusEventLogMonitor::DbusEventLogMonitor() :
 
 static void getReadingsForReport(sdbusplus::message_t& msg)
 {
-    sdbusplus::message::object_path path(msg.get_path());
+    sdbusplus::object_path path(msg.get_path());
     std::string id = path.filename();
     if (id.empty())
     {

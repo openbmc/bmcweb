@@ -154,7 +154,7 @@ inline void onMapperAssociationDone(
         return;
     }
 
-    sdbusplus::message::object_path path(pcieSlotChassis[0]);
+    sdbusplus::object_path path(pcieSlotChassis[0]);
     std::string chassisName = path.filename();
     if (chassisName != chassisID)
     {
@@ -204,8 +204,7 @@ inline void onMapperSubtreeDone(
         for (const auto& connectionInterfacePair : pathServicePair.second)
         {
             const std::string& connectionName = connectionInterfacePair.first;
-            sdbusplus::message::object_path pcieSlotAssociationPath(
-                pcieSlotPath);
+            sdbusplus::object_path pcieSlotAssociationPath(pcieSlotPath);
             pcieSlotAssociationPath /= "chassis";
 
             // The association of this PCIeSlot is used to determine whether
