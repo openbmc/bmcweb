@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "484f4a43_8aa7207b",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:47:41Z",
+      "side": 1,
+      "message": "Except for object path not found error, we should call messages::internalError() before returning. See collection_util::handleCollectionMembers.",
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13a674a9_836c43aa",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:47:41Z",
+      "side": 1,
+      "message": "Make this const.",
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "980c4425_cabebe68",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:47:41Z",
+      "side": 1,
+      "message": "Sort the pcieDevices. And for empty pcieDevices we should create these redfish properties at all.",
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a3a7c6_91ab2b5e",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:47:41Z",
+      "side": 1,
+      "message": "See if we can use std::move_only_function.",
+      "range": {
+        "startLine": 370,
+        "startChar": 4,
+        "endLine": 370,
+        "endChar": 17
+      },
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58543aa3_92bc69c2",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:47:41Z",
+      "side": 1,
+      "message": "Use sdbusplus::message::object_path operator /.",
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
