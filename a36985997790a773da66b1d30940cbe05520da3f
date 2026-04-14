@@ -56,6 +56,23 @@
       "message": "At least based on reading this, this looks like a bug.",
       "revId": "a36985997790a773da66b1d30940cbe05520da3f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10dd0a0c_a57ccdd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-14T19:37:07Z",
+      "side": 1,
+      "message": "Thanks for the review, Ed. Rather than iterate on a D-Bus round-trip optimization that doesn\u0027t address the real root cause of issue #308, I\u0027m abandoning this change.",
+      "revId": "a36985997790a773da66b1d30940cbe05520da3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
