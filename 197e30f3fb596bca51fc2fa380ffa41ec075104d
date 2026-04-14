@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b649831a_978c23e0",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "Looks like this is mistake since MemoryMetrics URI doesn\u0027t exist on master. Please remove if so.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f62290c3_a371e97f",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "For error other than EBADR we shold do messages::internalError. See memory.hpp file.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ebf9284_df746d26",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we check and not populated the redfish properties for default values?",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "302e73cc_02d98ca3",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "Remove this debug log.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eec4a02a_1785123e",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "We should log error and return messages::internalError if multiple services are found.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "148f57ab_68ef95c2",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "nit: this doesn\u0027t need to be separate function in my opinion.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8321ed5b_41f38c44",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "Remove this debug log.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c6733d3_7a287ae0",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "This comment seems redundant because it doesn’t add anything beyond what can already be inferred from the function parameter names. Same applies to other comments in this file.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24da43f3_317e0c61",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "nit: this doesn\u0027t need to be separate function in my opinion.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f37633c9_7e9c5796",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "use std::format.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1880a28f_5c4b4efa",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "Can\u0027t we use `getValidDimmPath` instead?",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4330b7c4_17d2819b",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T12:20:11Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we add property in Memory URI that points to MemoryMetrics URI?",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
