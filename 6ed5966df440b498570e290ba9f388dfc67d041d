@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c5aee4_33cd1c5c",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-14T10:40:45Z",
+      "side": 1,
+      "message": "Why is there special handling here for JsonSchema but no where else in the commit?  Do you forget to add support for JsonSchema?",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
