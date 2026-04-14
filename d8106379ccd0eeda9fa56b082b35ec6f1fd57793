@@ -16,6 +16,24 @@
       "message": "looks like you still have an unfortunate line wrap.",
       "revId": "d8106379ccd0eeda9fa56b082b35ec6f1fd57793",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79282f53_0b5ff773",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-04-14T11:28:08Z",
+      "side": 1,
+      "message": "I had some problems with PATHs in my systemd.service that was kicking this off.  So when I\u0027d run it manually everything would work but then the next night a systemd.service-backed run would happen and it would fall apart again.\n\nShould be resolved now.",
+      "parentUuid": "ae878034_a7d988c5",
+      "revId": "d8106379ccd0eeda9fa56b082b35ec6f1fd57793",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
