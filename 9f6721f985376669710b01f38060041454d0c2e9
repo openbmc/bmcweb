@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d8215f8_07a6a3dc",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T08:53:11Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we set json property to nullptr if maxLanes \u003d\u003d 0?",
+      "revId": "9f6721f985376669710b01f38060041454d0c2e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c57a074e_639d2fe8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T08:53:11Z",
+      "side": 1,
+      "message": "This debug log is not needed.",
+      "revId": "9f6721f985376669710b01f38060041454d0c2e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
