@@ -105,6 +105,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb29734c_31670076",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:03:22Z",
+      "side": 1,
+      "message": "Distinguish no ports found (ec \u003d\u003d boost::system::errc::io_error) from other D-Bus errors. For other D-Bus return it should return messages::internalError. See function collection_util::handleCollectionMembers.",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec64c18d_661b7ae7",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
