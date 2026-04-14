@@ -33,22 +33,16 @@ TEST(RedfishEventLog, GetUniqueEntryIDSuccess)
 
 TEST(RedfishEventLog, GetUniqueEntryIDUnique)
 {
-    bool success = false;
     std::string entryID1;
-    std::string entryID2;
     std::string example = "2000-08-02T03:04:05";
 
-    success = getUniqueEntryID(example, entryID1);
-    ASSERT_EQ(success, true);
-    success = getUniqueEntryID(example, entryID2);
-    ASSERT_EQ(success, true);
+    ASSERT_TRUE(getUniqueEntryID(example, entryID1));
 
-    // when calling a second time with the same argument
-    // there should be an underscore
-    ASSERT_TRUE(entryID2.contains("_"));
+    ASSERT_EQ(entryID1, "965185445");
 
-    // only one '_' allowed
-    ASSERT_THAT(entryID2, testing::MatchesRegex("^[0-9]+_[0-9]+$"));
+    std::string entryID2;
+    ASSERT_TRUE(getUniqueEntryID(example, entryID2));
+    ASSERT_EQ(entryID2, "965185445_1");
 }
 
 TEST(RedfishEventLog, GetUniqueEntryIDIndex)
