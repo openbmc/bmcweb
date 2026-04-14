@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b802473_fc29fb3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-04-14T11:01:14Z",
+      "side": 1,
+      "message": "There is already dynamic handling for JSON schemas in bmcweb, implemented in redfish_v1.hpp. Specifically, the following routes are registered (see https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/redfish_v1.hpp#L251-L258). These routes already provide dynamic serving of JSON schema files, so there is no need to add new dynamic handling for JSON schemas in this commit, it\u0027s already present and working as intended.",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12c5aee4_33cd1c5c",
@@ -14,6 +31,24 @@
       "writtenOn": "2026-04-14T10:40:45Z",
       "side": 1,
       "message": "Why is there special handling here for JsonSchema but no where else in the commit?  Do you forget to add support for JsonSchema?",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd3bb0e3_9351f61f",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-04-14T11:01:14Z",
+      "side": 1,
+      "message": "There is already dynamic handling for JSON schemas in bmcweb, implemented in redfish_v1.hpp. Specifically, the following routes are registered (see https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/redfish_v1.hpp#L251-L258). These routes already provide dynamic serving of JSON schema files, so there is no need to add new dynamic handling for JSON schemas in this commit, it\u0027s already present and working as intended.",
+      "parentUuid": "12c5aee4_33cd1c5c",
       "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
