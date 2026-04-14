@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb695fab_6a01b110",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:16:49Z",
+      "side": 1,
+      "message": "This function look very similar to `afterGetProcessorObjectForPortCollection`? Can we use common function which would take callback as a function parameter?",
+      "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1188ba9_acb70d94",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:16:49Z",
+      "side": 1,
+      "message": "can we use getAssociatedSubTreePath?",
+      "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2b97d4f_97ea04b5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:16:49Z",
+      "side": 1,
+      "message": "use sdbusplus::message::object_path operator /.",
+      "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8efc9cab_54b8b875",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-14T10:16:49Z",
+      "side": 1,
+      "message": "Use `std::format(\"{} {} Port Metrics\", processorId, portId)`.",
+      "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
