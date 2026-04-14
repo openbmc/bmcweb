@@ -34,6 +34,24 @@
       "parentUuid": "ea1f4773_f09b3ff3",
       "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fc0825c_7bdc1f05",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-14T18:52:25Z",
+      "side": 1,
+      "message": "\u003e maybe the bug will go away with your other patch\n\nActually, looking at it deeper, yes, 89022 should resolve that. Could you try your test again with it?",
+      "parentUuid": "eeb755a7_db0cddcf",
+      "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
