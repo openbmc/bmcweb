@@ -186,8 +186,7 @@ inline void afterGetValidFabricPortPath(
     }
     const auto& it =
         std::ranges::find_if(portSubTreePaths, [portId](const auto& portPath) {
-            return portId ==
-                   sdbusplus::message::object_path(portPath).filename();
+            return portId == sdbusplus::object_path(portPath).filename();
         });
     if (it == portSubTreePaths.end())
     {
@@ -377,8 +376,7 @@ inline void doHandleFabricPortCollectionGet(
     std::vector<std::string> portIdNames;
     for (const std::string& portPath : portSubTreePaths)
     {
-        std::string portId =
-            sdbusplus::message::object_path(portPath).filename();
+        std::string portId = sdbusplus::object_path(portPath).filename();
         if (!portId.empty())
         {
             portIdNames.emplace_back(std::move(portId));

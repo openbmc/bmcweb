@@ -51,7 +51,7 @@ inline void updatePowerSupplyList(
     for (const std::string& powerSupplyPath : powerSupplyPaths)
     {
         std::string powerSupplyName =
-            sdbusplus::message::object_path(powerSupplyPath).filename();
+            sdbusplus::object_path(powerSupplyPath).filename();
         if (powerSupplyName.empty())
         {
             continue;
@@ -191,7 +191,7 @@ inline void afterGetValidPowerSupplyPath(
     }
     for (const auto& [objectPath, service] : subtree)
     {
-        sdbusplus::message::object_path path(objectPath);
+        sdbusplus::object_path path(objectPath);
         if (path.filename() == powerSupplyId)
         {
             callback(path, service.begin()->first);

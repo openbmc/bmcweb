@@ -255,7 +255,7 @@ inline void getDumpEntryCollection(
         return;
     }
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/dump");
+    sdbusplus::object_path path("/xyz/openbmc_project/dump");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager", path,
         [asyncResp, entriesPath,
@@ -365,7 +365,7 @@ inline void getDumpEntryById(
         return;
     }
 
-    sdbusplus::message::object_path path("/xyz/openbmc_project/dump");
+    sdbusplus::object_path path("/xyz/openbmc_project/dump");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager", path,
         [asyncResp, entryID, dumpType,
@@ -551,7 +551,7 @@ inline DumpCreationProgress getDumpCompletionStatus(
 inline void createDumpTaskCallback(
     task::Payload&& payload,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const sdbusplus::message::object_path& createdObjPath)
+    const sdbusplus::object_path& createdObjPath)
 {
     const std::string dumpId = createdObjPath.filename();
 
@@ -763,7 +763,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         [asyncResp, payload(task::Payload(req)),
          dumpPath](const boost::system::error_code& ec,
                    const sdbusplus::message_t& msg,
-                   const sdbusplus::message::object_path& objPath) mutable {
+                   const sdbusplus::object_path& objPath) mutable {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("CreateDump resp_handler got error {}", ec);
@@ -1860,7 +1860,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
 
                     for (const std::string& path : resp)
                     {
-                        const sdbusplus::message::object_path objPath(path);
+                        const sdbusplus::object_path objPath(path);
                         // Get the log ID
                         std::string logID = objPath.filename();
                         if (logID.empty())

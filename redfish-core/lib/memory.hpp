@@ -744,7 +744,7 @@ inline void afterGetDimmData(
     bool found = false;
     for (const auto& [objectPath, serviceMap] : subtree)
     {
-        sdbusplus::message::object_path path(objectPath);
+        sdbusplus::object_path path(objectPath);
 
         bool dimmInterface = false;
         bool associationInterface = false;
@@ -859,7 +859,7 @@ inline void afterGetValidDimmPath(
     for (const auto& objectPath : subtree)
     {
         // Ignore any objects which don't end with our desired dimm name
-        sdbusplus::message::object_path path(objectPath);
+        sdbusplus::object_path path(objectPath);
         if (path.filename() == dimmId)
         {
             callback(path);

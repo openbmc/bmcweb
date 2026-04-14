@@ -49,7 +49,7 @@ inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
             continue;
         }
 
-        sdbusplus::message::object_path objectPah(path);
+        sdbusplus::object_path objectPah(path);
 
         const std::string metricType = objectPah.parent_path().filename();
         const std::string metricName = objectPah.filename();
@@ -173,7 +173,7 @@ inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
 inline void handleNetworkAdapterPortPathPortMetricsGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
-    const std::string& portId, const sdbusplus::message::object_path& portPath,
+    const std::string& portId, const sdbusplus::object_path& portPath,
     [[maybe_unused]] const std::string& serviceName)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#PortMetrics.v1_7_0.PortMetrics";
@@ -186,9 +186,8 @@ inline void handleNetworkAdapterPortPathPortMetricsGet(
 
     const std::string associationPath = portPath / "measured_by";
     dbus::utility::getAssociatedSubTree(
-        associationPath,
-        sdbusplus::message::object_path("/xyz/openbmc_project/metric"), 0,
-        std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
+        associationPath, sdbusplus::object_path("/xyz/openbmc_project/metric"),
+        0, std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
         std::bind_front(handleNetworkAdapterPortMetricsPathsPortMetricsGet,
                         asyncResp));
 }
@@ -237,7 +236,7 @@ inline void afterNetworkAdapterPortPaths(
     std::string serviceName;
     for (const auto& [path, service] : object)
     {
-        std::string portName = sdbusplus::message::object_path(path).filename();
+        std::string portName = sdbusplus::object_path(path).filename();
         if (portName == portId)
         {
             portPath = path;
@@ -270,7 +269,7 @@ inline void getNetworkAdapterPortPath(
     std::string associationPath = path + "/connecting";
     dbus::utility::getAssociatedSubTree(
         associationPath,
-        sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"}, 0,
+        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
         std::array<std::string_view, 1>{
             "xyz.openbmc_project.Inventory.Connector.Port"},
         std::bind_front(afterNetworkAdapterPortPaths, asyncResp, portId,
@@ -301,7 +300,7 @@ inline void handleNetworkAdapterPortPathPortCollection(
     nlohmann::json::array_t members;
     for (const std::string& path : object)
     {
-        std::string name = sdbusplus::message::object_path(path).filename();
+        std::string name = sdbusplus::object_path(path).filename();
         nlohmann::json::object_t member;
         member["@odata.id"] =
             std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports/{}",
@@ -320,7 +319,7 @@ inline void getNetworkAdapterPortPaths(
     std::string associationPath = networkAdapterPath + "/connecting";
     dbus::utility::getAssociatedSubTreePaths(
         associationPath,
-        sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"}, 0,
+        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
         std::array<std::string_view, 1>{
             "xyz.openbmc_project.Inventory.Connector.Port"},
         std::bind_front(handleNetworkAdapterPortPathPortCollection, asyncResp,
@@ -367,7 +366,7 @@ inline void handleNetworkAdapterPaths(
 
     for (const auto& path : object)
     {
-        std::string name = sdbusplus::message::object_path(path).filename();
+        std::string name = sdbusplus::object_path(path).filename();
         if (name == networkAdapterId)
         {
             callback(path);
@@ -416,7 +415,7 @@ inline void handleNetworkAdapterPathsNetworkAdapterCollection(
     members = nlohmann::json::array();
     for (const std::string& path : object)
     {
-        std::string name = sdbusplus::message::object_path(path).filename();
+        std::string name = sdbusplus::object_path(path).filename();
         nlohmann::json member;
         member["@odata.id"] = std::format(
             "/redfish/v1/Chassis/{}/NetworkAdapters/{}", chassisId, name);

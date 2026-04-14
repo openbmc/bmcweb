@@ -139,7 +139,7 @@ class InventoryItem
     explicit InventoryItem(const std::string& objPath) : objectPath(objPath)
     {
         // Set inventory item name to last node of object path
-        sdbusplus::message::object_path path(objectPath);
+        sdbusplus::object_path path(objectPath);
         name = path.filename();
         if (name.empty())
         {
@@ -320,7 +320,7 @@ using Readings = std::vector<Reading>;
 using Statistics = std::tuple<uint64_t, Readings>;
 // represents sensor's path, its metadata
 using SensorPaths =
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string>>;
+    std::vector<std::tuple<sdbusplus::object_path, std::string>>;
 // represents reading parameters for statistics readings
 using ReadingParameters =
     std::vector<std::tuple<SensorPaths, std::string, std::string, uint64_t>>;
@@ -1093,7 +1093,7 @@ inline bool objectExcerptToJson(
         return false;
     }
 
-    sdbusplus::message::object_path sensorPath(path);
+    sdbusplus::object_path sensorPath(path);
     std::string sensorName = sensorPath.filename();
     std::string sensorType = sensorPath.parent_path().filename();
     if (sensorName.empty() || sensorType.empty())
@@ -1131,11 +1131,11 @@ inline void getAllSensorObjects(
     std::function<void(const boost::system::error_code& ec,
                        SensorServicePathList&)>&& callback)
 {
-    sdbusplus::message::object_path endpointPath{associatedPath};
+    sdbusplus::object_path endpointPath{associatedPath};
     endpointPath /= "all_sensors";
 
     dbus::utility::getAssociatedSubTree(
-        endpointPath, sdbusplus::message::object_path(path), depth, interfaces,
+        endpointPath, sdbusplus::object_path(path), depth, interfaces,
         [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {

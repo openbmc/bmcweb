@@ -62,7 +62,7 @@ inline void getStorageControllerHandler(
 
     for (const auto& [path, interfaceDict] : subtree)
     {
-        sdbusplus::message::object_path object(path);
+        sdbusplus::object_path object(path);
         std::string id = object.filename();
         if (id.empty())
         {
@@ -104,7 +104,7 @@ inline void populateStorageControllerCollection(
 
     for (const std::string& path : controllerList)
     {
-        std::string id = sdbusplus::message::object_path(path).filename();
+        std::string id = sdbusplus::object_path(path).filename();
         if (id.empty())
         {
             BMCWEB_LOG_ERROR("Failed to find filename in {}", path);
