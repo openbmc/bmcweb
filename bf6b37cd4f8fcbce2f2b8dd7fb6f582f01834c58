@@ -16,6 +16,24 @@
       "message": "The bug is here.\n\n```\n-Dexperimental-redfish-multi-computer-system\u003ddisabled \\\n-Dredfish-dbus-log\u003ddisabled \\\n```\n\non Tyan S5549, truncate `/var/log/redfish` to contain only one EventLog entry.\n\n\n```\ncurl --silent --show-error --insecure --user root:**** https://s5549-bmc-a0423f63b4a5.lab.9e.network/redfish/v1/Systems/system/LogServices/EventLog/Entries\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries\",\n  \"@odata.type\": \"#LogEntryCollection.LogEntryCollection\",\n  \"Description\": \"Collection of System Event Log Entries\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries/1775833843\",\n      \"@odata.type\": \"#LogEntry.v1_9_0.LogEntry\",\n      \"Created\": \"2026-04-10T15:10:43+00:00\",\n      \"EntryType\": \"Event\",\n      \"Id\": \"1775833843\",\n      \"Message\": \"PWS-920P-SQ PowerSupply with serial number P9212CM08UN1852 was installed.\",\n      \"MessageArgs\": [\n        \"PWS-920P-SQ\",\n        \"PowerSupply\",\n        \"P9212CM08UN1852\"\n      ],\n      \"MessageId\": \"OpenBMC.0.5.InventoryAdded\",\n      \"Name\": \"System Event Log Entry\",\n      \"Severity\": \"OK\"\n    }\n  ],\n  \"Members@odata.count\": 1,\n  \"Name\": \"System Event Log Entries\"\n}\n```\n\nquerry again\n```\ncurl --silent --show-error --insecure --user root:***** https://s5549-bmc-a0423f63b4a5.lab.9e.network/redfish/v1/Systems/system/LogServices/EventLog/Entries\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries\",\n  \"@odata.type\": \"#LogEntryCollection.LogEntryCollection\",\n  \"Description\": \"Collection of System Event Log Entries\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries/1775833843_1\",\n      \"@odata.type\": \"#LogEntry.v1_9_0.LogEntry\",\n      \"Created\": \"2026-04-10T15:10:43+00:00\",\n      \"EntryType\": \"Event\",\n      \"Id\": \"1775833843_1\",\n      \"Message\": \"PWS-920P-SQ PowerSupply with serial number P9212CM08UN1852 was installed.\",\n      \"MessageArgs\": [\n        \"PWS-920P-SQ\",\n        \"PowerSupply\",\n        \"P9212CM08UN1852\"\n      ],\n      \"MessageId\": \"OpenBMC.0.5.InventoryAdded\",\n      \"Name\": \"System Event Log Entry\",\n      \"Severity\": \"OK\"\n    }\n  ],\n  \"Members@odata.count\": 1,\n  \"Name\": \"System Event Log Entries\"\n}\n```\n\nnotice that \n`\"Id\": \"1775833843\"` has changed to `\"Id\": \"1775833843_1\"`\n\nThis is the bug where `Id` is incremented with each query.\n\nThe bug is also present when GET of single entry.\nThe `odata.id` returned from the event log collection is invalid since the static local variables in `getUniqueEntryID` has already changed.\n\nSo when fetching it, the previously returned link `/redfish/v1/Systems/system/LogServices/EventLog/Entries/1775833843_1` will not work for the redfish client.\n\n\n\nI only tested this patch, maybe the bug will go away with your other patch https://gerrit.openbmc.org/c/openbmc/bmcweb/+/89022",
       "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeb755a7_db0cddcf",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-14T18:50:22Z",
+      "side": 1,
+      "message": "\u003e This is the bug where Id is incremented with each query.\n\nInteresting, ok, so there is a difference.  I wonder if we should just make the parser handle both.",
+      "parentUuid": "ea1f4773_f09b3ff3",
+      "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
