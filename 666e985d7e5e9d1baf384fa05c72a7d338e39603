@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69121f1c_b49ab936",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-15T14:47:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac2262eb_f0a1b285",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 36
+      },
+      "revId": "666e985d7e5e9d1baf384fa05c72a7d338e39603",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28402119_2bced942",
@@ -95,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f241275_2b468fdc",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-15T14:47:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af4faff5_b9e33f23",
+      "range": {
+        "startLine": 666,
+        "startChar": 4,
+        "endLine": 667,
+        "endChar": 51
+      },
+      "revId": "666e985d7e5e9d1baf384fa05c72a7d338e39603",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bab0d847_2863843b",
@@ -132,6 +180,30 @@
       "side": 1,
       "message": "As we are expecting only one sensor of each type per processor, I\u0027ve added a `subtree.size() \u003e 1` check to log an error and return `internalError` if the response is ambiguous.",
       "parentUuid": "bab0d847_2863843b",
+      "range": {
+        "startLine": 706,
+        "startChar": 4,
+        "endLine": 707,
+        "endChar": 65
+      },
+      "revId": "666e985d7e5e9d1baf384fa05c72a7d338e39603",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28d3eeb2_9ddc1a10",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-15T14:47:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5b55f93_f12d04bc",
       "range": {
         "startLine": 706,
         "startChar": 4,

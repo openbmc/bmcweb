@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1018a8f_262fcc5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-15T14:47:16Z",
+      "side": 1,
+      "message": "Looks okay to me, just on new minor comment on function name.",
+      "revId": "3cca4cc9f3063c428b25fb42cc67650cdaef506e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e2341a_de5bb01b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-15T14:47:16Z",
+      "side": 1,
+      "message": "nit: function name would make more sense to indicate expectation of single sensor, and to map to its caller\n\nI.e.\nafterGetProcessorSensorExcerpt",
+      "range": {
+        "startLine": 690,
+        "startChar": 12,
+        "endLine": 690,
+        "endChar": 39
+      },
+      "revId": "3cca4cc9f3063c428b25fb42cc67650cdaef506e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
