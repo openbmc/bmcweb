@@ -35,6 +35,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7522a737_932802ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-15T17:00:33Z",
+      "side": 1,
+      "message": "1. Thanks for pointing out! I have performed an end to end testing on QEMU with a proper subscription setup and event log sent out, the test plan has been updated with the data.\n2. `LogEntryId` passed to formatEventLogEntry does contain a valid id which points to the correct LogEntry, verified this finding in my testing, please check the testing output.",
+      "parentUuid": "952bf2c3_22e6a462",
+      "revId": "07074a9af2da66c3f36cd5a9dd84b1524caf3bc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3d308c0_12168fdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-15T17:00:33Z",
+      "side": 1,
+      "message": "I have gone through the Redfish checklist to ensure we meet all the requirements listed here:\nhttps://github.com/openbmc/bmcweb/blob/master/docs/REDFISH_CHECKLIST.md",
+      "parentUuid": "3da3bd86_c4fc205e",
+      "revId": "07074a9af2da66c3f36cd5a9dd84b1524caf3bc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1af3ae61_ce3e916d",
