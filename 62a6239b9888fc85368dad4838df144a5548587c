@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9505a83_3072dddf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9137ee8_bc4ff893",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74425d91_d43ee039",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1a57d42_0731c273",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74425d91_d43ee039",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84ec2d0c_3d0bcb68",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-04-01T06:43:07Z",
       "side": 1,
       "message": "Don\u0027t use auto here.",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 14
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e5f323a_dc87dada",
+        "filename": "redfish-core/include/utils/control_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84ec2d0c_3d0bcb68",
       "range": {
         "startLine": 29,
         "startChar": 10,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88932518_37aeb833",
+        "filename": "redfish-core/include/utils/control_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb30ff25_82bbafd5",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9879a24_11c1685a",
@@ -94,6 +178,24 @@
       "writtenOn": "2026-04-01T06:43:07Z",
       "side": 1,
       "message": "There is an util function to populate collection members. See if you can use it.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebcfc2a7_acc96e05",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9879a24_11c1685a",
       "revId": "62a6239b9888fc85368dad4838df144a5548587c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -121,6 +223,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9f20d01_6bb8f57e",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "checkControlledByForCollection still uses getAssociatedSubTree because the callback needs interface information to determine which control prefix matches. Changed the containing query in doControlCollectionGet to use getAssociatedSubTreePaths since it only needs paths.",
+      "parentUuid": "4bedb3d9_580fdaca",
+      "range": {
+        "startLine": 246,
+        "startChar": 19,
+        "endLine": 246,
+        "endChar": 39
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53888fc5_a0c2559a",
@@ -138,6 +264,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0758c7a4_09a87a13",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53888fc5_a0c2559a",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7f1bbf5_d517f404",
@@ -151,6 +295,24 @@
       "writtenOn": "2026-04-01T06:43:07Z",
       "side": 1,
       "message": "Shouldn\u0027t we return from this function if chassis Name is empty?",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04d2d4b7_39d27afb",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7f1bbf5_d517f404",
       "revId": "62a6239b9888fc85368dad4838df144a5548587c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -178,6 +340,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d268f72f_08f34e0d",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "134a45ae_a0f589c8",
+      "range": {
+        "startLine": 315,
+        "startChar": 19,
+        "endLine": 315,
+        "endChar": 39
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9db0073_261c4251",
@@ -191,6 +377,24 @@
       "writtenOn": "2026-04-01T06:43:07Z",
       "side": 1,
       "message": "use operator / of sdbusplus::message::object_path instead of string concatenation.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a09944b9_b4eb4639",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9db0073_261c4251",
       "revId": "62a6239b9888fc85368dad4838df144a5548587c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -218,6 +422,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5650b916_b9e63543",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd364255_754a3d67",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c76fa69_44ae28a7",
@@ -231,6 +459,24 @@
       "writtenOn": "2026-04-01T06:43:07Z",
       "side": 1,
       "message": "This function should be called if controlled it is chassis since it is populating ClockLimit from Item.Accelerator.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac1ddd1c_6965a77d",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Removed the chassis-specific GET path entirely. afterVerifyControlledByForGet is now only reached via the containing objects search, so it always operates on an accelerator inventory object. The chassis GET path can be added back when chassis-level controls (e.g., PowerLimit) are implemented.",
+      "parentUuid": "2c76fa69_44ae28a7",
       "revId": "62a6239b9888fc85368dad4838df144a5548587c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -252,6 +498,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b05455b5_e5be594f",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa6f8cbc_0920f18c",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4940b7d6_18384e41",
@@ -265,6 +529,24 @@
       "writtenOn": "2026-04-01T06:43:07Z",
       "side": 1,
       "message": "This will be only applicable if controlled item is Accelerator and not chassis?",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74dc3f0f_0075b9eb",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Currently only accelerator controls are supported, and the chassis-specific GET path has been removed. RelatedItem always points to a Processor in this case. When chassis-level controls (e.g., PowerLimit) are added, will update this to set RelatedItem based on the control type.",
+      "parentUuid": "4940b7d6_18384e41",
       "revId": "62a6239b9888fc85368dad4838df144a5548587c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -286,6 +568,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dd18dcd_8a57b705",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Removed this code path. ControlId is now just the prefix (e.g., ClockLimit) matched via exact comparison against controlTypeMappings. No endpoint name extraction needed.",
+      "parentUuid": "0c51750f_af0f6943",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a5498bc_20ac26f7",
@@ -299,6 +599,30 @@
       "writtenOn": "2026-04-01T06:43:07Z",
       "side": 1,
       "message": "This doesn\u0027t seem correct. This function assumes the controlled item is accelerator and not chassis.",
+      "range": {
+        "startLine": 496,
+        "startChar": 28,
+        "endLine": 496,
+        "endChar": 57
+      },
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f31ff1d0_4ca0c5a3",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T12:04:55Z",
+      "side": 1,
+      "message": "Removed the chassis-specific GET check entirely. The GET handler now only searches contained objects via the containing association.",
+      "parentUuid": "9a5498bc_20ac26f7",
       "range": {
         "startLine": 496,
         "startChar": 28,
