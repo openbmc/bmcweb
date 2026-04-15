@@ -16,6 +16,23 @@
       "message": "This is going to conflict very heavily with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84608\n\nCan you please review the above, and we can look to build one set of code that works for both behaviors?",
       "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ae95fd9_1033263f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-15T19:24:38Z",
+      "side": 1,
+      "message": "Somewhat meta question, Why are all these conditions important for the BMC to support?  Don\u0027t each of these mean that a certificate authority is authorizing certs that are invalid?\n\nNot against unit tests by any means, just trying to understand.",
+      "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
