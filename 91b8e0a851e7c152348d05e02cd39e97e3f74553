@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dba178d_432fd166",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T13:22:18Z",
+      "side": 1,
+      "message": "Are SettingMax/Min missed?",
+      "revId": "91b8e0a851e7c152348d05e02cd39e97e3f74553",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
