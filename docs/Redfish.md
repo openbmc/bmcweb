@@ -234,6 +234,7 @@ Fields common to all schemas
 - HotPluggable
 - Links/ComputerSystems
 - Links/ManagedBy
+- Links/Processors
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
