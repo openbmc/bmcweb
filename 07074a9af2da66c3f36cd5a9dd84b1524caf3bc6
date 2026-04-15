@@ -121,6 +121,24 @@
       "message": "The LogEntry property was added to the Event structure starting version 1.7.0 (see https://redfish.dmtf.org/schemas/v1/Event.v1_7_0.json), BMCWeb uses version 1.4.0 (https://github.com/openbmc/bmcweb/blob/40083a9a875e33b367e88ea9a21ecc35177bfc94/redfish-core/src/subscription.cpp#L250), so you also need to bump a version of the structure.\nSince you\u0027re changing a version, you need to see what changed between the versions and at least move data from deprecated fields to their replacements (like Severity which was deprecated in 1.5.0 to MessageSeverity replaced it, note that MessageSeverity is the Health type and Severity was a String), and potentially add new required fields should any new required fields were added.",
       "revId": "07074a9af2da66c3f36cd5a9dd84b1524caf3bc6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "150a3b1f_8b1df85c",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-15T17:02:09Z",
+      "side": 1,
+      "message": "Done - I have now bumped the event schema version to the correct version which contains LogEntry field, also verified that all the mandatory fields are populated and deprecated fields (eg: `Severity`) are removed.",
+      "parentUuid": "4a902f3d_36211529",
+      "revId": "07074a9af2da66c3f36cd5a9dd84b1524caf3bc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
