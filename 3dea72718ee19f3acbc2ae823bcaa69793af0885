@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a97c793_9f35ed62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "We should use existing or define a new D-Bus interface and association for Network Device Function.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf7b4f92_99f1c31a",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "nit: this doesn\u0027t need to be a separate function.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "003561c8_9ad76712",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "use boost url format.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d7432d_c23ee100",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "For errors other than boost::system::errc::io_error or EBADR, we should log error report messages::internalError. Same applies to other callback functions in this patch.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "752f5a37_530a4933",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "use boost url format.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f418132_2af5e0dd",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "use std::format.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9243f2cc_a2ac84e2",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "use collection_utils function to populate members.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "754113d0_d52b7b9f",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we use DBus interface for Network Device Function here instead of Connector.Port?",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffc1f0e5_d0f23728",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:51:55Z",
+      "side": 1,
+      "message": "nit: move NetworkDeviceFunctions to separate file.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
