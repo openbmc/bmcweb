@@ -16,6 +16,29 @@
       "message": "nice patch",
       "revId": "120f14d06ce63bf569332dab24f8accedcb921d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aed6ed2_cad292bd",
+        "filename": "redfish-core/include/event_log.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-15T08:36:51Z",
+      "side": 1,
+      "message": "nitpick\n\n```suggestion\n    uint64_t index \u003d 0;\n```",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 18
+      },
+      "revId": "120f14d06ce63bf569332dab24f8accedcb921d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
