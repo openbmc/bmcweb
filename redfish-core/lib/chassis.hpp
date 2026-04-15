@@ -379,6 +379,36 @@ inline void getChassisConnectivity(
 }
 
 /**
+ * @brief Fill out Processors links by traversing the "containing"
+ * association from the chassis object to find all associated
+ * processors.
+ *
+ * @param[in,out]   asyncResp   Async HTTP response.
+ * @param[in]       chassisPath D-Bus object path of the chassis.
+ */
+inline void getChassisProcessorLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath)
+{
+    constexpr std::array<std::string_view, 2> procInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Accelerator",
+        "xyz.openbmc_project.Inventory.Item.Cpu"};
+
+    BMCWEB_LOG_DEBUG("Get chassis processor links for {}", chassisPath);
+
+    boost::urls::url collectionPath = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::object_path(chassisPath) / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        procInterfaces,
+        std::bind_front(collection_util::handleCollectionMembers, asyncResp,
+                        std::move(collectionPath),
+                        nlohmann::json::json_pointer("/Links/Processors")));
+}
+
+/**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  *  Functions triggers appropriate requests on DBus
  */
@@ -557,6 +587,8 @@ inline void handleChassisGetSubTree(
         }
 
         getChassisConnectivity(asyncResp, chassisId, path);
+
+        getChassisProcessorLinks(asyncResp, path);
 
         if (connectionNames.empty())
         {
