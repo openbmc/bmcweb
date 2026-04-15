@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fe861f1_08055058",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:29:04Z",
+      "side": 1,
+      "message": "Add info about platform used for testing.",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0733d235_347694c9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:29:04Z",
+      "side": 1,
+      "message": "For errors other than boost::system::errc::io_error or EBADR, we should log error report messages::internalError.",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffd258b5_2c14bc3d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:29:04Z",
+      "side": 1,
+      "message": "Should we log error for multiple memory objects or do the summation for Total Memory size across all the memory objects? @ed@tanous.net, @gunnar@gmills.xyz, your input here will help.",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8018225_3bb69ab8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:29:04Z",
+      "side": 1,
+      "message": "Add comment about unit conversion from D-Bus to redfish.",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64453766_5ed6a0fd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:29:04Z",
+      "side": 1,
+      "message": "use sdbusplus::object_path operator /.",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
