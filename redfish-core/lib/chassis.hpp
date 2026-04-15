@@ -560,6 +560,9 @@ inline void handleChassisGetSubTree(
 
         getChassisConnectivity(asyncResp, chassisId, path);
 
+        // Links association to processors via containing association
+        chassis_utils::getChassisProcessorLinks(asyncResp, path);
+
         if (connectionNames.empty())
         {
             BMCWEB_LOG_ERROR("Got 0 Connection names");
