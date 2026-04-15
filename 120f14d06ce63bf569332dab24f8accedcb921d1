@@ -63,6 +63,30 @@
       },
       "revId": "120f14d06ce63bf569332dab24f8accedcb921d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca50df9a_9f30add0",
+        "filename": "redfish-core/include/event_log.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-15T16:25:45Z",
+      "side": 1,
+      "message": "`uint32_t` would also work i guess.\n\nFixed width types are more explicit and we do not need values \u003c 0 for an index.\n\nI\u0027ll mark this as resolved.",
+      "parentUuid": "d1d6ca18_6d9576cb",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 18
+      },
+      "revId": "120f14d06ce63bf569332dab24f8accedcb921d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
