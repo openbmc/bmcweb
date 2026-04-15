@@ -148,7 +148,7 @@ inline void activateImage(const std::string& objPath,
 
 inline bool handleCreateTask(const boost::system::error_code& ec2,
                              sdbusplus::message_t& msg,
-                             const std::shared_ptr<task::TaskData>& taskData)
+                             const std::shared_ptr<TaskData>& taskData)
 {
     if (ec2)
     {
@@ -248,10 +248,10 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
 }
 
 inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       task::Payload&& payload,
+                       TaskPayload&& payload,
                        const sdbusplus::object_path& objPath)
 {
-    std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+    std::shared_ptr<TaskData> task = TaskData::createTask(
         std::bind_front(handleCreateTask),
         "type='signal',interface='org.freedesktop.DBus.Properties',"
         "member='PropertiesChanged',path='" +
@@ -265,7 +265,7 @@ inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 // then no asyncResp updates will occur
 inline void softwareInterfaceAdded(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    sdbusplus::message_t& m, task::Payload&& payload)
+    sdbusplus::message_t& m, TaskPayload&& payload)
 {
     dbus::utility::DBusInterfacesMap interfacesProperties;
 
@@ -471,7 +471,7 @@ inline void monitorForSoftwareAvailable(
     fwAvailableTimer->async_wait(
         std::bind_front(afterAvailbleTimerAsyncWait, asyncResp));
 
-    task::Payload payload(req);
+    TaskPayload payload(req);
     auto callback = [asyncResp, payload](sdbusplus::message_t& m) mutable {
         BMCWEB_LOG_DEBUG("Match fired");
         softwareInterfaceAdded(asyncResp, m, std::move(payload));
@@ -850,7 +850,7 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
 }
 
 inline void handleStartUpdate(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, TaskPayload payload,
     const std::string& objectPath, const boost::system::error_code& ec,
     const sdbusplus::object_path& retPath)
 {
@@ -868,7 +868,7 @@ inline void handleStartUpdate(
 }
 
 inline void startUpdate(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, TaskPayload payload,
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
     const std::string& objectPath, const std::string& serviceName)
 {
@@ -885,7 +885,7 @@ inline void startUpdate(
 }
 
 inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      task::Payload payload, const MemoryFileDescriptor& memfd,
+                      TaskPayload payload, const MemoryFileDescriptor& memfd,
                       const std::string& applyTime, const std::string& target,
                       const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree)
@@ -927,7 +927,7 @@ inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void handleBMCUpdate(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, TaskPayload payload,
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
     const boost::system::error_code& ec,
     const dbus::utility::MapperEndPoints& functionalSoftware)
@@ -952,7 +952,7 @@ inline void handleBMCUpdate(
 }
 
 inline void handleMultipartManagerUpdate(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, TaskPayload payload,
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
@@ -989,9 +989,9 @@ inline void handleMultipartManagerUpdate(
 }
 
 inline void processUpdateRequest(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    task::Payload&& payload, std::string_view body,
-    const std::string& applyTime, const std::vector<std::string>& targets)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, TaskPayload&& payload,
+    std::string_view body, const std::string& applyTime,
+    const std::vector<std::string>& targets)
 {
     MemoryFileDescriptor memfd("update-image");
     if (memfd.fd == -1)
@@ -1080,7 +1080,7 @@ inline void updateMultipartContext(
         {
             return;
         }
-        task::Payload payload(req);
+        TaskPayload payload(req);
 
         processUpdateRequest(
             asyncResp, std::move(payload), multipart->uploadData,
@@ -1104,7 +1104,7 @@ inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
-        task::Payload payload(req);
+        TaskPayload payload(req);
         // HTTP push only supports BMC updates (with ApplyTime as immediate) for
         // backwards compatibility. Specific component updates will be handled
         // through Multipart form HTTP push.
