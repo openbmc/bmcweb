@@ -1,5 +1,7 @@
 #include "http/http_server.hpp"
 
+#include <string>
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -23,6 +25,5 @@ TEST(HttpServer, getCachedDateStr)
             "([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9] GMT"));
 
     EXPECT_EQ(firstString, server.getCachedDateStr());
-
 }
 } // namespace crow
