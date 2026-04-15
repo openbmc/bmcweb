@@ -33,6 +33,23 @@
       "message": "Do you need to update redfish.md file for this property?",
       "revId": "7505b87c721bc2dbd88c8fa967847943ed18dc55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7b78e45_e57f2912",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T04:26:59Z",
+      "side": 1,
+      "message": "Please add the list of all the patches needed to build nvl32-obmc working image.",
+      "revId": "7505b87c721bc2dbd88c8fa967847943ed18dc55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
