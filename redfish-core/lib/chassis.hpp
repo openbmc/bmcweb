@@ -386,6 +386,59 @@ inline void getChassisConnectivity(
         std::bind_front(getChassisContains, asyncResp, chassisId));
 }
 
+inline void afterGetChassisProcessorLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::urls::url& collectionPath,
+    const nlohmann::json::json_pointer& jsonKeyName,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& procs)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::system::errc::io_error || ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No processor association: {}", ec);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    collection_util::handleCollectionMembers(asyncResp, collectionPath,
+                                             jsonKeyName, ec, procs);
+}
+
+/**
+ * @brief Fill out Processors links by traversing the "containing"
+ * association from the chassis object to find all associated
+ * processors.
+ *
+ * @param[in,out]   asyncResp   Async HTTP response.
+ * @param[in]       chassisPath D-Bus object path of the chassis.
+ */
+inline void getChassisProcessorLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const sdbusplus::object_path& chassisPath)
+{
+    constexpr std::array<std::string_view, 2> procInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Accelerator",
+        "xyz.openbmc_project.Inventory.Item.Cpu"};
+
+    BMCWEB_LOG_DEBUG("Get chassis processor links for {}",
+                     chassisPath.string());
+
+    boost::urls::url collectionPath = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+    dbus::utility::getAssociatedSubTreePaths(
+        chassisPath / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        procInterfaces,
+        std::bind_front(afterGetChassisProcessorLinks, asyncResp,
+                        std::move(collectionPath),
+                        nlohmann::json::json_pointer("/Links/Processors")));
+}
+
 /**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  *  Functions triggers appropriate requests on DBus
@@ -566,6 +619,13 @@ inline void handleChassisGetSubTree(
         }
 
         getChassisConnectivity(asyncResp, chassisId, path);
+
+        // Multi-host Processor URIs are not resolvable yet. The
+        // Processor resource returns 404 under multi-host.
+        if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            getChassisProcessorLinks(asyncResp, objPath);
+        }
 
         if (connectionNames.empty())
         {
