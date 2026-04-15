@@ -1,5 +1,7 @@
 #include "http/http_server.hpp"
 
+#include <string>
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
