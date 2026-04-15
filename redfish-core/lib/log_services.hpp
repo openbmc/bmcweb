@@ -21,6 +21,7 @@
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
 #include "task.hpp"
+#include "task_data.hpp"
 #include "task_messages.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/etag_utils.hpp"
@@ -549,8 +550,7 @@ inline DumpCreationProgress getDumpCompletionStatus(
 }
 
 inline void createDumpTaskCallback(
-    task::Payload&& payload,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    TaskPayload&& payload, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const sdbusplus::object_path& createdObjPath)
 {
     const std::string dumpId = createdObjPath.filename();
@@ -605,11 +605,11 @@ inline void createDumpTaskCallback(
                 interfaceNode = interfaceNode->NextSiblingElement("interface");
             }
 
-            std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+            std::shared_ptr<TaskData> task = TaskData::createTask(
                 [createdObjPath, dumpId, isProgressIntfPresent](
                     const boost::system::error_code& ec2,
                     sdbusplus::message_t& msg,
-                    const std::shared_ptr<task::TaskData>& taskData) {
+                    const std::shared_ptr<TaskData>& taskData) {
                     if (ec2)
                     {
                         BMCWEB_LOG_ERROR("{}: Error in creating dump",
@@ -760,7 +760,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, payload(task::Payload(req)),
+        [asyncResp, payload(TaskPayload(req)),
          dumpPath](const boost::system::error_code& ec,
                    const sdbusplus::message_t& msg,
                    const sdbusplus::object_path& objPath) mutable {
@@ -2102,7 +2102,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                 }
 
                 auto collectCrashdumpCallback =
-                    [asyncResp, payload(task::Payload(req)),
+                    [asyncResp, payload(TaskPayload(req)),
                      taskMatchStr](const boost::system::error_code& ec,
                                    const std::string&) mutable {
                         if (ec)
@@ -2124,23 +2124,20 @@ inline void requestRoutesCrashdumpCollect(App& app)
                             }
                             return;
                         }
-                        std::shared_ptr<task::TaskData> task =
-                            task::TaskData::createTask(
-                                [](const boost::system::error_code& ec2,
-                                   sdbusplus::message_t&,
-                                   const std::shared_ptr<task::TaskData>&
-                                       taskData) {
-                                    if (!ec2)
-                                    {
-                                        taskData->messages.emplace_back(
-                                            messages::taskCompletedOK(
-                                                std::to_string(
-                                                    taskData->index)));
-                                        taskData->state = "Completed";
-                                    }
-                                    return task::completed;
-                                },
-                                taskMatchStr);
+                        std::shared_ptr<TaskData> task = TaskData::createTask(
+                            [](const boost::system::error_code& ec2,
+                               sdbusplus::message_t&,
+                               const std::shared_ptr<TaskData>& taskData) {
+                                if (!ec2)
+                                {
+                                    taskData->messages.emplace_back(
+                                        messages::taskCompletedOK(
+                                            std::to_string(taskData->index)));
+                                    taskData->state = "Completed";
+                                }
+                                return task::completed;
+                            },
+                            taskMatchStr);
 
                         task->startTimer(std::chrono::minutes(5));
                         task->payload.emplace(std::move(payload));
