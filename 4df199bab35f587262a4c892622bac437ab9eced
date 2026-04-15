@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f90167c_b621fb36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:15:13Z",
+      "side": 1,
+      "message": "Add more info on patches needed to build working image for nvl32-obmc machine, similar to this - https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/87166",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32561a80_ed384e4e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:15:13Z",
+      "side": 1,
+      "message": "For errors other than boost::system::errc::io_error or EBADR, we should log error report messages::internalError.",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "382dd71b_bf12fde9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:15:13Z",
+      "side": 1,
+      "message": "`nlohmann::json::array_t memoryArray;`\nand then after populating memoryArray, sort memoryArray and do,\n`asyncResp-\u003eres.jsonValue[\"Links\"][\"Memory\"] \u003d std::move(memoryArray);`",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a86b9d57_d0b9889c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:15:13Z",
+      "side": 1,
+      "message": "Use sdbusplus::message::object_path operator /.",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3a8279d_b0a80fa3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:15:13Z",
+      "side": 1,
+      "message": "Why are we iterating over serviceMap twice? Can\u0027t this logic be part of for loop above?",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
