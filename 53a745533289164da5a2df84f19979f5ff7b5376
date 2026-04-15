@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef26e0a_a1a95b43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "Make sure that these redfish properties are not present when associated DBus interface is not present.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29de9043_a512c9ef",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "This comment seems redundant because it doesn’t add anything beyond what can already be inferred from the function parameter names. Same applies to other comments in this file.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4ae1d08_628be82e",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "Instead of doing this in bmcweb, sensor daemon should ideally be exposing correct ECC Error Count by doing sram + dram. It would simplify bmcweb logic quite a bit. In this case dbus-sensors can directly publish the sram + dram value here - https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/87166/34/src/nvidia-gpu/NvidiaGpuMemoryDevice.cpp#132.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61857164_bac31f0b",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "nit: this doesn\u0027t need to be separate function in my opinion.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d371416d_337b3694",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "For errors other than boost::system::errc::io_error or EBADR, we should log error report messages::internalError.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "687d5186_d250f788",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "nit: this doesn\u0027t need to be separate function in my opinion.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f8447b_25f045fc",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "For errors other than boost::system::errc::io_error or EBADR, we should log error report messages::internalError.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcc7c900_a9065585",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "We should log error and return messages::internalError if multiple services are found.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3460b6a2_e6f0d191",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "nit: this doesn\u0027t need to be separate function in my opinion.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "656dda92_bec7de2f",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "Can\u0027t we use getProcessorObject from processor.hpp?",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f54bda11_05cb0b44",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:09Z",
+      "side": 1,
+      "message": "use std::format.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
