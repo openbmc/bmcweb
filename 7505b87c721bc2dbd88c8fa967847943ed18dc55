@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3624e1af_8d382fc3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T03:55:50Z",
+      "side": 1,
+      "message": "Is this patch enabling this property or this is an existing behaviour? If latter please remove it from commit message.",
+      "revId": "7505b87c721bc2dbd88c8fa967847943ed18dc55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7828ce0c_88a0d732",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T03:55:50Z",
+      "side": 1,
+      "message": "Do you need to update redfish.md file for this property?",
+      "revId": "7505b87c721bc2dbd88c8fa967847943ed18dc55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
