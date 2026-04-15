@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d61560_c130bd85",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-15T19:39:30Z",
+      "side": 1,
+      "message": "Isn\u0027t the fix here to just make this return an error in the else case?",
+      "revId": "16dcbac9744153a82221051365b79a80f3b877ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c95e0918_32098bdd",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-15T19:39:30Z",
+      "side": 1,
+      "message": "This code is a little confusing to me.  Why are we parsing any of this?  Shouldn\u0027t the hostname on the BMC just be set correctly?  Why do we try to break this apart at all?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "16dcbac9744153a82221051365b79a80f3b877ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
