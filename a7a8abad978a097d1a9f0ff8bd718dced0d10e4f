@@ -16,6 +16,24 @@
       "message": "We should obtain the control name by using controlled_by association? And why are we appending the Device name to the control name of the redfish? Also check if function introduced in parent commit can be reused to resolve the association.",
       "revId": "a7a8abad978a097d1a9f0ff8bd718dced0d10e4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8a672f_f564052f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-15T14:28:49Z",
+      "side": 1,
+      "message": "Done. ControlId is now just the prefix (e.g., ClockLimit) — removed makeControlName and the device name suffix. DataSourceUri now points to /redfish/v1/Chassis/{chassisId}/Controls/ClockLimit.\n\nI think we don\u0027t need to use the controlled_by association here since the mapping from D-Bus interface to control prefix is a fixed compile-time table in control_utils.hpp. We already know the interface (Control.Processor) at this point, so we can look up the prefix directly without an extra D-Bus call. \nBut if you\u0027d prefer using the association for consistency, I\u0027m happy to change it — please let me know.",
+      "parentUuid": "ad054193_6782bc83",
+      "revId": "a7a8abad978a097d1a9f0ff8bd718dced0d10e4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
