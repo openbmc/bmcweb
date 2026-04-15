@@ -33,6 +33,23 @@
       "message": "Somewhat meta question, Why are all these conditions important for the BMC to support?  Don\u0027t each of these mean that a certificate authority is authorizing certs that are invalid?\n\nNot against unit tests by any means, just trying to understand.",
       "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f98f798e_702f727f",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-15T19:25:29Z",
+      "side": 1,
+      "message": "Every one of these asserts is technically a memory leak.\n\nLets use the RAII stuff to avoid that.",
+      "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
