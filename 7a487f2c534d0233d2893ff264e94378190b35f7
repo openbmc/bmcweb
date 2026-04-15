@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0279293_cb38e61f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:29Z",
+      "side": 1,
+      "message": "Add info about platform used for testing.",
+      "revId": "7a487f2c534d0233d2893ff264e94378190b35f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f4479e5_b10c8358",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:29Z",
+      "side": 1,
+      "message": "For errors other than boost::system::errc::io_error or EBADR, we should log error report messages::internalError.",
+      "revId": "7a487f2c534d0233d2893ff264e94378190b35f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad7b7782_c6a90b6c",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-15T05:20:29Z",
+      "side": 1,
+      "message": "Update Redfish.md file.",
+      "revId": "7a487f2c534d0233d2893ff264e94378190b35f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
