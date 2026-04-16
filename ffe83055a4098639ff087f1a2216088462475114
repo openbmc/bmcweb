@@ -330,6 +330,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6701b1ab_d4024857",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-04-16T15:22:45Z",
+      "side": 1,
+      "message": "I noticed that setCipherSuiteTLSext relies on the hostname, whereas aggregation currently uses an IP address. To support this, would it make sense to add an additional property (for example, sniHostname) to the HTTP client that can be set by the redfish_aggregation code? This would avoid forcing the use of a domain name in the satellite control configuration and allow SNI handling to remain flexible.",
+      "parentUuid": "d6934516_aa119586",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc4a2786_b2b67ccf",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 13
