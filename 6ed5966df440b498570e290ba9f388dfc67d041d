@@ -96,6 +96,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d4343e9_0a4529d8",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T18:38:48Z",
+      "side": 1,
+      "message": "I\u0027d also add that I see this as one of the main benefits of this patch: You can disable static hosting entirely and still host a correct Redfish tree.  That would be very valuable for people that ship without the webui enabled.",
+      "parentUuid": "ba931e2e_7306ec51",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1253c56d_82819a75",
         "filename": "redfish-core/lib/metadata.hpp",
         "patchSetId": 1
