@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04bae8a0_fa40ec4b",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T18:05:10Z",
+      "side": 1,
+      "message": "Remove.  This method is called out by name in common errors.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 73
+      },
+      "revId": "bf6e07582ca33f04730344ce610a51de9782634b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aac56607_1b9336d1",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T18:05:10Z",
+      "side": 1,
+      "message": "please try harder here.  this is unreadable.  the majority of these is still duplicated.",
+      "revId": "bf6e07582ca33f04730344ce610a51de9782634b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
