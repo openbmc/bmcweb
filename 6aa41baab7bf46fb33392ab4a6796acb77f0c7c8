@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46529d7e_89e46e82",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-16T09:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "484f4a43_8aa7207b",
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13a674a9_836c43aa",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04cffed2_8bb42115",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-16T09:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13a674a9_836c43aa",
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "980c4425_cabebe68",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-04-14T10:47:41Z",
       "side": 1,
       "message": "Sort the pcieDevices. And for empty pcieDevices we should create these redfish properties at all.",
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dedeb53_20517557",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-16T09:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "980c4425_cabebe68",
       "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -75,6 +129,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9876a8a_78549c5f",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-16T09:50:31Z",
+      "side": 1,
+      "message": "getAssociatedSubTree takes std::function internally, so passing std::move_only_function causes a compile error. \nKept as std::function for now.",
+      "parentUuid": "39a3a7c6_91ab2b5e",
+      "range": {
+        "startLine": 370,
+        "startChar": 4,
+        "endLine": 370,
+        "endChar": 17
+      },
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58543aa3_92bc69c2",
@@ -88,6 +166,24 @@
       "writtenOn": "2026-04-14T10:47:41Z",
       "side": 1,
       "message": "Use sdbusplus::message::object_path operator /.",
+      "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b81612c6_bf71da77",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-16T09:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58543aa3_92bc69c2",
       "revId": "6aa41baab7bf46fb33392ab4a6796acb77f0c7c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
