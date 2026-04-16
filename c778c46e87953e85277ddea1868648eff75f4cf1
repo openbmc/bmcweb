@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e97acfe_acb79286",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-16T17:59:23Z",
+      "side": 1,
+      "message": "Done - code de-duplication has been done, however buffer is still needed for explicit conversion to nlohmann::json, otherwise unit tests fail with\n` no known conversion for argument 1 from ‘boost::urls::url’ to ‘nlohmann::json_abi_v3_12_0::basic_json\u003c\u003e\u0027`",
+      "parentUuid": "5d9d25bc_2b48ea4c",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 26
+      },
+      "revId": "c778c46e87953e85277ddea1868648eff75f4cf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b83154ee_f2b7fc3f",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-04-16T14:45:45Z",
       "side": 1,
       "message": "Same as above.",
+      "revId": "c778c46e87953e85277ddea1868648eff75f4cf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cedee580_d08ec709",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-16T17:59:23Z",
+      "side": 1,
+      "message": "Done - code has been de-duped, buffer still needed, without it tests are failing.",
+      "parentUuid": "b83154ee_f2b7fc3f",
       "revId": "c778c46e87953e85277ddea1868648eff75f4cf1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
