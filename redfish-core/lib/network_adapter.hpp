@@ -2,6 +2,8 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
@@ -15,6 +17,7 @@
 #include "utils/chassis_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <boost/url/format.hpp>
 
 #include <array>
 #include <format>
@@ -326,10 +329,57 @@ inline void getNetworkAdapterPortPaths(
                         chassisId, networkAdapterId));
 }
 
+inline void afterGetPcieDeviceForNetworkAdapter(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("Error getting PCIe device for NetworkAdapter: {}",
+                         ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json::array_t pcieDevices;
+    for (const auto& [pciePath, serviceMap] : subtree)
+    {
+        const std::string deviceId =
+            sdbusplus::object_path(pciePath).filename();
+        if (deviceId.empty())
+        {
+            continue;
+        }
+        nlohmann::json::object_t entry;
+        entry["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME, deviceId);
+        pcieDevices.emplace_back(std::move(entry));
+    }
+
+    if (pcieDevices.empty())
+    {
+        return;
+    }
+
+    std::ranges::sort(pcieDevices, std::less<>());
+
+    nlohmann::json::array_t controllers;
+    nlohmann::json::object_t controller;
+    controller["Links"]["PCIeDevices"] = std::move(pcieDevices);
+    controllers.emplace_back(std::move(controller));
+    asyncResp->res.jsonValue["Controllers"] = std::move(controllers);
+}
+
 inline void handleNetworkAdapterPathNetworkAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
-    [[maybe_unused]] const std::string& path)
+    const std::string& path)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#NetworkAdapter.v1_11_0.NetworkAdapter";
@@ -347,6 +397,14 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path(path) / "connecting",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieDeviceInterface,
+        std::bind_front(afterGetPcieDeviceForNetworkAdapter, asyncResp));
 }
 
 inline void handleNetworkAdapterPaths(
