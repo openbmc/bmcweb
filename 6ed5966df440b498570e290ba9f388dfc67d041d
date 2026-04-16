@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a86b3e2b_113bcf93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-16T23:19:31Z",
+      "side": 1,
+      "message": "Thanks for this commit! Can you use your full name here? Best also to use in Gerrit if possible. \n\"All commit messages must include a \"Signed-off-by\" line, which indicates that you the contributor have agreed to the Developer Certificate of Origin (see below). This line must include the full name you commonly use, often a given name and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not ok: xXthorXx, Sam, RAH)\"\n\nhttps://github.com/openbmc/docs/blob/c79ac7da8d90bba82508c99e16a09ec5685f0c25/CONTRIBUTING.md?plain\u003d1#L251",
+      "range": {
+        "startLine": 37,
+        "startChar": 15,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6b802473_fc29fb3c",
@@ -14,6 +37,23 @@
       "writtenOn": "2026-04-14T11:01:14Z",
       "side": 1,
       "message": "There is already dynamic handling for JSON schemas in bmcweb, implemented in redfish_v1.hpp. Specifically, the following routes are registered (see https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/redfish_v1.hpp#L251-L258). These routes already provide dynamic serving of JSON schema files, so there is no need to add new dynamic handling for JSON schemas in this commit, it\u0027s already present and working as intended.",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1307ae63_0e4690b8",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-16T23:19:31Z",
+      "side": 1,
+      "message": "Have to solve Ed\u0027s comment below first but do you need /redfish/v1/schema here? \n\nI don\u0027t think \nurl.starts_with(\"/redfish/v1/schema/\") returns true when /redfish/v1/schema",
       "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -131,6 +171,47 @@
         "endLine": 133,
         "endChar": 5
       },
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1b76930_de43390b",
+        "filename": "redfish-core/lib/metadata.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-16T23:19:31Z",
+      "side": 1,
+      "message": "+1\n\nfilePath \u003d \"/usr/share/www/redfish/v1/schema/../../../../../\u003cdir\u003e/\u003cfile\u003e\"\nPasses",
+      "parentUuid": "1253c56d_82819a75",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 5
+      },
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad30292d_6fad5bb2",
+        "filename": "redfish-core/lib/metadata.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-16T23:19:31Z",
+      "side": 1,
+      "message": "Warning here",
       "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
