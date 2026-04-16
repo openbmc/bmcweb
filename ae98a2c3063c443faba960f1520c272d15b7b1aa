@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f6348e_405ec9f8",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-04-16T06:05:14Z",
+      "side": 1,
+      "message": "Same as other comment in TargetComponentURI. association should be implemented by spdm daemon.",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6110178_15a16a9e",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-04-16T06:05:14Z",
+      "side": 1,
+      "message": "Chassis is a collection and not a valid target resource URI. We do expect spdm daemon to implement this association(defined here https://gerrit.openbmc.org/c/openbmc/entity-manager/+/83263/1/schemas/spdm_endpoint.json). \n\nI think if we fail to get the authenticating association it should be treated as an error.",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f85e7b03_50879d7f",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-04-16T06:05:14Z",
+      "side": 1,
+      "message": "now most of the implementation have moved to use dbus::utility::async_method_call",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28fcee17_f863ee85",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-04-16T06:05:14Z",
+      "side": 1,
+      "message": "Certificate path as per design(https://github.com/openbmc/docs/blob/master/designs/redfish-spdm-attestation.md) will use following path\n\n/xyz/openbmc_project/certs/devices/{chassis_id}/{cert_id}\n\nCertificate URI will be /redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}\n\nspdm daemon implementation:\nhttps://gerrit.openbmc.org/c/openbmc/spdm/+/83094/10/requester/component_integrity_dbus.cpp#378",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12cf1834_cf79c269",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-04-16T06:05:14Z",
+      "side": 1,
+      "message": "T1 \u0026 T2 timeout values in SPDM can change based on device and it may go beyond seconds including retries. So task is preferred and task response can include the spdm attestation response.",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "709f3fd3_d77cbed0",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-04-16T06:05:14Z",
+      "side": 1,
+      "message": "Currently only length is checked, but as per schema it\u0027s a hex encoded string, need to make sure string nonce input is hex.",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
