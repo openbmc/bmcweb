@@ -16,6 +16,24 @@
       "message": "People hit this mediocre mapper error so often, lets just fix this in dbus::utility::getSubTreePaths, to make it catch the specific error, and return a non-error empty list.",
       "revId": "e2fbce6eb641f306009fbc2a5f7e70e86aaee9df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd02551_03cffb35",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1002220
+      },
+      "writtenOn": "2026-04-16T00:13:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3ac6cc0_f48202e6",
+      "revId": "e2fbce6eb641f306009fbc2a5f7e70e86aaee9df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
