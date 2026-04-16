@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a9a1c9b_4f4c7626",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Using existing Item.NetworkInterface (from PDI) to identify NDF-capable ports. No new interface needed — ports with Item.NetworkInterface are treated as NetworkDeviceFunctions. Updated commit message to document this design.\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5//COMMIT_MSG",
+      "parentUuid": "6a97c793_9f35ed62",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf7b4f92_99f1c31a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-15T05:51:55Z",
       "side": 1,
       "message": "nit: this doesn\u0027t need to be a separate function.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e876d501_1cb355f6",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Merged into afterGetNDFPortProtocol.\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#60",
+      "parentUuid": "bf7b4f92_99f1c31a",
       "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78065bb1_33831488",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Changed to boost::urls::format() for @odata.id URL.\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#102",
+      "parentUuid": "003561c8_9ad76712",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02d7432d_c23ee100",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-15T05:51:55Z",
       "side": 1,
       "message": "For errors other than boost::system::errc::io_error or EBADR, we should log error report messages::internalError. Same applies to other callback functions in this patch.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17dbf875_b31de0bd",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Both afterGetNDFMacAddress and afterGetNDFPortProtocol now check EBADR first (early return), then log error and call messages::internalError for all other error codes.\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#39\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#67",
+      "parentUuid": "02d7432d_c23ee100",
       "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d858ede_9dac6d96",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Changed to boost::urls::format().\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#111",
+      "parentUuid": "752f5a37_530a4933",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f418132_2af5e0dd",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-15T05:51:55Z",
       "side": 1,
       "message": "use std::format.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1c523ab_3d6f0b43",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Using std::format for display Name, boost::urls::format for @odata.id.\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#107",
+      "parentUuid": "8f418132_2af5e0dd",
       "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f5053f_8aa1efd4",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Using collection_util::handleCollectionMembers().\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#142",
+      "parentUuid": "9243f2cc_a2ac84e2",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "754113d0_d52b7b9f",
@@ -137,6 +263,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c5d0179_92e37a7b",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Changed to use Item.NetworkInterface as the filter interface for both NDF Collection and individual NDF GET. The dbus-sensors side (88775 PS7) now exposes Item.NetworkInterface with MACAddress on each Ethernet port.\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#171\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp#189\nhttps://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/88775/7/src/nvidia-gpu/NvidiaEthPort.cpp#84",
+      "parentUuid": "754113d0_d52b7b9f",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffc1f0e5_d0f23728",
@@ -150,6 +294,24 @@
       "writtenOn": "2026-04-15T05:51:55Z",
       "side": 1,
       "message": "nit: move NetworkDeviceFunctions to separate file.",
+      "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d49468a_6e2c67af",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T06:31:47Z",
+      "side": 1,
+      "message": "Done. Moved all NDF code to network_device_function.hpp, added #include and route registration in redfish.cpp.\n\nSee PS5:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/lib/network_device_function.hpp\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/src/redfish.cpp#36\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/5/redfish-core/src/redfish.cpp#115",
+      "parentUuid": "ffc1f0e5_d0f23728",
       "revId": "3dea72718ee19f3acbc2ae823bcaa69793af0885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
