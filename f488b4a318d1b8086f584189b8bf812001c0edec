@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f66b05_cadeda42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T14:17:00Z",
+      "side": 1,
+      "message": "Done.See PS7: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88035/7/COMMIT_MSG",
+      "parentUuid": "8fe861f1_08055058",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0733d235_347694c9",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-15T05:29:04Z",
       "side": 1,
       "message": "For errors other than boost::system::errc::io_error or EBADR, we should log error report messages::internalError.",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f89c851_7ab1f67a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T14:17:00Z",
+      "side": 1,
+      "message": "Done. EBADR and io_error return silently, other errors log BMCWEB_LOG_ERROR and return messages::internalError. Same pattern as fabric.hpp.\nSee PS7: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88035/7/redfish-core/lib/processor.hpp#827",
+      "parentUuid": "0733d235_347694c9",
       "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b07056bd_21de9f41",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T14:17:00Z",
+      "side": 1,
+      "message": "Done. Added \"// Convert D-Bus MemorySizeInKB (KiB) to Redfish TotalMemorySizeMiB (MiB)\".\nSee PS7: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88035/7/redfish-core/lib/processor.hpp#854",
+      "parentUuid": "b8018225_3bb69ab8",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64453766_5ed6a0fd",
@@ -82,6 +136,24 @@
       "writtenOn": "2026-04-15T05:29:04Z",
       "side": 1,
       "message": "use sdbusplus::object_path operator /.",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "072b9d02_d6b61d8a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-16T14:17:00Z",
+      "side": 1,
+      "message": "Done. Changed to sdbusplus::message::object_path(objectPath) / \"containing\".\nSee PS7: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88035/7/redfish-core/lib/processor.hpp#869",
+      "parentUuid": "64453766_5ed6a0fd",
       "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
