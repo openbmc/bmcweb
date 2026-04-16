@@ -2,6 +2,8 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
@@ -13,12 +15,15 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/collection.hpp"
 #include "utils/location_utils.hpp"
 
 #include <asm-generic/errno.h>
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/errc.hpp>
+#include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
 
 #include <array>
 #include <format>
@@ -388,6 +393,24 @@ inline void getNetworkAdapterLocation(
                         networkAdapterPath));
 }
 
+inline void afterGetPcieDeviceForNetworkAdapter(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& pciePaths)
+{
+    if (ec && ec.value() == EBADR)
+    {
+        return;
+    }
+
+    collection_util::handleCollectionMembers(
+        asyncResp,
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
+        nlohmann::json::json_pointer("/Controllers/0/Links/PCIeDevices"), ec,
+        pciePaths);
+}
+
 inline void handleNetworkAdapterPathNetworkAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
@@ -411,6 +434,14 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
                     chassisId, networkAdapterId);
 
     getNetworkAdapterLocation(asyncResp, path);
+
+    constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::object_path(path) / "connected_to",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieDeviceInterface,
+        std::bind_front(afterGetPcieDeviceForNetworkAdapter, asyncResp));
 }
 
 inline void handleNetworkAdapterPaths(

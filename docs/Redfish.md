@@ -530,6 +530,9 @@ Fields common to all schemas
 - Location/PartLocation/LocationType
 - Location/PartLocation/ServiceLabel
 - Name
+- Controllers
+  - Links
+    - PCIeDevices
 - Ports
 - Status
   - Health
