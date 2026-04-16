@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f1ca2c0_9b5a973a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-16T15:12:05Z",
+      "side": 1,
+      "message": "You are moving from /PCIeFunctions/0 to PCIeFunctions/\u003cdbus name\u003e \n\nMight be worth calling out.",
+      "revId": "0e0a7be93409bce80484e845cfec42276f19ade5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec847ba1_9dcf909b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -68,6 +85,23 @@
       "side": 1,
       "message": "It works with that change.  Thanks!",
       "parentUuid": "9d79321b_c7e72174",
+      "revId": "0e0a7be93409bce80484e845cfec42276f19ade5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "160b9499_44241f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-16T15:12:05Z",
+      "side": 1,
+      "message": "Thanks for doing https://gerrit.openbmc.org/c/openbmc/peci-pcie/+/89320 !",
       "revId": "0e0a7be93409bce80484e845cfec42276f19ade5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
