@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d9d25bc_2b48ea4c",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T14:45:45Z",
+      "side": 1,
+      "message": "Please deduplicate this code.  It\u0027s very similar.\n\nAlso, buffer() is not required.",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 26
+      },
+      "revId": "c778c46e87953e85277ddea1868648eff75f4cf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b83154ee_f2b7fc3f",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T14:45:45Z",
+      "side": 1,
+      "message": "Same as above.",
+      "revId": "c778c46e87953e85277ddea1868648eff75f4cf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
