@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a28ac460_7f861f4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. Added Links/Chassis, Links/PCIeDevice, and Links/PCIeFunctions to the Processor section in `Redfish.md`. Commit message updated accordingly",
+      "parentUuid": "078addbc_8ad603c8",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c305b415_50500ae7",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-14T11:54:03Z",
       "side": 1,
       "message": "Distinguish no item found (ec \u003d\u003d boost::system::errc::io_error) from other D-Bus errors. For other D-Bus return it should return messages::internalError. See function collection_util::handleCollectionMembers.",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d54863_4a93029f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. `afterGetProcessorChassisLink()` now checks for `ec !\u003d boost::system::io_error` and returns `messages::internalError` for other D-Bus errors, consistent with `handleCollectionMembers`.",
+      "parentUuid": "c305b415_50500ae7",
       "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66c441ef_2f5aded9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. Added `BMCWEB_LOG_WARNING` when the chassis association returns an unexpected number of endpoints.",
+      "parentUuid": "780004dc_2d920cd4",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20aeac86_7377b230",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-14T11:54:03Z",
       "side": 1,
       "message": "use sdbusplus::message::object_path operator/.",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aa9a8e0_1fb05455",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. Using `sdbusplus::message::object_path(object)` now.",
+      "parentUuid": "20aeac86_7377b230",
       "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4a2c305_23f667b3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. Using the same pattern applied in `afterGerPCIeFunctionsLinks - io_error` is treated as no-item-found.",
+      "parentUuid": "542f3e14_a7264a2a",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee143617_f830c4b5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-14T11:54:03Z",
       "side": 1,
       "message": "`nlohmann::json::array_t pcieFunctionList;`\nand then after populating pcieFunctionList, sort pcieFunctionList and do,\n`asyncResp-\u003eres.jsonValue[\"Links\"][\"PCIeFunctions\"] \u003d std::move(pcieFunctionList);`",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4b76e13_9ef310fd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. Using `nlohmann::json::array_t` now, sorted with `std::ranges::sort` before moving into the response.",
+      "parentUuid": "ee143617_f830c4b5",
       "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +247,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60271278_0d7a26c7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "The implementation is indeed looking for association between PCIeDevice and PCIeFunction, so I think `exposing` would be better than `producing`.",
+      "parentUuid": "f8b82fc1_eaf51a1b",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7c17acc_b19ffcf6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. Using `sdbusplus::message::object_path` and its operator now.",
+      "parentUuid": "e30cf8bd_afddd54a",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "395882bb_3c818ded",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -150,6 +294,30 @@
       "writtenOn": "2026-04-14T11:54:03Z",
       "side": 1,
       "message": "```suggestion\ninline void getLinksForAccelerator(\n```",
+      "range": {
+        "startLine": 895,
+        "startChar": 12,
+        "endLine": 895,
+        "endChar": 44
+      },
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6d3810_c629e284",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. Function renamed to `getLinksForAccelerator()`",
+      "parentUuid": "395882bb_3c818ded",
       "range": {
         "startLine": 895,
         "startChar": 12,
@@ -179,6 +347,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7285bd24_4fdd438a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. `getLinksForAccelerator()` now takes the `interfaceList` and returns early if `Inventory.Item.PCIeDevice` is not present. `Link/PCIeDevice` and `Links/PCIeFunctions` are only populated when both `Accelerator` and `PCIeDevice` interfaces exist on the object.",
+      "parentUuid": "53619e28_1f8a4cb5",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87b57886_927b0269",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 4
@@ -190,6 +376,24 @@
       "writtenOn": "2026-04-14T11:54:03Z",
       "side": 1,
       "message": "Shouldn\u0027t this be added regardless of processor type? Can we put it outside of this if else statement?",
+      "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e3d2ecb_ed976746",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-16T11:12:07Z",
+      "side": 1,
+      "message": "Done. `getProcessorChassisLink()` is now called outside that if-else block after the service name loop, so it applies to all processor types.",
+      "parentUuid": "87b57886_927b0269",
       "revId": "e0c33248e4661875a7242531a627718c2a3ddd39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
