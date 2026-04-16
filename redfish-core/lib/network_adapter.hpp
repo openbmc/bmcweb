@@ -2,6 +2,8 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
@@ -13,8 +15,11 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/collection.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
 
 #include <array>
 #include <format>
@@ -326,10 +331,28 @@ inline void getNetworkAdapterPortPaths(
                         chassisId, networkAdapterId));
 }
 
+inline void afterGetPcieDeviceForNetworkAdapter(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& pciePaths)
+{
+    if (ec && ec.value() == EBADR)
+    {
+        return;
+    }
+
+    collection_util::handleCollectionMembers(
+        asyncResp,
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
+        nlohmann::json::json_pointer("/Controllers/0/Links/PCIeDevices"), ec,
+        pciePaths);
+}
+
 inline void handleNetworkAdapterPathNetworkAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
-    [[maybe_unused]] const std::string& path)
+    const std::string& path)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#NetworkAdapter.v1_11_0.NetworkAdapter";
@@ -347,6 +370,14 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::object_path(path) / "connected_to",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieDeviceInterface,
+        std::bind_front(afterGetPcieDeviceForNetworkAdapter, asyncResp));
 }
 
 inline void handleNetworkAdapterPaths(
