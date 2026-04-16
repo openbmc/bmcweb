@@ -34,6 +34,9 @@ namespace redfish
 
 constexpr uint64_t hzPerMhzControl = 1000000;
 
+constexpr std::array<std::string_view, 1> acceleratorControlIface = {
+    "xyz.openbmc_project.Inventory.Item.Accelerator"};
+
 inline std::optional<physical_context::PhysicalContext>
     acceleratorTypeToPhysicalContext(std::string_view dbusType)
 {
@@ -314,13 +317,10 @@ inline void doControlCollectionGet(
     checkControlledByForCollection(asyncResp, chassisId, *validChassisPath);
 
     // Check contained objects for controls
-    constexpr std::array<std::string_view, 1> acceleratorIface = {
-        "xyz.openbmc_project.Inventory.Item.Accelerator"};
-
     dbus::utility::getAssociatedSubTreePaths(
         chassisObjPath / "containing",
         sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
-        acceleratorIface,
+        acceleratorControlIface,
         std::bind_front(afterDiscoverContainingForCollection, asyncResp,
                         chassisId));
 }
@@ -383,6 +383,10 @@ inline void afterVerifyControlledByForGet(
     if (prefix == "ClockLimit")
     {
         populateClockLimitControl(asyncResp, inventoryPath, inventoryService);
+        asyncResp->res.jsonValue["Actions"]["#Control.ResetToDefaults"]
+                                ["target"] = boost::urls::format(
+            "/redfish/v1/Chassis/{}/Controls/{}/Actions/Control.ResetToDefaults",
+            chassisId, controlId);
     }
 }
 
@@ -455,13 +459,10 @@ inline void doControlGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     // Search contained objects for controls
-    constexpr std::array<std::string_view, 1> acceleratorIface = {
-        "xyz.openbmc_project.Inventory.Item.Accelerator"};
-
     dbus::utility::getAssociatedSubTree(
         sdbusplus::object_path(*validChassisPath) / "containing",
         sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
-        acceleratorIface,
+        acceleratorControlIface,
         std::bind_front(afterDiscoverContainingForGet, asyncResp, chassisId,
                         controlId, prefix));
 }
@@ -509,6 +510,219 @@ inline void handleControlHead(
                              " rel=describedby");
 }
 
+constexpr std::array<std::string_view, 1> resetToDefaultsIface = {
+    "xyz.openbmc_project.Control.Processor"};
+
+inline void afterResetToDefaults(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("ResetToDefaults D-Bus method call failed: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    messages::success(asyncResp->res);
+}
+
+inline void afterGetResetToDefaultsService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& controlPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& objType)
+{
+    if (ec || objType.empty())
+    {
+        BMCWEB_LOG_ERROR(
+            "No service found with ResetToDefaults interface on {}: {}",
+            controlPath, ec);
+        messages::actionNotSupported(asyncResp->res, "Control.ResetToDefaults");
+        return;
+    }
+
+    const std::string& service = objType.front().first;
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec2) {
+            afterResetToDefaults(asyncResp, ec2);
+        },
+        service, controlPath, "xyz.openbmc_project.Control.Processor",
+        "ResetToDefaults");
+}
+
+inline void afterFindControlForReset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& controlId, const std::string& prefix,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("controlled_by lookup for reset failed: {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::resourceNotFound(asyncResp->res, "Control", controlId);
+        return;
+    }
+
+    std::string controlPath;
+    for (const auto& [path, serviceMap] : subtree)
+    {
+        for (const auto& [service, interfaces] : serviceMap)
+        {
+            for (const std::string& iface : interfaces)
+            {
+                if (control_utils::getControlPrefixForInterface(iface) ==
+                    prefix)
+                {
+                    controlPath = path;
+                    break;
+                }
+            }
+            if (!controlPath.empty())
+            {
+                break;
+            }
+        }
+        if (!controlPath.empty())
+        {
+            break;
+        }
+    }
+
+    if (controlPath.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "Control", controlId);
+        return;
+    }
+
+    dbus::utility::getDbusObject(controlPath, resetToDefaultsIface,
+                                 std::bind_front(afterGetResetToDefaultsService,
+                                                 asyncResp, controlPath));
+}
+
+inline void afterDiscoverContainingForReset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& controlId, const std::string& prefix,
+    const std::string& endpointName, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR(
+                "GetAssociatedSubTree error for containing (reset): {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::resourceNotFound(asyncResp->res, "Control", controlId);
+        return;
+    }
+
+    std::string inventoryPath;
+    for (const auto& [objectPath, serviceMap] : subtree)
+    {
+        sdbusplus::message::object_path objPath(objectPath);
+        if (objPath.filename() == endpointName)
+        {
+            inventoryPath = objectPath;
+            break;
+        }
+    }
+
+    if (inventoryPath.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "Control", controlId);
+        return;
+    }
+
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::message::object_path(inventoryPath + "/controlled_by"),
+        sdbusplus::message::object_path("/xyz/openbmc_project/control"), 0,
+        control_utils::controlRequiredInterfaces,
+        std::bind_front(afterFindControlForReset, asyncResp, controlId,
+                        prefix));
+}
+
+inline void doControlResetToDefaults(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& controlId,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    std::string prefix;
+    std::string endpointName;
+    for (const auto& mapping : control_utils::controlTypeMappings)
+    {
+        std::string candidate = std::string(mapping.prefix) + "_";
+        if (controlId.starts_with(candidate) &&
+            controlId.size() > candidate.size())
+        {
+            prefix = mapping.prefix;
+            endpointName = controlId.substr(candidate.size());
+            break;
+        }
+    }
+    if (prefix.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "Control", controlId);
+        return;
+    }
+
+    if (prefix != "ClockLimit")
+    {
+        messages::actionNotSupported(asyncResp->res, "Control.ResetToDefaults");
+        return;
+    }
+
+    // Check if the control belongs to the chassis itself
+    sdbusplus::message::object_path chassisObjPath(*validChassisPath);
+    if (chassisObjPath.filename() == endpointName)
+    {
+        dbus::utility::getAssociatedSubTree(
+            sdbusplus::message::object_path(
+                *validChassisPath + "/controlled_by"),
+            sdbusplus::message::object_path("/xyz/openbmc_project/control"), 0,
+            control_utils::controlRequiredInterfaces,
+            std::bind_front(afterFindControlForReset, asyncResp, controlId,
+                            prefix));
+        return;
+    }
+
+    // Search contained objects
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::message::object_path(*validChassisPath + "/containing"),
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        acceleratorControlIface,
+        std::bind_front(afterDiscoverContainingForReset, asyncResp, controlId,
+                        prefix, endpointName));
+}
+
+inline void handleControlResetToDefaults(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& controlId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(doControlResetToDefaults, asyncResp, chassisId,
+                        controlId));
+}
+
 inline void requestRoutesControl(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Controls/")
@@ -530,6 +744,13 @@ inline void requestRoutesControl(App& app)
         .privileges(redfish::privileges::getControl)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleControlGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Chassis/<str>/Controls/<str>/Actions/Control.ResetToDefaults/")
+        .privileges(redfish::privileges::postControl)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleControlResetToDefaults, std::ref(app)));
 }
 
 } // namespace redfish
