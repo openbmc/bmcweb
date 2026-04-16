@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d7994df_a5236186",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T18:37:10Z",
+      "side": 1,
+      "message": "Generally we don\u0027t allow starts_with type comparisons.  This is a security boundary, so we need to be somewhat specific, that\u0027s why the old check used a specific list of routes.  If someone registered /redfish/v1/schema/sensitive_data, this would allow them through.\n\nlet me think on this a bit on how to solve this, as your use case makes sense, but this check was very intentionally not a starts_with type request.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 9
+      },
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12c5aee4_33cd1c5c",
         "filename": "include/webassets.hpp",
         "patchSetId": 1
@@ -49,6 +72,47 @@
       "side": 1,
       "message": "There is already dynamic handling for JSON schemas in bmcweb, implemented in redfish_v1.hpp. Specifically, the following routes are registered (see https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/redfish_v1.hpp#L251-L258). These routes already provide dynamic serving of JSON schema files, so there is no need to add new dynamic handling for JSON schemas in this commit, it\u0027s already present and working as intended.",
       "parentUuid": "12c5aee4_33cd1c5c",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba931e2e_7306ec51",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T18:37:10Z",
+      "side": 1,
+      "message": "Please just move where these files are installed.  If we\u0027re not going to use the static file hosting, don\u0027t put them in the static file hosting folder, and they won\u0027t be scanned.",
+      "parentUuid": "dd3bb0e3_9351f61f",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1253c56d_82819a75",
+        "filename": "redfish-core/lib/metadata.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T18:37:10Z",
+      "side": 1,
+      "message": "This is now unauthenticated code that could (potentially) let an attacker read any file.  Schema needs to be checked against every known pattern we see in schemas (alphanum + version + xml) before we attempt to open the filesystem, otherwise you can escape out and read any file.  As written, i\u0027m pretty sure this is a CVE.  FWIW, that CVE is why we initially used a scanned list built at startup, as it\u0027s easy to verify the correctness of.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 5
+      },
       "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
