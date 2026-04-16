@@ -514,6 +514,9 @@ Fields common to all schemas
 - @odata.type
 - Id
 - Name
+- Controllers
+  - Links
+    - PCIeDevices
 - Ports
 - Status
   - Health
