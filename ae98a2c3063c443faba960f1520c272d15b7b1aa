@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ad88ce_737fdef5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-16T15:27:16Z",
+      "side": 1,
+      "message": "Thanks for the detailed review, Chinmay. These are all good points — I agree the association and cert path handling should come from spdmd rather than being derived in bmcweb.\n\nSpecifically on each:\n- :190/:307 — will consume the authenticating association from spdmd rather than constructing TargetComponentURI in bmcweb\n- :446 — will move to async_method_call\n- :469 — will use the /xyz/openbmc_project/certs/devices/{chassis_id}/{cert_id}convention from 83094\n- :512 — agreed, the T1/T2 timeout range makes a Task response the right pattern\n- :581 — will add hex validation on the nonce\n\n88828 is blocked on the spdmd backend merge (the MCTP/TCP transport chain + your D-Bus interface commits). I\u0027ll rework against whatever associations and paths spdmd publishes once that stabilizes. In the meantime I\u0027ve noted all six points for PS7.",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0f6348e_405ec9f8",
