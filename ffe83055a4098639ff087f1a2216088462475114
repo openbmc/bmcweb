@@ -295,6 +295,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6934516_aa119586",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-16T14:34:37Z",
+      "side": 1,
+      "message": "Lets start with describing why this is a hardcoded id, then we can go from there before we talk about name changes.",
+      "parentUuid": "e8019370_e7a03db0",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc4a2786_b2b67ccf",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 13
