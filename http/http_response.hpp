@@ -61,7 +61,14 @@ struct Response
 
     void addHeader(std::string_view key, std::string_view value)
     {
-        fields().insert(key, value);
+        boost::system::error_code ec;
+
+        fields().insert(boost::beast::http::string_to_field(key), key, value,
+                        ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to set header {}", ec.message());
+        }
     }
 
     void addHeader(http::field key, std::string_view value)

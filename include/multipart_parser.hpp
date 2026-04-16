@@ -191,8 +191,16 @@ class MultipartParser
                     {
                         std::string_view value(&buffer[headerValueMark],
                                                i - headerValueMark);
-                        mime_fields.rbegin()->fields.set(currentHeaderName,
-                                                         value);
+                        boost::beast::error_code ec;
+                        using boost::beast::http::field;
+                        mime_fields.rbegin()->fields.insert(
+                            boost::beast::http::string_to_field(
+                                currentHeaderName),
+                            currentHeaderName, value, ec);
+                        if (ec)
+                        {
+                            return ParserError::ERROR_HEADER_VALUE;
+                        }
                         state = State::HEADER_VALUE_ALMOST_DONE;
                     }
                     break;
