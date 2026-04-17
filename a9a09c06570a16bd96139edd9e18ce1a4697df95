@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dab170be_24addfc3",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-17T18:43:36Z",
+      "side": 1,
+      "message": "Error handling looks like it will write invalid here.",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45f1f7f0_8addbbaf",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-17T18:43:36Z",
+      "side": 1,
+      "message": "Why are we doing this at all compared to the old code?  Old code looks simpler and just as correct.",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 47
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbdb83a5_0eec4488",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-17T18:43:36Z",
+      "side": 1,
+      "message": "nit, just initialize these to Managers and BMCWEB_REDFISH_MANAGER_URI_NAME\n\nwhich saves you an ELSE",
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be076bf8_35c70221",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-17T18:43:36Z",
+      "side": 1,
+      "message": "Please refactor so your unit tests aren\u0027t dependent on which options are enabled.  As written, you will only get coverage of the default option.",
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
