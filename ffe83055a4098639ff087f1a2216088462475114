@@ -296,6 +296,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6500c49_cc82c76c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-17T15:33:24Z",
+      "side": 1,
+      "message": "\u003e I’ve redesigned the solution to be RFC compliant while maintaining security.\n\nSTOP.  I\u0027ve asked several times for you to explain what you\u0027re trying to accomplish.  Continuing to push code that I don\u0027t understand will not be well received.  You also don\u0027t need to put code in comments.  The above reads like it was fed out of an LLM, as it talks through very abstract things like \"RFC compliant and secure\" when the implementation isn\u0027t.  It also talks about things that have nothing to do with this patch \"can be addressed in separate patch\".  Lets just have a conversation about what you want to do, and we can go from there.\n\nSo, no, this direction does not look good.  Please start by updating your commit message with what you\u0027re trying to accomplish, as well as links to the RFC you\u0027re trying to implement as requested in the other comments, and responding to the existing comments threads.",
+      "parentUuid": "299fd5d6_3bb41457",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "677d18a6_10079541",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
