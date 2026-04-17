@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1783af2e_c757197b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:33Z",
+      "side": 1,
+      "message": "Done in the latest patchset. Thanks for the reminder!",
+      "parentUuid": "64283e8a_e47905f5",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "864f4e1e_b6f17764",
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "Thanks for the reminding.\nI have been added to the list and able to contribute.",
       "parentUuid": "864f4e1e_b6f17764",
+      "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56eddb1_891ba0f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41aea12c_60f539bf",
       "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -118,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f7daa2f_10d1e068",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a045401_b282f774",
+      "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfb835c3_c5f48b62",
@@ -149,6 +209,24 @@
       "side": 1,
       "message": "Hi @gunnar@gmills.xyz, I have modified the implementation so that it will now logs as an error message.",
       "parentUuid": "dfb835c3_c5f48b62",
+      "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dbfc129_f73c06a3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ad03e46_530991ee",
       "revId": "7b6e51c822eb6e73256f947143e754d4400698fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
