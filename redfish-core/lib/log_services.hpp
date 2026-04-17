@@ -346,6 +346,12 @@ inline void getDumpEntryCollection(
                         "{}/{}/attachment", entriesPath, entryID);
                     thisEntry["AdditionalDataSizeBytes"] = size;
                 }
+                else if (dumpType == "FaultLog")
+                {
+                    thisEntry["AdditionalDataURI"] = boost::urls::format(
+                        "{}/{}/attachment", entriesPath, entryID);
+                    thisEntry["AdditionalDataSizeBytes"] = size;
+                }
                 entriesArray.emplace_back(std::move(thisEntry));
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
@@ -445,6 +451,13 @@ inline void getDumpEntryById(
                                             entryID);
                     asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
                 }
+                else if (dumpType == "FaultLog")
+                {
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
+                        boost::urls::format("{}/{}/attachment", entriesPath,
+                                            entryID);
+                    asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
+                }
             }
             if (!foundDumpEntry)
             {
@@ -488,7 +501,7 @@ inline void downloadDumpEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& entryID, const std::string& dumpType)
 {
-    if (dumpType != "BMC" && dumpType != "System")
+    if (dumpType != "BMC" && dumpType != "System" && dumpType != "FaultLog")
     {
         BMCWEB_LOG_WARNING("Can't find Dump Entry {}", entryID);
         messages::resourceNotFound(asyncResp->res, dumpType + " dump", entryID);
@@ -1577,6 +1590,16 @@ inline void requestRoutesFaultLogDumpEntry(App& app)
         .privileges(redfish::privileges::deleteLogEntry)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
             handleLogServicesDumpEntryDelete, std::ref(app), "FaultLog"));
+}
+
+inline void requestRoutesFaultLogDumpEntryDownload(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Managers/<str>/LogServices/FaultLog/Entries/<str>/attachment/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleLogServicesDumpEntryDownloadGet, std::ref(app), "FaultLog"));
 }
 
 inline void requestRoutesFaultLogDumpClear(App& app)
