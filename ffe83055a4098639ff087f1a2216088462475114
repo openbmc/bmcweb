@@ -278,6 +278,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "299fd5d6_3bb41457",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-17T15:24:38Z",
+      "side": 1,
+      "message": "Hi @ed@tanous.net, \n\nThanks for your patience. Based on your feedback that SNI can use IP addresses, I’ve redesigned the solution to be RFC compliant while maintaining security.\n\nKey changes:\n- Removed the \"mtls.bmc\" now SNI uses actual satellite IP addresses.\n- Add satellite authorization list; only configured satellites can use mTLS( this can be addressed as a different patch)\n- Two-layer security: IP detection + satellite list validation(as aseperate patch).\n- RFC 6066 compliant: SNI contains actual destination IP/hostname.\n\nCritical code change:\nPreviously, SNI was skipped for IP addresses. Now, SNI is always set, even for IPs, enabling proper satellite mTLS detection.\n\nBelow code will be changed for IP address set for SNI:\nif (host.host_type() !\u003d boost::urls::host_type::name)\n        {           \n            // Avoid setting SNI hostname if its IP address\n            return;\n        }  \nThus the change will have \n- RFC compliant and secure.\n- Explicit authorization via satellite list(can be addressed in seperate patch).\n- Backward compatible with existing HTTPS connections.\n\nNext steps:\nI’ll upload the updated patchset to Gerrit with the testscript executed, once you confirm this direction looks good.\n\nAwaiting for your confirmation?\n\nThanks",
+      "parentUuid": "71cad166_e51b5016",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "677d18a6_10079541",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
