@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5419f8b1_9998d3bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done. Removed Width assignment; only ActiveWidth is set now. Updated commit message accordingly.",
+      "parentUuid": "1c0ba624_eab8aa3d",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d49e364_f9fcc53e",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-14T09:47:04Z",
       "side": 1,
       "message": "This will add Ports property only if Processor object path has PCIe D-Bus interface. We should add it regardless.",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9771fb3_1917ce96",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d49e364_f9fcc53e",
       "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33b15af1_e218c3e7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "139a0477_5d822aec",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2991a08_a8838e74",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-14T09:47:04Z",
       "side": 1,
       "message": "Shouldn\u0027t we log the error if more than one services are found.",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4433652f_4280a512",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1366,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done. Added BMCWEB_LOG_ERROR when serviceMap.size() \u003e 1.",
+      "parentUuid": "a2991a08_a8838e74",
       "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "552fc78e_56ae791c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b17f285_fb5d0b53",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af4e9d19_eafa8600",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-14T09:47:04Z",
       "side": 1,
       "message": "use sdbusplus::message::object_path operator /.",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f04485e_8428c4e9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1397,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af4e9d19_eafa8600",
       "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02807c5f_103ac259",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb29734c_31670076",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec64c18d_661b7ae7",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-04-14T09:47:04Z",
       "side": 1,
       "message": "use utils function that already exists to populate collection members.",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a24dc9c_9cb7f2ad",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1463,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done. Switched to collection_util::handleCollectionMembers, which handles io_error (empty collection) and other errors (internalError) separately.",
+      "parentUuid": "ec64c18d_661b7ae7",
       "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -154,6 +298,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e68ac631_5974ad7a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1488,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afa299dc_010e3417",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19545c69_3195c84f",
@@ -167,6 +329,24 @@
       "writtenOn": "2026-04-14T09:47:04Z",
       "side": 1,
       "message": "use sdbusplus::message::object_path operator /.",
+      "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49fc93df_a2c67303",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T11:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19545c69_3195c84f",
       "revId": "a2614d7cf00939b2f26cb595026080a33cdf87d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
