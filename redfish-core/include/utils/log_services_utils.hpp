@@ -81,7 +81,8 @@ inline void downloadEntryCallback(
     }
 
     // Make sure we know how to process the retrieved entry attachment
-    if ((downloadEntryType != "BMC") && (downloadEntryType != "System"))
+    if ((downloadEntryType != "BMC") && (downloadEntryType != "System") &&
+        (downloadEntryType != "FaultLog"))
     {
         BMCWEB_LOG_ERROR("downloadEntryCallback() invalid entry type: {}",
                          downloadEntryType);
@@ -101,7 +102,7 @@ inline void downloadEntryCallback(
         close(fd);
         return;
     }
-    if (downloadEntryType == "System")
+    if (downloadEntryType == "System" || downloadEntryType == "FaultLog")
     {
         if (!asyncResp->res.openFd(fd, bmcweb::EncodingType::Base64))
         {

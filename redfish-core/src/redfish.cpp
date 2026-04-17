@@ -170,6 +170,7 @@ RedfishService::RedfishService(App& app)
         requestRoutesFaultLogDumpService(app);
         requestRoutesFaultLogDumpEntryCollection(app);
         requestRoutesFaultLogDumpEntry(app);
+        requestRoutesFaultLogDumpEntryDownload(app);
         requestRoutesFaultLogDumpClear(app);
     }
 
