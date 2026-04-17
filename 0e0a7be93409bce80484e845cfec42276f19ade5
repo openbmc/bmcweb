@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf9aa645_e71f7ad3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T04:59:39Z",
+      "side": 1,
+      "message": "Updated commit message to explicitly call out the URL change from /PCIeFunctions/\u003cn\u003e to /PCIeFunctions/\u003cD-Bus name\u003e.\n\nAlso rebased onto latest master and updated sdbusplus::message::object_path to the shorter sdbusplus::object_path alias to align with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/89055.",
+      "parentUuid": "4f1ca2c0_9b5a973a",
+      "revId": "0e0a7be93409bce80484e845cfec42276f19ade5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec847ba1_9dcf909b",
