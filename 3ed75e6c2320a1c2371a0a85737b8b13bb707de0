@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b92136c5_6143e0ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b27ad7e_6a5f7437",
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edf826c5_a75879c5",
@@ -107,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79856ab5_6bbd9596",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc82abc2_c71111de",
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99b43503_e363dfa7",
@@ -138,6 +174,24 @@
       "side": 1,
       "message": "I have resolved the merge conflict. \nPlease check at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88781/3/test/meson.build\n\nAppreciated for your noticing!",
       "parentUuid": "99b43503_e363dfa7",
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe32d86d_5b8fee05",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "401b5afd_db620b1c",
       "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -179,6 +233,30 @@
       "side": 1,
       "message": "I was just added to the Gerrit approval list and I have triggered the CI test again.\nPlease check the CI test result as below.",
       "parentUuid": "40e123b0_6ce144af",
+      "range": {
+        "startLine": 677,
+        "startChar": 12,
+        "endLine": 677,
+        "endChar": 41
+      },
+      "revId": "3ed75e6c2320a1c2371a0a85737b8b13bb707de0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f8beb3c_7d679e6f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaa7a1e8_1c9345ea",
       "range": {
         "startLine": 677,
         "startChar": 12,
