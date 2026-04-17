@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c2b6b46_4ef1ce20",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T14:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb62c6ca_80fbb090",
+      "revId": "56890cb69506dc0fcec401a5d592808560b17f6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4034e100_f282028b",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-14T10:26:14Z",
       "side": 1,
       "message": "Add a check for chassisId being empty.",
+      "revId": "56890cb69506dc0fcec401a5d592808560b17f6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "178034e9_a7b1053e",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T14:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4034e100_f282028b",
       "revId": "56890cb69506dc0fcec401a5d592808560b17f6e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06359217_a9f73f84",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T14:51:16Z",
+      "side": 1,
+      "message": "Done. Split the handler into getSwitchChassisLink() and getSwitchPCIeDeviceLink() so the two lookups are independent — a Chassis failure no longer blocks the PCIeDevice link. getSwitchPCIeDeviceLink() uses getDbusObject() to verify the path actually implements xyz.openbmc_project.Inventory.Item.PCIeDevice before populating the link.",
+      "parentUuid": "ed5a78d9_0643f4c2",
+      "revId": "56890cb69506dc0fcec401a5d592808560b17f6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09c65df8_dab93ee7",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-14T10:26:14Z",
       "side": 1,
       "message": "Use sdbusplus::message::object_path operator /.",
+      "revId": "56890cb69506dc0fcec401a5d592808560b17f6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e269d4eb_2a301c7e",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T14:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09c65df8_dab93ee7",
       "revId": "56890cb69506dc0fcec401a5d592808560b17f6e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
