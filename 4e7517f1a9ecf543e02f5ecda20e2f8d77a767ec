@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6b67101_266a6d40",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T13:10:14Z",
+      "side": 1,
+      "message": "Added common helper getConnectedPortPaths() taking the callback as a parameter; both afterGetProcessorObjectForPortCollection and afterGetProcessorObjectForPortMetrics now use it.",
+      "parentUuid": "eb695fab_6a01b110",
+      "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1188ba9_acb70d94",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-14T10:16:49Z",
       "side": 1,
       "message": "can we use getAssociatedSubTreePath?",
+      "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67f182f6_838ac464",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T13:10:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1188ba9_acb70d94",
       "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e6a63b_149a5f64",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T13:10:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2b97d4f_97ea04b5",
+      "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8efc9cab_54b8b875",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-14T10:16:49Z",
       "side": 1,
       "message": "Use `std::format(\"{} {} Port Metrics\", processorId, portId)`.",
+      "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f31af56a_5e8b37b3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-17T13:10:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8efc9cab_54b8b875",
       "revId": "4e7517f1a9ecf543e02f5ecda20e2f8d77a767ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
