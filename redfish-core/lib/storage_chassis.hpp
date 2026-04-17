@@ -5,6 +5,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/drive.hpp"
 #include "generated/enums/protocol.hpp"
@@ -14,8 +15,85 @@
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 
+#include <boost/url/format.hpp>
+#include <sdbusplus/message/native_types.hpp>
+
+#include <optional>
+#include <ranges>
+
 namespace redfish
 {
+
+struct DriveStateEndpoint
+{
+    std::string service;
+    sdbusplus::message::object_path objectPath;
+};
+
+inline std::optional<DriveStateEndpoint> findDriveStateEndpoint(
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    const std::string& driveId)
+{
+    for (const auto& [path, services] : subtree)
+    {
+        sdbusplus::message::object_path objPath(path);
+        if (objPath.filename() != driveId)
+        {
+            continue;
+        }
+
+        for (const auto& [service, interfaces] : services)
+        {
+            if (!std::ranges::contains(interfaces,
+                                       "xyz.openbmc_project.State.Drive"))
+            {
+                continue;
+            }
+
+            return DriveStateEndpoint{service, std::move(objPath)};
+        }
+    }
+
+    return std::nullopt;
+}
+
+inline void addDriveResetAction(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& driveId)
+{
+    asyncResp->res.jsonValue["Actions"]["#Drive.Reset"]["target"] =
+        boost::urls::format(
+            "/redfish/v1/Systems/{}/Storage/1/Drives/{}/Actions/Drive.Reset",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
+    asyncResp->res.jsonValue["Actions"]["#Drive.Reset"]["@Redfish.ActionInfo"] =
+        boost::urls::format(
+            "/redfish/v1/Systems/{}/Storage/1/Drives/{}/ResetActionInfo",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
+}
+
+inline void attachDriveResetActionIfSupported(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& driveId)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.State.Drive"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/state", 0, interfaces,
+        [asyncResp,
+         driveId](const boost::system::error_code& ec,
+                  const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("Drive state mapper call error: {}", ec);
+                return;
+            }
+
+            if (findDriveStateEndpoint(subtree, driveId))
+            {
+                addDriveResetAction(asyncResp, driveId);
+            }
+        });
+}
 
 inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& connectionName,
@@ -346,6 +424,8 @@ inline void afterGetSubtreeSystemsStorageDrive(
         messages::internalError(asyncResp->res);
         return;
     }
+
+    attachDriveResetActionIfSupported(asyncResp, driveId);
 
     getMainChassisId(
         asyncResp, [](const std::string& chassisId,
