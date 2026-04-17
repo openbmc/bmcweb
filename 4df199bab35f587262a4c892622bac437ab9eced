@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4decd5_5f6897ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fbf6997_71c5b154",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32561a80_ed384e4e",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Done. Added error handler to log and report `internalError`.\nOnly for `io_error` or `EBADR` will silently return.",
       "parentUuid": "32561a80_ed384e4e",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b2677f9_a1153dd4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "383c6096_c5acb061",
       "revId": "4df199bab35f587262a4c892622bac437ab9eced",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "784df59c_2450848b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fde6c819_4cac821c",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a86b9d57_d0b9889c",
@@ -141,6 +195,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee7c1ac1_841bb64d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2eea116_8c8f4cf3",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3a8279d_b0a80fa3",
@@ -172,6 +244,24 @@
       "side": 1,
       "message": "Done. Moved `getProcessorMemoryLinks()` call into the existing `Accelerator` else-if block, removed the duplicate loop.",
       "parentUuid": "e3a8279d_b0a80fa3",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd8e369f_0c9b59df",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-17T04:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "539e2f50_0318ebcc",
       "revId": "4df199bab35f587262a4c892622bac437ab9eced",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
