@@ -16,6 +16,24 @@
       "message": "Hi @janeta@us.ibm.com, I just found that my commit wasn\u0027t neccessarily depends on yours. \nDo you think rebasing to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87018/13 would be better?",
       "revId": "d8c2682b4938ccc1796c70c5a7fa0793fceeb8e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f0d5a9_d426d9e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-18T06:51:52Z",
+      "side": 1,
+      "message": "Decided rebasing to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87018/13,\nthanks for the review though!",
+      "parentUuid": "0c0b740a_d3f32d29",
+      "revId": "d8c2682b4938ccc1796c70c5a7fa0793fceeb8e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
