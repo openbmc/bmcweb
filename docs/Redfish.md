@@ -1148,11 +1148,18 @@ functions the same like the default implementation under the System resource.
 
 #### EnvironmentMetrics
 
+- EnergyJoules/DataSourceUri
+- EnergyJoules/Reading
+- EnergykWh/Reading
 - PowerLimitWatts/AllowableMax
 - PowerLimitWatts/AllowableMin
 - PowerLimitWatts/ControlMode
 - PowerLimitWatts/DefaultSetPoint
 - PowerLimitWatts/SetPoint
+- PowerWatts/DataSourceUri
+- PowerWatts/Reading
+- TemperatureCelsius/DataSourceUri
+- TemperatureCelsius/Reading
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
