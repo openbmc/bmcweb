@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cae2040_b445161b",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-19T18:14:53Z",
+      "side": 1,
+      "message": "Failed to set header, {}, {}, key, ec.message()\n\nWould be more useful.",
+      "range": {
+        "startLine": 70,
+        "startChar": 30,
+        "endLine": 70,
+        "endChar": 53
+      },
+      "revId": "f460a17b1f092a4bf0eba2c441a3f693feafffe6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
