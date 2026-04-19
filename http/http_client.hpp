@@ -22,6 +22,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/error.hpp>
+#include <boost/asio/ssl/host_name_verification.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/ssl/stream_base.hpp>
 #include <boost/asio/steady_timer.hpp>
@@ -597,27 +598,44 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             return;
         }
 
-        if (host.host_type() != boost::urls::host_type::name)
-        {
-            // Avoid setting SNI hostname if its IP address
-            return;
-        }
-        // Create a null terminated string for SSL
         std::string hostname(host.encoded_host_address());
-        if (SSL_set_tlsext_host_name(sslConn->native_handle(),
-                                     hostname.data()) == 0)
 
+        // SNI is only defined for DNS names (RFC 6066)
+        if (host.host_type() == boost::urls::host_type::name)
         {
-            boost::beast::error_code ec{static_cast<int>(::ERR_get_error()),
-                                        boost::asio::error::get_ssl_category()};
+            if (SSL_set_tlsext_host_name(sslConn->native_handle(),
+                                         hostname.data()) == 0)
+            {
+                boost::beast::error_code ec{
+                    static_cast<int>(::ERR_get_error()),
+                    boost::asio::error::get_ssl_category()};
 
-            BMCWEB_LOG_ERROR("SSL_set_tlsext_host_name {}, id: {} failed: {}",
-                             host, connId, ec.message());
-            // Set state as sslInit failed so that we close the connection
-            // and take appropriate action as per retry configuration.
-            state = ConnState::sslInitFailed;
-            waitAndRetry();
-            return;
+                BMCWEB_LOG_ERROR(
+                    "SSL_set_tlsext_host_name {}, id: {} failed: {}", host,
+                    connId, ec.message());
+                state = ConnState::sslInitFailed;
+                waitAndRetry();
+                return;
+            }
+        }
+
+        // Verify the peer certificate matches the destination hostname.
+        // Without this, verify_peer only checks the chain up to a
+        // trusted CA but not whether the cert was issued for this host,
+        // allowing MITM with any CA-signed certificate.
+        if (verifyCert != ensuressl::VerifyCertificate::NoVerify)
+        {
+            boost::system::error_code ec;
+            sslConn->set_verify_callback(
+                boost::asio::ssl::host_name_verification(hostname), ec);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("set_verify_callback {}, id: {} failed: {}",
+                                 host, connId, ec.message());
+                state = ConnState::sslInitFailed;
+                waitAndRetry();
+                return;
+            }
         }
     }
 
