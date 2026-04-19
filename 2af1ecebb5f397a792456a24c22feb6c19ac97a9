@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8429e674_e63bc77d",
+        "filename": "redfish-core/include/task_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-19T21:32:28Z",
+      "side": 1,
+      "message": "#include logging.hpp\n#include \u003cboost/asio/steady_timer.hpp\u003e for operation_aborted ?\n#include \u003csdbusplus/bus/match.hpp\u003e\n#include \u003csdbusplus/message.hpp\u003e",
+      "revId": "2af1ecebb5f397a792456a24c22feb6c19ac97a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87b6dadf_2a0d371a",
         "filename": "redfish-core/include/task_data.hpp",
         "patchSetId": 4
