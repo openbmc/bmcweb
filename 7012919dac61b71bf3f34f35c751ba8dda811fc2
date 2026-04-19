@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54039df5_dab60ae7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-19T18:21:55Z",
+      "side": 1,
+      "message": "Please document why we don\u0027t see these SSL_set1_host calls any other examples of other well reviewed HTTP clients.",
+      "revId": "7012919dac61b71bf3f34f35c751ba8dda811fc2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60b80ce1_c5cf2523",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
