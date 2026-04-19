@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23def116_1c367e49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-19T00:35:27Z",
+      "side": 1,
+      "message": "Acknowledged, same as other comment",
+      "parentUuid": "1da86a5c_e140fb37",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af49d3f8_c1a79a6d",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ea53367_40f75b79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-19T00:35:27Z",
+      "side": 1,
+      "message": "same as above comment,",
+      "parentUuid": "af49d3f8_c1a79a6d",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ec090fd_28c10d36",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
@@ -60,6 +108,30 @@
       "writtenOn": "2026-04-07T23:11:35Z",
       "side": 1,
       "message": "This statement makes no sense.  HTTP is a protocol that rides on top of TLS, and can optionally use mutual certificate auth.  There is no \"one or the other\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "486c4f1d_7a941ccc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-19T00:35:27Z",
+      "side": 1,
+      "message": "updated the commit message",
+      "parentUuid": "1ec090fd_28c10d36",
       "range": {
         "startLine": 18,
         "startChar": 56,
@@ -314,6 +386,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "459a663c_106c47f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-19T00:35:27Z",
+      "side": 1,
+      "message": "@ed@tanous.net, I\u0027ve updated the commit message (without code patch)to explain the goal and cite relevant RFCs. \nI\u0027ve also responded to comment threads, expect the testscript execution comments.\n\nThe approach is:\n1. Two server SSL contexts with different client certificate verification modes:\n   - Optional(existing): SSL_VERIFY_PEER (browsers)\n   - Required(new): SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT (satellites)\n2. SNI-based routing during TLS handshake\n3. IP address in SNI + authorized in satellite_config.json → required cert context\n   Hostname in SNI or unauthorized IP → optional cert context\n\nDoes this direction make sense for the requirement, or would you prefer\na different approach?",
+      "parentUuid": "b6500c49_cc82c76c",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0fb0553_0b4f8c25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-19T00:35:27Z",
+      "side": 1,
+      "message": "Acknowledged, @ed@tanous.net, I need to remove the constant mtls.bmc, and http client preventing SNI for IP addresses, so satellites can send their IP in SNI, enabling the server to detect them and only authorized satellite IPs (from config) switch to the required client cert context.\n\nRFC 6066 Section 3 permits IP addresses in SNI.\n\nCURRENT STATUS:\nThe dual context infrastructure is implemented but not tested via the existing script. I\u0027m seeking your feedback on above approach (SNI-based\nrouting with IP address + satellite IP authorization.\n) before completing the implementation and testing",
+      "parentUuid": "06f79ebd_2b5920f5",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "677d18a6_10079541",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -325,6 +433,24 @@
       "writtenOn": "2026-04-06T20:33:15Z",
       "side": 1,
       "message": "This should be coming from the hostname URI.",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e982626c_c1fb8dde",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-19T00:35:27Z",
+      "side": 1,
+      "message": "I need to remove the constant mtls.bmc, and http client preventing SNI for IP addresses, so satellites can send their IP in SNI, enabling the server to detect them and only authorized satellite IPs (from config) switch to the required cert context.\n\nRFC 6066 Section 3 permits IP addresses in SNI.\n\nCURRENT STATUS:\nThe dual context infrastructure is implemented but not tested via the existing script. I\u0027m seeking your feedback on above approach before completing the implementation and testing.",
+      "parentUuid": "677d18a6_10079541",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -425,6 +551,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0983281e_393a6e6d",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-19T00:35:27Z",
+      "side": 1,
+      "message": "Acknowledged, but yet to update the patch",
+      "parentUuid": "fc4a2786_b2b67ccf",
+      "range": {
+        "startLine": 535,
+        "startChar": 8,
+        "endLine": 535,
+        "endChar": 11
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52356c7a_82b6dd6d",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 13
@@ -472,6 +622,24 @@
       "side": 1,
       "message": "\u003e @ed@tanous.net\n\u003e The SERVER context (getSslServerContext) is only modified and , \n\u003e not the client context (getSSLClientContext).\n\nThe server context is used for the server.  the client context is used for aggregation.\n\n\u003e \n\u003e The dual context is needed because:\n\u003e - Satellite BMCs connect TO the aggregator (server role) for registration\n\u003e - Aggregator connects TO satellites (client role) for data collection\n\u003e \n\u003e Both directions use mTLS, but the server role needs to also support \n\nTHere\u0027s not \"both directions\" in aggregation connections.  Aggregation makes GET requests to the satellite.  \n\n\u003e HTTPS for HMC/GUI clients, hence the dual context.\n\u003e \n\u003e SNI-Based Context Selection:\n\u003e \n\u003e The client (satellite BMC) sets SNI hostname to \"mtls.bmc\" before\n\u003e connecting (in http_client.hpp). This SNI value is transmitted in\n\u003e the TLS Client Hello message.\n\u003e \n\u003e The server (aggregator BMC) examines the SNI in clientHelloCallback()\n\u003e and switches to the appropriate SSL context:\n\u003e - SNI\u003d\"mtls.bmc\" → mTLS context (require client certificate)\n\u003e - Any other SNI → HTTPS context (no client certificate)\n\u003e \n\u003e \n\u003e Client-side changes (http_client.hpp):\n\u003e - Set SNI to \"mtls.bmc\" for aggregation connections, before connection\n\u003e - Already implemented in existing code\n\u003e \n\u003e Server-side changes (ssl_key_handler.cpp, ssl_dual_context.hpp):\n\u003e - Dual SSL contexts (HTTPS + mTLS)\n\u003e - SNI-based context switching in clientHelloCallback()\n\u003e - This patch implements the server-side changes",
       "parentUuid": "27e9c170_2088c240",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cec2b975_fb58a464",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-19T00:35:27Z",
+      "side": 1,
+      "message": "@ed@tanous.net, updated the commit message, \nAdd required client cert context alongside existing Optional client cert context:\n1. Optional client cert context(existing): SSL_VERIFY_PEER (optional cert) - server.pem\n2. required client cert context(new): SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT - server_bmc.pem\nRoute connections via SNI during TLS handshake:\n- IP address in SNI + authorized in satellite_config.json → mTLS\n- Hostname in SNI or unauthorized IP → HTTPS\n\nClient:\nEnable SNI for IP addresses to support satellite detection.SNI\nextension (RFC 6066 Section 3) enables context selection before\nhandshake completion. IP addresses in SNI are RFC-compliant.",
+      "parentUuid": "8a6f5669_5adda32c",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
