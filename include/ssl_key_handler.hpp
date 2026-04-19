@@ -16,8 +16,8 @@ namespace ensuressl
 
 enum class VerifyCertificate
 {
-    Verify,
-    NoVerify
+    NoVerify = 0,
+    Verify = 1
 };
 
 constexpr const char* trustStorePath = "/etc/ssl/certs/authority";
