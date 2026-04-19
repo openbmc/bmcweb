@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "603c538e_5dbea0ac",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Fixed. Replaced with the two properties actually supported: LifeTime/CorrectableECCErrorCount, LifeTime/UncorrectableECCErrorCount.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/docs/Redfish.md#1085",
+      "parentUuid": "b649831a_978c23e0",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f62290c3_a371e97f",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-14T12:20:11Z",
       "side": 1,
       "message": "For error other than EBADR we shold do messages::internalError. See memory.hpp file.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ac081f5_ca1e281e",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Errors other than EBADR log and call messages::internalError; EBADR returns silently.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#37",
+      "parentUuid": "f62290c3_a371e97f",
       "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d4dfb0e_32e05916",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Each property has its own nullptr guard:\n- ceCount guard: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#59\n- ueCount guard: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#65\nWhen `unpackPropertiesNoThrow` leaves a pointer as null (property absent from the D-Bus reply or type mismatch), the corresponding Redfish field is skipped — no default 0 is exposed.\n\nBoth properties come from the same `xyz.openbmc_project.Memory.MemoryECC` interface, so in the common cases either both are present (populated) or both are absent. The both-absent case is actually caught earlier by the EBADR branch at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#37 before reaching here. Partial presence would only happen if a producer registered the interface but omitted one property, which the per-property guards (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#59, https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#65) still handle safely.",
+      "parentUuid": "3ebf9284_df746d26",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "302e73cc_02d98ca3",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-14T12:20:11Z",
       "side": 1,
       "message": "Remove this debug log.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37907f3b_7a246765",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Removed. The getMemoryMetricsECCData() function that held this log was folded into the callback chain; the log was dropped with it.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp",
+      "parentUuid": "302e73cc_02d98ca3",
       "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ee51fc9_85bbbb69",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Switched to getDbusObject; object.size() !\u003d 1 logs and returns internalError.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#87",
+      "parentUuid": "eec4a02a_1785123e",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "148f57ab_68ef95c2",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-14T12:20:11Z",
       "side": 1,
       "message": "nit: this doesn\u0027t need to be separate function in my opinion.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df99c307_f888f648",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Resolution uses the shared getValidDimmPath helper directly; no custom subtree function.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#179",
+      "parentUuid": "148f57ab_68ef95c2",
       "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a245c9ad_7a09f3aa",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Removed. The whole getMemoryObject() function (which held this log) was removed, replaced by a call to the shared getValidDimmPath.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp",
+      "parentUuid": "8321ed5b_41f38c44",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c6733d3_7a287ae0",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-04-14T12:20:11Z",
       "side": 1,
       "message": "This comment seems redundant because it doesn’t add anything beyond what can already be inferred from the function parameter names. Same applies to other comments in this file.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb9b7d78_daf35436",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Removed all function-level doxygen blocks; only the SPDX header is kept.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp",
+      "parentUuid": "0c6733d3_7a287ae0",
       "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -154,6 +298,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff63f0cb_f9aee7ff",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "handleMemoryMetricsGet does the work directly; no intermediate wrapper.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#143",
+      "parentUuid": "24da43f3_317e0c61",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f37633c9_7e9c5796",
@@ -167,6 +329,24 @@
       "writtenOn": "2026-04-14T12:20:11Z",
       "side": 1,
       "message": "use std::format.",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81375147_d176cdfd",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Name uses std::format(\"{} Memory Metrics\", memoryId).\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#177",
+      "parentUuid": "f37633c9_7e9c5796",
       "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -188,6 +368,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e82b2bfd_64bdee22",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Yes. handleMemoryMetricsGet calls getValidDimmPath to resolve the inventory path, then getDbusObject to locate the MemoryECC service.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory_metrics.hpp#179",
+      "parentUuid": "1880a28f_5c4b4efa",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4330b7c4_17d2819b",
@@ -201,6 +399,24 @@
       "writtenOn": "2026-04-14T12:20:11Z",
       "side": 1,
       "message": "Shouldn\u0027t we add property in Memory URI that points to MemoryMetrics URI?",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84dfd659_167c182d",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-19T05:48:02Z",
+      "side": 1,
+      "message": "Added. afterGetDimmData in memory.hpp sets jsonValue[\"Metrics\"][\"@odata.id\"] to the MemoryMetrics URI, so clients can navigate from Memory to Metrics.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/12/redfish-core/lib/memory.hpp#811",
+      "parentUuid": "4330b7c4_17d2819b",
       "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
