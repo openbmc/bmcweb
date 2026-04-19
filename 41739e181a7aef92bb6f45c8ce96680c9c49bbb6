@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbcb0e9d_30c7e482",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-19T15:22:19Z",
+      "side": 1,
+      "message": "This is only because system_clock is in nanoseconds and a signed 64-bit count. \n\n\"The value of std::chrono::system_clock::time_point::max() represents the maximum representable time point for the system clock. This value is implementation-defined because the C++ standard does not mandate a specific precision or epoch for system_clock.\" - Google AI overview \n\nIt is kind of like asking for the largest possible value of an int.. \n\nI think we are okay, we have a narrow linux toolchain but did want to call this out.\n\nJust messing around but the below code ran at https://cpp.sh/ is a different output than us \n```\n#include \u003cchrono\u003e\n#include \u003ciostream\u003e\n\nint main()\n{\n    typedef std::chrono::system_clock::duration::period Period;\n    std::cout \u003c\u003c Period::num \u003c\u003c \"/\" \u003c\u003c Period::den \u003c\u003c \"\\n\";\n\n}\n```",
+      "range": {
+        "startLine": 143,
+        "startChar": 33,
+        "endLine": 144,
+        "endChar": 41
+      },
+      "revId": "41739e181a7aef92bb6f45c8ce96680c9c49bbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
