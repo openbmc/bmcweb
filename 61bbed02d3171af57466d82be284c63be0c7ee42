@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6936af1c_65d70538",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001886
+      },
+      "writtenOn": "2026-04-20T05:47:13Z",
+      "side": 1,
+      "message": "Please explain what you have done, why this is needed and how you tested in the commit description. Use your full name in signed off.",
+      "revId": "61bbed02d3171af57466d82be284c63be0c7ee42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
