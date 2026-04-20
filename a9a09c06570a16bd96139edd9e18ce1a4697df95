@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aacfcd0e_8c070be9",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-20T17:15:28Z",
+      "side": 1,
+      "message": "even if I don\u0027t send the Invalid value, it will? How so?",
+      "parentUuid": "401b9b6d_3b443507",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45f1f7f0_8addbbaf",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 14
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "\u003e So, common errors documentation prohibits using nlohmann::json::get() because it throws, however when used with enum serialisation, it only forwards the exception thrown by from_json() defined by NLOHMANN_JSON_SERIALIZE_ENUM. \n\u003e As per the official documentation, from_json() does not throw, then why are we still now allowing it to be used? \n\u003e \n\u003e https://json.nlohmann.me/api/macros/nlohmann_json_serialize_enum/\n\u003e https://json.nlohmann.me/api/basic_json/get/\n\u003e \n\u003e As per your previous comment, you wanted the get\u003cEnum\u003e to be removed but that made the code simpler, this current pattern is used in the existing bmcweb codebase.\n\u003e \n\u003e If we still don\u0027t want to allow get\u003cEnum\u003e usage because of a blanket rule, what other options do we have?\n\nYou haven\u0027t answered my question.  Lets start again.  Why are we doing this at all compared to the old code?",
       "parentUuid": "ede25529_39542864",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 47
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d496ef_bcdc98d7",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-20T17:15:28Z",
+      "side": 1,
+      "message": "Didn\u0027t the old code have `get\u003cResource::Health\u003e()`, which you asked to remove?",
+      "parentUuid": "f574c70a_9fd9b4c5",
       "range": {
         "startLine": 195,
         "startChar": 0,
@@ -209,6 +257,24 @@
       "side": 1,
       "message": "I didn\u0027t give a precise suggestion on how to refactor your code.  I will leave that up to you, but considering this is a unit test, we shouldn\u0027t have any dependence on what options are enabled, otherwise we will lose coverage.",
       "parentUuid": "75e6d1f8_d317409d",
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0029c777_ad35e81b",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-20T17:15:28Z",
+      "side": 1,
+      "message": "sure, I want to be clear on the intent before implementing to avoid a lot of back and forth",
+      "parentUuid": "6ba0b10c_f571c126",
       "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
