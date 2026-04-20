@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbad22cb_3e03dd41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-20T22:31:12Z",
+      "side": 1,
+      "message": "PS4: rewrote per review — replaced raw SSL_set1_host with Boost Asio ssl::host_name_verification + set_verify_callback, which is the idiomatic wrapper over the same X509_check_host primitive.\n\nTested: block updated with full Renode phase1/phase2 E2E evidence (phase1 reproduces the MITM bug on unfixed bmcweb; phase2 shows all three scenarios pass with this patch). PS3 failed CI on a minor format issue that PS4 fixes (whitespace only, no behavioral change).",
+      "revId": "67619893aaa4bbe6355dcf67323cdfad8c1bf89b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
