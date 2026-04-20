@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbade7d0_bc5f0ea6",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T22:19:42Z",
+      "side": 1,
+      "message": "as written, if it \u003d\u003d Invalid, the only difference in flow is that it prints a warning.  It still calls the same code.",
+      "parentUuid": "380ad311_720e8033",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45f1f7f0_8addbbaf",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 14
