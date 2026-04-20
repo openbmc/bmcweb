@@ -142,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "047768ae_6c0d568b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T18:38:13Z",
+      "side": 1,
+      "message": "Updated the commit message",
+      "parentUuid": "486c4f1d_7a941ccc",
+      "range": {
+        "startLine": 18,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14b5ab54_200d71f9",
@@ -462,6 +486,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8d1cc7b_64fc1bb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T18:38:13Z",
+      "side": 1,
+      "message": "Support customer-uploaded CA-signed HTTPS server certificates (server.pem) for BMC access per customer security policies\nSupport separate BMC-managed server certificates (server_bmc.pem) for Redfish Aggregation satellite peer-to-peer communication \nCustomer optional client cert connections (HMC/GUI) must not be impacted by (Required cert Client)satellite implementation\n\nThe Problem:\nOpenSSL SSL_CTX can only hold one server certificate. We need to present different server certificates (customer\u0027s vs BMC\u0027s) based on the connection type, Keeping it simple on same port 443.",
+      "parentUuid": "75bb581b_3afd4dfb",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "677d18a6_10079541",
@@ -511,6 +553,24 @@
       "side": 1,
       "message": "I don\u0027t see any implementation of what you describe, so it\u0027s hard to gauge.",
       "parentUuid": "e982626c_c1fb8dde",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e4a6f40_2ceb68d7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T18:38:13Z",
+      "side": 1,
+      "message": "I\u0027ve updated the patch with the following changes:\n\nCompleted:\n1. Removed the check that prevents SNI when connecting to IP addresses - satellites now send their IP in SNI\n2. Tested with existing mTLS aggregation test scripts - tests pass\n3. Dual SSL context infrastructure is in place and functional\n\nPending Implementation:\n1.The satellite IP authorization check (validating SNI IP against satellite_config.json) is proposed but not yet implemented. I wanted to get your feedback on the overall approach before completing this piece.\n\nCurrent Behavior:\n\nClient sends IP address in SNI\nServer has dual SSL contexts available\nRouting logic placeholder exists but doesn\u0027t yet check satellite_config.json",
+      "parentUuid": "415e4fdc_419da729",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
