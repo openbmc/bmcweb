@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a37555ab_54515c85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T17:44:17Z",
+      "side": 1,
+      "message": "Acknowledged,",
+      "parentUuid": "70ba6e5c_6ec29f01",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eac2737_fe80b275",
@@ -136,6 +160,24 @@
       "side": 1,
       "message": "I asked you a question.  \"Done\" isn\u0027t an answer to that.",
       "parentUuid": "f2ef836f_0338e522",
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fe966f5_9a83f7ee",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T17:44:17Z",
+      "side": 1,
+      "message": "@ed@tanous.net, I\u0027ve updated the patch to remove the explicit SSL_set_tlsext_host_name() call.\n\nThe existing setCipherSuiteTLSext() function already calls SSL_set_tlsext_host_name() internally, so the explicit call was redundant. The SNI IP address is now set through the existing code path via setCipherSuiteTLSext().\n\nThe server-side routing logic remains the same - it uses the SNI value set by setCipherSuiteTLSext() to select between:\n\nOptional client cert context: Uses customer certificates (server.pem)\nRequired client cert context: Uses peer-to-peer BMC server certificates (server_bmc.pem from TPM)\nThis simplifies the implementation by leveraging existing infrastructure rather than adding redundant SNI setting code",
+      "parentUuid": "52d6d381_6107281f",
       "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
