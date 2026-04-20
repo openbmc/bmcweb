@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ef06c48e_b58056b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-04-20T08:03:10Z",
+      "side": 1,
+      "message": "Thanks for the reminder! I’ve updated my commit to use my full name in the Signed-off-by line and in my Gerrit profile.\nIf there are any further issues with the DCO or CLA, please let me know.",
+      "parentUuid": "1752ef88_bd74ed1c",
+      "range": {
+        "startLine": 37,
+        "startChar": 15,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6b802473_fc29fb3c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
