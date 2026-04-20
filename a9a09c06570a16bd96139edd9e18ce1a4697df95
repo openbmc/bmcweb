@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "346be986_120a3eb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T23:47:39Z",
+      "side": 1,
+      "message": "Can you please set your name in gerrit.  It\u0027s showing as name not set still;",
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dab170be_24addfc3",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 14
