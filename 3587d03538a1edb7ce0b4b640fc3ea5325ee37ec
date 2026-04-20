@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc1de088_a9894ba3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T02:52:00Z",
+      "side": 1,
+      "message": "Ok, this is better.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 4
+      },
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70ba6e5c_6ec29f01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T02:52:00Z",
+      "side": 1,
+      "message": "There\u0027s no requirement that says that both of these are required.  Both browsers and http clients can connect with either of these set.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eac2737_fe80b275",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T02:52:00Z",
+      "side": 1,
+      "message": "There\u0027s nothing in the SNI specification that would say this is common or valid to do.  Is there other servers that do this same thing?  This seems like we invented a solution to a non existent problem.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a8a450f_c96885a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T02:52:00Z",
+      "side": 1,
+      "message": "I\u0027m fairly certain the mode you\u0027re looking for is SSL_VERIFY_POST_HANDSHAKE\n  \nhttps://manpages.debian.org/experimental/libssl-doc/SSL_CTX_set_verify.3ssl.en.html\n\nWhich can change the handshaking requests after the connection has been initted (in which case we could detect the browser).",
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62aaca9f_13859648",
+        "filename": "include/ssl_dual_context.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T02:52:00Z",
+      "side": 1,
+      "message": "???",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec97a80d_ef0bea08",
+        "filename": "include/ssl_dual_context.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T02:52:00Z",
+      "side": 1,
+      "message": "Why does this class need to exist?",
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

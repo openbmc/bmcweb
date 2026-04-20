@@ -422,6 +422,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75bb581b_3afd4dfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T02:52:00Z",
+      "side": 1,
+      "message": "\u003e @ed@tanous.net, I\u0027ve updated the commit message (without code patch)to explain the goal and cite relevant RFCs. \n\u003e I\u0027ve also responded to comment threads, expect the testscript execution comments.\n\u003e \n\n\u003e The approach is:\n\nYou\u0027ve immediately lost me.  \"Two server SSL contexts\" is not a goal\n\n\u003e 1. Two server SSL contexts with different client certificate verification modes:\n\u003e    - Optional(existing): SSL_VERIFY_PEER (browsers)\n\u003e    - Required(new): SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT (satellites)\n\u003e 2. SNI-based routing during TLS handshake\n\u003e 3. IP address in SNI + authorized in satellite_config.json → required cert context\n\u003e    Hostname in SNI or unauthorized IP → optional cert context\n\u003e \n\u003e Does this direction make sense for the requirement, or would you prefer\n\n\u003e a different approach?\n\nThose are not requirements, they again are descriptions of your implementation.",
+      "parentUuid": "459a663c_106c47f4",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "677d18a6_10079541",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -451,6 +469,24 @@
       "side": 1,
       "message": "I need to remove the constant mtls.bmc, and http client preventing SNI for IP addresses, so satellites can send their IP in SNI, enabling the server to detect them and only authorized satellite IPs (from config) switch to the required cert context.\n\nRFC 6066 Section 3 permits IP addresses in SNI.\n\nCURRENT STATUS:\nThe dual context infrastructure is implemented but not tested via the existing script. I\u0027m seeking your feedback on above approach before completing the implementation and testing.",
       "parentUuid": "677d18a6_10079541",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "415e4fdc_419da729",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T02:52:00Z",
+      "side": 1,
+      "message": "I don\u0027t see any implementation of what you describe, so it\u0027s hard to gauge.",
+      "parentUuid": "e982626c_c1fb8dde",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
