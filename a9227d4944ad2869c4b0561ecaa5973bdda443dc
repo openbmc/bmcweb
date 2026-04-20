@@ -218,6 +218,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27f7a390_e87a3987",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-20T10:08:32Z",
+      "side": 1,
+      "message": "I\u0027ll mark this as resolved for now since my queries did not find any response and gerrit lost the context. Please let me know if there is still an issue in latest patchset.",
+      "parentUuid": "5c15f0d8_a0fe91ee",
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e28a593_a2811ce8",

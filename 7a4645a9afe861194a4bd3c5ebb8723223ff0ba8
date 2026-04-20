@@ -143,6 +143,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b2e4cd7_8523bcc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-20T10:08:32Z",
+      "side": 1,
+      "message": "Tested on qemu Yv4 since that was one of the motivating use-cases, and put that into commit message,\nbut did not do any RSV testing there because of qemu performance reasons.\n\n\nRan Redfish Service Validator for both code paths though.\n\nBelow is the run for old(current) code path on Tyan S5549.\n\nRefish Service Validator passes besides 4 unrelated errors.\n```\nSummary - PASS: 6584, WARN: 357, FAIL: 4, NOT TESTED: 7411\nHTML Report: logs/04_20_2026_115202/RedfishServiceValidatorReport_04_20_2026_115202.html\n```\n\nNew code path has been tested and result was already part of commit message.",
+      "parentUuid": "049d0f28_f361c4de",
+      "revId": "7a4645a9afe861194a4bd3c5ebb8723223ff0ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "725589c4_d574d632",

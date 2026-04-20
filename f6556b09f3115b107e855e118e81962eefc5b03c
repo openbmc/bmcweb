@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e642ff3f_3e2666f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-20T10:08:32Z",
+      "side": 1,
+      "message": "Tested it just now on Tyan S5549:\n\nEM dump (noticed `containing` Port was removed for this testing):\n```\n |- /xyz/openbmc_project/inventory/system/chassis\n        | `- /xyz/openbmc_project/inventory/system/chassis/MBX_1_60_Chassis\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_60_Chassis/Fan_Control\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_60_Chassis/GenericCoolingPort\n        |   |- /xyz/openbmc_project/inventory/system/chassis/MBX_1_60_Chassis/Temperature_Control\n        |   `- /xyz/openbmc_project/inventory/system/chassis/MBX_1_60_Chassis/Zone0\n        |- /xyz/openbmc_project/inventory/system/fan\n        | |- /xyz/openbmc_project/inventory/system/fan/FAN_1\n        | | |- /xyz/openbmc_project/inventory/system/fan/FAN_1/GenericCoolingPort\n        | | `- /xyz/openbmc_project/inventory/system/fan/FAN_1/SYS_FAN_1\n        | |- /xyz/openbmc_project/inventory/system/fan/FAN_2\n        | | |- /xyz/openbmc_project/inventory/system/fan/FAN_2/GenericCoolingPort\n        | | `- /xyz/openbmc_project/inventory/system/fan/FAN_2/SYS_FAN_2\n        | `- /xyz/openbmc_project/inventory/system/fan/FAN_3\n        |   |- /xyz/openbmc_project/inventory/system/fan/FAN_3/GenericCoolingPort\n        |   `- /xyz/openbmc_project/inventory/system/fan/FAN_3/SYS_FAN_3\n        `- /xyz/openbmc_project/inventory/system/powersupply\n```\n\n```\ncurl --silent --show-error --insecure --user root:***** https://s5549-bmc-a0423f63b4a5.lab.9e.network:443/redfish/v1/Chassis/MBX_1_60_Chassis/ThermalSubsystem/Fans\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/MBX_1_60_Chassis/ThermalSubsystem/Fans\",\n  \"@odata.type\": \"#FanCollection.FanCollection\",\n  \"Description\": \"The collection of Fan resource instances MBX_1_60_Chassis\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/MBX_1_60_Chassis/ThermalSubsystem/Fans/FAN_2\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/MBX_1_60_Chassis/ThermalSubsystem/Fans/FAN_1\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/MBX_1_60_Chassis/ThermalSubsystem/Fans/FAN_3\"\n    }\n  ],\n  \"Members@odata.count\": 3,\n  \"Name\": \"Fan Collection\"\n}\n\ncurl --silent --show-error --insecure --user root:***** https://s5549-bmc-a0423f63b4a5.lab.9e.network:443/redfish/v1/Chassis/MBX_1_60_Chassis/ThermalSubsystem/Fans/FAN_1\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/MBX_1_60_Chassis/ThermalSubsystem/Fans/FAN_1\",\n  \"@odata.type\": \"#Fan.v1_6_0.Fan\",\n  \"Id\": \"FAN_1\",\n  \"Links\": {\n    \"CoolingChassis\": [\n      {\n        \"@odata.id\": \"/redfish/v1/Chassis/Tyan_S5549_Baseboard\"\n      },\n      {\n        \"@odata.id\": \"/redfish/v1/Chassis/MBX_1_60_Chassis\"\n      }\n    ],\n    \"CoolingChassis@odata.count\": 2\n  },\n  \"Location\": {\n    \"PartLocation\": {\n      \"ServiceLabel\": \"SYS_FAN_1\"\n    }\n  },\n  \"Manufacturer\": \"Nidec\",\n  \"Model\": \"V80E12B\",\n  \"Name\": \"Fan\",\n  \"PartNumber\": \"V80E12BHA5\",\n  \"SerialNumber\": \"N118373\",\n  \"SparePartNumber\": \"V80E12BHA5\",\n  \"Status\": {\n    \"Health\": \"OK\",\n    \"State\": \"Enabled\"\n  }\n}\n```\n\nThe fan collection appears as before, i do not find any regression.",
+      "parentUuid": "9ec0988b_639fb08f",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 6
+      },
+      "revId": "f6556b09f3115b107e855e118e81962eefc5b03c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74746dbf_5115f65f",
