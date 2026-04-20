@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8e8e6f2_2c19568d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T13:39:53Z",
+      "side": 1,
+      "message": "Thanks, Harshit, for raising this question.\n\nAfter survey this, the DMTF Processor v1_18_0 schema longDescription for MemorySummary.TotalMemorySizeMiB (schema link):\nhttps://redfish.dmtf.org/schemas/v1/Processor.v1_18_0.json\n\n\"This property shall contain the total size of non-cache, volatile or non-volatile memory attached to this processor. Examples include DRAMs and NV-DIMMs that are not configured as block storage. This value indicates the size of memory directly attached or with strong affinity to this processor, not the total memory accessible by the processor. This property shall not be present for implementations where all processors have equal memory performance or access characteristics, such as hop count, for all system memory.\"\n\nThe schema defines this property directly as \"total size ... attached to this processor\" — the aggregated capacity across all memory objects attached to that processor.\n\nPS8 has been updated to implement this schema semantic: summing MemorySizeInKB across all endpoints returned by the containing association.\n\nIf I\u0027ve misinterpreted this, I\u0027m happy to update. Thanks very much.",
+      "parentUuid": "ffd258b5_2c14bc3d",
+      "revId": "f488b4a318d1b8086f584189b8bf812001c0edec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8018225_3bb69ab8",
