@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b22235c2_e6bfcfb5",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-20T13:52:14Z",
+      "side": 1,
+      "message": "yes, if I don\u0027t send this value, the issue of invalid severity will be silently swallowed. \nAlso, severity is not a mandatory value, I don\u0027t want event push to fail because of Invalid severity.",
+      "parentUuid": "dab170be_24addfc3",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45f1f7f0_8addbbaf",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 14
@@ -37,6 +61,30 @@
       "writtenOn": "2026-04-17T18:43:36Z",
       "side": 1,
       "message": "Why are we doing this at all compared to the old code?  Old code looks simpler and just as correct.",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 47
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede25529_39542864",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-20T13:52:14Z",
+      "side": 1,
+      "message": "So, common errors documentation prohibits using nlohmann::json::get() because it throws, however when used with enum serialisation, it only forwards the exception thrown by from_json() defined by NLOHMANN_JSON_SERIALIZE_ENUM. \nAs per the official documentation, from_json() does not throw, then why are we still now allowing it to be used? \n\nhttps://json.nlohmann.me/api/macros/nlohmann_json_serialize_enum/\nhttps://json.nlohmann.me/api/basic_json/get/\n\nAs per your previous comment, you wanted the get\u003cEnum\u003e to be removed but that made the code simpler, this current pattern is used in the existing bmcweb codebase.\n\nIf we still don\u0027t want to allow get\u003cEnum\u003e usage because of a blanket rule, what other options do we have?",
+      "parentUuid": "45f1f7f0_8addbbaf",
       "range": {
         "startLine": 195,
         "startChar": 0,
@@ -77,6 +125,24 @@
       "writtenOn": "2026-04-17T18:43:36Z",
       "side": 1,
       "message": "Please refactor so your unit tests aren\u0027t dependent on which options are enabled.  As written, you will only get coverage of the default option.",
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e6d1f8_d317409d",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-20T13:52:14Z",
+      "side": 1,
+      "message": "So, are you suggesting we move the construction of logentry uri into a separate method, so that the method itself can be tested for both \"Systems\" and \"Managers\"?",
+      "parentUuid": "be076bf8_35c70221",
       "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
