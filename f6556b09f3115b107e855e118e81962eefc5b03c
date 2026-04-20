@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90091c3a_3336d98b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-20T14:20:16Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "e642ff3f_3e2666f1",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 6
+      },
+      "revId": "f6556b09f3115b107e855e118e81962eefc5b03c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74746dbf_5115f65f",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Example:\n\nA system with a superchassis (chassis1) and a subchassis (chassis2):\n\nchassis1 - containing -\u003e fan1\nchassis1 - cooled_by -\u003e fan1\n\nchassis2 - cooled_by -\u003e fan1\n\nResulting fan collections with your suggestion:\n\nchassis1: [fan1]\nchassis2: [fan1]\n\nWhen allowing per-chassis detection of code path, `fan1` resource would appear in 2 separate fan collections which is against the interpretation stated in Redfish forum.\n\nWith this implementation, when forming the response for a fan collection for chassis2, we must already know the entire association layout.\n\nIf someone wants to use this new code i don\u0027t see why they cannot configure all the chassis and fans within their system to align with that.",
       "parentUuid": "74746dbf_5115f65f",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 9
+      },
+      "revId": "f6556b09f3115b107e855e118e81962eefc5b03c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "589b7e6d_6a8e9642",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-20T14:20:16Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "b1e462c8_7730a43d",
       "range": {
         "startLine": 115,
         "startChar": 8,
