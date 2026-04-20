@@ -33,6 +33,24 @@
       "message": "Extra here: Could we actually test the cache?\n```\n\nconst char* httpDateRegex \u003d\n    \"(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \"\n    \"(0[1-9]|[12][0-9]|3[01]) \"\n    \"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \"\n    \"[0-9]{4} \"\n    \"([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9] GMT\";\n\n// Call the cache twice in a row, returns the same\n    const std::string firstCacheDate \u003d server.getCachedDateStr();\n    const std::string secondCacheDate \u003d server.getCachedDateStr();\n\n\n    EXPECT_THAT(firstCacheDate, MatchesRegex(httpDateRegex));\n    EXPECT_THAT(secondCacheDate, MatchesRegex(httpDateRegex));\n    EXPECT_EQ(firstCacheDate, secondCacheDate);\n```\nTwo calls in a row..? \n```\n    const std::string firstCacheDate \u003d server.getCachedDateStr();\n\n    std::this_thread::sleep_for(std::chrono::seconds(11));\n\n    const std::string secondCacheDate \u003d server.getCachedDateStr();\n\n    EXPECT_THAT(firstCacheDate, MatchesRegex(httpDateRegex));\n    EXPECT_THAT(secondCacheDate, MatchesRegex(httpDateRegex));\n    EXPECT_NE(firstCacheDate, secondCacheDate );\n\n```\n11 seconds so they are in different cache windows..? An 11 delay isn\u0027t great so this might take mocking the clock.. Feel free to ignore",
       "revId": "727fc0d657e4aa72c8ff0fd24986fdedb4bbf1ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2e7c838_195ff7e5",
+        "filename": "test/http/http_server_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T16:41:47Z",
+      "side": 1,
+      "message": "I really don\u0027t want to add sleeps in the unit tests, but to keep them out would require some kind of tick function or a \"get time factory\", which would be a more extensive change.  I did add the two calls in a row thing.",
+      "parentUuid": "d011634b_628fb946",
+      "revId": "727fc0d657e4aa72c8ff0fd24986fdedb4bbf1ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
