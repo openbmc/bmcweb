@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf8f67f2_37ec37fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T22:16:10Z",
+      "side": 1,
+      "message": "Some of these patches are very... very old and aren\u0027t being worked anymore.  This isn\u0027t really acceptable to claim that you \"tested\" when you\u0027re checking out a 6 month old abandoned patch.",
+      "revId": "d832e974bf9321d9410a50366d958564451cc8b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efb71198_62ff7858",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T22:16:10Z",
+      "side": 1,
+      "message": "Please make sure that if there\u0027s patches you require, you\u0027re making them move forward.  Pointing to WIP or abandoned patches as a \"test\" isn\u0027t acceptable",
+      "revId": "d832e974bf9321d9410a50366d958564451cc8b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
