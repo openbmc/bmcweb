@@ -237,6 +237,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4038b208_c4fa74f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T18:22:42Z",
+      "side": 1,
+      "message": "Executed the existing test scripts (python3 ./scripts/generate_auth_certificates.py \\\n        \u003cbmc_ip\u003e:\u003cport\u003e --username xxx --password yyy) and updated the Testing section in commit message.\n\n1)Tested the generation of certificates using generate_auth_certificates.py(self signed certs)\n2)certs copied to both corresponding BMC\n2)mTLS Authentication with Client Certificate executed on aggregator\n3)Session-Based Authentication (Username/Password)executed on aggregator",
+      "parentUuid": "1de0158a_0f702f90",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a33e426f_474d93f8",
@@ -599,6 +623,30 @@
       "side": 1,
       "message": "Acknowledged, but yet to update the patch",
       "parentUuid": "fc4a2786_b2b67ccf",
+      "range": {
+        "startLine": 535,
+        "startChar": 8,
+        "endLine": 535,
+        "endChar": 11
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aa3fd88_d5f186c9",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T18:22:42Z",
+      "side": 1,
+      "message": "updated the patch to use std::unique_ptr for SSL context management per the coding standard. All raw pointer usage with manual new/delete has been replaced with smart pointers to ensure proper RAII",
+      "parentUuid": "0983281e_393a6e6d",
       "range": {
         "startLine": 535,
         "startChar": 8,
