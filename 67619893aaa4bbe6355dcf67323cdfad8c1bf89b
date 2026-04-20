@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ae92e7d_af36110d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T22:34:58Z",
+      "side": 1,
+      "message": "Your commit message isn\u0027t wrapped correctly.  I\u0027ll take this patch this time, but please.\n\n1. Consolidate your commit message into something readable.\n2. Keep your commit message about \"Why\" not \"what\".  We can see what from your commit content.\n3. Wrap your commit at the right boundary.  This looks like it was wrapped shorter than 70",
+      "revId": "67619893aaa4bbe6355dcf67323cdfad8c1bf89b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f6c0b74_6c5a0a23",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
