@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45eb7b35_96a73aa0",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-20T18:47:00Z",
+      "side": 1,
+      "message": "\"Truncate\" / \"floor\" to seconds is more accurate. Oh well.",
+      "range": {
+        "startLine": 353,
+        "startChar": 7,
+        "endLine": 353,
+        "endChar": 15
+      },
+      "revId": "b2e774acb9d4be1d2c0e0a470bf6e9448efa856e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ca3b153_d9c3eda2",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-20T18:47:00Z",
+      "side": 1,
+      "message": "We are assuming nanoseconds but at least we are calling it out. I am good.",
+      "revId": "b2e774acb9d4be1d2c0e0a470bf6e9448efa856e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
