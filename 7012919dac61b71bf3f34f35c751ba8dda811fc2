@@ -51,6 +51,24 @@
       "message": "When I make a comparison to libcurl, which I would expect is more reviewed than this, I see no calls to SSL_set1_host.  I do see calls to SSL_set_tlsext_host_name.  Is there an example here, or documentation we can use to verify this is the correct way to write this code?\n\nI also don\u0027t see this in the beast SSL examples.  Is everyone else just wrong here, or is there something else going on?",
       "revId": "7012919dac61b71bf3f34f35c751ba8dda811fc2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c8420a_654a9935",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T18:02:26Z",
+      "side": 1,
+      "message": "@priya_irudayaraj@yahoo.co.in\n\nYou also recently added this in your patch.  Why is this suddenly coming up?",
+      "parentUuid": "60b80ce1_c5cf2523",
+      "revId": "7012919dac61b71bf3f34f35c751ba8dda811fc2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
