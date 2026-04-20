@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07ba5457_128f82b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-20T14:05:09Z",
+      "side": 1,
+      "message": "Prior change which updated the commit message to add the updates to Redfish.md got lost. This statement isn\u0027t really required either way since the code will speak for itself. I suggest just removing it.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393ef13b_185f1583",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-20T14:05:09Z",
+      "side": 1,
+      "message": "Function has been renamed, this needs to be updated.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 29
+      },
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ebfcad7_379c4f93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-20T14:05:09Z",
+      "side": 1,
+      "message": "There are two Change-Id in the commit message. There should only be one.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 2
+      },
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27f1b060_31e81a2a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-20T14:05:09Z",
+      "side": 1,
+      "message": "There are two Change-Id in the commit message. There should only be one.",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 2
+      },
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6139cd2c_d0bee34c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-04-20T14:05:09Z",
+      "side": 1,
+      "message": "Code itself looks fine to me. Just some comments on the commit message. Missed that there were two Change-Ids in prior reviews but others are due to recent changes.",
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
