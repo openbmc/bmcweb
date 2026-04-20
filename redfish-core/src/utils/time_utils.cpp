@@ -16,7 +16,6 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
-#include <ctime>
 #include <format>
 #include <optional>
 #include <ratio>
@@ -348,12 +347,14 @@ std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch,
     return details::toISO8061ExtendedStr(sinceEpoch, timezoneName);
 }
 
-std::string getDateTimeStdtime(std::time_t secondsSinceEpoch,
+std::string getDateTimeStdtime(std::chrono::system_clock::time_point timePoint,
                                std::string_view timezoneName)
 {
-    using DurationType = std::chrono::duration<std::time_t>;
-    DurationType sinceEpoch(secondsSinceEpoch);
-    return details::toISO8061ExtendedStr(sinceEpoch, timezoneName);
+    using std::chrono::floor;
+    using std::chrono::seconds;
+    // Floor to seconds
+    auto secondsDuration = floor<seconds>(timePoint.time_since_epoch());
+    return details::toISO8061ExtendedStr(secondsDuration, timezoneName);
 }
 
 /**

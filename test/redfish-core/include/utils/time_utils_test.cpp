@@ -4,16 +4,18 @@
 
 #include <chrono>
 #include <cstdint>
-#include <ctime>
 #include <limits>
 #include <optional>
+#include <ratio>
 #include <string>
+#include <type_traits>
 #include <version>
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 using ::testing::MatchesRegex;
+using namespace std::literals::chrono_literals;
 
 namespace redfish::time_utils
 {
@@ -90,25 +92,27 @@ TEST(ToDurationStringFromUintTest, NegativeTests)
 
 TEST(GetDateTimeStdtime, UTCTests)
 {
-    EXPECT_EQ(getDateTimeStdtime(std::time_t{1638312095}, "UTC"),
-              "2021-11-30T22:41:35+00:00");
-
+    using time_point = std::chrono::system_clock::time_point;
     EXPECT_EQ(
-        getDateTimeStdtime(std::numeric_limits<std::time_t>::max(), "UTC"),
-        "9999-12-31T23:59:59+00:00");
+        getDateTimeStdtime(time_point(std::chrono::seconds(1638312095)), "UTC"),
+        "2021-11-30T22:41:35+00:00");
 
-    EXPECT_EQ(
-        getDateTimeStdtime(std::numeric_limits<std::time_t>::min(), "UTC"),
-        "1970-01-01T00:00:00+00:00");
+    EXPECT_EQ(getDateTimeStdtime(time_point::max(), "UTC"),
+              "2262-04-11T23:47:16+00:00");
 
-    EXPECT_EQ(getDateTimeStdtime(std::time_t{0}, "UTC"),
+    EXPECT_EQ(getDateTimeStdtime(time_point::min(), "UTC"),
+              "1970-01-01T00:00:00+00:00");
+
+    EXPECT_EQ(getDateTimeStdtime(time_point{std::chrono::seconds(0)}, "UTC"),
               "1970-01-01T00:00:00+00:00");
 }
 
 TEST(getDateTimeStdtime, TimezoneTests)
 {
     // 2021-11-30T22:41:35 UTC (1638312095)
-    constexpr std::time_t testTime = 1638312095;
+    using time_point = std::chrono::system_clock::time_point;
+    constexpr time_point testTime =
+        time_point{std::chrono::seconds(1638312095)};
 
     // UTC (offset +00:00)
     EXPECT_EQ(getDateTimeStdtime(testTime, "UTC"), "2021-11-30T22:41:35+00:00");
@@ -137,22 +141,24 @@ TEST(getDateTimeStdtime, TimezoneTests)
     EXPECT_EQ(getDateTimeStdtime(testTime, "Pacific/Kiritimati"),
               "2021-12-01T12:41:35+14:00");
 
-    // Limits (using std::time_t, not uint64_t, to match the function signature)
-    EXPECT_EQ(
-        getDateTimeStdtime(std::numeric_limits<std::time_t>::max(), "UTC"),
-        "9999-12-31T23:59:59+00:00");
-
-    EXPECT_EQ(
-        getDateTimeStdtime(std::numeric_limits<std::time_t>::min(), "UTC"),
-        "1970-01-01T00:00:00+00:00");
+    // Most of the below limit tests assume system clock is in nanoseconds
+    static_assert(std::is_same_v<time_point::period, std::nano>);
+    // If int64_max is allowed, test it
+    if (time_point::max().time_since_epoch().count() >=
+        std::numeric_limits<int64_t>::max())
+    {
+        time_point::duration max64dur(std::numeric_limits<int64_t>::max());
+        EXPECT_EQ(getDateTimeStdtime(time_point(max64dur), "UTC"),
+                  "2262-04-11T23:47:16+00:00");
+    }
+    EXPECT_EQ(getDateTimeStdtime(time_point::min(), "UTC"),
+              "1970-01-01T00:00:00+00:00");
 
     // Use fixed-offset CEST (+02:00) to avoid DST ambiguity at extreme values
-    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max(),
-                                 "Etc/GMT-2"),
-              "9999-12-31T23:59:59+02:00");
+    EXPECT_EQ(getDateTimeStdtime(time_point::max(), "Etc/GMT-2"),
+              "2262-04-12T01:47:16+02:00");
 
-    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min(),
-                                 "Etc/GMT-2"),
+    EXPECT_EQ(getDateTimeStdtime(time_point::min(), "Etc/GMT-2"),
               "1970-01-01T00:00:00+02:00");
 }
 
@@ -331,13 +337,15 @@ TEST(Utility, GetDateTimeDefaultParameterBehavior)
     uint64_t testTime = 1638312095;
     uint64_t testTimeMs = testTime * 1000;
     uint64_t testTimeUs = testTime * 1000000;
-    std::time_t testTimeT = static_cast<std::time_t>(testTime);
+    std::chrono::system_clock::time_point testTimeTP =
+        std::chrono::system_clock::time_point(std::chrono::seconds(testTime));
 
     // All functions should treat no argument same as empty string
     EXPECT_EQ(getDateTimeUint(testTime), getDateTimeUint(testTime, ""));
     EXPECT_EQ(getDateTimeUintMs(testTimeMs), getDateTimeUintMs(testTimeMs, ""));
     EXPECT_EQ(getDateTimeUintUs(testTimeUs), getDateTimeUintUs(testTimeUs, ""));
-    EXPECT_EQ(getDateTimeStdtime(testTimeT), getDateTimeStdtime(testTimeT, ""));
+    EXPECT_EQ(getDateTimeStdtime(testTimeTP),
+              getDateTimeStdtime(testTimeTP, ""));
 }
 
 TEST(Utility, GetDateTimeInvalidTimezone)
@@ -369,14 +377,15 @@ TEST(Utility, GetDateTimeAllFunctionsUseSameTimezone)
     uint64_t seconds = 1638312095;
     uint64_t ms = seconds * 1000;
     uint64_t us = seconds * 1000000;
-    std::time_t t = static_cast<std::time_t>(seconds);
+    std::chrono::system_clock::time_point tp =
+        std::chrono::system_clock::time_point(std::chrono::seconds(seconds));
 
     // All functions should produce same date/time portion when using same
     // timezone
     std::string s1 = getDateTimeUint(seconds, "UTC");
     std::string s2 = getDateTimeUintMs(ms, "UTC");
     std::string s3 = getDateTimeUintUs(us, "UTC");
-    std::string s4 = getDateTimeStdtime(t, "UTC");
+    std::string s4 = getDateTimeStdtime(tp, "UTC");
 
     // Extract date/time portion (before fractional seconds and timezone)
     // All should start with same date and time
