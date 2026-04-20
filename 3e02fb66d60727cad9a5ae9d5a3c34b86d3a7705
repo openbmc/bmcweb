@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26350638_afbd30d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T16:20:10Z",
+      "side": 1,
+      "message": "In line with the Redfish specification, without mention of internal details like \"memfd\"",
+      "parentUuid": "1c40c41a_a73fa74f",
+      "revId": "3e02fb66d60727cad9a5ae9d5a3c34b86d3a7705",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99b64ff3_b0ce5e8b",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
