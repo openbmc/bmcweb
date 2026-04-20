@@ -170,6 +170,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69319501_ed3019d5",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T19:10:16Z",
+      "side": 1,
+      "message": "Removed constexpr const char* kMtlsSniHostname \u003d \"mtls.bmc\";",
+      "parentUuid": "2b70575d_b85dffae",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9db807d3_facd1d41",
@@ -254,6 +278,24 @@
       "side": 1,
       "message": "+",
       "parentUuid": "e367dee0_b156d9df",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abdd31ac_e4663611",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-20T19:10:16Z",
+      "side": 1,
+      "message": "Done, removed constexpr const char* kMtlsSniHostname \u003d \"mtls.bmc\";",
+      "parentUuid": "db95a85c_622543f3",
       "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
