@@ -46,6 +46,30 @@
       },
       "revId": "41739e181a7aef92bb6f45c8ce96680c9c49bbb6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80739151_28448ab8",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T17:50:24Z",
+      "side": 1,
+      "message": "Added some more logic here and a static_assert.  Turns out even on 32 bit these are 64 bit nanoseconds.",
+      "parentUuid": "fb419467_eb2e540c",
+      "range": {
+        "startLine": 143,
+        "startChar": 33,
+        "endLine": 144,
+        "endChar": 41
+      },
+      "revId": "41739e181a7aef92bb6f45c8ce96680c9c49bbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
