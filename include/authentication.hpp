@@ -231,6 +231,16 @@ inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
         {
             return true;
         }
+        // Allow only XML schema files to be accessed without authentication
+        if (url.starts_with("/redfish/v1/schema/") && url.ends_with(".xml"))
+        {
+            std::string_view filename =
+                url.substr(std::string_view("/redfish/v1/schema/").size());
+            if (!filename.empty() && filename.find('/') == std::string::npos)
+            {
+                return true;
+            }
+        }
         if (crow::webroutes::routes.contains(std::string(url)))
         {
             return true;

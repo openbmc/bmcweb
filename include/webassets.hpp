@@ -254,6 +254,17 @@ inline void requestRoutes(App& app)
 
     for (const std::filesystem::directory_entry& dir : paths)
     {
+        // Skip schema directories - served by dynamic routes in metadata.hpp
+        // and redfish_v1.hpp to reduce memory usage
+        std::filesystem::path relativePath =
+            std::filesystem::relative(dir.path(), rootpath);
+        std::string relativeStr = relativePath.string();
+        if (relativeStr.starts_with("redfish/v1/schema/") ||
+            relativeStr.starts_with("redfish/v1/JsonSchemas/"))
+        {
+            continue;
+        }
+
         if (std::filesystem::is_directory(dir))
         {
             // don't recurse into hidden directories or symlinks
