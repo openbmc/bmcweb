@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "380ad311_720e8033",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T22:18:59Z",
+      "side": 1,
+      "message": "Please look at the code.  You either forgot a return or an else here if you\u0027re doing what I\u0027m expecting.",
+      "parentUuid": "aacfcd0e_8c070be9",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45f1f7f0_8addbbaf",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 14
@@ -181,6 +205,30 @@
       "side": 1,
       "message": "Didn\u0027t the old code have `get\u003cResource::Health\u003e()`, which you asked to remove?",
       "parentUuid": "f574c70a_9fd9b4c5",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 47
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ca4684c_335346e5",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T22:18:59Z",
+      "side": 1,
+      "message": "Old code meaning the code that\u0027s on master.",
+      "parentUuid": "08d496ef_bcdc98d7",
       "range": {
         "startLine": 195,
         "startChar": 0,
