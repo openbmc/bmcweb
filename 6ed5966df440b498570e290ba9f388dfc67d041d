@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db73ca1f_ce508f1d",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-04-20T11:44:31Z",
+      "side": 1,
+      "message": "The current implementation also did not support a schema collection endpoint. It only registered individual schema file routes.\nMy dynamic implementation maintains the same behavior. I only handle individual schema file requests via /redfish/v1/schema/\u003cstr\u003e/, not a collection endpoint.\nThe allowlist check starts_with(\"/redfish/v1/schema/\") is intentional and correct:\n/redfish/v1/schema → does not match (no trailing slash, not allowed)\n/redfish/v1/schema/AccountService.xml → matches and proceeds to validation\nSo the schema collection endpoint is not on the allowlist and remains inaccessible, which is consistent with the existing behavior.",
+      "parentUuid": "1307ae63_0e4690b8",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d7994df_a5236186",
@@ -119,6 +137,30 @@
       "writtenOn": "2026-04-16T18:37:10Z",
       "side": 1,
       "message": "Generally we don\u0027t allow starts_with type comparisons.  This is a security boundary, so we need to be somewhat specific, that\u0027s why the old check used a specific list of routes.  If someone registered /redfish/v1/schema/sensitive_data, this would allow them through.\n\nlet me think on this a bit on how to solve this, as your use case makes sense, but this check was very intentionally not a starts_with type request.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 9
+      },
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f7e292_9908131b",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-04-20T11:44:31Z",
+      "side": 1,
+      "message": "Thank you for the feedback. I understand the security concern with using starts_with here. My intent was to allow only schema XML files to be accessed without authentication, but I agree that a more precise check is safer. I\u0027ve updated the check to be more specific. \nThis approach:\nOnly allows URLs matching the pattern - /redfish/v1/schema/\u003cfilename\u003e.xml\nEnsures the filename is not empty - (prevents /redfish/v1/schema/.xml)\nDisallows subdirectories - (prevents /redfish/v1/schema/subdir/file.xml)\nThis maintains the security boundary while allowing the legitimate use case of serving XML schema files dynamically. Please let me know if you\u0027d like any further refinements.",
+      "parentUuid": "9d7994df_a5236186",
       "range": {
         "startLine": 234,
         "startChar": 0,
@@ -200,6 +242,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ceacf1c_5aa7f5cd",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-04-20T11:44:31Z",
+      "side": 1,
+      "message": "Thank you, Ed. That makes sense. Do you have a recommended directory or location where the schema files should be installed now that they’re not served statically?",
+      "parentUuid": "4d4343e9_0a4529d8",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1253c56d_82819a75",
@@ -247,6 +307,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57af250c_387b55cd",
+        "filename": "redfish-core/lib/metadata.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-04-20T11:44:31Z",
+      "side": 1,
+      "message": "Thank you for pointing out the CVE risk. I’ve added strict validation to only allow safe .xml filenames and block any path traversal before accessing the filesystem. This should fully address the vulnerability. Please let me know if you see any other concerns.",
+      "parentUuid": "b1b76930_de43390b",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 5
+      },
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad30292d_6fad5bb2",
@@ -260,6 +344,24 @@
       "writtenOn": "2026-04-16T23:19:31Z",
       "side": 1,
       "message": "Warning here",
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e9112d2_03ec7b67",
+        "filename": "redfish-core/lib/metadata.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-04-20T11:44:31Z",
+      "side": 1,
+      "message": "Updated, Thanks.",
+      "parentUuid": "ad30292d_6fad5bb2",
       "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
