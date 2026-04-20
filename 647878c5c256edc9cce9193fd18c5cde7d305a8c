@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a22ace6_0364b4dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-20T16:22:52Z",
+      "side": 1,
+      "message": "PS2: added full Renode E2E (phase1 bug reproduction + phase2 fix validation) to the Tested: block, addressing the CI-coverage concern on PS1.",
+      "revId": "647878c5c256edc9cce9193fd18c5cde7d305a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

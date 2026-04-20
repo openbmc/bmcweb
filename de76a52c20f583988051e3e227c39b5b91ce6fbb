@@ -22,6 +22,30 @@
       },
       "revId": "de76a52c20f583988051e3e227c39b5b91ce6fbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3797ff35_009826ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-20T16:22:52Z",
+      "side": 1,
+      "message": "Done in PS2 — replaced the CI-only Tested: with Renode-based evidence                                                                                \n  that exercises exactly this outbound subscription TLS path. Phase 1 (upstream                                                                                 \n  w/o the patch) reproduces the inversion on both enum paths; Phase 2 (with the                                                                                 \n  patch) shows both corrected. Details in the Tested: block.",
+      "parentUuid": "4bd04ca8_527df90f",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "de76a52c20f583988051e3e227c39b5b91ce6fbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
