@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0be7c0c2_4e90774a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Addressed. In the new implementation, the destructor writes LifeTime only when both SRAM and DRAM MemoryECC interfaces are resolved successfully. EBADR / io_error on either side is treated as \"interface not present\" and LifeTime is omitted entirely (no default zero).\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#55",
+      "parentUuid": "5ef26e0a_a1a95b43",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29de9043_a512c9ef",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-15T05:20:09Z",
       "side": 1,
       "message": "This comment seems redundant because it doesn’t add anything beyond what can already be inferred from the function parameter names. Same applies to other comments in this file.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8cdb603_0ac6a396",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Removed redundant comments. Only kept control-flow notes that explain non-obvious branches.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp",
+      "parentUuid": "29de9043_a512c9ef",
       "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d424cca_20d06bf1",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "After discussion with you, decided to keep the current approach. Thanks.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#55",
+      "parentUuid": "b4ae1d08_628be82e",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61857164_bac31f0b",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-15T05:20:09Z",
       "side": 1,
       "message": "nit: this doesn\u0027t need to be separate function in my opinion.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3b1984e_e8e275ff",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Agreed. The original findProcessorMemoryObject wrapper was removed in PS16. The structure was refactored to use a shared accumulator with std::bind_front callbacks, so the remaining named functions (here: afterGetDramEccService) are the actual callback bodies, not thin wrappers over a single D-Bus call.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#112",
+      "parentUuid": "61857164_bac31f0b",
       "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3322ad87_8e13fc4b",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Fixed. Non-EBADR / non-io_error branches now BMCWEB_LOG_ERROR and set acc-\u003ehasError \u003d true; the shared accumulator destructor emits messages::internalError. Applied consistently across all five callbacks.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#82",
+      "parentUuid": "d371416d_337b3694",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "687d5186_d250f788",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-15T05:20:09Z",
       "side": 1,
       "message": "nit: this doesn\u0027t need to be separate function in my opinion.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18eb162_6665c3ad",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Agreed. The original getProcessorMemorySummarySramEcc wrapper was removed in PS16. The structure was refactored to use a shared accumulator with std::bind_front callbacks, so the remaining named functions (here: afterGetDramAssociation) are the actual callback bodies, not thin wrappers over a single D-Bus call.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#144",
+      "parentUuid": "687d5186_d250f788",
       "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6d6bb88_beb33c87",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Fixed — see reply on L193. Same EBADR / io_error vs. other-error split applied here.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#183",
+      "parentUuid": "67f8447b_25f045fc",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcc7c900_a9065585",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-04-15T05:20:09Z",
       "side": 1,
       "message": "We should log error and return messages::internalError if multiple services are found.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5bcd662_50bb6a3f",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Fixed. object.size() !\u003d 1 now logs an error identifying the path and sets acc-\u003ehasError \u003d true; destructor returns messages::internalError.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#132\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#245",
+      "parentUuid": "fcc7c900_a9065585",
       "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -154,6 +298,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75dc46e1_385ffac8",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Agreed. The original getProcessorMemorySummaryMetricsData wrapper was removed in PS16. The structure was refactored to use a shared accumulator with std::bind_front callbacks, so the remaining named functions (here: afterGetSramEccService) are the actual callback bodies, not thin wrappers over a single D-Bus call.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#224",
+      "parentUuid": "3460b6a2_e6f0d191",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "656dda92_bec7de2f",
@@ -171,6 +333,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c22c38a_d296bd4b",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Done. handleProcessorMemorySummaryMetricsGet now uses getProcessorObject from processor.hpp to resolve the processor D-Bus path, then chains SRAM + DRAM queries through a shared accumulator.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#323",
+      "parentUuid": "656dda92_bec7de2f",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f54bda11_05cb0b44",
@@ -184,6 +364,24 @@
       "writtenOn": "2026-04-15T05:20:09Z",
       "side": 1,
       "message": "use std::format.",
+      "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c028bd3c_9309ebf3",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T08:07:03Z",
+      "side": 1,
+      "message": "Done. Name field now built with std::format(\"{} Memory Summary Metrics\", processorId).\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/16/redfish-core/lib/processor_memory_summary_metrics.hpp#321",
+      "parentUuid": "f54bda11_05cb0b44",
       "revId": "53a745533289164da5a2df84f19979f5ff7b5376",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
