@@ -542,6 +542,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75a94821_7ac47205",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T19:03:02Z",
+      "side": 1,
+      "message": "\u003e Support customer-uploaded CA-signed HTTPS server certificates \n\nThis is already supported today, and you haven\u0027t clarified what \"customer security policies\" are.\n\n\u003e Support separate BMC-managed server certificates\n\nThis is where you\u0027ve lost me.  what is a \"BMC managed server certificate\".  The BMC is never a security authority used by others.\n\n\u003e Customer optional client cert connections \n\nI have no idea what this means.\n\n\u003e based on the connection type\n\nWhat is a \"connection type\"?  These are all https",
+      "parentUuid": "e8d1cc7b_64fc1bb9",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "677d18a6_10079541",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
