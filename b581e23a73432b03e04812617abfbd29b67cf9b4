@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "284f2677_e5c361fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T22:22:02Z",
+      "side": 1,
+      "message": "Did you look at all at optimizing the router itself?  This isn\u0027t something I\u0027m aware anyone has even looked at.\n\nKeeping all the routes in the router has some advantages from a security perspective, in that we know at startup exactly what routes exist and which permissions each of them has.  Your patch opens some doors for possible permissions issues (first patch had a pre-auth CVE).\n\nIf you could look into doing your optimization on the code, and not modify the routes, I\u0027d appreciate it.",
+      "revId": "b581e23a73432b03e04812617abfbd29b67cf9b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40aa72c4_99cbeb8d",
         "filename": "include/webassets.hpp",
         "patchSetId": 8
