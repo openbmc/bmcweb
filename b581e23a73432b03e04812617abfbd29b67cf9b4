@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40aa72c4_99cbeb8d",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T18:31:14Z",
+      "side": 1,
+      "message": "Why is this still here?",
+      "revId": "b581e23a73432b03e04812617abfbd29b67cf9b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f681255_3320d917",
+        "filename": "redfish-core/lib/metadata.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T18:31:14Z",
+      "side": 1,
+      "message": "You still have starts_with in your checks.",
+      "range": {
+        "startLine": 143,
+        "startChar": 33,
+        "endLine": 143,
+        "endChar": 44
+      },
+      "revId": "b581e23a73432b03e04812617abfbd29b67cf9b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

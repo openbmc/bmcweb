@@ -351,6 +351,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8405ca3_4e5ccf66",
+        "filename": "redfish-core/lib/metadata.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-20T18:31:14Z",
+      "side": 1,
+      "message": "\u003e This should fully address the vulnerability\n\nCurrent patch does not appear to implement what I asked for.",
+      "parentUuid": "57af250c_387b55cd",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 5
+      },
+      "revId": "6ed5966df440b498570e290ba9f388dfc67d041d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad30292d_6fad5bb2",
         "filename": "redfish-core/lib/metadata.hpp",
         "patchSetId": 1
