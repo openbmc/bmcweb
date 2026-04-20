@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d42d3d_884ed8bb",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T23:18:27Z",
+      "side": 1,
+      "message": "Done. Changed DEBUG to LOG_ERROR + messages::internalError; filtered EBADR/io_error as expected \u0027object-gone\u0027 races\nSee PS10:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87802/10/redfish-core/lib/processor_metrics.hpp#109",
+      "parentUuid": "a48f87b2_015c1a50",
+      "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44f88ccf_6e2d9aac",
@@ -31,6 +49,42 @@
       "writtenOn": "2026-04-13T07:06:58Z",
       "side": 1,
       "message": "Please process the value with same pattern as this - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84459/19/redfish-core/lib/switch_port.hpp#145.",
+      "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c5f191_318f4fd6",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T23:18:27Z",
+      "side": 1,
+      "message": "Done. Followed the switch_port.hpp:145 pattern — set OperatingSpeedMHz to nullptr with a DEBUG log when value is non-finite, so the property surfaces as JSON null (instead of being omitted).\n\nSee PS10:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87802/10/redfish-core/lib/processor_metrics.hpp#120",
+      "parentUuid": "44f88ccf_6e2d9aac",
+      "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf90c9ab_52935813",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-20T23:18:27Z",
+      "side": 1,
+      "message": "Done. Added break; after calling getProcessorMetricsECCData so we exit the inner interface loop once MemoryECC is matched. Used break (not return) because getProcessorMetricsOperatingSpeed still needs to run afterwards.\n\nSee PS10:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87802/10/redfish-core/lib/processor_metrics.hpp#200",
+      "parentUuid": "75db7845_0a7b302b",
       "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
