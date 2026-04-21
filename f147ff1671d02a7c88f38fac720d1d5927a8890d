@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72c46553_98528c7a",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T08:19:51Z",
+      "side": 1,
+      "message": "Is this include really needed?",
+      "revId": "f147ff1671d02a7c88f38fac720d1d5927a8890d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ba8a736_d2b8b195",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T08:19:51Z",
+      "side": 1,
+      "message": "It seems like we are looking for both the NetworkInteface and Port D-Bus interfaces to be present on the same object path. Let\u0027s not do that and use association to get list of `AssignablePhysicalNetworkPorts`.",
+      "revId": "f147ff1671d02a7c88f38fac720d1d5927a8890d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c32a0b91_0a7bc407",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T08:19:51Z",
+      "side": 1,
+      "message": "Since we only need one property, see if we can use `getProperty` call.",
+      "revId": "f147ff1671d02a7c88f38fac720d1d5927a8890d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f90c89eb_7182c548",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T08:19:51Z",
+      "side": 1,
+      "message": "See if we can use function `getNetworkAdapterPortPath` here. You would need to rename it to work with network device function and pass list of DBus interfaces as function parameter.",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 22
+      },
+      "revId": "f147ff1671d02a7c88f38fac720d1d5927a8890d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16b26d1_da6a0048",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T08:19:51Z",
+      "side": 1,
+      "message": "use sdbusplus::message::object_path operator /.",
+      "revId": "f147ff1671d02a7c88f38fac720d1d5927a8890d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb02bbe9_a38e10cc",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T08:19:51Z",
+      "side": 1,
+      "message": "If you want to use this function here also, please rename it accordingly.",
+      "range": {
+        "startLine": 191,
+        "startChar": 24,
+        "endLine": 191,
+        "endChar": 52
+      },
+      "revId": "f147ff1671d02a7c88f38fac720d1d5927a8890d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
