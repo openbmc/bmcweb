@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02ba0c50_1dbe5ff3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T10:51:02Z",
+      "side": 1,
+      "message": "We might need to keep device name in ControlId for a case when single chassis item is containing multiple processors.",
+      "parentUuid": "b1a57d42_0731c273",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84ec2d0c_3d0bcb68",
         "filename": "redfish-core/include/utils/control_utils.hpp",
         "patchSetId": 6
@@ -483,6 +501,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34d656cb_c772d95e",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T10:51:02Z",
+      "side": 1,
+      "message": "Doesn\u0027t collection resource still use chassis path as well? I suggest keep it for Get operation as well.",
+      "parentUuid": "ac1ddd1c_6965a77d",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa6f8cbc_0920f18c",
         "filename": "redfish-core/lib/control.hpp",
         "patchSetId": 6
@@ -547,6 +583,41 @@
       "side": 1,
       "message": "Currently only accelerator controls are supported, and the chassis-specific GET path has been removed. RelatedItem always points to a Processor in this case. When chassis-level controls (e.g., PowerLimit) are added, will update this to set RelatedItem based on the control type.",
       "parentUuid": "4940b7d6_18384e41",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "733510fc_37b30a4d",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T10:51:02Z",
+      "side": 1,
+      "message": "Let\u0027s take care of it within this patch itself.",
+      "parentUuid": "74dc3f0f_0075b9eb",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97bfed32_a8c2f73e",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T10:51:02Z",
+      "side": 1,
+      "message": "We might need to bring this logic back, for case when one chassis item is containing multiple processors.",
       "revId": "62a6239b9888fc85368dad4838df144a5548587c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
