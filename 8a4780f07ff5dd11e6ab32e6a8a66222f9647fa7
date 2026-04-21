@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9bd8209_4e953229",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-21T20:23:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3dfc97e_0d5140e6",
+      "revId": "8a4780f07ff5dd11e6ab32e6a8a66222f9647fa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7467ab0c_3426297d",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-21T11:47:54Z",
       "side": 1,
       "message": "Shouldn\u0027t we log error and do messages::internalError if ec is EBADR or boost::system::errc::io_error?",
+      "revId": "8a4780f07ff5dd11e6ab32e6a8a66222f9647fa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54293939_e12b5ed7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-21T20:23:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7467ab0c_3426297d",
       "revId": "8a4780f07ff5dd11e6ab32e6a8a66222f9647fa7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
