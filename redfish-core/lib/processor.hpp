@@ -21,6 +21,8 @@
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -735,6 +737,34 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void afterGetProcessorMemoryLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    boost::system::error_code filtered = ec;
+    if (ec.value() == EBADR)
+    {
+        filtered = make_error_code(boost::system::errc::io_error);
+    }
+
+    collection_util::handleCollectionMembers(
+        asyncResp,
+        boost::urls::format("/redfish/v1/Systems/{}/Memory",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
+        nlohmann::json::json_pointer("/Links/Memory"), filtered, endpoints);
+}
+
+inline void getProcessorMemoryLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorPath)
+{
+    sdbusplus::object_path path(processorPath);
+    path /= "containing";
+    dbus::utility::getAssociationEndPoints(
+        path, std::bind_front(afterGetProcessorMemoryLinks, asyncResp));
+}
+
 inline void handleProcessorSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -855,6 +885,7 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getProcessorMemoryLinks(asyncResp, objectPath);
             }
             else if (
                 interface ==
