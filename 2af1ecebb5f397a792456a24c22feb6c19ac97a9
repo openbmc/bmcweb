@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a73dd45_5b9ad0f6",
+        "filename": "redfish-core/include/task_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-21T15:54:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5899333e_87c894af",
+      "revId": "2af1ecebb5f397a792456a24c22feb6c19ac97a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8429e674_e63bc77d",
