@@ -105,6 +105,24 @@
       "parentUuid": "a4c8420a_654a9935",
       "revId": "7012919dac61b71bf3f34f35c751ba8dda811fc2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebfe67ed_4ebcf8e7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-21T13:23:29Z",
+      "side": 1,
+      "message": "@ed@tanous.net, As per your commment, RFC 6066 defines SNI for DNS names, but does not forbid IP addresses. Redfish aggregation satellites are typically addressed by IP, and OpenBMC’s implementation uses IPs for satellite connections. \nSSL_set_tlsext_host_name() allows both hostnames and IP addresses. Passing an IP is valid in OpenSSL. Is there a scope to add Ipaddress?",
+      "parentUuid": "fce16f0c_d8ca45fd",
+      "revId": "7012919dac61b71bf3f34f35c751ba8dda811fc2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
