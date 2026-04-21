@@ -16,6 +16,40 @@
       "message": "Thanks for looking into this 👍",
       "revId": "11e257f6340d8b4b6ba221a1ac6889741ee220ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd2fccf_852c948e",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-04-21T15:22:07Z",
+      "side": 1,
+      "message": "missing ` at the end",
+      "revId": "11e257f6340d8b4b6ba221a1ac6889741ee220ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4739fcc_56e63dc7",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-04-21T15:22:07Z",
+      "side": 1,
+      "message": "This function pretty much only wraps `getFanPathsByChassisId`. Maybe instead remove this function and rename `getFanPathsByChassisId` to `getFanPaths`?",
+      "revId": "11e257f6340d8b4b6ba221a1ac6889741ee220ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
