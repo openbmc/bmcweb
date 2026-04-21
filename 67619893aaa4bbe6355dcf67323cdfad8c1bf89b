@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4edac32_ca3b48d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-21T11:58:05Z",
+      "side": 1,
+      "message": "Got it. Will apply 72-col wrap and drop what-style narration from future commits, thanks.",
+      "parentUuid": "6ae92e7d_af36110d",
+      "revId": "67619893aaa4bbe6355dcf67323cdfad8c1bf89b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f6c0b74_6c5a0a23",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-04-20T22:33:44Z",
       "side": 1,
       "message": "Remove this \"phase\".  We assume the code on master to be correct.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 42
+      },
+      "revId": "67619893aaa4bbe6355dcf67323cdfad8c1bf89b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f693f8f4_3cfdb5e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-04-21T11:58:05Z",
+      "side": 1,
+      "message": "Acknowledged. Will drop the \"master is broken / this patch fixes it\" framing from Tested: blocks going forward.",
+      "parentUuid": "2f6c0b74_6c5a0a23",
       "range": {
         "startLine": 53,
         "startChar": 0,
