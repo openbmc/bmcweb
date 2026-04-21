@@ -106,6 +106,7 @@ inline bool fillBMCJournalLogEntryJson(
         BMCWEB_REDFISH_MANAGER_URI_NAME, entryIdBase64);
     bmcJournalLogEntryJson["Name"] = "BMC Journal Entry";
     bmcJournalLogEntryJson["Id"] = entryIdBase64;
+    bmcJournalLogEntryJson["Description"] = "BMC Journal Entry";
     bmcJournalLogEntryJson["Message"] = std::move(message);
     bmcJournalLogEntryJson["EntryType"] = log_entry::LogEntryType::Oem;
     log_entry::EventSeverity rfseverity = log_entry::EventSeverity::OK;

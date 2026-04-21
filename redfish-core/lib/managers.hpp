@@ -301,6 +301,7 @@ inline void handleManagerResetActionInfo(
                             BMCWEB_REDFISH_MANAGER_URI_NAME);
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+    asyncResp->res.jsonValue["Description"] = "Reset Action Info";
     nlohmann::json::object_t parameter;
     parameter["Name"] = "ResetType";
     parameter["Required"] = true;
