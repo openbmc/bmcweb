@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cb9cf57_31ddaa68",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T09:47:21Z",
+      "side": 1,
+      "message": "We need to simply logic here to make code more readable. See if using only one variable instead of three is feasible.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "75a551a5cd7b0d9b671b9d4b2743e8688219d6a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "972d6e39_f1ea0bd1",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T09:47:21Z",
+      "side": 1,
+      "message": "Why is it mandatory that both should be present? Shouldn\u0027t we populate these properties even if one of them is found?",
+      "revId": "75a551a5cd7b0d9b671b9d4b2743e8688219d6a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "302d0ddf_6f3b652d",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T09:47:21Z",
+      "side": 1,
+      "message": "Please use getAssociatedSubTree to avoid subsequent DBus method call to get the service.",
+      "revId": "75a551a5cd7b0d9b671b9d4b2743e8688219d6a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98375df1_bfea760d",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T09:47:21Z",
+      "side": 1,
+      "message": "Let\u0027s not manually invoke a function that is meant to be a callback. Separate out some of part of afterGetSramEccProperties in separate function and call it here.",
+      "revId": "75a551a5cd7b0d9b671b9d4b2743e8688219d6a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525117b1_3606e701",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T09:47:21Z",
+      "side": 1,
+      "message": "Why do we need a new DBus method call to get the service? can\u0027t we use lamda parameter `serviceMap`.",
+      "revId": "75a551a5cd7b0d9b671b9d4b2743e8688219d6a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
