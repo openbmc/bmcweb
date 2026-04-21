@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a1c6dff_86029ac8",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-21T17:39:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c1936af9_cc97a75f",
+      "range": {
+        "startLine": 70,
+        "startChar": 30,
+        "endLine": 70,
+        "endChar": 53
+      },
+      "revId": "f460a17b1f092a4bf0eba2c441a3f693feafffe6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80bdb538_87b8ba58",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "It does.....   I\u0027m not sure if that\u0027s a concern or not.",
       "parentUuid": "80bdb538_87b8ba58",
+      "range": {
+        "startLine": 196,
+        "startChar": 53,
+        "endLine": 196,
+        "endChar": 59
+      },
+      "revId": "f460a17b1f092a4bf0eba2c441a3f693feafffe6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89828caf_e9179d90",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-21T17:39:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "659dc60e_0492fb71",
       "range": {
         "startLine": 196,
         "startChar": 53,
