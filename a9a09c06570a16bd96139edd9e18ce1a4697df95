@@ -163,6 +163,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "827629e7_ec2da753",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-21T09:32:26Z",
+      "side": 1,
+      "message": "No, I don\u0027t want the code to return, if it received an invalid, I\u0027m logging a warning and continuing to push the event. This is because \"MessageSeverity\" is not a mandatory value.\n\nTo answer your question, why explicit check here, this is because \"Severity\" is a string being populated from message registry, whereas \"MessageSeverity\" is based off Resource::Health enum, while translating the messageSeverity string to Resource::Health enum value, it could potentially get a Invalid back if no mapping was found within the enum. This is a possibility for \"MessageSeverity\" field not \"Severity\" field within the json, therefore needs explicit handling.\n\nPlease note - \nOld code is populating  logEntryJson[\"Severity\"]        //\u003cString\u003e\nThe patch is populating logEntryJson[\"MessageSeverity\"] //\u003cResource::Health enum\u003e\n\nThey are different fields with different data types.",
+      "parentUuid": "dbade7d0_bc5f0ea6",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45f1f7f0_8addbbaf",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 14
@@ -270,6 +294,30 @@
       "side": 1,
       "message": "Old code meaning the code that\u0027s on master.",
       "parentUuid": "08d496ef_bcdc98d7",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 47
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6569e7f3_6f19b518",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-21T09:32:26Z",
+      "side": 1,
+      "message": "I see the confusion now. Old code is populating \"Severity\" whereas the patch populates \"MessageSeverity\".\nSeverity is a string, so is directly populated, MessageSeverity is an enum based field. MessageSeverity field can receive \"Invalid\" value if no mapping exists for it in the Resouce::Health enum so it needs to be handled explicitly.",
+      "parentUuid": "5ca4684c_335346e5",
       "range": {
         "startLine": 195,
         "startChar": 0,
