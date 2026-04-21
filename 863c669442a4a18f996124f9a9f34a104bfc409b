@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473f4eb4_1f9c8505",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T12:03:32Z",
+      "side": 1,
+      "message": "If SubTree is empty would we get non-success ec? Do we need to do messages::resourceNotFound if value of ec is EBADR or boost::system::errc::io_error? Please check and update this patch and all of your open patches.",
+      "revId": "863c669442a4a18f996124f9a9f34a104bfc409b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
