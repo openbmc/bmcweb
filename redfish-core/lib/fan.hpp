@@ -202,13 +202,72 @@ inline void addFanCommonProperties(crow::Response& resp,
     resp.jsonValue["Status"]["Health"] = resource::Health::OK;
 }
 
+// Read OperationalStatus.Functional from a single fan sensor and mark the
+// fan Critical if it reports false.  Errors are silent: if the property is
+// not available on this sensor, leave Health at the default OK rather than
+// regressing platforms whose sensors do not implement OperationalStatus.
+inline void getFanHealthFromSensor(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& sensorPath)
+{
+    dbus::utility::getProperty<bool>(
+        service, sensorPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        [asyncResp](const boost::system::error_code& ec,
+                    const bool functional) {
+            if (ec)
+            {
+                return;
+            }
+            if (!functional)
+            {
+                asyncResp->res.jsonValue["Status"]["Health"] =
+                    resource::Health::Critical;
+            }
+        });
+}
+
+// Fallback when the fan inventory object does not implement
+// OperationalStatus.Functional itself.  Walk the documented inventory ->
+// sensors association (sensor-architecture.md Association Type #2) and
+// take Health from the associated sensors.  dbus-sensors FanSensor owns
+// Functional on its tach sensor and clears it after the configured number
+// of consecutive read failures, which is the authoritative source on
+// those platforms.  Any associated sensor that reports Functional=false
+// flips Health to Critical, which gives correct behaviour for multi-rotor
+// fans without relying on any naming convention between inventory and
+// sensor objects.
+inline void getFanHealthFromAssociatedSensors(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& fanPath,
+    const std::vector<std::pair<std::string, std::string>>&
+        sensorsPathAndService)
+{
+    if (sensorsPathAndService.empty())
+    {
+        // The fan inventory neither implements OperationalStatus nor
+        // publishes the inventory->sensors association.  Leave Health at
+        // the default OK rather than regressing platforms that have no
+        // fan health signal wired up.
+        BMCWEB_LOG_DEBUG(
+            "Fan {} has no associated sensors; leaving Health at OK", fanPath);
+        return;
+    }
+
+    for (const auto& [service, sensorPath] : sensorsPathAndService)
+    {
+        getFanHealthFromSensor(asyncResp, service, sensorPath);
+    }
+}
+
 inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& fanPath, const std::string& service)
 {
     dbus::utility::getProperty<bool>(
         service, fanPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        [asyncResp](const boost::system::error_code& ec, const bool value) {
+        [asyncResp,
+         fanPath](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
                 if (ec.value() != EBADR)
@@ -216,7 +275,13 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     BMCWEB_LOG_ERROR("DBUS response error for Health {}",
                                      ec.value());
                     messages::internalError(asyncResp->res);
+                    return;
                 }
+
+                fan_utils::getFanSensorObjects(
+                    asyncResp, sdbusplus::message::object_path(fanPath),
+                    std::bind_front(getFanHealthFromAssociatedSensors,
+                                    asyncResp, fanPath));
                 return;
             }
 
