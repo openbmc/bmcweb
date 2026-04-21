@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf2817c6_f00734b1",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T12:12:28Z",
+      "side": 1,
+      "message": "Do we have plan to use this function at multiple places since it takes a callback as a parameter? If not we should use `afterGetPcieDeviceForNetworkAdapter` as a callback directly.",
+      "revId": "5a663a86b19cc37ce0d17452e554c6db49f09714",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
