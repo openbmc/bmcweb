@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a75f3957_a5b1be8e",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-21T18:52:15Z",
+      "side": 1,
+      "message": "Done. Added control_utils::getInterfaceForPrefix, which maps a parsed prefix back to its single D-Bus interface.",
+      "parentUuid": "2d64f61e_3222cbe0",
+      "revId": "db60fd78e489f3553ff5ad888b085145bde74cdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc23d171_4e4edb4f",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-21T10:51:02Z",
       "side": 1,
       "message": "Can\u0027t we simply check if controlId is found inside control_utils::controlTypeMappings?",
+      "revId": "db60fd78e489f3553ff5ad888b085145bde74cdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa6fe74_5a256c4d",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-21T18:52:15Z",
+      "side": 1,
+      "message": "Replaced the inline for-loop + empty-check with a single call to control_utils::parseControlId, which validates the controlId against controlTypeMappings and returns the parsed prefix/endpointName in one step (or  nullopt if invalid).",
+      "parentUuid": "fc23d171_4e4edb4f",
       "revId": "db60fd78e489f3553ff5ad888b085145bde74cdf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

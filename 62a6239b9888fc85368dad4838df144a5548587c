@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c12b14_0a9a055a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-21T18:52:15Z",
+      "side": 1,
+      "message": "Done. Restored the \u003cprefix\u003e_\u003cendpointName\u003e ControlId format",
+      "parentUuid": "02ba0c50_1dbe5ff3",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84ec2d0c_3d0bcb68",
@@ -517,6 +535,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfef6571_4f219d53",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-21T18:52:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34d656cb_c772d95e",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa6f8cbc_0920f18c",
@@ -605,6 +641,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1469efde_4f8e2a5b",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-21T18:52:15Z",
+      "side": 1,
+      "message": "Done. Added an ownedByChassis bool.",
+      "parentUuid": "733510fc_37b30a4d",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97bfed32_a8c2f73e",
@@ -618,6 +672,24 @@
       "writtenOn": "2026-04-21T10:51:02Z",
       "side": 1,
       "message": "We might need to bring this logic back, for case when one chassis item is containing multiple processors.",
+      "revId": "62a6239b9888fc85368dad4838df144a5548587c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0169f8db_4866653f",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-21T18:52:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97bfed32_a8c2f73e",
       "revId": "62a6239b9888fc85368dad4838df144a5548587c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
