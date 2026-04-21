@@ -388,6 +388,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "023d2357_8262828f",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T08:46:13Z",
+      "side": 1,
+      "message": "Looks like `getValidDimmPath` function doesn\u0027t return service of the object path. Let\u0027s not use it then to avoid multiple DBus calls. Please use plain getSubTree and call getMemoryMetricsECCData if interface xyz.openbmc_project.Memory.MemoryECC is found.",
+      "parentUuid": "e82b2bfd_64bdee22",
+      "revId": "197e30f3fb596bca51fc2fa380ffa41ec075104d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4330b7c4_17d2819b",
         "filename": "redfish-core/lib/memory_metrics.hpp",
         "patchSetId": 10
