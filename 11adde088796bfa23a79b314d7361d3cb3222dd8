@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "003e039b_9ea606f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T13:31:34Z",
+      "side": 1,
+      "message": "Remove this if it is not necessary since it is WIP.",
+      "revId": "11adde088796bfa23a79b314d7361d3cb3222dd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79f3e884_ea5865df",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-04-21T13:31:34Z",
+      "side": 1,
+      "message": "Can we use collection_util::handleCollectionMembers instead?",
+      "revId": "11adde088796bfa23a79b314d7361d3cb3222dd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
