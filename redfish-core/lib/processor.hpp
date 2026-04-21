@@ -22,6 +22,8 @@
 #include "utils/processor_utils.hpp"
 #include "utils/resource_utils.hpp"
 
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -859,6 +861,46 @@ inline void getEnvironmentMetricsLink(
                         processorId));
 }
 
+inline void afterGetProcessorMemoryLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& memoryPaths)
+{
+    if (ec)
+    {
+        if (ec.value() != boost::system::errc::io_error && ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (memoryPaths.empty())
+    {
+        return;
+    }
+
+    collection_util::handleCollectionMembers(
+        asyncResp,
+        boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName),
+        nlohmann::json::json_pointer("/Links/Memory"), ec, memoryPaths);
+}
+
+inline void getProcessorMemoryLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorPath)
+{
+    constexpr std::array<std::string_view, 1> memoryInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm"};
+
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::object_path(processorPath) / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        memoryInterfaces,
+        std::bind_front(afterGetProcessorMemoryLinks, asyncResp, systemName));
+}
+
 inline void handleProcessorSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -945,7 +987,8 @@ inline void getProcessorObject(
 
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& processorId, const std::string& objectPath,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& objectPath,
     const dbus::utility::MapperServiceMap& serviceMap)
 {
     asyncResp->res.addHeader(
@@ -983,6 +1026,7 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
+                getProcessorMemoryLinks(asyncResp, systemName, objectPath);
             }
             else if (
                 interface ==
@@ -1136,7 +1180,7 @@ inline void handleProcessorGet(
 
     getProcessorObject(
         asyncResp, processorId,
-        std::bind_front(getProcessorData, asyncResp, processorId));
+        std::bind_front(getProcessorData, asyncResp, systemName, processorId));
 }
 
 inline void doPatchProcessor(
