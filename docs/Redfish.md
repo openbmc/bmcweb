@@ -1139,6 +1139,7 @@ functions the same like the default implementation under the System resource.
 - EnvironmentMetrics
 - FirmwareVersion
 - InstructionSet
+- Links/Memory
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
