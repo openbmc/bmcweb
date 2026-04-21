@@ -208,7 +208,8 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<bool>(
         service, fanPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        [asyncResp](const boost::system::error_code& ec, const bool value) {
+        [asyncResp,
+         fanPath](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
                 if (ec.value() != EBADR)
@@ -216,7 +217,56 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     BMCWEB_LOG_ERROR("DBUS response error for Health {}",
                                      ec.value());
                     messages::internalError(asyncResp->res);
+                    return;
                 }
+
+                // The fan inventory object does not carry
+                // OperationalStatus.  entity-manager does not currently
+                // expose that interface on fan inventory entities, so
+                // fall back to the dbus-sensors fan tach sensor, which
+                // maintains Functional based on consecutive read
+                // failures.  By convention the fan inventory name
+                // matches the tach sensor name (e.g. "fan0" ->
+                // /xyz/openbmc_project/sensors/fan_tach/fan0).  If the
+                // sensor does not exist or does not implement
+                // OperationalStatus, leave Health at the default OK
+                // rather than regressing platforms that have no fan
+                // health signal at all.
+                std::string fanName =
+                    sdbusplus::message::object_path(fanPath).filename();
+                std::string sensorPath =
+                    "/xyz/openbmc_project/sensors/fan_tach/" + fanName;
+
+                constexpr std::array<std::string_view, 1> opStatusIface = {
+                    "xyz.openbmc_project.State.Decorator.OperationalStatus"};
+
+                dbus::utility::getDbusObject(
+                    sensorPath, opStatusIface,
+                    [asyncResp,
+                     sensorPath](const boost::system::error_code& ec2,
+                                 const dbus::utility::MapperGetObject& object) {
+                        if (ec2 || object.empty())
+                        {
+                            return;
+                        }
+                        dbus::utility::getProperty<bool>(
+                            object.begin()->first, sensorPath,
+                            "xyz.openbmc_project.State.Decorator.OperationalStatus",
+                            "Functional",
+                            [asyncResp](const boost::system::error_code& ec3,
+                                        const bool functional) {
+                                if (ec3)
+                                {
+                                    return;
+                                }
+                                if (!functional)
+                                {
+                                    asyncResp->res
+                                        .jsonValue["Status"]["Health"] =
+                                        resource::Health::Critical;
+                                }
+                            });
+                    });
                 return;
             }
 
