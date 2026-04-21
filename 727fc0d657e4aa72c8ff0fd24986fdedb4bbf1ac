@@ -69,6 +69,24 @@
       "parentUuid": "d011634b_628fb946",
       "revId": "727fc0d657e4aa72c8ff0fd24986fdedb4bbf1ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28607142_60b266e1",
+        "filename": "test/http/http_server_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-21T17:38:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f2e7c838_195ff7e5",
+      "revId": "727fc0d657e4aa72c8ff0fd24986fdedb4bbf1ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
