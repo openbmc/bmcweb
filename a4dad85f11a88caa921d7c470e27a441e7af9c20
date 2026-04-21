@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7abc0657_fe0e0e40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-21T18:24:11Z",
+      "side": 1,
+      "message": "Removed the DSP0268",
+      "parentUuid": "4d36dea5_71afff0f",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "a4dad85f11a88caa921d7c470e27a441e7af9c20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c393d237_e430d325",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-04-20T19:41:14Z",
       "side": 1,
       "message": "How are \"browsers\" and \"clients\" differentiated?",
+      "revId": "a4dad85f11a88caa921d7c470e27a441e7af9c20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "690b4019_102102fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-21T18:24:11Z",
+      "side": 1,
+      "message": "\"Browsers\" and \"clients\" are not differentiated - both are clients. updated the commit message",
+      "parentUuid": "c393d237_e430d325",
       "revId": "a4dad85f11a88caa921d7c470e27a441e7af9c20",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

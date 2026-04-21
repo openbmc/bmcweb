@@ -142,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85965fcf_46d274bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-04-21T18:24:11Z",
+      "side": 1,
+      "message": "SNI-based routing is common (NGINX uses it for virtual hosts with \nhostnames). I haven\u0027t found precedent for IP-based SNI routing for \ncertificate selection.\n\nHowever, IP addresses can be mapped to DNS names in /etc/hosts, which \nwould allow hostname-based SNI routing similar to NGINX. \n\nSince aggregation uses Ip address, and the constraint remains: two server certificates on the same port requiring differentiation during TLS handshake.",
+      "parentUuid": "2dc9bb44_c4541dad",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a8a450f_c96885a7",
