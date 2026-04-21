@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fa8c7e4_8dd5d8d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-21T04:46:33Z",
+      "side": 1,
+      "message": "Thanks for the catching!\nAlready have the confusing sentences removed.",
+      "parentUuid": "07ba5457_128f82b5",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "393ef13b_185f1583",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-04-20T14:05:09Z",
       "side": 1,
       "message": "Function has been renamed, this needs to be updated.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 29
+      },
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adee96c6_c1dd450d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-21T04:46:33Z",
+      "side": 1,
+      "message": "Thanks for the catching!\nAlready have the discarded function named removed.",
+      "parentUuid": "393ef13b_185f1583",
       "range": {
         "startLine": 44,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2215963_f86ed8ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-21T04:46:33Z",
+      "side": 1,
+      "message": "Done!\nThe change-Id was meant for the dependency.\nAlready have it replaced by the gerrit link.",
+      "parentUuid": "1ebfcad7_379c4f93",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 2
+      },
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27f1b060_31e81a2a",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-04-20T14:05:09Z",
       "side": 1,
       "message": "There are two Change-Id in the commit message. There should only be one.",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 2
+      },
+      "revId": "0338d141e72cf7ee8bac84a8fbf71327ef17e015",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fe21bbc_2547d998",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-21T04:46:33Z",
+      "side": 1,
+      "message": "This is the change-id preserved for this commit.\nThus, it remain unchanged.",
+      "parentUuid": "27f1b060_31e81a2a",
       "range": {
         "startLine": 127,
         "startChar": 0,
