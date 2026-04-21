@@ -322,6 +322,7 @@ inline void getDumpEntryCollection(
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Name"] = dumpType + " Dump Entry";
+		thisEntry["Description"] = dumpType + " Dump Entry";
                 thisEntry["Created"] =
                     redfish::time_utils::getDateTimeUintUs(timestampUs);
 
@@ -418,6 +419,7 @@ inline void getDumpEntryById(
                 asyncResp->res.jsonValue["Id"] = entryID;
                 asyncResp->res.jsonValue["EntryType"] = "Event";
                 asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
+		asyncResp->res.jsonValue["Description"] = dumpType + " Dump Entry";
                 asyncResp->res.jsonValue["Created"] =
                     redfish::time_utils::getDateTimeUintUs(timestampUs);
 
