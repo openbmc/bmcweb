@@ -10,6 +10,7 @@ extern "C"
 #include "logging.hpp"
 
 #include <bit>
+#include <cstdlib>
 #include <span>
 #include <string_view>
 
@@ -18,6 +19,34 @@ extern "C"
  * lifetime safety for the various classes.  Because of this, they use the same
  * naming as nghttp2, so ignore naming violations.
  */
+
+extern "C"
+{
+inline void* stdlibMalloc(size_t size, void* /*memUserData*/)
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
+    return std::malloc(size);
+}
+
+inline void stdlibFree(void* ptr, void* /*memUserData*/)
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
+    std::free(ptr);
+}
+
+inline void* stdlibCalloc(size_t nmemb, size_t size, void* /*memUserData*/)
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
+    return std::calloc(nmemb, size);
+}
+
+inline void* stdlibRealloc(void* ptr, size_t size, void* /*memUserData*/)
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
+    return std::realloc(ptr, size);
+}
+
+} // extern "C"
 
 // NOLINTBEGIN(readability-identifier-naming,
 // readability-make-member-function-const)
@@ -111,11 +140,14 @@ struct nghttp2_session_callbacks
 
 struct nghttp2_session
 {
-    explicit nghttp2_session(nghttp2_session_callbacks& callbacks)
+    explicit nghttp2_session(nghttp2_session_callbacks& callbacksIn)
     {
-        if (nghttp2_session_server_new(&ptr, callbacks.get(), nullptr) != 0)
+        nghttp2_mem stdlibMem{nullptr, stdlibMalloc, stdlibFree, stdlibCalloc,
+                              stdlibRealloc};
+        if (nghttp2_session_server_new3(&ptr, callbacks.get(), nullptr, nullptr,
+                                        &stdlibMem) != 0)
         {
-            BMCWEB_LOG_ERROR("nghttp2_session_server_new failed");
+            BMCWEB_LOG_ERROR("nghttp2_session_server_new3 failed");
             return;
         }
     }
@@ -190,9 +222,11 @@ struct nghttp2_hd_inflater_ex
   public:
     nghttp2_hd_inflater_ex()
     {
-        if (nghttp2_hd_inflate_new(&ptr) != 0)
+        nghttp2_mem stdlibMem{nullptr, stdlibMalloc, stdlibFree, stdlibCalloc,
+                              stdlibRealloc};
+        if (nghttp2_hd_inflate_new2(&ptr, &stdlibMem) != 0)
         {
-            BMCWEB_LOG_ERROR("nghttp2_hd_inflater_new failed");
+            BMCWEB_LOG_ERROR("nghttp2_hd_inflate_new2 failed");
         }
     }
 
