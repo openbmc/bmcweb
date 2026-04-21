@@ -16,6 +16,24 @@
       "message": "They match the Name. What value do these add? Why are they \"missing\" ?",
       "revId": "5f679bc886a97d4443c623f2e61ef638cae630ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe44955_95c5aee5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-21T17:59:28Z",
+      "side": 1,
+      "message": "+1.  DMTF guidence on the description hasn\u0027t been very clear.  I\u0027d like some amount of this to be coming from the standard.",
+      "parentUuid": "63702962_6d15d3fc",
+      "revId": "5f679bc886a97d4443c623f2e61ef638cae630ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
