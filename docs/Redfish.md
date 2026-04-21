@@ -1126,6 +1126,7 @@ functions the same like the default implementation under the System resource.
 #### Processor
 
 - InstructionSet
+- Links/Memory
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz
