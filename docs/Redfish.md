@@ -1132,6 +1132,7 @@ functions the same like the default implementation under the System resource.
 
 - EnvironmentMetrics
 - InstructionSet
+- Links/Memory
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz
