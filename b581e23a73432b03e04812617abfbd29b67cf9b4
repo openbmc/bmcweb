@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd201aeb_ffb377b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-21T15:51:35Z",
+      "side": 1,
+      "message": "I\u0027m all for general purpose optimizations, but currently the peak memory usage is firmware update, which uses the full image size in ram (2X that actually), so the savings of 400k doesn\u0027t really change anything at a product level.  Is there a reason this is where you started?",
+      "revId": "b581e23a73432b03e04812617abfbd29b67cf9b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "284f2677_e5c361fc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
