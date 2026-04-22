@@ -512,6 +512,7 @@ Fields common to all schemas
 
 - @odata.id
 - @odata.type
+- Actions
 - Id
 - Name
 - Ports
@@ -519,6 +520,12 @@ Fields common to all schemas
   - Health
   - HealthRollup
   - State
+
+### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Actions/NetworkAdapter.Reset/
+
+#### NetworkAdapter.Reset Action
+
+- ResetType (only "ForceRestart" is supported)
 
 ### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Ports/
 

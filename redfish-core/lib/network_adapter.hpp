@@ -347,6 +347,16 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    nlohmann::json::array_t allowable;
+    allowable.emplace_back("ForceRestart");
+    nlohmann::json::object_t reset;
+    reset["target"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/NetworkAdapters/{}/Actions/NetworkAdapter.Reset",
+        chassisId, networkAdapterId);
+    reset["ResetType@Redfish.AllowableValues"] = std::move(allowable);
+    asyncResp->res.jsonValue["Actions"]["#NetworkAdapter.Reset"] =
+        std::move(reset);
 }
 
 inline void handleNetworkAdapterPaths(
@@ -509,6 +519,90 @@ inline void handleNetworkAdapterPortCollectionGet(
                                           chassisId, networkAdapterId));
 }
 
+inline void doResetNetworkAdapter(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath)
+{
+    constexpr std::array<std::string_view, 1> resetInterfaces = {
+        "xyz.openbmc_project.Control.Reset"};
+
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path(networkAdapterPath) / "controlled_by",
+        sdbusplus::object_path("/xyz/openbmc_project/control/reset"), 0,
+        resetInterfaces,
+        [asyncResp, networkAdapterPath](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& object) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "Failed to find Control.Reset associated with {}: {}",
+                    networkAdapterPath, ec.message());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (object.empty())
+            {
+                BMCWEB_LOG_ERROR("No Control.Reset associated with {}",
+                                 networkAdapterPath);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const auto& [resetPath, services] = *object.begin();
+            if (services.empty())
+            {
+                BMCWEB_LOG_ERROR("No service for Control.Reset on {}",
+                                 resetPath);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const std::string& service = services.begin()->first;
+            dbus::utility::async_method_call(
+                asyncResp,
+                [asyncResp](const boost::system::error_code& ec2) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_ERROR("NetworkAdapter.Reset failed: {}",
+                                         ec2.message());
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    messages::success(asyncResp->res);
+                },
+                service, resetPath, "xyz.openbmc_project.Control.Reset",
+                "Reset");
+        });
+}
+
+inline void handleNetworkAdapterResetPost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& networkAdapterId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::string resetType;
+    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
+    {
+        return;
+    }
+
+    if (resetType != "ForceRestart")
+    {
+        messages::actionParameterNotSupported(asyncResp->res, resetType,
+                                              "ResetType");
+        return;
+    }
+
+    getNetworkAdapterPath(asyncResp, chassisId, networkAdapterId,
+                          std::bind_front(doResetNetworkAdapter, asyncResp));
+}
+
 inline void requestRoutesChassisNetworkAdapter(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/NetworkAdapters/")
@@ -538,5 +632,12 @@ inline void requestRoutesChassisNetworkAdapter(App& app)
         .privileges(redfish::privileges::getPortMetrics)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleNetworkAdapterPortMetricsGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Chassis/<str>/NetworkAdapters/<str>/Actions/NetworkAdapter.Reset/")
+        .privileges(redfish::privileges::postNetworkAdapter)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleNetworkAdapterResetPost, std::ref(app)));
 }
 } // namespace redfish
