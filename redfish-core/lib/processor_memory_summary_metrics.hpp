@@ -139,6 +139,27 @@ inline void afterGetDramEccService(
     dbus::utility::getAllProperties(
         service, dramPath, "xyz.openbmc_project.Memory.MemoryECC",
         std::bind_front(afterGetDramEccProperties, acc));
+
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp = acc->asyncResp;
+    dbus::utility::getProperty<uint16_t>(
+        service, dramPath, "xyz.openbmc_project.Inventory.Item.Memory",
+        "MemoryConfiguredSpeedInMhz",
+        [asyncResp](const boost::system::error_code& ec2,
+                    const uint16_t speed) {
+            if (ec2)
+            {
+                if (ec2.value() != EBADR &&
+                    ec2 != boost::system::errc::io_error)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBus error on GetProperty for MemoryConfiguredSpeedInMhz: {}",
+                        ec2.message());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            asyncResp->res.jsonValue["OperatingSpeedMHz"] = speed;
+        });
 }
 
 inline void afterGetDramAssociation(

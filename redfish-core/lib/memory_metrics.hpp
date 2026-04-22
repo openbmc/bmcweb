@@ -97,6 +97,26 @@ inline void afterGetMemoryMetricsService(
     dbus::utility::getAllProperties(
         service, dimmPath, "xyz.openbmc_project.Memory.MemoryECC",
         std::bind_front(afterGetMemoryEccProperties, asyncResp));
+
+    dbus::utility::getProperty<uint16_t>(
+        service, dimmPath, "xyz.openbmc_project.Inventory.Item.Memory",
+        "MemoryConfiguredSpeedInMhz",
+        [asyncResp](const boost::system::error_code& ec2,
+                    const uint16_t speed) {
+            if (ec2)
+            {
+                if (ec2.value() != EBADR &&
+                    ec2 != boost::system::errc::io_error)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBus error on GetProperty for MemoryConfiguredSpeedInMhz: {}",
+                        ec2.message());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            asyncResp->res.jsonValue["OperatingSpeedMHz"] = speed;
+        });
 }
 
 inline void afterGetValidDimmPathForMetrics(
