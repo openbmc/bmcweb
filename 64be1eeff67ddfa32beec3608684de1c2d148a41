@@ -94,6 +94,30 @@
       },
       "revId": "64be1eeff67ddfa32beec3608684de1c2d148a41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2634d45c_25d82e3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-04-22T09:38:50Z",
+      "side": 1,
+      "message": "Hi @ed@tanous.net RuleParameterTraits bundles HTTP-specific methods (methods(), notFound(), etc.) with privilege configuration. Non-HTTP connection types like SseSocketRule and WebSocketRule inherit only BaseRule and cannot configure privileges without pulling in all that HTTP-specific logic. By extracting privileges into PrivilegeParameterTraits, these types can inherit just the privilege API — e.g., class SseSocketRule : public BaseRule, public PrivilegeParameterTraits\u003cSseSocketRule\u003e — without unrelated HTTP routing methods. RuleParameterTraits itself then inherits PrivilegeParameterTraits to preserve existing behavior.",
+      "parentUuid": "69d15604_dfaa70f9",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "64be1eeff67ddfa32beec3608684de1c2d148a41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
