@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74dc2a38_944d7cb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-22T00:01:07Z",
+      "side": 1,
+      "message": "Done. CapacityMiB is existing bmcweb behavior (MemorySizeInKB \u003e\u003e 10 at memory.hpp:478, untouched by this patch). Removed it from the property list together with ErrorCorrection which is also existing behavior. The commit message now lists only properties newly enabled by this patch: MemoryDeviceType, MemoryType, and Location/PartLocation/LocationType.\n\nSee PS6:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87974/6//COMMIT_MSG#19",
+      "parentUuid": "3624e1af_8d382fc3",
+      "revId": "7505b87c721bc2dbd88c8fa967847943ed18dc55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7828ce0c_88a0d732",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99ca4efe_c57bcaec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-22T00:01:07Z",
+      "side": 1,
+      "message": "Done. Updated docs/Redfish.md Memory section to list the three new properties: Location/PartLocation/LocationType, MemoryDeviceType, and MemoryType.\n\nSee PS6:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87974/6/docs/Redfish.md#1071",
+      "parentUuid": "7828ce0c_88a0d732",
+      "revId": "7505b87c721bc2dbd88c8fa967847943ed18dc55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7b78e45_e57f2912",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-04-15T04:26:59Z",
       "side": 1,
       "message": "Please add the list of all the patches needed to build nvl32-obmc working image.",
+      "revId": "7505b87c721bc2dbd88c8fa967847943ed18dc55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b87fa35_06d4897c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-22T00:01:07Z",
+      "side": 1,
+      "message": "Done. Expanded the Tested section with the full dependency chain: phosphor-dbus-interfaces 89182 (Item.Memory PDI), dbus-sensors chain 86946 + 87166 + 87975, mctpd configuration 87390, upstream Device Tree, upstream U-Boot.\n\nSee PS6:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87974/6//COMMIT_MSG#46",
+      "parentUuid": "f7b78e45_e57f2912",
       "revId": "7505b87c721bc2dbd88c8fa967847943ed18dc55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
