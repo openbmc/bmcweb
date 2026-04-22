@@ -1085,6 +1085,7 @@ functions the same like the default implementation under the System resource.
 
 - LifeTime/CorrectableECCErrorCount
 - LifeTime/UncorrectableECCErrorCount
+- OperatingSpeedMHz
 
 ### /redfish/v1/Systems/system/PCIeDevices/
 
