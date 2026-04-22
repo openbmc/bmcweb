@@ -22,6 +22,30 @@
       },
       "revId": "1e125f392f732e18d9895a06afa8b75fe9bf56e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "527a3170_421cc10d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-04-22T07:41:16Z",
+      "side": 1,
+      "message": "The assumption that progress updates are frequent enough to keep the Task alive doesn’t always hold in practice.\n\nOn some systems, crashdump execution can have long blocking phases where no intermediate progress updates are emitted for several minutes. During these periods, the Task timer is not reset, which leads to the Task being marked as timed out even though the crashdump is still actively running.\n\nSo the issue here isn’t strictly the percentage granularity, but the lack of periodic updates during certain stages of crashdump collection.\n\nIdeally, crashdump should provide more consistent progress updates, but that would require changes in a different component. This change is intended as a pragmatic fix to prevent premature Task timeouts and ensure long-running crashdumps can complete and report correctly.",
+      "parentUuid": "26b4c261_3909f84b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 42
+      },
+      "revId": "1e125f392f732e18d9895a06afa8b75fe9bf56e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
