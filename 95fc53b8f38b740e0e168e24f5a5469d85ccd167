@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c121e04a_a49087b3",
+        "filename": "include/ossl_test_memory.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-22T16:45:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5023b5e3_1466433d",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f1fb4a7_460cbd46",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-22T10:48:20Z",
       "side": 1,
       "message": "SPDX header comments missing, please add.",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03bb85d9_7e6d7f9e",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-22T16:45:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f1fb4a7_460cbd46",
       "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "acf57581_15d91bac",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-22T16:45:25Z",
+      "side": 1,
+      "message": "I moved the code to be common and moved the error into this constructor.  Not sure what else we want to do here.  PTAL.",
+      "parentUuid": "2c988966_33bb065c",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50760452_fac553aa",
         "filename": "include/ossl_wrappers.hpp",
         "patchSetId": 35
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-22T10:48:20Z",
       "side": 1,
       "message": "Please consider using ASN1_STRING_get0_data and ASN1_STRING_length instead of direct field access: https://openssl-library.org/post/2026-04-13-asn1_string/index.html",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "647a2bda_8dca10ff",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-22T16:45:25Z",
+      "side": 1,
+      "message": "Updated to use the helpers.",
+      "parentUuid": "50760452_fac553aa",
       "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62fb7fa9_3f558e68",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-22T16:45:25Z",
+      "side": 1,
+      "message": "Yes, they should.  Fixed and added constructor.",
+      "parentUuid": "2acaf02a_a785eebb",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05f6a34c_c1ac60d3",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-22T10:48:20Z",
       "side": 1,
       "message": "I don\u0027t see it\u0027s called from anywhere. Should it be removed?",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "393ceaed_797e0379",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-22T16:45:25Z",
+      "side": 1,
+      "message": "Yes, it should.  Removed.",
+      "parentUuid": "05f6a34c_c1ac60d3",
       "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -122,6 +230,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec044127_6d9b2d7b",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-22T16:45:25Z",
+      "side": 1,
+      "message": "It should be, but I don\u0027t have time this moment, so this was the best rebase I could do.  I believe this is now only used in a method you wrote recently in init below.  Is that something you could stack a patch to do?",
+      "parentUuid": "a463da10_75e99c5e",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c73b1397_23efd1c1",
         "filename": "test/http/mutual_tls.cpp",
         "patchSetId": 35
@@ -133,6 +259,24 @@
       "writtenOn": "2026-04-22T10:48:20Z",
       "side": 1,
       "message": "Originally, this test tested ASN1_OCTET_STRING (i.e. NonUTF8 as the name of the test suggests). Should the test name be changed? Do we want to use ASN1_OCTET_STRING anywhere?",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4516b565_e904b7fa",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-22T16:45:25Z",
+      "side": 1,
+      "message": "I was going to ask you about this, do we have an actual use case where we expect to see an octet string encoded certificate?\n\nI\u0027m open to this change, but I don\u0027t have time for it this moment.  Something you could stack a patch to do?",
+      "parentUuid": "c73b1397_23efd1c1",
       "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
