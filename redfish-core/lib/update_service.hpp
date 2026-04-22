@@ -237,7 +237,8 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
 
         // if we're getting status updates it's
         // still alive, update timer
-        taskData->extendTimer(std::chrono::minutes(5));
+        taskData->extendTimer(std::chrono::seconds(
+            BMCWEB_REDFISH_UPDATE_SERVICE_TIMEOUT_SECONDS));
     }
 
     // as firmware update often results in a
@@ -256,7 +257,8 @@ inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "type='signal',interface='org.freedesktop.DBus.Properties',"
         "member='PropertiesChanged',path='" +
             objPath.str + "'");
-    task->startTimer(std::chrono::minutes(5));
+    task->startTimer(
+        std::chrono::seconds(BMCWEB_REDFISH_UPDATE_SERVICE_TIMEOUT_SECONDS));
     task->payload.emplace(std::move(payload));
     task->populateResp(asyncResp->res);
 }

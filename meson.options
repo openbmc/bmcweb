@@ -394,6 +394,16 @@ option(
                     recommends using MultiPartUpdate.''',
 )
 
+# BMCWEB_REDFISH_UPDATE_SERVICE_TIMEOUT_SECONDS
+option(
+    'redfish-update-service-timeout-seconds',
+    type: 'integer',
+    min: 10,
+    max: 1200,
+    value: 300,
+    description: 'Specifies the update service timeout value in seconds.',
+)
+
 
 option(
     'https_port',
