@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "353f4ae5_b831c02f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-22T00:16:02Z",
+      "side": 1,
+      "message": "We don\u0027t already have an association here?",
+      "parentUuid": "21b2e318_f51d5130",
+      "range": {
+        "startLine": 238,
+        "startChar": 63,
+        "endLine": 238,
+        "endChar": 70
+      },
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "629bbb14_bdf64458",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 2
