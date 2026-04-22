@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84fcaa4f_bff2d823",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-22T15:12:48Z",
+      "side": 1,
+      "message": "From my POV (and my teammates), it\u0027s not critical CVE indeed. Realistically, an attacker should have access to a trusted authority in order to be able to issue trusted certificate. A company might have multiple brands/domains (like macys.com and bloomingdales.com), should they use separated infra, while using the same certificate authority, an attacker may issue root@com certificate to access both of the realms.",
+      "parentUuid": "dc856517_95dc12ec",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 70
+      },
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "315e68d5_800f5940",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -169,6 +193,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4aa4d113_4be8ead9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-22T15:12:48Z",
+      "side": 1,
+      "message": "\u003e Isn\u0027t this invalid anyway? \"com\" isn\u0027t a valid domain name?\nTechnically it\u0027s a valid domain. But it\u0027s irrelevant as the code does not do any \"external\" validity checks (like whether the domain name is registered), it treats it as a multi part string with dot as a delimiter.\n\n\u003e to hit this would require the certificate authority to sign a certificate with \"user@com\", right?\nRight.\n\n\u003e Why is that in the openbmc security domain?\nI don\u0027t have good answer on this question. \"user@com\" is not supposed to be valid/acceptable UPN. UPN comes from MS and not IETF standards, and tightly coupled with Active Directory, AD manages a forest of domains within *a company*, and UPN is a user @ one of those domains, so it cannot be user @ TLD. But this is not described by standards (at least I did not find anything about this).\n\nShould bmcweb be responsible for enforcing this, I don\u0027t know. On the one hand I agree that adding lots of checks for corner cases will eventually make the code unnecessarily overcomplicated; OTOH validating user input is a good practice.\n\n\u003e it SHOULDN\u0027T SIGN requests with a hostname that isn\u0027t recognized\nIt does not operate with host names, but domains and several layers of subdomains - it might be structured differently, like BU sales.example.com or region lhr.emea.example.com based scheme, and then users get UPN assigned depending on their level/structure - user@emea.example.com or user@example.com, hostnames follow the same scheme except host1.lhr.emea.example.com, host2.sfo.us-west.example.com. With UPN auth user@example.com will have access to both hosts, while user@emea.example.com only to the host1.lhr.emea.example.com one.\n\nAs I stated above, if company uses the same authority to issue certificates to multiple forest roots, attacker may issue TLD certificate. This change prevents BMCWeb from accepting certs with UPNs for TLDs. This configuration solves the problem of country TLDs like com.au.\n\n\u003e \"user@com.au\" would only be an issue if we\u0027re using a starts_with check, which I don\u0027t believe we are?\n\nDo you mean ends_with?\n\n---------------\n\nLet\u0027s decide whether we want BMCWeb to enforce this in the first place, or we want to leave this on those who manage Certificate authorities.",
+      "parentUuid": "9ab91cdf_7e521f9c",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d92947d_269f8b31",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -216,6 +264,24 @@
       "side": 1,
       "message": "You would submit to the security mailing list, and we\u0027d open a vulnerability report with the diff.",
       "parentUuid": "570151dd_ffaaa123",
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51157713_6255f5c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-22T15:12:48Z",
+      "side": 1,
+      "message": "I\u0027m not in the mailing list lol. Will do this next time. Thank you.",
+      "parentUuid": "9eb8f775_d22bfaf7",
       "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

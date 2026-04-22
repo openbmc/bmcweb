@@ -39,6 +39,30 @@
       },
       "revId": "16dcbac9744153a82221051365b79a80f3b877ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "115bc5e7_d3409755",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-22T15:12:48Z",
+      "side": 1,
+      "message": "I explained the logic of UPN above - it should match hostnames in subdomains of the UPN domain. We cannot use ends_with as we want to ensure that the deepest domain part of the UPN domain also fully matchs, meaning if UPN is user@domain.com, so upn_domain_part is domain.com, it should match host.sub.domain.com, but should not match host.sub.mydomain.com, which would be the case with ends_with.",
+      "parentUuid": "c95e0918_32098bdd",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "16dcbac9744153a82221051365b79a80f3b877ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
