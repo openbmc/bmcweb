@@ -35,6 +35,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c27919_02b71bdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-22T13:06:50Z",
+      "side": 1,
+      "message": "Rebasing.",
+      "parentUuid": "2f4d8490_f613fe9e",
+      "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50db3aa3_fffec3c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-22T13:06:50Z",
+      "side": 1,
+      "message": "Not quite. For example many of these tests test getUPNFromCert, which does not rely only on certificate authority, but also has logic extracting a username, so these tests aimed to test this logic and not certificate authority. I created them before touching the code in the following changes to make sure those change will not introduce regressions.",
+      "parentUuid": "5ae95fd9_1033263f",
+      "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f98f798e_702f727f",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-04-15T19:25:29Z",
       "side": 1,
       "message": "Every one of these asserts is technically a memory leak.\n\nLets use the RAII stuff to avoid that.",
+      "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71150a43_e460a7fb",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-22T13:06:50Z",
+      "side": 1,
+      "message": "Makes sense. Rebasing on top of your change.",
+      "parentUuid": "f98f798e_702f727f",
       "revId": "86b47e4f15746f62d27f169d6c6d2d86720fefb0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
