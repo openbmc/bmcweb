@@ -2178,11 +2178,34 @@ inline void handleAccountDelete(
 
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, username](const boost::system::error_code& ec) {
+        [asyncResp, username](const boost::system::error_code& ec,
+                              sdbusplus::message_t& m) {
             if (ec)
             {
-                messages::resourceNotFound(asyncResp->res, "ManagerAccount",
-                                           username);
+                const sd_bus_error* e = m.get_error();
+
+                if (e == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                const std::string_view em = e->name;
+                if (em == "org.freedesktop.DBus.Error.UnknownObject")
+                {
+                    messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                               username);
+                }
+                else if (em == "xyz.openbmc_project.Common.Error.NotAllowed")
+                {
+                    messages::insufficientPrivilege(asyncResp->res);
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error {}", em);
+                    messages::internalError(asyncResp->res);
+                }
+
                 return;
             }
 
