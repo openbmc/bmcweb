@@ -2298,6 +2298,43 @@ inline void handleAccountGet(
         });
 }
 
+inline void processAfterDeleteUser(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, const boost::system::error_code& ec,
+    const sdbusplus::message_t& msg)
+{
+    if (ec)
+    {
+        const sd_bus_error* dbusError = msg.get_error();
+
+        if (dbusError == nullptr)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string_view errorName = dbusError->name;
+        if (errorName == "org.freedesktop.DBus.Error.UnknownObject")
+        {
+            messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                       username);
+        }
+        else if (errorName == "xyz.openbmc_project.Common.Error.NotAllowed")
+        {
+            messages::resourceCannotBeDeleted(asyncResp->res);
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", errorName);
+            messages::internalError(asyncResp->res);
+        }
+
+        return;
+    }
+
+    messages::accountRemoved(asyncResp->res);
+}
+
 inline void handleAccountDelete(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2320,15 +2357,9 @@ inline void handleAccountDelete(
 
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, username](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                messages::resourceNotFound(asyncResp->res, "ManagerAccount",
-                                           username);
-                return;
-            }
-
-            messages::accountRemoved(asyncResp->res);
+        [asyncResp, username](const boost::system::error_code& ec,
+                              sdbusplus::message_t& msg) {
+            processAfterDeleteUser(asyncResp, username, ec, msg);
         },
         "xyz.openbmc_project.User.Manager", userPath,
         "xyz.openbmc_project.Object.Delete", "Delete");
