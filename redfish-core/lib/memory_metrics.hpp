@@ -70,6 +70,24 @@ inline void afterGetMemoryEccProperties(
     }
 }
 
+inline void afterGetMemoryOperatingSpeed(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const uint16_t speed)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBus error on GetProperty for MemoryConfiguredSpeedInMhz: {}",
+                ec.message());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res.jsonValue["OperatingSpeedMHz"] = speed;
+}
+
 inline void afterGetMemoryMetricsSubTree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& memoryId, const boost::system::error_code& ec,
@@ -107,6 +125,11 @@ inline void afterGetMemoryMetricsSubTree(
         dbus::utility::getAllProperties(
             service, objectPath, "xyz.openbmc_project.Memory.MemoryECC",
             std::bind_front(afterGetMemoryEccProperties, asyncResp));
+
+        dbus::utility::getProperty<uint16_t>(
+            service, objectPath, "xyz.openbmc_project.Inventory.Item.Dimm",
+            "MemoryConfiguredSpeedInMhz",
+            std::bind_front(afterGetMemoryOperatingSpeed, asyncResp));
         return;
     }
 
@@ -178,8 +201,9 @@ inline void handleMemoryMetricsGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} Memory Metrics", memoryId);
 
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Memory.MemoryECC"};
+    constexpr std::array<std::string_view, 2> interfaces = {
+        "xyz.openbmc_project.Memory.MemoryECC",
+        "xyz.openbmc_project.Inventory.Item.Dimm"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         std::bind_front(afterGetMemoryMetricsSubTree, asyncResp, memoryId));
