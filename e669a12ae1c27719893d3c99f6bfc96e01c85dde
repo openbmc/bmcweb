@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01a2f29_91a04d4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-22T00:08:05Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/issues/283 is closed, we think it should be reopened ?",
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4d7c578_f0057daf",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-22T00:08:05Z",
+      "side": 1,
+      "message": "So this doesn\u0027t work because the path is like \n/xyz/openbmc_project/inventory/system/chassis/fan0 ?\n\nAnd the service is entity manager?  So we instead want to look at the sensor (not inventory) for the health of the sensor?",
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21b2e318_f51d5130",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-22T00:08:05Z",
+      "side": 1,
+      "message": "isn\u0027t this a bad assumption? The inventory name matches the sensor name? \nWhat about fans with multiple rotors?",
+      "range": {
+        "startLine": 238,
+        "startChar": 63,
+        "endLine": 238,
+        "endChar": 70
+      },
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "629bbb14_bdf64458",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-22T00:08:05Z",
+      "side": 1,
+      "message": "Too many indents here, needs to be its own function.",
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
