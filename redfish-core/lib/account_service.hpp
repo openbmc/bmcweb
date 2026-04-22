@@ -2172,6 +2172,14 @@ inline void handleAccountDelete(
         messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
         return;
     }
+
+    // Do not allow the removal of the own user
+    if (username == req.session->username)
+    {
+        messages::insufficientPrivilege(asyncResp->res);
+        return;
+    }
+
     sdbusplus::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
