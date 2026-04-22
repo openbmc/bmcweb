@@ -179,8 +179,8 @@ inline void startDramAssociationProbe(
         "xyz.openbmc_project.Memory.MemoryECC"};
 
     dbus::utility::getAssociatedSubTree(
-        sdbusplus::message::object_path(processorPath) / "containing",
-        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        sdbusplus::object_path(processorPath) / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
         memoryInterfaces, std::bind_front(afterGetDramAssociation, acc));
 }
 
@@ -221,6 +221,38 @@ inline void afterGetSramEccProperties(
     acc->hasAnyEcc = true;
 
     startDramAssociationProbe(acc, processorPath);
+}
+
+inline void afterGetProcessorObjectForMemorySummary(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& processorPath,
+    const dbus::utility::MapperServiceMap& serviceMap)
+{
+    if (serviceMap.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "Processor", processorId);
+        return;
+    }
+
+    auto acc = std::make_shared<ProcessorMemorySummaryAccumulator>(asyncResp);
+
+    // Iterate to find the service that exposes MemoryECC. If none does,
+    // fall through to the DRAM-only probe (processor present but without
+    // SRAM ECC).
+    const auto svcIt = std::ranges::find_if(serviceMap, [](const auto& kv) {
+        return std::ranges::find(kv.second,
+                                 "xyz.openbmc_project.Memory.MemoryECC") !=
+               kv.second.end();
+    });
+    if (svcIt == serviceMap.end())
+    {
+        startDramAssociationProbe(acc, processorPath);
+        return;
+    }
+
+    dbus::utility::getAllProperties(
+        svcIt->first, processorPath, "xyz.openbmc_project.Memory.MemoryECC",
+        std::bind_front(afterGetSramEccProperties, acc, processorPath));
 }
 
 inline void handleProcessorMemorySummaryMetricsHead(
@@ -269,42 +301,9 @@ inline void handleProcessorMemorySummaryMetricsGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} Memory Summary Metrics", processorId);
 
-    getProcessorObject(
-        asyncResp, processorId,
-        [asyncResp,
-         processorId](const std::string& processorPath,
-                      const dbus::utility::MapperServiceMap& serviceMap) {
-            if (serviceMap.empty())
-            {
-                messages::resourceNotFound(asyncResp->res, "Processor",
-                                           processorId);
-                return;
-            }
-
-            auto acc =
-                std::make_shared<ProcessorMemorySummaryAccumulator>(asyncResp);
-
-            // Iterate to find the service that exposes MemoryECC. If none
-            // does, fall through to the DRAM-only probe (processor present
-            // but without SRAM ECC).
-            const auto svcIt =
-                std::ranges::find_if(serviceMap, [](const auto& kv) {
-                    return std::ranges::find(
-                               kv.second,
-                               "xyz.openbmc_project.Memory.MemoryECC") !=
-                           kv.second.end();
-                });
-            if (svcIt == serviceMap.end())
-            {
-                startDramAssociationProbe(acc, processorPath);
-                return;
-            }
-
-            dbus::utility::getAllProperties(
-                svcIt->first, processorPath,
-                "xyz.openbmc_project.Memory.MemoryECC",
-                std::bind_front(afterGetSramEccProperties, acc, processorPath));
-        });
+    getProcessorObject(asyncResp, processorId,
+                       std::bind_front(afterGetProcessorObjectForMemorySummary,
+                                       asyncResp, processorId));
 }
 
 inline void requestRoutesProcessorMemorySummaryMetrics(App& app)
