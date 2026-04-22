@@ -1,0 +1,58 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dde328b6_67cf4263",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-22T12:18:36Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0134973e_bbfd9af3",
+      "revId": "e5deff33afd29f774672ffcfabe589e1ba3ef314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d5a05e_1fd4eef5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-22T12:18:36Z",
+      "side": 1,
+      "message": "Done. Aggregation behavior changed as follows:\n\nBefore:\n  TotalMemorySizeMiB is written only when ALL endpoints succeed\n  (endpointsFound \u0026\u0026 allSuccess). A single EBADR/io_error hides the\n  whole property.\n\nAfter:\n  TotalMemorySizeMiB is written when AT LEAST ONE endpoint is\n  successfully aggregated. Endpoints returning EBADR or io_error are\n  logged at debug level and skipped; any other D-Bus error sets\n  hasError and results in messages::internalError.\n\nImplementation:\n  1. Removed allSuccess entirely.\n  2. Moved acc-\u003eendpointsFound \u003d true from the association callback\n     into the success path of afterGetMemorySize.\n  3. Destructor condition reduced to `if (endpointsFound)`.\n\nSee PS10:\n  - gate:            https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88035/10/redfish-core/lib/processor.hpp#836\n  - endpointsFound:  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88035/10/redfish-core/lib/processor.hpp#875",
+      "parentUuid": "a0c996c6_17ec638f",
+      "revId": "e5deff33afd29f774672ffcfabe589e1ba3ef314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b347a8_040d4e87",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-22T12:18:36Z",
+      "side": 1,
+      "message": "Done. Switched to getAssociatedSubTree and removed afterGetMemoryService; the service map from the mapper is now used directly, avoiding the per-endpoint getDbusObject calls.\n\nSee PS10: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88035/10/redfish-core/lib/processor.hpp#942",
+      "parentUuid": "80017ab2_28d8870a",
+      "revId": "e5deff33afd29f774672ffcfabe589e1ba3ef314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
