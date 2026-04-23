@@ -16,6 +16,7 @@
 #include "logging.hpp"
 #include "mutual_tls.hpp"
 #include "sessions.hpp"
+#include "ssl_context_factory.hpp"
 #include "str_utility.hpp"
 #include "utility.hpp"
 

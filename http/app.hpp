@@ -183,13 +183,13 @@ class App
         return acceptors;
     }
 
-    void run()
+    void run(bmcweb::ISslContextFactory* sslContextFactoryPtr = nullptr)
     {
         validate();
 
         std::vector<Acceptor> acceptors = setupSocket();
 
-        server.emplace(this, std::move(acceptors));
+        server.emplace(this, std::move(acceptors), sslContextFactoryPtr);
         server->run();
     }
 
