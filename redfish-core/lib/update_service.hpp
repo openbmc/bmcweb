@@ -1102,6 +1102,12 @@ inline void updateMultipartContext(
 inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const crow::Request& req)
 {
+    if (req.body().empty())
+    {
+        BMCWEB_LOG_ERROR("Upload data is NULL");
+        messages::propertyMissing(asyncResp->res, "UpdateFile");
+        return;
+    }
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
         task::Payload payload(req);
