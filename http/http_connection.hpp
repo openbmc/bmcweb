@@ -16,6 +16,7 @@
 #include "logging.hpp"
 #include "mutual_tls.hpp"
 #include "sessions.hpp"
+#include "ssl_context_factory.hpp"
 #include "str_utility.hpp"
 #include "utility.hpp"
 
@@ -85,9 +86,11 @@ class Connection :
     Connection(Handler* handlerIn, HttpType httpTypeIn,
                boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
-               boost::asio::ssl::stream<Adaptor>&& adaptorIn) :
+               boost::asio::ssl::stream<Adaptor>&& adaptorIn,
+               bmcweb::ISslContextFactory* sslContextFactoryIn = nullptr) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)), handler(handlerIn),
-        timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF)
+        timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF),
+        sslContextFactory(sslContextFactoryIn)
     {
         initParser();
 
@@ -977,6 +980,8 @@ class Connection :
     bool timerStarted = false;
 
     std::function<std::string()>& getCachedDateStr;
+
+    bmcweb::ISslContextFactory* sslContextFactory{nullptr};
 
     using std::enable_shared_from_this<
         Connection<Adaptor, Handler>>::shared_from_this;
