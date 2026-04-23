@@ -5,6 +5,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/drive.hpp"
 #include "generated/enums/protocol.hpp"
@@ -13,9 +14,126 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
+
+#include <boost/url/format.hpp>
+#include <sdbusplus/message/native_types.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 namespace redfish
 {
+
+/**
+ * @brief Follow the /state association from an inventory path to find
+ *        the State.Drive object and inject Actions and state into the
+ *        Drive GET response.
+ *
+ * The association tuple ("inventory", "state", <inventory path>) is
+ * published by phosphor-drive-state-manager.  ObjectMapper creates
+ * the reverse endpoint at <inventory path>/state pointing to the
+ * state object.  If the endpoint does not exist, Actions are omitted
+ * and the existing drive response is unchanged.
+ */
+inline void addDriveStateAndActions(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& inventoryPath, const std::string& driveId)
+{
+    dbus::utility::getAssociationEndPoints(
+        inventoryPath + "/state",
+        [asyncResp,
+         driveId](const boost::system::error_code& ec,
+                  const dbus::utility::MapperEndPoints& stateEndpoints) {
+            if (ec || stateEndpoints.empty())
+            {
+                // No state object; this drive has no power control.
+                return;
+            }
+
+            const std::string& statePath = stateEndpoints[0];
+
+            // Look up the service that owns the state object
+            constexpr std::array<std::string_view, 1> stateInterfaces = {
+                "xyz.openbmc_project.State.Drive"};
+            dbus::utility::getDbusObject(
+                statePath, stateInterfaces,
+                [asyncResp, driveId,
+                 statePath](const boost::system::error_code& ec2,
+                            const dbus::utility::MapperGetObject& object) {
+                    if (ec2 || object.empty())
+                    {
+                        return;
+                    }
+
+                    const std::string& service = object.begin()->first;
+
+                    // Inject Actions
+                    asyncResp->res.jsonValue["Actions"]["#Drive.Reset"]
+                                            ["target"] = boost::urls::format(
+                        "/redfish/v1/Systems/{}/Storage/1/Drives/{}/Actions/Drive.Reset",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
+                    asyncResp->res
+                        .jsonValue["Actions"]["#Drive.Reset"]
+                                  ["@Redfish.ActionInfo"] = boost::urls::format(
+                        "/redfish/v1/Systems/{}/Storage/1/Drives/{}/ResetActionInfo",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
+
+                    // Read state properties from the state object
+                    dbus::utility::getAllProperties(
+                        service, statePath, "xyz.openbmc_project.State.Drive",
+                        [asyncResp](const boost::system::error_code& ec3,
+                                    const dbus::utility::DBusPropertiesMap&
+                                        properties) {
+                            if (ec3)
+                            {
+                                return;
+                            }
+
+                            const std::string* currentState = nullptr;
+                            const bool* rebuilding = nullptr;
+
+                            const bool success =
+                                sdbusplus::unpackPropertiesNoThrow(
+                                    dbus_utils::UnpackErrorPrinter(),
+                                    properties, "CurrentDriveState",
+                                    currentState, "Rebuilding", rebuilding);
+
+                            if (!success)
+                            {
+                                return;
+                            }
+
+                            // Rebuilding takes priority over
+                            // CurrentDriveState because it represents an
+                            // active operation.
+                            if (rebuilding != nullptr && *rebuilding)
+                            {
+                                asyncResp->res.jsonValue["Status"]["State"] =
+                                    resource::State::Updating;
+                                return;
+                            }
+
+                            if (currentState != nullptr)
+                            {
+                                if (*currentState ==
+                                    "xyz.openbmc_project.State.Drive.DriveState.Offline")
+                                {
+                                    asyncResp->res
+                                        .jsonValue["Status"]["State"] =
+                                        resource::State::StandbyOffline;
+                                }
+                                else if (
+                                    *currentState ==
+                                    "xyz.openbmc_project.State.Drive.DriveState.UpdateInProgress")
+                                {
+                                    asyncResp->res
+                                        .jsonValue["Status"]["State"] =
+                                        resource::State::Updating;
+                                }
+                            }
+                        });
+                });
+        });
+}
 
 inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& connectionName,
@@ -359,6 +477,10 @@ inline void afterGetSubtreeSystemsStorageDrive(
 
     addAllDriveInfo(asyncResp, connectionNames[0].first, path,
                     connectionNames[0].second);
+
+    // Follow the /state association to inject Actions if a state
+    // manager is running for this drive.
+    addDriveStateAndActions(asyncResp, path, driveId);
 }
 
 inline void afterChassisDriveCollectionSubtreeGet(
