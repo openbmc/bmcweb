@@ -41,13 +41,15 @@ class Server
     using self_t = Server<Handler, Adaptor>;
 
   public:
-    Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn) :
+    Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn,
+           std::function<std::shared_ptr<boost::asio::ssl::context>()>
+               contextFactory = ensuressl::getSslServerContext) :
         getCachedDateStr(std::bind_front(&self_t::getCachedDateStrImpl, this)),
         acceptors(std::move(acceptorsIn)),
         // NOLINTNEXTLINE(misc-include-cleaner)
-        signals(getIoContext(), SIGINT, SIGTERM, SIGHUP), handler(handlerIn)
+        signals(getIoContext(), SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
+        sslContextFactory(std::move(contextFactory))
     {}
-
     std::string getCachedDateStrImpl()
     {
         std::chrono::steady_clock::time_point now =
@@ -86,7 +88,11 @@ class Server
             return;
         }
 
-        adaptorCtx = ensuressl::getSslServerContext();
+        // Use the factory function to create SSL context
+        if (sslContextFactory)
+        {
+            adaptorCtx = sslContextFactory();
+        }
     }
 
     void startAsyncWaitForSignal()
@@ -170,5 +176,7 @@ class Server
     Handler* handler;
 
     std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
+    std::function<std::shared_ptr<boost::asio::ssl::context>()>
+        sslContextFactory;
 };
 } // namespace crow
