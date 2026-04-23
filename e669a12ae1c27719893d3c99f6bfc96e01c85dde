@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff04bb89_e1405f10",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001381
+      },
+      "writtenOn": "2026-04-23T19:42:08Z",
+      "side": 1,
+      "message": "I believe it was closed due to being unable to reproduce, but I was able to reproduce it. I could post on the issue the steps to reproduce.",
+      "parentUuid": "a01a2f29_91a04d4b",
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "abff9e46_9c6e23a6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-22T19:20:23Z",
       "side": 1,
       "message": "Is this a general problem with all models using entity-manager or isolated to this particular model?",
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e19a1b_6635ade5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001381
+      },
+      "writtenOn": "2026-04-23T19:42:08Z",
+      "side": 1,
+      "message": "I believe it is general. Entity-manager never registers OperationalStatus on fan inventory objects. Any board whose fan inventory comes from entity-manager would hit this.",
+      "parentUuid": "abff9e46_9c6e23a6",
       "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f82a9684_5e4ed3be",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001381
+      },
+      "writtenOn": "2026-04-23T19:42:08Z",
+      "side": 1,
+      "message": "Yes, exactly. The fan inventory object is owned by entity-manager, which registers xyz.openbmc_project.Inventory.Item.Fan on it but not xyz.openbmc_project.State.Decorator.OperationalStatus. Functional for a fan is owned by dbus-sensors FanSensor on the tach sensor object at /xyz/openbmc_project/sensors/fan_tach/\u003cname\u003e, where the read state machine flips Functional to false after the configured number of consecutive read failures (default 5). On EBADR we fall over to that source of truth.",
+      "parentUuid": "c4d7c578_f0057daf",
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1798f07_c078e583",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 2
@@ -65,6 +119,30 @@
       "writtenOn": "2026-04-22T19:20:23Z",
       "side": 1,
       "message": "The PDI for this property indicates if this property is implemented it will indicate the state of the resource.[1] I did not find any documentation indicating the property could be implemented by a different object that should be checked instead. Is this documented somewhere?\n\n[1] https://github.com/openbmc/phosphor-dbus-interfaces/blob/a12cc29365efc814fab77677d101f5cfa51d892b/yaml/xyz/openbmc_project/State/Decorator/OperationalStatus.interface.yaml#L2",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 2
+      },
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13a89d42_ec80fa8e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001381
+      },
+      "writtenOn": "2026-04-23T19:42:08Z",
+      "side": 1,
+      "message": "You\u0027re right that the OperationalStatus PDI itself doesn\u0027t describe reading the property from a different object. The piece I\u0027m leaning on is sensor-architecture.md \"Association Type #2\", which says the inventory→sensors association lets a consumer get the low-level hardware item\u0027s Functional state from its sensors. That\u0027s the path the fallback would walk. I can make that explicit in the commit message.\n\n[1] https://github.com/openbmc/docs/blob/master/architecture/sensor-architecture.md#association-type-2-linking-a-low-level-hardware-item-to-its-sensors",
+      "parentUuid": "a1798f07_c078e583",
       "range": {
         "startLine": 210,
         "startChar": 0,
@@ -100,6 +178,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29384d8c_a6a51772",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1001381
+      },
+      "writtenOn": "2026-04-23T19:42:08Z",
+      "side": 1,
+      "message": "I think both are probably useful: bmcweb walking the association keeps it working for any platform where the tach is the real source of truth, and entity-manager mirroring Functional onto the fan inventory helps consumers other than bmcweb.",
+      "parentUuid": "3611116f_d646ee10",
+      "range": {
+        "startLine": 224,
+        "startChar": 39,
+        "endLine": 225,
+        "endChar": 66
+      },
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "958fb49f_501f5f86",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 2
@@ -111,6 +213,30 @@
       "writtenOn": "2026-04-22T19:20:23Z",
       "side": 1,
       "message": "We have code that supports other fan types paths than just fan_tach, it seems problematic to assume this path.[1]\n\n[1] https://github.com/openbmc/bmcweb/blob/bff66f9b658822be3fec688d56efbcef572922c5/redfish-core/include/utils/sensor_utils.hpp#L224",
+      "range": {
+        "startLine": 230,
+        "startChar": 48,
+        "endLine": 230,
+        "endChar": 56
+      },
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fed75ffd_23638065",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001381
+      },
+      "writtenOn": "2026-04-23T19:42:08Z",
+      "side": 1,
+      "message": "Good point. I\u0027ll drop the hardcoded path in the next patchset and use the association walk from the fan\u0027s sensors endpoint instead.",
+      "parentUuid": "958fb49f_501f5f86",
       "range": {
         "startLine": 230,
         "startChar": 48,
@@ -194,6 +320,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "899caa62_f36f5733",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001381
+      },
+      "writtenOn": "2026-04-23T19:42:08Z",
+      "side": 1,
+      "message": "Good points. The plan for the next patchset is to drop the name-match entirely and use the sensors/inventory association via getAssociatedSubTree. For multi-rotor fans it would walk every tach returned, and any Functional\u003dfalse flips Health to Critical.",
+      "parentUuid": "353f4ae5_b831c02f",
+      "range": {
+        "startLine": 238,
+        "startChar": 63,
+        "endLine": 238,
+        "endChar": 70
+      },
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "629bbb14_bdf64458",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 2
@@ -205,6 +355,24 @@
       "writtenOn": "2026-04-22T00:08:05Z",
       "side": 1,
       "message": "Too many indents here, needs to be its own function.",
+      "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "307c06c7_b8a70637",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1001381
+      },
+      "writtenOn": "2026-04-23T19:42:08Z",
+      "side": 1,
+      "message": "Will fix in the next patchset with a helper for the per-sensor read so getFanHealth stays flat.",
+      "parentUuid": "629bbb14_bdf64458",
       "revId": "e669a12ae1c27719893d3c99f6bfc96e01c85dde",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
