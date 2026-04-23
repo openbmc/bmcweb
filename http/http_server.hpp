@@ -8,6 +8,7 @@
 #include "http_connection.hpp"
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
+#include "ssl_context_factory.hpp"
 #include "ssl_key_handler.hpp"
 
 #include <boost/asio/ip/address.hpp>
@@ -41,11 +42,14 @@ class Server
     using self_t = Server<Handler, Adaptor>;
 
   public:
-    Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn) :
+    Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn,
+           bmcweb::ISslContextFactory* factoryPtr = nullptr) :
         acceptors(std::move(acceptorsIn)),
 
         // NOLINTNEXTLINE(misc-include-cleaner)
-        signals(getIoContext(), SIGINT, SIGTERM, SIGHUP), handler(handlerIn)
+        signals(getIoContext(), SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
+        sslContextFactoryPtr(
+            factoryPtr != nullptr ? factoryPtr : &getDefaultFactory())
     {}
 
     void updateDateStr()
@@ -95,7 +99,17 @@ class Server
             return;
         }
 
-        adaptorCtx = ensuressl::getSslServerContext();
+        // Use the factory to create SSL context
+        if (sslContextFactoryPtr != nullptr)
+        {
+            adaptorCtx = sslContextFactoryPtr->createContext();
+        }
+    }
+
+    static bmcweb::ISslContextFactory& getDefaultFactory()
+    {
+        static bmcweb::DefaultSslContextFactory defaultFactory;
+        return defaultFactory;
     }
 
     void startAsyncWaitForSignal()
@@ -145,7 +159,7 @@ class Server
         using ConnectionType = Connection<Adaptor, Handler>;
         auto connection = std::make_shared<ConnectionType>(
             handler, httpType, std::move(timer), getCachedDateStr,
-            std::move(stream));
+            std::move(stream), sslContextFactoryPtr);
 
         boost::asio::post(getIoContext(),
                           [connection] { connection->start(); });
@@ -178,5 +192,6 @@ class Server
     Handler* handler;
 
     std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
+    bmcweb::ISslContextFactory* sslContextFactoryPtr;
 };
 } // namespace crow
