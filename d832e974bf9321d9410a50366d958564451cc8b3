@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed1cfe5_faf2fb19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-04-23T06:11:45Z",
+      "side": 1,
+      "message": "Yes, those patches will get merged upstream soon.",
+      "parentUuid": "b4df68f4_69142dea",
+      "revId": "d832e974bf9321d9410a50366d958564451cc8b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efb71198_62ff7858",
