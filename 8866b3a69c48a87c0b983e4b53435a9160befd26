@@ -16,6 +16,24 @@
       "message": "Can you add some amount of history here?  Was this always broken, or just recently broken?",
       "revId": "8866b3a69c48a87c0b983e4b53435a9160befd26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d953c0ac_11301cec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002038
+      },
+      "writtenOn": "2026-04-23T00:24:46Z",
+      "side": 1,
+      "message": "This seems to have been broken for long time and wasn’t addressed. Adding commit history for visibility.",
+      "parentUuid": "c1e11d6d_ec637914",
+      "revId": "8866b3a69c48a87c0b983e4b53435a9160befd26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
