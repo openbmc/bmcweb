@@ -8,6 +8,7 @@
 #include "http_connection.hpp"
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
+#include "ssl_context_factory.hpp"
 #include "ssl_key_handler.hpp"
 
 #include <boost/asio/ip/address.hpp>
@@ -41,13 +42,15 @@ class Server
     using self_t = Server<Handler, Adaptor>;
 
   public:
-    Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn) :
+    Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn,
+           bmcweb::ISslContextFactory* factoryPtr = nullptr) :
         getCachedDateStr(std::bind_front(&self_t::getCachedDateStrImpl, this)),
         acceptors(std::move(acceptorsIn)),
         // NOLINTNEXTLINE(misc-include-cleaner)
-        signals(getIoContext(), SIGINT, SIGTERM, SIGHUP), handler(handlerIn)
+        signals(getIoContext(), SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
+        sslContextFactoryPtr(
+            factoryPtr != nullptr ? factoryPtr : &getDefaultFactory())
     {}
-
     std::string getCachedDateStrImpl()
     {
         std::chrono::steady_clock::time_point now =
@@ -86,7 +89,17 @@ class Server
             return;
         }
 
-        adaptorCtx = ensuressl::getSslServerContext();
+        // Use the factory to create SSL context
+        if (sslContextFactoryPtr != nullptr)
+        {
+            adaptorCtx = sslContextFactoryPtr->createContext();
+        }
+    }
+
+    static bmcweb::ISslContextFactory& getDefaultFactory()
+    {
+        static bmcweb::DefaultSslContextFactory defaultFactory;
+        return defaultFactory;
     }
 
     void startAsyncWaitForSignal()
@@ -170,5 +183,6 @@ class Server
     Handler* handler;
 
     std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
+    bmcweb::ISslContextFactory* sslContextFactoryPtr;
 };
 } // namespace crow
