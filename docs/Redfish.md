@@ -1320,12 +1320,22 @@ functions the same like the default implementation under the System resource.
 
 - @odata.id
 - @odata.type
+- Actions
+  - #Switch.Reset
+    - target
+    - ResetType@Redfish.AllowableValues
 - Id
 - Name
 - Ports
 - Status
   - Health
   - State
+
+### /redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Actions/Switch.Reset/
+
+#### Switch.Reset
+
+- ResetType
 
 ### /redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/
 
