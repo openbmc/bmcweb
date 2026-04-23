@@ -183,13 +183,14 @@ class App
         return acceptors;
     }
 
-    void run()
+    void run(std::function<std::shared_ptr<boost::asio::ssl::context>()>
+                 contextFactory = ensuressl::getSslServerContext)
     {
         validate();
 
         std::vector<Acceptor> acceptors = setupSocket();
 
-        server.emplace(this, std::move(acceptors));
+        server.emplace(this, std::move(acceptors), std::move(contextFactory));
         server->run();
     }
 
