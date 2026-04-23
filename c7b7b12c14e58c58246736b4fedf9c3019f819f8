@@ -1,0 +1,40 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06c0eee1_2691f1c7",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-23T05:55:53Z",
+      "side": 1,
+      "message": "Done. Added `Metrics` under the Memory section in docs/Redfish.md.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/15/docs/Redfish.md#1073",
+      "parentUuid": "817feb0f_7b41d133",
+      "revId": "c7b7b12c14e58c58246736b4fedf9c3019f819f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eed74bf5_8758a845",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-23T05:55:53Z",
+      "side": 1,
+      "message": "Done. Use getSubTree filtered by xyz.openbmc_project.Memory.MemoryECC to get path and service in one DBus call, then call getAllProperties for the ECC counts. The getMemoryMetricsECCData wrapper was already removed in PS12 and inlined into getAllProperties.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/15/redfish-core/lib/memory_metrics.hpp#182",
+      "parentUuid": "023d2357_8262828f",
+      "revId": "c7b7b12c14e58c58246736b4fedf9c3019f819f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
