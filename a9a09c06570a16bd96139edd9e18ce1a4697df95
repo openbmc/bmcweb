@@ -203,6 +203,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed1f5cfa_cb9d9641",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-24T15:56:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "827629e7_ec2da753",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45f1f7f0_8addbbaf",
@@ -346,6 +370,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66dcdce8_59d87a1a",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-24T15:56:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6569e7f3_6f19b518",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 47
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbdb83a5_0eec4488",
@@ -359,6 +407,24 @@
       "writtenOn": "2026-04-17T18:43:36Z",
       "side": 1,
       "message": "nit, just initialize these to Managers and BMCWEB_REDFISH_MANAGER_URI_NAME\n\nwhich saves you an ELSE",
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4adcdb5d_2142f04c",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-24T15:56:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbdb83a5_0eec4488",
       "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -448,6 +514,24 @@
       "side": 1,
       "message": "Use your best judgement given the intent that we want code coverage even if the options are disabled.  Separating methods is one way to solve this, yes.",
       "parentUuid": "0029c777_ad35e81b",
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a1890cd_67a026e6",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-04-24T15:56:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf0da1a_b40cd32d",
       "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
