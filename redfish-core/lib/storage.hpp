@@ -59,11 +59,24 @@ inline void handleSystemsStorageCollectionGet(
 
     constexpr std::array<std::string_view, 1> interface{
         "xyz.openbmc_project.Inventory.Item.Storage"};
-    collection_util::getCollectionMembers(
-        asyncResp,
-        boost::urls::format("/redfish/v1/Systems/{}/Storage",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
-        interface, "/xyz/openbmc_project/inventory");
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, interface,
+        [asyncResp](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& storageList) {
+            nlohmann::json::array_t members;
+            if (!ec && !storageList.empty())
+            {
+                nlohmann::json::object_t member;
+                member["@odata.id"] =
+                    boost::urls::format("/redfish/v1/Systems/{}/Storage/1",
+                                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                members.emplace_back(std::move(member));
+            }
+            asyncResp->res.jsonValue["Members"] = std::move(members);
+            asyncResp->res.jsonValue["Members@odata.count"] =
+                asyncResp->res.jsonValue["Members"].size();
+        });
 }
 
 inline void handleStorageCollectionGet(
@@ -131,41 +144,27 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
 inline void afterSystemsStorageGetSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& storageId, const boost::system::error_code& ec,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG("requestRoutesStorage DBUS response error");
-        messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
-                                   storageId);
-        return;
-    }
-    auto storage = std::ranges::find_if(
-        subtree,
-        [&storageId](const std::pair<std::string,
-                                     dbus::utility::MapperServiceMap>& object) {
-            return sdbusplus::object_path(object.first).filename() == storageId;
-        });
-    if (storage == subtree.end())
+    if (ec || subtree.empty())
     {
         messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
-                                   storageId);
+                                   "1");
         return;
     }
 
     asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_13_0.Storage";
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Storage/{}",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Storage/1", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["Name"] = "Storage";
-    asyncResp->res.jsonValue["Id"] = storageId;
+    asyncResp->res.jsonValue["Id"] = "1";
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     getDrives(asyncResp);
     asyncResp->res.jsonValue["Controllers"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Storage/{}/Controllers",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId);
+        boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Controllers",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
 }
 
 inline void handleSystemsStorageGet(
@@ -185,11 +184,18 @@ inline void handleSystemsStorageGet(
         return;
     }
 
+    if (storageId != "1")
+    {
+        messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
+                                   storageId);
+        return;
+    }
+
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Storage"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
-        std::bind_front(afterSystemsStorageGetSubtree, asyncResp, storageId));
+        std::bind_front(afterSystemsStorageGetSubtree, asyncResp));
 }
 
 inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
