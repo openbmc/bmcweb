@@ -266,6 +266,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10e97304_6749e03d",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-24T16:30:53Z",
+      "side": 1,
+      "message": "Sure, please check Gunnar\u0027s comments, and I will work on this after you publish updated diff.",
+      "parentUuid": "ec044127_6d9b2d7b",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c73b1397_23efd1c1",
         "filename": "test/http/mutual_tls.cpp",
         "patchSetId": 35
@@ -295,6 +313,24 @@
       "side": 1,
       "message": "I was going to ask you about this, do we have an actual use case where we expect to see an octet string encoded certificate?\n\nI\u0027m open to this change, but I don\u0027t have time for it this moment.  Something you could stack a patch to do?",
       "parentUuid": "c73b1397_23efd1c1",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e4336eb_0164747f",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2026-04-24T16:30:53Z",
+      "side": 1,
+      "message": "Will look into this as well.",
+      "parentUuid": "4516b565_e904b7fa",
       "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
