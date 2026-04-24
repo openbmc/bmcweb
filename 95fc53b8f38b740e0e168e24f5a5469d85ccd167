@@ -302,6 +302,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cca6036c_44665e14",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-24T17:30:43Z",
+      "side": 1,
+      "message": "Update diff was published a few moments ago and I\u0027ve rebased the tree.",
+      "parentUuid": "10e97304_6749e03d",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c73b1397_23efd1c1",
         "filename": "test/http/mutual_tls.cpp",
         "patchSetId": 35
@@ -349,6 +367,24 @@
       "side": 1,
       "message": "Will look into this as well.",
       "parentUuid": "4516b565_e904b7fa",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d052875c_cb90938d",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-24T17:30:43Z",
+      "side": 1,
+      "message": "Thank you.",
+      "parentUuid": "0e4336eb_0164747f",
       "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
