@@ -168,7 +168,7 @@ class Connection :
     {
         if (ec)
         {
-            BMCWEB_LOG_ERROR("Couldn't detect ssl ", ec);
+            BMCWEB_LOG_WARNING("Couldn't detect ssl ", ec);
             return;
         }
         BMCWEB_LOG_DEBUG("{} TLS was detected as {}", logPtr(this), isTls);
@@ -239,7 +239,7 @@ class Connection :
         buffer.consume(bytesParsed);
         if (ec)
         {
-            BMCWEB_LOG_ERROR("{} SSL handshake failed", logPtr(this));
+            BMCWEB_LOG_WARNING("{} SSL handshake failed", logPtr(this));
             return;
         }
         BMCWEB_LOG_DEBUG("{} SSL handshake succeeded", logPtr(this));
