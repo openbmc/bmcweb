@@ -15,6 +15,14 @@ option(
     description: 'Enable Unit tests for bmcweb',
 )
 
+# BMCWEB_FUZZ_TESTS
+option(
+    'fuzz-tests',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Build fuzzing targets''',
+)
+
 # BMCWEB_VM_WEBSOCKET
 option(
     'vm-websocket',
