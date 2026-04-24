@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6b7a044_6592c0b3",
+        "filename": "include/ossl_test_memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-24T00:11:35Z",
+      "side": 1,
+      "message": "#pragma once",
+      "revId": "fe3261d00a2cac70cb8ade24aad544e871a9f3db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ace8be9e_c707e177",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-24T00:11:35Z",
+      "side": 1,
+      "message": "This looks wrong \n\n`name.release()) \u003e 0` ?\n\n```\nsk_GENERAL_NAME_push() (which maps to OPENSSL_sk_push) returns the new total number of elements in the stack on success, and  or a negative value on error (usually failure to allocate memory). \n```",
+      "range": {
+        "startLine": 333,
+        "startChar": 41,
+        "endLine": 333,
+        "endChar": 61
+      },
+      "revId": "fe3261d00a2cac70cb8ade24aad544e871a9f3db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d29c1d1_aeb462a1",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-24T00:11:35Z",
+      "side": 1,
+      "message": "Check for nullptr here?",
+      "revId": "fe3261d00a2cac70cb8ade24aad544e871a9f3db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

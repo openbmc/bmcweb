@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "565253e1_00ef9864",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-24T00:11:35Z",
+      "side": 0,
+      "message": "I don\u0027t see this check any more. Keys that parse but fail EVP_PKEY_check(), now may be accepted?",
+      "revId": "af44b2bdfb586793124a30e3ad6d077446e5f7dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
