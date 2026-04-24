@@ -33,6 +33,24 @@
       "message": "Jae, this patch has been submitted half a dozen times.  Please look into the last several times this has been submitted.   If you\u0027re seeing this timeout, it means your backend service is broken and not sending progress updates.  Fix your backend please.",
       "revId": "b09bb55cbc0faef1af1bbbe06bda911523325cb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67fc1bea_92411507",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001397
+      },
+      "writtenOn": "2026-04-24T22:31:12Z",
+      "side": 1,
+      "message": "Okay, I looked into it and it seems there have been several attempts to change this part. This was actually meant for a customized case that still uses a legacy approach where the service calls a bash script. In that setup, updating progress isn’t very straightforward, which is why I tried to modify it this way. But it looks like the better approach would be to update the script itself so it periodically sets the Progress value using \u0027busctl set-property\u0027 in the script to extend the timeout. Thanks for taking the time to review it and for the helpful suggestion too.",
+      "parentUuid": "cd7813fc_52a4691d",
+      "revId": "b09bb55cbc0faef1af1bbbe06bda911523325cb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
