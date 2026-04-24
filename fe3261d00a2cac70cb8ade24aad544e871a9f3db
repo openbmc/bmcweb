@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5530fa09_413cd4a1",
+        "filename": "include/ossl_test_memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-24T17:14:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6b7a044_6592c0b3",
+      "revId": "fe3261d00a2cac70cb8ade24aad544e871a9f3db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ace8be9e_c707e177",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00d7133a_97b365fb",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-24T17:14:30Z",
+      "side": 1,
+      "message": "Prior to this we had ASSERT_EQ(sk_GENERAL_NAME_push(gens, gen), 1);\n\nWith that said, i\u0027ve changed it.",
+      "parentUuid": "ace8be9e_c707e177",
+      "range": {
+        "startLine": 333,
+        "startChar": 41,
+        "endLine": 333,
+        "endChar": 61
+      },
+      "revId": "fe3261d00a2cac70cb8ade24aad544e871a9f3db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d29c1d1_aeb462a1",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 39
@@ -54,6 +96,24 @@
       "writtenOn": "2026-04-24T00:11:35Z",
       "side": 1,
       "message": "Check for nullptr here?",
+      "revId": "fe3261d00a2cac70cb8ade24aad544e871a9f3db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3595ba8f_179eeca8",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-24T17:14:30Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "7d29c1d1_aeb462a1",
       "revId": "fe3261d00a2cac70cb8ade24aad544e871a9f3db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
