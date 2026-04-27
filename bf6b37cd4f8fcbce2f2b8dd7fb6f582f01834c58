@@ -106,6 +106,24 @@
       "parentUuid": "5c921bc5_7daaeae9",
       "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "376e82e4_49fd50a5",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T15:54:28Z",
+      "side": 1,
+      "message": "I understand the frustration, but I\u0027m not going to hold up patches while we wait for rework on other patches.\n\nFWIW, this patch came from duplication that was added in your previous commit series breaking this stuff out, so I would\u0027ve appreciated you completing the deduplication before moving on to other things, but agreed, goal is to move patches forward, and I\u0027m happy to help.",
+      "parentUuid": "a57872dc_f6e669eb",
+      "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
