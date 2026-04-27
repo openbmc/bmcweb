@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba91186f_200a75ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T15:19:21Z",
+      "side": 1,
+      "message": "Why do we care about early validation here?  I agree with you, we should be rejecting this, but if a backend responds with \"OK\" in response to an empty payload, that backend is broken.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dd6cd06_215f0268",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T15:19:21Z",
+      "side": 1,
+      "message": "Overall I\u0027m not sure why we\u0027re doing this.",
+      "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7ae5d4_ee8659cc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T15:19:21Z",
+      "side": 1,
+      "message": "It\u0027s not \"NULL\", it is empty.",
+      "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4dbdbfa_804dfad5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T15:19:21Z",
+      "side": 1,
+      "message": "This isn\u0027t a property, why are we issuing \"PropertyMissing\"",
+      "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
