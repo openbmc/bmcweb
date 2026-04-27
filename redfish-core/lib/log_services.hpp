@@ -49,6 +49,7 @@
 #include <chrono>
 #include <cstdint>
 #include <filesystem>
+#include <fstream>
 #include <format>
 #include <functional>
 #include <iterator>
@@ -74,6 +75,8 @@ constexpr const char* crashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
 constexpr const char* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
+constexpr const char* cperJsonDir =
+    "/var/lib/phosphor-debug-collector/faultlogs";
 
 enum class DumpCreationProgress
 {
@@ -212,6 +215,119 @@ inline void parseDumpEntryFromDbusObject(
     }
 }
 
+inline void populateFaultLogCperData(nlohmann::json& logEntry,
+                                     const std::string& entryID)
+{
+    if (entryID.empty())
+    {
+        return;
+    }
+
+    std::filesystem::path jsonPath =
+        std::filesystem::path(cperJsonDir) / (entryID + ".json");
+
+    std::ifstream jsonFile(jsonPath);
+    if (!jsonFile.is_open())
+    {
+        BMCWEB_LOG_WARNING("FaultLog decoded CPER JSON not found: {}",
+                           jsonPath.string());
+        return;
+    }
+
+    try
+    {
+        std::string cperJson((std::istreambuf_iterator<char>(jsonFile)),
+                             std::istreambuf_iterator<char>());
+        nlohmann::json cperData =
+            nlohmann::json::parse(cperJson, nullptr, false);
+        if (cperData.is_discarded())
+        {
+            BMCWEB_LOG_ERROR("Failed to parse CPER JSON {}", jsonPath.string());
+            return;
+        }
+        logEntry["DiagnosticDataType"] = "CPER";
+
+        nlohmann::json cperSummary;
+        if (cperData.contains("header") && cperData["header"].is_object())
+        {
+            const nlohmann::json& header = cperData["header"];
+            if (header.contains("severity") && header["severity"].is_object())
+            {
+                const std::string severityName =
+                    header["severity"].value("name", std::string{});
+                if (!severityName.empty())
+                {
+                    cperSummary["Severity"] = severityName;
+                }
+            }
+
+            cperSummary["SectionCount"] = header.value("sectionCount", 0);
+        }
+
+        if (cperData.contains("sectionDescriptors") &&
+            cperData["sectionDescriptors"].is_array() &&
+            cperData.contains("sections") && cperData["sections"].is_array())
+        {
+            const nlohmann::json& sectionDescriptors =
+                cperData["sectionDescriptors"];
+            const nlohmann::json& sections = cperData["sections"];
+            const size_t sectionCount =
+                std::min(sectionDescriptors.size(), sections.size());
+
+            nlohmann::json::array_t sectionArray;
+            for (size_t index = 0; index < sectionCount; ++index)
+            {
+                const nlohmann::json& descriptor = sectionDescriptors[index];
+                const nlohmann::json& section = sections[index];
+                nlohmann::json sectionEntry;
+
+                if (descriptor.is_object())
+                {
+                    if (descriptor.contains("sectionType") &&
+                        descriptor["sectionType"].is_object())
+                    {
+                        const std::string typeName =
+                            descriptor["sectionType"].value("type",
+                                                            std::string{});
+                        sectionEntry["SectionType"] = typeName;
+                        if (typeName == "ARM RAS" && section.is_object() &&
+                            section.contains("ArmRas") &&
+                            section["ArmRas"].is_object())
+                        {
+                            const nlohmann::json& armRas = section["ArmRas"];
+                            if (armRas.contains("userData") &&
+                                armRas["userData"].is_string())
+                            {
+                                sectionEntry["userData"] = armRas["userData"];
+                            }
+                        }
+                    }
+                }
+
+                if (!sectionEntry.empty())
+                {
+                    sectionArray.emplace_back(std::move(sectionEntry));
+                }
+            }
+
+            if (!sectionArray.empty())
+            {
+                cperSummary["Sections"] = std::move(sectionArray);
+            }
+        }
+
+        if (!cperSummary.empty())
+        {
+            logEntry["Oem"]["CPER"] = std::move(cperSummary);
+        }
+    }
+    catch (const std::exception& e)
+    {
+        BMCWEB_LOG_ERROR("Failed to parse CPER JSON {}: {}", jsonPath.string(),
+                         e.what());
+    }
+}
+
 static boost::urls::url getDumpEntriesPath(const std::string& dumpType)
 {
     boost::urls::url entriesPath;
@@ -296,7 +412,7 @@ inline void getDumpEntryCollection(
                 std::string originatorId;
                 log_entry::OriginatorTypes originatorType =
                     log_entry::OriginatorTypes::Internal;
-                nlohmann::json::object_t thisEntry;
+                nlohmann::json thisEntry = nlohmann::json::object();
 
                 std::string entryID = object.first.filename();
                 if (entryID.empty())
@@ -351,6 +467,7 @@ inline void getDumpEntryCollection(
                     thisEntry["AdditionalDataURI"] = boost::urls::format(
                         "{}/{}/attachment", entriesPath, entryID);
                     thisEntry["AdditionalDataSizeBytes"] = size;
+                    populateFaultLogCperData(thisEntry, entryID);
                 }
                 entriesArray.emplace_back(std::move(thisEntry));
             }
@@ -457,6 +574,7 @@ inline void getDumpEntryById(
                         boost::urls::format("{}/{}/attachment", entriesPath,
                                             entryID);
                     asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
+                    populateFaultLogCperData(asyncResp->res.jsonValue, entryID);
                 }
             }
             if (!foundDumpEntry)
