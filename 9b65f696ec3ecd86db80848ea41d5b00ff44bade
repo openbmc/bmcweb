@@ -217,6 +217,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bff2b3d4_330d298b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T15:16:31Z",
+      "side": 1,
+      "message": "\u003e \u003e Isn\u0027t this invalid anyway? \"com\" isn\u0027t a valid domain name?\n\u003e Technically it\u0027s a valid domain. But it\u0027s irrelevant as the code does not do any \"external\" validity checks (like whether the domain name is registered), it treats it as a multi part string with dot as a delimiter.\n\u003e \n\u003e \u003e to hit this would require the certificate authority to sign a certificate with \"user@com\", right?\n\u003e Right.\n\u003e \n\u003e \u003e Why is that in the openbmc security domain?\n\u003e I don\u0027t have good answer on this question. \"user@com\" is not supposed to be valid/acceptable UPN. UPN comes from MS and not IETF standards, and tightly coupled with Active Directory, AD manages a forest of domains within *a company*, and UPN is a user @ one of those domains, so it cannot be user @ TLD. But this is not described by standards (at least I did not find anything about this).\n\u003e \n\u003e Should bmcweb be responsible for enforcing this, I don\u0027t know. On the one hand I agree that adding lots of checks for corner cases will eventually make the code unnecessarily overcomplicated; OTOH validating user input is a good practice.\n\nNo disagreement in general, but if validating user input requires us to add optional things like \"what is the smallest domain name\" configuration parameters that I\u0027m not convinced I could set correctly, that is where I\u0027d like to draw the line.\n\n\u003e \n\u003e \u003e it SHOULDN\u0027T SIGN requests with a hostname that isn\u0027t recognized\n\u003e It does not operate with host names, but domains and several layers of subdomains - it might be structured differently, like BU sales.example.com or region lhr.emea.example.com based scheme, and then users get UPN assigned depending on their level/structure - user@emea.example.com or user@example.com, hostnames follow the same scheme except host1.lhr.emea.example.com, host2.sfo.us-west.example.com. With UPN auth user@example.com will have access to both hosts, while user@emea.example.com only to the host1.lhr.emea.example.com one.\n\u003e \n\u003e As I stated above, if company uses the same authority to issue certificates to multiple forest roots, attacker may issue TLD certificate. This change prevents BMCWeb from accepting certs with UPNs for TLDs. This configuration solves the problem of country TLDs like com.au.\n\u003e \n\u003e \u003e \"user@com.au\" would only be an issue if we\u0027re using a starts_with check, which I don\u0027t believe we are?\n\u003e \n\u003e Do you mean ends_with?\n\nYes\n\n\u003e \n\u003e ---------------\n\u003e \n\u003e Let\u0027s decide whether we want BMCWeb to enforce this in the first place, or we want to leave this on those who manage Certificate authorities.\n\nIf we want to support it here, I\u0027m fine with that, but we need to make sure we\u0027re in the realm of what makes sense to support.  A new option flag isn\u0027t something I would be in support of.\n\nI\u0027ve left a comment where I think the fix should be.",
+      "parentUuid": "4aa4d113_4be8ead9",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d92947d_269f8b31",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
