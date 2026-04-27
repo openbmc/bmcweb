@@ -26,9 +26,6 @@
 extern "C"
 {
 #include <nghttp2/nghttp2.h>
-#include <openssl/asn1.h>
-#include <openssl/ec.h>
-#include <openssl/evp.h>
 #include <openssl/obj_mac.h>
 #include <openssl/ssl.h>
 #include <openssl/tls1.h>
@@ -207,19 +204,12 @@ void regenerateCertificateIfHostnameChanged(const std::string& filepath,
         return;
     }
 
-    const int maxKeySize = 256;
-    std::array<char, maxKeySize> cnBuffer{};
-
-    int cnLength = X509_NAME_get_text_by_NID(
-        X509_get_subject_name(cert->get()), NID_commonName, cnBuffer.data(),
-        cnBuffer.size());
-    if (cnLength == -1)
+    std::string cnValue = cert->getCommonName();
+    if (cnValue.empty())
     {
-        BMCWEB_LOG_ERROR("Failed to read NID_commonName");
+        BMCWEB_LOG_ERROR("Failed to read subject name");
         return;
     }
-    std::string_view cnValue(std::begin(cnBuffer),
-                             static_cast<size_t>(cnLength));
 
     std::optional<OpenSSLEVPKey> pPubKey = cert->getPubKey();
     if (!pPubKey)
@@ -233,10 +223,7 @@ void regenerateCertificateIfHostnameChanged(const std::string& filepath,
         "Current HTTPs Certificate Subject CN: {}, New HostName: {}, isSelfSigned: {}",
         cnValue, hostname, isSelfSigned);
 
-    OpenSSLASN1String asn1(static_cast<ASN1_IA5STRING*>(
-        X509_get_ext_d2i(cert->get(), NID_netscape_comment, nullptr, nullptr)));
-
-    std::string_view comment = asn1.getAsString();
+    std::string comment = cert->getComment();
     BMCWEB_LOG_DEBUG("x509Comment: {}", comment);
 
     if (ensuressl::x509Comment == comment && isSelfSigned == 1 &&
@@ -275,23 +262,16 @@ void writeCertificateToFile(const std::string& filepath,
 static std::string constructX509(const std::string& cn, OpenSSLEVPKey& pPrivKey)
 {
     OpenSSLX509 x509Obj;
-    X509* x509 = x509Obj.get();
 
     // get a random number from the RNG for the certificate serial
     // number If this is not random, regenerating certs throws browser
     // errors
     bmcweb::OpenSSLGenerator gen;
     std::uniform_int_distribution<int> dis(1, std::numeric_limits<int>::max());
-    int serial = dis(gen);
+    x509Obj.setSerialNumber(dis(gen));
 
-    ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
-
-    // not before this moment
-    X509_gmtime_adj(X509_getm_notBefore(x509), 0);
     // Cert is valid for 10 years
-    std::chrono::seconds duration = std::chrono::years(10);
-    X509_gmtime_adj(X509_getm_notAfter(x509),
-                    static_cast<long>(duration.count()));
+    x509Obj.setValidityPeriodFromNow(std::chrono::years(10));
 
     // set the public key to the key we just generated
     if (!x509Obj.setPubkey(pPrivKey))
@@ -299,24 +279,17 @@ static std::string constructX509(const std::string& cn, OpenSSLEVPKey& pPrivKey)
         return "";
     }
 
-    // get the subject name
-    X509_NAME* name = X509_get_subject_name(x509);
+    x509Obj.setCountry("US");
+    x509Obj.setOrganization("OpenBMC");
+    x509Obj.setSubjectName(cn);
 
-    std::array<unsigned char, 2> country = {'U', 'S'};
-    std::array<unsigned char, 8> company = {'O', 'p', 'e', 'n', 'B', 'M', 'C'};
-    const unsigned char* cnPtr = std::bit_cast<const unsigned char*>(cn.data());
-    int cnLength = static_cast<int>(cn.size());
-
-    X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country.data(),
-                               country.size(), -1, 0);
-    X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, company.data(),
-                               company.size(), -1, 0);
-    X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnPtr, cnLength, -1,
-                               0);
     // set the CSR options
-    X509_set_issuer_name(x509, name);
+    if (!x509Obj.setIssuerNameToSubject())
+    {
+        return "";
+    }
 
-    X509_set_version(x509, 2);
+    x509Obj.setVersion(2);
     x509Obj.addExt(NID_basic_constraints, "critical,CA:TRUE");
     std::string subjectAltName = std::format("DNS:{}", cn);
     x509Obj.addExt(NID_subject_alt_name, subjectAltName);
@@ -350,70 +323,10 @@ static std::string constructX509(const std::string& cn, OpenSSLEVPKey& pPrivKey)
     return buffer;
 }
 
-static std::optional<OpenSSLEVPKey> createEcKey()
-{
-    std::optional<OpenSSLEVPKeyCTX> ctx = OpenSSLEVPKeyCTX::newId(EVP_PKEY_EC);
-    if (!ctx)
-    {
-        BMCWEB_LOG_ERROR("Failed new id");
-        return std::nullopt;
-    }
-
-    if (!ctx->paramgenInit())
-    {
-        BMCWEB_LOG_ERROR("Failed to initialize paramgen");
-        return std::nullopt;
-    }
-
-    // Set up curve parameters.
-    if (!ctx->setEcParamEnc(OPENSSL_EC_NAMED_CURVE))
-    {
-        BMCWEB_LOG_ERROR("Failed to set EC parameter encoding");
-        return std::nullopt;
-    }
-
-    if (!ctx->setEcParamGenCurveNid(NID_secp384r1))
-    {
-        BMCWEB_LOG_ERROR("Failed to set EC parameter generation curve NID");
-        return std::nullopt;
-    }
-
-    std::optional<OpenSSLEVPKey> pkey = ctx->paramgen();
-    if (!pkey)
-    {
-        BMCWEB_LOG_ERROR("Failed to generate EC key");
-        return std::nullopt;
-    }
-
-    // Set new context for key generation, using curve parameters.
-    // Don't check here; pkey only has parameters, not a full key yet.
-    ctx = OpenSSLEVPKeyCTX::newFromPkey(*pkey);
-    if (!ctx)
-    {
-        BMCWEB_LOG_ERROR("Failed to create new context for key generation");
-        return std::nullopt;
-    }
-
-    // Generate key.
-    if (!ctx->keygen(*pkey))
-    {
-        BMCWEB_LOG_ERROR("Failed to generate key");
-        return std::nullopt;
-    }
-
-    if (!ctx->check())
-    {
-        BMCWEB_LOG_ERROR("Generated EC key failed validation");
-        return std::nullopt;
-    }
-
-    return pkey;
-}
-
 std::string generateSslCertificate(const std::string& commonName)
 {
     BMCWEB_LOG_INFO("Generating EC key");
-    std::optional<OpenSSLEVPKey> pPrivKey = createEcKey();
+    std::optional<OpenSSLEVPKey> pPrivKey = OpenSSLEVPKeyCTX::createPKey();
     if (!pPrivKey)
     {
         BMCWEB_LOG_ERROR("Failed to create EC key");

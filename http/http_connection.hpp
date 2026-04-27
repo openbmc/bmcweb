@@ -15,6 +15,7 @@
 #include "http_utility.hpp"
 #include "logging.hpp"
 #include "mutual_tls.hpp"
+#include "ossl_wrappers.hpp"
 #include "sessions.hpp"
 #include "str_utility.hpp"
 #include "utility.hpp"
@@ -250,7 +251,9 @@ class Connection :
             BMCWEB_LOG_DEBUG(
                 "{} Establishing mTLS session after handshake, session reused: {}",
                 logPtr(this), SSL_session_reused(adaptor.native_handle()) != 0);
-            mtlsSession = verifyMtlsUser(ip, adaptor.native_handle());
+
+            OpenSSLSSL ssl(adaptor.native_handle());
+            mtlsSession = verifyMtlsUser(ip, ssl);
             if (mtlsSession != nullptr)
             {
                 BMCWEB_LOG_DEBUG("{} Generated TLS session: {}", logPtr(this),
