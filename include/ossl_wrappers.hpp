@@ -6,6 +6,12 @@
 
 #include <boost/asio/ssl/verify_context.hpp>
 
+#include <algorithm>
+#include <array>
+#include <bit>
+#include <cstdint>
+#include <filesystem>
+
 extern "C"
 {
 #include <openssl/asn1.h>
@@ -125,7 +131,6 @@ class OpenSSLX509Extension
     X509_EXTENSION* ptr;
 };
 
-class OpenSSLX509;
 class OpenSSLEVPKeyCTX;
 
 class OpenSSLEVPKey
@@ -187,12 +192,13 @@ class OpenSSLEVPKey
         EVP_PKEY_free(ptr);
     }
 
-  private:
+    // TODO: Remove this, as it's breaking the abstraction
     EVP_PKEY* get() const
     {
         return ptr;
     }
 
+  private:
     OpenSSLEVPKey(EVP_PKEY* ptrIn) : ptr(ptrIn) {}
 
     EVP_PKEY* ptr;
@@ -317,16 +323,6 @@ class OpenSSLGeneralNames
     friend OpenSSLX509;
     OpenSSLGeneralNames() : ptr(GENERAL_NAMES_new()) {}
 
-    static std::optional<OpenSSLGeneralNames> fromExt(X509* cert, int nid)
-    {
-        void* ext = X509_get_ext_d2i(cert, nid, nullptr, nullptr);
-        if (ext == nullptr)
-        {
-            return std::nullopt;
-        }
-        return OpenSSLGeneralNames(static_cast<GENERAL_NAMES*>(ext));
-    }
-
     // This parameter isn't "moved" but it is released, so clang-tidy flags
     // that it shoudln't be an rvalue.  rvalue keeps the API clear that the
     // element has been effectively moved out of even if std::move isn't
@@ -441,6 +437,83 @@ class OpenSSLEVPKeyCTX
         return {OpenSSLEVPKeyCTX(ptr)};
     }
 
+    static std::optional<OpenSSLEVPKeyCTX> newFromPkey(OpenSSLEVPKey& pkey)
+    {
+        EVP_PKEY_CTX* ptr =
+            EVP_PKEY_CTX_new_from_pkey(nullptr, pkey.get(), nullptr);
+        if (ptr == nullptr)
+        {
+            return std::nullopt;
+        }
+        return {OpenSSLEVPKeyCTX(ptr)};
+    }
+
+    static std::optional<OpenSSLEVPKey> createPKey()
+    {
+        std::optional<OpenSSLEVPKeyCTX> ctx = newId(EVP_PKEY_EC);
+        if (!ctx)
+        {
+            BMCWEB_LOG_ERROR("Failed new id");
+            return std::nullopt;
+        }
+
+        if (!ctx->paramgenInit())
+        {
+            BMCWEB_LOG_ERROR("Failed to initialize paramgen");
+            return std::nullopt;
+        }
+
+        // Set up curve parameters.
+        if (!ctx->setEcParamEnc(OPENSSL_EC_NAMED_CURVE))
+        {
+            BMCWEB_LOG_ERROR("Failed to set EC parameter encoding");
+            return std::nullopt;
+        }
+
+        if (!ctx->setEcParamGenCurveNid(NID_secp384r1))
+        {
+            BMCWEB_LOG_ERROR("Failed to set EC parameter generation curve NID");
+            return std::nullopt;
+        }
+
+        std::optional<OpenSSLEVPKey> pkey = ctx->paramgen();
+        if (!pkey)
+        {
+            BMCWEB_LOG_ERROR("Failed to generate EC key");
+            return std::nullopt;
+        }
+
+        // Set new context for key generation, using curve parameters.
+        // Don't check here; pkey only has parameters, not a full key yet.
+        ctx = OpenSSLEVPKeyCTX::newFromPkey(*pkey);
+        if (!ctx)
+        {
+            BMCWEB_LOG_ERROR("Failed to create new context for key generation");
+            return std::nullopt;
+        }
+
+        if (!ctx->keygenInit())
+        {
+            BMCWEB_LOG_ERROR("Failed to initialize keygen");
+            return std::nullopt;
+        }
+
+        // Generate key.
+        if (!ctx->keygen(*pkey))
+        {
+            BMCWEB_LOG_ERROR("Failed to generate key");
+            return std::nullopt;
+        }
+
+        if (!ctx->check())
+        {
+            BMCWEB_LOG_ERROR("Generated EC key failed validation");
+            return std::nullopt;
+        }
+
+        return pkey;
+    }
+
     bool keygenInit()
     {
         return EVP_PKEY_keygen_init(ptr) == 1;
@@ -459,22 +532,6 @@ class OpenSSLEVPKeyCTX
             BMCWEB_LOG_ERROR("Failed to check private key {}", r);
         }
         return r == 1;
-    }
-
-    static std::optional<OpenSSLEVPKeyCTX> newFromPkey(OpenSSLEVPKey& pkey)
-    {
-        EVP_PKEY_CTX* ptr =
-            EVP_PKEY_CTX_new_from_pkey(nullptr, pkey.get(), nullptr);
-        if (ptr == nullptr)
-        {
-            return std::nullopt;
-        }
-        OpenSSLEVPKeyCTX ctx(ptr);
-        if (!ctx.keygenInit())
-        {
-            return std::nullopt;
-        }
-        return {std::move(ctx)};
     }
 
     bool keygen(OpenSSLEVPKey& pkey) const
@@ -517,9 +574,16 @@ class OpenSSLEVPKeyCTX
 };
 
 class OpenSSLX509StoreCTX;
+class OpenSSLSSL;
+class OpenSSLSSLCtx;
 
 class OpenSSLX509
 {
+    friend OpenSSLX509StoreCTX;
+    friend OpenSSLEVPKeyCTX;
+    friend OpenSSLSSLCtx;
+    friend OpenSSLSSL;
+
   private:
     OpenSSLX509(X509* ptrIn) : ptr(ptrIn) {}
 
@@ -558,17 +622,66 @@ class OpenSSLX509
     {
         return PEM_write_bio_X509(bufio.get(), ptr) > 0;
     }
-    void setSubjectName() const
+
+    void setSubjectName(std::string_view cn) const
     {
         X509_NAME* name = X509_get_subject_name(ptr);
-        std::array<unsigned char, 4> user = {'u', 's', 'e', 'r'};
-        X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, user.data(),
-                                   user.size(), -1, 0);
+        const unsigned char* cnPtr =
+            std::bit_cast<const unsigned char*>(cn.data());
+        int cnLength = static_cast<int>(cn.size());
+        X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnPtr, cnLength,
+                                   -1, 0);
+    }
+
+    void setCountry(std::string_view country) const
+    {
+        X509_NAME* name = X509_get_subject_name(ptr);
+        const unsigned char* countryPtr =
+            std::bit_cast<const unsigned char*>(country.data());
+        int countryLength = static_cast<int>(country.size());
+        X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, countryPtr,
+                                   countryLength, -1, 0);
+    }
+
+    void setOrganization(std::string_view organization) const
+    {
+        X509_NAME* name = X509_get_subject_name(ptr);
+        const unsigned char* organizationPtr =
+            std::bit_cast<const unsigned char*>(organization.data());
+        int organizationLength = static_cast<int>(organization.size());
+        X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, organizationPtr,
+                                   organizationLength, -1, 0);
+    }
+
+    bool setIssuerNameToSubject() const
+    {
+        return X509_set_issuer_name(ptr, X509_get_subject_name(ptr)) == 1;
+    }
+
+    void setSerialNumber(long n) const
+    {
+        ASN1_INTEGER_set(X509_get_serialNumber(ptr), n);
+    }
+
+    void setValidityPeriodFromNow(
+        std::chrono::system_clock::duration duration) const
+    {
+        // not before this moment
+        X509_gmtime_adj(X509_getm_notBefore(ptr), 0);
+        using std::chrono::floor;
+        using std::chrono::seconds;
+        seconds durationSeconds = floor<seconds>(duration);
+        X509_gmtime_adj(X509_getm_notAfter(ptr), durationSeconds.count());
     }
 
     bool setPubkey(OpenSSLEVPKey& pkey) const
     {
         return X509_set_pubkey(ptr, pkey.get()) == 1;
+    }
+
+    bool setVersion(int version) const
+    {
+        return X509_set_version(ptr, version) == 1;
     }
 
     bool addAltNameUpns(std::initializer_list<std::string_view> upns) const
@@ -651,6 +764,36 @@ class OpenSSLX509
         return {OpenSSLEVPKey(pkey)};
     }
 
+    std::string getCommonName()
+    {
+        std::string commonName;
+        // Extract username contained in CommonName
+        int commonNameLenMax = 256;
+        commonName.resize(static_cast<size_t>(commonNameLenMax), '\0');
+        int length = X509_NAME_get_text_by_NID(
+            X509_get_subject_name(ptr), NID_commonName, commonName.data(),
+            commonNameLenMax);
+        if (length <= 0)
+        {
+            BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
+            length = 0;
+        }
+        commonName.resize(static_cast<size_t>(length));
+        return commonName;
+    }
+
+    std::string getComment() const
+    {
+        ASN1_STRING* r = static_cast<ASN1_STRING*>(
+            X509_get_ext_d2i(ptr, NID_netscape_comment, nullptr, nullptr));
+        if (r == nullptr)
+        {
+            return "";
+        }
+        OpenSSLASN1String asn1(static_cast<ASN1_IA5STRING*>(r));
+        return std::string(asn1.getAsString());
+    }
+
     int verify(OpenSSLEVPKey& key) const
     {
         return X509_verify(ptr, key.ptr);
@@ -665,7 +808,7 @@ class OpenSSLX509
         return 0;
     }
 
-    std::optional<OpenSSLASN1String> getExt(int nid) const
+    std::optional<OpenSSLASN1String> getExtStr(int nid) const
     {
         ASN1_STRING* out = static_cast<ASN1_STRING*>(
             X509_get_ext_d2i(ptr, nid, nullptr, nullptr));
@@ -674,6 +817,17 @@ class OpenSSLX509
             return std::nullopt;
         }
         return {OpenSSLASN1String(out)};
+    }
+
+    std::optional<OpenSSLGeneralNames> getAltNames() const
+    {
+        GENERAL_NAMES* ext = static_cast<GENERAL_NAMES*>(
+            X509_get_ext_d2i(ptr, NID_subject_alt_name, nullptr, nullptr));
+        if (ext == nullptr)
+        {
+            return std::nullopt;
+        }
+        return {OpenSSLGeneralNames(ext)};
     }
 
     static std::optional<OpenSSLX509> fromPEMData(std::string& data)
@@ -689,6 +843,11 @@ class OpenSSLX509
         return fromBioFile(bufio);
     }
 
+    bool checkPurpose(int purpose) const
+    {
+        return X509_check_purpose(ptr, purpose, 0) == 1;
+    }
+
     static std::optional<OpenSSLX509> fromBioFile(OpenSSLBIO& bufio)
     {
         X509* ptr = PEM_read_bio_X509(bufio.get(), nullptr, nullptr, nullptr);
@@ -699,18 +858,22 @@ class OpenSSLX509
         return {OpenSSLX509(ptr)};
     }
 
+    void release()
+    {
+        ptr = nullptr;
+    }
+
     ~OpenSSLX509()
     {
         X509_free(ptr);
     }
 
-    // TODO: Remove this, as it's breaking the abstraction
+  private:
     X509* get() const
     {
         return ptr;
     }
 
-  private:
     X509* ptr;
 };
 
@@ -718,6 +881,8 @@ class OpenSSLX509Store
 {
   public:
     friend OpenSSLX509StoreCTX;
+    friend OpenSSLSSL;
+    friend OpenSSLSSLCtx;
 
     OpenSSLX509Store() : ptr(X509_STORE_new()) {}
 
@@ -815,4 +980,203 @@ class OpenSSLX509StoreCTX
     }
 
     X509_STORE_CTX* ptr;
+};
+
+class OpenSSLSSLCtx
+{
+  public:
+    friend OpenSSLSSL;
+
+    static OpenSSLSSLCtx createServerCtx()
+    {
+        return OpenSSLSSLCtx(SSL_CTX_new(TLS_server_method()));
+    }
+    static OpenSSLSSLCtx createClientCtx()
+    {
+        return OpenSSLSSLCtx(SSL_CTX_new(TLS_client_method()));
+    }
+
+    OpenSSLSSLCtx(const OpenSSLSSLCtx&) = delete;
+    OpenSSLSSLCtx& operator=(const OpenSSLSSLCtx&) = delete;
+    OpenSSLSSLCtx(OpenSSLSSLCtx&& other) noexcept : ptr(other.ptr)
+    {
+        other.ptr = nullptr;
+    }
+    OpenSSLSSLCtx& operator=(OpenSSLSSLCtx&& other) noexcept
+    {
+        if (this == &other)
+        {
+            return *this;
+        }
+        SSL_CTX_free(ptr);
+        ptr = other.ptr;
+        other.ptr = nullptr;
+        return *this;
+    }
+    ~OpenSSLSSLCtx()
+    {
+        SSL_CTX_free(ptr);
+    }
+
+    bool valid() const
+    {
+        return ptr != nullptr;
+    }
+
+    bool useCertificate(const OpenSSLX509& cert) const
+    {
+        return SSL_CTX_use_certificate(ptr, cert.get()) == 1;
+    }
+
+    bool usePrivateKey(const OpenSSLEVPKey& pkey) const
+    {
+        return SSL_CTX_use_PrivateKey(ptr, pkey.get()) == 1;
+    }
+
+    void setVerifyPeer() const
+    {
+        SSL_CTX_set_verify(ptr, SSL_VERIFY_PEER, nullptr);
+    }
+
+    bool addCertToStore(const OpenSSLX509& cert) const
+    {
+        X509_STORE* store = SSL_CTX_get_cert_store(ptr);
+        if (store == nullptr)
+        {
+            return false;
+        }
+        return X509_STORE_add_cert(store, cert.get()) == 1;
+    }
+
+  private:
+    explicit OpenSSLSSLCtx(SSL_CTX* ptrIn) : ptr(ptrIn) {}
+
+    SSL_CTX* get() const
+    {
+        return ptr;
+    }
+
+    SSL_CTX* ptr;
+};
+
+class OpenSSLSSL
+{
+  public:
+    explicit OpenSSLSSL(const OpenSSLSSLCtx& ctx) : ptr(SSL_new(ctx.get())) {}
+    explicit OpenSSLSSL(SSL* ptrIn) : ptr(ptrIn) {}
+
+    OpenSSLSSL(const OpenSSLSSL&) = delete;
+    OpenSSLSSL& operator=(const OpenSSLSSL&) = delete;
+    OpenSSLSSL(OpenSSLSSL&& other) noexcept : ptr(other.ptr)
+    {
+        other.ptr = nullptr;
+    }
+    OpenSSLSSL& operator=(OpenSSLSSL&& other) noexcept
+    {
+        if (this == &other)
+        {
+            return *this;
+        }
+        SSL_free(ptr);
+        ptr = other.ptr;
+        other.ptr = nullptr;
+        return *this;
+    }
+    ~OpenSSLSSL()
+    {
+        SSL_free(ptr);
+    }
+
+    bool valid() const
+    {
+        return ptr != nullptr;
+    }
+
+    // Creates two memory BIOs for read/write and hands them to the SSL.
+    // SSL_set_bio takes ownership, so the SSL_free in the destructor frees
+    // them.
+    bool setMemBio() const
+    {
+        BIO* rbio = BIO_new(BIO_s_mem());
+        BIO* wbio = BIO_new(BIO_s_mem());
+        if (rbio == nullptr || wbio == nullptr)
+        {
+            BIO_free(rbio);
+            BIO_free(wbio);
+            return false;
+        }
+        SSL_set_bio(ptr, rbio, wbio);
+        return true;
+    }
+
+    void setAcceptState() const
+    {
+        SSL_set_accept_state(ptr);
+    }
+
+    void setConnectState() const
+    {
+        SSL_set_connect_state(ptr);
+    }
+
+    bool useCertificate(const OpenSSLX509& cert) const
+    {
+        return SSL_use_certificate(ptr, cert.get()) == 1;
+    }
+
+    bool usePrivateKey(const OpenSSLEVPKey& pkey) const
+    {
+        return SSL_use_PrivateKey(ptr, pkey.get()) == 1;
+    }
+
+    int doHandshake() const
+    {
+        return SSL_do_handshake(ptr);
+    }
+
+    std::optional<OpenSSLX509> getPeerCertificate() const
+    {
+        X509* cert = SSL_get1_peer_certificate(ptr);
+        if (cert == nullptr)
+        {
+            return std::nullopt;
+        }
+        return {OpenSSLX509(cert)};
+    }
+
+    void transferTo(OpenSSLSSL& other) const
+    {
+        BIO* fromWbio = SSL_get_wbio(ptr);
+        BIO* toRbio = SSL_get_rbio(other.ptr);
+        std::array<char, 4096> buf{};
+        int pending = static_cast<int>(BIO_ctrl_pending(fromWbio));
+        while (pending > 0)
+        {
+            int n = BIO_read(fromWbio, buf.data(),
+                             std::min(pending, static_cast<int>(buf.size())));
+            if (n > 0)
+            {
+                BIO_write(toRbio, buf.data(), n);
+            }
+            pending = static_cast<int>(BIO_ctrl_pending(fromWbio));
+        }
+    }
+
+    long getVerifyResult() const
+    {
+        return SSL_get_verify_result(ptr);
+    }
+
+    void release()
+    {
+        ptr = nullptr;
+    }
+
+  private:
+    SSL* get() const
+    {
+        return ptr;
+    }
+
+    SSL* ptr;
 };
