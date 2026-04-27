@@ -153,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b0de33e_fadd2030",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T17:25:12Z",
+      "side": 1,
+      "message": "Changed args",
+      "parentUuid": "59bd100a_d018d82a",
+      "range": {
+        "startLine": 266,
+        "startChar": 51,
+        "endLine": 266,
+        "endChar": 65
+      },
+      "revId": "70d2186ce2f8ffd2f1c0de3ef1fa34f1dce6a4a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "defbd7df_69969026",
@@ -166,6 +190,24 @@
       "writtenOn": "2026-04-22T16:53:29Z",
       "side": 1,
       "message": "Is this helper function really needed?  It takes 2 lines down to 1, but those two lines are already pretty clear.",
+      "revId": "70d2186ce2f8ffd2f1c0de3ef1fa34f1dce6a4a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb714805_64e1936c",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T17:25:12Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "defbd7df_69969026",
       "revId": "70d2186ce2f8ffd2f1c0de3ef1fa34f1dce6a4a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
