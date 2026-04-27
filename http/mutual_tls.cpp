@@ -32,23 +32,6 @@ extern "C"
 #include <memory>
 #include <string_view>
 
-std::string getCommonNameFromCert(X509* cert)
-{
-    std::string commonName;
-    // Extract username contained in CommonName
-    commonName.resize(256, '\0');
-    int length = X509_NAME_get_text_by_NID(
-        X509_get_subject_name(cert), NID_commonName, commonName.data(),
-        static_cast<int>(commonName.size()));
-    if (length <= 0)
-    {
-        BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
-        return "";
-    }
-    commonName.resize(static_cast<size_t>(length));
-    return commonName;
-}
-
 bool isUPNMatch(std::string_view upn, std::string_view hostname)
 {
     // UPN format: <username>@<domain> (e.g. user@domain.com)
@@ -95,10 +78,9 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
     }
 }
 
-std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
+std::string getUPNFromCert(OpenSSLX509& peerCert, std::string_view hostname)
 {
-    std::optional<OpenSSLGeneralNames> gs =
-        OpenSSLGeneralNames::fromExt(peerCert, NID_subject_alt_name);
+    std::optional<OpenSSLGeneralNames> gs = peerCert.getAltNames();
     if (!gs)
     {
         BMCWEB_LOG_ERROR("Failed to get subject alternative name");
@@ -147,7 +129,7 @@ std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
     return ret;
 }
 
-static std::string getUsernameFromCert(X509* cert)
+static std::string getUsernameFromCert(OpenSSLX509& x509)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
@@ -167,11 +149,11 @@ static std::string getUsernameFromCert(X509* cert)
                 BMCWEB_LOG_WARNING("Failed to get hostname");
                 return "";
             }
-            return getUPNFromCert(cert, hostname);
+            return getUPNFromCert(x509, hostname);
         }
         case persistent_data::MTLSCommonNameParseMode::CommonName:
         {
-            return getCommonNameFromCert(cert);
+            return x509.getCommonName();
         }
         default:
         {
@@ -181,7 +163,7 @@ static std::string getUsernameFromCert(X509* cert)
 }
 
 std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
-    const boost::asio::ip::address& clientIp, SSL* ssl)
+    const boost::asio::ip::address& clientIp, OpenSSLSSL& ssl)
 {
     if (!persistent_data::SessionStore::getInstance()
              .getAuthMethodsConfig()
@@ -191,13 +173,7 @@ std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
         return nullptr;
     }
 
-    if (ssl == nullptr)
-    {
-        BMCWEB_LOG_DEBUG("SSL pointer is null");
-        return nullptr;
-    }
-
-    long verifyResult = SSL_get_verify_result(ssl);
+    long verifyResult = ssl.getVerifyResult();
     if (verifyResult != X509_V_OK)
     {
         BMCWEB_LOG_INFO("TLS peer certificate verification error: {}",
@@ -205,23 +181,22 @@ std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
         return nullptr;
     }
 
-    X509* peerCert = SSL_get1_peer_certificate(ssl);
-    if (peerCert == nullptr)
+    std::optional<OpenSSLX509> peerCert = ssl.getPeerCertificate();
+
+    if (!peerCert)
     {
         BMCWEB_LOG_DEBUG("Cannot get current TLS certificate.");
         return nullptr;
     }
 
-    if (X509_check_purpose(peerCert, X509_PURPOSE_SSL_CLIENT, 0) != 1)
+    if (!peerCert->checkPurpose(X509_PURPOSE_SSL_CLIENT))
     {
         BMCWEB_LOG_DEBUG(
             "Chain does not allow certificate to be used for SSL client authentication");
-        X509_free(peerCert);
         return nullptr;
     }
 
-    std::string sslUser = getUsernameFromCert(peerCert);
-    X509_free(peerCert);
+    std::string sslUser = getUsernameFromCert(*peerCert);
     if (sslUser.empty())
     {
         BMCWEB_LOG_WARNING("Failed to get user from peer certificate");
