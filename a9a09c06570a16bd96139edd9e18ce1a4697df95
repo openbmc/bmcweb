@@ -229,6 +229,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "399ff89d_47354813",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T23:55:46Z",
+      "side": 1,
+      "message": "not sure why this was marked done?  We\u0027re parsing a generated string, into an enum, just to generate the string again.\n\nSure, you\u0027ve changed Severity -\u003e MessageSeverity, but they\u0027re both coming from the same source and have the same type.\n\n\u003e  if it received an invalid, I\u0027m logging a warning and continuing to push the event.\n\nThis is not how we handle most errors. if there\u0027s an internal error, we log it and stop the flow.\n\n\n\u003e because \"Severity\" is a string being populated from message registry, whereas \"MessageSeverity\" is based off Resource::Health enum\n\nRight, so you\u0027ve deleted Severity as a property?  Did that show up in your testing?",
+      "parentUuid": "ed1f5cfa_cb9d9641",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45f1f7f0_8addbbaf",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 14
