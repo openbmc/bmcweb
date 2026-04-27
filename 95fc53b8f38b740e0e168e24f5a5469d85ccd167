@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd7dccc8_a8213c33",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T18:12:38Z",
+      "side": 1,
+      "message": "Igor, I value your opinion here but I want to get this series off the stack.",
+      "parentUuid": "acf57581_15d91bac",
+      "revId": "95fc53b8f38b740e0e168e24f5a5469d85ccd167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50760452_fac553aa",
         "filename": "include/ossl_wrappers.hpp",
         "patchSetId": 35
