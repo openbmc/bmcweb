@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "133973e4_21a5a196",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T15:50:42Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "df5b7d16_bbc17363",
+      "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcb043b9_0e13b8a2",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Right, i looked again in section `9.6.13 Links`\n\nand it makes a clear distinction between `subordinate reference property` and `associated reference property` and where they go in a response.\n\nI will try to keep this in mind for future patches 👍\n\n\u003e If you need help, I\u0027m always available on discord to help you 1:1,\n\nappreciate it 💯\n\n\n\u003e  Please let me know if you\u0027re seeing a passing result with this, if so it\u0027s a test bug.\n\nYes, if we put\n```\n\"LogServices\": {\n    \"@odata.id\": \"/redfish/v1/Managers/bmc/LogServices\"\n},\n```\nthen RSV gets an almost clean run `Summary - PASS: 6613, WARN: 357, FAIL: 2, NOT TESTED: 7504` (the 2 fails are unrelated)\n\nI ran with up-to-date RSV and following command\n\n```\n/tmp/rsv-venv/bin/rf_service_validator --auth Session \\\n-i https://s5549-bmc-a0423f63b4a5.lab.9e.network:443 -u root -p *******\n```\n\nthe \u0027LogServices\u0027 property is marked PASS on `/redfish/v1/Systems/Tyan_S5549_Baseboard` response.\n```\nLogServices\n[Link to: /redfish/v1/Managers/bmc/LogServices]\n        PASS\n```\n\nAgree it\u0027s a good idea to let the validator check for bugs like this, would be nice if you can poke them.",
       "parentUuid": "dcb043b9_0e13b8a2",
+      "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a31df5_cd01728f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T15:50:42Z",
+      "side": 1,
+      "message": "\u003e would be nice if you can poke them.\n\nhttps://redfishforum.com/ if you don\u0027t have a CLA, or if you\u0027re in their causeway, you can just get on the Redfish-tools meeting to ask about it.  If i get a free second, I can too.\n\nThis comment needs to remain open, because regardless of whether or not the tools catch it, it\u0027s not clear to me it\u0027s correct.  I could always be wrong though, but would need the standards body help to know that this URI is actually correct.",
+      "parentUuid": "5af4fa8d_0e6d3b27",
       "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
