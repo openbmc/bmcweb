@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6bda800_521a144e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T23:50:11Z",
+      "side": 1,
+      "message": "\u003e an attacker may issue root@com certificate to access both of the realms.\n\nThis reads like something made up to me.  Are there really companies that sign \"com\" as their hostname?",
+      "parentUuid": "84fcaa4f_bff2d823",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 70
+      },
+      "revId": "9b65f696ec3ecd86db80848ea41d5b00ff44bade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "315e68d5_800f5940",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
