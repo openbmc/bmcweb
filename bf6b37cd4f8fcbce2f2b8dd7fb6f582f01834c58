@@ -88,6 +88,24 @@
       "parentUuid": "e7c8393c_5bdf27dd",
       "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a57872dc_f6e669eb",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-27T12:32:11Z",
+      "side": 1,
+      "message": "I have 2 patches pending for some time to fix RSV validator issues\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87082 (redfish-core:multi-host: no link to log services)\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87180 (fix \u0027Chassis\u0027 property in oem schema)\n\nI would prefer to close on those existing bug fixes before adding new stuff on top.",
+      "parentUuid": "5c921bc5_7daaeae9",
+      "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
