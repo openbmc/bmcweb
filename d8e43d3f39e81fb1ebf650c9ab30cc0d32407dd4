@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d75f8ce4_cd705530",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T14:33:58Z",
+      "side": 1,
+      "message": "I don\u0027t see these in the patch tree?  Until at least one of those exists, this is just over complicated code.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "d8e43d3f39e81fb1ebf650c9ab30cc0d32407dd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4247b3e9_9d107ddb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T14:33:58Z",
+      "side": 1,
+      "message": "Not sure what this is accomplishing at this point.  Please make sure the usage is aparent in the code you write.  hypotehtical use cases will be be a justification for complexity.",
+      "revId": "d8e43d3f39e81fb1ebf650c9ab30cc0d32407dd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4824178_6ef7a3e4",
+        "filename": "http/app.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-27T14:33:58Z",
+      "side": 1,
+      "message": "Per cpp core guidelines, do not use new or delete.",
+      "range": {
+        "startLine": 187,
+        "startChar": 17,
+        "endLine": 187,
+        "endChar": 20
+      },
+      "revId": "d8e43d3f39e81fb1ebf650c9ab30cc0d32407dd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
