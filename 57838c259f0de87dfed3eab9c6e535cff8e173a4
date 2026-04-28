@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dae2d3d1_99be2da3",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-28T15:29:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4602745c_3d350de6",
+      "revId": "57838c259f0de87dfed3eab9c6e535cff8e173a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "374e87b3_fdd0e20c",
@@ -66,6 +84,24 @@
       "writtenOn": "2026-04-27T15:53:07Z",
       "side": 1,
       "message": "This can now walk off the front of what\u0027s valid.  if there\u0027s another path called /bmc/foo, that should never be returned by this check.",
+      "revId": "57838c259f0de87dfed3eab9c6e535cff8e173a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94cb7b77_f8aca26f",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-28T15:29:06Z",
+      "side": 1,
+      "message": "Only in case `currentPath` is found within chassis paths will it be put into the response object.",
+      "parentUuid": "374e87b3_fdd0e20c",
       "revId": "57838c259f0de87dfed3eab9c6e535cff8e173a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

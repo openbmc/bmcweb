@@ -171,6 +171,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd5fd85f_85ca0c7a",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-28T15:29:06Z",
+      "side": 1,
+      "message": "Yes there is no order in the `ManagedObjectType`. In PS5 i am only iterating through it to find object paths with a chassis interface.\n\nI don\u0027t think there is much benefit to sort it beforehand since the amount of interfaces underneath an object path is usually quite small and the amount of chassis paths is also small.",
+      "parentUuid": "9c2859af_a03a4cd6",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25140eec_e3fdf185",
@@ -220,6 +238,24 @@
       "side": 1,
       "message": "\"getChassisFromManagedObj\" should match one, right?",
       "parentUuid": "487f939a_87551709",
+      "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f82ebfe_4298c547",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-28T15:29:06Z",
+      "side": 1,
+      "message": "For `chassis` the plural and singular is the same, kind of unfortunate.\n\nhttps://www.merriam-webster.com/dictionary/chassis\n\nSo the function is doing what i assume it should be doing.",
+      "parentUuid": "6f5df2d8_d71f0f99",
       "revId": "541a22caf6e2cbfc7b8f090253989f3f733c266a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
