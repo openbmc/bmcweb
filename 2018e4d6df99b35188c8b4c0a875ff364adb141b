@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5279204_91d1bef4",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:27:15Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "72c46553_98528c7a",
+      "revId": "2018e4d6df99b35188c8b4c0a875ff364adb141b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6ac69e5_bc79aad1",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:27:15Z",
+      "side": 1,
+      "message": "Done. NDF is now a separate D-Bus object with Item.NetworkInterface, linked via exposed_by/exposing (adapter) and assignable_physical_network_ports (port). bmcweb walks both to populate AssignablePhysicalNetworkPorts and NetDevFuncType.\n\nDepends on PDI 89649 and dbus-sensors 88775 PS9.\n\nPS7:\n- adapter -\u003e NDF walk: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#212\n- NDF -\u003e port walk: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#145\n- afterGetAssignablePort: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#60",
+      "parentUuid": "5ba8a736_d2b8b195",
+      "revId": "2018e4d6df99b35188c8b4c0a875ff364adb141b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c9ae57_9dceae47",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:27:15Z",
+      "side": 1,
+      "message": "Done. Switched both PortProtocol and MACAddress reads to getProperty\u003cstd::string\u003e.\n\nPS7:\n- PortProtocol: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#101\n- MACAddress: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#139",
+      "parentUuid": "c32a0b91_0a7bc407",
+      "revId": "2018e4d6df99b35188c8b4c0a875ff364adb141b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156a0220_212df7fd",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:27:15Z",
+      "side": 1,
+      "message": "Done. Renamed getNetworkAdapterPortPath -\u003e getNetworkAdapterAssociatedSubResource; association name, endpoint interfaces, resource type/id are now parameters. NDF reuses the helper.\n\nPS7:\n- helper: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_adapter.hpp#253\n- NDF caller: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#167",
+      "parentUuid": "f90c89eb_7182c548",
+      "revId": "2018e4d6df99b35188c8b4c0a875ff364adb141b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d31ea32b_d521f4ea",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:27:15Z",
+      "side": 1,
+      "message": "Done. All association path construction uses sdbusplus::object_path operator /.\n\nPS7:\n- https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#145\n- https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#212\n- https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_adapter.hpp#263",
+      "parentUuid": "c16b26d1_da6a0048",
+      "revId": "2018e4d6df99b35188c8b4c0a875ff364adb141b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c12422c_941b85d6",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:27:15Z",
+      "side": 1,
+      "message": "Done. Renamed and reused -- see #178.\n\nPS7:\n- helper: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_adapter.hpp#253\n- NDF caller: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88776/7/redfish-core/lib/network_device_function.hpp#167",
+      "parentUuid": "eb02bbe9_a38e10cc",
+      "revId": "2018e4d6df99b35188c8b4c0a875ff364adb141b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
