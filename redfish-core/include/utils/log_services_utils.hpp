@@ -103,13 +103,14 @@ inline void downloadEntryCallback(
     }
     if (downloadEntryType == "System")
     {
-        if (!asyncResp->res.openFd(fd, bmcweb::EncodingType::Base64))
+        if (!asyncResp->res.openFd(fd))
         {
             messages::internalError(asyncResp->res);
             close(fd);
             return;
         }
-        asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+        asyncResp->res.addHeader(boost::beast::http::field::content_type,
+                                 "application/json");
         return;
     }
     if (!asyncResp->res.openFd(fd))
