@@ -1,0 +1,94 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6af2fe2_e7f9e713",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:26:54Z",
+      "side": 1,
+      "message": "Done in PS20. Accumulator: 3 bools + 4 counters -\u003e 2 bools (hasAnyEcc/hasError) + 1 ce/ueCount pair. Per-source counters merged because output sums them; presence and error stay separate (orthogonal).\n\nDiff: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#60",
+      "parentUuid": "6cb9cf57_31ddaa68",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2117a8c0_0d0cbc1e",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:26:54Z",
+      "side": 1,
+      "message": "Done in PS20. Dropped the both-required check. LifeTime emitted when SRAM or DRAM yields data; omitted entirely when neither is reachable (Redfish absent-property convention).\n\nDiff: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#75",
+      "parentUuid": "972d6e39_f1ea0bd1",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bfd8886_8b08a61e",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:26:54Z",
+      "side": 1,
+      "message": "Done in PS20. Switched to getAssociatedSubTree -\u003e path + serviceMap in one call. Service taken via serviceMap.begin()-\u003efirst; getDbusObject removed.\n\nDiff: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#176 (call), https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#161 (service)",
+      "parentUuid": "302d0ddf_6f3b652d",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8d027c4_c822fd9f",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:26:54Z",
+      "side": 1,
+      "message": "Done in PS20. Extracted startDramAssociationProbe(). SRAM-success and SRAM-absent paths both call it directly; no more forged error_code into afterGetSramEccProperties.\n\nDiff: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#168 (helper), https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#197 (absent path), https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#218 (success path)",
+      "parentUuid": "98375df1_bfea760d",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b491eb_1a9c9ba8",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-04-28T00:26:54Z",
+      "side": 1,
+      "message": "Done in PS20. Lambda reads service from getProcessorObject\u0027s serviceMap parameter directly; getDbusObject removed. Empty serviceMap falls through to startDramAssociationProbe to keep accumulator lifecycle intact.\n\nDiff: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#284 (service), https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#274 (fallback)",
+      "parentUuid": "525117b1_3606e701",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
