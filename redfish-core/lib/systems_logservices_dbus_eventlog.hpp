@@ -169,9 +169,9 @@ inline void handleSystemsDBusEventLogEntryDownloadGet(
     {
         return;
     }
-    if (!http_helpers::isContentTypeAllowed(
-            req.getHeaderValue("Accept"),
-            http_helpers::ContentType::OctetStream, true))
+    if (!http_helpers::isContentTypeAllowed(req.getHeaderValue("Accept"),
+                                            http_helpers::ContentType::JSON,
+                                            true))
     {
         asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
