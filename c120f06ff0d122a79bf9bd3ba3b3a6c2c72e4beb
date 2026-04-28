@@ -105,6 +105,24 @@
       "parentUuid": "5af4fa8d_0e6d3b27",
       "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65618274_1c6911cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-04-28T10:34:01Z",
+      "side": 1,
+      "message": "FYI: as part of adding multi-host PostCode LogService I have already enabled the collection in this patch: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85600/11 ..",
+      "parentUuid": "67a31df5_cd01728f",
+      "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
