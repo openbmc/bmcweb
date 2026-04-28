@@ -79,6 +79,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d452836a_07154f83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-28T16:37:51Z",
+      "side": 1,
+      "message": "\u003e Our security policy requires that all BMC-to-BMC communication\n\nThis patch has nothing to do with bmc-\u003ebmc communication.  Please make sure that you\u0027re working with the other people doing this same thing from your company.\n\n\u003e use mTLS channels backed by TPM-based certificates, whereas external communication should continue to use the current default certificates. This is not a general-use requirement and may not be needed by all users. Therefore, bmcweb should be capable of supporting extensions or hooks to allow SSL context creation to be customized for such platform-specific requirements.\n\n\nThe idea of using mtls within a board is not unique to IBM, nor does it justify complexity.  Again, your code that you pushed doesn\u0027t do the above, so lets keep this review to what this patch does.\n\n\u003eI can raise a separate commit to demonstrate how this hook would be used in practice.\n\nPlease show a patch with a real use case that can merge.  If you can\u0027t do that, then this is complexity that you likely will want to maintain in a branch.\n\nPlease also keep in touch with the other people trying to solve this problem.",
+      "parentUuid": "5ed6c5f5_5dc17b1f",
+      "revId": "d8e43d3f39e81fb1ebf650c9ab30cc0d32407dd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4824178_6ef7a3e4",
         "filename": "http/app.hpp",
         "patchSetId": 2
