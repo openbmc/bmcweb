@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5498ff9_cc525faa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-29T19:27:37Z",
+      "side": 1,
+      "message": "We can wait a bit before merging, just wanted a fix ready.",
+      "revId": "60225b2b54b3129b58a1fc806d29627087a0e01d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
