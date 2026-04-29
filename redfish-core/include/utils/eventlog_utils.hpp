@@ -295,21 +295,134 @@ static LogParseError fillEventLogEntryJson(
     return LogParseError::success;
 }
 
+struct LogEntryCollectionDetail
+{
+    const std::string collectionStr;
+    const std::string_view memberId;
+    const std::string logEntryDescriptor;
+
+    bool isValid() const
+    {
+        return !(collectionStr.empty() || memberId.empty() ||
+                 logEntryDescriptor.empty());
+    }
+
+    static LogEntryCollectionDetail fromCollection(
+        const LogServiceParentCollection& collection)
+    {
+        return {logServiceParentCollectionToString(collection),
+                getMemberIdFromParentCollection(collection),
+                getLogEntryDescriptorFromParentCollection(collection)};
+    }
+};
+
+enum EventLogIterationToken
+{
+    EVENTLOG_CONTINUE,
+    EVENTLOG_ERROR,
+    EVENTLOG_SUCCESS,
+};
+
+using RsyslogEventLogHandlerType = const std::function<EventLogIterationToken(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& idStr, const std::string& logEntry,
+    const LogEntryCollectionDetail& collectionDetail)>&;
+
+inline EventLogIterationToken iterateEventLogEntries(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const LogEntryCollectionDetail& collectionDetail,
+    RsyslogEventLogHandlerType handler)
+{
+    // Go through the log files and create a unique ID for each
+    // entry
+    std::vector<std::filesystem::path> redfishLogFiles;
+    getRedfishLogFiles(redfishLogFiles);
+    std::string logEntry;
+
+    // Oldest logs are in the last file, so start there and loop
+    // backwards
+    event_log::UniqueEntryIDState state;
+    for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend(); it++)
+    {
+        BMCWEB_LOG_DEBUG("EventLog: iterating over {}", it->string());
+
+        std::ifstream logStream(*it);
+        if (!logStream.is_open())
+        {
+            BMCWEB_LOG_WARNING("EventLog: could not open {}", it->string());
+            continue;
+        }
+
+        while (std::getline(logStream, logEntry))
+        {
+            std::string idStr;
+            if (!event_log::getUniqueEntryID(state, logEntry, idStr))
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Redfish log file: could not get unique entry id for {}",
+                    logEntry);
+                continue;
+            }
+
+            const EventLogIterationToken token =
+                handler(asyncResp, idStr, logEntry, collectionDetail);
+
+            if (token != EVENTLOG_CONTINUE)
+            {
+                return token;
+            }
+        }
+    }
+    return EVENTLOG_SUCCESS;
+}
+
+inline EventLogIterationToken
+    systemsAndManagersLogServiceEventLogLogEntryCollectionHelper(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& idStr, const std::string& logEntry,
+        const LogEntryCollectionDetail& detail, nlohmann::json& logEntryArray,
+        size_t& entryCount, size_t top, size_t skip)
+{
+    nlohmann::json::object_t bmcLogEntry;
+
+    LogParseError status = fillEventLogEntryJson(
+        idStr, logEntry, bmcLogEntry, detail.collectionStr, detail.memberId,
+        detail.logEntryDescriptor);
+
+    if (status == LogParseError::messageIdNotInRegistry)
+    {
+        return EVENTLOG_CONTINUE;
+    }
+    if (status != LogParseError::success)
+    {
+        messages::internalError(asyncResp->res);
+        return EVENTLOG_ERROR;
+    }
+
+    entryCount++;
+
+    // Handle paging using skip (number of entries to skip from the
+    // start) and top (number of entries to display)
+    if (entryCount <= skip || entryCount > skip + top)
+    {
+        return EVENTLOG_CONTINUE;
+    }
+
+    logEntryArray.emplace_back(std::move(bmcLogEntry));
+    return EVENTLOG_CONTINUE;
+}
+
 inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     query_param::Query& delegatedQuery, LogServiceParentCollection collection)
 {
-    size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
-    size_t skip = delegatedQuery.skip.value_or(0);
+    const size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
+    const size_t skip = delegatedQuery.skip.value_or(0);
 
-    const std::string collectionStr =
-        logServiceParentCollectionToString(collection);
-    const std::string_view memberId =
-        getMemberIdFromParentCollection(collection);
-    const std::string logEntryDescriptor =
-        getLogEntryDescriptorFromParentCollection(collection);
+    const LogEntryCollectionDetail detail =
+        LogEntryCollectionDetail::fromCollection(collection);
 
-    if (collectionStr.empty() || memberId.empty() || logEntryDescriptor.empty())
+    if (!detail.isValid())
     {
         messages::internalError(asyncResp->res);
         return;
@@ -321,139 +434,85 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
         "#LogEntryCollection.LogEntryCollection";
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
-                            collectionStr, memberId);
+                            detail.collectionStr, detail.memberId);
     asyncResp->res.jsonValue["Name"] =
-        std::format("{} Event Log Entries", logEntryDescriptor);
-    asyncResp->res.jsonValue["Description"] =
-        std::format("Collection of {} Event Log Entries", logEntryDescriptor);
+        std::format("{} Event Log Entries", detail.logEntryDescriptor);
+    asyncResp->res.jsonValue["Description"] = std::format(
+        "Collection of {} Event Log Entries", detail.logEntryDescriptor);
 
     nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
     logEntryArray = nlohmann::json::array();
-    // Go through the log files and create a unique ID for each
-    // entry
-    std::vector<std::filesystem::path> redfishLogFiles;
-    getRedfishLogFiles(redfishLogFiles);
-    uint64_t entryCount = 0;
-    std::string logEntry;
 
-    // Oldest logs are in the last file, so start there and loop
-    // backwards
-    event_log::UniqueEntryIDState state;
-    for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend(); it++)
+    size_t entryCount = 0;
+
+    const EventLogIterationToken token = iterateEventLogEntries(
+        asyncResp, detail,
+        std::bind_back(
+            systemsAndManagersLogServiceEventLogLogEntryCollectionHelper,
+            std::ref(logEntryArray), std::ref(entryCount), top, skip));
+
+    if (token == EVENTLOG_ERROR)
     {
-        std::ifstream logStream(*it);
-        if (!logStream.is_open())
-        {
-            continue;
-        }
-
-        // Reset the unique ID on the first entry
-        while (std::getline(logStream, logEntry))
-        {
-            std::string idStr;
-            if (!event_log::getUniqueEntryID(state, logEntry, idStr))
-            {
-                continue;
-            }
-
-            nlohmann::json::object_t bmcLogEntry;
-            LogParseError status = fillEventLogEntryJson(
-                idStr, logEntry, bmcLogEntry, collectionStr, memberId,
-                logEntryDescriptor);
-            if (status == LogParseError::messageIdNotInRegistry)
-            {
-                continue;
-            }
-            if (status != LogParseError::success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            entryCount++;
-            // Handle paging using skip (number of entries to skip from the
-            // start) and top (number of entries to display)
-            if (entryCount <= skip || entryCount > skip + top)
-            {
-                continue;
-            }
-
-            logEntryArray.emplace_back(std::move(bmcLogEntry));
-        }
+        return;
     }
+
     asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
     if (skip + top < entryCount)
     {
         asyncResp->res.jsonValue["Members@odata.nextLink"] =
             boost::urls::format(
                 "/redfish/v1/{}/{}/LogServices/EventLog/Entries?$skip={}",
-                collectionStr, memberId, std::to_string(skip + top));
+                detail.collectionStr, detail.memberId,
+                std::to_string(skip + top));
     }
+}
+
+inline EventLogIterationToken
+    systemsAndManagersLogServiceEventLogEntriesGetHelper(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& idStr, const std::string& logEntry,
+        const LogEntryCollectionDetail& detail, const std::string& targetID)
+{
+    if (idStr != targetID)
+    {
+        return EVENTLOG_CONTINUE;
+    }
+    nlohmann::json::object_t bmcLogEntry;
+    LogParseError status = fillEventLogEntryJson(
+        idStr, logEntry, bmcLogEntry, detail.collectionStr, detail.memberId,
+        detail.logEntryDescriptor);
+    if (status != LogParseError::success)
+    {
+        messages::internalError(asyncResp->res);
+        return EVENTLOG_ERROR;
+    }
+    asyncResp->res.jsonValue.update(bmcLogEntry);
+    return EVENTLOG_SUCCESS;
 }
 
 inline void handleSystemsAndManagersLogServiceEventLogEntriesGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& param, LogServiceParentCollection collection)
+    const std::string& targetID, LogServiceParentCollection collection)
 {
-    const std::string& targetID = param;
+    const LogEntryCollectionDetail detail =
+        LogEntryCollectionDetail::fromCollection(collection);
 
-    const std::string collectionStr =
-        logServiceParentCollectionToString(collection);
-    const std::string_view memberId =
-        getMemberIdFromParentCollection(collection);
-    const std::string logEntryDescriptor =
-        getLogEntryDescriptorFromParentCollection(collection);
-
-    if (collectionStr.empty() || memberId.empty() || logEntryDescriptor.empty())
+    if (!detail.isValid())
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
-    // Go through the log files and check the unique ID for each
-    // entry to find the target entry
-    std::vector<std::filesystem::path> redfishLogFiles;
-    getRedfishLogFiles(redfishLogFiles);
-    std::string logEntry;
+    const EventLogIterationToken token = iterateEventLogEntries(
+        asyncResp, detail,
+        std::bind_back(systemsAndManagersLogServiceEventLogEntriesGetHelper,
+                       targetID));
 
-    // Oldest logs are in the last file, so start there and loop
-    // backwards
-    event_log::UniqueEntryIDState state;
-    for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend(); it++)
+    if (token != EVENTLOG_SUCCESS)
     {
-        std::ifstream logStream(*it);
-        if (!logStream.is_open())
-        {
-            continue;
-        }
-
-        // Reset the unique ID on the first entry
-        while (std::getline(logStream, logEntry))
-        {
-            std::string idStr;
-            if (!event_log::getUniqueEntryID(state, logEntry, idStr))
-            {
-                continue;
-            }
-
-            if (idStr == targetID)
-            {
-                nlohmann::json::object_t bmcLogEntry;
-                LogParseError status = fillEventLogEntryJson(
-                    idStr, logEntry, bmcLogEntry, collectionStr, memberId,
-                    logEntryDescriptor);
-                if (status != LogParseError::success)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                asyncResp->res.jsonValue.update(bmcLogEntry);
-                return;
-            }
-        }
+        // Requested ID was not found
+        messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
     }
-    // Requested ID was not found
-    messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
 }
 
 inline void handleSystemsAndManagersLogServicesEventLogActionsClearPost(

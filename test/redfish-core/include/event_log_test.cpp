@@ -30,6 +30,21 @@ TEST(RedfishEventLog, GetUniqueEntryIDSuccess)
     ASSERT_TRUE(entryID.starts_with("946"));
 }
 
+TEST(RedfishEventLog, GetEntryIDFullLineSuccess)
+{
+    bool success = false;
+    std::string entryID;
+    std::string example =
+        "2000-01-02T03:04:05 OpenBMC.0.1.InventoryAdded,V80E12B,Fan,N118373";
+    UniqueEntryIDState state;
+    success = getUniqueEntryID(state, example, entryID);
+
+    ASSERT_EQ(success, true);
+
+    // assert the prefix since the specific number can depend on timezone
+    ASSERT_TRUE(entryID.starts_with("946"));
+}
+
 TEST(RedfishEventLog, GetUniqueEntryIDUnique)
 {
     std::string entryID1;
