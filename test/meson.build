@@ -47,6 +47,7 @@ srcfiles_unittest = files(
     'redfish-core/include/utils/systems_utils_test.cpp',
     'redfish-core/include/utils/time_utils_test.cpp',
     'redfish-core/lib/chassis_test.cpp',
+    'redfish-core/lib/pcie_test.cpp',
     'redfish-core/lib/ethernet_test.cpp',
     'redfish-core/lib/log_services_dump_test.cpp',
     'redfish-core/lib/manager_diagnostic_data_test.cpp',
