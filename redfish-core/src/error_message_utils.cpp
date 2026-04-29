@@ -128,22 +128,5 @@ void addMessageToJsonRoot(nlohmann::json& target, const nlohmann::json& message)
     annotation.push_back(message);
 }
 
-void addMessageToJson(nlohmann::json& target, const nlohmann::json& message,
-                      std::string_view fieldPath)
-{
-    std::string extendedInfo(fieldPath);
-    extendedInfo += messages::messageAnnotation;
-
-    nlohmann::json& field = target[extendedInfo];
-    if (!field.is_array())
-    {
-        // Force object to be an array
-        field = nlohmann::json::array();
-    }
-
-    // Object exists and it is an array so we can just push in the message
-    field.push_back(message);
-}
-
 } // namespace messages
 } // namespace redfish
