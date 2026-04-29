@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a259cd41_695a9b06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-29T17:12:56Z",
+      "side": 1,
+      "message": "This breaks update schema too :/ \n```\n./update_schemas.py \nTraceback (most recent call last):\n  File \"../obmc/bmcweb/scripts/./update_schemas.py\", line 25, in \u003cmodule\u003e\n    r.raise_for_status()\n    ~~~~~~~~~~~~~~~~~~^^\n  File \"../lib/requests/models.py\", line 1026, in raise_for_status\n    raise HTTPError(http_error_msg, response\u003dself)\nrequests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://www.dmtf.org/sites/default/files/standards/documents/DSP8010_2025.4.zip\n\n```",
+      "revId": "333107b3c83c56caf8c6d5cd8e852efc5e9dc871",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
