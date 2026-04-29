@@ -290,7 +290,8 @@ static std::string constructX509(const std::string& cn, OpenSSLEVPKey& pPrivKey)
     X509_gmtime_adj(X509_getm_notBefore(x509), 0);
     // Cert is valid for 10 years
     std::chrono::seconds duration = std::chrono::years(10);
-    X509_gmtime_adj(X509_getm_notAfter(x509), duration.count());
+    X509_gmtime_adj(X509_getm_notAfter(x509),
+                    static_cast<long>(duration.count()));
 
     // set the public key to the key we just generated
     if (!x509Obj.setPubkey(pPrivKey))
