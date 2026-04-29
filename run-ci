@@ -5,5 +5,7 @@ set -e
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 "$SCRIPT_DIR/scripts/parse_registries.py"
-"$SCRIPT_DIR/scripts/update_schemas.py"
+# No update_schemas due to
+# https://github.com/DMTF/Redfish-Service-Validator/issues/664
+# "$SCRIPT_DIR/scripts/update_schemas.py"
 git --no-pager -C "$SCRIPT_DIR" diff --exit-code
