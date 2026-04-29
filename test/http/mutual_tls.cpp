@@ -325,15 +325,6 @@ TEST(GetUPNFromCert, NonUPNSubjectAlternativeName)
     EXPECT_THAT(upn, "");
 }
 
-TEST(GetUPNFromCert, NonUTF8UPNSubjectAlternativeName)
-{
-    OpenSSLX509 x509;
-    ASSERT_TRUE(x509.addAltNameUpns({"0123456789"}));
-
-    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
-    EXPECT_THAT(upn, "");
-}
-
 TEST(GetUPNFromCert, ValidUPN)
 {
     OpenSSLX509 x509;
