@@ -141,7 +141,7 @@ nlohmann::json::object_t propertyDuplicate(std::string_view arg1)
 void propertyDuplicate(crow::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyDuplicate(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyDuplicate(arg1));
 }
 
 /**
@@ -183,7 +183,7 @@ void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueTypeError(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueTypeError(arg1, arg2));
 }
 
 /**
@@ -206,7 +206,7 @@ void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
                               std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueFormatError(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueFormatError(arg1, arg2));
 }
 
 /**
@@ -229,7 +229,7 @@ void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueNotInList(arg1, arg2), arg2);
+    addMessageToErrorJson(res.jsonValue, propertyValueNotInList(arg1, arg2));
 }
 
 /**
@@ -271,7 +271,7 @@ nlohmann::json::object_t propertyValueError(std::string_view arg1)
 void propertyValueError(crow::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyValueError(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyValueError(arg1));
 }
 
 /**
@@ -290,7 +290,7 @@ nlohmann::json::object_t propertyNotWritable(std::string_view arg1)
 void propertyNotWritable(crow::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::method_not_allowed);
-    addMessageToJson(res.jsonValue, propertyNotWritable(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyNotWritable(arg1));
 }
 
 /**
@@ -328,7 +328,7 @@ nlohmann::json::object_t propertyMissing(std::string_view arg1)
 void propertyMissing(crow::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyMissing(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyMissing(arg1));
 }
 
 /**
@@ -931,8 +931,8 @@ void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
                            std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::conflict);
-    addMessageToJson(res.jsonValue, resourceAlreadyExists(arg1, arg2, arg3),
-                     arg2);
+    addMessageToErrorJson(res.jsonValue,
+                          resourceAlreadyExists(arg1, arg2, arg3));
 }
 
 /**
@@ -1047,8 +1047,8 @@ void createFailedMissingReqProperties(crow::Response& res,
                                       std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, createFailedMissingReqProperties(arg1),
-                     arg1);
+    addMessageToErrorJson(res.jsonValue,
+                          createFailedMissingReqProperties(arg1));
 }
 
 /**
@@ -1464,7 +1464,7 @@ void propertyValueModified(crow::Response& res, std::string_view arg1,
                            const nlohmann::json& arg2)
 {
     res.result(boost::beast::http::status::ok);
-    addMessageToJson(res.jsonValue, propertyValueModified(arg1, arg2), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyValueModified(arg1, arg2));
 }
 
 /**
