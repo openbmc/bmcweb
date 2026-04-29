@@ -160,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b442e07e_71f02439",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-29T19:46:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f1b5077_5706ef28",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70a19420_23335b79",
@@ -819,6 +837,30 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "This has the potential to cause a blocking operation on a large file copy.... I\u0027m not sure we want that in the async reactor.\n\nMaybe keep this as an error for now, and we\u0027ll resolve in the next patchset.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 71
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "954d2cff_2a82978b",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-29T19:46:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02d0e5ea_9f2bea7f",
       "range": {
         "startLine": 96,
         "startChar": 0,
