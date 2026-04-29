@@ -41,6 +41,30 @@ static const OpenSSLTestMemory osslInit;
 
 namespace
 {
+// Local RAII handles for EVP_PKEY / EVP_PKEY_CTX. The project already provides
+// OpenSSLEVPKey / OpenSSLEVPKeyCTX in ossl_wrappers.hpp, but their underlying
+// pointer accessors are private (only OpenSSLX509 / OpenSSLEVPKeyCTX are
+// friends). The handshake helper below has to pass the raw EVP_PKEY* to SSL
+// APIs (SSL_CTX_use_PrivateKey, SSL_use_PrivateKey) for which there is no
+// wrapper, so we use std::unique_ptr with a custom deleter here instead of
+// breaking that encapsulation just for the test.
+struct EvpPkeyDeleter
+{
+    void operator()(EVP_PKEY* p) const
+    {
+        EVP_PKEY_free(p);
+    }
+};
+struct EvpPkeyCtxDeleter
+{
+    void operator()(EVP_PKEY_CTX* p) const
+    {
+        EVP_PKEY_CTX_free(p);
+    }
+};
+using EvpPkeyPtr = std::unique_ptr<EVP_PKEY, EvpPkeyDeleter>;
+using EvpPkeyCtxPtr = std::unique_ptr<EVP_PKEY_CTX, EvpPkeyCtxDeleter>;
+
 // Helper that performs a TLS handshake over memory BIOs so the server-side
 // SSL object sees the client certificate as its peer certificate.
 class MtlsHandshake
@@ -87,28 +111,28 @@ class MtlsHandshake
         }
     }
 
-    static EVP_PKEY* generateEcKey()
+    static EvpPkeyPtr generateEcKey()
     {
-        EVP_PKEY_CTX* pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, nullptr);
+        EvpPkeyCtxPtr pctx(EVP_PKEY_CTX_new_id(EVP_PKEY_EC, nullptr));
         if (pctx == nullptr)
         {
             return nullptr;
         }
-        if (EVP_PKEY_keygen_init(pctx) != 1)
+        if (EVP_PKEY_keygen_init(pctx.get()) != 1)
         {
-            EVP_PKEY_CTX_free(pctx);
             return nullptr;
         }
-        if (EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx,
+        if (EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx.get(),
                                                    NID_X9_62_prime256v1) != 1)
         {
-            EVP_PKEY_CTX_free(pctx);
             return nullptr;
         }
         EVP_PKEY* pkey = nullptr;
-        EVP_PKEY_keygen(pctx, &pkey);
-        EVP_PKEY_CTX_free(pctx);
-        return pkey;
+        if (EVP_PKEY_keygen(pctx.get(), &pkey) != 1)
+        {
+            return nullptr;
+        }
+        return EvpPkeyPtr(pkey);
     }
 
   public:
@@ -131,8 +155,8 @@ class MtlsHandshake
         ASSERT_THAT(clientCtx, NotNull());
 
         // ---- Generate a self-signed server certificate + key ----
-        EVP_PKEY* serverKey = generateEcKey();
-        ASSERT_THAT(serverKey, NotNull());
+        EvpPkeyPtr serverKey = generateEcKey();
+        ASSERT_TRUE(serverKey);
 
         X509* serverCert = X509_new();
         ASSERT_THAT(serverCert, NotNull());
@@ -140,16 +164,16 @@ class MtlsHandshake
         X509_gmtime_adj(X509_getm_notBefore(serverCert), 0);
         X509_gmtime_adj(X509_getm_notAfter(serverCert),
                         static_cast<long>(60 * 60));
-        X509_set_pubkey(serverCert, serverKey);
+        X509_set_pubkey(serverCert, serverKey.get());
         X509_NAME* sName = X509_get_subject_name(serverCert);
         std::array<unsigned char, 7> srvCN{'s', 'e', 'r', 'v', 'e', 'r', '\0'};
         X509_NAME_add_entry_by_txt(sName, "CN", MBSTRING_ASC, srvCN.data(),
                                    static_cast<int>(srvCN.size()), -1, 0);
         X509_set_issuer_name(serverCert, sName);
-        X509_sign(serverCert, serverKey, EVP_sha256());
+        X509_sign(serverCert, serverKey.get(), EVP_sha256());
 
         ASSERT_EQ(SSL_CTX_use_certificate(serverCtx, serverCert), 1);
-        ASSERT_EQ(SSL_CTX_use_PrivateKey(serverCtx, serverKey), 1);
+        ASSERT_EQ(SSL_CTX_use_PrivateKey(serverCtx, serverKey.get()), 1);
         // Ask the client for a certificate but don't verify it ourselves
         // (we let verifyMtlsUser handle the verification logic)
         SSL_CTX_set_verify(serverCtx, SSL_VERIFY_PEER, nullptr);
@@ -162,7 +186,7 @@ class MtlsHandshake
         X509_free(serverCert);
 
         // ---- Prepare client certificate with a matching private key ----
-        EVP_PKEY* clientKey = nullptr;
+        EvpPkeyPtr clientKey;
         if (clientCert != nullptr)
         {
             // Set required fields for TLS verification to succeed
@@ -180,9 +204,9 @@ class MtlsHandshake
             // Generate a new key and re-sign the cert so we have both
             // the certificate and its private key for the handshake.
             clientKey = generateEcKey();
-            ASSERT_THAT(clientKey, NotNull());
-            ASSERT_EQ(X509_set_pubkey(clientCert, clientKey), 1);
-            ASSERT_GT(X509_sign(clientCert, clientKey, EVP_sha256()), 0);
+            ASSERT_TRUE(clientKey);
+            ASSERT_EQ(X509_set_pubkey(clientCert, clientKey.get()), 1);
+            ASSERT_GT(X509_sign(clientCert, clientKey.get(), EVP_sha256()), 0);
 
             // Trust the (re-signed) client cert on the server side
             X509_STORE* store = SSL_CTX_get_cert_store(serverCtx);
@@ -212,11 +236,8 @@ class MtlsHandshake
         if (clientCert != nullptr)
         {
             ASSERT_EQ(SSL_use_certificate(clientSsl, clientCert), 1);
-            ASSERT_EQ(SSL_use_PrivateKey(clientSsl, clientKey), 1);
-            EVP_PKEY_free(clientKey);
+            ASSERT_EQ(SSL_use_PrivateKey(clientSsl, clientKey.get()), 1);
         }
-
-        EVP_PKEY_free(serverKey);
 
         // ---- Perform the handshake ----
         doHandshake(clientSsl, serverSsl);
