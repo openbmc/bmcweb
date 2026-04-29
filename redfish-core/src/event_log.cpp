@@ -31,9 +31,19 @@ namespace event_log
 bool getUniqueEntryID(UniqueEntryIDState& state, const std::string& logEntry,
                       std::string& entryID)
 {
+    // only pass the timestamp, not the rest of the EventLog Entry
+    auto index = logEntry.find(' ');
+
+    std::string_view view(logEntry);
+
+    if (index != std::string::npos)
+    {
+        view = view.substr(0, index);
+    }
+
     // Get the entry timestamp
     std::optional<time_utils::usSinceEpoch> curTs =
-        time_utils::dateStringToEpoch(logEntry);
+        time_utils::dateStringToEpoch(view);
     if (!curTs)
     {
         return false;
