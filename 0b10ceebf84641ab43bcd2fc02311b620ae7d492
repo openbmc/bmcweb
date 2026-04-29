@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c16c40ef_afe875e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-04-29T04:48:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10faabdb_3dd8b1db",
+      "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6fb64bc5_40570da0",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "writtenOn": "2026-03-17T14:31:30Z",
       "side": 1,
       "message": "Instead of changing the current logging calls I’m considering a safer approach by introducing a rate limiting mechanism for repeated logs.The idea would be to suppress identical log messages within a configurable time window.This would help in reducing noise while preserving current behaviour.Is it safe @ed@tanous.net?",
+      "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d1e02f1_92a10cdf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-04-29T04:48:26Z",
+      "side": 1,
+      "message": "Yes, I have corrected it",
+      "parentUuid": "6fb64bc5_40570da0",
       "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "you\u0027ve still reflected back URL, which is from the user, as well as content-type, which is from the user.\n\nIn general when you see this error not as part of an attack, it\u0027s because the user omitted the field.  What I suspect you want here is really something like\n\n```\nif (contentType.empty(){\n     BMCWEB_LOG_WARNING(\"Content type was empty\");\n}\n```\n\nWould that do what you need?",
       "parentUuid": "47fff763_ea2e7431",
+      "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42ba8c7d_93213b41",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-04-29T04:48:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc46d8ff_84c0a26b",
       "revId": "0b10ceebf84641ab43bcd2fc02311b620ae7d492",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
