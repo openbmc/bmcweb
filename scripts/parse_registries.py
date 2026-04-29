@@ -387,9 +387,7 @@ def make_error_function(
 
             addMessageToJson = {
                 "PropertyDuplicate": 1,
-                "ResourceAlreadyExists": 2,
                 "CreateFailedMissingReqProperties": 1,
-                "PropertyValueFormatError": 2,
                 "PropertyValueNotInList": 2,
                 "PropertyValueTypeError": 2,
                 "PropertyValueError": 1,
