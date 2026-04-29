@@ -11,6 +11,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_device.hpp"
+#include "generated/enums/pcie_function.hpp"
 #include "generated/enums/pcie_slots.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -731,21 +732,65 @@ inline void addPCIeFunctionProperties(
         {
             resp.jsonValue["VendorId"] = *strProperty;
         }
-        // TODO: FunctionType and DeviceClass are Redfish enums. The D-Bus
-        // property strings should be mapped correctly to ensure these
-        // strings are Redfish enum values. For now just check for empty.
         if (property.first == functionName + "FunctionType")
         {
-            if (!strProperty->empty())
+            // D-Bus may send a fully-qualified enum string such as
+            // "xyz.openbmc_project.Inventory.Item.PCIeSlot.FunctionType.Physical".
+            // Strip everything up to and including the last '.' so only the
+            // bare value name ("Physical", "Virtual") remains before mapping
+            // through the generated Redfish enum type.
+            std::string_view typeStr = *strProperty;
+            auto dotPos = typeStr.rfind('.');
+            if (dotPos != std::string_view::npos)
             {
-                resp.jsonValue["FunctionType"] = *strProperty;
+                typeStr = typeStr.substr(dotPos + 1);
+            }
+
+            pcie_function::FunctionType functionType =
+                pcie_function::FunctionType::Invalid;
+            if (typeStr == "Physical")
+            {
+                functionType = pcie_function::FunctionType::Physical;
+            }
+            else if (typeStr == "Virtual")
+            {
+                functionType = pcie_function::FunctionType::Virtual;
+            }
+            else
+            {
+                BMCWEB_LOG_WARNING("Unknown PCIe FunctionType from D-Bus: {}",
+                                   *strProperty);
+            }
+
+            if (functionType != pcie_function::FunctionType::Invalid)
+            {
+                resp.jsonValue["FunctionType"] = functionType;
             }
         }
         if (property.first == functionName + "DeviceClass")
         {
-            if (!strProperty->empty())
+            // Same D-Bus namespace-stripping as FunctionType above.
+            std::string_view classStr = *strProperty;
+            auto dotPos = classStr.rfind('.');
+            if (dotPos != std::string_view::npos)
             {
-                resp.jsonValue["DeviceClass"] = *strProperty;
+                classStr = classStr.substr(dotPos + 1);
+            }
+
+            // Deserialise through the generated NLOHMANN_JSON_SERIALIZE_ENUM
+            // mapping in pcie_function.hpp so only spec-valid enum strings
+            // ever appear in the Redfish response.
+            pcie_function::DeviceClass deviceClass =
+                nlohmann::json(classStr).get<pcie_function::DeviceClass>();
+
+            if (deviceClass != pcie_function::DeviceClass::Invalid)
+            {
+                resp.jsonValue["DeviceClass"] = deviceClass;
+            }
+            else
+            {
+                BMCWEB_LOG_WARNING("Unknown PCIe DeviceClass from D-Bus: {}",
+                                   *strProperty);
             }
         }
         if (property.first == functionName + "ClassCode")

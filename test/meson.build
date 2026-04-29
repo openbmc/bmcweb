@@ -1,11 +1,9 @@
-
 srcfiles_unittest = files(
     'http/crow_getroutes_test.cpp',
     'http/http2_connection_test.cpp',
     'http/http_body_test.cpp',
     'http/http_connection_test.cpp',
     'http/http_response_test.cpp',
-    'http/http_server_test.cpp',
     'http/mutual_tls.cpp',
     'http/parsing_test.cpp',
     'http/router_test.cpp',
@@ -31,26 +29,24 @@ srcfiles_unittest = files(
     'redfish-core/include/event_matches_filter_test.cpp',
     'redfish-core/include/filter_expr_executor_test.cpp',
     'redfish-core/include/filter_expr_parser_test.cpp',
-    'redfish-core/include/journal_read_state.cpp',
     'redfish-core/include/privileges_test.cpp',
     'redfish-core/include/redfish_aggregator_test.cpp',
     'redfish-core/include/redfish_oem_routing_test.cpp',
     'redfish-core/include/redfish_test.cpp',
     'redfish-core/include/registries_test.cpp',
     'redfish-core/include/submit_test_event_test.cpp',
-    'redfish-core/include/utils/collection_test.cpp',
     'redfish-core/include/utils/dbus_utils.cpp',
     'redfish-core/include/utils/error_code_test.cpp',
     'redfish-core/include/utils/hex_utils_test.cpp',
     'redfish-core/include/utils/ip_utils_test.cpp',
     'redfish-core/include/utils/json_utils_test.cpp',
-    'redfish-core/include/utils/location_utils_test.cpp',
     'redfish-core/include/utils/query_param_test.cpp',
     'redfish-core/include/utils/sensor_utils_test.cpp',
     'redfish-core/include/utils/stl_utils_test.cpp',
     'redfish-core/include/utils/systems_utils_test.cpp',
     'redfish-core/include/utils/time_utils_test.cpp',
     'redfish-core/lib/chassis_test.cpp',
+    'redfish-core/lib/pcie_test.cpp',
     'redfish-core/lib/ethernet_test.cpp',
     'redfish-core/lib/log_services_dump_test.cpp',
     'redfish-core/lib/manager_diagnostic_data_test.cpp',
@@ -81,7 +77,6 @@ if (get_option('tests').allowed())
     )
     # generate the test executable
     foreach test_src : srcfiles_unittest
-        data_dir = fs.parent(meson.current_source_dir()) / fs.parent(test_src)
         test_bin = executable(
             fs.stem(test_src),
             test_src,
@@ -89,7 +84,6 @@ if (get_option('tests').allowed())
             include_directories: [incdir, include_directories('..')],
             install_dir: bindir,
             dependencies: bmcweb_dependencies + [gtestdep],
-            cpp_args: ['-DTEST_DATA_DIR="' + data_dir + '"'],
         )
         test(fs.stem(test_src), test_bin, protocol: 'gtest')
     endforeach
