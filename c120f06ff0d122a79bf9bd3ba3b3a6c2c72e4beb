@@ -141,6 +141,24 @@
       "parentUuid": "67a31df5_cd01728f",
       "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd311a5a_fb98d154",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-29T23:21:18Z",
+      "side": 1,
+      "message": "Just to sync with the RSV issue \"Technically per the schema definition this is valid, but I agree in this case this does not seem like a correct usage of the property\"\n\nThat\u0027s roughly my understanding as well.",
+      "parentUuid": "5ce3c018_eee48c41",
+      "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
