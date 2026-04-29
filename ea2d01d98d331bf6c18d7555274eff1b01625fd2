@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c71557_fe43d730",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-29T02:28:13Z",
+      "side": 1,
+      "message": "Done.\nAdded `messages::internalError(asyncResp-\u003eres)` after the line.",
+      "parentUuid": "2b8840ec_7484ada8",
+      "revId": "ea2d01d98d331bf6c18d7555274eff1b01625fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df1cdb50_7edd23dd",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d881ee_95c4c18f",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-29T02:28:13Z",
+      "side": 1,
+      "message": "Done.\nAdded a condition to throw error if more than one service.",
+      "parentUuid": "df1cdb50_7edd23dd",
+      "revId": "ea2d01d98d331bf6c18d7555274eff1b01625fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ecdc155_e25ff9ef",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-04-21T13:23:55Z",
       "side": 1,
       "message": "If we only need one property please use getProperty method call.",
+      "range": {
+        "startLine": 187,
+        "startChar": 27,
+        "endLine": 187,
+        "endChar": 43
+      },
+      "revId": "ea2d01d98d331bf6c18d7555274eff1b01625fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d192941_15b4f6e8",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-29T02:28:13Z",
+      "side": 1,
+      "message": "Noted.\nImplemantation modified to use `getProperty()` instead.",
+      "parentUuid": "9ecdc155_e25ff9ef",
       "range": {
         "startLine": 187,
         "startChar": 27,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fda7ce1a_fae6e496",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-29T02:28:13Z",
+      "side": 1,
+      "message": "Noted.\nUnnecessary argument removed.",
+      "parentUuid": "588bf8d9_aa92a428",
+      "range": {
+        "startLine": 188,
+        "startChar": 16,
+        "endLine": 188,
+        "endChar": 45
+      },
+      "revId": "ea2d01d98d331bf6c18d7555274eff1b01625fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a37b6a5_451b2e5b",
@@ -98,6 +182,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd7f68b3_90a93fd7",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-29T02:28:13Z",
+      "side": 1,
+      "message": "Done.\nImplementation modified to use `inventory-sensors` association.",
+      "parentUuid": "9a37b6a5_451b2e5b",
+      "revId": "ea2d01d98d331bf6c18d7555274eff1b01625fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b28eda18_7646c8e1",
@@ -111,6 +213,24 @@
       "writtenOn": "2026-04-21T13:23:55Z",
       "side": 1,
       "message": "Why is this function being called inside `getProcessorMetricsData`? Shouldn\u0027t it be called from `getProcessorData`?",
+      "revId": "ea2d01d98d331bf6c18d7555274eff1b01625fd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d5d274b_64661943",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-04-29T02:28:13Z",
+      "side": 1,
+      "message": "`CoreVoltage` is defined by DMTF Redfish schema only on `ProcessorMetrics`.\nIn this case, the value has to live at `/redfish/v1/Systems/\u003cstr\u003e/Processors/\u003cid\u003e/ProcessorMetrics`.\nTherefore, calling the function inside `getProcessorMetricsData` is better than `getProcessorData`.",
+      "parentUuid": "b28eda18_7646c8e1",
       "revId": "ea2d01d98d331bf6c18d7555274eff1b01625fd2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
