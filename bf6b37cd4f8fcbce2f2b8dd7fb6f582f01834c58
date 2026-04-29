@@ -124,6 +124,24 @@
       "parentUuid": "a57872dc_f6e669eb",
       "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8b7afa_698efff7",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-29T15:45:10Z",
+      "side": 1,
+      "message": "\u003e FWIW, this patch came from duplication that was added in your previous commit series breaking this stuff out\n\nCan you point me to the change where i \"duplicated\" the code for event log entry id calculation?",
+      "parentUuid": "376e82e4_49fd50a5",
+      "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
