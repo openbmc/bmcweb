@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d039c3c3_1c2b6ea4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-29T19:18:22Z",
+      "side": 1,
+      "message": "Thanks for this commit!\nPlease wrap at 72 chars, not a custom ~55 or whatever \n\nhttps://cbea.ms/git-commit/",
+      "revId": "993c3af8422b366ff5a35a1bae96c2951bd02a27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "864665e8_e1f4bcfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-29T19:18:22Z",
+      "side": 1,
+      "message": "But this is WARNING level.. If it was Error level then sure, but Warning is kind of just that \"a client error, unexpected\" \nhttps://github.com/openbmc/bmcweb/blob/48eca7bbb0cdb736cd4495c512586ceead65e09c/DEVELOPING.md?plain\u003d1#L228",
+      "range": {
+        "startLine": 11,
+        "startChar": 14,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "993c3af8422b366ff5a35a1bae96c2951bd02a27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56368f7e_25815d60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-04-29T19:18:22Z",
+      "side": 1,
+      "message": "Best if you use your full name here and for your Gerrit Name\n\n```\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n```\n\nhttps://github.com/openbmc/docs/blob/92b89c6ac71f8b94f67f508102704a1cf38e68cb/CONTRIBUTING.md?plain\u003d1#L248",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "993c3af8422b366ff5a35a1bae96c2951bd02a27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8b28c747_92001b63",
