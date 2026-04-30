@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f21756b_63e308e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-04-30T03:03:00Z",
+      "side": 1,
+      "message": "Done. The commit message has been re-wrapped to 72 characters as requested.",
+      "parentUuid": "d039c3c3_1c2b6ea4",
+      "revId": "993c3af8422b366ff5a35a1bae96c2951bd02a27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "864665e8_e1f4bcfc",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04bdfa8f_75c05822",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-04-30T03:03:00Z",
+      "side": 1,
+      "message": "This is a client error (malformed Content-Type header), not a server error, \nso WARNING is the correct log level.",
+      "parentUuid": "864665e8_e1f4bcfc",
+      "range": {
+        "startLine": 11,
+        "startChar": 14,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "993c3af8422b366ff5a35a1bae96c2951bd02a27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56368f7e_25815d60",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-04-29T19:18:22Z",
       "side": 1,
       "message": "Best if you use your full name here and for your Gerrit Name\n\n```\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n```\n\nhttps://github.com/openbmc/docs/blob/92b89c6ac71f8b94f67f508102704a1cf38e68cb/CONTRIBUTING.md?plain\u003d1#L248",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "993c3af8422b366ff5a35a1bae96c2951bd02a27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "936e015d_dd308845",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-04-30T03:03:00Z",
+      "side": 1,
+      "message": "Thanks, I will change it .",
+      "parentUuid": "56368f7e_25815d60",
       "range": {
         "startLine": 19,
         "startChar": 14,
