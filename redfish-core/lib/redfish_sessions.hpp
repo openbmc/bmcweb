@@ -8,6 +8,7 @@
 #include "async_resp.hpp"
 #include "cookies.hpp"
 #include "dbus_privileges.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -16,6 +17,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "sessions.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
 #include <security/_pam_types.h>
@@ -37,6 +39,50 @@
 namespace redfish
 {
 
+// D-Bus session manager service and base object path.
+// Each session is represented as an object under this path.
+constexpr std::string_view sessionManagerService =
+    "xyz.openbmc_project.SessionManager";
+constexpr std::string_view sessionManagerBasePath =
+    "/xyz/openbmc_project/sessionmanager";
+
+// Parallel arrays: D-Bus interface, D-Bus property, Redfish SessionType enum.
+// Order: KVM=0, Web=1, VirtualMedia=2, SSH=3.
+// Redfish enum values are from Session.v1_7_0 schema.
+constexpr std::array<std::string_view, 4> sessionInterfaces = {
+    "xyz.openbmc_project.SessionManager.Kvm",
+    "xyz.openbmc_project.SessionManager.Web",
+    "xyz.openbmc_project.SessionManager.Vmedia",
+    "xyz.openbmc_project.SessionManager.Ssh",
+};
+
+constexpr std::array<std::string_view, 4> sessionProperties = {
+    "KvmSessionInfo",
+    "WebSessionInfo",
+    "VmediaSessionInfo",
+    "SshSessionInfo",
+};
+
+// Redfish Session.v1_7_0 SessionType enum values corresponding to each index.
+constexpr std::array<std::string_view, 4> redfishSessionTypes = {
+    "KVMIP",
+    "WebUI",
+    "VirtualMedia",
+    "HostConsole",
+};
+
+// Returns the Redfish SessionType enum string for the given integer type.
+// Session type integers are defined by xyz.openbmc_project.SessionManager:
+//   0 = KVM (KVMIP), 1 = Web (WebUI), 2 = VirtualMedia, 3 = SSH (HostConsole)
+inline std::string_view getRedfishSessionType(uint32_t sessionType)
+{
+    if (sessionType < redfishSessionTypes.size())
+    {
+        return redfishSessionTypes[sessionType];
+    }
+    return "";
+}
+
 inline void fillSessionObject(crow::Response& res,
                               const persistent_data::UserSession& session)
 {
@@ -55,6 +101,73 @@ inline void fillSessionObject(crow::Response& res,
     {
         res.jsonValue["Context"] = *session.clientId;
     }
+}
+
+// Queries the D-Bus session manager interfaces to determine the Redfish
+// SessionType for the given session and populates asyncResp accordingly.
+//
+// Each xyz.openbmc_project.SessionManager.{Kvm,Web,Vmedia,Ssh} interface
+// exposes a property (e.g. "KvmSessionInfo") that is a struct:
+//   struct { string clientIp, uint32 sessionType, string additionalInfo }
+// where sessionType integer: 0=KVM, 1=Web, 2=VirtualMedia, 3=SSH.
+//
+// Only VirtualMedia sessions carry meaningful additionalInfo (mount type).
+//
+// NOTE: The D-Bus object path for a session is expected to be:
+//   /xyz/openbmc_project/sessionmanager/<sessionId>
+// Adjust sessionManagerBasePath if the implementation uses a different path.
+inline void getSessionInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& sessionId)
+{
+    using SessionInfoType = std::tuple<std::string, uint32_t, std::string>;
+
+    // Use a shared index to iterate through all session interfaces in sequence.
+    // The first interface whose property is successfully read wins.
+    auto idx = std::make_shared<size_t>(0);
+
+    std::function<void()> tryNextInterface;
+    tryNextInterface = [asyncResp, sessionId, idx, tryNextInterface]() mutable {
+        if (*idx >= sessionInterfaces.size())
+        {
+            // None of the session manager interfaces reported this session;
+            // leave SessionType unset (Redfish default: no property).
+            return;
+        }
+
+        std::string objectPath =
+            std::string(sessionManagerBasePath) + "/" + sessionId;
+        std::string iface = std::string(sessionInterfaces[*idx]);
+        std::string prop = std::string(sessionProperties[*idx]);
+        size_t currentIdx = *idx;
+
+        dbus::utility::getProperty<SessionInfoType>(
+            std::string(sessionManagerService), objectPath, iface, prop,
+            [asyncResp, tryNextInterface, idx,
+             currentIdx](const boost::system::error_code& ec,
+                         const SessionInfoType& info) mutable {
+                if (ec)
+                {
+                    // This interface is not present for this session; try next.
+                    ++(*idx);
+                    tryNextInterface();
+                    return;
+                }
+
+                const auto& [clientIp, sessionType, additionalInfo] = info;
+
+                asyncResp->res.jsonValue["SessionType"] =
+                    getRedfishSessionType(sessionType);
+
+                // Expose VirtualMedia mount type only when applicable.
+                // Do not use vendor OEM namespaces for upstream submissions.
+                if (sessionType == 2 && !additionalInfo.empty())
+                {
+                    asyncResp->res.jsonValue["MountType"] = additionalInfo;
+                }
+            });
+    };
+
+    tryNextInterface();
 }
 
 inline void handleSessionHead(
@@ -95,6 +208,10 @@ inline void handleSessionGet(
     }
 
     fillSessionObject(asyncResp->res, *session);
+
+    // Query D-Bus session manager interfaces to populate SessionType.
+    // Covers KVM (KVMIP), Web (WebUI), VirtualMedia, and SSH (HostConsole).
+    getSessionInfo(asyncResp, sessionId);
 }
 
 inline void handleSessionDelete(
