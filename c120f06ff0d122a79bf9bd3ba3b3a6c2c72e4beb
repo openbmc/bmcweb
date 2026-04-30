@@ -195,6 +195,24 @@
       "parentUuid": "76f415cd_d85cd309",
       "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a856610c_2d277e77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-04-30T20:42:23Z",
+      "side": 1,
+      "message": "Yeah but that was patchset 5 right?\n\nI have made changes since then which should sidestep this issue entirely.\nAt least i believe so.\n\nAre you saying patchset 7 still has a Redfish spec violation?\n\nHow can i move forward here or which changes would you like to see in this patch to fix the validation error on multi-host Redfish.\n\n\u003e This is a functional issue with the patch that the tooling happens to not catch.\n\nWith functional issue you mean that the link is only provided for some combination of meson options (inconsistency) ?",
+      "parentUuid": "fcb08c8c_68a25088",
+      "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
