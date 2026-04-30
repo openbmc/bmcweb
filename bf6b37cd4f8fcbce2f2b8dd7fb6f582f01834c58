@@ -142,6 +142,24 @@
       "parentUuid": "376e82e4_49fd50a5",
       "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bb99425_53f021c6",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-30T20:21:59Z",
+      "side": 1,
+      "message": "Sorry, I misspoke, Oliver did it in 7681b8a16fd75dc3424a6d70a76a906d128b8de9.",
+      "parentUuid": "ad8b7afa_698efff7",
+      "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
