@@ -177,6 +177,24 @@
       "parentUuid": "dd311a5a_fb98d154",
       "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcb08c8c_68a25088",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-04-30T20:10:35Z",
+      "side": 1,
+      "message": "Calling this only a tooling issue is incorrect.  This is a functional issue with the patch that the tooling happens to not catch.",
+      "parentUuid": "76f415cd_d85cd309",
+      "revId": "c120f06ff0d122a79bf9bd3ba3b3a6c2c72e4beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
