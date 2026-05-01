@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98abf919_a07e32f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-01T23:22:16Z",
+      "side": 1,
+      "message": "FYI, this was my WIP attempt at cleaning this next phase up.  Lots of it was ai generated at my direction.  PTAL and if you want to incorporate into your patch, please do.",
+      "revId": "21e6e799a6a43c2e2ba42033b7ef5cd181386e0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4ae096_7e9690ea",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-01T23:22:16Z",
+      "side": 1,
+      "message": "This duplicates code, please just use the classes as is.  The underlying pointer accessors are intentionally private to not break the abstraction, but for staging this change in, making them public is much better than what the LLM did here inventing yet another class.\n\nthe whole point is to have a common RAII class.  If we need to stage that imperfectly I\u0027m ok with that.\n\n\nAlso, please don\u0027t leave the LLM context comments in the code.  It\u0027s great that it can figure all this out, but docuemntation for ossl_wrappers.hpp should go into ossl_wrappers.hpp, and the above just looks like an explanation from your prompt about why it did what it did.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "21e6e799a6a43c2e2ba42033b7ef5cd181386e0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
