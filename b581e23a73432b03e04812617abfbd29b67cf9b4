@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f7a4d94_bf255e25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T18:10:17Z",
+      "side": 1,
+      "message": "Unaddressed comments",
+      "revId": "b581e23a73432b03e04812617abfbd29b67cf9b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40aa72c4_99cbeb8d",
         "filename": "include/webassets.hpp",
         "patchSetId": 8
