@@ -22,6 +22,30 @@
       },
       "revId": "d6a9e09897b5ed8524e0d6533e6dab80d612dfdc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1a1c50b_51c55122",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-05-01T18:14:17Z",
+      "side": 0,
+      "message": "I\u0027m not sure whether they are all okay to make them as errors, but I think it makes sense.\n\nOne question I\u0027m not clear is about \"PropertyMissing\" which seems done to accumulate messages in a loop - https://github.com/openbmc/bmcweb/blob/d6a9e09897b5ed8524e0d6533e6dab80d612dfdc/redfish-core/lib/ethernet.hpp#L1813",
+      "parentUuid": "7ddc54a9_33a9b40e",
+      "range": {
+        "startLine": 388,
+        "startChar": 0,
+        "endLine": 400,
+        "endChar": 0
+      },
+      "revId": "d6a9e09897b5ed8524e0d6533e6dab80d612dfdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
