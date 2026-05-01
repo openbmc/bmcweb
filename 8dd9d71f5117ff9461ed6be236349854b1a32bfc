@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe59bf20_bf3dfef3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-05-01T14:45:23Z",
+      "side": 1,
+      "message": "Good point about backend responsibility. However, Without this validation, users get HTTP 400 with an empty response body - no error information. This ensures they receive a proper Redfish error message with actionable guidance.",
+      "parentUuid": "ba91186f_200a75ca",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dd6cd06_215f0268",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-04-27T15:19:21Z",
       "side": 1,
       "message": "Overall I\u0027m not sure why we\u0027re doing this.",
+      "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a52028d_4f85279c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-05-01T14:45:23Z",
+      "side": 1,
+      "message": "Without this validation, Posting an empty body to /redfish/v1/UpdateService/update \nreturns HTTP 400 with a completely empty response body - zero error information.\nThis adds proper Redfish error messaging (ResourceMissingAtURI) so users understand \nwhat went wrong and how to fix it. This improves API usability and follows Redfish \nbest practices for actionable error responses.",
+      "parentUuid": "0dd6cd06_215f0268",
       "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e960c43_83ca0109",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-05-01T14:45:23Z",
+      "side": 1,
+      "message": "Now updated the proper message.",
+      "parentUuid": "ff7ae5d4_ee8659cc",
+      "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4dbdbfa_804dfad5",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-04-27T15:19:21Z",
       "side": 1,
       "message": "This isn\u0027t a property, why are we issuing \"PropertyMissing\"",
+      "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24006128_8ec1432c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-05-01T14:45:23Z",
+      "side": 1,
+      "message": "Updated to use ResourceMissingAtURI, which is explicitly designed for firmware \nupdate scenarios per the Redfish Base Message Registry.",
+      "parentUuid": "a4dbdbfa_804dfad5",
       "revId": "8dd9d71f5117ff9461ed6be236349854b1a32bfc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
