@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f87eaa46_5ea1d0cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T17:59:02Z",
+      "side": 1,
+      "message": "It looks like 34 we do the addMessageToErrorJson but looks like we missed more than just these 2..",
+      "revId": "036d0a64984e4fc2895843a1ff9b21068b1b62d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67ef4551_ea3fbdb7",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T17:59:02Z",
+      "side": 1,
+      "message": "This one?",
+      "revId": "036d0a64984e4fc2895843a1ff9b21068b1b62d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab8947d7_59cdc12c",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T17:59:02Z",
+      "side": 1,
+      "message": "This one?",
+      "revId": "036d0a64984e4fc2895843a1ff9b21068b1b62d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d50b38d_120a7924",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T17:59:02Z",
+      "side": 1,
+      "message": "Should we do it for this one too?",
+      "revId": "036d0a64984e4fc2895843a1ff9b21068b1b62d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cafaff74_d146ea35",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T17:59:02Z",
+      "side": 1,
+      "message": "This one too?",
+      "revId": "036d0a64984e4fc2895843a1ff9b21068b1b62d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6659c136_8e8f6c8b",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T17:59:02Z",
+      "side": 1,
+      "message": "This one?",
+      "revId": "036d0a64984e4fc2895843a1ff9b21068b1b62d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3255c892_b73d1415",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T17:59:02Z",
+      "side": 1,
+      "message": "This one ?",
+      "revId": "036d0a64984e4fc2895843a1ff9b21068b1b62d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
