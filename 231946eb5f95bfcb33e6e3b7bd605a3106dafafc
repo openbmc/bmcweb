@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc210e72_cd4f4e22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T18:09:04Z",
+      "side": 1,
+      "message": "Why is a 400 error with a empty body so bad? \nSo this moves to a more exact error ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 63,
+        "endLine": 11,
+        "endChar": 33
+      },
+      "revId": "231946eb5f95bfcb33e6e3b7bd605a3106dafafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b59dff6_c443e575",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-01T18:09:04Z",
+      "side": 1,
+      "message": "User error, 4xx... WARNING here",
+      "revId": "231946eb5f95bfcb33e6e3b7bd605a3106dafafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
