@@ -143,18 +143,39 @@ inline void handleSessionDelete(
     messages::success(asyncResp->res);
 }
 
-inline nlohmann::json getSessionCollectionMembers()
+inline nlohmann::json getSessionCollectionMembers(
+    const crow::Request& req)
 {
-    std::vector<std::string> sessionIds =
-        persistent_data::SessionStore::getInstance().getAllUniqueIds();
     nlohmann::json ret = nlohmann::json::array();
-    for (const std::string& uid : sessionIds)
+
+    // Require admin privilege level to enumerate all session ids
+    if (req.session && 
+        req.session->userRole == "priv-admin")
+    {
+        std::vector<std::string> sessionIds =
+            persistent_data::SessionStore::getInstance().getAllUniqueIds();
+
+        for (const std::string& uid : sessionIds)
+        {
+            nlohmann::json::object_t session;
+            session["@odata.id"] =
+                boost::urls::format("/redfish/v1/SessionService/Sessions/{}", uid);
+            ret.emplace_back(std::move(session));
+        }
+        return ret;
+    }
+
+    // Non-admin: only current session
+    if (req.session)
     {
         nlohmann::json::object_t session;
         session["@odata.id"] =
-            boost::urls::format("/redfish/v1/SessionService/Sessions/{}", uid);
+            boost::urls::format(
+                "/redfish/v1/SessionService/Sessions/{}",
+                req.session->uniqueId);
         ret.emplace_back(std::move(session));
     }
+
     return ret;
 }
 
@@ -183,7 +204,7 @@ inline void handleSessionCollectionGet(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/SessionCollection.json>; rel=describedby");
 
-    asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers();
+    asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers(req);
     asyncResp->res.jsonValue["Members@odata.count"] =
         asyncResp->res.jsonValue["Members"].size();
     asyncResp->res.jsonValue["@odata.type"] =
