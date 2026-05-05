@@ -26,6 +26,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9264d132_6d03d5f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-05T19:02:19Z",
+      "side": 1,
+      "message": "+1 \n\n            \"Entity\": \"SessionCollection\",\n            \"OperationMap\": {\n                \"GET\": [\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],",
+      "parentUuid": "6633ecdf_2ce03236",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "9e10a0e643c25a0d43fda6e4c2e2396fa5b881b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97ec7366_671a7636",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-05T19:02:19Z",
+      "side": 1,
+      "message": "Why do we want to restrict ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 1,
+        "endLine": 16,
+        "endChar": 14
+      },
+      "revId": "9e10a0e643c25a0d43fda6e4c2e2396fa5b881b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1185c0ea_48e33d19",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 1
