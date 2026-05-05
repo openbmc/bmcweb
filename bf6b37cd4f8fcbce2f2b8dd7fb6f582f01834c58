@@ -160,6 +160,24 @@
       "parentUuid": "ad8b7afa_698efff7",
       "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c53fb80_ebb15636",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-05-05T10:07:50Z",
+      "side": 1,
+      "message": "Are you sure he \u0027duplicated\u0027 anything?\n\nI had a look at https://github.com/openbmc/bmcweb/commit/7681b8a16fd75dc3424a6d70a76a906d128b8de9\n\nand the diff is `366-331 \u003d +35` lines in total.\n\nOf which `44-14 \u003d 30` are due to includes added/removed at the top of the new header and 2 lines are due to formatting wraparound due to access of the new namespace.\n\nTotal of `32` lines accounted for and `3` lines unaccounted for.\n\nIMO the patch looks like he just moved functions from one header to another so they can be re-used.\n\nI am still searching for where he supposedly duplicated something, can you kindly let me know which function or which code section.",
+      "parentUuid": "5bb99425_53f021c6",
+      "revId": "bf6b37cd4f8fcbce2f2b8dd7fb6f582f01834c58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
