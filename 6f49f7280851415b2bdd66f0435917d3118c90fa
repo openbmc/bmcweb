@@ -22,6 +22,30 @@
       },
       "revId": "6f49f7280851415b2bdd66f0435917d3118c90fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c568d9c5_857a6d3e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-05-05T10:18:15Z",
+      "side": 0,
+      "message": "ec does not change after 613 right?",
+      "parentUuid": "cc63dc3d_08ad805e",
+      "range": {
+        "startLine": 611,
+        "startChar": 0,
+        "endLine": 624,
+        "endChar": 0
+      },
+      "revId": "6f49f7280851415b2bdd66f0435917d3118c90fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

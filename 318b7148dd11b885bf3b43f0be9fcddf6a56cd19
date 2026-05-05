@@ -45,6 +45,30 @@
       },
       "revId": "318b7148dd11b885bf3b43f0be9fcddf6a56cd19",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a91efa_aafe8e1f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-05-05T10:18:15Z",
+      "side": 1,
+      "message": "Then we must use different header name. This header is required to differentiate between aggregator\u0027s request and redfish client\u0027s request.",
+      "parentUuid": "44aaaae9_de481f9e",
+      "range": {
+        "startLine": 1331,
+        "startChar": 40,
+        "endLine": 1331,
+        "endChar": 55
+      },
+      "revId": "318b7148dd11b885bf3b43f0be9fcddf6a56cd19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
