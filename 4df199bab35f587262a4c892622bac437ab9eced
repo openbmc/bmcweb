@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11a49c86_23d48ecd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-05T09:21:35Z",
+      "side": 1,
+      "message": "Check for both io_error and EBADR and is it possible to pass `ec` as is without doing `make_error_code`?",
+      "parentUuid": "2b2677f9_a1153dd4",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "382dd71b_bf12fde9",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 2
