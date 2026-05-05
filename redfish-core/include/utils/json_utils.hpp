@@ -172,6 +172,15 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         }
         if (jsonPtr == nullptr)
         {
+            uint64_t* uintPtr = jsonValue.get_ptr<uint64_t*>();
+            if (uintPtr != nullptr)
+            {
+                helper = static_cast<double>(*uintPtr);
+                jsonPtr = &helper;
+            }
+        }
+        if (jsonPtr == nullptr)
+        {
             return UnpackErrorCode::invalidType;
         }
         if (!checkRange<Type>(*jsonPtr, key))
