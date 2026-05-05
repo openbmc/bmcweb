@@ -37,6 +37,57 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a527c1_834394db",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-05T05:01:06Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be continue?",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "771bacd4_a47a3c6d",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-05T05:01:06Z",
+      "side": 1,
+      "message": "We can\u0027t do this. Either we have to add interface `xyz.openbmc_project.Memory.MemoryECC` to getAssociatedSubTree call and report error if more than one service is found OR iterate over all services to find the one containing `xyz.openbmc_project.Memory.MemoryECC`.",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c142da0_9d9d35b9",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-05T05:01:06Z",
+      "side": 1,
+      "message": "Can we also add xyz.openbmc_project.Memory.MemoryECC interface to this list?",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3bfd8886_8b08a61e",
@@ -69,6 +120,40 @@
       "side": 1,
       "message": "Done in PS20. Extracted startDramAssociationProbe(). SRAM-success and SRAM-absent paths both call it directly; no more forged error_code into afterGetSramEccProperties.\n\nDiff: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#168 (helper), https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#197 (absent path), https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/18..20/redfish-core/lib/processor_memory_summary_metrics.hpp#218 (success path)",
       "parentUuid": "98375df1_bfea760d",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34cd2393_63da136a",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-05T05:01:06Z",
+      "side": 1,
+      "message": "If serviceMap is empty, does that mean there is no Processor Object path? If yes, shouldn\u0027t we return `resource not found`?",
+      "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a2615e1_71accd10",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-05T05:01:06Z",
+      "side": 1,
+      "message": "we have to iterate over all services to find the one containing `xyz.openbmc_project.Memory.MemoryECC`.",
       "revId": "3d2e1542eec2c64a9a3787ee7c5b1ef97a157dbf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
