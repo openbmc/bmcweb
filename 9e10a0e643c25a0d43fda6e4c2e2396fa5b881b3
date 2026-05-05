@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6633ecdf_2ce03236",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-05T17:44:24Z",
+      "side": 1,
+      "message": "Based on my reading of the DMTF Privileges registry, this is the spec-defined behavior.  Are you going to submit a PATCH to Redfish as well?\n\nhttps://github.com/DMTF/Redfish-Publications/blob/26c949654e3e510800b05fa8d39cf336f10fa687/registries/Redfish_1.8.0_PrivilegeRegistry.json#L6611\n\nI\u0027m not sure I want to be enforcing things outside of the standard.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "9e10a0e643c25a0d43fda6e4c2e2396fa5b881b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1185c0ea_48e33d19",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-05T17:44:24Z",
+      "side": 1,
+      "message": "Please don\u0027t handle privileges outside of the privilege checks on routes and privilege registry (there\u0027s one exception to this in code for COnfigureSelf).  I suspect you need to handle this and get DMTF to publish a new Registry, then we would just pull it in.",
+      "revId": "9e10a0e643c25a0d43fda6e4c2e2396fa5b881b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
