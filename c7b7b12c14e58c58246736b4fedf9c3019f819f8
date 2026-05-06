@@ -39,6 +39,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "67311ab7_b3a8359c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-06T06:19:29Z",
+      "side": 1,
+      "message": "Done in PS18. Sorry for push mistake.",
+      "parentUuid": "9da96c77_93fe8908",
+      "revId": "c7b7b12c14e58c58246736b4fedf9c3019f819f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "eed74bf5_8758a845",
         "filename": "redfish-core/lib/memory_metrics.hpp",
         "patchSetId": 15
@@ -69,6 +87,24 @@
       "side": 1,
       "message": "This is not fixed.",
       "parentUuid": "eed74bf5_8758a845",
+      "revId": "c7b7b12c14e58c58246736b4fedf9c3019f819f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "175d110c_19aa1b62",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-06T06:19:29Z",
+      "side": 1,
+      "message": "Done in PS18. Sorry for push mistake.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87169/18/redfish-core/lib/memory_metrics.hpp#183",
+      "parentUuid": "8fdc9dea_d20f138e",
       "revId": "c7b7b12c14e58c58246736b4fedf9c3019f819f8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
