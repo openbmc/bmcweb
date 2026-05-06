@@ -130,7 +130,12 @@ inline void handleSystemsLogServicesPostCodesPost(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
-                // TODO Handle for specific error code
+                if (ec.value() == EBADR)
+                {
+                    messages::resourceNotFound(asyncResp->res, "PostCodeService",
+                                               "PostCodes");
+                    return;
+                }
                 BMCWEB_LOG_ERROR("doClearPostCodes resp_handler got error {}",
                                  ec);
                 asyncResp->res.result(
