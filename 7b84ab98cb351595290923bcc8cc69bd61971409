@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20525975_0a7b8e67",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-06T13:02:05Z",
+      "side": 1,
+      "message": "Done.\nAdded `CoreVoltage/Reading` and `CoreVoltage/DataSourceUri` under the `ProcessorMetrics` section in `docs/Redfish.md`.",
+      "parentUuid": "a8620b2c_f94c3a9a",
+      "revId": "7b84ab98cb351595290923bcc8cc69bd61971409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "286a603f_03b12b2b",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb75b92_da7810e8",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-06T13:02:05Z",
+      "side": 1,
+      "message": "Done.\nReplaced the `sensorPath + \"/chassis\"` string concatenation with `sdbusplus::object_path` and the `/\u003d` operator to build the chassis association path, matching the pattern used in `pcie_slots.hpp`.",
+      "parentUuid": "286a603f_03b12b2b",
+      "revId": "7b84ab98cb351595290923bcc8cc69bd61971409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b1c6d3e_8ddd908b",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-05-05T08:39:56Z",
       "side": 1,
       "message": "Please also check for `endpoints` containing multiple items.",
+      "revId": "7b84ab98cb351595290923bcc8cc69bd61971409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a77cef8_704f404c",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-06T13:02:05Z",
+      "side": 1,
+      "message": "Done.\nAdded a check for `endpoints.size() \u003e 1` after the empty/error check.",
+      "parentUuid": "8b1c6d3e_8ddd908b",
       "revId": "7b84ab98cb351595290923bcc8cc69bd61971409",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
