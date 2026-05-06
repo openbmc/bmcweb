@@ -160,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ade6be6_f638df12",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-06T13:08:05Z",
+      "side": 1,
+      "message": "Done.\nHave the `make_error_code` removed and check for both the `io_error` and `EBADR`.",
+      "parentUuid": "11a49c86_23d48ecd",
+      "revId": "4df199bab35f587262a4c892622bac437ab9eced",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "382dd71b_bf12fde9",

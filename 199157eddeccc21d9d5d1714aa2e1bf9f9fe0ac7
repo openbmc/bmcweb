@@ -16,6 +16,24 @@
       "message": "Shouldn\u0027t we specify Memory D-Bus interface Item.Dimm to constraint the search?",
       "revId": "199157eddeccc21d9d5d1714aa2e1bf9f9fe0ac7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f355d570_4b7f5aa1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-06T13:08:05Z",
+      "side": 1,
+      "message": "Done.\nI have added the Item.Dimm interface to constraint the search result.",
+      "parentUuid": "42c1ce17_bc95aa35",
+      "revId": "199157eddeccc21d9d5d1714aa2e1bf9f9fe0ac7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
