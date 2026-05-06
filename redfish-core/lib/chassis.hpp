@@ -926,7 +926,7 @@ inline void doChassisPowerCycle(
 inline void handleChassisResetActionInfoPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& /*chassisId*/)
+    const std::string& chassisId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -949,7 +949,16 @@ inline void handleChassisResetActionInfoPost(
 
         return;
     }
-    doChassisPowerCycle(asyncResp);
+    chassis_utils::getValidChassisPath(asyncResp, chassisId, [
+        asyncResp, chassisId
+    ](const std::optional<std::string>& validChassisPath) {
+        if (!validChassisPath)
+        {
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+            return;
+        }
+        doChassisPowerCycle(asyncResp);
+    });
 }
 
 /**
