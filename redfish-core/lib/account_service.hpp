@@ -1168,6 +1168,17 @@ inline void afterVerifyUserExists(
             asyncResp, "Enabled", "xyz.openbmc_project.User.Manager",
             params.dbusObjectPath, "xyz.openbmc_project.User.Attributes",
             "UserEnabled", *params.enabled);
+
+        // Check user is disabled
+        if (!*params.enabled)
+        {
+            // DELETE invalidates sessions via the InterfacesRemoved
+            // signal (see user_monitor.hpp); PATCH does not remove the
+            // user object, so disabled-account sessions must be culled
+            // here, otherwise active tokens keep authenticating.
+            persistent_data::SessionStore::getInstance()
+                .removeSessionsByUsername(params.username);
+        }
     }
 
     if (params.roleId)
