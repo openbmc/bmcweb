@@ -576,7 +576,11 @@ inline void afterLogEntriesGetManagedObjects(
 {
     if (ec)
     {
-        // TODO Handle for specific error code
+        if (ec.value() == EBADR)
+        {
+            messages::resourceNotFound(asyncResp->res, "LogEntry", "entries");
+            return;
+        }
         BMCWEB_LOG_ERROR("getLogEntriesIfaceData resp_handler got error {}",
                          ec);
         messages::internalError(asyncResp->res);
@@ -761,7 +765,7 @@ inline void dBusEventLogEntryDelete(
                 messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
                 return;
             }
-            // TODO Handle for specific error code
+
             BMCWEB_LOG_ERROR(
                 "EventLogEntry (DBus) doDelete respHandler got error {}", ec);
             asyncResp->res.result(
@@ -789,7 +793,12 @@ inline void dBusLogServiceActionsClear(
         BMCWEB_LOG_DEBUG("doClearLog resp_handler callback: Done");
         if (ec)
         {
-            // TODO Handle for specific error code
+            if (ec.value() == EBADR)
+            {
+                messages::resourceNotFound(asyncResp->res, "LogService",
+                                           "EventLog");
+                return;
+            }
             BMCWEB_LOG_ERROR("doClearLog resp_handler got error {}", ec);
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
