@@ -926,7 +926,7 @@ inline void doChassisPowerCycle(
 inline void handleChassisResetActionInfoPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& /*chassisId*/)
+    const std::string& chassisId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -949,7 +949,36 @@ inline void handleChassisResetActionInfoPost(
 
         return;
     }
-    doChassisPowerCycle(asyncResp);
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        [asyncResp, chassisId](const boost::system::error_code& ec,
+                               const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            // Iterate over all retrieved ObjectPaths.
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                const std::string& path = object.first;
+
+                sdbusplus::object_path objPath(path);
+                if (objPath.filename() != chassisId)
+                {
+                    continue;
+                }
+
+                doChassisPowerCycle(asyncResp);
+                return;
+            }
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        });
 }
 
 /**
