@@ -1,0 +1,94 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3632d60c_e3bd5fe2",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-07T06:15:48Z",
+      "side": 1,
+      "message": "Done. Changed return to continue so a single failing DRAM path no longer aborts the whole accumulator (matches the partial-data-preferred intent).\n\nPS23 line: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/23/redfish-core/lib/processor_memory_summary_metrics.hpp#164",
+      "parentUuid": "a4a527c1_834394db",
+      "revId": "19025b1d38c60160946ab600e6cd3d93facfb892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc372dcb_973c43ee",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-07T06:15:48Z",
+      "side": 1,
+      "message": "Done. Took both options:\n- Added Memory.MemoryECC to memoryInterfaces so the mapper pre-filters paths exposing the ECC interface.\n- Iterate serviceMap with std::ranges::find_if to find the entry hosting MemoryECC; serviceMap.begin()-\u003efirst is unsafe because a path can be served by multiple services.\n\nPS23 line: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/23/redfish-core/lib/processor_memory_summary_metrics.hpp#156",
+      "parentUuid": "771bacd4_a47a3c6d",
+      "revId": "19025b1d38c60160946ab600e6cd3d93facfb892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb4cd254_1a138283",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-07T06:15:48Z",
+      "side": 1,
+      "message": "Done. memoryInterfaces is now {Item.Dimm, Memory.MemoryECC}; mapper pre-filters paths that expose MemoryECC.\n\nPS23 line: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/23/redfish-core/lib/processor_memory_summary_metrics.hpp#177",
+      "parentUuid": "2c142da0_9d9d35b9",
+      "revId": "19025b1d38c60160946ab600e6cd3d93facfb892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32edb41d_fd14459d",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-07T06:15:48Z",
+      "side": 1,
+      "message": "Done. Empty serviceMap from getProcessorObject now returns messages::resourceNotFound(\"Processor\", processorId) instead of silently falling through to the DRAM-only probe.\n\nPS23 line: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/23/redfish-core/lib/processor_memory_summary_metrics.hpp#279",
+      "parentUuid": "34cd2393_63da136a",
+      "revId": "19025b1d38c60160946ab600e6cd3d93facfb892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6bee6b8_9ca32fd5",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-07T06:15:48Z",
+      "side": 1,
+      "message": "Done. Iterate serviceMap with std::ranges::find_if to find the entry hosting Memory.MemoryECC instead of taking begin()-\u003efirst; same pattern as the DRAM lookup.\n\nPS23 line: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87185/23/redfish-core/lib/processor_memory_summary_metrics.hpp#290",
+      "parentUuid": "5a2615e1_71accd10",
+      "revId": "19025b1d38c60160946ab600e6cd3d93facfb892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
