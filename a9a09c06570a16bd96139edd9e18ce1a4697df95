@@ -277,6 +277,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2acfcd16_c0cfe2c4",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-05-07T12:54:16Z",
+      "side": 1,
+      "message": "I have now amended my logic to populate MessageSeverity in the same way as Severity, i.e through direct string assignment.\n\nI have also left Severity field as-is to prevent any regression issues.\nI have verified this change in my testing (detailed test steps included in the change description) as well as captured it in the test log to ensure both the fields are correctly populated. Additionally, I have run unit tests and redfish validator to ensure it passes.",
+      "parentUuid": "e04f595f_8268d989",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 78
+      },
+      "revId": "a9a09c06570a16bd96139edd9e18ce1a4697df95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45f1f7f0_8addbbaf",
         "filename": "redfish-core/src/event_log.cpp",
         "patchSetId": 14
