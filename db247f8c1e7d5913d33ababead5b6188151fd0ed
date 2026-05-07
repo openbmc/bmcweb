@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a5e5436_c2f1d2d0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-07T01:52:38Z",
+      "side": 1,
+      "message": "Done.\nAdded chassis interface to constraint the searching result.",
+      "parentUuid": "eecafe6c_8e7b82e3",
+      "revId": "db247f8c1e7d5913d33ababead5b6188151fd0ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c325c24_908f905a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-05T09:25:42Z",
       "side": 1,
       "message": "Shouldn\u0027t we specify PCIeFunctions D-Bus interface to constraint the search?",
+      "revId": "db247f8c1e7d5913d33ababead5b6188151fd0ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "940b31f3_238aa6d9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-07T01:52:38Z",
+      "side": 1,
+      "message": "Done.\nAdded PCIeFunction interface to constraint the searching result.",
+      "parentUuid": "7c325c24_908f905a",
       "revId": "db247f8c1e7d5913d33ababead5b6188151fd0ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
