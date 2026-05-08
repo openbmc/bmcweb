@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e50cc2_49f4a5ed",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-08T08:33:59Z",
+      "side": 0,
+      "message": "Can you elaborate why this was removed?",
+      "revId": "21e6e799a6a43c2e2ba42033b7ef5cd181386e0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
