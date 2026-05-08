@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccf58373_a93d38d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:38:24Z",
+      "side": 1,
+      "message": "updated the new commit message and patch",
+      "parentUuid": "bc1de088_a9894ba3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 4
+      },
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70ba6e5c_6ec29f01",
@@ -183,6 +207,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "241470c5_a4020ae7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:38:24Z",
+      "side": 1,
+      "message": "POST handshake will be very late in deciding the context switch, hence used SNI callback to switch context",
+      "parentUuid": "5a8a450f_c96885a7",
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2f76005_a1954cc0",
@@ -272,6 +314,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08c5d1aa_8c5def0e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:38:24Z",
+      "side": 1,
+      "message": "context creation is moved to factory class implementation which enables customizable SSL context creation.",
+      "parentUuid": "42a364b1_dac44921",
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62aaca9f_13859648",
@@ -309,6 +369,30 @@
       "side": 1,
       "message": "@ed@tanous.net, \n\nIts used for validating minimum valid hostname length while parsing the SNI. Tried the SSL_get_servername() but doesn\u0027t work in ClientHello callback\n\nClientHello callback fires early and SSL_get_servername() retrieves the SNI from OpenSSL\u0027s internal SSL structure, but OpenSSL hasn\u0027t populated that field yet when the ClientHello callback executes.\nWe need to make the context decision during ClientHello.",
       "parentUuid": "62aaca9f_13859648",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "3587d03538a1edb7ce0b4b640fc3ea5325ee37ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c09b5f86_f5c68500",
+        "filename": "include/ssl_dual_context.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:38:24Z",
+      "side": 1,
+      "message": "Removed the sniMinLength and updated with new patch  with SSL_get_servername()",
+      "parentUuid": "79f2ee60_8344e027",
       "range": {
         "startLine": 25,
         "startChar": 17,

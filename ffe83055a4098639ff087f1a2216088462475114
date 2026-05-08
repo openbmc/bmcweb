@@ -332,6 +332,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d3befd_7029fd68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:38:24Z",
+      "side": 1,
+      "message": "existing script executed and following were tested\n1.generate certs and install on BMC0 and BMC1\n2.check certs installed on BMC\n3.mutual Authentication with Client Certificate (self Signed)\n4.Session-Based Authentication",
+      "parentUuid": "a33e426f_474d93f8",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 11
+      },
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "816fbd6d_e10e9c58",
@@ -689,6 +713,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa1abb3_6d73a2b6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:38:24Z",
+      "side": 1,
+      "message": "updated new patch for customizable SSL context creation",
+      "parentUuid": "2e4a6f40_2ceb68d7",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8019370_e7a03db0",
@@ -756,6 +798,24 @@
       "side": 1,
       "message": "\u003e I noticed that setCipherSuiteTLSext relies on the hostname, whereas aggregation currently uses an IP address. To support this, would it make sense to add an additional property (for example, sniHostname) to the HTTP client that can be set by the redfish_aggregation code? This would avoid forcing the use of a domain name in the satellite control configuration and allow SNI handling to remain flexible.\n\nThere\u0027s nothing in the spec preventing SNI from using an IP address.",
       "parentUuid": "6701b1ab_d4024857",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78f97b94_9d6263ea",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:38:24Z",
+      "side": 1,
+      "message": "updated the patch to enable customizable SSL context creation.",
+      "parentUuid": "4af94a7a_9a8cacba",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -898,6 +958,24 @@
       "side": 1,
       "message": "@ed@tanous.net, updated the commit message, \nAdd required client cert context alongside existing Optional client cert context:\n1. Optional client cert context(existing): SSL_VERIFY_PEER (optional cert) - server.pem\n2. required client cert context(new): SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT - server_bmc.pem\nRoute connections via SNI during TLS handshake:\n- IP address in SNI + authorized in satellite_config.json → mTLS\n- Hostname in SNI or unauthorized IP → HTTPS\n\nClient:\nEnable SNI for IP addresses to support satellite detection.SNI\nextension (RFC 6066 Section 3) enables context selection before\nhandshake completion. IP addresses in SNI are RFC-compliant.",
       "parentUuid": "8a6f5669_5adda32c",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f89df4d_72f3bf41",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:38:24Z",
+      "side": 1,
+      "message": "Updated new patch and commit message with factory class implementation, to enable customizable SSL context creation",
+      "parentUuid": "cec2b975_fb58a464",
       "revId": "ffe83055a4098639ff087f1a2216088462475114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
