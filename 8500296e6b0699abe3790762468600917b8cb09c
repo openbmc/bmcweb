@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff25df1b_1a98b32b",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-08T04:59:31Z",
+      "side": 1,
+      "message": "Add this interface to getSubTree call as well.",
+      "revId": "8500296e6b0699abe3790762468600917b8cb09c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdccbe54_41aee3a4",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-08T04:59:31Z",
+      "side": 1,
+      "message": "Aren\u0027t we overwriting the `MemoryConfiguredSpeedInMhz` if multiple Memory objects are found? It\u0027s not clear how to correctly populate this property if multiple Memory objects are found so for now let\u0027s not populate this property and only keep the property in URI /redfish/v1/Systems/system/Memory/{MemoryId}/MemoryMetrics/.",
+      "revId": "8500296e6b0699abe3790762468600917b8cb09c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
