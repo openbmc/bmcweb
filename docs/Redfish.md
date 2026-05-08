@@ -263,6 +263,7 @@ Fields common to all schemas
 
 #### Control
 
+- Actions
 - AllowableMax
 - AllowableMin
 - ControlMode
