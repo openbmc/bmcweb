@@ -16,6 +16,24 @@
       "message": "Shouldn\u0027t we check if associated object path containing this control interface is present before populating the property?",
       "revId": "78db6665ef9174d0daac895890f9f12d45cd11cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "870cfc11_6369be1a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-08T10:28:42Z",
+      "side": 1,
+      "message": "Done. Thanks for the catch.",
+      "parentUuid": "ae46dfdc_34f0d64e",
+      "revId": "78db6665ef9174d0daac895890f9f12d45cd11cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
