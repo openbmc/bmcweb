@@ -167,8 +167,8 @@ inline bool translateDhcpEnabledToBool(const std::string& inputDHCP,
              "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4") ||
             (inputDHCP ==
              "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both") ||
-            (inputDHCP ==
-             "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4v6stateless"));
+            (inputDHCP == "xyz.openbmc_project.Network.EthernetInterface."
+                          "DHCPConf.v4v6stateless"));
     }
     return ((inputDHCP ==
              "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6") ||
@@ -1058,9 +1058,7 @@ inline void handleIPv6DefaultGateway(
                 return;
             }
             deleteIPv6Gateway(ifaceId, staticGatewayEntry->id, asyncResp);
-            staticGatewayEntry++;
-            entryIdx++;
-            continue;
+            return;
         }
         if (obj->empty())
         {
@@ -1881,6 +1879,9 @@ inline void parseInterfaceData(
         boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces/{}",
                             BMCWEB_REDFISH_MANAGER_URI_NAME, ifaceId);
     jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
+    jsonResponse["SpeedMbps"] = 0;
+    jsonResponse["HostName"] = nullptr;
+    jsonResponse["FQDN"] = nullptr;
 
     if (ethData.nicEnabled)
     {
@@ -1888,11 +1889,13 @@ inline void parseInterfaceData(
             ethData.linkUp ? ethernet_interface::LinkStatus::LinkUp
                            : ethernet_interface::LinkStatus::LinkDown;
         jsonResponse["Status"]["State"] = resource::State::Enabled;
+        jsonResponse["Status"]["Health"] = resource::Health::OK;
     }
     else
     {
         jsonResponse["LinkStatus"] = ethernet_interface::LinkStatus::NoLink;
         jsonResponse["Status"]["State"] = resource::State::Disabled;
+        jsonResponse["Status"]["Health"] = resource::Health::OK;
     }
 
     jsonResponse["SpeedMbps"] = ethData.speed;
