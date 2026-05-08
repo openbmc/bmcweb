@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a68bb3_7140cd83",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-08T07:49:18Z",
+      "side": 1,
+      "message": "Done.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88011/11..12/redfish-core/lib/memory_metrics.hpp#203",
+      "parentUuid": "ff25df1b_1a98b32b",
+      "revId": "8500296e6b0699abe3790762468600917b8cb09c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdccbe54_41aee3a4",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-08T04:59:31Z",
       "side": 1,
       "message": "Aren\u0027t we overwriting the `MemoryConfiguredSpeedInMhz` if multiple Memory objects are found? It\u0027s not clear how to correctly populate this property if multiple Memory objects are found so for now let\u0027s not populate this property and only keep the property in URI /redfish/v1/Systems/system/Memory/{MemoryId}/MemoryMetrics/.",
+      "revId": "8500296e6b0699abe3790762468600917b8cb09c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c49af5d3_65ac3b8d",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-08T07:49:18Z",
+      "side": 1,
+      "message": "Done. Removed it. Thanks.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88011/11..12/redfish-core/lib/processor_memory_summary_metrics.hpp#b171",
+      "parentUuid": "cdccbe54_41aee3a4",
       "revId": "8500296e6b0699abe3790762468600917b8cb09c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
