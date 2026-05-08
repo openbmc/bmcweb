@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "981b97e4_973d507e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-08T06:40:38Z",
+      "side": 1,
+      "message": "There is a Chassis interface list already defined, please use that.",
+      "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "581578d8_d9e61b27",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-08T06:40:38Z",
+      "side": 1,
+      "message": "for ec other than EBADR we should do internalError.",
+      "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48bbaa55_840f2fbf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-08T06:40:38Z",
+      "side": 1,
+      "message": "Do we really need to populate this properties if the list is empty?",
+      "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c57998_c17c627e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-05-08T06:40:38Z",
+      "side": 1,
+      "message": "Is it necessary to create this object and bind it to the callback? Can we create it in the callback?",
+      "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
