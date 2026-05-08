@@ -149,6 +149,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "407245a5_23f1c9ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:10:09Z",
+      "side": 1,
+      "message": "1. Optional client cert context (existing): presents server.pem\n   certificate for regular browser connections\n2. Client auth context (new): presents server_cert.pem certificate for\n   satellite peer-to-peer connections with mandatory client\n   certificate verification enforced via SSL_VERIF",
+      "parentUuid": "97685712_9e567d24",
+      "revId": "a4dad85f11a88caa921d7c470e27a441e7af9c20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07ba140a_c3de64db",

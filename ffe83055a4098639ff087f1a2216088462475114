@@ -582,6 +582,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a202d2b_10956900",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:10:09Z",
+      "side": 1,
+      "message": "server.pem - For browser/API connections (client cert optional)\nserver_cert.pem - For satellite connections (mutual authentication both client and server_cert.pem is used for peer to peer communication)",
+      "parentUuid": "75a94821_7ac47205",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8868ed7_0e8a03a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:10:09Z",
+      "side": 1,
+      "message": "sure, updated the new patch",
+      "parentUuid": "87bef1d8_39b3463e",
+      "revId": "ffe83055a4098639ff087f1a2216088462475114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "677d18a6_10079541",

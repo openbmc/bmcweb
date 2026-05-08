@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f61ebd2_5c2a75b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:10:09Z",
+      "side": 1,
+      "message": "updated patch with commit message",
+      "parentUuid": "0536b074_fe7b583b",
+      "range": {
+        "startLine": 17,
+        "startChar": 39,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7f9d46a_3b4a24f5",
@@ -185,6 +209,24 @@
       "writtenOn": "2026-02-24T21:45:09Z",
       "side": 1,
       "message": "I stopped reviewing after the 10th violation.  Please read and understand the coding rules.  If you need examples, there\u0027s a vast bmcweb codebase that\u0027s more or less consistent on these you can learn from, or there\u0027s lots of people willing to help you.\n\n\nOverall, I want to get an understanding of what this patch is trying to enable in the commit message, then we can go from there.  Enforcing Hostnames on the BMC have a lot of baggage that generally we don\u0027t want to enable.  I\u0027m happy to revisit that discussion and come up with options, but as written just enabling SNI will break things (as you\u0027ve found).",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2597d000_86764ff4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:10:09Z",
+      "side": 1,
+      "message": "updated the patch",
+      "parentUuid": "1ab50272_62e30139",
       "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -669,6 +711,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "0dfb80ae_30951328",
+      "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0c44bed_89bf06d5",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-05-08T04:10:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78cd8104_29f04d26",
       "revId": "bc55dc4996fadb3f1bfecf21ea8e389c483dd656",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
