@@ -97,6 +97,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61c720f2_9f386269",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-05-08T04:03:42Z",
+      "side": 1,
+      "message": "@ed@tanous.net you can see the usage of the concrete factory implementation here https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87711 . Yes we are working together to upstream for this feature.",
+      "parentUuid": "d452836a_07154f83",
+      "revId": "d8e43d3f39e81fb1ebf650c9ab30cc0d32407dd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4824178_6ef7a3e4",
         "filename": "http/app.hpp",
         "patchSetId": 2
