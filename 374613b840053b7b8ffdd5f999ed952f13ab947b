@@ -16,6 +16,24 @@
       "message": "Put the interface name directly instead of using the global variable.",
       "revId": "374613b840053b7b8ffdd5f999ed952f13ab947b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "609f3116_211c2b1d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-09T10:24:46Z",
+      "side": 1,
+      "message": "Done.\nRemoved the global variable and put the interface name directly instead.",
+      "parentUuid": "af5bbee5_469d00a9",
+      "revId": "374613b840053b7b8ffdd5f999ed952f13ab947b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
