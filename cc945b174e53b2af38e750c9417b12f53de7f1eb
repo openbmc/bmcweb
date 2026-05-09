@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a77a0f_b37c7721",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-09T13:18:07Z",
+      "side": 1,
+      "message": "Done.\nRemoved the redundant `processorChassisInterfaces` definition and reuse the one defined in `redfish-core/include/utils/chassis_utils.hpp`",
+      "parentUuid": "981b97e4_973d507e",
+      "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "581578d8_d9e61b27",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-08T06:40:38Z",
       "side": 1,
       "message": "for ec other than EBADR we should do internalError.",
+      "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2fcf14b_ffb3b3a2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-09T13:18:07Z",
+      "side": 1,
+      "message": "Done.\nAdded handler for ec other than EBADR.",
+      "parentUuid": "581578d8_d9e61b27",
       "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db2085e7_9eaab440",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-09T13:18:07Z",
+      "side": 1,
+      "message": "Done.\nRemoved the redundant assignment for the response.",
+      "parentUuid": "48bbaa55_840f2fbf",
+      "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58c57998_c17c627e",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-05-08T06:40:38Z",
       "side": 1,
       "message": "Is it necessary to create this object and bind it to the callback? Can we create it in the callback?",
+      "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc2527b_05be8c76",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-09T13:18:07Z",
+      "side": 1,
+      "message": "Done.\nMoved the logic into the callback function.",
+      "parentUuid": "58c57998_c17c627e",
       "revId": "cc945b174e53b2af38e750c9417b12f53de7f1eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
