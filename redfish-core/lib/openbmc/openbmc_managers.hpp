@@ -180,7 +180,7 @@ inline void asyncPopulatePid(
                     if (intfPair.first == pidZoneConfigurationIface)
                     {
                         sdbusplus::object_path pidPath(pathPair.first.str);
-                        std::string chassis = pidPath.filename();
+                        std::string chassis = pidPath.parent_path().filename();
                         if (chassis.empty())
                         {
                             chassis = "#IllegalValue";
@@ -513,9 +513,9 @@ inline const dbus::utility::ManagedObjectType::value_type* findChassis(
     {
         return nullptr;
     }
-    // /xyz/openbmc_project/inventory/system/chassis/<chassis-name>
+    // /xyz/openbmc_project/inventory/system/chassis/<chassis-name>/<item-name>
     sdbusplus::object_path path(it->first.str);
-    chassis = path.filename();
+    chassis = path.parent_path().filename();
 
     return &(*it);
 }
