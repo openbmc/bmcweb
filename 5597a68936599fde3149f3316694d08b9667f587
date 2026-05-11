@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62371c5c_5d820a04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-11T02:45:37Z",
+      "side": 1,
+      "message": "Okay @ed@tanous.net i will withdraw this MR changes. Thanks",
+      "parentUuid": "9d5c3fac_dc35fab0",
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "443aaae9_322955be",
@@ -208,6 +226,30 @@
       "side": 1,
       "message": "Hi @ed@tanous.net We added this message to handle cases where a user uploads an invalid image during the POST operation to /redfish/v1/UpdateService/update.\n\nWith this change, the service immediately returns an error and prevents creation of a task at /redfish/v1/TaskService/Tasks/\u003cTaskId\u003e. Previously, a task would still be created, and only afterward would it fail with a 500 Internal Server Error. \n\nVerified that uploading a valid image successfully creates a task and completes the update flow as expected.\n\nVerified that uploading an invalid or corrupted image now returns an appropriate error response without creating a task.\n\nConfirmed that no /redfish/v1/TaskService/Tasks/\u003cTaskId\u003e entry is created in the failure scenario.",
       "parentUuid": "5bd70800_c8e510b6",
+      "range": {
+        "startLine": 353,
+        "startChar": 18,
+        "endLine": 353,
+        "endChar": 43
+      },
+      "revId": "5597a68936599fde3149f3316694d08b9667f587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3a9e030_4616be27",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-11T02:45:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62a7790e_298e99f0",
       "range": {
         "startLine": 353,
         "startChar": 18,
