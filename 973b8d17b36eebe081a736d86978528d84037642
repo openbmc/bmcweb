@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14581dd0_4be4d877",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-11T03:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fac618ca_5096df75",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 71
+      },
+      "revId": "973b8d17b36eebe081a736d86978528d84037642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41f6f846_4bcc1418",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-10-30T19:57:26Z",
       "side": 1,
       "message": "Full name here if you can. :) \nThanks! \n\nhttps://github.com/openbmc/docs/blob/643e73605907251d80166d3d3c984456fc7fd599/CONTRIBUTING.md?plain\u003d1#L251",
+      "range": {
+        "startLine": 19,
+        "startChar": 15,
+        "endLine": 19,
+        "endChar": 23
+      },
+      "revId": "973b8d17b36eebe081a736d86978528d84037642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71712277_787ae990",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-11T03:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c33b8ac1_ddfec173",
       "range": {
         "startLine": 19,
         "startChar": 15,

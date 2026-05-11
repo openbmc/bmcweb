@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed524476_83c71b0f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-11T03:47:01Z",
+      "side": 0,
+      "message": "Which use case ? Could you please elaborate",
+      "parentUuid": "b87d1ee9_89927dbc",
+      "revId": "21cbc0003a9af5d62195eee5429684d0a992c00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff47d0c2_46d93e16",
