@@ -24,6 +24,8 @@
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/params_view.hpp>
+#include <boost/url/parse.hpp>
+#include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -483,7 +485,8 @@ inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
 }
 
 inline bool processOnly(crow::App& app, crow::Response& res,
-                        std::function<void(crow::Response&)>& completionHandler)
+                        std::function<void(crow::Response&)>& completionHandler,
+                        const crow::Request& req)
 {
     BMCWEB_LOG_DEBUG("Processing only query param");
     const nlohmann::json::object_t* obj =
@@ -494,6 +497,7 @@ inline bool processOnly(crow::App& app, crow::Response& res,
         completionHandler(res);
         return false;
     }
+
     auto itMembers = obj->find("Members");
     if (itMembers == obj->end())
     {
@@ -543,17 +547,46 @@ inline bool processOnly(crow::App& app, crow::Response& res,
         completionHandler(res);
         return false;
     }
+    // Convert @odata.id into an internal request target. This allows both
+    // absolute URI and path-only forms.
+    std::string requestTarget;
+    boost::system::result<boost::urls::url_view> absoluteUri =
+        boost::urls::parse_uri(*url);
+    if (absoluteUri)
+    {
+        requestTarget = std::string(absoluteUri->encoded_target());
+    }
+    else
+    {
+        boost::system::result<boost::urls::url> relativeRef =
+            boost::urls::parse_relative_ref(*url);
+        if (!relativeRef || relativeRef->encoded_target().empty())
+        {
+            messages::resourceAtUriInUnknownFormat(res, req.url());
+            completionHandler(res);
+            return false;
+        }
+        requestTarget = std::string(relativeRef->encoded_target());
+    }
+
+    if (!requestTarget.starts_with('/'))
+    {
+        requestTarget.insert(requestTarget.begin(), '/');
+    }
+
     // TODO(Ed) copy request headers?
-    // newReq.session = req.session;
     std::error_code ec;
     auto newReq = std::make_shared<crow::Request>(
-        crow::Request::Body{boost::beast::http::verb::get, *url, 11}, ec);
+        crow::Request::Body{boost::beast::http::verb::get, requestTarget, 11},
+        ec);
     if (ec)
     {
         messages::internalError(res);
         completionHandler(res);
         return false;
     }
+    // New request has the same credentials as the old request
+    newReq->session = req.session;
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     BMCWEB_LOG_DEBUG("setting completion handler on {}",
@@ -1041,7 +1074,7 @@ inline void processAllParams(
     }
     if (query.isOnly)
     {
-        processOnly(app, intermediateResponse, completionHandler);
+        processOnly(app, intermediateResponse, completionHandler, req);
         return;
     }
 
