@@ -12,7 +12,10 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/chassis_utils.hpp"
+
+#include <asm-generic/errno.h>
 
 #include <boost/beast/http/verb.hpp>
 
@@ -326,10 +329,126 @@ inline void getNetworkAdapterPortPaths(
                         chassisId, networkAdapterId));
 }
 
+inline void afterGetNetworkAdapterAssetService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for getDbusObject {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    if (object.empty())
+    {
+        return;
+    }
+    const std::string& service = object.begin()->first;
+    asset_utils::getAssetInfo(asyncResp, service, networkAdapterPath,
+                              ""_json_pointer);
+}
+
+inline void getNetworkAdapterAssetInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath)
+{
+    static constexpr std::array<std::string_view, 1> assetInterface = {
+        "xyz.openbmc_project.Inventory.Decorator.Asset"};
+    dbus::utility::getDbusObject(
+        networkAdapterPath, assetInterface,
+        std::bind_front(afterGetNetworkAdapterAssetService, asyncResp,
+                        networkAdapterPath));
+}
+
+inline void getNetworkAdapterLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath)
+{
+    static constexpr std::array<std::string_view, 1> locationCodeInterface = {
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode"};
+    dbus::utility::getDbusObject(
+        networkAdapterPath, locationCodeInterface,
+        [asyncResp,
+         networkAdapterPath](const boost::system::error_code& ec,
+                             const dbus::utility::MapperGetObject& object) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for getDbusObject {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            if (object.empty())
+            {
+                return;
+            }
+            const std::string& service = object.begin()->first;
+            dbus::utility::getProperty<std::string>(
+                service, networkAdapterPath,
+                "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+                "LocationCode",
+                [asyncResp](const boost::system::error_code& ec2,
+                            const std::string& property) {
+                    if (ec2)
+                    {
+                        if (ec2.value() != EBADR)
+                        {
+                            BMCWEB_LOG_ERROR(
+                                "DBUS response error for LocationCode {}",
+                                ec2.value());
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+                    asyncResp->res
+                        .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+                        property;
+                });
+        });
+}
+
+inline void getNetworkAdapterLocationType(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath)
+{
+    static constexpr std::array<std::string_view, 1> embeddedInterface = {
+        "xyz.openbmc_project.Inventory.Connector.Embedded"};
+    dbus::utility::getDbusObject(
+        networkAdapterPath, embeddedInterface,
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetObject& object) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for getDbusObject {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            if (object.empty())
+            {
+                return;
+            }
+            asyncResp->res
+                .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                resource::LocationType::Embedded;
+        });
+}
+
 inline void handleNetworkAdapterPathNetworkAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
-    [[maybe_unused]] const std::string& path)
+    const std::string& path)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#NetworkAdapter.v1_11_0.NetworkAdapter";
@@ -347,6 +466,10 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    getNetworkAdapterAssetInfo(asyncResp, path);
+    getNetworkAdapterLocation(asyncResp, path);
+    getNetworkAdapterLocationType(asyncResp, path);
 }
 
 inline void handleNetworkAdapterPaths(
