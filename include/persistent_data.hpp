@@ -96,8 +96,11 @@ class ConfigFile
                 BMCWEB_LOG_CRITICAL("Failed to read file {}", file);
                 return;
             }
-            // call with exceptions disabled
-            std::optional<nlohmann::json> data = parseStringAsJson(str);
+            // Persistent data is trusted internal state — use the trusted
+            // parser to bypass the SAX value cap that would reject ~50+
+            // persisted sessions and silently lose every session across a
+            // bmcweb restart.
+            std::optional<nlohmann::json> data = parseTrustedStringAsJson(str);
             if (!data)
             {
                 BMCWEB_LOG_ERROR("Error parsing persistent data in json file.");

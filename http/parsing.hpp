@@ -210,6 +210,25 @@ inline std::optional<nlohmann::json> parseStringAsJson(std::string_view body)
     return jsonOut;
 }
 
+// Parse JSON from a trusted, internal source (e.g. on-disk persistent state,
+// responses from sibling BMCs, firmware update manifests). Skips the SAX
+// depth/value caps in parseStringAsJson(), which exist to defend against
+// malicious external HTTP request bodies and can erroneously reject large
+// but well-formed internal payloads (e.g. >~45 persisted sessions).
+// Use parseStringAsJson()/parseRequestAsJson() for any attacker-controlled
+// input.
+inline std::optional<nlohmann::json> parseTrustedStringAsJson(
+    std::string_view body)
+{
+    nlohmann::json jsonOut = nlohmann::json::parse(body, nullptr, false);
+    if (jsonOut.is_discarded())
+    {
+        BMCWEB_LOG_ERROR("Failed to parse trusted json payload");
+        return std::nullopt;
+    }
+    return jsonOut;
+}
+
 inline JsonParseResult parseRequestAsJson(const crow::Request& req,
                                           nlohmann::json& jsonOut)
 {
