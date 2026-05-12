@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c888c5c_7657e2b8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:01:03Z",
+      "side": 1,
+      "message": "can we rename to afterGetProcessorFirmwareVersion?",
+      "range": {
+        "startLine": 469,
+        "startChar": 12,
+        "endLine": 469,
+        "endChar": 46
+      },
+      "revId": "eb3eb9acf9743f7675d42da1b8acf3f54da51f54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7016ecce_c6b04c33",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:01:03Z",
+      "side": 1,
+      "message": "nit: guard against empty `version` and just `return;` — otherwise the response will contain `\"FirmwareVersion\": \"\"`",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 479,
+        "endChar": 58
+      },
+      "revId": "eb3eb9acf9743f7675d42da1b8acf3f54da51f54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fabf9c6_d8032ad7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:01:03Z",
+      "side": 1,
+      "message": "can we rename to getProcessorFirmwareVersion?",
+      "range": {
+        "startLine": 482,
+        "startChar": 12,
+        "endLine": 482,
+        "endChar": 41
+      },
+      "revId": "eb3eb9acf9743f7675d42da1b8acf3f54da51f54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
