@@ -456,6 +456,8 @@ class HttpBody::reader
                           boost::system::generic_category()};
                     return 0;
                 }
+            } else {
+                value.str().append(ptr, b.size());
             }
         }
         ec = {};
