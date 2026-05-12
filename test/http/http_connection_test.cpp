@@ -46,7 +46,7 @@ struct FakeHandler
                   "openbmc_project.xyz");
         EXPECT_FALSE(req->keepAlive());
         EXPECT_EQ(req->version(), 11);
-        EXPECT_EQ(req->body(), "");
+        EXPECT_EQ(req->body(), "Hello, World!");
 
         called = true;
     }
@@ -72,7 +72,11 @@ TEST(http_connection, RequestPropogates)
     stream.connect(out);
 
     out.write_some(boost::asio::buffer(
-        "GET / HTTP/1.1\r\nHost: openbmc_project.xyz\r\nConnection: close\r\n\r\n"));
+        "GET / HTTP/1.1\r\n"
+        "Host: openbmc_project.xyz\r\n"
+        "Connection: close\r\n"
+        "Content-Length: 13\r\n\r\n"
+        "Hello, World!"));
     FakeHandler handler;
     boost::asio::steady_timer timer(io);
     std::function<std::string()> date(
