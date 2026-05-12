@@ -83,6 +83,10 @@ inline void requestRoutesEventService(App& app)
             asyncResp->res.jsonValue["Actions"]["#EventService.SubmitTestEvent"]
                                     ["target"] =
                 "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent";
+            asyncResp->res.jsonValue["Actions"]["#EventService.SubmitTestEvent"]
+                                    ["@Redfish.ActionInfo"] =
+                boost::urls::format(
+                    "/redfish/v1/EventService/SubmitTestEventActionInfo");
 
             const persistent_data::EventServiceConfig eventServiceConfig =
                 persistent_data::EventServiceStore::getInstance()
@@ -179,6 +183,30 @@ inline void requestRoutesEventService(App& app)
                     eventServiceConfig);
             });
 }
+inline void handleSubmitTestEventActionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/EventService/SubmitTestEventActionInfo");
+    asyncResp->res.jsonValue["Name"] = "SubmitTestEvent Action Info";
+
+    asyncResp->res.jsonValue["Id"] = "SubmitTestEventActionInfo";
+    nlohmann::json::array_t parameters;
+    nlohmann::json::object_t parameter;
+    parameter["Required"] = false;
+    nlohmann::json::array_t allowed;
+    allowed.emplace_back("null");
+    parameter["AllowableValues"] = std::move(allowed);
+    parameters.emplace_back(std::move(parameter));
+
+    asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
+}
 
 inline void requestRoutesSubmitTestEvent(App& app)
 {
@@ -225,6 +253,10 @@ inline void requestRoutesSubmitTestEvent(App& app)
                 }
                 asyncResp->res.result(boost::beast::http::status::no_content);
             });
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/SubmitTestEventActionInfo/")
+        .privileges(redfish::privileges::getActionInfo)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleSubmitTestEventActionGet, std::ref(app)));
 }
 
 inline void doSubscriptionCollection(
