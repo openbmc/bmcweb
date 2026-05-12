@@ -970,7 +970,7 @@ nlohmann::json::object_t payloadTooLarge()
 
 void payloadTooLarge(crow::Response& res)
 {
-    res.result(boost::beast::http::status::bad_request);
+    res.result(boost::beast::http::status::payload_too_large);
     addMessageToErrorJson(res.jsonValue, payloadTooLarge());
 }
 

@@ -240,6 +240,7 @@ def get_response_code(entry_id: str) -> str | None:
         "OperationNotAllowed": "method_not_allowed",
         "OperationTimeout": "internal_server_error",
         "PasswordChangeRequired": None,
+        "PayloadTooLarge": "payload_too_large",
         "PreconditionFailed": "precondition_failed",
         "PropertyNotWritable": "method_not_allowed",
         "PropertyValueExternalConflict": "conflict",
