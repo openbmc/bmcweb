@@ -527,6 +527,8 @@ Fields common to all schemas
 - @odata.id
 - @odata.type
 - Id
+- Location/PartLocation/LocationType
+- Location/PartLocation/ServiceLabel
 - Name
 - Ports
 - Status
