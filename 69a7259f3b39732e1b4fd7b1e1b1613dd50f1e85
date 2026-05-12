@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5905ee1_4f9fe80c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:41:10Z",
+      "side": 1,
+      "message": "can we add the `if (ec.value() \u003d\u003d EBADR)` case like Line 591?",
+      "range": {
+        "startLine": 501,
+        "startChar": 8,
+        "endLine": 501,
+        "endChar": 32
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdba5ce6_d2aa50d0",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:41:10Z",
+      "side": 1,
+      "message": "I think we need unpackPropertiesNoThrow again because of objectExcerptToJson.\nCan we use `auto reading \u003d item.find(\"Reading\");` ?",
+      "range": {
+        "startLine": 525,
+        "startChar": 8,
+        "endLine": 526,
+        "endChar": 75
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a268f40c_697119d2",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:41:10Z",
+      "side": 1,
+      "message": "nit: can we add a helper function like populateEnergykWhFromJoules for this part?",
+      "range": {
+        "startLine": 524,
+        "startChar": 8,
+        "endLine": 527,
+        "endChar": 54
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aba2f06_5d1ef6a3",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:41:10Z",
+      "side": 1,
+      "message": "Please add a new variable. ex: joulesPerKwh \u003d 3.6e6",
+      "range": {
+        "startLine": 530,
+        "startChar": 25,
+        "endLine": 530,
+        "endChar": 34
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3aee1da_d132565f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:41:10Z",
+      "side": 1,
+      "message": "can we more add the `if (ec.value() \u003d\u003d EBADR)` case like Line 591?",
+      "range": {
+        "startLine": 544,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 32
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5858d76_16bed50d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-12T02:41:10Z",
+      "side": 1,
+      "message": "change to  `sdbusplus::object_path(sensorPath) / \"chassis\"`",
+      "range": {
+        "startLine": 621,
+        "startChar": 8,
+        "endLine": 621,
+        "endChar": 32
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
