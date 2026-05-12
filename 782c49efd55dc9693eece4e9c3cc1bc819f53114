@@ -353,6 +353,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f55c9945_a9b0dc83",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-05-12T15:24:49Z",
+      "side": 1,
+      "message": "Closing this since no answer in a longer time. Please reopen if you think this needs another round of discussion.",
+      "parentUuid": "4b4948e9_73038115",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 7
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abc59405_d9a9029c",
@@ -437,6 +461,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "00165310_192b632f",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 93
+      },
+      "revId": "782c49efd55dc9693eece4e9c3cc1bc819f53114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bff882bb_aea52b48",
+        "filename": "docs/MULTI_HOST.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-05-12T15:24:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88b6ed30_b00ec6c6",
       "range": {
         "startLine": 121,
         "startChar": 0,
