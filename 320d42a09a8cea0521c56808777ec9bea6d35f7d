@@ -46,6 +46,30 @@
       },
       "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c07612c7_2af6f771",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-13T18:43:18Z",
+      "side": 1,
+      "message": "Repeating Gunnars request \"Can you quote the spec?\"\n\nI don\u0027t see quotes from the spec above, just some interpretation, then a bunch of links to bmcweb (which is not the spec).\n\nThe paragraph that starts with \"Per Redfish upstream\" should include the quotes from the spec that say this is a correct change.",
+      "parentUuid": "53ee463c_b0bd9bbf",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
