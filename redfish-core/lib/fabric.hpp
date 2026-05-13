@@ -21,6 +21,7 @@
 #include <format>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -31,10 +32,92 @@ static constexpr std::array<std::string_view, 1> switchInterfaces = {
 namespace redfish
 {
 
+inline std::optional<resource::PowerState> dbusToRfPowerState(
+    std::string_view dbusPowerState)
+{
+    if (dbusPowerState ==
+        "xyz.openbmc_project.State.Decorator.PowerState.State.On")
+    {
+        return resource::PowerState::On;
+    }
+    if (dbusPowerState ==
+        "xyz.openbmc_project.State.Decorator.PowerState.State.Off")
+    {
+        return resource::PowerState::Off;
+    }
+    if (dbusPowerState ==
+        "xyz.openbmc_project.State.Decorator.PowerState.State.PoweringOn")
+    {
+        return resource::PowerState::PoweringOn;
+    }
+    if (dbusPowerState ==
+        "xyz.openbmc_project.State.Decorator.PowerState.State.PoweringOff")
+    {
+        return resource::PowerState::PoweringOff;
+    }
+    return std::nullopt;
+}
+
+inline void afterGetSwitchPowerState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& switchPath, const boost::system::error_code& ec,
+    const std::string& powerState)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBus error reading PowerState on {}: {}", switchPath,
+                         ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    std::optional<resource::PowerState> rfState =
+        dbusToRfPowerState(powerState);
+    if (!rfState)
+    {
+        BMCWEB_LOG_WARNING("Unknown PowerState '{}' on {}", powerState,
+                           switchPath);
+        return;
+    }
+    asyncResp->res.jsonValue["PowerState"] = *rfState;
+}
+
+inline void afterGetSwitchPowerStateService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& switchPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& obj)
+{
+    if (ec.value() == EBADR || ec.value() == boost::system::errc::io_error)
+    {
+        // PowerState decorator is optional on a Switch; no service
+        // implements the interface on this path, so leave PowerState
+        // out of the response.
+        BMCWEB_LOG_DEBUG("PowerState interface absent on {}", switchPath);
+        return;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Mapper GetObject error for {}: {}", switchPath,
+                         ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (obj.empty())
+    {
+        return;
+    }
+
+    const std::string& service = obj.begin()->first;
+    dbus::utility::getProperty<std::string>(
+        service, switchPath, "xyz.openbmc_project.State.Decorator.PowerState",
+        "PowerState",
+        std::bind_front(afterGetSwitchPowerState, asyncResp, switchPath));
+}
+
 inline void handleFabricSwitchPathSwitchGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
-    [[maybe_unused]] const std::string& switchPath)
+    const std::string& switchPath)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#Switch.v1_7_0.Switch";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
@@ -48,6 +131,13 @@ inline void handleFabricSwitchPathSwitchGet(
 
     asyncResp->res.jsonValue["Ports"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Fabrics/{}/Switches/{}/Ports", fabricId, switchId);
+
+    constexpr std::array<std::string_view, 1> powerStateInterface = {
+        "xyz.openbmc_project.State.Decorator.PowerState"};
+    dbus::utility::getDbusObject(
+        switchPath, powerStateInterface,
+        std::bind_front(afterGetSwitchPowerStateService, asyncResp,
+                        switchPath));
 }
 
 inline void handleFabricSwitchPaths(
