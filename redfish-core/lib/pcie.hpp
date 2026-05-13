@@ -27,6 +27,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <boost/uuid/string_generator.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
@@ -38,6 +39,7 @@
 #include <limits>
 #include <memory>
 #include <optional>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -563,6 +565,38 @@ inline void addPCIeDeviceCommonProperties(
     asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 }
 
+inline void getPCIeDeviceUUID(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDevicePath, const std::string& service)
+{
+    dbus::utility::getProperty<std::string>(
+        service, pcieDevicePath, "xyz.openbmc_project.Common.UUID", "UUID",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& uuid) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for UUID");
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            try
+            {
+                boost::uuids::string_generator()(uuid);
+            }
+            catch (const std::runtime_error& e)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "PCIeDevice UUID '{}' is not a valid UUID, omitting: {}",
+                    uuid, e.what());
+                return;
+            }
+            asyncResp->res.jsonValue["UUID"] = uuid;
+        });
+}
+
 inline void afterGetValidPcieDevicePath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceId, const std::string& pcieDevicePath,
@@ -573,6 +607,7 @@ inline void afterGetValidPcieDevicePath(
                               ""_json_pointer, true);
     getPCIeDeviceState(asyncResp, pcieDevicePath, service);
     getPCIeDeviceHealth(asyncResp, pcieDevicePath, service);
+    getPCIeDeviceUUID(asyncResp, pcieDevicePath, service);
     getPCIeDeviceProperties(
         asyncResp, pcieDevicePath, service,
         std::bind_front(addPCIeDeviceProperties, asyncResp, pcieDeviceId));
