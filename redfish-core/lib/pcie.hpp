@@ -563,6 +563,34 @@ inline void addPCIeDeviceCommonProperties(
     asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 }
 
+inline void getPCIeDeviceUUID(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDevicePath, const std::string& service)
+{
+    dbus::utility::getProperty<std::string>(
+        service, pcieDevicePath, "xyz.openbmc_project.Common.UUID", "UUID",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& uuid) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for UUID");
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            // UUID is a formatted string; an empty value from D-Bus means
+            // the publisher has not populated it, so omit the Redfish
+            // property rather than emit an invalid one.
+            if (uuid.empty())
+            {
+                return;
+            }
+            asyncResp->res.jsonValue["UUID"] = uuid;
+        });
+}
+
 inline void afterGetValidPcieDevicePath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceId, const std::string& pcieDevicePath,
@@ -573,6 +601,7 @@ inline void afterGetValidPcieDevicePath(
                               ""_json_pointer, true);
     getPCIeDeviceState(asyncResp, pcieDevicePath, service);
     getPCIeDeviceHealth(asyncResp, pcieDevicePath, service);
+    getPCIeDeviceUUID(asyncResp, pcieDevicePath, service);
     getPCIeDeviceProperties(
         asyncResp, pcieDevicePath, service,
         std::bind_front(addPCIeDeviceProperties, asyncResp, pcieDeviceId));
