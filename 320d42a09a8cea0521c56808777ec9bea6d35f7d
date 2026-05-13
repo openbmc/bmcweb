@@ -22,6 +22,30 @@
       },
       "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53ee463c_b0bd9bbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-13T17:05:26Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz\n\nDMTF Redfish upstream spec:\n\nSession schema (UserName and Password are RequiredOnCreate):\nhttps://github.com/DMTF/Redfish-Publications/blob/main/csdl/Session_v1.xml#L69-L79 \nBase Message Registry PropertyMissing definition:\nhttps://github.com/DMTF/Redfish-Publications/blob/main/registries/Base.1.19.0.json#L226-L233\n\nBase Message Registry ResourceAtUriUnauthorized definition:\nhttps://github.com/DMTF/Redfish-Publications/blob/main/registries/Base.1.19.0.json#L994-L1005\n\nOpenBMC upstream mapping (status code behavior):\nPropertyMissing maps to HTTP 400:\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/src/error_messages.cpp#L328-L331\n\nResourceAtUriUnauthorized maps to HTTP 401:\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/src/error_messages.cpp#L1334-L1339\n\nPer Redfish upstream (DMTF), UserName and Password are RequiredOnCreate for Session create, so they must be present in the request body (Session_v1.xml). PropertyMissing is specifically defined as “a required property was not supplied as part of the request” (Base registry). ResourceAtUriUnauthorized is defined for authorization error cases (Base registry). In OpenBMC upstream bmcweb, these map to HTTP 400 and HTTP 401 respectively. Since empty UserName/Password in this path are treated as credential failure rather than omitted JSON keys, returning 401 with ResourceAtUriUnauthorized keeps semantics consistent with authentication failure handling.",
+      "parentUuid": "fea108a8_2300c5d6",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
