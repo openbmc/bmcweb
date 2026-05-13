@@ -1370,6 +1370,7 @@ functions the same like the default implementation under the System resource.
 - Id
 - Name
 - Ports
+- PowerState
 - Status
   - Health
   - State
