@@ -29,7 +29,9 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <algorithm>
 #include <array>
+#include <cctype>
 #include <charconv>
 #include <cstddef>
 #include <cstdint>
@@ -585,6 +587,58 @@ inline void addPCIeDeviceCommonProperties(
     asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 }
 
+inline void afterGetPCIeDeviceUUID(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for UUID {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    const std::string* uuid = nullptr;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "UUID", uuid);
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (!uuid || uuid->empty())
+    {
+        BMCWEB_LOG_DEBUG("PCIeDevice UUID is empty, omitting");
+        return;
+    }
+    // A canonical UUID string is 36 characters (8-4-4-4-12 with hyphens).
+    if (uuid->size() != 36)
+    {
+        BMCWEB_LOG_DEBUG("PCIeDevice UUID {} is not canonical, omitting",
+                         *uuid);
+        return;
+    }
+    std::string upperUuid = *uuid;
+    std::ranges::transform(upperUuid, upperUuid.begin(), [](unsigned char c) {
+        return static_cast<char>(std::toupper(c));
+    });
+    asyncResp->res.jsonValue["UUID"] = std::move(upperUuid);
+}
+
+inline void getPCIeDeviceUUID(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieDevicePath, const std::string& service)
+{
+    dbus::utility::getAllProperties(
+        service, pcieDevicePath, "xyz.openbmc_project.Common.UUID",
+        std::bind_front(afterGetPCIeDeviceUUID, asyncResp));
+}
+
 inline void afterGetValidPcieDevicePath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceId, const std::string& pcieDevicePath,
@@ -595,6 +649,7 @@ inline void afterGetValidPcieDevicePath(
                               ""_json_pointer, true);
     getPCIeDeviceState(asyncResp, pcieDevicePath, service);
     getPCIeDeviceHealth(asyncResp, pcieDevicePath, service);
+    getPCIeDeviceUUID(asyncResp, pcieDevicePath, service);
     getPCIeDeviceProperties(
         asyncResp, pcieDevicePath, service,
         std::bind_front(addPCIeDeviceProperties, asyncResp, pcieDeviceId));
