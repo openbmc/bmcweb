@@ -34,7 +34,7 @@ namespace redfish
 inline void handleFabricSwitchPathSwitchGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
-    [[maybe_unused]] const std::string& switchPath)
+    const std::string& switchPath)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#Switch.v1_7_0.Switch";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
@@ -48,6 +48,51 @@ inline void handleFabricSwitchPathSwitchGet(
 
     asyncResp->res.jsonValue["Ports"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Fabrics/{}/Switches/{}/Ports", fabricId, switchId);
+
+    constexpr std::array<std::string_view, 1> powerStateInterface = {
+        "xyz.openbmc_project.State.Decorator.PowerState"};
+    dbus::utility::getDbusObject(
+        switchPath, powerStateInterface,
+        [asyncResp, switchPath](const boost::system::error_code& ec,
+                                const dbus::utility::MapperGetObject& obj) {
+            if (ec || obj.empty())
+            {
+                BMCWEB_LOG_DEBUG("Switch PowerState not available on {}",
+                                 switchPath);
+                return;
+            }
+            const std::string& service = obj.begin()->first;
+            dbus::utility::getProperty<std::string>(
+                service, switchPath,
+                "xyz.openbmc_project.State.Decorator.PowerState", "PowerState",
+                [asyncResp](const boost::system::error_code& ec2,
+                            const std::string& powerState) {
+                    if (ec2 || powerState.empty())
+                    {
+                        return;
+                    }
+                    if (powerState == "On")
+                    {
+                        asyncResp->res.jsonValue["PowerState"] =
+                            resource::PowerState::On;
+                    }
+                    else if (powerState == "Off")
+                    {
+                        asyncResp->res.jsonValue["PowerState"] =
+                            resource::PowerState::Off;
+                    }
+                    else if (powerState == "PoweringOn")
+                    {
+                        asyncResp->res.jsonValue["PowerState"] =
+                            resource::PowerState::PoweringOn;
+                    }
+                    else if (powerState == "PoweringOff")
+                    {
+                        asyncResp->res.jsonValue["PowerState"] =
+                            resource::PowerState::PoweringOff;
+                    }
+                });
+        });
 }
 
 inline void handleFabricSwitchPaths(
