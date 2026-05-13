@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cfd0ca9_08b89b5c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-13T15:20:36Z",
+      "side": 1,
+      "message": "Done.\nAdded the line and have the error handler refined.",
+      "parentUuid": "c5905ee1_4f9fe80c",
+      "range": {
+        "startLine": 501,
+        "startChar": 8,
+        "endLine": 501,
+        "endChar": 32
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdba5ce6_d2aa50d0",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-05-12T02:41:10Z",
       "side": 1,
       "message": "I think we need unpackPropertiesNoThrow again because of objectExcerptToJson.\nCan we use `auto reading \u003d item.find(\"Reading\");` ?",
+      "range": {
+        "startLine": 525,
+        "startChar": 8,
+        "endLine": 526,
+        "endChar": 75
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd103ecc_69c9aad9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-13T15:20:36Z",
+      "side": 1,
+      "message": "Good catch!\nDiscarded the `unpackPropertiesNoThrow()` and use the line in the helper function `populateEnergykWhFromJoules()`",
+      "parentUuid": "fdba5ce6_d2aa50d0",
       "range": {
         "startLine": 525,
         "startChar": 8,
@@ -93,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e16ebdd_c63e9bf9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-13T15:20:36Z",
+      "side": 1,
+      "message": "Done.\nHave the variable declared in the helper function `populateEnergykWhFromJoules()`",
+      "parentUuid": "7aba2f06_5d1ef6a3",
+      "range": {
+        "startLine": 530,
+        "startChar": 25,
+        "endLine": 530,
+        "endChar": 34
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3aee1da_d132565f",
@@ -116,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c47fcb0_c7769942",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-13T15:20:36Z",
+      "side": 1,
+      "message": "Done.\nAdded the logic for debug message.",
+      "parentUuid": "a3aee1da_d132565f",
+      "range": {
+        "startLine": 544,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 32
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5858d76_16bed50d",
@@ -129,6 +225,30 @@
       "writtenOn": "2026-05-12T02:41:10Z",
       "side": 1,
       "message": "change to  `sdbusplus::object_path(sensorPath) / \"chassis\"`",
+      "range": {
+        "startLine": 621,
+        "startChar": 8,
+        "endLine": 621,
+        "endChar": 32
+      },
+      "revId": "69a7259f3b39732e1b4fd7b1e1b1613dd50f1e85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "975690c9_393949a4",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-13T15:20:36Z",
+      "side": 1,
+      "message": "Done.\nDiscarded `std::string` and utilized `sdbusplus::object_path()`.",
+      "parentUuid": "d5858d76_16bed50d",
       "range": {
         "startLine": 621,
         "startChar": 8,
