@@ -1123,6 +1123,7 @@ functions the same like the default implementation under the System resource.
   - SlotType
 - SparePartNumber
 - Status
+- UUID
 
 ### /redfish/v1/Systems/system/Processors/
 
