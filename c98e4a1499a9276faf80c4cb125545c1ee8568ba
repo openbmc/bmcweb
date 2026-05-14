@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7537cd7_8e3d47f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-14T09:34:49Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz I am going to abandon this PR. After reviewing the changes more carefully, I feel they do not add meaningful value to the EthernetInterface service. The added properties like Status.Health, SpeedMbps, HostName, and FQDN are either set to constant or null values without real backend support, which does not improve the response quality. I plan to raise a follow-up PR with missing properties that are properly backed by backend data and aligned with the DMTF schema.",
+      "parentUuid": "79d91991_23f6de14",
+      "revId": "c98e4a1499a9276faf80c4cb125545c1ee8568ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5516214_e6059d20",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 4
@@ -31,6 +49,30 @@
       "writtenOn": "2026-05-13T18:16:20Z",
       "side": 1,
       "message": "Why this change?",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 53
+      },
+      "revId": "c98e4a1499a9276faf80c4cb125545c1ee8568ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d0e4fb_3b6f7796",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-14T09:34:49Z",
+      "side": 1,
+      "message": "This change was added only to address a clang-format issue. I plan to abandon this PR because I am currently working on related missing-property updates that provide more meaningful value. I will submit those improvements in a separate PR. Thanks.",
+      "parentUuid": "a5516214_e6059d20",
       "range": {
         "startLine": 170,
         "startChar": 0,

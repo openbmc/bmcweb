@@ -22,6 +22,30 @@
       },
       "revId": "24a9dcf13c3aba0203d9f645336922bd007eb8bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e54667d4_fc9b00c4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-14T09:34:49Z",
+      "side": 0,
+      "message": "I apologize, those 3 lines were removed for a different purpose and are not related to this PR. I plan to raise a follow-up PR with missing properties that are properly backed by backend data and aligned with the DMTF schema. Thamks",
+      "parentUuid": "15128367_cae4e86b",
+      "range": {
+        "startLine": 1061,
+        "startChar": 3,
+        "endLine": 1064,
+        "endChar": 9
+      },
+      "revId": "24a9dcf13c3aba0203d9f645336922bd007eb8bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
