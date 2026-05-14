@@ -381,9 +381,13 @@ class HttpBody::writer
 
 class HttpBody::reader
 {
+    static constexpr size_t maxBodySize =
+        1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+
     value_type& value;
     std::optional<MultipartParser> multipartParser;
     const boost::beast::http::fields& hdr;
+    size_t bytesReceived = 0;
 
   public:
     template <bool IsRequest, class Fields>
@@ -416,14 +420,11 @@ class HttpBody::reader
 
         if (contentLength)
         {
-            constexpr size_t maxReserveSize =
-                1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
-
-            if (*contentLength > maxReserveSize)
+            if (*contentLength > maxBodySize)
             {
                 BMCWEB_LOG_WARNING(
                     "Content-Length {} exceeds max body size {}, rejecting.",
-                    *contentLength, maxReserveSize);
+                    *contentLength, maxBodySize);
                 ec = boost::beast::http::error::body_limit;
                 return;
             }
@@ -441,6 +442,18 @@ class HttpBody::reader
                     boost::system::error_code& ec)
     {
         size_t extra = boost::beast::buffer_bytes(buffers);
+        // Bound the running body size to maxBodySize regardless of
+        // whether Content-Length was declared.  The HTTP/2 path
+        // authenticates on END_STREAM and would otherwise accept
+        // unbounded streamed DATA frames pre-authentication.
+        if (extra > maxBodySize - bytesReceived)
+        {
+            BMCWEB_LOG_WARNING(
+                "Body bytes {} exceed max body size {}, rejecting.",
+                bytesReceived + extra, maxBodySize);
+            ec = boost::beast::http::error::body_limit;
+            return 0;
+        }
         for (const auto b : boost::beast::buffers_range_ref(buffers))
         {
             const char* ptr = static_cast<const char*>(b.data());
@@ -462,6 +475,7 @@ class HttpBody::reader
                 value.str().append(ptr, b.size());
             }
         }
+        bytesReceived += extra;
         ec = {};
         return extra;
     }
