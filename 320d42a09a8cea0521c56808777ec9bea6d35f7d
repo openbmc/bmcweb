@@ -70,6 +70,30 @@
       },
       "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0bad3e9_db46e3ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-14T10:21:42Z",
+      "side": 1,
+      "message": "@ed@tanous.net The links I shared were meant to support the point that UserName and Password are required on create, meaning they must be present in the request body. The spec text I was referring to is that UserName and Password in the Session schema are marked RequiredOnCreate. I have updated the same in commit body. let me know if any changes required. Thanks",
+      "parentUuid": "c07612c7_2af6f771",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
