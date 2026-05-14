@@ -70,6 +70,41 @@
       "parentUuid": "81eb3640_82c18b30",
       "revId": "5f679bc886a97d4443c623f2e61ef638cae630ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86a3ea7c_ed106478",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-14T10:39:10Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz Thanks for the feedback. I noticed this inconsistency and addressed the occurrences in this change first to keep the scope manageable.\nI agree this may need broader cleanup across other URIs, and I can send\nfollow-up PRs for the remaining cases after validation.\nPlease let me know whether this scoped fix is acceptable, or if you\nprefer all affected URIs to be updated in a single change.",
+      "parentUuid": "c6e76bf3_5967a7ff",
+      "revId": "5f679bc886a97d4443c623f2e61ef638cae630ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "248c815f_42c0385c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-14T10:39:10Z",
+      "side": 1,
+      "message": "Addressed review comments . Waiting for the feedback on this PR",
+      "revId": "5f679bc886a97d4443c623f2e61ef638cae630ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
