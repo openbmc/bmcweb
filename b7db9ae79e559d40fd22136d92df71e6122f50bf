@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f95d70c1_d91b511b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-14T05:27:45Z",
+      "side": 1,
+      "message": "@ed@tanous.net There is no dependency on a specific external tool in this change. earlier wording was unclear. I updated the commit message to clarify that this change adds SubmitTestEventActionInfo and links it via @Redfish.ActionInfo for\n#EventService.SubmitTestEvent so parameter details are exposed by the API.",
+      "parentUuid": "72ccd92f_57e97775",
+      "revId": "b7db9ae79e559d40fd22136d92df71e6122f50bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1d4840d1_3ec8839c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
