@@ -16,6 +16,24 @@
       "message": "I\u0027m not interested in this \"factory\" pattern for producing two different certificates.  It is overly complex for something that could ultimately just be an \n\nif (do other SNI)\n   // handle other SNI\n\n\nBecause bmcweb doesn\u0027t publish a stable c++ API, these kinds of \"factory\" functions aren\u0027t required, we can just update the APIs as required as new features emerge.",
       "revId": "56db6f3cb0cf2b302cb310608ada61defc9673fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b2884f_7f7d3cf1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-05-14T04:42:02Z",
+      "side": 1,
+      "message": "I’m not sure I fully understand this. What exactly do you mean by ‘if (do other SNI)’, and how is bmcweb expected to be informed about this ‘do other SNI’ behaviour? I’m open to an alternative approach as well, as long as it achieves the same outcome as https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87711.",
+      "parentUuid": "b7075ef2_c5414bfd",
+      "revId": "56db6f3cb0cf2b302cb310608ada61defc9673fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
