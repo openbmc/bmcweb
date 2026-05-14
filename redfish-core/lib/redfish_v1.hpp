@@ -43,6 +43,27 @@ inline void redfishGet(App& app, const crow::Request& req,
     asyncResp->res.jsonValue["v1"] = "/redfish/v1/";
 }
 
+inline bool checkIfResourceExists(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    std::string_view allowHeaderValue = asyncResp->res.getHeaderValue("Allow");
+
+    if (allowHeaderValue.empty())
+    {
+        return false; // No methods allowed, resource likely doesn't exist
+    }
+
+    std::string_view method = req.methodString();
+
+    if (allowHeaderValue.find(method) != std::string_view::npos)
+    {
+        return true; // Method is allowed, so the resource exists
+    }
+
+    return false;
+}
+
 inline void redfish404(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& path)
@@ -73,6 +94,15 @@ inline void redfish405(App& app, const crow::Request& req,
     // 405
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
+        return;
+    }
+    bool resourceExists = checkIfResourceExists(req, asyncResp);
+
+    if (!resourceExists)
+    {
+        BMCWEB_LOG_WARNING("404 on path {}", path);
+        messages::resourceNotFound(asyncResp->res, "", path);
+        asyncResp->res.result(boost::beast::http::status::not_found);
         return;
     }
 
