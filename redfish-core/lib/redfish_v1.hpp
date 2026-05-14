@@ -43,6 +43,14 @@ inline void redfishGet(App& app, const crow::Request& req,
     asyncResp->res.jsonValue["v1"] = "/redfish/v1/";
 }
 
+inline bool checkIfResourceExists(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    // redfish404 explicitly sets Allow to empty; the routing framework sets it
+    // to the valid methods for real resources before hitting the 405 handler.
+    return !asyncResp->res.getHeaderValue("Allow").empty();
+}
+
 inline void redfish404(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& path)
@@ -73,6 +81,14 @@ inline void redfish405(App& app, const crow::Request& req,
     // 405
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
+        return;
+    }
+    bool resourceExists = checkIfResourceExists(asyncResp);
+
+    if (!resourceExists)
+    {
+        BMCWEB_LOG_WARNING("404 on path {}", path);
+        messages::resourceNotFound(asyncResp->res, "", path);
         return;
     }
 

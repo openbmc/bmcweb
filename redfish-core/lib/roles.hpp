@@ -79,6 +79,8 @@ inline void requestRoutesRoles(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& roleId) {
+                asyncResp->res.clearHeader(boost::beast::http::field::allow);
+
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
@@ -89,10 +91,10 @@ inline void requestRoutesRoles(App& app)
                 if (!privArray)
                 {
                     messages::resourceNotFound(asyncResp->res, "Role", roleId);
-
                     return;
                 }
 
+                asyncResp->res.addHeader("Allow", "GET");
                 asyncResp->res.jsonValue["@odata.type"] = "#Role.v1_2_2.Role";
                 asyncResp->res.jsonValue["Name"] = "User Role";
                 asyncResp->res.jsonValue["Description"] = roleId + " User Role";
@@ -105,6 +107,42 @@ inline void requestRoutesRoles(App& app)
                     "/redfish/v1/AccountService/Roles/{}", roleId);
                 asyncResp->res.jsonValue["AssignedPrivileges"] =
                     std::move(*privArray);
+            });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/")
+        .privileges(redfish::privileges::getRole)
+        .methods(boost::beast::http::verb::post,
+                 boost::beast::http::verb::patch,
+                 boost::beast::http::verb::delete_)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& roleId) {
+                asyncResp->res.clearHeader(boost::beast::http::field::allow);
+
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
+
+                std::optional<nlohmann::json::array_t> privArray =
+                    getAssignedPrivFromRole(roleId);
+                if (!privArray)
+                {
+                    messages::resourceNotFound(asyncResp->res, "Role", roleId);
+                    return;
+                }
+
+                asyncResp->res.addHeader("Allow", "GET");
+                asyncResp->res.result(
+                    boost::beast::http::status::method_not_allowed);
+                if (req.method() == boost::beast::http::verb::delete_)
+                {
+                    messages::resourceCannotBeDeleted(asyncResp->res);
+                }
+                else
+                {
+                    messages::operationNotAllowed(asyncResp->res);
+                }
             });
 }
 
