@@ -126,6 +126,11 @@ class HttpBody::value_type
         return emptyFile;
     }
 
+    bool isString() const
+    {
+        return std::holds_alternative<std::string>(bodyData);
+    }
+
     std::string& str()
     {
         if (auto* s = std::get_if<std::string>(&bodyData))
