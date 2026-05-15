@@ -132,7 +132,8 @@ class HttpBody::value_type
         {
             return *s;
         }
-        return bodyData.emplace<std::string>();
+        static std::string empty;
+        return empty;
     }
 
     const std::string& str() const
