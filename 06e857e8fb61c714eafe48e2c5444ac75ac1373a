@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79ddd16b_19d2c94e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2026-05-15T13:11:52Z",
+      "side": 1,
+      "message": "Seems okay to me. Follows the existing fallback pattern to handle uint64_t.",
+      "revId": "06e857e8fb61c714eafe48e2c5444ac75ac1373a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
