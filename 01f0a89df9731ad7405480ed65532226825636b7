@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03c46a94_3dfd7eb6",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-17T21:56:30Z",
+      "side": 1,
+      "message": "This is the bug.  This should be returning a reference to a static empty string if the first check fails.\n\nstatic std::string empty;\nreturn empty;",
+      "revId": "01f0a89df9731ad7405480ed65532226825636b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
