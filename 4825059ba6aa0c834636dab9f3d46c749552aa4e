@@ -34,6 +34,24 @@
       "parentUuid": "76143866_405539f9",
       "revId": "4825059ba6aa0c834636dab9f3d46c749552aa4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49006a1a_1618eaa0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-05-18T17:11:19Z",
+      "side": 1,
+      "message": "\u003e If you want to shoot yourself in the foot, we should block it?\n\nMaybe I am a bit too naive here, but knowing that some users try such things and then wonder why they can\u0027t access their BMC anymore, it\u0027d be good to have such a countermeasure I\u0027d say.\n\n\u003e But more importantly what if you set up LDAP and don\u0027t want any local accounts?\n\n\n\nBlocking the removal of your own (local) account shouldn\u0027t prevent this, since you should have at least one Administrator account to handle routes with `ConfigureUsers` privilege anyways.\n\n\u003e I am not saying that is advised but isn\u0027t there cases where you might want to delete your own account?\n\nFair point. There probably are valid cases (e.g. cleaning up after fully switching to LDAP). I could see this going either way. Maybe a middle ground would be to block self-deletion only when it would remove the last local Administrator account, rather than blocking it unconditionally? Happy to hear about your thoughts on that.",
+      "parentUuid": "d4b53d58_598f6491",
+      "revId": "4825059ba6aa0c834636dab9f3d46c749552aa4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
