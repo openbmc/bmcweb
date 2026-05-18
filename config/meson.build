@@ -58,9 +58,12 @@ string_options = [
 
 int_options = ['http-body-limit', 'watchdog-timeout-seconds']
 
+array_options = []
+
 feature_options_string = '\n// Feature options\n'
 string_options_string = '\n// String options\n'
 int_options_string = '\n// Integer options\n'
+array_options_string = '\n// Array options\n'
 
 multi_host_enabled = get_option('experimental-redfish-multi-computer-system').enabled()
 multi_host_incompatible_options = [
@@ -73,6 +76,7 @@ foreach feature_type, feature_list : {
     'Feature': feature_options,
     'Numeric': int_options,
     'String': string_options,
+    'Array': array_options,
 }
     summary_dict = {}
     foreach option_key : feature_list
@@ -109,6 +113,19 @@ foreach feature_type, feature_list : {
                 opt,
             )
         endif
+        if feature_type == 'Array'
+            option_array = get_option(option_key)
+            array_options_string += 'constexpr std::array<const char*,@0@> @1@_ARRAY = {'.format(
+                option_array.length(),
+                option_key_config,
+            )
+
+            foreach e : option_array
+                array_options_string += '\n\t"@0@",'.format(e)
+            endforeach
+
+            array_options_string += '\n};\n'
+        endif
         summary_dict += {option_key: opt}
     endforeach
     summary(summary_dict, section: feature_type + ' Options', bool_yn: true)
@@ -128,7 +145,7 @@ feature_options_string += 'constexpr const bool BMCWEB_VM_NBDPROXY = false;\n'
 
 conf_data.set(
     'BMCWEB_OPTIONS',
-    string_options_string + int_options_string + feature_options_string,
+    string_options_string + int_options_string + feature_options_string + array_options_string,
 )
 
 conf_h_dep = declare_dependency(
