@@ -789,6 +789,35 @@ inline void handleProcessorSubtree(
  * @param[in]       callback        Callback to continue processing request upon
  *                                  successfully finding object.
  */
+inline void afterGetProcessorEccModeEnabled(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, bool active)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error reading ECC mode: {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["MemorySummary"]["ECCModeEnabled"] = active;
+}
+
+inline void getProcessorEccModeEnabled(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& objectPath)
+{
+    // GET on the main Processor resource reflects the active hardware
+    // state (the Active property). PATCH is exposed on the Settings
+    // sub-resource against the Enabled property; see processor_settings.hpp.
+    dbus::utility::getProperty<bool>(
+        service, objectPath, "xyz.openbmc_project.Control.Processor.EccMode",
+        "Active", std::bind_front(afterGetProcessorEccModeEnabled, asyncResp));
+}
+
 inline void getProcessorObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -799,7 +828,7 @@ inline void getProcessorObject(
     BMCWEB_LOG_DEBUG("Get available system processor resources.");
 
     // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 9> interfaces = {
+    constexpr std::array<std::string_view, 10> interfaces = {
         "xyz.openbmc_project.Common.UUID",
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         "xyz.openbmc_project.Inventory.Decorator.Revision",
@@ -807,6 +836,7 @@ inline void getProcessorObject(
         "xyz.openbmc_project.Inventory.Decorator.LocationCode",
         "xyz.openbmc_project.Inventory.Item.Accelerator",
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+        "xyz.openbmc_project.Control.Processor.EccMode",
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "xyz.openbmc_project.Control.Power.Throttle"};
     dbus::utility::getSubTree(
@@ -880,6 +910,11 @@ inline void getProcessorData(
             else if (interface == "xyz.openbmc_project.Control.Power.Throttle")
             {
                 getThrottleProperties(asyncResp, serviceName, objectPath);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Control.Processor.EccMode")
+            {
+                getProcessorEccModeEnabled(asyncResp, serviceName, objectPath);
             }
             else if (interface == "xyz.openbmc_project.Association.Definitions")
             {
