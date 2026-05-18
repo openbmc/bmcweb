@@ -16,6 +16,24 @@
       "message": "This would functionally make this require, which it seems like we already did on accide.  Should we just default to admin if it\u0027s not provided?",
       "revId": "2f6d28c5f2e8db9eb012ec43678fea6ba5131f02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e188b7_30463402",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-18T10:11:17Z",
+      "side": 1,
+      "message": "Hi @ed@tanous.net The schema explicitly marks RoleId as required on create, so PropertyMissing is the appropriate error. Defaulting to Administrator would silently grant unintended permissions. Plea suggest on this",
+      "parentUuid": "c80255e7_69121547",
+      "revId": "2f6d28c5f2e8db9eb012ec43678fea6ba5131f02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
