@@ -1142,6 +1142,7 @@ functions the same like the default implementation under the System resource.
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz
+- MemorySummary/ECCModeEnabled
 - PartNumber
 - ProcessorArchitecture
 - ProcessorId

@@ -950,16 +950,16 @@ inline void getProcessorObject(
     BMCWEB_LOG_DEBUG("Get available system processor resources.");
 
     // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 9> interfaces = {
-        "xyz.openbmc_project.Common.UUID",
-        "xyz.openbmc_project.Inventory.Decorator.Asset",
-        "xyz.openbmc_project.Inventory.Decorator.Revision",
-        "xyz.openbmc_project.Inventory.Item.Cpu",
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode",
-        "xyz.openbmc_project.Inventory.Item.Accelerator",
-        "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
-        "xyz.openbmc_project.Control.Power.Throttle"};
+    constexpr auto interfaces = std::to_array<std::string_view>(
+        {"xyz.openbmc_project.Common.UUID",
+         "xyz.openbmc_project.Inventory.Decorator.Asset",
+         "xyz.openbmc_project.Inventory.Decorator.Revision",
+         "xyz.openbmc_project.Inventory.Item.Cpu",
+         "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+         "xyz.openbmc_project.Inventory.Item.Accelerator",
+         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
+         "xyz.openbmc_project.Control.Power.Throttle"});
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         [asyncResp, processorId, callback{std::move(callback)}](
@@ -968,6 +968,76 @@ inline void getProcessorObject(
             handleProcessorSubtree(asyncResp, processorId, callback, ec,
                                    subtree);
         });
+}
+
+inline void afterGetProcessorEccModeEnabled(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, bool active)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error reading ECC mode: {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["MemorySummary"]["ECCModeEnabled"] = active;
+}
+
+inline void afterGetProcessorEccModeObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error getting ECC mode object: {}",
+                         ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (subtree.empty())
+    {
+        return;
+    }
+    if (subtree.size() != 1)
+    {
+        BMCWEB_LOG_ERROR("Expected exactly one ECC mode object, found {}",
+                         subtree.size());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    const auto& [controlPath, serviceMap] = subtree.front();
+    if (serviceMap.empty())
+    {
+        BMCWEB_LOG_ERROR("No service hosts ECC mode object {}", controlPath);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    dbus::utility::getProperty<bool>(
+        serviceMap.front().first, controlPath,
+        "xyz.openbmc_project.Control.Processor.EccMode", "Active",
+        std::bind_front(afterGetProcessorEccModeEnabled, asyncResp));
+}
+
+inline void getProcessorEccModeEnabled(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    constexpr std::array<std::string_view, 1> eccModeInterfaces = {
+        "xyz.openbmc_project.Control.Processor.EccMode"};
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path(objectPath) / "controlled_by",
+        sdbusplus::object_path("/xyz/openbmc_project/control"), 0,
+        eccModeInterfaces,
+        std::bind_front(afterGetProcessorEccModeObject, asyncResp));
 }
 
 inline void getProcessorData(
@@ -1037,6 +1107,7 @@ inline void getProcessorData(
                 getLocationIndicatorActive(asyncResp, objectPath);
                 getEnvironmentMetricsLink(asyncResp, processorId, objectPath);
                 getProcessorFirmwareVersion(asyncResp, objectPath);
+                getProcessorEccModeEnabled(asyncResp, objectPath);
             }
         }
     }
