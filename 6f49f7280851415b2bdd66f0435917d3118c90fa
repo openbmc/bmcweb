@@ -70,6 +70,30 @@
       },
       "revId": "6f49f7280851415b2bdd66f0435917d3118c90fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afd85c7b_5895ffa2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:02:26Z",
+      "side": 0,
+      "message": "\u003e ec does not change after 613 right?\n\nThis doesn\u0027t really answer my question.  In patchset 16 you deleted a segment of code, why?\n\nI didn\u0027t make any statement on whether or not it was correct, just that I didn\u0027t understand why you deleted something.",
+      "parentUuid": "1cad7ed1_a9264628",
+      "range": {
+        "startLine": 611,
+        "startChar": 0,
+        "endLine": 624,
+        "endChar": 0
+      },
+      "revId": "6f49f7280851415b2bdd66f0435917d3118c90fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
