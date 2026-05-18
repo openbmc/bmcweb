@@ -52,6 +52,24 @@
       "parentUuid": "d4b53d58_598f6491",
       "revId": "4825059ba6aa0c834636dab9f3d46c749552aa4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fbd17e8_71b18aca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T18:16:19Z",
+      "side": 1,
+      "message": "\u003e If you want to shoot yourself in the foot, we should block it?\n\nYes.  There\u0027s no place where this call would be a reasonable thing to do.\n\n\u003e Where does it stop?\n\nI don\u0027t think we ever stop.  Always make things more user friendly to within what the specs allow?  Are you worried about getting a bunch of error handling code?  In the context of this commit, that doesn\u0027t seem too worrisome, it\u0027s 3 lines.  If it were 100 lines of complex error handling I might feel differently.\n\n\u003e  isn\u0027t there cases where you might want to delete your own account?\n\nCan you talk more to this?  I can\u0027t think of a valid case where you\u0027d want to delete/disable your own account, but if they exist, yes, that would invalidate this patch.",
+      "parentUuid": "49006a1a_1618eaa0",
+      "revId": "4825059ba6aa0c834636dab9f3d46c749552aa4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
