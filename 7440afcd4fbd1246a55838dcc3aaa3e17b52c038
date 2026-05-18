@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e41bd50_6202614e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:11:22Z",
+      "side": 1,
+      "message": "Why is this now being loaded into aggregationSources.  aggregationSources is for user constructed resources, dbus is for system constructed resources.",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24c1b1fa_4ddc9800",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
@@ -14,6 +31,24 @@
       "writtenOn": "2026-05-18T16:41:23Z",
       "side": 1,
       "message": "Can you update this comment now that authentication support is being added.",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ea1114b_5e098355",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:11:22Z",
+      "side": 1,
+      "message": "This code just needs removed.",
+      "parentUuid": "24c1b1fa_4ddc9800",
       "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
