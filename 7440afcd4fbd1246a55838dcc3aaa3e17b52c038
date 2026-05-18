@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24c1b1fa_4ddc9800",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2026-05-18T16:41:23Z",
+      "side": 1,
+      "message": "Can you update this comment now that authentication support is being added.",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f022cf_4872b0d4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2026-05-18T16:41:23Z",
+      "side": 1,
+      "message": "Can you use `X-BMCWEB-Aggregator: true` or `X-Redfish-Aggregator: bmcweb`?",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
