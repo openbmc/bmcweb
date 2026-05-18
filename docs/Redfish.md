@@ -18,6 +18,24 @@ The latest [Redfish schemas][3] are available from DMTF
 If using a previously unused schema, you will need to add it to the included
 schema list in `scripts/update_schemas.py` and run `update_schemas.py`.
 
+## Settings resources
+
+Properties that are not applied immediately are exposed with the Redfish
+settings pattern rather than as writable properties. The resource being
+configured stays read-only and reports the value currently in effect, and
+carries a `@Redfish.Settings` annotation linking to a settings resource that
+reports the requested value.
+
+The settings resource lives at the URI of the resource it configures plus
+`/Settings`, the shape the Redfish mockups use for
+`/redfish/v1/Systems/{SystemId}/Bios/Settings`. It uses the schema of the
+resource it configures and carries `@Redfish.SettingsApplyTime`. A `PATCH`
+records the request and returns `204`.
+
+The annotation and the settings resource are only emitted when the backing D-Bus
+object exists, so a service without the control does not advertise one. Settings
+resources are listed separately below, with the properties each supports.
+
 Fields common to all schemas
 
 - @odata.id
@@ -1139,6 +1157,7 @@ functions the same like the default implementation under the System resource.
 
 #### Processor
 
+- @Redfish.Settings
 - EnvironmentMetrics
 - FirmwareVersion
 - InstructionSet
@@ -1171,6 +1190,13 @@ functions the same like the default implementation under the System resource.
 - PowerLimitWatts/ControlMode
 - PowerLimitWatts/DefaultSetPoint
 - PowerLimitWatts/SetPoint
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Settings/
+
+#### Processor
+
+- @Redfish.SettingsApplyTime
+- MemorySummary/ECCModeEnabled
 
 ### /redfish/v1/Systems/system/Processors/{ProcessorId}/SubProcessors
 

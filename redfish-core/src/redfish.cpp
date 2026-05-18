@@ -44,6 +44,7 @@
 #include "processor.hpp"
 #include "processor_core.hpp"
 #include "processor_operating_config.hpp"
+#include "processor_settings.hpp"
 #include "redfish_sessions.hpp"
 #include "redfish_v1.hpp"
 #include "roles.hpp"
@@ -178,6 +179,7 @@ RedfishService::RedfishService(App& app)
 
     requestRoutesProcessor(app);
     requestRoutesSubProcessors(app);
+    requestRoutesProcessorSettings(app);
     requestRoutesOperatingConfig(app);
     requestRoutesMemory(app);
 
