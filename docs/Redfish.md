@@ -1125,6 +1125,7 @@ functions the same like the default implementation under the System resource.
 
 #### Processor
 
+- "@Redfish.Settings"
 - InstructionSet
 - LocationIndicatorActive
 - Manufacturer
@@ -1143,6 +1144,13 @@ functions the same like the default implementation under the System resource.
 - TotalCores
 - TotalThreads
 - Version
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Settings/
+
+#### Processor
+
+- "@Redfish.SettingsApplyTime"
+- MemorySummary/ECCModeEnabled
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 

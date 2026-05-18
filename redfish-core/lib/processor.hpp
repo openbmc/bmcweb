@@ -791,8 +791,8 @@ inline void handleProcessorSubtree(
  */
 // Service name registered by dbus-sensors nvidia-gpu daemon, which publishes
 // the per-processor ECC mode control objects under
-//   /xyz/openbmc_project/control/processor/<id>/ecc_mode/current
-// The object implements xyz.openbmc_project.Object.Enable, mirroring the
+//   /xyz/openbmc_project/control/processor/<id>/ecc_mode/{current,pending}
+// Both objects implement xyz.openbmc_project.Object.Enable, mirroring the
 // pattern used for boot override settings (see systems.hpp).
 constexpr const char* gpuSensorService = "xyz.openbmc_project.GpuSensor";
 constexpr const char* objectEnableInterface =
@@ -1050,6 +1050,15 @@ inline void handleProcessorGet(
         std::bind_front(getProcessorData, asyncResp, processorId));
 
     getProcessorEccModeEnabled(asyncResp, processorId);
+
+    nlohmann::json::object_t settingsObject;
+    settingsObject["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Processors/{}/Settings",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+    nlohmann::json::object_t settingsLink;
+    settingsLink["@odata.type"] = "#Settings.v1_3_3.Settings";
+    settingsLink["SettingsObject"] = std::move(settingsObject);
+    asyncResp->res.jsonValue["@Redfish.Settings"] = std::move(settingsLink);
 }
 
 inline void doPatchProcessor(
