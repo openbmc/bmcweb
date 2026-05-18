@@ -29,7 +29,7 @@ option(
 # if you use this option and are seeing this comment, please comment here:
 # https://github.com/openbmc/bmcweb/issues/188 and put forward your intentions
 # for this code.  At this point, no daemon has been upstreamed that implements
-# this interface, so for the moment this appears to be dead code;  In leiu of
+# this interface, so for the moment this appears to be dead code;  In lieu of
 # removing it, it has been disabled to try to give those that use it the
 # opportunity to upstream their backend implementation
 #option(
