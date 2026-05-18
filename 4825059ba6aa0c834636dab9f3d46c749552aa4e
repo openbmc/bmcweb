@@ -16,6 +16,24 @@
       "message": "This seems fine to me.  Leaving in review for a bit to see if anyone else has input.",
       "revId": "4825059ba6aa0c834636dab9f3d46c749552aa4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b53d58_598f6491",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-18T16:40:58Z",
+      "side": 1,
+      "message": "I\u0027m not sure here. If you want to shoot yourself in the foot, we should block it? Where does it stop?\n\nBut more importantly what if you set up LDAP and don\u0027t want any local accounts? \nI am not saying that is advised but isn\u0027t there cases where you might want to delete your own account?",
+      "parentUuid": "76143866_405539f9",
+      "revId": "4825059ba6aa0c834636dab9f3d46c749552aa4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
