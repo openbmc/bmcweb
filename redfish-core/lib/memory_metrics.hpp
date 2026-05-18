@@ -10,10 +10,12 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/metrics_util.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -88,6 +90,46 @@ inline void afterGetMemoryOperatingSpeed(
     asyncResp->res.jsonValue["OperatingSpeedMHz"] = speed;
 }
 
+inline void afterGetMemoryBandwidthMetric(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR(
+            "DBus error on getAssociatedSubTree for memory_bandwidth: {}",
+            ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& [metricPath, serviceMap] : subtree)
+    {
+        if (sdbusplus::object_path(metricPath).filename() != "memory_bandwidth")
+        {
+            continue;
+        }
+
+        if (serviceMap.size() != 1)
+        {
+            BMCWEB_LOG_ERROR("Expected exactly one service for {}, got {}",
+                             metricPath, serviceMap.size());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string& service = serviceMap.begin()->first;
+        metrics_util::getMetricPropertyDouble(asyncResp, service, metricPath,
+                                              "/BandwidthPercent"_json_pointer);
+        return;
+    }
+}
+
 inline void afterGetMemoryMetricsSubTree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& memoryId, const boost::system::error_code& ec,
@@ -130,6 +172,14 @@ inline void afterGetMemoryMetricsSubTree(
             service, objectPath, "xyz.openbmc_project.Inventory.Item.Dimm",
             "MemoryConfiguredSpeedInMhz",
             std::bind_front(afterGetMemoryOperatingSpeed, asyncResp));
+
+        constexpr std::array<std::string_view, 1> metricInterfaces = {
+            "xyz.openbmc_project.Metric.Value"};
+        dbus::utility::getAssociatedSubTree(
+            sdbusplus::object_path(objectPath) / "measured_by",
+            sdbusplus::object_path("/xyz/openbmc_project/metric"), 0,
+            metricInterfaces,
+            std::bind_front(afterGetMemoryBandwidthMetric, asyncResp));
         return;
     }
 
