@@ -801,16 +801,16 @@ inline void getProcessorObject(
     BMCWEB_LOG_DEBUG("Get available system processor resources.");
 
     // GetSubTree on all interfaces which provide info about a Processor
-    constexpr std::array<std::string_view, 9> interfaces = {
-        "xyz.openbmc_project.Common.UUID",
-        "xyz.openbmc_project.Inventory.Decorator.Asset",
-        "xyz.openbmc_project.Inventory.Decorator.Revision",
-        "xyz.openbmc_project.Inventory.Item.Cpu",
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode",
-        "xyz.openbmc_project.Inventory.Item.Accelerator",
-        "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
-        "xyz.openbmc_project.Control.Power.Throttle"};
+    constexpr auto interfaces = std::to_array<std::string_view>(
+        {"xyz.openbmc_project.Common.UUID",
+         "xyz.openbmc_project.Inventory.Decorator.Asset",
+         "xyz.openbmc_project.Inventory.Decorator.Revision",
+         "xyz.openbmc_project.Inventory.Item.Cpu",
+         "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+         "xyz.openbmc_project.Inventory.Item.Accelerator",
+         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
+         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
+         "xyz.openbmc_project.Control.Power.Throttle"});
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         [asyncResp, processorId, callback{std::move(callback)}](
@@ -819,6 +819,77 @@ inline void getProcessorObject(
             handleProcessorSubtree(asyncResp, processorId, callback, ec,
                                    subtree);
         });
+}
+
+inline void afterGetProcessorEccModeEnabled(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, bool active)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error reading ECC mode: {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["MemorySummary"]["ECCModeEnabled"] = active;
+}
+
+inline void afterGetProcessorEccModeObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error getting ECC mode object: {}",
+                         ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (subtree.empty())
+    {
+        // No EccMode control object is associated with this processor.
+        return;
+    }
+    // The association is filtered to the EccMode interface, so the subtree
+    // holds the single control object that exposes it.
+    const auto& [controlPath, serviceMap] = subtree.front();
+    if (serviceMap.empty())
+    {
+        BMCWEB_LOG_ERROR("No service hosts ECC mode object {}", controlPath);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    dbus::utility::getProperty<bool>(
+        serviceMap.front().first, controlPath,
+        "xyz.openbmc_project.Control.Processor.EccMode", "Active",
+        std::bind_front(afterGetProcessorEccModeEnabled, asyncResp));
+}
+
+inline void getProcessorEccModeEnabled(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    // ECC mode is exposed by a Control.Processor.EccMode object under
+    // /xyz/openbmc_project/control/processor, linked to the processor
+    // inventory item through a controlled_by association. Follow that
+    // association to read the active hardware state. The writable
+    // counterpart is exposed via the Settings sub-resource in a follow-up.
+    constexpr std::array<std::string_view, 1> eccModeInterfaces = {
+        "xyz.openbmc_project.Control.Processor.EccMode"};
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::message::object_path(objectPath) / "controlled_by",
+        sdbusplus::message::object_path("/xyz/openbmc_project/control"), 0,
+        eccModeInterfaces,
+        std::bind_front(afterGetProcessorEccModeObject, asyncResp));
 }
 
 inline void getProcessorData(
@@ -889,6 +960,11 @@ inline void getProcessorData(
             }
         }
     }
+
+    // ECC mode lives on a separate Control.Processor.EccMode object linked to
+    // this inventory item by a controlled_by association, not on the inventory
+    // object itself, so trigger it independently of the dispatch above.
+    getProcessorEccModeEnabled(asyncResp, objectPath);
 }
 
 /**
