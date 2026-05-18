@@ -118,6 +118,30 @@
       },
       "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35cf6c14_1a851cc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:52:19Z",
+      "side": 1,
+      "message": "I continue to see no quotes from the spec in your commit message, which has been asked for a couple of times in this thread already, and you keep not answering the question.\n\nWhat I suspect here is that the spec DOESN\u0027T actually specify which error message should be returned here, and that\u0027s why you\u0027re having trouble finding a quote.  Is that correct?\n\nI\u0027m still open to change if we think this is better, but we need to be explicit about \"we\u0027re doing this to follow the spec\" and \"we\u0027re doing this because we think it\u0027s better for bmcweb/openbmc\". Those are two different things.\n\nI can\u0027t really see how ResourceAtUriUnauthorized would be an improvement here, or would be correct under any interpretation of the spec.  The user was \"authorized\" they just provided a bad input.  I can see how PropertyMissing would be misleading.  I suspect PropertyValueOutOfRange might be an equivalent.\n\nI\u0027m not aware of anywhere in the spec that backs up this being a 401.",
+      "parentUuid": "07a6a9a3_aeb2bcfb",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
