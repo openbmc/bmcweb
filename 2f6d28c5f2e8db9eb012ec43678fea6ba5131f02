@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e2dbc8d_86301e82",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T20:30:32Z",
+      "side": 1,
+      "message": "@sandeepap@ami.com\nYou need to link https://github.com/DMTF/Redfish-Publications/blob/c3a8a4c26d9243640c8f450c7282ace413b70aa5/csdl/ManagerAccount_v1.xml#L270-L271\n\nso per the spec you are correct, but also the request is wrong if you didn\u0027t specify RoleId.\n\nFrom my perspective, I find the current bmcweb behavior (picking an intelligent default) better than just returning an error.  Admittedly, this is counter to the spec, but not in a way that harms interop or would impact a real user.  Changing this default WOULD impact a real user potentially.",
+      "parentUuid": "5016eedf_93358395",
+      "revId": "2f6d28c5f2e8db9eb012ec43678fea6ba5131f02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6fc2ab8_876d5d0a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 3
