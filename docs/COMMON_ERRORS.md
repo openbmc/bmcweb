@@ -108,7 +108,7 @@ to `replace`. Although `ignore` preserves content 1:1, `replace` is preferred
 from a security point of view.
 
 The nlohmann::json class represents ANY json object, but unfortunately includes
-a number of helper functions that allow it to "act" like it only represents an
+a number of helper functions that allow it to "act" like it only represents a
 json dict. In the majority of uses, these will not cause a problem, but if a
 type that isn't an object (0.0, "foo", or null) is already present in the
 object, these methods will
