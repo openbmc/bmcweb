@@ -989,7 +989,7 @@ inline void afterGetProcessorEccModeEnabled(
 
 inline void afterGetProcessorEccModeObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
+    const std::string& processorId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
@@ -1021,6 +1021,18 @@ inline void afterGetProcessorEccModeObject(
         messages::internalError(asyncResp->res);
         return;
     }
+    // The processor has an ECC mode control object, so advertise the writable
+    // Settings sub-resource. It is only added for processors that actually
+    // support the pending-ECC-mode control.
+    nlohmann::json::object_t settingsObject;
+    settingsObject["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Processors/{}/Settings",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+    nlohmann::json::object_t settingsLink;
+    settingsLink["@odata.type"] = "#Settings.v1_3_3.Settings";
+    settingsLink["SettingsObject"] = std::move(settingsObject);
+    asyncResp->res.jsonValue["@Redfish.Settings"] = std::move(settingsLink);
+
     dbus::utility::getProperty<bool>(
         serviceMap.front().first, controlPath,
         "xyz.openbmc_project.Control.Processor.EccMode", "Active",
@@ -1029,15 +1041,16 @@ inline void afterGetProcessorEccModeObject(
 
 inline void getProcessorEccModeEnabled(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& objectPath)
+    const std::string& processorId, const std::string& objectPath)
 {
-    constexpr std::array<std::string_view, 1> eccModeInterfaces = {
-        "xyz.openbmc_project.Control.Processor.EccMode"};
+    constexpr auto eccModeInterfaces = std::to_array<std::string_view>(
+        {"xyz.openbmc_project.Control.Processor.EccMode"});
     dbus::utility::getAssociatedSubTree(
         sdbusplus::object_path(objectPath) / "controlled_by",
         sdbusplus::object_path("/xyz/openbmc_project/control"), 0,
         eccModeInterfaces,
-        std::bind_front(afterGetProcessorEccModeObject, asyncResp));
+        std::bind_front(afterGetProcessorEccModeObject, asyncResp,
+                        processorId));
 }
 
 inline void getProcessorData(
@@ -1107,7 +1120,7 @@ inline void getProcessorData(
                 getLocationIndicatorActive(asyncResp, objectPath);
                 getEnvironmentMetricsLink(asyncResp, processorId, objectPath);
                 getProcessorFirmwareVersion(asyncResp, objectPath);
-                getProcessorEccModeEnabled(asyncResp, objectPath);
+                getProcessorEccModeEnabled(asyncResp, processorId, objectPath);
             }
         }
     }
