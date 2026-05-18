@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da4ed8d_337ab01a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-18T20:11:19Z",
+      "side": 1,
+      "message": "Please wrap at 72 chars for the body not a custom length",
+      "revId": "2f6d28c5f2e8db9eb012ec43678fea6ba5131f02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f1544185_2afab779",
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "Hi @ed@tanous.net The schema explicitly marks RoleId as required on create, so PropertyMissing is the appropriate error. Defaulting to Administrator would silently grant unintended permissions. Plea suggest on this",
       "parentUuid": "c80255e7_69121547",
+      "revId": "2f6d28c5f2e8db9eb012ec43678fea6ba5131f02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5016eedf_93358395",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-18T20:11:19Z",
+      "side": 1,
+      "message": "Where is it required? Can you quote the spec ? Today we default to \"User\"",
+      "parentUuid": "74e188b7_30463402",
       "revId": "2f6d28c5f2e8db9eb012ec43678fea6ba5131f02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
