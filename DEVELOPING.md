@@ -17,7 +17,7 @@ performance and metric targets are:
 
 Care should be taken to ensure that all code is written to be asynchronous in
 nature, to avoid blocking methods from stopping the processing of other tasks.
-At this time the webserver uses boost::asio for it async framework. Threads
+At this time the webserver uses boost::asio for its async framework. Threads
 should be avoided if possible, and instead use async tasks within boost::asio.
 
 ### Secure coding guidelines
