@@ -1139,6 +1139,7 @@ functions the same like the default implementation under the System resource.
 
 #### Processor
 
+- "@Redfish.Settings"
 - EnvironmentMetrics
 - FirmwareVersion
 - InstructionSet
@@ -1171,6 +1172,13 @@ functions the same like the default implementation under the System resource.
 - PowerLimitWatts/ControlMode
 - PowerLimitWatts/DefaultSetPoint
 - PowerLimitWatts/SetPoint
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Settings/
+
+#### Processor
+
+- "@Redfish.SettingsApplyTime"
+- MemorySummary/ECCModeEnabled
 
 ### /redfish/v1/Systems/system/Processors/{ProcessorId}/SubProcessors
 
