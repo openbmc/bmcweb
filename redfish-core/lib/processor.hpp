@@ -789,6 +789,50 @@ inline void handleProcessorSubtree(
  * @param[in]       callback        Callback to continue processing request upon
  *                                  successfully finding object.
  */
+// Service name registered by dbus-sensors nvidia-gpu daemon, which publishes
+// the per-processor ECC mode control on the processor's existing inventory
+// object at
+//   /xyz/openbmc_project/inventory/<id>
+// The object implements xyz.openbmc_project.Control.Processor.EccMode with
+// two properties: Active (read-only, reflects current hardware state) and
+// Enabled (writable, reflects the mode the processor will apply on next
+// reset).
+constexpr const char* gpuSensorService = "xyz.openbmc_project.GpuSensor";
+constexpr const char* eccModeInterface =
+    "xyz.openbmc_project.Control.Processor.EccMode";
+
+inline sdbusplus::object_path eccModePath(const std::string& processorId)
+{
+    return sdbusplus::object_path("/xyz/openbmc_project/inventory") /
+           processorId;
+}
+
+inline void getProcessorEccModeEnabled(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId)
+{
+    // GET on the main Processor resource reflects the active hardware
+    // state (the Active property). PATCH is exposed on the Settings
+    // sub-resource against the Enabled property; see processor_settings.hpp.
+    dbus::utility::getProperty<bool>(
+        gpuSensorService, eccModePath(processorId), eccModeInterface, "Active",
+        [asyncResp](const boost::system::error_code& ec, bool active) {
+            if (ec)
+            {
+                if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+                {
+                    return;
+                }
+                BMCWEB_LOG_ERROR("DBus error reading ECC mode: {}",
+                                 ec.message());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["MemorySummary"]["ECCModeEnabled"] =
+                active;
+        });
+}
+
 inline void getProcessorObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -1008,6 +1052,8 @@ inline void handleProcessorGet(
     getProcessorObject(
         asyncResp, processorId,
         std::bind_front(getProcessorData, asyncResp, processorId));
+
+    getProcessorEccModeEnabled(asyncResp, processorId);
 }
 
 inline void doPatchProcessor(
