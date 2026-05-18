@@ -789,14 +789,14 @@ inline void handleProcessorSubtree(
  * @param[in]       callback        Callback to continue processing request upon
  *                                  successfully finding object.
  */
-// Service name registered by dbus-sensors nvidia-gpu daemon, which publishes
 // the per-processor ECC mode control on the processor's existing inventory
 // object at
 //   /xyz/openbmc_project/inventory/<id>
 // The object implements xyz.openbmc_project.Control.Processor.EccMode with
 // two properties: Active (read-only, reflects current hardware state) and
 // Enabled (writable, reflects the mode the processor will apply on next
-// reset).
+// reset). PATCH against Enabled is exposed via the Settings sub-resource;
+// see processor_settings.hpp.
 constexpr const char* gpuSensorService = "xyz.openbmc_project.GpuSensor";
 constexpr const char* eccModeInterface =
     "xyz.openbmc_project.Control.Processor.EccMode";
@@ -1054,6 +1054,15 @@ inline void handleProcessorGet(
         std::bind_front(getProcessorData, asyncResp, processorId));
 
     getProcessorEccModeEnabled(asyncResp, processorId);
+
+    nlohmann::json::object_t settingsObject;
+    settingsObject["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Processors/{}/Settings",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+    nlohmann::json::object_t settingsLink;
+    settingsLink["@odata.type"] = "#Settings.v1_3_3.Settings";
+    settingsLink["SettingsObject"] = std::move(settingsObject);
+    asyncResp->res.jsonValue["@Redfish.Settings"] = std::move(settingsLink);
 }
 
 inline void doPatchProcessor(
