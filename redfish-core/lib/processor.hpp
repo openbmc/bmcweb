@@ -1150,6 +1150,15 @@ inline void handleProcessorGet(
     getProcessorObject(
         asyncResp, processorId,
         std::bind_front(getProcessorData, asyncResp, processorId));
+
+    nlohmann::json::object_t settingsObject;
+    settingsObject["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Processors/{}/Settings",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+    nlohmann::json::object_t settingsLink;
+    settingsLink["@odata.type"] = "#Settings.v1_3_3.Settings";
+    settingsLink["SettingsObject"] = std::move(settingsObject);
+    asyncResp->res.jsonValue["@Redfish.Settings"] = std::move(settingsLink);
 }
 
 inline void doPatchProcessor(
