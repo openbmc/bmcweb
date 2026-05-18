@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9aa1736a_221d7a0f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:15:28Z",
+      "side": 1,
+      "message": "I see no mention of this newly supported protocol.  Supporting https probably deserves its own commit and testing, especially to document what the options are.",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49eb0fb9_52a42d81",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:15:28Z",
+      "side": 1,
+      "message": "Several issues here.\n\nCertainly a random string from dbus isn\u0027t directly convertible to a url protocol.\nThere\u0027s an exception that you\u0027ve failed to catch.  Previously this was a fixed string that we knew didn\u0027t throw.\nYou\u0027ve functionally added a new feature here without really documenting it. Adding a new \"protocol\" field deserves its own commit.",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24c1b1fa_4ddc9800",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
@@ -55,6 +89,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23720215_8eb287fe",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:15:28Z",
+      "side": 1,
+      "message": "This looks incorrect.  You can have an https protocol without requiring mtls.",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d27c2b85_435d7149",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:15:28Z",
+      "side": 1,
+      "message": "Won\u0027t this prevent aggregating ANY bmcweb to another bmcweb?  I\u0027m surprised the tests pass with this.  Can you double check your test cases on why this passes?",
+      "range": {
+        "startLine": 633,
+        "startChar": 48,
+        "endLine": 633,
+        "endChar": 54
+      },
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9afa3ff9_5e76e99c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:15:28Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto here.  std::string_view so we know the lifetime.",
+      "range": {
+        "startLine": 1335,
+        "startChar": 8,
+        "endLine": 1335,
+        "endChar": 12
+      },
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31f022cf_4872b0d4",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
@@ -66,6 +163,29 @@
       "writtenOn": "2026-05-18T16:41:23Z",
       "side": 1,
       "message": "Can you use `X-BMCWEB-Aggregator: true` or `X-Redfish-Aggregator: bmcweb`?",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cf16123_43b62346",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-18T17:15:28Z",
+      "side": 1,
+      "message": "Why do we need to check for both empty and \u003d\u003d bmcweb?  They\u0027re redundant, just check for \u003d\u003d \u003cstring\u003e",
+      "range": {
+        "startLine": 1336,
+        "startChar": 12,
+        "endLine": 1336,
+        "endChar": 67
+      },
       "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
