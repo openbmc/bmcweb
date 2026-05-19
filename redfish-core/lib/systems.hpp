@@ -697,9 +697,8 @@ inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
  *
  * @return Integer error code.
  */
-inline int assignBootParameters(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& rfSource, std::string& bootSource, std::string& bootMode)
+inline int assignBootParameters(const std::string& rfSource,
+                                std::string& bootSource, std::string& bootMode)
 {
     bootSource = "xyz.openbmc_project.Control.Boot.Source.Sources.Default";
     bootMode = "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular";
@@ -739,8 +738,6 @@ inline int assignBootParameters(
         BMCWEB_LOG_DEBUG(
             "Invalid property value for BootSourceOverrideTarget: {}",
             bootSource);
-        messages::propertyValueNotInList(asyncResp->res, rfSource,
-                                         "BootSourceTargetOverride");
         return -1;
     }
     return 0;
@@ -1705,8 +1702,7 @@ inline void setBootModeOrSource(
     // Source target specified
     BMCWEB_LOG_DEBUG("Boot source: {}", *bootSource);
     // Figure out which DBUS interface and property to use
-    if (assignBootParameters(asyncResp, *bootSource, bootSourceStr,
-                             bootModeStr) != 0)
+    if (assignBootParameters(*bootSource, bootSourceStr, bootModeStr) != 0)
     {
         BMCWEB_LOG_DEBUG(
             "Invalid property value for BootSourceOverrideTarget: {}",
