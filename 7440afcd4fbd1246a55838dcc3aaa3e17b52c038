@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db3af4fe_121295c3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-05-19T09:51:33Z",
+      "side": 1,
+      "message": "Ok I will remove this from this commit",
+      "parentUuid": "49eb0fb9_52a42d81",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24c1b1fa_4ddc9800",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
@@ -118,6 +136,24 @@
       "writtenOn": "2026-05-18T17:15:28Z",
       "side": 1,
       "message": "This looks incorrect.  You can have an https protocol without requiring mtls.",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3a3ddf1_d38b5b73",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-05-19T09:51:33Z",
+      "side": 1,
+      "message": "Yes, but MTLS must have https  right?",
+      "parentUuid": "23720215_8eb287fe",
       "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
