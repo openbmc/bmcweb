@@ -183,6 +183,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b63b5411_c1ca4667",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-05-19T10:22:35Z",
+      "side": 1,
+      "message": "This prevents double aggregation. This works for simple BMC topology where every BMC is connected to each other . We have discused about this and agreed to make it work for simple topology. \n\nI tested this for 3 BMC network",
+      "parentUuid": "d27c2b85_435d7149",
+      "range": {
+        "startLine": 633,
+        "startChar": 48,
+        "endLine": 633,
+        "endChar": 54
+      },
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9afa3ff9_5e76e99c",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
