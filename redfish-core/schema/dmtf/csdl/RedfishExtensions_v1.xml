@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -30,7 +30,7 @@
   <edmx:DataServices>
 
     <!--These terms extend the schema language for Redfish-specific information-->
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm"  Namespace="RedfishExtensions.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="RedfishExtensions.v1_0_0">
       <Annotation Term="RedfishExtensions.v1_0_0.OwningEntity" String="DMTF"/>
 
       <Term Name="AllowableValues" Type="Collection(Edm.String)" Nullable="false">
@@ -166,6 +166,33 @@
       <Term Name="IsEmail" Type="Edm.Boolean" DefaultValue="false">
         <Annotation Term="OData.Description" String="The term specifies that a property is an email address and will match email address formatting when specified."/>
       </Term>
+      <Term Name="ClientContext" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The client-supplied key echoed back to confirm the progress record to which this response applies."/>
+        <Annotation Term="OData.LongDescription" String="This term shall contain the value of the `clientcontext` query parameter supplied in the request, echoed back to confirm the key to which the response applies.  This term shall be present in responses to `GET` requests on resource collections when the `clientcontext` query parameter is present in the request."/>
+      </Term>
+      <Term Name="ClientContextStatus" Type="RedfishExtensions.v1_0_0.ClientContextStatusType">
+        <Annotation Term="OData.Description" String="The status of the server-side retrieval progress record for the supplied client context key."/>
+        <Annotation Term="OData.LongDescription" String="This term shall contain the status of the server-side progress record associated with the key supplied in the `clientcontext` query parameter.  This term shall be present in responses to `GET` requests on resource collections when the `clientcontext` query parameter is present in the request."/>
+      </Term>
+      <Term Name="NextEntry" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The identifier of the next entry where retrieval for this client context key will start."/>
+        <Annotation Term="OData.LongDescription" String="This term shall contain the identifier of the next entry stored as the next start point for the client context key supplied in the `clientcontext` query parameter, reflecting the updated progress record after the current `GET` completes.  This term shall be present when `@Redfish.ClientContextStatus` contains `Applied`."/>
+      </Term>
+
+      <EnumType Name="ClientContextStatusType">
+        <Member Name="Applied">
+          <Annotation Term="OData.Description" String="The client context key was accepted and a progress record was applied or created."/>
+        </Member>
+        <Member Name="Invalid">
+          <Annotation Term="OData.Description" String="The client context key exceeds the supported length and could not be accepted."/>
+        </Member>
+        <Member Name="NotFound">
+          <Annotation Term="OData.Description" String="No usable progress record exists for this client context key."/>
+        </Member>
+        <Member Name="Unsupported">
+          <Annotation Term="OData.Description" String="The service does not support the `clientcontext` query parameter."/>
+        </Member>
+      </EnumType>
 
       <EnumType Name="ReleaseStatusType">
         <Member Name="Standard">
@@ -243,7 +270,7 @@
     </Schema>
 
     <!--These terms are used for validating a property value-->
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm"  Namespace="Validation.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Validation.v1_0_0">
       <Annotation Term="RedfishExtensions.v1_0_0.OwningEntity" String="DMTF"/>
 
       <Term Name="Pattern" Type="Edm.String">

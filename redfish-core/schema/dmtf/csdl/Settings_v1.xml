@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Settings v1.4.0                                                     -->
+<!--# Redfish Schema:  Settings v1.5.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -214,6 +214,18 @@
         <Member Name="InMaintenanceWindowOnReset">
           <Annotation Term="OData.Description" String="Apply after a reset but within maintenance window as specified by an administrator."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are applied during the maintenance window specified by the `MaintenanceWindowStartTime` and `MaintenanceWindowDurationInSeconds` properties, and if a reset occurs within the maintenance window."/>
+        </Member>
+        <Member Name="Deferred">
+          <Annotation Term="OData.Description" String="The requested settings are not applied until the user sets the `ApplyTime` property to a different value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are not applied until the user sets the `ApplyTime` property to a different value."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>
@@ -482,6 +494,17 @@
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_3_6.PreferredApplyTime"/>
       <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_3_6.OperationApplyTimeSupport"/>
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_3_6.MaintenanceWindow"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Deferred` to `ApplyTime`."/>
+
+      <ComplexType Name="Settings" BaseType="Settings.v1_4_0.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_4_0.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_4_0.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_4_0.MaintenanceWindow"/>
     </Schema>
 
   </edmx:DataServices>

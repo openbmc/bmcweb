@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.12.0                                                      -->
+<!--# Redfish Schema:  Sensor v1.13.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -104,6 +104,20 @@
         </Annotation>
       </Action>
 
+      <Action Name="ResetThresholdsToDefaults" IsBound="true">
+        <Annotation Term="OData.Description" String="The action resets the sensor thresholds to factory defaults."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the values of writable properties in `Thresholds` in this resource to their default values as specified by the manufacturer."/>
+        <Parameter Name="Sensor" Type="Sensor.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_13_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
       <EnumType Name="VoltageType">
         <Member Name="AC">
           <Annotation Term="OData.Description" String="Alternating current."/>
@@ -162,7 +176,7 @@
           <Annotation Term="OData.Description" String="The circuit formed by L3 and neutral current-carrying conductors."/>
           <Annotation Term="OData.LongDescription" String="This value shall represent a circuit formed by L3 and neutral current-carrying conductors, such as circuits with a phase wiring type of Three-phase / 5-Wire."/>
         </Member>
-         <Member Name="Line1ToNeutralAndL1L2">
+        <Member Name="Line1ToNeutralAndL1L2">
           <Annotation Term="OData.Description" String="The circuit formed by L1, L2, and neutral current-carrying conductors."/>
           <Annotation Term="OData.LongDescription" String="This value shall represent a circuit formed by L1, L2, and neutral current-carrying conductors, such as circuits with phase wiring types of Two-phase/ 4-Wire or Three-phase / 5-Wire."/>
         </Member>
@@ -314,6 +328,7 @@
         <Property Name="Thresholds" Type="Sensor.v1_0_0.Thresholds" Nullable="false">
           <Annotation Term="OData.Description" String="The set of thresholds defined for this sensor."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the set of thresholds that derive a sensor's health and operational range."/>
+          <Annotation Term="Redfish.Excerpt" String="LowerCritical"/>
         </Property>
 
         <Property Name="ReadingRangeMax" Type="Edm.Decimal">
@@ -401,6 +416,7 @@
         <Property Name="LowerCritical" Type="Sensor.v1_0_0.Threshold" Nullable="false">
           <Annotation Term="OData.Description" String="The value at which the reading is below normal range but not yet fatal."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the `Reading` property is below the normal range but is not yet fatal.  The value of the property shall use the same units as the `Reading` property."/>
+          <Annotation Term="Redfish.Excerpt" String="LowerCritical"/>
         </Property>
         <Property Name="LowerFatal" Type="Sensor.v1_0_0.Threshold" Nullable="false">
           <Annotation Term="OData.Description" String="The value at which the reading is below normal range and fatal."/>
@@ -416,6 +432,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The threshold value."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate the reading for this sensor that activates the threshold.  The value of the property shall use the same units as the `Reading` property."/>
+          <Annotation Term="Redfish.Excerpt" String="LowerCritical"/>
         </Property>
         <Property Name="Activation" Type="Sensor.v1_0_0.ThresholdActivation">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -999,6 +1016,7 @@
         <Property Name="LowerCriticalUser" Type="Sensor.v1_0_0.Threshold" Nullable="false">
           <Annotation Term="OData.Description" String="A user-defined value at which the reading is considered below normal range but not yet fatal."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a user-defined value at which the `Reading` property is considered below the normal range but is not yet fatal.  The value of the property shall use the same units as the `Reading` property.  The `Reading` property shall be considered below normal range if either the `LowerCritical` or `LowerCriticalUser` threshold has been violated.  This property is used to provide an additional, user-defined threshold value when the `LowerCritical` threshold is implemented as read-only to reflect a service-defined value that cannot be changed."/>
+          <Annotation Term="Redfish.Excerpt" String="LowerCritical"/>
         </Property>
       </ComplexType>
     </Schema>
@@ -1568,6 +1586,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the lowest sensor value over the time specified by the value of the `AveragingInterval` property.  The value shall be reset by the `ResetMetrics` action or by a service reset of time-based property values."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ResetThresholdsToDefaults` action.  It was also created to add the `LowerCritical` excerpt annotation to the `LowerCriticial` and `LowerCriticalUser` thresholds."/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_12_0.Sensor"/>
     </Schema>
 
   </edmx:DataServices>

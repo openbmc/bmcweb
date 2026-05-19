@@ -9,7 +9,7 @@ import generate_schema_enums
 from generate_schema_collections import generate_top_collections
 
 REPO_URL = "https://github.com/DMTF/Redfish-Publications.git"
-TAG = "2025.4"
+TAG = "2026.1"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 

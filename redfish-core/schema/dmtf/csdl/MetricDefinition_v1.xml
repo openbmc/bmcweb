@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricDefinition v1.3.5                                             -->
+<!--# Redfish Schema:  MetricDefinition v1.3.6                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -140,7 +140,7 @@
         <Annotation Term="OData.LongDescription" String="The type shall describe the types of calculations that can be applied to the metric reading."/>
         <Member Name="NonCalculatable">
           <Annotation Term="OData.Description" String="No calculations should be performed on the metric reading."/>
-         </Member>
+        </Member>
         <Member Name="Summable">
           <Annotation Term="OData.Description" String="The sum of the metric reading across multiple instances is meaningful."/>
         </Member>
@@ -202,7 +202,7 @@
         <Property Name="SensingInterval" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The time interval between when a metric is updated."/>
-          <Annotation Term="OData.LongDescription" String="This property shall specify the time interval between when a metric is updated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall specify the frequency at which metric values are included in any `MetricReport` referencing this metric."/>
         </Property>
         <Property Name="DiscreteValues" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -409,6 +409,12 @@
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_12.MetricDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_0_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how `SensingInterval` impacts the data aggregation in a `MetricReport`."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_13.MetricDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -471,6 +477,12 @@
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_7.MetricDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how `SensingInterval` impacts the data aggregation in a `MetricReport`."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_8.MetricDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -515,6 +527,12 @@
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_2_5.MetricDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how `SensingInterval` impacts the data aggregation in a `MetricReport`."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_2_6.MetricDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -556,6 +574,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `*` as a wildcard value indicates all possible values."/>
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_3_4.MetricDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify how `SensingInterval` impacts the data aggregation in a `MetricReport`."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_3_5.MetricDefinition"/>
     </Schema>
 
   </edmx:DataServices>

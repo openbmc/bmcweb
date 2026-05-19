@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.24.0                                                     -->
+<!--# Redfish Schema:  Manager v1.25.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -1336,6 +1336,18 @@
         <Member Name="PreserveNetwork">
           <Annotation Term="OData.Description" String="Reset all settings except network settings to factory defaults."/>
         </Member>
+        <Member Name="SensorThresholds">
+          <Annotation Term="OData.Description" String="Reset all sensor thresholds to factory defaults."/>
+		  <Annotation Term="OData.LongDescription" String="This value shall reset the thresholds for all Sensor resources controlled by this manager to the factory default values.  This action shall be the equivalent of performing the `ResetThresholds` action on each relevant `Sensor` resources."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_25_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -1960,6 +1972,17 @@
         <Member Name="PTP">
           <Annotation Term="OData.Description" String="The date and time source is a Precision Time Protocol (PTP) server."/>
         </Member>
+        <Member Name="DHCP">
+          <Annotation Term="OData.Description" String="The date and time source is a Network Time Protocol (NTP) server whose address was provided via DHCP server."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_25_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -2053,6 +2076,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the usage notification message for this manager.  If this manager provides the Redfish service, the `ServiceUseNotification` property in the `ServiceRoot` resource shall contain the value of this property.  This property shall only be present if the manager provides the Redfish service."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_25_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `DHCP` to `DateTimeSource`.  It was also created to add `SensorThresholds` to the `ResetType` parameter of the `ResetToDefaults` action."/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_24_0.Manager"/>
     </Schema>
 
   </edmx:DataServices>

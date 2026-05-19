@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.23.0                                                      -->
+<!--# Redfish Schema:  Memory v1.24.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -712,6 +712,28 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_11_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HBM3E">
+          <Annotation Term="OData.Description" String="An updated version of the third generation of High Bandwidth Memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_24_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HBM4">
+          <Annotation Term="OData.Description" String="The fourth generation of High Bandwidth Memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_24_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -2313,8 +2335,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the security states of this memory device."/>
         </Property>
         <Property Name="HealthData" Type="Memory.v1_17_0.HealthData" Nullable="false">
-         <Annotation Term="OData.Description" String="The health data of this memory device."/>
-         <Annotation Term="OData.LongDescription" String="This property shall contain the health data of this memory device."/>
+          <Annotation Term="OData.Description" String="The health data of this memory device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the health data of this memory device."/>
         </Property>
       </EntityType>
 
@@ -2524,6 +2546,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the date of production or manufacture for this memory device."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_24_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `HBM3E` and `HBM4` to `MemoryDeviceType`."/>
+
+      <EntityType Name="Memory" BaseType="Memory.v1_23_0.Memory"/>
     </Schema>
 
   </edmx:DataServices>

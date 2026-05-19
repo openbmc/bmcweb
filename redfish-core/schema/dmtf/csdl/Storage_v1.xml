@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.21.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.22.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
-<!--# Copyright 2014-2025 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
+<!--# Copyright 2014-2026 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright             -->
 <!--################################################################################                   -->
 <!---->
@@ -362,6 +362,24 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_21_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="SetPredictedMediaLifeLeftThreshold" IsBound="true">
+        <Annotation Term="OData.Description" String="This action configures the `PredictedMediaLifeLeftThreshold` for all drives attached to this storage subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This action shall configure the `PredictedMediaLifeLeftThreshold` for all drives attached to this storage subsystem."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Parameter Name="PredictedMediaLifeLeftThreshold" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Description" String="The predicted media life left threshold."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the predicted media life left threshold to be established for all drives attached to this storage subsystem."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_22_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -2161,6 +2179,16 @@
           <Annotation Term="Redfish.Required"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_22_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `SetPredictedMediaLifeLeftThreshold` action."/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_21_0.Storage"/>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_21_0.StorageController"/>
     </Schema>
 
   </edmx:DataServices>

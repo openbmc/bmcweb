@@ -5,14 +5,14 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
 
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
-   <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
     <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
@@ -101,7 +101,7 @@
       <Action Name="SetDefaultBootOrder" IsBound="true">
         <Annotation Term="OData.Description" String="This action is used to restore the boot order to the default state for the specified computer systems."/>
         <Annotation Term="OData.LongDescription" String="This action shall restore the boot order to the default state for the specified computer systems."/>
-        <Parameter Name="AggregationService" Type="AggregationService.v1_0_0.Actions" />
+        <Parameter Name="AggregationService" Type="AggregationService.v1_0_0.Actions"/>
         <Parameter Name="Systems" Type="Collection(ComputerSystem.ComputerSystem)" Nullable="false">
           <Annotation Term="OData.Description" String="The computer systems to restore."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `ComputerSystem`."/>

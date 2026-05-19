@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Filter v1.1.0                                                       -->
+<!--# Redfish Schema:  Filter v1.1.1                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -201,7 +201,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Filter.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions of `ServicedDate` and `ServiceHours` to indicate that when one of these properites is updated, the service may change the value of the other."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of `ServicedDate` and `ServiceHours` to indicate that when one of these properties is updated, the service may change the value of the other."/>
       <EntityType Name="Filter" BaseType="Filter.v1_0_2.Filter"/>
     </Schema>
 
@@ -214,9 +214,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The differential pressure (kPa) across the liquid filter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the pressure, in kilopascal units, for the difference in pressure between the intake and outflow connections on the filter.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `PressurekPa`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the pressure, in kilopascal units, for the difference in pressure between the intake and outflow connections on the filter.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `PressurekPa`, and the `ReadingBasis` property containing the value `Delta`."/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Filter.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `DeltaLiquidPressurekPa` to indicate that an associated `Sensor` resource will provide a delta reading basis."/>
+      <EntityType Name="Filter" BaseType="Filter.v1_1_0.Filter"/>
     </Schema>
 
   </edmx:DataServices>

@@ -62,6 +62,8 @@ enum class ResetType{
     Pause,
     Resume,
     FullPowerCycle,
+    Sleep,
+    Hibernate,
 };
 
 enum class IndicatorLED{
@@ -78,6 +80,8 @@ enum class PowerState{
     PoweringOn,
     PoweringOff,
     Paused,
+    Sleeping,
+    Hibernating,
 };
 
 enum class DurableNameFormat{
@@ -193,6 +197,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetType, {
     {ResetType::Pause, "Pause"},
     {ResetType::Resume, "Resume"},
     {ResetType::FullPowerCycle, "FullPowerCycle"},
+    {ResetType::Sleep, "Sleep"},
+    {ResetType::Hibernate, "Hibernate"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
@@ -209,6 +215,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
     {PowerState::PoweringOn, "PoweringOn"},
     {PowerState::PoweringOff, "PoweringOff"},
     {PowerState::Paused, "Paused"},
+    {PowerState::Sleeping, "Sleeping"},
+    {PowerState::Hibernating, "Hibernating"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(DurableNameFormat, {

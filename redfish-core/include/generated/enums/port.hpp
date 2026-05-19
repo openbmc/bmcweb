@@ -189,6 +189,36 @@ enum class UALinkGeneration{
     UALink200G,
 };
 
+enum class PCIeReferenceClockMode{
+    Invalid,
+    CommonClock,
+    SeparateClock,
+};
+
+enum class PoEPowerMode{
+    Invalid,
+    PSE,
+    PD,
+    None,
+};
+
+enum class PoEStandard{
+    Invalid,
+    IEEE8023af,
+    IEEE8023at,
+    IEEE8023bt,
+};
+
+enum class PoEDetectionStatus{
+    Invalid,
+    Disabled,
+    Searching,
+    DeliveringPower,
+    Fault,
+    Test,
+    OtherFault,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PortType, {
     {PortType::Invalid, "Invalid"},
     {PortType::UpstreamPort, "UpstreamPort"},
@@ -369,6 +399,36 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UALinkGeneration, {
     {UALinkGeneration::Invalid, "Invalid"},
     {UALinkGeneration::UALink128G, "UALink128G"},
     {UALinkGeneration::UALink200G, "UALink200G"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PCIeReferenceClockMode, {
+    {PCIeReferenceClockMode::Invalid, "Invalid"},
+    {PCIeReferenceClockMode::CommonClock, "CommonClock"},
+    {PCIeReferenceClockMode::SeparateClock, "SeparateClock"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PoEPowerMode, {
+    {PoEPowerMode::Invalid, "Invalid"},
+    {PoEPowerMode::PSE, "PSE"},
+    {PoEPowerMode::PD, "PD"},
+    {PoEPowerMode::None, "None"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PoEStandard, {
+    {PoEStandard::Invalid, "Invalid"},
+    {PoEStandard::IEEE8023af, "IEEE8023af"},
+    {PoEStandard::IEEE8023at, "IEEE8023at"},
+    {PoEStandard::IEEE8023bt, "IEEE8023bt"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PoEDetectionStatus, {
+    {PoEDetectionStatus::Invalid, "Invalid"},
+    {PoEDetectionStatus::Disabled, "Disabled"},
+    {PoEDetectionStatus::Searching, "Searching"},
+    {PoEDetectionStatus::DeliveringPower, "DeliveringPower"},
+    {PoEDetectionStatus::Fault, "Fault"},
+    {PoEDetectionStatus::Test, "Test"},
+    {PoEDetectionStatus::OtherFault, "OtherFault"},
 });
 
 // clang-format on

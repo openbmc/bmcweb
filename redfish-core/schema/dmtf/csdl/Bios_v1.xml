@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Bios v1.2.3                                                         -->
+<!--# Redfish Schema:  Bios v1.3.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -76,9 +76,9 @@
           <Annotation Term="OData.Description" String="The name of the BIOS password to change."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the name of the BIOS password to change.  For instance, `AdminPassword` or `UserPassword`."/>
         </Parameter>
-        <Parameter Name="OldPassword" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="The existing BIOS password."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the existing BIOS password to change."/>
+        <Parameter Name="OldPassword" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The existing BIOS password.  This parameter is not needed if the password is currently not set."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the existing BIOS password to change.  Services may reject the action request if this parameter is not provided or the value supplied does not match the current password."/>
         </Parameter>
         <Parameter Name="NewPassword" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The new BIOS password."/>
@@ -210,6 +210,12 @@
       <EntityType Name="Bios" BaseType="Bios.v1_0_11.Bios"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change `OldPassword` to be an optional parameter in the `ChangePassword` action if there is no password currently set."/>
+      <EntityType Name="Bios" BaseType="Bios.v1_0_12.Bios"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -269,6 +275,12 @@
       <EntityType Name="Bios" BaseType="Bios.v1_1_4.Bios"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change `OldPassword` to be an optional parameter in the `ChangePassword` action if there is no password currently set."/>
+      <EntityType Name="Bios" BaseType="Bios.v1_1_5.Bios"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -298,6 +310,54 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Bios" BaseType="Bios.v1_2_2.Bios"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change `OldPassword` to be an optional parameter in the `ChangePassword` action if there is no password currently set."/>
+      <EntityType Name="Bios" BaseType="Bios.v1_2_3.Bios"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="Bios" BaseType="Bios.v1_2_4.Bios">
+        <Property Name="Passwords" Type="Bios.v1_3_0.Passwords" Nullable="false">
+          <Annotation Term="OData.Description" String="The list of BIOS passwords specific to the manufacturer or provider."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the list of BIOS passwords specific to the manufacturer or provider."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Passwords">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The list of BIOS passwords specific to the manufacturer or provider."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain the list of BIOS passwords specific to the manufacturer or provider."/>
+        <Property Name="Setup" Type="Bios.v1_3_0.Password" Nullable="false">
+          <Annotation Term="OData.Description" String="Information about the password to enter the setup menu."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the password to enter the setup menu."/>
+        </Property>
+        <Property Name="Boot" Type="Bios.v1_3_0.Password" Nullable="false">
+          <Annotation Term="OData.Description" String="Information about the password that allows the system to boot to an operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the password that allows the system to boot to an operating system."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Password">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Information about a BIOS password specific to the manufacturer or provider."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain information about a BIOS password specific to the manufacturer or provider."/>
+        <Property Name="Set" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if this password is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for this password.  Otherwise, the property shall contain `false`."/>
+        </Property>
+        <Property Name="Name" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The name of the password specific to the manufacturer or provider.  The value is used with the `PasswordName` parameter for the `ChangePassword` action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the password specific to the manufacturer or provider."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

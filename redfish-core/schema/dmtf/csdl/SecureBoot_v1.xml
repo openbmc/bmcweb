@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SecureBoot v1.1.2                                                   -->
+<!--# Redfish Schema:  SecureBoot v1.2.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -229,6 +229,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_1_1.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_1_2.SecureBoot">
+        <Property Name="SecureBootDesiredMode" Type="SecureBoot.v1_0_0.SecureBootModeType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The desired UEFI Secure Boot Mode for the next boot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired UEFI Secure Boot mode, as defined in the UEFI Specification, to be applied on the next boot."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

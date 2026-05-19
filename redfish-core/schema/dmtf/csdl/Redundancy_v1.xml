@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -47,7 +47,7 @@
       <EntityType Name="Redundancy" BaseType="Redundancy.Redundancy">
         <Property Name="Name" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description"  String="The name of the resource or array member."/>
+          <Annotation Term="OData.Description" String="The name of the resource or array member."/>
           <Annotation Term="OData.LongDescription" String="This object represents the name of this resource or array member.  The resource values shall comply with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
@@ -435,21 +435,21 @@
 
       <EnumType Name="RedundancyType">
         <Member Name="Failover">
-           <Annotation Term="OData.Description" String="Failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions."/>
-           <Annotation Term="OData.LongDescription" String="This value shall indicate that a failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions."/>
+          <Annotation Term="OData.Description" String="Failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that a failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions."/>
         </Member>
         <Member Name="NPlusM">
-           <Annotation Term="OData.Description" String="Multiple units are available and active such that normal operation will continue if one or more units fail."/>
-           <Annotation Term="OData.LongDescription" String="This value shall indicate that the capacity or services provided by the set of N+M devices can withstand failure of up to M units, with all units in the group normally providing capacity or service."/>
+          <Annotation Term="OData.Description" String="Multiple units are available and active such that normal operation will continue if one or more units fail."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the capacity or services provided by the set of N+M devices can withstand failure of up to M units, with all units in the group normally providing capacity or service."/>
         </Member>
         <Member Name="Sharing">
-           <Annotation Term="OData.Description" String="Multiple units contribute or share such that operation will continue, but at a reduced capacity, if one or more units fail."/>
+          <Annotation Term="OData.Description" String="Multiple units contribute or share such that operation will continue, but at a reduced capacity, if one or more units fail."/>
         </Member>
         <Member Name="Sparing">
-           <Annotation Term="OData.Description" String="One or more spare units are available to take over the function of a failed unit, but takeover is not automatic."/>
+          <Annotation Term="OData.Description" String="One or more spare units are available to take over the function of a failed unit, but takeover is not automatic."/>
         </Member>
         <Member Name="NotRedundant">
-           <Annotation Term="OData.Description" String="The subsystem is not configured in a redundancy mode, either due to configuration or the functionality has been disabled by the user."/>
+          <Annotation Term="OData.Description" String="The subsystem is not configured in a redundancy mode, either due to configuration or the functionality has been disabled by the user."/>
         </Member>
       </EnumType>
     </Schema>
@@ -484,7 +484,7 @@
       <ComplexType Name="RedundantGroup" BaseType="Redundancy.v1_4_2.RedundantGroup">
         <Property Name="GroupName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description"  String="The name of the redundant group."/>
+          <Annotation Term="OData.Description" String="The name of the redundant group."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the name of the redundant group used to identify the particular group of redundant resources.  The value shall conform with the 'Name' clause of the Redfish Specification."/>
         </Property>
       </ComplexType>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CXLLogicalDevice v1.3.0                                             -->
+<!--# Redfish Schema:  CXLLogicalDevice v1.4.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -45,6 +45,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryRegionCollection_v1.xml">
     <edmx:Include Namespace="MemoryRegionCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryExtent_v1.xml">
+    <edmx:Include Namespace="MemoryExtent"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
+    <edmx:Include Namespace="PCIeDevice"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -180,6 +186,78 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="DynamicCapacityAdd" IsBound="true">
+        <Annotation Term="OData.Description" String="Adds dynamic capacity to this CXL logical device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall add dynamic capacity to this CXL logical device."/>
+        <Parameter Name="CXLLogicalDevice" Type="CXLLogicalDevice.v1_0_0.Actions"/>
+        <Parameter Name="Policy" Type="PCIeDevice.CXLDynamicCapacityPolicies" Nullable="false">
+          <Annotation Term="OData.Description" String="The policy to apply to this operation."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the policy to apply to this operation."/>
+        </Parameter>
+        <Parameter Name="RegionNumber" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The memory region number."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of memory region for the new capacity.  This parameter shall be required if `Policy` contains `Free`, `Contiguous`, or `EnableSharedAccess`."/>
+        </Parameter>
+        <Parameter Name="Length" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The size of the dynamic capacity to add."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the size of the dynamic capacity to add.  This parameter shall be required if `Policy` contains `Free` or `Contiguous`."/>
+        </Parameter>
+        <Parameter Name="Tag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The tag assigned to the dynamic capacity to add."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the tag assigned to the dynamic capacity to add.  This parameter shall be required if `Policy` contains `Free`, `Contiguous`, or `EnableSharedAccess`."/>
+        </Parameter>
+        <Parameter Name="ExtentList" Type="Collection(MemoryExtent.MemoryExtent)">
+          <Annotation Term="OData.Description" String="The array of links to memory extents to add."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `MemoryExtent` that represent the dynamic capacity to add.  This parameter shall be required if `Policy` contains `Prescriptive`."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="DynamicCapacityRelease" IsBound="true">
+        <Annotation Term="OData.Description" String="Releases dynamic capacity from this CXL logical device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall release dynamic capacity from this CXL logical device."/>
+        <Parameter Name="CXLLogicalDevice" Type="CXLLogicalDevice.v1_0_0.Actions"/>
+        <Parameter Name="Policy" Type="PCIeDevice.CXLDynamicCapacityPolicies" Nullable="false">
+          <Annotation Term="OData.Description" String="The policy to apply to this operation."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the policy to apply to this operation."/>
+        </Parameter>
+        <Parameter Name="ForcedRemoval" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Description" String="Indicates whether to perform a forced removal of the dynamic capacity."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether to perform a forced removal of the dynamic capacity.  If `true`, the device will not wait for a host response and the host immediately loses access to released capacity."/>
+        </Parameter>
+        <Parameter Name="SanitizeOnRelease" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Description" String="Indicates whether the dynamic capacity is sanitized after release."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether the dynamic capacity is sanitized after release."/>
+        </Parameter>
+        <Parameter Name="Length" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The size of dynamic capacity to release."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the size of dynamic capacity to release.  This parameter shall be required if `Policy` contains `TagBased`."/>
+        </Parameter>
+        <Parameter Name="Tag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The tag assigned to the dynamic capacity to release."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the tag assigned to the dynamic capacity to release.  This parameter shall be required if `Policy` contains `TagBased`."/>
+        </Parameter>
+        <Parameter Name="ExtentList" Type="Collection(MemoryExtent.MemoryExtent)">
+          <Annotation Term="OData.Description" String="The array of links to memory extents to release."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `MemoryExtent` that represent the dynamic capacity to release.  This parameter shall be required if `Policy` contains `Prescriptive`."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -429,6 +507,35 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate an administrator-defined master passphrase."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `DynamicCapacityAdd` and `DynamicCapacityAdd` actions."/>
+
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_3_0.CXLLogicalDevice">
+        <Property Name="TotalSupportedExtents" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of extents supported on this logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of extents that the device supports on this logical device."/>
+        </Property>
+        <Property Name="AvailableExtents" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of available extents on this logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of extents available on this logical device."/>
+        </Property>
+        <Property Name="TotalSupportedTags" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of tags supported on this logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of tags that the device supports on this logical device."/>
+        </Property>
+        <Property Name="AvailableTags" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of available tags on this logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of tags available on this logical device."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

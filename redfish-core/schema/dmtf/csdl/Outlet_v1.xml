@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Outlet v1.4.4                                                       -->
+<!--# Redfish Schema:  Outlet v1.5.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -143,9 +143,33 @@
           <Annotation Term="OData.Description" String="IEC C13 (250V; 10A or 15A)."/>
           <Annotation Term="OData.LongDescription" String="This value shall represent a receptacle that matches the IEC 60320 Sheet F C13 specified receptacle (250V; 10A per IEC, 15A per UL)."/>
         </Member>
+        <Member Name="IEC_60320_C15">
+          <Annotation Term="OData.Description" String="IEC C15 (250V; 10A or 15A; high-temperature)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a receptacle that matches the IEC 60320 C15 specified receptacle (250V; 10A per IEC, 15A per UL; high-temperature)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="IEC_60320_C19">
           <Annotation Term="OData.Description" String="IEC C19 (250V; 16A or 20A)."/>
           <Annotation Term="OData.LongDescription" String="This value shall represent a receptacle that matches the IEC 60320 Sheet J C19 specified receptacle (250V; 16A per IEC, 20A per UL)."/>
+        </Member>
+        <Member Name="IEC_60320_C21">
+          <Annotation Term="OData.Description" String="IEC C21 (250V; 16A or 20A; high-temperature)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a receptacle that matches the IEC 60320 C21 specified receptacle (250V; 16A per IEC, 20A per UL; high-temperature)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="CEE_7_Type_E">
           <Annotation Term="OData.Description" String="CEE 7/7 Type E (250V; 16A)."/>
@@ -175,6 +199,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Combination">
+          <Annotation Term="OData.Description" String="Combination receptacle.  See `OutletCombinationTypes`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a receptacle that supports two or more receptacle types.  The supported types shall be listed as the values of the `OutletCombinationTypes` property."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -666,6 +702,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_4_3.Outlet"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `IEC_60320_C15`, `IEC_60320_C21`, and `Combination` to the values of `OutletType`."/>
+
+      <EntityType Name="Outlet" BaseType="Outlet.v1_4_4.Outlet">
+        <Property Name="OutletCombinationTypes" Type="Collection(Outlet.ReceptacleType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The combination of supported receptacle types according to NEMA, IEC, or regional standards."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of types of physical receptacles supported by this combination outlet, as defined by IEC, NEMA, or regional standards.  This property shall only be present if `OutletType` contains `Combination`."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

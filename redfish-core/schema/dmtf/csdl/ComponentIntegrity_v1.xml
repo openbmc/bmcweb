@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComponentIntegrity v1.3.2                                           -->
+<!--# Redfish Schema:  ComponentIntegrity v1.4.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -371,24 +371,79 @@
       <EnumType Name="DMTFmeasurementTypes">
         <Member Name="ImmutableROM">
           <Annotation Term="OData.Description" String="Immutable ROM."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for an immutable ROM, as defined by entry '0x0' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
         </Member>
         <Member Name="MutableFirmware">
           <Annotation Term="OData.Description" String="Mutable firmware or any mutable code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for mutable firmware, as defined by entry '0x1' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
         </Member>
         <Member Name="HardwareConfiguration">
           <Annotation Term="OData.Description" String="Hardware configuration, such as straps."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for hardware configuration, as defined by entry '0x2' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
         </Member>
         <Member Name="FirmwareConfiguration">
           <Annotation Term="OData.Description" String="Firmware configuration, such as configurable firmware policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for firmware configuration, as defined by entry '0x3' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
         </Member>
         <Member Name="MutableFirmwareVersion">
           <Annotation Term="OData.Description" String="Mutable firmware version."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for a version number of mutable firmware, as defined by entry '0x6' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
         </Member>
         <Member Name="MutableFirmwareSecurityVersionNumber">
           <Annotation Term="OData.Description" String="Mutable firmware security version number."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for a security version number of mutable firmware, as defined by entry '0x7' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
         </Member>
         <Member Name="MeasurementManifest">
-          <Annotation Term="OData.Description" String="Measurement Manifest."/>
+          <Annotation Term="OData.Description" String="Freeform measurement manifest."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for a freeform measurement manifest, as defined by entry '0x4' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
+        </Member>
+        <Member Name="DebugAndDeviceMode">
+          <Annotation Term="OData.Description" String="Structured representation of debug and device mode."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for a structured representation of debug and device mode, as defined by entry '0x5' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="HashExtendMeasurement">
+          <Annotation Term="OData.Description" String="Hash-extend measurement."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for a hash-extend measurement, as defined by entry '0x8' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Informational">
+          <Annotation Term="OData.Description" String="Informational."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is informational, as defined by entry '0x9' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="StructuredMeasurementManifest">
+          <Annotation Term="OData.Description" String="Structured measurement manifest."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the measurement is for a structured measurement manifest, as defined by entry '0xA' in the 'DMTFSpecMeasurementValueType values' table of DSP0274."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -527,7 +582,7 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The SPDM signed measurement from an SPDM Responder."/>
         <Annotation Term="OData.LongDescription" String="This object shall contain the SPDM signed measurements from an SPDM Responder."/>
-        <Property Name="SignedMeasurements" Type="Edm.String"  Nullable="false">
+        <Property Name="SignedMeasurements" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Base64-encoded cryptographic signed statement generated by the signer."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the cryptographic signed statement over the given nonce and measurement blocks corresponding to the requested measurement indices.  If the SPDM version is 1.2, this value shall be a concatenation of SPDM 'VCA' and 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  If SPDM version is 1.0 or 1.1, this value shall be a concatenation of SPDM 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  The last 'MEASUREMENTS' response shall contain a signature generated over the 'L2' string by the SPDM Responder."/>
@@ -543,7 +598,7 @@
           <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded public key that can be used to validate the signature."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a Privacy Enhanced Mail (PEM)-encoded public key, as defined in section 13 of RFC7468, that can be used to validate the signature.  This property shall only be present when the SPDM Requester was pre-provisioned with the SPDM Responder's public key and the SlotId parameter contains the value `15`."/>
         </Property>
-        <Property Name="Version" Type="Edm.String"  Nullable="false">
+        <Property Name="Version" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The SPDM version used by the SPDM Responder to generate the cryptographic signed statement."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the SPDM version negotiated between the SPDM Requester and the SPDM Responder to generate the cryptographic signed statement.  For example, `1.0`, `1.1`, or `1.2`."/>
@@ -676,7 +731,7 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The TPM signed measurement from a TPM."/>
         <Annotation Term="OData.LongDescription" String="This object shall contain the TPM signed PCR measurements from a TPM."/>
-        <Property Name="SignedMeasurements" Type="Edm.String"  Nullable="false">
+        <Property Name="SignedMeasurements" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Base64-encoded cryptographic signed statement generated by the signer."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the cryptographic signed statement generated by the signer.  This value shall be the concatenation of the 'quoted' and 'signature' response values of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
@@ -737,6 +792,30 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the reference to the asymmetric signing algorithm names in DSP0274 for the `SigningAlgorithm` property in responses to the `SPDMGetSignedMeasurements` action.  It was also created to update the TCG reference in the `MeasurementHashAlgorithm` description within TPM measurements."/>
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_3_1.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `DebugAndDeviceMode`, `HashExtendMeasurement`, `Informational`, and `StructuredMeasurementManifest` to `DMTFmeasurementTypes`."/>
+
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_3_2.ComponentIntegrity"/>
+
+      <ComplexType Name="SingleSessionInfo" BaseType="ComponentIntegrity.v1_0_0.SingleSessionInfo">
+        <Property Name="SessionAlgorithm" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The algorithm the session is using to secure the communication channel."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the algorithm the session is using to secure the communication channel between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the asymmetric signature algorithm names found in the 'SPDM Asymmetric Signature Reference Information' table in DSP0274."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="SPDMGetSignedMeasurementsResponse" BaseType="ComponentIntegrity.v1_0_0.SPDMGetSignedMeasurementsResponse">
+        <Property Name="AdditionalSigningAlgorithms" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The additional asymmetric signing algorithms used for generating the cryptographic signed statement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of additional asymmetric signing algorithms negotiated between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the asymmetric key signature algorithm names found in the 'SPDM Asymmetric Signature Reference Information' table in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`.  This property shall not be present if only one asymmetric signing algorithm is negotiated.  The first asymmetric signing algorithm shall not appear in this property."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

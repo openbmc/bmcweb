@@ -7,6 +7,13 @@ namespace redfish_extensions
 {
 // clang-format off
 
+enum class ClientContextStatusType{
+    Applied,
+    Invalid,
+    NotFound,
+    Unsupported,
+};
+
 enum class ReleaseStatusType{
     Invalid,
     Standard,
@@ -21,6 +28,13 @@ enum class RevisionKind{
     Modified,
     Deprecated,
 };
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ClientContextStatusType, {
+    {ClientContextStatusType::Applied, "Applied"},
+    {ClientContextStatusType::Invalid, "Invalid"},
+    {ClientContextStatusType::NotFound, "NotFound"},
+    {ClientContextStatusType::Unsupported, "Unsupported"},
+});
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ReleaseStatusType, {
     {ReleaseStatusType::Invalid, "Invalid"},

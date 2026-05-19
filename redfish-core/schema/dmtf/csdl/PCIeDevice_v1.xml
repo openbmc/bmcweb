@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.21.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.22.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -55,6 +55,12 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
     <edmx:Include Namespace="Port"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryExtentCollection_v1.xml">
+    <edmx:Include Namespace="MemoryExtentCollection"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -90,6 +96,28 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="CXLReferenceDCMemory" IsBound="true">
+        <Annotation Term="OData.Description" String="Updates a reference to CXL dynamic capacity memory."/>
+        <Annotation Term="OData.LongDescription" String="This action shall update a reference to CXL dynamic capacity memory.  Indicating CXL dynamic capacity memory is referenced by a CXL Fabric Manager prevents the tagged, sharable capacity from being sanitized, freed, or reallocated, regardless of whether it is currently assigned to any logical device."/>
+        <Parameter Name="PCIeDevice" Type="PCIeDevice.v1_1_0.Actions"/>
+        <Parameter Name="Tag" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The tag of the memory extents to reference."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the tag of the memory extents to reference."/>
+        </Parameter>
+        <Parameter Name="FMReference" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Description" String="Indicates whether a CXL Fabric Manager is referencing the memory extents with the specified tag."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether a CXL Fabric Manager is referencing the memory extents with the specified tag.  If `false`, a CXL Fabric Manager is no longer referencing the memory extents with the specified tag.  If `true`, a CXL Fabric Manager is no longer referencing the memory extents with the specified tag."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_22_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
 
       <ComplexType Name="PCIeInterface" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
@@ -140,6 +168,45 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_16_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="CXLDynamicCapacityPolicies">
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_12_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Member Name="Free">
+          <Annotation Term="OData.Description" String="Free add capacity policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined free add capacity policy."/>
+        </Member>
+        <Member Name="Contiguous">
+          <Annotation Term="OData.Description" String="Contiguous add capacity policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined contiguous add capacity policy."/>
+        </Member>
+        <Member Name="Prescriptive">
+          <Annotation Term="OData.Description" String="Prescriptive add or release policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined prescriptive add or release policy."/>
+        </Member>
+        <Member Name="TagBased">
+          <Annotation Term="OData.Description" String="Tag-based release policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined tag-based release policy."/>
+        </Member>
+        <Member Name="EnableSharedAccess">
+          <Annotation Term="OData.Description" String="Enable shared access add policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined enable shared access add capacity policy."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_22_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -913,7 +980,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether the CXL device supports throughput reduction."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the CXL device supports the CXL Specification-defined 'Throughput Reduction' mechanism."/>
-            <Annotation Term="Redfish.Revisions">
+          <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
@@ -1025,12 +1092,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the total memory media capacity of the CXL device available for dynamic assignment in mebibytes (MiB)."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
-        <Property Name="AddCapacityPoliciesSupported" Type="Collection(PCIeDevice.v1_12_0.CXLDynamicCapacityPolicies)">
+        <Property Name="AddCapacityPoliciesSupported" Type="Collection(PCIeDevice.CXLDynamicCapacityPolicies)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The set of selection policies supported by the CXL device when dynamic capacity is added."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the CXL Specification-defined dynamic capacity policies that are supported by this CXL device when dynamic capacity is added."/>
         </Property>
-        <Property Name="ReleaseCapacityPoliciesSupported" Type="Collection(PCIeDevice.v1_12_0.CXLDynamicCapacityPolicies)">
+        <Property Name="ReleaseCapacityPoliciesSupported" Type="Collection(PCIeDevice.CXLDynamicCapacityPolicies)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The set of removal policies supported by the CXL device when dynamic capacity is released."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the CXL Specification-defined dynamic capacity policies that are supported by this CXL device when dynamic capacity is released."/>
@@ -1077,25 +1144,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the sanitization on capacity release is configurable for this memory region."/>
         </Property>
       </ComplexType>
-
-      <EnumType Name="CXLDynamicCapacityPolicies">
-        <Member Name="Free">
-          <Annotation Term="OData.Description" String="Free add capacity policy."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined free add capacity policy."/>
-        </Member>
-        <Member Name="Contiguous">
-          <Annotation Term="OData.Description" String="Contiguous add capacity policy."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined contiguous add capacity policy."/>
-        </Member>
-        <Member Name="Prescriptive">
-          <Annotation Term="OData.Description" String="Prescriptive add or release policy."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined prescriptive add or release policy."/>
-        </Member>
-        <Member Name="TagBased">
-          <Annotation Term="OData.Description" String="Tag-based release policy."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined tag-based release policy."/>
-        </Member>
-      </EnumType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_12_1">
@@ -1307,6 +1355,71 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The total number of Flow Control Credit timeouts."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Flow Control Credit timeouts, indicating a link-level problem that typically triggers link recovery."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_22_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `CXLReferenceDCMemory` action.  It was also created to add `EnableSharedAccess` to `CXLDynamicCapacityPolicies`."/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_21_0.PCIeDevice">
+        <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that contains certificates for device identity and attestation.  This property shall not be present if a more specific resource for this PCIe device is present in the service, such as a networking PCIe device represented as a `NetworkAdapter` resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="CXLDynamicCapacity" BaseType="PCIeDevice.v1_12_0.CXLDynamicCapacity">
+        <NavigationProperty Name="MemoryExtents" Type="MemoryExtentCollection.MemoryExtentCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of memory extents."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `MemoryExtentCollection`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="PCIeErrors" BaseType="PCIeDevice.v1_21_0.PCIeErrors">
+        <Property Name="TrainingSequenceErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of training sequence errors that caused a transition from L0 to the recovery state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of training sequence errors that caused a transition from L0 to the recovery state."/>
+        </Property>
+        <Property Name="FramingErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of framing errors that caused a transition from L0 to the recovery state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of framing errors that caused a transition from L0 to the recovery state."/>
+        </Property>
+        <Property Name="DLLPCRCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Data Link Layer Packet (DLLP) CRC errors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Data Link Layer Packet (DLLP) CRC errors."/>
+        </Property>
+        <Property Name="LinkDownCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of times the port training state machine has failed the link error recovery process, resulting in the link being downed since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of times the port training state machine has failed the link error recovery process, resulting in the link being downed since reset."/>
+        </Property>
+        <Property Name="CDRErrorsPerLane" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of Clock Data Recovery (CDR) error counts, indexed by the lane number."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of Clock Data Recovery (CDR) error counts, indexed by the lane number."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PCIeMetrics" BaseType="PCIeDevice.v1_20_0.PCIeMetrics">
+        <Property Name="InboundCompletionTLPCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of inbound completion transaction layer packets (TLPs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of inbound completion transaction layer packets (TLPs)."/>
+        </Property>
+        <Property Name="InboundCompletionTLPBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total data payload in bytes transferred through inbound completion transaction layer packets (TLPs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total data payload in bytes transferred through inbound completion transaction layer packets (TLPs)."/>
         </Property>
       </ComplexType>
     </Schema>

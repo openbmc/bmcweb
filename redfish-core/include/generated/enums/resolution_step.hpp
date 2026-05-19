@@ -17,6 +17,7 @@ enum class ResolutionType{
     ResetToDefaults,
     CollectDiagnosticData,
     OEM,
+    RetryOperation,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ResolutionType, {
@@ -29,6 +30,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResolutionType, {
     {ResolutionType::ResetToDefaults, "ResetToDefaults"},
     {ResolutionType::CollectDiagnosticData, "CollectDiagnosticData"},
     {ResolutionType::OEM, "OEM"},
+    {ResolutionType::RetryOperation, "RetryOperation"},
 });
 
 // clang-format on

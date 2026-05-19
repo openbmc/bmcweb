@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistry v1.7.0                                              -->
+<!--# Redfish Schema:  MessageRegistry v1.8.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -581,8 +581,21 @@
           <Annotation Term="OData.Description" String="The release bundle that first included this version of the message registry."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the version of the release bundle that first included this revision of the message registry file.  Message registry files from the DMTF Redfish Forum shall use the release bundle version of DSP8011 that first included the minor revision level of this message registry file, ignoring errata releases, as the value of this property."/>
         </Property>
-	  </EntityType>
-	</Schema>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_7_0.MessageRegistry">
+        <Property Name="Example" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An example of the message including values for all message arguments."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an example of the `Message` text with all argument values populated according to the definitions of `MessageArgs`.  This property should not be present if the value of `NumberOfArgs` contains `0`.  Services can omit or replace this property with a value more applicable to the implementation."/>
+        </Property>
+      </EntityType>
+    </Schema>
 
   </edmx:DataServices>
 </edmx:Edmx>

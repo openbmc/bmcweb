@@ -29,6 +29,8 @@ enum class MapFromCondition{
     GEQ,
     LSS,
     LEQ,
+    BITAND,
+    BITOR,
 };
 
 enum class MapFromProperty{
@@ -50,6 +52,7 @@ enum class MapTerms{
     Invalid,
     AND,
     OR,
+    NOT,
 };
 
 enum class MapToProperty{
@@ -95,6 +98,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MapFromCondition, {
     {MapFromCondition::GEQ, "GEQ"},
     {MapFromCondition::LSS, "LSS"},
     {MapFromCondition::LEQ, "LEQ"},
+    {MapFromCondition::BITAND, "BITAND"},
+    {MapFromCondition::BITOR, "BITOR"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MapFromProperty, {
@@ -116,6 +121,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MapTerms, {
     {MapTerms::Invalid, "Invalid"},
     {MapTerms::AND, "AND"},
     {MapTerms::OR, "OR"},
+    {MapTerms::NOT, "NOT"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MapToProperty, {

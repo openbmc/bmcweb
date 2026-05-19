@@ -2,7 +2,7 @@
     "$id": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json",
     "$ref": "#/definitions/CertificateCollection",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2026 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "CertificateCollection": {
             "anyOf": [
@@ -174,7 +174,11 @@
                 "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/Certificates",
                 "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/ClientCertificates",
                 "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Certificates",
-                "/redfish/v1/CertificateService/EnrollmentCACertificates"
+                "/redfish/v1/CertificateService/EnrollmentCACertificates",
+                "/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/Certificates",
+                "/redfish/v1/Systems/{ComputerSystemId}/PCIeDevices/{PCIeDeviceId}/Certificates",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/PCIeDevices/{PCIeDeviceId}/Certificates",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/PCIeDevices/{PCIeDeviceId}/Certificates"
             ],
             "urisDeprecated": [
                 "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates",

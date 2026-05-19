@@ -14,6 +14,9 @@ enum class CoolantConnectorType{
     Return,
     Inline,
     Closed,
+    PairGroupMember,
+    SupplyGroupMember,
+    ReturnGroupMember,
 };
 
 enum class ValveState{
@@ -36,6 +39,9 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolantConnectorType, {
     {CoolantConnectorType::Return, "Return"},
     {CoolantConnectorType::Inline, "Inline"},
     {CoolantConnectorType::Closed, "Closed"},
+    {CoolantConnectorType::PairGroupMember, "PairGroupMember"},
+    {CoolantConnectorType::SupplyGroupMember, "SupplyGroupMember"},
+    {CoolantConnectorType::ReturnGroupMember, "ReturnGroupMember"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ValveState, {

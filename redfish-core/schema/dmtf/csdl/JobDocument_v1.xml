@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -227,8 +227,8 @@
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
-            <PropertyValue Property="Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
-            <PropertyValue Property="Type" String="Edm.PrimitiveType"/>
+              <PropertyValue Property="Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
+              <PropertyValue Property="Type" String="Edm.PrimitiveType"/>
             </Record>
           </Collection>
         </Annotation>

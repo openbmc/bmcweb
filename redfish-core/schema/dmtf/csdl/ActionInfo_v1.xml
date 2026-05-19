@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ActionInfo v1.5.0                                                   -->
+<!--# Redfish Schema:  ActionInfo v1.6.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -71,7 +71,7 @@
       <ComplexType Name="Parameters" BaseType="ActionInfo.Parameters">
         <Property Name="Name" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description"  String="The name of the parameter for this action."/>
+          <Annotation Term="OData.Description" String="The name of the parameter for this action."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the name of the parameter included in a Redfish action."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
@@ -315,6 +315,21 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates that there is no default value for this parameter."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate that there is no default value for this parameter.  For example, if username and password parameters are optional, the absence of the parameters indicates no credentials are used.  This property shall not be present if `Required` contains `true` or if `DefaultValue` is present."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_5_0.ActionInfo"/>
+
+      <ComplexType Name="Parameters" BaseType="ActionInfo.v1_5_0.Parameters">
+        <Property Name="ConditionalRequirement" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Information about conditional parameter requirements."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the conditions that make this parameter required."/>
         </Property>
       </ComplexType>
     </Schema>

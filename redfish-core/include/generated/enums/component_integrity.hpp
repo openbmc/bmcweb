@@ -36,6 +36,10 @@ enum class DMTFmeasurementTypes{
     MutableFirmwareVersion,
     MutableFirmwareSecurityVersionNumber,
     MeasurementManifest,
+    DebugAndDeviceMode,
+    HashExtendMeasurement,
+    Informational,
+    StructuredMeasurementManifest,
 };
 
 enum class VerificationStatus{
@@ -80,6 +84,10 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DMTFmeasurementTypes, {
     {DMTFmeasurementTypes::MutableFirmwareVersion, "MutableFirmwareVersion"},
     {DMTFmeasurementTypes::MutableFirmwareSecurityVersionNumber, "MutableFirmwareSecurityVersionNumber"},
     {DMTFmeasurementTypes::MeasurementManifest, "MeasurementManifest"},
+    {DMTFmeasurementTypes::DebugAndDeviceMode, "DebugAndDeviceMode"},
+    {DMTFmeasurementTypes::HashExtendMeasurement, "HashExtendMeasurement"},
+    {DMTFmeasurementTypes::Informational, "Informational"},
+    {DMTFmeasurementTypes::StructuredMeasurementManifest, "StructuredMeasurementManifest"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(VerificationStatus, {

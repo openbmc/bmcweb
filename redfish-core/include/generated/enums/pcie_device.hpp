@@ -17,6 +17,15 @@ enum class PCIeTypes{
     Gen6,
 };
 
+enum class CXLDynamicCapacityPolicies{
+    Invalid,
+    Free,
+    Contiguous,
+    Prescriptive,
+    TagBased,
+    EnableSharedAccess,
+};
+
 enum class DeviceType{
     Invalid,
     SingleFunction,
@@ -53,14 +62,6 @@ enum class CXLDeviceType{
     Type3,
 };
 
-enum class CXLDynamicCapacityPolicies{
-    Invalid,
-    Free,
-    Contiguous,
-    Prescriptive,
-    TagBased,
-};
-
 enum class CXLProtocolVersion{
     Invalid,
     CXL1_1,
@@ -78,6 +79,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PCIeTypes, {
     {PCIeTypes::Gen4, "Gen4"},
     {PCIeTypes::Gen5, "Gen5"},
     {PCIeTypes::Gen6, "Gen6"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CXLDynamicCapacityPolicies, {
+    {CXLDynamicCapacityPolicies::Invalid, "Invalid"},
+    {CXLDynamicCapacityPolicies::Free, "Free"},
+    {CXLDynamicCapacityPolicies::Contiguous, "Contiguous"},
+    {CXLDynamicCapacityPolicies::Prescriptive, "Prescriptive"},
+    {CXLDynamicCapacityPolicies::TagBased, "TagBased"},
+    {CXLDynamicCapacityPolicies::EnableSharedAccess, "EnableSharedAccess"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(DeviceType, {
@@ -114,14 +124,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLDeviceType, {
     {CXLDeviceType::Type1, "Type1"},
     {CXLDeviceType::Type2, "Type2"},
     {CXLDeviceType::Type3, "Type3"},
-});
-
-NLOHMANN_JSON_SERIALIZE_ENUM(CXLDynamicCapacityPolicies, {
-    {CXLDynamicCapacityPolicies::Invalid, "Invalid"},
-    {CXLDynamicCapacityPolicies::Free, "Free"},
-    {CXLDynamicCapacityPolicies::Contiguous, "Contiguous"},
-    {CXLDynamicCapacityPolicies::Prescriptive, "Prescriptive"},
-    {CXLDynamicCapacityPolicies::TagBased, "TagBased"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CXLProtocolVersion, {

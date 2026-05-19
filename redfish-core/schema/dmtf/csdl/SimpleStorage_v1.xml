@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -101,7 +101,7 @@
         </Property>
         <Property Name="Name" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description"  String="The name of the resource or array member."/>
+          <Annotation Term="OData.Description" String="The name of the resource or array member."/>
           <Annotation Term="OData.LongDescription" String="This object represents the name of this resource or array member.  The resource values shall conform with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format."/>
           <Annotation Term="Redfish.Required"/>
         </Property>

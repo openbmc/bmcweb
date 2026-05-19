@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerSubsystem v1.1.3                                               -->
+<!--# Redfish Schema:  PowerSubsystem v1.1.4                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -82,8 +82,8 @@
         </Property>
         <Property Name="CapacityWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The total amount of power that can be allocated to this subsystem.  This value can be either the power supply capacity or the power budget that an upstream chassis assigns to this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the total power capacity that can be allocated to this subsystem."/>
+          <Annotation Term="OData.Description" String="The total amount of power that this subsystem can draw."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the total amount of power that this subsystem can draw, either from power supplies or other physically installed means of power delivery. This value does not take into account the status or health of power delivery components."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="W"/>
         </Property>
@@ -161,6 +161,12 @@
       <EntityType Name="PowerSubsystem" BaseType="PowerSubsystem.v1_0_2.PowerSubsystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSubsystem.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CapacityWatts` property."/>
+      <EntityType Name="PowerSubsystem" BaseType="PowerSubsystem.v1_0_3.PowerSubsystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSubsystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -191,6 +197,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that the `Allocation` object is intended for use with products which incorporate a shared power infrastructures."/>
       <EntityType Name="PowerSubsystem" BaseType="PowerSubsystem.v1_1_2.PowerSubsystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSubsystem.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CapacityWatts` property."/>
+      <EntityType Name="PowerSubsystem" BaseType="PowerSubsystem.v1_1_3.PowerSubsystem"/>
     </Schema>
 
   </edmx:DataServices>

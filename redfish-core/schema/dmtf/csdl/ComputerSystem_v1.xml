@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.27.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.28.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -127,7 +127,7 @@
 
       <EntityType Name="ComputerSystem" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The `ComputerSystem` schema represents a computer or system instance and the software-visible resources, or items within the data plane, such as memory, CPU, and other devices that it can access.  Details of those resources or subsystems are also linked through this resource."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a computing system in the Redfish Specification."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a computing system in the Redfish Specification.  The `ComputerSystem` is a singular entity containing all the components, such as memory, CPU, and other devices, necessary to boot an operating system and run user workloads.  Services shall not split components of a system across multiple `ComputerSystem` resources."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -459,7 +459,7 @@
           <Annotation Term="OData.Description" String="The current power state of the system."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the power state of the system."/>
         </Property>
-        <Property Name="Boot" Type="ComputerSystem.v1_0_0.Boot"  Nullable="false">
+        <Property Name="Boot" Type="ComputerSystem.v1_0_0.Boot" Nullable="false">
           <Annotation Term="OData.Description" String="The boot settings for this system."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the boot settings for this system."/>
         </Property>
@@ -468,11 +468,11 @@
           <Annotation Term="OData.Description" String="The version of the system BIOS or primary system firmware."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the version string of the currently installed and running BIOS for x86 systems.  For other systems, the property may contain a version string that represents the primary system firmware."/>
         </Property>
-        <Property Name="ProcessorSummary" Type="ComputerSystem.v1_0_0.ProcessorSummary"  Nullable="false">
+        <Property Name="ProcessorSummary" Type="ComputerSystem.v1_0_0.ProcessorSummary" Nullable="false">
           <Annotation Term="OData.Description" String="The central processors of the system in general detail."/>
           <Annotation Term="OData.LongDescription" String="This property shall describe the central processors for this resource.  Processors described by this property shall be limited to the processors that execute system code, and shall not include processors used for offload functionality."/>
         </Property>
-        <Property Name="MemorySummary" Type="ComputerSystem.v1_0_0.MemorySummary"  Nullable="false">
+        <Property Name="MemorySummary" Type="ComputerSystem.v1_0_0.MemorySummary" Nullable="false">
           <Annotation Term="OData.Description" String="The central memory of the system in general detail."/>
           <Annotation Term="OData.LongDescription" String="This property shall describe the central memory for this resource."/>
         </Property>
@@ -687,7 +687,7 @@
           <Annotation Term="OData.Description" String="The processor model for the primary or majority of processors in this system."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the processor model for the central processors in the system, per the description in the Processor Information - Processor Family section of the SMBIOS Specification DSP0134 2.8 or later."/>
         </Property>
-        <Property Name="Status" Type="Resource.Status"  Nullable="false">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
           <Annotation Term="Redfish.Revisions">
@@ -713,7 +713,7 @@
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="GiBy"/>
         </Property>
-        <Property Name="Status" Type="Resource.Status"  Nullable="false">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
           <Annotation Term="Redfish.Revisions">
@@ -873,6 +873,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_23.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_25">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_24.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -971,7 +977,7 @@
           <Annotation Term="OData.Description" String="The interface type of the Trusted Module."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the interface type of the installed Trusted Module."/>
         </Property>
-        <Property Name="Status" Type="Resource.Status"  Nullable="false">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
@@ -1124,6 +1130,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_21.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_23">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_22.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
@@ -1369,6 +1381,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_20.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_22">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_21.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -1397,8 +1415,8 @@
       </ComplexType>
 
       <EnumType Name="InterfaceTypeSelection">
-       <Annotation Term="OData.Description" String="The enumerations of `InterfaceTypeSelection` specify the method for switching the TrustedModule InterfaceType, for instance between TPM1_2 and TPM2_0, if supported."/>
-       <Member Name="None">
+        <Annotation Term="OData.Description" String="The enumerations of `InterfaceTypeSelection` specify the method for switching the TrustedModule InterfaceType, for instance between TPM1_2 and TPM2_0, if supported."/>
+        <Member Name="None">
           <Annotation Term="OData.Description" String="The TrustedModule does not support switching the InterfaceType."/>
         </Member>
         <Member Name="FirmwareUpdate">
@@ -1531,6 +1549,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_19.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_21">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_20.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
@@ -1671,6 +1695,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_18.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_20">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_19.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1919,6 +1949,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_17.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_19">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_18.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -2064,6 +2100,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_15.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_16.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -2178,6 +2220,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_14.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_15.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -2275,6 +2323,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_13.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_14.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -2377,6 +2431,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_13.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_14.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -2468,6 +2528,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_12.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_13.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
@@ -2584,6 +2650,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_11.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_12.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -2661,6 +2733,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_10.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_11.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_0">
@@ -2970,6 +3048,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_10.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_11.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -3083,6 +3167,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_9.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_10.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_0">
@@ -3243,6 +3333,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -3401,6 +3497,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_9.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_10.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -3470,6 +3572,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_8.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_9.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_0">
@@ -3566,6 +3674,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -3629,6 +3743,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_7.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_8.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_0">
@@ -3702,6 +3822,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -3762,7 +3888,7 @@
         </Member>
         <Member Name="TPM">
           <Annotation Term="OData.Description" String="Reset all user-accessible TPM settings to factory defaults."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the service resets all user-accessible TPM device settings to factory defaults.  All sensitive data stored within the applicable TPMs shall be erased."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service resets all user-accessible TPM device settings to factory defaults.  All sensitive data stored within the applicable TPMs shall be erased.  This shall be equivalent to performing the `TPMClear` action on each `TrustedComponent` resource."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -3805,6 +3931,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_4.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_5.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -3835,6 +3967,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_3.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_4.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_23_0">
@@ -3899,12 +4037,24 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_23_0.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_23_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_23_1.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_24_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.1"/>
       <Annotation Term="OData.Description" String="This version was created to add the `TPM` value to `DecommissionType`."/>
 
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_23_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_24_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to tie the `TPM` value in `DecommissionType` to the `TPMClear` action in `TrustedComponent`.  It was also created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_24_0.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_25_0">
@@ -3928,6 +4078,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_25_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to tie the `TPM` value in `DecommissionType` to the `TPMClear` action in `TrustedComponent`.  It was also created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_25_0.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_26_0">
@@ -4027,6 +4183,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_26_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to tie the `TPM` value in `DecommissionType` to the `TPMClear` action in `TrustedComponent`.  It was also created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_26_0.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_27_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.4"/>
@@ -4041,6 +4203,82 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_27_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to tie the `TPM` value in `DecommissionType` to the `TPMClear` action in `TrustedComponent`.  It was also created to clarify that single systems are not to be split amongst multiple `ComputerSystem` resources."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_27_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_28_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_27_1.ComputerSystem">
+        <Property Name="Virtualization" Type="ComputerSystem.v1_28_0.Virtualization" Nullable="false">
+          <Annotation Term="OData.Description" String="The information about the virtualization abilities of this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the virtualization abilities of this system."/>
+        </Property>
+        <Property Name="BootImagePushURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI used to perform a Redfish Specification-defined multipart HTTP or HTTPS push upload, configuration, and immediate boot from a virtual media image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI used to perform a multipart HTTP or HTTPS `POST` of a virtual media image stored locally on the client.  Services shall save the uploaded image in the `LocalImageStore` resource collection subordinate to the `UpdateService` resource.  If no optional parameters are specified, the service shall immediately boot the system from the image upon successful upload and the image shall remain configured until the subsequent reboot.  The parameters of this operation specify the retention policy of the provided image.  If `@Redfish.OperationApplyTime` is not provided by the client, the value shall be assumed to be `Immediate`.  A client may specify `OnReset` to defer the boot until a separate reset is initiated.  Services may rate-limit requests to this URI to preserve the wear-leveling of the service's storage.  The value of this property should not contain a URI of a Redfish resource.  See the 'Redfish-defined URIs and relative reference rules' clause in the Redfish Specification."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Virtualization">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about the virtualization abilities that this system provides."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the virtualization abilities for a computer system."/>
+        <Property Name="CPUOffload" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the CPUs of the system is providing offload for virtualization. Examples of this are AMD-V, Intel VT-x, Intel VT-i, or ARM EL2."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the CPUs of the system are providing offload for virtualization as opposed to relying solely on software virtualization."/>
+        </Property>
+        <Property Name="DeviceIsolation" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the system is providing hardware support to isolate device I/O and DMA access. Examples of this are AMD-vi and Intel VT-d."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the system is providing hardware level isolation for devices external to the CPU to prevent cross virtual machine direct memory access (DMA) or similar memory access."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="BootImageParameters">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The parameters for a push-based virtual media upload and boot using the URI specified by the `BootImagePushURI` property."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the parameters for a push-based virtual media upload and boot using the URI specified by the `BootImagePushURI` property."/>
+        <Property Name="EjectOnReboot" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the virtual media image is automatically ejected on the subsequent reboot.  The default is `true`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether the service automatically ejects the virtual media image and restores the previous boot configuration upon the subsequent reboot of the system.  If the client does not provide this parameter, the service shall default this value to `true`.  If `false`, the pushed virtual media image shall remain configured as the boot source until explicitly ejected by the client."/>
+        </Property>
+        <Property Name="DiscardOnEject" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the virtual media image is deleted from the local image store upon ejection.  The default is `true`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether the service deletes the virtual media image from the resource collection referenced by the `LocalImageStore` property upon ejection of the image.  If the client does not provide this parameter, the service shall default this value to `true`.  If `false`, the image shall remain in the local image store after ejection and may be referenced by subsequent operations."/>
+        </Property>
+        <Property Name="ImageChecksum" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The hex-encoded checksum of the virtual media image."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the hex-encoded checksum of the virtual media image computed using the algorithm specified by the `ImageChecksumAlgorithm` parameter.  If this parameter is provided, the `ImageChecksumAlgorithm` parameter shall also be provided.  If provided, the service shall validate the uploaded image against this checksum prior to configuring it as a boot source.  If the checksum does not match, the service shall discard the image, shall not reboot the system, and shall return the HTTP `400 Bad Request` status code with the `VerificationFailed` message from the Update Message Registry."/>
+        </Property>
+        <Property Name="ImageChecksumAlgorithm" Type="ComputerSystem.v1_28_0.ImageChecksumAlgorithm">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The algorithm used to compute the checksum of the virtual media image."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the algorithm used to compute the value of the `ImageChecksum` parameter.  This parameter is required when the `ImageChecksum` parameter is provided."/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ImageChecksumAlgorithm">
+        <Member Name="SHA256">
+          <Annotation Term="OData.Description" String="SHA-256 hash algorithm."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

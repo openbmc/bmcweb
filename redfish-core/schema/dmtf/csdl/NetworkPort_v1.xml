@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -217,10 +217,10 @@
 
       <EnumType Name="LinkStatus">
         <Member Name="Down">
-          <Annotation Term="OData.Description" String="The port is enabled but link is down." />
+          <Annotation Term="OData.Description" String="The port is enabled but link is down."/>
         </Member>
         <Member Name="Up">
-          <Annotation Term="OData.Description" String="The port is enabled and link is good (up)." />
+          <Annotation Term="OData.Description" String="The port is enabled and link is good (up)."/>
         </Member>
         <Member Name="Starting">
           <Annotation Term="OData.Description" String="This link on this interface is starting.  A physical link has been established, but the port is not able to transfer data."/>
@@ -248,37 +248,37 @@
 
       <EnumType Name="LinkNetworkTechnology">
         <Member Name="Ethernet">
-          <Annotation Term="OData.Description" String="The port is capable of connecting to an Ethernet network." />
+          <Annotation Term="OData.Description" String="The port is capable of connecting to an Ethernet network."/>
         </Member>
         <Member Name="InfiniBand">
-          <Annotation Term="OData.Description" String="The port is capable of connecting to an InfiniBand network." />
+          <Annotation Term="OData.Description" String="The port is capable of connecting to an InfiniBand network."/>
         </Member>
         <Member Name="FibreChannel">
-          <Annotation Term="OData.Description" String="The port is capable of connecting to a Fibre Channel network." />
+          <Annotation Term="OData.Description" String="The port is capable of connecting to a Fibre Channel network."/>
         </Member>
       </EnumType>
 
       <EnumType Name="SupportedEthernetCapabilities">
         <Member Name="WakeOnLAN">
-          <Annotation Term="OData.Description" String="Wake on LAN (WoL) is supported on this port." />
+          <Annotation Term="OData.Description" String="Wake on LAN (WoL) is supported on this port."/>
         </Member>
         <Member Name="EEE">
-          <Annotation Term="OData.Description" String="IEEE 802.3az Energy-Efficient Ethernet (EEE) is supported on this port." />
+          <Annotation Term="OData.Description" String="IEEE 802.3az Energy-Efficient Ethernet (EEE) is supported on this port."/>
         </Member>
       </EnumType>
 
       <EnumType Name="FlowControl">
         <Member Name="None">
-          <Annotation Term="OData.Description" String="No IEEE 802.3x flow control is enabled on this port." />
+          <Annotation Term="OData.Description" String="No IEEE 802.3x flow control is enabled on this port."/>
         </Member>
         <Member Name="TX">
-          <Annotation Term="OData.Description" String="This station can initiate IEEE 802.3x flow control." />
+          <Annotation Term="OData.Description" String="This station can initiate IEEE 802.3x flow control."/>
         </Member>
         <Member Name="RX">
-          <Annotation Term="OData.Description" String="The link partner can initiate IEEE 802.3x flow control." />
+          <Annotation Term="OData.Description" String="The link partner can initiate IEEE 802.3x flow control."/>
         </Member>
         <Member Name="TX_RX">
-          <Annotation Term="OData.Description" String="This station or the link partner can initiate IEEE 802.3x flow control." />
+          <Annotation Term="OData.Description" String="This station or the link partner can initiate IEEE 802.3x flow control."/>
         </Member>
       </EnumType>
     </Schema>
