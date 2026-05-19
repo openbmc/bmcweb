@@ -3139,15 +3139,40 @@ inline void processComputerSystemGet(
         getComputerSystem(asyncResp);
         // Todo: chassis matching could be handled by patch
         // https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60793
-        getMainChassisId(
-            asyncResp, [](const std::string& chassisId,
-                          const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+        constexpr std::array<std::string_view, 2> chassisIfaces = {
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            "xyz.openbmc_project.Inventory.Item.Board"};
+
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory", 0, chassisIfaces,
+            [asyncResp](
+                const boost::system::error_code& ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("D-Bus error getting chassis subtree: {}",
+                                     ec);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
                 nlohmann::json::array_t chassisArray;
-                nlohmann::json& chassis = chassisArray.emplace_back();
-                chassis["@odata.id"] =
-                    boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-                aRsp->res.jsonValue["Links"]["Chassis"] =
+                for (const auto& [path, services] : subtree)
+                {
+                    sdbusplus::message::object_path objPath(path);
+                    std::string chassisId = objPath.filename();
+                    if (chassisId.empty())
+                    {
+                        continue;
+                    }
+                    nlohmann::json::object_t chassisObj;
+                    chassisObj["@odata.id"] = boost::urls::format(
+                        "/redfish/v1/Chassis/{}", chassisId);
+                    chassisArray.emplace_back(std::move(chassisObj));
+                }
+                asyncResp->res.jsonValue["Links"]["Chassis"] =
                     std::move(chassisArray);
+                asyncResp->res.jsonValue["Links"]["Chassis@odata.count"] =
+                    asyncResp->res.jsonValue["Links"]["Chassis"].size();
             });
 
         pcie_util::getPCIeDeviceList(
