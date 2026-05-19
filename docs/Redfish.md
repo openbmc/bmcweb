@@ -1101,6 +1101,7 @@ functions the same like the default implementation under the System resource.
 
 - LifeTime/CorrectableECCErrorCount
 - LifeTime/UncorrectableECCErrorCount
+- CapacityUtilizationPercent
 
 ### /redfish/v1/Systems/system/PCIeDevices/
 
@@ -1202,6 +1203,7 @@ functions the same like the default implementation under the System resource.
 
 - LifeTime/CorrectableECCErrorCount
 - LifeTime/UncorrectableECCErrorCount
+- CapacityUtilizationPercent
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 
