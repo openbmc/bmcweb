@@ -34,6 +34,24 @@
       "parentUuid": "2addba94_3dc22ca0",
       "revId": "2664a221df9cbb0af58f26434022809ec47fb175",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "632a0a16_f7409360",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002242
+      },
+      "writtenOn": "2026-05-19T04:27:46Z",
+      "side": 0,
+      "message": "@ed@tanous.net @abhilash.kollam@gmail.com\nAbhilash\u0027s concern is valid. Re-accepting on all ports after a single port receives a connection is inefficient. Each acceptor should independently manage its own accept cycle. The current fix properly addresses the socket reuse bug without introducing unnecessary overhead.",
+      "parentUuid": "cf9d8fbb_5145fac8",
+      "revId": "2664a221df9cbb0af58f26434022809ec47fb175",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
