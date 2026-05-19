@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0def94de_9331e9c6",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-05-19T11:40:08Z",
+      "side": 1,
+      "message": "Done. Move it into chassis.hpp to align with getChassisConnectivity.",
+      "parentUuid": "6c20c00c_dd2a64df",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 37
+      },
+      "revId": "04e0cfb89a159c52ce5e293f14a76e5fd14536c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92fe8a4d_931706ef",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf399e06_5deba3d1",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-05-19T11:40:08Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "92fe8a4d_931706ef",
+      "revId": "04e0cfb89a159c52ce5e293f14a76e5fd14536c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9800d026_8e8ab56e",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-05-14T08:30:30Z",
       "side": 1,
       "message": "I think we don\u0027t need static here.",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 10
+      },
+      "revId": "04e0cfb89a159c52ce5e293f14a76e5fd14536c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1713a37_d62c1b65",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-05-19T11:40:08Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9800d026_8e8ab56e",
       "range": {
         "startLine": 92,
         "startChar": 4,
@@ -87,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bdcfd9e_ce911f14",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-05-19T11:40:08Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "fd10fc12_566807d0",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 36
+      },
+      "revId": "04e0cfb89a159c52ce5e293f14a76e5fd14536c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15142584_4fc3775a",
@@ -100,6 +190,30 @@
       "writtenOn": "2026-05-14T08:30:30Z",
       "side": 1,
       "message": "The lambda body here is ~19 lines; bmcweb COMMON_ERRORS.md §14\nasks for \u003c10 lines or extract to a named callback + std::bind_front:\n\nhttps://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#14-very-long-lambda-callbacks\n\nSuggest splitting into `afterGetChassisProcessorLinks(asyncResp, ec, procs)`\nand binding via `std::bind_front`, matching the `afterGetXxx` pattern\nused elsewhere in bmcweb (e.g. `afterGetProcessorLocationCode`).",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 52
+      },
+      "revId": "04e0cfb89a159c52ce5e293f14a76e5fd14536c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a951764_43c16797",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-05-19T11:40:08Z",
+      "side": 1,
+      "message": "Done. Replaced with handleCollectionMembers.",
+      "parentUuid": "15142584_4fc3775a",
       "range": {
         "startLine": 102,
         "startChar": 8,
@@ -133,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fa2e4e8_057a4459",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-05-19T11:40:08Z",
+      "side": 1,
+      "message": "Done. Replaced with handleCollectionMembers.",
+      "parentUuid": "947c6988_e5a37f2b",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 13
+      },
+      "revId": "04e0cfb89a159c52ce5e293f14a76e5fd14536c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37407124_012bb5ba",
@@ -156,6 +294,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eae25682_55a5846e",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-05-19T11:40:08Z",
+      "side": 1,
+      "message": "Done. Replaced with handleCollectionMembers.",
+      "parentUuid": "37407124_012bb5ba",
+      "range": {
+        "startLine": 109,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 13
+      },
+      "revId": "04e0cfb89a159c52ce5e293f14a76e5fd14536c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09ed57ae_464c112b",
@@ -169,6 +331,30 @@
       "writtenOn": "2026-05-14T08:30:30Z",
       "side": 1,
       "message": "nit: I think we could remove this comment",
+      "range": {
+        "startLine": 561,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 69
+      },
+      "revId": "04e0cfb89a159c52ce5e293f14a76e5fd14536c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbab2b1a_d0319562",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-05-19T11:40:08Z",
+      "side": 1,
+      "message": "Done. Removed.",
+      "parentUuid": "09ed57ae_464c112b",
       "range": {
         "startLine": 561,
         "startChar": 8,
