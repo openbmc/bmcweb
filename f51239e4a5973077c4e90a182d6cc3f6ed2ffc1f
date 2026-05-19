@@ -16,6 +16,29 @@
       "message": "PS6: addressed all review comments.\n\n- Moved getChassisProcessorLinks to chassis.hpp\n- Renamed aResp -\u003e asyncResp; dropped `static` on local constexpr\n- Use sdbusplus::object_path / \"containing\"\n- Switched lambda body to collection_util::handleCollectionMembers",
       "revId": "f51239e4a5973077c4e90a182d6cc3f6ed2ffc1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f8c14fd_d9aba650",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-19T12:54:44Z",
+      "side": 1,
+      "message": "Please add afterGetChassisProcessorLinks to wrap handleCollectionMembers — filter EBADR/io_error (LOG_DEBUG + return) vs other ec (LOG_ERROR + internalError), then bind it via std::bind_front. \nOtherwise EBADR triggers internalError -\u003e 500 when a chassis has no processors.",
+      "range": {
+        "startLine": 406,
+        "startChar": 24,
+        "endLine": 406,
+        "endChar": 64
+      },
+      "revId": "f51239e4a5973077c4e90a182d6cc3f6ed2ffc1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
