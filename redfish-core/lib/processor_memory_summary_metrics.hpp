@@ -7,6 +7,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "logging.hpp"
+#include "memory_metrics.hpp"
 #include "processor.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -233,6 +234,8 @@ inline void afterGetProcessorObjectForMemorySummary(
         messages::resourceNotFound(asyncResp->res, "Processor", processorId);
         return;
     }
+
+    getMemoryCapacityUtilization(asyncResp, processorPath);
 
     auto acc = std::make_shared<ProcessorMemorySummaryAccumulator>(asyncResp);
 
