@@ -336,8 +336,25 @@ inline void afterGetSubtreeSystemsStorageDrive(
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Drives/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
-    asyncResp->res.jsonValue["Name"] = driveId;
     asyncResp->res.jsonValue["Id"] = driveId;
+
+    // Set default Name to driveId
+    asyncResp->res.jsonValue["Name"] = driveId;
+
+    // Read PrettyName for human-readable name
+    if (connectionNames.size() == 1)
+    {
+        dbus::utility::getProperty<std::string>(
+            connectionNames[0].first, path,
+            "xyz.openbmc_project.Inventory.Item", "PrettyName",
+            [asyncResp](const boost::system::error_code& ec2,
+                        const std::string& prettyName) {
+                if (!ec2 && !prettyName.empty())
+                {
+                    asyncResp->res.jsonValue["Name"] = prettyName;
+                }
+            });
+    }
 
     if (connectionNames.size() != 1)
     {
