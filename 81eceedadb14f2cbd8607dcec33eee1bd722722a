@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7c9f0e3_d52e24ae",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1920,
+      "author": {
+        "id": 1002926
+      },
+      "writtenOn": "2026-05-19T17:30:15Z",
+      "side": 1,
+      "message": "If std::optional is removed, readJsonPatch() itself will throw propertyMissing, so no need to check it explicitly.",
+      "range": {
+        "startLine": 1920,
+        "startChar": 4,
+        "endLine": 1920,
+        "endChar": 42
+      },
+      "revId": "81eceedadb14f2cbd8607dcec33eee1bd722722a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
