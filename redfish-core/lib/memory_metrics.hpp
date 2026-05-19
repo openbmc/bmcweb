@@ -10,10 +10,12 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/metrics_util.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -113,6 +115,63 @@ inline void afterGetMemoryMetricsSubTree(
     messages::resourceNotFound(asyncResp->res, "MemoryMetrics", memoryId);
 }
 
+inline void afterGetMemoryCapacityUtilizationSubTree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree: {}",
+                             ec);
+            messages::internalError(asyncResp->res);
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG(
+                "No CapacityUtilization metric association found: {}", ec);
+        }
+        return;
+    }
+
+    for (const auto& [path, services] : subtree)
+    {
+        sdbusplus::object_path objPath(path);
+        if (objPath.filename() != "memory_capacity_utilization")
+        {
+            continue;
+        }
+
+        if (services.size() != 1)
+        {
+            BMCWEB_LOG_ERROR("Expected exactly one service for {}, got {}",
+                             path, services.size());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const auto& serviceName = services.begin()->first;
+        metrics_util::getMetricPropertyDouble(
+            asyncResp, serviceName, path,
+            "/CapacityUtilizationPercent"_json_pointer);
+        return;
+    }
+}
+
+inline void getMemoryCapacityUtilization(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& inventoryPath)
+{
+    const sdbusplus::object_path assocPath =
+        sdbusplus::object_path(inventoryPath) / "measured_by";
+    dbus::utility::getAssociatedSubTree(
+        assocPath, sdbusplus::object_path("/xyz/openbmc_project/metric"), 0,
+        std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
+        std::bind_front(afterGetMemoryCapacityUtilizationSubTree, asyncResp));
+}
+
 inline void handleMemoryMetricsHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -183,6 +242,10 @@ inline void handleMemoryMetricsGet(
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         std::bind_front(afterGetMemoryMetricsSubTree, asyncResp, memoryId));
+
+    getMemoryCapacityUtilization(
+        asyncResp,
+        sdbusplus::object_path("/xyz/openbmc_project/inventory") / memoryId);
 }
 
 inline void requestRoutesMemoryMetrics(App& app)
