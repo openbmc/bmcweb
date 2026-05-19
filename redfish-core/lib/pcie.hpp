@@ -434,11 +434,13 @@ inline void addPCIeDeviceProperties(
     const std::string* generationSupported = nullptr;
     const size_t* lanesInUse = nullptr;
     const size_t* maxLanes = nullptr;
+    const std::string* deviceType = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), pcieDevProperties, "GenerationInUse",
         generationInUse, "GenerationSupported", generationSupported,
-        "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
+        "LanesInUse", lanesInUse, "MaxLanes", maxLanes, "DeviceType",
+        deviceType);
 
     if (!success)
     {
@@ -513,6 +515,26 @@ inline void addPCIeDeviceProperties(
     if (maxLanes != nullptr && *maxLanes != 0)
     {
         asyncResp->res.jsonValue["PCIeInterface"]["MaxLanes"] = *maxLanes;
+    }
+
+    if (deviceType != nullptr)
+    {
+        std::optional<pcie_device::DeviceType> redfishDeviceType =
+            pcie_util::redfishPcieDeviceTypeFromDbus(*deviceType);
+        if (!redfishDeviceType)
+        {
+            BMCWEB_LOG_WARNING("Unknown PCIe DeviceType: {}", *deviceType);
+        }
+        else
+        {
+            if (*redfishDeviceType == pcie_device::DeviceType::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Invalid PCIe DeviceType: {}", *deviceType);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["DeviceType"] = *redfishDeviceType;
+        }
     }
 
     asyncResp->res.jsonValue["PCIeFunctions"]["@odata.id"] =
