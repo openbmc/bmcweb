@@ -2165,7 +2165,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
-        .privileges(redfish::privileges::postEthernetInterfaceCollection)
+        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2309,7 +2309,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::patchEthernetInterface)
+        .privileges(
+            redfish::privileges::
+                patchEthernetInterfaceSubOverManagerEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2484,7 +2486,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::deleteEthernetInterface)
+        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
