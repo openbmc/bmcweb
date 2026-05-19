@@ -1095,6 +1095,7 @@ functions the same like the default implementation under the System resource.
 
 ### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
 
+- DeviceType
 - Links/Processors
 - `Links/Processors@odata.count`
 - Manufacturer
