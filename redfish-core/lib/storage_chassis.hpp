@@ -13,6 +13,7 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/name_utils.hpp"
 
 namespace redfish
 {
@@ -339,8 +340,9 @@ inline void afterGetSubtreeSystemsStorageDrive(
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Drives/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
-    asyncResp->res.jsonValue["Name"] = driveId;
     asyncResp->res.jsonValue["Id"] = driveId;
+
+    name_utils::getPrettyName(asyncResp, connectionNames, path, driveId);
 
     if (connectionNames.size() != 1)
     {
