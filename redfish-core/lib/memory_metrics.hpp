@@ -19,6 +19,7 @@
 
 #include <array>
 #include <cerrno>
+#include <cmath>
 #include <format>
 #include <functional>
 #include <memory>
@@ -113,6 +114,83 @@ inline void afterGetMemoryMetricsSubTree(
     messages::resourceNotFound(asyncResp->res, "MemoryMetrics", memoryId);
 }
 
+inline void afterGetMemoryCapacityUtilizationValue(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBus error on GetProperty for CapacityUtilizationPercent: {}",
+                ec.message());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (!std::isfinite(value))
+    {
+        BMCWEB_LOG_DEBUG(
+            "Received non-finite value for CapacityUtilizationPercent");
+        asyncResp->res.jsonValue["CapacityUtilizationPercent"] = nullptr;
+        return;
+    }
+
+    asyncResp->res.jsonValue["CapacityUtilizationPercent"] = value;
+}
+
+inline void afterGetMemoryCapacityUtilizationSubTree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree: {}",
+                             ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    for (const auto& [path, services] : subtree)
+    {
+        if (services.size() != 1)
+        {
+            continue;
+        }
+
+        sdbusplus::message::object_path objPath(path);
+        if (objPath.filename() != "capacity_utilization")
+        {
+            continue;
+        }
+
+        const auto& serviceName = services.begin()->first;
+        dbus::utility::getProperty<double>(
+            serviceName, path, "xyz.openbmc_project.Metric.Value", "Value",
+            std::bind_front(afterGetMemoryCapacityUtilizationValue, asyncResp));
+        return;
+    }
+}
+
+inline void getMemoryCapacityUtilization(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& inventoryPath)
+{
+    const sdbusplus::message::object_path assocPath =
+        sdbusplus::message::object_path(inventoryPath) / "measured_by";
+    dbus::utility::getAssociatedSubTree(
+        assocPath,
+        sdbusplus::message::object_path("/xyz/openbmc_project/metric"), 0,
+        std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
+        std::bind_front(afterGetMemoryCapacityUtilizationSubTree, asyncResp));
+}
+
 inline void handleMemoryMetricsHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -183,6 +261,19 @@ inline void handleMemoryMetricsGet(
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         std::bind_front(afterGetMemoryMetricsSubTree, asyncResp, memoryId));
+
+    // The memory capacity utilization metric is associated with the parent
+    // processor inventory object, not the DRAM inventory object. Derive the
+    // parent processor inventory path by stripping the "_DRAM_<n>" suffix
+    // from the memoryId.
+    std::string parentInventoryName = memoryId;
+    const auto pos = parentInventoryName.rfind("_DRAM_");
+    if (pos != std::string::npos)
+    {
+        parentInventoryName.resize(pos);
+    }
+    getMemoryCapacityUtilization(
+        asyncResp, "/xyz/openbmc_project/inventory/" + parentInventoryName);
 }
 
 inline void requestRoutesMemoryMetrics(App& app)
