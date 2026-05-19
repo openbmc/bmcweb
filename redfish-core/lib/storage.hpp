@@ -253,6 +253,64 @@ inline void handleStorageGet(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         std::bind_front(afterSubtree, asyncResp, storageId));
 }
+inline void afterGetSubtreeSystemsStorageDrive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& driveId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Drive get subtree error: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Find the drive in the subtree
+    for (const auto& [path, serviceMap] : subtree)
+    {
+        sdbusplus::message::object_path objPath(path);
+        if (objPath.filename() != driveId)
+        {
+            continue;
+        }
+
+        // Found the drive - get its service
+        if (serviceMap.empty())
+        {
+            BMCWEB_LOG_ERROR("No service found for drive {}", driveId);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string& service = serviceMap.begin()->first;
+
+        // Set the basic drive properties
+        asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_0_0.Drive";
+        asyncResp->res.jsonValue["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Drives/{}",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
+        asyncResp->res.jsonValue["Id"] = driveId;
+
+        // Set default Name to driveId
+        asyncResp->res.jsonValue["Name"] = driveId;
+
+        // Read PrettyName for human-readable name
+        dbus::utility::getProperty<std::string>(
+            service, path, "xyz.openbmc_project.Inventory.Item", "PrettyName",
+            [asyncResp, driveId](const boost::system::error_code& ec2,
+                                 const std::string& prettyName) {
+                if (!ec2 && !prettyName.empty())
+                {
+                    asyncResp->res.jsonValue["Name"] = prettyName;
+                }
+            });
+
+        // TODO: Add other drive properties (Model, Manufacturer, etc.)
+        return;
+    }
+
+    // Drive not found
+    messages::resourceNotFound(asyncResp->res, "#Drive.v1_0_0.Drive", driveId);
+}
 
 inline void handleSystemsStorageDriveGet(
     App& app, const crow::Request& req,
