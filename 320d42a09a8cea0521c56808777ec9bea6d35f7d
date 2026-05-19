@@ -142,6 +142,30 @@
       },
       "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df6d09c1_ef28e17d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-19T10:36:42Z",
+      "side": 1,
+      "message": "You are right that there is no normative Redfish quote that explicitly requires HTTP 401 for empty UserName or Password during session creation.\n The schema states requiredOnCreate, which establishes that these properties must be present, but it does not prescribe the exact status code or message when they are present as empty strings.\n\nIn this context, i feel PropertyMissing is not an ideal fit because both properties are included in the request. A reasonable interpretation is to treat empty UserName or Password as invalid authentication input , which i felt that aligns with using ResourceAtUriUnauthorized and the same 401 path already used for invalid credentials.",
+      "parentUuid": "35cf6c14_1a851cc0",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "320d42a09a8cea0521c56808777ec9bea6d35f7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
