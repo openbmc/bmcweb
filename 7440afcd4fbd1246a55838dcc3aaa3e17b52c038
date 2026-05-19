@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7ad66e6_959f1eb8",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-05-19T09:44:53Z",
+      "side": 1,
+      "message": "You suggested this \n\nEd Tanous\nPatchset 4\nJul 01, 2024\nWe shoudl be setting the scheme based on a separate property. Something like:\n\nProtocol: HTTP\nProtocol: HTTPS\n\nIt seems reasonable that someone would want to connect to https but not use authentication, or might choose password auth. They are separate parameters.",
+      "parentUuid": "9aa1736a_221d7a0f",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "49eb0fb9_52a42d81",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
