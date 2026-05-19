@@ -739,8 +739,6 @@ inline int assignBootParameters(
         BMCWEB_LOG_DEBUG(
             "Invalid property value for BootSourceOverrideTarget: {}",
             bootSource);
-        messages::propertyValueNotInList(asyncResp->res, rfSource,
-                                         "BootSourceTargetOverride");
         return -1;
     }
     return 0;
