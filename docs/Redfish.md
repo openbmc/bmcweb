@@ -1280,6 +1280,7 @@ functions the same like the default implementation under the System resource.
 
 - Description
 - LowestSupportedVersion
+- Manufacturer
 - `RelatedItem@odata.count`
 - RelatedItem
 - Status
