@@ -1299,6 +1299,85 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
+inline void handleNetworkAdapterChassisForSwInv(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& adapterPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& chassisEndpoints)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error reading contained_by for {}: {}",
+                         adapterPath, ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (chassisEndpoints.empty())
+    {
+        return;
+    }
+
+    const std::string chassisId =
+        sdbusplus::message::object_path(chassisEndpoints.front()).filename();
+    const std::string adapterId =
+        sdbusplus::message::object_path(adapterPath).filename();
+    if (chassisId.empty() || adapterId.empty())
+    {
+        return;
+    }
+
+    addRelatedItem(asyncResp, boost::urls::format(
+                                  "/redfish/v1/Chassis/{}/NetworkAdapters/{}",
+                                  chassisId, adapterId));
+}
+
+inline void handleNetworkAdapterPathsForSwInv(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& networkAdapterPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error reading NetworkAdapter paths: {}",
+                         ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const std::string& adapterPath : networkAdapterPaths)
+    {
+        sdbusplus::message::object_path containedByPath(adapterPath);
+        containedByPath /= "contained_by";
+
+        dbus::utility::getAssociationEndPoints(
+            std::string(containedByPath),
+            std::bind_front(handleNetworkAdapterChassisForSwInv, asyncResp,
+                            adapterPath));
+    }
+}
+
+inline void addNetworkAdapterRelatedItemForSwInv(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path)
+{
+    const std::string associationPath = path + "/running";
+    constexpr std::array<std::string_view, 1> networkAdapterInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.NetworkAdapter"};
+
+    dbus::utility::getAssociatedSubTreePaths(
+        associationPath,
+        sdbusplus::message::object_path{"/xyz/openbmc_project/inventory"}, 0,
+        networkAdapterInterfaces,
+        std::bind_front(handleNetworkAdapterPathsForSwInv, asyncResp));
+}
+
 inline void getSoftwareVersionCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& swId, const std::string& path,
@@ -1354,6 +1433,7 @@ inline void getSoftwareVersionCallback(
     std::string formatDesc = swInvPurpose->substr(endDesc);
     asyncResp->res.jsonValue["Description"] = formatDesc + " image";
     getRelatedItems(asyncResp, *swInvPurpose, path);
+    addNetworkAdapterRelatedItemForSwInv(asyncResp, path);
 }
 
 inline void getSoftwareVersion(
@@ -1404,6 +1484,7 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
         found = true;
         sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
         sw_util::getSwMinimumVersion(asyncResp, swId, obj.second[0].first);
+        sw_util::getSwManufacturer(asyncResp, swId, obj.second[0].first);
         getSoftwareVersion(asyncResp, obj.second[0].first, obj.first, *swId);
     }
     if (!found)
