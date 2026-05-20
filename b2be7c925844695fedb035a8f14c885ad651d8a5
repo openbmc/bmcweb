@@ -16,6 +16,23 @@
       "message": "Adds a more fine grained error messaging. LGTM",
       "revId": "b2be7c925844695fedb035a8f14c885ad651d8a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c22c9961_b0a41bdd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-20T16:10:17Z",
+      "side": 1,
+      "message": "This isn\u0027t an acceptable sized lambda.  Please break this out into an appropriate callback.",
+      "revId": "b2be7c925844695fedb035a8f14c885ad651d8a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
