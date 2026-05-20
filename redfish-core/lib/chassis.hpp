@@ -359,6 +359,49 @@ inline void getChassisContains(
     asyncResp->res.jsonValue["Links"]["Contains@odata.count"] = jValue.size();
 }
 
+inline void getChassisSwitches(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& switchPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (switchPaths.empty())
+    {
+        return;
+    }
+    nlohmann::json& jValue = asyncResp->res.jsonValue["Links"]["Switches"];
+    if (!jValue.is_array())
+    {
+        jValue = nlohmann::json::array();
+    }
+    for (const auto& p : switchPaths)
+    {
+        sdbusplus::object_path switchObjPath(p);
+        std::string switchId = switchObjPath.filename();
+        if (switchId.empty())
+        {
+            BMCWEB_LOG_WARNING("Malformed Switch path {} on {}",
+                               switchObjPath.str, chassisId);
+            continue;
+        }
+        nlohmann::json link;
+        link["@odata.id"] =
+            boost::urls::format("/redfish/v1/Fabrics/{}/Switches/{}",
+                                BMCWEB_REDFISH_FABRIC_URI_NAME, switchId);
+        jValue.push_back(std::move(link));
+    }
+    asyncResp->res.jsonValue["Links"]["Switches@odata.count"] = jValue.size();
+}
+
 inline void getChassisConnectivity(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& chassisPath)
@@ -376,6 +419,14 @@ inline void getChassisConnectivity(
         sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
         chassisInterfaces,
         std::bind_front(getChassisContains, asyncResp, chassisId));
+
+    constexpr std::array<std::string_view, 1> switchInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.PCIeSwitch"};
+    dbus::utility::getAssociatedSubTreePaths(
+        chassisPath + "/containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        switchInterfaces,
+        std::bind_front(getChassisSwitches, asyncResp, chassisId));
 }
 
 /**
@@ -469,6 +520,9 @@ inline void handleDecoratorAssetProperties(
     asyncResp->res.jsonValue["NetworkAdapters"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/NetworkAdapters",
                             chassisId);
+
+    asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/PCIeDevices", chassisId);
 
     // SensorCollection
     asyncResp->res.jsonValue["Sensors"]["@odata.id"] =

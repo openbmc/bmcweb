@@ -228,12 +228,16 @@ Fields common to all schemas
 - Drives
 - HotPluggable
 - Links/ComputerSystems
+- Links/ContainedBy
+- Links/Contains
 - Links/ManagedBy
+- Links/Switches
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
 - Model
 - PartNumber
+- PCIeDevices
 - Power
 - PowerSubsystem
 - PowerState
@@ -246,6 +250,22 @@ Fields common to all schemas
 - ThermalSubsystem
 - UUID
 - Version
+
+### /redfish/v1/Chassis/{ChassisId}/PCIeDevices/
+
+#### PCIeDeviceCollection
+
+- Members
+
+### /redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/
+
+#### PCIeDevice
+
+- Id
+- Name
+- Status
+- PCIeInterface
+- (other PCIeDevice properties as on the Systems-scoped resource)
 
 ### /redfish/v1/Chassis/{ChassisId}/Drive/
 
