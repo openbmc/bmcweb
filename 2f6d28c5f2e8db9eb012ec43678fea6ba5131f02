@@ -160,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11530c0d_f5305d08",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-20T07:01:13Z",
+      "side": 1,
+      "message": "Ok @ed@tanous.net I will abandon this change. Thanks",
+      "parentUuid": "cfdeb856_974796e4",
+      "revId": "2f6d28c5f2e8db9eb012ec43678fea6ba5131f02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6fc2ab8_876d5d0a",
