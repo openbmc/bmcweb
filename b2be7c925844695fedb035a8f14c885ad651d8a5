@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07bf33c3_15a50160",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-20T16:11:27Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct.  Privileges are managed by bmcweb, so if dbus is rejecting the request, likely we need something like \"cannot be deleted\"",
+      "revId": "b2be7c925844695fedb035a8f14c885ad651d8a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c22c9961_b0a41bdd",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
