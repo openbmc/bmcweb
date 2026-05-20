@@ -1240,12 +1240,69 @@ inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
 }
 
+inline void handleNetworkAdapterChassisForSwInv(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& adapterPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& chassisEndpoints)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error reading contained_by for {}: {}",
+                         adapterPath, ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (chassisEndpoints.empty())
+    {
+        return;
+    }
+    if (chassisEndpoints.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "Multiple contained_by endpoints found for NetworkAdapter {}",
+            adapterPath);
+    }
+
+    const std::string chassisId =
+        sdbusplus::object_path(chassisEndpoints.front()).filename();
+    const std::string adapterId =
+        sdbusplus::object_path(adapterPath).filename();
+    if (chassisId.empty() || adapterId.empty())
+    {
+        return;
+    }
+
+    addRelatedItem(asyncResp, boost::urls::format(
+                                  "/redfish/v1/Chassis/{}/NetworkAdapters/{}",
+                                  chassisId, adapterId));
+}
+
+// A NetworkAdapter is nested under its chassis in Redfish, so resolve the
+// owning chassis via the "contained_by" association before building the link.
+inline void addNetworkAdapterRelatedItem(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& adapterPath)
+{
+    sdbusplus::object_path containedByPath(adapterPath);
+    containedByPath /= "contained_by";
+
+    dbus::utility::getAssociationEndPoints(
+        std::string(containedByPath),
+        std::bind_front(handleNetworkAdapterChassisForSwInv, asyncResp,
+                        adapterPath));
+}
+
 // Inventory item interfaces for which a RelatedItem link can be built from the
 // software "running" association. Additional item types are appended by
 // follow-up patches as their RelatedItem mapping is implemented.
-constexpr std::array<std::string_view, 2> relatedItemInterfaces = {
+constexpr std::array<std::string_view, 3> relatedItemInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Board",
-    "xyz.openbmc_project.Inventory.Item.Chassis"};
+    "xyz.openbmc_project.Inventory.Item.Chassis",
+    "xyz.openbmc_project.Inventory.Item.NetworkAdapter"};
 
 inline void getRelatedItemFromAssociation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1263,6 +1320,11 @@ inline void getRelatedItemFromAssociation(
         return;
     }
 
+    // getAssociatedSubTree is already filtered by relatedItemInterfaces, so
+    // every returned object matches one of the branches below. A
+    // NetworkAdapter is nested under its chassis and needs a different link,
+    // so it is checked first for the rare object that also exposes a
+    // board/chassis interface.
     for (const auto& [objectPath, serviceMap] : subtree)
     {
         const std::string name = sdbusplus::object_path(objectPath).filename();
@@ -1270,8 +1332,29 @@ inline void getRelatedItemFromAssociation(
         {
             continue;
         }
-        addRelatedItem(asyncResp,
-                       boost::urls::format("/redfish/v1/Chassis/{}", name));
+
+        for (const auto& [service, interfaces] : serviceMap)
+        {
+            if (std::ranges::find(
+                    interfaces,
+                    "xyz.openbmc_project.Inventory.Item.NetworkAdapter") !=
+                interfaces.end())
+            {
+                addNetworkAdapterRelatedItem(asyncResp, objectPath);
+                break;
+            }
+            if (std::ranges::find(
+                    interfaces, "xyz.openbmc_project.Inventory.Item.Chassis") !=
+                    interfaces.end() ||
+                std::ranges::find(interfaces,
+                                  "xyz.openbmc_project.Inventory.Item.Board") !=
+                    interfaces.end())
+            {
+                addRelatedItem(asyncResp, boost::urls::format(
+                                              "/redfish/v1/Chassis/{}", name));
+                break;
+            }
+        }
     }
 }
 
@@ -1410,6 +1493,7 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
         found = true;
         sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
         sw_util::getSwMinimumVersion(asyncResp, swId, obj.second[0].first);
+        sw_util::getSwManufacturer(asyncResp, swId, obj.second[0].first);
         getSoftwareVersion(asyncResp, obj.second[0].first, obj.first, *swId);
     }
     if (!found)
@@ -1424,7 +1508,7 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId);
     asyncResp->res.jsonValue["@odata.type"] =
-        "#SoftwareInventory.v1_1_0.SoftwareInventory";
+        "#SoftwareInventory.v1_2_0.SoftwareInventory";
     asyncResp->res.jsonValue["Name"] = "Software Inventory";
     asyncResp->res.jsonValue["Status"]["HealthRollup"] = resource::Health::OK;
     asyncResp->res.jsonValue["Updateable"] = false;
