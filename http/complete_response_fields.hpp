@@ -11,9 +11,14 @@
 #include "security_headers.hpp"
 
 #include <boost/beast/http/field.hpp>
+#include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 
+#include <unistd.h>
+
 #include <array>
+#include <cstddef>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -28,35 +33,17 @@ inline bool attemptZstdCompression(Response& res)
     using http_helpers::Encoding;
     using enum http_helpers::Encoding;
 
-    std::string& strBody = res.response.body().str();
+    bmcweb::HttpBody::value_type& body = res.response.body();
+
+    std::string& strBody = body.str();
     if (strBody.empty())
     {
         // No need to compress an empty body
         return true;
     }
-    bmcweb::ZstdCompressor zstdCompressor;
-    if (!zstdCompressor.init(strBody.size()))
-    {
-        BMCWEB_LOG_ERROR("Failed to initialize Zstd Compressor");
-        return false;
-    }
-
-    const uint8_t* dataIn = std::bit_cast<const uint8_t*>(strBody.data());
-    std::span<const uint8_t> spanIn(dataIn, strBody.size());
-    bool more = false;
-    std::optional<std::span<const uint8_t>> compressed =
-        zstdCompressor.compress(spanIn, more);
-    if (!compressed)
-    {
-        BMCWEB_LOG_ERROR("Failed to compress content with zstd.");
-        return false;
-    }
-    const char* dataOut = std::bit_cast<const char*>(compressed->data());
-    strBody = std::string(dataOut, compressed->size());
 
     res.addHeader(boost::beast::http::field::content_encoding, "zstd");
     res.response.body().clientCompressionType = Zstd;
-    res.response.body().compressionType = Zstd;
     return true;
 }
 
