@@ -416,6 +416,37 @@ inline void getSwMinimumVersion(
         });
 }
 
+inline void afterGetSwManufacturer(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& manufacturer)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            // not all software has the Asset interface
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error reading Manufacturer: {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["Manufacturer"] = manufacturer;
+}
+
+inline void getSwManufacturer(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<std::string>& swId, const std::string& dbusSvc)
+{
+    sdbusplus::object_path path("/xyz/openbmc_project/software");
+    path /= *swId;
+
+    dbus::utility::getProperty<std::string>(
+        dbusSvc, path, "xyz.openbmc_project.Inventory.Decorator.Asset",
+        "Manufacturer", std::bind_front(afterGetSwManufacturer, asyncResp));
+}
+
 /**
  * @brief Put status of input swId into json response
  *
