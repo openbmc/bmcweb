@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96a30515_cc67cc42",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-05-20T18:37:20Z",
+      "side": 1,
+      "message": "The \"Insufficient Privilege\" message was used because it is expected by the Robot test and I couldn\u0027t find a more suitable response type that is compliant with the Redfish spec.",
+      "parentUuid": "07bf33c3_15a50160",
+      "revId": "b2be7c925844695fedb035a8f14c885ad651d8a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c22c9961_b0a41bdd",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2026-05-20T16:10:17Z",
       "side": 1,
       "message": "This isn\u0027t an acceptable sized lambda.  Please break this out into an appropriate callback.",
+      "revId": "b2be7c925844695fedb035a8f14c885ad651d8a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c44af6c8_e6b852ed",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-05-20T18:37:20Z",
+      "side": 1,
+      "message": "I should\u0027ve read the common errors doc ^^\u0027\n\nFixed in PS 2. Thanks for your review!",
+      "parentUuid": "c22c9961_b0a41bdd",
       "revId": "b2be7c925844695fedb035a8f14c885ad651d8a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
