@@ -701,6 +701,66 @@ inline void handleChassisGetSubTree(
                 handleChassisProperties(asyncResp, propertiesList);
             });
 
+        // Common.UUID and Control.Power.Cap may be contributed by a
+        // secondary service (e.g. a device daemon) on the same chassis
+        // path. Run a separate mapper query scoped to this path so the
+        // main chassis-discovery getSubTree above stays unchanged.
+        constexpr std::array<std::string_view, 2> extraInterfaces = {
+            "xyz.openbmc_project.Common.UUID",
+            "xyz.openbmc_project.Control.Power.Cap"};
+        dbus::utility::getDbusObject(
+            path, extraInterfaces,
+            [asyncResp,
+             path](const boost::system::error_code& ec2,
+                   const dbus::utility::MapperGetObject& extraOwners) {
+                if (ec2)
+                {
+                    return;
+                }
+                for (const auto& [extraService, extraIfaces] : extraOwners)
+                {
+                    if (std::ranges::find(extraIfaces,
+                                          "xyz.openbmc_project.Common.UUID") !=
+                        extraIfaces.end())
+                    {
+                        getChassisUUID(asyncResp, extraService, path);
+                    }
+                    if (std::ranges::find(
+                            extraIfaces,
+                            "xyz.openbmc_project.Control.Power.Cap") !=
+                        extraIfaces.end())
+                    {
+                        dbus::utility::getAllProperties(
+                            *crow::connections::systemBus, extraService, path,
+                            "xyz.openbmc_project.Control.Power.Cap",
+                            [asyncResp](const boost::system::error_code& ec3,
+                                        const dbus::utility::DBusPropertiesMap&
+                                            powerProps) {
+                                if (ec3)
+                                {
+                                    return;
+                                }
+                                const uint32_t* minCap = nullptr;
+                                const uint32_t* maxCap = nullptr;
+                                sdbusplus::unpackPropertiesNoThrow(
+                                    dbus_utils::UnpackErrorPrinter(),
+                                    powerProps, "MinPowerCapValue", minCap,
+                                    "MaxPowerCapValue", maxCap);
+                                if (minCap != nullptr)
+                                {
+                                    asyncResp->res.jsonValue["MinPowerWatts"] =
+                                        static_cast<double>(*minCap);
+                                }
+                                if (maxCap != nullptr)
+                                {
+                                    asyncResp->res.jsonValue["MaxPowerWatts"] =
+                                        static_cast<double>(*maxCap);
+                                }
+                            });
+                    }
+                }
+            });
+
         return;
     }
 
