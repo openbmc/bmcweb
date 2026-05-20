@@ -1240,12 +1240,69 @@ inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
 }
 
+inline void handleNetworkAdapterChassisForSwInv(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& adapterPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& chassisEndpoints)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error reading contained_by for {}: {}",
+                         adapterPath, ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (chassisEndpoints.empty())
+    {
+        return;
+    }
+    if (chassisEndpoints.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "Multiple contained_by endpoints found for NetworkAdapter {}",
+            adapterPath);
+    }
+
+    const std::string chassisId =
+        sdbusplus::message::object_path(chassisEndpoints.front()).filename();
+    const std::string adapterId =
+        sdbusplus::message::object_path(adapterPath).filename();
+    if (chassisId.empty() || adapterId.empty())
+    {
+        return;
+    }
+
+    addRelatedItem(asyncResp, boost::urls::format(
+                                  "/redfish/v1/Chassis/{}/NetworkAdapters/{}",
+                                  chassisId, adapterId));
+}
+
+// A NetworkAdapter is nested under its chassis in Redfish, so resolve the
+// owning chassis via the "contained_by" association before building the link.
+inline void addNetworkAdapterRelatedItem(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& adapterPath)
+{
+    sdbusplus::message::object_path containedByPath(adapterPath);
+    containedByPath /= "contained_by";
+
+    dbus::utility::getAssociationEndPoints(
+        std::string(containedByPath),
+        std::bind_front(handleNetworkAdapterChassisForSwInv, asyncResp,
+                        adapterPath));
+}
+
 // Inventory item interfaces for which a RelatedItem link can be built from the
 // software "running" association. Additional item types are appended by
 // follow-up patches as their RelatedItem mapping is implemented.
-constexpr std::array<std::string_view, 2> relatedItemInterfaces = {
+constexpr std::array<std::string_view, 3> relatedItemInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Board",
-    "xyz.openbmc_project.Inventory.Item.Chassis"};
+    "xyz.openbmc_project.Inventory.Item.Chassis",
+    "xyz.openbmc_project.Inventory.Item.NetworkAdapter"};
 
 inline void getRelatedItemFromAssociation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1268,6 +1325,7 @@ inline void getRelatedItemFromAssociation(
             continue;
         }
 
+        bool matched = false;
         for (const auto& [service, interfaces] : serviceMap)
         {
             if (std::ranges::find(
@@ -1279,8 +1337,24 @@ inline void getRelatedItemFromAssociation(
             {
                 addRelatedItem(asyncResp, boost::urls::format(
                                               "/redfish/v1/Chassis/{}", name));
+                matched = true;
                 break;
             }
+            if (std::ranges::find(
+                    interfaces,
+                    "xyz.openbmc_project.Inventory.Item.NetworkAdapter") !=
+                interfaces.end())
+            {
+                addNetworkAdapterRelatedItem(asyncResp, objectPath);
+                matched = true;
+                break;
+            }
+        }
+        if (!matched)
+        {
+            BMCWEB_LOG_DEBUG(
+                "No RelatedItem mapping for associated inventory item {}",
+                objectPath);
         }
     }
 }
@@ -1422,6 +1496,7 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
         found = true;
         sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
         sw_util::getSwMinimumVersion(asyncResp, swId, obj.second[0].first);
+        sw_util::getSwManufacturer(asyncResp, swId, obj.second[0].first);
         getSoftwareVersion(asyncResp, obj.second[0].first, obj.first, *swId);
     }
     if (!found)
