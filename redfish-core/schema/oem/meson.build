@@ -1,1 +1,2 @@
+subdir('amd')
 subdir('openbmc')
