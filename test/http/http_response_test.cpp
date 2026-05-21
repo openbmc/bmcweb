@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "duplicatable_file_handle.hpp"
+#include "http/complete_response_fields.hpp"
 #include "http/http_body.hpp"
 #include "http/http_response.hpp"
 #include "utility.hpp"
@@ -187,5 +188,21 @@ TEST(HttpResponse, HttpBodyWriterLarge)
     res.openFd(file.native_handle());
     EXPECT_EQ(getData(res.response), data);
 }
+
+TEST(HttpResponse, ZstdHandleEncodingDoesNotCloseFileFd)
+{
+    Response res;
+    std::string data = "sample text";
+    DuplicatableFileHandle temporaryFile(data);
+    res.openFile(temporaryFile.filePath);
+
+    ASSERT_TRUE(res.response.body().file().is_open());
+
+    handleEncoding("zstd", res);
+
+    EXPECT_TRUE(res.response.body().file().is_open());
+    EXPECT_EQ(getData(res.response), data);
+}
+
 } // namespace
 } // namespace crow

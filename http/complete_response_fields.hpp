@@ -28,6 +28,14 @@ inline bool attemptZstdCompression(Response& res)
     using http_helpers::Encoding;
     using enum http_helpers::Encoding;
 
+    // No need to compress it again as zstdCompressor in the writer is already
+    // doing it on the fly. The strBody check also triggers
+    // emplace<std::string>(), closing the FD.
+    if (res.response.body().file().is_open())
+    {
+        return true;
+    }
+
     std::string& strBody = res.response.body().str();
     if (strBody.empty())
     {
