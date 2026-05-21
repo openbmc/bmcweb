@@ -16,6 +16,40 @@
       "message": "Changes looks okay for me. Validated the patch, able to launch Web UI.",
       "revId": "c73476610058cb533af0f2ec637f9eaba3d4f5c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b528a41_24cd9b5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-21T16:31:35Z",
+      "side": 1,
+      "message": "Remove the comment then lgtm",
+      "revId": "c73476610058cb533af0f2ec637f9eaba3d4f5c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f419858_e0977e43",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-21T16:31:35Z",
+      "side": 1,
+      "message": "This comment doesn’t seem right (LLM?)\nPatch looks correct though.  Just remove the comment for now.",
+      "revId": "c73476610058cb533af0f2ec637f9eaba3d4f5c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
