@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d13cc35_fa690cb8",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-05-21T14:22:33Z",
+      "side": 1,
+      "message": "ah nvm, my bad.",
+      "parentUuid": "d680f396_a38f4ddd",
+      "revId": "f77072b9e27b9d17cd5eeb36e9583b48e7bb7b44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf591829_54eba178",
