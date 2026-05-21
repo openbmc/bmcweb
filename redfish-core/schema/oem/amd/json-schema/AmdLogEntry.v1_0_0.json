@@ -1,0 +1,191 @@
+{
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/amd/json-schema/AmdLogEntry.json",
+    "$ref": "#/definitions/AmdLogEntry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2026 Advanced Micro Devices, Inc.",
+    "definitions": {
+        "AmdLogEntry": {
+            "additionalProperties": false,
+            "description": "The AMD OEM extension for a Redfish LogEntry / Message resource. Consolidates AMD-specific identifiers, serviceable units, rack location, and CPER-style error data.",
+            "longDescription": "This object shall represent the AMD OEM-specific properties that may appear inside the `Oem/AMD` section of a Redfish LogEntry, Message, or CPER record. It unifies the schemas observed across host/BMC log entries, firmware update verification failures, AMD CPU/EAM error reports, and AMD CPER OEM payloads.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges|Members)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type",
+                    "readonly": true
+                },
+                "AMDFieldIdentifiers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AMDFieldIdentifier"
+                    },
+                    "description": "Array of AMD-specific field identifiers (AFID) describing the event and the affected serviceable units.",
+                    "longDescription": "This property shall contain an array of AMD Field Identifier (AFID) entries that describe the event. Each entry includes a numeric AFID, a human-readable description, and the list of serviceable units associated with the event.",
+                    "readonly": true
+                },
+                "AMDFieldIdentifiers@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Description": {
+                    "type": ["string", "null"],
+                    "description": "Free-form description of the AMD OEM event.",
+                    "longDescription": "This property shall contain a human-readable description of the AMD-specific event when no AFID entry is provided (for example, signal-level failures reported directly by the platform).",
+                    "readonly": true
+                },
+                "RackUnitPosition": {
+                    "type": ["string", "null"],
+                    "description": "Rack unit position (e.g. `U22`) of the affected chassis.",
+                    "longDescription": "This property shall indicate the rack unit (RU) position of the chassis that produced the event, using the standard `U<n>` notation.",
+                    "readonly": true,
+                    "pattern": "^U[0-9]+$"
+                },
+                "ErrDataArr": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ErrData"
+                    },
+                    "description": "Array of AMD CPER OEM error-data records associated with the event.",
+                    "longDescription": "This property shall contain an array of AMD CPER (Common Platform Error Record) OEM payload entries. It is typically present when the parent record is a CPER notification rather than a standard LogEntry.",
+                    "readonly": true
+                },
+                "ErrDataArr@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "AMDFieldIdentifier": {
+            "additionalProperties": false,
+            "description": "One AMD Field Identifier (AFID) entry describing a serviceable event.",
+            "longDescription": "This object shall represent a single AFID entry. The AFID uniquely identifies a class of AMD-defined service event and links to the resources that must be serviced.",
+            "properties": {
+                "AFID": {
+                    "type": ["integer", "string", "null"],
+                    "description": "AMD Field Identifier numeric code (or placeholder string).",
+                    "longDescription": "This property shall contain the AMD-assigned Field Identifier (AFID) value. The canonical type is integer; a string value is permitted only when the AFID is not yet resolved (for example, a placeholder such as `<AFID Data>`).",
+                    "readonly": true
+                },
+                "Description": {
+                    "type": ["string", "null"],
+                    "description": "Human-readable description associated with the AFID.",
+                    "readonly": true
+                },
+                "ServiceableUnits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "description": "Array of references to Redfish resources that are serviceable for this AFID.",
+                    "longDescription": "This property shall contain an array of links (`@odata.id`) to the Redfish resources (Processor, Chassis, TrustedComponent, etc.) that are the serviceable units for this AFID event.",
+                    "readonly": true
+                },
+                "ServiceableUnits@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "required": ["AFID"],
+            "type": "object"
+        },
+        "ErrData": {
+            "additionalProperties": false,
+            "description": "A single AMD CPER OEM error-data record.",
+            "longDescription": "This object shall describe one AMD CPER OEM error payload, including its metadata, source platform, and event report details.",
+            "properties": {
+                "metadata": {
+                    "$ref": "#/definitions/ErrDataMetadata"
+                },
+                "platform": {
+                    "$ref": "#/definitions/ErrDataPlatform"
+                },
+                "event_report": {
+                    "$ref": "#/definitions/ErrDataEventReport"
+                }
+            },
+            "type": "object"
+        },
+        "ErrDataMetadata": {
+            "additionalProperties": false,
+            "description": "Metadata classifying the AMD CPER error record.",
+            "properties": {
+                "context_type": {
+                    "type": ["string", "null"],
+                    "description": "Type of context that produced the record (e.g. `Crashdump`).",
+                    "readonly": true
+                },
+                "event_class": {
+                    "type": ["string", "null"],
+                    "description": "Event class (e.g. `mca`).",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "ErrDataPlatform": {
+            "additionalProperties": false,
+            "description": "Platform-level identifiers for the AMD CPER error record.",
+            "properties": {
+                "apic_id": {
+                    "type": ["string", "null"],
+                    "description": "APIC ID of the logical processor that produced the event, expressed as a hexadecimal string.",
+                    "readonly": true,
+                    "pattern": "^0x[0-9a-fA-F]+$"
+                }
+            },
+            "type": "object"
+        },
+        "ErrDataEventReport": {
+            "additionalProperties": false,
+            "description": "Event-level details of the AMD CPER error record.",
+            "properties": {
+                "error_type": {
+                    "type": ["string", "null"],
+                    "description": "AMD-defined error type code (e.g. `Hwa`).",
+                    "readonly": true
+                },
+                "error_description": {
+                    "type": ["string", "null"],
+                    "description": "Human-readable description of the error.",
+                    "readonly": true
+                },
+                "error_severity": {
+                    "$ref": "#/definitions/ErrorSeverity"
+                }
+            },
+            "type": "object"
+        },
+        "ErrorSeverity": {
+            "enum": [
+                "Informational",
+                "Warning",
+                "Corrected",
+                "Fatal",
+                "NonFatal"
+            ],
+            "enumDescriptions": {
+                "Informational": "Informational event, no service action required.",
+                "Warning": "Warning-level event.",
+                "Corrected": "The error was detected and corrected by hardware/firmware.",
+                "Fatal": "Fatal, system-affecting error.",
+                "NonFatal": "Non-fatal error; system continues to operate."
+            },
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "AMD",
+    "release": "2026.05",
+    "title": "#AmdLogEntry.v1_0_0.AmdLogEntry"
+}

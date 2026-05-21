@@ -1,0 +1,11 @@
+{
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/amd/json-schema/AmdLogEntry.json",
+    "$ref": "#/definitions/AmdLogEntry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2026 Advanced Micro Devices, Inc.",
+    "definitions": {},
+    "language": "en",
+    "owningEntity": "AMD",
+    "release": "2026.05",
+    "title": "#AmdLogEntry.v1_0_0.AmdLogEntry"
+}
