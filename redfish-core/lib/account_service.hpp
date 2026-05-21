@@ -867,6 +867,13 @@ inline void handleAuthMethodsPatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const AuthMethods& auth)
 {
+    // No auth-method fields were requested in PATCH.
+    if (!auth.basicAuth && !auth.cookie && !auth.sessionToken && !auth.xToken &&
+        !auth.tls)
+    {
+        return;
+    }
+
     persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
@@ -946,7 +953,10 @@ inline void handleAuthMethodsPatch(
     // Save configuration immediately
     persistent_data::getConfig().writeData();
 
-    messages::success(asyncResp->res);
+    if (asyncResp->res.result() == boost::beast::http::status::ok)
+    {
+        asyncResp->res.result(boost::beast::http::status::no_content);
+    }
 }
 
 /**
@@ -1629,8 +1639,9 @@ inline void handleAccountServicePatch(
         }
         else
         {
-            messages::propertyValueNotInList(asyncResp->res, "HttpBasicAuth",
+            messages::propertyValueNotInList(asyncResp->res, "HTTPBasicAuth",
                                              *httpBasicAuth);
+            return;
         }
     }
 
@@ -1638,12 +1649,20 @@ inline void handleAccountServicePatch(
     {
         handleRespondToUnauthenticatedClientsPatch(
             app, req, asyncResp->res, *respondToUnauthenticatedClients);
+        if (asyncResp->res.result() != boost::beast::http::status::ok)
+        {
+            return;
+        }
     }
 
     if (certificateMappingAttribute)
     {
         handleCertificateMappingAttributePatch(asyncResp->res,
                                                *certificateMappingAttribute);
+        if (asyncResp->res.result() != boost::beast::http::status::ok)
+        {
+            return;
+        }
     }
 
     if (minPasswordLength)
@@ -1658,6 +1677,7 @@ inline void handleAccountServicePatch(
     if (maxPasswordLength)
     {
         messages::propertyNotWritable(asyncResp->res, "MaxPasswordLength");
+        return;
     }
 
     handleLDAPPatch(std::move(activeDirectoryObject), asyncResp,
