@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af5cda3_e646bb49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-05-21T14:59:15Z",
+      "side": 1,
+      "message": "nit: add a link to the document.",
+      "revId": "141443d1912fd5aecf26457d58f5d858f3bd5a1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2e1f560_e346067d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-05-21T14:59:15Z",
+      "side": 1,
+      "message": "I would prefer this not to be called \"handle*\". Afaik handle terminology is used as a top-level function name for the actual request handler. Maybe `getRelatedItemFromAssociation`?",
+      "revId": "141443d1912fd5aecf26457d58f5d858f3bd5a1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e42a471c_0d4b3f7c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-05-21T14:59:15Z",
+      "side": 1,
+      "message": "Why is this a Chassis URI by default? PDI documents the association between any Inventory.Item, not only chassis. This does not seem to be right?",
+      "revId": "141443d1912fd5aecf26457d58f5d858f3bd5a1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
