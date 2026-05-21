@@ -67,6 +67,24 @@
       "message": "This comment doesn’t seem right (LLM?)\nPatch looks correct though.  Just remove the comment for now.",
       "revId": "c73476610058cb533af0f2ec637f9eaba3d4f5c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05bb326e_e2f9c4e7",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-05-21T21:18:02Z",
+      "side": 1,
+      "message": "fixed.\n\n\nRegarding LLM: Nope, just three hours of sleep and not enough coffee when I wrote this (main intent was to explain why this check exists.)\n\nLLM code would\u0027ve been marked with `Assisted-by` in the commit message.",
+      "parentUuid": "2f419858_e0977e43",
+      "revId": "c73476610058cb533af0f2ec637f9eaba3d4f5c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
