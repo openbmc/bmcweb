@@ -867,6 +867,13 @@ inline void handleAuthMethodsPatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const AuthMethods& auth)
 {
+    // No auth-method fields were requested in PATCH.
+    if (!auth.basicAuth && !auth.cookie && !auth.sessionToken && !auth.xToken &&
+        !auth.tls)
+    {
+        return;
+    }
+
     persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
