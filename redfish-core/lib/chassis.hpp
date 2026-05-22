@@ -414,6 +414,27 @@ inline void getChassisLocationCode(
         });
 }
 
+inline void getChassisSKU(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& connectionName,
+                          const std::string& path)
+{
+    dbus::utility::getProperty<std::string>(
+        connectionName, path, "xyz.openbmc_project.Inventory.Decorator.SKU",
+        "SKU",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& sku) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error for SKU");
+                return;
+            }
+            if (!sku.empty())
+            {
+                asyncResp->res.jsonValue["SKU"] = sku;
+            }
+        });
+}
+
 inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& connectionName,
                            const std::string& path)
@@ -523,6 +544,12 @@ inline void handleChassisDeviceDaemonOwners(
                 "xyz.openbmc_project.Inventory.Decorator.PowerBounds",
                 std::bind_front(handleChassisPowerBoundsProperties, asyncResp));
         }
+        if (std::ranges::find(interfaces,
+                              "xyz.openbmc_project.Inventory.Decorator.SKU") !=
+            interfaces.end())
+        {
+            getChassisSKU(asyncResp, service, path);
+        }
     }
 }
 
@@ -538,7 +565,8 @@ inline void getChassisDeviceDaemonProperties(
     // path so any such daemon-published interface is picked up.
     constexpr auto daemonInterfaces = std::to_array<std::string_view>(
         {"xyz.openbmc_project.Common.UUID",
-         "xyz.openbmc_project.Inventory.Decorator.PowerBounds"});
+         "xyz.openbmc_project.Inventory.Decorator.PowerBounds",
+         "xyz.openbmc_project.Inventory.Decorator.SKU"});
     dbus::utility::getDbusObject(
         path, daemonInterfaces,
         std::bind_front(handleChassisDeviceDaemonOwners, asyncResp, path));
