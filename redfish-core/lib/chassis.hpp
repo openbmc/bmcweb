@@ -23,6 +23,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -791,6 +792,14 @@ inline void handleChassisGetSubTree(
             else if (interface == locationCodeInterface)
             {
                 getChassisLocationCode(asyncResp, connectionName, path);
+            }
+            else if (auto locationType =
+                         location_util::getLocationType(interface);
+                     locationType.has_value())
+            {
+                asyncResp->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    *locationType;
             }
         }
 
