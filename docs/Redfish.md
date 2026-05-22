@@ -242,6 +242,7 @@ Fields common to all schemas
 - PhysicalSecurity
 - Sensors
 - SerialNumber
+- SKU
 - SparePartNumber
 - Status
 - Thermal
