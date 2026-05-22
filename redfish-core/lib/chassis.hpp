@@ -412,6 +412,27 @@ inline void getChassisLocationCode(
         });
 }
 
+inline void getChassisSKU(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& connectionName,
+                          const std::string& path)
+{
+    dbus::utility::getProperty<std::string>(
+        connectionName, path, "xyz.openbmc_project.Inventory.Decorator.SKU",
+        "SKU",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& sku) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error for SKU");
+                return;
+            }
+            if (!sku.empty())
+            {
+                asyncResp->res.jsonValue["SKU"] = sku;
+            }
+        });
+}
+
 inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& connectionName,
                            const std::string& path)
@@ -701,13 +722,15 @@ inline void handleChassisGetSubTree(
                 handleChassisProperties(asyncResp, propertiesList);
             });
 
-        // Common.UUID and Control.Power.Cap may be contributed by a
-        // secondary service (e.g. a device daemon) on the same chassis
-        // path. Run a separate mapper query scoped to this path so the
-        // main chassis-discovery getSubTree above stays unchanged.
-        constexpr std::array<std::string_view, 2> extraInterfaces = {
+        // Common.UUID, Control.Power.Cap and Decorator.SKU may be
+        // contributed by a secondary service (e.g. a device daemon) on
+        // the same chassis path. Run a separate mapper query scoped to
+        // this path so the main chassis-discovery getSubTree above
+        // stays unchanged.
+        constexpr std::array<std::string_view, 3> extraInterfaces = {
             "xyz.openbmc_project.Common.UUID",
-            "xyz.openbmc_project.Control.Power.Cap"};
+            "xyz.openbmc_project.Control.Power.Cap",
+            "xyz.openbmc_project.Inventory.Decorator.SKU"};
         dbus::utility::getDbusObject(
             path, extraInterfaces,
             [asyncResp,
@@ -757,6 +780,13 @@ inline void handleChassisGetSubTree(
                                         static_cast<double>(*maxCap);
                                 }
                             });
+                    }
+                    if (std::ranges::find(
+                            extraIfaces,
+                            "xyz.openbmc_project.Inventory.Decorator.SKU") !=
+                        extraIfaces.end())
+                    {
+                        getChassisSKU(asyncResp, extraService, path);
                     }
                 }
             });
