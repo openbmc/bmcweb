@@ -414,6 +414,27 @@ inline void getChassisLocationCode(
         });
 }
 
+inline void getChassisSKU(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& connectionName,
+                          const std::string& path)
+{
+    dbus::utility::getProperty<std::string>(
+        connectionName, path, "xyz.openbmc_project.Inventory.Decorator.SKU",
+        "SKU",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& sku) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error for SKU");
+                return;
+            }
+            if (!sku.empty())
+            {
+                asyncResp->res.jsonValue["SKU"] = sku;
+            }
+        });
+}
+
 inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& connectionName,
                            const std::string& path)
@@ -506,6 +527,12 @@ inline void handleChassisDeviceDaemonOwners(
                 "xyz.openbmc_project.Inventory.Item.Accelerator",
                 std::bind_front(handleChassisAcceleratorProperties, asyncResp));
         }
+        if (std::ranges::find(interfaces,
+                              "xyz.openbmc_project.Inventory.Decorator.SKU") !=
+            interfaces.end())
+        {
+            getChassisSKU(asyncResp, service, path);
+        }
     }
 }
 
@@ -519,9 +546,10 @@ inline void getChassisDeviceDaemonProperties(
     // (Item.Board / Item.Chassis) that the main chassis discovery filters
     // on. Issue an extra mapper query scoped to this chassis path so any
     // such daemon-published interface is picked up.
-    constexpr std::array<std::string_view, 2> daemonInterfaces = {
+    constexpr std::array<std::string_view, 3> daemonInterfaces = {
         "xyz.openbmc_project.Common.UUID",
-        "xyz.openbmc_project.Inventory.Item.Accelerator"};
+        "xyz.openbmc_project.Inventory.Item.Accelerator",
+        "xyz.openbmc_project.Inventory.Decorator.SKU"};
     dbus::utility::getDbusObject(
         path, daemonInterfaces,
         std::bind_front(handleChassisDeviceDaemonOwners, asyncResp, path));
