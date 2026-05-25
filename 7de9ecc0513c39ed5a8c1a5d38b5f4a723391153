@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dc24677_4d8ef497",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-25T09:30:55Z",
+      "side": 1,
+      "message": "Please split into afterXXX + std::bind_front.\nNested lambda violates COMMON_ERRORS.md §14:\nhttps://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 68
+      },
+      "revId": "7de9ecc0513c39ed5a8c1a5d38b5f4a723391153",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
