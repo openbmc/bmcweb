@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4927740_f6602dec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:41:48Z",
+      "side": 1,
+      "message": "Redfish has https://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.v1_6_0.json \n\nFrom https://redfish.dmtf.org/redfish/mockups/v1/1819\n```\n\"PowerWatts\":view details {\n  \"Reading\":view details 374,\n  \"DataSourceUri\":view details \"/redfish/v1/Chassis/1U/Sensors/TotalPower\"} ,\n\"PowerLimitWatts\":view details {\n  \"SetPoint\":view details 500,\n  \"AllowableMax\":view details 1000,\n  \"AllowableMin\":view details 150,\n  \"ControlMode\":view details \"Automatic\",\n  \"DataSourceUri\":view details \"/redfish/v1/Chassis/1U/Controls/PowerLimit\"} ,\n```\n\nIs there any advice from Redfish on when to use MinPowerWatts / MaxPowerWatts here and when to use EnvironmentMetrics ?",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 24
+      },
+      "revId": "9d7b007b3bbf98613595ea417262bcfe8452b3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd7c6df9_d51073ad",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:41:48Z",
+      "side": 1,
+      "message": "ChassisUUID is already called here..?",
+      "revId": "9d7b007b3bbf98613595ea417262bcfe8452b3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9dd77b7_dd82c295",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:41:48Z",
+      "side": 1,
+      "message": "Can this be a separate function ?",
+      "range": {
+        "startLine": 733,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 21
+      },
+      "revId": "9d7b007b3bbf98613595ea417262bcfe8452b3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
