@@ -544,49 +544,50 @@ inline void afterGetControlProcessorProperties(
     }
 }
 
-inline void afterGetControlProcessorAssociation(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& objectPath, const boost::system::error_code& ec,
+// Resolves a processor's Control.OperatingClockSpeed object by walking the
+// controlled_by association. Shared by the GET and PATCH paths, so the
+// outcome is delivered to the callback as a boost::system::error_code that
+// each caller maps to its own Redfish error:
+//   - (no error)          : found; service and controlPath are valid
+//   - EBADR               : controlled_by association/object not present
+//   - errc::io_error      : association resolved but no Control object found
+//   - errc::protocol_error: more than one Control object found (ambiguous)
+inline void afterGetProcessorControlSpeedObject(
+    const std::function<void(const boost::system::error_code& ec,
+                             const std::optional<std::string>& service,
+                             const std::optional<std::string>& controlPath)>&
+        callback,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
     {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("GetAssociatedSubTree error for controlled_by: {}",
-                             ec);
-            messages::internalError(asyncResp->res);
-        }
+        callback(ec, std::nullopt, std::nullopt);
         return;
     }
-
     if (subtree.empty() || subtree.front().second.empty())
     {
+        callback(
+            boost::system::errc::make_error_code(boost::system::errc::io_error),
+            std::nullopt, std::nullopt);
         return;
     }
-
     if (subtree.size() > 1)
     {
-        BMCWEB_LOG_ERROR(
-            "More than one Control.OperatingClockSpeed object in controlled_by association");
-        messages::internalError(asyncResp->res);
+        callback(boost::system::errc::make_error_code(
+                     boost::system::errc::protocol_error),
+                 std::nullopt, std::nullopt);
         return;
     }
-
-    const auto& [controlPath, serviceMap] = subtree.front();
-    const std::string& controlService = serviceMap.front().first;
-
-    dbus::utility::getAllProperties(
-        controlService, controlPath,
-        "xyz.openbmc_project.Control.OperatingClockSpeed",
-        std::bind_front(afterGetControlProcessorProperties, asyncResp));
-
-    getProcessorClockLimitDataSourceUri(asyncResp, objectPath);
+    callback(ec, subtree.front().second.front().first, subtree.front().first);
 }
 
-inline void getProcessorControlSpeedProperties(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& objectPath)
+inline void getProcessorControlSpeedObject(
+    const std::string& objectPath,
+    std::function<void(const boost::system::error_code& ec,
+                       const std::optional<std::string>& service,
+                       const std::optional<std::string>& controlPath)>
+        callback)
 {
     constexpr std::array<std::string_view, 1> controlClockSpeedIface = {
         "xyz.openbmc_project.Control.OperatingClockSpeed"};
@@ -595,8 +596,113 @@ inline void getProcessorControlSpeedProperties(
         sdbusplus::object_path(objectPath) / "controlled_by",
         sdbusplus::object_path("/xyz/openbmc_project/control"), 0,
         controlClockSpeedIface,
-        std::bind_front(afterGetControlProcessorAssociation, asyncResp,
-                        objectPath));
+        std::bind_front(afterGetProcessorControlSpeedObject,
+                        std::move(callback)));
+}
+
+inline void getProcessorControlSpeedData(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath, const boost::system::error_code& ec,
+    const std::optional<std::string>& controlService,
+    const std::optional<std::string>& controlPath)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            // No associated Control.OperatingClockSpeed for this processor.
+            return;
+        }
+        if (ec == boost::system::errc::protocol_error)
+        {
+            BMCWEB_LOG_ERROR(
+                "More than one Control.OperatingClockSpeed object in controlled_by association");
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR("GetAssociatedSubTree error for controlled_by: {}",
+                             ec);
+        }
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Past the error check the lookup guarantees a valid service + path;
+    // assert it so the optional dereferences below are checked.
+    if (!controlService || !controlPath)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    dbus::utility::getAllProperties(
+        *controlService, *controlPath,
+        "xyz.openbmc_project.Control.OperatingClockSpeed",
+        std::bind_front(afterGetControlProcessorProperties, asyncResp));
+
+    getProcessorClockLimitDataSourceUri(asyncResp, objectPath);
+}
+
+inline void setOperatingClockSpeed(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::optional<uint64_t> requestedMinHz,
+    std::optional<uint64_t> requestedMaxHz,
+    const std::optional<std::string>& minRedfishPropertyName,
+    const std::optional<std::string>& maxRedfishPropertyName,
+    const boost::system::error_code& ec,
+    const std::optional<std::string>& controlService,
+    const std::optional<std::string>& controlPath)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            // The processor exists but has no associated
+            // Control.OperatingClockSpeed object, so the clock-speed
+            // property the client tried to set is not supported here.
+            BMCWEB_LOG_WARNING(
+                "Processor has no associated Control.OperatingClockSpeed");
+            messages::propertyUnknown(asyncResp->res,
+                                      minRedfishPropertyName.value_or(
+                                          maxRedfishPropertyName.value_or("")));
+            return;
+        }
+        if (ec == boost::system::errc::protocol_error)
+        {
+            BMCWEB_LOG_ERROR(
+                "More than one Control.OperatingClockSpeed object in controlled_by association");
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR("GetAssociatedSubTree error for controlled_by: {}",
+                             ec);
+        }
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Past the error check the lookup guarantees a valid service + path;
+    // assert it so the optional dereferences below are checked.
+    if (!controlService || !controlPath)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (requestedMinHz && minRedfishPropertyName)
+    {
+        setDbusProperty(asyncResp, *minRedfishPropertyName, *controlService,
+                        sdbusplus::object_path(*controlPath),
+                        "xyz.openbmc_project.Control.OperatingClockSpeed",
+                        "RequestedSpeedLimitMinHz", *requestedMinHz);
+    }
+    if (requestedMaxHz && maxRedfishPropertyName)
+    {
+        setDbusProperty(asyncResp, *maxRedfishPropertyName, *controlService,
+                        sdbusplus::object_path(*controlPath),
+                        "xyz.openbmc_project.Control.OperatingClockSpeed",
+                        "RequestedSpeedLimitMaxHz", *requestedMaxHz);
+    }
 }
 
 inline void afterGetMetricValueProperties(
@@ -1201,7 +1307,9 @@ inline void getProcessorData(
             {
                 getAcceleratorDataByService(asyncResp, processorId, serviceName,
                                             objectPath);
-                getProcessorControlSpeedProperties(asyncResp, objectPath);
+                getProcessorControlSpeedObject(
+                    objectPath, std::bind_front(getProcessorControlSpeedData,
+                                                asyncResp, objectPath));
                 getOperatingFrequencyMetric(asyncResp, objectPath);
             }
             else if (
@@ -1362,7 +1470,12 @@ inline void doPatchProcessor(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
     const std::optional<boost::urls::url>& appliedConfigUri,
-    std::optional<bool> locationIndicatorActive, const std::string& objectPath,
+    std::optional<bool> locationIndicatorActive,
+    std::optional<uint64_t> requestedSpeedLimitMinHz,
+    std::optional<uint64_t> requestedSpeedLimitMaxHz,
+    std::optional<std::string> minRedfishPropertyName,
+    std::optional<std::string> maxRedfishPropertyName,
+    const std::string& objectPath,
     const dbus::utility::MapperServiceMap& serviceMap)
 {
     if (appliedConfigUri)
@@ -1376,6 +1489,16 @@ inline void doPatchProcessor(
         // Utility function handles reporting errors
         setLocationIndicatorActive(asyncResp, objectPath,
                                    *locationIndicatorActive);
+    }
+
+    if (requestedSpeedLimitMinHz || requestedSpeedLimitMaxHz)
+    {
+        getProcessorControlSpeedObject(
+            objectPath,
+            std::bind_front(setOperatingClockSpeed, asyncResp,
+                            requestedSpeedLimitMinHz, requestedSpeedLimitMaxHz,
+                            std::move(minRedfishPropertyName),
+                            std::move(maxRedfishPropertyName)));
     }
 }
 
@@ -1404,10 +1527,16 @@ inline void handleProcessorPatch(
 
     std::optional<std::string> appliedConfigStr;
     std::optional<bool> locationIndicatorActive;
+    std::optional<uint64_t> speedLimitMHz;
+    std::optional<bool> speedLocked;
+    std::optional<nlohmann::json::object_t> operatingSpeedRange;
     if (!json_util::readJsonPatch(
             req, asyncResp->res,                                  //
             "AppliedOperatingConfig/@odata.id", appliedConfigStr, //
-            "LocationIndicatorActive", locationIndicatorActive    //
+            "LocationIndicatorActive", locationIndicatorActive,   //
+            "SpeedLimitMHz", speedLimitMHz,                       //
+            "SpeedLocked", speedLocked,                           //
+            "OperatingSpeedRangeMHz", operatingSpeedRange         //
             ))
     {
         return;
@@ -1426,12 +1555,83 @@ inline void handleProcessorPatch(
         appliedConfigUri = std::move(*parsed);
     }
 
+    std::optional<uint64_t> settingMinMHz;
+    std::optional<uint64_t> settingMaxMHz;
+    if (operatingSpeedRange)
+    {
+        if (!json_util::readJsonObject(*operatingSpeedRange, asyncResp->res, //
+                                       "SettingMin", settingMinMHz,          //
+                                       "SettingMax", settingMaxMHz           //
+                                       ))
+        {
+            return;
+        }
+    }
+
+    const bool hasLockGroup = speedLimitMHz || speedLocked;
+    const bool hasRangeGroup = settingMinMHz || settingMaxMHz;
+
+    if (hasLockGroup && hasRangeGroup)
+    {
+        messages::propertyValueConflict(asyncResp->res, "SpeedLimitMHz",
+                                        "OperatingSpeedRangeMHz");
+        return;
+    }
+
+    std::optional<uint64_t> requestedSpeedLimitMinHz;
+    std::optional<uint64_t> requestedSpeedLimitMaxHz;
+    std::optional<std::string> minRedfishPropertyName;
+    std::optional<std::string> maxRedfishPropertyName;
+
+    if (hasLockGroup)
+    {
+        if (!speedLimitMHz || !speedLocked)
+        {
+            messages::propertyMissing(
+                asyncResp->res,
+                !speedLimitMHz ? "SpeedLimitMHz" : "SpeedLocked");
+            return;
+        }
+        const uint64_t limitHz = *speedLimitMHz * hzPerMhz;
+        if (*speedLocked)
+        {
+            // Lock at the requested limit: write Min = Max = limit.
+            requestedSpeedLimitMinHz = limitHz;
+            requestedSpeedLimitMaxHz = limitHz;
+            minRedfishPropertyName = "SpeedLimitMHz";
+            maxRedfishPropertyName = "SpeedLimitMHz";
+        }
+        else
+        {
+            // Unlock with new max: write only Max; the daemon fills Min from
+            // the cached request or hardware MIN_GRAPHICS_CLOCK_LIMIT.
+            requestedSpeedLimitMaxHz = limitHz;
+            maxRedfishPropertyName = "SpeedLimitMHz";
+        }
+    }
+    else if (hasRangeGroup)
+    {
+        if (settingMinMHz)
+        {
+            requestedSpeedLimitMinHz = *settingMinMHz * hzPerMhz;
+            minRedfishPropertyName = "OperatingSpeedRangeMHz/SettingMin";
+        }
+        if (settingMaxMHz)
+        {
+            requestedSpeedLimitMaxHz = *settingMaxMHz * hzPerMhz;
+            maxRedfishPropertyName = "OperatingSpeedRangeMHz/SettingMax";
+        }
+    }
+
     // Check for 404 and find matching D-Bus object, then run
     // property patch handlers if that all succeeds.
     getProcessorObject(
         asyncResp, processorId,
         std::bind_front(doPatchProcessor, asyncResp, processorId,
-                        appliedConfigUri, locationIndicatorActive));
+                        appliedConfigUri, locationIndicatorActive,
+                        requestedSpeedLimitMinHz, requestedSpeedLimitMaxHz,
+                        std::move(minRedfishPropertyName),
+                        std::move(maxRedfishPropertyName)));
 }
 
 inline void handleProcessorCollectionGet(
