@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5a93ed4_e296dc0a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-25T16:04:17Z",
+      "side": 1,
+      "message": "Most paths in processor.hpp (and bmcweb in general) use `const std::string\u0026` for D-Bus object paths. Keeping consistent with that here — happy to revisit if you feel strongly about it.",
+      "parentUuid": "ff771f4c_f798e1e8",
+      "range": {
+        "startLine": 402,
+        "startChar": 4,
+        "endLine": 402,
+        "endChar": 33
+      },
+      "revId": "5b1a62683b1eb63fca9bd9ccf99aa03256a0b2da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fae4e3e3_0f7dd81d",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-05-25T11:05:27Z",
       "side": 1,
       "message": "Consider to use `sdbusplus::object_path` instead of `std::string`",
+      "range": {
+        "startLine": 471,
+        "startChar": 4,
+        "endLine": 471,
+        "endChar": 33
+      },
+      "revId": "5b1a62683b1eb63fca9bd9ccf99aa03256a0b2da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f152b8a_42e47cd8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-25T16:04:17Z",
+      "side": 1,
+      "message": "Most paths in processor.hpp (and bmcweb in general) use `const std::string\u0026` for D-Bus object paths. Keeping consistent with that here — happy to revisit if you feel strongly about it.",
+      "parentUuid": "fae4e3e3_0f7dd81d",
       "range": {
         "startLine": 471,
         "startChar": 4,
