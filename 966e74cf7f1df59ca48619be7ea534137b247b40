@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73dee2b4_b3246e06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:28:12Z",
+      "side": 1,
+      "message": "This looks like LLM code more than OpenBMC/bmcweb work. \nIt needs a lot of work before merging.",
+      "revId": "966e74cf7f1df59ca48619be7ea534137b247b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61aea949_cf96e0f1",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:28:12Z",
+      "side": 1,
+      "message": "What is SessionManager? Why nothing in your commit msg?",
+      "revId": "966e74cf7f1df59ca48619be7ea534137b247b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662459df_ceeadd71",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:28:12Z",
+      "side": 1,
+      "message": "Where is the PDI for this \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fphosphor-dbus-interfaces%20SessionManager\u0026type\u003dcode ?",
+      "revId": "966e74cf7f1df59ca48619be7ea534137b247b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94793d32_e9730a4e",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:28:12Z",
+      "side": 1,
+      "message": "That is an interesting comment",
+      "revId": "966e74cf7f1df59ca48619be7ea534137b247b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
