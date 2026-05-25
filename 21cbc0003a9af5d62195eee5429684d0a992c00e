@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9bc65406_8d77c6b1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:21:12Z",
+      "side": 0,
+      "message": "You are removing \n    \"/xyz/openbmc_project/sensors/voltage\",\n\nwhy?",
+      "parentUuid": "ed524476_83c71b0f",
+      "revId": "21cbc0003a9af5d62195eee5429684d0a992c00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff47d0c2_46d93e16",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
