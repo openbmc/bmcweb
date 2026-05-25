@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "105d5444_7e015425",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:16:34Z",
+      "side": 1,
+      "message": "I think you need more changes here.. Because below will still give a Success message and PropertyNotWritable\n```\n{\n  \"MaxPasswordLength\": 30,\n  \"Oem\": {\n    \"OpenBMC\": {\n      \"AuthMethods\": {\n        \"BasicAuth\": true\n      }\n    }\n  }\n}\n```",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d8bd62c_074eb7da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:16:34Z",
+      "side": 1,
+      "message": "So the Success here is wrong, but there has always been some discussion on what happens on a partial success.. I vote we just return if we have an error",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "050ac057_d781c2f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:16:34Z",
+      "side": 1,
+      "message": "Legit problem",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f49f40d9_cca69067",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:16:34Z",
+      "side": 1,
+      "message": "We have this for LDAP, I am okay with this but I don\u0027t think this is enough",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd36a555_b4a5b5cb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:16:34Z",
+      "side": 1,
+      "message": "Do we need the success ?",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3bd3149_d25d6dfa",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:16:34Z",
+      "side": 1,
+      "message": "Maybe a return here too ?",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b3e8e6c_26d290c8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1667,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:16:34Z",
+      "side": 1,
+      "message": "I think you need a return here",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
