@@ -16,7 +16,9 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/fan_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/sensor_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -489,26 +491,6 @@ inline void getPowerLimitWatts(
                         callback));
 }
 
-inline void afterGetProcessorForEnvMetrics(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& processorId, const std::string& objectPath,
-    const std::function<void(const std::string& service,
-                             const std::string& controlPath)>& callback)
-{
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#EnvironmentMetrics.v1_3_0.EnvironmentMetrics";
-    asyncResp->res.jsonValue["Name"] = "Processor Environment Metrics";
-    asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Processors/{}/EnvironmentMetrics",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
-
-    getPowerLimitWatts(asyncResp, objectPath, callback);
-}
-
 inline void handleProcessorEnvMetricsSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
@@ -532,8 +514,7 @@ inline void handleProcessorEnvMetricsSubtree(
             continue;
         }
 
-        afterGetProcessorForEnvMetrics(asyncResp, processorId, objectPath,
-                                       callback);
+        getPowerLimitWatts(asyncResp, objectPath, callback);
         return;
     }
 
@@ -615,9 +596,107 @@ inline void handleProcessorEnvironmentMetricsGet(
         return;
     }
 
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#EnvironmentMetrics.v1_3_0.EnvironmentMetrics";
+    asyncResp->res.jsonValue["Name"] = "Processor Environment Metrics";
+    asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors/{}/EnvironmentMetrics",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+
     getProcessorForEnvMetrics(
         asyncResp, processorId,
         std::bind_front(getPowerCapFromControl, asyncResp));
+}
+
+inline void doPatchPowerLimitWatts(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::optional<bool>& powerCapEnable,
+    const std::optional<uint32_t>& setPoint, const std::string& service,
+    const std::string& controlPath)
+{
+    if (setPoint)
+    {
+        setDbusProperty(asyncResp, "PowerLimitWatts/SetPoint", service,
+                        sdbusplus::object_path(controlPath),
+                        "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
+                        *setPoint);
+    }
+
+    if (powerCapEnable)
+    {
+        setDbusProperty(asyncResp, "PowerLimitWatts/ControlMode", service,
+                        sdbusplus::object_path(controlPath),
+                        "xyz.openbmc_project.Control.Power.Cap",
+                        "PowerCapEnable", *powerCapEnable);
+    }
+}
+
+inline void handleProcessorEnvironmentMetricsPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems. TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::optional<std::string> controlMode;
+    std::optional<uint32_t> setPoint;
+    if (!json_util::readJsonPatch(                      //
+            req, asyncResp->res,                        //
+            "PowerLimitWatts/ControlMode", controlMode, //
+            "PowerLimitWatts/SetPoint", setPoint))
+    {
+        return;
+    }
+
+    if (!controlMode && !setPoint)
+    {
+        return;
+    }
+
+    std::optional<bool> powerCapEnable;
+    if (controlMode)
+    {
+        if (*controlMode == "Disabled")
+        {
+            powerCapEnable = false;
+        }
+        else if (*controlMode == "Automatic" || *controlMode == "Manual" ||
+                 *controlMode == "Override")
+        {
+            powerCapEnable = true;
+        }
+        else
+        {
+            messages::propertyValueNotInList(asyncResp->res, *controlMode,
+                                             "PowerLimitWatts/ControlMode");
+            return;
+        }
+    }
+
+    getProcessorForEnvMetrics(asyncResp, processorId,
+                              std::bind_front(doPatchPowerLimitWatts, asyncResp,
+                                              powerCapEnable, setPoint));
 }
 
 inline void requestRoutesEnvironmentMetrics(App& app)
@@ -643,6 +722,13 @@ inline void requestRoutesEnvironmentMetrics(App& app)
         .privileges(redfish::privileges::getEnvironmentMetrics)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleProcessorEnvironmentMetricsGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/<str>/Processors/<str>/EnvironmentMetrics/")
+        .privileges(
+            redfish::privileges::patchEnvironmentMetricsSubOverProcessor)
+        .methods(boost::beast::http::verb::patch)(std::bind_front(
+            handleProcessorEnvironmentMetricsPatch, std::ref(app)));
 }
 
 } // namespace redfish
