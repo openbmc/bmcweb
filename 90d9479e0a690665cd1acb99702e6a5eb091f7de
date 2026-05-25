@@ -16,6 +16,24 @@
       "message": "could we change it topic also to https://gerrit.openbmc.org/q/topic:%22GPU_MemorySummary_ECC%22, because it makes it easier for us to review, and there are no other patches for this topic.",
       "revId": "90d9479e0a690665cd1acb99702e6a5eb091f7de",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "506c8cef_8ab5c9a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-25T23:49:21Z",
+      "side": 1,
+      "message": "Done, thanks",
+      "parentUuid": "b62b6d0d_640a47b0",
+      "revId": "90d9479e0a690665cd1acb99702e6a5eb091f7de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
