@@ -757,6 +757,55 @@ inline void handleEnvironmentMetricsPatch(
                         setPoint, controlMode));
 }
 
+inline void handleProcessorEnvironmentMetricsPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems. TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::optional<uint32_t> setPoint;
+    std::optional<std::string> controlMode;
+    if (!json_util::readJsonPatch(                      //
+            req, asyncResp->res,                        //
+            "PowerLimitWatts/ControlMode", controlMode, //
+            "PowerLimitWatts/SetPoint", setPoint        //
+            ))
+    {
+        return;
+    }
+
+    if (!setPoint && !controlMode)
+    {
+        return;
+    }
+
+    getProcessorForEnvMetrics(
+        asyncResp, processorId,
+        [asyncResp, setPoint, controlMode](const std::string& objectPath) {
+            getPowerCapObject(asyncResp, objectPath,
+                              std::bind_front(setPowerLimitWatts, asyncResp,
+                                              setPoint, controlMode));
+        });
+}
+
 inline void requestRoutesEnvironmentMetrics(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
@@ -785,6 +834,13 @@ inline void requestRoutesEnvironmentMetrics(App& app)
         .privileges(redfish::privileges::getEnvironmentMetrics)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleProcessorEnvironmentMetricsGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/<str>/Processors/<str>/EnvironmentMetrics/")
+        .privileges(
+            redfish::privileges::patchEnvironmentMetricsSubOverProcessor)
+        .methods(boost::beast::http::verb::patch)(std::bind_front(
+            handleProcessorEnvironmentMetricsPatch, std::ref(app)));
 }
 
 } // namespace redfish
