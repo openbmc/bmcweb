@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b78fba1_a645d56c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:18:15Z",
+      "side": 1,
+      "message": "What tools ? Can you help me understand why this is worth the binary hit here ?",
+      "parentUuid": "8b075126_028854e1",
+      "revId": "b6a74f2f93dafa1a98914b2c9e2f8093cc97864f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5dc7b2b7_35809ed4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
