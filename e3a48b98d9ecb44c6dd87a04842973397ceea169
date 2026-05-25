@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "154bc267_4d28bf60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:33:20Z",
+      "side": 1,
+      "message": "Thought it would match the UUID code a bit more, but overall I am good",
+      "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80b6a49d_210b07f6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:33:20Z",
+      "side": 1,
+      "message": "You had the interface and then you couldn\u0027t get the property.. IDK, that kind of sounds like an error to me like LocationCode and UUID below",
+      "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56edf976_3ddbf68b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:33:20Z",
+      "side": 1,
+      "message": "You have the SKU interface, if it is empty, do we care? just put it out?",
+      "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9141a8d1_59b07e1f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:33:20Z",
+      "side": 1,
+      "message": "It is interesting these 3 have an exception, oh well",
+      "range": {
+        "startLine": 725,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 59
+      },
+      "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
