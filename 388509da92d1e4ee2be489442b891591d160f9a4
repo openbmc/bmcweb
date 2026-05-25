@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7431f7e0_6da7e31f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:46:06Z",
+      "side": 1,
+      "message": "Not sure I agree hiding all D-Bus errors is best but :shrug:",
+      "range": {
+        "startLine": 17,
+        "startChar": 61,
+        "endLine": 18,
+        "endChar": 4
+      },
+      "revId": "388509da92d1e4ee2be489442b891591d160f9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ac3045_a0531a44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:46:06Z",
+      "side": 1,
+      "message": "Overall I am okay",
+      "revId": "388509da92d1e4ee2be489442b891591d160f9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7694029_bd683284",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:46:06Z",
+      "side": 1,
+      "message": "if (ec)\n            {\n                if (ec.value() !\u003d EBADR)\n                {\n                    BMCWEB_LOG_ERROR(\"DBUS response error for State\");\n                    messages::internalError(asyncResp-\u003eres);\n                }\n                return;\n            } \n\nLike we have for other calls is probably better",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 579,
+        "endChar": 13
+      },
+      "revId": "388509da92d1e4ee2be489442b891591d160f9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf6593c5_188164b7",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-05-25T14:46:06Z",
+      "side": 1,
+      "message": "Have a check for empty since UUID must be in a format ? That comment would be helpful",
+      "revId": "388509da92d1e4ee2be489442b891591d160f9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
