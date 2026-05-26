@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74737834_a1cd9aea",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-26T16:17:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem like it handles the case where a subset of the properties are added?",
+      "parentUuid": "f49f40d9_cca69067",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd36a555_b4a5b5cb",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 4
@@ -82,6 +100,24 @@
       "writtenOn": "2026-05-25T14:16:34Z",
       "side": 1,
       "message": "Do we need the success ?",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24c9ec33_6d1c06b4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-26T16:17:14Z",
+      "side": 1,
+      "message": "we probably need no_content here or in the above?",
+      "parentUuid": "cd36a555_b4a5b5cb",
       "revId": "9d5fce93687682b41649e7ebb850450034055045",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +141,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74f5eb69_3f445a89",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-26T16:17:14Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "f3bd3149_d25d6dfa",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b3e8e6c_26d290c8",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 4
@@ -116,6 +170,24 @@
       "writtenOn": "2026-05-25T14:16:34Z",
       "side": 1,
       "message": "I think you need a return here",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96093d88_b0a299f4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1667,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-26T16:17:14Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5b3e8e6c_26d290c8",
       "revId": "9d5fce93687682b41649e7ebb850450034055045",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
