@@ -33,6 +33,24 @@
       "message": "nit, should be const, it does not mutate the object.",
       "revId": "40a9c6d1e075b99454b120e23626c322a7d9fccf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f1f9774_97b7cd44",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-26T18:10:46Z",
+      "side": 1,
+      "message": "changed to make const.",
+      "parentUuid": "9723e4c2_4fbc5481",
+      "revId": "40a9c6d1e075b99454b120e23626c322a7d9fccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
