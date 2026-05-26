@@ -50,6 +50,24 @@
       "message": "Should we do this outside the branch on line 209, and deduplicate with line 231?",
       "revId": "dde575e4adb1d576fa64114cb5b5314c01e10a16",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f11cb1ea_f857c3e1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-05-26T18:57:01Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "da228c20_652ef24d",
+      "revId": "dde575e4adb1d576fa64114cb5b5314c01e10a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
