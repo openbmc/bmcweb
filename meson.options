@@ -454,6 +454,22 @@ option(
 )
 # end additional ports
 
+# BMCWEB_TLS_PROFILE
+option(
+    'tls-profile',
+    type: 'combo',
+    choices: ['modern', 'intermediate'],
+    value: 'modern',
+    description: '''Selects the Mozilla TLS configuration profile applied to
+                    the server and outbound client TLS contexts.  See
+                    https://ssl-config.mozilla.org/ for the underlying
+                    guidelines.
+                    - intermediate: TLS 1.2 + TLS 1.3, the Mozilla
+                      intermediate cipher set.  Broad compatibility.
+                    - modern: TLS 1.3 only, Mozilla modern cipher suites.
+                      Rejects clients that cannot negotiate TLS 1.3.''',
+)
+
 # BMCWEB_DNS_RESOLVER
 option(
     'dns-resolver',
