@@ -990,18 +990,24 @@ class OpenSSLSSLCtx
 
     static OpenSSLSSLCtx createServerCtx()
     {
-        return OpenSSLSSLCtx(SSL_CTX_new(TLS_server_method()));
+        OpenSSLSSLCtx ctx(SSL_CTX_new(TLS_server_method()));
+        ctx.ptrOwned = true;
+        return ctx;
     }
     static OpenSSLSSLCtx createClientCtx()
     {
-        return OpenSSLSSLCtx(SSL_CTX_new(TLS_client_method()));
+        OpenSSLSSLCtx ctx(SSL_CTX_new(TLS_client_method()));
+        ctx.ptrOwned = true;
+        return ctx;
     }
 
     OpenSSLSSLCtx(const OpenSSLSSLCtx&) = delete;
     OpenSSLSSLCtx& operator=(const OpenSSLSSLCtx&) = delete;
-    OpenSSLSSLCtx(OpenSSLSSLCtx&& other) noexcept : ptr(other.ptr)
+    OpenSSLSSLCtx(OpenSSLSSLCtx&& other) noexcept :
+        ptr(other.ptr), ptrOwned(other.ptrOwned)
     {
         other.ptr = nullptr;
+        other.ptrOwned = false;
     }
 
     OpenSSLSSLCtx& operator=(OpenSSLSSLCtx&& other) noexcept
@@ -1013,11 +1019,15 @@ class OpenSSLSSLCtx
         SSL_CTX_free(ptr);
         ptr = other.ptr;
         other.ptr = nullptr;
+        ptrOwned = other.ptrOwned;
         return *this;
     }
     ~OpenSSLSSLCtx()
     {
-        SSL_CTX_free(ptr);
+        if (ptrOwned)
+        {
+            SSL_CTX_free(ptr);
+        }
     }
 
     bool valid() const
@@ -1050,15 +1060,49 @@ class OpenSSLSSLCtx
         return X509_STORE_add_cert(store, cert.get()) == 1;
     }
 
-  private:
-    explicit OpenSSLSSLCtx(SSL_CTX* ptrIn) : ptr(ptrIn) {}
+    bool setCiphersuites(std::string_view ciphersuites)
+    {
+        std::string ciphersuitesStr(ciphersuites);
+        if (SSL_CTX_set_ciphersuites(ptr, ciphersuitesStr.data()) != 1)
+        {
+            BMCWEB_LOG_ERROR("Error setting TLS ciphersuites");
+            return false;
+        }
+        return true;
+    }
 
+    bool setCurves(std::string_view curves)
+    {
+        std::string curvesStr(curves);
+        if (SSL_CTX_set1_curves_list(ptr, curvesStr.data()) != 1)
+        {
+            BMCWEB_LOG_ERROR("Error setting TLS curve list");
+            return false;
+        }
+        return true;
+    }
+
+    bool setCipherList(std::string_view cipherList)
+    {
+        std::string cipherListStr(cipherList);
+        if (SSL_CTX_set_cipher_list(ptr, cipherListStr.data()) != 1)
+        {
+            BMCWEB_LOG_ERROR("Error setting cipher list");
+            return false;
+        }
+        return true;
+    }
+
+    explicit OpenSSLSSLCtx(SSL_CTX* ptrIn) : ptr(ptrIn), ptrOwned(false) {}
+
+  private:
     SSL_CTX* get() const
     {
         return ptr;
     }
 
     SSL_CTX* ptr;
+    bool ptrOwned = true;
 };
 
 class OpenSSLSSL
