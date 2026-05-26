@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "883e68ab_d3cb9a2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-26T20:00:42Z",
+      "side": 1,
+      "message": "????  shared_from_this is already in the bind_front call.",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e5cca2_79e54bc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-26T20:00:42Z",
+      "side": 1,
+      "message": "Overall I don\u0027t understand the change this is making.",
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0791e60_e932fa8f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-26T20:00:42Z",
+      "side": 1,
+      "message": "why did we change this?  Old one looks more correct.",
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
