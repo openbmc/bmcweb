@@ -53,6 +53,7 @@ string_options = [
     'redfish-system-uri-name',
     'redfish-fabric-uri-name',
     'redfish-eventlog-location',
+    'tls-profile',
 ]
 
 int_options = ['http-body-limit', 'watchdog-timeout-seconds']

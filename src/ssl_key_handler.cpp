@@ -48,9 +48,9 @@ extern "C"
 namespace ensuressl
 {
 
-// Mozilla intermediate cipher suites v5.7
+// Mozilla intermediate TLS 1.2 cipher suites v5.7.
 // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
-constexpr const char* mozillaIntermediate =
+constexpr std::string_view mozillaIntermediateCiphers =
     "ECDHE-ECDSA-AES128-GCM-SHA256:"
     "ECDHE-RSA-AES128-GCM-SHA256:"
     "ECDHE-ECDSA-AES256-GCM-SHA384:"
@@ -60,6 +60,16 @@ constexpr const char* mozillaIntermediate =
     "DHE-RSA-AES128-GCM-SHA256:"
     "DHE-RSA-AES256-GCM-SHA384:"
     "DHE-RSA-CHACHA20-POLY1305";
+
+// Mozilla TLS 1.3 ciphersuites v5.7 (identical in the intermediate and modern
+// profiles).
+constexpr std::string_view mozillaModernCiphersuites =
+    "TLS_AES_128_GCM_SHA256:"
+    "TLS_AES_256_GCM_SHA384:"
+    "TLS_CHACHA20_POLY1305_SHA256";
+
+// Mozilla recommended elliptic curve groups v5.7 (shared between profiles).
+constexpr std::string_view mozillaCurves = "X25519:prime256v1:secp384r1";
 
 constexpr std::array<unsigned char, 6> sessionIdContext = {
     'b', 'm', 'c', 'w', 'e', 'b'};
@@ -410,13 +420,19 @@ static int alpnSelectProtoCallback(
 static bool getSslContext(boost::asio::ssl::context& mSslContext,
                           const std::string& sslPemFile)
 {
-    mSslContext.set_options(
+    auto sslOptions =
         boost::asio::ssl::context::default_workarounds |
         boost::asio::ssl::context::no_sslv2 |
         boost::asio::ssl::context::no_sslv3 |
         boost::asio::ssl::context::single_dh_use |
         boost::asio::ssl::context::no_tlsv1 |
-        boost::asio::ssl::context::no_tlsv1_1);
+        boost::asio::ssl::context::no_tlsv1_1;
+    if constexpr (BMCWEB_TLS_PROFILE == "modern")
+    {
+        // Mozilla modern is TLS 1.3 only.
+        sslOptions |= boost::asio::ssl::context::no_tlsv1_2;
+    }
+    mSslContext.set_options(sslOptions);
 
     BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
     mSslContext.add_verify_path(trustStorePath);
@@ -439,12 +455,34 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
         }
     }
 
-    if (SSL_CTX_set_cipher_list(mSslContext.native_handle(),
-                                mozillaIntermediate) != 1)
+    OpenSSLSSLCtx sslCtx(mSslContext.native_handle());
+
+
+    if (!sslCtx.setCurves(mozillaCurves))
     {
-        BMCWEB_LOG_ERROR("Error setting cipher list");
+        BMCWEB_LOG_ERROR("Error setting TLS curve list");
         return false;
     }
+
+    std::string_view cipherList;
+    if constexpr (BMCWEB_TLS_PROFILE == "intermediate")
+    {
+        cipherList = mozillaIntermediateCiphers;
+        if (!sslCtx.setCipherList(cipherList))
+        {
+            return false;
+        }
+    }
+    else
+    {
+        cipherList = mozillaModernCiphersuites;
+        if (!sslCtx.setCiphersuites(mozillaModernCiphersuites))
+        {
+            BMCWEB_LOG_ERROR("Error setting ciphersuites");
+            return false;
+        }
+    }
+
     return true;
 }
 
@@ -562,13 +600,6 @@ std::optional<boost::asio::ssl::context> getSSLClientContext(
     if (ec)
     {
         BMCWEB_LOG_ERROR("SSL context set_verify_mode failed");
-        return std::nullopt;
-    }
-
-    if (SSL_CTX_set_cipher_list(sslCtx.native_handle(), mozillaIntermediate) !=
-        1)
-    {
-        BMCWEB_LOG_ERROR("SSL_CTX_set_cipher_list failed");
         return std::nullopt;
     }
 
