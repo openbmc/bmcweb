@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61d44e03_8a61841b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-26T16:30:32Z",
+      "side": 1,
+      "message": "Hi @gunnar@gmills.xyz This was the initial PR which i raised. I will re-work on this and provided proper documentation. Thank you.",
+      "parentUuid": "60c43447_8bd10195",
+      "revId": "3e0a3cd86426e1e4b6e7e4b88b91198b69a3af25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f31c133_458fe8ef",
         "filename": "/COMMIT_MSG",
         "patchSetId": 17
@@ -31,6 +49,23 @@
       "writtenOn": "2026-05-25T14:21:12Z",
       "side": 1,
       "message": "Tested?",
+      "revId": "3e0a3cd86426e1e4b6e7e4b88b91198b69a3af25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e40c330_d3c0bd2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-26T16:30:32Z",
+      "side": 1,
+      "message": "Going to abandon this change for now, as I plan to rework it and provide proper documentation later. Currently, I am focusing on bug fixes. Thanks",
       "revId": "3e0a3cd86426e1e4b6e7e4b88b91198b69a3af25",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
