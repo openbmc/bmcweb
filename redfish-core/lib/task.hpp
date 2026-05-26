@@ -142,6 +142,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             // destroy all references
             (*last)->timer.cancel();
             (*last)->match.reset();
+            (*last)->loggingMatch.reset();
             tasks.erase(last);
         }
 
@@ -237,6 +238,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     ec = boost::asio::error::operation_aborted;
                 }
                 self->match.reset();
+                self->loggingMatch.reset();
                 sdbusplus::message_t msg;
                 self->finishTask();
                 self->state = "Cancelled";
@@ -332,8 +334,10 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
                     // reset the match after the callback was successful
                     boost::asio::post(
-                        crow::connections::systemBus->get_io_context(),
-                        [self] { self->match.reset(); });
+                        crow::connections::systemBus->get_io_context(), [self] {
+                            self->match.reset();
+                            self->loggingMatch.reset();
+                        });
                     return;
                 }
             });
@@ -342,6 +346,18 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         messages.emplace_back(messages::taskStarted(std::to_string(index)));
         // Send event : TaskStarted
         sendTaskEvent(state, index);
+    }
+
+    void addLoggingMatch(const std::string& loggingMatchStr,
+                         std::function<void(sdbusplus::message_t&,
+                                            const std::shared_ptr<TaskData>&)>
+                             handler)
+    {
+        loggingMatch = std::make_unique<sdbusplus::bus::match_t>(
+            static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
+            loggingMatchStr,
+            [self = shared_from_this(), handler = std::move(handler)](
+                sdbusplus::message_t& message) { handler(message, self); });
     }
 
     std::function<bool(boost::system::error_code, sdbusplus::message_t&,
@@ -355,6 +371,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     nlohmann::json messages;
     boost::asio::steady_timer timer;
     std::unique_ptr<sdbusplus::bus::match_t> match;
+    std::unique_ptr<sdbusplus::bus::match_t> loggingMatch;
     std::optional<std::chrono::system_clock::time_point> endTime;
     std::optional<Payload> payload;
     bool gave204 = false;
