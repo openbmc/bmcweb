@@ -20,6 +20,7 @@
 
 #include <array>
 #include <chrono>
+#include <cstdint>
 #include <format>
 #include <string_view>
 
@@ -267,7 +268,9 @@ static std::string constructX509(const std::string& cn, OpenSSLEVPKey& pPrivKey)
     // number If this is not random, regenerating certs throws browser
     // errors
     bmcweb::OpenSSLGenerator gen;
-    std::uniform_int_distribution<int> dis(1, std::numeric_limits<int>::max());
+    std::uniform_int_distribution<uint64_t> dis(
+        std::numeric_limits<uint64_t>::min(),
+        std::numeric_limits<uint64_t>::max());
     x509Obj.setSerialNumber(dis(gen));
 
     // Cert is valid for 10 years

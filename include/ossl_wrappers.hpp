@@ -660,9 +660,9 @@ class OpenSSLX509
         return X509_set_issuer_name(ptr, X509_get_subject_name(ptr)) == 1;
     }
 
-    void setSerialNumber(long n) const
+    void setSerialNumber(uint64_t n) const
     {
-        ASN1_INTEGER_set(X509_get_serialNumber(ptr), n);
+        ASN1_INTEGER_set_uint64(X509_get_serialNumber(ptr), n);
     }
 
     void setValidityPeriodFromNow(
