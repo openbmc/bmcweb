@@ -23,6 +23,7 @@
 #include "str_utility.hpp"
 #include "task.hpp"
 #include "task_messages.hpp"
+#include "update_messages.hpp"
 #include "utility.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
@@ -87,6 +88,10 @@ static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
 /* @brief String that indicates the Software Update D-Bus interface */
 constexpr const char* updateInterface = "xyz.openbmc_project.Software.Update";
 
+/* @brief String that indicates the Logging Entry D-Bus interface */
+constexpr const char* loggingEntryInterface =
+    "xyz.openbmc_project.Logging.Entry";
+
 struct MemoryFileDescriptor
 {
     int fd = -1;
@@ -146,6 +151,153 @@ inline void activateImage(const std::string& objPath,
         });
 }
 
+inline std::optional<nlohmann::json::object_t> updateEventToTaskMessage(
+    const std::string& messageType,
+    const std::unordered_map<std::string, std::string>& additionalData)
+{
+    auto imageIt = additionalData.find("IMAGE_IDENTIFIER");
+    std::string imageId =
+        (imageIt != additionalData.end()) ? imageIt->second : "";
+    auto targetIt = additionalData.find("TARGET_NAME");
+    std::string targetName =
+        (targetIt != additionalData.end()) ? targetIt->second : "";
+
+    // Convert dbus object path to Redfish FirmwareInventory URI
+    sdbusplus::object_path targetObjPath(targetName);
+    boost::urls::url targetUri =
+        boost::urls::format("/redfish/v1/UpdateService/FirmwareInventory/{}",
+                            targetObjPath.filename());
+
+    if (messageType == "xyz.openbmc_project.Software.Update.VerificationFailed")
+    {
+        return messages::verificationFailed(imageId, targetUri.buffer());
+    }
+    if (messageType == "xyz.openbmc_project.Software.Update.ActivateFailed")
+    {
+        return messages::activateFailed(imageId, targetUri.buffer());
+    }
+    if (messageType ==
+        "xyz.openbmc_project.Software.Update.UpdateNotApplicable")
+    {
+        return messages::updateNotApplicable(imageId, targetUri.buffer());
+    }
+    if (messageType == "xyz.openbmc_project.Software.Update.TargetDetermined")
+    {
+        return messages::targetDetermined(targetUri.buffer(), imageId);
+    }
+    if (messageType == "xyz.openbmc_project.Software.Update.UpdateSuccessful")
+    {
+        return messages::updateSuccessful(targetUri.buffer(), imageId);
+    }
+    return std::nullopt;
+}
+
+inline void processLogEntry(
+    const sdbusplus::object_path& swObjPath,
+    const std::shared_ptr<task::TaskData>& taskData,
+    const std::string& logEntryPath,
+    const dbus::utility::DBusInterfacesMap& interfacesProperties)
+{
+    for (const auto& [iface, properties] : interfacesProperties)
+    {
+        if (iface != loggingEntryInterface)
+        {
+            continue;
+        }
+
+        std::string messageType;
+        std::unordered_map<std::string, std::string> additionalData;
+
+        for (const auto& [key, value] : properties)
+        {
+            if (key == "Message")
+            {
+                const std::string* msg = std::get_if<std::string>(&value);
+                if (msg != nullptr)
+                {
+                    messageType = *msg;
+                }
+            }
+            else if (key == "AdditionalData")
+            {
+                const auto* data =
+                    std::get_if<std::unordered_map<std::string, std::string>>(
+                        &value);
+                if (data != nullptr)
+                {
+                    for (const auto& [k, v] : *data)
+                    {
+                        additionalData[k] = v;
+                    }
+                }
+            }
+        }
+
+        if (messageType.empty())
+        {
+            continue;
+        }
+
+        // Only process events targeting this update's software object
+        auto targetIt = additionalData.find("TARGET_NAME");
+        if (targetIt == additionalData.end() ||
+            targetIt->second != swObjPath.str)
+        {
+            continue;
+        }
+
+        // Dedup against what we have already recorded for this task
+        if (!taskData->processedLogEntries.insert(logEntryPath).second)
+        {
+            continue;
+        }
+
+        auto msg = updateEventToTaskMessage(messageType, additionalData);
+        if (msg)
+        {
+            taskData->messages.emplace_back(std::move(*msg));
+        }
+    }
+}
+
+inline void handleLogEvent(const sdbusplus::object_path& swObjPath,
+                           sdbusplus::message_t& m,
+                           const std::shared_ptr<task::TaskData>& taskData)
+{
+    dbus::utility::DBusInterfacesMap interfacesProperties;
+    sdbusplus::object_path logEntryPath;
+    m.read(logEntryPath, interfacesProperties);
+
+    processLogEntry(swObjPath, taskData, logEntryPath.str,
+                    interfacesProperties);
+}
+
+inline void sweepLogEntriesAndFinish(
+    const sdbusplus::object_path& swObjPath,
+    const std::shared_ptr<task::TaskData>& taskData)
+{
+    crow::connections::systemBus->async_method_call(
+        [swObjPath, taskData](const boost::system::error_code& ec,
+                              const dbus::utility::ManagedObjectType& objects) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "sweepLogEntriesAndFinish: GetManagedObjects failed: {}",
+                    ec.message());
+            }
+            else
+            {
+                for (const auto& [path, interfaces] : objects)
+                {
+                    processLogEntry(swObjPath, taskData, path.str, interfaces);
+                }
+            }
+            taskData->finishTaskAndCleanup();
+        },
+        "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
 inline bool handleCreateTask(const boost::system::error_code& ec2,
                              sdbusplus::message_t& msg,
                              const std::shared_ptr<task::TaskData>& taskData)
@@ -187,7 +339,10 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
             taskData->state = "Exception";
             taskData->status = "Warning";
             taskData->messages.emplace_back(messages::taskAborted(index));
-            return task::completed;
+            // Sweep log entries to capture any remaining events, then finish.
+            sweepLogEntriesAndFinish(sdbusplus::object_path(msg.get_path()),
+                                     taskData);
+            return !task::completed;
         }
 
         if (state->ends_with("Staged"))
@@ -208,7 +363,10 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
         {
             taskData->messages.emplace_back(messages::taskCompletedOK(index));
             taskData->state = "Completed";
-            return task::completed;
+            // Sweep log entries to capture any remaining events, then finish.
+            sweepLogEntriesAndFinish(sdbusplus::object_path(msg.get_path()),
+                                     taskData);
+            return !task::completed;
         }
     }
     else if (iface == "xyz.openbmc_project.Software.ActivationProgress")
@@ -259,6 +417,11 @@ inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     task->startTimer(std::chrono::minutes(5));
     task->payload.emplace(std::move(payload));
     task->populateResp(asyncResp->res);
+
+    task->addLoggingMatch(
+        "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
+        "member='InterfacesAdded',path='/xyz/openbmc_project/logging'",
+        std::bind_front(handleLogEvent, objPath));
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
@@ -424,7 +587,7 @@ inline void afterUpdateErrorMatcher(
     for (const std::pair<std::string, dbus::utility::DBusPropertiesMap>&
              interface : interfacesProperties)
     {
-        if (interface.first == "xyz.openbmc_project.Logging.Entry")
+        if (interface.first == loggingEntryInterface)
         {
             for (const std::pair<std::string, dbus::utility::DbusVariantType>&
                      value : interface.second)

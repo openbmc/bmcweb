@@ -42,6 +42,7 @@
 #include <memory>
 #include <optional>
 #include <ranges>
+#include <set>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -142,6 +143,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             // destroy all references
             (*last)->timer.cancel();
             (*last)->match.reset();
+            (*last)->loggingMatch.reset();
             tasks.erase(last);
         }
 
@@ -237,6 +239,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     ec = boost::asio::error::operation_aborted;
                 }
                 self->match.reset();
+                self->loggingMatch.reset();
                 sdbusplus::message_t msg;
                 self->finishTask();
                 self->state = "Cancelled";
@@ -247,6 +250,18 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 sendTaskEvent(self->state, self->index);
                 self->callback(ec, msg, self);
             });
+    }
+
+    void finishTaskAndCleanup()
+    {
+        timer.cancel();
+        finishTask();
+        sendTaskEvent(state, index);
+        boost::asio::post(crow::connections::systemBus->get_io_context(),
+                          [self = shared_from_this()] {
+                              self->match.reset();
+                              self->loggingMatch.reset();
+                          });
     }
 
     static void sendTaskEvent(std::string_view state, size_t index)
@@ -324,16 +339,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 // to update status itself if needed
                 if (self->callback(ec, message, self) == task::completed)
                 {
-                    self->timer.cancel();
-                    self->finishTask();
-
-                    // Send event
-                    sendTaskEvent(self->state, self->index);
-
-                    // reset the match after the callback was successful
-                    boost::asio::post(
-                        crow::connections::systemBus->get_io_context(),
-                        [self] { self->match.reset(); });
+                    self->finishTaskAndCleanup();
                     return;
                 }
             });
@@ -342,6 +348,18 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         messages.emplace_back(messages::taskStarted(std::to_string(index)));
         // Send event : TaskStarted
         sendTaskEvent(state, index);
+    }
+
+    void addLoggingMatch(const std::string& loggingMatchStr,
+                         std::function<void(sdbusplus::message_t&,
+                                            const std::shared_ptr<TaskData>&)>
+                             handler)
+    {
+        loggingMatch = std::make_unique<sdbusplus::bus::match_t>(
+            static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
+            loggingMatchStr,
+            [self = shared_from_this(), handler = std::move(handler)](
+                sdbusplus::message_t& message) { handler(message, self); });
     }
 
     std::function<bool(boost::system::error_code, sdbusplus::message_t&,
@@ -355,6 +373,10 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     nlohmann::json messages;
     boost::asio::steady_timer timer;
     std::unique_ptr<sdbusplus::bus::match_t> match;
+    std::unique_ptr<sdbusplus::bus::match_t> loggingMatch;
+    // Tracks log entry paths already converted to task messages to avoid
+    // re-adding them.
+    std::set<std::string> processedLogEntries;
     std::optional<std::chrono::system_clock::time_point> endTime;
     std::optional<Payload> payload;
     bool gave204 = false;
