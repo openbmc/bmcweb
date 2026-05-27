@@ -22,6 +22,30 @@
       },
       "revId": "03c88dd223a3720501caa2046f8e7886505bc885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e301385_13e4f041",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2314,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-05-27T09:07:10Z",
+      "side": 1,
+      "message": "Yes.. this is the behaviour is intended . This was addressed in  Issue #284",
+      "parentUuid": "a0dbecf2_2ae7c4a7",
+      "range": {
+        "startLine": 2314,
+        "startChar": 16,
+        "endLine": 2314,
+        "endChar": 79
+      },
+      "revId": "03c88dd223a3720501caa2046f8e7886505bc885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
