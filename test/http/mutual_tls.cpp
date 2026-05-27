@@ -340,7 +340,15 @@ TEST(IsUPNMatch, MultipleCases)
     EXPECT_TRUE(isUPNMatch("user@domain.com", "hostname.domain.com"));
     EXPECT_FALSE(isUPNMatch("user@domain.com", "hostname.domain.org"));
     EXPECT_FALSE(isUPNMatch("user@region.com", "hostname.domain.com"));
-    EXPECT_TRUE(isUPNMatch("user@com", "hostname.region.domain.com"));
+
+    // Reject TLD-only and overly broad parent-domain UPNs.  These previously
+    // matched any BMC under the suffix, which is an authentication bypass.
+    EXPECT_FALSE(isUPNMatch("user@com", "hostname.region.domain.com"));
+    EXPECT_FALSE(isUPNMatch("user@example.com", "bmc.lab.example.com"));
+
+    // Exact-match and single-label-prefix forms remain valid.
+    EXPECT_TRUE(isUPNMatch("user@domain.com", "domain.com"));
+    EXPECT_TRUE(isUPNMatch("user@example.com", "bmc-01.example.com"));
 }
 
 TEST(IsUPNMatch, CaseSensitivity)

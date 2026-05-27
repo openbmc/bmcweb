@@ -59,40 +59,40 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
         return false;
     }
 
-    // The hostname should match the domain part of the UPN
+    // The UPN domain must either equal the BMC hostname exactly or equal
+    // the BMC hostname after stripping a single leading short-hostname
+    // label.  The previous implementation walked dot-separated labels
+    // right-to-left and returned true once the UPN domain ran out of
+    // labels, which permitted a certificate with a UPN like "user@com"
+    // to authenticate against any BMC in the .com TLD, and a UPN like
+    // "user@example.com" to authenticate against any BMC nested under
+    // example.com.
+    //
+    // "comparisons on name lookup for DNS queries should be case
+    // insensitive".
+    // https://datatracker.ietf.org/doc/html/rfc4343
     std::string_view upnDomain = upn.substr(upnDomainPos + 1);
-    while (true)
+
+    if (bmcweb::asciiIEquals(upnDomain, hostname))
     {
-        std::string_view upnDomainMatching = upnDomain;
-        size_t dotUPNPos = upnDomain.find_last_of('.');
-        if (dotUPNPos != std::string_view::npos)
-        {
-            upnDomainMatching = upnDomain.substr(dotUPNPos + 1);
-        }
+        return true;
+    }
 
-        std::string_view hostDomainMatching = hostname;
-        size_t dotHostPos = hostname.find_last_of('.');
-        if (dotHostPos != std::string_view::npos)
-        {
-            hostDomainMatching = hostname.substr(dotHostPos + 1);
-        }
-
-        // "comparisons on name lookup for DNS queries should be case
-        // insensitive".
-        // https://datatracker.ietf.org/doc/html/rfc4343
-        if (!bmcweb::asciiIEquals(upnDomainMatching, hostDomainMatching))
-        {
-            return false;
-        }
-
-        if (dotUPNPos == std::string_view::npos)
+    // Tolerate a single short-hostname prefix on the BMC side, e.g. the
+    // common pattern where the UPN uses the DNS domain ("domain.com") and
+    // the BMC hostname prepends one label ("bmc-01.domain.com").  Any
+    // deeper nesting is rejected.
+    size_t firstDot = hostname.find('.');
+    if (firstDot != std::string_view::npos)
+    {
+        std::string_view hostDomain = hostname.substr(firstDot + 1);
+        if (bmcweb::asciiIEquals(upnDomain, hostDomain))
         {
             return true;
         }
-
-        upnDomain = upnDomain.substr(0, dotUPNPos);
-        hostname = hostname.substr(0, dotHostPos);
     }
+
+    return false;
 }
 
 std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
