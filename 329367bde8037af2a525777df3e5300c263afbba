@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d79a04_177b2fce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-27T14:57:58Z",
+      "side": 1,
+      "message": "Remove most of these comments.  LLMs are great, but lets keep it bounded in what the code doesn\u0027t already state.",
+      "revId": "329367bde8037af2a525777df3e5300c263afbba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
