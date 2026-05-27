@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfe4afec_c870bb19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-27T14:57:34Z",
+      "side": 1,
+      "message": "But the shared_ptr is bound to the handler by value, so how could it be deleted before the bound callback?",
+      "parentUuid": "70dbcb82_5a872f64",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71e5cca2_79e54bc2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "I add the observation (from the actual production code) into the commit msg.\n\nIt tells that this problem may occur if the object (shared_from_this) is already deleted before the callback (which is bound to std::bind_front) is yet invoked.\nThen, the value of `this` (which was passed to std::bind_front) may be dangling when the callback is invoked.",
       "parentUuid": "71e5cca2_79e54bc2",
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a684f556_2f19a159",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-27T14:57:34Z",
+      "side": 1,
+      "message": "```\nThe std::bad_function_call exception means connPolicy-\u003einvalidResp is an empty std::function.\n```\n\nThe cause is that ConnectionInfo object (this) is already destroyed when\nafterRead is called, leading to accessing correupted memory.\n```\n\nThis analysis doesn\u0027t seem correct.  If the std::function is empty, it shouldn\u0027t be null, it should be uncallable.  This is also tracking bind_front, not std::function.",
+      "parentUuid": "5dba9668_401674bf",
       "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
