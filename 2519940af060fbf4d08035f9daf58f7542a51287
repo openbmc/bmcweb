@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0686ac18_358b575d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-27T14:59:56Z",
+      "side": 1,
+      "message": "Why would a certificate authority issue a certificate like this?",
+      "range": {
+        "startLine": 21,
+        "startChar": 59,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "2519940af060fbf4d08035f9daf58f7542a51287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37e4e896_f21769c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-27T14:59:56Z",
+      "side": 1,
+      "message": "Please get your CLA figured out, then we can continue from there.",
+      "revId": "2519940af060fbf4d08035f9daf58f7542a51287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
