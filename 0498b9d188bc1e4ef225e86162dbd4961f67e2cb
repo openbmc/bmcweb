@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a27fee06_58106715",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-05-27T20:05:26Z",
+      "side": 1,
+      "message": "I meant -\nThe \"this\" is captured at the bind time of std::bind_front(). \nEven if shared_ptr is already destroyed before afterRead() is invoked, the value of \"this\" (which was captured at the time bind) of afterRead() may become invalid (as it is not the value of *shared_ptr(), but a previously captured \"this\" value).\nThen any reference to connPolicy may be invalid (or null) and thus invalidResp() could also be a bad_function.",
+      "parentUuid": "a684f556_2f19a159",
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0791e60_e932fa8f",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
