@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70dbcb82_5a872f64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-05-27T12:53:34Z",
+      "side": 1,
+      "message": "Yes, but `this` may be dangling if the shared object is deleted before the bound-callback is invoked.",
+      "parentUuid": "883e68ab_d3cb9a2c",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71e5cca2_79e54bc2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5dba9668_401674bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-05-27T12:53:34Z",
+      "side": 1,
+      "message": "I add the observation (from the actual production code) into the commit msg.\n\nIt tells that this problem may occur if the object (shared_from_this) is already deleted before the callback (which is bound to std::bind_front) is yet invoked.\nThen, the value of `this` (which was passed to std::bind_front) may be dangling when the callback is invoked.",
+      "parentUuid": "71e5cca2_79e54bc2",
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0791e60_e932fa8f",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -54,6 +96,24 @@
       "writtenOn": "2026-05-26T20:00:42Z",
       "side": 1,
       "message": "why did we change this?  Old one looks more correct.",
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fd1af94_a803e0ba",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-05-27T12:53:34Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message to show what we observed in the actual production code.",
+      "parentUuid": "f0791e60_e932fa8f",
       "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
