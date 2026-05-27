@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "892647b5_20ec97d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-27T14:58:42Z",
+      "side": 1,
+      "message": "Please follow the contributor docs and file a CLA.",
+      "revId": "8b3b1d6e1106d52efb32fd0ec5dfd761357e2ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
