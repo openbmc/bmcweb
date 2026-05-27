@@ -1117,6 +1117,7 @@ struct UserUpdateParams
     bool userSelf;
     std::shared_ptr<persistent_data::UserSession> session;
     std::string dbusObjectPath;
+    std::optional<bool> passwordChangeRequired;
 };
 
 inline void afterVerifyUserExists(
@@ -1205,6 +1206,35 @@ inline void afterVerifyUserExists(
         patchAccountTypes(*params.accountTypes, asyncResp,
                           params.dbusObjectPath, params.userSelf);
     }
+    if (params.passwordChangeRequired)
+    {
+        dbus::utility::async_method_call(
+            asyncResp,
+            [asyncResp](const boost::system::error_code& ec,
+                        sdbusplus::message_t& msg) {
+                if (ec)
+                {
+                    const sd_bus_error* dbusError = msg.get_error();
+                    if (dbusError != nullptr &&
+                        strcmp(dbusError->name,
+                               "xyz.openbmc_project.Common.Error.NotAllowed") ==
+                            0)
+                    {
+                        messages::propertyNotWritable(asyncResp->res,
+                                                      "PasswordChangeRequired");
+                        return;
+                    }
+                    BMCWEB_LOG_ERROR(
+                        "D-Bus response error on SetPasswordExpired: {}", ec);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "xyz.openbmc_project.User.Manager", "SetPasswordExpired",
+            params.username, *params.passwordChangeRequired);
+    }
 }
 
 inline void updateUserProperties(
@@ -1212,16 +1242,19 @@ inline void updateUserProperties(
     const std::string& username, const std::optional<std::string>& password,
     const std::optional<bool>& enabled,
     const std::optional<std::string>& roleId, const std::optional<bool>& locked,
-    const std::optional<std::vector<std::string>>& accountTypes, bool userSelf,
+    const std::optional<std::vector<std::string>>& accountTypes,
+    const std::optional<bool>& passwordChangeRequired, bool userSelf,
     const std::shared_ptr<persistent_data::UserSession>& session)
 {
     sdbusplus::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     std::string dbusObjectPath(tempObjPath);
 
-    UserUpdateParams params{username, password, enabled,
-                            roleId,   locked,   accountTypes,
-                            userSelf, session,  dbusObjectPath};
+    UserUpdateParams params{username,       password,
+                            enabled,        roleId,
+                            locked,         accountTypes,
+                            userSelf,       session,
+                            dbusObjectPath, passwordChangeRequired};
 
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
@@ -2213,6 +2246,7 @@ inline void handleAccountPatch(
     std::optional<std::string> roleId;
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
+    std::optional<bool> passwordChangeRequired;
 
     if (req.session == nullptr)
     {
@@ -2231,14 +2265,15 @@ inline void handleAccountPatch(
     if (userHasConfigureUsers)
     {
         // Users with ConfigureUsers can modify for all users
-        if (!json_util::readJsonPatch(        //
-                req, asyncResp->res,          //
-                "AccountTypes", accountTypes, //
-                "Enabled", enabled,           //
-                "Locked", locked,             //
-                "Password", password,         //
-                "RoleId", roleId,             //
-                "UserName", newUserName       //
+        if (!json_util::readJsonPatch(                            //
+                req, asyncResp->res,                              //
+                "AccountTypes", accountTypes,                     //
+                "Enabled", enabled,                               //
+                "Locked", locked,                                 //
+                "Password", password,                             //
+                "PasswordChangeRequired", passwordChangeRequired, //
+                "RoleId", roleId,                                 //
+                "UserName", newUserName                           //
                 ))
         {
             return;
@@ -2269,7 +2304,8 @@ inline void handleAccountPatch(
     if (!newUserName || (newUserName.value() == username))
     {
         updateUserProperties(asyncResp, username, password, enabled, roleId,
-                             locked, accountTypes, userSelf, req.session);
+                             locked, accountTypes, passwordChangeRequired,
+                             userSelf, req.session);
         return;
     }
     dbus::utility::async_method_call(
@@ -2277,7 +2313,7 @@ inline void handleAccountPatch(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
          locked, userSelf, session = req.session,
-         accountTypes(std::move(accountTypes))](
+         accountTypes(std::move(accountTypes)), passwordChangeRequired](
             const boost::system::error_code& ec, sdbusplus::message_t& m) {
             if (ec)
             {
@@ -2287,7 +2323,8 @@ inline void handleAccountPatch(
             }
 
             updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                                 locked, accountTypes, userSelf, session);
+                                 locked, accountTypes, passwordChangeRequired,
+                                 userSelf, session);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
