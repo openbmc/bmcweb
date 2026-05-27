@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b5d122d_6dfeaf28",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-27T13:02:15Z",
+      "side": 1,
+      "message": "Please don\u0027t hardcode the service name — bmcweb\u0027s convention is mapper lookup.",
+      "range": {
+        "startLine": 800,
+        "startChar": 0,
+        "endLine": 800,
+        "endChar": 73
+      },
+      "revId": "92d2d71a6530d1667d87aee7ec998b2eec46fb26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12846843_b1eaf006",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-27T13:02:15Z",
+      "side": 1,
+      "message": "Please don\u0027t hardcode the path layout. Use the getProcessorObject",
+      "range": {
+        "startLine": 804,
+        "startChar": 0,
+        "endLine": 808,
+        "endChar": 1
+      },
+      "revId": "92d2d71a6530d1667d87aee7ec998b2eec46fb26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8ccf7ec_640fedfe",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-27T13:02:15Z",
+      "side": 1,
+      "message": "lambda body (12 lines) is just over the COMMON_ERRORS.md §14 10-line limit. \nSuggest extracting afterGetProcessorEccModeEnabled + std::bind_front to align with the existing getXxx/afterGetXxx pattern.",
+      "range": {
+        "startLine": 819,
+        "startChar": 8,
+        "endLine": 819,
+        "endChar": 71
+      },
+      "revId": "92d2d71a6530d1667d87aee7ec998b2eec46fb26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cadd6af1_9c193e86",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-27T13:02:15Z",
+      "side": 1,
+      "message": "Suggest adding Control.Processor.EccMode to getProcessorObject\u0027s interfaces and triggering from getProcessorData using mapper-provided serviceName + objectPath.",
+      "range": {
+        "startLine": 846,
+        "startChar": 4,
+        "endLine": 846,
+        "endChar": 60
+      },
+      "revId": "92d2d71a6530d1667d87aee7ec998b2eec46fb26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
