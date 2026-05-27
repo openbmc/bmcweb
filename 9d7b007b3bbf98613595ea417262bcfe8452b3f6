@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1d1aca0_1f5c4dbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-27T08:54:09Z",
+      "side": 1,
+      "message": "Thanks a lot for catching this and for the EnvironmentMetrics pointer - that was a real semantic mismatch on my side.\nControl.Power.Cap (SetPoint / AllowableMin / AllowableMax) clearly belongs on EnvironmentMetrics.PowerLimitWatts as the mockup shows. To wire Chassis.MinPowerWatts / MaxPowerWatts up correctly, I have added MinPowerWatts / MaxPowerWatts to Inventory.Item.Accelerator (PDI 90569) for the device-spec power range, and this patch now reads from that interface instead. Thanks again for the careful review!\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/90569\nhttps://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/90462",
+      "parentUuid": "d4927740_f6602dec",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 24
+      },
+      "revId": "9d7b007b3bbf98613595ea417262bcfe8452b3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd7c6df9_d51073ad",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e58344_49588ce4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-27T08:54:09Z",
+      "side": 1,
+      "message": "Done, thanks for review.",
+      "parentUuid": "fd7c6df9_d51073ad",
+      "revId": "9d7b007b3bbf98613595ea417262bcfe8452b3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9dd77b7_dd82c295",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-05-25T14:41:48Z",
       "side": 1,
       "message": "Can this be a separate function ?",
+      "range": {
+        "startLine": 733,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 21
+      },
+      "revId": "9d7b007b3bbf98613595ea417262bcfe8452b3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa7af17c_8a343e32",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-27T08:54:09Z",
+      "side": 1,
+      "message": "Done, thanks for review.",
+      "parentUuid": "e9dd77b7_dd82c295",
       "range": {
         "startLine": 733,
         "startChar": 0,
