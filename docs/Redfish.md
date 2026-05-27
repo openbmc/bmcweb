@@ -1150,6 +1150,8 @@ functions the same like the default implementation under the System resource.
 
 - CacheMetricsTotal/LifeTime/CorrectableECCErrorCount
 - CacheMetricsTotal/LifeTime/UncorrectableECCErrorCount
+- PowerLimitThrottleDuration
+- ThermalLimitThrottleDuration
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 

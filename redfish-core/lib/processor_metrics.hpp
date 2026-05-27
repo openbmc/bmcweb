@@ -12,13 +12,20 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
+#include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <array>
+#include <chrono>
+#include <cmath>
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <string>
@@ -96,6 +103,102 @@ inline void getProcessorMetricsECCData(
         std::bind_front(afterGetProcessorMetricsECCData, asyncResp));
 }
 
+inline void afterGetProcessorMetricsThrottleDuration(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonPtr,
+    const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR(
+            "DBus error reading throttle duration Metric.Value at {}: {}",
+            jsonPtr.to_string(), ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (!std::isfinite(value) || value < 0.0)
+    {
+        BMCWEB_LOG_ERROR("Non-finite or negative throttle duration value at {}",
+                         jsonPtr.to_string());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto durationMs =
+        std::chrono::milliseconds(static_cast<int64_t>(value * 1000.0));
+    asyncResp->res.jsonValue[jsonPtr] =
+        time_utils::toDurationString(durationMs);
+}
+
+inline void getProcessorMetricsThrottleDuration(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& objectPath,
+    const nlohmann::json::json_pointer& jsonPtr)
+{
+    dbus::utility::getProperty<double>(
+        serviceName, objectPath, "xyz.openbmc_project.Metric.Value", "Value",
+        std::bind_front(afterGetProcessorMetricsThrottleDuration, asyncResp,
+                        jsonPtr));
+}
+
+inline void afterGetProcessorMetricsThrottleDurations(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("No throttle duration metrics for processor: {}",
+                             ec.message());
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus error finding throttle duration metrics: {}",
+                         ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& [path, serviceMap] : subtree)
+    {
+        if (serviceMap.size() != 1)
+        {
+            continue;
+        }
+
+        const std::string metricName = sdbusplus::object_path(path).filename();
+        const std::string& serviceName = serviceMap.begin()->first;
+
+        if (metricName == "power_limit_throttle_duration")
+        {
+            getProcessorMetricsThrottleDuration(
+                asyncResp, serviceName, path,
+                "/PowerLimitThrottleDuration"_json_pointer);
+        }
+        else if (metricName == "thermal_limit_throttle_duration")
+        {
+            getProcessorMetricsThrottleDuration(
+                asyncResp, serviceName, path,
+                "/ThermalLimitThrottleDuration"_json_pointer);
+        }
+    }
+}
+
+inline void getProcessorMetricsThrottleDurations(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorPath)
+{
+    constexpr std::array<std::string_view, 1> metricInterface = {
+        "xyz.openbmc_project.Metric.Value"};
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path(processorPath) / "measured_by",
+        sdbusplus::object_path("/xyz/openbmc_project/metric"), 0,
+        metricInterface,
+        std::bind_front(afterGetProcessorMetricsThrottleDurations, asyncResp));
+}
+
 /**
  * @brief Populate ProcessorMetrics with ECC data from the processor's
  *        service map
@@ -109,6 +212,8 @@ inline void getProcessorMetricsData(
     const std::string& objectPath,
     const dbus::utility::MapperServiceMap& serviceMap)
 {
+    getProcessorMetricsThrottleDurations(asyncResp, objectPath);
+
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
         for (const auto& interface : interfaceList)
