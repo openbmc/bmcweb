@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be34936a_f3082b02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-27T04:12:34Z",
+      "side": 1,
+      "message": "Done ,thanks for review.",
+      "parentUuid": "154bc267_4d28bf60",
+      "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80b6a49d_210b07f6",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-25T14:33:20Z",
       "side": 1,
       "message": "You had the interface and then you couldn\u0027t get the property.. IDK, that kind of sounds like an error to me like LocationCode and UUID below",
+      "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a398db3_4285da99",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-27T04:12:34Z",
+      "side": 1,
+      "message": "Done ,thanks for review.",
+      "parentUuid": "80b6a49d_210b07f6",
       "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b31e24b6_8e53170e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-27T04:12:34Z",
+      "side": 1,
+      "message": "Done ,thanks for review.",
+      "parentUuid": "56edf976_3ddbf68b",
+      "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9141a8d1_59b07e1f",
@@ -65,6 +119,30 @@
       "writtenOn": "2026-05-25T14:33:20Z",
       "side": 1,
       "message": "It is interesting these 3 have an exception, oh well",
+      "range": {
+        "startLine": 725,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 59
+      },
+      "revId": "e3a48b98d9ecb44c6dd87a04842973397ceea169",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a510582f_ae0f4feb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-27T04:12:34Z",
+      "side": 1,
+      "message": "Sharing some context: these three interfaces (UUID, Power.Cap, SKU) are published by dbus-sensors on the chassis Board path, while the path itself is owned by Entity-Manager — so two services share the same D-Bus path with disjoint interface sets. The main chassis-discovery getSubTree keys on Item.Board / Item.Chassis, which only resolves to Entity-Manager on this path, so the three interfaces above cannot be picked up in the same pass and a second mapper hop scoped to the discovered path is needed. I agree this shape is not the cleanest. If you have a preferred pattern in mind for handling chassis paths shared by multiple owners, I would really appreciate your guidance and am happy to refactor\naccordingly. Thank you for the careful review.\n\nhttps://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/90469",
+      "parentUuid": "9141a8d1_59b07e1f",
       "range": {
         "startLine": 725,
         "startChar": 0,
