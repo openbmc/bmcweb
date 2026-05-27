@@ -38,8 +38,10 @@
 
 #include <algorithm>
 #include <array>
+#include <cstdint>
 #include <format>
 #include <functional>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <ranges>
@@ -487,6 +489,112 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void handleChassisPowerBoundsProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error for Decorator.PowerBounds on chassis: {}",
+                ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        BMCWEB_LOG_DEBUG("Decorator.PowerBounds not available on chassis: {}",
+                         ec);
+        return;
+    }
+
+    const uint32_t* minPowerWatts = nullptr;
+    const uint32_t* maxPowerWatts = nullptr;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "MinPowerWatts",
+        minPowerWatts, "MaxPowerWatts", maxPowerWatts);
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // PDI defaults are maxint when the property is not supported; surface
+    // only real device-spec values.
+    constexpr uint32_t notSupported = std::numeric_limits<uint32_t>::max();
+    if (minPowerWatts != nullptr && *minPowerWatts != notSupported)
+    {
+        asyncResp->res.jsonValue["MinPowerWatts"] = *minPowerWatts;
+    }
+    if (maxPowerWatts != nullptr && *maxPowerWatts != notSupported)
+    {
+        asyncResp->res.jsonValue["MaxPowerWatts"] = *maxPowerWatts;
+    }
+}
+
+inline void handleChassisDeviceDaemonOwners(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& owners)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error getting device-daemon interfaces for "
+                "chassis {}: {}",
+                path, ec);
+        }
+        return;
+    }
+
+    for (const auto& [service, interfaces] : owners)
+    {
+        // UUID may also be served by chassisInterfaces-publishing services
+        // (e.g. EM), in which case the subtree iteration above already
+        // wired getChassisUUID. Only call again here if UUID has not been
+        // populated yet, so we cover device daemons that publish
+        // Common.UUID on the chassis path without implementing
+        // chassisInterfaces.
+        if (std::ranges::find(interfaces, "xyz.openbmc_project.Common.UUID") !=
+                interfaces.end() &&
+            !asyncResp->res.jsonValue.contains("UUID"))
+        {
+            getChassisUUID(asyncResp, service, path);
+        }
+        if (std::ranges::find(
+                interfaces,
+                "xyz.openbmc_project.Inventory.Decorator.PowerBounds") !=
+            interfaces.end())
+        {
+            dbus::utility::getAllProperties(
+                *crow::connections::systemBus, service, path,
+                "xyz.openbmc_project.Inventory.Decorator.PowerBounds",
+                std::bind_front(handleChassisPowerBoundsProperties, asyncResp));
+        }
+    }
+}
+
+inline void getChassisDeviceDaemonProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path)
+{
+    // The chassis path's identity interfaces (Item.Board / Item.Chassis) are
+    // owned by Entity-Manager, but a second service may host additional
+    // attribute interfaces on the same path (e.g. Common.UUID,
+    // Inventory.Decorator.PowerBounds). The main chassis discovery only
+    // inspects the identity-owning service, so enumerate every service on the
+    // path to gather attributes published by any of them.
+    constexpr auto daemonInterfaces = std::to_array<std::string_view>(
+        {"xyz.openbmc_project.Common.UUID",
+         "xyz.openbmc_project.Inventory.Decorator.PowerBounds"});
+    dbus::utility::getDbusObject(
+        path, daemonInterfaces,
+        std::bind_front(handleChassisDeviceDaemonOwners, asyncResp, path));
+}
+
 inline void handleDecoratorAssetProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& path,
@@ -764,6 +872,8 @@ inline void handleChassisGetSubTree(
                 const dbus::utility::DBusPropertiesMap& propertiesList) {
                 handleChassisProperties(asyncResp, propertiesList);
             });
+
+        getChassisDeviceDaemonProperties(asyncResp, path);
 
         return;
     }

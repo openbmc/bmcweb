@@ -238,6 +238,8 @@ Fields common to all schemas
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
+- MaxPowerWatts
+- MinPowerWatts
 - Model
 - PartNumber
 - Power
