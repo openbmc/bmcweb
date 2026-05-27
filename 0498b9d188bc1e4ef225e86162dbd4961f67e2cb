@@ -74,6 +74,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ec8890d_328b4146",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-27T20:48:50Z",
+      "side": 1,
+      "message": "Can you provide the test you used for this?  It\u0027s still not clear to me how this commit would change, but maybe there\u0027s something in the test that gives a hint.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71e5cca2_79e54bc2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
