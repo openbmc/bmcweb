@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0754d17b_cecf29ec",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T05:54:00Z",
+      "side": 1,
+      "message": "please use sdbusplus::object_path",
+      "range": {
+        "startLine": 182,
+        "startChar": 8,
+        "endLine": 182,
+        "endChar": 39
+      },
+      "revId": "b507119a74fe722298545cd39798ecaf1ca623ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f77d1a34_b370834a",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T05:54:00Z",
+      "side": 1,
+      "message": "please use sdbusplus::object_path",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 183,
+        "endChar": 39
+      },
+      "revId": "b507119a74fe722298545cd39798ecaf1ca623ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "404e5c75_f5576fd9",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T05:54:00Z",
+      "side": 1,
+      "message": "This lambda is ~20 lines, exceeding COMMON_ERRORS.md §14 (\u003c10 lines).\nSuggest extracting afterGetProcessorObjectForMemorySummary and binding via std::bind_front.\nhttps://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "range": {
+        "startLine": 274,
+        "startChar": 8,
+        "endLine": 274,
+        "endChar": 19
+      },
+      "revId": "b507119a74fe722298545cd39798ecaf1ca623ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
