@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "54fe5104_fdaf9068",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-28T10:42:21Z",
+      "side": 1,
+      "message": "Edited the commit message as the handler now swallows `EBADR`.",
+      "parentUuid": "7431f7e0_6da7e31f",
+      "range": {
+        "startLine": 17,
+        "startChar": 61,
+        "endLine": 18,
+        "endChar": 4
+      },
+      "revId": "388509da92d1e4ee2be489442b891591d160f9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "50ac3045_a0531a44",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1de5393_a51c15a9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-28T10:42:21Z",
+      "side": 1,
+      "message": "Restructured to follow the same pattern. Thanks for acknowledging this!",
+      "parentUuid": "d7694029_bd683284",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 579,
+        "endChar": 13
+      },
+      "revId": "388509da92d1e4ee2be489442b891591d160f9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf6593c5_188164b7",
@@ -77,6 +125,24 @@
       "writtenOn": "2026-05-25T14:46:06Z",
       "side": 1,
       "message": "Have a check for empty since UUID must be in a format ? That comment would be helpful",
+      "revId": "388509da92d1e4ee2be489442b891591d160f9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c35b62_0f8fbcbc",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-28T10:42:21Z",
+      "side": 1,
+      "message": "Added an empty-string checking for the situation and will return immediately without populating that empty string to the response JSON.",
+      "parentUuid": "bf6593c5_188164b7",
       "revId": "388509da92d1e4ee2be489442b891591d160f9a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
