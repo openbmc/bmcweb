@@ -298,6 +298,24 @@
       "parentUuid": "5b3e8e6c_26d290c8",
       "revId": "9d5fce93687682b41649e7ebb850450034055045",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea75f4f0_345b61e1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1667,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-05-28T07:42:27Z",
+      "side": 1,
+      "message": "Hi @gunnar@gmills.xyz and  @ed@tanous.net\n\nI have updated the changes as suggested and also i have fixed the issue with writable properties and following are the testcases.\nCase 1: Read-only property update\nRequest:\n\nPATCH payload: {\"MaxPasswordLength\":30}\nBefore fix:\n\nResponse included mixed semantics in one flow:\nPropertyNotWritable for MaxPasswordLength\nSuccess semantics also present from auth-method path\nAfter fix:\n\nResponse contains only PropertyNotWritable for MaxPasswordLength\nNo extra success semantics are added\n\n\nCase 2: Writable property PATCH path behavior\nRequest:\n\nPATCH payload with writable properties (example):\n{\"AccountLockoutDuration\":301,\"AccountLockoutThreshold\":32}\nBefore fix:\n\nIn error-path continuation scenarios, request handling could continue\nafter an error was already set, and client could observe long wait,\ntimeout, or abrupt close behavior\nAfter fix:\n\nPATCH completes normally for valid writable properties\nNo hang/timeout observed in Postman/Redfish client path\nCase 3: Validation/helper error short-circuit behavior\nRequest:\n\nPATCH payload that triggers validation/helper error and includes other\nfields\nBefore fix:\n\nFlow could continue after helper/validation error response was set\nAfter fix:\n\nProcessing stops immediately after error response is set.\n\nCase 4 : Verified mixed payload behavior (read-only + valid auth subset) using MaxPasswordLength with AuthMethods.BasicAuth.\nBefore fix, response could contain mixed semantics (Success plus PropertyNotWritable).\n\nAfter fix, response is deterministic: PropertyNotWritable is returned without conflicting success semantics.\n\n{\n  \"MaxPasswordLength\": 30,\n  \"Oem\": {\n    \"OpenBMC\": {\n      \"AuthMethods\": {\n        \"BasicAuth\": true\n      }\n    }\n  }\n}\n\nPlease let me know if any changes required. Thanks",
+      "parentUuid": "ed37838b_ecb898e6",
+      "revId": "9d5fce93687682b41649e7ebb850450034055045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
