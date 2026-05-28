@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6efe4d5a_f710a09a",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T07:13:45Z",
+      "side": 1,
+      "message": "use `sdbusplus::object_path`",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 43
+      },
+      "revId": "49dcfa1e7740c09904af080daf1c235044c9bec7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d1fc55_175ee245",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T07:13:45Z",
+      "side": 1,
+      "message": "Could you please base this on 88540 and add a getMetricPropertyDouble helper in metrics_util.hpp, plus a small helper for this case? \nNo rush — happy to wait until either your chain or my (88540) chain lands first. Thanks!",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 70
+      },
+      "revId": "49dcfa1e7740c09904af080daf1c235044c9bec7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d47a6777_2b2d4cda",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T07:13:45Z",
+      "side": 1,
+      "message": "use `sdbusplus::object_path`",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 43
+      },
+      "revId": "49dcfa1e7740c09904af080daf1c235044c9bec7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8fdb7a7_31db3d92",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T07:13:45Z",
+      "side": 1,
+      "message": "use `sdbusplus::object_path`",
+      "range": {
+        "startLine": 194,
+        "startChar": 12,
+        "endLine": 194,
+        "endChar": 43
+      },
+      "revId": "49dcfa1e7740c09904af080daf1c235044c9bec7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
