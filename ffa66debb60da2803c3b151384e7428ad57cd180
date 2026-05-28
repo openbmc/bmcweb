@@ -16,6 +16,52 @@
       "message": "Could you fold this into 90323? Both patches share the same measured_by → Metric.Value → percent pattern — merging avoids duplicating the helper design discussion. \nBoth should base on 88540 once it lands. No rush — wait for 88540 chain first if\neasier.\nThanks.",
       "revId": "ffa66debb60da2803c3b151384e7428ad57cd180",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "813a6877_6660a875",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T08:28:08Z",
+      "side": 1,
+      "message": "use `sdbusplus::object_path`",
+      "range": {
+        "startLine": 185,
+        "startChar": 10,
+        "endLine": 185,
+        "endChar": 41
+      },
+      "revId": "ffa66debb60da2803c3b151384e7428ad57cd180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a09d4276_6fdc07a3",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-05-28T08:28:08Z",
+      "side": 1,
+      "message": "use `sdbusplus::object_path`\nso do other place",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 40
+      },
+      "revId": "ffa66debb60da2803c3b151384e7428ad57cd180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
