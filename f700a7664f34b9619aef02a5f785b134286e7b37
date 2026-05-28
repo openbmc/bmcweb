@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "225a7ade_f00d6410",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-05-28T08:50:33Z",
+      "side": 1,
+      "message": "```suggestion\n\nControl.Power.Cap interface definition [1].\n\n\n// end of commit message\n[1] https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/86869\n```\n\nnit: typically we reference links like this either before `Tested` or before `Change-Id` at the bottom of the commit message.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 69
+      },
+      "revId": "f700a7664f34b9619aef02a5f785b134286e7b37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "916b3fe0_50b86156",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-05-28T08:50:33Z",
+      "side": 1,
+      "message": "```suggestion\n    sdbusplus::object_path associationPath(processorPath);\n    associationPath /\u003d \"controlled_by\";\n    constexpr std::array\u003cstd::string_view, 1\u003e powerCapInterface \u003d {\n        \"xyz.openbmc_project.Control.Power.Cap\"};\n    dbus::utility::getAssociatedSubTree(\n        associationPath,\n\n```\n\nInstead of creating the object_path inside the dbus wrapper call create it beforehand and use `/\u003d` operator for path mutations.",
+      "range": {
+        "startLine": 481,
+        "startChar": 4,
+        "endLine": 485,
+        "endChar": 47
+      },
+      "revId": "f700a7664f34b9619aef02a5f785b134286e7b37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
