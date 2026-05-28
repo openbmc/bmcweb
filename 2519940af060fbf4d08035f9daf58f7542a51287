@@ -39,6 +39,23 @@
       "message": "Please get your CLA figured out, then we can continue from there.",
       "revId": "2519940af060fbf4d08035f9daf58f7542a51287",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c90be34_477fb2ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-28T19:58:14Z",
+      "side": 1,
+      "message": "This is also already functionally in review here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/89226\n\nPlease participate there.",
+      "revId": "2519940af060fbf4d08035f9daf58f7542a51287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
