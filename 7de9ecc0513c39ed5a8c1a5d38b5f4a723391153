@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a4f6b2_0535b434",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-28T11:46:46Z",
+      "side": 1,
+      "message": "Done.\nThe outer lambda is now the free function `afterGetSwitchPowerStateService()` and the inner one is `afterGetSwitchPowerState()`.",
+      "parentUuid": "7dc24677_4d8ef497",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 68
+      },
+      "revId": "7de9ecc0513c39ed5a8c1a5d38b5f4a723391153",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ef4f084_d3db925d",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-05-25T09:54:28Z",
       "side": 1,
       "message": "Please classify ec instead of silently swallowing all errors",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 34
+      },
+      "revId": "7de9ecc0513c39ed5a8c1a5d38b5f4a723391153",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed1bdce2_18395c9b",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-28T11:46:46Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "6ef4f084_d3db925d",
       "range": {
         "startLine": 58,
         "startChar": 12,
@@ -83,6 +131,54 @@
       "writtenOn": "2026-05-25T09:54:28Z",
       "side": 1,
       "message": "Please extract `dbusToRfPowerState(std::string_view) -\u003e std::optional\u003cresource::PowerState\u003e` helper and call it from the\ncallback. \nPer bmcweb convention D-Bus enum strings should have an explicit conversion function rather than inline if-else. Also helps shrink the lambda body",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 21
+      },
+      "revId": "7de9ecc0513c39ed5a8c1a5d38b5f4a723391153",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a3b3a5d_a3e57b11",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-28T11:46:46Z",
+      "side": 1,
+      "message": "Done.\nIt is now comparing to the full enum strings.",
+      "parentUuid": "a4f1f7cf_f41c57fb",
+      "range": {
+        "startLine": 74,
+        "startChar": 20,
+        "endLine": 93,
+        "endChar": 21
+      },
+      "revId": "7de9ecc0513c39ed5a8c1a5d38b5f4a723391153",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8099cdd3_96e4e913",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-05-28T11:46:46Z",
+      "side": 1,
+      "message": "Added inline `std::optional\u003cresource::PowerState\u003e dbusToRfPowerState(std::string_view)` at the top of the namespace.",
+      "parentUuid": "f6f7653f_5f6a6561",
       "range": {
         "startLine": 69,
         "startChar": 0,
