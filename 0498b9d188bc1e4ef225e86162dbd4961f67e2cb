@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6d3c7ba_c5ffea0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-29T03:47:38Z",
+      "side": 1,
+      "message": "Please don\u0027t paste your LLM output.  Your commit message says you tested this with a test that shows the failure, please link THAT TEST.  Do not generate a new one.  Do not give pages of analysis (that frankly I haven\u0027t read, because it\u0027s very likely an LLM having trouble with std::bind_front).",
+      "parentUuid": "75f0580d_f0cb14f1",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71e5cca2_79e54bc2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
