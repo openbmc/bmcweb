@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbd63e83_94fe136b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-29T00:36:49Z",
+      "side": 1,
+      "message": "Done, thanks",
+      "parentUuid": "bd52ced5_41718122",
+      "range": {
+        "startLine": 143,
+        "startChar": 4,
+        "endLine": 143,
+        "endChar": 46
+      },
+      "revId": "ca35fbeccfa4fd02fca60a987bb5d0790d72df7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31466090_ed60ada8",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-05-28T11:10:51Z",
       "side": 1,
       "message": "nit: please use `dbus::utility::getProperty\u003cT\u003e` (the bmcweb wrapper) per COMMON_ERRORS.md §15.",
+      "range": {
+        "startLine": 169,
+        "startChar": 3,
+        "endLine": 169,
+        "endChar": 46
+      },
+      "revId": "ca35fbeccfa4fd02fca60a987bb5d0790d72df7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f65e5633_c05eacb2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-29T00:36:49Z",
+      "side": 1,
+      "message": "Done, thanks",
+      "parentUuid": "31466090_ed60ada8",
       "range": {
         "startLine": 169,
         "startChar": 3,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4758bec8_ef7d60a0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-29T00:36:49Z",
+      "side": 1,
+      "message": "Done, thanks",
+      "parentUuid": "a39283ea_a86314f6",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 196,
+        "endChar": 46
+      },
+      "revId": "ca35fbeccfa4fd02fca60a987bb5d0790d72df7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8eb87b48_6d0e8c89",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-05-28T11:10:51Z",
       "side": 1,
       "message": "nit: use generated enum",
+      "range": {
+        "startLine": 277,
+        "startChar": 21,
+        "endLine": 277,
+        "endChar": 29
+      },
+      "revId": "ca35fbeccfa4fd02fca60a987bb5d0790d72df7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb942ad_3cbe5c2a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-05-29T00:36:49Z",
+      "side": 1,
+      "message": "Done, thanks",
+      "parentUuid": "8eb87b48_6d0e8c89",
       "range": {
         "startLine": 277,
         "startChar": 21,
