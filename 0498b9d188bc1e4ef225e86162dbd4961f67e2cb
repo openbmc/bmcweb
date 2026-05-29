@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e6395bc_3e8bf141",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-05-29T12:17:23Z",
+      "side": 1,
+      "message": "I have written it after the analysis (of myself and also support of tool - esp on test program) and concluded it.\n\n- stack frame is coming from the actual coredump\n- Commit msg shows which code part is matching with\n- how/why it may occur.\n- Get docs (which I I got help from google search) to understand boost ASIO expectation \u0026 requirement.\n- This seems matching with what the analysis shows.\n\nAmong them, I think - the usage with the different objects seem more concerned, as the lifetime of `timer` and `this (ConnnectionInfo)` may not be the same.\n(`timer` is the first one to be destroyed during ~ConnectionInfo, and the operation on timer may already be pushed into io_context queue...and then it could be popped up after ~ConnectionInfo).\n\n\n```\n        timer.async_wait(std::bind_front(\u0026ConnectionInfo::onTimerDone, this,\n                                         shared_from_this()));\n```\n\n\nI got the help to write the test programs to generate the events. However, as analysis shows that it seems not easy (or even not possible?) only with bmcweb code - as the expected async event may lie underneath.\n\nI\u0027ve updated the commit message.\nI\u0027ve also updated test statement that tells what I have done (to show at least it is working even with the changes).",
+      "parentUuid": "d6d3c7ba_c5ffea0d",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71e5cca2_79e54bc2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
