@@ -70,6 +70,30 @@
       },
       "revId": "03c88dd223a3720501caa2046f8e7886505bc885",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9bd3352_a947a85b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2314,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-05-29T09:33:04Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/docs/blob/master/architecture/user-management.md#supported-privilege-roles\nAs per this Operators are not allowed to change network configuratios.",
+      "parentUuid": "119c9f97_830bad27",
+      "range": {
+        "startLine": 2314,
+        "startChar": 16,
+        "endLine": 2314,
+        "endChar": 79
+      },
+      "revId": "03c88dd223a3720501caa2046f8e7886505bc885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
