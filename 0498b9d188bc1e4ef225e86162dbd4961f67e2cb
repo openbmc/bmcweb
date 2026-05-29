@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8be4e41c_d2c49820",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-05-29T17:33:33Z",
+      "side": 1,
+      "message": "Please... link...the....test....that....fails....on....master.  The one you mention in your commit message.  I do not agree with your analysis of lifetimes, and going back and forth debating semantics of C++ isn\u0027t helpful.  Lets catch a failure (either on a system or in a unit test) and trace it out.  Use sanitizers if need be if it\u0027s truly hard to catch functionally.\n\n\u003e (or even not possible?)\n\nIf it\u0027s not possible to hit this bug, then the analysis above seems like it needs more work, or there\u0027s other stack/memory corruption going on.",
+      "parentUuid": "7e6395bc_3e8bf141",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "0498b9d188bc1e4ef225e86162dbd4961f67e2cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71e5cca2_79e54bc2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
