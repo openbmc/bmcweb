@@ -254,6 +254,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c2f1f2b_44a01382",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-05-29T10:33:02Z",
+      "side": 1,
+      "message": "If the mapper returns an empty result we return the empty vector. That\u0027s handled the same as how it was before and there is also a comment on that specific case.\n\nI think it\u0027s perfectly valid for a chassis to have no fans so i do not see the need for a special case.\n\nIf you still think there needs to be special handling, please explain \nhow that should look like.\n\nI am also wondering if you and Ed are talking about 2 different things. I believe he was talking about an empty object path (technically possible but completely unnecessary to check for, since object mapper tracks valid object paths only) and you are talking about an empty `dbus::utility::GetPathsByAssociationResult`\n\nAlso i am still hoping for @ed@tanous.net to clarify his comment here as to why we would check for an empty object path returned by the mapper.",
+      "parentUuid": "833aa093_a49b0c63",
+      "revId": "a9227d4944ad2869c4b0561ecaa5973bdda443dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e28a593_a2811ce8",
