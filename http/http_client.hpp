@@ -181,7 +181,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             return;
         }
         // If we already have an ip address, no need to resolve
-        Resolver::results_type ip;
         boost::system::error_code ec;
         boost::asio::ip::address addr =
             boost::asio::ip::make_address(host.host_address(), ec);
@@ -194,7 +193,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             return;
         }
         boost::asio::ip::tcp::endpoint end(addr, host.port_number());
-        ip.push_back(std::move(end));
+        Resolver::results_type ip = Resolver::results_type::create(
+            end, host.host_address(), host.port());
         afterResolve(shared_from_this(), boost::system::error_code(), ip);
     }
 

@@ -66,7 +66,7 @@ class Resolver
     Resolver& operator=(const Resolver&) = delete;
     Resolver& operator=(Resolver&&) = delete;
 
-    using results_type = std::vector<boost::asio::ip::tcp::endpoint>;
+    using results_type = boost::asio::ip::tcp::resolver::results_type;
 
     template <typename ResolveHandler>
     // This function is kept using snake case so that it is interoperable with
@@ -97,15 +97,17 @@ class Resolver
                 const std::vector<
                     std::tuple<int32_t, int32_t, std::vector<uint8_t>>>& resp,
                 const std::string& hostName, const uint64_t flagNum) {
-                results_type endpointList;
-                if (ec)
+                boost::system::error_code ecRet = ec;
+                std::vector<boost::asio::ip::tcp::endpoint> endpointList;
+                if (ecRet)
                 {
-                    BMCWEB_LOG_ERROR("Resolve failed: {}", ec.message());
-                    handler(ec, endpointList);
-                    return;
+                    BMCWEB_LOG_ERROR("Resolve failed: {}", ecRet.message());
                 }
-                BMCWEB_LOG_DEBUG("ResolveHostname returned: {}:{}", hostName,
-                                 flagNum);
+                else
+                {
+                    BMCWEB_LOG_DEBUG("ResolveHostname returned: {}:{}",
+                                     hostName, flagNum);
+                }
                 // Extract the IP address from the response
                 for (const std::tuple<int32_t, int32_t, std::vector<uint8_t>>&
                          resolveList : resp)
@@ -115,16 +117,19 @@ class Resolver
                     if (!endpointFromResolveTuple(std::get<2>(resolveList),
                                                   endpoint))
                     {
-                        boost::system::error_code ecErr = make_error_code(
+                        ecRet = make_error_code(
                             boost::system::errc::address_not_available);
-                        handler(ecErr, endpointList);
+                        break;
                     }
                     BMCWEB_LOG_DEBUG("resolved endpoint is : {}",
                                      endpoint.address().to_string());
                     endpointList.push_back(endpoint);
                 }
+
                 // All the resolved data is filled in the endpointList
-                handler(ec, endpointList);
+                handler(ecRet, results_type::create(endpointList.begin(),
+                                                    endpointList.end(), host,
+                                                    std::to_string(portNum)));
             },
             "org.freedesktop.resolve1", "/org/freedesktop/resolve1",
             "org.freedesktop.resolve1.Manager", "ResolveHostname", 0, host,
