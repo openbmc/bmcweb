@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f769651c_82f5924a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2026-05-29T02:35:00Z",
+      "side": 1,
+      "message": "Please choose a meaningful topic category.   The repository is bmcweb and all commits are for it by default.\n\n\nPlease continue for all commits under review.",
+      "revId": "90d9479e0a690665cd1acb99702e6a5eb091f7de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b62b6d0d_640a47b0",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
