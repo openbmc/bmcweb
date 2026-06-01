@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dd795f1_3f5fbff6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-01T08:04:12Z",
+      "side": 1,
+      "message": "Didn\u0027t see",
+      "parentUuid": "32d131dd_f5903b84",
+      "revId": "d4d17fa53ba76dc5403c2d35bbe37c1aa4511cd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bed49bf8_d49346ba",
         "filename": "redfish-core/lib/network_adapter.hpp",
         "patchSetId": 3
