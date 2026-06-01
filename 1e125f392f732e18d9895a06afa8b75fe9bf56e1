@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "952f4940_1edef919",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-01T15:51:50Z",
+      "side": 1,
+      "message": "\u003e The assumption that progress updates are frequent enough to keep the Task alive doesn’t always hold in practice.\n\nto be clear, this isn\u0027t an assumption. This is the way the progress interface is designed to work.  \n\n\u003e On some systems, crashdump execution can have long blocking phases where no intermediate progress updates are emitted for several minutes. \n\nThen.... fix that?  If you\u0027re doing long blocking calls in a single threaded reactor, your crashdump implementation is broken, and won\u0027t return progress to users at all.",
+      "parentUuid": "527a3170_421cc10d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 42
+      },
+      "revId": "1e125f392f732e18d9895a06afa8b75fe9bf56e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5e8382fa_986f9630",
