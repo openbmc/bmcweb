@@ -534,6 +534,29 @@ inline void handleChassisDeviceDaemonOwners(
         {
             getChassisSKU(asyncResp, service, path);
         }
+        // Decorator.LocationCode and Connector.Slot/Embedded may be
+        // published by a device daemon on the chassis path; the main
+        // subtree iteration only inspects the first service's interface
+        // list and would miss them. Hit them here so ServiceLabel and
+        // LocationType still populate.
+        if (std::ranges::find(
+                interfaces,
+                "xyz.openbmc_project.Inventory.Decorator.LocationCode") !=
+            interfaces.end())
+        {
+            getChassisLocationCode(asyncResp, service, path);
+        }
+        for (const auto& interface : interfaces)
+        {
+            if (auto locationType = location_util::getLocationType(interface);
+                locationType.has_value())
+            {
+                asyncResp->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    *locationType;
+                break;
+            }
+        }
     }
 }
 
@@ -547,10 +570,12 @@ inline void getChassisDeviceDaemonProperties(
     // (Item.Board / Item.Chassis) that the main chassis discovery filters
     // on. Issue an extra mapper query scoped to this chassis path so any
     // such daemon-published interface is picked up.
-    constexpr std::array<std::string_view, 3> daemonInterfaces = {
+    constexpr std::array<std::string_view, 5> daemonInterfaces = {
         "xyz.openbmc_project.Common.UUID",
         "xyz.openbmc_project.Inventory.Item.Accelerator",
-        "xyz.openbmc_project.Inventory.Decorator.SKU"};
+        "xyz.openbmc_project.Inventory.Decorator.SKU",
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+        "xyz.openbmc_project.Inventory.Connector.Slot"};
     dbus::utility::getDbusObject(
         path, daemonInterfaces,
         std::bind_front(handleChassisDeviceDaemonOwners, asyncResp, path));
