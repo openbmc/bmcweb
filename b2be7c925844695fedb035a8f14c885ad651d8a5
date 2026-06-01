@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39bd2579_a15a1c65",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-06-01T20:59:08Z",
+      "side": 1,
+      "message": "marking as done as it is somewhat expected by the robot test and other implementations.",
+      "parentUuid": "96a30515_cc67cc42",
+      "revId": "b2be7c925844695fedb035a8f14c885ad651d8a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c22c9961_b0a41bdd",
