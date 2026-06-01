@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58b05c3c_2937bd13",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-01T19:43:07Z",
+      "side": 1,
+      "message": "The referenced issue indicates this support should be added for many different inventory items. I think there would be value in creating a utility function here for extracting the \"PrettyName\" which could be used if/when the other inventory items add the support.",
+      "range": {
+        "startLine": 344,
+        "startChar": 4,
+        "endLine": 357,
+        "endChar": 5
+      },
+      "revId": "8aa12a72e183f7669b5784c1e58a517ac2bb2142",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
