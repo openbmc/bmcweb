@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b13e1bd6_81946ab3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-01T14:55:54Z",
+      "side": 1,
+      "message": "Why are we checking for ok?",
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "480dd3d4_39ce1730",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -60,6 +77,23 @@
         "endLine": 1655,
         "endChar": 9
       },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66ea2f3_95d823c9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-01T14:55:54Z",
+      "side": 1,
+      "message": "?  This looks like a misunderstanding of how async works?  result() will only be set to error after the async routines have finished?",
       "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
