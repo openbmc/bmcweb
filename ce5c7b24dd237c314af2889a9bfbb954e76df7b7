@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20c073c8_3fc10499",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-01T13:47:15Z",
+      "side": 1,
+      "message": "Ender, are you good with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300?",
+      "revId": "ce5c7b24dd237c314af2889a9bfbb954e76df7b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "611712a2_039208af",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 16
