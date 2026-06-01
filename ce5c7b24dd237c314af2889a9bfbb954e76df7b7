@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611712a2_039208af",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-01T10:00:25Z",
+      "side": 1,
+      "message": "Why do you call `getProcessorForEnvMetrics` here aswell? It\u0027s already being called in `handleProcessorEnvironmentMetricsGet`",
+      "revId": "ce5c7b24dd237c314af2889a9bfbb954e76df7b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5579837d_0d76f878",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-01T10:00:25Z",
+      "side": 1,
+      "message": "Same as previously. Create the `sdbusplus::object_path` here and do path mutations using either `/` or `/\u003d` operators.",
+      "range": {
+        "startLine": 773,
+        "startChar": 4,
+        "endLine": 773,
+        "endChar": 70
+      },
+      "revId": "ce5c7b24dd237c314af2889a9bfbb954e76df7b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "044777a4_ebb6a79c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-01T10:00:25Z",
+      "side": 1,
+      "message": "Just define it as `const sdbusplus::object_path` directly.",
+      "range": {
+        "startLine": 774,
+        "startChar": 4,
+        "endLine": 774,
+        "endChar": 70
+      },
+      "revId": "ce5c7b24dd237c314af2889a9bfbb954e76df7b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
