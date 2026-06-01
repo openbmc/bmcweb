@@ -16,6 +16,75 @@
       "message": "Updated the commit message with additional bug fix for PATCH writable properties and addressed the review comments",
       "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480dd3d4_39ce1730",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-01T14:17:16Z",
+      "side": 1,
+      "message": "Why do we need this ?",
+      "range": {
+        "startLine": 956,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 5
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "872d89b2_09dd70d5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1655,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-01T14:17:16Z",
+      "side": 1,
+      "message": "Why ? We don\u0027t do this other places.",
+      "range": {
+        "startLine": 1652,
+        "startChar": 0,
+        "endLine": 1655,
+        "endChar": 9
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03be9a97_7582be9e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-01T14:17:16Z",
+      "side": 1,
+      "message": "Why ?",
+      "range": {
+        "startLine": 1662,
+        "startChar": 0,
+        "endLine": 1665,
+        "endChar": 9
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
