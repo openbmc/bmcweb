@@ -235,6 +235,7 @@ Fields common to all schemas
 - Links/ComputerSystems
 - Links/ManagedBy
 - Links/Processors
+- Location/PartLocation/LocationType
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
