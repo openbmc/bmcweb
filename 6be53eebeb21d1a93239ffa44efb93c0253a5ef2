@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3bb2953_63dce543",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-01T16:52:56Z",
+      "side": 1,
+      "message": "Closing.  Gunnar posted this same question first.  Lets track there.",
+      "parentUuid": "b13e1bd6_81946ab3",
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "480dd3d4_39ce1730",
@@ -48,6 +66,30 @@
       "writtenOn": "2026-06-01T14:17:16Z",
       "side": 1,
       "message": "Why do we need this ?",
+      "range": {
+        "startLine": 956,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 5
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d29d49f_a4dc1a77",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-01T16:52:56Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "480dd3d4_39ce1730",
       "range": {
         "startLine": 956,
         "startChar": 0,
