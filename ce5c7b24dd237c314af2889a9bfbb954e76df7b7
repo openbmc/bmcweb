@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "359d7966_55dae5b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-02T06:23:44Z",
+      "side": 1,
+      "message": "Yes, I\u0027m good with 47300 — I\u0027ve gone through 47300 PS30 and left a few review comments there.",
+      "parentUuid": "20c073c8_3fc10499",
+      "revId": "ce5c7b24dd237c314af2889a9bfbb954e76df7b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "611712a2_039208af",
