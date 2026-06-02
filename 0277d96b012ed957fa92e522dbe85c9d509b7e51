@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a868f117_940a7f39",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-02T06:21:59Z",
+      "side": 1,
+      "message": "setPoint is by value, controlMode by const ref — please align (const ref on both).",
+      "range": {
+        "startLine": 745,
+        "startChar": 34,
+        "endLine": 746,
+        "endChar": 50
+      },
+      "revId": "0277d96b012ed957fa92e522dbe85c9d509b7e51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1335311e_75abd4a2",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-02T06:21:59Z",
+      "side": 1,
+      "message": "Also: empty PATCH ({\"PowerLimitWatts\":{}}) falls through to a 200 with no property\nwritten; worth an early return when neither setPoint nor controlMode is present.",
+      "range": {
+        "startLine": 748,
+        "startChar": 0,
+        "endLine": 748,
+        "endChar": 1
+      },
+      "revId": "0277d96b012ed957fa92e522dbe85c9d509b7e51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "076250d2_5cd2d075",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-02T06:21:59Z",
+      "side": 1,
+      "message": "The second branch duplicates the lookup from the setPoint branch above when both properties are PATCHed together — consider one getPowerCapObject whose callback conditionally writes both, so the mapper is hit once and the two setDbusProperty calls share a single ec/empty-path check.",
+      "range": {
+        "startLine": 762,
+        "startChar": 4,
+        "endLine": 762,
+        "endChar": 20
+      },
+      "revId": "0277d96b012ed957fa92e522dbe85c9d509b7e51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
