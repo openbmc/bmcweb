@@ -16,6 +16,24 @@
       "message": "This is an additional change but it is correct so oh well, but be careful with additional changes on a refactor",
       "revId": "f1e303675f65abde6804660a7936db12cf9f3bfd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b897a343_1083e997",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-02T05:14:12Z",
+      "side": 1,
+      "message": "Noted. Thanks for the acknowledging!",
+      "parentUuid": "128c02bc_080c7ee0",
+      "revId": "f1e303675f65abde6804660a7936db12cf9f3bfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
