@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a63cf1ed_fb2a5596",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-03T22:15:40Z",
+      "side": 1,
+      "message": "There is not an existing operator to compare a string to an enum. I did not find an example of elsewhere we use the generated enum for comparison. Do you know of an example. I could create a mapping function, but that seems like it just ends up obfuscating the comparison since it is not used elsewhere.\n\n../../../../../../workspace/sources/bmcweb/redfish-core/lib/environment_metrics.hpp:358:26: error: no match for \u0027operator\u003d\u003d\u0027 (operand types are \u0027const std::string\u0027 {aka \u0027const std::__cxx11::basic_string\u003cchar\u003e\u0027} and \u0027control::ControlMode\u0027)\n  358 |     else if (controlMode \u003d\u003d control::ControlMode::Automatic)\n      |              ~~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      |              |                                    |\n      |              |                                    control::ControlMode\n      |              const std::string {aka const std::__cxx11::basic_string\u003cchar\u003e}",
+      "parentUuid": "78dc39ab_65df37bf",
+      "range": {
+        "startLine": 341,
+        "startChar": 4,
+        "endLine": 345,
+        "endChar": 40
+      },
+      "revId": "84fe781cc4b1bc7e14fa55c2ceaeb4e5dbe4a3cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7621313_a0563a68",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 2
@@ -71,6 +95,30 @@
       "writtenOn": "2026-06-02T05:54:46Z",
       "side": 1,
       "message": "Should we keep `messages::internalError(asyncResp-\u003eres);` here?",
+      "range": {
+        "startLine": 551,
+        "startChar": 4,
+        "endLine": 551,
+        "endChar": 27
+      },
+      "revId": "84fe781cc4b1bc7e14fa55c2ceaeb4e5dbe4a3cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a26832fd_c189b624",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-03T22:15:40Z",
+      "side": 1,
+      "message": "The intention here was for the callback() function to handle reporting an error back to the user if appropriate. For GET no error is reported if no single object is found. For PATCH an error would be reported.\n\nIt could be argued the ec should be set for the size \u003e 1 case, is that what you are asking for? If so, what error do you suggest?",
+      "parentUuid": "d7621313_a0563a68",
       "range": {
         "startLine": 551,
         "startChar": 4,
