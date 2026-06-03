@@ -218,7 +218,7 @@ inline bool getUserGroupFromAccountType(
         else
         {
             // Invalid Account Type
-            messages::propertyValueNotInList(res, "AccountTypes", accountType);
+            messages::propertyValueNotInList(res, accountType, "AccountTypes");
             return false;
         }
     }
@@ -1505,8 +1505,8 @@ inline void handleCertificateMappingAttributePatch(
         persistent_data::getMTLSCommonNameParseMode(certMapAttribute);
     if (parseMode == MTLSCommonNameParseMode::Invalid)
     {
-        messages::propertyValueNotInList(res, "CertificateMappingAttribute",
-                                         certMapAttribute);
+        messages::propertyValueNotInList(res, certMapAttribute,
+                                         "CertificateMappingAttribute");
         return;
     }
 
@@ -1629,8 +1629,8 @@ inline void handleAccountServicePatch(
         }
         else
         {
-            messages::propertyValueNotInList(asyncResp->res, "HttpBasicAuth",
-                                             *httpBasicAuth);
+            messages::propertyValueNotInList(asyncResp->res, *httpBasicAuth,
+                                             "HttpBasicAuth");
         }
     }
 
