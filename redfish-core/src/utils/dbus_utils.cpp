@@ -7,7 +7,7 @@
 #include "error_messages.hpp"
 #include "logging.hpp"
 
-#include <systemd/sd-bus.h>
+#include <systemd/sd-bus-protocol.h>
 
 #include <boost/asio/error.hpp>
 #include <boost/beast/http/status.hpp>
