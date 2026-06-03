@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b89968b8_83eb83f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-03T00:07:18Z",
+      "side": 1,
+      "message": "Done, really thanks for your remind.",
+      "parentUuid": "f769651c_82f5924a",
+      "revId": "90d9479e0a690665cd1acb99702e6a5eb091f7de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b62b6d0d_640a47b0",
