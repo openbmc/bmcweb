@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6a03e1a_3d75dc2e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T18:55:07Z",
+      "side": 1,
+      "message": "print the EC, that is the most valuable part of this trace",
+      "range": {
+        "startLine": 580,
+        "startChar": 66,
+        "endLine": 580,
+        "endChar": 68
+      },
+      "revId": "9baf7fe19b192ad497066925d4875a17d3ebd7f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
