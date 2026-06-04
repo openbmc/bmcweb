@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dfdfa4d_b81a18f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-04T19:41:16Z",
+      "side": 1,
+      "message": "CI on this commit is failing due to a new clang-tidy header warning. That has been fixed by Ed with commit 5137a40\n\nOnce the Processor EnvironmentMetrics commit is rebased with that this one should also pass CI after a rebase.",
+      "revId": "4c9cda1dd540ed438c115d7d664cb95d704b31b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

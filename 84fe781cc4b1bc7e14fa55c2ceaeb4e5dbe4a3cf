@@ -193,6 +193,30 @@
       },
       "revId": "84fe781cc4b1bc7e14fa55c2ceaeb4e5dbe4a3cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aea6595_01b05ecd",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-04T19:41:16Z",
+      "side": 1,
+      "message": "Added the internalError() here and changed the message back to ERROR.\n\nNote: This special-case will not call the callback to handle the error since it is being treated as an internal error here. I\u0027ve updated the commit message to call out this special-case.",
+      "parentUuid": "ff4af56f_ef4486cd",
+      "range": {
+        "startLine": 551,
+        "startChar": 4,
+        "endLine": 551,
+        "endChar": 27
+      },
+      "revId": "84fe781cc4b1bc7e14fa55c2ceaeb4e5dbe4a3cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
