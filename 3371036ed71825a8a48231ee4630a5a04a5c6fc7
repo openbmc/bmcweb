@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "550c2bed_04e5ae21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T19:09:34Z",
+      "side": 1,
+      "message": "Oh Redfish. \nWe sure  Asset.Manufacturer (PDI) -\u003e Producer would always be true ?",
+      "parentUuid": "d60bb68f_ce56c7f2",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fbc224ba_0154753b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

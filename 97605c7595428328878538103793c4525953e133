@@ -16,6 +16,52 @@
       "message": "Please format your commit msg at 50/72 \nWe follow https://cbea.ms/git-commit/",
       "revId": "97605c7595428328878538103793c4525953e133",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3453a22b_f87f0192",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T19:09:34Z",
+      "side": 1,
+      "message": "Don\u0027t you need to format this date to \nRedfish uses the ISO 8601 date and time format\nYYYY-MM-DDTHH:MM:SS+HH:MM\n\nI am shocked the validator didn\u0027t throw an error \n\n\n                    \"format\": \"date-time\",",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 13
+      },
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a9d56e4_e0f9f102",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T19:09:34Z",
+      "side": 1,
+      "message": "I assume 1 day, we will have more Types here. \n\nMight be a good one for a helper function",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 69
+      },
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
