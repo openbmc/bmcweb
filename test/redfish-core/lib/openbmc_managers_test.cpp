@@ -195,7 +195,7 @@ TEST(AfterAsyncPopulatePid, FanZoneIsPopulatedWithDoubles)
 
     const nlohmann::json& zone =
         asyncResp->res.jsonValue["Fan"]["FanZones"]["Zone0"];
-    EXPECT_EQ(zone["@odata.type"], "#OpenBMCManager.v1_1_0.Manager.FanZone");
+    EXPECT_EQ(zone["@odata.type"], "#OpenBMCManager.v1_1_0.FanZone");
     EXPECT_EQ(zone["Chassis"]["@odata.id"], "/redfish/v1/Chassis/MyChassis");
     EXPECT_EQ(zone["@odata.id"],
               "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/Zone0");
