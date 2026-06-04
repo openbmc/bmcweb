@@ -193,8 +193,8 @@ inline void asyncPopulatePid(
                             ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
                                 .to_string());
                         zone["@odata.id"] = std::move(url);
-                        zone["@odata.type"] =
-                            "#OpenBMCManager.v1_1_0.Manager.FanZone";
+                        zone["@odata.type"] = "#OpenBMCManager.v1_1_0.FanZone";
+                        zone["MemberId"] = name;
                         config = &zone;
                     }
 

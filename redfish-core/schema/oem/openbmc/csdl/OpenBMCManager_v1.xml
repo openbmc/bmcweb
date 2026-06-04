@@ -43,7 +43,6 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="OpenBmc oem fan properties."/>
         <Annotation Term="OData.LongDescription" String="OpenBMC oem fan properties."/>
-        <Annotation Term="OData.AutoExpand"/>
         <Property Name="FanControllers" Type="OpenBMCManager.v1_0_0.FanControllers">
           <Annotation Term="OData.Description" String="Current OpenBMC fan controllers."/>
           <Annotation Term="OData.LongDescription" String="Current OpenBMC fan controllers."/>
@@ -192,17 +191,22 @@
           <Annotation Term="OData.LongDescription" String="Positive slew rate for the PID."/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
-        <NavigationProperty Name="Zones" Type="Collection(OpenBMCManager.v1_0_0.FanZone)">
+        <NavigationProperty Name="Zones" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Contains the Zones that this PID contributes to."/>
           <Annotation Term="OData.LongDescription" String="Contains the Zones that this PID contributes to."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
-      <ComplexType Name="FanZone">
+      <EntityType Name="FanZone" BaseType="Resource.v1_0_0.ReferenceableMember">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Configuration data for Fan Controllers."/>
         <Annotation Term="OData.LongDescription" String="Configuration data for Fan Controllers."/>
+        <Property Name="CycleIntervalTimeMS" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="The zone control cycle interval in milliseconds."/>
+          <Annotation Term="OData.LongDescription" String="The zone control cycle interval in milliseconds."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+        </Property>
         <Property Name="FailSafePercent" Type="Edm.Decimal" Nullable="false">
           <Annotation Term="OData.Description" String="If the sensors are in fail-safe mode, this is the percentage to use."/>
           <Annotation Term="OData.LongDescription" String="If the sensors are in fail-safe mode, this is the percentage to use."/>
@@ -213,13 +217,18 @@
           <Annotation Term="OData.LongDescription" String="Minimum thermal RPM that can be set in this Zone."/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
+        <Property Name="UpdateThermalsTimeMS" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="The thermal update interval in milliseconds for this zone."/>
+          <Annotation Term="OData.LongDescription" String="The thermal update interval in milliseconds for this zone."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+        </Property>
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Chassis that enables this Zone."/>
           <Annotation Term="OData.LongDescription" String="The Chassis that enables this Zone."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-      </ComplexType>
+      </EntityType>
       <ComplexType Name="PidController">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Configuration data for Fan Controllers."/>
@@ -299,7 +308,7 @@
           <Annotation Term="OData.LongDescription" String="Positive slew rate for the PID."/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
-        <NavigationProperty Name="Zones" Type="Collection(OpenBMCManager.v1_0_0.FanZone)">
+        <NavigationProperty Name="Zones" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Contains the Zones that this PID contributes to."/>
           <Annotation Term="OData.LongDescription" String="Contains the Zones that this PID contributes to."/>
@@ -328,14 +337,13 @@
         <Property Name="Steps" Type="Collection(OpenBMCManager.v1_0_0.StepwiseSteps)">
           <Annotation Term="OData.Description" String="Temperature vs RPM steps for the stepwise controller."/>
           <Annotation Term="OData.LongDescription" String="Temperature vs RPM steps for the stepwise controller."/>
-          <Annotation Term="OData.AutoExpand"/>
         </Property>
         <Property Name="Direction" Type="Edm.String">
           <Annotation Term="OData.Description" String="Direction that the stepwise controller applies."/>
           <Annotation Term="OData.LongDescription" String="Direction that the stepwise controller applies. Options include Ceiling and Floor."/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
-        <NavigationProperty Name="Zones" Type="Collection(OpenBMCManager.v1_0_0.FanZone)">
+        <NavigationProperty Name="Zones" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Contains the Zones that this controller contributes to."/>
           <Annotation Term="OData.LongDescription" String="Contains the Zones that this controller contributes to."/>
