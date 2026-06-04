@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc607904_2ea4296b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T18:12:08Z",
+      "side": 1,
+      "message": "ideally these would be broke up..",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 35
+      },
+      "revId": "d8b4eba6c129585ee93ba6723ef4224cd201060a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda5d021_a8d2ed78",
+        "filename": "redfish-core/schema/oem/openbmc/json-schema/OpenBMCManager.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T18:12:08Z",
+      "side": 1,
+      "message": "Why this change?",
+      "revId": "d8b4eba6c129585ee93ba6723ef4224cd201060a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
