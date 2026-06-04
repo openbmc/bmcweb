@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1e86772_3ccc8947",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T19:17:04Z",
+      "side": 1,
+      "message": "It isn\u0027t just GPU chassis, these could be used for an Assembly",
+      "range": {
+        "startLine": 7,
+        "startChar": 37,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc8e2351_79e9f555",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T19:17:04Z",
+      "side": 1,
+      "message": "Redfish says Replaceable should be a value when LocationType is Embedded, bonus if Replaceable is implemented later. \n\n                \"Replaceable\": {\n                    \"description\": \"An indication of whether the component associated this assembly can be independently replaced as allowed by the vendor\u0027s replacement policy.\",\n                    \"longDescription\": \"This property shall indicate whether the component associated this assembly can be independently replaced as allowed by the vendor\u0027s replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this assembly contains `Embedded`, this property shall contain `false`.\",",
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f0a285b_825acd93",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -59,6 +99,29 @@
         "startChar": 0,
         "endLine": 218,
         "endChar": 69
+      },
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d5de6e7_2a13a7d3",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T19:17:04Z",
+      "side": 1,
+      "message": "Why not just add these to getAssetInfo so we don\u0027t have to do extra calls?",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 59
       },
       "revId": "97605c7595428328878538103793c4525953e133",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
