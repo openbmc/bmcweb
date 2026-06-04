@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50692ff6_5d731f45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-04T19:53:22Z",
+      "side": 1,
+      "message": "Please stack your patch on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/85785",
+      "revId": "3014317f9fb2a73a4ee84a93221bc0988d6ec430",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
