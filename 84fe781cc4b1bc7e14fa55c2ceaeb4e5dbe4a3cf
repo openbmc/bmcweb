@@ -82,6 +82,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e914b356_4edce4f0",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-04T02:52:55Z",
+      "side": 1,
+      "message": "Thanks for checking — no problem, this is fine as-is.",
+      "parentUuid": "a63cf1ed_fb2a5596",
+      "range": {
+        "startLine": 341,
+        "startChar": 4,
+        "endLine": 345,
+        "endChar": 40
+      },
+      "revId": "84fe781cc4b1bc7e14fa55c2ceaeb4e5dbe4a3cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7621313_a0563a68",
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "The intention here was for the callback() function to handle reporting an error back to the user if appropriate. For GET no error is reported if no single object is found. For PATCH an error would be reported.\n\nIt could be argued the ec should be set for the size \u003e 1 case, is that what you are asking for? If so, what error do you suggest?",
       "parentUuid": "d7621313_a0563a68",
+      "range": {
+        "startLine": 551,
+        "startChar": 4,
+        "endLine": 551,
+        "endChar": 27
+      },
+      "revId": "84fe781cc4b1bc7e14fa55c2ceaeb4e5dbe4a3cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff4af56f_ef4486cd",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-04T02:52:55Z",
+      "side": 1,
+      "message": "Yes — for the size \u003e 1 case please set internalError (server-side misconfig: a single controlled_by shouldn\u0027t map to multiple Power.Cap objects). The empty-subtree case keeping the silent callback is fine; it\u0027s only size \u003e 1 I\u0027d surface as 500",
+      "parentUuid": "a26832fd_c189b624",
       "range": {
         "startLine": 551,
         "startChar": 4,
