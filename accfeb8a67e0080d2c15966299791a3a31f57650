@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d33310fa_d0078cd4",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T20:46:07Z",
+      "side": 1,
+      "message": "`, ptrOwned(other.ptrOwned)` ??",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b383e67_21c45847",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T20:46:07Z",
+      "side": 1,
+      "message": "mozillaModernAndIntermediateCiphers ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 53
+      },
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fa042ba_23fbe22f",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T20:46:07Z",
+      "side": 1,
+      "message": "I like this suggestion.. But up to you.. I got confused reading this.. \n\n\n```\nstatic bool applyTlsProfile(OpenSSLSSLCtx\u0026 sslCtx)\n{\n    if constexpr (BMCWEB_TLS_PROFILE \u003d\u003d \"modern\")\n    {\n        if (!sslCtx.setCurves(mozillaModernCurves))\n        {\n            return false;\n        }\n\n        if (!sslCtx.setCiphersuites(mozillaModernCiphersuites))\n        {\n            return false;\n        }\n\n        return true;\n    }\n\n    if constexpr (BMCWEB_TLS_PROFILE \u003d\u003d \"intermediate\")\n    {\n        if (!sslCtx.setCurves(mozillaIntermediateCurves))\n        {\n            return false;\n        }\n\n        if (!sslCtx.setCipherList(mozillaIntermediateCiphers))\n        {\n            return false;\n        }\n\n        if (!sslCtx.setCiphersuites(mozillaIntermediateCiphersuites))\n        {\n            return false;\n        }\n\n        return true;\n    }\n\n    return false;\n}\n```\nThen.. \n```\nif (!applyTlsProfile(sslCtx))\n{\n    BMCWEB_LOG_ERROR(\"Failed to apply TLS profile to server context\");\n    return false;\n}\n```",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bdbfad2_a21d8341",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T20:46:07Z",
+      "side": 1,
+      "message": "Why don\u0027t we set the cipherList for Modern ?\n\nI would expect a \n\nelse \n        cipherList \u003d mozillaModernCiphers;\n        if (!sslCtx.setCipherList(cipherList))",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e89bd17_97940421",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T20:46:07Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be in the else \n\n    if constexpr (BMCWEB_TLS_PROFILE \u003d\u003d \"intermediate\")\n\n    else \n        ...\n\nOh, I think you are purposely setting this for both intermediate and modern.. Can you maybe rename mozillaModernCiphersuites then ?\n\nAnd maybe not reuse cipherList, I find that confusing..",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "722d8033_7bfb38f5",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T20:46:07Z",
+      "side": 1,
+      "message": "cipherList here or why set it up a line ? Or IDK, you could just get rid of the variable \"cipherList\"",
+      "range": {
+        "startLine": 477,
+        "startChar": 32,
+        "endLine": 477,
+        "endChar": 57
+      },
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "273cebda_027847e4",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T20:46:07Z",
+      "side": 1,
+      "message": "You will log twice, but oh well.",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
