@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "145ce5e7_a2d8f49a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-04T18:14:40Z",
+      "side": 1,
+      "message": "Yep, PDI has them as uint32\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/6a9920e26d2785e1fe265a72fca98121456c5a2f/yaml/xyz/openbmc_project/Inventory/Item/PersistentMemory.interface.yaml#L62\n\n\nHas anyone implemented these in the backend ?\nI don\u0027t see searching..",
+      "revId": "86dd0f2c4cac97814792d84745a4c1bbc058f9ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
