@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01d2a169_a888a1a7",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-06-05T16:53:04Z",
+      "side": 1,
+      "message": "I don\u0027t see any code in phosphor-user-manager to fill in this property.  Did I miss it?",
+      "range": {
+        "startLine": 43,
+        "startChar": 51,
+        "endLine": 43,
+        "endChar": 73
+      },
+      "revId": "fb8c5a8f1b555709d54400a57ee7970ed601c262",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fac8b1e_afd8689e",
         "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCSession_v1.xml",
         "patchSetId": 4
