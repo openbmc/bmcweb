@@ -33,6 +33,24 @@
       "message": "There is no upstream backend currently, but the D-Bus interface contract is defined in phosphor-dbus-interfaces. I used busctl to simulate a provider by injecting mock data into phosphor-inventory-manager.",
       "revId": "86dd0f2c4cac97814792d84745a4c1bbc058f9ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a2dbcec_e3583a8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003007
+      },
+      "writtenOn": "2026-06-05T08:30:06Z",
+      "side": 1,
+      "message": "There is no upstream backend currently, but the D-Bus interface contract is defined in phosphor-dbus-interfaces. I used busctl to simulate a provider by injecting mock data into phosphor-inventory-manager.",
+      "parentUuid": "145ce5e7_a2d8f49a",
+      "revId": "86dd0f2c4cac97814792d84745a4c1bbc058f9ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
