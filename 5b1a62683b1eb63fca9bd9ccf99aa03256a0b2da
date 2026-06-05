@@ -134,6 +134,29 @@
       },
       "revId": "5b1a62683b1eb63fca9bd9ccf99aa03256a0b2da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efa4c57c_0373959e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-05T05:21:50Z",
+      "side": 1,
+      "message": "@andhsieh@nvidia.com\nFYI, this is the part I think we can do the refactor for `objectPath`.",
+      "range": {
+        "startLine": 1094,
+        "startChar": 0,
+        "endLine": 1097,
+        "endChar": 54
+      },
+      "revId": "5b1a62683b1eb63fca9bd9ccf99aa03256a0b2da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
