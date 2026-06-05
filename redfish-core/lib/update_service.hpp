@@ -248,6 +248,30 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
     return !task::completed;
 }
 
+inline std::string dbusToRedfishResetType(const std::string& dbusResetType)
+{
+    if (dbusResetType.ends_with(".On"))
+    {
+        return "On";
+    }
+    if (dbusResetType.ends_with(".Off"))
+    {
+        return "GracefulShutdown";
+    }
+    if (dbusResetType.ends_with(".Reboot"))
+    {
+        return "PowerCycle";
+    }
+    if (dbusResetType.ends_with(".GracefulWarmReboot"))
+    {
+        return "GracefulRestart";
+    }
+    if (dbusResetType.ends_with(".ForceWarmReboot"))
+    {
+        return "ForceRestart";
+    }
+    return "";
+}
 
 inline std::optional<nlohmann::json::object_t> updateEventToTaskMessage(
     const std::string& messageType,
@@ -288,6 +312,15 @@ inline std::optional<nlohmann::json::object_t> updateEventToTaskMessage(
     if (messageType == "xyz.openbmc_project.Software.Update.UpdateSuccessful")
     {
         return messages::updateSuccessful(targetUriView, imageId);
+    }
+    if (messageType == "xyz.openbmc_project.Software.Update.ResetRequired")
+    {
+        auto resetIt = additionalData.find("RESET_TYPE");
+        std::string resetType = dbusToRedfishResetType(
+            (resetIt != additionalData.end()) ? resetIt->second : "");
+        // TODO: look up inventory item URI from the target object path
+        boost::urls::url resetUri("");
+        return messages::resetRequired(resetUri, resetType);
     }
     return std::nullopt;
 }
