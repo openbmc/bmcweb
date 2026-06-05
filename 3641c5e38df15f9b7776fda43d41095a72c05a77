@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6679a815_62b7a850",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T06:37:42Z",
+      "side": 1,
+      "message": "Can we return `pcie_device::DeviceType::Invalid` here? That way return type doesn\u0027t have to be std::optional. Also check how it is done for other enums.",
+      "revId": "3641c5e38df15f9b7776fda43d41095a72c05a77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
