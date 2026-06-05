@@ -50,6 +50,24 @@
       "message": "Why do you need this here? \nCan\u0027t a non-Accelerator processor have a EnvironmentMetrics? \nIs line 935 enough?",
       "revId": "d8b3bf1c93637e5bda18c2276f91462331f9b2db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b860bb_d362058c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-05T03:42:39Z",
+      "side": 1,
+      "message": "Done. Thanks for catching this!",
+      "parentUuid": "b93b92d3_164adc69",
+      "revId": "d8b3bf1c93637e5bda18c2276f91462331f9b2db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
