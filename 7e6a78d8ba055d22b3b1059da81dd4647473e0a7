@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1918ca6_70f7202a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-05T06:24:32Z",
+      "side": 1,
+      "message": "When both setPoint and controlMode are set and the lookup failed (ec), both setters run their own ec check and each emit propertyUnknown, so the response carries it twice. \nConsider one ec/empty check here before dispatching.",
+      "range": {
+        "startLine": 370,
+        "startChar": 4,
+        "endLine": 370,
+        "endChar": 17
+      },
+      "revId": "7e6a78d8ba055d22b3b1059da81dd4647473e0a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
