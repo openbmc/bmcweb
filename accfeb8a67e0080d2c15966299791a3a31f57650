@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96bec8d5_23557fab",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-05T15:49:19Z",
+      "side": 1,
+      "message": "Yep.  Good call.",
+      "parentUuid": "d33310fa_d0078cd4",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b383e67_21c45847",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 9
@@ -31,6 +49,30 @@
       "writtenOn": "2026-06-04T20:46:07Z",
       "side": 1,
       "message": "mozillaModernAndIntermediateCiphers ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 53
+      },
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a512f75_3462fa80",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-05T15:49:19Z",
+      "side": 1,
+      "message": "I don\u0027t love that name.  Maybe \"commonMozillaCiphers\"?",
+      "parentUuid": "1b383e67_21c45847",
       "range": {
         "startLine": 66,
         "startChar": 27,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac6c8396_ba856a1e",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-05T15:49:19Z",
+      "side": 1,
+      "message": "I don\u0027t think that works for the common ones?  mozillaIntermediateCurves and mozillaModernCurves are identical.  Should we duplicate that code?  Doesn\u0027t seem right.",
+      "parentUuid": "2fa042ba_23fbe22f",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4bdbfad2_a21d8341",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 9
@@ -71,6 +131,24 @@
       "writtenOn": "2026-06-04T20:46:07Z",
       "side": 1,
       "message": "Why don\u0027t we set the cipherList for Modern ?\n\nI would expect a \n\nelse \n        cipherList \u003d mozillaModernCiphers;\n        if (!sslCtx.setCipherList(cipherList))",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b828ccad_d0b739a8",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-05T15:49:19Z",
+      "side": 1,
+      "message": "\u003e Why don\u0027t we set the cipherList for Modern\n\nBecause cipherList setting is only for TLS1.2 and below.  For modern we disable tls1.2 on line 433, so no need to call cipherList at all in that case.",
+      "parentUuid": "4bdbfad2_a21d8341",
       "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -117,6 +195,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "339a9ceb_60adefb9",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-05T15:49:19Z",
+      "side": 1,
+      "message": "You\u0027re right.  This evolved over time as I figured out more about openssl having two cipher suite apis.   Ican clean this up.",
+      "parentUuid": "722d8033_7bfb38f5",
+      "range": {
+        "startLine": 477,
+        "startChar": 32,
+        "endLine": 477,
+        "endChar": 57
+      },
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1ac2a13_f9bf9260",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-05T15:49:19Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t this be in the else \n\u003e \n\u003e     if constexpr (BMCWEB_TLS_PROFILE \u003d\u003d \"intermediate\")\n\u003e \n\u003e     else \n\u003e         ...\n\u003e \n\u003e Oh, I think you are purposely setting this for both intermediate and modern.. Can you maybe rename mozillaModernCiphersuites then ?\n\nYep.  Can do.  FWIW, I also found this confusing in the openssl documentation.\n\n\u003e \n\u003e And maybe not reuse cipherList, I find that confusing..\n\nYep, good point.  Can look at it.",
+      "parentUuid": "5e89bd17_97940421",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "273cebda_027847e4",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 9
@@ -128,6 +248,24 @@
       "writtenOn": "2026-06-04T20:46:07Z",
       "side": 1,
       "message": "You will log twice, but oh well.",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6183d5c_0a885933",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-05T15:49:19Z",
+      "side": 1,
+      "message": "If this fails, we\u0027re pretty broken.  it is sometimes useful to have prints through the whole trace.",
+      "parentUuid": "273cebda_027847e4",
       "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
