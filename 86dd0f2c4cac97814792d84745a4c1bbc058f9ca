@@ -16,6 +16,23 @@
       "message": "Yep, PDI has them as uint32\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/6a9920e26d2785e1fe265a72fca98121456c5a2f/yaml/xyz/openbmc_project/Inventory/Item/PersistentMemory.interface.yaml#L62\n\n\nHas anyone implemented these in the backend ?\nI don\u0027t see searching..",
       "revId": "86dd0f2c4cac97814792d84745a4c1bbc058f9ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46bc254d_def2451e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003007
+      },
+      "writtenOn": "2026-06-05T08:25:44Z",
+      "side": 1,
+      "message": "There is no upstream backend currently, but the D-Bus interface contract is defined in phosphor-dbus-interfaces. I used busctl to simulate a provider by injecting mock data into phosphor-inventory-manager.",
+      "revId": "86dd0f2c4cac97814792d84745a4c1bbc058f9ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
