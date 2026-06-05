@@ -16,6 +16,24 @@
       "message": "Ideally a unit test here but oh well",
       "revId": "af1b2b438faccba5c7cef52f8f4325e6f2ef3027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af5f7f3f_726a7859",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-05T02:00:57Z",
+      "side": 1,
+      "message": "Got it, thanks for remind. I will attention next time.",
+      "parentUuid": "1251f9b8_8274c9d0",
+      "revId": "af1b2b438faccba5c7cef52f8f4325e6f2ef3027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
