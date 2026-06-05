@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8153fe54_a792a3d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T10:06:02Z",
+      "side": 1,
+      "message": "Update Redfish.md.",
+      "revId": "4a601ee7c95a798456e753d45b2ab7b4f6ac89e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "138160b8_738324e1",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T10:06:02Z",
+      "side": 1,
+      "message": "This is incorrect, dbus-sensors application should create Metric D-Bus Object Path for each DRAM and associate it with DRAM Object Path.",
+      "revId": "4a601ee7c95a798456e753d45b2ab7b4f6ac89e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
