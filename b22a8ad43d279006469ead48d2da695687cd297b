@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a43feda_4c71525d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T09:47:24Z",
+      "side": 1,
+      "message": "Please put PDI patches on top section of the commit message so it is easier to spot.",
+      "revId": "b22a8ad43d279006469ead48d2da695687cd297b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d97f678_ec6039a6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T09:47:24Z",
+      "side": 1,
+      "message": "The comment of this function has got misplaced.",
+      "revId": "b22a8ad43d279006469ead48d2da695687cd297b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc329db0_2192c85c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T09:47:24Z",
+      "side": 1,
+      "message": "Please see if we can use `std::to_array\u003cstd::string_view\u003e` to avoid manually changing length each time.",
+      "revId": "b22a8ad43d279006469ead48d2da695687cd297b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
