@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc5f957_5825d2ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-05T05:17:48Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "5b1a62683b1eb63fca9bd9ccf99aa03256a0b2da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff771f4c_f798e1e8",
@@ -38,6 +55,30 @@
       "side": 1,
       "message": "Most paths in processor.hpp (and bmcweb in general) use `const std::string\u0026` for D-Bus object paths. Keeping consistent with that here — happy to revisit if you feel strongly about it.",
       "parentUuid": "ff771f4c_f798e1e8",
+      "range": {
+        "startLine": 402,
+        "startChar": 4,
+        "endLine": 402,
+        "endChar": 33
+      },
+      "revId": "5b1a62683b1eb63fca9bd9ccf99aa03256a0b2da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e24ac7_1ee207cb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-05T05:17:48Z",
+      "side": 1,
+      "message": "Using `sdbusplus::object_path` is indeed nit and doesn\u0027t necessarily be applied.\nTracing back your code, I found that the source of using `const std::string\u0026` instead of `sdbusplus::object_path` is within the `getProcessorData()`.\n\nIn this case, I think we could have a refactor patch to change the use of `const std::string\u0026` to `sdbusplus::object_path\u0026`.",
+      "parentUuid": "c5a93ed4_e296dc0a",
       "range": {
         "startLine": 402,
         "startChar": 4,
