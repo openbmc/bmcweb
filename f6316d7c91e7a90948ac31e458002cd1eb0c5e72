@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cd023aa_2d88d30f",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T10:55:50Z",
+      "side": 1,
+      "message": "This lamda is too long, please use a free function instead.",
+      "revId": "f6316d7c91e7a90948ac31e458002cd1eb0c5e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ebecf29_16f7251a",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T10:55:50Z",
+      "side": 1,
+      "message": "We should not do messages::internalError for a case where Reset object path is not found; report a different appropriate error in that case.",
+      "revId": "f6316d7c91e7a90948ac31e458002cd1eb0c5e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ac023f0_55190fd3",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T10:55:50Z",
+      "side": 1,
+      "message": "Report an error if multiple object paths are found.",
+      "revId": "f6316d7c91e7a90948ac31e458002cd1eb0c5e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ad14ce1_55d7713e",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-05T10:55:50Z",
+      "side": 1,
+      "message": "Report an error if multiple services are found.",
+      "revId": "f6316d7c91e7a90948ac31e458002cd1eb0c5e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
