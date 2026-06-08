@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe22f3a_acca04cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-08T11:54:08Z",
+      "side": 1,
+      "message": "I assume this should be `/redfish/v1/Systems/system`?",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "fd7933b6e442094e1af8858cb65cc9c8b301150a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c12f282b_7340c83f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3024,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-08T11:54:08Z",
+      "side": 1,
+      "message": "Should this go into a separate function? It now exceeds the 10L limit in common_errors.md",
+      "range": {
+        "startLine": 3009,
+        "startChar": 1,
+        "endLine": 3024,
+        "endChar": 61
+      },
+      "revId": "fd7933b6e442094e1af8858cb65cc9c8b301150a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
