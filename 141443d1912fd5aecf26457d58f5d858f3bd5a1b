@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "141ea638_58236b66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-08T06:39:16Z",
+      "side": 1,
+      "message": "Done,thanks.",
+      "parentUuid": "5af5cda3_e646bb49",
+      "revId": "141443d1912fd5aecf26457d58f5d858f3bd5a1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2e1f560_e346067d",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49400d62_3f01234e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-08T06:39:16Z",
+      "side": 1,
+      "message": "Done,thanks.",
+      "parentUuid": "e2e1f560_e346067d",
+      "revId": "141443d1912fd5aecf26457d58f5d858f3bd5a1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e42a471c_0d4b3f7c",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-05-21T14:59:15Z",
       "side": 1,
       "message": "Why is this a Chassis URI by default? PDI documents the association between any Inventory.Item, not only chassis. This does not seem to be right?",
+      "revId": "141443d1912fd5aecf26457d58f5d858f3bd5a1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd1d97e9_89ea9b80",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-08T06:39:16Z",
+      "side": 1,
+      "message": "Done. No longer Chassis-by-default. getAssociatedSubTree filters on relatedItemInterfaces",
+      "parentUuid": "e42a471c_0d4b3f7c",
       "revId": "141443d1912fd5aecf26457d58f5d858f3bd5a1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
