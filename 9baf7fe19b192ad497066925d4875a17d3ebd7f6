@@ -22,6 +22,30 @@
       },
       "revId": "9baf7fe19b192ad497066925d4875a17d3ebd7f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d48d2b8e_5fb3c145",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-08T09:30:37Z",
+      "side": 1,
+      "message": "Done and the latest PS now logs the full `ec`.\nThanks for acknowledging!",
+      "parentUuid": "b6a03e1a_3d75dc2e",
+      "range": {
+        "startLine": 580,
+        "startChar": 66,
+        "endLine": 580,
+        "endChar": 68
+      },
+      "revId": "9baf7fe19b192ad497066925d4875a17d3ebd7f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

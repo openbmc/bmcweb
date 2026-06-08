@@ -34,6 +34,24 @@
       "parentUuid": "1a2090d8_529a6b1d",
       "revId": "121813b32fbefc058615f6107461d7b0e43c54b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "416945dc_d193d336",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-08T09:30:37Z",
+      "side": 1,
+      "message": "Since the `bmcweb` is still pinned to Boost 1.90 and the 1.91 bump is some weeks out and I didn\u0027t want to gate this on it. \n\nIn addition, I have removed the format checking for `UUID` and currently we will just have empty case checker.\n\nIf we really want to have format checker for UUID, I think we can wait until `bmcweb` to be upgraded to `boost v1.91.0` and I can then uploaded a patch for them.",
+      "parentUuid": "9ab0007b_1387e2ee",
+      "revId": "121813b32fbefc058615f6107461d7b0e43c54b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
