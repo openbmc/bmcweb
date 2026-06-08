@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17c9dc55_d3d3eced",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003027
+      },
+      "writtenOn": "2026-06-08T23:04:38Z",
+      "side": 1,
+      "message": "This change overlaps with the PATCH-only EthernetInterface privilege change currently listed as a merge conflict.\n\nI kept this change broader within the same Manager EthernetInterface mutation surface: POST, PATCH, and DELETE all mutate Manager-owned network resources, so this patch routes all three to the existing ConfigureManager Manager-specific privilege mappings and adds route-level tests for Operator/Admin behavior.\n\nIf the PATCH-only change lands first, I will rebase this change and retain the remaining POST/DELETE coverage plus the route-level tests.",
+      "revId": "3264b2885bcb3bd6a7edfcfbdb7f488ca90abf72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
