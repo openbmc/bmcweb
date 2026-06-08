@@ -102,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bfe64b9_18fcd92d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-08T06:40:19Z",
+      "side": 1,
+      "message": "Hi @gunnar@gmills.xyz @ed@tanous.net\n\nEarlier:\nThe PATCH flow could continue running later handlers even after response handling had already gone into a problematic/error path. Those later handlers could still apply success semantics, which created inconsistent response state. In practice, this showed up as unstable behavior like Postman hanging, crashing, or waiting too long even for writable-property updates.\n\nWith this change:\nWe set 204 No Content only if the response is still 200 OK at that point. So success is applied only for clean paths, while any previously set non-OK state is preserved. This removes mixed response semantics and makes request completion predictable.",
+      "parentUuid": "1d29d49f_a4dc1a77",
+      "range": {
+        "startLine": 956,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 5
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "872d89b2_09dd70d5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -113,6 +137,30 @@
       "writtenOn": "2026-06-01T14:17:16Z",
       "side": 1,
       "message": "Why ? We don\u0027t do this other places.",
+      "range": {
+        "startLine": 1652,
+        "startChar": 0,
+        "endLine": 1655,
+        "endChar": 9
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32d6233d_77bcc4c4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1655,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-08T06:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "872d89b2_09dd70d5",
       "range": {
         "startLine": 1652,
         "startChar": 0,
@@ -142,6 +190,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "255dded8_fade7176",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-08T06:40:19Z",
+      "side": 1,
+      "message": "@ed@tanous.net This guard is intentional and not an async misunderstanding. It is a fail-fast check for synchronous errors set by the immediately preceding helper. If that helper has already set a non-OK response, we return immediately to avoid continuing PATCH processing and creating mixed response behavior. You are correct that this check does not capture errors that arrive later from async callbacks; those are handled in the callback paths.",
+      "parentUuid": "b66ea2f3_95d823c9",
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "03be9a97_7582be9e",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -153,6 +219,30 @@
       "writtenOn": "2026-06-01T14:17:16Z",
       "side": 1,
       "message": "Why ?",
+      "range": {
+        "startLine": 1662,
+        "startChar": 0,
+        "endLine": 1665,
+        "endChar": 9
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e218590b_3ecaf25e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-08T06:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03be9a97_7582be9e",
       "range": {
         "startLine": 1662,
         "startChar": 0,
