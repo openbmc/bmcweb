@@ -16,6 +16,24 @@
       "message": "Changes in Boost 1.91.0\n```\n    Added from_chars to boost/uuid/uuid_io.hpp.\n    Added a noexcept operator() overload to string_generator.\n```\nhttps://www.boost.org/doc/libs/latest/libs/uuid/doc/html/uuid.html\n\nCan we move to 1.91 ?\nhttps://github.com/openbmc/bmcweb/blob/5137a404e15984311ad4e5836880f49fb27dde18/subprojects/boost.wrap#L2",
       "revId": "121813b32fbefc058615f6107461d7b0e43c54b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab0007b_1387e2ee",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-08T05:34:26Z",
+      "side": 1,
+      "message": "Why are we parsing this as a UUID at all?",
+      "parentUuid": "1a2090d8_529a6b1d",
+      "revId": "121813b32fbefc058615f6107461d7b0e43c54b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
