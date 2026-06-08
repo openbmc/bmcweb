@@ -400,6 +400,18 @@ TEST(FillSensorIdentity, Success)
     EXPECT_FALSE(sensorJson.contains("Implementation"));
     EXPECT_FALSE(sensorJson.contains("ReadingBasis"));
     EXPECT_EQ(unit.to_string(), "/Reading");
+
+    sensorJson.clear();
+    unit = "/Reading"_json_pointer;
+    result = fillSensorIdentity("bbu_charge", "charge", properties, sensorJson,
+                                isExcerpt, unit);
+    EXPECT_TRUE(result);
+    EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
+    EXPECT_EQ(sensorJson["Id"].get<std::string>(), "charge_bbu_charge");
+    EXPECT_EQ(sensorJson["Name"].get<std::string>(), "bbu charge");
+    EXPECT_EQ(sensorJson["ReadingType"], sensor::ReadingType::ChargeAh);
+    EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "Ah");
+    EXPECT_EQ(unit.to_string(), "/Reading");
 }
 
 TEST(FillSensorIdentity, Failure)

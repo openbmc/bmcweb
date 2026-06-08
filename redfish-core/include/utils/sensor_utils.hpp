@@ -246,6 +246,10 @@ inline std::string_view toReadingUnits(std::string_view sensorType)
     {
         return "Pa";
     }
+    if (sensorType == "charge")
+    {
+        return "Ah";
+    }
     return "";
 }
 
@@ -305,6 +309,10 @@ inline sensor::ReadingType toReadingType(std::string_view sensorType)
     if (sensorType == "pressure")
     {
         return sensor::ReadingType::PressurePa;
+    }
+    if (sensorType == "charge")
+    {
+        return sensor::ReadingType::ChargeAh;
     }
     return sensor::ReadingType::Invalid;
 }
