@@ -1,10 +1,16 @@
 #include "ethernet.hpp"
 #include "http_response.hpp"
+#include "sessions.hpp"
 
+#include <boost/beast/http/verb.hpp>
 #include <nlohmann/json.hpp>
 
+#include <array>
 #include <cstddef>
 #include <string>
+#include <string_view>
+#include <system_error>
+#include <utility>
 #include <variant>
 #include <vector>
 
@@ -17,6 +23,61 @@ namespace
 {
 
 using ::testing::IsEmpty;
+
+namespace http = boost::beast::http;
+
+void expectRoutePrivilege(crow::App& app, http::verb method,
+                          std::string_view target,
+                          const Privileges& userPrivileges, bool expected)
+{
+    std::error_code ec;
+    crow::Request req{{method, target, 11}, ec};
+    ASSERT_FALSE(ec);
+
+    const crow::Router::FindRouteResponse route = app.router.findRoute(req);
+    ASSERT_NE(route.route.rule, nullptr);
+    EXPECT_EQ(route.route.rule->checkPrivileges(userPrivileges), expected);
+}
+
+TEST(Ethernet, ManagerEthernetInterfaceRoutePrivileges)
+{
+    crow::App app;
+    requestEthernetInterfacesRoutes(app);
+    app.validate();
+
+    persistent_data::UserSession operatorSession;
+    operatorSession.userRole = "priv-operator";
+    const Privileges operatorPrivileges = getUserPrivileges(operatorSession);
+
+    persistent_data::UserSession adminSession;
+    adminSession.userRole = "priv-admin";
+    const Privileges adminPrivileges = getUserPrivileges(adminSession);
+
+    expectRoutePrivilege(
+        app, http::verb::get,
+        "/redfish/v1/Managers/bmc/EthernetInterfaces/eth0/",
+        operatorPrivileges, true);
+
+    const std::array mutationRoutes = {
+        std::pair{
+            http::verb::post,
+            std::string_view{"/redfish/v1/Managers/bmc/EthernetInterfaces/"}},
+        std::pair{
+            http::verb::patch,
+            std::string_view{
+                "/redfish/v1/Managers/bmc/EthernetInterfaces/eth0/"}},
+        std::pair{
+            http::verb::delete_,
+            std::string_view{
+                "/redfish/v1/Managers/bmc/EthernetInterfaces/eth0/"}},
+    };
+
+    for (const auto& [method, target] : mutationRoutes)
+    {
+        expectRoutePrivilege(app, method, target, operatorPrivileges, false);
+        expectRoutePrivilege(app, method, target, adminPrivileges, true);
+    }
+}
 
 TEST(Ethernet, parseAddressesEmpty)
 {
