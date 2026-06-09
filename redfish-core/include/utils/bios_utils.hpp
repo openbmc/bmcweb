@@ -14,8 +14,11 @@
 #include <memory>
 #include <string>
 #include <string_view>
+#include <tuple>
 #include <unordered_map>
+#include <utility>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -44,6 +47,12 @@ inline void extractValue<bool>(nlohmann::json& attributes,
                                const std::string& name,
                                const dbus::utility::DbusVariantType& value)
 {
+    const bool* boolValue = std::get_if<bool>(&value);
+    if (boolValue != nullptr)
+    {
+        attributes[name] = *boolValue;
+        return;
+    }
     const int64_t* tValue = std::get_if<int64_t>(&value);
     if (tValue != nullptr)
     {
@@ -130,6 +139,38 @@ inline void getBIOSManagerObject(
                 return;
             }
             callback(object.begin()->first);
+        });
+}
+
+using PendingAttributeValue =
+    std::tuple<std::string, dbus::utility::DbusVariantType>;
+enum class PendingAttributeValueIndex
+{
+    Type = 0,
+    Value
+};
+
+using PendingAttributes =
+    std::vector<std::pair<std::string, PendingAttributeValue>>;
+
+inline void setBIOSManagerProperty(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& propertyName,
+    const PendingAttributes& propertyValue,
+    const std::string& objectPath)
+{
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, objectPath,
+        std::string(biosConfigManagerPath),
+        std::string(biosConfigManagerInterface), propertyName, propertyValue,
+        [asyncResp, propertyName](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBus response error for setting {}: {}",
+                                 propertyName, ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
         });
 }
 
