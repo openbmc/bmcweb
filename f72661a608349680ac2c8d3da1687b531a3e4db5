@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b36e394_e769e834",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-09T02:04:54Z",
+      "side": 1,
+      "message": "So you should put it under the\n```\n            else if (interface \u003d\u003d \"xyz.openbmc_project.Association.Definitions\")\n            {\n                getLocationIndicatorActive(asyncResp, objectPath);\n            }\n```",
+      "range": {
+        "startLine": 964,
+        "startChar": 0,
+        "endLine": 967,
+        "endChar": 54
+      },
+      "revId": "f72661a608349680ac2c8d3da1687b531a3e4db5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
