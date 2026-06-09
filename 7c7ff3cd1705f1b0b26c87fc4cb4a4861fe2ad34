@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da4ab944_dbd5c409",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T22:44:01Z",
+      "side": 1,
+      "message": "Why do you do this?  The last time we tested, this generates more code, and is slower than just doing an exact string match on the full xyz enum.",
+      "range": {
+        "startLine": 737,
+        "startChar": 0,
+        "endLine": 748,
+        "endChar": 0
+      },
+      "revId": "7c7ff3cd1705f1b0b26c87fc4cb4a4861fe2ad34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a288ae7f_c078f56d",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T22:44:01Z",
+      "side": 1,
+      "message": "Please look at other examples of how to break these out into a method.",
+      "range": {
+        "startLine": 751,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 13
+      },
+      "revId": "7c7ff3cd1705f1b0b26c87fc4cb4a4861fe2ad34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e65ffac_ab5b799f",
+        "filename": "test/meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T22:44:01Z",
+      "side": 1,
+      "message": "Sorry, why was this file completely reformatted?  Please fix.",
+      "revId": "7c7ff3cd1705f1b0b26c87fc4cb4a4861fe2ad34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
