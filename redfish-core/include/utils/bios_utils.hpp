@@ -14,8 +14,11 @@
 #include <memory>
 #include <string>
 #include <string_view>
+#include <tuple>
 #include <unordered_map>
+#include <utility>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -130,6 +133,38 @@ inline void getBIOSManagerObject(
                 return;
             }
             callback(object.begin()->first);
+        });
+}
+
+using PendingAttributeValue =
+    std::tuple<std::string, dbus::utility::DbusVariantType>;
+enum class PendingAttributeValueIndex
+{
+    Type = 0,
+    Value
+};
+
+using PendingAttributes =
+    std::vector<std::pair<std::string, PendingAttributeValue>>;
+
+template <typename T>
+inline void setBIOSManagerProperty(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& propertyName, const T& propertyValue,
+    const std::string& objectPath)
+{
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, objectPath,
+        std::string(biosConfigManagerPath),
+        std::string(biosConfigManagerInterface), propertyName, propertyValue,
+        [asyncResp, propertyName](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBus response error for setting {}: {}",
+                                 propertyName, ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
         });
 }
 
