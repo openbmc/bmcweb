@@ -462,6 +462,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0bada7a4_4e72546a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-09T05:24:33Z",
+      "side": 1,
+      "message": "There is no PUT capability concept in Redfish CSDL; \"Updatable\u003dtrue\" covers PATCH and generally bmcweb implements update semantics with PATCH only. Dont need to support PUT operation.",
+      "parentUuid": "7a1a654b_6c5a5b76",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "010e51e2_53f609a7",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 14
@@ -491,6 +509,24 @@
       "side": 1,
       "message": "To clear an item(s) from attributes. In our implementation we also started only with PATCH but found that a PUT is very helpful.",
       "parentUuid": "010e51e2_53f609a7",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8daf4c99_4858757f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-09T05:24:33Z",
+      "side": 1,
+      "message": "i dont see any real use-case to clear/delete specific attribute.",
+      "parentUuid": "b2c6de34_fbbf1108",
       "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
