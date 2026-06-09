@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de739aa_d7396d75",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-09T14:24:13Z",
+      "side": 1,
+      "message": "Add comment listing boost error codes to error mapping.",
+      "revId": "3f78438780d930eb976621a826a82b35de74672f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f799f07_9bbbf596",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-09T14:24:13Z",
+      "side": 1,
+      "message": "Can this be std::optional?",
+      "range": {
+        "startLine": 471,
+        "startChar": 29,
+        "endLine": 472,
+        "endChar": 59
+      },
+      "revId": "3f78438780d930eb976621a826a82b35de74672f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40df5764_c117fe30",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-09T14:24:13Z",
+      "side": 1,
+      "message": "please also make this std::optional.",
+      "range": {
+        "startLine": 554,
+        "startChar": 0,
+        "endLine": 555,
+        "endChar": 46
+      },
+      "revId": "3f78438780d930eb976621a826a82b35de74672f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f92832_8a30c5ed",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-09T14:24:13Z",
+      "side": 1,
+      "message": "Can we return more descriptive error to the client?",
+      "revId": "3f78438780d930eb976621a826a82b35de74672f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d8eb07_ceae880c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-06-09T14:24:13Z",
+      "side": 1,
+      "message": "This can be optional as well.",
+      "revId": "3f78438780d930eb976621a826a82b35de74672f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
