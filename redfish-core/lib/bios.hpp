@@ -14,6 +14,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/bios_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
 
 #include <sys/types.h>
@@ -21,24 +22,24 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
 
-#include <format>
 #include <functional>
 #include <map>
 #include <memory>
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <utility>
 #include <vector>
 
 namespace redfish
 {
 using BaseTableOption =
-    std::tuple<std::string, dbus::utility::DbusVariantType, std::string>;
+    std::tuple<std::string, bios_utils::BiosAttributeValue, std::string>;
 
 using BaseTableAttribute =
-    std::tuple<std::string, bool, std::string, std::string, std::string,
-               dbus::utility::DbusVariantType, dbus::utility::DbusVariantType,
-               std::vector<BaseTableOption>>;
+    std::tuple<bios_utils::BiosAttributeType, bool, std::string, std::string,
+               std::string, bios_utils::BiosAttributeValue,
+               bios_utils::BiosAttributeValue, std::vector<BaseTableOption>>;
 
 enum class BaseTableAttributeIndex
 {
@@ -58,6 +59,10 @@ inline void populateRedfishFromBaseTable(crow::Response& response,
                                          const BaseTable& baseTable)
 {
     nlohmann::json& attributes = response.jsonValue["Attributes"];
+    if (!attributes.is_object())
+    {
+        attributes = nlohmann::json::object();
+    }
     for (const auto& [name, baseTableAttribute] : baseTable)
     {
         bios_utils::addAttribute(
@@ -68,10 +73,91 @@ inline void populateRedfishFromBaseTable(crow::Response& response,
     }
 }
 
+inline void populateSettings(crow::Response& response)
+{
+    nlohmann::json& redfishSettings = response.jsonValue["@Redfish.Settings"];
+    redfishSettings["@odata.type"] = "#Settings.v1_3_5.Settings";
+    redfishSettings["SupportedApplyTimes"] = nlohmann::json::array_t{"OnReset"};
+    redfishSettings["SettingsObject"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Bios/Settings", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+}
+
+inline void populateRedfishFromPending(
+    crow::Response& response,
+    const bios_utils::PendingAttributes& pendingAttributes)
+{
+    nlohmann::json& attributes = response.jsonValue["Attributes"];
+    if (!attributes.is_object())
+    {
+        attributes = nlohmann::json::object();
+    }
+    for (const auto& [name, pendingAttribute] : pendingAttributes)
+    {
+        bios_utils::addAttribute(
+            attributes, name,
+            std::get<uint(bios_utils::PendingAttributeValueIndex::Type)>(
+                pendingAttribute),
+            std::get<uint(bios_utils::PendingAttributeValueIndex::Value)>(
+                pendingAttribute));
+    }
+}
+
+inline void updatePendingAttribute(
+    bios_utils::PendingAttributes& pendingAttributes, const std::string& name,
+    bios_utils::PendingAttributeValue attributeValue)
+{
+    pendingAttributes[name] = std::move(attributeValue);
+}
+
+inline bool populatePendingFromRedfish(
+    bios_utils::PendingAttributes& pendingAttributes,
+    const nlohmann::json::object_t& jsonAttributes, crow::Response& response)
+{
+    for (const auto& [name, value] : jsonAttributes)
+    {
+        const std::string* strValue = value.get_ptr<const std::string*>();
+        if (strValue != nullptr)
+        {
+            updatePendingAttribute(
+                pendingAttributes, name,
+                std::make_tuple(
+                    std::string(bios_utils::biosAttributeTypeString),
+                    *strValue));
+            continue;
+        }
+        const bool* boolValue = value.get_ptr<const bool*>();
+        if (boolValue != nullptr)
+        {
+            updatePendingAttribute(
+                pendingAttributes, name,
+                std::make_tuple(
+                    std::string(bios_utils::biosAttributeTypeBoolean),
+                    *boolValue));
+            continue;
+        }
+        const int64_t* intValue = value.get_ptr<const int64_t*>();
+        if (intValue != nullptr)
+        {
+            updatePendingAttribute(
+                pendingAttributes, name,
+                std::make_tuple(
+                    std::string(bios_utils::biosAttributeTypeInteger),
+                    *intValue));
+            continue;
+        }
+
+        BMCWEB_LOG_ERROR("Invalid type for attribute {} in request", name);
+        messages::propertyValueTypeError(response, value, name);
+        return false;
+    }
+    return true;
+}
+
 inline void handleBiosManagerObjectForGetBiosAttributes(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& objectPath)
 {
+    populateSettings(asyncResp->res);
     bios_utils::getBIOSManagerProperty<BaseTable>(
         asyncResp, "BaseBIOSTable", objectPath,
         std::bind_front(populateRedfishFromBaseTable,
@@ -111,7 +197,7 @@ inline void handleBiosServiceGet(
                                    systemName);
         return;
     }
-    asyncResp->res.jsonValue["@odata.id"] = std::format(
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/Bios", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
@@ -122,7 +208,7 @@ inline void handleBiosServiceGet(
             "/redfish/v1/Systems/{}/Bios/Actions/Bios.ResetBios",
             BMCWEB_REDFISH_SYSTEM_URI_NAME);
     dbus::utility::checkDbusPathExists(
-        "/xyz/openbmc_project/bios_config/manager", [asyncResp](int rc) {
+        std::string(bios_utils::biosConfigManagerPath), [asyncResp](int rc) {
             if (rc > 0)
             {
                 getBiosAttributes(asyncResp);
@@ -133,12 +219,150 @@ inline void handleBiosServiceGet(
                                          true);
 }
 
+inline void handlePendingBiosManagerObjectForGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    bios_utils::getBIOSManagerProperty<bios_utils::PendingAttributes>(
+        asyncResp, "PendingAttributes", objectPath,
+        std::bind_front(populateRedfishFromPending, std::ref(asyncResp->res)));
+}
+
+inline void handlePendingBiosGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Bios/Settings", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
+    asyncResp->res.jsonValue["Name"] = "Pending BIOS Configuration";
+    asyncResp->res.jsonValue["Description"] =
+        "Pending BIOS Configuration Service";
+    asyncResp->res.jsonValue["Id"] = "Pending";
+
+    dbus::utility::checkDbusPathExists(
+        std::string(bios_utils::biosConfigManagerPath), [asyncResp](int rc) {
+            if (rc > 0)
+            {
+                bios_utils::getBIOSManagerObject(
+                    asyncResp,
+                    std::bind_front(handlePendingBiosManagerObjectForGet,
+                                    asyncResp));
+                return;
+            }
+            messages::resourceNotFound(asyncResp->res, "Bios", "Settings");
+        });
+}
+
+inline void handlePendingBiosPatchAttributes(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::object_t& jsonAttributes,
+    const bios_utils::PendingAttributes& currentPendingAttributes)
+{
+    bios_utils::PendingAttributes pendingAttributes = currentPendingAttributes;
+    if (!populatePendingFromRedfish(pendingAttributes, jsonAttributes,
+                                    asyncResp->res))
+    {
+        return;
+    }
+    bios_utils::getBIOSManagerObject(
+        asyncResp,
+        std::bind_front(bios_utils::setBIOSManagerProperty, asyncResp,
+                        "PendingAttributes", pendingAttributes));
+}
+
+inline void handlePendingBiosManagerObjectForPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::object_t& jsonAttributes,
+    const std::string& objectPath)
+{
+    bios_utils::getBIOSManagerProperty<bios_utils::PendingAttributes>(
+        asyncResp, "PendingAttributes", objectPath,
+        std::bind_front(handlePendingBiosPatchAttributes, asyncResp,
+                        jsonAttributes));
+}
+
+inline void handlePendingBiosPatch(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    nlohmann::json::object_t jsonAttributes;
+    if (!json_util::readJsonPatch(req, asyncResp->res, "Attributes",
+                                  jsonAttributes))
+    {
+        BMCWEB_LOG_ERROR("Invalid JSON request.");
+        return;
+    }
+
+    dbus::utility::checkDbusPathExists(
+        std::string(bios_utils::biosConfigManagerPath),
+        [asyncResp, jsonAttributes = std::move(jsonAttributes)](int rc) {
+            if (rc > 0)
+            {
+                bios_utils::getBIOSManagerObject(
+                    asyncResp,
+                    std::bind_front(handlePendingBiosManagerObjectForPatch,
+                                    asyncResp, jsonAttributes));
+                return;
+            }
+            messages::resourceNotFound(asyncResp->res, "Bios", "Settings");
+        });
+}
+
 inline void requestRoutesBiosService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/")
         .privileges(redfish::privileges::getBios)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleBiosServiceGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/Settings/")
+        .privileges(redfish::privileges::getBios)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handlePendingBiosGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/Settings/")
+        .privileges(redfish::privileges::patchBios)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handlePendingBiosPatch, std::ref(app)));
 }
 
 /**
