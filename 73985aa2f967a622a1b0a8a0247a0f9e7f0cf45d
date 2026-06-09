@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7da44671_0cfca1a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T22:38:32Z",
+      "side": 1,
+      "message": "Please answer \"why?\".  Why does a client need to know the required privileges?  Is there an example of a client you can show that usees that info?",
+      "revId": "73985aa2f967a622a1b0a8a0247a0f9e7f0cf45d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d274b92b_45d48082",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 16
