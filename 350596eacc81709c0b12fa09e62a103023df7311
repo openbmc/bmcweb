@@ -221,6 +221,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50d06bb2_2bf3862d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T22:40:11Z",
+      "side": 1,
+      "message": "\u003e They come from different dbus object\n\nWhy are we registering these from two different objects?  different interface makes sense, we can handle that in getAll.  why they\u0027re split across paths doesn\u0027t make sense to me.",
+      "parentUuid": "c79486a4_1fa4b899",
+      "range": {
+        "startLine": 761,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 19
+      },
+      "revId": "350596eacc81709c0b12fa09e62a103023df7311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52df94f6_b21a4f92",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
