@@ -65,7 +65,7 @@ inline void onUserPropertiesChanged(sdbusplus::message_t& msg)
         return;
     }
 
-    sdbusplus::message::object_path path(msg.get_path());
+    sdbusplus::object_path path(msg.get_path());
     std::string username = path.filename();
     if (username.empty())
     {
