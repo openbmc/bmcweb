@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b2c66c_143cd518",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-09T10:04:47Z",
+      "side": 1,
+      "message": "nit: should this be `inline`?",
+      "revId": "095e18c7e61e8d6cd16065dd7201228aae025111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
