@@ -16,6 +16,24 @@
       "message": "nit: should this be `inline`?",
       "revId": "095e18c7e61e8d6cd16065dd7201228aae025111",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63f0f962_32d4fcc3",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T17:02:56Z",
+      "side": 1,
+      "message": "yes it should.  Fixed.",
+      "parentUuid": "39b2c66c_143cd518",
+      "revId": "095e18c7e61e8d6cd16065dd7201228aae025111",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
