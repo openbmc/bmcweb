@@ -126,6 +126,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "471a4ace_71e4566b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T03:58:47Z",
+      "side": 1,
+      "message": "I don\u0027t believe the above is accurate.  Even if it is, we should rely on appropriate return codes.\n\nYOu might want to look at how async operations are done.  result codes aren\u0027t set until after the initial method has completed.",
+      "parentUuid": "3bfe64b9_18fcd92d",
+      "range": {
+        "startLine": 956,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 5
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc0b916e_65788214",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -249,6 +273,24 @@
       "side": 1,
       "message": "@ed@tanous.net This guard is intentional and not an async misunderstanding. It is a fail-fast check for synchronous errors set by the immediately preceding helper. If that helper has already set a non-OK response, we return immediately to avoid continuing PATCH processing and creating mixed response behavior. You are correct that this check does not capture errors that arrive later from async callbacks; those are handled in the callback paths.",
       "parentUuid": "b66ea2f3_95d823c9",
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a734bbe_bf6a5aac",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T03:58:47Z",
+      "side": 1,
+      "message": "This isn\u0027t how we handle anything else.  Certinaly we don\u0027t use the result to branch.",
+      "parentUuid": "255dded8_fade7176",
       "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
