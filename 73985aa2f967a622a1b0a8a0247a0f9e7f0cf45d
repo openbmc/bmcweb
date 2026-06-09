@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d274b92b_45d48082",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T22:37:21Z",
+      "side": 1,
+      "message": "I\u0027m not against having this here, but:\n\n1. Please use the files that exist.\n2. Please document the use case for this.\n\n\nAs is, this is just exposing the DMTF registry, including lots of things bmcweb doesn\u0027t support.  Should we do that, or filter based only on what bmcweb supports (please back up this answer with the spec itself).",
+      "revId": "73985aa2f967a622a1b0a8a0247a0f9e7f0cf45d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3fe67e6_fee53b3b",
+        "filename": "redfish-core/include/registries/privilege_mapping.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T22:37:21Z",
+      "side": 1,
+      "message": "Why are you recreating a structure that already exists and is generated?\n\nhttps://github.com/openbmc/bmcweb/blob/dd97aa6b21f70700cd3418f5806937372d717324/redfish-core/include/registries/privilege_registry.hpp#L22",
+      "revId": "73985aa2f967a622a1b0a8a0247a0f9e7f0cf45d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5cbbd71_363cc92b",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-09T22:37:21Z",
+      "side": 1,
+      "message": "please don\u0027t use brace construction for nlohmann objects.",
+      "revId": "73985aa2f967a622a1b0a8a0247a0f9e7f0cf45d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
