@@ -33,6 +33,24 @@
       "message": "I don\u0027t see anything in your testing testing this path, and it\u0027s not clear to me how this could ever be hit.\n\nI would expect if no properties are included, you would hit an emptyJson error here:\nhttps://github.com/openbmc/bmcweb/blob/a857cf54c14b3d2699dde6e42bbfb92a1a13bb10/redfish-core/include/utils/json_utils.hpp#L681",
       "revId": "acc309846544e3a5590ce0c79a2143fd03a935c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41cccc1e_a30682d4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-10T18:33:21Z",
+      "side": 1,
+      "message": "@ed@tanous.net I have included this part in \"\"With this change:\n- Auth-method processing returns immediately when no auth fields are\n  present.\"\"\n  \nThis will be hit and returned if we do no provide any auth fields but other properties are included.\n  \nIn earlier case , when no auth-method fields were present in the request ,\nthe auth patch flow could still contribute Success, so the response\nshowed both Success and PropertyNotWritable for readonly property like MaxPasswordLength.\n\nIf no properties are included then we are getting 400 Bad request with Base.1.19.UnrecognizedRequestBody. Could you please suggest if this is the right thing .",
+      "parentUuid": "0549b8a6_96a675fb",
+      "revId": "acc309846544e3a5590ce0c79a2143fd03a935c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
