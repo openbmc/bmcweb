@@ -219,6 +219,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fbe1984_c595a751",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1642,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-10T13:16:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5fec7329_ce973736",
+      "range": {
+        "startLine": 1642,
+        "startChar": 62,
+        "endLine": 1642,
+        "endChar": 75
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "872d89b2_09dd70d5",
@@ -314,6 +338,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "114315a9_4737fd03",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1655,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-10T13:16:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e1b73e7f_80579c19",
+      "range": {
+        "startLine": 1652,
+        "startChar": 0,
+        "endLine": 1655,
+        "endChar": 9
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b66ea2f3_95d823c9",
@@ -363,6 +411,24 @@
       "side": 1,
       "message": "This isn\u0027t how we handle anything else.  Certinaly we don\u0027t use the result to branch.",
       "parentUuid": "255dded8_fade7176",
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "963ecb66_90127734",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-10T13:16:14Z",
+      "side": 1,
+      "message": "@ed@tanous.net I have updated the changes as suggested . Thanks",
+      "parentUuid": "1a734bbe_bf6a5aac",
       "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -452,6 +518,30 @@
       "side": 1,
       "message": "I had replied with a combined comment, so I marked it as done. Apologies for the inconvenience. I have now updated the changes as suggested, and it is working as expected.",
       "parentUuid": "db8f0182_91fbe075",
+      "range": {
+        "startLine": 1662,
+        "startChar": 0,
+        "endLine": 1665,
+        "endChar": 9
+      },
+      "revId": "6be53eebeb21d1a93239ffa44efb93c0253a5ef2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea49a6bb_74e6a853",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-10T13:16:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ad5a6fba_4f6930aa",
       "range": {
         "startLine": 1662,
         "startChar": 0,
