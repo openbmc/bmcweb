@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f94f719_b46626e1",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T01:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3ae68c3_569e5dd1",
+      "revId": "f6316d7c91e7a90948ac31e458002cd1eb0c5e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ebecf29_16f7251a",
@@ -71,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "175a4016_343b5543",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T01:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bea49cc_d71a5eb2",
+      "revId": "f6316d7c91e7a90948ac31e458002cd1eb0c5e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ac023f0_55190fd3",
@@ -102,6 +138,24 @@
       "side": 1,
       "message": "Done, thanks.",
       "parentUuid": "0ac023f0_55190fd3",
+      "revId": "f6316d7c91e7a90948ac31e458002cd1eb0c5e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b14e17b3_5d3ee9cf",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T01:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24447600_29e0ac85",
       "revId": "f6316d7c91e7a90948ac31e458002cd1eb0c5e72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
