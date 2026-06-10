@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f67ce465_bb269d42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T06:44:47Z",
+      "side": 1,
+      "message": "After surveying how Decorator.Asset.Manufacturer is consumed across\nbmcweb and cross-checking the DMTF Assembly schema and the PDI\ndefinition, I believe this mapping is correct and always holds.\n\nOpenBMC PDI, xyz.openbmc_project.Inventory.Decorator.Asset.Manufacturer:\n  \"The item manufacturer.\"\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml#L12-L15\n\nDMTF Assembly schema, Producer:\n  \"This property shall contain the name of the company that produced or\n   manufactured the assembly. This value shall be equal to the\n   \u0027Manufacturer\u0027 field value in a PLDM FRU structure, if applicable,\n   for the assembly.\"\nhttps://redfish.dmtf.org/schemas/v1/Assembly_v1.xml\n\nPDI Manufacturer is the item manufacturer, and Assembly Producer is\ndefined to equal that same manufacturer value, so Asset.Manufacturer -\u003e\nProducer is what the schema prescribes.\n\nAcross bmcweb every resource that exposes a manufacturer maps\nDecorator.Asset.Manufacturer to whatever field its schema defines for\nthe maker (memory, processor, managers, ... -\u003e \"Manufacturer\").\nAssembly is the only one whose schema has no \"Manufacturer\" property --\nit offers only Producer and Vendor -- so Producer is the equivalent\ntarget here.\n\nVendor would be the wrong target -- the schema binds it to a different\nfield:\n  \"...the company that provides the final product that includes this\n   assembly. This value shall be equal to the \u0027Vendor\u0027 field value in a\n   PLDM FRU structure, if applicable, for the assembly.\"\ni.e. the reseller/integrator, not the maker. Decorator.Asset exposes no\nVendor (or Producer) property anyway, so Producer is the only correct\nmapping.\n\nPlease let me know if I have this wrong -- happy to adjust. Thanks for help.",
+      "parentUuid": "550c2bed_04e5ae21",
+      "revId": "3371036ed71825a8a48231ee4630a5a04a5c6fc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbc224ba_0154753b",

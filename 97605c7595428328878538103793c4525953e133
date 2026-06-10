@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a6414c8_69957503",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T06:44:47Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "f1e86772_3ccc8947",
+      "range": {
+        "startLine": 7,
+        "startChar": 37,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc8e2351_79e9f555",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-06-04T19:17:04Z",
       "side": 1,
       "message": "Redfish says Replaceable should be a value when LocationType is Embedded, bonus if Replaceable is implemented later. \n\n                \"Replaceable\": {\n                    \"description\": \"An indication of whether the component associated this assembly can be independently replaced as allowed by the vendor\u0027s replacement policy.\",\n                    \"longDescription\": \"This property shall indicate whether the component associated this assembly can be independently replaced as allowed by the vendor\u0027s replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this assembly contains `Embedded`, this property shall contain `false`.\",",
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3922e7dc_3b2f814b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T06:44:47Z",
+      "side": 1,
+      "message": "Got it, will do on next patch. Thanks.",
+      "parentUuid": "cc8e2351_79e9f555",
       "revId": "97605c7595428328878538103793c4525953e133",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a3f018_468fdfd4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T06:44:47Z",
+      "side": 1,
+      "message": "Done, thanks",
+      "parentUuid": "9f0a285b_825acd93",
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3453a22b_f87f0192",
@@ -71,6 +131,30 @@
       "writtenOn": "2026-06-04T19:09:34Z",
       "side": 1,
       "message": "Don\u0027t you need to format this date to \nRedfish uses the ISO 8601 date and time format\nYYYY-MM-DDTHH:MM:SS+HH:MM\n\nI am shocked the validator didn\u0027t throw an error \n\n\n                    \"format\": \"date-time\",",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 13
+      },
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "658c5f72_fb740509",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T06:44:47Z",
+      "side": 1,
+      "message": "It passed before only because the BuildDate value already happened to be a valid date-time string, so the raw passthrough was technically valid -- but that relied on the producer always emitting ISO, which is fragile.\nPS9 runs ProductionDate through time_utils::getDateTimeIso8601().",
+      "parentUuid": "3453a22b_f87f0192",
       "range": {
         "startLine": 174,
         "startChar": 0,
@@ -104,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a87941c_5974610b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T06:44:47Z",
+      "side": 1,
+      "message": "Agreed.Drops the inline check and reuses the existing shared helper\nsensor_utils::dBusSensorPhysicalContextToRedfish()",
+      "parentUuid": "3a9d56e4_e0f9f102",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 69
+      },
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d5de6e7_2a13a7d3",
@@ -117,6 +225,30 @@
       "writtenOn": "2026-06-04T19:17:04Z",
       "side": 1,
       "message": "Why not just add these to getAssetInfo so we don\u0027t have to do extra calls?",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 59
+      },
+      "revId": "97605c7595428328878538103793c4525953e133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd10c205_6711d4a6",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T06:44:47Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "9d5de6e7_2a13a7d3",
       "range": {
         "startLine": 245,
         "startChar": 0,
