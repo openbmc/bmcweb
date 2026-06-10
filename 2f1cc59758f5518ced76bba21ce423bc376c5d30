@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "908e5ad6_4634eaac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-10T21:35:49Z",
+      "side": 1,
+      "message": "to double check, nothing in the code you wrote changed this, right?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 67
+      },
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e297e455_5eb52856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-10T21:35:49Z",
+      "side": 1,
+      "message": "I\u0027m really not understanding how this test could\u0027ve passed.  The /redfish/v1/AccountService/Roles route exists, so the Allow header should\u0027ve returned GET, which means that now existing roles will return 404 as well instead of 405 like they should.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da7e3244_525dae00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-10T21:35:49Z",
+      "side": 1,
+      "message": "In your tests, can you please add redfish protocol validator?  They\u0027re intended to check these corner cases.",
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90d8c1bd_7bd482cd",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-10T21:35:49Z",
+      "side": 1,
+      "message": "This isn\u0027t accurate.  Allow only registers whether or not theres a ROUTE not whether or not there\u0027s an object.  As written I don\u0027t think this code works?",
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1152b946_949c531d",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-10T21:35:49Z",
+      "side": 1,
+      "message": "Remove this, this is already set in the message.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 69
+      },
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
