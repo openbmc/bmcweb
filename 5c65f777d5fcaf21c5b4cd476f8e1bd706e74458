@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89de1bbb_04019c0f",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-10T16:20:35Z",
+      "side": 1,
+      "message": "I would\u0027ve probably made this a length check, and force stuff to upper case, but up to you if you don\u0027t want to do that.",
+      "revId": "5c65f777d5fcaf21c5b4cd476f8e1bd706e74458",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e05e05_2ce32480",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-10T16:20:35Z",
+      "side": 1,
+      "message": "if it\u0027s empty we should be setting nullptr right?",
+      "revId": "5c65f777d5fcaf21c5b4cd476f8e1bd706e74458",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
