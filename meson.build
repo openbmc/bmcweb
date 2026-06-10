@@ -131,6 +131,9 @@ if (cxx.get_id() == 'gcc')
         '-Wunused-parameter',
         '-Wdouble-promotion',
         '-Wshadow',
+        '-Wimplicit-fallthrough',
+        '-Wtrampolines',
+        '-Wbidi-chars=any',
         '-Wno-psabi',
         '-Wno-attributes',
         language: 'cpp',
@@ -160,9 +163,17 @@ endif
 
 security_flags = [
     '-fstack-protector-strong',
+    '-fstack-clash-protection',
     '-fPIE',
     '-fPIC',
-    '-D_FORTIFY_SOURCE=2',
+    '-U_FORTIFY_SOURCE',
+    '-D_FORTIFY_SOURCE=3',
+    '-D_GLIBCXX_ASSERTIONS',
+    '-fstrict-flex-arrays=3',
+    '-fno-delete-null-pointer-checks',
+    '-fno-strict-overflow',
+    '-fno-strict-aliasing',
+    '-ftrivial-auto-var-init=zero',
     '-Wformat',
     '-Wformat-security',
 ]
@@ -172,6 +183,28 @@ plain = get_option('buildtype') == 'plain'
 debug = get_option('buildtype').startswith('debug')
 if not (plain or debug)
     add_project_arguments(security_flags, language: 'cpp')
+
+    # Architecture-specific control-flow protection; only one will match per target
+    foreach arch_flag : ['-fcf-protection=full', '-mbranch-protection=standard']
+        if cxx.has_argument(arch_flag)
+            add_project_arguments(arch_flag, language: 'cpp')
+        endif
+    endforeach
+
+    # Hardening linker flags
+    foreach link_flag : [
+        '-Wl,-z,nodlopen',
+        '-Wl,-z,noexecstack',
+        '-Wl,-z,relro',
+        '-Wl,-z,now',
+        '-Wl,--as-needed',
+        '-Wl,--no-copy-dt-needed-entries',
+        '-pie',
+    ]
+        if cxx.has_link_argument(link_flag)
+            add_project_link_arguments(link_flag, language: 'cpp')
+        endif
+    endforeach
 endif
 
 # Boost dependency configuration
