@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cdaf9f5_d6879738",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-10T13:13:56Z",
+      "side": 1,
+      "message": "Updated the changes as suggested . Working fine for writable properties as well.",
+      "revId": "acc309846544e3a5590ce0c79a2143fd03a935c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
