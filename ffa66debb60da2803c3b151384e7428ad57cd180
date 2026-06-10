@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82def091_5132aa5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T02:38:34Z",
+      "side": 1,
+      "message": "Due to dependency, add helper first in this patch, if 88540 or 90323 merge first, I will solve conflict. Thanks.",
+      "parentUuid": "ce3a1d21_39a06043",
+      "revId": "ffa66debb60da2803c3b151384e7428ad57cd180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "813a6877_6660a875",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d58ec39_850fecfe",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T02:38:34Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "813a6877_6660a875",
+      "range": {
+        "startLine": 185,
+        "startChar": 10,
+        "endLine": 185,
+        "endChar": 41
+      },
+      "revId": "ffa66debb60da2803c3b151384e7428ad57cd180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a09d4276_6fdc07a3",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-05-28T08:28:08Z",
       "side": 1,
       "message": "use `sdbusplus::object_path`\nso do other place",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 40
+      },
+      "revId": "ffa66debb60da2803c3b151384e7428ad57cd180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3257cfa_62b56cb5",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-10T02:38:34Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "a09d4276_6fdc07a3",
       "range": {
         "startLine": 189,
         "startChar": 8,
