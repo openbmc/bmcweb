@@ -22,6 +22,30 @@
       },
       "revId": "8949844ae1c53dee8d99ed99f5f6d71c8d112e40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de529db8_b387a276",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-11T12:25:13Z",
+      "side": 1,
+      "message": "@vijaysankarr@ami.com Thank you for point out. Now i have updated the changes which returns 405 for existing resources.",
+      "parentUuid": "d433bc97_bc6d1c78",
+      "range": {
+        "startLine": 94,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 47
+      },
+      "revId": "8949844ae1c53dee8d99ed99f5f6d71c8d112e40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

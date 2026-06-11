@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85fa31e6_0d26f83f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-11T12:25:13Z",
+      "side": 1,
+      "message": "It has changed and i have updated the code changes. Thanks",
+      "parentUuid": "908e5ad6_4634eaac",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 67
+      },
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e297e455_5eb52856",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-06-10T21:35:49Z",
       "side": 1,
       "message": "I\u0027m really not understanding how this test could\u0027ve passed.  The /redfish/v1/AccountService/Roles route exists, so the Allow header should\u0027ve returned GET, which means that now existing roles will return 404 as well instead of 405 like they should.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c605b128_3441e94a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-11T12:25:13Z",
+      "side": 1,
+      "message": "@ed@tanous.net You are right on that part . I have updated the code and now for existing roles it will return 405 and non-existing roles returns 404 ResourceNotFound. Please let me know if any changes required.",
+      "parentUuid": "e297e455_5eb52856",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -82,6 +130,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddbb7f12_68f0372b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-11T12:25:13Z",
+      "side": 1,
+      "message": "@ed@tanous.net I am unable to attach validator result here. But the Validator has passed.",
+      "parentUuid": "e94bcdd1_f9c1bd53",
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90d8c1bd_7bd482cd",
@@ -95,6 +161,24 @@
       "writtenOn": "2026-06-10T21:35:49Z",
       "side": 1,
       "message": "This isn\u0027t accurate.  Allow only registers whether or not theres a ROUTE not whether or not there\u0027s an object.  As written I don\u0027t think this code works?",
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd4f610a_67eb2642",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-11T12:25:13Z",
+      "side": 1,
+      "message": "@ed@tanous.net I have analyzed again and updated the code changes. Thanks for your feedback",
+      "parentUuid": "90d8c1bd_7bd482cd",
       "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -136,6 +220,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "1152b946_949c531d",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 69
+      },
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c8ba98_5a462064",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-11T12:25:13Z",
+      "side": 1,
+      "message": "I have removed this part. Thanks",
+      "parentUuid": "34cd6280_7e303c22",
       "range": {
         "startLine": 100,
         "startChar": 0,
