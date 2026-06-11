@@ -739,24 +739,52 @@ inline void updateIPv4DefaultGateway(
 }
 
 /**
+ * @brief Handles DBus error for blocked interface IP changes
+ *
+ * @param[io] asyncResp    Response object that will be returned to client
+ * @param[in] msg          DBus message containing the error
+ * @param[in] propertyName Redfish property name to report as not writable
+ *
+ * @return None
+ */
+inline void handleError(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const sdbusplus::message_t& msg,
+                        std::string_view propertyName)
+{
+    const sd_bus_error* dbusError = msg.get_error();
+    if (dbusError != nullptr &&
+        std::string_view("xyz.openbmc_project.Common.Error.NotAllowed") ==
+            dbusError->name)
+    {
+        messages::propertyNotWritable(asyncResp->res, propertyName);
+        return;
+    }
+    messages::internalError(asyncResp->res);
+}
+
+/**
  * @brief Deletes given static IP address for the interface
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
  * @param[in] ipHash      DBus Hash id of IP that should be deleted
  * @param[io] asyncResp   Response object that will be returned to client
+ * @param[in] propertyName Redfish property name to report as not writable
  *
  * @return None
  */
 inline void deleteIPAddress(const std::string& ifaceId,
                             const std::string& ipHash,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            std::string_view propertyName)
 {
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp](const boost::system::error_code& ec) {
+        [asyncResp, propertyName](const boost::system::error_code& ec,
+                                  const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, propertyName);
+                return;
             }
         },
         "xyz.openbmc_project.Network",
@@ -780,10 +808,11 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     auto createIpHandler =
-        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec) {
+        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec,
+                                      const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, "IPv4StaticAddresses");
                 return;
             }
         };
@@ -816,22 +845,29 @@ inline void deleteAndCreateIPAddress(
     const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    std::string_view propertyName =
+        version == IpVersion::IpV4 ? "IPv4StaticAddresses"
+                                   : "IPv6StaticAddresses";
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, version, ifaceId, address, prefixLength,
-         gateway](const boost::system::error_code& ec) {
+        [asyncResp, version, ifaceId, address, prefixLength, gateway,
+         propertyName](const boost::system::error_code& ec,
+                       const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, propertyName);
+                return;
             }
             std::string protocol = "xyz.openbmc_project.Network.IP.Protocol.";
             protocol += version == IpVersion::IpV4 ? "IPv4" : "IPv6";
             dbus::utility::async_method_call(
                 asyncResp,
-                [asyncResp](const boost::system::error_code& ec2) {
+                [asyncResp, propertyName](const boost::system::error_code& ec2,
+                                          const sdbusplus::message_t& msg2) {
                     if (ec2)
                     {
-                        messages::internalError(asyncResp->res);
+                        handleError(asyncResp, msg2, propertyName);
+                        return;
                     }
                 },
                 "xyz.openbmc_project.Network",
@@ -900,18 +936,18 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
     path /= ifaceId;
 
     auto createIpHandler =
-        [asyncResp, address](const boost::system::error_code& ec) {
+        [asyncResp, address](const boost::system::error_code& ec,
+                             const sdbusplus::message_t& msg) {
             if (ec)
             {
                 if (ec == boost::system::errc::io_error)
                 {
                     messages::propertyValueFormatError(asyncResp->res, address,
                                                        "Address");
+                    return;
                 }
-                else
-                {
-                    messages::internalError(asyncResp->res);
-                }
+                handleError(asyncResp, msg, "IPv6StaticAddresses");
+                return;
             }
         };
     // Passing null for gateway, as per redfish spec IPv6StaticAddresses
@@ -941,10 +977,12 @@ inline void deleteIPv6Gateway(
     path /= gatewayId;
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp](const boost::system::error_code& ec) {
+        [asyncResp](const boost::system::error_code& ec,
+                    const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, "IPv6StaticDefaultGateways");
+                return;
             }
         },
         "xyz.openbmc_project.Network", path,
@@ -966,10 +1004,12 @@ inline void createIPv6DefaultGateway(
 {
     sdbusplus::object_path path("/xyz/openbmc_project/network");
     path /= ifaceId;
-    auto createIpHandler = [asyncResp](const boost::system::error_code& ec) {
+    auto createIpHandler = [asyncResp](const boost::system::error_code& ec,
+                                       const sdbusplus::message_t& msg) {
         if (ec)
         {
-            messages::internalError(asyncResp->res);
+            handleError(asyncResp, msg, "IPv6StaticDefaultGateways");
+            return;
         }
     };
     dbus::utility::async_method_call(
@@ -1000,10 +1040,11 @@ inline void deleteAndCreateIPv6DefaultGateway(
     path /= gatewayId;
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec) {
+        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec,
+                                      const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, "IPv6StaticDefaultGateways");
                 return;
             }
             createIPv6DefaultGateway(ifaceId, gateway, asyncResp);
@@ -1705,7 +1746,8 @@ inline void handleIPv4StaticPatch(
             {
                 BMCWEB_LOG_ERROR("Deleting id {} on interface {}",
                                  address.existingDbusId, ifaceId);
-                deleteIPAddress(ifaceId, address.existingDbusId, asyncResp);
+                deleteIPAddress(ifaceId, address.existingDbusId, asyncResp,
+                                "IPv4StaticAddresses");
             }
             break;
             case AddrChange::Update:
@@ -1850,7 +1892,8 @@ inline void handleIPv6StaticAddressesPatch(
 
             if (obj == nullptr)
             {
-                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
+                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp,
+                                "IPv6StaticAddresses");
             }
             if (nicIpEntry != ipv6Data.cend())
             {
@@ -2055,6 +2098,12 @@ inline void afterDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         messages::resourceCannotBeDeleted(asyncResp->res);
         return;
     }
+    if (std::string_view("xyz.openbmc_project.Common.Error.NotAllowed") ==
+        dbusError->name)
+    {
+        messages::resourceCannotBeDeleted(asyncResp->res);
+        return;
+    }
     messages::internalError(asyncResp->res);
 }
 
@@ -2092,7 +2141,7 @@ inline void afterVlanCreate(
                                             "Id", vlanInterface);
             return;
         }
-        messages::internalError(asyncResp->res);
+        handleError(asyncResp, m, "VLANs");
         return;
     }
 
