@@ -123,6 +123,7 @@ struct EthernetInterfaceData
     bool hostNamev6Enabled;
     bool linkUp;
     bool nicEnabled;
+    bool internal = false;
     bool ipv6AcceptRa;
     std::string dhcpEnabled;
     std::string operatingMode;
@@ -288,6 +289,15 @@ inline bool extractEthernetInterfaceData(
                             if (fullDuplex != nullptr)
                             {
                                 ethData.fullDuplex = *fullDuplex;
+                            }
+                        }
+                        else if (propertyPair.first == "Internal")
+                        {
+                            const bool* internal =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (internal != nullptr)
+                            {
+                                ethData.internal = *internal;
                             }
                         }
                         else if (propertyPair.first == "Speed")
@@ -749,24 +759,52 @@ inline void updateIPv4DefaultGateway(
 }
 
 /**
+ * @brief Handles DBus error for blocked interface IP changes
+ *
+ * @param[io] asyncResp    Response object that will be returned to client
+ * @param[in] msg          DBus message containing the error
+ * @param[in] propertyName Redfish property name to report as not writable
+ *
+ * @return None
+ */
+inline void handleError(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const sdbusplus::message_t& msg,
+                        std::string_view propertyName)
+{
+    const sd_bus_error* dbusError = msg.get_error();
+    if (dbusError != nullptr &&
+        std::string_view("xyz.openbmc_project.Common.Error.NotAllowed") ==
+            dbusError->name)
+    {
+        messages::propertyNotWritable(asyncResp->res, propertyName);
+        return;
+    }
+    messages::internalError(asyncResp->res);
+}
+
+/**
  * @brief Deletes given static IP address for the interface
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
  * @param[in] ipHash      DBus Hash id of IP that should be deleted
  * @param[io] asyncResp   Response object that will be returned to client
+ * @param[in] propertyName Redfish property name to report as not writable
  *
  * @return None
  */
 inline void deleteIPAddress(const std::string& ifaceId,
                             const std::string& ipHash,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            std::string_view propertyName)
 {
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp](const boost::system::error_code& ec) {
+        [asyncResp, propertyName](const boost::system::error_code& ec,
+                                  const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, propertyName);
+                return;
             }
         },
         "xyz.openbmc_project.Network",
@@ -790,10 +828,11 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     auto createIpHandler =
-        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec) {
+        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec,
+                                      const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, "IPv4StaticAddresses");
                 return;
             }
         };
@@ -826,23 +865,30 @@ inline void deleteAndCreateIPAddress(
     const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    std::string_view propertyName =
+        version == IpVersion::IpV4 ? "IPv4StaticAddresses"
+                                   : "IPv6StaticAddresses";
     dbus::utility::async_method_call(
         asyncResp,
         // ast-grep-ignore: long-lambda
-        [asyncResp, version, ifaceId, address, prefixLength,
-         gateway](const boost::system::error_code& ec) {
+        [asyncResp, version, ifaceId, address, prefixLength, gateway,
+         propertyName](const boost::system::error_code& ec,
+                       const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, propertyName);
+                return;
             }
             std::string protocol = "xyz.openbmc_project.Network.IP.Protocol.";
             protocol += version == IpVersion::IpV4 ? "IPv4" : "IPv6";
             dbus::utility::async_method_call(
                 asyncResp,
-                [asyncResp](const boost::system::error_code& ec2) {
+                [asyncResp, propertyName](const boost::system::error_code& ec2,
+                                          const sdbusplus::message_t& msg2) {
                     if (ec2)
                     {
-                        messages::internalError(asyncResp->res);
+                        handleError(asyncResp, msg2, propertyName);
+                        return;
                     }
                 },
                 "xyz.openbmc_project.Network",
@@ -912,18 +958,18 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
 
     auto createIpHandler =
         // ast-grep-ignore: long-lambda
-        [asyncResp, address](const boost::system::error_code& ec) {
+        [asyncResp, address](const boost::system::error_code& ec,
+                             const sdbusplus::message_t& msg) {
             if (ec)
             {
                 if (ec == boost::system::errc::io_error)
                 {
                     messages::propertyValueFormatError(asyncResp->res, address,
                                                        "Address");
+                    return;
                 }
-                else
-                {
-                    messages::internalError(asyncResp->res);
-                }
+                handleError(asyncResp, msg, "IPv6StaticAddresses");
+                return;
             }
         };
     // Passing null for gateway, as per redfish spec IPv6StaticAddresses
@@ -953,10 +999,12 @@ inline void deleteIPv6Gateway(
     path /= gatewayId;
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp](const boost::system::error_code& ec) {
+        [asyncResp](const boost::system::error_code& ec,
+                    const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, "IPv6StaticDefaultGateways");
+                return;
             }
         },
         "xyz.openbmc_project.Network", path,
@@ -978,10 +1026,12 @@ inline void createIPv6DefaultGateway(
 {
     sdbusplus::object_path path("/xyz/openbmc_project/network");
     path /= ifaceId;
-    auto createIpHandler = [asyncResp](const boost::system::error_code& ec) {
+    auto createIpHandler = [asyncResp](const boost::system::error_code& ec,
+                                       const sdbusplus::message_t& msg) {
         if (ec)
         {
-            messages::internalError(asyncResp->res);
+            handleError(asyncResp, msg, "IPv6StaticDefaultGateways");
+            return;
         }
     };
     dbus::utility::async_method_call(
@@ -1012,10 +1062,11 @@ inline void deleteAndCreateIPv6DefaultGateway(
     path /= gatewayId;
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec) {
+        [asyncResp, ifaceId, gateway](const boost::system::error_code& ec,
+                                      const sdbusplus::message_t& msg) {
             if (ec)
             {
-                messages::internalError(asyncResp->res);
+                handleError(asyncResp, msg, "IPv6StaticDefaultGateways");
                 return;
             }
             createIPv6DefaultGateway(ifaceId, gateway, asyncResp);
@@ -1151,7 +1202,9 @@ void getEthernetIfaceData(const std::string& ethifaceId,
 
             bool found =
                 extractEthernetInterfaceData(ethifaceId, resp, ethData);
-            if (!found)
+            // Interfaces reserved for internal platform use, such as the host
+            // to BMC USB gadget link, are not exposed externally.
+            if (!found || ethData.internal)
             {
                 callback(false, ethData, ipv4Data, ipv6Data, ipv6GatewayData);
                 return;
@@ -1178,6 +1231,30 @@ void getEthernetIfaceData(const std::string& ethifaceId,
             // Finally make a callback with useful data
             callback(true, ethData, ipv4Data, ipv6Data, ipv6GatewayData);
         });
+}
+
+/**
+ * @brief Determines whether an interface is reserved for internal platform
+ * use, for example the host to BMC USB gadget link
+ *
+ * @param[in] properties Properties of the
+ *                       xyz.openbmc_project.Network.EthernetInterface
+ *                       D-Bus interface
+ *
+ * @return true when the interface must not be exposed externally
+ */
+inline bool isInternalInterface(
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    for (const auto& propertyPair : properties)
+    {
+        if (propertyPair.first == "Internal")
+        {
+            const bool* internal = std::get_if<bool>(&propertyPair.second);
+            return internal != nullptr && *internal;
+        }
+    }
+    return false;
 }
 
 /**
@@ -1220,6 +1297,13 @@ void getEthernetIfaceList(CallbackFunc&& callback)
                     {
                         std::string ifaceId = objpath.first.filename();
                         if (ifaceId.empty())
+                        {
+                            continue;
+                        }
+                        // Interfaces reserved for internal platform use, such
+                        // as the host to BMC USB gadget link, are not exposed
+                        // externally.
+                        if (isInternalInterface(interface.second))
                         {
                             continue;
                         }
@@ -1718,7 +1802,8 @@ inline void handleIPv4StaticPatch(
             {
                 BMCWEB_LOG_ERROR("Deleting id {} on interface {}",
                                  address.existingDbusId, ifaceId);
-                deleteIPAddress(ifaceId, address.existingDbusId, asyncResp);
+                deleteIPAddress(ifaceId, address.existingDbusId, asyncResp,
+                                "IPv4StaticAddresses");
             }
             break;
             case AddrChange::Update:
@@ -1863,7 +1948,8 @@ inline void handleIPv6StaticAddressesPatch(
 
             if (obj == nullptr)
             {
-                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
+                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp,
+                                "IPv6StaticAddresses");
             }
             if (nicIpEntry != ipv6Data.cend())
             {
@@ -2064,12 +2150,75 @@ inline void afterDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
     if (std::string_view("org.freedesktop.DBus.Error.UnknownMethod") ==
-        dbusError->name)
+            dbusError->name ||
+        std::string_view("xyz.openbmc_project.Common.Error.NotAllowed") ==
+            dbusError->name)
     {
         messages::resourceCannotBeDeleted(asyncResp->res);
         return;
     }
     messages::internalError(asyncResp->res);
+}
+
+/**
+ * @brief Handles the Internal property read that precedes an interface delete
+ *
+ * Interfaces reserved for internal platform use, such as the host to BMC USB
+ * gadget link, are reported as not found so that their existence is not
+ * disclosed externally.
+ *
+ * @param[io] asyncResp   Response object that will be returned to client
+ * @param[in] ifaceId     Id of the interface that should be deleted
+ * @param[in] objectPath  D-Bus path of the interface
+ * @param[in] ec          Error code from the property read
+ * @param[in] internal    Value of the Internal property
+ *
+ * @return None
+ */
+inline void afterGetInternalProperty(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ifaceId, const std::string& objectPath,
+    const boost::system::error_code& ec, const bool internal)
+{
+    if (!ec && internal)
+    {
+        messages::resourceNotFound(asyncResp->res, "EthernetInterface",
+                                   ifaceId);
+        return;
+    }
+    // A read error means the interface is gone or predates the property, so
+    // let the delete itself report the accurate error.
+    dbus::utility::async_method_call(
+        asyncResp,
+        [asyncResp, ifaceId](const boost::system::error_code& ec2,
+                             const sdbusplus::message_t& m) {
+            afterDelete(asyncResp, ifaceId, ec2, m);
+        },
+        "xyz.openbmc_project.Network", objectPath,
+        "xyz.openbmc_project.Object.Delete", "Delete");
+}
+
+/**
+ * @brief Deletes an individual EthernetInterface
+ *
+ * @param[io] asyncResp Response object that will be returned to client
+ * @param[in] ifaceId   Id of the interface that should be deleted
+ *
+ * @return None
+ */
+inline void handleEthernetInterfaceDelete(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ifaceId)
+{
+    std::string objectPath = "/xyz/openbmc_project/network/" + ifaceId;
+    dbus::utility::getProperty<bool>(
+        "xyz.openbmc_project.Network", objectPath,
+        "xyz.openbmc_project.Network.EthernetInterface", "Internal",
+        [asyncResp, ifaceId,
+         objectPath](const boost::system::error_code& ec, const bool internal) {
+            afterGetInternalProperty(asyncResp, ifaceId, objectPath, ec,
+                                     internal);
+        });
 }
 
 inline void afterVlanCreate(
@@ -2106,7 +2255,7 @@ inline void afterVlanCreate(
                                             "Id", vlanInterface);
             return;
         }
-        messages::internalError(asyncResp->res);
+        handleError(asyncResp, m, "VLANs");
         return;
     }
 
@@ -2529,15 +2678,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     return;
                 }
 
-                dbus::utility::async_method_call(
-                    asyncResp,
-                    [asyncResp, ifaceId](const boost::system::error_code& ec,
-                                         const sdbusplus::message_t& m) {
-                        afterDelete(asyncResp, ifaceId, ec, m);
-                    },
-                    "xyz.openbmc_project.Network",
-                    std::string("/xyz/openbmc_project/network/") + ifaceId,
-                    "xyz.openbmc_project.Object.Delete", "Delete");
+                handleEthernetInterfaceDelete(asyncResp, ifaceId);
             });
 }
 
