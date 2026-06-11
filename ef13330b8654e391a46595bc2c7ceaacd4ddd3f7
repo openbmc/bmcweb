@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ae3841_fd8c9c84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T23:24:46Z",
+      "side": 1,
+      "message": "and remove here",
+      "range": {
+        "startLine": 11,
+        "startChar": 14,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "ef13330b8654e391a46595bc2c7ceaacd4ddd3f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24d89d7_59bd5754",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T23:24:46Z",
+      "side": 1,
+      "message": "Update this line",
+      "revId": "ef13330b8654e391a46595bc2c7ceaacd4ddd3f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de834582_f73abb0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T23:24:46Z",
+      "side": 1,
+      "message": "One example use case is IBM cables or just remove this line",
+      "revId": "ef13330b8654e391a46595bc2c7ceaacd4ddd3f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
