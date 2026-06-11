@@ -70,10 +70,12 @@ class HTTP2Connection :
     HTTP2Connection(
         boost::asio::ssl::stream<Adaptor>&& adaptorIn, Handler* handlerIn,
         std::function<std::string()>& getCachedDateStrF, HttpType httpTypeIn,
-        const std::shared_ptr<persistent_data::UserSession>& mtlsSessionIn) :
+        const std::shared_ptr<persistent_data::UserSession>& mtlsSessionIn,
+        boost::asio::ip::address ipIn) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)),
         ngSession(initializeNghttp2Session()), handler(handlerIn),
-        getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn)
+        getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn),
+        ip(ipIn)
     {}
 
     void start()
@@ -327,7 +329,7 @@ class HTTP2Connection :
         if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
             thisReq.session = authentication::authenticate(
-                {}, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
+                ip, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
             if (!authentication::isOnAllowlist(thisReq.url().path(),
                                                thisReq.method()) &&
                 thisReq.session == nullptr)
@@ -347,6 +349,7 @@ class HTTP2Connection :
         {
             asyncResp->res.setExpectedEtag(expectedEtag);
         }
+        it->second.req->ipAddress = ip;
         handler->handle(it->second.req, asyncResp);
         return 0;
     }
@@ -711,6 +714,7 @@ class HTTP2Connection :
     std::function<std::string()>& getCachedDateStr;
 
     std::shared_ptr<persistent_data::UserSession> mtlsSession;
+    boost::asio::ip::address ip;
 
     using std::enable_shared_from_this<
         HTTP2Connection<Adaptor, Handler>>::shared_from_this;
