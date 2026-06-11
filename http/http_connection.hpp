@@ -300,7 +300,7 @@ class Connection :
     {
         auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
             std::move(adaptor), handler, getCachedDateStr, httpType,
-            mtlsSession);
+            mtlsSession, ip);
         if (http2settings.empty())
         {
             http2->start();
