@@ -70,6 +70,24 @@
       "parentUuid": "416945dc_d193d336",
       "revId": "121813b32fbefc058615f6107461d7b0e43c54b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfbbaa02_5c80ef52",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-11T16:53:58Z",
+      "side": 1,
+      "message": "Done, discarded the uuid-format checker in PS8.",
+      "parentUuid": "970a3ea8_15e7fb15",
+      "revId": "121813b32fbefc058615f6107461d7b0e43c54b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

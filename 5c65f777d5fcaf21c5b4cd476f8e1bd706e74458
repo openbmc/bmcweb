@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43f9247c_72c4c3f3",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-11T16:53:58Z",
+      "side": 1,
+      "message": "Done, added a length check for the retrieved UUID, and did the uppercase transformation as suggested.",
+      "parentUuid": "89de1bbb_04019c0f",
+      "revId": "5c65f777d5fcaf21c5b4cd476f8e1bd706e74458",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80e05e05_2ce32480",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-10T16:20:35Z",
       "side": 1,
       "message": "if it\u0027s empty we should be setting nullptr right?",
+      "revId": "5c65f777d5fcaf21c5b4cd476f8e1bd706e74458",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6a55400_bb750a1c",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-11T16:53:58Z",
+      "side": 1,
+      "message": "Sorry, but I am not sure if you are suggesting to set `nullptr` into the `asyncResp-\u003eres.jsonValue[\"UUID\"]`, or using nullptr to determine if `uuid` is an empty string.",
+      "parentUuid": "80e05e05_2ce32480",
       "revId": "5c65f777d5fcaf21c5b4cd476f8e1bd706e74458",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
