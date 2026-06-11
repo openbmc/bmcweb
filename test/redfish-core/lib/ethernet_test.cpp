@@ -1,3 +1,4 @@
+#include "dbus_utility.hpp"
 #include "ethernet.hpp"
 #include "http_response.hpp"
 
@@ -206,6 +207,40 @@ TEST(Ethernet, parseAddressesDeleteExistingOnShortLength)
     EXPECT_EQ(addrOut[0].existingDbusId, "my_ip_id");
     EXPECT_EQ(addrOut[0].operation, AddrChange::Delete);
     EXPECT_EQ(gatewayOut, "");
+}
+
+TEST(Ethernet, isInternalInterfacePropertyAbsent)
+{
+    dbus::utility::DBusPropertiesMap properties;
+    properties.emplace_back("InterfaceName", std::string("eth0"));
+
+    EXPECT_FALSE(isInternalInterface(properties));
+}
+
+TEST(Ethernet, isInternalInterfaceTrue)
+{
+    dbus::utility::DBusPropertiesMap properties;
+    properties.emplace_back("InterfaceName", std::string("usb0"));
+    properties.emplace_back("Internal", true);
+
+    EXPECT_TRUE(isInternalInterface(properties));
+}
+
+TEST(Ethernet, isInternalInterfaceFalse)
+{
+    dbus::utility::DBusPropertiesMap properties;
+    properties.emplace_back("InterfaceName", std::string("eth0"));
+    properties.emplace_back("Internal", false);
+
+    EXPECT_FALSE(isInternalInterface(properties));
+}
+
+TEST(Ethernet, isInternalInterfaceWrongType)
+{
+    dbus::utility::DBusPropertiesMap properties;
+    properties.emplace_back("Internal", std::string("true"));
+
+    EXPECT_FALSE(isInternalInterface(properties));
 }
 
 } // namespace
