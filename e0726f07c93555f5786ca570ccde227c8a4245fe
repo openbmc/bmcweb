@@ -22,6 +22,30 @@
       },
       "revId": "e0726f07c93555f5786ca570ccde227c8a4245fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fec5e0ef_eedc1cee",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-06-11T19:55:18Z",
+      "side": 1,
+      "message": "Done. I\u0027ve also updated the function call to disregard SparePartNumber",
+      "parentUuid": "daa4b916_86c2b0fb",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 200,
+        "endChar": 17
+      },
+      "revId": "e0726f07c93555f5786ca570ccde227c8a4245fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
