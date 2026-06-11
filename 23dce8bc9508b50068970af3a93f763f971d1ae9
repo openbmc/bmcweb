@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8859365a_47521494",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-11T09:38:25Z",
+      "side": 1,
+      "message": "Done. Updated POST and DELETE routes to also require ConfigureManager\nprivileges. Now all three operations (create, modify, delete) on\nEthernetInterfaces under a Manager require admin-level access.",
+      "revId": "23dce8bc9508b50068970af3a93f763f971d1ae9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
