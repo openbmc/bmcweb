@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a918be59_a60f0e24",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-11T11:54:37Z",
+      "side": 1,
+      "message": "Good catch. Done.",
+      "parentUuid": "9ab60e4c_d7ec4b68",
+      "revId": "83191888d3ab773176902eac389fa89fcdc30142",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71f66456_ff83b256",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-06-09T12:28:34Z",
       "side": 1,
       "message": "Let\u0027s directly pass related item object path.",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 359,
+        "endChar": 23
+      },
+      "revId": "83191888d3ab773176902eac389fa89fcdc30142",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58b679cf_5f9b2d6b",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-11T11:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71f66456_ff83b256",
       "range": {
         "startLine": 359,
         "startChar": 9,
@@ -71,6 +113,24 @@
       "writtenOn": "2026-06-09T12:28:34Z",
       "side": 1,
       "message": "Is there a way to have common implementation to discover control object paths, for chassis and the inventory items that it contains, and use it for both Control Get and Control collection Get?",
+      "revId": "83191888d3ab773176902eac389fa89fcdc30142",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63173ae7_9da5cd9a",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-11T11:54:37Z",
+      "side": 1,
+      "message": "Done. Extracted discoverInventoryCandidates as a shared helper that returns a list of (path, service) pairs covering the chassis itself plus every contained inventory item.",
+      "parentUuid": "11830389_2f328345",
       "revId": "83191888d3ab773176902eac389fa89fcdc30142",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
