@@ -64,6 +64,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e94bcdd1_f9c1bd53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-11T06:06:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "da7e3244_525dae00",
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90d8c1bd_7bd482cd",
@@ -94,6 +112,30 @@
       "writtenOn": "2026-06-10T21:35:49Z",
       "side": 1,
       "message": "Remove this, this is already set in the message.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 69
+      },
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34cd6280_7e303c22",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-11T06:06:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1152b946_949c531d",
       "range": {
         "startLine": 100,
         "startChar": 0,
