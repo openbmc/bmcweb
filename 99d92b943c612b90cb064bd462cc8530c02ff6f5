@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09524d79_59f672ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T23:22:57Z",
+      "side": 1,
+      "message": "Can you add more why we need this and what this does ?",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52a88bb3_457418aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T23:22:57Z",
+      "side": 1,
+      "message": "Redfish Validator please",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
