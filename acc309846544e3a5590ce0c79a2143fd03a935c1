@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0c7c57c_642115c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T19:27:21Z",
+      "side": 1,
+      "message": "You just changed it to 204 from 200",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "acc309846544e3a5590ce0c79a2143fd03a935c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4523025_6b4ea31a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T19:27:21Z",
+      "side": 1,
+      "message": "Be careful with LLM writing your commit msgs, they tend to repeat and tend to only focus on what it did and not why.",
+      "revId": "acc309846544e3a5590ce0c79a2143fd03a935c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3cdaf9f5_d6879738",
@@ -67,6 +107,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "41cccc1e_a30682d4",
+      "revId": "acc309846544e3a5590ce0c79a2143fd03a935c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b74bfc8_9f51e974",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T19:27:21Z",
+      "side": 1,
+      "message": "We have this for LDAP too, returns early if no properties to PATCH ¯\\_(ツ)_/¯",
+      "parentUuid": "c9fe2d3d_761b56f0",
       "revId": "acc309846544e3a5590ce0c79a2143fd03a935c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
