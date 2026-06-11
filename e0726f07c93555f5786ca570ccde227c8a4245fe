@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daa4b916_86c2b0fb",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-11T19:29:46Z",
+      "side": 1,
+      "message": "should not SparePartNumber here",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 200,
+        "endChar": 17
+      },
+      "revId": "e0726f07c93555f5786ca570ccde227c8a4245fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
