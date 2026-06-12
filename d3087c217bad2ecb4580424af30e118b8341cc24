@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2802daa_8aaf4898",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-12T19:33:15Z",
+      "side": 1,
+      "message": "The PR adds unordered_map\u003cstring,string\u003e to DbusVariantType, but we already \nuse unordered_map in application code. \n\nCan you provide a concrete example of:\n1. Which D-Bus service property (a{ss} signature) needs this?\n2. Which bmcweb route handler will consume it?\n\n\nThis would help understand if phosphor-logging\u0027s Additional Data \nis the primary use case or if there are others.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "d3087c217bad2ecb4580424af30e118b8341cc24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
