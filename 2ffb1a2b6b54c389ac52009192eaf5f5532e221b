@@ -1,0 +1,353 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6624d41_18eece7c",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Do you have an understanding of why we didn\u0027t just do raii here?  Obviously this follows the older pattern, but I\u0027d really like to try to avoid it if we can.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 42
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf1013e1_8a6d7351",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "This post call is non obvious why we\u0027re doing this in a complicated way.  Can you add a minor comment?",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "349a58c5_c8567944",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Sorry, why do we need a logging specific match here?  Not all tasks will implement a logging interface, we have the status object for sending task events.  Maybe I\u0027m not really understanding why we need 2?",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7ebf1b8_d35e8c88",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "This should just be a vector, right?  In theory we can have the same log entry twice.",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b5689a_8232d974",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Having a little trouble reading this block.  Could you clean it up a little?",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 67
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deacf037_8bcce0b1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Looking at the spec, these aren\u0027t intended to be URIs.  Please fix and make compliant with the examples in Redfish.",
+      "range": {
+        "startLine": 173,
+        "startChar": 25,
+        "endLine": 173,
+        "endChar": 43
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2fa541f_9d94eefa",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "nit, std::vector here.  There\u0027s nothing in the interface that gaurantees this is unique, and we want to be able to detect that.",
+      "range": {
+        "startLine": 209,
+        "startChar": 13,
+        "endLine": 209,
+        "endChar": 26
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369ec041_392a5303",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Please use the helper functions to unpack these.",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a1210a6_e990c62f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Doesn\u0027t this break if you have more than one update happening at a time?  As far as I know you can\u0027t duplicate match expressions.",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 70
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c125185_968d9a53",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Remove.  If the backend service is sending duplicates, fix the backend service.",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 68
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55403dfc_74f23b6e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in non obvious contexts.",
+      "range": {
+        "startLine": 255,
+        "startChar": 8,
+        "endLine": 255,
+        "endChar": 12
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86dc0736_a4b83bb3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "else internal error?",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c65487a9_34fb4b10",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Please use the dbus utilities classes for this.",
+      "range": {
+        "startLine": 279,
+        "startChar": 34,
+        "endLine": 279,
+        "endChar": 51
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e775091_4e4d3586",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Please don\u0027t write non trivial lambdas.  Make this a normal method.",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "641b8b98_76982f42",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "Why does this function need to exist?  I assume there\u0027s some out of order logging happening?  Please just fix that in the service rather than try to clean up afterward.",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea620fe_847d6fc7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "This seems like the wrong call.  We\u0027re pulling ALL log entries for all time just to process a few?  COuldn\u0027t that potentially pull in thousands of entries?",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 1
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4779cb8_20634bd0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:09:32Z",
+      "side": 1,
+      "message": "This is going to register us for ALL logging events, not just the events that we care about.  Can we refine this more and not have to post process afterward?",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 424,
+        "endChar": 50
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
