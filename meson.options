@@ -459,7 +459,7 @@ option(
     'tls-profile',
     type: 'combo',
     choices: ['modern', 'intermediate'],
-    value: 'intermediate',
+    value: 'modern',
     description: '''Selects the Mozilla TLS configuration profile applied to
                     the server and outbound client TLS contexts.  See
                     https://ssl-config.mozilla.org/ for the underlying
