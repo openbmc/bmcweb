@@ -33,6 +33,46 @@
       "message": "CLGTM",
       "revId": "a2cd80100fe3ab7052de86bf8ce65d50e69dd6b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c02164f_0518fc3f",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T14:38:27Z",
+      "side": 1,
+      "message": "Please don\u0027t override headers set in the core.  You\u0027ve registered a patch/post/delete route, so the core is correctly returning all 4 verbs.",
+      "revId": "a2cd80100fe3ab7052de86bf8ce65d50e69dd6b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055392cf_1eaec15f",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T14:38:27Z",
+      "side": 1,
+      "message": "Sorry, we\u0027re not going to maintain 50 lines of code for every handler to try to support this minor error code change.  Even if it were correct, that\u0027s not something I\u0027m prepared to maintain for the several hundred handlers we have today.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 15
+      },
+      "revId": "a2cd80100fe3ab7052de86bf8ce65d50e69dd6b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

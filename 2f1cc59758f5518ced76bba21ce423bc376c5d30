@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79e15f37_486ed168",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T14:38:27Z",
+      "side": 1,
+      "message": "Then how did your test pass?",
+      "parentUuid": "c605b128_3441e94a",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da7e3244_525dae00",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -150,6 +174,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55d71a6c_4f6a87ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T14:38:27Z",
+      "side": 1,
+      "message": "I don\u0027t need the full result.  I do see you ran redfish SERVICE validator.  I need you to run redfish PROTOCOL validator.  they are two different tests.",
+      "parentUuid": "ddbb7f12_68f0372b",
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90d8c1bd_7bd482cd",
         "filename": "redfish-core/lib/redfish_v1.hpp",
         "patchSetId": 6
@@ -179,6 +221,24 @@
       "side": 1,
       "message": "@ed@tanous.net I have analyzed again and updated the code changes. Thanks for your feedback",
       "parentUuid": "90d8c1bd_7bd482cd",
+      "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78676994_dd14fe03",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T14:38:27Z",
+      "side": 1,
+      "message": "You haven\u0027t, you\u0027ve just refactored a little.  You\u0027re still using the allow header to somehow determine existence of an element.",
+      "parentUuid": "bd4f610a_67eb2642",
       "revId": "2f1cc59758f5518ced76bba21ce423bc376c5d30",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
