@@ -39,6 +39,30 @@
       },
       "revId": "d3087c217bad2ecb4580424af30e118b8341cc24",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659a87b6_81751b5e",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T21:59:23Z",
+      "side": 1,
+      "message": "I think they\u0027re trying to use it in the next patch.",
+      "parentUuid": "a2802daa_8aaf4898",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "d3087c217bad2ecb4580424af30e118b8341cc24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
