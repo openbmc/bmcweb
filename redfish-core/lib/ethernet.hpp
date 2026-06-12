@@ -531,15 +531,15 @@ inline void extractIPV6Data(const std::string& ethifaceId,
                             const dbus::utility::ManagedObjectType& dbusData,
                             std::vector<IPv6AddressData>& ipv6Config)
 {
-    const std::string ipPathStart =
-        "/xyz/openbmc_project/network/" + ethifaceId;
+    sdbusplus::message::object_path ipPathStart{"/xyz/openbmc_project/network"};
+    ipPathStart /= ethifaceId;
 
     // Since there might be several IPv6 configurations aligned with
     // single ethernet interface, loop over all of them
     for (const auto& objpath : dbusData)
     {
         // Check if proper pattern for object path appears
-        if (objpath.first.str.starts_with(ipPathStart + "/"))
+        if (objpath.first.parent_path() == ipPathStart)
         {
             for (const auto& interface : objpath.second)
             {
@@ -567,8 +567,7 @@ inline void extractIPV6Data(const std::string& ethifaceId,
                     // Instance IPv6AddressData structure, and set as
                     // appropriate
                     IPv6AddressData& ipv6Address = ipv6Config.emplace_back();
-                    ipv6Address.id =
-                        objpath.first.str.substr(ipPathStart.size());
+                    ipv6Address.id = ipPathStart.str;
                     for (const auto& property : interface.second)
                     {
                         if (property.first == "Address")
@@ -623,15 +622,15 @@ inline void extractIPData(const std::string& ethifaceId,
                           const dbus::utility::ManagedObjectType& dbusData,
                           std::vector<IPv4AddressData>& ipv4Config)
 {
-    const std::string ipPathStart =
-        "/xyz/openbmc_project/network/" + ethifaceId;
+    sdbusplus::message::object_path ipPathStart{"/xyz/openbmc_project/network"};
+    ipPathStart /= ethifaceId;
 
     // Since there might be several IPv4 configurations aligned with
     // single ethernet interface, loop over all of them
     for (const auto& objpath : dbusData)
     {
         // Check if proper pattern for object path appears
-        if (objpath.first.str.starts_with(ipPathStart + "/"))
+        if (objpath.first.parent_path() == ipPathStart)
         {
             for (const auto& interface : objpath.second)
             {
@@ -659,8 +658,7 @@ inline void extractIPData(const std::string& ethifaceId,
                     // Instance IPv4AddressData structure, and set as
                     // appropriate
                     IPv4AddressData& ipv4Address = ipv4Config.emplace_back();
-                    ipv4Address.id =
-                        objpath.first.str.substr(ipPathStart.size());
+                    ipv4Address.id = ipPathStart.str;
                     for (const auto& property : interface.second)
                     {
                         if (property.first == "Address")
