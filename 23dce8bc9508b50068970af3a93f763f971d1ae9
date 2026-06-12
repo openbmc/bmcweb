@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9048283_f29a75c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-12T19:39:12Z",
+      "side": 1,
+      "message": "Could you please investigate the build failure? It seems to be related to the recent code changes. A rebase onto the latest master may help resolve it",
+      "parentUuid": "8859365a_47521494",
+      "revId": "23dce8bc9508b50068970af3a93f763f971d1ae9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cdffbf6_2ce57c6f",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 5
