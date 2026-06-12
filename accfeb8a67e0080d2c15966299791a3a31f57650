@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d4667d9_45fada3f",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T18:56:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96bec8d5_23557fab",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b383e67_21c45847",
@@ -107,6 +125,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b41f0b6a_89653f39",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T18:56:03Z",
+      "side": 1,
+      "message": "I thought better of it and got rid of the global variable altogether.",
+      "parentUuid": "74dfd974_277873dd",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 53
+      },
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fa042ba_23fbe22f",
@@ -142,6 +184,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e105631d_66544dcd",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T18:56:03Z",
+      "side": 1,
+      "message": "This variable is gone completely now, and I think the code is clearer.  PTAL.",
+      "parentUuid": "ac6c8396_ba856a1e",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bdbfad2_a21d8341",
@@ -173,6 +233,24 @@
       "side": 1,
       "message": "\u003e Why don\u0027t we set the cipherList for Modern\n\nBecause cipherList setting is only for TLS1.2 and below.  For modern we disable tls1.2 on line 433, so no need to call cipherList at all in that case.",
       "parentUuid": "4bdbfad2_a21d8341",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81a14b3a_dab0a665",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T18:56:03Z",
+      "side": 1,
+      "message": "I think I made the code clearer.  If this is still confusing, please reopen and I\u0027ll rework.",
+      "parentUuid": "b828ccad_d0b739a8",
       "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -259,6 +337,48 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4963021c_0f5381d9",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T18:56:03Z",
+      "side": 1,
+      "message": "New code should be clearer.",
+      "parentUuid": "d1ac2a13_f9bf9260",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bce5695a_d5f56bb1",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T18:56:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "339a9ceb_60adefb9",
+      "range": {
+        "startLine": 477,
+        "startChar": 32,
+        "endLine": 477,
+        "endChar": 57
+      },
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "273cebda_027847e4",
@@ -290,6 +410,24 @@
       "side": 1,
       "message": "If this fails, we\u0027re pretty broken.  it is sometimes useful to have prints through the whole trace.",
       "parentUuid": "273cebda_027847e4",
+      "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f735fece_385dae1a",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T18:56:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6183d5c_0a885933",
       "revId": "accfeb8a67e0080d2c15966299791a3a31f57650",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
