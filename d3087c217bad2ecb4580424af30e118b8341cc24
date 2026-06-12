@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fefd607d_bc0be5fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T21:58:20Z",
+      "side": 1,
+      "message": "We very intentionally don\u0027t do this.\n\n1. The template on map/set/whatever increase the size of the binary at call sites, as well as during the template instantiation.\n2. Almost always in the webserver we read in values into some other struct and/or stack variable, then use it where appropriate.  unordered map implies that we\u0027re reading arbitrary values, which we rarely (if ever) are from dbus.\n3. unordered map imposes hashing, and the size of these maps are fundamentally small.  Microbenchmarks run in the past showed that being required to hash both the input and the lookup key was a loss on performance.\n4. Unordered_map as implemented doesn\u0027t have a way to handle key conflicts.  Hopefully this never happens, but vector allows us to detect and handle that.\n\n\nWhatever you\u0027re trying to implement, lets start by doing it with std::vector\u003cstd::pair\u003cstd::string, std::string\u003e\u003e\n\nAnd if we want to move to unordered map for whatever feature you\u0027re building, we can do that at another time, showing that it\u0027s both faster and less binary size (i suspect it won\u0027t be either).",
+      "revId": "d3087c217bad2ecb4580424af30e118b8341cc24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2802daa_8aaf4898",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 1
