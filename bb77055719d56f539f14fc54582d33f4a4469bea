@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "145f7279_1c78ebce",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:12:00Z",
+      "side": 1,
+      "message": "please use exact matches here.",
+      "revId": "bb77055719d56f539f14fc54582d33f4a4469bea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ce4c60_7988f566",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-12T22:12:00Z",
+      "side": 1,
+      "message": "Todo seems pretty critical to this feature, but I realize this is WIP, so I\u0027m assuming that\u0027s your next task.",
+      "revId": "bb77055719d56f539f14fc54582d33f4a4469bea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
