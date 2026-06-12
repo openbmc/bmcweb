@@ -82,13 +82,13 @@ enum class DumpCreationProgress
     DUMP_CREATE_INPROGRESS
 };
 
-inline std::string getDumpPath(std::string_view dumpType)
+inline sdbusplus::object_path getDumpPath(std::string_view dumpType)
 {
     std::string dbusDumpPath = "/xyz/openbmc_project/dump/";
     std::ranges::transform(dumpType, std::back_inserter(dbusDumpPath),
                            bmcweb::asciiToLower);
 
-    return dbusDumpPath;
+    return sdbusplus::object_path{std::move(dbusDumpPath)};
 }
 
 inline log_entry::OriginatorTypes mapDbusOriginatorTypeToRedfish(
@@ -276,7 +276,9 @@ inline void getDumpEntryCollection(
                 "Collection of " + dumpType + " Dump Entries";
 
             nlohmann::json::array_t entriesArray;
-            std::string dumpEntryPath = getDumpPath(dumpType) + "/entry/";
+            sdbusplus::message::object_path dumpEntryPath =
+                getDumpPath(dumpType) /
+                "entry";
 
             dbus::utility::ManagedObjectType resp(objects);
             std::ranges::sort(resp, [](const auto& l, const auto& r) {
@@ -286,7 +288,7 @@ inline void getDumpEntryCollection(
 
             for (auto& object : resp)
             {
-                if (object.first.str.find(dumpEntryPath) == std::string::npos)
+                if (object.first.parent_path() != dumpEntryPath)
                 {
                     continue;
                 }
@@ -379,11 +381,13 @@ inline void getDumpEntryById(
             }
 
             bool foundDumpEntry = false;
-            std::string dumpEntryPath = getDumpPath(dumpType) + "/entry/";
+            sdbusplus::message::object_path dumpEntryPath =
+                getDumpPath(dumpType) /
+                "entry";
 
             for (const auto& objectPath : resp)
             {
-                if (objectPath.first.str != dumpEntryPath + entryID)
+                if (objectPath.first != dumpEntryPath / entryID)
                 {
                     continue;
                 }
@@ -480,7 +484,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     dbus::utility::async_method_call(
         asyncResp, respHandler, "xyz.openbmc_project.Dump.Manager",
-        std::format("{}/entry/{}", getDumpPath(dumpType), entryID),
+        std::string{getDumpPath(dumpType) / "entry" / entryID},
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -495,8 +499,8 @@ inline void downloadDumpEntry(
         return;
     }
 
-    std::string dumpEntryPath =
-        std::format("{}/entry/{}", getDumpPath(dumpType), entryID);
+    sdbusplus::message::object_path dumpEntryPath =
+        getDumpPath(dumpType) / "entry" / entryID;
 
     auto downloadDumpEntryHandler =
         [asyncResp, entryID,
@@ -810,7 +814,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             BMCWEB_LOG_DEBUG("Dump Created. Path: {}", objPath.str);
             createDumpTaskCallback(std::move(payload), asyncResp, objPath);
         },
-        "xyz.openbmc_project.Dump.Manager", getDumpPath(dumpType),
+        "xyz.openbmc_project.Dump.Manager", std::string{getDumpPath(dumpType)},
         "xyz.openbmc_project.Dump.Create", "CreateDump", createDumpParamVec);
 }
 
@@ -828,7 +832,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
             messages::success(asyncResp->res);
         },
-        "xyz.openbmc_project.Dump.Manager", getDumpPath(dumpType),
+        "xyz.openbmc_project.Dump.Manager", std::string{getDumpPath(dumpType)},
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 

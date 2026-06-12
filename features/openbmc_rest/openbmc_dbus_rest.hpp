@@ -257,17 +257,31 @@ struct InProgressEnumerateData
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
 };
 
+inline bool isParentOf(const sdbusplus::object_path& path,
+                       const sdbusplus::object_path& objectName)
+{
+    for (sdbusplus::object_path p = path; !p.filename().empty();
+         p = p.parent_path())
+    {
+        if (p == objectName)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 inline void getManagedObjectsForEnumerate(
-    const std::string& objectName, const std::string& objectManagerPath,
+    sdbusplus::message::object_path objectName,
+    sdbusplus::message::object_path objectManagerPath,
     const std::string& connectionName,
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
     BMCWEB_LOG_DEBUG(
         "getManagedObjectsForEnumerate {} object_manager_path {} connection_name {}",
-        objectName, objectManagerPath, connectionName);
-    sdbusplus::object_path path(objectManagerPath);
+        objectName.str, objectManagerPath.str, connectionName);
     dbus::utility::getManagedObjects(
-        connectionName, path,
+        connectionName, objectManagerPath,
         [transaction, objectName,
          connectionName](const boost::system::error_code& ec,
                          const dbus::utility::ManagedObjectType& objects) {
@@ -275,7 +289,7 @@ inline void getManagedObjectsForEnumerate(
             {
                 BMCWEB_LOG_ERROR(
                     "GetManagedObjects on path {} on connection {} failed with code {}",
-                    objectName, connectionName, ec);
+                    objectName.str, connectionName, ec);
                 return;
             }
 
@@ -284,7 +298,7 @@ inline void getManagedObjectsForEnumerate(
 
             for (const auto& objectPath : objects)
             {
-                if (objectPath.first.str.starts_with(objectName))
+                if (isParentOf(objectPath.first, objectName))
                 {
                     BMCWEB_LOG_DEBUG("Reading object {}", objectPath.first.str);
                     nlohmann::json& objectJson = dataJson[objectPath.first.str];
@@ -321,8 +335,8 @@ inline void getManagedObjectsForEnumerate(
                     if (interface.first == "org.freedesktop.DBus.ObjectManager")
                     {
                         getManagedObjectsForEnumerate(
-                            objectPath.first.str, objectPath.first.str,
-                            connectionName, transaction);
+                            objectPath.first, objectPath.first, connectionName,
+                            transaction);
                     }
                 }
             }
