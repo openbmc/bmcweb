@@ -245,6 +245,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8810f268_96b27bf3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1002038
+      },
+      "writtenOn": "2026-06-12T01:23:10Z",
+      "side": 1,
+      "message": "I couldn\u0027t find the original design behavior, only for multi-host POST code design:\nhttps://github.com/openbmc/docs/blob/master/designs/multi-host-postcode.md\n\nThis design seems to improve scalability. `phosphor-host-postd` emits D-Bus signals whenever a new POST code is received. `phosphor-post-code-manager`, or any other interested application, can monitor changes to the Value property and archive POST codes on a per-boot basis.",
+      "parentUuid": "50d06bb2_2bf3862d",
+      "range": {
+        "startLine": 761,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 19
+      },
+      "revId": "350596eacc81709c0b12fa09e62a103023df7311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52df94f6_b21a4f92",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
