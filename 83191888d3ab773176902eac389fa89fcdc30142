@@ -100,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7ac715_7bd7eeed",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-12T05:37:49Z",
+      "side": 1,
+      "message": "The root cause is that one Control resource\u0027s data is split across two interfaces: Control.OperatingClockSpeed (SetPoint/SettingMax/Min/ControlMode — uniform per control type, the N axis) and the controlled inventory item (AllowableMax/Min + PhysicalContext, currently read from Item.Accelerator\u0027s MaxSpeedInHz/MinSpeedInHz/Type — the M axis). \nThe only genuine M×N coupling is reading the allowable range from the inventory item, since each inventory type stores it under different properties. I think the cleanest fix is to expose the allowable range on Control.OperatingClockSpeed itself (add MaxSpeedInHz/MinSpeedInHz there); then bmcweb reads every control value from the control object (pure N) and the inventory item is only used to build the RelatedItem URI, which is a pure data table (pure M) — true M+N. I\u0027d propose doing that as a follow-up PDI + dbus-sensors change. WDYT?",
+      "parentUuid": "72c56f6e_1c07321b",
+      "revId": "83191888d3ab773176902eac389fa89fcdc30142",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11830389_2f328345",
@@ -148,6 +166,24 @@
       "writtenOn": "2026-06-09T12:28:34Z",
       "side": 1,
       "message": "Please structure the code in this file such a way that, we can add support for other inventory items later by just adding interfaces here.",
+      "revId": "83191888d3ab773176902eac389fa89fcdc30142",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc6215f2_ec8ca34f",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-12T05:37:49Z",
+      "side": 1,
+      "message": "as noted on the other comment.",
+      "parentUuid": "c074241b_699608c9",
       "revId": "83191888d3ab773176902eac389fa89fcdc30142",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
