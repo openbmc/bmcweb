@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fbd33bb_35dbad41",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-13T07:20:22Z",
+      "side": 1,
+      "message": "please don\u0027t write this inline.",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 73
+      },
+      "revId": "6c35b720ac713b00b505361aece6fe89e54254d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
