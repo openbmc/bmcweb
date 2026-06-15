@@ -63,6 +63,30 @@
       },
       "revId": "d3087c217bad2ecb4580424af30e118b8341cc24",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da063395_f5fc2b02",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2026-06-15T10:57:54Z",
+      "side": 1,
+      "message": "Noted.",
+      "parentUuid": "659a87b6_81751b5e",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "d3087c217bad2ecb4580424af30e118b8341cc24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
