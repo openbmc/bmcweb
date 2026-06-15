@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61c42bf1_4d48cf1f",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-15T08:31:14Z",
+      "side": 1,
+      "message": "Hi, \nI was enlighted by Ed in the comment above to transform the `UUID` into the uppercase. This can be removed since it is not strictly necessary but just an advancement.",
+      "parentUuid": "865a343c_fa0f67bc",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 629,
+        "endChar": 7
+      },
+      "revId": "cf81a112f76026596e45cfcb8bad3ddd38de415a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2d5f979_3fb44b5a",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-06-15T01:54:43Z",
       "side": 1,
       "message": "Why getAllProperties ? When only 1 property ?",
+      "range": {
+        "startLine": 637,
+        "startChar": 19,
+        "endLine": 637,
+        "endChar": 35
+      },
+      "revId": "cf81a112f76026596e45cfcb8bad3ddd38de415a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cee674f6_4c4f5ad2",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-15T08:31:14Z",
+      "side": 1,
+      "message": "The reason to use `getAllProperties()` instead of `getProperty()` is that I want to retrieve the pointer so that I can perform the uppercase transformation.\n\nHowever, since we are going to remove the uppercase transformation, I think we can move to `getProperty` here.",
+      "parentUuid": "f2d5f979_3fb44b5a",
       "range": {
         "startLine": 637,
         "startChar": 19,
