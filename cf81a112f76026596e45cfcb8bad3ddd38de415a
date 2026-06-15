@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "865a343c_fa0f67bc",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-15T01:54:43Z",
+      "side": 1,
+      "message": "Why do we have to do this for other UUIDs ?\n\nhttps://github.com/openbmc/bmcweb/blob/e5cd5009b23255637dd7f11701a65d8c8fa09b88/redfish-core/lib/chassis.hpp#L429",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 629,
+        "endChar": 7
+      },
+      "revId": "cf81a112f76026596e45cfcb8bad3ddd38de415a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2d5f979_3fb44b5a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-15T01:54:43Z",
+      "side": 1,
+      "message": "Why getAllProperties ? When only 1 property ?",
+      "range": {
+        "startLine": 637,
+        "startChar": 19,
+        "endLine": 637,
+        "endChar": 35
+      },
+      "revId": "cf81a112f76026596e45cfcb8bad3ddd38de415a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
