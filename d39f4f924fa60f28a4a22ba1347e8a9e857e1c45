@@ -16,6 +16,23 @@
       "message": "Seems reasonable to me, the newer code is easier to read",
       "revId": "d39f4f924fa60f28a4a22ba1347e8a9e857e1c45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22da55e8_c18fcc81",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-15T18:04:10Z",
+      "side": 1,
+      "message": "I have no idea why the auto formatter allowed this.",
+      "revId": "d39f4f924fa60f28a4a22ba1347e8a9e857e1c45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
