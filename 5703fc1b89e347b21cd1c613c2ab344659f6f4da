@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f73287c2_fe6c3acc",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1002970
+      },
+      "writtenOn": "2026-06-15T10:38:52Z",
+      "side": 1,
+      "message": "Is OperatingSpeedRangeMHz.DataSourceUri expected to remain stable across reboots or inventory re-enumeration, or should clients rediscover it for each boot/session? Please clarify the intended behavior.",
+      "range": {
+        "startLine": 395,
+        "startChar": 30,
+        "endLine": 395,
+        "endChar": 52
+      },
+      "revId": "5703fc1b89e347b21cd1c613c2ab344659f6f4da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
