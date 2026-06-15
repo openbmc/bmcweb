@@ -16,6 +16,23 @@
       "message": "Tested on p10bmc that the Factory Reset dbus call works with the old and new busnames.",
       "revId": "314043cc4d0da60aa8934c155a0514b19ebfd22a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3379b19e_a2632b97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-15T23:51:20Z",
+      "side": 1,
+      "message": "I see a couple people from IBM on this, and the MR is +2ed, so I\u0027m assuming they\u0027re good with the \"breaking\" change.\n\nWill leave it approved, as I\u0027m assuming the plan is to merge those two together.",
+      "revId": "314043cc4d0da60aa8934c155a0514b19ebfd22a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
