@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88318732_660901d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-15T23:23:11Z",
+      "side": 1,
+      "message": "I\u0027m confused how that tests any of the below.  Subprojects files aren\u0027t used on P10bmc yocto builds.\n\n\nJust build locally using the subprojects and verify that the build completes and unit tests pass.  Let me know if you cant do that and I will do it for you.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
