@@ -46,6 +46,30 @@
       },
       "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6814e8f9_c27e1f9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-16T21:57:37Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m not understanding why your commit message says you built with Dwerror\u003dfalse\n\nIf the new dependencies cause new warnings, lets solve them.",
+      "parentUuid": "f622e2a0_92bbe162",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
