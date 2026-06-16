@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e0e3ff6_a076a7c5",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-16T19:23:45Z",
+      "side": 1,
+      "message": "Done. Redfish merged today.",
+      "parentUuid": "05859dc5_22a35601",
+      "revId": "ea45677662873c4a5c34a062d27c8819321a530f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e50e027d_8e59a1ce",
