@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3d0dfb7_687c8897",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-16T21:53:56Z",
+      "side": 0,
+      "message": "This is a good section to break out into a helper method, but can you please do it separate from the functional change?  I\u0027m having a little trouble separating the functional changes from just breaking this helper method out.\n\nAlso, if you\u0027re able to write unit tests for the new function, they\u0027d be appreciated.",
+      "revId": "c91086487c8215cfd9eaa4b7a3b699430d9c25d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

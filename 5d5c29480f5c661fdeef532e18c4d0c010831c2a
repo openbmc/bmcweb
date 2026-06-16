@@ -22,6 +22,69 @@
       },
       "revId": "5d5c29480f5c661fdeef532e18c4d0c010831c2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deab7a36_c4678d57",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-16T21:53:56Z",
+      "side": 1,
+      "message": "nit, we\u0027re constructing a url here, please use boost::urls::format to construct it, even though it\u0027s unlikely it will ever need a character escaped, it\u0027s best practice to be consistent.",
+      "revId": "5d5c29480f5c661fdeef532e18c4d0c010831c2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9652bb47_3497c2e3",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-16T21:53:56Z",
+      "side": 1,
+      "message": "why string_view here?  SHould we just pass as string_view?",
+      "range": {
+        "startLine": 138,
+        "startChar": 13,
+        "endLine": 138,
+        "endChar": 24
+      },
+      "revId": "5d5c29480f5c661fdeef532e18c4d0c010831c2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a94fc73_382c3402",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-16T21:53:56Z",
+      "side": 1,
+      "message": "I\u0027m a little confused by this branch.  Why do we expect some message registries to end in \".json\" and some to not?  After your change, don\u0027t all registries end in .json?",
+      "range": {
+        "startLine": 138,
+        "startChar": 35,
+        "endLine": 138,
+        "endChar": 53
+      },
+      "revId": "5d5c29480f5c661fdeef532e18c4d0c010831c2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
