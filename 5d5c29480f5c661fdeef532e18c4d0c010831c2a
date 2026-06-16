@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d002b53f_231de07b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-16T19:27:04Z",
+      "side": 1,
+      "message": "Rather than stating this, can you just quote the spec?  I see you have the sections listed, which is a start, but lets just quote EXACTLY what the spec says about this so it\u0027s obvious why we made the change.\n\nI also don\u0027t see where section 6.7 states what the format you claimed it did.  Section 10.1 talks about a file name, but it isn\u0027t clear to me that applies to the URI/ID in use.  I\u0027m not against this change by any means, but lets make sure we\u0027re calling out where we\u0027re improving for the sake of improving, versus where we\u0027re improving because the spec says so.",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "5d5c29480f5c661fdeef532e18c4d0c010831c2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
