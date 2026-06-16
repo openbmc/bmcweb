@@ -16,6 +16,24 @@
       "message": "The CI seems to be broken. \nMight have to wait until it is fixed?",
       "revId": "205cb2c7118c9d77ed32374339237ce7b4e26621",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f991609_160b4676",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-16T03:34:39Z",
+      "side": 1,
+      "message": "Solved now.",
+      "parentUuid": "7577e799_5c851c61",
+      "revId": "205cb2c7118c9d77ed32374339237ce7b4e26621",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
