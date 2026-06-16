@@ -40,40 +40,60 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
         return false;
     }
 
-    // The hostname should match the domain part of the UPN
     std::string_view upnDomain = upn.substr(upnDomainPos + 1);
-    while (true)
+
+    if (upnDomain.empty())
     {
-        std::string_view upnDomainMatching = upnDomain;
-        size_t dotUPNPos = upnDomain.find_last_of('.');
-        if (dotUPNPos != std::string_view::npos)
-        {
-            upnDomainMatching = upnDomain.substr(dotUPNPos + 1);
-        }
+        return false;
+    }
 
-        std::string_view hostDomainMatching = hostname;
-        size_t dotHostPos = hostname.find_last_of('.');
-        if (dotHostPos != std::string_view::npos)
-        {
-            hostDomainMatching = hostname.substr(dotHostPos + 1);
-        }
+    // if the domain is an exact name for the hostname, allow it regardless of
+    // length checks.
+    // "comparisons on name lookup for DNS queries should be case
+    // insensitive".
+    // https://datatracker.ietf.org/doc/html/rfc4343
+    if (bmcweb::asciiIEquals(upnDomain, hostname))
+    {
+        return true;
+    }
 
-        // "comparisons on name lookup for DNS queries should be case
-        // insensitive".
-        // https://datatracker.ietf.org/doc/html/rfc4343
-        if (!bmcweb::asciiIEquals(upnDomainMatching, hostDomainMatching))
+    // Otherwise match the UPN domain against the trailing hostname segments one
+    // '.'-delimited segment at a time
+    // require at least one separator so a bare single-label name cannot match.
+    bool hasSegment = false;
+    while (!upnDomain.empty())
+    {
+        size_t upnDot = upnDomain.rfind('.');
+        size_t hostDot = hostname.rfind('.');
+
+        std::string_view upnSegment = upnDomain.substr(upnDot + 1);
+        std::string_view hostSegment = hostname.substr(hostDot + 1);
+        if (!bmcweb::asciiIEquals(upnSegment, hostSegment))
         {
             return false;
         }
 
-        if (dotUPNPos == std::string_view::npos)
+        if (upnDot == std::string_view::npos)
         {
-            return true;
+            upnDomain = {};
+        }
+        else
+        {
+            hasSegment = true;
+            upnDomain = upnDomain.substr(0, upnDot);
         }
 
-        upnDomain = upnDomain.substr(0, dotUPNPos);
-        hostname = hostname.substr(0, dotHostPos);
+        if (hostDot == std::string_view::npos)
+        {
+            hostname = {};
+        }
+        else
+        {
+            hostname = hostname.substr(0, hostDot);
+        }
     }
+
+    return hasSegment;
 }
 
 std::string getUPNFromCert(OpenSSLX509& peerCert, std::string_view hostname)
