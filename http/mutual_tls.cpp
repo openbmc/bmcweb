@@ -42,38 +42,52 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
 
     // The hostname should match the domain part of the UPN
     std::string_view upnDomain = upn.substr(upnDomainPos + 1);
-    while (true)
+
+    if (hostname.empty() || upnDomain.empty())
     {
-        std::string_view upnDomainMatching = upnDomain;
-        size_t dotUPNPos = upnDomain.find_last_of('.');
-        if (dotUPNPos != std::string_view::npos)
-        {
-            upnDomainMatching = upnDomain.substr(dotUPNPos + 1);
-        }
+        return false;
+    }
 
-        std::string_view hostDomainMatching = hostname;
-        size_t dotHostPos = hostname.find_last_of('.');
-        if (dotHostPos != std::string_view::npos)
-        {
-            hostDomainMatching = hostname.substr(dotHostPos + 1);
-        }
+    std::vector<std::string> upnDomainParts;
+    bmcweb::split(upnDomainParts, upnDomain, '.');
+    std::vector<std::string> hostnameParts;
+    bmcweb::split(hostnameParts, hostname, '.');
 
-        // "comparisons on name lookup for DNS queries should be case
-        // insensitive".
-        // https://datatracker.ietf.org/doc/html/rfc4343
-        if (!bmcweb::asciiIEquals(upnDomainMatching, hostDomainMatching))
+    // If the hostname is an FQDN.
+    // Non fqdn hostnames are allowed
+    if (hostnameParts.size() > 1)
+    {
+        // and the UPN domain is a single part, it could potentially give
+        // whitelist access to all domains
+        if (upnDomainParts.size() <= 1)
         {
+            BMCWEB_LOG_WARNING(
+                "UPN domain is a single part which would give access to all domains.");
             return false;
         }
+    }
 
-        if (dotUPNPos == std::string_view::npos)
+    auto upnDomainPartsIt = upnDomainParts.rbegin();
+    auto hostnamePartsIt = hostnameParts.rbegin();
+    while (true)
+    {
+        if (upnDomainPartsIt == upnDomainParts.rend())
         {
             return true;
         }
-
-        upnDomain = upnDomain.substr(0, dotUPNPos);
-        hostname = hostname.substr(0, dotHostPos);
+        if (hostnamePartsIt == hostnameParts.rend())
+        {
+            return false;
+        }
+        if (!bmcweb::asciiIEquals(*upnDomainPartsIt, *hostnamePartsIt))
+        {
+            return false;
+        }
+        ++upnDomainPartsIt;
+        ++hostnamePartsIt;
     }
+
+    return true;
 }
 
 std::string getUPNFromCert(OpenSSLX509& peerCert, std::string_view hostname)
