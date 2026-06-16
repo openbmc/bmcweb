@@ -24,6 +24,67 @@
 namespace redfish
 {
 
+inline std::string getMessageRegistryFilename(const registries::Header& header)
+{
+    return std::format("{}.{}.{}.{}.json", header.registryPrefix,
+                       header.versionMajor, header.versionMinor,
+                       header.versionPatch);
+}
+
+inline std::string getMessageRegistryUri(const registries::Header& header)
+{
+    return "/redfish/v1/Registries/" + getMessageRegistryFilename(header);
+}
+
+inline void fillMessageRegistry(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& registryName, const registries::Header& header)
+{
+    asyncResp->res.jsonValue["@Redfish.Copyright"] = header.copyright;
+    asyncResp->res.jsonValue["@odata.type"] = header.type;
+    asyncResp->res.jsonValue["Id"] =
+        std::format("{}.{}.{}.{}", header.registryPrefix, header.versionMajor,
+                    header.versionMinor, header.versionPatch);
+    asyncResp->res.jsonValue["Name"] = header.name;
+    asyncResp->res.jsonValue["Language"] = header.language;
+    asyncResp->res.jsonValue["Description"] = header.description;
+    asyncResp->res.jsonValue["RegistryPrefix"] = header.registryPrefix;
+    asyncResp->res.jsonValue["RegistryVersion"] =
+        std::format("{}.{}.{}", header.versionMajor, header.versionMinor,
+                    header.versionPatch);
+    asyncResp->res.jsonValue["OwningEntity"] = header.owningEntity;
+
+    nlohmann::json& messageObj = asyncResp->res.jsonValue["Messages"];
+
+    // Go through the Message Registry and populate each Message
+    const registries::MessageEntries registryEntries =
+        registries::getRegistryMessagesFromPrefix(registryName);
+
+    for (const registries::MessageEntry& message : registryEntries)
+    {
+        nlohmann::json& obj = messageObj[message.first];
+        obj["Description"] = message.second.description;
+        obj["Message"] = message.second.message;
+        obj["Severity"] = message.second.messageSeverity;
+        obj["MessageSeverity"] = message.second.messageSeverity;
+        obj["NumberOfArgs"] = message.second.numberOfArgs;
+        obj["Resolution"] = message.second.resolution;
+        if (message.second.numberOfArgs > 0)
+        {
+            nlohmann::json& messageParamArray = obj["ParamTypes"];
+            messageParamArray = nlohmann::json::array();
+            for (const char* str : message.second.paramTypes)
+            {
+                if (str == nullptr)
+                {
+                    break;
+                }
+                messageParamArray.push_back(str);
+            }
+        }
+    }
+}
+
 inline void handleMessageRegistryFileCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -74,6 +135,23 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     {
         return;
     }
+    if (std::string_view(registry).ends_with(".json"))
+    {
+        for (const auto& [registryName, registryEntry] :
+             registries::allRegistries())
+        {
+            const registries::Header& header = registryEntry.header;
+            if (registry != getMessageRegistryFilename(header))
+            {
+                continue;
+            }
+            fillMessageRegistry(asyncResp, registryName, header);
+            return;
+        }
+        messages::resourceNotFound(asyncResp->res, "MessageRegistry", registry);
+        return;
+    }
+
     std::string dmtf = "DMTF ";
     std::optional<registries::RegistryEntryRef> registryEntry =
         registries::getRegistryFromPrefix(registry);
@@ -109,7 +187,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     nlohmann::json::array_t locationMembers;
     nlohmann::json::object_t location;
     location["Language"] = header.language;
-    location["Uri"] = "/redfish/v1/Registries/" + registry + "/" + registry;
+    location["Uri"] = getMessageRegistryUri(header);
 
     if (url != nullptr)
     {
@@ -149,55 +227,17 @@ inline void handleMessageRegistryGet(
     }
 
     const registries::Header& header = registryEntry->get().header;
-    if (registry != registryMatch)
+    std::string expectedRegistryMatch =
+        std::format("{}.{}.{}.{}", header.registryPrefix, header.versionMajor,
+                    header.versionMinor, header.versionPatch);
+    if (registryMatch != expectedRegistryMatch &&
+        registryMatch != getMessageRegistryFilename(header))
     {
         messages::resourceNotFound(asyncResp->res, header.type, registryMatch);
         return;
     }
 
-    asyncResp->res.jsonValue["@Redfish.Copyright"] = header.copyright;
-    asyncResp->res.jsonValue["@odata.type"] = header.type;
-    asyncResp->res.jsonValue["Id"] =
-        std::format("{}.{}.{}.{}", header.registryPrefix, header.versionMajor,
-                    header.versionMinor, header.versionPatch);
-    asyncResp->res.jsonValue["Name"] = header.name;
-    asyncResp->res.jsonValue["Language"] = header.language;
-    asyncResp->res.jsonValue["Description"] = header.description;
-    asyncResp->res.jsonValue["RegistryPrefix"] = header.registryPrefix;
-    asyncResp->res.jsonValue["RegistryVersion"] =
-        std::format("{}.{}.{}", header.versionMajor, header.versionMinor,
-                    header.versionPatch);
-    asyncResp->res.jsonValue["OwningEntity"] = header.owningEntity;
-
-    nlohmann::json& messageObj = asyncResp->res.jsonValue["Messages"];
-
-    // Go through the Message Registry and populate each Message
-    const registries::MessageEntries registryEntries =
-        registries::getRegistryMessagesFromPrefix(registry);
-
-    for (const registries::MessageEntry& message : registryEntries)
-    {
-        nlohmann::json& obj = messageObj[message.first];
-        obj["Description"] = message.second.description;
-        obj["Message"] = message.second.message;
-        obj["Severity"] = message.second.messageSeverity;
-        obj["MessageSeverity"] = message.second.messageSeverity;
-        obj["NumberOfArgs"] = message.second.numberOfArgs;
-        obj["Resolution"] = message.second.resolution;
-        if (message.second.numberOfArgs > 0)
-        {
-            nlohmann::json& messageParamArray = obj["ParamTypes"];
-            messageParamArray = nlohmann::json::array();
-            for (const char* str : message.second.paramTypes)
-            {
-                if (str == nullptr)
-                {
-                    break;
-                }
-                messageParamArray.push_back(str);
-            }
-        }
-    }
+    fillMessageRegistry(asyncResp, registry, header);
 }
 
 inline void requestRoutesMessageRegistry(App& app)
