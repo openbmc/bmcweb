@@ -249,7 +249,10 @@ TEST(IsUPNMatch, MultipleCases)
     EXPECT_TRUE(isUPNMatch("user@domain.com", "hostname.domain.com"));
     EXPECT_FALSE(isUPNMatch("user@domain.com", "hostname.domain.org"));
     EXPECT_FALSE(isUPNMatch("user@region.com", "hostname.domain.com"));
-    EXPECT_TRUE(isUPNMatch("user@com", "hostname.region.domain.com"));
+    EXPECT_FALSE(isUPNMatch("user@com", "hostname.region.domain.com"));
+    EXPECT_TRUE(isUPNMatch("user@hostname", "hostname"));
+    EXPECT_FALSE(isUPNMatch("user@domain.com", ""));
+    EXPECT_FALSE(isUPNMatch("user@", ""));
 }
 
 TEST(IsUPNMatch, CaseSensitivity)
