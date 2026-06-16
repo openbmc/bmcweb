@@ -86,6 +86,24 @@
       "message": "please look into C++ core guidelines on function length.\n\nThis function is already way too long and the patch is not helping there.",
       "revId": "05865110b38425934e395fb1ede8726cbebec0cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dede034_9740bb68",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-06-16T07:49:24Z",
+      "side": 1,
+      "message": "outdated comment, patch has changed and this comment no longer applies.",
+      "parentUuid": "1a4ecf85_a112b6cd",
+      "revId": "05865110b38425934e395fb1ede8726cbebec0cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
