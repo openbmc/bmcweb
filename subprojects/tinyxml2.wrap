@@ -6,4 +6,3 @@ source_hash = cc2f1417c308b1f6acc54f88eb70771a0bf65f76282ce5c40e54cfe52952702c
 
 [provide]
 tinyxml2 = dep_tinyxml2
-
