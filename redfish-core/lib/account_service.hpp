@@ -1453,12 +1453,13 @@ inline void handleAccountServiceGet(
             const uint8_t* minPasswordLength = nullptr;
             const uint32_t* accountUnlockTimeout = nullptr;
             const uint16_t* maxLoginAttemptBeforeLockout = nullptr;
+            const std::string* loginPriority = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), propertiesList,
                 "MinPasswordLength", minPasswordLength, "AccountUnlockTimeout",
                 accountUnlockTimeout, "MaxLoginAttemptBeforeLockout",
-                maxLoginAttemptBeforeLockout);
+                maxLoginAttemptBeforeLockout, "LoginPriority", loginPriority);
 
             if (!success)
             {
@@ -1482,6 +1483,20 @@ inline void handleAccountServiceGet(
             {
                 asyncResp->res.jsonValue["AccountLockoutThreshold"] =
                     *maxLoginAttemptBeforeLockout;
+            }
+            if (loginPriority != nullptr)
+            {
+                if (*loginPriority ==
+                    "xyz.openbmc_project.User.AccountPolicy.LoginPriority.RemoteFirst")
+                {
+                    asyncResp->res.jsonValue["LocalAccountAuth"] =
+                        account_service::LocalAccountAuth::Fallback;
+                }
+                else
+                {
+                    asyncResp->res.jsonValue["LocalAccountAuth"] =
+                        account_service::LocalAccountAuth::LocalFirst;
+                }
             }
         });
 
@@ -1559,6 +1574,7 @@ inline void handleAccountServicePatch(
     std::optional<uint16_t> lockoutThreshold;
     std::optional<uint8_t> minPasswordLength;
     std::optional<uint16_t> maxPasswordLength;
+    std::optional<std::string> localAccountAuth;
     LdapPatchParams ldapObject;
     std::optional<std::string> certificateMappingAttribute;
     std::optional<bool> respondToUnauthenticatedClients;
@@ -1601,6 +1617,7 @@ inline void handleAccountServicePatch(
             "LDAP/RemoteRoleMapping", ldapObject.remoteRoleMapData,        //
             "LDAP/ServiceAddresses", ldapObject.serviceAddressList,        //
             "LDAP/ServiceEnabled", ldapObject.serviceEnabled,              //
+            "LocalAccountAuth", localAccountAuth,                          //
             "MaxPasswordLength", maxPasswordLength,                        //
             "MinPasswordLength", minPasswordLength,                        //
             "MultiFactorAuth/ClientCertificate/CertificateMappingAttribute",
@@ -1681,6 +1698,33 @@ inline void handleAccountServicePatch(
                         sdbusplus::object_path("/xyz/openbmc_project/user"),
                         "xyz.openbmc_project.User.AccountPolicy",
                         "MaxLoginAttemptBeforeLockout", *lockoutThreshold);
+    }
+    if (localAccountAuth)
+    {
+        std::string propVal;
+        if (*localAccountAuth == "LocalFirst")
+        {
+            propVal =
+                "xyz.openbmc_project.User.AccountPolicy.LoginPriority.LocalFirst";
+        }
+        else if (*localAccountAuth == "Fallback")
+        {
+            propVal =
+                "xyz.openbmc_project.User.AccountPolicy.LoginPriority.RemoteFirst";
+        }
+        else
+        {
+            messages::propertyValueNotInList(asyncResp->res, *localAccountAuth,
+                                             "LocalAccountAuth");
+        }
+        if (!propVal.empty())
+        {
+            setDbusProperty(asyncResp, "LocalAccountAuth",
+                            "xyz.openbmc_project.User.Manager",
+                            sdbusplus::object_path("/xyz/openbmc_project/user"),
+                            "xyz.openbmc_project.User.AccountPolicy",
+                            "LoginPriority", propVal);
+        }
     }
 }
 
