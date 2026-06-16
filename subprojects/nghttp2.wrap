@@ -1,5 +1,5 @@
 [wrap-git]
 url = https://github.com/nghttp2/nghttp2.git
-revision = v1.68.1
+revision = v1.69.0
 clone-recursive = true
 diff_files = nghttp2/Change-name-of-nghttp2-library.patch
