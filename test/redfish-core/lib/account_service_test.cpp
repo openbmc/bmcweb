@@ -1,9 +1,13 @@
 #include "account_service.hpp"
+#include "async_resp.hpp"
+#include "generated/enums/account_service.hpp"
 #include "utils/time_utils.hpp"
 
+#include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cstdint>
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -73,6 +77,32 @@ TEST(Conversion, PositiveToJson)
     EXPECT_TRUE(value.is_string());
     EXPECT_EQ(value.get<std::string>(),
               time_utils::getDateTimeUint(1729188724));
+}
+
+TEST(Conversion, LoginPriorityToLocalAccountAuth)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    fillLocalAccountAuth(
+        asyncResp,
+        "xyz.openbmc_project.User.AccountPolicy.LoginPriority.RemoteFirst");
+    EXPECT_EQ(asyncResp->res.jsonValue["LocalAccountAuth"],
+              account_service::LocalAccountAuth::Fallback);
+
+    fillLocalAccountAuth(
+        asyncResp,
+        "xyz.openbmc_project.User.AccountPolicy.LoginPriority.LocalFirst");
+    EXPECT_EQ(asyncResp->res.jsonValue["LocalAccountAuth"],
+              account_service::LocalAccountAuth::LocalFirst);
+}
+
+TEST(Conversion, LoginPriorityUnknownValueReturnsInternalError)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    fillLocalAccountAuth(asyncResp, "SomeUnexpectedValue");
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::internal_server_error);
 }
 
 } // namespace

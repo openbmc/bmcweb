@@ -60,6 +60,7 @@ Fields common to all schemas
 - Description
 - HTTPBasicAuth
 - LDAP
+- LocalAccountAuth
 - MaxPasswordLength
 - MinPasswordLength
 - MultiFactorAuth/ClientCertificate/Certificates
