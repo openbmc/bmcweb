@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a42b5a09_c1ddc45e",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-17T14:59:07Z",
+      "side": 1,
+      "message": "Do we need this? Or can this be covered by the OpenBMC authors since this actually wasn\u0027t ever commited to master?",
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab15ce1c_9621b5cb",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-17T14:59:07Z",
+      "side": 1,
+      "message": "There is no route for /SubProcessors/\u003ccoreId\u003e/, I guess it comes later?",
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd1c82a9_f06c5ac4",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-17T14:59:07Z",
+      "side": 1,
+      "message": "Adds requestRoutesSubProcessors(), but I don\u0027t see this header included or the route registration called from redfish-core/src/redfish.cpp.",
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
