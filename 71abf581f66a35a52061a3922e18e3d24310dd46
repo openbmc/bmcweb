@@ -94,6 +94,30 @@
       },
       "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ae4b7a2_887d08cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-17T15:11:28Z",
+      "side": 1,
+      "message": "I’m not seeing that locally on current master.  Can you give more info about how you saw it or propose a fix?",
+      "parentUuid": "d77193c0_38d85303",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
