@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac1ea41e_d46a543f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-17T21:45:03Z",
+      "side": 1,
+      "message": "There\u0027s issues here that were pointed out and ignored.  I\u0027ve left some replies, but if you need clarification on anything, happy to have a discussion, no need to make a general ping for review until everything is resolved.",
+      "parentUuid": "c057a299_e70d2fd3",
+      "revId": "d5d79978d67ce70d28d7ccfb65c39e17bea2088f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ced86cf3_270fcec9",
@@ -67,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0138173_0c198084",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-17T21:45:03Z",
+      "side": 1,
+      "message": "@vijaysankarr@ami.com it sounds like this is up for debate that is easily solved.  Can you please run the tests listed in the commit message, and see if you can hit this code?  There\u0027s no need to argue about this when it\u0027s easily verifiable even in a qemu build.",
+      "parentUuid": "de767a37_ec57793d",
+      "range": {
+        "startLine": 2175,
+        "startChar": 19,
+        "endLine": 2175,
+        "endChar": 59
+      },
+      "revId": "d5d79978d67ce70d28d7ccfb65c39e17bea2088f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "02cbcee3_9ef60526",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 2
@@ -78,6 +120,24 @@
       "writtenOn": "2026-06-17T18:28:28Z",
       "side": 1,
       "message": "Technically speaking, D-Bus NotAllowed is not semantically equivalent to Redfish InsufficientPrivilege.\n\nThe bmcweb gateway strictly validates AssignedPrivileges against the Redfish PrivilegeRegistry. \n\nIn contrast, NotAllowed indicates a backend policy restriction.\nThe exact match in the MessageRegistry is ResourceCannotBeDeleted as alternative.\n\nReference - https://redfish.dmtf.org/registries/Base.1.23.0.json",
+      "revId": "d5d79978d67ce70d28d7ccfb65c39e17bea2088f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48dedd0_4339e9c7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-17T21:45:03Z",
+      "side": 1,
+      "message": "I believe this is the same thing I mentioned on patchset 1.  Still needs resolved.",
+      "parentUuid": "02cbcee3_9ef60526",
       "revId": "d5d79978d67ce70d28d7ccfb65c39e17bea2088f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
