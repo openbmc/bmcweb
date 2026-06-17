@@ -118,6 +118,30 @@
       },
       "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8286faef_dd3faeae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-17T21:52:18Z",
+      "side": 1,
+      "message": "I just checked out your patch, and it built fine for me on my machine without disabling warnings.  If you remove the WIP, it can merge.\n\nI\u0027m not sure what warnings you saw, but we can solve them another time.",
+      "parentUuid": "1ae4b7a2_887d08cd",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
