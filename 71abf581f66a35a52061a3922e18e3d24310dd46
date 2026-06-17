@@ -70,6 +70,30 @@
       },
       "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d77193c0_38d85303",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-06-17T15:09:44Z",
+      "side": 1,
+      "message": "My commit did not introduce new warnings. The previous commit had \"comparison is always true due to limited range of data type\" warnings (which were the only warnings present) that were treated as errors and prevented my build from completing.",
+      "parentUuid": "6814e8f9_c27e1f9e",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "71abf581f66a35a52061a3922e18e3d24310dd46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
