@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b077456b_0fbff3cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-17T15:13:04Z",
+      "side": 1,
+      "message": "Documentation miss was that we added code to support a property that doesn’t exist.  Knowing dmtf has merged it, so even if it’s a big it won’t be a big for long, I’m ok here.",
+      "parentUuid": "8124d979_2e934aef",
+      "revId": "ea45677662873c4a5c34a062d27c8819321a530f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32b4ebba_db7e45a3",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "Done. Redfish merged today.",
       "parentUuid": "05859dc5_22a35601",
+      "revId": "ea45677662873c4a5c34a062d27c8819321a530f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e39e04e_1464b9ed",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-17T15:13:04Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "3e0e3ff6_a076a7c5",
       "revId": "ea45677662873c4a5c34a062d27c8819321a530f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
