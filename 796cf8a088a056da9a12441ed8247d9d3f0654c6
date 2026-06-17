@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33bf3795_79d2d102",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-17T16:55:22Z",
+      "side": 1,
+      "message": "Update: broke post code patches out of former relation chain",
+      "revId": "796cf8a088a056da9a12441ed8247d9d3f0654c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
