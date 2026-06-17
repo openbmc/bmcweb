@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bda44ad7_9dcef4d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-17T17:02:53Z",
+      "side": 1,
+      "message": "Update: break out improv patch out of former relation chain",
+      "revId": "86d1e480a5f2e402729c78311a5231177f1ce742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
