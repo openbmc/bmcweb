@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8124d979_2e934aef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-06-17T15:06:14Z",
+      "side": 1,
+      "message": "Done. If there\u0027s any other documentation that either of you want me to add, let me know and I\u0027ll add it.",
+      "parentUuid": "1cec7d93_2a346d3f",
+      "revId": "ea45677662873c4a5c34a062d27c8819321a530f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32b4ebba_db7e45a3",
@@ -102,6 +120,30 @@
       "writtenOn": "2026-06-16T03:09:26Z",
       "side": 1,
       "message": "This doesn\u0027t put out sparePartNumber since: includeSparePartNumber",
+      "range": {
+        "startLine": 154,
+        "startChar": 59,
+        "endLine": 154,
+        "endChar": 64
+      },
+      "revId": "ea45677662873c4a5c34a062d27c8819321a530f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41f829e9_b37479b1",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-06-17T15:06:14Z",
+      "side": 1,
+      "message": "Yep, the helper should not output any SparePartNumber because it\u0027s been set to false.",
+      "parentUuid": "e50e027d_8e59a1ce",
       "range": {
         "startLine": 154,
         "startChar": 59,
