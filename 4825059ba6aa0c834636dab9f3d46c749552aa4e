@@ -117,6 +117,30 @@
       },
       "revId": "4825059ba6aa0c834636dab9f3d46c749552aa4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62e26a84_b925f59c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2179,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-06-18T06:45:31Z",
+      "side": 1,
+      "message": "\"the Web UI disables the deletion button for your own user, but you can still delete yourself if you do it via the bulk operation\"\n\nthis inconsistency should be addressed in the below issue.\nhttps://github.com/openbmc/webui-vue/issues/141\n\n\"how we want to continue then. Abandon the patch or disallow it in ipmid too (tho the spec doesn\u0027t forbid it)?\"\n\nI checked the IPMI spec and did not find an explicit user delete command. worth checking with the IPMI folks for clarification.",
+      "parentUuid": "b4570d68_27111f6e",
+      "range": {
+        "startLine": 2179,
+        "startChar": 8,
+        "endLine": 2179,
+        "endChar": 56
+      },
+      "revId": "4825059ba6aa0c834636dab9f3d46c749552aa4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
