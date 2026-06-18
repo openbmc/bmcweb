@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5e4ea2f_736aa399",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-06-18T11:04:31Z",
+      "side": 1,
+      "message": "\u003e Sorry, robot test isn\u0027t a spec source for what the \"correct\" error code is.  Please\n\nFair enough. I was looking for a more suitable error code before going with what the robot test has done, but failed on that.\n\nAs @Jen_Huang@jabil.com has pointed out (to which I agree), \"ResourceCannotBeDeleted\" is more suitable for this case, which I\u0027ve implemented with PS 3.\n\n\u003e Really we need a ResourceDeletionConflict message registry entry to pair with ResourceCreationConflict\n\nTotally agreeing on that. I\u0027d look into raising this on the Redfish forum as suggestion.",
+      "parentUuid": "358585e5_6ea5d3e8",
+      "revId": "b2be7c925844695fedb035a8f14c885ad651d8a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c22c9961_b0a41bdd",
