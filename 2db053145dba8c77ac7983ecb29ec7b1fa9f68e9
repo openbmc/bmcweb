@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4d4c4aa_ad13d7da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-18T13:18:45Z",
+      "side": 1,
+      "message": "Thank you for the commit! Can you make this your full name like Gerrit Name?\n\nFrom https://github.com/openbmc/docs/blob/38fcf455336acd033c948d218376d0597ae84461/CONTRIBUTING.md?plain\u003d1#L248\n\n```\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n```",
+      "range": {
+        "startLine": 36,
+        "startChar": 15,
+        "endLine": 36,
+        "endChar": 28
+      },
+      "revId": "2db053145dba8c77ac7983ecb29ec7b1fa9f68e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b661a602_d98831d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-18T13:18:45Z",
+      "side": 1,
+      "message": "Have you signed a CLA ?",
+      "revId": "2db053145dba8c77ac7983ecb29ec7b1fa9f68e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
