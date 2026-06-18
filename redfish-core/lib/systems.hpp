@@ -96,8 +96,6 @@ inline void getProcessorProperties(
 {
     BMCWEB_LOG_DEBUG("Got {} Cpu properties.", properties.size());
 
-    // TODO: Get Model
-
     const uint16_t* coreCount = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
@@ -166,6 +164,21 @@ inline void getProcessorSummary(
                 return;
             }
             getProcessorProperties(asyncResp, properties);
+        });
+
+    dbus::utility::getProperty<std::string>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Inventory.Decorator.Asset", "Model",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& model) {
+            if (ec)
+            {
+                return;
+            }
+            if (!model.empty())
+            {
+                asyncResp->res.jsonValue["ProcessorSummary"]["Model"] = model;
+            }
         });
 }
 
