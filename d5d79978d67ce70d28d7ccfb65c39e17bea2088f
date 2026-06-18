@@ -107,6 +107,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af74735_fe47c8f1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2175,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-06-18T10:11:58Z",
+      "side": 1,
+      "message": "This error handling is valid, hits org.freedesktop.DBus.Error.UnknownObject for non-existent user.",
+      "parentUuid": "a0138173_0c198084",
+      "range": {
+        "startLine": 2175,
+        "startChar": 19,
+        "endLine": 2175,
+        "endChar": 59
+      },
+      "revId": "d5d79978d67ce70d28d7ccfb65c39e17bea2088f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02cbcee3_9ef60526",
