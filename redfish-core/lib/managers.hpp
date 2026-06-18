@@ -743,7 +743,9 @@ inline void handleManagerGet(
     asyncResp->res.jsonValue["ManagerType"] = manager::ManagerType::BMC;
     asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
     asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
-    asyncResp->res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+    // Set default Model. This will be overwritten by getPhysicalAssets if the
+    // BMC inventory object implements xyz.openbmc_project.Inventory.Decorator.Asset
+    asyncResp->res.jsonValue["Model"] = "OpenBmc";
 
     asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}/LogServices", managerId);
