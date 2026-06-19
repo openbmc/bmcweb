@@ -96,12 +96,11 @@ static void onDbusEventLogCreated(sdbusplus::message_t& msg)
 }
 
 const std::string propertiesMatchString =
-    sdbusplus::bus::match::rules::type::signal() +
-    sdbusplus::bus::match::rules::sender("xyz.openbmc_project.Logging") +
-    sdbusplus::bus::match::rules::interface(
-        "org.freedesktop.DBus.ObjectManager") +
-    sdbusplus::bus::match::rules::path("/xyz/openbmc_project/logging") +
-    sdbusplus::bus::match::rules::member("InterfacesAdded");
+    sdbusplus::match_rules::type::signal() +
+    sdbusplus::match_rules::sender("xyz.openbmc_project.Logging") +
+    sdbusplus::match_rules::interface("org.freedesktop.DBus.ObjectManager") +
+    sdbusplus::match_rules::path("/xyz/openbmc_project/logging") +
+    sdbusplus::match_rules::member("InterfacesAdded");
 
 DbusEventLogMonitor::DbusEventLogMonitor() :
     dbusEventLogMonitor(*crow::connections::systemBus, propertiesMatchString,
