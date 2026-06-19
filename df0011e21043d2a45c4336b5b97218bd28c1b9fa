@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a9581b7_f242a4e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-19T19:54:17Z",
+      "side": 1,
+      "message": "Can you run the Redfish Validator ?",
+      "revId": "df0011e21043d2a45c4336b5b97218bd28c1b9fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
