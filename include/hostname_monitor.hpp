@@ -26,7 +26,7 @@ namespace crow
 namespace hostname_monitor
 {
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::unique_ptr<sdbusplus::bus::match_t> hostnameSignalMonitor;
+static std::unique_ptr<sdbusplus::match> hostnameSignalMonitor;
 
 inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
                             sd_bus_error* retError)
@@ -72,7 +72,7 @@ inline void registerHostnameSignal()
          "arg0='xyz.openbmc_project.Network.SystemConfiguration',"
          "member='PropertiesChanged'");
 
-    hostnameSignalMonitor = std::make_unique<sdbusplus::bus::match_t>(
+    hostnameSignalMonitor = std::make_unique<sdbusplus::match>(
         *crow::connections::systemBus, propertiesMatchString, onPropertyUpdate,
         nullptr);
 }

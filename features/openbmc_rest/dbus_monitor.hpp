@@ -30,7 +30,7 @@ namespace dbus_monitor
 
 struct DbusWebsocketSession
 {
-    std::vector<std::unique_ptr<sdbusplus::bus::match_t>> matches;
+    std::vector<std::unique_ptr<sdbusplus::match>> matches;
     boost::container::flat_set<std::string, std::less<>,
                                std::vector<std::string>>
         interfaces;
@@ -234,7 +234,7 @@ inline void requestRoutes(App& app)
                                      propertiesMatchString);
 
                     thisSession.matches.emplace_back(
-                        std::make_unique<sdbusplus::bus::match_t>(
+                        std::make_unique<sdbusplus::match>(
                             *crow::connections::systemBus,
                             propertiesMatchString, onPropertyUpdate, &conn));
                 }
@@ -257,7 +257,7 @@ inline void requestRoutes(App& app)
                         ifaceMatchString += "'";
                         BMCWEB_LOG_DEBUG("Creating match {}", ifaceMatchString);
                         thisSession.matches.emplace_back(
-                            std::make_unique<sdbusplus::bus::match_t>(
+                            std::make_unique<sdbusplus::match>(
                                 *crow::connections::systemBus, ifaceMatchString,
                                 onPropertyUpdate, &conn));
                     }
@@ -271,7 +271,7 @@ inline void requestRoutes(App& app)
                      "member='InterfacesAdded'");
                 BMCWEB_LOG_DEBUG("Creating match {}", objectManagerMatchString);
                 thisSession.matches.emplace_back(
-                    std::make_unique<sdbusplus::bus::match_t>(
+                    std::make_unique<sdbusplus::match>(
                         *crow::connections::systemBus, objectManagerMatchString,
                         onPropertyUpdate, &conn));
             }
