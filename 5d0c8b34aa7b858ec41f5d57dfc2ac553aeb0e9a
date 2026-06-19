@@ -52,6 +52,24 @@
       "parentUuid": "a77fac29_cc9d6bf8",
       "revId": "5d0c8b34aa7b858ec41f5d57dfc2ac553aeb0e9a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a3058c_5ebbb60d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-06-19T21:56:55Z",
+      "side": 1,
+      "message": "Using one of the keywords would close the issue when this commit is merged, so we could open a new issue for the remaining 2 wrap files.",
+      "parentUuid": "4486f39a_d72d4cc7",
+      "revId": "5d0c8b34aa7b858ec41f5d57dfc2ac553aeb0e9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
