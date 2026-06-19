@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a9674d4_479ed062",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003000
+      },
+      "writtenOn": "2026-06-19T08:40:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c4d4c4aa_ad13d7da",
+      "range": {
+        "startLine": 36,
+        "startChar": 15,
+        "endLine": 36,
+        "endChar": 28
+      },
+      "revId": "2db053145dba8c77ac7983ecb29ec7b1fa9f68e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b661a602_d98831d8",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-06-18T13:18:45Z",
       "side": 1,
       "message": "Have you signed a CLA ?",
+      "revId": "2db053145dba8c77ac7983ecb29ec7b1fa9f68e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3683ffd7_a519de32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003000
+      },
+      "writtenOn": "2026-06-19T08:40:59Z",
+      "side": 1,
+      "message": "Done. I have updated the Signed-off-by line with my full name, which serves as my DCO/CLA agreement.",
+      "parentUuid": "b661a602_d98831d8",
       "revId": "2db053145dba8c77ac7983ecb29ec7b1fa9f68e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
