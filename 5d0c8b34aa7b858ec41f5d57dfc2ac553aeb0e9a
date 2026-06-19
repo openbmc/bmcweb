@@ -34,6 +34,24 @@
       "parentUuid": "0d394d15_043d6aae",
       "revId": "5d0c8b34aa7b858ec41f5d57dfc2ac553aeb0e9a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4486f39a_d72d4cc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-06-19T20:42:34Z",
+      "side": 1,
+      "message": "I guess ... unfortunately \"addresses part of\" doesn\u0027t make a nice link in github back to the commit.\n\nhttps://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue\n\nI would still suggest \"fixes [part of]\" or \"resolves [part of]\" since that is the words that GH natively supports.",
+      "parentUuid": "a77fac29_cc9d6bf8",
+      "revId": "5d0c8b34aa7b858ec41f5d57dfc2ac553aeb0e9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
