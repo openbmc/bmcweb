@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43a0abd2_c731b8ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-21T19:40:42Z",
+      "side": 1,
+      "message": "Can you elaborate somewhere what warnings?  Generally we would add the appropriate -wno-* flags for that library at the dependency() call, but without knowing what warnings you saw it\u0027s hard to give you more specific advice.",
+      "range": {
+        "startLine": 13,
+        "startChar": 125,
+        "endLine": 13,
+        "endChar": 187
+      },
+      "revId": "183bc970939a62cf8f20ec294581a9532cbdf86e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
