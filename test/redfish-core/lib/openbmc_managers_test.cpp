@@ -84,7 +84,7 @@ TEST(AfterAsyncPopulatePid, FanControllerEntryIsPopulated)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/fan0"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/fan0"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -115,7 +115,7 @@ TEST(AfterAsyncPopulatePid, PidControllerEntryIsPopulated)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/pid0"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/pid0"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -146,7 +146,7 @@ TEST(AfterAsyncPopulatePid, StepwiseControllerStepsAssembled)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/step0"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/step0"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -182,9 +182,8 @@ TEST(AfterAsyncPopulatePid, FanZoneIsPopulatedWithDoubles)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(
-        sdbusplus::message::object_path("/xyz/chassis/MyChassis"),
-        std::move(interfaces));
+    managed.emplace_back(sdbusplus::object_path("/xyz/chassis/MyChassis"),
+                         std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
 
@@ -211,8 +210,7 @@ TEST(AfterAsyncPopulatePid, FanZoneIllegalChassisGetsPlaceholder)
 
     dbus::utility::ManagedObjectType managed;
     // empty filename portion -> chassis becomes "#IllegalValue"
-    managed.emplace_back(sdbusplus::message::object_path("/"),
-                         std::move(interfaces));
+    managed.emplace_back(sdbusplus::object_path("/"), std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
 
@@ -235,7 +233,7 @@ TEST(AfterAsyncPopulatePid, UnknownInterfacesAreIgnored)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/x"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/x"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -260,7 +258,7 @@ TEST(AfterAsyncPopulatePid, BadNameTypeReturnsInternalError)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/p"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/p"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -282,7 +280,7 @@ TEST(AfterAsyncPopulatePid, BadProfilesTypeReturnsInternalError)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/p"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/p"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "ProfileA", {"ProfileA"}, {}, managed);
@@ -304,7 +302,7 @@ TEST(AfterAsyncPopulatePid, MissingClassOnPidReturnsInternalError)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/p"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/p"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -325,7 +323,7 @@ TEST(AfterAsyncPopulatePid, MissingClassOnStepwiseReturnsInternalError)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/s"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/s"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -362,7 +360,7 @@ TEST(AfterAsyncPopulatePid, SetPointOffsetTranslatesKnownValues)
                                 std::move(props));
 
         dbus::utility::ManagedObjectType managed;
-        managed.emplace_back(sdbusplus::message::object_path("/xyz/p"),
+        managed.emplace_back(sdbusplus::object_path("/xyz/p"),
                              std::move(interfaces));
 
         afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -389,7 +387,7 @@ TEST(AfterAsyncPopulatePid, SetPointOffsetUnknownValueReturnsInternalError)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/p"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/p"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -413,7 +411,7 @@ TEST(AfterAsyncPopulatePid, StepwiseReadingOutputSizeMismatchReturnsError)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/s"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/s"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -436,7 +434,7 @@ TEST(AfterAsyncPopulatePid, PidZonesReferenceUsesFanZonesUrl)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/p"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/p"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
@@ -467,7 +465,7 @@ TEST(AfterAsyncPopulatePid, InputsAndOutputsArePassedThrough)
                             std::move(props));
 
     dbus::utility::ManagedObjectType managed;
-    managed.emplace_back(sdbusplus::message::object_path("/xyz/p"),
+    managed.emplace_back(sdbusplus::object_path("/xyz/p"),
                          std::move(interfaces));
 
     afterAsyncPopulatePid(asyncResp, "", {}, {}, managed);
