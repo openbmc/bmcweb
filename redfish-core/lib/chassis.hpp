@@ -121,6 +121,7 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<std::vector<std::string>>(
         "xyz.openbmc_project.ObjectMapper", (path / "storage").str,
         "xyz.openbmc_project.Association", "endpoints",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<std::string>& storageList) {
             if (ec)
@@ -245,6 +246,7 @@ inline void handlePhysicalSecurityGetSubTree(
             dbus::utility::getProperty<std::string>(
                 service.first, object.first,
                 "xyz.openbmc_project.Chassis.Intrusion", "Status",
+                // ast-grep-ignore: long-lambda
                 [asyncResp](const boost::system::error_code& ec1,
                             const std::string& value) {
                     if (ec1)
@@ -403,6 +405,7 @@ inline void getChassisLocationCode(
     dbus::utility::getProperty<std::string>(
         connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
             if (ec)
@@ -583,6 +586,7 @@ inline void handleChassisGetSubTree(
                                 chassisId);
         dbus::utility::getAssociationEndPoints(
             path + "/drive",
+            // ast-grep-ignore: long-lambda
             [asyncResp, chassisId](const boost::system::error_code& ec3,
                                    const dbus::utility::MapperEndPoints& resp) {
                 if (ec3 || resp.empty())
@@ -616,6 +620,7 @@ inline void handleChassisGetSubTree(
             {
                 dbus::utility::getProperty<std::string>(
                     connectionName, path, assetTagInterface, "AssetTag",
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const std::string& property) {
                         if (ec2)
@@ -632,6 +637,7 @@ inline void handleChassisGetSubTree(
             {
                 dbus::utility::getProperty<bool>(
                     connectionName, path, replaceableInterface, "HotPluggable",
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const bool property) {
                         if (ec2)
@@ -649,6 +655,7 @@ inline void handleChassisGetSubTree(
             {
                 dbus::utility::getProperty<std::string>(
                     connectionName, path, revisionInterface, "Version",
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const std::string& property) {
                         if (ec2)
@@ -781,6 +788,7 @@ inline void handleChassisPatch(
 
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, chassisId, locationIndicatorActive,
          indicatorLed](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -888,6 +896,7 @@ inline void doChassisPowerCycle(
     // Use mapper to get subtree paths.
     dbus::utility::getSubTreePaths(
         "/", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {

@@ -52,6 +52,7 @@ inline void uploadImageHandler(
 
     timeout.expires_after(std::chrono::seconds(15));
 
+    // ast-grep-ignore: long-lambda
     auto timeoutHandler = [asyncResp](const boost::system::error_code& ec) {
         fwUpdateMatcher = nullptr;
         if (ec == boost::asio::error::operation_aborted)
@@ -75,6 +76,7 @@ inline void uploadImageHandler(
     };
 
     std::function<void(sdbusplus::message_t&)> callback =
+        // ast-grep-ignore: long-lambda
         [asyncResp](sdbusplus::message_t& m) {
             BMCWEB_LOG_DEBUG("Match fired");
 

@@ -77,6 +77,7 @@ TEST(OemRouter, PatchHandlerWithJsonObject)
     // Callback handlers
     bool callback1Called = false;
     auto patchCallback1 =
+        // ast-grep-ignore: long-lambda
         [&callback1Called](
             const SubRequest& req,
             [[maybe_unused]] const std::shared_ptr<bmcweb::AsyncResp>&
@@ -96,6 +97,7 @@ TEST(OemRouter, PatchHandlerWithJsonObject)
 
     bool callback2Called = false;
     auto patchCallback2 =
+        // ast-grep-ignore: long-lambda
         [&callback2Called](
             const SubRequest& req,
             [[maybe_unused]] const std::shared_ptr<bmcweb::AsyncResp>&

@@ -143,6 +143,7 @@ inline void requestRoutes(App& app)
         .onclose([](crow::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);
         })
+        // ast-grep-ignore: long-lambda
         .onmessage([](crow::websocket::Connection& conn,
                       const std::string& data, bool) {
             const auto sessionPair = sessions.find(&conn);

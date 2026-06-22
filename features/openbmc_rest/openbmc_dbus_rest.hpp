@@ -166,6 +166,7 @@ inline void getPropertiesForEnumerate(
 
     dbus::utility::getAllProperties(
         service, objectPath, interface,
+        // ast-grep-ignore: long-lambda
         [asyncResp, objectPath, service,
          interface](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -268,6 +269,7 @@ inline void getManagedObjectsForEnumerate(
     sdbusplus::object_path path(objectManagerPath);
     dbus::utility::getManagedObjects(
         connectionName, path,
+        // ast-grep-ignore: long-lambda
         [transaction, objectName,
          connectionName](const boost::system::error_code& ec,
                          const dbus::utility::ManagedObjectType& objects) {
@@ -299,6 +301,7 @@ inline void getManagedObjectsForEnumerate(
                             nlohmann::json& propertyJson =
                                 objectJson[property.first];
                             std::visit(
+                                // ast-grep-ignore: long-lambda
                                 [&propertyJson](auto&& val) {
                                     if constexpr (
                                         std::is_same_v<
@@ -336,6 +339,7 @@ inline void findObjectManagerPathForEnumerate(
     BMCWEB_LOG_DEBUG("Finding objectmanager for path {} on connection:{}",
                      objectName, connectionName);
     dbus::utility::async_method_call(
+        // ast-grep-ignore: long-lambda
         [transaction, objectName, connectionName](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetAncestorsResponse& objects) {
@@ -375,6 +379,7 @@ inline void getObjectAndEnumerate(
 {
     dbus::utility::getDbusObject(
         transaction->objectPath, {},
+        // ast-grep-ignore: long-lambda
         [transaction](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetObject& objects) {
             if (ec)
@@ -1498,6 +1503,7 @@ inline void findActionOnInterface(
                             }
 
                             crow::connections::systemBus->async_send(
+                                // ast-grep-ignore: long-lambda
                                 m, [transaction, returnType](
                                        const boost::system::error_code& ec2,
                                        sdbusplus::message_t& m2) {
@@ -1598,6 +1604,7 @@ inline void handleAction(const crow::Request& req,
     transaction->arguments = std::move(*data);
     dbus::utility::getDbusObject(
         objectPath, {},
+        // ast-grep-ignore: long-lambda
         [transaction](
             const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
@@ -1629,6 +1636,7 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     dbus::utility::getDbusObject(
         objectPath, {},
+        // ast-grep-ignore: long-lambda
         [asyncResp, objectPath](
             const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
@@ -1661,6 +1669,7 @@ inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     dbus::utility::getSubTreePaths(
         objectPath, depth, {},
+        // ast-grep-ignore: long-lambda
         [asyncResp](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& objectPaths) {
@@ -1690,6 +1699,7 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     dbus::utility::getSubTree(
         objectPath, 0, {},
+        // ast-grep-ignore: long-lambda
         [objectPath, asyncResp](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& objectNames) {
@@ -1728,6 +1738,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     dbus::utility::getDbusObject(
         *path, {},
+        // ast-grep-ignore: long-lambda
         [asyncResp, path,
          propertyName](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& objectNames) {
@@ -1761,6 +1772,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             "org.freedesktop.DBus.Properties", "GetAll");
                     m.append(interface);
                     crow::connections::systemBus->async_send(
+                        // ast-grep-ignore: long-lambda
                         m, [asyncResp, response,
                             propertyName](const boost::system::error_code& ec2,
                                           sdbusplus::message_t& msg) {
@@ -1918,6 +1930,7 @@ inline void handlePut(const crow::Request& req,
 
     dbus::utility::getDbusObject(
         transaction->objectPath, {},
+        // ast-grep-ignore: long-lambda
         [transaction](const boost::system::error_code& ec2,
                       const dbus::utility::MapperGetObject& objectNames) {
             if (!ec2 && objectNames.empty())
@@ -2035,6 +2048,7 @@ inline void handlePut(const crow::Request& req,
                                         crow::connections::systemBus
                                             ->async_send(
                                                 m,
+                                                // ast-grep-ignore: long-lambda
                                                 [transaction](
                                                     const boost::system::
                                                         error_code& ec,
@@ -2221,6 +2235,7 @@ inline void handleBusSystemPost(
     if (interfaceName.empty())
     {
         dbus::utility::async_method_call(
+            // ast-grep-ignore: long-lambda
             [asyncResp, processName,
              objectPath](const boost::system::error_code& ec,
                          const std::string& introspectXml) {
@@ -2275,6 +2290,7 @@ inline void handleBusSystemPost(
     else if (methodName.empty())
     {
         dbus::utility::async_method_call(
+            // ast-grep-ignore: long-lambda
             [asyncResp, processName, objectPath,
              interfaceName](const boost::system::error_code& ec,
                             const std::string& introspectXml) {
@@ -2437,6 +2453,7 @@ inline void handleBusSystemPost(
                         m.append(interfaceName, name);
                         nlohmann::json& propertyItem = propertiesObj[name];
                         crow::connections::systemBus->async_send(
+                            // ast-grep-ignore: long-lambda
                             m, [&propertyItem,
                                 asyncResp](const boost::system::error_code& ec2,
                                            sdbusplus::message_t& msg) {
@@ -2517,8 +2534,10 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/bus/system/")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                // ast-grep-ignore: long-lambda
                 auto myCallback = [asyncResp](
                                       const boost::system::error_code& ec,
                                       std::vector<std::string>& names) {
@@ -2599,6 +2618,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& dumpId) {

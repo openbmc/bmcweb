@@ -399,6 +399,7 @@ inline void getSwMinimumVersion(
     dbus::utility::getProperty<std::string>(
         dbusSvc, path, "xyz.openbmc_project.Software.MinimumVersion",
         "MinimumVersion",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& swMinimumVersion) {
             if (ec)
@@ -436,6 +437,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getAllProperties(
         dbusSvc, "/xyz/openbmc_project/software/" + *swId,
         "xyz.openbmc_project.Software.Activation",
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          swId](const boost::system::error_code& ec,
                const dbus::utility::DBusPropertiesMap& propertiesList) {

@@ -643,6 +643,7 @@ inline void getDimmDataByService(
     BMCWEB_LOG_DEBUG("Get available system components.");
     dbus::utility::getAllProperties(
         service, objPath, "",
+        // ast-grep-ignore: long-lambda
         [dimmId, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {

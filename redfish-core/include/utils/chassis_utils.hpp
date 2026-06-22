@@ -42,6 +42,7 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Get the Chassis Collection
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        // ast-grep-ignore: long-lambda
         [callback = std::forward<Callback>(callback), asyncResp,
          chassisId](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreePathsResponse&

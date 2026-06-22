@@ -67,6 +67,7 @@ inline void handlePCIeDevicePath(
             "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
         dbus::utility::getDbusObject(
             pcieDevicePath, pcieDeviceInterface,
+            // ast-grep-ignore: long-lambda
             [pcieDevicePath, asyncResp,
              callback](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& object) {
@@ -96,6 +97,7 @@ inline void getValidPCIeDevicePath(
 
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, pcieDeviceInterface,
+        // ast-grep-ignore: long-lambda
         [pcieDeviceId, asyncResp,
          callback](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreePathsResponse&
@@ -296,6 +298,7 @@ inline void getPCIeDeviceSlotPath(
         "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
     dbus::utility::getAssociatedSubTreePaths(
         associationPath, path, 0, pcieSlotInterface,
+        // ast-grep-ignore: long-lambda
         [callback = std::move(callback), asyncResp, pcieDevicePath](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& endpoints) {
@@ -379,6 +382,7 @@ inline void getPCIeDeviceHealth(
     dbus::utility::getProperty<bool>(
         service, pcieDevicePath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -406,6 +410,7 @@ inline void getPCIeDeviceState(
     dbus::utility::getProperty<bool>(
         service, pcieDevicePath, "xyz.openbmc_project.Inventory.Item",
         "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, bool value) {
             if (ec)
             {
@@ -552,6 +557,7 @@ inline void getPCIeDeviceProperties(
     dbus::utility::getAllProperties(
         service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          callback](const boost::system::error_code& ec,
                    const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
@@ -697,6 +703,7 @@ inline void handlePCIeFunctionCollectionGet(
 
     getValidPCIeDevicePath(
         pcieDeviceId, asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, pcieDeviceId](const std::string& pcieDevicePath,
                                   const std::string& service) {
             asyncResp->res.addHeader(
@@ -846,6 +853,7 @@ inline void handlePCIeFunctionGet(
 
     getValidPCIeDevicePath(
         pcieDeviceId, asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, pcieDeviceId, pcieFunctionId](
             const std::string& pcieDevicePath, const std::string& service) {
             getPCIeDeviceProperties(

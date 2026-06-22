@@ -377,6 +377,7 @@ inline void handleAggregationSourcePatch(
     // Not in writable sources, query D-Bus to check if it exists in
     // Entity Manager sources
     RedfishAggregator::getInstance().getSatelliteConfigs(
+        // ast-grep-ignore: long-lambda
         [asyncResp, aggregationSourceId](
             const std::unordered_map<std::string, boost::urls::url>&
                 satelliteInfo) {
