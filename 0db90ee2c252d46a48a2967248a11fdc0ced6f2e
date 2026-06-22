@@ -16,6 +16,24 @@
       "message": "Looking for more here, what does this do ? Why do we need? How does PendingAttributes work ? What is the backend? Can you mention PDI",
       "revId": "0db90ee2c252d46a48a2967248a11fdc0ced6f2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "672d0bb3_916a8f66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T16:47:30Z",
+      "side": 1,
+      "message": "Hi @gunnar@gmills.xyz\nhere is design doc which explains bios configuration use-case\nhttps://gerrit.openbmc.org/c/openbmc/docs/+/79482\nupdated the same in commit message as well.\n\nThis design doc commit was abandoned, i will request commit author to re-open this commit",
+      "parentUuid": "2e49a97b_915271a1",
+      "revId": "0db90ee2c252d46a48a2967248a11fdc0ced6f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
