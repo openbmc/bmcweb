@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e49a97b_915271a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-22T13:32:15Z",
+      "side": 1,
+      "message": "Looking for more here, what does this do ? Why do we need? How does PendingAttributes work ? What is the backend? Can you mention PDI",
+      "revId": "0db90ee2c252d46a48a2967248a11fdc0ced6f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
