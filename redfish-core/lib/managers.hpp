@@ -260,6 +260,7 @@ inline void handleManagerResetToDefaultsAction(
     }
 
     crow::connections::systemBus->async_method_call(
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -334,6 +335,7 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<std::string>(
         connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
             if (ec)
@@ -358,6 +360,7 @@ inline void managerGetLastResetTime(
     dbus::utility::getProperty<uint64_t>(
         "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
         "xyz.openbmc_project.State.BMC", "LastRebootTime",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const uint64_t lastResetTime) {
             if (ec)
@@ -411,6 +414,7 @@ inline void setActiveFirmwareImage(
     sdbusplus::object_path objPath("/xyz/openbmc_project/software");
     dbus::utility::getManagedObjects(
         getBMCUpdateServiceName(), objPath,
+        // ast-grep-ignore: long-lambda
         [asyncResp, firmwareId, runningFirmwareTarget](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
@@ -584,6 +588,7 @@ inline void checkForQuiesced(
         "org.freedesktop.systemd1",
         "/org/freedesktop/systemd1/unit/obmc-bmc-service-quiesce@0.target",
         "org.freedesktop.systemd1.Unit", "ActiveState",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& val) {
             if (!ec)
@@ -830,6 +835,7 @@ inline void handleManagerGet(
     dbus::utility::getProperty<double>(
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "Progress",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, double val) {
             if (ec)
             {

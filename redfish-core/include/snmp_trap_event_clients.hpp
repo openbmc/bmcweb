@@ -97,6 +97,7 @@ inline void getSnmpTrapClient(
 {
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, id](const boost::system::error_code& ec,
                         dbus::utility::ManagedObjectType& resp) {
             if (ec)
@@ -228,6 +229,7 @@ inline void deleteSnmpTrapClient(
 
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, param](const boost::system::error_code& ec) {
             if (ec)
             {
