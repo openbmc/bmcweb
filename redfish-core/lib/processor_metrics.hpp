@@ -177,6 +177,80 @@ inline void getProcessorMetricsOperatingSpeed(
         std::bind_front(afterGetProcessorMetricsMetricPaths, asyncResp));
 }
 
+inline void afterGetBandwidthPercent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBus error on GetProperty for processor_bandwidth: {}",
+                ec.message());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (!std::isfinite(value))
+    {
+        BMCWEB_LOG_DEBUG("Received non-finite value for BandwidthPercent");
+        asyncResp->res.jsonValue["BandwidthPercent"] = nullptr;
+        return;
+    }
+
+    asyncResp->res.jsonValue["BandwidthPercent"] = value;
+}
+
+inline void afterGetBandwidthPercentMetricPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree: {}",
+                             ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    for (const auto& [path, services] : subtree)
+    {
+        sdbusplus::object_path objPath(path);
+        const std::string metricName = objPath.filename();
+
+        if (metricName != "processor_bandwidth")
+        {
+            continue;
+        }
+
+        for (const auto& service : services)
+        {
+            dbus::utility::getProperty<double>(
+                service.first, path, "xyz.openbmc_project.Metric.Value",
+                "Value", std::bind_front(afterGetBandwidthPercent, asyncResp));
+        }
+        return;
+    }
+}
+
+inline void getProcessorMetricsBandwidthPercent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objectPath)
+{
+    const sdbusplus::object_path assocPath =
+        sdbusplus::object_path(objectPath) / "measured_by";
+    dbus::utility::getAssociatedSubTree(
+        assocPath, sdbusplus::object_path("/xyz/openbmc_project/metric"), 0,
+        std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
+        std::bind_front(afterGetBandwidthPercentMetricPaths, asyncResp));
+}
+
 /**
  * @brief Populate ProcessorMetrics from the processor's service map
  *
@@ -202,6 +276,7 @@ inline void getProcessorMetricsData(
     }
 
     getProcessorMetricsOperatingSpeed(asyncResp, objectPath);
+    getProcessorMetricsBandwidthPercent(asyncResp, objectPath);
 }
 
 /**

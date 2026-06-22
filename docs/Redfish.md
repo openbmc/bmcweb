@@ -1149,6 +1149,7 @@ functions the same like the default implementation under the System resource.
 
 #### ProcessorMetrics
 
+- BandwidthPercent
 - CacheMetricsTotal/LifeTime/CorrectableECCErrorCount
 - CacheMetricsTotal/LifeTime/UncorrectableECCErrorCount
 - OperatingSpeedMHz
