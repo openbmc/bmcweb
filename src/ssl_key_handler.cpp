@@ -174,6 +174,7 @@ static std::optional<OpenSSLX509> loadCert(const std::string& filePath)
 static void installCertificate(const std::filesystem::path& certPath)
 {
     dbus::utility::async_method_call(
+        // ast-grep-ignore: long-lambda
         [certPath](const boost::system::error_code& ec) {
             if (ec)
             {

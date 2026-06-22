@@ -396,6 +396,7 @@ inline void handleRoleMapPatch(
             {
                 dbus::utility::async_method_call(
                     asyncResp,
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, roleMapObjData, serverType,
                      index](const boost::system::error_code& ec) {
                         if (ec)
@@ -511,6 +512,7 @@ inline void handleRoleMapPatch(
 
                 dbus::utility::async_method_call(
                     asyncResp,
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, serverType, localRole,
                      remoteGroup](const boost::system::error_code& ec) {
                         if (ec)
@@ -548,6 +550,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
 
     dbus::utility::getDbusObject(
         ldapConfigObjectName, interfaces,
+        // ast-grep-ignore: long-lambda
         [callback = std::forward<CallbackFunc>(callback),
          ldapType](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetObject& resp) mutable {
@@ -564,6 +567,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
             sdbusplus::object_path path(ldapRootObject);
             dbus::utility::getManagedObjects(
                 service, path,
+                // ast-grep-ignore: long-lambda
                 [callback, ldapType](const boost::system::error_code& ec2,
                                      const dbus::utility::ManagedObjectType&
                                          ldapObjects) mutable {
@@ -1029,6 +1033,7 @@ inline void handleLDAPPatch(LdapPatchParams&& input,
 
     // Get the existing resource first then keep modifying
     // whenever any property gets updated.
+    // ast-grep-ignore: long-lambda
     getLDAPConfigData(serverType, [asyncResp, input = std::move(input),
                                    dbusObjectPath = std::move(dbusObjectPath)](
                                       bool success,
@@ -1439,6 +1444,7 @@ inline void handleAccountServiceGet(
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.AccountPolicy",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
             if (ec)
@@ -1734,6 +1740,7 @@ inline void handleAccountCollectionGet(
     sdbusplus::object_path path("/xyz/openbmc_project/user");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.User.Manager", path,
+        // ast-grep-ignore: long-lambda
         [asyncResp, thisUser, effectiveUserPrivileges](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& users) {
@@ -1805,6 +1812,7 @@ inline void processAfterCreateUser(
 
         dbus::utility::async_method_call(
             asyncResp,
+            // ast-grep-ignore: long-lambda
             [asyncResp, password](const boost::system::error_code& ec3) {
                 if (ec3)
                 {
@@ -1947,6 +1955,7 @@ inline void handleAccountCollectionPost(
     dbus::utility::getProperty<std::vector<std::string>>(
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "AllGroups",
+        // ast-grep-ignore: long-lambda
         [asyncResp, username, password{std::move(password)}, roleId, enabled,
          accountTypes](const boost::system::error_code& ec,
                        const std::vector<std::string>& allGroupsList) {
@@ -2030,6 +2039,7 @@ inline void handleAccountGet(
     sdbusplus::object_path path("/xyz/openbmc_project/user");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.User.Manager", path,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          accountName](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& users) {

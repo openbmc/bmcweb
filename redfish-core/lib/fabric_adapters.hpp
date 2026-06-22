@@ -45,6 +45,7 @@ inline void getFabricAdapterLocation(
     dbus::utility::getProperty<std::string>(
         serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
             if (ec)
@@ -70,6 +71,7 @@ inline void getFabricAdapterState(
     dbus::utility::getProperty<bool>(
         serviceName, fabricAdapterPath, "xyz.openbmc_project.Inventory.Item",
         "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool present) {
             if (ec)
             {
@@ -96,6 +98,7 @@ inline void getFabricAdapterHealth(
     dbus::utility::getProperty<bool>(
         serviceName, fabricAdapterPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const bool functional) {
             if (ec)

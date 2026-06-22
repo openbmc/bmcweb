@@ -651,6 +651,7 @@ inline void afterGetCpuConfigData(
             "xyz.openbmc_project.Inventory.Item.Cpu."
             "OperatingConfig",
             "BaseSpeedPrioritySettings",
+            // ast-grep-ignore: long-lambda
             [asyncResp](
                 const boost::system::error_code& ec2,
                 const BaseSpeedPrioritySettingsProperty& baseSpeedList) {
@@ -745,6 +746,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "UniqueIdentifier",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& id) {
             if (ec)

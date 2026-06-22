@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: Apache-2.0
+# Flag lambdas whose body spans more than 10 lines. Long lambdas are hard to
+# read and review; prefer extracting them into a named function.
+
+id: long-lambda
+language: cpp
+severity: warning
+message: >
+    Lambda is longer than 10 lines. Extract it into a named function to keep
+    async call sites readable per docs/COMMON_ERRORS.md.
+rule:
+    kind: lambda_expression
+    # (?s) makes . match newlines. At least 10 newlines in the lambda node text
+    # means it spans at least 11 lines, i.e. more than 10 lines.
+    regex: '(?s)^.*(\n.*){10}'

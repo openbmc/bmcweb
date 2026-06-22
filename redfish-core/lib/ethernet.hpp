@@ -818,6 +818,7 @@ inline void deleteAndCreateIPAddress(
 {
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, version, ifaceId, address, prefixLength,
          gateway](const boost::system::error_code& ec) {
             if (ec)
@@ -900,6 +901,7 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
     path /= ifaceId;
 
     auto createIpHandler =
+        // ast-grep-ignore: long-lambda
         [asyncResp, address](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1180,6 +1182,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
     sdbusplus::object_path path("/xyz/openbmc_project/network");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
+        // ast-grep-ignore: long-lambda
         [callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) {
@@ -2107,6 +2110,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
@@ -2135,6 +2139,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 // Get eth interface list, and call the below callback for JSON
                 // preparation
                 getEthernetIfaceList(
+                    // ast-grep-ignore: long-lambda
                     [asyncResp](const bool& success,
                                 const std::vector<std::string>& ifaceList) {
                         if (!success)
@@ -2167,6 +2172,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::postEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::post)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
@@ -2264,6 +2270,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::getEthernetInterface)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
@@ -2281,6 +2288,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
                 getEthernetIfaceData(
                     ifaceId,
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, ifaceId](
                         const bool& success,
                         const EthernetInterfaceData& ethData,
@@ -2311,6 +2319,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
@@ -2380,6 +2389,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 // for JSON preparation
                 getEthernetIfaceData(
                     ifaceId,
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, ifaceId, hostname = std::move(hostname),
                      fqdn = std::move(fqdn), macAddress = std::move(macAddress),
                      ipv4StaticAddresses = std::move(ipv4StaticAddresses),
@@ -2486,6 +2496,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::deleteEthernetInterface)
         .methods(boost::beast::http::verb::delete_)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {

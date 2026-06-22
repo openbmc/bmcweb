@@ -95,6 +95,7 @@ inline void getFanPaths(
     dbus::utility::getAssociatedSubTreePaths(
         endpointPath, sdbusplus::object_path("/xyz/openbmc_project/inventory"),
         0, fanInterface,
+        // ast-grep-ignore: long-lambda
         [asyncResp, callback](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {

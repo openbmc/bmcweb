@@ -971,6 +971,7 @@ inline void requestRoutesTriggerCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/")
         .privileges(redfish::privileges::getTriggersCollection)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1002,6 +1003,7 @@ inline void requestRoutesTrigger(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
         .privileges(redfish::privileges::getTriggers)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
@@ -1013,6 +1015,7 @@ inline void requestRoutesTrigger(App& app)
                     *crow::connections::systemBus, telemetry::service,
                     telemetry::getDbusTriggerPath(id),
                     telemetry::triggerInterface,
+                    // ast-grep-ignore: long-lambda
                     [asyncResp,
                      id](const boost::system::error_code& ec,
                          const dbus::utility::DBusPropertiesMap& ret) {
@@ -1041,6 +1044,7 @@ inline void requestRoutesTrigger(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
         .privileges(redfish::privileges::deleteTriggers)
         .methods(boost::beast::http::verb::delete_)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
@@ -1053,6 +1057,7 @@ inline void requestRoutesTrigger(App& app)
 
                 dbus::utility::async_method_call(
                     asyncResp,
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, id](const boost::system::error_code& ec) {
                         if (ec.value() == EBADR)
                         {
