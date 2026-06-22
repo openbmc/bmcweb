@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde8142d_2c6d3879",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-22T10:34:01Z",
+      "side": 1,
+      "message": "Please remove these three patch link.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 58
+      },
+      "revId": "b246adc8f6b6b61eeae2efdfec7ed4ddba9d8265",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "916c5722_c9e73230",
@@ -14,6 +37,23 @@
       "writtenOn": "2026-06-22T06:57:54Z",
       "side": 1,
       "message": "PS8: addressed all review comments.\nAdd afterGetChassisProcessorLinks wrapper with EBADR/io_error filtering.",
+      "revId": "b246adc8f6b6b61eeae2efdfec7ed4ddba9d8265",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b534b95b_d9eae5af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-22T10:34:01Z",
+      "side": 1,
+      "message": "Overall LGTM.",
       "revId": "b246adc8f6b6b61eeae2efdfec7ed4ddba9d8265",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
