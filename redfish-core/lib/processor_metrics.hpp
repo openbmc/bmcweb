@@ -126,6 +126,37 @@ inline void afterGetOperatingFrequency(
         static_cast<int64_t>(value / hzPerMhz);
 }
 
+inline void afterGetBandwidthPercent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBus error on GetProperty for processor_bandwidth: {}",
+                ec.message());
+            messages::internalError(asyncResp->res);
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG("No BandwidthPercent value found: {}",
+                             ec.message());
+        }
+        return;
+    }
+
+    if (!std::isfinite(value))
+    {
+        BMCWEB_LOG_DEBUG("Received non-finite value for BandwidthPercent");
+        asyncResp->res.jsonValue["BandwidthPercent"] = nullptr;
+        return;
+    }
+
+    asyncResp->res.jsonValue["BandwidthPercent"] = value;
+}
+
 inline void afterGetProcessorMetricsMetricPaths(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
@@ -140,7 +171,7 @@ inline void afterGetProcessorMetricsMetricPaths(
             messages::internalError(asyncResp->res);
             return;
         }
-        BMCWEB_LOG_DEBUG("No operating_frequency metric association: {}",
+        BMCWEB_LOG_DEBUG("No processor metric association found: {}",
                          ec.message());
         return;
     }
@@ -154,21 +185,24 @@ inline void afterGetProcessorMetricsMetricPaths(
 
         sdbusplus::object_path objPath(path);
         const std::string metricName = objPath.filename();
-
-        if (metricName != "operating_frequency")
-        {
-            continue;
-        }
-
         const auto& serviceName = services.begin()->first;
-        dbus::utility::getProperty<double>(
-            serviceName, path, "xyz.openbmc_project.Metric.Value", "Value",
-            std::bind_front(afterGetOperatingFrequency, asyncResp));
-        return;
+
+        if (metricName == "operating_frequency")
+        {
+            dbus::utility::getProperty<double>(
+                serviceName, path, "xyz.openbmc_project.Metric.Value", "Value",
+                std::bind_front(afterGetOperatingFrequency, asyncResp));
+        }
+        else if (metricName == "processor_bandwidth")
+        {
+            dbus::utility::getProperty<double>(
+                serviceName, path, "xyz.openbmc_project.Metric.Value", "Value",
+                std::bind_front(afterGetBandwidthPercent, asyncResp));
+        }
     }
 }
 
-inline void getProcessorMetricsOperatingSpeed(
+inline void getProcessorMetricsAssociatedMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& objectPath)
 {
@@ -218,7 +252,7 @@ inline void getProcessorMetricsData(
         }
     }
 
-    getProcessorMetricsOperatingSpeed(asyncResp, objectPath);
+    getProcessorMetricsAssociatedMetrics(asyncResp, objectPath);
 }
 
 inline void handleProcessorMetricsHead(
