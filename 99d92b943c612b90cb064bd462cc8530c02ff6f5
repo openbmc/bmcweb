@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b70e42a_05794d07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T16:27:51Z",
+      "side": 1,
+      "message": "Hi @ed@tanous.net\nYes, planning to implement redfish BIOS Registry as well\nwas looking at existing gerrit commit implementations\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/77529",
+      "parentUuid": "9160c958_58b8af88",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5227b0ec_081f705d",
         "filename": "redfish-core/include/utils/bios_utils.hpp",
         "patchSetId": 3
@@ -119,6 +137,24 @@
       "writtenOn": "2026-06-22T15:40:07Z",
       "side": 1,
       "message": "Why is this a template if there\u0027s only one call?  Can this just be inlined?",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f954d5_de7689cf",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T16:27:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5227b0ec_081f705d",
       "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -136,6 +172,30 @@
       "writtenOn": "2026-06-22T15:40:07Z",
       "side": 1,
       "message": "Non trivial lambda",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 6
+      },
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f92f470_c21cd126",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T16:27:51Z",
+      "side": 1,
+      "message": "create new helper function",
+      "parentUuid": "d3a01002_f13abf1a",
       "range": {
         "startLine": 104,
         "startChar": 0,
@@ -169,6 +229,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7d29b55_7c8713c2",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T16:27:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1f4005e_719ff832",
+      "range": {
+        "startLine": 136,
+        "startChar": 41,
+        "endLine": 136,
+        "endChar": 73
+      },
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6469a86f_f31a688d",
@@ -182,6 +266,24 @@
       "writtenOn": "2026-06-22T15:40:07Z",
       "side": 1,
       "message": "Please just include this in the existing request routes call at the bottom of the file.",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "959c2979_290219ad",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T16:27:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6469a86f_f31a688d",
       "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
