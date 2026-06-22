@@ -127,6 +127,7 @@ inline void getManagedHostProperty(
     dbus::utility::getProperty<uint64_t>(
         "xyz.openbmc_project.EntityManager", systemPath,
         "xyz.openbmc_project.Inventory.Decorator.ManagedHost", "HostIndex",
+        // ast-grep-ignore: long-lambda
         [asyncResp, systemName, systemPath, callback = std::move(callback)](
             const boost::system::error_code& ec, const uint64_t hostIndex) {
             if (ec)

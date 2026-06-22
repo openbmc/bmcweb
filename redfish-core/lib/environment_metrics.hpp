@@ -281,6 +281,7 @@ inline void handleEnvironmentMetricsHead(
         return;
     }
 
+    // ast-grep-ignore: long-lambda
     auto respHandler = [asyncResp, chassisId](
                            const std::optional<std::string>& validChassisPath) {
         if (!validChassisPath)
