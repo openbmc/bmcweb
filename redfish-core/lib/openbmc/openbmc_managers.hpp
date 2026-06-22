@@ -974,6 +974,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             objectManagerIface, stepwiseConfigurationIface};
         dbus::utility::getSubTree(
             "/", 0, interfaces,
+            // ast-grep-ignore: long-lambda
             [self](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
@@ -991,6 +992,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             thermalModeIface};
         dbus::utility::getSubTree(
             "/", 0, thermalModeIfaces,
+            // ast-grep-ignore: long-lambda
             [self](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
@@ -1012,6 +1014,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 dbus::utility::getAllProperties(
                     *crow::connections::systemBus, owner, path,
                     thermalModeIface,
+                    // ast-grep-ignore: long-lambda
                     [path, owner,
                      self](const boost::system::error_code& ec2,
                            const dbus::utility::DBusPropertiesMap& resp) {
@@ -1158,6 +1161,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         sdbusplus::object_path objPath("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", objPath,
+            // ast-grep-ignore: long-lambda
             [self](const boost::system::error_code& ec,
                    const dbus::utility::ManagedObjectType& mObj) {
                 if (ec)
@@ -1190,6 +1194,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             thermalModeIface};
         dbus::utility::getSubTree(
             "/", 0, thermalModeIfaces,
+            // ast-grep-ignore: long-lambda
             [self](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
                 if (ec || subtree.empty())
@@ -1209,6 +1214,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 dbus::utility::getAllProperties(
                     *crow::connections::systemBus, owner, path,
                     thermalModeIface,
+                    // ast-grep-ignore: long-lambda
                     [self, path,
                      owner](const boost::system::error_code& ec2,
                             const dbus::utility::DBusPropertiesMap& r) {
@@ -1395,6 +1401,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     {
                         dbus::utility::async_method_call(
                             asyncResp,
+                            // ast-grep-ignore: long-lambda
                             [response,
                              propertyName{std::string(property.first)}](
                                 const boost::system::error_code& ec) {

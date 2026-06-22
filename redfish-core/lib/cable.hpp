@@ -101,6 +101,7 @@ inline void fillCableHealthState(
     dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, cableObjectPath,
         "xyz.openbmc_project.Inventory.Item", "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          cableObjectPath](const boost::system::error_code& ec, bool present) {
             if (ec)

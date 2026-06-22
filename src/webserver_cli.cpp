@@ -65,6 +65,7 @@ static int setLogLevel(std::string& loglevel)
 
     // Attempt to async_call to set logging level
     conn->async_method_call(
+        // ast-grep-ignore: long-lambda
         [&io, loglevel](boost::system::error_code& ec) mutable {
             if (ec)
             {
