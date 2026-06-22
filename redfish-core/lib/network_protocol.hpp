@@ -118,6 +118,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
     sdbusplus::object_path path("/xyz/openbmc_project/network");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
+        // ast-grep-ignore: long-lambda
         [callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& dbusData) {
@@ -218,6 +219,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     getNTPProtocolEnabled(asyncResp);
 
+    // ast-grep-ignore: long-lambda
     getEthernetIfaceData([hostName, asyncResp](
                              const bool& success,
                              const std::vector<std::string>& ntpServers,
@@ -368,6 +370,7 @@ inline void handleNTPServersPatch(
         "xyz.openbmc_project.Network.EthernetInterface"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project", 0, ethInterfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, currentNtpServers](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -408,6 +411,7 @@ inline void handleProtocolEnabled(
         "xyz.openbmc_project.Control.Service.Attributes"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/control/service", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [protocolEnabled, asyncResp,
          netBasePath](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -516,6 +520,7 @@ inline void handleManagersNetworkProtocolPatch(
     if (ntpServerObjects)
     {
         getEthernetIfaceData(
+            // ast-grep-ignore: long-lambda
             [asyncResp, ntpServerObjects](
                 const bool success, std::vector<std::string>& currentNtpServers,
                 const std::vector<std::string>& /*dynamicNtpServers*/,

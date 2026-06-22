@@ -52,6 +52,7 @@ inline void handleTelemetryServiceGet(
     dbus::utility::getAllProperties(
         telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
         "xyz.openbmc_project.Telemetry.ReportManager",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& ret) {
             if (ec == boost::system::errc::host_unreachable)

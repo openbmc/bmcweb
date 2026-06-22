@@ -312,6 +312,7 @@ class HTTP2Connection :
         Response& thisRes = it->second.res;
 
         thisRes.setCompleteRequestHandler(
+            // ast-grep-ignore: long-lambda
             [weakSelf = weak_from_this(), streamId](Response& completeRes) {
                 BMCWEB_LOG_DEBUG("res.completeRequestHandler called");
                 if (auto self = weakSelf.lock(); self)

@@ -259,6 +259,7 @@ inline void getCertificateList(
         certs::certPropIntf};
     dbus::utility::getSubTreePaths(
         basePath, 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, listPtr, countPtr](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& certPaths) {
@@ -336,6 +337,7 @@ inline void getCertificateProperties(
                      objectPath, certId, certURL);
     dbus::utility::getAllProperties(
         service, objectPath, certs::certPropIntf,
+        // ast-grep-ignore: long-lambda
         [asyncResp, certURL, certId,
          name](const boost::system::error_code& ec,
                const dbus::utility::DBusPropertiesMap& properties) {
@@ -422,6 +424,7 @@ inline void deleteCertificate(
 {
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          id{objectPath.filename()}](const boost::system::error_code& ec) {
             if (ec)
@@ -607,6 +610,7 @@ inline void handleReplaceCertificateAction(
         std::make_shared<CertificateFile>(certificate);
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id, name,
          certificate](const boost::system::error_code& ec,
                       sdbusplus::message_t& m) {
@@ -654,6 +658,7 @@ inline void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      certObjPath, csrObjPath, service);
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          certURI](const boost::system::error_code& ec, const std::string& csr) {
             if (ec)
@@ -847,6 +852,7 @@ inline void handleGenerateCSRAction(
     // Make this static so it survives outside this method
     static boost::asio::steady_timer timeout(getIoContext());
     timeout.expires_after(std::chrono::seconds(timeOut));
+    // ast-grep-ignore: long-lambda
     timeout.async_wait([asyncResp](const boost::system::error_code& ec) {
         csrMatcher = nullptr;
         if (ec)
@@ -873,6 +879,7 @@ inline void handleGenerateCSRAction(
                       "member='InterfacesAdded'");
     csrMatcher = std::make_unique<sdbusplus::match>(
         *crow::connections::systemBus, match,
+        // ast-grep-ignore: long-lambda
         [asyncResp, service, objectPath, certURI](sdbusplus::message_t& m) {
             timeout.cancel();
             dbus::utility::DBusInterfacesMap interfacesProperties;
@@ -1000,6 +1007,7 @@ inline void handleHTTPSCertificateCollectionPost(
 
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, certFile, certHttpBody](const boost::system::error_code& ec,
                                             const std::string& objectPath) {
             if (ec)
@@ -1116,6 +1124,7 @@ inline void handleLDAPCertificateCollectionPost(
 
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, certFile, certHttpBody](const boost::system::error_code& ec,
                                             const std::string& objectPath) {
             if (ec)
@@ -1253,6 +1262,7 @@ inline void handleTrustStoreCertificateCollectionPost(
         std::make_shared<CertificateFile>(certHttpBody);
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, certFile, certHttpBody](const boost::system::error_code& ec,
                                             const std::string& objectPath) {
             if (ec)

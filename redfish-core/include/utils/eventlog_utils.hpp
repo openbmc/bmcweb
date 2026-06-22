@@ -751,6 +751,7 @@ inline void dBusEventLogEntryDelete(
     dbus::utility::escapePathForDbus(entryID);
 
     // Process response from Logging service.
+    // ast-grep-ignore: long-lambda
     auto respHandler = [asyncResp,
                         entryID](const boost::system::error_code& ec) {
         BMCWEB_LOG_DEBUG("EventLogEntry (DBus) doDelete callback: Done");
@@ -785,6 +786,7 @@ inline void dBusLogServiceActionsClear(
     BMCWEB_LOG_DEBUG("Do delete all entries.");
 
     // Process response from Logging service.
+    // ast-grep-ignore: long-lambda
     auto respHandler = [asyncResp](const boost::system::error_code& ec) {
         BMCWEB_LOG_DEBUG("doClearLog resp_handler callback: Done");
         if (ec)

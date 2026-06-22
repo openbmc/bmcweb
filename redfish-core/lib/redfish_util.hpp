@@ -67,6 +67,7 @@ void getMainChassisId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Find managed chassis
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        // ast-grep-ignore: long-lambda
         [callback = std::forward<CallbackFunc>(callback),
          asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -102,6 +103,7 @@ void getPortStatusAndPath(
     CallbackFunc&& callback)
 {
     dbus::utility::async_method_call(
+        // ast-grep-ignore: long-lambda
         [protocolToDBus, callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const std::vector<UnitStruct>& r) {
@@ -211,6 +213,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
         std::vector<std::tuple<std::string, std::string>>>(
         *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",
+        // ast-grep-ignore: long-lambda
         [callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const std::vector<std::tuple<std::string, std::string>>& resp) {
