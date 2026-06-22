@@ -258,6 +258,7 @@ inline void getDumpEntryCollection(
     sdbusplus::object_path path("/xyz/openbmc_project/dump");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager", path,
+        // ast-grep-ignore: long-lambda
         [asyncResp, entriesPath,
          dumpType](const boost::system::error_code& ec,
                    const dbus::utility::ManagedObjectType& objects) {
@@ -368,6 +369,7 @@ inline void getDumpEntryById(
     sdbusplus::object_path path("/xyz/openbmc_project/dump");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager", path,
+        // ast-grep-ignore: long-lambda
         [asyncResp, entryID, dumpType,
          entriesPath](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& resp) {
@@ -460,6 +462,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& entryID,
                             const std::string& dumpType)
 {
+    // ast-grep-ignore: long-lambda
     auto respHandler = [asyncResp,
                         entryID](const boost::system::error_code& ec) {
         BMCWEB_LOG_DEBUG("Dump Entry doDelete callback: Done");
@@ -557,6 +560,7 @@ inline void createDumpTaskCallback(
 
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, payload = std::move(payload), createdObjPath,
          dumpId](const boost::system::error_code& ec,
                  const std::string& introspectXml) {
@@ -606,6 +610,7 @@ inline void createDumpTaskCallback(
             }
 
             std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+                // ast-grep-ignore: long-lambda
                 [createdObjPath, dumpId, isProgressIntfPresent](
                     const boost::system::error_code& ec2,
                     sdbusplus::message_t& msg,
@@ -942,6 +947,7 @@ inline void handleSystemsLogServiceCollectionGet(
         "xyz.openbmc_project.State.Boot.PostCode"};
     dbus::utility::getSubTreePaths(
         "/", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePath) {
@@ -1026,6 +1032,7 @@ inline void handleManagersLogServicesCollectionGet(
             "xyz.openbmc_project.Collection.DeleteAll"};
         dbus::utility::getSubTreePaths(
             "/xyz/openbmc_project/dump", 0, interfaces,
+            // ast-grep-ignore: long-lambda
             [asyncResp](const boost::system::error_code& ec,
                         const dbus::utility::MapperGetSubTreePathsResponse&
                             subTreePaths) {
@@ -1186,6 +1193,7 @@ inline void getDumpServiceInfo(
     constexpr std::array<std::string_view, 1> interfaces = {deleteAllInterface};
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/dump", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, dumpType, dumpPath](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
@@ -1662,11 +1670,11 @@ inline void requestRoutesCrashdumpService(App& app)
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Crashdump/")
         .privileges(redfish::privileges::getLogService)
-        .methods(
-            boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName) {
+        .methods(boost::beast::http::verb::get)
+        // ast-grep-ignore: long-lambda
+        ([&app](const crow::Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
@@ -1731,6 +1739,7 @@ inline void requestRoutesCrashdumpClear(App& app)
         .privileges(redfish::privileges::
                         postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
@@ -1772,6 +1781,7 @@ inline void logCrashdumpEntry(
     const std::string& logID, nlohmann::json& logEntryJson)
 {
     auto getStoredLogCallback =
+        // ast-grep-ignore: long-lambda
         [asyncResp, logID,
          &logEntryJson](const boost::system::error_code& ec,
                         const dbus::utility::DBusPropertiesMap& params) {
@@ -1844,11 +1854,11 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/<str>/LogServices/Crashdump/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(
-            boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName) {
+        .methods(boost::beast::http::verb::get)
+        // ast-grep-ignore: long-lambda
+        ([&app](const crow::Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
@@ -1871,6 +1881,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                 crashdumpInterface};
             dbus::utility::getSubTreePaths(
                 "/", 0, interfaces,
+                // ast-grep-ignore: long-lambda
                 [asyncResp](const boost::system::error_code& ec,
                             const std::vector<std::string>& resp) {
                     if (ec)
@@ -1920,6 +1931,7 @@ inline void requestRoutesCrashdumpEntry(App& app)
         app, "/redfish/v1/Systems/<str>/LogServices/Crashdump/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName, const std::string& param) {
@@ -1952,6 +1964,7 @@ inline void requestRoutesCrashdumpFile(App& app)
         "/redfish/v1/Systems/<str>/LogServices/Crashdump/Entries/<str>/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& systemName, const std::string& logID,
@@ -2061,6 +2074,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
         .privileges(redfish::privileges::
                         postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
@@ -2165,6 +2179,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                         }
                         std::shared_ptr<task::TaskData> task =
                             task::TaskData::createTask(
+                                // ast-grep-ignore: long-lambda
                                 [](const boost::system::error_code& ec2,
                                    sdbusplus::message_t&,
                                    const std::shared_ptr<task::TaskData>&

@@ -156,6 +156,7 @@ inline void getProcessorSummary(
 
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Inventory.Item.Cpu",
+        // ast-grep-ignore: long-lambda
         [asyncResp, service,
          path](const boost::system::error_code& ec2,
                const dbus::utility::DBusPropertiesMap& properties) {
@@ -234,6 +235,7 @@ inline void getMemorySummary(
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Inventory.Item.Dimm",
+        // ast-grep-ignore: long-lambda
         [asyncResp, service,
          path](const boost::system::error_code& ec2,
                const dbus::utility::DBusPropertiesMap& properties) {
@@ -458,6 +460,7 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<std::string>(
         systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Host", "CurrentHostState",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
             if (ec)
@@ -759,6 +762,7 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<std::string>(
         systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code ec,
                     const std::string& bootProgressStr) {
             if (ec)
@@ -792,6 +796,7 @@ inline void getBootProgressLastStateTime(
     dbus::utility::getProperty<uint64_t>(
         systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgressLastUpdate",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const uint64_t lastStateTime) {
             if (ec)
@@ -831,6 +836,7 @@ inline void getBootOverrideType(
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Boot.Type", "BootType",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& bootType) {
             if (ec)
@@ -875,6 +881,7 @@ inline void getBootOverrideMode(
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& bootModeStr) {
             if (ec)
@@ -931,6 +938,7 @@ inline void getBootOverrideSource(
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Boot.Source", "BootSource",
+        // ast-grep-ignore: long-lambda
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          const std::string& bootSourceStr) {
             if (ec)
@@ -994,6 +1002,7 @@ inline void processBootOverrideEnable(
     dbus::utility::getProperty<bool>(
         "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Object.Enable", "Enabled",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, bool oneTimeSetting) {
             if (ec)
             {
@@ -1034,6 +1043,7 @@ inline void getBootOverrideEnable(
     dbus::utility::getProperty<bool>(
         "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Object.Enable", "Enabled",
+        // ast-grep-ignore: long-lambda
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          const bool bootOverrideEnable) {
             if (ec)
@@ -1095,6 +1105,7 @@ inline void getLastResetTime(
     dbus::utility::getProperty<uint64_t>(
         systems_utils::getChassisStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Chassis", "LastStateChangeTime",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     uint64_t lastResetTime) {
             if (ec)
@@ -1201,6 +1212,7 @@ inline void getAutomaticRetryPolicy(
     dbus::utility::getProperty<bool>(
         "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
+        // ast-grep-ignore: long-lambda
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          bool autoRebootEnabled) {
             if (ec)
@@ -1309,6 +1321,7 @@ inline void getPowerRestorePolicy(
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& policy) {
             if (ec)
@@ -1343,6 +1356,7 @@ inline void getStopBootOnFault(
     dbus::utility::getProperty<bool>(
         "xyz.openbmc_project.Settings", "/xyz/openbmc_project/logging/settings",
         "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, bool value) {
             if (ec)
             {
@@ -1421,6 +1435,7 @@ inline void getTrustedModuleRequiredToBootCallback(
     // Valid TPM Enable object found, now reading the current value
     dbus::utility::getProperty<bool>(
         service, path, "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec2, bool tpmRequired) {
             if (ec2)
             {
@@ -1770,6 +1785,7 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Inventory.Item.System"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          assetTag](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -1981,6 +1997,7 @@ inline void getProvisioningStatus(
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.PFR.Manager", "/xyz/openbmc_project/pfr",
         "xyz.openbmc_project.PFR.Attributes",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
             nlohmann::json& oemPFR =
@@ -2164,6 +2181,7 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         "xyz.openbmc_project.Control.Power.Mode"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
@@ -2293,6 +2311,7 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Control.Power.Mode"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          powerMode](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -2420,6 +2439,7 @@ inline void getHostWatchdogTimer(
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
         "xyz.openbmc_project.State.Watchdog",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
             if (ec)
@@ -2598,6 +2618,7 @@ inline void getIdlePowerSaver(
         "xyz.openbmc_project.Control.Power.IdlePowerSaver"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
@@ -2644,6 +2665,7 @@ inline void getIdlePowerSaver(
             dbus::utility::getAllProperties(
                 *crow::connections::systemBus, service, path,
                 "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                // ast-grep-ignore: long-lambda
                 [asyncResp](
                     const boost::system::error_code& ec2,
                     const dbus::utility::DBusPropertiesMap& properties) {
@@ -2697,6 +2719,7 @@ inline void setIdlePowerSaver(
         "xyz.openbmc_project.Control.Power.IdlePowerSaver"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, ipsEnable, ipsEnterUtil, ipsEnterTime, ipsExitUtil,
          ipsExitTime](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -3003,6 +3026,7 @@ inline void afterPortRequest(
         // obmc-console-ssh service
         if (protocolName == "SSH")
         {
+            // ast-grep-ignore: long-lambda
             getPortNumber(socketPath, [asyncResp, protocolName](
                                           const boost::system::error_code& ec1,
                                           int portNumber) {
@@ -3304,6 +3328,7 @@ inline void processComputerSystemPatch(
         {
             systems_utils::getValidSystemsPath(
                 asyncResp, systemName,
+                // ast-grep-ignore: long-lambda
                 [asyncResp, systemName,
                  locationIndicatorActive{*patchParams.locationIndicatorActive}](
                     const std::optional<std::string>& validSystemsPath) {

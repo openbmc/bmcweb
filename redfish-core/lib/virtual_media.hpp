@@ -101,6 +101,7 @@ inline void findAndParseObject(
     sdbusplus::object_path path("/xyz/openbmc_project/VirtualMedia");
     dbus::utility::getManagedObjects(
         service, path,
+        // ast-grep-ignore: long-lambda
         [service, resName, asyncResp, handler = std::move(handler)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
@@ -280,6 +281,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
     sdbusplus::object_path objPath("/xyz/openbmc_project/VirtualMedia");
     dbus::utility::getManagedObjects(
         service, objPath,
+        // ast-grep-ignore: long-lambda
         [name, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
@@ -501,6 +503,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     path /= name;
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, bool success) {
             if (ec)
             {
@@ -737,6 +740,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/VirtualMedia", {},
+        // ast-grep-ignore: long-lambda
         [asyncResp, action, actionParams,
          resName](const boost::system::error_code& ec,
                   const dbus::utility::MapperGetObject& getObjectType) mutable {
@@ -754,6 +758,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
             sdbusplus::object_path path("/xyz/openbmc_project/VirtualMedia");
             dbus::utility::getManagedObjects(
                 service, path,
+                // ast-grep-ignore: long-lambda
                 [service, resName, action, actionParams, asyncResp](
                     const boost::system::error_code& ec2,
                     const dbus::utility::ManagedObjectType& subtree) mutable {
@@ -806,6 +811,7 @@ inline void handleManagersVirtualMediaActionEject(
 
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/VirtualMedia", {},
+        // ast-grep-ignore: long-lambda
         [asyncResp, action,
          resName](const boost::system::error_code& ec2,
                   const dbus::utility::MapperGetObject& getObjectType) {
@@ -823,6 +829,7 @@ inline void handleManagersVirtualMediaActionEject(
             sdbusplus::object_path path("/xyz/openbmc_project/VirtualMedia");
             dbus::utility::getManagedObjects(
                 service, path,
+                // ast-grep-ignore: long-lambda
                 [resName, service, action,
                  asyncResp](const boost::system::error_code& ec,
                             const dbus::utility::ManagedObjectType& subtree) {
@@ -876,6 +883,7 @@ inline void handleManagersVirtualMediaCollectionGet(
 
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/VirtualMedia", {},
+        // ast-grep-ignore: long-lambda
         [asyncResp, name](const boost::system::error_code& ec,
                           const dbus::utility::MapperGetObject& getObjectType) {
             if (ec)
@@ -910,6 +918,7 @@ inline void handleVirtualMediaGet(
 
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/VirtualMedia", {},
+        // ast-grep-ignore: long-lambda
         [asyncResp, name,
          resName](const boost::system::error_code& ec,
                   const dbus::utility::MapperGetObject& getObjectType) {

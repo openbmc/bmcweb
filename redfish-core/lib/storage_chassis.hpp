@@ -23,6 +23,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     dbus::utility::getProperty<bool>(
         connectionName, path, "xyz.openbmc_project.Inventory.Item", "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          path](const boost::system::error_code& ec, const bool isPresent) {
             // this interface isn't necessary, only check it if
@@ -46,6 +47,7 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     dbus::utility::getProperty<bool>(
         connectionName, path, "xyz.openbmc_project.State.Drive", "Rebuilding",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool updating) {
             // this interface isn't necessary, only check it
             // if we get a good return
@@ -118,6 +120,7 @@ inline void getDriveItemProperties(
 {
     dbus::utility::getAllProperties(
         connectionName, path, "xyz.openbmc_project.Inventory.Item.Drive",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
@@ -401,6 +404,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
         // Association lambda
         dbus::utility::getAssociationEndPoints(
             path + "/drive",
+            // ast-grep-ignore: long-lambda
             [asyncResp, chassisId](const boost::system::error_code& ec3,
                                    const dbus::utility::MapperEndPoints& resp) {
                 if (ec3)
@@ -542,6 +546,7 @@ inline void handleChassisDriveGet(
     // mapper call chassis
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, chassisId,
          driveName](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {

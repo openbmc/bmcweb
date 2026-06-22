@@ -564,6 +564,7 @@ inline void requestRoutes(App& app)
         BMCWEB_ROUTE(app, "/vm/0/0/")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
+            // ast-grep-ignore: long-lambda
             .onopen([](crow::websocket::Connection& conn) {
                 BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
 
@@ -587,6 +588,7 @@ inline void requestRoutes(App& app)
                 handler = std::make_shared<Handler>(media, getIoContext());
                 handler->connect();
             })
+            // ast-grep-ignore: long-lambda
             .onclose([](crow::websocket::Connection& conn,
                         const std::string& /*reason*/) {
                 if (&conn != session)
@@ -600,6 +602,7 @@ inline void requestRoutes(App& app)
                 handler->outputBuffer.clear();
                 handler.reset();
             })
+            // ast-grep-ignore: long-lambda
             .onmessage([](crow::websocket::Connection& conn,
                           const std::string& data, bool) {
                 if (data.length() > handler->inputBuffer.capacity() -
