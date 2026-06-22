@@ -99,6 +99,24 @@
       "parentUuid": "3683ffd7_a519de32",
       "revId": "2db053145dba8c77ac7983ecb29ec7b1fa9f68e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5eeb0a9_b60c8640",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003000
+      },
+      "writtenOn": "2026-06-22T06:54:10Z",
+      "side": 1,
+      "message": "Hi Gunnar,\n\nI have filled out the ICLA PDF and emailed it to manager@lfprojects.org to formally register my individual hobbyist status.\n\nOnce the LF manager updates the system, I look forward to moving forward with the review. Thanks for the guidance!",
+      "parentUuid": "12a00646_3b95dfdb",
+      "revId": "2db053145dba8c77ac7983ecb29ec7b1fa9f68e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
