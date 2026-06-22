@@ -56,6 +56,23 @@
       "message": "This is also already functionally in review here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/89226\n\nPlease participate there.",
       "revId": "2519940af060fbf4d08035f9daf58f7542a51287",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de44f76b_a31d5a30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-22T17:28:07Z",
+      "side": 1,
+      "message": "For those watching this.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/91337\n\nIs another proposed fix to this unlikely scenario.  If we need to, we can iterate further.  Please review if you are able.\n\nFor this patch, we\u0027re at 1 month where it appears that the submitter has abandoned this patch, and has not reviewed other patches.  As a maintainer, unless I hear back from those with interest in this, I will merge 91337, and if necessary we can iterate from there.",
+      "revId": "2519940af060fbf4d08035f9daf58f7542a51287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
