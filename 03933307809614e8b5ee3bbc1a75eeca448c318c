@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04c6a4a5_4c48b35e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-22T11:12:49Z",
+      "side": 1,
+      "message": "It seems like you are having merge conflict.\nPlease resolve it as well, thanks!",
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ca533f3_d6c1e37f",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-22T11:12:49Z",
+      "side": 1,
+      "message": "The `locked` deterministic logic here looked wierd.\nBased on my understanding, `presentSpeedLimit...` reflects only the applied limit on the devices, matching `presentSpeedLimitMinHz` and `presentSpeedLimitMaxHz` might not be enough to determine if the device is in disabled mode.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 53
+      },
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d68a4c6_b2581a3d",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-22T11:12:49Z",
+      "side": 1,
+      "message": "I think we can implement ControlMode at the `dbus-sensors` side to prevent the complicated logic here. \nHowever, that might requires modification on PDI because currently there is only a boolean flag differentiating manual and automatic mode.\n\nPlease check the following links:\n\nPDI: \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Control/Mode.interface.yaml\n\nbmcweb JSON schema: https://github.com/openbmc/bmcweb/blob/6dd6f276a2dc8a7bd293b417e1a710ecd987c9fc/redfish-core/schema/dmtf/json-schema/Control.v1_8_0.json#L606",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 53
+      },
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b50b9cd9_2ba28ebd",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-22T11:12:49Z",
+      "side": 1,
+      "message": "I think we can move this part to the upper function stack. \n\nConceptually, we perform O(M) searching for corresponding inventory item.\nAfter that, by using the matched inventory item we then perform O(N) interfaces walk through to retrieve the desired properties.\n\nYour current implementation is indeed using this approach, but however, in a confusing approach because the looping is nested and only one of the cases can pass through this if condition.",
+      "range": {
+        "startLine": 451,
+        "startChar": 8,
+        "endLine": 455,
+        "endChar": 9
+      },
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
