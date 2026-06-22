@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7843c0a9_f40e9886",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-22T17:25:26Z",
+      "side": 1,
+      "message": "I\u0027m not sure what to do here.  As much as people seem to care, they don\u0027t really seem to respond to comments on either binreapers patch (which needs a CLA) or this patch, and I\u0027m not comfortable adding an option that\u0027s required for security, but I don\u0027t understand.  At this point LLMs are writing public hit articles claiming this isn\u0027t fixed, which I as a maintainer don\u0027t appreciate, but can\u0027t do much about.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/91337\n\nIs my proposed fix to this.  If we need to, we can iterate further.  Please review if you are able.",
+      "revId": "13be69eb47b8881e27be1f3ffdfebfd81d8130f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
