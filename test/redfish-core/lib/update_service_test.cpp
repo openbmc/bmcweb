@@ -1,12 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 
+#include "async_resp.hpp"
+#include "dbus_utility.hpp"
 #include "http_response.hpp"
 #include "update_service.hpp"
 
+#include <boost/beast/http/status.hpp>
 #include <boost/url/url.hpp>
 
+#include <memory>
 #include <optional>
+#include <string>
 
 #include <gtest/gtest.h>
 
@@ -137,6 +142,41 @@ TEST(UpdateService, ParseHTTPSNegative)
               std::nullopt);
     // No host
     ASSERT_EQ(parseSimpleUpdateUrl("/path", "HTTPS", res), std::nullopt);
+}
+
+TEST(UpdateService, SoftwareVersionMissingPurposeReturnsVersion)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    dbus::utility::DBusPropertiesMap props = {
+        {"Version", std::string("98.02.AF.00.01")}};
+    getSoftwareVersionCallback(asyncResp, "Nvidia_GPU_10_Firmware", {}, props);
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Version"], "98.02.AF.00.01");
+    EXPECT_EQ(asyncResp->res.jsonValue["Id"], "Nvidia_GPU_10_Firmware");
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("Description"));
+}
+
+TEST(UpdateService, SoftwareVersionWithPurposeAddsDescription)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    dbus::utility::DBusPropertiesMap props = {
+        {"Version", std::string("1.0")},
+        {"Purpose", std::string("xyz.openbmc_project.Software.Version."
+                                "VersionPurpose.BMC")}};
+    getSoftwareVersionCallback(asyncResp, "bmc", {}, props);
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Version"], "1.0");
+    EXPECT_EQ(asyncResp->res.jsonValue["Description"], "BMC image");
+}
+
+TEST(UpdateService, SoftwareVersionMissingVersionIsError)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    dbus::utility::DBusPropertiesMap props = {};
+    getSoftwareVersionCallback(asyncResp, "bmc", {}, props);
+
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::internal_server_error);
 }
 } // namespace
 } // namespace redfish
