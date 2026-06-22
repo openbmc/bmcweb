@@ -18,6 +18,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad1eb294_34557ca8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T09:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09524d79_59f672ab",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "573f20c6_ce67368e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T09:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09524d79_59f672ab",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52a88bb3_457418aa",
@@ -31,6 +67,24 @@
       "writtenOn": "2026-06-11T23:22:57Z",
       "side": 1,
       "message": "Redfish Validator please",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b318a0cc_a2e86284",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-06-22T09:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52a88bb3_457418aa",
       "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
