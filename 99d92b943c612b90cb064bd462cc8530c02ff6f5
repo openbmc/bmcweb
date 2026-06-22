@@ -87,6 +87,103 @@
       "parentUuid": "52a88bb3_457418aa",
       "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9160c958_58b8af88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-22T15:40:07Z",
+      "side": 1,
+      "message": "Is the BiosRegistry coming in the same series?  Attributes don\u0027t make a ton of sense without an attribute registry implementation.",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5227b0ec_081f705d",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-22T15:40:07Z",
+      "side": 1,
+      "message": "Why is this a template if there\u0027s only one call?  Can this just be inlined?",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3a01002_f13abf1a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-22T15:40:07Z",
+      "side": 1,
+      "message": "Non trivial lambda",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 6
+      },
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f4005e_719ff832",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-22T15:40:07Z",
+      "side": 1,
+      "message": "Why are we static casting a bool to an int here?",
+      "range": {
+        "startLine": 136,
+        "startChar": 41,
+        "endLine": 136,
+        "endChar": 73
+      },
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6469a86f_f31a688d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-22T15:40:07Z",
+      "side": 1,
+      "message": "Please just include this in the existing request routes call at the bottom of the file.",
+      "revId": "99d92b943c612b90cb064bd462cc8530c02ff6f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
