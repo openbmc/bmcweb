@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6792d4a_81ce5e76",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-22T11:46:37Z",
+      "side": 1,
+      "message": "Please write it like:\n```\n    if (ec)\n    {\n        if (ec.value() \u003d\u003d EBADR || ec \u003d\u003d boost::system::errc::io_error)\n        {\n            BMCWEB_LOG_DEBUG(\"No service owns {}\", softwarePath); // on your own\n            return;\n        }\n        BMCWEB_LOG_ERROR(\"...\", ec.message());\n        messages::internalError(asyncResp-\u003eres);\n        return;\n    }\n```\nso do  afterGetProcessorFirmwareVersionAssociation and afterGetProcessorFirmwareVersion",
+      "range": {
+        "startLine": 491,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 5
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "134e2185_9055e7a6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-22T11:46:37Z",
+      "side": 1,
+      "message": "Should we check size() \u003e 1 case?",
+      "range": {
+        "startLine": 496,
+        "startChar": 4,
+        "endLine": 496,
+        "endChar": 58
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cc4a811_9740fe10",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-22T11:46:37Z",
+      "side": 1,
+      "message": "Should we add if endpoints.size() \u003e 1 case?\nMaybe it is an error.",
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b508c807_945dd7a2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-22T11:46:37Z",
+      "side": 1,
+      "message": "nit: drop `static`.",
+      "range": {
+        "startLine": 514,
+        "startChar": 4,
+        "endLine": 514,
+        "endChar": 10
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6765cfe_129cd434",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-22T11:46:37Z",
+      "side": 1,
+      "message": "nit: please use `sdbusplus::object_path(processorPath) / \"ran_on\"` instead of string concatenation.",
+      "range": {
+        "startLine": 528,
+        "startChar": 8,
+        "endLine": 528,
+        "endChar": 34
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b75b14_95bbabb1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-22T11:46:37Z",
+      "side": 1,
+      "message": "nit: please consider using `getAssociatedSubTree` instead of the\ntwo-step `getAssociationEndPoints` + `getDbusObject`. The single call returns (path, serviceMap) in one mapper round-trip, and removes the need for the intermediate afterGetProcessorFirmwareVersionService callback.\n```\n    dbus::utility::getAssociatedSubTree(\n        sdbusplus::object_path(processorPath) / \"ran_on\",\n        sdbusplus::object_path(\"/xyz/openbmc_project/software\"), 0,\n        softwareIfaces,\n        std::bind_front(afterGetProcessorFirmwareVersionSubTree, asyncResp));\n```",
+      "range": {
+        "startLine": 527,
+        "startChar": 1,
+        "endLine": 530,
+        "endChar": 36
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
