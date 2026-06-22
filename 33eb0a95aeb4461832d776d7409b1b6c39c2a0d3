@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7858bc4f_461917b7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-22T08:29:22Z",
+      "side": 1,
+      "message": "Done, thanks. Size \u003e 1 is an invalid topology and is treated as an error -\u003e internalError",
+      "parentUuid": "a1439546_de9b683b",
+      "revId": "33eb0a95aeb4461832d776d7409b1b6c39c2a0d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09107cf0_1e1827ff",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-06-13T07:13:38Z",
       "side": 1,
       "message": "nit: please take off these comment.",
+      "range": {
+        "startLine": 881,
+        "startChar": 4,
+        "endLine": 885,
+        "endChar": 75
+      },
+      "revId": "33eb0a95aeb4461832d776d7409b1b6c39c2a0d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00199ed5_25fa3eb3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-22T08:29:22Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "09107cf0_1e1827ff",
       "range": {
         "startLine": 881,
         "startChar": 4,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb4ff32_d3a220ce",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-22T08:29:22Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "bfe586bb_85d220e8",
+      "range": {
+        "startLine": 889,
+        "startChar": 8,
+        "endLine": 889,
+        "endChar": 39
+      },
+      "revId": "33eb0a95aeb4461832d776d7409b1b6c39c2a0d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d2dcc46_1fe54a3b",
@@ -77,6 +143,30 @@
       "writtenOn": "2026-06-13T07:13:38Z",
       "side": 1,
       "message": "nit: please take off these comment.",
+      "range": {
+        "startLine": 960,
+        "startChar": 16,
+        "endLine": 962,
+        "endChar": 45
+      },
+      "revId": "33eb0a95aeb4461832d776d7409b1b6c39c2a0d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5945d6e_384de1e9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-22T08:29:22Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "5d2dcc46_1fe54a3b",
       "range": {
         "startLine": 960,
         "startChar": 16,
