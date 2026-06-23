@@ -584,20 +584,34 @@ inline void handleChassisGetSubTree(
             .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
             boost::urls::format("/redfish/v1/Chassis/{}/ResetActionInfo",
                                 chassisId);
-        dbus::utility::getAssociationEndPoints(
-            path + "/drive",
+
+        constexpr std::array<std::string_view, 1> driveInterface = {
+            "xyz.openbmc_project.Inventory.Item.Drive"};
+
+        constexpr std::array<std::string_view, 1> chassisInterface{
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+        };
+
+        dbus::utility::getAssociatedSubTreePathsById(
+            chassisId, "/xyz/openbmc_project/inventory", chassisInterface,
             // ast-grep-ignore: long-lambda
-            [asyncResp, chassisId](const boost::system::error_code& ec3,
-                                   const dbus::utility::MapperEndPoints& resp) {
-                if (ec3 || resp.empty())
+            "containing", driveInterface,
+            [asyncResp,
+             chassisId](const boost::system::error_code& ec3,
+                        const dbus::utility::MapperGetSubTreePathsResponse&
+                            drivePaths) {
+                // 1. If error or vector is empty, no drives are present.
+                if (ec3 || drivePaths.empty())
                 {
-                    return; // no drives = no failures
+                    return;
                 }
 
-                nlohmann::json reference;
-                reference["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Chassis/{}/Drives", chassisId);
-                asyncResp->res.jsonValue["Drives"] = std::move(reference);
+                // 2. If we reach here, we know at least one drive exists.
+                // Inject the collection URI immediately without looping over
+                // the paths.
+                asyncResp->res.jsonValue["Drives"]["@odata.id"] =
+                    boost::urls::format("/redfish/v1/Chassis/{}/Drives",
+                                        chassisId);
             });
 
         const std::string& connectionName = connectionNames[0].first;
