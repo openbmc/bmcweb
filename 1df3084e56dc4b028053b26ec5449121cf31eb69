@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c0c89a_a3126cee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2026-06-23T20:51:24Z",
+      "side": 1,
+      "message": "Don\u0027t really know about the code, but for the intent +1.  IBM doesn\u0027t use this one anymore.",
+      "revId": "1df3084e56dc4b028053b26ec5449121cf31eb69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
