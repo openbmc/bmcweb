@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2348146_aafe280b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-23T20:40:54Z",
+      "side": 1,
+      "message": "Thanks for the commit! \nPlease use your full name \n\nhttps://github.com/openbmc/docs/blob/29878c3e0e5db35455a1ed73a5cc6eb9a946422a/CONTRIBUTING.md?plain\u003d1#L250\n\n```\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n\n```\n\nIdeally on your Gerrit Profile as well.",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "524de3de966abd51817010c6615ece7f8aea0c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
