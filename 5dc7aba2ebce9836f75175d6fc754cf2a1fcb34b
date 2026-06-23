@@ -424,6 +424,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03368a6e_14595ab3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T06:40:57Z",
+      "side": 1,
+      "message": "ping",
+      "parentUuid": "927d73c3_69d0c610",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61a1f008_f6aa4dc6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13
