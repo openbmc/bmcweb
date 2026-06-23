@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc8809ae_2f6d6768",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:38:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "90fa7cf3_db4cf093",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a61a4016_c75d9099",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "Not sure what you mean, your patchset seems to have changed it.  please fix, yes, dbus::utility::async_method_call is the correct call.",
       "parentUuid": "2aa72414_7bd6284a",
+      "range": {
+        "startLine": 2001,
+        "startChar": 4,
+        "endLine": 2001,
+        "endChar": 34
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3afaf55e_ffa4a2a7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:38:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b94b2cf0_0622b6af",
       "range": {
         "startLine": 2001,
         "startChar": 4,
@@ -307,6 +355,30 @@
       "writtenOn": "2026-06-23T19:27:54Z",
       "side": 1,
       "message": "Please just use the gmock primitives for optional here.  It makes these a lot easier to read.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 76
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "808b2774_3dabef8d",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:38:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8d769e06_6c6cba8f",
       "range": {
         "startLine": 21,
         "startChar": 0,
