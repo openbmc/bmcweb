@@ -187,7 +187,8 @@ add_project_arguments(
         '-DBOOST_EXCEPTION_DISABLE',
         '-DBOOST_NO_EXCEPTIONS',
         '-DBOOST_URL_NO_SOURCE_LOCATION',
-        '-DBOOST_SPIRIT_X3_NO_RTTI',
+        '-DBOOST_PARSER_DISABLE_TRACE',
+        '-DBOOST_PARSER_USE_STD_TUPLE',
         '-DJSON_NOEXCEPTION',
         '-DJSON_NO_IO',
         '-DJSON_USE_IMPLICIT_CONVERSIONS=0',
@@ -288,7 +289,7 @@ else
         'type_index',
         'url',
         'uuid',
-        'spirit',
+        'parser',
     ]
     opt.add_cmake_defines(
         {
