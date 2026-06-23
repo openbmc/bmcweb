@@ -1,20 +1,18 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
-#include <boost/fusion/adapted/struct/adapt_struct.hpp>
-#include <boost/spirit/home/x3/support/ast/variant.hpp>
+#include <boost/variant/recursive_wrapper.hpp>
 
 #include <cstdint>
 #include <list>
 #include <optional>
 #include <string>
+#include <variant>
 
 namespace redfish
 {
 namespace filter_ast
 {
-
-namespace x3 = boost::spirit::x3;
 
 // Represents a string literal
 // (ie 'Enabled')
@@ -26,12 +24,11 @@ struct QuotedString : std::string
 struct UnquotedString : std::string
 {};
 
-// Because some program elements can reference BooleanOp recursively,
-// they need to be forward declared so that x3::forward_ast can be used
+// Forward declared so recursive_wrapper can break the recursive type
 struct LogicalAnd;
 struct Comparison;
-using BooleanOp =
-    x3::variant<x3::forward_ast<Comparison>, x3::forward_ast<LogicalAnd>>;
+using BooleanOp = std::variant<boost::recursive_wrapper<Comparison>,
+                               boost::recursive_wrapper<LogicalAnd>>;
 
 enum class ComparisonOpEnum
 {
@@ -51,7 +48,7 @@ struct LogicalNot
     BooleanOp operand;
 };
 
-using Argument = x3::variant<int64_t, double, UnquotedString, QuotedString>;
+using Argument = std::variant<int64_t, double, UnquotedString, QuotedString>;
 
 struct Comparison
 {
@@ -72,9 +69,3 @@ struct LogicalAnd
 };
 } // namespace filter_ast
 } // namespace redfish
-
-BOOST_FUSION_ADAPT_STRUCT(redfish::filter_ast::Comparison, left, token, right);
-BOOST_FUSION_ADAPT_STRUCT(redfish::filter_ast::LogicalNot, isLogicalNot,
-                          operand);
-BOOST_FUSION_ADAPT_STRUCT(redfish::filter_ast::LogicalOr, first, rest);
-BOOST_FUSION_ADAPT_STRUCT(redfish::filter_ast::LogicalAnd, first, rest);

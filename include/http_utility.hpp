@@ -2,19 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include <boost/spirit/home/x3/char/char.hpp>
-#include <boost/spirit/home/x3/char/char_class.hpp>
-#include <boost/spirit/home/x3/core/parse.hpp>
-#include <boost/spirit/home/x3/directive/no_case.hpp>
-#include <boost/spirit/home/x3/directive/omit.hpp>
-#include <boost/spirit/home/x3/numeric/uint.hpp>
-#include <boost/spirit/home/x3/operator/alternative.hpp>
-#include <boost/spirit/home/x3/operator/kleene.hpp>
-#include <boost/spirit/home/x3/operator/optional.hpp>
-#include <boost/spirit/home/x3/operator/plus.hpp>
-#include <boost/spirit/home/x3/operator/sequence.hpp>
-#include <boost/spirit/home/x3/string/literal_string.hpp>
-#include <boost/spirit/home/x3/string/symbols.hpp>
+#include <boost/parser/parser.hpp>
 
 #include <algorithm>
 #include <array>
@@ -39,30 +27,28 @@ enum class ContentType
 
 inline ContentType getContentType(std::string_view contentTypeHeader)
 {
-    using boost::spirit::x3::char_;
-    using boost::spirit::x3::lit;
-    using boost::spirit::x3::no_case;
-    using boost::spirit::x3::omit;
-    using boost::spirit::x3::parse;
-    using boost::spirit::x3::space;
-    using boost::spirit::x3::symbols;
+    namespace bp = boost::parser;
 
-    const symbols<ContentType> knownMimeType{
-        {"application/cbor", ContentType::CBOR},
-        {"application/json", ContentType::JSON},
-        {"application/octet-stream", ContentType::OctetStream},
-        {"text/event-stream", ContentType::EventStream},
-        {"text/html", ContentType::HTML}};
+    // A plain alternation of literals is used instead of bp::symbols to avoid
+    // instantiating the (large) symbol trie.
+    auto const knownMimeType =
+        (bp::lit("application/cbor") >> bp::attr(ContentType::CBOR)) |
+        (bp::lit("application/json") >> bp::attr(ContentType::JSON)) |
+        (bp::lit("application/octet-stream") >>
+         bp::attr(ContentType::OctetStream)) |
+        (bp::lit("text/event-stream") >> bp::attr(ContentType::EventStream)) |
+        (bp::lit("text/html") >> bp::attr(ContentType::HTML));
 
     ContentType ct = ContentType::NoMatch;
 
-    auto typeCharset = +(char_("a-zA-Z0-9.+-"));
+    auto const typeCharset = +(bp::char_('a', 'z') | bp::char_('A', 'Z') |
+                               bp::char_('0', '9') | bp::char_(".+-"));
 
-    auto parameters =
-        *(lit(';') >> *space >> typeCharset >> lit("=") >> typeCharset);
-    auto parser = no_case[knownMimeType] >> omit[parameters];
+    auto const parameters = *(bp::lit(';') >> *bp::ws >> typeCharset >>
+                              bp::lit('=') >> typeCharset);
+    auto const parser = bp::no_case[knownMimeType] >> bp::omit[parameters];
     std::string_view::iterator begin = contentTypeHeader.begin();
-    if (!parse(begin, contentTypeHeader.end(), parser, ct))
+    if (!bp::prefix_parse(begin, contentTypeHeader.end(), parser, ct))
     {
         return ContentType::NoMatch;
     }
@@ -77,31 +63,35 @@ inline ContentType getContentType(std::string_view contentTypeHeader)
 inline ContentType getPreferredContentType(
     std::string_view acceptsHeader, std::span<const ContentType> preferredOrder)
 {
-    using boost::spirit::x3::char_;
-    using boost::spirit::x3::lit;
-    using boost::spirit::x3::no_case;
-    using boost::spirit::x3::omit;
-    using boost::spirit::x3::parse;
-    using boost::spirit::x3::space;
-    using boost::spirit::x3::symbols;
+    namespace bp = boost::parser;
 
-    const symbols<ContentType> knownMimeType{
-        {"application/cbor", ContentType::CBOR},
-        {"application/json", ContentType::JSON},
-        {"application/octet-stream", ContentType::OctetStream},
-        {"text/html", ContentType::HTML},
-        {"text/event-stream", ContentType::EventStream},
-        {"*/*", ContentType::ANY}};
+    // A plain alternation of literals is used instead of bp::symbols to avoid
+    // instantiating the (large) symbol trie.
+    auto const knownMimeType =
+        (bp::lit("application/cbor") >> bp::attr(ContentType::CBOR)) |
+        (bp::lit("application/json") >> bp::attr(ContentType::JSON)) |
+        (bp::lit("application/octet-stream") >>
+         bp::attr(ContentType::OctetStream)) |
+        (bp::lit("text/html") >> bp::attr(ContentType::HTML)) |
+        (bp::lit("text/event-stream") >> bp::attr(ContentType::EventStream)) |
+        (bp::lit("*/*") >> bp::attr(ContentType::ANY));
 
     std::vector<ContentType> ct;
 
-    auto typeCharset = +(char_("a-zA-Z0-9.+-"));
+    auto const typeCharset = +(bp::char_('a', 'z') | bp::char_('A', 'Z') |
+                               bp::char_('0', '9') | bp::char_(".+-"));
 
-    auto parameters = *(lit(';') >> typeCharset >> lit("=") >> typeCharset);
-    auto mimeType = no_case[knownMimeType] |
-                    omit[+typeCharset >> lit('/') >> +typeCharset];
-    auto parser = +(mimeType >> omit[parameters >> -char_(',') >> *space]);
-    if (!parse(acceptsHeader.begin(), acceptsHeader.end(), parser, ct))
+    auto const parameters =
+        *(bp::lit(';') >> typeCharset >> bp::lit('=') >> typeCharset);
+    // Unknown mime types produce NoMatch, which is ignored below
+    auto const mimeType =
+        bp::no_case[knownMimeType] |
+        (bp::omit[+typeCharset >> bp::lit('/') >> +typeCharset] >>
+         bp::attr(ContentType::NoMatch));
+    auto const parser =
+        +(mimeType >> bp::omit[parameters >> -bp::char_(',') >> *bp::ws]);
+    std::string_view::iterator begin = acceptsHeader.begin();
+    if (!bp::prefix_parse(begin, acceptsHeader.end(), parser, ct))
     {
         return ContentType::NoMatch;
     }
@@ -154,25 +144,28 @@ inline Encoding getPreferredEncoding(
         return Encoding::UnencodedBytes;
     }
 
-    using boost::spirit::x3::char_;
-    using boost::spirit::x3::lit;
-    using boost::spirit::x3::omit;
-    using boost::spirit::x3::parse;
-    using boost::spirit::x3::space;
-    using boost::spirit::x3::symbols;
-    using boost::spirit::x3::uint_;
+    namespace bp = boost::parser;
 
-    const symbols<Encoding> knownAcceptEncoding{{"gzip", Encoding::GZIP},
-                                                {"zstd", Encoding::ZSTD},
-                                                {"*", Encoding::ANY}};
+    // A plain alternation of literals is used instead of bp::symbols to avoid
+    // instantiating the (large) symbol trie.
+    auto const knownAcceptEncoding =
+        (bp::lit("gzip") >> bp::attr(Encoding::GZIP)) |
+        (bp::lit("zstd") >> bp::attr(Encoding::ZSTD)) |
+        (bp::lit('*') >> bp::attr(Encoding::ANY));
 
     std::vector<Encoding> ct;
 
-    auto parameters = *(lit(';') >> lit("q=") >> uint_ >> -(lit('.') >> uint_));
-    auto typeCharset = char_("a-zA-Z.+-");
-    auto encodeType = knownAcceptEncoding | omit[+typeCharset];
-    auto parser = +(encodeType >> omit[parameters >> -char_(',') >> *space]);
-    if (!parse(acceptEncoding.begin(), acceptEncoding.end(), parser, ct))
+    auto const parameters = *(bp::lit(';') >> bp::lit("q=") >> bp::uint_ >>
+                              -(bp::lit('.') >> bp::uint_));
+    auto const typeCharset =
+        bp::char_('a', 'z') | bp::char_('A', 'Z') | bp::char_(".+-");
+    // Unknown encodings produce NoMatch, which is ignored below
+    auto const encodeType =
+        knownAcceptEncoding | (bp::omit[+typeCharset] >> bp::attr(Encoding::NoMatch));
+    auto const parser =
+        +(encodeType >> bp::omit[parameters >> -bp::char_(',') >> *bp::ws]);
+    std::string_view::iterator begin = acceptEncoding.begin();
+    if (!bp::prefix_parse(begin, acceptEncoding.end(), parser, ct))
     {
         return Encoding::ParseError;
     }

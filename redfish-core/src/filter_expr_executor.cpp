@@ -295,9 +295,9 @@ bool ApplyFilter::operator()(const filter_ast::Comparison& x)
 {
     ValueVisitor numeric(body);
     std::variant<std::monostate, double, int64_t, std::string, DateTimeString>
-        left = boost::apply_visitor(numeric, x.left);
+        left = std::visit(numeric, x.left);
     std::variant<std::monostate, double, int64_t, std::string, DateTimeString>
-        right = boost::apply_visitor(numeric, x.right);
+        right = std::visit(numeric, x.right);
 
     // Numeric comparisons
     const double* lDoubleValue = std::get_if<double>(&left);
@@ -372,7 +372,9 @@ bool ApplyFilter::operator()(const filter_ast::Comparison& x)
 
 bool ApplyFilter::operator()(const filter_ast::BooleanOp& x)
 {
-    return boost::apply_visitor(*this, x);
+    // get() unwraps the recursive_wrapper to the concrete node
+    return std::visit([this](const auto& node) { return (*this)(node.get()); },
+                      x);
 }
 
 bool ApplyFilter::operator()(const filter_ast::LogicalOr& x)
