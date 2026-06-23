@@ -355,13 +355,13 @@ inline void handleSessionServicePatch(
             std::chrono::seconds sessionTimeoutInseconds(*sessionTimeout);
             persistent_data::SessionStore::getInstance().updateSessionTimeout(
                 sessionTimeoutInseconds);
-            messages::propertyValueModified(asyncResp->res, "SessionTimeOut",
+            messages::propertyValueModified(asyncResp->res, "SessionTimeout",
                                             std::to_string(*sessionTimeout));
         }
         else
         {
-            messages::propertyValueNotInList(asyncResp->res, *sessionTimeout,
-                                             "SessionTimeOut");
+            messages::propertyValueOutOfRange(asyncResp->res, *sessionTimeout,
+                                              "SessionTimeout");
         }
     }
 }
