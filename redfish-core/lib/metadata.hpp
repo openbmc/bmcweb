@@ -6,8 +6,7 @@
 #include "async_resp.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
-
-#include <tinyxml2.h>
+#include "xml_parser.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -15,9 +14,13 @@
 
 #include <filesystem>
 #include <format>
+#include <fstream>
 #include <functional>
+#include <iterator>
 #include <memory>
+#include <optional>
 #include <string>
+#include <string_view>
 #include <system_error>
 #include <utility>
 
@@ -28,43 +31,41 @@ inline std::string getMetadataPieceForFile(
     const std::filesystem::path& filename)
 {
     std::string xml;
-    tinyxml2::XMLDocument doc;
     std::string pathStr = filename.string();
-    if (doc.LoadFile(pathStr.c_str()) != tinyxml2::XML_SUCCESS)
+    std::ifstream file(pathStr);
+    if (!file)
     {
         BMCWEB_LOG_ERROR("Failed to open XML file {}", pathStr);
         return "";
     }
+    std::string content((std::istreambuf_iterator<char>(file)),
+                        std::istreambuf_iterator<char>());
+    std::optional<xml::Element> doc = xml::parse(content);
+    if (!doc || doc->name != "edmx:Edmx")
+    {
+        BMCWEB_LOG_ERROR("Failed to parse XML file {}", pathStr);
+        return "";
+    }
     xml += std::format("    <edmx:Reference Uri=\"/redfish/v1/schema/{}\">\n",
                        filename.filename().string());
-    // std::string edmx = "{http://docs.oasis-open.org/odata/ns/edmx}";
-    // std::string edm = "{http://docs.oasis-open.org/odata/ns/edm}";
-    const char* edmx = "edmx:Edmx";
-    for (tinyxml2::XMLElement* edmxNode = doc.FirstChildElement(edmx);
-         edmxNode != nullptr; edmxNode = edmxNode->NextSiblingElement(edmx))
+    for (const xml::Element& node : doc->childrenNamed("edmx:DataServices"))
     {
-        const char* dataServices = "edmx:DataServices";
-        for (tinyxml2::XMLElement* node =
-                 edmxNode->FirstChildElement(dataServices);
-             node != nullptr; node = node->NextSiblingElement(dataServices))
+        BMCWEB_LOG_DEBUG("Got data service for {}", pathStr);
+        for (const xml::Element& schemaNode : node.childrenNamed("Schema"))
         {
-            BMCWEB_LOG_DEBUG("Got data service for {}", pathStr);
-            const char* schemaTag = "Schema";
-            for (tinyxml2::XMLElement* schemaNode =
-                     node->FirstChildElement(schemaTag);
-                 schemaNode != nullptr;
-                 schemaNode = schemaNode->NextSiblingElement(schemaTag))
+            const std::string* ns = schemaNode.attribute("Namespace");
+            if (ns == nullptr)
             {
-                std::string ns = schemaNode->Attribute("Namespace");
-                // BMCWEB_LOG_DEBUG("Found namespace {}", ns);
-                std::string alias;
-                if (std::string_view(ns).starts_with("RedfishExtensions"))
-                {
-                    alias = " Alias=\"Redfish\"";
-                }
-                xml += std::format(
-                    "        <edmx:Include Namespace=\"{}\"{}/>\n", ns, alias);
+                continue;
             }
+            // BMCWEB_LOG_DEBUG("Found namespace {}", *ns);
+            std::string alias;
+            if (std::string_view(*ns).starts_with("RedfishExtensions"))
+            {
+                alias = " Alias=\"Redfish\"";
+            }
+            xml += std::format("        <edmx:Include Namespace=\"{}\"{}/>\n",
+                               *ns, alias);
         }
     }
     xml += "    </edmx:Reference>\n";

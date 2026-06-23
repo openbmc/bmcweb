@@ -240,14 +240,6 @@ bmcweb_dependencies += sdbusplus
 cli11 = dependency('CLI11', include_type: 'system')
 bmcweb_dependencies += cli11
 
-tinyxml = dependency(
-    'tinyxml2',
-    include_type: 'system',
-    version: '>=9.0.0',
-    default_options: ['tests=false'],
-)
-bmcweb_dependencies += tinyxml
-
 systemd = dependency('systemd')
 libsystemd = dependency('libsystemd')
 add_project_arguments(
@@ -285,6 +277,7 @@ else
         'circular_buffer',
         'callable_traits',
         'headers',
+        'parser',
         'process',
         'type_index',
         'url',

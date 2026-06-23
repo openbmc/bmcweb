@@ -28,10 +28,10 @@
 #include "utils/json_utils.hpp"
 #include "utils/log_services_utils.hpp"
 #include "utils/time_utils.hpp"
+#include "xml_parser.hpp"
 
 #include <asm-generic/errno.h>
 #include <systemd/sd-bus.h>
-#include <tinyxml2.h>
 #include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
@@ -576,37 +576,30 @@ inline void createDumpTaskCallback(
             // interface to track dump completion. If yes, fetch the "Status"
             // property of the interface, modify the task state accordingly.
             // Else, return task completed.
-            tinyxml2::XMLDocument doc;
-
-            doc.Parse(introspectXml.data(), introspectXml.size());
-            tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
-            if (pRoot == nullptr)
+            std::optional<xml::Element> doc = xml::parse(introspectXml);
+            if (!doc || doc->name != "node")
             {
                 BMCWEB_LOG_ERROR("XML document failed to parse");
                 messages::internalError(asyncResp->res);
                 return;
             }
-            tinyxml2::XMLElement* interfaceNode =
-                pRoot->FirstChildElement("interface");
 
             bool isProgressIntfPresent = false;
-            while (interfaceNode != nullptr)
+            for (const xml::Element& interfaceNode :
+                 doc->childrenNamed("interface"))
             {
-                const char* thisInterfaceName =
-                    interfaceNode->Attribute("name");
+                const std::string* thisInterfaceName =
+                    interfaceNode.attribute("name");
                 if (thisInterfaceName != nullptr)
                 {
-                    if (thisInterfaceName ==
-                        std::string_view("xyz.openbmc_project.Common.Progress"))
+                    if (*thisInterfaceName ==
+                        "xyz.openbmc_project.Common.Progress")
                     {
-                        interfaceNode =
-                            interfaceNode->NextSiblingElement("interface");
                         continue;
                     }
                     isProgressIntfPresent = true;
                     break;
                 }
-                interfaceNode = interfaceNode->NextSiblingElement("interface");
             }
 
             std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
