@@ -442,6 +442,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4ef1259_2622be5f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T17:32:47Z",
+      "side": 1,
+      "message": "\u003e conflicts with current set of variables in interface which submitted\n\nSorry, you say this, but they you don\u0027t say what those conflicts are.  If we need to add types to the property map, that\u0027s fine, but do it as part of this patch.  So I guess that would be option 4.\n\nYou are free to stack your patches however you\u0027d like, so long as they merge together and do as you\u0027ve been asked.",
+      "parentUuid": "03368a6e_14595ab3",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61a1f008_f6aa4dc6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13
