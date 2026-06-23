@@ -478,6 +478,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95be73fd_05dd10ea",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:24:06Z",
+      "side": 1,
+      "message": "\u003e Sorry, you say this, but they you don\u0027t say what those conflicts are.\n\nIn current DBus interface:  \n\n\ndict[enum[self.UserProperty],variant[string,array[string],boolean,uint64]]\n\n``` c\n using UserProperty \u003d\n    std::variant\u003cstd::string, std::vector\u003cstd::string\u003e, bool, uint64_t\u003e;\n using UserCreateMap \u003d std::map\u003cstd::string_view, UserProperty\u003e;\n```\n\nIn dbus utility:\n``` c\n using DBusPropertiesMap \u003d std::vector\u003cstd::pair\u003cstd::string, DbusVariantType\u003e\u003e;\n```\n\n\nAs I thought it doesn\u0027t fit each other with DBus primitives, map vs vector with pairs.\n\u003e I changed this locally, and it compiles fine for me.\n\nI\u0027ll double check. Thanks a lot for example!",
+      "parentUuid": "5aae813c_5973eb6f",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61a1f008_f6aa4dc6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13

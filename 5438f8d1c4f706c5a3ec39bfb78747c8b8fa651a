@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "adfd83fb_e7b7bc27",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:24:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a61a4016_c75d9099",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89bd914f_a7c0a01a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15
@@ -31,6 +49,30 @@
       "writtenOn": "2026-06-23T18:08:20Z",
       "side": 1,
       "message": "Why was this changed?",
+      "range": {
+        "startLine": 2001,
+        "startChar": 4,
+        "endLine": 2001,
+        "endChar": 34
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa72414_7bd6284a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:24:06Z",
+      "side": 1,
+      "message": "need to be changed to `dbus::utility::async_method_call`, not sure if it\u0027s changed, it was like this from the start.",
+      "parentUuid": "89bd914f_a7c0a01a",
       "range": {
         "startLine": 2001,
         "startChar": 4,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9df1b4f6_42ce870c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2261,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:24:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ef66d885_6096d80b",
+      "range": {
+        "startLine": 2256,
+        "startChar": 0,
+        "endLine": 2261,
+        "endChar": 21
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa0cca9d_2d402b94",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 15
@@ -77,6 +143,24 @@
       "writtenOn": "2026-06-23T18:34:21Z",
       "side": 1,
       "message": "Please don\u0027t declare this at global scope.  Just inline it where appropriate.",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd8e6c66_c3559ad0",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:24:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "aa0cca9d_2d402b94",
       "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33097057_c4924189",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:24:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5b1a6e79_9893ff81",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 8
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a7e195b_b7a78911",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 15
@@ -117,6 +225,24 @@
       "writtenOn": "2026-06-23T18:34:21Z",
       "side": 1,
       "message": "Please just use the gmock optional tags for these.",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1453171_c7ebffb9",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-23T19:24:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8a7e195b_b7a78911",
       "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
