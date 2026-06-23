@@ -62,6 +62,63 @@
       },
       "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa0cca9d_2d402b94",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T18:34:21Z",
+      "side": 1,
+      "message": "Please don\u0027t declare this at global scope.  Just inline it where appropriate.",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b1a6e79_9893ff81",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T18:34:21Z",
+      "side": 1,
+      "message": "nit, don\u0027t use auto like this.  It makes it very difficult to review the code.",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 8
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7e195b_b7a78911",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T18:34:21Z",
+      "side": 1,
+      "message": "Please just use the gmock optional tags for these.",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
