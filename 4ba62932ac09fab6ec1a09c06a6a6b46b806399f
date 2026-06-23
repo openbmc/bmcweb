@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc61ce6_81ecfe74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-23T13:54:57Z",
+      "side": 1,
+      "message": "LLMs do this but I don\u0027t find these helpful.. \nIt is good to have a solid commit msg, but it shouldn\u0027t just repeat itself.\n\nThis is the same info as \n```\nWith this change:\n- Auth-method processing returns immediately when no auth fields are\n  present.\n- HTTP 200 is set only when status is still OK.\n- Processing stops immediately after validation/helper errors.\n- Read-only property updates such as MaxPasswordLength return only\n  PropertyNotWritable, as expected.\n```",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "4ba62932ac09fab6ec1a09c06a6a6b46b806399f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ca67c6f7_e98a63cc",
