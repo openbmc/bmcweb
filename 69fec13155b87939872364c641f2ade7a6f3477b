@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18203724_bd0f76e5",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-23T20:35:30Z",
+      "side": 1,
+      "message": "Use enums for these please",
+      "revId": "69fec13155b87939872364c641f2ade7a6f3477b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d552cdc_04c8b47d",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-23T20:35:30Z",
+      "side": 1,
+      "message": "Can we not hardcode this? Can we use an assocaition or something ? How are these paths guaranteed ?",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 5
+      },
+      "revId": "69fec13155b87939872364c641f2ade7a6f3477b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "952b5a76_3245e9e2",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-23T20:35:30Z",
+      "side": 1,
+      "message": "Is this documented in PDI  ?",
+      "range": {
+        "startLine": 354,
+        "startChar": 30,
+        "endLine": 354,
+        "endChar": 49
+      },
+      "revId": "69fec13155b87939872364c641f2ade7a6f3477b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5fa4ff_35d06a8f",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-23T20:35:30Z",
+      "side": 1,
+      "message": "long lambda",
+      "revId": "69fec13155b87939872364c641f2ade7a6f3477b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
