@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89bd914f_a7c0a01a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T18:08:20Z",
+      "side": 1,
+      "message": "Why was this changed?",
+      "range": {
+        "startLine": 2001,
+        "startChar": 4,
+        "endLine": 2001,
+        "endChar": 34
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef66d885_6096d80b",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15
