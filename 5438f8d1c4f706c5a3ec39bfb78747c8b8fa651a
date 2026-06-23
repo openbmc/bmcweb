@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a61a4016_c75d9099",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T17:41:03Z",
+      "side": 1,
+      "message": "As written this is going to accept epoch, but then return nullptr (and violate the atomicity of the rest API).  You will need to check the output against 0, and reject that request.",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
