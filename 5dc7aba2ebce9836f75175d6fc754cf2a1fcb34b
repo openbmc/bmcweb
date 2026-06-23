@@ -460,6 +460,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5aae813c_5973eb6f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T18:19:42Z",
+      "side": 1,
+      "message": "I changed this locally, and it compiles fine for me.\n\n```\ndiff --git a/redfish-core/lib/account_service.hpp b/redfish-core/lib/account_service.hpp\nindex b3581159..884d06ee 100644\n--- a/redfish-core/lib/account_service.hpp\n+++ b/redfish-core/lib/account_service.hpp\n@@ -72,15 +72,6 @@ constexpr const char* ldapEnableInterface \u003d \"xyz.openbmc_project.Object.Enable\";\n constexpr const char* ldapPrivMapperInterface \u003d\n     \"xyz.openbmc_project.User.PrivilegeMapper\";\n\n-constexpr const std::string_view passwordExpirationCreate \u003d\n-    \"xyz.openbmc_project.User.Manager.UserProperty.PasswordExpiration\";\n-constexpr const std::string_view userPrivilegeCreate \u003d\n-    \"xyz.openbmc_project.User.Manager.UserProperty.Privilege\";\n-constexpr const std::string_view groupNamesCreate \u003d\n-    \"xyz.openbmc_project.User.Manager.UserProperty.GroupNames\";\n-constexpr const std::string_view enabledCreate \u003d\n-    \"xyz.openbmc_project.User.Manager.UserProperty.Enabled\";\n-\n struct LDAPRoleMapData\n {\n     std::string groupName;\n@@ -1891,10 +1882,6 @@ inline void processAfterCreateUser(\n                              \"/redfish/v1/AccountService/Accounts/\" + username);\n }\n\n-using UserProperty \u003d\n-    std::variant\u003cstd::string, std::vector\u003cstd::string\u003e, bool, uint64_t\u003e;\n-using UserCreateMap \u003d std::map\u003cstd::string_view, UserProperty\u003e;\n-\n inline void processAfterGetAllGroups(\n     const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n     const std::string\u0026 username, const std::string\u0026 password,\n@@ -1906,7 +1893,7 @@ inline void processAfterGetAllGroups(\n {\n     std::vector\u003cstd::string\u003e userGroups;\n     std::vector\u003cstd::string\u003e accountTypeUserGroups;\n-    UserCreateMap userProps;\n+    dbus::utility::DBusPropertiesMap userProps;\n\n     // If user specified account types then convert them to unix user groups\n     if (accountTypes)\n@@ -1977,19 +1964,26 @@ inline void processAfterGetAllGroups(\n                                                \"PasswordExpiration\");\n             return;\n         }\n-        userProps[passwordExpirationCreate] \u003d *passwordExpirationTime;\n+        userProps.emplace_back(\n+            \"xyz.openbmc_project.User.Manager.UserProperty.PasswordExpiration\",\n+            *passwordExpirationTime);\n     }\n     else\n     {\n         // value for CreateUser2 indicating that password expiration is not\n         // specified\n-        userProps[passwordExpirationCreate] \u003d\n-            std::numeric_limits\u003cuint64_t\u003e::max();\n+        userProps.emplace_back(\n+            \"xyz.openbmc_project.User.Manager.UserProperty.PasswordExpiration\",\n+            std::numeric_limits\u003cuint64_t\u003e::max());\n     }\n\n-    userProps[userPrivilegeCreate] \u003d roleId;\n-    userProps[groupNamesCreate] \u003d std::move(userGroups);\n-    userProps[enabledCreate] \u003d enabled;\n+    userProps.emplace_back(\n+        \"xyz.openbmc_project.User.Manager.UserProperty.Privilege\", roleId);\n+    userProps.emplace_back(\n+        \"xyz.openbmc_project.User.Manager.UserProperty.GroupNames\",\n+        std::move(userGroups));\n+    userProps.emplace_back(\n+        \"xyz.openbmc_project.User.Manager.UserProperty.Enabled\", enabled);\n\n     crow::connections::systemBus-\u003easync_method_call(\n         [asyncResp, username, password, userProps](\n```",
+      "parentUuid": "c4ef1259_2622be5f",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61a1f008_f6aa4dc6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13
