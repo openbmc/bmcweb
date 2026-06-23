@@ -16,6 +16,7 @@
 #include "registries/privilege_registry.hpp"
 #include "storage_chassis.hpp"
 #include "utils/collection.hpp"
+#include "utils/systems_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -35,6 +36,34 @@
 namespace redfish
 {
 
+inline void multiHostHandleSystemsStorageCollectionGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::optional<std::string>& systemPath)
+
+{
+    if (!systemPath.has_value())
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    constexpr std::array<std::string_view, 1> storageInterface = {
+        "xyz.openbmc_project.Inventory.Item.Storage"};
+
+    constexpr std::array<std::string_view, 1> systemInterface{
+        "xyz.openbmc_project.Inventory.Item.System",
+    };
+
+    dbus::utility::getAssociatedSubTreePathsById(
+        systemName, "/xyz/openbmc_project/inventory", systemInterface,
+        "containing", storageInterface,
+        std::bind_front(
+            collection_util::handleCollectionMembers, asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName),
+            nlohmann::json::json_pointer("/Members")));
+}
+
 inline void handleSystemsStorageCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -44,26 +73,37 @@ inline void handleSystemsStorageCollectionGet(
     {
         return;
     }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
 
     asyncResp->res.jsonValue["@odata.type"] =
         "#StorageCollection.StorageCollection";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Storage", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName);
     asyncResp->res.jsonValue["Name"] = "Storage Collection";
 
-    constexpr std::array<std::string_view, 1> interface{
-        "xyz.openbmc_project.Inventory.Item.Storage"};
-    collection_util::getCollectionMembers(
-        asyncResp,
-        boost::urls::format("/redfish/v1/Systems/{}/Storage",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
-        interface, "/xyz/openbmc_project/inventory");
+    if (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            std::bind_front(multiHostHandleSystemsStorageCollectionGet,
+                            asyncResp, systemName));
+    }
+    else
+    {
+        constexpr std::array<std::string_view, 1> storageInterface = {
+            "xyz.openbmc_project.Inventory.Item.Storage"};
+
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        collection_util::getCollectionMembers(
+            asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName),
+            storageInterface, "/xyz/openbmc_project/inventory");
+    }
 }
 
 inline void handleStorageCollectionGet(
@@ -131,7 +171,8 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
 inline void afterSystemsStorageGetSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& storageId, const boost::system::error_code& ec,
+    const std::string& storageId, const std::string& systemName,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
@@ -155,17 +196,42 @@ inline void afterSystemsStorageGetSubtree(
     }
 
     asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_13_0.Storage";
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Storage/{}",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Storage/{}", systemName, storageId);
     asyncResp->res.jsonValue["Name"] = "Storage";
     asyncResp->res.jsonValue["Id"] = storageId;
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     getDrives(asyncResp);
-    asyncResp->res.jsonValue["Controllers"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Storage/{}/Controllers",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId);
+    asyncResp->res.jsonValue["Controllers"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Storage/{}/Controllers", systemName, storageId);
+}
+
+inline void multiHostHandleSystemsStorageGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& storageId,
+    const std::optional<std::string>& systemPath)
+
+{
+    if (!systemPath.has_value())
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    constexpr std::array<std::string_view, 1> storageInterface = {
+        "xyz.openbmc_project.Inventory.Item.Storage"};
+
+    constexpr std::array<std::string_view, 1> systemInterface{
+        "xyz.openbmc_project.Inventory.Item.System",
+    };
+
+    dbus::utility::getAssociatedSubTreeById(
+        systemName, "/xyz/openbmc_project/inventory", systemInterface,
+        "containing", storageInterface,
+        std::bind_front(afterSystemsStorageGetSubtree, asyncResp, storageId,
+                        systemName));
 }
 
 inline void handleSystemsStorageGet(
@@ -177,19 +243,31 @@ inline void handleSystemsStorageGet(
     {
         return;
     }
+
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            std::bind_front(multiHostHandleSystemsStorageGet, asyncResp,
+                            systemName, storageId));
     }
+    else
+    {
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
 
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Storage"};
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
-        std::bind_front(afterSystemsStorageGetSubtree, asyncResp, storageId));
+        constexpr std::array<std::string_view, 1> storageInterface = {
+            "xyz.openbmc_project.Inventory.Item.Storage"};
+
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory", 0, storageInterface,
+            std::bind_front(afterSystemsStorageGetSubtree, asyncResp, storageId,
+                            systemName));
+    }
 }
 
 inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -254,6 +332,32 @@ inline void handleStorageGet(
         std::bind_front(afterSubtree, asyncResp, storageId));
 }
 
+inline void multiHostHandleSystemsStorageDriveGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& driveId,
+    const std::optional<std::string>& systemPath)
+
+{
+    if (!systemPath.has_value())
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    constexpr std::array<std::string_view, 1> driveInterface = {
+        "xyz.openbmc_project.Inventory.Item.Drive"};
+
+    constexpr std::array<std::string_view, 1> systemInterface{
+        "xyz.openbmc_project.Inventory.Item.System",
+    };
+
+    dbus::utility::getAssociatedSubTreeById(
+        systemName, "/xyz/openbmc_project/inventory", systemInterface,
+        "containing", driveInterface,
+        std::bind_front(afterGetSubtreeSystemsStorageDrive, asyncResp, driveId,
+                        systemName));
+}
+
 inline void handleSystemsStorageDriveGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -263,27 +367,31 @@ inline void handleSystemsStorageDriveGet(
     {
         return;
     }
+
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            std::bind_front(multiHostHandleSystemsStorageDriveGet, asyncResp,
+                            systemName, driveId));
     }
-
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    else
     {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
 
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Drive"};
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
-        std::bind_front(afterGetSubtreeSystemsStorageDrive, asyncResp,
-                        driveId));
+        constexpr std::array<std::string_view, 1> driveInterface = {
+            "xyz.openbmc_project.Inventory.Item.Drive"};
+
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory", 0, driveInterface,
+            std::bind_front(afterGetSubtreeSystemsStorageDrive, asyncResp,
+                            driveId, systemName));
+    }
 }
 
 inline void requestRoutesStorage(App& app)
