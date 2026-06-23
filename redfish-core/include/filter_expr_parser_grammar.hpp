@@ -4,28 +4,17 @@
 
 #include "filter_expr_parser_ast.hpp"
 
-#include <boost/spirit/home/x3/char/char.hpp>
-#include <boost/spirit/home/x3/char/negated_char_parser.hpp>
-#include <boost/spirit/home/x3/directive/lexeme.hpp>
-#include <boost/spirit/home/x3/directive/with.hpp>
-#include <boost/spirit/home/x3/nonterminal/rule.hpp>
-#include <boost/spirit/home/x3/numeric/int.hpp>
-#include <boost/spirit/home/x3/numeric/real.hpp>
-#include <boost/spirit/home/x3/numeric/real_policies.hpp>
-#include <boost/spirit/home/x3/operator/alternative.hpp>
-#include <boost/spirit/home/x3/operator/kleene.hpp>
-#include <boost/spirit/home/x3/operator/optional.hpp>
-#include <boost/spirit/home/x3/operator/plus.hpp>
-#include <boost/spirit/home/x3/operator/sequence.hpp>
-#include <boost/spirit/home/x3/string/literal_string.hpp>
-#include <boost/spirit/home/x3/string/symbols.hpp>
+#include <boost/parser/parser.hpp>
 
 #include <cstddef>
+#include <cstdint>
 
 namespace redfish::filter_grammar
 {
 
-// Tag for storing recursion depth in the parser context
+namespace bp = boost::parser;
+
+// Tag for storing recursion depth in the parser globals
 struct RecursionDepth
 {
     // Maximum recursion depth to prevent stack overflow
@@ -38,15 +27,7 @@ struct RecursionDepth
 
 namespace details
 {
-using boost::spirit::x3::char_;
-using boost::spirit::x3::int64;
-using boost::spirit::x3::lexeme;
-using boost::spirit::x3::lit;
-using boost::spirit::x3::real_parser;
-using boost::spirit::x3::rule;
-using boost::spirit::x3::strict_real_policies;
-using boost::spirit::x3::symbols;
-
+using filter_ast::Argument;
 using filter_ast::BooleanOp;
 using filter_ast::Comparison;
 using filter_ast::ComparisonOpEnum;
@@ -56,109 +37,112 @@ using filter_ast::LogicalOr;
 using filter_ast::QuotedString;
 using filter_ast::UnquotedString;
 
-// Clang format makes a mess of these rules and makes them hard to read
-// clang-format on
+// Boost.Parser has no named parser for int64_t, so construct one
+constexpr bp::parser_interface<bp::int_parser<std::int64_t>> int64{};
 
 // Basic argument types
-const rule<class QuotedStringId, QuotedString> quotedString("QuotedString");
-const rule<class UnquotedStrId, UnquotedString> unquotedString("UnquotedStr");
+const bp::rule<struct QuotedStringId, QuotedString> quotedString =
+    "QuotedString";
+const bp::rule<struct UnquotedStrId, UnquotedString> unquotedString =
+    "UnquotedStr";
+const bp::rule<struct ArgumentId, Argument> argument = "Argument";
 
 // Value comparisons -> boolean (value eq value) (value lt number)
-const rule<class BooleanOpId, BooleanOp> booleanOp("BooleanOp");
-const rule<class ComparisonId, Comparison> comparison("Comparison");
+const bp::rule<struct BooleanOpId, BooleanOp> booleanOp = "BooleanOp";
+const bp::rule<struct ComparisonId, Comparison> comparison = "Comparison";
+const bp::rule<struct ParensId, LogicalAnd> parens = "Parens";
 
 // Logical Comparisons (bool eq bool)
-const rule<class LogicalAndId, LogicalAnd> logicalAnd("LogicalAnd");
-const rule<class LogicalOrId, LogicalOr> logicalOr("LogicalOr");
-const rule<class LogicalNotId, LogicalNot> logicalNot("LogicalNot");
+const bp::rule<struct LogicalAndId, LogicalAnd> logicalAnd = "LogicalAnd";
+const bp::rule<struct LogicalOrId, LogicalOr> logicalOr = "LogicalOr";
+const bp::rule<struct LogicalNotId, LogicalNot> logicalNot = "LogicalNot";
 
 ///// BEGIN GRAMMAR
 
-// Two types of strings.
+// Two types of strings.  Both are only reached through comparison's lexeme[],
+// so no skipper is active and quoted content keeps its spaces.
 const auto quotedString_def =
-    '\'' >> lexeme[*('\\' >> char_ | ~char_('\''))] >> '\'';
-const auto unquotedString_def = char_("a-zA-Z") >> *(char_("a-zA-Z0-9[]/"));
+    bp::lit('\'') >> *('\\' >> bp::char_ | (bp::char_ - '\'')) >> bp::lit('\'');
+const auto unquotedString_def = (bp::char_('a', 'z') | bp::char_('A', 'Z')) >>
+                                *(bp::char_('a', 'z') | bp::char_('A', 'Z') |
+                                  bp::char_('0', '9') | bp::char_("[]/"));
 
-// Make sure we only parse true floating points as doubles
-// This requires we have a "." which causes 1 to parse as int64, and 1.0 to
-// parse as double
-constexpr const real_parser<double, strict_real_policies<double>> strictDouble;
+// Only match a double when a fractional or exponent part is present, so 1
+// parses as int64 and 1.0 as double (bp::double_ alone parses "1" as 1.0).
+const auto strictDouble =
+    &(-bp::char_("+-") >> *bp::char_('0', '9') >> bp::char_(".eE")) >>
+    bp::double_;
 
 // Argument
-const auto arg = strictDouble | int64 | unquotedString | quotedString;
+const auto argument_def = strictDouble | int64 | unquotedString | quotedString;
 
-// Greater Than/Less Than/Equals
-const symbols<ComparisonOpEnum> compare{
-    {"gt", ComparisonOpEnum::GreaterThan},
-    {"ge", ComparisonOpEnum::GreaterThanOrEqual},
-    {"lt", ComparisonOpEnum::LessThan},
-    {"le", ComparisonOpEnum::LessThanOrEqual},
-    {"ne", ComparisonOpEnum::NotEquals},
-    {"eq", ComparisonOpEnum::Equals}};
+// Greater Than/Less Than/Equals.  A plain alternation of literals is used
+// instead of bp::symbols to avoid instantiating the (large) symbol trie.
+const auto compare =
+    (bp::lit("gt") >> bp::attr(ComparisonOpEnum::GreaterThan)) |
+    (bp::lit("ge") >> bp::attr(ComparisonOpEnum::GreaterThanOrEqual)) |
+    (bp::lit("lt") >> bp::attr(ComparisonOpEnum::LessThan)) |
+    (bp::lit("le") >> bp::attr(ComparisonOpEnum::LessThanOrEqual)) |
+    (bp::lit("ne") >> bp::attr(ComparisonOpEnum::NotEquals)) |
+    (bp::lit("eq") >> bp::attr(ComparisonOpEnum::Equals));
 
-// paren parser that limits the depth of the max recursion.
-struct DepthCheckingParser : boost::spirit::x3::parser<DepthCheckingParser>
-{
-    using attribute_type = LogicalAnd;
-
-    template <typename Iterator, typename Context, typename RContext,
-              typename Attribute>
-    bool parse(Iterator& first, const Iterator& last, const Context& context,
-               RContext& rcontext, Attribute& attr) const
+// Limit recursion depth (threaded through the parse globals) to prevent stack
+// overflow.
+const auto incrementDepth = [](auto& ctx) {
+    size_t& currentDepth = bp::_globals(ctx);
+    if (currentDepth >= RecursionDepth::max)
     {
-        using boost::spirit::x3::get;
-        using boost::spirit::x3::with;
-
-        // Get current recursion depth from context
-        size_t& currentDepth = get<RecursionDepth>(context).get();
-
-        // Check if we've exceeded the maximum depth
-        if (currentDepth >= RecursionDepth::max)
-        {
-            return false;
-        }
-
-        // Increment depth for this level
-        ++currentDepth;
-
-        // Parse with the current context (depth is already incremented via
-        // reference)
-        const auto parens = lit('(') >> logicalAnd >> lit(')');
-        bool result = parens.parse(first, last, context, rcontext, attr);
-
-        // Decrement depth after parsing
-        --currentDepth;
-
-        return result;
+        bp::_pass(ctx) = false;
+        return;
     }
+    ++currentDepth;
 };
+const auto decrementDepth = [](auto& ctx) { --bp::_globals(ctx); };
 
 // Parenthesis with depth checking
-const DepthCheckingParser parens;
+const auto parens_def = bp::lit('(') >> bp::eps[incrementDepth] >> logicalAnd >>
+                        bp::eps[decrementDepth] >> bp::lit(')');
 
 // Note, unlike most other comparisons, spaces are required here (one or more)
 // to differentiate keys from values (ex Fooeq eq foo)
-const auto comparison_def =
-    lexeme[arg >> +lit(' ') >> compare >> +lit(' ') >> arg];
+const auto comparison_def = bp::lexeme[argument >> +bp::lit(' ') >> compare >>
+                                       +bp::lit(' ') >> argument];
 
 // Logical values
 const auto booleanOp_def = comparison | parens;
 
 // Not
-const auto logicalNot_def = -(char_('n') >> lit("ot")) >> booleanOp;
+const auto logicalNot_def = -(bp::char_('n') >> bp::lit("ot")) >> booleanOp;
 
+// Build first/rest explicitly; Boost.Parser would otherwise merge
+// "x >> *(x)" into one container instead of the {first, rest} pair.
+const auto assignOrFirst = [](auto& ctx) {
+    bp::_val(ctx).first = bp::_attr(ctx);
+};
+const auto appendOrRest = [](auto& ctx) {
+    bp::_val(ctx).rest.push_back(bp::_attr(ctx));
+};
 // Or
-const auto logicalOr_def = logicalNot >> *(lit("or") >> logicalNot);
+const auto logicalOr_def = logicalNot[assignOrFirst] >>
+                           *((bp::lit("or") >> logicalNot)[appendOrRest]);
 
+const auto assignAndFirst = [](auto& ctx) {
+    bp::_val(ctx).first = bp::_attr(ctx);
+};
+const auto appendAndRest = [](auto& ctx) {
+    bp::_val(ctx).rest.push_back(bp::_attr(ctx));
+};
 // And
-const auto logicalAnd_def = logicalOr >> *(lit("and") >> logicalOr);
+const auto logicalAnd_def = logicalOr[assignAndFirst] >>
+                            *((bp::lit("and") >> logicalOr)[appendAndRest]);
 
-BOOST_SPIRIT_DEFINE(booleanOp, logicalAnd, logicalNot, logicalOr, quotedString,
-                    comparison, unquotedString);
+BOOST_PARSER_DEFINE_RULES(quotedString, unquotedString, argument, booleanOp,
+                          comparison, parens, logicalAnd, logicalOr,
+                          logicalNot);
 ///// END GRAMMAR
 
 // Make the grammar and AST available outside of the system
-static constexpr auto& grammar = logicalAnd;
+constexpr auto& grammar = logicalAnd;
 using program = filter_ast::LogicalAnd;
 
 } // namespace details

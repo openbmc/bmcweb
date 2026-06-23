@@ -6,18 +6,17 @@
 #include "filter_expr_parser_grammar.hpp"
 #include "logging.hpp"
 
-#include <boost/spirit/home/x3/char/char_class.hpp>
-#include <boost/spirit/home/x3/core/parse.hpp>
+#include <boost/parser/parser.hpp>
 
 #include <cstddef>
 #include <cstdint>
 #include <format>
-#include <functional>
 #include <list>
 #include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
+#include <variant>
 
 namespace redfish
 {
@@ -122,8 +121,8 @@ static std::string toString(filter_ast::ComparisonOpEnum rel)
 std::string FilterExpressionPrinter::operator()(
     const filter_ast::Comparison& x) const
 {
-    std::string left = boost::apply_visitor(*this, x.left);
-    std::string right = boost::apply_visitor(*this, x.right);
+    std::string left = std::visit(*this, x.left);
+    std::string right = std::visit(*this, x.right);
 
     return std::format("{} {} {}", left, toString(x.token), right);
 }
@@ -131,7 +130,9 @@ std::string FilterExpressionPrinter::operator()(
 std::string FilterExpressionPrinter::operator()(
     const filter_ast::BooleanOp& operation) const
 {
-    return boost::apply_visitor(*this, operation);
+    // get() unwraps the recursive_wrapper to the concrete node
+    return std::visit([this](const auto& node) { return (*this)(node.get()); },
+                      operation);
 }
 
 std::optional<filter_grammar::program> parseFilter(std::string_view expr)
@@ -141,7 +142,6 @@ std::optional<filter_grammar::program> parseFilter(std::string_view expr)
         BMCWEB_LOG_WARNING("Filter expression too long: {}", expr);
         return std::nullopt;
     }
-    const auto& grammar = filter_grammar::grammar;
     filter_grammar::program program;
 
     std::string_view::iterator iter = expr.begin();
@@ -151,15 +151,12 @@ std::optional<filter_grammar::program> parseFilter(std::string_view expr)
     // Filter examples have unclear guidelines about between which arguments
     // spaces are allowed or disallowed.  Specification is not clear, so in
     // almost all cases we allow zero or more
-    using boost::spirit::x3::space;
-    using boost::spirit::x3::with;
+    namespace bp = boost::parser;
 
-    // Initialize recursion depth to 0 in the parsing context
-    using filter_grammar::RecursionDepth;
+    // Initialize recursion depth to 0 in the parsing globals
     size_t depth = 0;
-    auto grammarRunnable = with<RecursionDepth>(std::ref(depth))[grammar];
-    using boost::spirit::x3::phrase_parse;
-    if (!phrase_parse(iter, end, grammarRunnable, space, program))
+    auto grammarRunnable = bp::with_globals(filter_grammar::grammar, depth);
+    if (!bp::prefix_parse(iter, end, grammarRunnable, bp::ws, program))
     {
         std::string_view rest(iter, end);
 
