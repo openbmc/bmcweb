@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15d391b1_4dc2585f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2026-06-23T14:57:45Z",
+      "side": 1,
+      "message": "Does all memory have metrics or does this link need to be conditional on the interface being found on dbus?  See comment on line 814 above.",
+      "revId": "df1024c67d19c1dfde59c313010085fddb06ddad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
