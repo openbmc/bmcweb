@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b24f49e2_7860bee1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-23T02:48:19Z",
+      "side": 1,
+      "message": "Done. With the move to `getAssociatedSubTree`. `afterGetProcessorFirmwareVersionService()` and `afterGetProcessorFirmwareVersionAssociation()` are gone. \n\nThe `EBADR/io_error` handling logic is however applied to the 2 remaining callbacks:\n1. `afterGetProcessorFirmwareVersionSubTree()`\n2. `afterGetProcessorFirmwareVersion()`",
+      "parentUuid": "a6792d4a_81ce5e76",
+      "range": {
+        "startLine": 491,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 5
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "134e2185_9055e7a6",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-06-22T11:46:37Z",
       "side": 1,
       "message": "Should we check size() \u003e 1 case?",
+      "range": {
+        "startLine": 496,
+        "startChar": 4,
+        "endLine": 496,
+        "endChar": 58
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4aedd5a_710a7d7b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-23T02:48:19Z",
+      "side": 1,
+      "message": "After moving to `getAssociatedSubTree`, the owning service is taken from `serviceMap.front()` in `afterGetProcessorFirmwareVersionSubTree()`, guarded by an empty-serviceMap check that return internal error.",
+      "parentUuid": "134e2185_9055e7a6",
       "range": {
         "startLine": 496,
         "startChar": 4,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e9ad5f_dbeafa70",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-23T02:48:19Z",
+      "side": 1,
+      "message": "Thanks for the catching, have the checking logic implemented.",
+      "parentUuid": "5cc4a811_9740fe10",
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b508c807_945dd7a2",
@@ -77,6 +143,30 @@
       "writtenOn": "2026-06-22T11:46:37Z",
       "side": 1,
       "message": "nit: drop `static`.",
+      "range": {
+        "startLine": 514,
+        "startChar": 4,
+        "endLine": 514,
+        "endChar": 10
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04f4a54c_29fc3fec",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-23T02:48:19Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "b508c807_945dd7a2",
       "range": {
         "startLine": 514,
         "startChar": 4,
@@ -110,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68437ee6_4c0cceeb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-23T02:48:19Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "f6765cfe_129cd434",
+      "range": {
+        "startLine": 528,
+        "startChar": 8,
+        "endLine": 528,
+        "endChar": 34
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11b75b14_95bbabb1",
@@ -123,6 +237,30 @@
       "writtenOn": "2026-06-22T11:46:37Z",
       "side": 1,
       "message": "nit: please consider using `getAssociatedSubTree` instead of the\ntwo-step `getAssociationEndPoints` + `getDbusObject`. The single call returns (path, serviceMap) in one mapper round-trip, and removes the need for the intermediate afterGetProcessorFirmwareVersionService callback.\n```\n    dbus::utility::getAssociatedSubTree(\n        sdbusplus::object_path(processorPath) / \"ran_on\",\n        sdbusplus::object_path(\"/xyz/openbmc_project/software\"), 0,\n        softwareIfaces,\n        std::bind_front(afterGetProcessorFirmwareVersionSubTree, asyncResp));\n```",
+      "range": {
+        "startLine": 527,
+        "startChar": 1,
+        "endLine": 530,
+        "endChar": 36
+      },
+      "revId": "a5a3b7e30809d42577baffc2c9368bf94e124b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17b3e3fa_79b01723",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-23T02:48:19Z",
+      "side": 1,
+      "message": "Sure!\nSwitched to `getAssociatedSubTree()` now.",
+      "parentUuid": "11b75b14_95bbabb1",
       "range": {
         "startLine": 527,
         "startChar": 1,
