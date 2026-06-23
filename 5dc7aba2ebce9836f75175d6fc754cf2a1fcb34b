@@ -496,6 +496,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65afa403_50e6d284",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T19:27:54Z",
+      "side": 1,
+      "message": "\u003e As I thought it doesn\u0027t fit each other with DBus primitives, map vs vector with pairs.\n\n\nOn dbus, a \"map\" is actually an array (c++ vector) of struct (represented in c++ as a pair).  we represent them that way so we retain order, and avoid any extra sorting/hashing that isn\u0027t intended during the unpack (although we can sort if we choose).  Using the same types consistently also reduces the binary size.\n\nThis is why you\u0027re being asked to change.",
+      "parentUuid": "95be73fd_05dd10ea",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61a1f008_f6aa4dc6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 13
