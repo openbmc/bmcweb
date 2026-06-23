@@ -73,6 +73,17 @@ TEST(RedfishEventLog, GetUniqueEntryIDIndex)
     ASSERT_TRUE(n2 > n1);
 }
 
+TEST(RedfishEventLog, GetUniqueEntryIDWithLogContents)
+{
+    std::string entryID;
+    std::string logEntry =
+        "2000-08-02T03:04:05 OpenBMC.0.1.PowerSupplyFanFailed,PSU 1";
+
+    UniqueEntryIDState state;
+    ASSERT_TRUE(getUniqueEntryID(state, logEntry, entryID));
+    ASSERT_TRUE(entryID.starts_with("965185445"));
+}
+
 TEST(RedfishEventLog, GetEventLogParamsSuccess)
 {
     int status = 0;

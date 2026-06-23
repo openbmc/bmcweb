@@ -32,8 +32,15 @@ bool getUniqueEntryID(UniqueEntryIDState& state, const std::string& logEntry,
                       std::string& entryID)
 {
     // Get the entry timestamp
+    // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
+    std::string_view timestamp = logEntry;
+    size_t space = logEntry.find_first_of(' ');
+    if (space != std::string::npos)
+    {
+        timestamp = timestamp.substr(0, space);
+    }
     std::optional<time_utils::usSinceEpoch> curTs =
-        time_utils::dateStringToEpoch(logEntry);
+        time_utils::dateStringToEpoch(timestamp);
     if (!curTs)
     {
         return false;
