@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ee3654_9fdd1ff3",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-23T14:31:45Z",
+      "side": 1,
+      "message": "Bonus if we could unit test this.. \n\n```\nTEST(RedfishEventLog, GetUniqueEntryIDWithLogContents)\n{\n    std::string entryID;\n    std::string logEntry \u003d\n        \"2026-06-23T08:24:05 OpenBMC.0.1.PowerSupplyFanFailed,PSU 1\";\n\n    UniqueEntryIDState state;\n    ASSERT_TRUE(getUniqueEntryID(state, logEntry, entryID));\n    ASSERT_TRUE(entryID.starts_with(\"1782203045000000\"));\n}\n```",
+      "revId": "da9ae7c5f81f30f048a344aeaeea1967e6ef00c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea83ee5_f02b0703",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-23T14:31:45Z",
+      "side": 1,
+      "message": "This documented anywhere else ? Can you explain in the commit msg",
+      "revId": "da9ae7c5f81f30f048a344aeaeea1967e6ef00c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
