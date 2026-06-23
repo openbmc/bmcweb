@@ -16,6 +16,29 @@
       "message": "As written this is going to accept epoch, but then return nullptr (and violate the atomicity of the rest API).  You will need to check the output against 0, and reject that request.",
       "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef66d885_6096d80b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-23T17:43:41Z",
+      "side": 1,
+      "message": "This looks wrong.  It\u0027s going to now require PasswordExpiration, which would break old working code.  I suspect this and the next branch needs combined.  Please retest that this is truly optional.",
+      "range": {
+        "startLine": 2256,
+        "startChar": 0,
+        "endLine": 2261,
+        "endChar": 21
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
