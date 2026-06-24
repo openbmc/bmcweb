@@ -16,6 +16,24 @@
       "message": "@myungbae@us.ibm.com are you still working on this?",
       "revId": "5b3f0ed3b6a8cde38fed429318c1825bf5e171c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee41cd5a_359d427b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-06-24T19:10:11Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "06d5ce26_d3713b53",
+      "revId": "5b3f0ed3b6a8cde38fed429318c1825bf5e171c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
