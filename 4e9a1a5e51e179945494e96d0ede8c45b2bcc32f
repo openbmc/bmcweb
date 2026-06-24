@@ -33,6 +33,29 @@
       "message": "Addressed the",
       "revId": "4e9a1a5e51e179945494e96d0ede8c45b2bcc32f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c16b0b6_41f522d3",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T18:32:59Z",
+      "side": 1,
+      "message": "This check looks old. Do we need any of this anymore, or can we simplify by just relying on a single username.empty() branch?  Doesn\u0027t have to be this patch.",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 66
+      },
+      "revId": "4e9a1a5e51e179945494e96d0ede8c45b2bcc32f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
