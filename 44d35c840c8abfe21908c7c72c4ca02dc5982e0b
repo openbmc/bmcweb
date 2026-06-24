@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e24853e6_1afb03e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T21:50:28Z",
+      "side": 1,
+      "message": "Is the easier answer to just set the to limit to 1000?  2000?\n\nI\u0027m not very comfortable just treating the filesystem as trusted with no limits.\n\nThe 500 limit in sax parse is arbitrary, and was only really done in response to some security issues reported.  500 was intended to be 2X the largest value expected, nowhere near the real limit, but you\u0027re right, I didn\u0027t think about session storage for a large number of sessions (although we\u0027re still pretty close).\n\nLong term I\u0027d really like to just split each session ID into a separate persistent json file so we\u0027re not reading/writing every session anytime one is added, and any corruption can\u0027t take out the whole persistent file.  If we did that it would also make this moot, but that would be a larger effort.\n\nLet me know if changing the limit to something larger tracks for you.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "44d35c840c8abfe21908c7c72c4ca02dc5982e0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
