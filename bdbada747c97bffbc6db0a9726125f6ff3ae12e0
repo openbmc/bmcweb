@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9451fa7e_71d5e174",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T20:06:11Z",
+      "side": 1,
+      "message": "If this instance becomes a normal function, then requestRoutesThermal gets all of its BMCWEB_ROUTE instances stacked together in a very reasonable to review function like sessions is:\n\nhttps://github.com/openbmc/bmcweb/blob/11183b199c87755ae8615e9189692e650f6d230e/redfish-core/lib/redfish_sessions.hpp#L371\n\nAnd the broken out function can theoretically be unit tested.  That would make this file so much easier to review when we add routes.\n\n\n\nYes, it\u0027s short, yes, it\u0027s probably not the first thing I\u0027d break out into a method, but if/when we do, I think it gets simpler.",
+      "parentUuid": "601ba877_c0d04ae3",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 15
+      },
+      "revId": "bdbada747c97bffbc6db0a9726125f6ff3ae12e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67ef183c_c68dc966",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2026-06-24T18:02:29Z",
       "side": 1,
       "message": "Yeah again.. just not sure if this as a function is any more readable",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 1
+      },
+      "revId": "bdbada747c97bffbc6db0a9726125f6ff3ae12e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0a56d89_5c99491a",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T20:06:11Z",
+      "side": 1,
+      "message": "Yeah, this one is 12 lines, and I probably agree.  It sounds like you\u0027re ok with this already, but lets get this in, and we can start looking at extending the rule, or changing based on that kind of thing.\n\nFWIW, the HEAD handlers i suspect could be made a lot more common than they are today, which would also fix this.",
+      "parentUuid": "67ef183c_c68dc966",
       "range": {
         "startLine": 167,
         "startChar": 0,
