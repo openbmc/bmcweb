@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8191f027_3afef8f9",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000216
+      },
+      "writtenOn": "2026-06-24T06:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2ee3654_9fdd1ff3",
+      "revId": "da9ae7c5f81f30f048a344aeaeea1967e6ef00c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eea83ee5_f02b0703",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-23T14:31:45Z",
       "side": 1,
       "message": "This documented anywhere else ? Can you explain in the commit msg",
+      "revId": "da9ae7c5f81f30f048a344aeaeea1967e6ef00c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a77c70f6_6ffae945",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000216
+      },
+      "writtenOn": "2026-06-24T06:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eea83ee5_f02b0703",
       "revId": "da9ae7c5f81f30f048a344aeaeea1967e6ef00c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
