@@ -34,6 +34,24 @@
       "parentUuid": "b7075ef2_c5414bfd",
       "revId": "56db6f3cb0cf2b302cb310608ada61defc9673fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b14f63f_e9da1cd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T17:59:07Z",
+      "side": 1,
+      "message": "A normal branch.\n\n\u003e  how is bmcweb expected to be informed about this ‘do other SNI’ behaviour? \n\nThis was exactly my question on the other patch, but putting this in code versus a factory function doesn\u0027t change the condition on which we generate the different cert.",
+      "parentUuid": "36b2884f_7f7d3cf1",
+      "revId": "56db6f3cb0cf2b302cb310608ada61defc9673fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
