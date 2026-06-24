@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "601ba877_c0d04ae3",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-24T18:02:29Z",
+      "side": 1,
+      "message": "Like I just don\u0027t know if this being a function is really that much cleaner but :shrug:",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 15
+      },
+      "revId": "bdbada747c97bffbc6db0a9726125f6ff3ae12e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67ef183c_c68dc966",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-24T18:02:29Z",
+      "side": 1,
+      "message": "Yeah again.. just not sure if this as a function is any more readable",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 1
+      },
+      "revId": "bdbada747c97bffbc6db0a9726125f6ff3ae12e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
