@@ -16,6 +16,40 @@
       "message": "@ed@tanous.net / @gunnar@gmills.xyz\n\ncould you review this patch ?",
       "revId": "bd66ec12a30e71742157f67016ad34bbc88387ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a189ff9b_99a11757",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T16:55:24Z",
+      "side": 1,
+      "message": "nit, please follow the pattern of returning early (similar to line 1196)",
+      "revId": "bd66ec12a30e71742157f67016ad34bbc88387ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "264420e8_db3ae93c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1949,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T16:55:24Z",
+      "side": 1,
+      "message": "We\u0027re now out of sync, in that we support different properties on POST than we do on PATCH.  These should be the same so you can POST a user with PasswordChangeRequired",
+      "revId": "bd66ec12a30e71742157f67016ad34bbc88387ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
