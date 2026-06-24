@@ -22,6 +22,30 @@
       },
       "revId": "44d35c840c8abfe21908c7c72c4ca02dc5982e0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81d2c11b_dc9eb139",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T21:52:56Z",
+      "side": 1,
+      "message": "As an aside, this also prevents me from updating our astgrep rule and errors to outright ban nlohmann::json::parse, which I intended to do.  if we still have some invocations that are considered trusted, that\u0027s a more subtle rule to try to enforce.",
+      "parentUuid": "e24853e6_1afb03e9",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "44d35c840c8abfe21908c7c72c4ca02dc5982e0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
