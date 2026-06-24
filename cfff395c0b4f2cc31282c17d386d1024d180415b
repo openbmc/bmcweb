@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "524cb1f8_59829cc3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-06-24T12:03:10Z",
+      "side": 1,
+      "message": "We could remove these.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 61
+      },
+      "revId": "cfff395c0b4f2cc31282c17d386d1024d180415b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
