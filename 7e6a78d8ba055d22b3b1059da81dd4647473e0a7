@@ -22,6 +22,30 @@
       },
       "revId": "7e6a78d8ba055d22b3b1059da81dd4647473e0a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f33b2a28_595f0451",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-24T21:02:41Z",
+      "side": 1,
+      "message": "Good point. I\u0027m moving the ec check into this function. The error message includes the property name so I\u0027m changing it to \"PowerLimitWatts\" since if the object does not exist then none of these properties are modifiable. (Also necessary to handle the case that both properties are specified in the request.)\n\nIncorrect values for the different settings are still handled separately.",
+      "parentUuid": "c1918ca6_70f7202a",
+      "range": {
+        "startLine": 370,
+        "startChar": 4,
+        "endLine": 370,
+        "endChar": 17
+      },
+      "revId": "7e6a78d8ba055d22b3b1059da81dd4647473e0a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

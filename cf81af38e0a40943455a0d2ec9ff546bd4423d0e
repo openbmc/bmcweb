@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "509c1953_3d289c0d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-24T21:02:41Z",
+      "side": 1,
+      "message": "I renamed this function to align better with the GET path.",
+      "revId": "cf81af38e0a40943455a0d2ec9ff546bd4423d0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
