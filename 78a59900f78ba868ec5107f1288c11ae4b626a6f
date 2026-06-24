@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c14a560_4e5a3cd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T18:00:48Z",
+      "side": 1,
+      "message": "Today this isn\u0027t true, today it uses the same certificates as everything else, maybe this is the \"goal\" you\u0027re trying to implement?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "78a59900f78ba868ec5107f1288c11ae4b626a6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
