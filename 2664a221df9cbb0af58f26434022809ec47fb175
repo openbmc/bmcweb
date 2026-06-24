@@ -52,6 +52,24 @@
       "parentUuid": "cf9d8fbb_5145fac8",
       "revId": "2664a221df9cbb0af58f26434022809ec47fb175",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc2e7d8e_9b4224c2",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-24T22:41:56Z",
+      "side": 0,
+      "message": "That\u0027s not what the \"critical bug\" reported was.  Sure, if we want to reuse, we can, and that\u0027s fine.  I don\u0027t really want to argue here.",
+      "parentUuid": "632a0a16_f7409360",
+      "revId": "2664a221df9cbb0af58f26434022809ec47fb175",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
