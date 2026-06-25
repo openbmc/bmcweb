@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75d0b90f_9aabc0bf",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T18:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9451fa7e_71d5e174",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 15
+      },
+      "revId": "bdbada747c97bffbc6db0a9726125f6ff3ae12e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67ef183c_c68dc966",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Yeah, this one is 12 lines, and I probably agree.  It sounds like you\u0027re ok with this already, but lets get this in, and we can start looking at extending the rule, or changing based on that kind of thing.\n\nFWIW, the HEAD handlers i suspect could be made a lot more common than they are today, which would also fix this.",
       "parentUuid": "67ef183c_c68dc966",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 1
+      },
+      "revId": "bdbada747c97bffbc6db0a9726125f6ff3ae12e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d78165a8_f58cd44f",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T18:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0a56d89_5c99491a",
       "range": {
         "startLine": 167,
         "startChar": 0,
