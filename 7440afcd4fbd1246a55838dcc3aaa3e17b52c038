@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1976e827_e2fab0f5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T16:58:18Z",
+      "side": 1,
+      "message": "Yes, and I said it should be in its own commit. They\u0027re not mutually exclusive.",
+      "parentUuid": "a7ad66e6_959f1eb8",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "49eb0fb9_52a42d81",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
@@ -178,6 +196,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1962e72b_8ce8f3dc",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T16:58:18Z",
+      "side": 1,
+      "message": "Yes, you must have https for mtls.  the opposite is not true.\n\nI\u0027m fine if you don\u0027t want to enforce either, and just make setting mtls on an http connection nooop.",
+      "parentUuid": "d3a3ddf1_d38b5b73",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d27c2b85_435d7149",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
@@ -213,6 +249,30 @@
       "side": 1,
       "message": "This prevents double aggregation. This works for simple BMC topology where every BMC is connected to each other . We have discused about this and agreed to make it work for simple topology. \n\nI tested this for 3 BMC network",
       "parentUuid": "d27c2b85_435d7149",
+      "range": {
+        "startLine": 633,
+        "startChar": 48,
+        "endLine": 633,
+        "endChar": 54
+      },
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abff0d2d_53d3dc69",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T16:58:18Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t understand how that could be if every bmcweb instance uses the same forwarded-for.",
+      "parentUuid": "b63b5411_c1ca4667",
       "range": {
         "startLine": 633,
         "startChar": 48,
