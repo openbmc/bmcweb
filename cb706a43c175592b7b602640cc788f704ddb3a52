@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "61a6929c_63138137",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 34
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2026-06-25T20:36:11Z",
+      "side": 1,
+      "message": "ControlMode is what enables/disables the cap. The set point is there so the user knows what the cap is/would be set at (when it gets enabled). It can be set when the cap is disabled or enabled.  The SetPoint also needs to be displayed on GUI (regardless of the ControlMode)",
+      "parentUuid": "6b0f6f85_6d764cd0",
+      "revId": "cb706a43c175592b7b602640cc788f704ddb3a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f37ba347_d893813c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 34
