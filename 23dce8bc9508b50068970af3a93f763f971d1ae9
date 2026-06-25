@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b32f58_6ff7a934",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2168,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-25T07:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cdffbf6_2ce57c6f",
+      "range": {
+        "startLine": 2168,
+        "startChar": 23,
+        "endLine": 2168,
+        "endChar": 39
+      },
+      "revId": "23dce8bc9508b50068970af3a93f763f971d1ae9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e86ea328_0c96acc5",
@@ -72,6 +96,30 @@
       "writtenOn": "2026-06-12T01:59:44Z",
       "side": 1,
       "message": "Why, isn\u0027t there an override like above?",
+      "range": {
+        "startLine": 2489,
+        "startChar": 23,
+        "endLine": 2489,
+        "endChar": 39
+      },
+      "revId": "23dce8bc9508b50068970af3a93f763f971d1ae9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9960391d_0f794207",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2489,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-25T07:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e86ea328_0c96acc5",
       "range": {
         "startLine": 2489,
         "startChar": 23,

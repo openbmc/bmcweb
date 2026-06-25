@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b7c1ed7_aa5682f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-25T07:01:15Z",
+      "side": 1,
+      "message": "Done. You @gunnar@gmills.xyz were right the SubOverride privilges do exist for POST and DELETE:\nPOST: `postEthernetInterfaceSubOverManagerEthernetInterfaceCollection`,\nPATCH: `patchEthernetInterfaceSubOverManagerEthernetInterfaceCollection` and\nDELETE: `deleteEthernetInterfaceSubOverManagerEthernetInterfaceCollection`\nAll three routes now use the consistent SubOverride privileges that map to\nConfiguremnager.",
+      "revId": "fddaae49269902d0c2a52bc21abc2a95ca07604e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
