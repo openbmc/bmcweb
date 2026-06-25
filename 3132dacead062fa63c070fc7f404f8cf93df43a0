@@ -22,6 +22,30 @@
       },
       "revId": "3132dacead062fa63c070fc7f404f8cf93df43a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6663e683_854bab7e",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T15:18:38Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "c000346f_28a7c3d0",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "3132dacead062fa63c070fc7f404f8cf93df43a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
