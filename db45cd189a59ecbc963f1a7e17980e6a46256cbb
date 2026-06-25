@@ -16,6 +16,24 @@
       "message": "I\u0027m not sure CI is failing.  I\u0027ll keep looking at it.\n\n```\n65/66 bmcweb:zstd_compressor_test                 OK              0.62s\n66/66 bmcweb:zstd_decompressor_test               OK              1.03s\n\nSummary of Failures:\n\n64/66 bmcweb:json_utils_test              FAIL            0.12s   killed by signal 6 SIGABRT\n\nOk:                65\nFail:              1\n```",
       "revId": "db45cd189a59ecbc963f1a7e17980e6a46256cbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6ac8494_3fe44c54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-06-25T13:42:03Z",
+      "side": 1,
+      "message": "json_utils_test needs to be changed as `readJson()` is calling `messages::propertyMissing()` which now returns as an error.",
+      "parentUuid": "ecb83011_58cb5608",
+      "revId": "db45cd189a59ecbc963f1a7e17980e6a46256cbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
