@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32365773_0a6558e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-25T06:51:23Z",
+      "side": 1,
+      "message": "Hi @janeta@us.ibm.com,\n\nThis is the reusable utility file (`pretty_name.hpp`) that will be used by\nDrives, Processors, Memory, Chassis, etc.\n\nThe usage in storage_chassis.hpp is in the related change:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/90364\n\nPTAL.",
+      "revId": "f4d4e88df556e515c442d58ad886bd5c9dde2b60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
