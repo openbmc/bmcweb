@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5a68899_5abf62fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-25T22:19:36Z",
+      "side": 1,
+      "message": "This commit just adds the utility function. Please update the commit message to reflect the changes for this commit only.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "f4d4e88df556e515c442d58ad886bd5c9dde2b60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "32365773_0a6558e3",
@@ -14,6 +37,52 @@
       "writtenOn": "2026-06-25T06:51:23Z",
       "side": 1,
       "message": "Hi @janeta@us.ibm.com,\n\nThis is the reusable utility file (`pretty_name.hpp`) that will be used by\nDrives, Processors, Memory, Chassis, etc.\n\nThe usage in storage_chassis.hpp is in the related change:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/90364\n\nPTAL.",
+      "revId": "f4d4e88df556e515c442d58ad886bd5c9dde2b60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d44a6f88_303e415a",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-25T22:19:36Z",
+      "side": 1,
+      "message": "I think naming this getPrettyName instead would better align with the use of get/set function names in the rest of the repo.",
+      "range": {
+        "startLine": 14,
+        "startChar": 12,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "f4d4e88df556e515c442d58ad886bd5c9dde2b60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ca4ce86_ecaa6281",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-25T22:19:36Z",
+      "side": 1,
+      "message": "It is possible the response would be in an array of the response. If the function took a json_pointer instead then it would be correctly handled here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 29,
+        "endLine": 18,
+        "endChar": 35
+      },
       "revId": "f4d4e88df556e515c442d58ad886bd5c9dde2b60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
