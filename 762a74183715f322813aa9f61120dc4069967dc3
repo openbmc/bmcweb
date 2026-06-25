@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5982b3f8_58275060",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCManager_v1.xml",
+        "patchSetId": 29
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-25T17:57:38Z",
+      "side": 1,
+      "message": "```\nThe wrong BaseType meant v1_1_0.Manager started fresh from the generic OData root rather than inheriting from v1_0_0.Manager — silently dropping Certificates. The runtime code in openbmc_managers.hpp was also updated in the same commit to emit \"@odata.type\": \"#OpenBMCManager.v1_1_0.Manager\", so the RSV immediately validated all OEM properties against the broken new type and hit the unknown-property failure on Certificates.\n```",
+      "revId": "762a74183715f322813aa9f61120dc4069967dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
