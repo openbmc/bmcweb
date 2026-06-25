@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6835914_b96a2400",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-25T09:32:31Z",
+      "side": 1,
+      "message": "Done. Removed the string stripping logic and now directly match the\nfull D-Bus enum strings as you suggested. This is simplerand faster\nand generates less code.",
+      "parentUuid": "da4ab944_dbd5c409",
+      "range": {
+        "startLine": 737,
+        "startChar": 0,
+        "endLine": 748,
+        "endChar": 0
+      },
+      "revId": "7c7ff3cd1705f1b0b26c87fc4cb4a4861fe2ad34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a288ae7f_c078f56d",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fc3383c_ac105ac9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-25T09:32:31Z",
+      "side": 1,
+      "message": "Done. Broke the mapping logic out into helper functions:\n`getFunctionTypeFromDbus()` and `getDeviceClassFromDbus()`\nThese functions directly match the full D-Bus strings and return\nthe appropriate Redfish enum values.",
+      "parentUuid": "a288ae7f_c078f56d",
+      "range": {
+        "startLine": 751,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 13
+      },
+      "revId": "7c7ff3cd1705f1b0b26c87fc4cb4a4861fe2ad34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e65ffac_ab5b799f",
@@ -60,6 +108,24 @@
       "writtenOn": "2026-06-09T22:44:01Z",
       "side": 1,
       "message": "Sorry, why was this file completely reformatted?  Please fix.",
+      "revId": "7c7ff3cd1705f1b0b26c87fc4cb4a4861fe2ad34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d64caac6_c08ed238",
+        "filename": "test/meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-25T09:32:31Z",
+      "side": 1,
+      "message": "Done. My apologies - I accidentally ran clang-format on test/meson.build.\nI\u0027ve reverted all formatting changes and only added `pcie_test.cpp`.",
+      "parentUuid": "4e65ffac_ab5b799f",
       "revId": "7c7ff3cd1705f1b0b26c87fc4cb4a4861fe2ad34",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

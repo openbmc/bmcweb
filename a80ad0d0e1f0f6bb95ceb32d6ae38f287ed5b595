@@ -16,6 +16,24 @@
       "message": "No need to +1 your own patch.  We assume you reviewed it.",
       "revId": "a80ad0d0e1f0f6bb95ceb32d6ae38f287ed5b595",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "085e0c05_36b83b19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-25T09:32:31Z",
+      "side": 1,
+      "message": "Done. Removed my +1 vote.",
+      "parentUuid": "169875ea_91499957",
+      "revId": "a80ad0d0e1f0f6bb95ceb32d6ae38f287ed5b595",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
