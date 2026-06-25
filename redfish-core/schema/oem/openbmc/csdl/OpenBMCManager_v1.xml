@@ -366,7 +366,7 @@
     </Schema>
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCManager.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
-      <ComplexType Name="Manager" BaseType="Resource.OemObject">
+      <ComplexType Name="Manager" BaseType="OpenBMCManager.v1_0_0.Manager">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="OpenBMCManager Oem properties."/>
         <Property Name="Fan" Type="OpenBMCManager.v1_1_0.Fan"/>
