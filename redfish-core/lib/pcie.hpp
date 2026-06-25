@@ -11,6 +11,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_device.hpp"
+#include "generated/enums/pcie_function.hpp"
 #include "generated/enums/pcie_slots.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -44,6 +45,68 @@
 #include <utility>
 #include <variant>
 
+static pcie_function::FunctionType getFunctionTypeFromDbus(
+    std::string_view dbusStr)
+{
+    if (dbusStr ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.FunctionType.Physical")
+    {
+        return pcie_function::FunctionType::Physical;
+    }
+    if (dbusStr ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.FunctionType.Virtual")
+    {
+        return pcie_function::FunctionType::Virtual;
+    }
+
+    if (dbusStr == "Physical")
+    {
+        return pcie_function::FunctionType::Physical;
+    }
+    if (dbusStr == "Virtual")
+    {
+        return pcie_function::FunctionType::Virtual;
+    }
+
+    BMCWEB_LOG_WARNING("Unknown PCIe FunctionType: {}", dbusStr);
+    return pcie_function::FunctionType::Invalid;
+}
+
+static pcie_function::DeviceClass getDeviceClassFromDbus(
+    std::string_view dbusStr)
+{
+    if (dbusStr ==
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceClass.NetworkController")
+    {
+        return pcie_function::DeviceClass::NetworkController;
+    }
+    if (dbusStr ==
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceClass.Bridge")
+    {
+        return pcie_function::DeviceClass::Bridge;
+    }
+    if (dbusStr ==
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceClass.MassStorageController")
+    {
+        return pcie_function::DeviceClass::MassStorageController;
+    }
+
+    if (dbusStr == "NetworkController")
+    {
+        return pcie_function::DeviceClass::NetworkController;
+    }
+    if (dbusStr == "Bridge")
+    {
+        return pcie_function::DeviceClass::Bridge;
+    }
+    if (dbusStr == "MassStorageController")
+    {
+        return pcie_function::DeviceClass::MassStorageController;
+    }
+
+    BMCWEB_LOG_WARNING("Unknown PCIe DeviceClass: {}", dbusStr);
+    return pcie_function::DeviceClass::Invalid;
+}
 namespace redfish
 {
 
@@ -753,21 +816,22 @@ inline void addPCIeFunctionProperties(
         {
             resp.jsonValue["VendorId"] = *strProperty;
         }
-        // TODO: FunctionType and DeviceClass are Redfish enums. The D-Bus
-        // property strings should be mapped correctly to ensure these
-        // strings are Redfish enum values. For now just check for empty.
         if (property.first == functionName + "FunctionType")
         {
-            if (!strProperty->empty())
+            pcie_function::FunctionType functionType =
+                getFunctionTypeFromDbus(*strProperty);
+            if (functionType != pcie_function::FunctionType::Invalid)
             {
-                resp.jsonValue["FunctionType"] = *strProperty;
+                resp.jsonValue["FunctionType"] = functionType;
             }
         }
         if (property.first == functionName + "DeviceClass")
         {
-            if (!strProperty->empty())
+            pcie_function::DeviceClass deviceClass =
+                getDeviceClassFromDbus(*strProperty);
+            if (deviceClass != pcie_function::DeviceClass::Invalid)
             {
-                resp.jsonValue["DeviceClass"] = *strProperty;
+                resp.jsonValue["DeviceClass"] = deviceClass;
             }
         }
         if (property.first == functionName + "ClassCode")
