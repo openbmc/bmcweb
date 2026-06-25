@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab5b96e_0e59e757",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-25T16:11:16Z",
+      "side": 1,
+      "message": "Can you explain more how this works ?",
+      "revId": "89ec67cdc4447896d32212b8cc3376735c5046fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a82f42e_f14c33a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-25T16:11:16Z",
+      "side": 1,
+      "message": "Can you give an example output ?",
+      "revId": "89ec67cdc4447896d32212b8cc3376735c5046fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
