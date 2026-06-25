@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab73848_3d214def",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T18:13:39Z",
+      "side": 1,
+      "message": "Sorry, I\u0027ve read the above a few times and read the code, and I still don\u0027t understand what this is fixing.\n\nYour tested gives some hints, but I\u0027m not really understanding.  The bug you\u0027re seeing is\n\nGET /redfish/v1/AccountService/Accounts?only\n\nis returning 500.",
+      "revId": "d676bbdccf28d6845584d86ba6ea974fdbbed502",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f4c21d3b_63079f73",
@@ -14,6 +31,29 @@
       "writtenOn": "2026-05-14T10:37:48Z",
       "side": 1,
       "message": "Hi all , Could you please help to review this change. Thanks",
+      "revId": "d676bbdccf28d6845584d86ba6ea974fdbbed502",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cf776fb_0cc16416",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T18:13:39Z",
+      "side": 1,
+      "message": "Where does the Redfish spec specify that an odata.id can be an absolute URI?  bmcweb can only ever generate relative URIs as far as I know, so I\u0027m not sure how you found this path to be required.",
+      "range": {
+        "startLine": 551,
+        "startChar": 7,
+        "endLine": 551,
+        "endChar": 19
+      },
       "revId": "d676bbdccf28d6845584d86ba6ea974fdbbed502",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
