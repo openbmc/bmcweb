@@ -16,6 +16,24 @@
       "message": "The change looks good, but do we know if anywhere in the code base, that would break? \nI didn\u0027t see anything in Test \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fopenbmc-test-automation+ExtendedInfo\u0026type\u003dissues",
       "revId": "4cdc4583bcb24b131014b2b63cfd9071606c49d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68baee47_e5737c2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T15:26:21Z",
+      "side": 1,
+      "message": "I have yet to see a client that actually parses this \u003cpropname\u003e@\u003cextended data\u003e format because it\u0027s kind of a pain to do.  While there\u0027s theoretically breakage:\n1. These only happen during error conditions\n2. There are clients that parse the errors array that are potentially unbroken by this change.\n3. \"correct\" clients should also be parsing the error array where this is moving, so shouldn\u0027t be broken.  Only a client that parsed for the EXACT key would be broken.\n\nTherefore, I\u0027m ok with this, even though it\u0027s theoretically breaking.\n\nIf you\u0027re good here, I think this can merge.",
+      "parentUuid": "0a6fee33_619fa2ab",
+      "revId": "4cdc4583bcb24b131014b2b63cfd9071606c49d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
