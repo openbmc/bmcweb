@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a6fee33_619fa2ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-25T15:02:31Z",
+      "side": 1,
+      "message": "The change looks good, but do we know if anywhere in the code base, that would break? \nI didn\u0027t see anything in Test \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fopenbmc-test-automation+ExtendedInfo\u0026type\u003dissues",
+      "revId": "4cdc4583bcb24b131014b2b63cfd9071606c49d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
