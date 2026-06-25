@@ -51,6 +51,23 @@
       "parentUuid": "9b033666_19c03f79",
       "revId": "314043cc4d0da60aa8934c155a0514b19ebfd22a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab48f7d_29c2b64f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T21:44:09Z",
+      "side": 1,
+      "message": "It looks like both reviews are approved to change this over (prior to the platform-init patch).\n\nAnything we\u0027re waiting on to merge this?",
+      "revId": "314043cc4d0da60aa8934c155a0514b19ebfd22a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
