@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "570d52a7_96d47d0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-25T16:06:22Z",
+      "side": 1,
+      "message": "What\u0027s the next steps here.  I see a non-compliant lambda in the middle.",
+      "revId": "0fe1dc50c422f28b4d6f01859085aca10e09fe7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
