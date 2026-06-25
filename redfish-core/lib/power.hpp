@@ -43,7 +43,7 @@ namespace redfish
 inline void afterGetPowerCapEnable(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     uint32_t valueToSet, const boost::system::error_code& ec,
-    bool powerCapEnable)
+    const std::string& powerCapEnable)
 {
     if (ec)
     {
@@ -51,12 +51,14 @@ inline void afterGetPowerCapEnable(
         BMCWEB_LOG_ERROR("powerCapEnable Get handler: Dbus error {}", ec);
         return;
     }
-    if (!powerCapEnable)
+    if (powerCapEnable !=
+        "xyz.openbmc_project.Control.Power.Cap.PowerCapEnableState.Enabled")
     {
         messages::actionNotSupported(
             sensorsAsyncResp->asyncResp->res,
-            "Setting LimitInWatts when PowerLimit feature is disabled");
-        BMCWEB_LOG_ERROR("PowerLimit feature is disabled ");
+            "Setting LimitInWatts when PowerLimit feature is not enabled");
+        BMCWEB_LOG_ERROR("PowerLimit feature is not enabled: {}",
+                         powerCapEnable);
         return;
     }
 
@@ -102,7 +104,7 @@ inline void afterGetChassisPath(
     {
         return;
     }
-    dbus::utility::getProperty<bool>(
+    dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
@@ -141,7 +143,7 @@ inline void afterPowerCapSettingGet(
     }
 
     nlohmann::json& sensorJson = tempArray.back();
-    bool enabled = false;
+    std::string powerCapEnable;
     double powerCap = 0.0;
     int64_t scale = 0;
 
@@ -178,11 +180,11 @@ inline void afterPowerCapSettingGet(
         }
         else if (property.first == "PowerCapEnable")
         {
-            const bool* b = std::get_if<bool>(&property.second);
+            const std::string* s = std::get_if<std::string>(&property.second);
 
-            if (b != nullptr)
+            if (s != nullptr)
             {
-                enabled = *b;
+                powerCapEnable = *s;
             }
         }
     }
@@ -193,7 +195,10 @@ inline void afterPowerCapSettingGet(
     sensorJson["PowerLimit"]["LimitException"] =
         power::PowerLimitException::NoAction;
 
-    if (enabled)
+    // Disabled means cap is off; Unknown means device has not responded
+    // yet. Only populate LimitInWatts when the cap is Enabled.
+    if (powerCapEnable ==
+        "xyz.openbmc_project.Control.Power.Cap.PowerCapEnableState.Enabled")
     {
         // Redfish specification indicates PowerLimit should
         // be null if the limit is not enabled.
