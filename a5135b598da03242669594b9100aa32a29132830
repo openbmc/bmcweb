@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2411b07d_60bab95f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002723
+      },
+      "writtenOn": "2026-06-26T07:37:38Z",
+      "side": 1,
+      "message": "Hi Ed, Sorry I haven\u0027t been able to address the review comments on this patch as I was caught up in some other things. I will address the comments at the earliest.",
+      "parentUuid": "dbf8cd1c_53ae8970",
+      "revId": "a5135b598da03242669594b9100aa32a29132830",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09cbcae4_c6dd37b4",
         "filename": "redfish-core/lib/control.hpp",
         "patchSetId": 8
