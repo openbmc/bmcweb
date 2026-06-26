@@ -70,6 +70,30 @@
       },
       "revId": "44d35c840c8abfe21908c7c72c4ca02dc5982e0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca330465_16105b35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002637
+      },
+      "writtenOn": "2026-06-26T00:52:09Z",
+      "side": 1,
+      "message": "I really like the idea of individual files over just bumping the limit to the next arbitrary value and hoping. If we land this as is, I\u0027ll fast follow with the individual json file work.",
+      "parentUuid": "84b71272_3acf7023",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "44d35c840c8abfe21908c7c72c4ca02dc5982e0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
