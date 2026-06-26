@@ -530,6 +530,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fea5b37c_6efb6332",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-26T16:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3700e6c_870a955e",
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61a1f008_f6aa4dc6",
@@ -591,6 +609,30 @@
       "side": 1,
       "message": "That depends on property map work, I can pack it in current userCreateMap. I don\u0027t think it\u0027s needed if it\u0027ll be changed anyways in property map from dbus_utility.",
       "parentUuid": "63354b7b_84acf148",
+      "range": {
+        "startLine": 2057,
+        "startChar": 61,
+        "endLine": 2059,
+        "endChar": 27
+      },
+      "revId": "5dc7aba2ebce9836f75175d6fc754cf2a1fcb34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4741ff60_52b46cf5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-26T16:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f73d55b_0cd076d1",
       "range": {
         "startLine": 2057,
         "startChar": 61,
