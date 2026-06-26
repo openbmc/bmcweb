@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f6debbf_9e6a1c02",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T09:24:13Z",
+      "side": 1,
+      "message": "It seems like `extractAssetInfo()` doesn\u0027t do empty check for some of the properties, such as `Model`, `PartNumber`, do we have to handle that case here?",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 41
+      },
+      "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4edc5de2_5dcc9d9a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T09:24:13Z",
+      "side": 1,
+      "message": "Should we consider to use `productionDateReport()` in `time_utils` here?",
+      "range": {
+        "startLine": 179,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 9
+      },
+      "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4ae1833_b563f900",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 12
@@ -14,6 +60,29 @@
       "writtenOn": "2026-06-24T12:23:40Z",
       "side": 1,
       "message": "InternalError ?",
+      "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fff9879_64df6c58",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T09:24:13Z",
+      "side": 1,
+      "message": "nit: Should we consider using `getLocationType()` in `redfish-core/include/utils/location_utils.hpp` here?",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 285,
+        "endChar": 13
+      },
       "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
