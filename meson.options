@@ -92,7 +92,7 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''Enable CPU log service transactions through Redfish. Paths
-                    are under /redfish/v1/Systems/system/LogServices/Crashdump'.''',
+                    are under /redfish/v1/Systems/system/LogServices/Crashdump.''',
 )
 
 # BMCWEB_REDFISH_DUMP_LOG
