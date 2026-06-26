@@ -409,7 +409,7 @@ TEST(ReadJsonPatch, VerifyReadJsonPatchBadVectorObject)
     EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
 
     const nlohmann::json& argsExtInfo =
-        res.jsonValue["NotVector@Message.ExtendedInfo"][0];
+        res.jsonValue["error"]["@Message.ExtendedInfo"][0];
     EXPECT_THAT(argsExtInfo["MessageArgs"][0], "1");
     EXPECT_THAT(argsExtInfo["MessageArgs"][1], "NotVector");
 }

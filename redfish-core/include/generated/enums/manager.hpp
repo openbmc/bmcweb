@@ -45,6 +45,7 @@ enum class ResetToDefaultsType{
     ResetAll,
     PreserveNetworkAndUsers,
     PreserveNetwork,
+    SensorThresholds,
 };
 
 enum class DateTimeSource{
@@ -54,6 +55,7 @@ enum class DateTimeSource{
     Host,
     NTP,
     PTP,
+    DHCP,
 };
 
 enum class SecurityModeTypes{
@@ -105,6 +107,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::ResetAll, "ResetAll"},
     {ResetToDefaultsType::PreserveNetworkAndUsers, "PreserveNetworkAndUsers"},
     {ResetToDefaultsType::PreserveNetwork, "PreserveNetwork"},
+    {ResetToDefaultsType::SensorThresholds, "SensorThresholds"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(DateTimeSource, {
@@ -114,6 +117,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DateTimeSource, {
     {DateTimeSource::Host, "Host"},
     {DateTimeSource::NTP, "NTP"},
     {DateTimeSource::PTP, "PTP"},
+    {DateTimeSource::DHCP, "DHCP"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SecurityModeTypes, {

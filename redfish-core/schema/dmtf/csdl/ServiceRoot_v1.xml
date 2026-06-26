@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot v1.20.0                                                 -->
+<!--# Redfish Schema:  ServiceRoot v1.21.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -1318,6 +1318,21 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the usage notification message for this service.  The value of the property shall contain the value of the `ServiceUseNotification` property in the `Manager` resource providing the Redfish service root resource.  This property shall not be present if the value of the `ServiceUseNotification` property in the `Manager` resource providing the Redfish service root resource is an empty string or `null`."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_20_0.ServiceRoot"/>
+
+      <ComplexType Name="ProtocolFeaturesSupported" BaseType="ServiceRoot.v1_18_0.ProtocolFeaturesSupported">
+        <Property Name="ClientContextQuery" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `clientcontext` query parameter for incremental retrieval from resource collections."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the `clientcontext` query parameter for stateless incremental retrieval from resource collections, as described in the Redfish Specification.  This parameter is currently defined for `LogEntryCollection` resource collections and is designed to be extensible to other resource collections in future versions."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

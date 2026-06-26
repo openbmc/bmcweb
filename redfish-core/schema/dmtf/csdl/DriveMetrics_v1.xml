@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################               -->
-<!--# Redfish Schema:  DriveMetrics v1.3.0                                                         -->
+<!--# Redfish Schema:  DriveMetrics v1.4.0                                                         -->
 <!--#                                                                                              -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
 <!--# available at http://www.dmtf.org/standards/redfish                                           -->
-<!--# Copyright 2014-2025 DMTF in cooperation with Storage Networking Industry Association (SNIA). -->
+<!--# Copyright 2014-2026 DMTF in cooperation with Storage Networking Industry Association (SNIA). -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright         -->
 <!--################################################################################               -->
 <!---->
@@ -28,6 +28,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/StorageControllerMetrics_v1.xml">
     <edmx:Include Namespace="StorageControllerMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -213,6 +216,24 @@
           <Annotation Term="OData.Description" String="The date and time when the drive started accumulating data for properties that contain lifetime data, such as `UncorrectableIOReadErrorCount`."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the drive started accumulating data for properties that contain lifetime data, such as `UncorrectableIOReadErrorCount`.  This might contain the same value as the production date of the drive."/>
         </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DriveMetrics.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="DriveMetrics" BaseType="DriveMetrics.v1_3_0.DriveMetrics">
+        <Property Name="PowerCyclesLifetime" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of times the drive has been power cycled over its lifetime."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of times the drive has been power cycled over its lifetime.  The value shall match the definition of the NVMe 'Power Cycles' SMART metric.  Services shall convert SMART data or other data sources for this metric from non-NVMe drives to the NVMe 'Power Cycles' definition.  See the `NVMeSMARTMetrics` object in the `StorageControllerMetrics` resource."/>
+        </Property>
+        <NavigationProperty Name="PredictedMediaLifeLeftPercent" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Description" String="The percentage of reads and writes that are predicted to be available for the media."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an indicator of the percentage, typically `0` to `100`, of life remaining in the drive's media. The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="LowerCritical"/>
+        </NavigationProperty>
       </EntityType>
     </Schema>
 

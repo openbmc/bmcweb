@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MemoryRegion v1.0.3                                                 -->
+<!--# Redfish Schema:  MemoryRegion v1.1.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -29,6 +29,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryChunks_v1.xml">
     <edmx:Include Namespace="MemoryChunks"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryExtent_v1.xml">
+    <edmx:Include Namespace="MemoryExtent"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -129,7 +132,7 @@
         </Property>
         <Property Name="MemoryChunks" Type="Collection(MemoryRegion.v1_0_0.MemoryChunk)">
           <Annotation Term="OData.Description" String="The set of memory chunks providing capacity for this memory region."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the set of memory chunks providing capacity for this memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of memory chunks providing capacity for this memory region.  CXL memory should use `MemoryExtent` resources instead of this property."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
@@ -150,22 +153,58 @@
           <Annotation Term="OData.Description" String="Offset of the memory extent within the memory region in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the offset of the memory extent within the memory region in mebibytes (MiB)."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `MemoryExtent` resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="ExtentSizeMiB" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Size of the memory extent in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the size of the memory extent in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `MemoryExtent` resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="Tag" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The tag of this memory extent."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an opaque context attached to each extent to track usage of each extent or map extent to specific processes, transactions, or workloads on the host."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `MemoryExtent` resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="SequenceNumber" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The memory extent sequence number."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the sequence number instructing host on the relative order the extents have to be placed in the host adjacent virtual address space."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `MemoryExtent` resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </ComplexType>
 
@@ -228,6 +267,38 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the definition of the `Tag` property."/>
       <EntityType Name="MemoryRegion" BaseType="MemoryRegion.v1_0_2.MemoryRegion"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryRegion.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `ExtentOffsetMiB`, `ExtentSizeMiB`, `Tag`, and `SequenceNumber` in `MemoryExtents` in favor of `MemoryExtent` resources."/>
+
+      <EntityType Name="MemoryRegion" BaseType="MemoryRegion.v1_0_3.MemoryRegion">
+        <Property Name="InterconnectSpecificDCManagement" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the device supports changing the amount of host-visible memory capacity in a memory region at runtime."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the device supports changing the amount of host-visible memory capacity in a memory region at runtime as defined in the 'Flags' field of the 'Device Scoped Memory Affinity Structure' section of the Coherent Device Attribute Table (CDAT) Specification."/>
+        </Property>
+        <Property Name="ReadOnlyRegion" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the memory region is read-only."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the memory region is read-only as defined in the 'Flags' field of the 'Device Scoped Memory Affinity Structure' section of the Coherent Device Attribute Table (CDAT) Specification."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="MemoryExtent" BaseType="MemoryRegion.v1_0_0.MemoryExtent">
+        <Property Name="Pending" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the device received a memory extent acceptance from the host that owns the memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the device received an acceptance of the memory extent from the host that own the memory region.  The value `true` indicates the device is waiting for acceptance."/>
+        </Property>
+        <NavigationProperty Name="ExtentLink" Type="MemoryExtent.MemoryExtent" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the memory extent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `MemoryExtent` that defines the CXL memory capacity."/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

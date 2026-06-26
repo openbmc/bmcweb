@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MemoryChunks v1.6.2                                                 -->
+<!--# Redfish Schema:  MemoryChunks v1.7.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -35,6 +35,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryRegion_v1.xml">
     <edmx:Include Namespace="MemoryRegion"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryExtent_v1.xml">
+    <edmx:Include Namespace="MemoryExtent"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -350,7 +353,7 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the offset of the memory chunk in the address range in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
-         <Property Name="Links" Type="MemoryChunks.v1_3_0.Links" Nullable="false">
+        <Property Name="Links" Type="MemoryChunks.v1_3_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
@@ -505,7 +508,7 @@
         <NavigationProperty Name="MemoryRegions" Type="Collection(MemoryRegion.MemoryRegion)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the memory regions for which this memory chunk provides capacity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `MemoryRegion` that represent the memory regions for which this memory chunk provides capacity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `MemoryRegion` that represent the memory regions for which this memory chunk provides capacity.  CXL memory should use `MemoryExtent` resources instead of this property."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -521,6 +524,22 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_6_1.MemoryChunks"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_6_2.MemoryChunks"/>
+
+      <ComplexType Name="Links" BaseType="MemoryChunks.v1_6_0.Links">
+        <NavigationProperty Name="MemoryExtent" Type="MemoryExtent.MemoryExtent">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the memory extent for which this memory chunk provides capacity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to resources of type `MemoryExtent` that represents the memory extent for which this memory chunk provides capacity."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

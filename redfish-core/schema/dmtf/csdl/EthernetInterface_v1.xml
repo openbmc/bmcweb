@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.12.4                                           -->
+<!--# Redfish Schema:  EthernetInterface v1.12.5                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -148,12 +148,12 @@
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The DNS host name, without any domain information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the DNS host name for this interface.  Modifying this property may modify the `HostName` in one or more `EthernetInterface` resources that belong to the same system, manager, or other device.  If this interface is subordinate to a `ComputerSystem` resource, modifying this property may modify the `HostName` of the `ComputerSystem` resource that contains this interface.  If this interface is subordinate to a `Manager` resource, modifying this property may modify the `HostName` of the `ManagerNetworkProtocol` resource of the `Manager` resource that contains this interface.  Services should ignore this property in modification requests if `FQDN` is also provided in the same request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the DNS host name for this interface.  Modifying this property may modify the `HostName` in one or more `EthernetInterface` resources that belong to the same system, manager, or other device.  If this interface is subordinate to a `ComputerSystem` resource, modifying this property may modify the `HostName` of the `ComputerSystem` resource that contains this interface.  If this interface is subordinate to a `Manager` resource, modifying this property may modify the `HostName` of the `ManagerNetworkProtocol` resource of the `Manager` resource that contains this interface.  Modifying this property may modify the `FQDN` property.  Services should ignore this property in modification requests if `FQDN` is also provided in the same request."/>
         </Property>
         <Property Name="FQDN" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The complete, fully qualified domain name that DNS obtains for this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the fully qualified domain name that DNS obtains for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fully qualified domain name that DNS obtains for this interface.  Modifying this property may modify the `HostName` property."/>
         </Property>
         <Property Name="MaxIPv6StaticAddresses" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -347,6 +347,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_18.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_20">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_19.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -490,6 +496,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_16.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_17.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -600,6 +612,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the expected array behaviors for the IP address properties."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_15.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_16.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_0">
@@ -727,6 +745,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the expected array behaviors for the IP address properties."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_14.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_15.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_0">
@@ -974,6 +998,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_13.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_14.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1074,6 +1104,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the expected array behaviors for the IP address properties."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_11.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_12.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_0">
@@ -1178,6 +1214,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_9.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_10.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1231,6 +1273,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_5.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_6.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1273,6 +1321,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the expected array behaviors for the IP address properties."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_5.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_6.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_0">
@@ -1367,6 +1421,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_5.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_6.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1411,6 +1471,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the expected array behaviors for the IP address properties."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_4.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_5.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_0">
@@ -1475,6 +1541,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_11_4.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_11_5.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -1510,6 +1582,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the expected array behaviors for the IP address properties."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_12_3.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_12_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_12_4.EthernetInterface"/>
     </Schema>
 
   </edmx:DataServices>

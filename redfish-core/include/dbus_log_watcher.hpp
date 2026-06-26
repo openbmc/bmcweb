@@ -10,7 +10,7 @@ class DbusEventLogMonitor
 {
   public:
     DbusEventLogMonitor();
-    sdbusplus::bus::match_t dbusEventLogMonitor;
+    sdbusplus::match dbusEventLogMonitor;
 
     static bool eventLogObjectFromDBus(
         const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event,
@@ -22,6 +22,6 @@ class DbusTelemetryMonitor
   public:
     DbusTelemetryMonitor();
 
-    sdbusplus::bus::match_t matchTelemetryMonitor;
+    sdbusplus::match matchTelemetryMonitor;
 };
 } // namespace redfish

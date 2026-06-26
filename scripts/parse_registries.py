@@ -386,19 +386,6 @@ def make_error_function(
                 out += f"    res.result(boost::beast::http::status::{res});\n"
             args_out = ", ".join([f"arg{x + 1}" for x in range(len(argtypes))])
 
-            addMessageToJson = {
-                "PropertyDuplicate": 1,
-                "ResourceAlreadyExists": 2,
-                "CreateFailedMissingReqProperties": 1,
-                "PropertyValueFormatError": 2,
-                "PropertyValueNotInList": 2,
-                "PropertyValueTypeError": 2,
-                "PropertyValueError": 1,
-                "PropertyNotWritable": 1,
-                "PropertyValueModified": 1,
-                "PropertyMissing": 1,
-            }
-
             addMessageToRoot = [
                 "SessionTerminated",
                 "SubscriptionTerminated",
@@ -407,9 +394,7 @@ def make_error_function(
                 "Success",
             ]
 
-            if entry_id in addMessageToJson:
-                out += f"    addMessageToJson(res.jsonValue, {function_name}({args_out}), arg{addMessageToJson[entry_id]});\n"
-            elif entry_id in addMessageToRoot:
+            if entry_id in addMessageToRoot:
                 out += f"    addMessageToJsonRoot(res.jsonValue, {function_name}({args_out}));\n"
             else:
                 out += f"    addMessageToErrorJson(res.jsonValue, {function_name}({args_out}));\n"

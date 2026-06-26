@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  StorageController v1.11.0                                           -->
+<!--# Redfish Schema:  StorageController v1.12.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -107,7 +107,7 @@
         </Annotation>
       </EntityType>
 
-      <ComplexType Name="NVMeSMARTCriticalWarnings"  Abstract="true">
+      <ComplexType Name="NVMeSMARTCriticalWarnings" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The NVMe SMART Critical Warnings for a storage controller."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the NVMe SMART Critical Warnings for a storage controller."/>
@@ -536,28 +536,28 @@
       <ComplexType Name="NVMeSMARTCriticalWarnings" BaseType="StorageController.NVMeSMARTCriticalWarnings">
         <Property Name="PMRUnreliable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The Persistent Memory Region has become unreliable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate that the Persistent Memory Region has become unreliable.  PCIe memory reads can return invalid data or generate poisoned PCIe TLP(s).  Persistent Memory Region memory writes might not update memory or might update memory with undefined data.  The Persistent Memory Region might also have become non-persistent."/>
+          <Annotation Term="OData.Description" String="The Persistent Memory Region has become read-only or unreliable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the Persistent Memory Region has become read-only or unreliable, as defined by the 'Persistent Memory Region Read-Only (PMRRO)' flag in the NVMe Base Specification.  PCIe memory reads can return invalid data or generate poisoned PCIe TLP(s).  Persistent Memory Region memory writes might not update memory or might update memory with undefined data.  The Persistent Memory Region might also have become non-persistent."/>
         </Property>
         <Property Name="PowerBackupFailed" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates that the volatile memory backup device has failed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate that the volatile memory backup device has failed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the volatile memory backup device has failed, as defined by the 'Volatile Memory Backup Failed (VMBF)' flag in the NVMe Base Specification."/>
         </Property>
         <Property Name="MediaInReadOnly" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates the media has been placed in read-only mode."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the media has been placed in read-only mode.  This is not set when the read-only condition of the media is a result of a change in the write protection state of a namespace."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the media has been placed in read-only mode, as defined by the 'All Media Read-Only (AMRO)' flag in the NVMe Base Specification.  This is not set when the read-only condition of the media is a result of a change in the write protection state of a namespace."/>
         </Property>
         <Property Name="OverallSubsystemDegraded" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates that the NVM subsystem reliability has been compromised."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate that the NVM subsystem reliability has been compromised."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the NVM subsystem reliability has been compromised, as defined by the 'NVM Subsystem Degraded Reliability (NDR)' flag in the NVMe Base Specification."/>
         </Property>
         <Property Name="SpareCapacityWornOut" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates that the available spare capacity has fallen below the threshold."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate that the available spare capacity has fallen below the threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the available spare capacity has fallen below the threshold, as defined by the 'Available Spare Capacity Below Threshold (ASCBT)' flag in the NVMe Base Specification."/>
         </Property>
       </ComplexType>
 
@@ -619,6 +619,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_0_4.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_0_5.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -671,6 +677,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_1_3.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_1_4.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -711,6 +723,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_2_2.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_2_3.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -743,6 +761,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_3_2.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_3_3.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_4_0">
@@ -783,6 +807,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_4_2.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_4_3.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -807,6 +837,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_5_2.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_5_3.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_6_0">
@@ -841,6 +877,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_6_2.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_6_3.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_7_0">
@@ -920,6 +962,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_7_4.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_7_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_7_5.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -942,6 +990,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_8_0.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_8_1.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.4"/>
@@ -961,6 +1015,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_9_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_9_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_9_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_10_0">
@@ -997,12 +1057,44 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_10_0.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_10_1.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.4"/>
       <Annotation Term="OData.Description" String="This version was created to add the `Reset` action."/>
 
       <EntityType Name="StorageController" BaseType="StorageController.v1_10_1.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to map NVMe SMART properties directly back to the NVMe Base Specification."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_11_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="StorageController" BaseType="StorageController.v1_11_1.StorageController"/>
+
+      <ComplexType Name="NVMeSMARTCriticalWarnings" BaseType="StorageController.v1_0_0.NVMeSMARTCriticalWarnings">
+        <Property Name="TemperatureThresholdCondition" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A temperature in the NVM subsystem is either above a upper temperature limit or below a lower temperature limit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that a temperature in the NVM subsystem is either above a upper temperature limit or below a lower temperature limit, as defined by the 'Temperature Threshold Condition (TTC)' flag in the NVMe Base Specification."/>
+        </Property>
+        <Property Name="IndeterminatePersonalityStatus" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A request to change the settings of a personality did not complete successfully and the NVM subsystem was not able to revert to the previous personality."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that a request to change the settings of a personality did not complete successfully and the NVM subsystem was not able to revert to the previous personality, as defined by the 'Indeterminate Personality State (IPS)' flag in the NVMe Base Specification."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

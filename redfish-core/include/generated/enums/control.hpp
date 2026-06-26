@@ -25,6 +25,7 @@ enum class ControlType{
     RotationalVelocity,
     RotationalAcceleration,
     LiquidFlowLPM,
+    Voltage,
 };
 
 enum class SetPointType{
@@ -67,6 +68,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ControlType, {
     {ControlType::RotationalVelocity, "RotationalVelocity"},
     {ControlType::RotationalAcceleration, "RotationalAcceleration"},
     {ControlType::LiquidFlowLPM, "LiquidFlowLPM"},
+    {ControlType::Voltage, "Voltage"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SetPointType, {

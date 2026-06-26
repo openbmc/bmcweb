@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerSupply v1.6.0                                                  -->
+<!--# Redfish Schema:  PowerSupply v1.7.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -48,6 +48,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -329,7 +332,6 @@
       </ComplexType>
     </Schema>
 
-
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
@@ -600,6 +602,22 @@
         </NavigationProperty>
       </EntityType>
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_6_0.PowerSupply"/>
+
+      <ComplexType Name="OutputRail" BaseType="PowerSupply.v1_0_0.OutputRail">
+        <NavigationProperty Name="VoltageControl" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The desired output voltage (V)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired output voltage, in volt units, for this output rail.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Voltage`.  A `ControlMode` value of `Override` shall indicate the user has selected a desired output voltage, while a value of `Automatic` shall indicate the output voltage reflects the value of `NominalVoltage`.  Changing the value of `ControlMode` to `Automatic` should change the value of `SetPoint` to match the `NominalVoltage`."/>
+        </NavigationProperty>
+	  </ComplexType>
+	</Schema>
 
   </edmx:DataServices>
 </edmx:Edmx>

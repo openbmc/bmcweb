@@ -28,6 +28,11 @@ inline bool attemptZstdCompression(Response& res)
     using http_helpers::Encoding;
     using enum http_helpers::Encoding;
 
+    if (res.response.body().file().is_open())
+    {
+        return true;
+    }
+
     std::string& strBody = res.response.body().str();
     if (strBody.empty())
     {

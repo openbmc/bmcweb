@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -632,7 +632,7 @@
       </EntityType>
 
       <ComplexType Name="CoreMetrics" BaseType="ProcessorMetrics.v1_0_0.CoreMetrics">
-       <Property Name="CorrectableCoreErrorCount" Type="Edm.Int64">
+        <Property Name="CorrectableCoreErrorCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The number of correctable core errors."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable core errors, such as TLB or cache errors.  When this resource is subordinate to the `ProcessorSummary` object, this property shall be the sum of `CorrectableCoreErrorCount` over all processors."/>

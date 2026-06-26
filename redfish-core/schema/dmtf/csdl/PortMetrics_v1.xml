@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PortMetrics v1.8.1                                                  -->
+<!--# Redfish Schema:  PortMetrics v1.9.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -801,7 +801,7 @@
       </EntityType>
 
       <ComplexType Name="Transceiver" BaseType="PortMetrics.v1_7_0.Transceiver">
-        <Property Name="ByLane" Type="Collection(PortMetrics.v1_8_0.TransceiverLaneMetrics)" Nullable= "false">
+        <Property Name="ByLane" Type="Collection(PortMetrics.v1_8_0.TransceiverLaneMetrics)" Nullable="false">
           <Annotation Term="OData.Description" String="The metrics for the lanes in this port that are part of this transceiver.  Each member represents a single lane."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of lane-related metrics for a transceiver in this port.  Each member in the array shall represent a single lane."/>
         </Property>
@@ -845,6 +845,52 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_8_0.PortMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_8_1.PortMetrics">
+        <Property Name="PoE" Type="PortMetrics.v1_9_0.PoEMetrics">
+          <Annotation Term="OData.Description" String="The Power over Ethernet (PoE) metrics for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Power over Ethernet (PoE) metrics for this port."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="PoEMetrics">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The Power over Ethernet (PoE) metrics for a port."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the Power over Ethernet (PoE) metrics for a port."/>
+        <Property Name="NegotiatedPowerWatts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The negotiated maximum power for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum power negotiated during PoE classification on this port."/>
+          <Annotation Term="Measures.Unit" String="W"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="PowerWatts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current power delivered or consumed on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current power delivered or consumed on this port."/>
+          <Annotation Term="Measures.Unit" String="W"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="VoltageVolts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current voltage on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current voltage measured on this port."/>
+          <Annotation Term="Measures.Unit" String="V"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="CurrentAmps" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current being delivered or consumed on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current being delivered or consumed on this port."/>
+          <Annotation Term="Measures.Unit" String="A"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

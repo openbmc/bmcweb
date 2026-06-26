@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.18.0                                                        -->
+<!--# Redfish Schema:  Port v1.19.0                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -872,7 +872,7 @@
         <Property Name="AutoSpeedNegotiationEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Controls whether this port is configured to enable autonegotiating speed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the port is configured to autonegotiate speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the port is configured to automatically select the highest link speed supported by both the port and its connected peer.  When set to `false`, the port shall operate at the speed specified by the `ConfiguredSpeedGbps` property.  This property represents a user-provided setting and does not describe the underlying protocol or training mechanisms used to establish the link.  For example, this property shall return `false` if the PCIe target link speed is configured by system software and reflected in the ConfiguredSpeedGbps property."/>
         </Property>
       </ComplexType>
 
@@ -940,6 +940,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for `LinkConfiguration`.  It was also created to update the description of the `Metrics` property to clarify its usage when `IsAggregation` contains `true`."/>
       <EntityType Name="Port" BaseType="Port.v1_3_7.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_3_8.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_0">
@@ -1366,6 +1372,12 @@
       <EntityType Name="Port" BaseType="Port.v1_4_6.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_4_7.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1430,6 +1442,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for `LinkConfiguration` and to add support for non-SFP transceivers.  It was also created to add clarity to the `AssociatedMACAddresses` property in `EthernetProperties`.  It was also created to update the description of the `Metrics` property to clarify its usage when `IsAggregation` contains `true`."/>
       <EntityType Name="Port" BaseType="Port.v1_5_5.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_5_6.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_0">
@@ -1504,6 +1522,12 @@
       <EntityType Name="Port" BaseType="Port.v1_6_5.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_6_6.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1542,6 +1566,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for `LinkConfiguration` and to add support for non-SFP transceivers.  It was also created to add clarity to the `AssociatedMACAddresses` property in `EthernetProperties`.  It was also created to update the description of the `Metrics` property to clarify its usage when `IsAggregation` contains `true`."/>
       <EntityType Name="Port" BaseType="Port.v1_7_3.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_7_4.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_8_0">
@@ -1664,7 +1694,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates whether temporary throughput reduction is enabled."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the CXL Specification-defined 'Temporary Throughput Reduction' mechanism is enabled."/>
-            <Annotation Term="Redfish.Revisions">
+          <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
@@ -1890,6 +1920,12 @@
       <EntityType Name="Port" BaseType="Port.v1_8_3.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_8_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_8_4.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1922,6 +1958,12 @@
       <EntityType Name="Port" BaseType="Port.v1_9_3.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_9_4.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -1946,6 +1988,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for `LinkConfiguration` and to add support for non-SFP transceivers.  It was also created to add clarity to the `AssociatedMACAddresses` property in `EthernetProperties`.  It was also created to update the description of the `Metrics` property to clarify its usage when `IsAggregation` contains `true`."/>
       <EntityType Name="Port" BaseType="Port.v1_10_2.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_10_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_10_3.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_11_0">
@@ -1976,6 +2024,12 @@
       <EntityType Name="Port" BaseType="Port.v1_11_1.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_11_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_11_2.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -1994,6 +2048,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for `LinkConfiguration` and to add support for non-SFP transceivers.  It was also created to add clarity to the `AssociatedMACAddresses` property in `EthernetProperties`.  It was also created to update the description of the `Metrics` property to clarify its usage when `IsAggregation` contains `true`."/>
       <EntityType Name="Port" BaseType="Port.v1_12_1.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_12_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_12_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_13_0">
@@ -2029,6 +2089,12 @@
       <EntityType Name="Port" BaseType="Port.v1_13_1.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_13_2.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -2054,6 +2120,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for `LinkConfiguration` and to add support for non-SFP transceivers.  It was also created to add clarity to the `AssociatedMACAddresses` property in `EthernetProperties`.  It was also created to update the description of the `Metrics` property to clarify its usage when `IsAggregation` contains `true`."/>
       <EntityType Name="Port" BaseType="Port.v1_14_1.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_14_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_14_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_15_0">
@@ -2090,6 +2162,12 @@
       <EntityType Name="Port" BaseType="Port.v1_15_0.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_15_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_15_1.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.1"/>
@@ -2123,6 +2201,12 @@
       <EntityType Name="Port" BaseType="Port.v1_16_0.Port"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_16_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_16_1.Port"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.3"/>
@@ -2151,6 +2235,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions for `LinkConfiguration` and to add support for non-SFP transceivers.  It was also created to add clarity to the `AssociatedMACAddresses` property in `EthernetProperties`.  It was also created to update the description of the `Metrics` property to clarify its usage when `IsAggregation` contains `true`."/>
       <EntityType Name="Port" BaseType="Port.v1_17_0.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_17_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_17_1.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_18_0">
@@ -2262,6 +2352,157 @@
         </Member>
         <Member Name="UALink200G">
           <Annotation Term="OData.Description" String="The port conforms to UALink 200G Data Link Layer and Physical Layer requirements."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_18_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `AutoSpeedNegotiationEnabled` property to clarify that it represents a user-provided setting rather than the underlying protocol or the training mechanisms used to establish the link."/>
+      <EntityType Name="Port" BaseType="Port.v1_18_0.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+
+      <EntityType Name="Port" BaseType="Port.v1_18_1.Port">
+        <Property Name="PCIe" Type="Port.v1_19_0.PCIeProperties">
+          <Annotation Term="OData.Description" String="PCIe properties for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain PCIe-specific properties of the port."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="PCIeProperties">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type defines PCIe-specific port properties."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain PCIe-specific port properties."/>
+        <Property Name="ReferenceClockMode" Type="Port.v1_19_0.PCIeReferenceClockMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The PCIe reference clock mode for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe reference clock mode for this port."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="EthernetProperties" BaseType="Port.v1_5_0.EthernetProperties">
+        <Property Name="PoE" Type="Port.v1_19_0.PoE">
+          <Annotation Term="OData.Description" String="The Power over Ethernet (PoE) input and output power configuration on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Power over Ethernet (PoE) input and output power configuration on this port."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PoE">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The Power over Ethernet (PoE) configuration on a port."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the Power over Ethernet (PoE) configuration for a port."/>
+        <Property Name="Enabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether PoE is enabled on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether PoE is enabled on this port."/>
+        </Property>
+        <Property Name="PowerMode" Type="Port.v1_19_0.PoEPowerMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current power mode of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current power mode of this port."/>
+        </Property>
+        <Property Name="Standard" Type="Port.v1_19_0.PoEStandard">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The IEEE 802.3 PoE standard in use by this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IEEE 802.3 PoE standard in use by this port."/>
+        </Property>
+        <Property Name="PowerClass" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The power class negotiated by this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power class, 0 through 8, negotiated by this port during PoE detection and classification."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="8"/>
+        </Property>
+        <Property Name="CapablePowerWatts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum power supported by this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum power supported by this port."/>
+          <Annotation Term="Measures.Unit" String="W"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="ConfiguredPowerWatts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configured maximum power this port is allowed to negotiate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configured maximum power this port is allowed to negotiate."/>
+          <Annotation Term="Measures.Unit" String="W"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="DetectionStatus" Type="Port.v1_19_0.PoEDetectionStatus">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The detection and delivery status of PoE on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current state of PoE detection and power delivery on this port."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="PCIeReferenceClockMode">
+        <Member Name="CommonClock">
+          <Annotation Term="OData.Description" String="Common clock mode."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the devices on the PCIe link share the same reference clock."/>
+        </Member>
+        <Member Name="SeparateClock">
+          <Annotation Term="OData.Description" String="Separate clock mode."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate each device on the PCIe link uses a separate reference clock."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="PoEPowerMode">
+        <Member Name="PSE">
+          <Annotation Term="OData.Description" String="Power Sourcing Equipment (PSE)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the port is providing power to a connected port."/>
+        </Member>
+        <Member Name="PD">
+          <Annotation Term="OData.Description" String="Powered Device (PD)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the port is receiving power from a connected port."/>
+        </Member>
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No power is transmitted or received on this port."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the port is not currently transmitting or receiving power.  This value does not indicate that this port does not support PoE."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="PoEStandard">
+        <Member Name="IEEE8023af">
+          <Annotation Term="OData.Description" String="IEEE 802.3af-2003 (PoE Type 1)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the port follows IEEE 802.3af-2003 Power over Ethernet, supporting up to 15.4W."/>
+        </Member>
+        <Member Name="IEEE8023at">
+          <Annotation Term="OData.Description" String="IEEE 802.3at-2009 (PoE+ Type 2)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the port follows IEEE 802.3at-2009 Power over Ethernet Plus, supporting up to 30W."/>
+        </Member>
+        <Member Name="IEEE8023bt">
+          <Annotation Term="OData.Description" String="IEEE 802.3bt-2018 (PoE++ Type 3 and Type 4)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the port follows IEEE 802.3bt-2018 Power over Ethernet Plus Plus, supporting up to 60W (Type 3) or 100W (Type 4)."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="PoEDetectionStatus">
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Disabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the PoE detection is in the 'disabled' state, as defined in IEEE Std 802.3af Section 30.9.1.1.5."/>
+        </Member>
+        <Member Name="Searching">
+          <Annotation Term="OData.Description" String="Searching."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the PoE detection is in the 'searching' state, as defined in IEEE Std 802.3af Section 30.9.1.1.5."/>
+        </Member>
+        <Member Name="DeliveringPower">
+          <Annotation Term="OData.Description" String="Delivering power."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the PoE detection is in the 'deliveringPower' state, as defined in IEEE Std 802.3af Section 30.9.1.1.5."/>
+        </Member>
+        <Member Name="Fault">
+          <Annotation Term="OData.Description" String="Fault detected."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the PoE detection is in the 'fault' state, as defined in IEEE Std 802.3af Section 30.9.1.1.5."/>
+        </Member>
+        <Member Name="Test">
+          <Annotation Term="OData.Description" String="Test mode."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the PoE detection is in the 'test' state, as defined in IEEE Std 802.3af Section 30.9.1.1.5."/>
+        </Member>
+        <Member Name="OtherFault">
+          <Annotation Term="OData.Description" String="Other fault detected."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the PoE detection is in the 'otherFault' state, as defined in IEEE Std 802.3af Section 30.9.1.1.5."/>
         </Member>
       </EnumType>
     </Schema>

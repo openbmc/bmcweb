@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -2548,8 +2548,8 @@
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_23_0.Chassis">
         <Property Name="Doors" Type="Chassis.v1_24_0.Doors" Nullable="false">
-           <Annotation Term="OData.Description" String="The doors or access panels of the chassis."/>
-           <Annotation Term="OData.LongDescription" String="This property shall contain information about the doors or access panels of the chassis."/>
+          <Annotation Term="OData.Description" String="The doors or access panels of the chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the doors or access panels of the chassis."/>
         </Property>
       </EntityType>
 

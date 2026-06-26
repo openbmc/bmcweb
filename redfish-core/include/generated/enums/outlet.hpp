@@ -23,13 +23,16 @@ enum class ReceptacleType{
     NEMA_L6_20R,
     NEMA_L6_30R,
     IEC_60320_C13,
+    IEC_60320_C15,
     IEC_60320_C19,
+    IEC_60320_C21,
     CEE_7_Type_E,
     CEE_7_Type_F,
     SEV_1011_TYPE_12,
     SEV_1011_TYPE_23,
     BS_1363_Type_G,
     BusConnection,
+    Combination,
 };
 
 enum class VoltageType{
@@ -54,13 +57,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReceptacleType, {
     {ReceptacleType::NEMA_L6_20R, "NEMA_L6_20R"},
     {ReceptacleType::NEMA_L6_30R, "NEMA_L6_30R"},
     {ReceptacleType::IEC_60320_C13, "IEC_60320_C13"},
+    {ReceptacleType::IEC_60320_C15, "IEC_60320_C15"},
     {ReceptacleType::IEC_60320_C19, "IEC_60320_C19"},
+    {ReceptacleType::IEC_60320_C21, "IEC_60320_C21"},
     {ReceptacleType::CEE_7_Type_E, "CEE_7_Type_E"},
     {ReceptacleType::CEE_7_Type_F, "CEE_7_Type_F"},
     {ReceptacleType::SEV_1011_TYPE_12, "SEV_1011_TYPE_12"},
     {ReceptacleType::SEV_1011_TYPE_23, "SEV_1011_TYPE_23"},
     {ReceptacleType::BS_1363_Type_G, "BS_1363_Type_G"},
     {ReceptacleType::BusConnection, "BusConnection"},
+    {ReceptacleType::Combination, "Combination"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {

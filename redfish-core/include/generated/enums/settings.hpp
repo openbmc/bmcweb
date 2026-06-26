@@ -23,6 +23,7 @@ enum class ApplyTime{
     OnReset,
     AtMaintenanceWindowStart,
     InMaintenanceWindowOnReset,
+    Deferred,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(OperationApplyTime, {
@@ -41,6 +42,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::OnReset, "OnReset"},
     {ApplyTime::AtMaintenanceWindowStart, "AtMaintenanceWindowStart"},
     {ApplyTime::InMaintenanceWindowOnReset, "InMaintenanceWindowOnReset"},
+    {ApplyTime::Deferred, "Deferred"},
 });
 
 // clang-format on

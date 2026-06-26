@@ -368,15 +368,10 @@ std::string getDateTimeStdtime(std::chrono::system_clock::time_point timePoint,
  */
 std::pair<std::string, std::string> getDateTimeOffsetNow()
 {
-    const std::chrono::time_zone* tz = nullptr;
-    try
+    const std::chrono::time_zone* tz = details::getTimeZone();
+    if (tz == nullptr)
     {
-        tz = std::chrono::current_zone();
-    }
-    catch (const std::runtime_error& e)
-    {
-        BMCWEB_LOG_ERROR("Error getting time zone: {}", e.what());
-        return std::make_pair("", "");
+        return {"", ""};
     }
     using std::chrono::floor;
     using std::chrono::seconds;
@@ -391,7 +386,7 @@ std::pair<std::string, std::string> getDateTimeOffsetNow()
     std::string datetime = std::format("{:%Y-%m-%dT%H:%M:%S%Ez}", zt);
     std::string timeOffset = std::format("{:%Ez}", zt);
 
-    return std::make_pair(std::move(datetime), std::move(timeOffset));
+    return {std::move(datetime), std::move(timeOffset)};
 }
 
 using usSinceEpoch = std::chrono::duration<int64_t, std::micro>;
@@ -416,8 +411,8 @@ std::optional<std::string> getDateTimeIso8601(std::string_view datetime)
     auto secondsDuration =
         std::chrono::duration_cast<std::chrono::seconds>(*us);
 
-    return std::make_optional(
-        getDateTimeUint(static_cast<uint64_t>(secondsDuration.count()), "UTC"));
+    return getDateTimeUint(static_cast<uint64_t>(secondsDuration.count()),
+                           "UTC");
 }
 
 /**

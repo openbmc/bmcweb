@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol v1.12.0                                      -->
+<!--# Redfish Schema:  ManagerNetworkProtocol v1.13.0                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -108,7 +108,7 @@
           <Annotation Term="OData.Description" String="The settings for this manager's IPMI-over-LAN protocol support."/>
           <Annotation Term="OData.LongDescription" String="This object shall contain the IPMI over LAN protocol settings for the manager.  The default `Port` property value should be `623` for compatibility with established client implementations."/>
         </Property>
-        <Property Name="SSH" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+        <Property Name="SSH" Type="ManagerNetworkProtocol.v1_0_0.SSHProtocol" Nullable="false">
           <Annotation Term="OData.Description" String="The settings for this manager's Secure Shell (SSH) protocol support."/>
           <Annotation Term="OData.LongDescription" String="This object shall contain the Secure Shell (SSH) protocol settings for the manager.  The default value should be `22` for compatibility with established client implementations."/>
         </Property>
@@ -164,6 +164,8 @@
       <ComplexType Name="HTTPSProtocol" BaseType="ManagerNetworkProtocol.v1_0_0.Protocol"/>
 
       <ComplexType Name="SNMPProtocol" BaseType="ManagerNetworkProtocol.v1_0_0.Protocol"/>
+
+      <ComplexType Name="SSHProtocol" BaseType="ManagerNetworkProtocol.v1_0_0.Protocol"/>
 
       <EnumType Name="NotifyIPv6Scope">
         <Member Name="Link">
@@ -541,8 +543,8 @@
         </Property>
         <Property Name="AuthenticationProtocol" Type="ManagerNetworkProtocol.v1_5_0.SNMPAuthenticationProtocols">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The authentication protocol used for SNMP access to this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP authentication protocol used to access this manager.  When the property contains the value `Account`, the SNMP settings in each manager account are used for authentication."/>
+          <Annotation Term="OData.Description" String="The authentication protocol used for SNMPv3 access to this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMPv3 authentication protocol used to access this manager.  When the property contains the value `Account`, the SNMP settings in each manager account are used for authentication.  SNMPv1 and SNMPv2c protocols, if enabled, use community string-based authentication."/>
         </Property>
         <Property Name="EncryptionProtocol" Type="ManagerNetworkProtocol.v1_5_0.SNMPEncryptionProtocols">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -609,6 +611,15 @@
         <Member Name="CommunityString">
           <Annotation Term="OData.Description" String="SNMP community string authentication."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate authentication uses SNMP community strings."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated to clarify that `AuthenticationProtocol` applies to SNMPv3 support, which does not support community string-based authentication."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="HMAC_MD5">
           <Annotation Term="OData.Description" String="HMAC-MD5-96 authentication."/>
@@ -662,6 +673,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication is not required."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -748,6 +771,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_5_5.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `AuthenticationProtocol` in the `SNMP` object applies only to SNMPv3 protocol usage."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_5_6.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -794,6 +823,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_4.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_6_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `AuthenticationProtocol` in the `SNMP` object applies only to SNMPv3 protocol usage."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_5.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -818,6 +853,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that setting `NotifyMulticastIntervalSeconds` to `0` impacts other NOTIFY usage beyond NOTIFY ALIVE.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_7_2.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `AuthenticationProtocol` in the `SNMP` object applies only to SNMPv3 protocol usage."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_7_3.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_8_0">
@@ -899,6 +940,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_8_3.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_8_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `AuthenticationProtocol` in the `SNMP` object applies only to SNMPv3 protocol usage."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_8_4.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -930,6 +977,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that setting `NotifyMulticastIntervalSeconds` to `0` impacts other NOTIFY usage beyond NOTIFY ALIVE.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_9_2.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `AuthenticationProtocol` in the `SNMP` object applies only to SNMPv3 protocol usage."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_9_3.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_10_0">
@@ -988,6 +1041,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_10_0.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `AuthenticationProtocol` in the `SNMP` object applies only to SNMPv3 protocol usage."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_10_1.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.1"/>
@@ -998,6 +1057,12 @@
           <Annotation Term="OData.LongDescription" String="This object shall contain the Multicast Domain Name Service (mDNS) settings for the manager.  The default `Port` property value should be `5353` for compatibility with established client implementations."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `AuthenticationProtocol` in the `SNMP` object applies only to SNMPv3 protocol usage."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_11_0.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_12_0">
@@ -1047,6 +1112,63 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain all the clients allowed to access this Modbus TCP server interface.  If `RestrictAccessToAllowedClients` contains `true`, the service shall enforce this restriction.  If `RestrictAccessToAllowedClients` contains `false`, the service shall not enforce this restriction.  This property may contain FQDN, IPv4 addresses, IPv6 addresses, or any combination of those formats.  Services may reject unsupported formats."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `AuthenticationProtocol` in the `SNMP` object applies only to SNMPv3 protocol usage."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_12_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `CommunityString` and add `None` to `AuthenticationProtocol` in the `SNMP` object."/>
+
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_12_1.ManagerNetworkProtocol">
+        <Property Name="IPv6AddressGenerationMode" Type="ManagerNetworkProtocol.v1_13_0.IPv6AddressGenerationMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The IPv6 address generation mode.  This affects all Ethernet interfaces on this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 address generation mode.  The configuration of this property shall apply to all Ethernet interfaces on this manager."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="IPv6AddressGenerationMode">
+        <Member Name="StablePrivacy">
+          <Annotation Term="OData.Description" String="Stable privacy address generation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate stable privacy address generation."/>
+        </Member>
+        <Member Name="EUI64">
+          <Annotation Term="OData.Description" String="EUI-64 address generation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate EUI-64 address generation."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="SSHProtocol" BaseType="ManagerNetworkProtocol.v1_0_0.SSHProtocol">
+        <Property Name="PreferredAuthentications" Type="Collection(ManagerNetworkProtocol.v1_13_0.SSHPreferredAuthentication)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The SSH authentication methods that are permitted and the order in which they are preferred to be attempted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SSH authentication methods that are permitted and the order in which they are preferred to be attempted.  The first entry is the most preferred method.  Methods not listed shall be considered disallowed."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="SSHPreferredAuthentication">
+        <Member Name="Password">
+          <Annotation Term="OData.Description" String="Password-based SSH authentication as defined in RFC4252."/>
+        </Member>
+        <Member Name="PublicKey">
+          <Annotation Term="OData.Description" String="Public key-based SSH authentication as defined in RFC4252."/>
+        </Member>
+        <Member Name="KeyboardInteractive">
+          <Annotation Term="OData.Description" String="Keyboard-interactive authentication as defined in RFC4256."/>
+        </Member>
+        <Member Name="GSSAPIWithMIC">
+          <Annotation Term="OData.Description" String="Generic Security Service Application Program Interface (GSS-API)-based authentication with a Message Integrity Code (MIC) as defined in RFC4462."/>
+        </Member>
+        <Member Name="HostBased">
+          <Annotation Term="OData.Description" String="Host-based authentication as defined in RFC4252."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

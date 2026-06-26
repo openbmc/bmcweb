@@ -1,0 +1,266 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryExtent.v1_0_0.json",
+    "$ref": "#/definitions/MemoryExtent",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2026 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MemoryRegions": {
+                    "description": "An array of links to the memory regions though which the memory extent capacity is exposed.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryRegion.json#/definitions/MemoryRegion"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `MemoryRegion` that represent the dynamic capacity memory regions through which the memory extent capacity is exposed.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "MemoryRegions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "MemoryChunk": {
+            "additionalProperties": false,
+            "description": "A memory chunk that provides capacity for a memory extent.",
+            "longDescription": "This type shall contain a memory chunk that provides capacity for a memory extent.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ChunkLink": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.json#/definitions/MemoryChunks",
+                    "description": "The link to the memory chunk that provides capacity to the memory extent.",
+                    "longDescription": "This property shall contain a link to a resource of type `MemoryChunks` that provides capacity to the memory extent.",
+                    "readonly": true
+                },
+                "ChunkOffsetMiB": {
+                    "description": "The offset of the memory chunk within the memory extent in mebibytes (MiB).",
+                    "longDescription": "The value of this property shall contain the offset of the memory chunk within the memory extent in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                }
+            },
+            "type": "object"
+        },
+        "MemoryExtent": {
+            "additionalProperties": false,
+            "description": "The `MemoryExtent` schema contains definition of a CXL dynamic capacity memory extent and its configuration.",
+            "longDescription": "This resource shall represent a CXL dynamic capacity memory extent in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "ExtentOffsetMiB": {
+                    "description": "The offset of the memory extent in the device address range in mebibytes (MiB).",
+                    "longDescription": "The value of this property shall contain the offset of the memory extent in the device address range in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                },
+                "ExtentSizeMiB": {
+                    "description": "The size of the memory extent in mebibytes (MiB).",
+                    "longDescription": "This property shall contain the size of the memory extent in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                },
+                "FMReferencedExtent": {
+                    "description": "An indication of whether this memory extent is referenced by the CXL Fabric Manager.",
+                    "longDescription": "This property shall indicate whether this memory extent is referenced by the CXL Fabric Manager.  If `true`, this memory extent cannot be sanitized, freed, or reallocated, regardless of whether it is currently assigned to any logical device.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "MemoryChunks": {
+                    "description": "The set of memory chunks that provide capacity for this memory extent.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/MemoryChunk"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the set of memory chunks that provide capacity for this memory extent.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "SequenceNumber": {
+                    "description": "The memory extent sequence number.",
+                    "longDescription": "This property shall contain the sequence number instructing host on the relative order the extents have to be placed in the host adjacent virtual address space.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "Tag": {
+                    "description": "The tag of this memory extent.",
+                    "longDescription": "This property shall contain an opaque context attached to each extent to track usage of each extent or map extent to specific processes, transactions, or workloads on the host.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2026.1",
+    "title": "#MemoryExtent.v1_0_0.MemoryExtent"
+}

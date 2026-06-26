@@ -238,6 +238,11 @@ enum class ExportSecurity{
     ExcludeSensitiveData,
 };
 
+enum class ImageChecksumAlgorithm{
+    Invalid,
+    SHA256,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSource, {
     {BootSource::Invalid, "Invalid"},
     {BootSource::None, "None"},
@@ -467,6 +472,11 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
     {ExportSecurity::IncludeSensitiveData, "IncludeSensitiveData"},
     {ExportSecurity::HashedDataOnly, "HashedDataOnly"},
     {ExportSecurity::ExcludeSensitiveData, "ExcludeSensitiveData"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ImageChecksumAlgorithm, {
+    {ImageChecksumAlgorithm::Invalid, "Invalid"},
+    {ImageChecksumAlgorithm::SHA256, "SHA256"},
 });
 
 // clang-format on

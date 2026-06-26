@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -765,8 +765,8 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="LLDPEnabled" Type="Edm.Boolean" Nullable="false">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
-          <Annotation Term="OData.Description" String="Enable or disable LLDP globally for an adapter." />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Enable or disable LLDP globally for an adapter."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the state indicating whether LLDP is globally enabled on a network adapter.  If set to `false`, the `LLDPEnabled` value for the ports associated with this adapter shall be disregarded."/>
         </Property>
       </EntityType>
@@ -855,7 +855,7 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_9_1.NetworkAdapter"/>
 
       <ComplexType Name="ControllerLinks" BaseType="NetworkAdapter.v1_5_0.ControllerLinks">
-         <NavigationProperty Name="ActiveSoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
+        <NavigationProperty Name="ActiveSoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The link to the software inventory resource that represents the active firmware image for this controller."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `SoftwareInventory` that represents the active firmware image for this controller."/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AttributeRegistry v1.4.0                                            -->
+<!--# Redfish Schema:  AttributeRegistry v1.5.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -409,6 +409,28 @@
         <Member Name="LEQ">
           <Annotation Term="OData.Description" String="The logical operation for 'Less than or Equal'."/>
         </Member>
+        <Member Name="BITAND">
+          <Annotation Term="OData.Description" String="The logical operation for 'BITAND'."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="BITOR">
+          <Annotation Term="OData.Description" String="The logical operation for 'BITOR'."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="MapFromProperty">
@@ -453,6 +475,17 @@
         </Member>
         <Member Name="OR">
           <Annotation Term="OData.Description" String="The operation used for logical 'OR' of dependency terms."/>
+        </Member>
+        <Member Name="NOT">
+          <Annotation Term="OData.Description" String="The operation used for logical 'NOT' of dependency terms."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -907,6 +940,21 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of privileges that are required to modify this attribute."/>
           <Annotation Term="OData.LongDescription" String="This array shall contain an array of privileges that are required to modify this attribute.  This property shall contain strings from the `PrivilegesUsed` and `OEMPrivilegesUsed` properties in the privilege registry of this service."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `NOT` to `MapTerms`.  This version was also created to add `BITAND` and `BITOR` to `MapFromCondition`."/>
+
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_4_0.AttributeRegistry"/>
+
+      <ComplexType Name="MapFrom" BaseType="AttributeRegistry.v1_0_0.MapFrom">
+        <Property Name="Subexpressions" Type="Collection(AttributeRegistry.v1_0_0.MapFrom)" Nullable="false">
+          <Annotation Term="OData.Description" String="The subexpressions to use to evaluate this dependency expression."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the subexpressions to use to evaluate this dependency expression term."/>
         </Property>
       </ComplexType>
     </Schema>

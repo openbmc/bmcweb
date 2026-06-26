@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -729,7 +729,6 @@
       <EntityType Name="Temperature" BaseType="Thermal.v1_3_0.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_3_0.Fan"/>
     </Schema>
-
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>

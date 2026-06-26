@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Control v1.7.0                                                      -->
+<!--# Redfish Schema:  Control v1.8.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -459,6 +459,18 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="Voltage">
+          <Annotation Term="OData.Description" String="Voltage (V) control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to select a operating voltage, in volts units, of a device.  The `SetPointUnits` property shall contain `V`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="SetPointType">
@@ -486,16 +498,20 @@
 
       <EnumType Name="ControlMode">
         <Member Name="Automatic">
-          <Annotation Term="OData.Description" String="Automatically adjust control to meet the set point."/>
+          <Annotation Term="OData.Description" String="Set point is automatically adjusted by the service."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system or equipment will automatically make operational adjustments to the set point."/>
         </Member>
         <Member Name="Override">
-          <Annotation Term="OData.Description" String="User override of the automatic set point value."/>
+          <Annotation Term="OData.Description" String="Set point is controlled by the user."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the user controls the value of the `SetPoint` property, which shall override any automatic adjustment by the service.  In this mode, the system or equipment shall automatically make operational adjustments to meet the user-defined set point, and shall not modify the `SetPoint` value."/>
         </Member>
         <Member Name="Manual">
-          <Annotation Term="OData.Description" String="No automatic adjustments are made to the control."/>
+          <Annotation Term="OData.Description" String="Set point is manually adjusted."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the control is manually operated with no ability to make set point adjustments through this interface.  This value generally indicates a physical control that only allows monitoring of the set point, and therefore the `SetPoint` property for this control is likely read-only."/>
         </Member>
         <Member Name="Disabled">
-          <Annotation Term="OData.Description" String="The control has been disabled."/>
+          <Annotation Term="OData.Description" String="The control is disabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the control is disabled."/>
         </Member>
       </EnumType>
 
@@ -558,6 +574,12 @@
       <EntityType Name="Control" BaseType="Control.v1_0_4.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
+      <EntityType Name="Control" BaseType="Control.v1_0_5.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -590,6 +612,12 @@
       <EntityType Name="Control" BaseType="Control.v1_1_3.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
+      <EntityType Name="Control" BaseType="Control.v1_1_4.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -620,6 +648,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add excerpt definitions to support automation nodes."/>
       <EntityType Name="Control" BaseType="Control.v1_2_3.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
+      <EntityType Name="Control" BaseType="Control.v1_2_4.Control"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_0">
@@ -661,6 +695,12 @@
       <EntityType Name="Control" BaseType="Control.v1_3_3.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
+      <EntityType Name="Control" BaseType="Control.v1_3_4.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -699,6 +739,12 @@
       <EntityType Name="Control" BaseType="Control.v1_4_3.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
+      <EntityType Name="Control" BaseType="Control.v1_4_4.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -725,6 +771,12 @@
       <EntityType Name="Control" BaseType="Control.v1_5_2.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
+      <EntityType Name="Control" BaseType="Control.v1_5_3.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.4"/>
@@ -739,6 +791,12 @@
       <EntityType Name="Control" BaseType="Control.v1_6_0.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
+      <EntityType Name="Control" BaseType="Control.v1_6_1.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.2"/>
@@ -751,6 +809,20 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the error, or difference, of the related Sensor `Reading` value from the value of the `SetPoint`.  The units shall follow the value of `SetPointUnits`."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
+      <EntityType Name="Control" BaseType="Control.v1_7_0.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Voltage` to `ControlType`."/>
+
+      <EntityType Name="Control" BaseType="Control.v1_7_0.Control"/>
     </Schema>
 
   </edmx:DataServices>

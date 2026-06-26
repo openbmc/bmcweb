@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ConnectionMethod v1.2.0                                             -->
+<!--# Redfish Schema:  ConnectionMethod v1.3.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -124,6 +124,51 @@
         <Member Name="SNMP">
           <Annotation Term="OData.Description" String="SNMP connection method."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the connection method is SNMP."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `SNMPv1`, `SNMPv2c`, and `SNMPv3` to provide the specific SNMP protocol version used by this connection method."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="SNMPv1">
+          <Annotation Term="OData.Description" String="SNMPv1 connection method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection method is SNMPv1."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="SNMPv2c">
+          <Annotation Term="OData.Description" String="SNMPv2c connection method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection method is SNMPv2c."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="SNMPv3">
+          <Annotation Term="OData.Description" String="SNMPv3 connection method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection method is SNMPv3."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="IPMI15">
           <Annotation Term="OData.Description" String="IPMI 1.5 connection method."/>
@@ -219,6 +264,14 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ConnectionMethod.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `SNMP` and add `SNMPv1`, `SNMPv2c` and `SNMPv3` to `ConnectionMethodType`."/>
+
+      <EntityType Name="ConnectionMethod" BaseType="ConnectionMethod.v1_2_0.ConnectionMethod"/>
     </Schema>
 
   </edmx:DataServices>

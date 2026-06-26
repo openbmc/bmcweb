@@ -193,6 +193,10 @@ Fields common to all schemas
 
 - CableType
 - LengthMeters
+- Manufacturer
+- Model
+- PartNumber
+- SerialNumber
 - Status
 
 ### /redfish/v1/CertificateService/
@@ -1095,6 +1099,7 @@ functions the same like the default implementation under the System resource.
 
 ### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
 
+- DeviceType
 - Links/Processors
 - `Links/Processors@odata.count`
 - Manufacturer
@@ -1125,6 +1130,7 @@ functions the same like the default implementation under the System resource.
 
 #### Processor
 
+- EnvironmentMetrics
 - InstructionSet
 - LocationIndicatorActive
 - Manufacturer
@@ -1142,6 +1148,16 @@ functions the same like the default implementation under the System resource.
 - TotalCores
 - TotalThreads
 - Version
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/EnvironmentMetrics/
+
+#### EnvironmentMetrics
+
+- PowerLimitWatts/AllowableMax
+- PowerLimitWatts/AllowableMin
+- PowerLimitWatts/ControlMode
+- PowerLimitWatts/DefaultSetPoint
+- PowerLimitWatts/SetPoint
 
 ### /redfish/v1/Systems/system/ResetActionInfo/
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AggregationSource v1.5.0                                            -->
+<!--# Redfish Schema:  AggregationSource v1.6.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -253,6 +253,15 @@
         <Member Name="CommunityString">
           <Annotation Term="OData.Description" String="Trap community string authentication."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate authentication using SNMP community strings and the value of `TrapCommunity`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated to clarify that `AuthenticationProtocol` applies to SNMPv3 support, which does not support community string-based authentication."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="HMAC_MD5">
           <Annotation Term="OData.Description" String="HMAC-MD5-96 authentication."/>
@@ -543,6 +552,22 @@
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the value of `CommunityString` in `AuthenticationProtocol` in `SNMPSettings`."/>
+
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_5_0.AggregationSource"/>
+
+      <ComplexType Name="SNMPSettings" BaseType="AggregationSource.v1_2_0.SNMPSettings">
+        <Property Name="CommunityString" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The SNMP community string."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP community string used for accessing an SNMP service at the aggregation source.  This value shall be `null` in responses."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

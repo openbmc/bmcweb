@@ -2,16 +2,20 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
 #include "error_messages.hpp"
+#include "http_request.hpp"
 #include "http_response.hpp"
 #include "redfish_aggregator.hpp"
+#include "utils/redfish_aggregator_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>
 #include <memory>
 #include <string>
+#include <system_error>
 #include <utility>
 
 #include <gtest/gtest.h>
@@ -844,6 +848,86 @@ TEST(processContainsSubordinateResponse, noValidLinks)
     EXPECT_FALSE(asyncResp->res.jsonValue.contains("Test"));
     EXPECT_FALSE(asyncResp->res.jsonValue.contains("TelemetryService"));
     EXPECT_FALSE(asyncResp->res.jsonValue.contains("UpdateService"));
+}
+
+// createNewRequest() builds the request that the aggregator forwards to a
+// satellite BMC.  For a singular (prefixed) satellite resource the aggregator
+// forwards every method -- see "Aggregating a Resource" in docs/AGGREGATION.md
+// -- so the forwarded copy must preserve the original method, target, and body
+// while dropping the client's credentials.  These cases lock in that contract,
+// which previously had no coverage.
+TEST(createNewRequest, PreservesNonGetMethodTargetAndBody)
+{
+    std::error_code ec;
+    crow::Request req(R"({"ResetType":"ForceRestart"})", ec);
+    ASSERT_FALSE(ec);
+    req.method(boost::beast::http::verb::post);
+    ASSERT_TRUE(
+        req.target("/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"));
+
+    crow::Request forwarded = createNewRequest(req);
+
+    EXPECT_EQ(forwarded.method(), boost::beast::http::verb::post);
+    EXPECT_EQ(forwarded.target(),
+              "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset");
+    EXPECT_EQ(forwarded.body(), R"({"ResetType":"ForceRestart"})");
+}
+
+TEST(createNewRequest, PreservesPatchBody)
+{
+    std::error_code ec;
+    crow::Request req(R"({"AssetTag":"rack-7"})", ec);
+    ASSERT_FALSE(ec);
+    req.method(boost::beast::http::verb::patch);
+    ASSERT_TRUE(req.target("/redfish/v1/Chassis/chassis"));
+
+    crow::Request forwarded = createNewRequest(req);
+
+    EXPECT_EQ(forwarded.method(), boost::beast::http::verb::patch);
+    EXPECT_EQ(forwarded.body(), R"({"AssetTag":"rack-7"})");
+}
+
+TEST(createNewRequest, FiltersAuthTokenKeepsHostAndContentType)
+{
+    std::error_code ec;
+    crow::Request req("body", ec);
+    ASSERT_FALSE(ec);
+    req.method(boost::beast::http::verb::post);
+    ASSERT_TRUE(req.target("/redfish/v1/Systems/system"));
+    req.addHeader(boost::beast::http::field::host, "127.0.0.1");
+    req.addHeader(boost::beast::http::field::content_type, "application/json");
+    req.addHeader("X-Auth-Token", "topsecret");
+
+    crow::Request forwarded = createNewRequest(req);
+
+    bool hasHost = false;
+    bool hasContentType = false;
+    bool hasAccept = false;
+    bool hasAuthToken = false;
+    for (const auto& field : forwarded.fields())
+    {
+        if (field.name() == boost::beast::http::field::host)
+        {
+            hasHost = true;
+        }
+        else if (field.name() == boost::beast::http::field::content_type)
+        {
+            hasContentType = true;
+        }
+        else if (field.name() == boost::beast::http::field::accept)
+        {
+            hasAccept = true;
+        }
+        else if (field.name_string() == "X-Auth-Token")
+        {
+            hasAuthToken = true;
+        }
+    }
+    EXPECT_TRUE(hasHost);
+    EXPECT_TRUE(hasContentType);
+    EXPECT_TRUE(hasAccept);
+    // The client's auth token must not be leaked to the satellite BMC
+    EXPECT_FALSE(hasAuthToken);
 }
 
 } // namespace

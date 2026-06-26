@@ -141,5 +141,40 @@ inline std::optional<pcie_device::PCIeTypes> redfishPcieGenerationFromDbus(
     return pcie_device::PCIeTypes::Invalid;
 }
 
+inline std::optional<pcie_device::DeviceType> redfishPcieDeviceTypeFromDbus(
+    const std::string& deviceType)
+{
+    if (deviceType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceTypes."
+        "SingleFunction")
+    {
+        return pcie_device::DeviceType::SingleFunction;
+    }
+    if (deviceType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceTypes."
+        "MultiFunction")
+    {
+        return pcie_device::DeviceType::MultiFunction;
+    }
+    if (deviceType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceTypes.Simulated")
+    {
+        return pcie_device::DeviceType::Simulated;
+    }
+    if (deviceType ==
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceTypes.Retimer")
+    {
+        return pcie_device::DeviceType::Retimer;
+    }
+    if (deviceType.empty() ||
+        deviceType ==
+            "xyz.openbmc_project.Inventory.Item.PCIeDevice.DeviceTypes.Unknown")
+    {
+        return std::nullopt;
+    }
+
+    return pcie_device::DeviceType::Invalid;
+}
+
 } // namespace pcie_util
 } // namespace redfish

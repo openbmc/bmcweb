@@ -314,7 +314,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         {
             return;
         }
-        match = std::make_unique<sdbusplus::bus::match_t>(
+        match = std::make_unique<sdbusplus::match>(
             static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
             matchStr,
             [self = shared_from_this()](sdbusplus::message_t& message) {
@@ -354,7 +354,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     std::string state;
     nlohmann::json messages;
     boost::asio::steady_timer timer;
-    std::unique_ptr<sdbusplus::bus::match_t> match;
+    std::unique_ptr<sdbusplus::match> match;
     std::optional<std::chrono::system_clock::time_point> endTime;
     std::optional<Payload> payload;
     bool gave204 = false;

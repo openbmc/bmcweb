@@ -30,6 +30,7 @@ enum class SNMPAuthenticationProtocols{
     HMAC192_SHA256,
     HMAC256_SHA384,
     HMAC384_SHA512,
+    None,
 };
 
 enum class SNMPEncryptionProtocols{
@@ -40,6 +41,21 @@ enum class SNMPEncryptionProtocols{
     CFB128_AES128,
     CFB128_AES192,
     CFB128_AES256,
+};
+
+enum class IPv6AddressGenerationMode{
+    Invalid,
+    StablePrivacy,
+    EUI64,
+};
+
+enum class SSHPreferredAuthentication{
+    Invalid,
+    Password,
+    PublicKey,
+    KeyboardInteractive,
+    GSSAPIWithMIC,
+    HostBased,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(NotifyIPv6Scope, {
@@ -65,6 +81,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPAuthenticationProtocols, {
     {SNMPAuthenticationProtocols::HMAC192_SHA256, "HMAC192_SHA256"},
     {SNMPAuthenticationProtocols::HMAC256_SHA384, "HMAC256_SHA384"},
     {SNMPAuthenticationProtocols::HMAC384_SHA512, "HMAC384_SHA512"},
+    {SNMPAuthenticationProtocols::None, "None"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
@@ -75,6 +92,21 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::CFB128_AES128, "CFB128_AES128"},
     {SNMPEncryptionProtocols::CFB128_AES192, "CFB128_AES192"},
     {SNMPEncryptionProtocols::CFB128_AES256, "CFB128_AES256"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(IPv6AddressGenerationMode, {
+    {IPv6AddressGenerationMode::Invalid, "Invalid"},
+    {IPv6AddressGenerationMode::StablePrivacy, "StablePrivacy"},
+    {IPv6AddressGenerationMode::EUI64, "EUI64"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(SSHPreferredAuthentication, {
+    {SSHPreferredAuthentication::Invalid, "Invalid"},
+    {SSHPreferredAuthentication::Password, "Password"},
+    {SSHPreferredAuthentication::PublicKey, "PublicKey"},
+    {SSHPreferredAuthentication::KeyboardInteractive, "KeyboardInteractive"},
+    {SSHPreferredAuthentication::GSSAPIWithMIC, "GSSAPIWithMIC"},
+    {SSHPreferredAuthentication::HostBased, "HostBased"},
 });
 
 // clang-format on

@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -331,7 +331,7 @@
           <Annotation Term="OData.Description" String="The Ethernet Segment Identifier (ESI) number range for the fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain Ethernet Segment Identifier (ESI) number ranges for allocation in supporting functions such as multihoming."/>
         </Property>
-         <Property Name="EVINumberRange" Type="AddressPool.v1_1_0.EVINumberRange" Nullable="false">
+        <Property Name="EVINumberRange" Type="AddressPool.v1_1_0.EVINumberRange" Nullable="false">
           <Annotation Term="OData.Description" String="The Ethernet Virtual Private Network (EVPN) Instance number (EVI) number range for the fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Ethernet Virtual Private Network (EVPN) Instance number (EVI) range for EVPN-based fabrics."/>
         </Property>
