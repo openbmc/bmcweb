@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59174fff_bf09885c",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T09:54:17Z",
+      "side": 1,
+      "message": "Should we add some logs here for better debugging in the further?",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d557159_32fc8adf",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T09:54:17Z",
+      "side": 1,
+      "message": "Consider to add some logs here for better debugging if needed?",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a607ae_d9eacabe",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T09:54:17Z",
+      "side": 1,
+      "message": "Consider moving them before this line,\nso that the case can be avoided as `getProcessorObject()` should have done the checking.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 40
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a743098_a1491de3",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T09:54:17Z",
+      "side": 1,
+      "message": "I think we should move this into the binded lambda instead of putting them here,\nso that we can avoid error response having these contents.",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 29
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
