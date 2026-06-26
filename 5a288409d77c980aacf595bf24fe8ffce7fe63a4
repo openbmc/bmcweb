@@ -37,6 +37,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "acf2b3ca_41dc8f31",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T08:37:50Z",
+      "side": 1,
+      "message": "Did you use `string_view` in this file?\nOtherwise I think we can then remove this.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 22
+      },
+      "revId": "5a288409d77c980aacf595bf24fe8ffce7fe63a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e5e387_5d6c0357",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-26T08:37:50Z",
+      "side": 1,
+      "message": "I think you can put those content before the `for` loop here,\nso that the response would be initialized only after checking the existence of `processorId`",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 63
+      },
+      "revId": "5a288409d77c980aacf595bf24fe8ffce7fe63a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c13dc1a0_a841db16",
         "filename": "redfish-core/lib/processor_metrics.hpp",
         "patchSetId": 24
