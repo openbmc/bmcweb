@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76cc9c08_20f70978",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-26T22:24:03Z",
+      "side": 1,
+      "message": "We don\u0027t currently. See discussion at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38044",
+      "parentUuid": "4f6debbf_9e6a1c02",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 41
+      },
+      "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4edc5de2_5dcc9d9a",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 12
