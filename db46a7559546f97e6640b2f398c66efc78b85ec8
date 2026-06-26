@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "239d9e18_0cfdf6a1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-06-26T10:45:43Z",
+      "side": 1,
+      "message": "Should this always be added to the response? this seems to only apply to gpus?",
+      "range": {
+        "startLine": 1106,
+        "startChar": 4,
+        "endLine": 1113,
+        "endChar": 76
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59174fff_bf09885c",
         "filename": "redfish-core/lib/processor_settings.hpp",
         "patchSetId": 10
