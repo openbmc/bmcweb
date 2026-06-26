@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "189a2106_18f38f91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-26T02:09:07Z",
+      "side": 1,
+      "message": "yes , I have changed the commit message to reflect the correct changes.",
+      "parentUuid": "e5a68899_5abf62fe",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "f4d4e88df556e515c442d58ad886bd5c9dde2b60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "32365773_0a6558e3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ee1ab53_c043d5ba",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-26T02:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d44a6f88_303e415a",
+      "range": {
+        "startLine": 14,
+        "startChar": 12,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "f4d4e88df556e515c442d58ad886bd5c9dde2b60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ca4ce86_ecaa6281",
@@ -77,6 +125,30 @@
       "writtenOn": "2026-06-25T22:19:36Z",
       "side": 1,
       "message": "It is possible the response would be in an array of the response. If the function took a json_pointer instead then it would be correctly handled here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 29,
+        "endLine": 18,
+        "endChar": 35
+      },
+      "revId": "f4d4e88df556e515c442d58ad886bd5c9dde2b60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c3133ff_0d4492c7",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-06-26T02:09:07Z",
+      "side": 1,
+      "message": "Done, Added `json_pointer` parameter so the function can set PrettyName at any location in the response",
+      "parentUuid": "6ca4ce86_ecaa6281",
       "range": {
         "startLine": 18,
         "startChar": 29,
