@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc83bc2f_8b6995b4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-28T23:19:45Z",
+      "side": 1,
+      "message": "as written\n\nPATCH {PasswordExpiration: \"1970 epoch string\"}\nwill return \n{PasswordExpiration: null}\n\nwhich will technically be a failed patch.  Just reject if this is zero.",
+      "parentUuid": "09562df0_c4545f61",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89bd914f_a7c0a01a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15
