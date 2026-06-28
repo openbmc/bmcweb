@@ -5,6 +5,7 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "cookies.hpp"
+#include "dbus_privileges.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -13,6 +14,7 @@
 
 #include <security/_pam_types.h>
 
+#include <boost/asio/ip/address.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -28,6 +30,43 @@ namespace crow
 
 namespace login_routes
 {
+
+inline void afterGetUserInfoForLogin(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::asio::ip::address& clientIp, const std::string& username,
+    bool isConfigureSelfOnly,
+    const dbus::utility::DBusPropertiesMap& userInfoMap)
+{
+    std::shared_ptr<persistent_data::UserSession> session =
+        persistent_data::SessionStore::getInstance().generateUserSession(
+            username, clientIp, std::nullopt,
+            persistent_data::SessionType::Session, isConfigureSelfOnly);
+    if (session == nullptr)
+    {
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+    if (!crow::populateUserInfo(*session, userInfoMap))
+    {
+        persistent_data::SessionStore::getInstance().removeSession(session);
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+    if (session->userRole.empty())
+    {
+        BMCWEB_LOG_WARNING(
+            "Remote user {} authenticated but has no privilege mapping, "
+            "rejecting login",
+            username);
+        persistent_data::SessionStore::getInstance().removeSession(session);
+        asyncResp->res.result(boost::beast::http::status::unauthorized);
+        return;
+    }
+    bmcweb::setSessionCookies(asyncResp->res, *session);
+    asyncResp->res.jsonValue["token"] = session->sessionToken;
+}
 
 inline void handleLogin(const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -87,15 +126,10 @@ inline void handleLogin(const crow::Request& req,
         asyncResp->res.result(boost::beast::http::status::unauthorized);
         return;
     }
-    auto session =
-        persistent_data::SessionStore::getInstance().generateUserSession(
-            *userStr, req.ipAddress, std::nullopt,
-            persistent_data::SessionType::Session, isConfigureSelfOnly);
-
-    bmcweb::setSessionCookies(asyncResp->res, *session);
-
-    // if content type is json, assume json token
-    asyncResp->res.jsonValue["token"] = session->sessionToken;
+    crow::requestUserInfo(
+        *userStr, asyncResp,
+        std::bind_front(afterGetUserInfoForLogin, asyncResp, req.ipAddress,
+                        *userStr, isConfigureSelfOnly));
 }
 
 inline void handleLogout(const crow::Request& req,
