@@ -121,6 +121,17 @@ inline bool afterGetUserInfoValidate(
         return false;
     }
 
+    if (req.session->userRole.empty())
+    {
+        BMCWEB_LOG_WARNING(
+            "Remote user {} authenticated but has no privilege mapping, "
+            "rejecting request",
+            req.session->username);
+        persistent_data::SessionStore::getInstance().removeSession(req.session);
+        asyncResp->res.result(boost::beast::http::status::unauthorized);
+        return false;
+    }
+
     if (!isUserPrivileged(req, asyncResp, rule))
     {
         // User is not privileged

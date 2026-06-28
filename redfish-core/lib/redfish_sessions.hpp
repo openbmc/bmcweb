@@ -194,15 +194,29 @@ inline void handleSessionCollectionGet(
     asyncResp->res.jsonValue["Description"] = "Session Collection";
 }
 
-inline void processAfterSessionCreation(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, const std::string& username,
-    std::shared_ptr<persistent_data::UserSession>& session)
+inline void afterGetUserInfoForSession(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool isXRequestedWith,
+    const std::shared_ptr<persistent_data::UserSession>& session)
 {
+    if (session->userRole.empty())
+    {
+        BMCWEB_LOG_WARNING(
+            "Remote user {} authenticated but has no privilege mapping, "
+            "rejecting session",
+            session->username);
+        persistent_data::SessionStore::getInstance().removeSession(session);
+        messages::resourceAtUriUnauthorized(
+            asyncResp->res,
+            boost::urls::format("/redfish/v1/SessionService/Sessions"),
+            "No privilege mapping exists for this user");
+        return;
+    }
+
+    // Privilege validated - now set headers and return 201
     // When session is created by webui-vue give it session cookies as a
     // non-standard Redfish extension. This is needed for authentication for
     // WebSockets-based functionality.
-    if (!req.getHeaderValue("X-Requested-With").empty())
+    if (isXRequestedWith)
     {
         bmcweb::setSessionCookies(asyncResp->res, *session);
     }
@@ -221,10 +235,32 @@ inline void processAfterSessionCreation(
         messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
                                        messages::passwordChangeRequired(url));
     }
+    fillSessionObject(asyncResp->res, *session);
+}
 
-    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
-        fillSessionObject(asyncResp->res, *session);
-    });
+inline void afterGenerateUserSession(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, bool isXRequestedWith,
+    bool isConfigureSelfOnly, const boost::asio::ip::address& clientIpAddress,
+    const std::optional<std::string>& clientId,
+    const dbus::utility::DBusPropertiesMap& userInfoMap)
+{
+    std::shared_ptr<persistent_data::UserSession> session =
+        persistent_data::SessionStore::getInstance().generateUserSession(
+            username, clientIpAddress, clientId,
+            persistent_data::SessionType::Session, isConfigureSelfOnly);
+    if (session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (!crow::populateUserInfo(*session, userInfoMap))
+    {
+        persistent_data::SessionStore::getInstance().removeSession(session);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    afterGetUserInfoForSession(asyncResp, isXRequestedWith, session);
 }
 
 inline void handleSessionCollectionPost(
@@ -273,18 +309,15 @@ inline void handleSessionCollectionPost(
                                             "Invalid username or password");
         return;
     }
+    // User is authenticated - call GetUserInfo before creating session
+    boost::asio::ip::address clientIpAddress = req.ipAddress;
+    bool isXRequestedWith = !req.getHeaderValue("X-Requested-With").empty();
 
-    // User is authenticated - create session
-    std::shared_ptr<persistent_data::UserSession> session =
-        persistent_data::SessionStore::getInstance().generateUserSession(
-            username, req.ipAddress, clientId,
-            persistent_data::SessionType::Session, isConfigureSelfOnly);
-    if (session == nullptr)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    processAfterSessionCreation(asyncResp, req, username, session);
+    crow::requestUserInfo(
+        username, asyncResp,
+        std::bind_front(afterGenerateUserSession, asyncResp, username,
+                        isXRequestedWith, isConfigureSelfOnly, clientIpAddress,
+                        clientId));
 }
 
 inline void handleSessionServiceHead(
