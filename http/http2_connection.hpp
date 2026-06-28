@@ -71,11 +71,12 @@ class HTTP2Connection :
         boost::asio::ssl::stream<Adaptor>&& adaptorIn, Handler* handlerIn,
         std::function<std::string()>& getCachedDateStrF, HttpType httpTypeIn,
         const std::shared_ptr<persistent_data::UserSession>& mtlsSessionIn,
-        boost::asio::ip::address ipIn) :
+        boost::asio::ip::address ipIn,
+        AuthMode httpAuthModeIn = AuthMode::AUTH) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)),
         ngSession(initializeNghttp2Session()), handler(handlerIn),
         getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn),
-        ip(std::move(ipIn))
+        ip(std::move(ipIn)), httpAuthMode(httpAuthModeIn)
     {}
 
     void start()
@@ -327,7 +328,7 @@ class HTTP2Connection :
 
         auto asyncResp =
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
-        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        if (httpAuthMode != AuthMode::NOAUTH)
         {
             thisReq.session = authentication::authenticate(
                 ip, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
@@ -716,6 +717,7 @@ class HTTP2Connection :
 
     std::shared_ptr<persistent_data::UserSession> mtlsSession;
     boost::asio::ip::address ip;
+    AuthMode httpAuthMode = AuthMode::AUTH;
 
     using std::enable_shared_from_this<
         HTTP2Connection<Adaptor, Handler>>::shared_from_this;
