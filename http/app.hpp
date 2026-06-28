@@ -3,6 +3,7 @@
 #pragma once
 
 #include "async_resp.hpp"
+#include "http_auth_modes.hpp"
 #include "http_connect_types.hpp"
 #include "http_request.hpp"
 #include "http_server.hpp"
@@ -79,38 +80,6 @@ class App
         server->loadCertificate();
     }
 
-    static HttpType getHttpType(std::string_view socketTypeString)
-    {
-        if (socketTypeString == "http")
-        {
-            BMCWEB_LOG_DEBUG("Got http socket");
-            return HttpType::HTTP;
-        }
-        if (socketTypeString == "https")
-        {
-            BMCWEB_LOG_DEBUG("Got https socket");
-            return HttpType::HTTPS;
-        }
-        if (socketTypeString == "both")
-        {
-            BMCWEB_LOG_DEBUG("Got hybrid socket");
-            return HttpType::BOTH;
-        }
-
-        if (BMCWEB_INSECURE_DISABLE_SSL)
-        {
-            BMCWEB_LOG_ERROR(
-                "Unknown http type={} and TLS is disabled, assuming HTTP",
-                socketTypeString);
-            return HttpType::HTTP;
-        }
-
-        // all other types https
-        BMCWEB_LOG_ERROR("Unknown http type={} assuming HTTPS only",
-                         socketTypeString);
-        return HttpType::HTTPS;
-    }
-
     static std::vector<Acceptor> setupSocket()
     {
         std::vector<Acceptor> acceptors;
@@ -138,9 +107,18 @@ class App
             std::vector<std::string> socknameComponents;
             bmcweb::split(socknameComponents, socketName, '_');
             HttpType httpType = HttpType::HTTPS;
+            AuthMode httpAuthMode = AuthMode::AUTH;
             if (socknameComponents.size() >= 3)
             {
                 httpType = getHttpType(socknameComponents[2]);
+                if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+                {
+                    httpAuthMode = AuthMode::NOAUTH;
+                }
+                else if (socknameComponents.size() >= 4)
+                {
+                    httpAuthMode = getAuthMode(socknameComponents[3]);
+                }
             }
             else
             {
@@ -165,7 +143,7 @@ class App
                 acceptors.emplace_back(Acceptor{
                     boost::asio::ip::tcp::acceptor(
                         getIoContext(), boost::asio::ip::tcp::v6(), listenFd),
-                    httpType});
+                    httpType, httpAuthMode});
             }
             socketIndex++;
         }
@@ -177,7 +155,8 @@ class App
             using boost::asio::ip::tcp;
             tcp::endpoint end(tcp::v6(), defaultPort);
             tcp::acceptor acc(getIoContext(), end);
-            acceptors.emplace_back(std::move(acc), HttpType::HTTPS);
+            acceptors.emplace_back(std::move(acc), HttpType::HTTPS,
+                                   AuthMode::AUTH);
         }
 
         return acceptors;
