@@ -8,6 +8,7 @@
 #include "complete_response_fields.hpp"
 #include "forward_unauthorized.hpp"
 #include "http2_connection.hpp"
+#include "http_auth_modes.hpp"
 #include "http_body.hpp"
 #include "http_connect_types.hpp"
 #include "http_request.hpp"
@@ -85,9 +86,11 @@ class Connection :
     Connection(Handler* handlerIn, HttpType httpTypeIn,
                boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
-               boost::asio::ssl::stream<Adaptor>&& adaptorIn) :
+               boost::asio::ssl::stream<Adaptor>&& adaptorIn,
+               AuthMode authModeIn = AuthMode::AUTH) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)), handler(handlerIn),
-        timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF)
+        timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF),
+        httpAuthMode(authModeIn)
     {
         initParser();
 
@@ -425,7 +428,7 @@ class Connection :
         }
         keepAlive = req->keepAlive();
 
-        if (authenticationEnabled)
+        if (httpAuthMode != AuthMode::NOAUTH)
         {
             if (!authentication::isOnAllowlist(req->url().path(),
                                                req->method()) &&
@@ -535,13 +538,13 @@ class Connection :
 
     void disableAuth()
     {
-        authenticationEnabled = false;
+        httpAuthMode = AuthMode::NOAUTH;
     }
 
   private:
     uint64_t getContentLengthLimit()
     {
-        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        if (httpAuthMode != AuthMode::NOAUTH)
         {
             if (userSession == nullptr)
             {
@@ -640,7 +643,7 @@ class Connection :
         auto& parse = *parser;
         const auto& value = parser->get();
 
-        if (authenticationEnabled)
+        if (httpAuthMode != AuthMode::NOAUTH)
         {
             boost::beast::http::verb method = value.method();
             userSession = authentication::authenticate(
@@ -947,8 +950,7 @@ class Connection :
         // BMCWEB_LOG_DEBUG("{} timer started", logPtr(this));
     }
 
-    bool authenticationEnabled = !BMCWEB_INSECURE_DISABLE_AUTH;
-    HttpType httpType = HttpType::BOTH;
+    HttpType httpType = HttpType::HTTPS;
 
     boost::asio::ssl::stream<Adaptor> adaptor;
     Handler* handler;
@@ -984,5 +986,6 @@ class Connection :
 
     using std::enable_shared_from_this<
         Connection<Adaptor, Handler>>::weak_from_this;
+    AuthMode httpAuthMode = AuthMode::AUTH;
 };
 } // namespace crow
