@@ -35,6 +35,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e09108_c6b50a34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-28T00:22:35Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "2b9d1857_636f4632",
+      "revId": "5a288409d77c980aacf595bf24fe8ffce7fe63a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9906c9e_adec0ad3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-28T00:22:35Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "3cb852af_dbaf58a3",
+      "revId": "5a288409d77c980aacf595bf24fe8ffce7fe63a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acf2b3ca_41dc8f31",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-06-26T08:37:50Z",
       "side": 1,
       "message": "Did you use `string_view` in this file?\nOtherwise I think we can then remove this.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 22
+      },
+      "revId": "5a288409d77c980aacf595bf24fe8ffce7fe63a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79bc2e23_81616a33",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-28T00:22:35Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "acf2b3ca_41dc8f31",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b8d2ada_6ac429ad",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-28T00:22:35Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "a1e5e387_5d6c0357",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 63
+      },
+      "revId": "5a288409d77c980aacf595bf24fe8ffce7fe63a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c13dc1a0_a841db16",
@@ -94,6 +178,30 @@
       "writtenOn": "2026-06-26T08:13:07Z",
       "side": 1,
       "message": "The ` @odata.id`, `Id`, `Name`, and the header are set here before `getProcessorObject` runs. \nIf `processorId` doesn\u0027t exist, `getProcessorObject` -\u003e `handleProcessorSubTree` calls `messages::resourceNotFound`, which merges the error into `jsonValue` without clearing these fields. The 404 response then carries a stale ` @odata.id`, ... alongside the error.\n\nIn this case, I think moving these content into the binded lambda would be better.",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 146,
+        "endChar": 59
+      },
+      "revId": "5a288409d77c980aacf595bf24fe8ffce7fe63a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "701e5b6b_204d24e7",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-28T00:22:35Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "c13dc1a0_a841db16",
       "range": {
         "startLine": 137,
         "startChar": 4,
