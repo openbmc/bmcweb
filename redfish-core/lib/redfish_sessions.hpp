@@ -194,6 +194,31 @@ inline void handleSessionCollectionGet(
     asyncResp->res.jsonValue["Description"] = "Session Collection";
 }
 
+inline void afterGetUserInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username,
+    const std::shared_ptr<persistent_data::UserSession>& session)
+{
+    if (session->userRole.empty())
+    {
+        BMCWEB_LOG_WARNING(
+            "Remote user {} authenticated but has no privilege mapping, "
+            "rejecting session",
+            username);
+        persistent_data::SessionStore::getInstance().removeSession(session);
+        asyncResp->res.clearHeader(boost::beast::http::field::location);
+        asyncResp->res.fields().erase("X-Auth-Token");
+        bmcweb::clearSessionCookies(asyncResp->res);
+        asyncResp->res.result(boost::beast::http::status::unauthorized);
+        messages::resourceAtUriUnauthorized(
+            asyncResp->res,
+            boost::urls::format("/redfish/v1/SessionService/Sessions"),
+            "No privilege mapping exists for this user");
+        return;
+    }
+    fillSessionObject(asyncResp->res, *session);
+}
+
 inline void processAfterSessionCreation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req, const std::string& username,
@@ -221,10 +246,9 @@ inline void processAfterSessionCreation(
         messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
                                        messages::passwordChangeRequired(url));
     }
-
-    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
-        fillSessionObject(asyncResp->res, *session);
-    });
+    crow::getUserInfo(
+        asyncResp, username, session,
+        std::bind_front(afterGetUserInfo, asyncResp, username, session));
 }
 
 inline void handleSessionCollectionPost(
