@@ -86,8 +86,8 @@ TEST(http_connection, RequestPropogates)
     std::shared_ptr<Connection<TestStream, FakeHandler>> conn =
         std::make_shared<Connection<TestStream, FakeHandler>>(
             &handler, HttpType::HTTP, std::move(timer), date,
-            boost::asio::ssl::stream<TestStream>(std::move(stream), context));
-    conn->disableAuth();
+            boost::asio::ssl::stream<TestStream>(std::move(stream), context),
+            AuthMode::NOAUTH);
     conn->start();
     io.run_for(std::chrono::seconds(1000));
     EXPECT_TRUE(handler.called);
@@ -104,6 +104,110 @@ TEST(http_connection, RequestPropogates)
         "Content-Length: 0\r\n\r\n";
     EXPECT_EQ(outStr, expected);
     EXPECT_TRUE(clock.wascalled);
+}
+
+TEST(http_connection, AuthEnforcedWhenNotDisabled)
+{
+    boost::asio::io_context io;
+    ClockFake clock;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    // "/redfish/v1/Systems" is not on the static auth allowlist, and no
+    // route registration exists in this test, so an unauthenticated request
+    // to it must be rejected when AuthMode::AUTH is left enabled.
+    out.write_some(boost::asio::buffer("GET /redfish/v1/Systems HTTP/1.1\r\n"
+                                       "Host: openbmc_project.xyz\r\n"
+                                       "Connection: close\r\n\r\n"));
+    FakeHandler handler;
+    boost::asio::steady_timer timer(io);
+    std::function<std::string()> date(
+        std::bind_front(&ClockFake::getDateStr, &clock));
+
+    boost::asio::ssl::context context{boost::asio::ssl::context::tls};
+    std::shared_ptr<Connection<TestStream, FakeHandler>> conn =
+        std::make_shared<Connection<TestStream, FakeHandler>>(
+            &handler, HttpType::HTTP, std::move(timer), date,
+            boost::asio::ssl::stream<TestStream>(std::move(stream), context),
+            AuthMode::AUTH);
+    conn->start();
+    io.run_for(std::chrono::seconds(1000));
+
+    // The handler must never be invoked; the connection should short
+    // circuit with 401 before reaching the request handler.
+    EXPECT_FALSE(handler.called);
+    std::string outStr = out.str();
+
+    std::string expected =
+        "HTTP/1.1 401 Unauthorized\r\n"
+        "WWW-Authenticate: Basic\r\n"
+        "Connection: close\r\n"
+        "Strict-Transport-Security: max-age=31536000; includeSubdomains\r\n"
+        "Pragma: no-cache\r\n"
+        "Cache-Control: no-store, max-age=0\r\n"
+        "X-Content-Type-Options: nosniff\r\n"
+        "Date: TestTime\r\n"
+        "Content-Length: 0\r\n\r\n";
+    EXPECT_EQ(outStr, expected);
+    EXPECT_TRUE(clock.wascalled);
+}
+
+struct PrivilegedWriteHandler
+{
+    template <typename Adaptor>
+    static void handleUpgrade(
+        const std::shared_ptr<Request>& /*req*/,
+        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
+        Adaptor&& /*adaptor*/)
+    {
+        EXPECT_FALSE(true);
+    }
+
+    void handle(const std::shared_ptr<Request>& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/)
+    {
+        EXPECT_EQ(req->method(), boost::beast::http::verb::patch);
+        EXPECT_EQ(req->target(), "/redfish/v1/Managers/bmc");
+        EXPECT_EQ(req->session, nullptr);
+        called = true;
+    }
+    bool called = false;
+};
+
+TEST(http_connection, NoAuthPassesSessionlessPrivilegedWrite)
+{
+    boost::asio::io_context io;
+    ClockFake clock;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    // "/redfish/v1/Managers/bmc" is not on the auth allowlist, so the handler
+    // is reached with a null session only because the socket is NOAUTH. The
+    // router then skips validatePrivilege() for the null session.
+    out.write_some(boost::asio::buffer(
+        "PATCH /redfish/v1/Managers/bmc HTTP/1.1\r\n"
+        "Host: openbmc_project.xyz\r\n"
+        "Connection: close\r\n"
+        "Content-Type: application/json\r\n"
+        "Content-Length: 2\r\n\r\n"
+        "{}"));
+    PrivilegedWriteHandler handler;
+    boost::asio::steady_timer timer(io);
+    std::function<std::string()> date(
+        std::bind_front(&ClockFake::getDateStr, &clock));
+
+    boost::asio::ssl::context context{boost::asio::ssl::context::tls};
+    std::shared_ptr<Connection<TestStream, PrivilegedWriteHandler>> conn =
+        std::make_shared<Connection<TestStream, PrivilegedWriteHandler>>(
+            &handler, HttpType::HTTP, std::move(timer), date,
+            boost::asio::ssl::stream<TestStream>(std::move(stream), context),
+            AuthMode::NOAUTH);
+    conn->start();
+    io.run_for(std::chrono::seconds(1000));
+
+    EXPECT_TRUE(handler.called);
 }
 
 } // namespace crow

@@ -18,9 +18,11 @@
 #include <boost/asio/steady_timer.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/beast/http/field.hpp>
+#include <boost/beast/http/verb.hpp>
 
 #include <array>
 #include <bit>
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -203,6 +205,103 @@ TEST(http_connection, RequestPropogates)
                     Pair("pragma", "no-cache"), Pair("date", "TestTime")));
 
     EXPECT_EQ(outStr, expectedPostfix);
+}
+
+struct PrivilegedWriteHandler
+{
+    bool called = false;
+    void handle(const std::shared_ptr<Request>& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/)
+    {
+        called = true;
+        EXPECT_EQ(req->method(), boost::beast::http::verb::patch);
+        EXPECT_EQ(req->url().buffer(), "/redfish/v1/Managers/bmc");
+        EXPECT_EQ(req->session, nullptr);
+    }
+};
+
+// Builds a client preface, SETTINGS, and a single HEADERS frame on stream 1
+// for an unauthenticated PATCH. HPACK fields use literal representations
+// without Huffman coding, so each value must be shorter than 127 bytes.
+std::string makeUnauthenticatedPatch(std::string_view path)
+{
+    using namespace std::literals;
+
+    std::string block;
+    // :method PATCH, literal with indexed name (static index 2)
+    block += "\x02\x05PATCH"sv;
+    // :scheme https (static index 7)
+    block += "\x87"sv;
+    // :path, literal with indexed name (static index 4)
+    block += '\x04';
+    block += static_cast<char>(path.size());
+    block += path;
+    // :authority localhost, literal with indexed name (static index 1)
+    block += "\x01\x09localhost"sv;
+
+    std::string out =
+        // Hello
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        // Empty settings frame
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"s;
+    // Header frame END_STREAM, END_HEADERS set, stream 1
+    out += '\x00';
+    out += '\x00';
+    out += static_cast<char>(block.size());
+    out += "\x01\x05\x00\x00\x00\x01"sv;
+    out += block;
+    return out;
+}
+
+TEST(http2_connection, NoAuthPassesSessionlessPrivilegedWrite)
+{
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    // "/redfish/v1/Managers/bmc" is not on the auth allowlist, so the handler
+    // is reached with a null session only because the socket is NOAUTH. The
+    // router then skips validatePrivilege() for the null session.
+    boost::asio::write(out, boost::asio::buffer(makeUnauthenticatedPatch(
+                                "/redfish/v1/Managers/bmc")));
+
+    PrivilegedWriteHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn =
+        std::make_shared<HTTP2Connection<TestStream, PrivilegedWriteHandler>>(
+            boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+            &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address(),
+            AuthMode::NOAUTH);
+    conn->start();
+    io.run_for(std::chrono::seconds(1));
+
+    EXPECT_TRUE(handler.called);
+}
+
+TEST(http2_connection, AuthRejectsSessionlessPrivilegedWrite)
+{
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    boost::asio::write(out, boost::asio::buffer(makeUnauthenticatedPatch(
+                                "/redfish/v1/Managers/bmc")));
+
+    PrivilegedWriteHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn =
+        std::make_shared<HTTP2Connection<TestStream, PrivilegedWriteHandler>>(
+            boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+            &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address(),
+            AuthMode::AUTH);
+    conn->start();
+    io.run_for(std::chrono::seconds(1));
+
+    EXPECT_FALSE(handler.called);
 }
 
 } // namespace
