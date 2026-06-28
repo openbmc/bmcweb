@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09562df0_c4545f61",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-28T18:10:43Z",
+      "side": 1,
+      "message": "I\u0027m a little bit puzzled, `passwordExpirationToUint64` doesn\u0027t return nullptr, it may return nullopt. \n\nDo you mean about this block?\n\n``` c\n\n    if (params.passwordExpiration)\n    {\n        const std::optional\u003cuint64_t\u003e passwordExpiration \u003d\n            passwordExpirationToUint64(*params.passwordExpiration);\n        if (!passwordExpiration)\n        {\n            messages::propertyValueFormatError(asyncResp-\u003eres, nullptr,\n                                               \"PasswordExpiration\");\n            return;\n        }\n```\n\nSo, do you mean to check `usTime \u0026\u0026 *usTime \u003d\u003d 0` from `dateStringToEpoch` and BMCWEB_LOG_ERROR with return std::nullopt? Or we talking about block above?",
+      "parentUuid": "adfd83fb_e7b7bc27",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89bd914f_a7c0a01a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15
@@ -263,6 +281,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "ef66d885_6096d80b",
+      "range": {
+        "startLine": 2256,
+        "startChar": 0,
+        "endLine": 2261,
+        "endChar": 21
+      },
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c94542b_b2ab9704",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2261,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-28T18:10:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9df1b4f6_42ce870c",
       "range": {
         "startLine": 2256,
         "startChar": 0,
