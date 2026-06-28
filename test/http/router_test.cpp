@@ -154,5 +154,58 @@ TEST(Router, 405)
     }
     EXPECT_TRUE(called);
 }
+
+TEST(Router, SessionlessRequestSkipsPrivilegeCheck)
+{
+    // A request on an AuthMode::NOAUTH socket has no session, so the router
+    // runs privileged handlers without calling validatePrivilege().
+    bool patchCalled = false;
+    auto patchCallback =
+        [&patchCalled](const Request&,
+                       const std::shared_ptr<bmcweb::AsyncResp>&) {
+            patchCalled = true;
+        };
+    bool postCalled = false;
+    auto postCallback =
+        [&postCalled](const Request&,
+                      const std::shared_ptr<bmcweb::AsyncResp>&) {
+            postCalled = true;
+        };
+
+    Router router;
+    std::error_code ec;
+
+    constexpr std::string_view url = "/redfish/v1/Managers/bmc";
+    constexpr std::string_view actionUrl =
+        "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
+
+    router.newRuleTagged<getParameterTag(url)>(std::string(url))
+        .privileges({{"ConfigureManager"}})
+        .methods(boost::beast::http::verb::patch)(patchCallback);
+    router.newRuleTagged<getParameterTag(actionUrl)>(std::string(actionUrl))
+        .privileges({{"ConfigureManager"}})
+        .methods(boost::beast::http::verb::post)(postCallback);
+    router.validate();
+
+    {
+        auto req = std::make_shared<Request>(
+            Request::Body{boost::beast::http::verb::patch, url, 11}, ec);
+        ASSERT_EQ(req->session, nullptr);
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+        router.handle(req, asyncResp);
+    }
+    EXPECT_TRUE(patchCalled);
+
+    {
+        auto req = std::make_shared<Request>(
+            Request::Body{boost::beast::http::verb::post, actionUrl, 11}, ec);
+        ASSERT_EQ(req->session, nullptr);
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+        router.handle(req, asyncResp);
+    }
+    EXPECT_TRUE(postCalled);
+}
 } // namespace
 } // namespace crow
