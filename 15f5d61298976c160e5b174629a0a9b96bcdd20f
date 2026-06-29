@@ -69,6 +69,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "100ad89a_2e5ccefe",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-06-29T15:06:54Z",
+      "side": 1,
+      "message": "Sure, i changed it to use `GetAssociatedSubTree` and adapted the function to go through the interfaces found, then adding the relevant related items.\n\nThanks for your feedback 👍",
+      "parentUuid": "6c872f77_dca6474e",
+      "revId": "15f5d61298976c160e5b174629a0a9b96bcdd20f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c782f4ad_4f69661d",
@@ -82,6 +100,24 @@
       "writtenOn": "2026-06-05T21:34:57Z",
       "side": 1,
       "message": "Lets have an API which accepts the associated path, so callers for both activating and running association can do the lookup.",
+      "revId": "15f5d61298976c160e5b174629a0a9b96bcdd20f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d46a07e9_708bd802",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-06-29T15:06:54Z",
+      "side": 1,
+      "message": "Handled it with a separate function as you suggested. Now it supports both running and activating.",
+      "parentUuid": "c782f4ad_4f69661d",
       "revId": "15f5d61298976c160e5b174629a0a9b96bcdd20f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
