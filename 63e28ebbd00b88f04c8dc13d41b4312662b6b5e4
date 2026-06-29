@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c6ebca1_1da57d37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-29T15:30:48Z",
+      "side": 1,
+      "message": "Can you elaborate here?  Based on the code, I would\u0027ve expected this to fail, and return a missing key after create.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "63e28ebbd00b88f04c8dc13d41b4312662b6b5e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19af416a_df4195a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-29T15:30:48Z",
+      "side": 1,
+      "message": "Please also test patching these against the full range of input values (EPOCH, MAX int) to ensure there\u0027s no security issues.",
+      "revId": "63e28ebbd00b88f04c8dc13d41b4312662b6b5e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ab91f0c_a0cc7d8b",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 21
