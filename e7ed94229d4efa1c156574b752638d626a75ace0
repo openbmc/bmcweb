@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6323390_209e91cf",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-29T19:43:12Z",
+      "side": 1,
+      "message": "In the redfish spec, this needs to be the reverse of CooledBy?  Supporting multiple associations makes that potentially not true.",
+      "revId": "e7ed94229d4efa1c156574b752638d626a75ace0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4fb933b_ebdcd302",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-29T19:43:12Z",
+      "side": 1,
+      "message": "Overall, i don\u0027t really love this fallback where we try one thing and fall back to another.  DBus-\u003eRedfish should be well defined, and by my read, cooled_by should\u0027ve never been used here.  I\u0027m open to a short term ifdef here, but lets just get with the folks that modeled it as contained_by, make sure we\u0027re all on the same page, and get the conversion done.\n\nIf we need a temporary meson option to stage, that\u0027s fine, I just don\u0027t want to support \"either or\" forever.",
+      "revId": "e7ed94229d4efa1c156574b752638d626a75ace0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
