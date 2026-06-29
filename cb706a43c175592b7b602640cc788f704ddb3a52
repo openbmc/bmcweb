@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e12a630_ccb5d701",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 34
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-29T14:46:28Z",
+      "side": 1,
+      "message": "The getPowerLimitWatts()/afterGetPowerLimitWatts() function handles this. If the SetPoint has the default value it is set to null for the GET response. See L501 of environment_metrics.hpp",
+      "parentUuid": "0f314ff8_e86031a0",
+      "revId": "cb706a43c175592b7b602640cc788f704ddb3a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b0f6f85_6d764cd0",
@@ -83,6 +101,30 @@
       "writtenOn": "2026-06-25T20:17:43Z",
       "side": 1,
       "message": "Can we remove these?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "cb706a43c175592b7b602640cc788f704ddb3a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5eb1e5a_6b165d11",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-06-29T14:46:28Z",
+      "side": 1,
+      "message": "Yes I will. Waiting for https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87955 to be merged since that is the one that this depends on.\n\nOnce that merges I will reorder the functions here in order to remove the need for these function prototypes.",
+      "parentUuid": "95137124_5676063a",
       "range": {
         "startLine": 46,
         "startChar": 0,
