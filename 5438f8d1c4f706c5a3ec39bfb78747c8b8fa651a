@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e911e87b_7afc2dc1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-29T15:27:13Z",
+      "side": 1,
+      "message": "\u003e it looks fine now.\n\nCan you walk me through how that could be?\n\ndateStringToEpoch(\"1970\") will return a filled optional with a value of 0.\n\nLine 1149 duration casts it from 0 microseconds to 0 seconds.  DBus call on line 1263 sets 0 seconds to dbus.  On GET, this will be read in and omitted.",
+      "parentUuid": "399fb656_4c44771d",
+      "revId": "5438f8d1c4f706c5a3ec39bfb78747c8b8fa651a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89bd914f_a7c0a01a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15

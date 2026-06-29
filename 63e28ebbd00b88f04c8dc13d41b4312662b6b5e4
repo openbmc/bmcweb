@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab91f0c_a0cc7d8b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-29T15:27:13Z",
+      "side": 1,
+      "message": "I continue to be confused.  Half this patch treats 0 as unspecified, this treats UINT_MAX as unspecified.  which is it?\n\nThis also looks like it will never set nullptr, which isn\u0027t what the Redfish spec says, there should be a path setting null.",
+      "revId": "63e28ebbd00b88f04c8dc13d41b4312662b6b5e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

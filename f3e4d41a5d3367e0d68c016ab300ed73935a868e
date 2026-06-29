@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feb83d8d_c1dcd429",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2041,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-29T15:27:13Z",
+      "side": 1,
+      "message": "nit: You set this on line 2033, then again here?  It looks like this needs its own variable, otherwise we\u0027re storing both converted and non converted values.",
+      "range": {
+        "startLine": 2041,
+        "startChar": 29,
+        "endLine": 2041,
+        "endChar": 33
+      },
+      "revId": "f3e4d41a5d3367e0d68c016ab300ed73935a868e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
