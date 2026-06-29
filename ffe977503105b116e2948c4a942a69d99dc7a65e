@@ -597,6 +597,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "461b6bef_f80d956d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-29T17:54:53Z",
+      "side": 1,
+      "message": "bmcweb: null - unexpiring, empty - doesn\u0027t expire.\n\nDBus: 0 - unexpiring, uint64_max - doesn\u0027t expire. \n\nchage: lastday \u003d (create time in days / last time changed \u003d\u003d 1782755279) \u003d 29 jun 2026 17:48 utc,\n\"--lastday 20633 --maxdays -1\" - unexpiring,\n\"--lastday 20633 --maxdays 99999\" -  doesn\u0027t expire.\n\nshadow: empty field - unexpiring, 99999 - doesn\u0027t expire.\n\nIs it more clear now? \"Doesn\u0027t expire\" is default behavior.",
+      "parentUuid": "3b7159ce_2772d0a3",
+      "range": {
+        "startLine": 1940,
+        "startChar": 0,
+        "endLine": 1940,
+        "endChar": 45
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edd342cd_940994e0",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 7

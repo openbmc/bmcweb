@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2581c2f8_1bf4faf3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-29T17:54:53Z",
+      "side": 1,
+      "message": "It handled in:\n``` c \ninline std::optional\u003cuint64_t\u003e passwordExpirationToUint64(\n    const std::variant\u003cstd::string, std::nullptr_t\u003e\u0026 value)\n{\n    const std::string* str \u003d std::get_if\u003cstd::string\u003e(\u0026value);\n    if (str \u003d\u003d nullptr)\n    {\n        // value indicating that password does not expire\n        return 0;\n    }\n```\n\n```\ncurl -k -X PATCH \"https://${bmc}:10443/redfish/v1/AccountService/Accounts/admin1\" -H \"Content-Type: application/json\" -d \u0027{\"UserName\":\"admin1\",\"Password\":\"C0penBmc\",\"RoleId\":\"Operator\",\"Enabled\":true,\"Locked\":false,\"PasswordExpiration\":null}\u0027 -u root:0penBmc\n```\n\n```\ncurl -k -u root:0penBmc -H \"Content-Type: application/json\" -X GET \"https://${bmc}:10443/redfish/v1/AccountService/Accounts/admin1\"\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/admin1\",\n  \"@odata.type\": \"#ManagerAccount.v1_7_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n  \"Description\": \"User Account\",\n  \"Enabled\": true,\n  \"Id\": \"admin1\",\n  \"Links\": {\n    \"Role\": {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/Operator\"\n    }\n  },\n  \"Locked\": false,\n  \"Locked@Redfish.AllowableValues\": [\n    \"false\"\n  ],\n  \"Name\": \"User Account\",\n  \"Password\": null,\n  \"PasswordChangeRequired\": false,\n  \"PasswordExpiration\": null,\n  \"RoleId\": \"Operator\",\n  \"StrictAccountTypes\": true,\n  \"UserName\": \"admin1\"\n}\n```\n\n/etc/shadow:\n```\nadmin1:$6$dK0SZYqeucZGYsCu$psPJ5uDwam24Q5.AFW5gdVA6TpBQ3tyCS2rGqTdwIFLgK4xfNOGWv03/74CU5R78cufXnJ3I6avq.VjvGIAUt1:20633:0::7:::\n```",
+      "parentUuid": "9c6ebca1_1da57d37",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "63e28ebbd00b88f04c8dc13d41b4312662b6b5e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19af416a_df4195a2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 21
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84f35d18_94a119e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-29T17:54:53Z",
+      "side": 1,
+      "message": "ACK and already did before, but I\u0027ll do re-test anyways.",
+      "parentUuid": "19af416a_df4195a2",
+      "revId": "63e28ebbd00b88f04c8dc13d41b4312662b6b5e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ab91f0c_a0cc7d8b",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 21
@@ -54,6 +96,24 @@
       "writtenOn": "2026-06-29T15:27:13Z",
       "side": 1,
       "message": "I continue to be confused.  Half this patch treats 0 as unspecified, this treats UINT_MAX as unspecified.  which is it?\n\nThis also looks like it will never set nullptr, which isn\u0027t what the Redfish spec says, there should be a path setting null.",
+      "revId": "63e28ebbd00b88f04c8dc13d41b4312662b6b5e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f111a337_10965824",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2264,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-06-29T17:54:53Z",
+      "side": 1,
+      "message": "I hope I\u0027ve answered in another thread with UINT64_MAX problem. It\u0027s handleAccountGet function, it shouldn\u0027t be set here. So, logic here is:\nif passwordExpiraton and passwordExpiration !\u003d \"doesn\u0027t expire\" then add to GET (unexpiring(nullptr) or timestamp in epoch).\n\n```\ncurl -k -X PATCH \"https://${bmc}:10443/redfish/v1/AccountService/Accounts/admin1\" -H \"Content-Type: application/json\" -d \u0027{\"UserName\":\"admin1\",\"Password\":\"C0penBmc\",\"RoleId\":\"Operator\",\"Enabled\":true,\"Locked\":false,\"PasswordExpiration\":null}\u0027 -u root:0penBmc\n\ncurl -k -u root:0penBmc -H \"Content-Type: application/json\" -X GET \"https://${bmc}:10443/redfish/v1/AccountService/Accounts/admin1\"\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/admin1\",\n  \"@odata.type\": \"#ManagerAccount.v1_7_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n  \"Description\": \"User Account\",\n  \"Enabled\": true,\n  \"Id\": \"admin1\",\n  \"Links\": {\n    \"Role\": {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/Operator\"\n    }\n  },\n  \"Locked\": false,\n  \"Locked@Redfish.AllowableValues\": [\n    \"false\"\n  ],\n  \"Name\": \"User Account\",\n  \"Password\": null,\n  \"PasswordChangeRequired\": false,\n  \"PasswordExpiration\": null,\n  \"RoleId\": \"Operator\",\n  \"StrictAccountTypes\": true,\n  \"UserName\": \"admin1\"\n```\n\n\n```\ncurl -k -X PATCH \"https://${bmc}:10443/redfish/v1/AccountService/Accounts/admin1\" -H \"Content-Type: application/json\" -d \u0027{\"UserName\":\"admin1\",\"Password\":\"C0penBmc\",\"RoleId\":\"Operator\",\"Enabled\":true,\"Locked\":false,\"PasswordExpiration\":\"2026-09-10T00:00:01\"}\u0027 -u root:0penBmc\n\ncurl -k -u root:0penBmc -H \"Content-Type: application/json\" -X GET \"https://${bmc}:10443/redfish/v1/AccountService/Accounts/admin1\"\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts/admin1\",\n  \"@odata.type\": \"#ManagerAccount.v1_7_0.ManagerAccount\",\n  \"AccountTypes\": [\n    \"HostConsole\",\n    \"IPMI\",\n    \"Redfish\",\n    \"WebUI\",\n    \"ManagerConsole\"\n  ],\n  \"Description\": \"User Account\",\n  \"Enabled\": true,\n  \"Id\": \"admin1\",\n  \"Links\": {\n    \"Role\": {\n      \"@odata.id\": \"/redfish/v1/AccountService/Roles/Operator\"\n    }\n  },\n  \"Locked\": false,\n  \"Locked@Redfish.AllowableValues\": [\n    \"false\"\n  ],\n  \"Name\": \"User Account\",\n  \"Password\": null,\n  \"PasswordChangeRequired\": false,\n  \"PasswordExpiration\": \"2026-09-10T00:00:01+00:00\",\n  \"RoleId\": \"Operator\",\n  \"StrictAccountTypes\": true,\n  \"UserName\": \"admin1\"\n\n```",
+      "parentUuid": "3ab91f0c_a0cc7d8b",
       "revId": "63e28ebbd00b88f04c8dc13d41b4312662b6b5e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
