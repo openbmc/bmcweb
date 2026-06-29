@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ebf24a_073df0f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-29T13:29:56Z",
+      "side": 1,
+      "message": "PDI was added here: \nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/95552670fb232d565cf25e0191f492133c8692f6 \nHaving that be in the commit msg, always helps.",
+      "revId": "4afe3dbba69ba04c2612bb12bf93a44c654d42b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e93899_43ccb374",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-29T13:29:56Z",
+      "side": 1,
+      "message": "please wrap at 72 chars https://cbea.ms/git-commit/",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 8
+      },
+      "revId": "4afe3dbba69ba04c2612bb12bf93a44c654d42b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3835d3_801736f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-29T13:29:56Z",
+      "side": 1,
+      "message": "Ideally a \"Tested: Redfish Validator\" but this looks correct so I\u0027m okay without for this, but for future commits, please run the validator",
+      "revId": "4afe3dbba69ba04c2612bb12bf93a44c654d42b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a438948_a0d2337c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-29T13:29:56Z",
+      "side": 1,
+      "message": "Please use your full name here if you can \nhttps://github.com/openbmc/docs/blob/29878c3e0e5db35455a1ed73a5cc6eb9a946422a/CONTRIBUTING.md?plain\u003d1#L248\n\n```\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n```",
+      "range": {
+        "startLine": 13,
+        "startChar": 36,
+        "endLine": 13,
+        "endChar": 37
+      },
+      "revId": "4afe3dbba69ba04c2612bb12bf93a44c654d42b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8e36737_2fee3bcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-29T13:29:56Z",
+      "side": 1,
+      "message": "Overall I am good.",
+      "revId": "4afe3dbba69ba04c2612bb12bf93a44c654d42b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
