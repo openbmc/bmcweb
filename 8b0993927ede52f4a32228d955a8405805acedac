@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d30f0e_a11f31da",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-29T15:34:00Z",
+      "side": 0,
+      "message": "Why move this ? \n\nWhy not \n\n```\n    dbus::utility::getAllProperties(\n        object.begin()-\u003efirst, pcieDeviceSlot,\n        \"xyz.openbmc_project.Inventory.Item.PCIeSlot\",\n        [asyncResp](\n            const boost::system::error_code\u0026 ec2,\n            const dbus::utility::DBusPropertiesMap\u0026 pcieSlotProperties) {\n            addPCIeSlotProperties(asyncResp-\u003eres, ec2, pcieSlotProperties);\n            getPCIeSlotLocation(asyncResp, pcieDeviceSlot, object.begin()-\u003efirst);\n        });\n```",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 357,
+        "endChar": 11
+      },
+      "revId": "8b0993927ede52f4a32228d955a8405805acedac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
