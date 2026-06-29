@@ -205,6 +205,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dcc4d8d_83e8b6ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-06-29T07:10:56Z",
+      "side": 1,
+      "message": "\"Browsers\" and \"clients\" are not differentiated - both are clients.",
+      "parentUuid": "8ab3f909_2f659be9",
+      "revId": "a4dad85f11a88caa921d7c470e27a441e7af9c20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07ba140a_c3de64db",
         "filename": "/COMMIT_MSG",
         "patchSetId": 18
