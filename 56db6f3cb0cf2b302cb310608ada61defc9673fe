@@ -52,6 +52,24 @@
       "parentUuid": "36b2884f_7f7d3cf1",
       "revId": "56db6f3cb0cf2b302cb310608ada61defc9673fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d98d64f_40c64a72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-06-29T11:33:27Z",
+      "side": 1,
+      "message": "Branching based on what condition? \n\nThis factory is invoked whenever a new SSL context needs to be created—for example, when a client installs new server certificates, or in our case, when new satellite BMCs are identified and SPM attestation is completed.The SSL context creation logic can vary significantly depending on factors such as where the certificates reside (e.g., TPM vs. file storage) and the type of connection (mandatory mTLS for internal aggregation vs. standard TLS for external clients).Given this variability, wouldn’t it be better to externalize the SSL context creation logic rather than introducing branches to handle all possible combinations?",
+      "parentUuid": "1b14f63f_e9da1cd3",
+      "revId": "56db6f3cb0cf2b302cb310608ada61defc9673fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
