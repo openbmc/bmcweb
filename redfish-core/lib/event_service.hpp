@@ -56,7 +56,7 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
 static constexpr const std::array<const char*, 2> supportedResourceTypes = {
     "Task", "Heartbeat"};
 
-inline void requestRoutesEventService(App& app)
+void getEventServiceInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
         .privileges(redfish::privileges::getEventService)
@@ -70,6 +70,7 @@ inline void requestRoutesEventService(App& app)
             }
 
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/EventService";
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/EventService";
             asyncResp->res.jsonValue["@odata.type"] =
                 "#EventService.v1_5_0.EventService";
             asyncResp->res.jsonValue["Id"] = "EventService";
@@ -110,6 +111,22 @@ inline void requestRoutesEventService(App& app)
 
             asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
                 std::move(supportedSSEFilters);
+}
+
+inline void requestRoutesEventService(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
+        .privileges(redfish::privileges::getEventService)
+        .methods(
+            boost::beast::http::verb::
+                get)([&app](
+                         const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+            {
+                return;
+            }
+            getEventServiceInfo(asyncResp);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
@@ -174,7 +191,12 @@ inline void requestRoutesEventService(App& app)
 
                 EventServiceManager::getInstance().setEventServiceConfig(
                     eventServiceConfig);
+<<<<<<< HEAD
                 asyncResp->res.result(boost::beast::http::status::no_content);
+=======
+                getEventServiceInfo(asyncResp);
+                return;
+>>>>>>> cd9d03c3 (redfish: return success body for EventService PATCH)
             });
 }
 
