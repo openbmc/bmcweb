@@ -100,6 +100,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a2d15151_41730ba1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-29T15:32:57Z",
+      "side": 1,
+      "message": "Code looks fine.  Fix your commit message to address Gunnars comments then LGTM.",
+      "revId": "4afe3dbba69ba04c2612bb12bf93a44c654d42b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e7b9df28_bc8be45e",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
