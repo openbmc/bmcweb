@@ -52,6 +52,24 @@
       "parentUuid": "e8b15bd2_855e4e38",
       "revId": "591cf89e534d2278ea880baaec7916c8f9c16243",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "311132d9_9fcee239",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-06-29T15:26:00Z",
+      "side": 1,
+      "message": "PDI: https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/90596\n\nTOPIC: https://gerrit.openbmc.org/q/topic:%22PasswordChangeRequired%22",
+      "parentUuid": "b9beed08_5a24d0cc",
+      "revId": "591cf89e534d2278ea880baaec7916c8f9c16243",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
