@@ -46,77 +46,9 @@ namespace redfish
 namespace eventlog_utils
 {
 
-constexpr const char* rfSystemsStr = "Systems";
-constexpr const char* rfManagersStr = "Managers";
-
-enum class LogServiceParentCollection
-{
-    Systems,
-    Managers
-};
-
-inline std::string logServiceParentCollectionToString(
-    LogServiceParentCollection collection)
-{
-    std::string collectionStr;
-    switch (collection)
-    {
-        case LogServiceParentCollection::Managers:
-            collectionStr = rfManagersStr;
-            break;
-        case LogServiceParentCollection::Systems:
-            collectionStr = rfSystemsStr;
-            break;
-        default:
-            BMCWEB_LOG_ERROR("Unable to stringify bmcweb eventlog location");
-            break;
-    }
-    return collectionStr;
-}
-
-inline std::string_view getMemberIdFromParentCollection(
-    LogServiceParentCollection collection)
-{
-    std::string_view memberId;
-
-    switch (collection)
-    {
-        case LogServiceParentCollection::Managers:
-            memberId = BMCWEB_REDFISH_MANAGER_URI_NAME;
-            break;
-        case LogServiceParentCollection::Systems:
-            memberId = BMCWEB_REDFISH_SYSTEM_URI_NAME;
-            break;
-        default:
-            BMCWEB_LOG_ERROR(
-                "Unable to stringify bmcweb eventlog location childId");
-            break;
-    }
-    return memberId;
-}
-
-inline std::string getLogEntryDescriptorFromParentCollection(
-    LogServiceParentCollection collection)
-{
-    std::string descriptor;
-    switch (collection)
-    {
-        case LogServiceParentCollection::Managers:
-            descriptor = "Manager";
-            break;
-        case LogServiceParentCollection::Systems:
-            descriptor = "System";
-            break;
-        default:
-            BMCWEB_LOG_ERROR("Unable to get Log Entry descriptor");
-            break;
-    }
-    return descriptor;
-}
-
 inline void handleSystemsAndManagersEventLogServiceGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    LogServiceParentCollection collection)
+    log_services_utils::LogServiceParentCollection collection)
 {
     const std::string collectionStr =
         logServiceParentCollectionToString(collection);
@@ -297,7 +229,8 @@ static LogParseError fillEventLogEntryJson(
 
 inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    query_param::Query& delegatedQuery, LogServiceParentCollection collection)
+    query_param::Query& delegatedQuery,
+    log_services_utils::LogServiceParentCollection collection)
 {
     size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
     size_t skip = delegatedQuery.skip.value_or(0);
@@ -393,7 +326,8 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
 
 inline void handleSystemsAndManagersLogServiceEventLogEntriesGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& param, LogServiceParentCollection collection)
+    const std::string& param,
+    log_services_utils::LogServiceParentCollection collection)
 {
     const std::string& targetID = param;
 
@@ -631,7 +565,7 @@ inline void afterLogEntriesGetManagedObjects(
 
 inline void dBusEventLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    LogServiceParentCollection collection)
+    log_services_utils::LogServiceParentCollection collection)
 {
     const std::string_view memberId =
         getMemberIdFromParentCollection(collection);
@@ -706,7 +640,8 @@ inline void afterDBusEventLogEntryGet(
 
 inline void dBusEventLogEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    LogServiceParentCollection collection, std::string entryID)
+    log_services_utils::LogServiceParentCollection collection,
+    std::string entryID)
 {
     const std::string collectionStr =
         logServiceParentCollectionToString(collection);

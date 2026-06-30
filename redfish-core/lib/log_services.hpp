@@ -1096,7 +1096,7 @@ inline void handleSystemsEventLogServiceGet(
         return;
     }
     eventlog_utils::handleSystemsAndManagersEventLogServiceGet(
-        asyncResp, eventlog_utils::LogServiceParentCollection::Systems);
+        asyncResp, log_services_utils::LogServiceParentCollection::Systems);
 }
 
 inline void handleManagersEventLogServiceGet(
@@ -1115,7 +1115,7 @@ inline void handleManagersEventLogServiceGet(
         return;
     }
     eventlog_utils::handleSystemsAndManagersEventLogServiceGet(
-        asyncResp, eventlog_utils::LogServiceParentCollection::Managers);
+        asyncResp, log_services_utils::LogServiceParentCollection::Managers);
 }
 
 inline void getDumpServiceInfo(
