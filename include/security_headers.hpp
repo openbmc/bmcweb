@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "http_utility.hpp"
 #include "http_response.hpp"
 
 #include <boost/beast/http/field.hpp>
@@ -24,7 +25,8 @@ inline void addSecurityHeaders(crow::Response& res)
     res.addHeader("X-Content-Type-Options", "nosniff");
 
     std::string_view contentType = res.getHeaderValue("Content-Type");
-    if (contentType.starts_with("text/html"))
+    if (http_helpers::getContentType(contentType) ==
+        http_helpers::ContentType::HTML)
     {
         res.addHeader(bf::x_frame_options, "DENY");
         res.addHeader("Referrer-Policy", "no-referrer");
@@ -73,7 +75,7 @@ inline void addSecurityHeaders(crow::Response& res)
                       "form-action 'none'; "
                       "frame-ancestors 'none'; "
                       "object-src 'none'; "
-                      "base-uri 'none' ");
+                      "base-uri 'none'");
         // The KVM currently needs to load images from base64 encoded
         // strings. img-src 'self' data: is used to allow that.
         // https://stackoverflow.com/questions/18447970/content-security-polic
