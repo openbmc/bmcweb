@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "945052ad_13a1f7f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-06-30T01:58:32Z",
+      "side": 1,
+      "message": "There is a bunch of backend app using this..\nhttps://github.com/search?q\u003dorg%3Aopenbmc%20PowerCapEnable\u0026type\u003dcode",
+      "revId": "a4ba6cc3b5917f293dc58048169220f15dab8d47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
