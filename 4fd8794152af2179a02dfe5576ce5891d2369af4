@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d393a56_33010e21",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-06-30T16:27:25Z",
+      "side": 1,
+      "message": "Per earlier review discussion, we intentionally reject false rather than silently ignoring it. Allowing false would let an admin programmatically unexpire a password, which is a security regression.\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/90596/comment/c9b2ceee_67d11f0b/",
+      "parentUuid": "d730036b_07aaecb6",
+      "range": {
+        "startLine": 1273,
+        "startChar": 0,
+        "endLine": 1278,
+        "endChar": 9
+      },
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef17f4da_0da354a5",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-06-30T15:31:32Z",
       "side": 1,
       "message": "Pass by const reference please.",
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d88dbb9_5946f704",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-06-30T16:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef17f4da_0da354a5",
       "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "181728f2_d83eb0ba",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-06-30T16:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9a6adfa_cdf8cffa",
+      "range": {
+        "startLine": 1892,
+        "startChar": 0,
+        "endLine": 1893,
+        "endChar": 32
+      },
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54dfe34e_803c6476",
@@ -81,6 +147,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1962352_33be73e8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1926,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-06-30T16:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54dfe34e_803c6476",
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e99252b4_f6242170",
@@ -94,6 +178,24 @@
       "writtenOn": "2026-06-30T15:31:32Z",
       "side": 1,
       "message": "Is there a reason we can\u0027t require password change here and have to set it separately?",
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74896d78_34624712",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2040,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-06-30T16:27:25Z",
+      "side": 1,
+      "message": "CreateUser2 does not support UserPasswordExpired as a UserProperty in the D-Bus interface only UserPrivilege, UserGroups, UserEnabled, and PasswordExpiration are supported.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/User/Manager.interface.yaml",
+      "parentUuid": "e99252b4_f6242170",
       "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
