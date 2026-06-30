@@ -46,6 +46,30 @@
       },
       "revId": "321ff21ee00393ff31e558b810cc7346ae12593b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "058d3584_e1a2feb0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1299,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-30T03:35:13Z",
+      "side": 1,
+      "message": "Understood, I have removed these redundant comments.\nThanks for acknowledging!",
+      "parentUuid": "22223bed_cc6e93ba",
+      "range": {
+        "startLine": 1296,
+        "startChar": 0,
+        "endLine": 1299,
+        "endChar": 72
+      },
+      "revId": "321ff21ee00393ff31e558b810cc7346ae12593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
