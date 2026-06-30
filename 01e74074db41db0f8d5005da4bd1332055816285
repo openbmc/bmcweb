@@ -22,6 +22,30 @@
       },
       "revId": "01e74074db41db0f8d5005da4bd1332055816285",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e770b4_7ebbbc71",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-06-30T14:06:25Z",
+      "side": 1,
+      "message": "Oh yeah that sounds reasonable that the error catched is too broad here.\nI have removed the if condition to catch only `EBADR` error now.\nThanks for acknowledging!",
+      "parentUuid": "ea19e176_1053d231",
+      "range": {
+        "startLine": 561,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 71
+      },
+      "revId": "01e74074db41db0f8d5005da4bd1332055816285",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
