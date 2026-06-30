@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b99e24a0_19e8405d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2026-06-30T13:53:24Z",
+      "side": 1,
+      "message": "I am trying to understand why you need this to be a tri-state value. Either the cap is enabled or not on a system. If not able to get the value, how does having a state of unknown help?",
+      "revId": "a4ba6cc3b5917f293dc58048169220f15dab8d47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "945052ad_13a1f7f8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
