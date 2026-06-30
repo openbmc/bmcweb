@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0eebba9d_8a97c096",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-06-30T10:06:05Z",
+      "side": 1,
+      "message": "In my opinion, avoid namespace-wide using-directive in a header. https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#rs-using-directive",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "08c3ccb09474834e7b160d4f4dcb315af779c3c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e78f8471_3d90c790",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 21
