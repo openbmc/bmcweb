@@ -214,6 +214,24 @@
       "message": "Nit, this should really be alphabetical, but that\u0027s not your fault.",
       "revId": "4afe3dbba69ba04c2612bb12bf93a44c654d42b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ffcec0e_3e4f018b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1002607
+      },
+      "writtenOn": "2026-06-30T04:12:59Z",
+      "side": 1,
+      "message": "I see... Thanks for the info.",
+      "parentUuid": "e7b9df28_bc8be45e",
+      "revId": "4afe3dbba69ba04c2612bb12bf93a44c654d42b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
