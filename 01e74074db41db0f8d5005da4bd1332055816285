@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea19e176_1053d231",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-06-30T09:06:47Z",
+      "side": 1,
+      "message": "In here EBADR is ignored, that\u0027s the usual \"optional data not present\"\ncase. But io_error feels broader to me. It can also show up for actual\nmethod-call failures or service issues, not just missing properties. Lumping\nthem together means a real D-Bus failure would look identical to \"feature not\nsupported,\" which could make this painful to debug later???",
+      "range": {
+        "startLine": 561,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 71
+      },
+      "revId": "01e74074db41db0f8d5005da4bd1332055816285",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
