@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8999f8b_db293444",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-06-30T09:25:39Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c38907a9_823b1a95",
+      "revId": "b246adc8f6b6b61eeae2efdfec7ed4ddba9d8265",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "337c220d_3f79b554",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b0f8f98_62b2be28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-06-30T09:25:39Z",
+      "side": 1,
+      "message": "Agreed. The section wasn\u0027t necessary for a simple patch.\nRemoved in PS9.",
+      "parentUuid": "337c220d_3f79b554",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "b246adc8f6b6b61eeae2efdfec7ed4ddba9d8265",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dde8142d_2c6d3879",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-06-22T10:34:01Z",
       "side": 1,
       "message": "Please remove these three patch link.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 58
+      },
+      "revId": "b246adc8f6b6b61eeae2efdfec7ed4ddba9d8265",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8778a309_6b74a108",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-06-30T09:25:39Z",
+      "side": 1,
+      "message": "Done. The in-flight patched already merged.",
+      "parentUuid": "dde8142d_2c6d3879",
       "range": {
         "startLine": 37,
         "startChar": 0,
