@@ -22,6 +22,7 @@ srcfiles_unittest = files(
     'include/json_html_serializer.cpp',
     'include/multipart_test.cpp',
     'include/ossl_random.cpp',
+    'include/security_headers_test.cpp',
     'include/sessions_test.cpp',
     'include/ssl_key_handler_test.cpp',
     'include/str_utility_test.cpp',
