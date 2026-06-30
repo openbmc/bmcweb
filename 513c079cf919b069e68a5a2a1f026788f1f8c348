@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e78fbf5_82be4a8a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-30T09:54:57Z",
+      "side": 1,
+      "message": "Thanks for review and info.",
+      "parentUuid": "76cc9c08_20f70978",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 41
+      },
+      "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4edc5de2_5dcc9d9a",
@@ -61,6 +85,30 @@
       "writtenOn": "2026-06-26T09:24:13Z",
       "side": 1,
       "message": "Should we consider to use `productionDateReport()` in `time_utils` here?",
+      "range": {
+        "startLine": 179,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 9
+      },
+      "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f60282_b9c7490e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-30T09:54:57Z",
+      "side": 1,
+      "message": "Thanks, time_utils::productionDateReport() writes ProductionDate to the top-level\nres.jsonValue and raises internalError() on a parse failure. Here we need to\nwrite under assemblyJsonPtr (the per-assembly sub-path), and we prefer to\nskip silently when BuildDate isn\u0027t a valid date rather than fail the whole\nresponse, so the helper isn\u0027t a direct fit. Kept getDateTimeIso8601() with\nthe explicit json_pointer write.",
+      "parentUuid": "4edc5de2_5dcc9d9a",
       "range": {
         "startLine": 179,
         "startChar": 8,
@@ -88,6 +136,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de30baa1_22af3bff",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-30T09:54:57Z",
+      "side": 1,
+      "message": "Add it, thanks for review.",
+      "parentUuid": "d4ae1833_b563f900",
+      "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fff9879_64df6c58",
@@ -101,6 +167,30 @@
       "writtenOn": "2026-06-26T09:24:13Z",
       "side": 1,
       "message": "nit: Should we consider using `getLocationType()` in `redfish-core/include/utils/location_utils.hpp` here?",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 285,
+        "endChar": 13
+      },
+      "revId": "513c079cf919b069e68a5a2a1f026788f1f8c348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "962defa9_e5a49c69",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-06-30T09:54:57Z",
+      "side": 1,
+      "message": "Thanks, getLocationType() returns a raw string (\"Embedded\"/\"Slot\"), whereas per\nEnder\u0027s earlier comment we assign the generated enum\n(resource::LocationType::Embedded) for type safety. Only the Embedded\nconnector applies for this resource, so kept the direct enum assignment.",
+      "parentUuid": "8fff9879_64df6c58",
       "range": {
         "startLine": 279,
         "startChar": 12,
