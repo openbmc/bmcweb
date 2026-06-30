@@ -16,6 +16,24 @@
       "message": "@joelpj@ami.com Can you run the https://github.com/openbmc/openbmc-build-scripts/blob/master/scripts/format-code.sh script to fix the CI failure?\nhttps://jenkins.openbmc.org/job/ci-repository/138807/console",
       "revId": "3ca54a08ebca5c5f1209d6f6177ac40a430a3ceb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e265e87_47096e59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-06-30T05:22:32Z",
+      "side": 1,
+      "message": "Will do. Thanks for the review.",
+      "parentUuid": "c939f7ea_b2a18484",
+      "revId": "3ca54a08ebca5c5f1209d6f6177ac40a430a3ceb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
