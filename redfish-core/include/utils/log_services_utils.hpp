@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "async_resp.hpp"
 #include "boost_formatters.hpp"
 #include "error_messages.hpp"
@@ -15,14 +17,7 @@
 #include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
-#include <boost/beast/http/status.hpp>
-#include <boost/beast/http/verb.hpp>
-#include <boost/system/linux_error.hpp>
-#include <boost/url/format.hpp>
-#include <boost/url/url.hpp>
-#include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
-#include <sdbusplus/unpack_properties.hpp>
 
 #include <cstdio>
 #include <string>
@@ -31,6 +26,74 @@ namespace redfish
 {
 namespace log_services_utils
 {
+
+constexpr const char* rfSystemsStr = "Systems";
+constexpr const char* rfManagersStr = "Managers";
+
+enum class LogServiceParentCollection
+{
+    Systems,
+    Managers
+};
+
+inline std::string logServiceParentCollectionToString(
+    LogServiceParentCollection collection)
+{
+    std::string collectionStr;
+    switch (collection)
+    {
+        case LogServiceParentCollection::Managers:
+            collectionStr = rfManagersStr;
+            break;
+        case LogServiceParentCollection::Systems:
+            collectionStr = rfSystemsStr;
+            break;
+        default:
+            BMCWEB_LOG_ERROR("Unable to stringify bmcweb eventlog location");
+            break;
+    }
+    return collectionStr;
+}
+
+inline std::string_view getMemberIdFromParentCollection(
+    LogServiceParentCollection collection)
+{
+    std::string_view memberId;
+
+    switch (collection)
+    {
+        case LogServiceParentCollection::Managers:
+            memberId = BMCWEB_REDFISH_MANAGER_URI_NAME;
+            break;
+        case LogServiceParentCollection::Systems:
+            memberId = BMCWEB_REDFISH_SYSTEM_URI_NAME;
+            break;
+        default:
+            BMCWEB_LOG_ERROR(
+                "Unable to stringify bmcweb eventlog location childId");
+            break;
+    }
+    return memberId;
+}
+
+inline std::string getLogEntryDescriptorFromParentCollection(
+    LogServiceParentCollection collection)
+{
+    std::string descriptor;
+    switch (collection)
+    {
+        case LogServiceParentCollection::Managers:
+            descriptor = "Manager";
+            break;
+        case LogServiceParentCollection::Systems:
+            descriptor = "System";
+            break;
+        default:
+            BMCWEB_LOG_ERROR("Unable to get Log Entry descriptor");
+            break;
+    }
+    return descriptor;
+}
 
 inline bool checkSizeLimit(int fd, crow::Response& res)
 {
