@@ -39,7 +39,7 @@ inline void handleManagersDBusEventLogEntryCollection(
         return;
     }
     eventlog_utils::dBusEventLogEntryCollection(
-        asyncResp, eventlog_utils::LogServiceParentCollection::Managers);
+        asyncResp, log_services_utils::LogServiceParentCollection::Managers);
 }
 
 inline void handleManagersDBusEventLogEntryGet(
@@ -58,7 +58,7 @@ inline void handleManagersDBusEventLogEntryGet(
     }
 
     eventlog_utils::dBusEventLogEntryGet(
-        asyncResp, eventlog_utils::LogServiceParentCollection::Managers,
+        asyncResp, log_services_utils::LogServiceParentCollection::Managers,
         entryId);
 }
 
