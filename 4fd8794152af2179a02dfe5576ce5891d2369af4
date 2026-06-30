@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d730036b_07aaecb6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-30T15:31:32Z",
+      "side": 1,
+      "message": "?  Why can\u0027t this be unset?",
+      "range": {
+        "startLine": 1273,
+        "startChar": 0,
+        "endLine": 1278,
+        "endChar": 9
+      },
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef17f4da_0da354a5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-30T15:31:32Z",
+      "side": 1,
+      "message": "Pass by const reference please.",
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a6adfa_cdf8cffa",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-30T15:31:32Z",
+      "side": 1,
+      "message": "This is now duplicated.  Please deduplicate",
+      "range": {
+        "startLine": 1892,
+        "startChar": 0,
+        "endLine": 1893,
+        "endChar": 32
+      },
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54dfe34e_803c6476",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1926,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-30T15:31:32Z",
+      "side": 1,
+      "message": "Please make this follow the same pattern as handleUserNameAttrPatch, deduplicating between patch/post.",
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e99252b4_f6242170",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2040,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-06-30T15:31:32Z",
+      "side": 1,
+      "message": "Is there a reason we can\u0027t require password change here and have to set it separately?",
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
