@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3e753b6_2297095a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-01T06:45:28Z",
+      "side": 1,
+      "message": "Thank you.",
+      "parentUuid": "605be53c_5e3f3286",
+      "revId": "ffe8aa84bd8e46e4ca819935f86c72a9e18bb967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88e90f93_37fc4699",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4547b7da_651231b3",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-01T06:45:28Z",
+      "side": 1,
+      "message": "That\u0027s a good idea, will add the same.",
+      "parentUuid": "88e90f93_37fc4699",
+      "revId": "ffe8aa84bd8e46e4ca819935f86c72a9e18bb967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cccb1f8f_6ca2097e",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-06-30T16:07:02Z",
       "side": 1,
       "message": "Please don\u0027t split this into 4 tests.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 28
+      },
+      "revId": "ffe8aa84bd8e46e4ca819935f86c72a9e18bb967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55157d00_42ccf781",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-01T06:45:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cccb1f8f_6ca2097e",
       "range": {
         "startLine": 98,
         "startChar": 0,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "429d244d_bb462e8b",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-01T06:45:28Z",
+      "side": 1,
+      "message": "Done, thanks for reviewing.",
+      "parentUuid": "5afd6f79_1efc4c5a",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 74
+      },
+      "revId": "ffe8aa84bd8e46e4ca819935f86c72a9e18bb967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57687982_11f87063",
@@ -94,6 +178,30 @@
       "writtenOn": "2026-06-30T16:07:02Z",
       "side": 1,
       "message": "same as above.",
+      "range": {
+        "startLine": 119,
+        "startChar": 44,
+        "endLine": 119,
+        "endChar": 45
+      },
+      "revId": "ffe8aa84bd8e46e4ca819935f86c72a9e18bb967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1781e9c_c171c6c3",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-01T06:45:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57687982_11f87063",
       "range": {
         "startLine": 119,
         "startChar": 44,
