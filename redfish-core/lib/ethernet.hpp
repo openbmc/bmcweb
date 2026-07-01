@@ -1397,12 +1397,13 @@ inline void handleDHCPPatch(
     bool ipv4Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
     bool ipv6Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, false);
 
-    if (ipv4Active)
+    bool nextv4DHCPState =
+        v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
+    // Only clear the DefaultGateway when DHCP is being disabled.
+    if (ipv4Active && !nextv4DHCPState)
     {
         updateIPv4DefaultGateway(ifaceId, "", asyncResp);
     }
-    bool nextv4DHCPState =
-        v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
 
     bool nextv6DHCPState{};
     if (v6dhcpParms.dhcpv6OperatingMode)
@@ -1681,7 +1682,8 @@ inline void handleIPv4StaticPatch(
     std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>& input,
     const EthernetInterfaceData& ethData,
     const std::vector<IPv4AddressData>& ipv4Data,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    bool dhcpBeingDisabled = false)
 {
     std::vector<AddressPatch> addresses;
     std::string gatewayOut;
@@ -1743,7 +1745,11 @@ inline void handleIPv4StaticPatch(
 
     // now update to the new gateway.
     // Default gateway is already empty, so no need to update if we're clearing
-    if (!gatewayOut.empty() && ethData.defaultGateway != gatewayOut)
+    // If DHCP was just disabled in this same PATCH, handleDHCPPatch already
+    // cleared DefaultGateway, so we must explicitly re-apply the static
+    // gateway even if its value matches the previous DHCP gateway.
+    if (!gatewayOut.empty() &&
+        (dhcpBeingDisabled || ethData.defaultGateway != gatewayOut))
     {
         updateIPv4DefaultGateway(ifaceId, gatewayOut, asyncResp);
     }
@@ -2434,8 +2440,15 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
                         if (ipv4StaticAddresses)
                         {
+                            bool ipv4Active = translateDhcpEnabledToBool(
+                                ethData.dhcpEnabled, true);
+                            bool dhcpBeingDisabled =
+                                ipv4Active &&
+                                v4dhcpParms.dhcpv4Enabled.has_value() &&
+                                !(*v4dhcpParms.dhcpv4Enabled);
                             handleIPv4StaticPatch(ifaceId, *ipv4StaticAddresses,
-                                                  ethData, ipv4Data, asyncResp);
+                                                  ethData, ipv4Data, asyncResp,
+                                                  dhcpBeingDisabled);
                         }
 
                         if (staticNameServers)
