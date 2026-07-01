@@ -29,6 +29,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <algorithm>
+#include <charconv>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -252,8 +253,34 @@ static LogParseError fillEventLogEntryJson(
         return LogParseError::messageIdNotInRegistry;
     }
 
-    const unsigned int& versionMajor = registry->get().header.versionMajor;
-    const unsigned int& versionMinor = registry->get().header.versionMinor;
+    unsigned int versionMajor = 0;
+    unsigned int versionMinor = 0;
+
+    // Parse versionMajor from msgComponents->majorVersion
+    if (!msgComponents->majorVersion.empty())
+    {
+        auto result = std::from_chars(msgComponents->majorVersion.data(),
+                                      msgComponents->majorVersion.data() +
+                                          msgComponents->majorVersion.size(),
+                                      versionMajor);
+        if (result.ec != std::errc{})
+        {
+            versionMajor = 0;
+        }
+    }
+
+    // Parse versionMinor from msgComponents->minorVersion
+    if (!msgComponents->minorVersion.empty())
+    {
+        auto result = std::from_chars(msgComponents->minorVersion.data(),
+                                      msgComponents->minorVersion.data() +
+                                          msgComponents->minorVersion.size(),
+                                      versionMinor);
+        if (result.ec != std::errc{})
+        {
+            versionMinor = 0;
+        }
+    }
 
     std::vector<std::string_view> messageArgs(logEntryIter,
                                               logEntryFields.end());

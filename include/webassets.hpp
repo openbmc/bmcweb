@@ -157,7 +157,7 @@ inline std::string_view getFiletypeForExtension(std::string_view extension)
 
     if (contentType == contentTypes.end())
     {
-        BMCWEB_LOG_ERROR(
+        BMCWEB_LOG_DEBUG(
             "Cannot determine content-type for file with extension {}",
             extension);
         return "";
