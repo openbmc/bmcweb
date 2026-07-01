@@ -365,6 +365,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0372451_915ccf41",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-01T20:19:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5bc388b_9d8eef94",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 29
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5089f56_e5cb85bd",
