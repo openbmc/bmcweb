@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "140b90d0_4519159f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-07-01T04:36:41Z",
+      "side": 1,
+      "message": "I think it is better to remove this from the commit.This deserves its own commit.I will remove it from here",
+      "parentUuid": "211b4bc2_971d781c",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9aa1736a_221d7a0f",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
@@ -273,6 +291,30 @@
       "side": 1,
       "message": "Sorry, I don\u0027t understand how that could be if every bmcweb instance uses the same forwarded-for.",
       "parentUuid": "b63b5411_c1ca4667",
+      "range": {
+        "startLine": 633,
+        "startChar": 48,
+        "endLine": 633,
+        "endChar": 54
+      },
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a2edf2_558af66a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-07-01T04:36:41Z",
+      "side": 1,
+      "message": "The X-Forwarded-For header is added to Redfish requests originating from bmcweb during the aggregation phase. This allows the satellite BMC to detect that the request is part of an aggregation flow. As a result, the satellite BMC can avoid initiating any further aggregation itself.\nAs mentioned in the commit message, this approach works for a fully connected BMC topology, where the initiating BMC directly aggregates all connected satellite BMCs. However, it does not work correctly in scenarios where some BMCs are only indirectly connected.",
+      "parentUuid": "abff0d2d_53d3dc69",
       "range": {
         "startLine": 633,
         "startChar": 48,
