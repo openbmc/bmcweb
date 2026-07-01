@@ -30,6 +30,7 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
+#include <charconv>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -199,6 +200,24 @@ enum class LogParseError
     messageIdNotInRegistry,
 };
 
+inline unsigned int parseVersionOrDefault(std::string_view versionStr,
+                                          unsigned int defaultVersion)
+{
+    if (versionStr.empty())
+    {
+        return defaultVersion;
+    }
+    unsigned int version = 0;
+    auto result =
+        std::from_chars(versionStr.begin(), versionStr.end(), version);
+    if (result.ec != std::errc{} || result.ptr != versionStr.end())
+    {
+        return defaultVersion;
+    }
+
+    return version;
+}
+
 static LogParseError fillEventLogEntryJson(
     const std::string& logEntryID, const std::string& logEntry,
     nlohmann::json::object_t& logEntryJson, const std::string& collectionStr,
@@ -256,8 +275,10 @@ static LogParseError fillEventLogEntryJson(
         return LogParseError::messageIdNotInRegistry;
     }
 
-    const unsigned int& versionMajor = registry->get().header.versionMajor;
-    const unsigned int& versionMinor = registry->get().header.versionMinor;
+    const unsigned int versionMajor = parseVersionOrDefault(
+        msgComponents->majorVersion, registry->get().header.versionMajor);
+    const unsigned int versionMinor = parseVersionOrDefault(
+        msgComponents->minorVersion, registry->get().header.versionMinor);
 
     std::vector<std::string_view> messageArgs(logEntryIter,
                                               logEntryFields.end());
