@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dde806a_30aa1ceb",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-01T15:28:21Z",
+      "side": 1,
+      "message": "You check for 4 headers, then EXPECT_EQ only 3 headers.  Something seems off there.",
+      "range": {
+        "startLine": 67,
+        "startChar": 71,
+        "endLine": 67,
+        "endChar": 72
+      },
+      "revId": "4951451b9cf0fc7dc4ef58bc71180d9e7fadc863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0185439f_eea4fdd0",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-01T15:28:21Z",
+      "side": 1,
+      "message": "nit, if we do another patch, can you abstract this to a \"headerCount()\" method on the Response object please?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 74
+      },
+      "revId": "4951451b9cf0fc7dc4ef58bc71180d9e7fadc863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af59291a_1566fc6f",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-01T15:28:21Z",
+      "side": 1,
+      "message": "same here.  The goal is to assert/expect the exact output.  I suspect this and the last test just need to be combined?",
+      "revId": "4951451b9cf0fc7dc4ef58bc71180d9e7fadc863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45af8334_4c7540a0",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-01T15:28:21Z",
+      "side": 1,
+      "message": "Same as below, there\u0027s no need to split this into multiple tests with the same input.  call addSecurityHeaders once, then assert all the output expected.\n\nif you want to add more details for logging, feel free to add them to the asserts.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 28
+      },
+      "revId": "4951451b9cf0fc7dc4ef58bc71180d9e7fadc863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78e91a9b_8cbc84b9",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-01T15:28:21Z",
+      "side": 1,
+      "message": "This isn\u0027t a gtest tool we commonly use and as the maintainer I\u0027ve never heard of it.  Lets remove it for now, and if we think it\u0027s truly useful, lets put it into a separate commit with its own commit message to describe what it\u0027s useful for.\n\nI suspect it can just be removed entirely.",
+      "revId": "4951451b9cf0fc7dc4ef58bc71180d9e7fadc863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecb1d861_9cc1cc93",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-01T15:28:21Z",
+      "side": 1,
+      "message": "You check for 13 headers here, then EXPECT on 8.  Please add the additional 5 to make sure we have coverage.",
+      "range": {
+        "startLine": 135,
+        "startChar": 75,
+        "endLine": 135,
+        "endChar": 77
+      },
+      "revId": "4951451b9cf0fc7dc4ef58bc71180d9e7fadc863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
