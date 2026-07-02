@@ -93,6 +93,76 @@
       },
       "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6ab695_38a405cd",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-02T17:56:05Z",
+      "side": 1,
+      "message": "+1.  While I\u0027m in support of this change (it\u0027s cleaner) it should be in its own commit so that we have an opportunity for some amount of functional testing (even though there are unit tests).",
+      "parentUuid": "4e82d2a8_db73231b",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2805c78a_7da4de20",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-02T17:56:05Z",
+      "side": 1,
+      "message": "don\u0027t return auto where it requires another lookup.  in this case I think it\u0027s size_t",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 4
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "414319a9_43a8793e",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-02T17:56:05Z",
+      "side": 1,
+      "message": "All 4 of these tests are identical except for the content-type header.  Can they be reduced like you had in your old patch?",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 1
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
