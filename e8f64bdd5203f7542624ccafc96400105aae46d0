@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45d25d7_866377e0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-02T11:49:38Z",
+      "side": 1,
+      "message": "I think we should logs for the case of `ec.value() \u003d\u003d EBADR` here.",
+      "range": {
+        "startLine": 442,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 15
+      },
+      "revId": "e8f64bdd5203f7542624ccafc96400105aae46d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4a4d13_98a21a87",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-02T11:49:38Z",
+      "side": 1,
+      "message": "Not sure if we should add a debug log here.",
+      "range": {
+        "startLine": 456,
+        "startChar": 4,
+        "endLine": 460,
+        "endChar": 5
+      },
+      "revId": "e8f64bdd5203f7542624ccafc96400105aae46d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a1b2159_8fbadd6d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-02T11:49:38Z",
+      "side": 1,
+      "message": "In this case, shouldn\u0027t we distinguish the case for EBADR and the others?",
+      "range": {
+        "startLine": 482,
+        "startChar": 8,
+        "endLine": 482,
+        "endChar": 69
+      },
+      "revId": "e8f64bdd5203f7542624ccafc96400105aae46d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
