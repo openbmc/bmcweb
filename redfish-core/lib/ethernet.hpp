@@ -1945,7 +1945,7 @@ inline void parseInterfaceData(
         nlohmann::json::array_t relatedInterfaces;
         nlohmann::json& parentInterface = relatedInterfaces.emplace_back();
         parentInterface["@odata.id"] =
-            boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces",
+            boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces/{}",
                                 BMCWEB_REDFISH_MANAGER_URI_NAME,
                                 extractParentInterfaceName(ifaceId));
         jsonResponse["Links"]["RelatedInterfaces"] =
