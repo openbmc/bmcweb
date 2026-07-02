@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80ad5a7c_3964efc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-02T21:17:51Z",
+      "side": 1,
+      "message": "Joel Pullokaran Jesin  is better (based on our guidelines). PIIs is personally identifiable information ? I don\u0027t understand but I\u0027ll let this be",
+      "parentUuid": "78803adf_776b8b8b",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ccc5f3de_c2a40877",
         "filename": "include/security_headers.hpp",
         "patchSetId": 6
