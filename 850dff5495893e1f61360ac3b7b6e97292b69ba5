@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f16df7d_a5a472dd",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-02T11:12:26Z",
+      "side": 1,
+      "message": "Please do logs for the case of `ec.value() \u003d\u003d EBADR`.",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 9
+      },
+      "revId": "850dff5495893e1f61360ac3b7b6e97292b69ba5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b7c63e5_2442ef47",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-02T11:12:26Z",
+      "side": 1,
+      "message": "Please do logs for the case `ec.value()\u003d\u003dEBADR`.",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 9
+      },
+      "revId": "850dff5495893e1f61360ac3b7b6e97292b69ba5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c794d0b4_9e64c71c",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-02T11:12:26Z",
+      "side": 1,
+      "message": "This function looked similar to `getProcessorMetricsOperatingSpeed()`, \nthe only difference is the callback binded.\n\nNot sure if we can refactor them so that we don\u0027t have to perform `getAssociatedSubTree()` twice for a single redfish request.",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 1
+      },
+      "revId": "850dff5495893e1f61360ac3b7b6e97292b69ba5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
