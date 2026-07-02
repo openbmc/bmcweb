@@ -33,6 +33,23 @@
       "message": "Please follow the contributor docs and file a CLA.",
       "revId": "8b3b1d6e1106d52efb32fd0ec5dfd761357e2ed1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16ac3fff_d94af378",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-07-02T20:05:28Z",
+      "side": 1,
+      "message": "Thanks for finding and writing this up, binreaper. I ran into the same issue independently while reviewing bmcweb\u0027s HTTP/2 path and reproduced it end-to-end — an unauthenticated h2 stream with no Content-Length grows RSS roughly 1:1 until std::bad_alloc takes bmcweb down, while the HTTP/1.1 path returns 413 under the identical test. Your bytesReceived bound here is the right fix.\n\nThe only thing holding it up looks to be the CLA / legal-name requirement Ed noted. If that\u0027s a blocker on your end, I\u0027m a CLA\u0027d contributor and I\u0027m glad to carry this forward under my sign-off — keeping you credited as the author/reporter and referencing this change. If you\u0027d rather file the CLA and land it yourself, that\u0027s even better; just let me know how I can help.\n\nHappy to add the runtime-verification numbers as evidence either way — this is a real pre-auth DoS worth landing.",
+      "revId": "8b3b1d6e1106d52efb32fd0ec5dfd761357e2ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
