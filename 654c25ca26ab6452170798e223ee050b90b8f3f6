@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dda85626_40827cfc",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-02T17:56:38Z",
+      "side": 1,
+      "message": "FWIW, I had asked for this to be on the Response object, not in your test.",
+      "parentUuid": "2805c78a_7da4de20",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 4
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "414319a9_43a8793e",
         "filename": "test/include/security_headers_test.cpp",
         "patchSetId": 6
