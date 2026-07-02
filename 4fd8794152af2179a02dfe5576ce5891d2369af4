@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5a13198_caf4bcba",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-02T00:20:59Z",
+      "side": 1,
+      "message": "I don\u0027t understand that, but sure, that\u0027s a decision for phosphor-user-manager to make.  Please just make sure that the error is handled properly in bmcweb, don\u0027t try to pre-check the condition.",
+      "parentUuid": "0d393a56_33010e21",
+      "range": {
+        "startLine": 1273,
+        "startChar": 0,
+        "endLine": 1278,
+        "endChar": 9
+      },
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef17f4da_0da354a5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 9
@@ -196,6 +220,24 @@
       "side": 1,
       "message": "CreateUser2 does not support UserPasswordExpired as a UserProperty in the D-Bus interface only UserPrivilege, UserGroups, UserEnabled, and PasswordExpiration are supported.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/User/Manager.interface.yaml",
       "parentUuid": "e99252b4_f6242170",
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aa4304f_5f838d18",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2040,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-02T00:20:59Z",
+      "side": 1,
+      "message": "And that can\u0027t be fixed for some architectural reason?",
+      "parentUuid": "74896d78_34624712",
       "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
