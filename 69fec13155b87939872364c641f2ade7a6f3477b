@@ -64,6 +64,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "907f9539_9f78b2fd",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-07-02T09:58:46Z",
+      "side": 1,
+      "message": "Yes, this is documented here.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Attestation/ComponentIntegrity.interface.yaml#L78",
+      "parentUuid": "952b5a76_3245e9e2",
+      "range": {
+        "startLine": 354,
+        "startChar": 30,
+        "endLine": 354,
+        "endChar": 49
+      },
+      "revId": "69fec13155b87939872364c641f2ade7a6f3477b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb5fa4ff_35d06a8f",
