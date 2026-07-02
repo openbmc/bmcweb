@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cbda467_8d518406",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-02T21:19:39Z",
+      "side": 1,
+      "message": "But why do something special here? \nIsn\u0027t this a generic problem ?",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 59
+      },
+      "revId": "e8f64bdd5203f7542624ccafc96400105aae46d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a45d25d7_866377e0",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 8
