@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78803adf_776b8b8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-02T13:27:32Z",
+      "side": 1,
+      "message": "My legal name is Joel P J, and full form is Joel Pullokaran Jesin (but this is not in PIIs). Should I change?",
+      "parentUuid": "0b5c7124_05389be1",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ccc5f3de_c2a40877",
         "filename": "include/security_headers.hpp",
         "patchSetId": 6
