@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee45372d_e037c58f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-07-02T02:06:24Z",
+      "side": 1,
+      "message": "agree to drop the pre-check.\ndbus returns xyz.openbmc_project.Common.Error.NotAllowed for a false, and error in the callback will map to propertyValueNotInList(asyncResp-\u003eres, false, \"PasswordChangeRequired\").\n\nDoes this map okay?, or do we have any concerns with this error mapping?",
+      "parentUuid": "d5a13198_caf4bcba",
+      "range": {
+        "startLine": 1273,
+        "startChar": 0,
+        "endLine": 1278,
+        "endChar": 9
+      },
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef17f4da_0da354a5",
@@ -238,6 +262,24 @@
       "side": 1,
       "message": "And that can\u0027t be fixed for some architectural reason?",
       "parentUuid": "74896d78_34624712",
+      "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1642d4b8_bc605d70",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2040,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-07-02T02:06:24Z",
+      "side": 1,
+      "message": "Yes, as of now there are the above mentioned properties are mandatory to create the user.\nAdding PasswordChangeRequired as part of CreateUser2 doesn\u0027t seem like a great idea, since forcing a password change on next login is not necessarily needed at user creation time.",
+      "parentUuid": "8aa4304f_5f838d18",
       "revId": "4fd8794152af2179a02dfe5576ce5891d2369af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
