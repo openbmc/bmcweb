@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa4fbc95_ecd550b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-03T12:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80ad5a7c_3964efc6",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccc5f3de_c2a40877",
@@ -143,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "833b251a_11bfcd62",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-03T12:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a6ab695_38a405cd",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2805c78a_7da4de20",
@@ -190,6 +238,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a23f1a_dd51bb1e",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-03T12:58:53Z",
+      "side": 1,
+      "message": "Restored headerCount() function, will push as separate commit in Response object.",
+      "parentUuid": "dda85626_40827cfc",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 4
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "414319a9_43a8793e",
@@ -203,6 +275,30 @@
       "writtenOn": "2026-07-02T17:56:05Z",
       "side": 1,
       "message": "All 4 of these tests are identical except for the content-type header.  Can they be reduced like you had in your old patch?",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 1
+      },
+      "revId": "654c25ca26ab6452170798e223ee050b90b8f3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15120d11_fc69f378",
+        "filename": "test/include/security_headers_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-03T12:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "414319a9_43a8793e",
       "range": {
         "startLine": 136,
         "startChar": 0,
