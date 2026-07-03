@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e704b59_e2eab6d2",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-03T07:53:41Z",
+      "side": 1,
+      "message": "I have recently received a comment suggesting not to bind the case of `EBADR` and `boost::system::errc::io_error` together.\n\nNot sure if we should separate them case by case, please check the following link:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/88594/comment/ea19e176_1053d231/",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 156,
+        "endChar": 9
+      },
+      "revId": "9e491d5a4b5f30fe4dbedd984c66651d5c8212f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8a1fed3_f9cec644",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-03T07:53:41Z",
+      "side": 1,
+      "message": "Are we expecting `serviceMap.size() \u003d\u003d 1` here from the retrieved `associatedSubTree`?\nIf so, I think we can add a log here for better debugging.",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 9
+      },
+      "revId": "9e491d5a4b5f30fe4dbedd984c66651d5c8212f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1535c8e_e66c7522",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-03T07:53:41Z",
+      "side": 1,
+      "message": "nit: I would prefer the following implementation for better understanding, but it\u0027s up to you if you prefer current implementation.\n```\n\ninline std::optional\u003cnlohmann::json::json_pointer\u003e getThrottleDurationJsonPtr(const std::string\u0026 metricName)\n{\n    if (metricName \u003d\u003d \"power_limit_throttle_duration\")\n    {\n        return \"/PowerLimitThrottleDuration\"_json_pointer;\n    }\n    if (metricName \u003d\u003d \"thermal_limit_throttle_duration\")\n    {\n        return \"/ThermalLimitThrottleDuration\"_json_pointer;\n    }\n    return std::nullopt;\n}\n\ninline void afterGetProcessorMetricsThrottleDurations(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const boost::system::error_code\u0026 ec,\n    const dbus::utility::MapperGetSubTreeResponse\u0026 subtree)\n{\n    ...\n    \n    const std::optional\u003cnlohmann::json::json_pointer\u003e jsonPtr{getThrottleDurationJsonPtr(metricName)};\n    \n    if (!jsonPtr) \n    {\n        continue;\n    }\n    getProcessorMetricsThrottleDuration(asyncResp, serviceName, path, jsonPtr);\n}\n\n```",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 184,
+        "endChar": 9
+      },
+      "revId": "9e491d5a4b5f30fe4dbedd984c66651d5c8212f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
