@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3b629f_26ca5212",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-03T13:58:04Z",
+      "side": 1,
+      "message": "\u003e There isn\u0027t a CooledBy in Chassis itself - it has been Deprecated\n\nok, we can use Chassis -\u003e Links -\u003e Fans \n\nto provide the link from the other side.\n\nSo the fan is pointing to the chassis and the chassis is also pointing to the fan.\n\nThanks for this feedback, in the latest revision the links are now provided from both sides 👍",
+      "parentUuid": "a6323390_209e91cf",
+      "revId": "e7ed94229d4efa1c156574b752638d626a75ace0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4fb933b_ebdcd302",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-29T19:43:12Z",
       "side": 1,
       "message": "Overall, i don\u0027t really love this fallback where we try one thing and fall back to another.  DBus-\u003eRedfish should be well defined, and by my read, cooled_by should\u0027ve never been used here.  I\u0027m open to a short term ifdef here, but lets just get with the folks that modeled it as contained_by, make sure we\u0027re all on the same page, and get the conversion done.\n\nIf we need a temporary meson option to stage, that\u0027s fine, I just don\u0027t want to support \"either or\" forever.",
+      "revId": "e7ed94229d4efa1c156574b752638d626a75ace0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c8e756a_a5cdf031",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-03T13:58:04Z",
+      "side": 1,
+      "message": "alrigthy, i thought the runtime fallback was a good idea to avoid adding meson options but the traditional way also works for me.\n\nAdded a meson option `redfish-fan-links` as requested.",
+      "parentUuid": "f4fb933b_ebdcd302",
       "revId": "e7ed94229d4efa1c156574b752638d626a75ace0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
