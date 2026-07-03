@@ -182,6 +182,16 @@ struct Response
         return fields()[key];
     }
 
+    std::size_t headerCount(std::string_view key) const
+    {
+        return fields().count(key);
+    }
+
+    std::size_t headerCount(boost::beast::http::field key) const
+    {
+        return fields().count(key);
+    }
+
     void keepAlive(bool k)
     {
         response.keep_alive(k);
