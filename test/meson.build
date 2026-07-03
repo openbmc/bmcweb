@@ -15,6 +15,7 @@ srcfiles_unittest = files(
     'http/zstd_compressor_test.cpp',
     'http/zstd_decompressor_test.cpp',
     'include/async_resolve_test.cpp',
+    'include/cookies_test.cpp',
     'include/credential_pipe_test.cpp',
     'include/dbus_privileges_test.cpp',
     'include/http_utility_test.cpp',
