@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef4e2f2_01c6bcce",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-06T07:10:24Z",
+      "side": 1,
+      "message": "Is this duplicating existing LocationCode helper logic from location_utils.hpp. Once the service is resolved, can this reuse location_util::getLocationCode(...) instead of open coding the same property lookup and ServiceLabel assignment?",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 1
+      },
+      "revId": "a09fa7248c4c23ee2e818e470be793a4d2d28cc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
