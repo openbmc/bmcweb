@@ -22,6 +22,30 @@
       },
       "revId": "2447ca619e73cc9a01cd7236610b1bbe4d96079b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1adde100_1feb6220",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-06T20:32:11Z",
+      "side": 1,
+      "message": "which will also fix your CI issue.  Looks like this inline comment just failed the formatters for going over line length.",
+      "parentUuid": "3b7e9886_e401aac9",
+      "range": {
+        "startLine": 54,
+        "startChar": 42,
+        "endLine": 54,
+        "endChar": 89
+      },
+      "revId": "2447ca619e73cc9a01cd7236610b1bbe4d96079b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
