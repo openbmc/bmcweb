@@ -22,6 +22,30 @@
       },
       "revId": "c42a3be2263d16fe2d56ba9e297110bcfed32aff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b1c4cc_89a2169d",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-06T11:55:16Z",
+      "side": 1,
+      "message": "Thanks for the catching!\nI have removed `messages::internalError(asyncResp-\u003eres)` in PS7.",
+      "parentUuid": "83321ada_2a2ea893",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 48
+      },
+      "revId": "c42a3be2263d16fe2d56ba9e297110bcfed32aff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
