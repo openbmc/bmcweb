@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83321ada_2a2ea893",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-06T09:39:24Z",
+      "side": 1,
+      "message": "PowerState is described in the commit message as an optional property that should be omitted when the decorator is absent or unreadable, but this path returns messages::internalError(asyncResp-\u003eres) on a getProperty failure.\n\nAvoiding this would also be more consistent with the guidance in COMMON_ERRORS.md about avoiding unnecessary 500s?",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 48
+      },
+      "revId": "c42a3be2263d16fe2d56ba9e297110bcfed32aff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
