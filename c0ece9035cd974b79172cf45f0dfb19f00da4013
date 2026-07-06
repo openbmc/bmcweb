@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d3e1bd0_b46aeb94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 92
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-06T21:04:57Z",
+      "side": 1,
+      "message": "It is the excerpt of the actual output. L47 shows \"...\"",
+      "parentUuid": "9947e314_b4989f9a",
+      "range": {
+        "startLine": 49,
+        "startChar": 25,
+        "endLine": 49,
+        "endChar": 26
+      },
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a42b5a09_c1ddc45e",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-06-17T14:59:07Z",
       "side": 1,
       "message": "Do we need this? Or can this be covered by the OpenBMC authors since this actually wasn\u0027t ever commited to master?",
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec74e82f_477c5c8e",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-06T21:04:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a42b5a09_c1ddc45e",
       "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e0289b_f66d68c2",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-06T21:04:57Z",
+      "side": 1,
+      "message": "Yes, `setUpRedfishRoute()` is defined in query.hpp",
+      "parentUuid": "1235b8e6_42d7b5e3",
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0627be6a_50389d68",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-06-17T15:04:07Z",
       "side": 1,
       "message": "Optional, format look unused",
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "777a1063_daf37c2b",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-06T21:04:57Z",
+      "side": 1,
+      "message": "Acknowledged.\n(Interestingly CI seems not detecting this)",
+      "parentUuid": "0627be6a_50389d68",
       "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -98,6 +176,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55afd5c0_8bfff47e",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-06T21:04:57Z",
+      "side": 1,
+      "message": "Yes, via https://gerrit.openbmc.org/c/openbmc/phosphor-objmgr/+/79311, it will return an ec if Id is invalid",
+      "parentUuid": "5dcd4522_47086c02",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 15
+      },
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab15ce1c_9621b5cb",
@@ -111,6 +213,24 @@
       "writtenOn": "2026-06-17T14:59:07Z",
       "side": 1,
       "message": "There is no route for /SubProcessors/\u003ccoreId\u003e/, I guess it comes later?",
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64a497bc_c80e4eaf",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-06T21:04:57Z",
+      "side": 1,
+      "message": "Yes. it will be handled by the next commit - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64982",
+      "parentUuid": "ab15ce1c_9621b5cb",
       "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -138,6 +258,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fab8679_d5536072",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-06T21:04:57Z",
+      "side": 1,
+      "message": "Right, we can use it - with `(ec \u003d\u003d boost::system::errc::io_error)` as `resourceNotFound()` for `getAssociatedSubTreePathsById()`.",
+      "parentUuid": "e77bd380_b1278450",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 69
+      },
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd1c82a9_f06c5ac4",
@@ -151,6 +295,24 @@
       "writtenOn": "2026-06-17T14:59:07Z",
       "side": 1,
       "message": "Adds requestRoutesSubProcessors(), but I don\u0027t see this header included or the route registration called from redfish-core/src/redfish.cpp.",
+      "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad5dba03_5db2e78d",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 92
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-06T21:04:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bd1c82a9_f06c5ac4",
       "revId": "c0ece9035cd974b79172cf45f0dfb19f00da4013",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
