@@ -1,0 +1,9 @@
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: Oliver Brewka <oliver.brewka@9elements.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Mon, 06 Jul 2026 23:44:35 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/86071
+Comments-Total: 16
+Project: openbmc/bmcweb
+Branch: refs/heads/master
