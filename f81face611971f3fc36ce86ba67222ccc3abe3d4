@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b864691_682a88fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-06T23:41:52Z",
+      "side": 1,
+      "message": "Looks like you dropped the unit test changes in your latest patch.",
+      "revId": "f81face611971f3fc36ce86ba67222ccc3abe3d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
