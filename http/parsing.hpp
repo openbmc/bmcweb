@@ -51,7 +51,7 @@ class BmcwebSaxParse : public nlohmann::json::json_sax_t
     constexpr static int maxDepth = 10;
 
     int totalValues = 0;
-    constexpr static int maxValues = 500;
+    constexpr static int maxValues = 2200;  // each session is ~11 entries x 200 sessions
 
   public:
     BmcwebSaxParse(nlohmann::json& j) : parser(j, false) {}
