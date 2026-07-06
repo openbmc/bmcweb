@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfe21791_b388abc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-06T23:45:51Z",
+      "side": 1,
+      "message": "I think GET already does this correctly.",
+      "parentUuid": "7bd9d467_455df77a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "e23e8e7db9c7e6f8f4a804890ffb0aea5a44eafd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "823101c0_7b058850",
         "filename": "meson.options",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2026-07-06T21:51:42Z",
       "side": 1,
       "message": "Why can\u0027t the backend return this error ?\n\nhttps://github.com/openbmc/bmcweb/blob/ff90bece9911be4b7b81102eb701e9b4b7ec8674/redfish-core/src/utils/dbus_utils.cpp#L71",
+      "revId": "e23e8e7db9c7e6f8f4a804890ffb0aea5a44eafd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c6f8dc_5ab5f17e",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-06T23:45:51Z",
+      "side": 1,
+      "message": "+1\n\nThis is also what we document already, so please do not add this option, or justify why dbus return codes can\u0027t be used.",
+      "parentUuid": "823101c0_7b058850",
       "revId": "e23e8e7db9c7e6f8f4a804890ffb0aea5a44eafd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
