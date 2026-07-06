@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb7d2ab5_181e336e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-06T21:55:25Z",
+      "side": 1,
+      "message": "More detail please on why we should support 200 bmcweb sessions or why we don\u0027t need an option and why everyone should be okay with this. \n\nAny memory concern or anything like that ? You tested 200 sessions and it works ?",
+      "revId": "2447ca619e73cc9a01cd7236610b1bbe4d96079b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b7e9886_e401aac9",
         "filename": "http/parsing.hpp",
         "patchSetId": 1
