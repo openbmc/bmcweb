@@ -537,9 +537,13 @@ inline void handleManagersNetworkProtocolPatch(
 
     if (ipmiEnabled)
     {
-        handleProtocolEnabled(
+        if constexpr (BMCWEB_DISABLE_IPMI) {
+            messages::propertyNotWritable(asyncResp->res, "IPMI/ProtocolEnabled");
+        } else {
+            handleProtocolEnabled(
             *ipmiEnabled, asyncResp,
             encodeServiceObjectPath(std::string(ipmiServiceName) + '@'));
+        }
     }
 
     if (sshEnabled)

@@ -5,6 +5,7 @@ conf_data = configuration_data()
 feature_options = [
     'basic-auth',
     'cookie-auth',
+    'disable-ipmi',
     'experimental-bmcweb-user',
     'experimental-redfish-dbus-log-subscription',
     'experimental-redfish-multi-computer-system',

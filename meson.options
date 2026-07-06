@@ -605,3 +605,10 @@ option(
                     parameters such as only are not controlled by this option.''',
 )
 
+# BMCWEB_DISABLE_IPMI
+option(
+    'disable-ipmi',
+    type: 'feature',
+    value: 'disabled',
+    description: '''When enabled IPMI is disabled.''',
+)
