@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd9d467_455df77a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-06T21:51:42Z",
+      "side": 1,
+      "message": "It doesn\u0027t impact the GET to? Would need a lot more detail here if this was going to be a real option but overall, I think the backend can just return, NotAllowed and can throw that back..",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "e23e8e7db9c7e6f8f4a804890ffb0aea5a44eafd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "823101c0_7b058850",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-06T21:51:42Z",
+      "side": 1,
+      "message": "Why can\u0027t the backend return this error ?\n\nhttps://github.com/openbmc/bmcweb/blob/ff90bece9911be4b7b81102eb701e9b4b7ec8674/redfish-core/src/utils/dbus_utils.cpp#L71",
+      "revId": "e23e8e7db9c7e6f8f4a804890ffb0aea5a44eafd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "334705d4_6f7894cf",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-06T21:51:42Z",
+      "side": 1,
+      "message": "Also if this was going to be a real option, need a lot more detail here",
+      "revId": "e23e8e7db9c7e6f8f4a804890ffb0aea5a44eafd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
