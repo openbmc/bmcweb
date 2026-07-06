@@ -16,6 +16,24 @@
       "message": "Looking at the blame, it was broke before https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71484/9/redfish-core/lib/ethernet.hpp \n\nSo always been broke?",
       "revId": "9cba2d6d03d70c47c9cbeb90e8fd883a822eee48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be0bc8ed_e3b4116a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002754
+      },
+      "writtenOn": "2026-07-06T08:52:04Z",
+      "side": 1,
+      "message": "Yes, always been broken .",
+      "parentUuid": "739a95ac_5654195e",
+      "revId": "9cba2d6d03d70c47c9cbeb90e8fd883a822eee48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
