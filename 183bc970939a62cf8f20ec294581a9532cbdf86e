@@ -22,6 +22,30 @@
       },
       "revId": "183bc970939a62cf8f20ec294581a9532cbdf86e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9d69b4e_1bdbbec2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-07-06T16:54:18Z",
+      "side": 1,
+      "message": "These were the warnings from TinyXML v11:\n\nninja: Entering directory `builddir\u0027\n[43/425] Compiling C++ object subprojects/tinyxml2-11.0.0/libtinyxml2.so.11.0.0.p/tinyxml2.cpp.o\nFAILED: [code\u003d1] subprojects/tinyxml2-11.0.0/libtinyxml2.so.11.0.0.p/tinyxml2.cpp.o\nc++ -Isubprojects/tinyxml2-11.0.0/libtinyxml2.so.11.0.0.p -Isubprojects/tinyxml2-11.0.0 -I../subprojects/tinyxml2-11.0.0 -fvisibility\u003dhidden -flto\u003dauto -fdiagnostics-color\u003dalways -D_GLIBCXX_ASSERTIONS\u003d1 -D_FILE_OFFSET_BITS\u003d64 -Wall -Winvalid-pch -Wextra -Wpedantic -Werror -fno-rtti -std\u003dc++23 -O2 -g -fPIC -DTINYXML2_EXPORT -DTINYXML2_DEBUG -MD -MQ subprojects/tinyxml2-11.0.0/libtinyxml2.so.11.0.0.p/tinyxml2.cpp.o -MF subprojects/tinyxml2-11.0.0/libtinyxml2.so.11.0.0.p/tinyxml2.cpp.o.d -o subprojects/tinyxml2-11.0.0/libtinyxml2.so.11.0.0.p/tinyxml2.cpp.o -c ../subprojects/tinyxml2-11.0.0/tinyxml2.cpp\nIn file included from ../subprojects/tinyxml2-11.0.0/tinyxml2.h:88,\nfrom ../subprojects/tinyxml2-11.0.0/tinyxml2.cpp:24:\n../subprojects/tinyxml2-11.0.0/tinyxml2.h: In instantiation of \u0027size_t tinyxml2::DynArray\u003cT, INITIAL_SIZE\u003e::Size() const [with T \u003d char; long unsigned int INITIAL_SIZE \u003d 20; size_t \u003d long unsigned int]\u0027:\n../subprojects/tinyxml2-11.0.0/tinyxml2.h:2318:28: required from here\n../subprojects/tinyxml2-11.0.0/tinyxml2.h:269:28: error: comparison of unsigned expression in \u0027\u003e\u003d 0\u0027 is always true [-Werror\u003dtype-limits]\n269 | TIXMLASSERT( _size \u003e\u003d 0 );\n| ~~~~~~^~~~\n../subprojects/tinyxml2-11.0.0/tinyxml2.h:269:9: note: in expansion of macro \u0027TIXMLASSERT\u0027\n269 | TIXMLASSERT( _size \u003e\u003d 0 );\n| ^~~~~~~~~~~\n../subprojects/tinyxml2-11.0.0/tinyxml2.h: In instantiation of \u0027size_t tinyxml2::DynArray\u003cT, INITIAL_SIZE\u003e::Size() const [with T \u003d tinyxml2::XMLNode*; long unsigned int INITIAL_SIZE \u003d 10; size_t \u003d long unsigned int]\u0027:\n../subprojects/tinyxml2-11.0.0/tinyxml2.cpp:2216:39: required from here\n../subprojects/tinyxml2-11.0.0/tinyxml2.h:269:28: error: comparison of unsigned expression in \u0027\u003e\u003d 0\u0027 is always true [-Werror\u003dtype-limits]\n269 | TIXMLASSERT( _size \u003e\u003d 0 );\n| ~~~~~~^~~~\n../subprojects/tinyxml2-11.0.0/tinyxml2.h:269:9: note: in expansion of macro \u0027TIXMLASSERT\u0027\n269 | TIXMLASSERT( _size \u003e\u003d 0 );\n| ^~~~~~~~~~~\ncc1plus: all warnings being treated as errors\n[50/425] Compiling C++ object subprojects/sdbusplus/libsdbusplus.so.1.0.0.p/src_async_context.cpp.o\nninja: build stopped: subcommand failed.",
+      "parentUuid": "43a0abd2_c731b8ec",
+      "range": {
+        "startLine": 13,
+        "startChar": 125,
+        "endLine": 13,
+        "endChar": 187
+      },
+      "revId": "183bc970939a62cf8f20ec294581a9532cbdf86e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
