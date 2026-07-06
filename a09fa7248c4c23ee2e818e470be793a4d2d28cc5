@@ -22,6 +22,30 @@
       },
       "revId": "a09fa7248c4c23ee2e818e470be793a4d2d28cc5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e2965d_bcbd7260",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-06T11:13:34Z",
+      "side": 1,
+      "message": "Thanks for the acknowledging!\nI have applied the suggestion in the modification.",
+      "parentUuid": "5ef4e2f2_01c6bcce",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 1
+      },
+      "revId": "a09fa7248c4c23ee2e818e470be793a4d2d28cc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
