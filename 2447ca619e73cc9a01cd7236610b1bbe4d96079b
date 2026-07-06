@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72e03bf4_c7da62f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002637
+      },
+      "writtenOn": "2026-07-06T22:47:26Z",
+      "side": 1,
+      "message": "openbmc-test-automation was failing.. my prev approach was to add a \"trusted json reader\" without the 500 element limitation, but @ed@tanous.net suggested bumping the limit.  There is discussion about refactoring this area to be 1 session per file.",
+      "parentUuid": "fb7d2ab5_181e336e",
+      "revId": "2447ca619e73cc9a01cd7236610b1bbe4d96079b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b7e9886_e401aac9",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "which will also fix your CI issue.  Looks like this inline comment just failed the formatters for going over line length.",
       "parentUuid": "3b7e9886_e401aac9",
+      "range": {
+        "startLine": 54,
+        "startChar": 42,
+        "endLine": 54,
+        "endChar": 89
+      },
+      "revId": "2447ca619e73cc9a01cd7236610b1bbe4d96079b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3b402f6_948d6294",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002637
+      },
+      "writtenOn": "2026-07-06T22:47:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1adde100_1feb6220",
       "range": {
         "startLine": 54,
         "startChar": 42,
