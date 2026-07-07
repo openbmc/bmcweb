@@ -14,8 +14,6 @@
 
 #include <gtest/gtest.h>
 
-// IWYU pragma: no_forward_declare bmcweb::AsyncResp
-
 namespace crow
 {
 namespace

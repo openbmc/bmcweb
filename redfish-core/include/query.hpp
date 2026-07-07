@@ -10,6 +10,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "redfish_aggregator.hpp"
 #include "utils/query_param.hpp"
 
 #include <boost/beast/http/field.hpp>
@@ -23,10 +24,6 @@
 #include <string_view>
 #include <type_traits>
 #include <utility>
-
-// IWYU pragma: no_forward_declare crow::App
-
-#include "redfish_aggregator.hpp"
 
 namespace redfish
 {
