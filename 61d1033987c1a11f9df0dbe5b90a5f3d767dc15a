@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b5ae06c_9a3a34b7",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-07T06:25:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "34ff90f3_cf046048",
+      "range": {
+        "startLine": 20,
+        "startChar": 25,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d19586_034ff5ba",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0dfcca0_dc4ca1dc",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-07T06:25:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a9d19586_034ff5ba",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a3bb681_93bef1da",
@@ -60,6 +108,24 @@
       "writtenOn": "2026-07-07T02:56:27Z",
       "side": 1,
       "message": "Please simplify.  Use getHeader.\n\nReuse the headerSize() method to get the size rather than doing your own std::distance.",
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0abaaef_48fd01d3",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-07T06:25:18Z",
+      "side": 1,
+      "message": "Done, thank you for reviewing.",
+      "parentUuid": "3a3bb681_93bef1da",
       "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
