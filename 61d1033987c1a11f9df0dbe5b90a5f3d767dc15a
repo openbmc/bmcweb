@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34ff90f3_cf046048",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-07T02:56:27Z",
+      "side": 1,
+      "message": "Please just use getHeaderValue",
+      "range": {
+        "startLine": 20,
+        "startChar": 25,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d19586_034ff5ba",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-07T02:56:27Z",
+      "side": 1,
+      "message": "just inline these please.",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a3bb681_93bef1da",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-07T02:56:27Z",
+      "side": 1,
+      "message": "Please simplify.  Use getHeader.\n\nReuse the headerSize() method to get the size rather than doing your own std::distance.",
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
