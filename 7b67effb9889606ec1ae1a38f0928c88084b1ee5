@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38cd99d3_14f94e3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-07T16:58:44Z",
+      "side": 1,
+      "message": "Thanks for adding coverage for `afterGetUUID`!",
+      "revId": "7b67effb9889606ec1ae1a38f0928c88084b1ee5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c936a9db_0a137da4",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-07T16:58:44Z",
+      "side": 1,
+      "message": "Not sure if we can remove this line, since the next few lines already examine the full body of `response-\u003eres.jsonValue`?",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 49
+      },
+      "revId": "7b67effb9889606ec1ae1a38f0928c88084b1ee5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "270ffbfd_7916d185",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-07T16:58:44Z",
+      "side": 1,
+      "message": "Do we have any smarter idea instead of hardcoding?\nOtherwise we might have to manually update the message body every time updating the version.",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 14
+      },
+      "revId": "7b67effb9889606ec1ae1a38f0928c88084b1ee5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd521c17_505b17c6",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-07T16:58:44Z",
+      "side": 1,
+      "message": "I think we can do this to survives the registry bumps.\n\n```\ncrow::Response expected;\nmessages::internalError(expected);\nEXPECT_EQ(response-\u003eres.jsonValue, expected.jsonValue);\n```",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 14
+      },
+      "revId": "7b67effb9889606ec1ae1a38f0928c88084b1ee5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
