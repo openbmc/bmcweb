@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08c7257c_2caf8bbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-07T17:55:52Z",
+      "side": 1,
+      "message": "Overall it is good!\nThanks for writing testing patch!",
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d35b369_1ac5a937",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-07T17:55:52Z",
+      "side": 1,
+      "message": "Hardcoding these might requires rework after every updating, how about generating these info as follows:\n```\ncrow::Response expected;\nmessages::resourceNotFound(...);\n```",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe7efeea_44effa6c",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-07T17:55:52Z",
+      "side": 1,
+      "message": "I thought these 2 lines are equivalent.\nRef:\nhttps://github.com/nlohmann/json/blob/acf076a677c161643e64d8f83fd02624fd8c4bd3/include/nlohmann/json.hpp#L2977",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 33
+      },
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaccd5c6_6e627899",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-07T17:55:52Z",
+      "side": 1,
+      "message": "I think we can use the mentioned approach here as well.",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 268,
+        "endChar": 34
+      },
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
