@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b8a6a55_711fe8c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-07T02:39:13Z",
+      "side": 1,
+      "message": "Looks like some issues with your commit message now:\n\n    Running commit_gitlint (0.19.1)\n9: B2 Line has trailing whitespace: \"session is ~11 JSON values, so the file trips the cap and is treated \"\n10: B2 Line has trailing whitespace: \"as malformed).  Tntegration testing hit this 50 session limit and \"\n11: B2 Line has trailing whitespace: \"failed. (Was failing our internal but also the \"\n14: B2 Line has trailing whitespace: \"I had originally implemented a solution as a \"trusted reader\" \"\n15: B2 Line has trailing whitespace: \"with no limit \"\n17: B2 Line has trailing whitespace: \"the security implications of \"no limit\" weren\u0027t attractive.  \"\n18: B2 Line has trailing whitespace: \"This area may be refactored in the near future to represent each \"\n19: B2 Line has trailing whitespace: \"session as a distinct json file.  This value bump gets us past \"\n20: B2 Line has trailing whitespace: \"the immediate needs without introducing a lot of churn in code \"\n    commit_gitlint - FAILED",
+      "revId": "c1a5571c0df6cbcb7b7e275461813be11a065e9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
