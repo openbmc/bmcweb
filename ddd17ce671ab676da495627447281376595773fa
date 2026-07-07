@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c93c4d72_a416b6d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-07T15:47:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "370a9fde_e28e7aea",
+      "revId": "ddd17ce671ab676da495627447281376595773fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c7aa759_efe9c2a0",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-17T16:27:29Z",
       "side": 1,
       "message": "Where is this used?",
+      "revId": "ddd17ce671ab676da495627447281376595773fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1228405c_5f4d3bd4",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-07T15:47:24Z",
+      "side": 1,
+      "message": "Right. It is not used. \n(CI seems not able to find this case)",
+      "parentUuid": "2c7aa759_efe9c2a0",
       "revId": "ddd17ce671ab676da495627447281376595773fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ecc7f68_44d698a6",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-07T15:47:24Z",
+      "side": 1,
+      "message": "Thanks. Code changed to handle those cases",
+      "parentUuid": "a723c1fc_243fbab6",
+      "revId": "ddd17ce671ab676da495627447281376595773fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49640a92_ee9931dd",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-06-17T16:27:29Z",
       "side": 1,
       "message": "Present",
+      "revId": "ddd17ce671ab676da495627447281376595773fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "414a36fe_19947610",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-07T15:47:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "49640a92_ee9931dd",
       "revId": "ddd17ce671ab676da495627447281376595773fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e722871c_eff27127",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-07T15:47:24Z",
+      "side": 1,
+      "message": "I think \u0027(ec.value() \u003d\u003d EBADR)\u0027 implies the interface \"Present\" does not exist.\nIn other cases, it seems ignored, e.g, Fan - https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fan.hpp#L249",
+      "parentUuid": "e90c5fce_6db43667",
+      "revId": "ddd17ce671ab676da495627447281376595773fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d43cffa_d323eeaf",
         "filename": "redfish-core/lib/processor_core.hpp",
         "patchSetId": 7
@@ -99,6 +189,30 @@
       "writtenOn": "2026-06-17T16:27:29Z",
       "side": 1,
       "message": "What if you have Present and not available ? They seem independent",
+      "range": {
+        "startLine": 136,
+        "startChar": 24,
+        "endLine": 136,
+        "endChar": 55
+      },
+      "revId": "ddd17ce671ab676da495627447281376595773fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5ea071_991ac47c",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-07T15:47:24Z",
+      "side": 1,
+      "message": "Both Present and Availability are resulting into [\"State\"][\"State\"] field.\n\nThe current code sets like this (assuming those interfaces exist)\n\nThe current code:\n\n- !present \u0026\u0026 available \"[State\"] \u003d Absent\n- !present \u0026\u0026 !available: \"[State\"] \u003d Absent\n- present \u0026\u0026 available: [\"State\"] \u003d OK\n- present \u0026\u0026 !available : [\"State\"] \u003d UnavailableOffline\n\n\nShould we remove \"availablity\" from this check like many other cases?",
+      "parentUuid": "0d43cffa_d323eeaf",
       "range": {
         "startLine": 136,
         "startChar": 24,
