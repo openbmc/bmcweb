@@ -61,6 +61,7 @@ srcfiles_unittest = files(
     'redfish-core/lib/manager_diagnostic_data_test.cpp',
     'redfish-core/lib/memory_test.cpp',
     'redfish-core/lib/metadata_test.cpp',
+    'redfish-core/lib/network_adapter_test.cpp',
     'redfish-core/lib/openbmc_managers_test.cpp',
     'redfish-core/lib/pcie_test.cpp',
     'redfish-core/lib/power_subsystem_test.cpp',
