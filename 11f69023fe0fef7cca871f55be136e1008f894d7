@@ -159,6 +159,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f884c1a_afdc1aa7",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T07:00:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cac98f2_643f9bc9",
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe7efeea_44effa6c",
@@ -206,6 +224,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5df3356_4b51f599",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T07:00:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0258440_9889b837",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 33
+      },
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78507ea9_ef58e24d",
@@ -243,6 +285,30 @@
       "side": 1,
       "message": "Got it. Thank you for reviewing.",
       "parentUuid": "78507ea9_ef58e24d",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 53
+      },
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3ee3bf4_6c99e089",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T07:00:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2cf083d_cd008938",
       "range": {
         "startLine": 138,
         "startChar": 0,
