@@ -506,7 +506,7 @@ inline void afterSetDateTime(
                 BMCWEB_LOG_DEBUG("Setting conflict");
                 messages::propertyValueConflict(
                     asyncResp->res, "DateTime",
-                    "Managers/NetworkProtocol/NTPProcotolEnabled");
+                    "Managers/NetworkProtocol/NTPProtocolEnabled");
                 return;
             }
         }
