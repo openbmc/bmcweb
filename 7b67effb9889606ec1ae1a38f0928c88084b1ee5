@@ -64,6 +64,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f58015_f4a3a84f",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-08T02:50:03Z",
+      "side": 1,
+      "message": "As Ed has mentioned in the following link:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/92076/comment/2d35b369_1ac5a937/\n\nI think there is no more concern here.",
+      "parentUuid": "270ffbfd_7916d185",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 14
+      },
+      "revId": "7b67effb9889606ec1ae1a38f0928c88084b1ee5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd521c17_505b17c6",
@@ -77,6 +101,30 @@
       "writtenOn": "2026-07-07T16:58:44Z",
       "side": 1,
       "message": "I think we can do this to survives the registry bumps.\n\n```\ncrow::Response expected;\nmessages::internalError(expected);\nEXPECT_EQ(response-\u003eres.jsonValue, expected.jsonValue);\n```",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 14
+      },
+      "revId": "7b67effb9889606ec1ae1a38f0928c88084b1ee5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a332c3b9_15ac5c0c",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-08T02:50:03Z",
+      "side": 1,
+      "message": "Here as well.",
+      "parentUuid": "bd521c17_505b17c6",
       "range": {
         "startLine": 216,
         "startChar": 4,
