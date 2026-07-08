@@ -221,6 +221,30 @@
       },
       "revId": "ddd17ce671ab676da495627447281376595773fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0874be_59f59ab8",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T15:34:30Z",
+      "side": 1,
+      "message": "I wonder if it would be clearer the interaction of these D-Bus properties if the available state is sent down to the afterGetSubProcessorCorePresent() function and then the Status/State is set in there based on both of the properties?",
+      "parentUuid": "6f5ea071_991ac47c",
+      "range": {
+        "startLine": 136,
+        "startChar": 24,
+        "endLine": 136,
+        "endChar": 55
+      },
+      "revId": "ddd17ce671ab676da495627447281376595773fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
