@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16a1a7bc_2df7f0be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-08T23:39:08Z",
+      "side": 1,
+      "message": "I know this is a small change, but at least SOME commit message is required.  This isn\u0027t just a typo in a comment, it changes what gets returned in the error message.  Your commit message should state that.",
+      "revId": "d534e973b907b0016ec6762b2ef338bc5313a86f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "369bf2c3_8e60ee53",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -14,6 +31,30 @@
       "writtenOn": "2026-07-08T19:41:41Z",
       "side": 1,
       "message": "Could you add to the commit message what it was before and then after e.g. \"Managers/NetworkProtocol/NTPProcotolEnabled\" -\u003e \"Managers/NetworkProtocol/NTPProtocolEnabled\"?",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "d534e973b907b0016ec6762b2ef338bc5313a86f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6406cd_158b35e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-08T23:39:08Z",
+      "side": 1,
+      "message": "You can see that in the diff.  If we wanted to document the full return message we could, but i\u0027m not going to require it here.",
+      "parentUuid": "369bf2c3_8e60ee53",
       "range": {
         "startLine": 10,
         "startChar": 5,
