@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2cbc858_41f0f71b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T09:49:27Z",
+      "side": 1,
+      "message": "ends_with is imprecise right? Can we use an exact-match unordered_map keyed modesMap on the full D-Bus string.\n\nSomething like:\nfor (const std::string\u0026 mode : *allowedMemoryModes)\n{\n    auto it \u003d modesMap.find(mode);\n    if (it !\u003d modesMap.end())\n        ...push_back(it-\u003esecond);\n}\n\nWill this be better?",
+      "range": {
+        "startLine": 347,
+        "startChar": 20,
+        "endLine": 347,
+        "endChar": 37
+      },
+      "revId": "8ff92aead2319845b664adacbeac62f96d8ffdea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db540d84_9d814d75",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T09:49:27Z",
+      "side": 1,
+      "message": "push_back(v) uses raw string literals. Can we use memory::OperatingMemoryModes::Volatile etc. from generated/enums/memory.hpp instead??",
+      "range": {
+        "startLine": 350,
+        "startChar": 25,
+        "endLine": 350,
+        "endChar": 38
+      },
+      "revId": "8ff92aead2319845b664adacbeac62f96d8ffdea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
