@@ -1,15 +1,21 @@
 #include "account_service.hpp"
+#include "error_messages.hpp"
+#include "http_response.hpp"
 
+#include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cstdint>
 #include <optional>
+#include <string>
+#include <vector>
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 using ::testing::Eq;
 using ::testing::Optional;
+using ::testing::UnorderedElementsAre;
 
 namespace redfish
 {
@@ -60,6 +66,135 @@ TEST(Conversion, PositiveToJson)
     value = passwordExpirationToJson(1729188724);
     EXPECT_TRUE(value.is_string());
     EXPECT_EQ(value, R"("2024-10-17T18:12:04+00:00")"_json);
+}
+
+TEST(RoleMapping, PrivilegeToRoleId)
+{
+    EXPECT_EQ(getRoleIdFromPrivilege("priv-admin"), "Administrator");
+    EXPECT_EQ(getRoleIdFromPrivilege("priv-user"), "ReadOnly");
+    EXPECT_EQ(getRoleIdFromPrivilege("priv-operator"), "Operator");
+    EXPECT_EQ(getRoleIdFromPrivilege("priv-unknown"), "");
+}
+
+TEST(RoleMapping, RoleIdToPrivilege)
+{
+    EXPECT_EQ(getPrivilegeFromRoleId("Administrator"), "priv-admin");
+    EXPECT_EQ(getPrivilegeFromRoleId("ReadOnly"), "priv-user");
+    EXPECT_EQ(getPrivilegeFromRoleId("Operator"), "priv-operator");
+    EXPECT_EQ(getPrivilegeFromRoleId("NoSuchRole"), "");
+}
+
+TEST(TranslateUserGroup, ValidGroupsPopulateExpectedAccountTypes)
+{
+    crow::Response res;
+    std::vector<std::string> userGroups = {"redfish", "ipmi", "ssh",
+                                           "hostconsole", "web"};
+
+    EXPECT_TRUE(translateUserGroup(userGroups, res));
+
+    const nlohmann::json& accountTypes = res.jsonValue["AccountTypes"];
+    ASSERT_TRUE(accountTypes.is_array());
+    EXPECT_THAT(accountTypes,
+                UnorderedElementsAre("Redfish", "WebUI", "IPMI",
+                                     "ManagerConsole", "HostConsole"));
+}
+
+TEST(TranslateUserGroup, InvalidGroupReturnsFalse)
+{
+    crow::Response res;
+    std::vector<std::string> userGroups = {"redfish", "invalid-group"};
+
+    EXPECT_FALSE(translateUserGroup(userGroups, res));
+    EXPECT_FALSE(res.jsonValue.contains("AccountTypes"));
+}
+
+TEST(GetUserGroupFromAccountType, ValidAccountTypesPopulateExpectedGroups)
+{
+    crow::Response res;
+    std::vector<std::string> accountTypes = {"Redfish", "WebUI", "IPMI",
+                                             "ManagerConsole", "HostConsole"};
+    std::vector<std::string> userGroups;
+
+    EXPECT_TRUE(getUserGroupFromAccountType(res, accountTypes, userGroups));
+    EXPECT_THAT(userGroups,
+                UnorderedElementsAre("ipmi", "ssh", "hostconsole", "redfish"));
+    EXPECT_FALSE(res.jsonValue.contains("error"));
+}
+
+TEST(GetUserGroupFromAccountType,
+     UnpairedRedfishWebUiReturnsStrictAccountTypesError)
+{
+    const nlohmann::json expectedMessage =
+        messages::strictAccountTypes("AccountTypes");
+    {
+        crow::Response res;
+        std::vector<std::string> accountTypes = {"Redfish"};
+        std::vector<std::string> userGroups;
+
+        EXPECT_FALSE(
+            getUserGroupFromAccountType(res, accountTypes, userGroups));
+        EXPECT_EQ(userGroups.size(), 0);
+        EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+        EXPECT_EQ(res.jsonValue["error"]["code"], expectedMessage["MessageId"]);
+        EXPECT_EQ(res.jsonValue["error"]["message"],
+                  expectedMessage["Message"]);
+        const nlohmann::json& extendedInfo =
+            res.jsonValue["error"]["@Message.ExtendedInfo"];
+        ASSERT_TRUE(extendedInfo.is_array());
+        EXPECT_EQ(extendedInfo.size(), 1);
+        EXPECT_EQ(extendedInfo[0], expectedMessage);
+    }
+
+    {
+        crow::Response res;
+        std::vector<std::string> accountTypes = {"WebUI"};
+        std::vector<std::string> userGroups;
+
+        EXPECT_FALSE(
+            getUserGroupFromAccountType(res, accountTypes, userGroups));
+        EXPECT_EQ(userGroups.size(), 0);
+        EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+        EXPECT_EQ(res.jsonValue["error"]["code"], expectedMessage["MessageId"]);
+        EXPECT_EQ(res.jsonValue["error"]["message"],
+                  expectedMessage["Message"]);
+        const nlohmann::json& extendedInfo =
+            res.jsonValue["error"]["@Message.ExtendedInfo"];
+        ASSERT_TRUE(extendedInfo.is_array());
+        EXPECT_EQ(extendedInfo.size(), 1);
+        EXPECT_EQ(extendedInfo[0], expectedMessage);
+    }
+}
+
+TEST(GetUserGroupFromAccountType, InvalidAccountTypeReturnsPropertyValueError)
+{
+    const nlohmann::json expectedMessage =
+        messages::propertyValueNotInList("InvalidAccountType", "AccountTypes");
+    crow::Response res;
+    std::vector<std::string> accountTypes = {"InvalidAccountType"};
+    std::vector<std::string> userGroups;
+
+    EXPECT_FALSE(getUserGroupFromAccountType(res, accountTypes, userGroups));
+    EXPECT_EQ(userGroups.size(), 0);
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+    EXPECT_EQ(res.jsonValue["error"]["code"], expectedMessage["MessageId"]);
+    EXPECT_EQ(res.jsonValue["error"]["message"], expectedMessage["Message"]);
+    const nlohmann::json& extendedInfo =
+        res.jsonValue["error"]["@Message.ExtendedInfo"];
+    ASSERT_TRUE(extendedInfo.is_array());
+    EXPECT_EQ(extendedInfo.size(), 1);
+    EXPECT_EQ(extendedInfo[0], expectedMessage);
+}
+
+TEST(CertificateMapping, ParseModeMapsToCertificateMappingAttribute)
+{
+    EXPECT_EQ(getCertificateMapping(MTLSCommonNameParseMode::CommonName),
+              CertificateMappingAttribute::CommonName);
+    EXPECT_EQ(getCertificateMapping(MTLSCommonNameParseMode::Whole),
+              CertificateMappingAttribute::Whole);
+    EXPECT_EQ(getCertificateMapping(MTLSCommonNameParseMode::UserPrincipalName),
+              CertificateMappingAttribute::UserPrincipalName);
+    EXPECT_EQ(getCertificateMapping(MTLSCommonNameParseMode::Invalid),
+              CertificateMappingAttribute::Invalid);
 }
 
 } // namespace
