@@ -266,6 +266,16 @@ nlohmann_json_dep = dependency(
 )
 bmcweb_dependencies += nlohmann_json_dep
 
+if get_option('redfish-arm-cper-decode').allowed()
+    libcper_dep = dependency('libcper')
+    json_c_dep = dependency('json-c')
+    bmcweb_dependencies += [libcper_dep, json_c_dep]
+    add_project_arguments(
+        '-DBMCWEB_ENABLE_REDFISH_ARM_CPER_DECODE',
+        language: 'cpp',
+    )
+endif
+
 boost = dependency(
     'boost',
     modules: ['url', 'process'],

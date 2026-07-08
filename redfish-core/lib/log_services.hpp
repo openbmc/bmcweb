@@ -29,6 +29,10 @@
 #include "utils/log_services_utils.hpp"
 #include "utils/time_utils.hpp"
 
+#ifdef BMCWEB_ENABLE_REDFISH_ARM_CPER_DECODE
+#include "arm_cper_decode.hpp"
+#endif
+
 #include <asm-generic/errno.h>
 #include <systemd/sd-bus.h>
 #include <tinyxml2.h>
@@ -446,6 +450,9 @@ inline void getDumpEntryById(
                         boost::urls::format("{}/{}/attachment", entriesPath,
                                             entryID);
                     asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
+#ifdef BMCWEB_ENABLE_REDFISH_ARM_CPER_DECODE
+                    arm::populateFaultLogCperData(asyncResp, entryID);
+#endif
                 }
             }
             if (!foundDumpEntry)

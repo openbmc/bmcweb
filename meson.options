@@ -373,6 +373,14 @@ option(
                     OpenBMCManager schema for more detail.''',
 )
 
+# BMCWEB_REDFISH_ARM_CPER_DECODE
+option(
+    'redfish-arm-cper-decode',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Enable Arm CPER decoding for FaultLog Redfish entries',
+)
+
 # BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS
 option(
     'redfish-updateservice-use-dbus',

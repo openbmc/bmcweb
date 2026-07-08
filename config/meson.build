@@ -28,6 +28,7 @@ feature_options = [
     'redfish-allow-deprecated-power-thermal',
     'redfish-allow-rotational-fans',
     'redfish-allow-simple-update',
+    'redfish-arm-cper-decode',
     'redfish-bmc-journal',
     'redfish-cpu-log',
     'redfish-dbus-log',

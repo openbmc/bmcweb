@@ -1,3 +1,6 @@
+if get_option('redfish-arm-cper-decode').allowed()
+    subdir('arm')
+endif
 subdir('google')
 subdir('ibm')
 subdir('kvm')

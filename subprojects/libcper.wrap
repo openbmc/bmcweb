@@ -1,0 +1,6 @@
+[wrap-git]
+url = https://github.com/openbmc/libcper.git
+revision = HEAD
+
+[provide]
+libcper = libcper_parse_dep
