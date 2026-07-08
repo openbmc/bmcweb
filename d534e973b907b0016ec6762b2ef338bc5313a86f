@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369bf2c3_8e60ee53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-08T19:41:41Z",
+      "side": 1,
+      "message": "Could you add to the commit message what it was before and then after e.g. \"Managers/NetworkProtocol/NTPProcotolEnabled\" -\u003e \"Managers/NetworkProtocol/NTPProtocolEnabled\"?",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "d534e973b907b0016ec6762b2ef338bc5313a86f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
