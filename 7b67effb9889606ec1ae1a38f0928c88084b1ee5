@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1fbae53_01af62db",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T06:53:51Z",
+      "side": 1,
+      "message": "Good point. The subsequent full comparison already validating the complete response payload, including the top-level member count, so the explicit size check is redundant. I\u0027ll remove it.",
+      "parentUuid": "c936a9db_0a137da4",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 49
+      },
+      "revId": "7b67effb9889606ec1ae1a38f0928c88084b1ee5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "270ffbfd_7916d185",
