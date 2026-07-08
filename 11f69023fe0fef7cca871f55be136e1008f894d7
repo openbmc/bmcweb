@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0b522ec_d1ff0fc2",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T07:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d79b698_1c07262a",
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d35b369_1ac5a937",
@@ -125,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7cac98f2_643f9bc9",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T07:00:24Z",
+      "side": 1,
+      "message": "Good point. This helper isn\u0027t strictly necessary and introduces a test-only path for constructing a UserSession. I\u0027ll update the test to use the common construction path instead, so it matches production usage.",
+      "parentUuid": "8ec3d37b_4bef7bfd",
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe7efeea_44effa6c",
         "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
         "patchSetId": 3
@@ -148,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0258440_9889b837",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T07:00:24Z",
+      "side": 1,
+      "message": "Good point, resolved. Thanks for reveiwing.",
+      "parentUuid": "fe7efeea_44effa6c",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 33
+      },
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78507ea9_ef58e24d",
         "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
         "patchSetId": 3
@@ -159,6 +219,30 @@
       "writtenOn": "2026-07-07T23:20:03Z",
       "side": 1,
       "message": "If we\u0027re going to start unit testing this, we need to make this not use a Singleton, or support a non singleton constructor.",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 53
+      },
+      "revId": "11f69023fe0fef7cca871f55be136e1008f894d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2cf083d_cd008938",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-08T07:00:24Z",
+      "side": 1,
+      "message": "Got it. Thank you for reviewing.",
+      "parentUuid": "78507ea9_ef58e24d",
       "range": {
         "startLine": 138,
         "startChar": 0,
