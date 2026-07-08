@@ -16,6 +16,213 @@
       "message": "Thanks for your review 👍",
       "revId": "635e76712de95135813c8d7729e655b387c3f33b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fb6803f_ded435a7",
+        "filename": "config/meson.build",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "Please put in alphabetical order.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa77e202_3f9f9c36",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "Please put in alphabetical order.",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 2
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6516a742_c5348746",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "Please put in alphabetical order",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 2
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e752dc50_2fada844",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "Is this being used?",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 77
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33d97362_1331daf1",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "I think the callback function should be handling this error. For a configuration which doesn\u0027t have the associations I\u0027m seeing an error and an empty collection in the response to `/redfish/v1/Chassis/chassis/ThermalSubsystem/Fans`\n\n\nIt should be one or the other.\n\n(For the PATCH path, this is an error that needs to be reported. The callback function should handle reporting the error in that path. For the GET paths I don\u0027t think this should be treated as an error.)",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 152,
+        "endChar": 17
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82167cff_502079e0",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "Please use constexpr here.",
+      "range": {
+        "startLine": 166,
+        "startChar": 30,
+        "endLine": 166,
+        "endChar": 54
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee95593_c1bb8710",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "Should this be checking for the index to return the empty list?",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 2
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "955b2a8c_9b6fc142",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "Please use constexpr here. I.e.\nif constexpr (!BMCWEB....",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 34
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccd35102_338aa32a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-08T21:37:04Z",
+      "side": 1,
+      "message": "I think currently in bmcweb should be using get_ptr instead. Common errors does document that should be using json::array_t for jValue here since that is what we are filling in.\n\nRef: https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#5-using-methods-that-throw-or-not-handling-bad-inputs",
+      "range": {
+        "startLine": 382,
+        "startChar": 4,
+        "endLine": 387,
+        "endChar": 5
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
