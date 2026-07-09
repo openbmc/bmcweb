@@ -233,7 +233,9 @@ inline void deleteSnmpTrapClient(
         [asyncResp, param](const boost::system::error_code& ec) {
             if (ec)
             {
-                // The snmp trap id is incorrect
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
+	    
+	    	// The snmp trap id is incorrect
                 if (ec.value() == EBADR)
                 {
                     messages::resourceNotFound(asyncResp->res, "Subscription",
