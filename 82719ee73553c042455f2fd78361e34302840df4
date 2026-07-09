@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4db0118d_730636d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-07-09T02:08:00Z",
+      "side": 1,
+      "message": "\"Why? Shouldn\u0027t this be where we authenticate \"can this user access OpenBMC\" and reject if not?\"\n\nPAM in OpenBMC is configured to authenticate credentials only, it has no access to the Dbus privilege mapping.\nAdding privilege validation to the PAM layer would require changes to the PAM stack configuration or a custom PAM module in phosphor-pam,\nwhich is outside the scope of this patch. The D-Bus GetUserInfo call is the only place in the current architecture where privilege mapping is resolved.\n\n\n\"Do you have an understanding of why they did that?\"\nCommit 395711d removed the default to prevent silently granting ReadOnly access to LDAP users who were never explicitly authorized.\nWithout a role map, the admin has not granted that user any access to the BMC. The default was a security hole, any LDAP user with valid credentials could log in with ReadOnly access even if the admin never intended to allow it. The fix requires explicit role mapping before access is granted.",
+      "parentUuid": "759dae50_f06a84cc",
+      "revId": "82719ee73553c042455f2fd78361e34302840df4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78ae1522_e0aa6684",
@@ -67,6 +85,24 @@
       "writtenOn": "2026-07-09T01:47:42Z",
       "side": 1,
       "message": "This pattern of doing a bunch of work, then later deciding to completely undo it all isn\u0027t really acceptable.  If we need to refactor some, do that.",
+      "revId": "82719ee73553c042455f2fd78361e34302840df4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa36112_2e77c3ec",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-07-09T02:08:00Z",
+      "side": 1,
+      "message": "Understood. Maybe to call GetUserInfo before creating the session, and only create the session and set the headers after confirming the role is non-empty.\nThis requires moving generateUserSession out of handleSessionCollectionPost and into the GetUserInfo callback, so the session is only created after privilege validation passes.\n\nBefore I restructure this, wanted to confirm, is this the direction you have in mind, or do you see a different approach?",
+      "parentUuid": "78ae1522_e0aa6684",
       "revId": "82719ee73553c042455f2fd78361e34302840df4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
