@@ -255,6 +255,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0fe47b78_2c853db8",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-09T20:35:55Z",
+      "side": 1,
+      "message": "I\u0027ll give this another try probably next week.",
+      "parentUuid": "702d5616_0f4f1286",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 152,
+        "endChar": 17
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82167cff_502079e0",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 15
@@ -290,6 +314,30 @@
       "side": 1,
       "message": "`constexpr size_t index \u003d (BMCWEB_REDFISH_FAN_LINKS) ? 0 : 1;`\n\ncan you explain further?\n\nThe symbol is defined as\n```\nconstexpr const bool BMCWEB_REDFISH_FAN_LINKS\u003dfalse;  \n```",
       "parentUuid": "82167cff_502079e0",
+      "range": {
+        "startLine": 166,
+        "startChar": 30,
+        "endLine": 166,
+        "endChar": 54
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "327cb22d_2764e09e",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-09T20:35:55Z",
+      "side": 1,
+      "message": "Right, I misread that as just const I guess.",
+      "parentUuid": "18dd005a_f9a1754f",
       "range": {
         "startLine": 166,
         "startChar": 30,
