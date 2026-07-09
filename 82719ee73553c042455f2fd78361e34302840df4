@@ -34,6 +34,41 @@
       "parentUuid": "a6f2e24f_f16353e1",
       "revId": "82719ee73553c042455f2fd78361e34302840df4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "759dae50_f06a84cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-09T01:47:42Z",
+      "side": 1,
+      "message": "\u003e PAM authenticates the password against LDAP, it has no knowledge of OpenBMC\u0027s role map.\n\nWhy?  Shouldn\u0027t this be where we authenticate \"can this user access OpenBMC\" and reject if not?\n\n\u003e Since commit 395711d removed the default fallback to priv-user\n\nDo you have an understanding of why they did that?",
+      "parentUuid": "8176dc97_0815cc1e",
+      "revId": "82719ee73553c042455f2fd78361e34302840df4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78ae1522_e0aa6684",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-09T01:47:42Z",
+      "side": 1,
+      "message": "This pattern of doing a bunch of work, then later deciding to completely undo it all isn\u0027t really acceptable.  If we need to refactor some, do that.",
+      "revId": "82719ee73553c042455f2fd78361e34302840df4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
