@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f69ab5_34e235c1",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-09T06:12:44Z",
+      "side": 1,
+      "message": "The ordering is not part of the behavior being tested here, only the presence of the expected translated values. I\u0027ll rewrite these assertions.",
+      "parentUuid": "36c3fa78_d0e8660e",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 2
+      },
+      "revId": "376c9753f831e10f6f5defe4eced7ec7fbf764ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2e80a32_622645c9",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-08T19:59:18Z",
       "side": 1,
       "message": "Same as above",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 2
+      },
+      "revId": "376c9753f831e10f6f5defe4eced7ec7fbf764ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f16531_787cca53",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-09T06:12:44Z",
+      "side": 1,
+      "message": "Got it, thank you for reviewing.",
+      "parentUuid": "b2e80a32_622645c9",
       "range": {
         "startLine": 120,
         "startChar": 0,
