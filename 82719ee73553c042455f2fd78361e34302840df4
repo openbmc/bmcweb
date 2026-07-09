@@ -16,6 +16,24 @@
       "message": "I\u0027m so confused, if the user had no credentials, why did PAM succeed?",
       "revId": "82719ee73553c042455f2fd78361e34302840df4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8176dc97_0815cc1e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-07-09T01:41:57Z",
+      "side": 1,
+      "message": "PAM and privilege mapping are independent.\nPAM authenticates the password against LDAP, it has no knowledge of OpenBMC\u0027s role map.\nGetUserInfo is a separate D-Bus call to phosphor-user-manager that resolves the user\u0027s privilege from the LDAP group-to-role mapping configured on the BMC.\nSince commit 395711d removed the default fallback to priv-user, a user can now have valid credentials but an empty UserPrivilege if no admin configured a role map for their LDAP group.\nPAM succeeding just means the password is correct.\nThe empty role is an authorization problem, not an authentication problem.",
+      "parentUuid": "a6f2e24f_f16353e1",
+      "revId": "82719ee73553c042455f2fd78361e34302840df4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
