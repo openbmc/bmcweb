@@ -212,41 +212,32 @@ inline void getSnmpSubscriptionList(
     asyncResp->res.jsonValue["Members@odata.count"] = memberArray.size();
 }
 
-inline void deleteSnmpTrapClient(
+inline void handleDeleteSnmpTrapClientResponse(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& param)
+    const std::string& param,
+    const boost::system::error_code& ec)
 {
-    std::string_view snmpTrapId = param;
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_WARNING("Invalid SNMP trap client id: {}", param);
+            messages::resourceNotFound(asyncResp->res, "Subscription", param);
+            return;
+        }
 
-    // Erase "snmp" in the request to find the corresponding
-    // dbus snmp client id. For example, the snmpid in the
-    // request is "snmp1", which will be "1" after being erased.
-    snmpTrapId.remove_prefix(4);
-
-    sdbusplus::object_path snmpPath =
-        sdbusplus::object_path("/xyz/openbmc_project/network/snmp/manager") /
-        std::string(snmpTrapId);
-
+        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    messages::success(asyncResp->res);
+}
     dbus::utility::async_method_call(
         asyncResp,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, param](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                // The snmp trap id is incorrect
-                if (ec.value() == EBADR)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Subscription",
-                                               param);
-                    return;
-                }
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
+        (const boost::system::error_code& ec) {
+            handleSnmpDeleteResponse(asyncResp, param, ec);
         },
         "xyz.openbmc_project.Network.SNMP", static_cast<std::string>(snmpPath),
         "xyz.openbmc_project.Object.Delete", "Delete");
-}
 
 } // namespace redfish
