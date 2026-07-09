@@ -236,10 +236,14 @@ inline void deleteSnmpTrapClient(
                 // The snmp trap id is incorrect
                 if (ec.value() == EBADR)
                 {
+                    BMCWEB_LOG_WARNING("Invalid SNMP trap client id: {}",
+                                       param);
                     messages::resourceNotFound(asyncResp->res, "Subscription",
                                                param);
                     return;
                 }
+
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
