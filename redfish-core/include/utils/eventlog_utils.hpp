@@ -576,7 +576,15 @@ inline void afterLogEntriesGetManagedObjects(
 {
     if (ec)
     {
-        // TODO Handle for specific error code
+        if (ec.value() == EBADR || ec == boost::system::errc::host_unreachable)
+        {
+            BMCWEB_LOG_DEBUG(
+                "EventLog entry collection unavailable on DBus, returning empty collection: {}",
+                ec);
+            asyncResp->res.jsonValue["Members@odata.count"] = 0;
+            asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+            return;
+        }
         BMCWEB_LOG_ERROR("getLogEntriesIfaceData resp_handler got error {}",
                          ec);
         messages::internalError(asyncResp->res);
