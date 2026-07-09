@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fc54bf1_cad30f95",
+        "filename": "config/meson.build",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fb6803f_ded435a7",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa77e202_3f9f9c36",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-07-08T21:37:04Z",
       "side": 1,
       "message": "Please put in alphabetical order.",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 2
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eac8b15_792ea4ef",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa77e202_3f9f9c36",
       "range": {
         "startLine": 237,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e3f6218_443fde2a",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6516a742_c5348746",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 2
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e752dc50_2fada844",
@@ -100,6 +172,30 @@
       "writtenOn": "2026-07-08T21:37:04Z",
       "side": 1,
       "message": "Is this being used?",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 77
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f092c98e_dbd406a5",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "line 164, i moved it closer to that usage 👍",
+      "parentUuid": "e752dc50_2fada844",
       "range": {
         "startLine": 122,
         "startChar": 0,
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "702d5616_0f4f1286",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "Changed the code for PATCH path to use `redfish::chassis_utils::getValidChassisPath` as is done in various other routes\nand documented the requirement for a valid `chassisId` on the functions involved.\n\n\u003e For a configuration which doesn\u0027t have the associations I\u0027m seeing an error and an empty collection in the response to \n\nOk, that might have happened as the mapper call was still using `getSubTreePaths` internally without wrapping it in try-catch. The review on mapper side concluded that we do not need any exception thrown so these are wrapped now and the result should be an empty vector in case anything was not found.\n\nI very much appreciate you testing out the code, if it still does not work for you after the latest update on the mapper change and bmcweb change, it would help to share relevant meson options that you set and EM  +  object mapper output.\n\nThen i can try to make a similar setup on my end to see where it fails.\n\nI will leave this open for now until we figure out if the bug is still there.",
+      "parentUuid": "33d97362_1331daf1",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 152,
+        "endChar": 17
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82167cff_502079e0",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 15
@@ -146,6 +266,30 @@
       "writtenOn": "2026-07-08T21:37:04Z",
       "side": 1,
       "message": "Please use constexpr here.",
+      "range": {
+        "startLine": 166,
+        "startChar": 30,
+        "endLine": 166,
+        "endChar": 54
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18dd005a_f9a1754f",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "`constexpr size_t index \u003d (BMCWEB_REDFISH_FAN_LINKS) ? 0 : 1;`\n\ncan you explain further?\n\nThe symbol is defined as\n```\nconstexpr const bool BMCWEB_REDFISH_FAN_LINKS\u003dfalse;  \n```",
+      "parentUuid": "82167cff_502079e0",
       "range": {
         "startLine": 166,
         "startChar": 30,
@@ -179,6 +323,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e84a552_b4ca0b36",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "If the key does not exist in the map, there are no fan paths at all for the chassis, independently of the owning association being used.",
+      "parentUuid": "fee95593_c1bb8710",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 2
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "955b2a8c_9b6fc142",
@@ -202,6 +370,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e584e7b_641fbe70",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "955b2a8c_9b6fc142",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 34
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccd35102_338aa32a",
@@ -215,6 +407,30 @@
       "writtenOn": "2026-07-08T21:37:04Z",
       "side": 1,
       "message": "I think currently in bmcweb should be using get_ptr instead. Common errors does document that should be using json::array_t for jValue here since that is what we are filling in.\n\nRef: https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#5-using-methods-that-throw-or-not-handling-bad-inputs",
+      "range": {
+        "startLine": 382,
+        "startChar": 4,
+        "endLine": 387,
+        "endChar": 5
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e24e965_79c0e378",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-09T16:34:45Z",
+      "side": 1,
+      "message": "wow, at this point it would make sense to create a wrapper type considering all the things from nlohmann which cannot be used.\n\nAnyways thanks for finding it, i adjusted the code to use `get_ptr` similar to what `modifyCpuPresenceState` does (going by examples of what\u0027s hopefully done right)",
+      "parentUuid": "ccd35102_338aa32a",
       "range": {
         "startLine": 382,
         "startChar": 4,
