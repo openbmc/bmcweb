@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "728a010e_59000a53",
+        "filename": "test/redfish-core/lib/environment_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-10T12:50:53Z",
+      "side": 1,
+      "message": "Can we use EXPECT_DOUBLE_EQ here, will it be cleaner?",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 68
+      },
+      "revId": "a2043b870dc5c5d1a1687654e47b171be1e2dee1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
