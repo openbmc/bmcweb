@@ -16,6 +16,24 @@
       "message": "Please keep in mind, this doesn\u0027t meet our testing criteria.  This is an error condition, so I\u0027ll let it go in this case, but in the future please test your patches.",
       "revId": "44eb5d1520e929bab01279cd3affabbf30b65782",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06488b7c_f1fb978e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-10T09:29:29Z",
+      "side": 1,
+      "message": "Thanks for the feedback. I\u0027ll make sure future patches include appropriate testing evidence.",
+      "parentUuid": "4347864f_ca2147fb",
+      "revId": "44eb5d1520e929bab01279cd3affabbf30b65782",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
