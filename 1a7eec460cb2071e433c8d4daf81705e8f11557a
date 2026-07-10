@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "421d4246_7ee7b634",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-07-10T09:36:42Z",
+      "side": 1,
+      "message": "@ed@tanous.net / @gunnar@gmills.xyz,\n\ncould you review this patch ?",
+      "revId": "1a7eec460cb2071e433c8d4daf81705e8f11557a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
