@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fae1d7c5_ba2bf93e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-10T11:17:47Z",
+      "side": 1,
+      "message": "You\u0027re right, this was based on my misunderstanding. I have reworked headerCount() to correctly return the total number of headers instead in new patch. Thank you for reviewing.",
+      "parentUuid": "93518fc6_adb04cbc",
+      "revId": "e8eaae9ddbe9d53cfdc3bd78ca5d994aa889b770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2290809_906d9f71",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbfd6785_9c51c291",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-10T11:17:47Z",
+      "side": 1,
+      "message": "Done. Thanks for the information.",
+      "parentUuid": "e2290809_906d9f71",
+      "revId": "e8eaae9ddbe9d53cfdc3bd78ca5d994aa889b770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fce08f7_8999ccf6",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-07-09T14:28:17Z",
       "side": 1,
       "message": "This isn\u0027t an \"also\".  Put it in its own commit with why we did it.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "e8eaae9ddbe9d53cfdc3bd78ca5d994aa889b770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c3519a0_5aaa19dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-10T11:17:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7fce08f7_8999ccf6",
       "range": {
         "startLine": 14,
         "startChar": 0,
