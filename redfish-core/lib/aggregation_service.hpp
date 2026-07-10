@@ -80,15 +80,22 @@ inline void requestRoutesAggregationService(App& app)
 }
 
 inline void populateAggregationSourceCollection(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    auto& aggregator = RedfishAggregator::getInstance();
     nlohmann::json::array_t members;
-    for (const auto& sat : satelliteInfo)
+    for (const auto& [prefix, url] : aggregator.emSatelliteSources)
     {
         nlohmann::json::object_t member;
         member["@odata.id"] = boost::urls::format(
-            "/redfish/v1/AggregationService/AggregationSources/{}", sat.first);
+            "/redfish/v1/AggregationService/AggregationSources/{}", prefix);
+        members.emplace_back(std::move(member));
+    }
+    for (const auto& [prefix, source] : aggregator.aggregationSources)
+    {
+        nlohmann::json::object_t member;
+        member["@odata.id"] = boost::urls::format(
+            "/redfish/v1/AggregationService/AggregationSources/{}", prefix);
         members.emplace_back(std::move(member));
     }
     asyncResp->res.jsonValue["Members@odata.count"] = members.size();
@@ -112,9 +119,10 @@ inline void handleAggregationSourceCollectionGet(
         "#AggregationSourceCollection.AggregationSourceCollection";
     json["Name"] = "Aggregation Source Collection";
 
-    // Query D-Bus for satellite configs and add them to the Members array
-    RedfishAggregator::getInstance().getSatelliteConfigs(
-        std::bind_front(populateAggregationSourceCollection, asyncResp));
+    // Serve directly from in-memory caches — no D-Bus round-trip needed.
+    // emSatelliteSources is kept current via D-Bus signals and
+    // aggregationSources is updated synchronously by the REST POST handler.
+    populateAggregationSourceCollection(asyncResp);
 }
 
 inline void handleAggregationSourceCollectionHead(
@@ -145,15 +153,21 @@ inline void requestRoutesAggregationSourceCollection(App& app)
 
 inline void populateAggregationSource(
     const std::string& aggregationSourceId,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/AggregationSource/AggregationSource.json>; rel=describedby");
 
-    const auto& sat = satelliteInfo.find(aggregationSourceId);
-    if (sat == satelliteInfo.end())
+    auto& aggregator = RedfishAggregator::getInstance();
+
+    // Look up in REST-created sources first
+    auto restIt = aggregator.aggregationSources.find(aggregationSourceId);
+    // Look up in EM-managed sources
+    auto emIt = aggregator.emSatelliteSources.find(aggregationSourceId);
+
+    if (restIt == aggregator.aggregationSources.end() &&
+        emIt == aggregator.emSatelliteSources.end())
     {
         messages::resourceNotFound(asyncResp->res, "AggregationSource",
                                    aggregationSourceId);
@@ -170,19 +184,19 @@ inline void populateAggregationSource(
     // TODO: We may want to change this whenever we support aggregating multiple
     // satellite BMCs.  Otherwise all AggregationSource resources will have the
     // same "Name".
-    // TODO: We should use the "Name" from the satellite config whenever we add
-    // support for including it in the data returned in satelliteInfo.
     asyncResp->res.jsonValue["Name"] = "Aggregation source";
-    std::string hostName(sat->second.encoded_origin());
-    asyncResp->res.jsonValue["HostName"] = std::move(hostName);
 
-    // Include UserName property, defaulting to null
-    auto& aggregator = RedfishAggregator::getInstance();
-    auto it = aggregator.aggregationSources.find(aggregationSourceId);
-    if (it != aggregator.aggregationSources.end() &&
-        !it->second.username.empty())
+    const boost::urls::url& url =
+        (restIt != aggregator.aggregationSources.end())
+            ? restIt->second.url
+            : emIt->second;
+    asyncResp->res.jsonValue["HostName"] = url.encoded_origin();
+
+    // Include UserName property — only REST-created sources carry credentials
+    if (restIt != aggregator.aggregationSources.end() &&
+        !restIt->second.username.empty())
     {
-        asyncResp->res.jsonValue["UserName"] = it->second.username;
+        asyncResp->res.jsonValue["UserName"] = restIt->second.username;
     }
     else
     {
@@ -203,10 +217,10 @@ inline void handleAggregationSourceGet(
         return;
     }
 
-    // Query D-Bus for satellite config corresponding to the specified
-    // AggregationSource
-    RedfishAggregator::getInstance().getSatelliteConfigs(std::bind_front(
-        populateAggregationSource, aggregationSourceId, asyncResp));
+    // Serve directly from in-memory caches — no D-Bus round-trip needed.
+    // emSatelliteSources is kept current via D-Bus signals and
+    // aggregationSources is updated synchronously by the REST POST handler.
+    populateAggregationSource(aggregationSourceId, asyncResp);
 }
 
 inline void handleAggregationSourceHead(
@@ -290,12 +304,21 @@ inline void handleAggregationSourceCollectionPost(
     }
     crow::utility::setPortDefaults(*url);
 
-    // Check for duplicate hostname
+    // Check for duplicate hostname — both REST-created and EM-managed sources
     auto& aggregator = RedfishAggregator::getInstance();
     for (const auto& [existingPrefix, existingSource] :
          aggregator.aggregationSources)
     {
         if (existingSource.url == *url)
+        {
+            messages::resourceAlreadyExists(asyncResp->res, "AggregationSource",
+                                            "HostName", url->buffer());
+            return;
+        }
+    }
+    for (const auto& [emPrefix, emUrl] : aggregator.emSatelliteSources)
+    {
+        if (emUrl == *url)
         {
             messages::resourceAlreadyExists(asyncResp->res, "AggregationSource",
                                             "HostName", url->buffer());
@@ -374,25 +397,17 @@ inline void handleAggregationSourcePatch(
         return;
     }
 
-    // Not in writable sources, query D-Bus to check if it exists in
-    // Entity Manager sources
-    RedfishAggregator::getInstance().getSatelliteConfigs(
-        // ast-grep-ignore: long-lambda
-        [asyncResp, aggregationSourceId](
-            const std::unordered_map<std::string, boost::urls::url>&
-                satelliteInfo) {
-            // Check if it exists in Entity Manager sources
-            if (satelliteInfo.contains(aggregationSourceId))
-            {
-                // Source exists but is read-only (from Entity Manager)
-                messages::propertyNotWritable(asyncResp->res, "UserName");
-                return;
-            }
+    // Not in writable sources — check the EM cache synchronously
+    if (aggregator.emSatelliteSources.contains(aggregationSourceId))
+    {
+        // Source exists but is read-only (managed by Entity Manager)
+        messages::propertyNotWritable(asyncResp->res, "UserName");
+        return;
+    }
 
-            // Doesn't exist anywhere
-            messages::resourceNotFound(asyncResp->res, "AggregationSource",
-                                       aggregationSourceId);
-        });
+    // Doesn't exist anywhere
+    messages::resourceNotFound(asyncResp->res, "AggregationSource",
+                               aggregationSourceId);
 }
 
 inline void handleAggregationSourceDelete(
