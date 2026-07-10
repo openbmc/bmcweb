@@ -350,13 +350,33 @@ inline void afterGetDbusObject(
         messages::internalError(asyncResp->res);
         return;
     }
+    const std::string& slotService = object.begin()->first;
     dbus::utility::getAllProperties(
-        object.begin()->first, pcieDeviceSlot,
+        slotService, pcieDeviceSlot,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
         [asyncResp](
             const boost::system::error_code& ec2,
             const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
             addPCIeSlotProperties(asyncResp->res, ec2, pcieSlotProperties);
+        });
+    dbus::utility::getProperty<std::string>(
+        slotService, pcieDeviceSlot,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [asyncResp](
+            const boost::system::error_code& ec2,
+            const std::string& property) {
+            if (ec2)
+            {
+                if (ec2.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Location {}",
+                                     ec2.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            asyncResp->res.jsonValue["Slot"]["Location"]["PartLocation"]
+                                    ["ServiceLabel"] = property;
         });
 }
 
