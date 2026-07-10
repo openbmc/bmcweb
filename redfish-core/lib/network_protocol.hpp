@@ -442,8 +442,11 @@ inline void handleProtocolEnabled(
                         entry.first,
                         "xyz.openbmc_project.Control.Service.Attributes",
                         "Enabled", protocolEnabled);
+                    return;
                 }
             }
+            messages::propertyNotWritable(asyncResp->res, redfishProperty);
+
         });
 }
 
