@@ -338,6 +338,24 @@ inline void getPCIeDeviceSlotPath(
         });
 }
 
+inline void afterGetLocationCode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& property)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for Location {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res
+        .jsonValue["Slot"]["Location"]["PartLocation"]["ServiceLabel"] =
+        property;
+}
+
 inline void afterGetDbusObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceSlot, const boost::system::error_code& ec,
@@ -350,14 +368,19 @@ inline void afterGetDbusObject(
         messages::internalError(asyncResp->res);
         return;
     }
+    const std::string& slotService = object.begin()->first;
     dbus::utility::getAllProperties(
-        object.begin()->first, pcieDeviceSlot,
+        slotService, pcieDeviceSlot,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
         [asyncResp](
             const boost::system::error_code& ec2,
             const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
             addPCIeSlotProperties(asyncResp->res, ec2, pcieSlotProperties);
         });
+    dbus::utility::getProperty<std::string>(
+        slotService, pcieDeviceSlot,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        std::bind_front(afterGetLocationCode, asyncResp));
 }
 
 inline void afterGetPCIeDeviceSlotPath(
