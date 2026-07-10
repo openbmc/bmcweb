@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14da00a6_a5651ca6",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-10T07:25:27Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "9e08bc10_f68dc735",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "9515372a11981516797682eb53dabe1016268dfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c17787e_e437bad0",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30c59fd9_330ced5a",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-10T07:25:27Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "1c17787e_e437bad0",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 15
+      },
+      "revId": "9515372a11981516797682eb53dabe1016268dfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3cb55fde_f125fa9d",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-07-02T10:15:40Z",
       "side": 1,
       "message": "Are we expecting `services.size()\u003d\u003d1` if we already matched with `objPath.filename() \u003d\u003d \"memory_capacity_utilization\"`?\n\nIf so, I think we can move this if after the filename matching.\nIf it has size more than 1 after the matching, I think we can logs the error and return.",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 9
+      },
+      "revId": "9515372a11981516797682eb53dabe1016268dfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6cca707_15e50b44",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-10T07:25:27Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "3cb55fde_f125fa9d",
       "range": {
         "startLine": 136,
         "startChar": 8,
