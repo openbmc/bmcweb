@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a314bd4a_e589caba",
+        "filename": "test/redfish-core/lib/network_adapter_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-10T12:51:03Z",
+      "side": 1,
+      "message": "Can we use constexpr std::string_view??",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 62
+      },
+      "revId": "90c08e4aac6a2748498465567e86f2c4f16102b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
