@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37384eef_a862f78d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-10T20:54:19Z",
+      "side": 1,
+      "message": "Can you explain more of how this works.. ? If the IPMI service isn\u0027t found then.. ?",
+      "revId": "58b1d4554a5c53f6d6d1316ac83e1cbc0506bb46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d485c39_ff3cd20b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-10T20:54:19Z",
+      "side": 1,
+      "message": "Please avoid the tabs",
+      "revId": "58b1d4554a5c53f6d6d1316ac83e1cbc0506bb46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
