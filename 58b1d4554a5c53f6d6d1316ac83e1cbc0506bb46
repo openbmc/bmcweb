@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "610bcfe7_54f73083",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-10T20:56:51Z",
+      "side": 1,
+      "message": "nit, redfish URIs don\u0027t end in /\n\nfix if you like.",
+      "range": {
+        "startLine": 11,
+        "startChar": 40,
+        "endLine": 11,
+        "endChar": 41
+      },
+      "revId": "58b1d4554a5c53f6d6d1316ac83e1cbc0506bb46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37384eef_a862f78d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -31,6 +54,23 @@
       "writtenOn": "2026-07-10T20:54:19Z",
       "side": 1,
       "message": "Please avoid the tabs",
+      "revId": "58b1d4554a5c53f6d6d1316ac83e1cbc0506bb46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f8c83be_444ca150",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-10T20:56:51Z",
+      "side": 1,
+      "message": "Please just call return here, removing the \"found\" variable entirely, and removing the branch on line 451.\n\nCI will likely flag the return on 452 as being redundant anyway.",
       "revId": "58b1d4554a5c53f6d6d1316ac83e1cbc0506bb46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
