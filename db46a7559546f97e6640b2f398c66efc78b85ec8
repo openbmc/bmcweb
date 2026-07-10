@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "186412f9_c7882b3d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-10T07:47:27Z",
+      "side": 1,
+      "message": "Done, thanks.Now only added when the processor has a\nControl.Processor.EccMode object, not unconditionally.",
+      "parentUuid": "239d9e18_0cfdf6a1",
+      "range": {
+        "startLine": 1106,
+        "startChar": 4,
+        "endLine": 1113,
+        "endChar": 76
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59174fff_bf09885c",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-06-26T09:54:17Z",
       "side": 1,
       "message": "Should we add some logs here for better debugging in the further?",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8df54de_5576ff9d",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-10T07:47:27Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "59174fff_bf09885c",
       "range": {
         "startLine": 50,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f55b2793_aee8148e",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-10T07:47:27Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "1d557159_32fc8adf",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4a607ae_d9eacabe",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f68871c_e01da84d",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-10T07:47:27Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "f4a607ae_d9eacabe",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 40
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a743098_a1491de3",
@@ -106,6 +202,30 @@
       "writtenOn": "2026-06-26T09:54:17Z",
       "side": 1,
       "message": "I think we should move this into the binded lambda instead of putting them here,\nso that we can avoid error response having these contents.",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 29
+      },
+      "revId": "db46a7559546f97e6640b2f398c66efc78b85ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "039a7a8a_ab4373bc",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-10T07:47:27Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "6a743098_a1491de3",
       "range": {
         "startLine": 196,
         "startChar": 4,
