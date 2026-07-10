@@ -421,7 +421,8 @@ inline void handleProtocolEnabled(
                 messages::internalError(asyncResp->res);
                 return;
             }
-
+            
+            bool found = false;
             for (const auto& entry : subtree)
             {
                 if (entry.first.starts_with(netBasePath))
@@ -432,6 +433,7 @@ inline void handleProtocolEnabled(
                             "Protocol handler: Mapper returned entry with no service");
                         continue;
                     }
+                    found = true;
                     setDbusProperty(
                         asyncResp, redfishProperty, entry.second.begin()->first,
                         entry.first,
@@ -443,6 +445,11 @@ inline void handleProtocolEnabled(
                         "xyz.openbmc_project.Control.Service.Attributes",
                         "Enabled", protocolEnabled);
                 }
+            }
+            if (!found)
+            {
+                messages::propertyNotWritable(asyncResp->res, redfishProperty);
+                return;
             }
         });
 }
