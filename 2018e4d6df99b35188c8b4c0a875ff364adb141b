@@ -93,6 +93,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9eed3f0c_292307e4",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-11T09:13:05Z",
+      "side": 1,
+      "message": "Done — Ports and NetworkDeviceFunctions now share\ngetAssociatedSubResourceById() in utils/association_utils.hpp. A thin\ngetAssociatedPortPath() wrapper keeps the port call sites unchanged\nand also replaces the duplicate in switch_port.hpp.",
+      "parentUuid": "1bc2d52a_98dd10d5",
+      "revId": "2018e4d6df99b35188c8b4c0a875ff364adb141b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d31ea32b_d521f4ea",
         "filename": "redfish-core/lib/network_device_function.hpp",
         "patchSetId": 7
