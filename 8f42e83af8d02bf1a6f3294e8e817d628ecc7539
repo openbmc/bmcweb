@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a873090_b7127359",
+        "filename": "redfish-core/include/utils/association_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-12T07:35:50Z",
+      "side": 1,
+      "message": "Shall we add debug log here?",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "8f42e83af8d02bf1a6f3294e8e817d628ecc7539",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d8d7703_d22d4313",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-12T07:35:50Z",
+      "side": 1,
+      "message": "Isn\u0027t this case equivalent to the case `ec.value()\u003d\u003dEBADR`?",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "8f42e83af8d02bf1a6f3294e8e817d628ecc7539",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "432a8673_d846b44c",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-12T07:35:50Z",
+      "side": 1,
+      "message": "Should we add log here for better debug?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "8f42e83af8d02bf1a6f3294e8e817d628ecc7539",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
