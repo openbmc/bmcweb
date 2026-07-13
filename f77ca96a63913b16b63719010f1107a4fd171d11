@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7083531a_9eff9fc9",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T14:57:58Z",
+      "side": 1,
+      "message": "The implementation is now using interface derived from `ControlId`,\nwhich is consistent with what GET advertises.",
+      "parentUuid": "6a94de84_b047dce6",
+      "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abc0e8ea_bdb3cf15",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-13T07:01:47Z",
       "side": 1,
       "message": "nit: Suggest confirming the default sd-bus method timeout (~25s) comfortably exceeds the\nworst-case NSM SET_CLOCK_LIMIT round-trip. Otherwise a slow device yields a spurious\n500 while the reset may still be in progress.",
+      "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0905918_0dc5d523",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T14:57:58Z",
+      "side": 1,
+      "message": "Yes, this is tested on the machine with configurations listed in the commit message. Normal the reset should take no longer than 1~2 seconds, and the completion approach offered by `sdbusplus` is having timeout much longer than it.\nI think it shouldn\u0027t be any problem here.",
+      "parentUuid": "abc0e8ea_bdb3cf15",
       "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b4bf5a_10ec6297",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T14:57:58Z",
+      "side": 1,
+      "message": "Done, the reset interface is now derived from the `controlId` prefix instead of hardcoding. Thanks for the catching!",
+      "parentUuid": "6d365b21_d338af77",
+      "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e23043b7_df336081",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-07-13T07:01:47Z",
       "side": 1,
       "message": "nit: Suggest considering a shared helper: the control-object discovery here\n(afterFindControlForReset / afterDiscoverContainingForReset) largely mirrors the GET path.\nLow priority — the two flows differ slightly, so this is optional.",
+      "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8a7a755_10c79c25",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T14:57:58Z",
+      "side": 1,
+      "message": "The implementation is indeed very similar to the GET path.\nHowever, the 2 flows diverges at the terminal step that GET populates properties and reset invokes the method. I will rather keep them separate here.\n\nPlease let me know if you think it is indeed necessary to implement with your suggestion here, thanks!!",
+      "parentUuid": "e23043b7_df336081",
       "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
