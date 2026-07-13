@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd88fc55_2bbef499",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-13T07:33:39Z",
+      "side": 1,
+      "message": "Updated the commit msg.",
+      "parentUuid": "e251cb69_277272c9",
+      "revId": "e8eaae9ddbe9d53cfdc3bd78ca5d994aa889b770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2290809_906d9f71",
