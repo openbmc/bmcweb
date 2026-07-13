@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "319d6645_d3ee90ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T15:00:37Z",
+      "side": 1,
+      "message": "Thanks for reviewing this patch!",
+      "parentUuid": "d1a584f2_5a9c4df6",
+      "revId": "368632b486bb4f3c5567960333feb113435023a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1e4904b_099d5e6e",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-13T08:17:42Z",
       "side": 1,
       "message": "Nit (optional): the other six cases assert the HTTP status, but this success\ncase only checks jsonValue. For symmetry / regression safety against the\nhandler accidentally setting an error status on the success path, consider\nalso asserting:\n\n    EXPECT_EQ(response-\u003eres.result(), boost::beast::http::status::ok);\n\nNot blocking.",
+      "revId": "368632b486bb4f3c5567960333feb113435023a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dea9f79_26891ca5",
+        "filename": "test/redfish-core/lib/network_adapter_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T15:00:37Z",
+      "side": 1,
+      "message": "Added the line, thanks for acknowledging this!",
+      "parentUuid": "a1e4904b_099d5e6e",
       "revId": "368632b486bb4f3c5567960333feb113435023a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
