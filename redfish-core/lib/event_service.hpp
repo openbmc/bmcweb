@@ -149,14 +149,13 @@ inline void requestRoutesEventService(App& app)
                     // Supported range [1-3]
                     if ((*retryAttempts < 1) || (*retryAttempts > 3))
                     {
-                        messages::queryParameterOutOfRange(
-                            asyncResp->res, std::to_string(*retryAttempts),
-                            "DeliveryRetryAttempts", "[1-3]");
+                        messages::propertyValueOutOfRange(
+                            asyncResp->res, *retryAttempts,
+                            "DeliveryRetryAttempts");
+                        return;
                     }
-                    else
-                    {
-                        eventServiceConfig.retryAttempts = *retryAttempts;
-                    }
+
+                    eventServiceConfig.retryAttempts = *retryAttempts;
                 }
 
                 if (retryInterval)
@@ -164,19 +163,18 @@ inline void requestRoutesEventService(App& app)
                     // Supported range [5 - 180]
                     if ((*retryInterval < 5) || (*retryInterval > 180))
                     {
-                        messages::queryParameterOutOfRange(
-                            asyncResp->res, std::to_string(*retryInterval),
-                            "DeliveryRetryIntervalSeconds", "[5-180]");
+                        messages::propertyValueOutOfRange(
+                            asyncResp->res, *retryInterval,
+                            "DeliveryRetryIntervalSeconds");
+                        return;
                     }
-                    else
-                    {
-                        eventServiceConfig.retryTimeoutInterval =
-                            *retryInterval;
-                    }
+
+                    eventServiceConfig.retryTimeoutInterval = *retryInterval;
                 }
 
                 EventServiceManager::getInstance().setEventServiceConfig(
                     eventServiceConfig);
+                messages::success(asyncResp->res);
             });
 }
 
