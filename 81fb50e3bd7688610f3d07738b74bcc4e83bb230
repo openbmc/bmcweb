@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f16602d8_078e3d32",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-13T22:16:47Z",
+      "side": 1,
+      "message": "Is it possible to overload this with a list of services as well?",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "81fb50e3bd7688610f3d07738b74bcc4e83bb230",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
