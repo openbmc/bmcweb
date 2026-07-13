@@ -3,6 +3,7 @@
 #pragma once
 
 #include "http_response.hpp"
+#include "http_utility.hpp"
 
 #include <boost/beast/http/field.hpp>
 
@@ -23,8 +24,9 @@ inline void addSecurityHeaders(crow::Response& res)
     }
     res.addHeader("X-Content-Type-Options", "nosniff");
 
-    std::string_view contentType = res.getHeaderValue("Content-Type");
-    if (contentType.starts_with("text/html"))
+    std::string_view contentType = res.getHeaderValue(bf::content_type);
+    if (http_helpers::getContentType(contentType) ==
+        http_helpers::ContentType::HTML)
     {
         res.addHeader(bf::x_frame_options, "DENY");
         res.addHeader("Referrer-Policy", "no-referrer");

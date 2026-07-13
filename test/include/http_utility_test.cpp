@@ -11,6 +11,14 @@ namespace http_helpers
 namespace
 {
 
+TEST(getContentType, PositiveTest)
+{
+    EXPECT_EQ(getContentType("text/html"), ContentType::HTML);
+    EXPECT_EQ(getContentType("text/html;charset=UTF-8"), ContentType::HTML);
+    EXPECT_EQ(getContentType("TEXT/HTML;CHARSET=UTF-8"), ContentType::HTML);
+    EXPECT_EQ(getContentType("application/json"), ContentType::JSON);
+}
+
 TEST(isContentTypeAllowed, PositiveTest)
 {
     EXPECT_TRUE(isContentTypeAllowed("*/*", ContentType::HTML, true));
