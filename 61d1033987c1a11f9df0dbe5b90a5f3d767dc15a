@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7dd25f97_1aaf0102",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-13T19:06:17Z",
+      "side": 1,
+      "message": "You\u0027ve acked these, then not fixed them.",
+      "parentUuid": "3b5ae06c_9a3a34b7",
+      "range": {
+        "startLine": 20,
+        "startChar": 25,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9d19586_034ff5ba",
         "filename": "test/include/cookies_test.cpp",
         "patchSetId": 4
