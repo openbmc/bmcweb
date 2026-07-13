@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a94de84_b047dce6",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-13T07:01:47Z",
+      "side": 1,
+      "message": "Post may same as get check flow.",
+      "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc0e8ea_bdb3cf15",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-13T07:01:47Z",
+      "side": 1,
+      "message": "nit: Suggest confirming the default sd-bus method timeout (~25s) comfortably exceeds the\nworst-case NSM SET_CLOCK_LIMIT round-trip. Otherwise a slow device yields a spurious\n500 while the reset may still be in progress.",
+      "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d365b21_d338af77",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-13T07:01:47Z",
+      "side": 1,
+      "message": "The Reset interface is hardcoded to OperatingClockSpeed, but doControlResetToDefaults\naccepts any prefix, whereas GET only advertises this action for prefix \u003d\u003d \"ClockLimit\"\n(line 430). Consider gating the POST on ClockLimit too (404 otherwise), or deriving the\ninterface from *ifaceOpt instead of hardcoding, so a future control type can\u0027t be routed\nhere and hit the wrong interface (→ 500).",
+      "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e23043b7_df336081",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-13T07:01:47Z",
+      "side": 1,
+      "message": "nit: Suggest considering a shared helper: the control-object discovery here\n(afterFindControlForReset / afterDiscoverContainingForReset) largely mirrors the GET path.\nLow priority — the two flows differ slightly, so this is optional.",
+      "revId": "f77ca96a63913b16b63719010f1107a4fd171d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
