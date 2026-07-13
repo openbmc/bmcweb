@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3276683f_519a51ee",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-07-13T14:55:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fa25282_cd5cf565",
+      "revId": "720367fa3ea9bfeabe55e51e60a5f3dea5a09753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49dfad53_85c3321c",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-26T10:07:34Z",
       "side": 1,
       "message": "Will need to document the association in the commit message as well as an example em configuration.",
+      "revId": "720367fa3ea9bfeabe55e51e60a5f3dea5a09753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "893dff9f_88ca7d1b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-07-13T14:55:11Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/entity-manager/+/92308",
+      "parentUuid": "49dfad53_85c3321c",
       "revId": "720367fa3ea9bfeabe55e51e60a5f3dea5a09753",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c472eed4_039e1557",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-07-13T14:55:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a81c6f22_9551f869",
+      "revId": "720367fa3ea9bfeabe55e51e60a5f3dea5a09753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c802c09a_a80a709c",
@@ -65,6 +119,30 @@
       "writtenOn": "2026-06-26T10:07:34Z",
       "side": 1,
       "message": "Need to check if we can hardcode the storage id for our usecase aswell.",
+      "range": {
+        "startLine": 338,
+        "startChar": 32,
+        "endLine": 338,
+        "endChar": 41
+      },
+      "revId": "720367fa3ea9bfeabe55e51e60a5f3dea5a09753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "033da55f_a5c8336a",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-07-13T14:55:11Z",
+      "side": 1,
+      "message": "URI is deprecated. I think we can leave it as is.",
+      "parentUuid": "c802c09a_a80a709c",
       "range": {
         "startLine": 338,
         "startChar": 32,
