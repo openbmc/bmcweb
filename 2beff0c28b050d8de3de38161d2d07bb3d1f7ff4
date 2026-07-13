@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f2662b8_46814e96",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T02:40:58Z",
+      "side": 1,
+      "message": "`messages::actionNotFound()` would better in this case.",
+      "range": {
+        "startLine": 532,
+        "startChar": 12,
+        "endLine": 533,
+        "endChar": 57
+      },
+      "revId": "2beff0c28b050d8de3de38161d2d07bb3d1f7ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35cf66f8_a0276a04",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T02:40:58Z",
+      "side": 1,
+      "message": "This should be using `messages:actionNotFound()` as well.",
+      "range": {
+        "startLine": 543,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 53
+      },
+      "revId": "2beff0c28b050d8de3de38161d2d07bb3d1f7ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "074f07dc_8f16c06a",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-13T02:40:58Z",
+      "side": 1,
+      "message": "Is this error indicating empty request parameter?\nIf so, I think we can use `messages::actionParameterMissing()` or `messages::actionParameterValueNotInList()`.",
+      "range": {
+        "startLine": 610,
+        "startChar": 8,
+        "endLine": 610,
+        "endChar": 15
+      },
+      "revId": "2beff0c28b050d8de3de38161d2d07bb3d1f7ff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
