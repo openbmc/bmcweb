@@ -65,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a12dec6_7f653e90",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-07-13T16:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37384eef_a862f78d",
+      "revId": "58b1d4554a5c53f6d6d1316ac83e1cbc0506bb46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d485c39_ff3cd20b",
@@ -113,6 +131,24 @@
       "writtenOn": "2026-07-10T20:56:51Z",
       "side": 1,
       "message": "Please just call return here, removing the \"found\" variable entirely, and removing the branch on line 451.\n\nCI will likely flag the return on 452 as being redundant anyway.",
+      "revId": "58b1d4554a5c53f6d6d1316ac83e1cbc0506bb46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "299e5484_b2d832d2",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-07-13T16:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f8c83be_444ca150",
       "revId": "58b1d4554a5c53f6d6d1316ac83e1cbc0506bb46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
