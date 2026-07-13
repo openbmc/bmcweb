@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "324ede00_e8993736",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-13T15:46:44Z",
+      "side": 1,
+      "message": "nit: Can you add some example responses (json) you got from the webserver to the commit message. I believe it would be easier to follow what works and what does not work in addition to describing it with words.",
+      "revId": "ce2a45c3c1156b124fb07395a47a3ba029112ca1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "204f822a_12158c19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-13T15:46:44Z",
+      "side": 1,
+      "message": "nit: can you link your EM patch here so people know what else to pull if they want to test it out.\n\nAlso/alternatively a gerrit topic would be great to quckly find your related changes\n\nhttps://gerrit-review.googlesource.com/Documentation/cross-repository-changes.html",
+      "revId": "ce2a45c3c1156b124fb07395a47a3ba029112ca1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
