@@ -152,6 +152,7 @@ inline void requestRoutesEventService(App& app)
                         messages::queryParameterOutOfRange(
                             asyncResp->res, std::to_string(*retryAttempts),
                             "DeliveryRetryAttempts", "[1-3]");
+                        return;
                     }
                     else
                     {
@@ -167,6 +168,7 @@ inline void requestRoutesEventService(App& app)
                         messages::queryParameterOutOfRange(
                             asyncResp->res, std::to_string(*retryInterval),
                             "DeliveryRetryIntervalSeconds", "[5-180]");
+                        return;
                     }
                     else
                     {
@@ -177,6 +179,7 @@ inline void requestRoutesEventService(App& app)
 
                 EventServiceManager::getInstance().setEventServiceConfig(
                     eventServiceConfig);
+                messages::success(asyncResp->res);
             });
 }
 
