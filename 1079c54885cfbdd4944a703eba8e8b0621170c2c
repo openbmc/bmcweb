@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3699c3d6_1249f59f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-13T23:20:37Z",
+      "side": 1,
+      "message": "Overall I am good",
+      "revId": "1079c54885cfbdd4944a703eba8e8b0621170c2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6238841f_f1cc3728",
+        "filename": "test/redfish-core/lib/processor_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-13T23:20:37Z",
+      "side": 1,
+      "message": "Could also check response but oh well",
+      "revId": "1079c54885cfbdd4944a703eba8e8b0621170c2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cceda92_243e5c00",
+        "filename": "test/redfish-core/lib/processor_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-13T23:20:37Z",
+      "side": 1,
+      "message": "I feel like you are missing the success case.. like the most common success case\n\n\n    auto response \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n    boost::system::error_code ec;\n    dbus::utility::MapperGetSubTreeResponse subtree \u003d {\n        {\"/xyz/openbmc_project/software/fw0\",\n         {{\"xyz.openbmc_project.Software.Manager\",\n           {\"xyz.openbmc_project.Software.Version\"}}}}};\n\n\n     afterGetProcessorFirmwareVersion(response, propertyEc, subtree);",
+      "revId": "1079c54885cfbdd4944a703eba8e8b0621170c2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
