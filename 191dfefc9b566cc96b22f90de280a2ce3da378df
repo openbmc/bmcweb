@@ -16,6 +16,23 @@
       "message": "Hi @jason.m.bills@linux.intel.com, could you please re-review again when you have a chance?\nThanks!",
       "revId": "191dfefc9b566cc96b22f90de280a2ce3da378df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18b43350_8b5ef3a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-14T08:39:11Z",
+      "side": 1,
+      "message": "I think the implementation is totally the same as in 88129 and seems to have no problem to me.",
+      "revId": "191dfefc9b566cc96b22f90de280a2ce3da378df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
