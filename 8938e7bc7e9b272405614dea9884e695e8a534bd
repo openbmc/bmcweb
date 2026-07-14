@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715a66bc_85b94362",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-14T07:52:46Z",
+      "side": 1,
+      "message": "Consider set the same topic with patch 90171.",
+      "revId": "8938e7bc7e9b272405614dea9884e695e8a534bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc4d893b_92a717eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-14T07:52:46Z",
+      "side": 1,
+      "message": "This change has no Tested section consider adding one here, e.g. the fabric_test run result.",
+      "revId": "8938e7bc7e9b272405614dea9884e695e8a534bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bdb638b_f283a5ef",
+        "filename": "test/redfish-core/lib/fabric_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-14T07:52:46Z",
+      "side": 1,
+      "message": "Consider extending this test (or parameterizing) over all four tokens, asserting\njsonValue[\"PowerState\"] is Off / PoweringOn / PoweringOff, so all four states are covered and a future regression in any of them is caught.",
+      "revId": "8938e7bc7e9b272405614dea9884e695e8a534bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
