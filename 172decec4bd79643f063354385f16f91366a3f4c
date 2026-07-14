@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c0045e0_116afa13",
+        "filename": "test/redfish-core/lib/processor_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-14T08:24:13Z",
+      "side": 1,
+      "message": "Sure, I have added the assertion in PS2.",
+      "parentUuid": "e30a8e8d_01ba950b",
+      "revId": "172decec4bd79643f063354385f16f91366a3f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bbc209a_4876b792",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b653fc02_851a7463",
+        "filename": "test/redfish-core/lib/processor_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-14T08:24:13Z",
+      "side": 1,
+      "message": "Done, added assertion for `response-\u003eres.result()`.",
+      "parentUuid": "4bbc209a_4876b792",
+      "revId": "172decec4bd79643f063354385f16f91366a3f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8ff25f5_12cb46da",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-14T05:13:19Z",
       "side": 1,
       "message": "Just to confirm — the success path of handleCoreVoltageSensors (one sensor + one service\ndispatching getAssociationEndPoints) isn\u0027t covered because it\u0027s an async D-Bus call that\u0027s\nhard to unit-test, right? If so this is fine as-is; maybe a brief note would help.",
+      "revId": "172decec4bd79643f063354385f16f91366a3f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c0607ae_68a940c0",
+        "filename": "test/redfish-core/lib/processor_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-14T08:24:13Z",
+      "side": 1,
+      "message": "Yes, I didn\u0027t found any mock-up for dbus infra and thus decided to discard that test case.\nPlease tell me if you have any suggestion on that!\n\nAlso, I have drafted a short note above the test case as suggested.\nPlease find it documented in PS2.",
+      "parentUuid": "d8ff25f5_12cb46da",
       "revId": "172decec4bd79643f063354385f16f91366a3f4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
