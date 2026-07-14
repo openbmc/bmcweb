@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b10698ee_cad31cf6",
+        "filename": "test/redfish-core/lib/processor_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-14T07:43:54Z",
+      "side": 1,
+      "message": "Sure, I have added `resp.result()` checking in PS2.",
+      "parentUuid": "6238841f_f1cc3728",
+      "revId": "1079c54885cfbdd4944a703eba8e8b0621170c2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cceda92_243e5c00",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-07-13T23:20:37Z",
       "side": 1,
       "message": "I feel like you are missing the success case.. like the most common success case\n\n\n    auto response \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n    boost::system::error_code ec;\n    dbus::utility::MapperGetSubTreeResponse subtree \u003d {\n        {\"/xyz/openbmc_project/software/fw0\",\n         {{\"xyz.openbmc_project.Software.Manager\",\n           {\"xyz.openbmc_project.Software.Version\"}}}}};\n\n\n     afterGetProcessorFirmwareVersion(response, propertyEc, subtree);",
+      "revId": "1079c54885cfbdd4944a703eba8e8b0621170c2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c8ac2a_8d746484",
+        "filename": "test/redfish-core/lib/processor_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-14T07:43:54Z",
+      "side": 1,
+      "message": "The success path of `afterGetProcessorFirmwareVersionSubTree()` dispatch an async `getProperty\u003c\u003e()` that requires D-Bus system to exist. \nI didn\u0027t found any mockup dbus-system for unit test and so didn\u0027t implement for this case.\n\nPlease tell me if you have any suggestion on this!",
+      "parentUuid": "9cceda92_243e5c00",
       "revId": "1079c54885cfbdd4944a703eba8e8b0621170c2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
