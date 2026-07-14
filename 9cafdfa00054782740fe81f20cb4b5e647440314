@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e666a34d_8a5e8563",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-14T12:59:01Z",
+      "side": 1,
+      "message": "Works for me.",
+      "revId": "9cafdfa00054782740fe81f20cb4b5e647440314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a07a6235_9376b0e1",
+        "filename": "test/redfish-core/lib/fabric_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-14T12:59:01Z",
+      "side": 1,
+      "message": "Can be constexpr std::string_view switchPath.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "9cafdfa00054782740fe81f20cb4b5e647440314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea533f72_46ec84a3",
+        "filename": "test/redfish-core/lib/fabric_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-14T12:59:01Z",
+      "side": 1,
+      "message": "nit: Should we use a prior contains() guard here?",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 66
+      },
+      "revId": "9cafdfa00054782740fe81f20cb4b5e647440314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
