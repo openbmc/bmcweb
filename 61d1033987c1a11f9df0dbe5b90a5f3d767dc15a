@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e8a2ab7_a7090dbd",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-14T07:31:17Z",
+      "side": 1,
+      "message": "Sorry, it was a mistake. I have now updated the same. Can you please check.",
+      "parentUuid": "7dd25f97_1aaf0102",
+      "range": {
+        "startLine": 20,
+        "startChar": 25,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9d19586_034ff5ba",
         "filename": "test/include/cookies_test.cpp",
         "patchSetId": 4
