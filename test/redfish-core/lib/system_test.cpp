@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
+#include "generated/enums/computer_system.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_response.hpp"
 #include "systems.hpp"
@@ -127,6 +128,94 @@ TEST(GetAllowedHostTransition, AllSupported)
     parameters.emplace_back(std::move(parameter));
 
     EXPECT_EQ(response->res.jsonValue["Parameters"], parameters);
+}
+
+TEST(dbusToRfBootSource, Default)
+{
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Default"),
+              "None");
+}
+
+TEST(dbusToRfBootSource, Disk)
+{
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Disk"),
+              "Hdd");
+}
+
+TEST(dbusToRfBootSource, ExternalMedia)
+{
+    EXPECT_EQ(
+        dbusToRfBootSource(
+            "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia"),
+        "Cd");
+}
+
+TEST(dbusToRfBootSource, Network)
+{
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Network"),
+              "Pxe");
+}
+
+TEST(dbusToRfBootSource, RemovableMedia)
+{
+    EXPECT_EQ(
+        dbusToRfBootSource(
+            "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia"),
+        "Usb");
+}
+
+TEST(dbusToRfBootSource, Unknown)
+{
+    EXPECT_EQ(dbusToRfBootSource("Unknown"), "");
+}
+
+TEST(dbusToRfBootType, Legacy)
+{
+    EXPECT_EQ(
+        dbusToRfBootType("xyz.openbmc_project.Control.Boot.Type.Types.Legacy"),
+        computer_system::BootSourceOverrideMode::Legacy);
+}
+
+TEST(dbusToRfBootType, EFI)
+{
+    EXPECT_EQ(
+        dbusToRfBootType("xyz.openbmc_project.Control.Boot.Type.Types.EFI"),
+        computer_system::BootSourceOverrideMode::UEFI);
+}
+
+TEST(dbusToRfBootType, Unknown)
+{
+    EXPECT_EQ(dbusToRfBootType("Unknown"),
+              computer_system::BootSourceOverrideMode::Invalid);
+}
+
+TEST(dbusToRfBootMode, Regular)
+{
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular"),
+        "None");
+}
+
+TEST(dbusToRfBootMode, Safe)
+{
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Safe"),
+        "Diags");
+}
+
+TEST(dbusToRfBootMode, Setup)
+{
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Setup"),
+        "BiosSetup");
+}
+
+TEST(dbusToRfBootMode, Unknown)
+{
+    EXPECT_EQ(dbusToRfBootMode("Unknown"), "");
 }
 
 } // namespace

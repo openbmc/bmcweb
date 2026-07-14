@@ -570,20 +570,21 @@ inline std::string dbusToRfBootSource(const std::string& dbusSource)
  *
  * @param[in] dbusType    The boot type in DBUS speak.
  *
- * @return Returns as a string, the boot type in Redfish terms. If translation
- * cannot be done, returns an empty string.
+ * @return Returns the boot type in Redfish terms. If translation cannot be
+ * done, returns BootSourceOverrideMode::Invalid.
  */
-inline std::string dbusToRfBootType(const std::string& dbusType)
+inline computer_system::BootSourceOverrideMode dbusToRfBootType(
+    const std::string& dbusType)
 {
     if (dbusType == "xyz.openbmc_project.Control.Boot.Type.Types.Legacy")
     {
-        return "Legacy";
+        return computer_system::BootSourceOverrideMode::Legacy;
     }
     if (dbusType == "xyz.openbmc_project.Control.Boot.Type.Types.EFI")
     {
-        return "UEFI";
+        return computer_system::BootSourceOverrideMode::UEFI;
     }
-    return "";
+    return computer_system::BootSourceOverrideMode::Invalid;
 }
 
 /**
@@ -850,10 +851,13 @@ inline void getBootOverrideType(
             asyncResp->res
                 .jsonValue["Boot"]
                           ["BootSourceOverrideMode@Redfish.AllowableValues"] =
-                nlohmann::json::array_t({"Legacy", "UEFI"});
+                nlohmann::json::array_t(
+                    {computer_system::BootSourceOverrideMode::Legacy,
+                     computer_system::BootSourceOverrideMode::UEFI});
 
-            auto rfType = dbusToRfBootType(bootType);
-            if (rfType.empty())
+            computer_system::BootSourceOverrideMode rfType =
+                dbusToRfBootType(bootType);
+            if (rfType == computer_system::BootSourceOverrideMode::Invalid)
             {
                 messages::internalError(asyncResp->res);
                 return;
