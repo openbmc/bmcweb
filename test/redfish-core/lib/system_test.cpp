@@ -129,5 +129,92 @@ TEST(GetAllowedHostTransition, AllSupported)
     EXPECT_EQ(response->res.jsonValue["Parameters"], parameters);
 }
 
+TEST(dbusToRfBootSource, Default)
+{
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Default"),
+              "None");
+}
+
+TEST(dbusToRfBootSource, Disk)
+{
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Disk"),
+              "Hdd");
+}
+
+TEST(dbusToRfBootSource, ExternalMedia)
+{
+    EXPECT_EQ(
+        dbusToRfBootSource(
+            "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia"),
+        "Cd");
+}
+
+TEST(dbusToRfBootSource, Network)
+{
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Network"),
+              "Pxe");
+}
+
+TEST(dbusToRfBootSource, RemovableMedia)
+{
+    EXPECT_EQ(
+        dbusToRfBootSource(
+            "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia"),
+        "Usb");
+}
+
+TEST(dbusToRfBootSource, Unknown)
+{
+    EXPECT_EQ(dbusToRfBootSource("Unknown"), "");
+}
+
+TEST(dbusToRfBootType, Legacy)
+{
+    EXPECT_EQ(
+        dbusToRfBootType("xyz.openbmc_project.Control.Boot.Type.Types.Legacy"),
+        "Legacy");
+}
+
+TEST(dbusToRfBootType, EFI)
+{
+    EXPECT_EQ(
+        dbusToRfBootType("xyz.openbmc_project.Control.Boot.Type.Types.EFI"),
+        "UEFI");
+}
+
+TEST(dbusToRfBootType, Unknown)
+{
+    EXPECT_EQ(dbusToRfBootType("Unknown"), "");
+}
+
+TEST(dbusToRfBootMode, Regular)
+{
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular"),
+        "None");
+}
+
+TEST(dbusToRfBootMode, Safe)
+{
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Safe"),
+        "Diags");
+}
+
+TEST(dbusToRfBootMode, Setup)
+{
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Setup"),
+        "BiosSetup");
+}
+
+TEST(dbusToRfBootMode, Unknown)
+{
+    EXPECT_EQ(dbusToRfBootMode("Unknown"), "");
+}
+
 } // namespace
 } // namespace redfish
