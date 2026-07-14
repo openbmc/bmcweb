@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30a8e8d_01ba950b",
+        "filename": "test/redfish-core/lib/processor_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-14T05:13:19Z",
+      "side": 1,
+      "message": "nit: the omit tests assert !contains(\"CoreVoltage\"); adding the same to the error tests\nwould be more thorough (internalError() doesn\u0027t clear jsonValue, so this also guards against\na future regression that leaves a partial CoreVoltage on an error path).\nEXPECT_FALSE(response-\u003eres.jsonValue.contains(\"CoreVoltage\"));",
+      "revId": "172decec4bd79643f063354385f16f91366a3f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bbc209a_4876b792",
+        "filename": "test/redfish-core/lib/processor_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-14T05:13:19Z",
+      "side": 1,
+      "message": "nit: the other two AfterGetCoreVoltageProperties tests assert res.result(); consider adding\nEXPECT_EQ(response-\u003eres.result(), boost::beast::http::status::ok);\nhere too for consistency.",
+      "revId": "172decec4bd79643f063354385f16f91366a3f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8ff25f5_12cb46da",
+        "filename": "test/redfish-core/lib/processor_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-14T05:13:19Z",
+      "side": 1,
+      "message": "Just to confirm — the success path of handleCoreVoltageSensors (one sensor + one service\ndispatching getAssociationEndPoints) isn\u0027t covered because it\u0027s an async D-Bus call that\u0027s\nhard to unit-test, right? If so this is fine as-is; maybe a brief note would help.",
+      "revId": "172decec4bd79643f063354385f16f91366a3f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
