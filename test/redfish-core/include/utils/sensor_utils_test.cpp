@@ -586,8 +586,13 @@ TEST(MapPropertiesBySubnode, Success)
         {"xyz.openbmc_project.Sensor.Value", "MaxValue",
          "/ReadingRangeMax"_json_pointer},
         {"xyz.openbmc_project.Sensor.Accuracy", "Accuracy",
-         "/Accuracy"_json_pointer},
+         "/ReadingAccuracy"_json_pointer},
     };
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY)
+    {
+        expectedProps.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
+                                   "Accuracy", "/Accuracy"_json_pointer);
+    }
     mapPropertiesBySubnode("power", ChassisSubNode::sensorsNode, properties,
                            unit, isExcerpt);
     EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
@@ -613,8 +618,13 @@ TEST(MapPropertiesBySubnode, Success)
             {"xyz.openbmc_project.Sensor.Threshold.HardShutdown",
              "HardShutdownLow", "/Thresholds/LowerFatal/Reading"_json_pointer},
             {"xyz.openbmc_project.Sensor.Accuracy", "Accuracy",
-             "/Accuracy"_json_pointer},
+             "/ReadingAccuracy"_json_pointer},
         };
+        if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY)
+        {
+            expectedProps.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
+                                       "Accuracy", "/Accuracy"_json_pointer);
+        }
     }
 
     isExcerpt = false;

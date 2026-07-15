@@ -23,6 +23,7 @@ feature_options = [
     'kvm',
     'mutual-tls-auth',
     'redfish',
+    'redfish-allow-deprecated-accuracy',
     'redfish-aggregation',
     'redfish-allow-deprecated-indicatorled',
     'redfish-allow-deprecated-power-thermal',

@@ -349,6 +349,19 @@ option(
                     This option will be removed June 2026.''',
 )
 
+# BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY
+option(
+    'redfish-allow-deprecated-accuracy',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enable/disable backward compatibility for deprecated Accuracy
+                    property. Redfish has deprecated Accuracy in favor of
+                    ReadingAccuracy. ReadingAccuracy will always be present.
+                    Set to disabled to only report ReadingAccuracy. This option
+                    will default to disabled July 2026. The code to enable this
+                    option will be removed by July 2027.''',
+)
+
 # BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS
 option(
     'redfish-allow-rotational-fans',
