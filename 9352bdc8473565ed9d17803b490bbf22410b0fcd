@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a85d172d_dc918c50",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-15T20:44:12Z",
+      "side": 0,
+      "message": "but some systems have ipmi still enabled / supported, what are you trying to accomplish ?",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 9
+      },
+      "revId": "9352bdc8473565ed9d17803b490bbf22410b0fcd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
