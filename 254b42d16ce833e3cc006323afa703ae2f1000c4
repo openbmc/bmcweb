@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7721f221_7971903f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-07-15T21:05:38Z",
+      "side": 1,
+      "message": "bios_utils.hpp is not following PDI",
+      "revId": "254b42d16ce833e3cc006323afa703ae2f1000c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3131968_2c4532e4",
