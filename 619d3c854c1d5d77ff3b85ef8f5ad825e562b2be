@@ -16,6 +16,46 @@
       "message": "LGTM",
       "revId": "619d3c854c1d5d77ff3b85ef8f5ad825e562b2be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "affd61f7_8eaff7be",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-15T12:51:42Z",
+      "side": 1,
+      "message": "Instead of combining these interfaces (which are constant) inside this function, would it be better to define a constant (e.g. inside chassis_utils.hpp)?\n\n```\nstatic constexpr std::array\u003cstd::string_view, 3\u003e chassisAndManagedHostInterfaces \u003d {\n    \"xyz.openbmc_project.Inventory.Item.Board\",\n    \"xyz.openbmc_project.Inventory.Item.Chassis\",\n     xyz.openbmc_project.Inventory.Decorator.ManagedHost\" };\n\n```",
+      "revId": "619d3c854c1d5d77ff3b85ef8f5ad825e562b2be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27f332c_eb758cd0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1351,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-15T12:51:42Z",
+      "side": 1,
+      "message": "I think this seems clearer?\n\n```\n    else if (purpose \u003d\u003d sw_util::biosPurpose)\n    {\n        if(!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n       {\n           auto url \u003d boost::urls::format(\"/redfish/v1/Systems/{}/Bios\",\n                                       BMCWEB_REDFISH_SYSTEM_URI_NAME);\n\n           addRelatedItem(asyncResp, url);\n        }\n     }\n\n```",
+      "range": {
+        "startLine": 1351,
+        "startChar": 0,
+        "endLine": 1351,
+        "endChar": 39
+      },
+      "revId": "619d3c854c1d5d77ff3b85ef8f5ad825e562b2be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
