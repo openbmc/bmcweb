@@ -69,6 +69,24 @@
       "parentUuid": "9c48b449_45cd0d24",
       "revId": "14782e8dc7056be669d064ef50133af719ac9e22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ce4f6b_cc1e60f9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-15T13:26:53Z",
+      "side": 1,
+      "message": "Even if the service may be the same for both PCIeDevice and PCIeSlot for an environment, it would not mean that the hosting service should be the same.\nIt could be different.\nSo, semantically, PCIeDevice LocationCode should be hosted by the PCIeDevice service.",
+      "parentUuid": "6a1a37f3_b10bdfb6",
+      "revId": "14782e8dc7056be669d064ef50133af719ac9e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
