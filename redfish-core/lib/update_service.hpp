@@ -695,6 +695,7 @@ struct MultiPartUpdate
     {
         std::optional<std::string> applyTime;
         std::optional<std::vector<std::string>> targets;
+        std::optional<bool> forceUpdate;
     } params;
 };
 
@@ -767,6 +768,7 @@ inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
     if (!json_util::readJsonObject(                            //
             *obj, asyncResp->res,                              //
             "@Redfish.OperationApplyTime", multiRet.applyTime, //
+            "ForceUpdate", multiRet.forceUpdate,               //
             "Targets", multiRet.targets                        //
             ))
     {
@@ -870,7 +872,8 @@ inline void handleStartUpdate(
 inline void startUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
-    const std::string& objectPath, const std::string& serviceName)
+    bool forceUpdate, const std::string& objectPath,
+    const std::string& serviceName)
 {
     dbus::utility::async_method_call(
         asyncResp,
@@ -881,12 +884,13 @@ inline void startUpdate(
                               retPath);
         },
         serviceName, objectPath, updateInterface, "StartUpdate",
-        sdbusplus::message::unix_fd(memfd.fd), applyTime);
+        sdbusplus::message::unix_fd(memfd.fd), applyTime, forceUpdate);
 }
 
 inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       task::Payload payload, const MemoryFileDescriptor& memfd,
-                      const std::string& applyTime, const std::string& target,
+                      const std::string& applyTime, bool forceUpdate,
+                      const std::string& target,
                       const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
@@ -922,14 +926,14 @@ inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("Found software version path {} serviceName {}",
                      swEntry->second.first.str, swEntry->second.second);
 
-    startUpdate(asyncResp, std::move(payload), memfd, applyTime,
+    startUpdate(asyncResp, std::move(payload), memfd, applyTime, forceUpdate,
                 swEntry->second.first.str, swEntry->second.second);
 }
 
 inline void handleBMCUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
-    const boost::system::error_code& ec,
+    bool forceUpdate, const boost::system::error_code& ec,
     const dbus::utility::MapperEndPoints& functionalSoftware)
 {
     if (ec)
@@ -947,14 +951,14 @@ inline void handleBMCUpdate(
         return;
     }
 
-    startUpdate(asyncResp, std::move(payload), memfd, applyTime,
+    startUpdate(asyncResp, std::move(payload), memfd, applyTime, forceUpdate,
                 functionalSoftware[0], "xyz.openbmc_project.Software.Manager");
 }
 
 inline void handleMultipartManagerUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
-    const boost::system::error_code& ec,
+    bool forceUpdate, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
@@ -978,7 +982,7 @@ inline void handleMultipartManagerUpdate(
         if (std::ranges::find(ifaces, updateInterface) != ifaces.end())
         {
             startUpdate(asyncResp, std::move(payload), memfd, applyTime,
-                        objectPath, serviceName);
+                        forceUpdate, objectPath, serviceName);
             return;
         }
     }
@@ -991,7 +995,8 @@ inline void handleMultipartManagerUpdate(
 inline void processUpdateRequest(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     task::Payload&& payload, std::string_view body,
-    const std::string& applyTime, const std::vector<std::string>& targets)
+    const std::string& applyTime, bool forceUpdate,
+    const std::vector<std::string>& targets)
 {
     MemoryFileDescriptor memfd("update-image");
     if (memfd.fd == -1)
@@ -1020,11 +1025,13 @@ inline void processUpdateRequest(
         dbus::utility::getSubTree(
             "/xyz/openbmc_project/software", 1, interfaces,
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
-             applyTime](const boost::system::error_code& ec,
-                        const dbus::utility::MapperGetSubTreeResponse&
-                            subtree) mutable {
+             applyTime,
+             forceUpdate](const boost::system::error_code& ec,
+                          const dbus::utility::MapperGetSubTreeResponse&
+                              subtree) mutable {
                 handleMultipartManagerUpdate(asyncResp, std::move(payload),
-                                             memfd, applyTime, ec, subtree);
+                                             memfd, applyTime, forceUpdate, ec,
+                                             subtree);
             });
         return;
     }
@@ -1034,11 +1041,11 @@ inline void processUpdateRequest(
         dbus::utility::getAssociationEndPoints(
             "/xyz/openbmc_project/software/bmc/updateable",
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
-             applyTime](
+             applyTime, forceUpdate](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperEndPoints& objectPaths) mutable {
                 handleBMCUpdate(asyncResp, std::move(payload), memfd, applyTime,
-                                ec, objectPaths);
+                                forceUpdate, ec, objectPaths);
             });
     }
     else
@@ -1048,11 +1055,12 @@ inline void processUpdateRequest(
         dbus::utility::getSubTree(
             "/xyz/openbmc_project/software", 1, interfaces,
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
-             applyTime, targets](const boost::system::error_code& ec,
-                                 const dbus::utility::MapperGetSubTreeResponse&
-                                     subtree) mutable {
+             applyTime, forceUpdate,
+             targets](const boost::system::error_code& ec,
+                      const dbus::utility::MapperGetSubTreeResponse&
+                          subtree) mutable {
                 getSwInfo(asyncResp, std::move(payload), memfd, applyTime,
-                          targets[0], ec, subtree);
+                          forceUpdate, targets[0], ec, subtree);
             });
     }
 }
@@ -1083,7 +1091,7 @@ inline void updateMultipartContext(
 
         processUpdateRequest(
             asyncResp, std::move(payload), multipart->uploadData,
-            applyTimeNewVal,
+            applyTimeNewVal, multipart->params.forceUpdate.value_or(false),
             multipart->params.targets.value_or(std::vector<std::string>{}));
     }
     else
@@ -1113,7 +1121,7 @@ inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         processUpdateRequest(
             asyncResp, std::move(payload), req.body(),
             "xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.Immediate",
-            targets);
+            false, targets);
     }
     else
     {
