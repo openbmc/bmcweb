@@ -14,6 +14,7 @@
 #include "generated/enums/account_service.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "human_sort.hpp"
 #include "logging.hpp"
 #include "pam_authenticate.hpp"
 #include "persistent_data.hpp"
@@ -385,157 +386,201 @@ inline void handleRoleMapPatch(
     const std::string& serverType,
     std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>& input)
 {
-    for (size_t index = 0; index < input.size(); index++)
+    struct ResolvedEntry
     {
-        std::variant<nlohmann::json::object_t, std::nullptr_t>& thisJson =
-            input[index];
+        size_t index = 0;
+        std::string remoteGroup;
+        std::string localRole;
+        std::string privilege;
+    };
+
+    std::vector<size_t> deleteIndices;
+    std::vector<ResolvedEntry> creates;
+    std::vector<ResolvedEntry> privOnlyWrites;
+
+    for (auto&& [i, thisJson] : std::views::enumerate(input))
+    {
+        size_t index = static_cast<size_t>(i);
         nlohmann::json::object_t* obj =
             std::get_if<nlohmann::json::object_t>(&thisJson);
+
         if (obj == nullptr)
         {
-            // delete the existing object
-            if (index < roleMapObjData.size())
-            {
-                dbus::utility::async_method_call(
-                    asyncResp,
-                    // ast-grep-ignore: long-lambda
-                    [asyncResp, roleMapObjData, serverType,
-                     index](const boost::system::error_code& ec) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res
-                            .jsonValue[serverType]["RemoteRoleMapping"][index] =
-                            nullptr;
-                    },
-                    ldapDbusService, roleMapObjData[index].first,
-                    "xyz.openbmc_project.Object.Delete", "Delete");
-            }
-            else
+            if (index >= roleMapObjData.size())
             {
                 BMCWEB_LOG_ERROR("Can't delete the object");
                 messages::propertyValueTypeError(
                     asyncResp->res, "null",
-                    "RemoteRoleMapping/" + std::to_string(index));
+                    std::format("RemoteRoleMapping/{}", index));
                 return;
             }
+            // deleted by user intention
+            deleteIndices.push_back(index);
+            continue;
         }
-        else if (obj->empty())
+
+        // {} placeholder - leave whatever already exists at this slot.
+        if (obj->empty())
         {
-            // Don't do anything for the empty objects,parse next json
-            // eg {"RemoteRoleMapping",[{}]}
+            continue;
+        }
+
+        std::optional<std::string> remoteGroup;
+        std::optional<std::string> localRole;
+        if (!json_util::readJsonObject(    //
+                *obj, asyncResp->res,      //
+                "LocalRole", localRole,    //
+                "RemoteGroup", remoteGroup //
+                ))
+        {
+            continue;
+        }
+
+        std::string pathString = std::format("RemoteRoleMapping/{}", index);
+
+        if (index < roleMapObjData.size())
+        {
+            // Carry forward fields the caller omitted from the existing
+            // entry, so the (possibly recreated) entry preserves them.
+            const auto& [existingPath, existing] = roleMapObjData[index];
+            if (!remoteGroup)
+            {
+                remoteGroup = existing.groupName;
+            }
+            if (!localRole)
+            {
+                localRole = getRoleIdFromPrivilege(existing.privilege);
+            }
         }
         else
         {
-            // update/create the object
-            std::optional<std::string> remoteGroup;
-            std::optional<std::string> localRole;
-
-            if (!json_util::readJsonObject(    //
-                    *obj, asyncResp->res,      //
-                    "LocalRole", localRole,    //
-                    "RemoteGroup", remoteGroup //
-                    ))
+            // Pure create - both fields are mandatory.
+            if (!localRole)
             {
+                messages::propertyMissing(asyncResp->res,
+                                          pathString + "/LocalRole");
                 continue;
             }
-
-            // Update existing RoleMapping Object
-            if (index < roleMapObjData.size())
+            if (!remoteGroup)
             {
-                BMCWEB_LOG_DEBUG("Update Role Map Object");
-                // If "RemoteGroup" info is provided
-                if (remoteGroup)
-                {
-                    setDbusProperty(
-                        asyncResp,
-                        std::format("RemoteRoleMapping/{}/RemoteGroup", index),
-                        ldapDbusService, roleMapObjData[index].first,
-                        "xyz.openbmc_project.User.PrivilegeMapperEntry",
-                        "GroupName", *remoteGroup);
-                }
-
-                // If "LocalRole" info is provided
-                if (localRole)
-                {
-                    std::string priv = getPrivilegeFromRoleId(*localRole);
-                    if (priv.empty())
-                    {
-                        messages::propertyValueNotInList(
-                            asyncResp->res, *localRole,
-                            std::format("RemoteRoleMapping/{}/LocalRole",
-                                        index));
-                        return;
-                    }
-                    setDbusProperty(
-                        asyncResp,
-                        std::format("RemoteRoleMapping/{}/LocalRole", index),
-                        ldapDbusService, roleMapObjData[index].first,
-                        "xyz.openbmc_project.User.PrivilegeMapperEntry",
-                        "Privilege", priv);
-                }
+                messages::propertyMissing(asyncResp->res,
+                                          pathString + "/RemoteGroup");
+                continue;
             }
-            // Create a new RoleMapping Object.
-            else
+        }
+
+        std::string priv = getPrivilegeFromRoleId(*localRole);
+        if (priv.empty())
+        {
+            messages::propertyValueNotInList(asyncResp->res, *localRole,
+                                             pathString + "/LocalRole");
+            return;
+        }
+
+        if (index < roleMapObjData.size())
+        {
+            const auto& [existingPath, existing] = roleMapObjData[index];
+            if (existing.groupName == *remoteGroup)
             {
-                BMCWEB_LOG_DEBUG(
-                    "setRoleMappingProperties: Creating new Object");
-                std::string pathString =
-                    "RemoteRoleMapping/" + std::to_string(index);
-
-                if (!localRole)
+                if (existing.privilege == priv)
                 {
-                    messages::propertyMissing(asyncResp->res,
-                                              pathString + "/LocalRole");
                     continue;
                 }
-                if (!remoteGroup)
-                {
-                    messages::propertyMissing(asyncResp->res,
-                                              pathString + "/RemoteGroup");
-                    continue;
-                }
+                privOnlyWrites.push_back({
+                    .index = index,
+                    .remoteGroup = std::move(*remoteGroup),
+                    .localRole = std::move(*localRole),
+                    .privilege = std::move(priv),
+                });
+                continue;
+            }
+            // Delete and recreate it to prevent group name collisions
+            deleteIndices.push_back(index);
+        }
+        creates.push_back({
+            .index = index,
+            .remoteGroup = std::move(*remoteGroup),
+            .localRole = std::move(*localRole),
+            .privilege = std::move(priv),
+        });
+    }
 
-                std::string dbusObjectPath;
-                if (serverType == "ActiveDirectory")
-                {
-                    dbusObjectPath = adConfigObject;
-                }
-                else if (serverType == "LDAP")
-                {
-                    dbusObjectPath = ldapConfigObjectName;
-                }
+    for (const ResolvedEntry& op : privOnlyWrites)
+    {
+        BMCWEB_LOG_DEBUG("In-place privilege update at index {} (role={})",
+                         op.index, op.localRole);
+        setDbusProperty(asyncResp,
+                        std::format("RemoteRoleMapping/{}/LocalRole", op.index),
+                        ldapDbusService, roleMapObjData[op.index].first,
+                        "xyz.openbmc_project.User.PrivilegeMapperEntry",
+                        "Privilege", op.privilege);
+    }
 
-                BMCWEB_LOG_DEBUG("Remote Group={},LocalRole={}", *remoteGroup,
-                                 *localRole);
+    auto applyCreates =
+        // ast-grep-ignore: long-lambda
+        [asyncResp, serverType, creates = std::move(creates)]() {
+            std::string dbusObjectPath;
+            if (serverType == "ActiveDirectory")
+            {
+                dbusObjectPath = adConfigObject;
+            }
+            else if (serverType == "LDAP")
+            {
+                dbusObjectPath = ldapConfigObjectName;
+            }
 
+            for (const ResolvedEntry& op : creates)
+            {
                 dbus::utility::async_method_call(
                     asyncResp,
-                    // ast-grep-ignore: long-lambda
-                    [asyncResp, serverType, localRole,
-                     remoteGroup](const boost::system::error_code& ec) {
+                    [asyncResp](const boost::system::error_code& ec) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        nlohmann::json& remoteRoleJson =
-                            asyncResp->res
-                                .jsonValue[serverType]["RemoteRoleMapping"];
-                        nlohmann::json::object_t roleMapEntry;
-                        roleMapEntry["LocalRole"] = *localRole;
-                        roleMapEntry["RemoteGroup"] = *remoteGroup;
-                        remoteRoleJson.emplace_back(std::move(roleMapEntry));
                     },
                     ldapDbusService, dbusObjectPath, ldapPrivMapperInterface,
-                    "Create", *remoteGroup,
-                    getPrivilegeFromRoleId(std::move(*localRole)));
+                    "Create", op.remoteGroup, op.privilege);
             }
-        }
+        };
+
+    if (deleteIndices.empty())
+    {
+        applyCreates();
+        return;
+    }
+
+    auto remaining = std::make_shared<size_t>(deleteIndices.size());
+    auto deleteFailed = std::make_shared<bool>(false);
+    auto deferred =
+        std::make_shared<std::function<void()>>(std::move(applyCreates));
+
+    for (size_t index : deleteIndices)
+    {
+        dbus::utility::async_method_call(
+            asyncResp,
+            // ast-grep-ignore: long-lambda
+            [asyncResp, serverType, remaining, deleteFailed,
+             deferred](const boost::system::error_code& ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
+                    messages::internalError(asyncResp->res);
+                    *deleteFailed = true;
+                }
+
+                if (--(*remaining) == 0)
+                {
+                    if (!*deleteFailed && *deferred)
+                    {
+                        (*deferred)();
+                    }
+                }
+            },
+            ldapDbusService, roleMapObjData[index].first,
+            "xyz.openbmc_project.Object.Delete", "Delete");
     }
 }
 
@@ -713,6 +758,11 @@ inline void getLDAPConfigData(const std::string& ldapType,
                             }
                         }
                     }
+
+                    std::ranges::sort(
+                        confData.groupRoleList, AlphanumLess<std::string>{},
+                        &std::pair<std::string, LDAPRoleMapData>::first);
+
                     callback(true, confData, ldapType);
                 });
         });
