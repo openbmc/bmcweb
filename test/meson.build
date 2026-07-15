@@ -67,6 +67,7 @@ srcfiles_unittest = files(
     'redfish-core/lib/metadata_test.cpp',
     'redfish-core/lib/metric_report_definition_test.cpp',
     'redfish-core/lib/network_adapter_test.cpp',
+    'redfish-core/lib/network_device_function_test.cpp',
     'redfish-core/lib/openbmc_managers_test.cpp',
     'redfish-core/lib/pcie_slots_test.cpp',
     'redfish-core/lib/pcie_test.cpp',
