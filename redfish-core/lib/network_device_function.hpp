@@ -24,6 +24,7 @@
 #include <memory>
 #include <string>
 #include <string_view>
+#include <variant>
 
 namespace redfish
 {
@@ -48,6 +49,13 @@ inline void afterGetNDFPortProtocol(
     {
         asyncResp->res.jsonValue["NetDevFuncType"] =
             network_device_function::NetworkDeviceTechnology::Ethernet;
+    }
+    else if (portProtocol ==
+             "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol."
+             "InfiniBand")
+    {
+        asyncResp->res.jsonValue["NetDevFuncType"] =
+            network_device_function::NetworkDeviceTechnology::InfiniBand;
     }
 }
 
@@ -107,22 +115,47 @@ inline void afterGetAssignablePort(
         "PortProtocol", std::bind_front(afterGetNDFPortProtocol, asyncResp));
 }
 
-inline void afterGetNDFMacAddress(
+inline void afterGetNDFInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec, const std::string& macAddress)
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
 {
     if (ec)
     {
         if (ec.value() != EBADR)
         {
-            BMCWEB_LOG_ERROR("D-Bus response error for MACAddress: {}",
+            BMCWEB_LOG_ERROR("D-Bus response error for NetworkInterface: {}",
                              ec.message());
             messages::internalError(asyncResp->res);
         }
         return;
     }
 
-    asyncResp->res.jsonValue["Ethernet"]["PermanentMACAddress"] = macAddress;
+    // A network interface exposes either the Ethernet MAC address or the
+    // InfiniBand GUIDs, so map whichever properties are present.
+    for (const auto& [propertyName, value] : properties)
+    {
+        const std::string* strValue = std::get_if<std::string>(&value);
+        if (strValue == nullptr)
+        {
+            continue;
+        }
+        if (propertyName == "MACAddress")
+        {
+            asyncResp->res.jsonValue["Ethernet"]["PermanentMACAddress"] =
+                *strValue;
+        }
+        else if (propertyName == "PermanentNodeGUID")
+        {
+            asyncResp->res.jsonValue["InfiniBand"]["PermanentNodeGUID"] =
+                *strValue;
+        }
+        else if (propertyName == "PermanentPortGUID")
+        {
+            asyncResp->res.jsonValue["InfiniBand"]["PermanentPortGUID"] =
+                *strValue;
+        }
+    }
 }
 
 inline void handleNDFFromPath(
@@ -140,10 +173,10 @@ inline void handleNDFFromPath(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} Network Device Function", ndfId);
 
-    dbus::utility::getProperty<std::string>(
+    dbus::utility::getAllProperties(
         serviceName, ndfPath,
-        "xyz.openbmc_project.Inventory.Item.NetworkInterface", "MACAddress",
-        std::bind_front(afterGetNDFMacAddress, asyncResp));
+        "xyz.openbmc_project.Inventory.Item.NetworkInterface",
+        std::bind_front(afterGetNDFInterface, asyncResp));
 
     const sdbusplus::object_path associationPath =
         sdbusplus::object_path(ndfPath) / "assigned_to";
