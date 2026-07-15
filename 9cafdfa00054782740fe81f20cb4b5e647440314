@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04ff6404_3f6ddda1",
+        "filename": "test/redfish-core/lib/fabric_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-15T05:31:32Z",
+      "side": 1,
+      "message": "The 2 consumers `afterGetSwitchPowerState()` and `afterGetSwitchPowerStateService()` take argument `const std::string\u0026` instead of `std::string_view`, and so I\u0027d rather keep this instead of moving to `constexpr const char*`.\n\nPlease tell me if you have any concerns.",
+      "parentUuid": "a07a6235_9376b0e1",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "9cafdfa00054782740fe81f20cb4b5e647440314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea533f72_46ec84a3",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-07-14T12:59:01Z",
       "side": 1,
       "message": "nit: Should we use a prior contains() guard here?",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 66
+      },
+      "revId": "9cafdfa00054782740fe81f20cb4b5e647440314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee0046c0_d68e9531",
+        "filename": "test/redfish-core/lib/fabric_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-15T05:31:32Z",
+      "side": 1,
+      "message": "Good point, I have modified this in PS3.\nThanks for acknowledging this.",
+      "parentUuid": "ea533f72_46ec84a3",
       "range": {
         "startLine": 100,
         "startChar": 8,
