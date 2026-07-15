@@ -9,9 +9,11 @@
 #include <boost/beast/http/status.hpp>
 #include <boost/url/url.hpp>
 
+#include <array>
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 
 #include <gtest/gtest.h>
 
@@ -19,6 +21,65 @@ namespace redfish
 {
 namespace
 {
+
+TEST(UpdateService, ParseUpdateParametersForceUpdate)
+{
+    {
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        std::optional<MultiPartUpdate::UpdateParameters> params =
+            processUpdateParameters(
+                asyncResp,
+                R"({"Targets": [], "@Redfish.OperationApplyTime": "OnReset", "ForceUpdate": true})");
+        ASSERT_TRUE(params);
+        if (!params)
+        {
+            return;
+        }
+        EXPECT_TRUE(params->forceUpdate);
+    }
+    {
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        std::optional<MultiPartUpdate::UpdateParameters> params =
+            processUpdateParameters(asyncResp, R"({"ForceUpdate": false})");
+        ASSERT_TRUE(params);
+        if (!params)
+        {
+            return;
+        }
+        EXPECT_FALSE(params->forceUpdate);
+    }
+    {
+        // ForceUpdate is optional
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        std::optional<MultiPartUpdate::UpdateParameters> params =
+            processUpdateParameters(asyncResp, R"({"Targets": []})");
+        ASSERT_TRUE(params);
+        if (!params)
+        {
+            return;
+        }
+        EXPECT_FALSE(params->forceUpdate);
+    }
+}
+
+TEST(UpdateService, RejectInvalidForceUpdateTypes)
+{
+    constexpr std::array<std::string_view, 5> invalidRequests = {
+        R"({"ForceUpdate": null})", R"({"ForceUpdate": 0})",
+        R"({"ForceUpdate": "yes"})", R"({"ForceUpdate": []})",
+        R"({"ForceUpdate": {}})"};
+
+    for (std::string_view request : invalidRequests)
+    {
+        SCOPED_TRACE(request);
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        std::optional<MultiPartUpdate::UpdateParameters> params =
+            processUpdateParameters(asyncResp, request);
+        EXPECT_FALSE(params);
+        EXPECT_EQ(asyncResp->res.result(),
+                  boost::beast::http::status::bad_request);
+    }
+}
 
 TEST(UpdateService, ParseHTTSPPostitive)
 {
