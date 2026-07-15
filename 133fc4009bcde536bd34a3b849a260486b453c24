@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9a548af_dd679efe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-15T13:30:26Z",
+      "side": 1,
+      "message": "Since the change is now using utility functions I think most of this commit message is not needed. Please reword for clarity to match the change.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "133fc4009bcde536bd34a3b849a260486b453c24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44708cb4_3d41c026",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-15T13:30:26Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think it is necessary to state this as part of the commit message.",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 8
+      },
+      "revId": "133fc4009bcde536bd34a3b849a260486b453c24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e2a336f_61ae339a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-15T13:30:26Z",
+      "side": 1,
+      "message": "Change looks good, just needs some updates to the commit message.",
+      "revId": "133fc4009bcde536bd34a3b849a260486b453c24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
