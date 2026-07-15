@@ -609,6 +609,9 @@ Fields common to all schemas
 - Ethernet
   - PermanentMACAddress
 - Id
+- InfiniBand
+  - PermanentNodeGUID
+  - PermanentPortGUID
 - Name
 - NetDevFuncType
 

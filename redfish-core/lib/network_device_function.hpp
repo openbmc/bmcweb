@@ -13,15 +13,18 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/association_utils.hpp"
 #include "utils/collection.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
 #include <cerrno>
 #include <format>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 
@@ -48,6 +51,13 @@ inline void afterGetNDFPortProtocol(
     {
         asyncResp->res.jsonValue["NetDevFuncType"] =
             network_device_function::NetworkDeviceTechnology::Ethernet;
+    }
+    else if (portProtocol ==
+             "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol."
+             "InfiniBand")
+    {
+        asyncResp->res.jsonValue["NetDevFuncType"] =
+            network_device_function::NetworkDeviceTechnology::InfiniBand;
     }
 }
 
@@ -125,6 +135,48 @@ inline void afterGetNDFMacAddress(
     asyncResp->res.jsonValue["Ethernet"]["PermanentMACAddress"] = macAddress;
 }
 
+inline void afterGetNDFInfiniBand(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("D-Bus response error for InfiniBand: {}",
+                             ec.message());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    std::optional<std::string> permanentNodeGuid;
+    std::optional<std::string> permanentPortGuid;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "PermanentNodeGUID",
+        permanentNodeGuid, "PermanentPortGUID", permanentPortGuid);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // An empty string is a GUID the port did not report.
+    if (permanentNodeGuid && !permanentNodeGuid->empty())
+    {
+        asyncResp->res.jsonValue["InfiniBand"]["PermanentNodeGUID"] =
+            *permanentNodeGuid;
+    }
+    if (permanentPortGuid && !permanentPortGuid->empty())
+    {
+        asyncResp->res.jsonValue["InfiniBand"]["PermanentPortGUID"] =
+            *permanentPortGuid;
+    }
+}
+
 inline void handleNDFFromPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
@@ -144,6 +196,11 @@ inline void handleNDFFromPath(
         serviceName, ndfPath,
         "xyz.openbmc_project.Inventory.Item.NetworkInterface", "MACAddress",
         std::bind_front(afterGetNDFMacAddress, asyncResp));
+
+    dbus::utility::getAllProperties(
+        serviceName, ndfPath,
+        "xyz.openbmc_project.Inventory.Item.NetworkInterface.InfiniBand",
+        std::bind_front(afterGetNDFInfiniBand, asyncResp));
 
     const sdbusplus::object_path associationPath =
         sdbusplus::object_path(ndfPath) / "assigned_to";
