@@ -20,6 +20,34 @@ namespace redfish
 namespace
 {
 
+TEST(UpdateService, ParseUpdateParametersForceUpdate)
+{
+    {
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        std::optional<MultiPartUpdate::UpdateParameters> params =
+            processUpdateParameters(
+                asyncResp,
+                R"({"Targets": [], "@Redfish.OperationApplyTime": "OnReset", "ForceUpdate": true})");
+        ASSERT_TRUE(params);
+        EXPECT_TRUE(params->forceUpdate.value_or(false));
+    }
+    {
+        // ForceUpdate is optional
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        std::optional<MultiPartUpdate::UpdateParameters> params =
+            processUpdateParameters(asyncResp, R"({"Targets": []})");
+        ASSERT_TRUE(params);
+        EXPECT_FALSE(params->forceUpdate.has_value());
+    }
+    {
+        // ForceUpdate must be a boolean
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        std::optional<MultiPartUpdate::UpdateParameters> params =
+            processUpdateParameters(asyncResp, R"({"ForceUpdate": "yes"})");
+        EXPECT_FALSE(params);
+    }
+}
+
 TEST(UpdateService, ParseHTTSPPostitive)
 {
     crow::Response res;
