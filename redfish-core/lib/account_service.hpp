@@ -145,10 +145,6 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
             accountTypes.emplace_back("Redfish");
             accountTypes.emplace_back("WebUI");
         }
-        else if (userGroup == "ipmi")
-        {
-            accountTypes.emplace_back("IPMI");
-        }
         else if (userGroup == "ssh")
         {
             accountTypes.emplace_back("ManagerConsole");
@@ -204,10 +200,6 @@ inline bool getUserGroupFromAccountType(
         else if (accountType == "WebUI")
         {
             webUIType = true;
-        }
-        else if (accountType == "IPMI")
-        {
-            userGroups.emplace_back("ipmi");
         }
         else if (accountType == "HostConsole")
         {
