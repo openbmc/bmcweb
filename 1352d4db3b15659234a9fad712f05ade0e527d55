@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faedf66a_f4f2fc63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-15T15:32:24Z",
+      "side": 1,
+      "message": "Thanks for your review @myungbae@us.ibm.com 👍",
+      "revId": "1352d4db3b15659234a9fad712f05ade0e527d55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
