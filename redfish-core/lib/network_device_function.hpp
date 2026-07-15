@@ -13,15 +13,18 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/association_utils.hpp"
 #include "utils/collection.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
 #include <cerrno>
 #include <format>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 
@@ -48,6 +51,13 @@ inline void afterGetNDFPortProtocol(
     {
         asyncResp->res.jsonValue["NetDevFuncType"] =
             network_device_function::NetworkDeviceTechnology::Ethernet;
+    }
+    else if (portProtocol ==
+             "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol."
+             "InfiniBand")
+    {
+        asyncResp->res.jsonValue["NetDevFuncType"] =
+            network_device_function::NetworkDeviceTechnology::InfiniBand;
     }
 }
 
@@ -107,22 +117,55 @@ inline void afterGetAssignablePort(
         "PortProtocol", std::bind_front(afterGetNDFPortProtocol, asyncResp));
 }
 
-inline void afterGetNDFMacAddress(
+inline void afterGetNDFInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec, const std::string& macAddress)
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
 {
     if (ec)
     {
         if (ec.value() != EBADR)
         {
-            BMCWEB_LOG_ERROR("D-Bus response error for MACAddress: {}",
+            BMCWEB_LOG_ERROR("D-Bus response error for NetworkInterface: {}",
                              ec.message());
             messages::internalError(asyncResp->res);
         }
         return;
     }
 
-    asyncResp->res.jsonValue["Ethernet"]["PermanentMACAddress"] = macAddress;
+    // A network interface exposes either the Ethernet MAC address or the
+    // InfiniBand GUIDs. The interface publishes all of these properties and
+    // leaves the ones that do not apply empty, so map only the non-empty ones.
+    std::optional<std::string> macAddress;
+    std::optional<std::string> permanentNodeGuid;
+    std::optional<std::string> permanentPortGuid;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "MACAddress", macAddress,
+        "PermanentNodeGUID", permanentNodeGuid, "PermanentPortGUID",
+        permanentPortGuid);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (macAddress && !macAddress->empty())
+    {
+        asyncResp->res.jsonValue["Ethernet"]["PermanentMACAddress"] =
+            *macAddress;
+    }
+    if (permanentNodeGuid && !permanentNodeGuid->empty())
+    {
+        asyncResp->res.jsonValue["InfiniBand"]["PermanentNodeGUID"] =
+            *permanentNodeGuid;
+    }
+    if (permanentPortGuid && !permanentPortGuid->empty())
+    {
+        asyncResp->res.jsonValue["InfiniBand"]["PermanentPortGUID"] =
+            *permanentPortGuid;
+    }
 }
 
 inline void handleNDFFromPath(
@@ -140,10 +183,10 @@ inline void handleNDFFromPath(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} Network Device Function", ndfId);
 
-    dbus::utility::getProperty<std::string>(
+    dbus::utility::getAllProperties(
         serviceName, ndfPath,
-        "xyz.openbmc_project.Inventory.Item.NetworkInterface", "MACAddress",
-        std::bind_front(afterGetNDFMacAddress, asyncResp));
+        "xyz.openbmc_project.Inventory.Item.NetworkInterface",
+        std::bind_front(afterGetNDFInterface, asyncResp));
 
     const sdbusplus::object_path associationPath =
         sdbusplus::object_path(ndfPath) / "assigned_to";
