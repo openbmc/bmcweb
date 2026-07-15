@@ -934,8 +934,15 @@ inline void mapPropertiesBySubnode(
                                         "/ReadingRangeMax"_json_pointer);
             }
         }
+        // ReadingAccuracy is the current standard property, always add it
         properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
-                                "Accuracy", "/Accuracy"_json_pointer);
+                                "Accuracy", "/ReadingAccuracy"_json_pointer);
+        // For backward compatibility, also add Accuracy if enabled
+        if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY)
+        {
+            properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
+                                    "Accuracy", "/Accuracy"_json_pointer);
+        }
     }
     else if (sensorType == "temperature")
     {
