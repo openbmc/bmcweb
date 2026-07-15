@@ -310,10 +310,13 @@ TEST(FillSensorIdentity, Success)
     bool result = false;
     bool isExcerpt = false;
     nlohmann::json::json_pointer unit;
+    std::optional<double> value;
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
 
     unit = "/Reading"_json_pointer;
     result = fillSensorIdentity("fan0_0", "fan_tach", properties, sensorJson,
-                                isExcerpt, unit);
+                                isExcerpt, unit, value, maxValue, minValue);
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
     EXPECT_EQ(sensorJson["Id"].get<std::string>(), "fantach_fan0_0");
@@ -341,7 +344,7 @@ TEST(FillSensorIdentity, Success)
     };
     sensorJson.clear();
     result = fillSensorIdentity("fan0_0", "fan_tach", properties, sensorJson,
-                                isExcerpt, unit);
+                                isExcerpt, unit, value, maxValue, minValue);
     EXPECT_TRUE(result);
     EXPECT_FALSE(sensorJson.contains("@odata.type"));
     EXPECT_FALSE(sensorJson.contains("Id"));
@@ -369,7 +372,7 @@ TEST(FillSensorIdentity, Success)
     };
     sensorJson.clear();
     result = fillSensorIdentity("power1_0", "power", properties, sensorJson,
-                                isExcerpt, unit);
+                                isExcerpt, unit, value, maxValue, minValue);
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
     EXPECT_EQ(sensorJson["Id"].get<std::string>(), "power_power1_0");
@@ -390,7 +393,7 @@ TEST(FillSensorIdentity, Success)
     };
     sensorJson.clear();
     result = fillSensorIdentity("temp2", "temperature", properties, sensorJson,
-                                isExcerpt, unit);
+                                isExcerpt, unit, value, maxValue, minValue);
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
     EXPECT_EQ(sensorJson["Id"].get<std::string>(), "temperature_temp2");
@@ -404,7 +407,7 @@ TEST(FillSensorIdentity, Success)
     sensorJson.clear();
     unit = "/Reading"_json_pointer;
     result = fillSensorIdentity("bbu_charge", "charge", properties, sensorJson,
-                                isExcerpt, unit);
+                                isExcerpt, unit, value, maxValue, minValue);
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
     EXPECT_EQ(sensorJson["Id"].get<std::string>(), "charge_bbu_charge");
@@ -423,9 +426,12 @@ TEST(FillSensorIdentity, Failure)
     nlohmann::json::json_pointer unit;
     bool result = false;
     bool isExcerpt = false;
+    std::optional<double> value;
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
 
     result = fillSensorIdentity("temp3", "temperature", properties, sensorJson,
-                                isExcerpt, unit);
+                                isExcerpt, unit, value, maxValue, minValue);
     EXPECT_FALSE(result);
 }
 
@@ -585,9 +591,12 @@ TEST(MapPropertiesBySubnode, Success)
          "/ReadingRangeMin"_json_pointer},
         {"xyz.openbmc_project.Sensor.Value", "MaxValue",
          "/ReadingRangeMax"_json_pointer},
-        {"xyz.openbmc_project.Sensor.Accuracy", "Accuracy",
-         "/Accuracy"_json_pointer},
     };
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY)
+    {
+        expectedProps.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
+                                   "Accuracy", "/Accuracy"_json_pointer);
+    }
     mapPropertiesBySubnode("power", ChassisSubNode::sensorsNode, properties,
                            unit, isExcerpt);
     EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
@@ -612,9 +621,12 @@ TEST(MapPropertiesBySubnode, Success)
              "HardShutdownHigh", "/Thresholds/UpperFatal/Reading"_json_pointer},
             {"xyz.openbmc_project.Sensor.Threshold.HardShutdown",
              "HardShutdownLow", "/Thresholds/LowerFatal/Reading"_json_pointer},
-            {"xyz.openbmc_project.Sensor.Accuracy", "Accuracy",
-             "/Accuracy"_json_pointer},
         };
+        if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY)
+        {
+            expectedProps.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
+                                       "Accuracy", "/Accuracy"_json_pointer);
+        }
     }
 
     isExcerpt = false;
@@ -664,6 +676,49 @@ TEST(MapPropertiesBySubnode, Success)
     mapPropertiesBySubnode("voltage", ChassisSubNode::powerNode, properties,
                            unit, isExcerpt);
     EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
+}
+
+TEST(ObjectPropertiesToJson, DerivesReadingAccuracyFromPercent)
+{
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Value", DbusVariantType(static_cast<double>(50))},
+        {"Accuracy", DbusVariantType(static_cast<double>(2))},
+    };
+    nlohmann::json sensorJson;
+
+    objectPropertiesToJson("temp0", "temperature", ChassisSubNode::sensorsNode,
+                           properties, sensorJson, nullptr);
+
+    EXPECT_EQ(sensorJson["Reading"], 50);
+    EXPECT_EQ(sensorJson["ReadingAccuracy"], 1.0);
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY)
+    {
+        EXPECT_EQ(sensorJson["Accuracy"], 2.0);
+    }
+    else
+    {
+        EXPECT_FALSE(sensorJson.contains("Accuracy"));
+    }
+}
+
+TEST(ObjectPropertiesToJson, SkipsReadingAccuracyWhenReadingUnavailable)
+{
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Value", DbusVariantType(NAN)},
+        {"Accuracy", DbusVariantType(static_cast<double>(2))},
+    };
+    nlohmann::json sensorJson;
+
+    objectPropertiesToJson("temp0", "temperature", ChassisSubNode::sensorsNode,
+                           properties, sensorJson, nullptr);
+
+    EXPECT_TRUE(sensorJson.contains("Reading"));
+    EXPECT_TRUE(sensorJson["Reading"].is_null());
+    EXPECT_FALSE(sensorJson.contains("ReadingAccuracy"));
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY)
+    {
+        EXPECT_EQ(sensorJson["Accuracy"], 2.0);
+    }
 }
 
 TEST(GetFanPercent, Success)

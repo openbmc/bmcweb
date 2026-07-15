@@ -582,6 +582,64 @@ inline void convertToFanPercent(
     }
 }
 
+inline void setReadingAccuracy(
+    nlohmann::json& sensorJson, std::string_view sensorName,
+    std::string_view sensorType, std::optional<double> value,
+    std::optional<double> maxValue, std::optional<double> minValue,
+    const dbus::utility::DBusPropertiesMap& propertiesDict)
+{
+    const double* accuracy = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesDict, "Accuracy", accuracy);
+    if (!success)
+    {
+        return;
+    }
+
+    if (accuracy == nullptr || !std::isfinite(*accuracy))
+    {
+        return;
+    }
+
+    if (!value.has_value() || !std::isfinite(*value))
+    {
+        BMCWEB_LOG_DEBUG(
+            "Skipping ReadingAccuracy because Reading is unavailable for {}",
+            sensorName);
+        return;
+    }
+
+    if constexpr (!BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+    {
+        if (sensorType == "fan_tach")
+        {
+            if (!maxValue.has_value() || !std::isfinite(*maxValue) ||
+                !minValue.has_value() || !std::isfinite(*minValue))
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Skipping ReadingAccuracy because min/max is unavailable for {}",
+                    sensorName);
+                return;
+            }
+            double range = *maxValue - *minValue;
+            if (range <= 0)
+            {
+                BMCWEB_LOG_ERROR("Bad min/max for {}", sensorName);
+                return;
+            }
+            // For percent-converted fans, convert RPM accuracy to percent:
+            // percentAccuracy = |value| * accuracy / 100 * 100 / range
+            //                 = |value| * accuracy / range
+            sensorJson["ReadingAccuracy"] =
+                std::abs(*value) * *accuracy / range;
+            return;
+        }
+    }
+
+    sensorJson["ReadingAccuracy"] = std::abs(*value) * *accuracy / 100.0;
+}
+
 inline sensor::ImplementationType dBusSensorImplementationToRedfish(
     const std::string& implementation)
 {
@@ -648,16 +706,14 @@ inline bool fillSensorIdentity(
     std::string_view sensorName, std::string_view sensorType,
     const dbus::utility::DBusPropertiesMap& propertiesDict,
     nlohmann::json& sensorJson, bool isExcerpt,
-    nlohmann::json::json_pointer& unit)
+    nlohmann::json::json_pointer& unit, std::optional<double>& value,
+    std::optional<double>& maxValue, std::optional<double>& minValue)
 {
     std::optional<std::string> readingBasis;
     std::optional<std::string> implementation;
     std::optional<std::string> physicalContext;
     std::optional<Statistics> statistics;
     std::optional<ReadingParameters> readingParameters;
-    std::optional<double> maxValue;
-    std::optional<double> minValue;
-    std::optional<double> value;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesDict, "ReadingBasis",
@@ -934,8 +990,13 @@ inline void mapPropertiesBySubnode(
                                         "/ReadingRangeMax"_json_pointer);
             }
         }
-        properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
-                                "Accuracy", "/Accuracy"_json_pointer);
+        // For backward compatibility with old sensors, optionally expose
+        // deprecated percentage-based Accuracy
+        if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY)
+        {
+            properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
+                                    "Accuracy", "/Accuracy"_json_pointer);
+        }
     }
     else if (sensorType == "temperature")
     {
@@ -982,10 +1043,15 @@ inline void objectPropertiesToJson(
     bool isExcerpt = isExcerptNode(chassisSubNode);
     bool filledOk = false;
 
+    std::optional<double> value;
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
+
     if (chassisSubNode == ChassisSubNode::sensorsNode || isExcerpt)
     {
         filledOk = fillSensorIdentity(sensorName, sensorType, propertiesDict,
-                                      sensorJson, isExcerpt, unit);
+                                      sensorJson, isExcerpt, unit, value,
+                                      maxValue, minValue);
     }
     else
     {
@@ -1057,6 +1123,7 @@ inline void objectPropertiesToJson(
 
                 continue;
             }
+
             if (forceToInt)
             {
                 sensorJson[key] = static_cast<int64_t>(*doubleValue);
@@ -1066,6 +1133,12 @@ inline void objectPropertiesToJson(
                 sensorJson[key] = *doubleValue;
             }
         }
+    }
+
+    if (chassisSubNode == ChassisSubNode::sensorsNode && !isExcerpt)
+    {
+        setReadingAccuracy(sensorJson, sensorName, sensorType, value, maxValue,
+                           minValue, propertiesDict);
     }
 }
 
