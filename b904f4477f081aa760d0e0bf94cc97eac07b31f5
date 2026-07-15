@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d98cece_43a79398",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-15T20:05:19Z",
+      "side": 1,
+      "message": "This is goign to throw a Redfish validator error. I don\u0027t see a location in, except under slot https://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_22_0.json \n\n                \"Location\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location\",\n                    \"description\": \"The location of the PCIe slot.\",\n                    \"longDescription\": \"This property shall contain part location information, including a `ServiceLabel` property, of the associated PCIe slot.\",\n                    \"versionAdded\": \"v1_9_0\"\n                },\n\n\nWhat you had in 51 was more correct",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 1
+      },
+      "revId": "b904f4477f081aa760d0e0bf94cc97eac07b31f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
