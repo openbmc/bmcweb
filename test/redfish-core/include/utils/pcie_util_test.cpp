@@ -325,6 +325,9 @@ TEST(PcieUtil, PortProtocolFromDbus)
             "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.PCIe"),
         protocol::Protocol::PCIe);
     EXPECT_EQ(dbusPortProtocolToRf("xyz.openbmc_project.Inventory.Connector."
+                                   "Port.PortProtocol.NVLink"),
+              protocol::Protocol::NVLink);
+    EXPECT_EQ(dbusPortProtocolToRf("xyz.openbmc_project.Inventory.Connector."
                                    "Port.PortProtocol.Unknown"),
               std::nullopt);
     EXPECT_EQ(dbusPortProtocolToRf("garbage"), protocol::Protocol::Invalid);
@@ -341,9 +344,108 @@ TEST(PcieUtil, PortTypeFromDbus)
             "xyz.openbmc_project.Inventory.Connector.Port.PortType.Downstream"),
         port::PortType::DownstreamPort);
     EXPECT_EQ(dbusPortTypeToRf("xyz.openbmc_project.Inventory.Connector.Port."
+                               "PortType.Bidirectional"),
+              port::PortType::BidirectionalPort);
+    EXPECT_EQ(dbusPortTypeToRf("xyz.openbmc_project.Inventory.Connector.Port."
                                "PortType.Unknown"),
               std::nullopt);
     EXPECT_EQ(dbusPortTypeToRf("garbage"), port::PortType::Invalid);
+}
+
+TEST(PcieUtil, PortLinkStateFromDbus)
+{
+    EXPECT_EQ(dbusPortLinkStateToRf("xyz.openbmc_project.Inventory.Connector."
+                                    "Port.LinkState.Enabled"),
+              port::LinkState::Enabled);
+    EXPECT_EQ(dbusPortLinkStateToRf("xyz.openbmc_project.Inventory.Connector."
+                                    "Port.LinkState.Disabled"),
+              port::LinkState::Disabled);
+    // There is no Redfish value standing for an unusable link state, so a
+    // state that is unknown and one that is not recognised are both left out.
+    EXPECT_EQ(dbusPortLinkStateToRf("xyz.openbmc_project.Inventory.Connector."
+                                    "Port.LinkState.Unknown"),
+              std::nullopt);
+    EXPECT_EQ(dbusPortLinkStateToRf("garbage"), std::nullopt);
+}
+
+TEST(PcieUtil, PortLinkStatusFromDbus)
+{
+    EXPECT_EQ(dbusPortLinkStatusToRf("xyz.openbmc_project.Inventory.Connector."
+                                     "Port.LinkStatus.LinkUp"),
+              port::LinkStatus::LinkUp);
+    EXPECT_EQ(dbusPortLinkStatusToRf("xyz.openbmc_project.Inventory.Connector."
+                                     "Port.LinkStatus.LinkDown"),
+              port::LinkStatus::LinkDown);
+    EXPECT_EQ(dbusPortLinkStatusToRf("xyz.openbmc_project.Inventory.Connector."
+                                     "Port.LinkStatus.NoLink"),
+              port::LinkStatus::NoLink);
+    EXPECT_EQ(dbusPortLinkStatusToRf("xyz.openbmc_project.Inventory.Connector."
+                                     "Port.LinkStatus.Starting"),
+              port::LinkStatus::Starting);
+    EXPECT_EQ(dbusPortLinkStatusToRf("xyz.openbmc_project.Inventory.Connector."
+                                     "Port.LinkStatus.Training"),
+              port::LinkStatus::Training);
+    // As with the link state, an unknown or unrecognised status is left out.
+    EXPECT_EQ(dbusPortLinkStatusToRf("xyz.openbmc_project.Inventory.Connector."
+                                     "Port.LinkStatus.Unknown"),
+              std::nullopt);
+    EXPECT_EQ(dbusPortLinkStatusToRf("garbage"), std::nullopt);
+}
+
+TEST(PcieUtil, PortPropertiesNVLink)
+{
+    auto resp = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"MaxSpeed", uint64_t{50000000000}},
+        {"PortType",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port.PortType."
+                     "Bidirectional")},
+        {"PortProtocol",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port."
+                     "PortProtocol.NVLink")},
+        {"LinkState",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port.LinkState."
+                     "Enabled")},
+        {"LinkStatus",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port.LinkStatus."
+                     "LinkDown")},
+    };
+
+    afterGetPortProperties(resp, ec, properties);
+
+    EXPECT_EQ(resp->res.result(), boost::beast::http::status::ok);
+    // D-Bus MaxSpeed 50e9 bits/s -> 50 Gbps (decimal).
+    EXPECT_EQ(resp->res.jsonValue["MaxSpeedGbps"], 50.0);
+    EXPECT_EQ(resp->res.jsonValue["PortType"],
+              port::PortType::BidirectionalPort);
+    EXPECT_EQ(resp->res.jsonValue["PortProtocol"], protocol::Protocol::NVLink);
+    EXPECT_EQ(resp->res.jsonValue["LinkState"], port::LinkState::Enabled);
+    EXPECT_EQ(resp->res.jsonValue["LinkStatus"], port::LinkStatus::LinkDown);
+}
+
+TEST(PcieUtil, PortPropertiesNVLinkLinkStateAndStatusOmitted)
+{
+    auto resp = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"PortProtocol",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port."
+                     "PortProtocol.NVLink")},
+        {"LinkState",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port.LinkState."
+                     "Unknown")},
+        {"LinkStatus", std::string("garbage")},
+    };
+
+    afterGetPortProperties(resp, ec, properties);
+
+    // Neither link value maps onto Redfish, so the port is still reported and
+    // only those two properties are left out.
+    EXPECT_EQ(resp->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(resp->res.jsonValue["PortProtocol"], protocol::Protocol::NVLink);
+    EXPECT_FALSE(resp->res.jsonValue.contains("LinkState"));
+    EXPECT_FALSE(resp->res.jsonValue.contains("LinkStatus"));
 }
 
 } // namespace
