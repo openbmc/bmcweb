@@ -11,6 +11,7 @@
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
+#include <algorithm>
 #include <array>
 #include <cerrno>
 #include <cmath>
@@ -62,36 +63,70 @@ inline void getMetricProperty(
         std::bind_front(populateMetricsProperty, asyncResp, jsonPtr));
 }
 
+// The tables below are looked up with a binary search, so each one has to
+// stay sorted by the D-Bus metric name it keys on.
+constexpr auto byMetricName =
+    &std::pair<std::string_view, std::string_view>::first;
+
 inline void getMappedMetricProperty(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& serviceName, const sdbusplus::object_path& objectPath,
     std::string_view metricName,
     std::span<const std::pair<std::string_view, std::string_view>> table)
 {
-    for (const auto& [name, pointer] : table)
+    const auto entry =
+        std::ranges::lower_bound(table, metricName, {}, byMetricName);
+    if (entry == table.end() || entry->first != metricName)
     {
-        if (name != metricName)
-        {
-            continue;
-        }
-        getMetricProperty(asyncResp, serviceName, objectPath,
-                          nlohmann::json::json_pointer(std::string(pointer)));
         return;
     }
+    getMetricProperty(asyncResp, serviceName, objectPath,
+                      nlohmann::json::json_pointer(std::string(entry->second)));
 }
 
-static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
-    pciePortMetrics = {{
+static constexpr auto nicPortMetrics =
+    std::to_array<std::pair<std::string_view, std::string_view>>({
+        {"rx_broadcast_frames", "/Networking/RXBroadcastFrames"},
+        {"rx_bytes", "/RXBytes"},
+        {"rx_errors", "/RXErrors"},
+        {"rx_false_carrier_errors", "/Networking/RXFalseCarrierErrors"},
+        {"rx_fcs_errors", "/Networking/RXFCSErrors"},
+        {"rx_frame_alignment_errors", "/Networking/RXFrameAlignmentErrors"},
+        {"rx_frames", "/Networking/RXFrames"},
+        {"rx_multicast_frames", "/Networking/RXMulticastFrames"},
+        {"rx_oversize_frames", "/Networking/RXOversizeFrames"},
+        {"rx_pause_xoff_frames", "/Networking/RXPauseXOFFFrames"},
+        {"rx_pause_xon_frames", "/Networking/RXPauseXONFrames"},
+        {"rx_undersize_frames", "/Networking/RXUndersizeFrames"},
+        {"rx_unicast_frames", "/Networking/RXUnicastFrames"},
+        {"tx_broadcast_frames", "/Networking/TXBroadcastFrames"},
+        {"tx_bytes", "/TXBytes"},
+        {"tx_discards", "/Networking/TXDiscards"},
+        {"tx_excessive_collisions", "/Networking/TXExcessiveCollisions"},
+        {"tx_frames", "/Networking/TXFrames"},
+        {"tx_late_collisions", "/Networking/TXLateCollisions"},
+        {"tx_multicast_frames", "/Networking/TXMulticastFrames"},
+        {"tx_multiple_collisions", "/Networking/TXMultipleCollisions"},
+        {"tx_pause_xoff_frames", "/Networking/TXPauseXOFFFrames"},
+        {"tx_pause_xon_frames", "/Networking/TXPauseXONFrames"},
+        {"tx_single_collisions", "/Networking/TXSingleCollisions"},
+        {"tx_unicast_frames", "/Networking/TXUnicastFrames"},
+    });
+static_assert(std::ranges::is_sorted(nicPortMetrics, {}, byMetricName));
+
+static constexpr auto pciePortMetrics =
+    std::to_array<std::pair<std::string_view, std::string_view>>({
         {"correctable_error_count", "/PCIeErrors/CorrectableErrorCount"},
-        {"non_fatal_error_count", "/PCIeErrors/NonFatalErrorCount"},
         {"fatal_error_count", "/PCIeErrors/FatalErrorCount"},
         {"l0_to_recovery_count", "/PCIeErrors/L0ToRecoveryCount"},
+        {"nak_received_count", "/PCIeErrors/NAKReceivedCount"},
+        {"nak_sent_count", "/PCIeErrors/NAKSentCount"},
+        {"non_fatal_error_count", "/PCIeErrors/NonFatalErrorCount"},
         {"replay_count", "/PCIeErrors/ReplayCount"},
         {"replay_rollover_count", "/PCIeErrors/ReplayRolloverCount"},
-        {"nak_sent_count", "/PCIeErrors/NAKSentCount"},
-        {"nak_received_count", "/PCIeErrors/NAKReceivedCount"},
         {"unsupported_request_count", "/PCIeErrors/UnsupportedRequestCount"},
-    }};
+    });
+static_assert(std::ranges::is_sorted(pciePortMetrics, {}, byMetricName));
 
 inline void afterGetPortMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -121,13 +156,16 @@ inline void afterGetPortMetrics(
         const std::string metricType = objectPath.parent_path().filename();
         const std::string metricName = objectPath.filename();
 
-        if (metricType != "pcie")
+        if (metricType == "nic")
         {
-            continue;
+            getMappedMetricProperty(asyncResp, service.begin()->first, path,
+                                    metricName, nicPortMetrics);
         }
-
-        getMappedMetricProperty(asyncResp, service.begin()->first, path,
-                                metricName, pciePortMetrics);
+        else if (metricType == "pcie")
+        {
+            getMappedMetricProperty(asyncResp, service.begin()->first, path,
+                                    metricName, pciePortMetrics);
+        }
     }
 }
 
