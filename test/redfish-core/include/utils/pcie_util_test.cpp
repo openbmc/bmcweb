@@ -262,5 +262,37 @@ TEST(PcieUtil, PortTypeFromDbus)
     EXPECT_EQ(dbusPortTypeToRf("garbage"), port::PortType::Invalid);
 }
 
+TEST(PcieUtil, PortPropertiesNVLink)
+{
+    auto resp = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"MaxSpeed", uint64_t{50000000000}},
+        {"PortType",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port.PortType."
+                     "Bidirectional")},
+        {"PortProtocol",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port."
+                     "PortProtocol.NVLink")},
+        {"LinkState",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port.LinkState."
+                     "Enabled")},
+        {"LinkStatus",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port.LinkStatus."
+                     "LinkDown")},
+    };
+
+    afterGetPortProperties(resp, ec, properties);
+
+    EXPECT_EQ(resp->res.result(), boost::beast::http::status::ok);
+    // D-Bus MaxSpeed 50e9 bits/s -> 50 Gbps (decimal).
+    EXPECT_EQ(resp->res.jsonValue["MaxSpeedGbps"], 50.0);
+    EXPECT_EQ(resp->res.jsonValue["PortType"],
+              port::PortType::BidirectionalPort);
+    EXPECT_EQ(resp->res.jsonValue["PortProtocol"], protocol::Protocol::NVLink);
+    EXPECT_EQ(resp->res.jsonValue["LinkState"], port::LinkState::Enabled);
+    EXPECT_EQ(resp->res.jsonValue["LinkStatus"], port::LinkStatus::LinkDown);
+}
+
 } // namespace
 } // namespace redfish::pcie_util
