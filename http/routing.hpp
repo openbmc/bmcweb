@@ -7,6 +7,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "privileges.hpp"
 #include "routing/baserule.hpp"
 #include "routing/dynamicrule.hpp"
 #include "routing/taggedrule.hpp"
@@ -300,6 +301,92 @@ class Router
     {
         FindRouteResponse foundRoute = findRoute(*req);
 
+        if (foundRoute.route.rule == nullptr && !foundRoute.allowHeader.empty())
+        {
+            // A different verb is registered here, but per DSP0266 7.5.3,
+            // 405 is only correct if the resource exists; otherwise it's
+            // 404.  Probe the GET route (safe: no side effects) to decide,
+            // falling back to the nearest ancestor's GET if this exact URL
+            // has none of its own.
+            FindRoute getRoute =
+                findGetRouteForNearestAncestor(req->url().encoded_path());
+            if (getRoute.rule != nullptr &&
+                callerMayProbeExistence(req, *getRoute.rule))
+            {
+                probeExistenceThenFinish(req, asyncResp, *getRoute.rule,
+                                         getRoute.params,
+                                         foundRoute.allowHeader);
+                return;
+            }
+        }
+
+        finishHandle(req, asyncResp, foundRoute);
+    }
+
+  private:
+    // Only probe existence for callers who could legitimately GET this
+    // resource themselves.  Some GET handlers (e.g. ManagerAccount) return
+    // 403 for reasons unrelated to existence, which would otherwise leak
+    // existence via 404-vs-405 to unprivileged callers (DSP0266 13.2
+    // enumeration risk).  Callers who don't qualify just get the plain
+    // 404/405 catch-all, as before this probe existed.
+    static bool callerMayProbeExistence(const std::shared_ptr<Request>& req,
+                                        BaseRule& getRule)
+    {
+        if (req->session == nullptr)
+        {
+            return false;
+        }
+        redfish::Privileges userPrivileges =
+            redfish::getUserPrivileges(*req->session);
+        if (req->session->isConfigureSelfOnly)
+        {
+            userPrivileges = userPrivileges.intersection(
+                redfish::Privileges{"ConfigureSelf"});
+        }
+        return getRule.checkPrivileges(userPrivileges);
+    }
+
+    // Finds the GET rule for this exact URL, or walks up the path to the
+    // nearest ancestor that has one (e.g. for POST-only Action targets) —
+    // a sub-resource can only exist if its parent does.
+    FindRoute findGetRouteForNearestAncestor(std::string_view path) const
+    {
+        while (true)
+        {
+            FindRoute route = findRouteByPerMethod(
+                path, perMethods[static_cast<size_t>(HttpVerb::Get)]);
+            if (route.rule != nullptr)
+            {
+                return route;
+            }
+            if (path.size() <= 1)
+            {
+                return {};
+            }
+            // Drop the trailing slash (if any), then the last path segment,
+            // leaving the parent's trailing slash intact so it matches
+            // routes registered as ".../parent/".
+            std::string_view trimmed = path;
+            if (trimmed.back() == '/')
+            {
+                trimmed.remove_suffix(1);
+            }
+            size_t slash = trimmed.find_last_of('/');
+            if (slash == std::string_view::npos)
+            {
+                return {};
+            }
+            path = path.substr(0, slash + 1);
+        }
+    }
+
+    // Completes routing with the chosen catch-all; shared by the direct
+    // dispatch path and the existence-probe callback below.
+    void finishHandle(const std::shared_ptr<Request>& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      FindRouteResponse& foundRoute)
+    {
         if (foundRoute.route.rule == nullptr)
         {
             // Couldn't find a normal route with any verb, try looking for a 404
@@ -358,6 +445,33 @@ class Router
             });
     }
 
+    // Probes the GET handler to disambiguate 404 vs 405.  Only its status
+    // code is used, never the body, to pick the right catch-all.  Only
+    // called for callers that already passed callerMayProbeExistence().
+    void probeExistenceThenFinish(
+        const std::shared_ptr<Request>& req,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, BaseRule& getRule,
+        const std::vector<std::string>& getParams, std::string allowHeader)
+    {
+        auto probeResp = std::make_shared<bmcweb::AsyncResp>();
+        probeResp->res.setCompleteRequestHandler(
+            [this, req, asyncResp, allowHeader = std::move(allowHeader)](
+                crow::Response& probeResult) {
+                FindRouteResponse followUp;
+                followUp.allowHeader =
+                    probeResult.result() ==
+                            boost::beast::http::status::not_found
+                        ? ""
+                        : allowHeader;
+                finishHandle(req, asyncResp, followUp);
+            });
+        // Bypasses the GET handler's own privilege check; safe since the
+        // caller already passed callerMayProbeExistence() above, and only
+        // the status code (never the body) is used.
+        getRule.handle(*req, probeResp, getParams);
+    }
+
+  public:
     void debugPrint()
     {
         for (size_t i = 0; i < perMethods.size(); i++)
