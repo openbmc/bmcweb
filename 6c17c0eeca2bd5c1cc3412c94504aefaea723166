@@ -88,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "220c92c3_12251c35",
+        "filename": "meson.options",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-16T06:23:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5ba3ccdb_1e503b5e",
+      "range": {
+        "startLine": 354,
+        "startChar": 5,
+        "endLine": 354,
+        "endChar": 21
+      },
+      "revId": "6c17c0eeca2bd5c1cc3412c94504aefaea723166",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b23ab0e6_115f2855",
@@ -101,6 +125,30 @@
       "writtenOn": "2026-07-15T19:32:14Z",
       "side": 1,
       "message": "This date has already passed.",
+      "range": {
+        "startLine": 361,
+        "startChar": 36,
+        "endLine": 361,
+        "endChar": 54
+      },
+      "revId": "6c17c0eeca2bd5c1cc3412c94504aefaea723166",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91091313_713ce10c",
+        "filename": "meson.options",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-16T06:23:46Z",
+      "side": 1,
+      "message": "Done, thanks for reviewing.",
+      "parentUuid": "b23ab0e6_115f2855",
       "range": {
         "startLine": 361,
         "startChar": 36,
