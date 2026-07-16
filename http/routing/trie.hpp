@@ -180,17 +180,6 @@ class Trie
             }
         }
 
-        if (node.pathParamChild != 0U)
-        {
-            params.emplace_back(reqUrl);
-            FindResult ret = findHelper("", nodes[node.pathParamChild], params);
-            if (ret.ruleIndex != 0U)
-            {
-                return {ret.ruleIndex, std::move(ret.params)};
-            }
-            params.pop_back();
-        }
-
         for (const typename ContainedType::ChildMap::value_type& kv :
              node.children)
         {
@@ -206,6 +195,17 @@ class Trie
                     return {ret.ruleIndex, std::move(ret.params)};
                 }
             }
+        }
+
+        if (node.pathParamChild != 0U)
+        {
+            params.emplace_back(reqUrl);
+            FindResult ret = findHelper("", nodes[node.pathParamChild], params);
+            if (ret.ruleIndex != 0U)
+            {
+                return {ret.ruleIndex, std::move(ret.params)};
+            }
+            params.pop_back();
         }
 
         return {0U, std::vector<std::string>()};
