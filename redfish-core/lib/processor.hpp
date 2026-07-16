@@ -1354,12 +1354,16 @@ inline void afterGetPortProperties(
 
     const size_t* width = nullptr;
     const uint64_t* speed = nullptr;
+    const uint64_t* maxSpeed = nullptr;
     const std::string* portType = nullptr;
     const std::string* portProtocol = nullptr;
+    const std::string* linkState = nullptr;
+    const std::string* linkStatus = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "Width", width, "Speed",
-        speed, "PortType", portType, "PortProtocol", portProtocol);
+        speed, "MaxSpeed", maxSpeed, "PortType", portType, "PortProtocol",
+        portProtocol, "LinkState", linkState, "LinkStatus", linkStatus);
 
     if (!success)
     {
@@ -1379,6 +1383,14 @@ inline void afterGetPortProperties(
         static constexpr int gbpsToBps = 1 << 30;
         asyncResp->res.jsonValue["CurrentSpeedGbps"] =
             static_cast<double>(*speed) / gbpsToBps;
+    }
+
+    if (maxSpeed != nullptr && *maxSpeed != 0 &&
+        *maxSpeed != std::numeric_limits<uint64_t>::max())
+    {
+        static constexpr int gbpsToBps = 1 << 30;
+        asyncResp->res.jsonValue["MaxSpeedGbps"] =
+            static_cast<double>(*maxSpeed) / gbpsToBps;
     }
 
     if (portType != nullptr)
@@ -1419,6 +1431,34 @@ inline void afterGetPortProperties(
                 return;
             }
             asyncResp->res.jsonValue["PortProtocol"] = *protocolEnum;
+        }
+    }
+
+    if (linkState != nullptr)
+    {
+        std::optional<port::LinkState> linkStateEnum =
+            pcie_util::dbusPortLinkStateToRf(*linkState);
+        if (!linkStateEnum)
+        {
+            BMCWEB_LOG_WARNING("Unknown Port LinkState: {}", *linkState);
+        }
+        else
+        {
+            asyncResp->res.jsonValue["LinkState"] = *linkStateEnum;
+        }
+    }
+
+    if (linkStatus != nullptr)
+    {
+        std::optional<port::LinkStatus> linkStatusEnum =
+            pcie_util::dbusPortLinkStatusToRf(*linkStatus);
+        if (!linkStatusEnum)
+        {
+            BMCWEB_LOG_WARNING("Unknown Port LinkStatus: {}", *linkStatus);
+        }
+        else
+        {
+            asyncResp->res.jsonValue["LinkStatus"] = *linkStatusEnum;
         }
     }
 }
