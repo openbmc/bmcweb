@@ -80,6 +80,35 @@ inline void getMappedMetricProperty(
     }
 }
 
+static constexpr std::array<std::pair<std::string_view, std::string_view>, 25>
+    nicPortMetrics = {{
+        {"rx_bytes", "/RXBytes"},
+        {"tx_bytes", "/TXBytes"},
+        {"rx_errors", "/RXErrors"},
+        {"rx_frames", "/Networking/RXFrames"},
+        {"tx_frames", "/Networking/TXFrames"},
+        {"tx_discards", "/Networking/TXDiscards"},
+        {"rx_multicast_frames", "/Networking/RXMulticastFrames"},
+        {"tx_multicast_frames", "/Networking/TXMulticastFrames"},
+        {"rx_broadcast_frames", "/Networking/RXBroadcastFrames"},
+        {"tx_broadcast_frames", "/Networking/TXBroadcastFrames"},
+        {"rx_unicast_frames", "/Networking/RXUnicastFrames"},
+        {"tx_unicast_frames", "/Networking/TXUnicastFrames"},
+        {"rx_fcs_errors", "/Networking/RXFCSErrors"},
+        {"rx_frame_alignment_errors", "/Networking/RXFrameAlignmentErrors"},
+        {"rx_false_carrier_errors", "/Networking/RXFalseCarrierErrors"},
+        {"rx_undersize_frames", "/Networking/RXUndersizeFrames"},
+        {"rx_oversize_frames", "/Networking/RXOversizeFrames"},
+        {"rx_pause_xon_frames", "/Networking/RXPauseXONFrames"},
+        {"rx_pause_xoff_frames", "/Networking/RXPauseXOFFFrames"},
+        {"tx_pause_xon_frames", "/Networking/TXPauseXONFrames"},
+        {"tx_pause_xoff_frames", "/Networking/TXPauseXOFFFrames"},
+        {"tx_single_collisions", "/Networking/TXSingleCollisions"},
+        {"tx_multiple_collisions", "/Networking/TXMultipleCollisions"},
+        {"tx_late_collisions", "/Networking/TXLateCollisions"},
+        {"tx_excessive_collisions", "/Networking/TXExcessiveCollisions"},
+    }};
+
 static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
     pciePortMetrics = {{
         {"correctable_error_count", "/PCIeErrors/CorrectableErrorCount"},
@@ -121,13 +150,16 @@ inline void afterGetPortMetrics(
         const std::string metricType = objectPath.parent_path().filename();
         const std::string metricName = objectPath.filename();
 
-        if (metricType != "pcie")
+        if (metricType == "nic")
         {
-            continue;
+            getMappedMetricProperty(asyncResp, service.begin()->first, path,
+                                    metricName, nicPortMetrics);
         }
-
-        getMappedMetricProperty(asyncResp, service.begin()->first, path,
-                                metricName, pciePortMetrics);
+        else if (metricType == "pcie")
+        {
+            getMappedMetricProperty(asyncResp, service.begin()->first, path,
+                                    metricName, pciePortMetrics);
+        }
     }
 }
 
