@@ -1194,6 +1194,9 @@ functions the same like the default implementation under the System resource.
 #### Port
 
 - CurrentSpeedGbps
+- LinkState
+- LinkStatus
+- MaxSpeedGbps
 - Metrics
 - PortProtocol
 - PortType
@@ -1437,7 +1440,9 @@ functions the same like the default implementation under the System resource.
 - @odata.type
 - CurrentSpeedGbps
 - Id
+- LinkState
 - LinkStatus
+- MaxSpeedGbps
 - Metrics
 - Name
 - PortProtocol
