@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "108df6bf_d015d368",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 54
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-16T13:20:58Z",
+      "side": 1,
+      "message": "Right. Location would need to be the PICeDevice of PCIeSlot.\nI meant to approve the previous version of the code which uses PCIeSlot",
+      "revId": "b904f4477f081aa760d0e0bf94cc97eac07b31f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d98cece_43a79398",
