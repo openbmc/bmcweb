@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c965f6e4_36580efa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2026-07-16T18:27:13Z",
+      "side": 1,
+      "message": "\u003e For all other operations\n\nSo, this refers to all other operations in the same session on any redfish endpoints returns `403 forbidden`. I have tested this as well.\n\n\u003e Update the commit message to be correct \n\nDone",
+      "parentUuid": "af7b8b5d_ca17bf05",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "d61e82e6ef2c3dfedd6ee009a562b1fe906aee23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07dcb10e_a8ff587d",
