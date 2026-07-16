@@ -2429,6 +2429,62 @@ inline void handleAccountPatch(
         *newUserName);
 }
 
+// Per DSP0266 Section 7.5, a request that targets a non-existent resource
+// must return 404, not 405, regardless of the HTTP method used.  This handler
+// is invoked for any method that is not explicitly registered on
+// /redfish/v1/AccountService/Accounts/<str>/ and checks whether the account
+// actually exists before deciding between 404 and 405.
+inline void handleAccountMethodNotAllowed(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& accountName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                   accountName);
+        return;
+    }
+
+    sdbusplus::object_path path("/xyz/openbmc_project/user");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.User.Manager", path,
+        [asyncResp,
+         accountName](const boost::system::error_code& ec,
+                      const dbus::utility::ManagedObjectType& users) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const auto userIt = std::ranges::find_if(
+                users,
+                [&accountName](
+                    const std::pair<sdbusplus::object_path,
+                                    dbus::utility::DBusInterfacesMap>& user) {
+                    return accountName == user.first.filename();
+                });
+
+            if (userIt == users.end())
+            {
+                messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                           accountName);
+                return;
+            }
+
+            asyncResp->res.result(
+                boost::beast::http::status::method_not_allowed);
+            messages::operationNotAllowed(asyncResp->res);
+        });
+}
+
 inline void requestAccountServiceRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
@@ -2511,6 +2567,11 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges(redfish::privileges::deleteManagerAccount)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleAccountDelete, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
+        .privileges(redfish::privileges::privilegeSetConfigureUsers)
+        .methodNotAllowed()(
+            std::bind_front(handleAccountMethodNotAllowed, std::ref(app)));
 }
 
 } // namespace redfish
