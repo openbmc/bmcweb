@@ -192,6 +192,11 @@ inline std::optional<protocol::Protocol> dbusPortProtocolToRf(
         return protocol::Protocol::PCIe;
     }
     if (portProtocol ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.NVLink")
+    {
+        return protocol::Protocol::NVLink;
+    }
+    if (portProtocol ==
         "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.Unknown")
     {
         return std::nullopt;
@@ -213,11 +218,65 @@ inline std::optional<port::PortType> dbusPortTypeToRf(
         return port::PortType::DownstreamPort;
     }
     if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Bidirectional")
+    {
+        return port::PortType::BidirectionalPort;
+    }
+    if (portType ==
         "xyz.openbmc_project.Inventory.Connector.Port.PortType.Unknown")
     {
         return std::nullopt;
     }
     return port::PortType::Invalid;
+}
+
+inline std::optional<port::LinkState> dbusPortLinkStateToRf(
+    const std::string& linkState)
+{
+    if (linkState ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Enabled")
+    {
+        return port::LinkState::Enabled;
+    }
+    if (linkState ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Disabled")
+    {
+        return port::LinkState::Disabled;
+    }
+    // Unknown / anything else: omit the property
+    return std::nullopt;
+}
+
+inline std::optional<port::LinkStatus> dbusPortLinkStatusToRf(
+    const std::string& linkStatus)
+{
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.LinkUp")
+    {
+        return port::LinkStatus::LinkUp;
+    }
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.LinkDown")
+    {
+        return port::LinkStatus::LinkDown;
+    }
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.NoLink")
+    {
+        return port::LinkStatus::NoLink;
+    }
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.Starting")
+    {
+        return port::LinkStatus::Starting;
+    }
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.Training")
+    {
+        return port::LinkStatus::Training;
+    }
+    // Unknown / anything else: omit the property
+    return std::nullopt;
 }
 
 } // namespace pcie_util
