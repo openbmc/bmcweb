@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08d3ecd5_f5538d54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 54
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-16T13:16:54Z",
+      "side": 1,
+      "message": "Reading the spec and code again (after Gunnar\u0027s comment), I agree that Location comes from PCIeSlot service",
+      "revId": "b904f4477f081aa760d0e0bf94cc97eac07b31f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d98cece_43a79398",
@@ -38,6 +55,30 @@
       "side": 1,
       "message": "Isn\u0027t DMTF specification about the content and its meaning of it, not necessarily about how/which service should have it from the implementation?\n\nIf PCIeDevice service has the information, wouldn\u0027t it imply that the service (which is handling the pcie device) already obtains the correct Location (from its associated PCIeSlot)?\n\nOr, even if the hosting PCIeDevice service has its DBUS Location information, should we ignore it, but look for the PCIeSlot service?",
       "parentUuid": "5d98cece_43a79398",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 1
+      },
+      "revId": "b904f4477f081aa760d0e0bf94cc97eac07b31f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be629996_233d672e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-16T13:16:54Z",
+      "side": 1,
+      "message": "I would take back my comment.\n\"Location\" is under \"Slot\" section which implies that the information would be coming from PCIeSlot.\n\nhttps://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_22_0.json\n```\n     \"Slot\": {\n...\n                \"Location\": {\n                },\n```",
+      "parentUuid": "22f57f28_9c16fdad",
       "range": {
         "startLine": 354,
         "startChar": 0,
