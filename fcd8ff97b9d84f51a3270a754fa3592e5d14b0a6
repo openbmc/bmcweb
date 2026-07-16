@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a82fec9f_547eb5c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-16T05:49:39Z",
+      "side": 1,
+      "message": "Thank you for the review. You are correct — as per DSP0266 Seciton 7.5.2, a successful PATCH with no response body should return HTTP 204 No Content instead of HTTP 200. Updated messages::success() to asyncResp-\u003eres.result(boost::beast::http::status::no_content) in the EventService PATCH handler.\n\nDone",
+      "parentUuid": "a798cadf_705c246d",
+      "revId": "fcd8ff97b9d84f51a3270a754fa3592e5d14b0a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "36699354_48e5de16",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -49,6 +67,24 @@
       "writtenOn": "2026-07-14T14:03:47Z",
       "side": 1,
       "message": "This looks good to me.",
+      "revId": "fcd8ff97b9d84f51a3270a754fa3592e5d14b0a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d8a8210_db4a5a06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-16T05:49:39Z",
+      "side": 1,
+      "message": "@joelpj@ami.com, i have updated the code changes, can you please review it now",
+      "parentUuid": "36699354_48e5de16",
       "revId": "fcd8ff97b9d84f51a3270a754fa3592e5d14b0a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -66,6 +102,30 @@
       "writtenOn": "2026-07-14T14:03:17Z",
       "side": 1,
       "message": "nit: Pre-existing wrong Redfish message type for request-body property validation — `queryParameterOutOfRange` is being used instead of `propertyValueOutOfRange`.",
+      "range": {
+        "startLine": 152,
+        "startChar": 34,
+        "endLine": 152,
+        "endChar": 58
+      },
+      "revId": "fcd8ff97b9d84f51a3270a754fa3592e5d14b0a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a90a8a99_cbe80044",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-16T05:49:39Z",
+      "side": 1,
+      "message": "Fixed in the latest patchset. Updated the message type from queryParameterOutOfRange to propertyValueOutOfRange for request-body property validation.\nDone",
+      "parentUuid": "bece7d2e_f335fc29",
       "range": {
         "startLine": 152,
         "startChar": 34,
@@ -104,6 +164,24 @@
         "id": 1000020
       },
       "writtenOn": "2026-07-15T20:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd208ab0_88a74aab",
+      "revId": "fcd8ff97b9d84f51a3270a754fa3592e5d14b0a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "745e4697_3880d304",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-16T05:49:39Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "fd208ab0_88a74aab",
