@@ -82,12 +82,47 @@ inline void afterGetPortPCIeMetrics(
         const std::string metricType = objectPath.parent_path().filename();
         const std::string metricName = objectPath.filename();
 
+        const auto& serviceName = service.begin()->first;
+
+        if (metricType == "nvlink")
+        {
+            if (metricName == "rx_bytes")
+            {
+                getMetricProperty(asyncResp, serviceName, path,
+                                  "/RXBytes"_json_pointer);
+            }
+            else if (metricName == "tx_bytes")
+            {
+                getMetricProperty(asyncResp, serviceName, path,
+                                  "/TXBytes"_json_pointer);
+            }
+            else if (metricName == "rx_errors")
+            {
+                getMetricProperty(asyncResp, serviceName, path,
+                                  "/RXErrors"_json_pointer);
+            }
+            else if (metricName == "rx_frames")
+            {
+                getMetricProperty(asyncResp, serviceName, path,
+                                  "/Networking/RXFrames"_json_pointer);
+            }
+            else if (metricName == "tx_frames")
+            {
+                getMetricProperty(asyncResp, serviceName, path,
+                                  "/Networking/TXFrames"_json_pointer);
+            }
+            else if (metricName == "tx_discards")
+            {
+                getMetricProperty(asyncResp, serviceName, path,
+                                  "/Networking/TXDiscards"_json_pointer);
+            }
+            continue;
+        }
+
         if (metricType != "pcie")
         {
             continue;
         }
-
-        const auto& serviceName = service.begin()->first;
 
         if (metricName == "correctable_error_count")
         {
