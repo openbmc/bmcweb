@@ -2317,7 +2317,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::patchEthernetInterface)
+        .privileges(
+            redfish::privileges::
+                patchEthernetInterfaceSubOverManagerEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::patch)(
             // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
@@ -2494,7 +2496,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::deleteEthernetInterface)
+        .privileges(
+            redfish::privileges::
+                deleteEthernetInterfaceSubOverManagerEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::delete_)(
             // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
