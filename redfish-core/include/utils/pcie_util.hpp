@@ -303,6 +303,11 @@ inline std::optional<protocol::Protocol> dbusPortProtocolToRf(
         return protocol::Protocol::PCIe;
     }
     if (portProtocol ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.NVLink")
+    {
+        return protocol::Protocol::NVLink;
+    }
+    if (portProtocol ==
         "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.Unknown")
     {
         return std::nullopt;
@@ -324,11 +329,33 @@ inline std::optional<port::PortType> dbusPortTypeToRf(
         return port::PortType::DownstreamPort;
     }
     if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Bidirectional")
+    {
+        return port::PortType::BidirectionalPort;
+    }
+    if (portType ==
         "xyz.openbmc_project.Inventory.Connector.Port.PortType.Unknown")
     {
         return std::nullopt;
     }
     return port::PortType::Invalid;
+}
+
+inline std::optional<port::LinkState> dbusPortLinkStateToRf(
+    const std::string& linkState)
+{
+    if (linkState ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Enabled")
+    {
+        return port::LinkState::Enabled;
+    }
+    if (linkState ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Disabled")
+    {
+        return port::LinkState::Disabled;
+    }
+    // Unknown / anything else: omit the property
+    return std::nullopt;
 }
 
 inline std::optional<port::LinkStatus> dbusPortLinkStatusToRf(
@@ -384,14 +411,16 @@ inline void afterGetPortProperties(
 
     const size_t* width = nullptr;
     const uint64_t* speed = nullptr;
+    const uint64_t* maxSpeed = nullptr;
     const std::string* portType = nullptr;
     const std::string* portProtocol = nullptr;
+    const std::string* linkState = nullptr;
     const std::string* linkStatus = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "Width", width, "Speed",
-        speed, "PortType", portType, "PortProtocol", portProtocol, "LinkStatus",
-        linkStatus);
+        speed, "MaxSpeed", maxSpeed, "PortType", portType, "PortProtocol",
+        portProtocol, "LinkState", linkState, "LinkStatus", linkStatus);
 
     if (!success)
     {
@@ -412,6 +441,15 @@ inline void afterGetPortProperties(
         static constexpr double bitsPerGbit = 1e9;
         asyncResp->res.jsonValue["CurrentSpeedGbps"] =
             static_cast<double>(*speed) / bitsPerGbit;
+    }
+
+    if (maxSpeed != nullptr && *maxSpeed != 0 &&
+        *maxSpeed != std::numeric_limits<uint64_t>::max())
+    {
+        // D-Bus MaxSpeed is bits/s; Gbps is decimal (1 Gbit = 1e9 bits)
+        static constexpr double bitsPerGbit = 1e9;
+        asyncResp->res.jsonValue["MaxSpeedGbps"] =
+            static_cast<double>(*maxSpeed) / bitsPerGbit;
     }
 
     if (portType != nullptr)
@@ -452,6 +490,20 @@ inline void afterGetPortProperties(
                 return;
             }
             asyncResp->res.jsonValue["PortProtocol"] = *protocolEnum;
+        }
+    }
+
+    if (linkState != nullptr)
+    {
+        std::optional<port::LinkState> linkStateEnum =
+            dbusPortLinkStateToRf(*linkState);
+        if (!linkStateEnum)
+        {
+            BMCWEB_LOG_WARNING("Unknown Port LinkState: {}", *linkState);
+        }
+        else
+        {
+            asyncResp->res.jsonValue["LinkState"] = *linkStateEnum;
         }
     }
 
