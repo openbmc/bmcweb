@@ -1200,6 +1200,10 @@ functions the same like the default implementation under the System resource.
 
 #### PortMetrics
 
+- Networking
+  - RXFrames
+  - TXDiscards
+  - TXFrames
 - PCIeErrors
   - CorrectableErrorCount
   - FatalErrorCount
@@ -1210,6 +1214,9 @@ functions the same like the default implementation under the System resource.
   - ReplayCount
   - ReplayRolloverCount
   - UnsupportedRequestCount
+- RXBytes
+- RXErrors
+- TXBytes
 
 ### /redfish/v1/Systems/system/Processors/{ProcessorId}/SubProcessors
 
@@ -1452,6 +1459,10 @@ functions the same like the default implementation under the System resource.
 - @odata.type
 - Id
 - Name
+- Networking
+  - RXFrames
+  - TXDiscards
+  - TXFrames
 - PCIeErrors
   - CorrectableErrorCount
   - NonFatalErrorCount
@@ -1462,6 +1473,9 @@ functions the same like the default implementation under the System resource.
   - NAKSentCount
   - NAKReceivedCount
   - UnsupportedRequestCount
+- RXBytes
+- RXErrors
+- TXBytes
 
 [1]: https://www.dmtf.org/standards/redfish
 [2]: https://github.com/DMTF/Redfish-Service-Validator
