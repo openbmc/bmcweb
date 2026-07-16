@@ -80,6 +80,16 @@ inline void getMappedMetricProperty(
     }
 }
 
+static constexpr std::array<std::pair<std::string_view, std::string_view>, 6>
+    nvlinkPortMetrics = {{
+        {"rx_bytes", "/RXBytes"},
+        {"tx_bytes", "/TXBytes"},
+        {"rx_errors", "/RXErrors"},
+        {"rx_frames", "/Networking/RXFrames"},
+        {"tx_frames", "/Networking/TXFrames"},
+        {"tx_discards", "/Networking/TXDiscards"},
+    }};
+
 static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
     pciePortMetrics = {{
         {"correctable_error_count", "/PCIeErrors/CorrectableErrorCount"},
@@ -120,6 +130,13 @@ inline void afterGetPortPCIeMetrics(
         sdbusplus::object_path objectPath(path);
         const std::string metricType = objectPath.parent_path().filename();
         const std::string metricName = objectPath.filename();
+
+        if (metricType == "nvlink")
+        {
+            getMappedMetricProperty(asyncResp, service.begin()->first, path,
+                                    metricName, nvlinkPortMetrics);
+            continue;
+        }
 
         if (metricType != "pcie")
         {
