@@ -2429,6 +2429,11 @@ inline void handleAccountPatch(
         *newUserName);
 }
 
+// Note: 404-vs-405 disambiguation for non-existent accounts (per DSP0266
+// 7.5.3) is now handled generically by crow::Router, which probes the GET
+// route registered below to determine resource existence before falling
+// back to a plain 405.  No resource-specific handler is needed here.
+
 inline void requestAccountServiceRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
