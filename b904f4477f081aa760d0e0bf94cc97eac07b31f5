@@ -22,6 +22,30 @@
       },
       "revId": "b904f4477f081aa760d0e0bf94cc97eac07b31f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22f57f28_9c16fdad",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-16T12:24:15Z",
+      "side": 1,
+      "message": "Isn\u0027t DMTF specification about the content and its meaning of it, not necessarily about how/which service should have it from the implementation?\n\nIf PCIeDevice service has the information, wouldn\u0027t it imply that the service (which is handling the pcie device) already obtains the correct Location (from its associated PCIeSlot)?\n\nOr, even if the hosting PCIeDevice service has its DBUS Location information, should we ignore it, but look for the PCIeSlot service?",
+      "parentUuid": "5d98cece_43a79398",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 1
+      },
+      "revId": "b904f4477f081aa760d0e0bf94cc97eac07b31f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
