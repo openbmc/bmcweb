@@ -16,6 +16,40 @@
       "message": "Thanks for your review @myungbae@us.ibm.com 👍",
       "revId": "1352d4db3b15659234a9fad712f05ade0e527d55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e74ca5b_43a880db",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-16T20:56:51Z",
+      "side": 1,
+      "message": "As it is a constant, it would be efficient to use `constexpr` so that it can be compile-time evaluation without going thru `std::string` constructor everytime.\n\n```\nconst constexpr std::string managedHostIntf \u003d\n```",
+      "revId": "1352d4db3b15659234a9fad712f05ade0e527d55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf40510f_2a55ad3a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-16T20:56:51Z",
+      "side": 1,
+      "message": "Similarly it is better to use `constexpr`.",
+      "revId": "1352d4db3b15659234a9fad712f05ade0e527d55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
