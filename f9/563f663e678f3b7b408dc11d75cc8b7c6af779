@@ -1,0 +1,10 @@
+Code-Review+1: Jishnu Nambiar C M <jishnu.c.m@ibm.com>
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Ed Tanous <ed@tanous.net>
+Submitted-by: Asmitha Karunanithi <asmitk01@in.ibm.com>
+Submitted-at: Fri, 17 Jul 2026 04:38:58 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87559
+Comments-Total: 11
+Project: openbmc/bmcweb
+Branch: refs/heads/master
