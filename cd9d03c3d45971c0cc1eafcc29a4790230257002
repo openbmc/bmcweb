@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44c42525_6240f91f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-17T16:32:19Z",
+      "side": 1,
+      "message": "Please follow the pattern used elsewhere with std::bind_front.",
+      "revId": "cd9d03c3d45971c0cc1eafcc29a4790230257002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab7487c2_42bbd710",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-17T16:32:19Z",
+      "side": 1,
+      "message": "This lambda is already way larger than it should be.  Lets fix that before we do anything more.",
+      "revId": "cd9d03c3d45971c0cc1eafcc29a4790230257002",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
