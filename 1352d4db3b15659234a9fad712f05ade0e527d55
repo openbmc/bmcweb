@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5da86474_19451a3d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-17T08:50:16Z",
+      "side": 1,
+      "message": "Thanks, fixed it to use string_view 👍",
+      "parentUuid": "9e74ca5b_43a880db",
+      "revId": "1352d4db3b15659234a9fad712f05ade0e527d55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf40510f_2a55ad3a",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-07-16T20:56:51Z",
       "side": 1,
       "message": "Similarly it is better to use `constexpr`.",
+      "revId": "1352d4db3b15659234a9fad712f05ade0e527d55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7387123_47030c60",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-17T08:50:16Z",
+      "side": 1,
+      "message": "`object_path` cannot be constexpr because it uses `std::string` internally which cannot be constexpr (generally speaking).",
+      "parentUuid": "bf40510f_2a55ad3a",
       "revId": "1352d4db3b15659234a9fad712f05ade0e527d55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
