@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b362db15_0bf96324",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-17T16:40:45Z",
+      "side": 1,
+      "message": "Do you know why Redfish Protocol Validator doesn\u0027t flag this?  I thought it was fairly comprehensive for all the protocol level things, and in this case either response was allowed.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec8f311d_62d8ca6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-17T16:40:45Z",
+      "side": 1,
+      "message": "Quote the spec please.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "902952c1_64a715ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-17T16:40:45Z",
+      "side": 1,
+      "message": "i\u0027m not terribly interested in maintaining this kind of complexity for writing custom 404/405 handlers for every possible URI.  Please make some attempt to show that this isn\u0027t just adding thousands of lines of code if we\u0027re going to do this.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
