@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8e1ea091_0b0f487c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-19T13:26:18Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz Yes, I have created a virtual sensor using phosphor-virtual-sensor and tested in QEMU.",
+      "parentUuid": "a56ec65c_ae20e5a8",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 6
+      },
+      "revId": "6c17c0eeca2bd5c1cc3412c94504aefaea723166",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c02af9b1_1efab4ff",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
