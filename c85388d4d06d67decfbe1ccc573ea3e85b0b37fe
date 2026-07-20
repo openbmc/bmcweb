@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2546d09_249cf7af",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T06:29:18Z",
+      "side": 1,
+      "message": "This function looked similar to the `addPCIeDeviceProperties()` in `pcie.hpp`\nhttps://github.com/openbmc/bmcweb/blob/f9563f663e678f3b7b408dc11d75cc8b7c6af779/redfish-core/lib/pcie.hpp#L433\n\nCan we have a utility function to handle the replicated logic?",
+      "range": {
+        "startLine": 856,
+        "startChar": 12,
+        "endLine": 856,
+        "endChar": 43
+      },
+      "revId": "c85388d4d06d67decfbe1ccc573ea3e85b0b37fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f52339_71ef490a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T06:29:18Z",
+      "side": 1,
+      "message": "Are the cases inverted? My understanding is that the case of `ec.value() \u003d\u003d EBADR` indicates no corresponding item was found and should logs `\"PCIe device properties not available for processor: {}\", processorId`, and return error.",
+      "range": {
+        "startLine": 863,
+        "startChar": 8,
+        "endLine": 872,
+        "endChar": 25
+      },
+      "revId": "c85388d4d06d67decfbe1ccc573ea3e85b0b37fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01b4d0cc_bd315856",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T06:29:18Z",
+      "side": 1,
+      "message": "Q: Wondering why should we implement as this, instead of the previous appraoch in PS4. \nJust curious about this because I found there are implemented feature(s) using the approach in PS4. \n\nPlease check at the following link:\nhttps://github.com/openbmc/bmcweb/blob/f9563f663e678f3b7b408dc11d75cc8b7c6af779/redfish-core/lib/pcie.hpp#L520",
+      "range": {
+        "startLine": 955,
+        "startChar": 4,
+        "endLine": 967,
+        "endChar": 5
+      },
+      "revId": "c85388d4d06d67decfbe1ccc573ea3e85b0b37fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
