@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0c6c07_ed06a368",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T08:00:07Z",
+      "side": 1,
+      "message": "Do we have to consider the case `EBADR` here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 33
+      },
+      "revId": "ab3551b2b0f4d58735c6f5ec20cbb79697501d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13c1b8aa_65061b1a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1616,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T08:00:07Z",
+      "side": 1,
+      "message": "I think we can move the response construction here.",
+      "range": {
+        "startLine": 1605,
+        "startChar": 4,
+        "endLine": 1616,
+        "endChar": 63
+      },
+      "revId": "ab3551b2b0f4d58735c6f5ec20cbb79697501d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6111d6f9_bbbf5b4b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T08:00:07Z",
+      "side": 1,
+      "message": "Should we defer this response construction after passing all of the error handling?",
+      "range": {
+        "startLine": 1668,
+        "startChar": 4,
+        "endLine": 1678,
+        "endChar": 63
+      },
+      "revId": "ab3551b2b0f4d58735c6f5ec20cbb79697501d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
