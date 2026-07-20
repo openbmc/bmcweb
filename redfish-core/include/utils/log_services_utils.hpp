@@ -28,8 +28,11 @@ namespace redfish
 namespace log_services_utils
 {
 
+constexpr const char* hostLoggerStr = "HostLogger";
+
 enum class LogService
 {
+    HostLogger
 };
 
 inline std::string logServiceToString(LogService logService)
@@ -37,6 +40,9 @@ inline std::string logServiceToString(LogService logService)
     std::string serviceStr;
     switch (logService)
     {
+        case LogService::HostLogger:
+            serviceStr = hostLoggerStr;
+            break;
         default:
             BMCWEB_LOG_ERROR("Unable to stringify bmcweb log service");
             break;

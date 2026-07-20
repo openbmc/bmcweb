@@ -58,7 +58,7 @@ string_options = [
 
 int_options = ['http-body-limit', 'watchdog-timeout-seconds']
 
-array_options = []
+array_options = ['redfish-host-log-paths']
 
 feature_options_string = '\n// Feature options\n'
 string_options_string = '\n// String options\n'
@@ -69,7 +69,6 @@ multi_host_enabled = get_option('experimental-redfish-multi-computer-system').en
 multi_host_incompatible_options = [
     'redfish-cpu-log',
     'redfish-dump-log',
-    'redfish-host-logger',
 ]
 
 foreach feature_type, feature_list : {
