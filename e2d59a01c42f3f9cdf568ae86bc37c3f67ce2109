@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e945203_4881958f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-20T21:32:25Z",
+      "side": 1,
+      "message": "This appears to be a link to an internal system, could the context be summarized here instead?\n\nhttps://github.com/openbmc/docs/blob/master/CONTRIBUTING.md \u003e References to non-public resources",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 55
+      },
+      "revId": "e2d59a01c42f3f9cdf568ae86bc37c3f67ce2109",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
