@@ -4,12 +4,14 @@
 #include "log_parser.hpp"
 
 #include "generated/enums/log_entry.hpp"
+#include "hostlog_parser.hpp"
 #include "utils/log_services_utils.hpp"
 
 #include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cstdint>
+#include <filesystem>
 #include <format>
 #include <memory>
 #include <optional>
@@ -22,12 +24,38 @@ namespace log_parser
 {
 using namespace log_services_utils;
 
-std::unique_ptr<Parser> Parser::requestParser(
-    LogService service, LogServiceParentCollection /*collection*/,
-    const std::string& /*resourceId*/, const uint64_t /*computerSystemIndex*/)
+static std::optional<std::filesystem::path> discoverLogFile(
+    LogService logService, const uint64_t computerSystemIndex)
 {
+    switch (logService)
+    {
+        case LogService::HostLogger:
+        {
+            return hostlogger::getLogFile(computerSystemIndex);
+        }
+        default:
+            return std::nullopt;
+    }
+}
+
+std::unique_ptr<Parser> Parser::requestParser(
+    LogService service, LogServiceParentCollection collection,
+    const std::string& resourceId, const uint64_t computerSystemIndex)
+{
+    std::optional<const std::filesystem::path> file =
+        discoverLogFile(service, computerSystemIndex);
+
     switch (service)
     {
+        case LogService::HostLogger:
+        {
+            if (file.has_value())
+            {
+                return std::make_unique<hostlogger::HostLogParser>(
+                    service, collection, resourceId, file.value());
+            }
+            return nullptr;
+        }
         default:
             return nullptr;
     }
