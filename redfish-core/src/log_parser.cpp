@@ -24,12 +24,38 @@ namespace log_parser
 {
 using namespace log_services_utils;
 
-std::unique_ptr<Parser> Parser::requestParser(
-    LogService service, LogServiceParentCollection /*collection*/,
-    const std::string& /*resourceId*/, const uint64_t /*computerSystemIndex*/)
+static std::optional<std::filesystem::path> discoverLogFile(
+    LogService logService, const uint64_t computerSystemIndex)
 {
+    switch (logService)
+    {
+        case LogService::HostLogger:
+        {
+            return hostlogger::getLogFile(computerSystemIndex);
+        }
+        default:
+            return std::nullopt;
+    }
+}
+
+std::unique_ptr<Parser> Parser::requestParser(
+    LogService service, LogServiceParentCollection collection,
+    const std::string& resourceId, const uint64_t computerSystemIndex)
+{
+    std::optional<const std::filesystem::path> file =
+        discoverLogFile(service, computerSystemIndex);
+
     switch (service)
     {
+        case LogService::HostLogger:
+        {
+            if (file.has_value())
+            {
+                return std::make_unique<hostlogger::HostLogParser>(
+                    service, collection, resourceId, file.value());
+            }
+            return nullptr;
+        }
         default:
             return nullptr;
     }
