@@ -21,11 +21,29 @@
 
 #include <cstdio>
 #include <string>
+#include <string_view>
 
 namespace redfish
 {
 namespace log_services_utils
 {
+
+enum class LogService
+{
+};
+
+inline std::string logServiceToString(LogService logService)
+{
+    std::string serviceStr;
+    switch (logService)
+    {
+        default:
+            BMCWEB_LOG_ERROR("Unable to stringify bmcweb eventlog location");
+            break;
+    }
+
+    return serviceStr;
+}
 
 constexpr const char* rfSystemsStr = "Systems";
 constexpr const char* rfManagersStr = "Managers";
