@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6617acc1_0168ed6a",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-20T14:23:03Z",
+      "side": 1,
+      "message": "This is a best-effort per-property read: if any counter fails (including EBADR), we just skip that counter and still return the rest, rather than failing the whole PortMetrics response. EBADR is already covered by this generic skip, so no special handling is needed here.",
+      "parentUuid": "1a0c6c07_ed06a368",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 33
+      },
+      "revId": "ab3551b2b0f4d58735c6f5ec20cbb79697501d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13c1b8aa_65061b1a",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67f8a1db_56d36389",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1616,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-20T14:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13c1b8aa_65061b1a",
+      "range": {
+        "startLine": 1605,
+        "startChar": 4,
+        "endLine": 1616,
+        "endChar": 63
+      },
+      "revId": "ab3551b2b0f4d58735c6f5ec20cbb79697501d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6111d6f9_bbbf5b4b",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-07-20T08:00:07Z",
       "side": 1,
       "message": "Should we defer this response construction after passing all of the error handling?",
+      "range": {
+        "startLine": 1668,
+        "startChar": 4,
+        "endLine": 1678,
+        "endChar": 63
+      },
+      "revId": "ab3551b2b0f4d58735c6f5ec20cbb79697501d95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2456b42_728540be",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-20T14:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6111d6f9_bbbf5b4b",
       "range": {
         "startLine": 1668,
         "startChar": 4,
