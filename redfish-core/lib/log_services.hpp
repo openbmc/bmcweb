@@ -871,6 +871,37 @@ inline void parseCrashdumpParameters(
     }
 }
 
+inline void afterGetPostCodeService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& subtreePath)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("{}", ec);
+        return;
+    }
+
+    for (const auto& pathStr : subtreePath)
+    {
+        if (pathStr.contains("PostCode"))
+        {
+            nlohmann::json& logServiceArrayLocal =
+                asyncResp->res.jsonValue["Members"];
+            nlohmann::json::object_t member;
+            member["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/{}/LogServices/PostCodes",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+            logServiceArrayLocal.emplace_back(std::move(member));
+
+            asyncResp->res.jsonValue["Members@odata.count"] =
+                logServiceArrayLocal.size();
+            return;
+        }
+    }
+}
+
 inline void handleSystemsLogServiceCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -945,35 +976,7 @@ inline void handleSystemsLogServiceCollectionGet(
         "xyz.openbmc_project.State.Boot.PostCode"};
     dbus::utility::getSubTreePaths(
         "/", 0, interfaces,
-        // ast-grep-ignore: long-lambda
-        [asyncResp](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& subtreePath) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("{}", ec);
-                return;
-            }
-
-            for (const auto& pathStr : subtreePath)
-            {
-                if (pathStr.find("PostCode") != std::string::npos)
-                {
-                    nlohmann::json& logServiceArrayLocal =
-                        asyncResp->res.jsonValue["Members"];
-                    nlohmann::json::object_t member;
-                    member["@odata.id"] = boost::urls::format(
-                        "/redfish/v1/Systems/{}/LogServices/PostCodes",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
-
-                    logServiceArrayLocal.emplace_back(std::move(member));
-
-                    asyncResp->res.jsonValue["Members@odata.count"] =
-                        logServiceArrayLocal.size();
-                    return;
-                }
-            }
-        });
+        std::bind_front(afterGetPostCodeService, asyncResp));
 }
 
 inline void handleManagersLogServicesCollectionGet(
