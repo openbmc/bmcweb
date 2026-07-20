@@ -51,6 +51,11 @@
 namespace redfish
 {
 
+inline void getPostCodeForBoot(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint16_t bootIndex, const uint16_t bootCount,
+    const uint64_t entryCount, size_t skip, size_t top);
+
 inline void handleSystemsLogServicesPostCodesGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -100,6 +105,22 @@ inline void handleSystemsLogServicesPostCodesGet(
     etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 }
 
+inline void doClearPostCodes(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        // TODO Handle for specific error code
+        BMCWEB_LOG_ERROR("doClearPostCodes resp_handler got error {}", ec);
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    messages::success(asyncResp->res);
+}
+
 inline void handleSystemsLogServicesPostCodesPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -127,19 +148,8 @@ inline void handleSystemsLogServicesPostCodesPost(
     // Make call to post-code service to request clear all
     dbus::utility::async_method_call(
         asyncResp,
-        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                // TODO Handle for specific error code
-                BMCWEB_LOG_ERROR("doClearPostCodes resp_handler got error {}",
-                                 ec);
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
+            doClearPostCodes(asyncResp, ec);
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
@@ -325,6 +335,35 @@ static bool fillPostCodeEntry(
     return false;
 }
 
+inline void afterGetPostCodeForEntry(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryId, uint16_t bootIndex, uint64_t codeIndex,
+    const boost::system::error_code& ec,
+    const boost::container::flat_map<
+        uint64_t, std::tuple<std::vector<uint8_t>, std::vector<uint8_t>>>&
+        postcode)
+
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("DBUS POST CODE PostCode response error");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (postcode.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryId);
+        return;
+    }
+
+    if (!fillPostCodeEntry(asyncResp, postcode, bootIndex, codeIndex))
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryId);
+        return;
+    }
+}
+
 inline void getPostCodeForEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& entryId)
@@ -347,35 +386,68 @@ inline void getPostCodeForEntry(
 
     dbus::utility::async_method_call(
         asyncResp,
-        // ast-grep-ignore: long-lambda
         [asyncResp, entryId, bootIndex,
          codeIndex](const boost::system::error_code& ec,
                     const boost::container::flat_map<
                         uint64_t, std::tuple<std::vector<uint8_t>,
                                              std::vector<uint8_t>>>& postcode) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("DBUS POST CODE PostCode response error");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            if (postcode.empty())
-            {
-                messages::resourceNotFound(asyncResp->res, "LogEntry", entryId);
-                return;
-            }
-
-            if (!fillPostCodeEntry(asyncResp, postcode, bootIndex, codeIndex))
-            {
-                messages::resourceNotFound(asyncResp->res, "LogEntry", entryId);
-                return;
-            }
+            afterGetPostCodeForEntry(asyncResp, entryId, bootIndex, codeIndex,
+                                     ec, postcode);
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
         "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodesWithTimeStamp",
         bootIndex);
+}
+
+inline void afterGetPostCodeForBoot(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint16_t bootIndex, const uint16_t bootCount,
+    const uint64_t entryCount, size_t skip, size_t top,
+    const boost::system::error_code& ec,
+    const boost::container::flat_map<
+        uint64_t, std::tuple<std::vector<uint8_t>, std::vector<uint8_t>>>&
+        postcode)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("DBUS POST CODE PostCode response error");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    uint64_t endCount = entryCount;
+    if (!postcode.empty())
+    {
+        endCount = entryCount + postcode.size();
+        if (skip < endCount && (top + skip) > entryCount)
+        {
+            uint64_t thisBootSkip =
+                std::max(static_cast<uint64_t>(skip), entryCount) - entryCount;
+            uint64_t thisBootTop =
+                std::min(static_cast<uint64_t>(top + skip), endCount) -
+                entryCount;
+
+            fillPostCodeEntry(asyncResp, postcode, bootIndex, 0, thisBootSkip,
+                              thisBootTop);
+        }
+        asyncResp->res.jsonValue["Members@odata.count"] = endCount;
+    }
+
+    // continue to previous bootIndex
+    if (bootIndex < bootCount)
+    {
+        getPostCodeForBoot(asyncResp, static_cast<uint16_t>(bootIndex + 1),
+                           bootCount, endCount, skip, top);
+    }
+    else if (skip + top < endCount)
+    {
+        asyncResp->res.jsonValue["Members@odata.nextLink"] =
+            std::format(
+                "/redfish/v1/Systems/{}/LogServices/PostCodes/Entries?$skip=",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME) +
+            std::to_string(skip + top);
+    }
 }
 
 inline void getPostCodeForBoot(
@@ -385,53 +457,13 @@ inline void getPostCodeForBoot(
 {
     dbus::utility::async_method_call(
         asyncResp,
-        // ast-grep-ignore: long-lambda
         [asyncResp, bootIndex, bootCount, entryCount, skip,
          top](const boost::system::error_code& ec,
               const boost::container::flat_map<
                   uint64_t, std::tuple<std::vector<uint8_t>,
                                        std::vector<uint8_t>>>& postcode) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("DBUS POST CODE PostCode response error");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            uint64_t endCount = entryCount;
-            if (!postcode.empty())
-            {
-                endCount = entryCount + postcode.size();
-                if (skip < endCount && (top + skip) > entryCount)
-                {
-                    uint64_t thisBootSkip =
-                        std::max(static_cast<uint64_t>(skip), entryCount) -
-                        entryCount;
-                    uint64_t thisBootTop =
-                        std::min(static_cast<uint64_t>(top + skip), endCount) -
-                        entryCount;
-
-                    fillPostCodeEntry(asyncResp, postcode, bootIndex, 0,
-                                      thisBootSkip, thisBootTop);
-                }
-                asyncResp->res.jsonValue["Members@odata.count"] = endCount;
-            }
-
-            // continue to previous bootIndex
-            if (bootIndex < bootCount)
-            {
-                getPostCodeForBoot(asyncResp,
-                                   static_cast<uint16_t>(bootIndex + 1),
-                                   bootCount, endCount, skip, top);
-            }
-            else if (skip + top < endCount)
-            {
-                asyncResp->res.jsonValue["Members@odata.nextLink"] =
-                    std::format(
-                        "/redfish/v1/Systems/{}/LogServices/PostCodes/Entries?$skip=",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME) +
-                    std::to_string(skip + top);
-            }
+            afterGetPostCodeForBoot(asyncResp, bootIndex, bootCount, entryCount,
+                                    skip, top, ec, postcode);
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
@@ -504,6 +536,50 @@ inline void handleSystemsLogServicesPostCodesEntriesGet(
     getCurrentBootNumber(asyncResp, skip, top);
 }
 
+inline void afterGetPostCodesAdditionalDataGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& postCodeID, uint64_t currentValue,
+    const boost::system::error_code& ec,
+    const std::vector<std::tuple<std::vector<uint8_t>, std::vector<uint8_t>>>&
+        postcodes)
+{
+    if (ec.value() == EBADR)
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", postCodeID);
+        return;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    size_t value = static_cast<size_t>(currentValue) - 1;
+    if (value == std::string::npos || postcodes.size() < currentValue)
+    {
+        BMCWEB_LOG_WARNING("Wrong currentValue value");
+        messages::resourceNotFound(asyncResp->res, "LogEntry", postCodeID);
+        return;
+    }
+
+    const auto& [tID, c] = postcodes[value];
+    if (c.empty())
+    {
+        BMCWEB_LOG_WARNING("No found post code data");
+        messages::resourceNotFound(asyncResp->res, "LogEntry", postCodeID);
+        return;
+    }
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    const char* d = reinterpret_cast<const char*>(c.data());
+    std::string_view strData(d, c.size());
+
+    asyncResp->res.addHeader(boost::beast::http::field::content_type,
+                             "application/octet-stream");
+    asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
+    asyncResp->res.write(crow::utility::base64encode(strData));
+}
+
 inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -544,49 +620,12 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
 
     dbus::utility::async_method_call(
         asyncResp,
-        // ast-grep-ignore: long-lambda
         [asyncResp, postCodeID, currentValue](
             const boost::system::error_code& ec,
             const std::vector<std::tuple<std::vector<uint8_t>,
                                          std::vector<uint8_t>>>& postcodes) {
-            if (ec.value() == EBADR)
-            {
-                messages::resourceNotFound(asyncResp->res, "LogEntry",
-                                           postCodeID);
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            size_t value = static_cast<size_t>(currentValue) - 1;
-            if (value == std::string::npos || postcodes.size() < currentValue)
-            {
-                BMCWEB_LOG_WARNING("Wrong currentValue value");
-                messages::resourceNotFound(asyncResp->res, "LogEntry",
-                                           postCodeID);
-                return;
-            }
-
-            const auto& [tID, c] = postcodes[value];
-            if (c.empty())
-            {
-                BMCWEB_LOG_WARNING("No found post code data");
-                messages::resourceNotFound(asyncResp->res, "LogEntry",
-                                           postCodeID);
-                return;
-            }
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            const char* d = reinterpret_cast<const char*>(c.data());
-            std::string_view strData(d, c.size());
-
-            asyncResp->res.addHeader(boost::beast::http::field::content_type,
-                                     "application/octet-stream");
-            asyncResp->res.addHeader("Content-Transfer-Encoding", "Base64");
-            asyncResp->res.write(crow::utility::base64encode(strData));
+            afterGetPostCodesAdditionalDataGet(asyncResp, postCodeID,
+                                               currentValue, ec, postcodes);
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
