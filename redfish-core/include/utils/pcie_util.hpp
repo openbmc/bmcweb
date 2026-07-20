@@ -5,16 +5,23 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "generated/enums/pcie_device.hpp"
 #include "generated/enums/pcie_slots.hpp"
+#include "logging.hpp"
 #include "utils/collection.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <cstddef>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <string>
@@ -174,6 +181,103 @@ inline std::optional<pcie_device::DeviceType> redfishPcieDeviceTypeFromDbus(
     }
 
     return pcie_device::DeviceType::Invalid;
+}
+
+/**
+ * @brief Populate the common PCIe interface generation and lane properties
+ *        (PCIeType, MaxPCIeType, LanesInUse, MaxLanes) under the given JSON
+ *        pointer from xyz.openbmc_project.Inventory.Item.PCIeDevice properties.
+ *
+ * Shared by the PCIeDevice PCIeInterface and the Processor SystemInterface.
+ *
+ * @return false if a property value was invalid (internalError is set on the
+ *         response and the caller should stop processing); true otherwise.
+ */
+inline bool addPcieInterfaceProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonPtr,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    const std::string* generationInUse = nullptr;
+    const std::string* generationSupported = nullptr;
+    const size_t* lanesInUse = nullptr;
+    const size_t* maxLanes = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "GenerationInUse",
+        generationInUse, "GenerationSupported", generationSupported,
+        "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+
+    if (generationInUse != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> pcieType =
+            redfishPcieGenerationFromDbus(*generationInUse);
+        if (!pcieType)
+        {
+            BMCWEB_LOG_WARNING("Unknown PCIe Generation: {}", *generationInUse);
+        }
+        else if (*pcieType == pcie_device::PCIeTypes::Invalid)
+        {
+            BMCWEB_LOG_ERROR("Invalid PCIe Generation: {}", *generationInUse);
+            messages::internalError(asyncResp->res);
+            return false;
+        }
+        else
+        {
+            asyncResp->res.jsonValue[jsonPtr / "PCIeType"] = *pcieType;
+        }
+    }
+
+    if (generationSupported != nullptr)
+    {
+        std::optional<pcie_device::PCIeTypes> maxPcieType =
+            redfishPcieGenerationFromDbus(*generationSupported);
+        if (!maxPcieType)
+        {
+            BMCWEB_LOG_WARNING("Unknown PCIe Generation: {}",
+                               *generationSupported);
+        }
+        else if (*maxPcieType == pcie_device::PCIeTypes::Invalid)
+        {
+            BMCWEB_LOG_ERROR("Invalid PCIe Generation: {}",
+                             *generationSupported);
+            messages::internalError(asyncResp->res);
+            return false;
+        }
+        else
+        {
+            asyncResp->res.jsonValue[jsonPtr / "MaxPCIeType"] = *maxPcieType;
+        }
+    }
+
+    if (lanesInUse != nullptr)
+    {
+        if (*lanesInUse == std::numeric_limits<size_t>::max())
+        {
+            // The default value of LanesInUse is "maxint", and the field will
+            // be null if it is a default value.
+            asyncResp->res.jsonValue[jsonPtr / "LanesInUse"] = nullptr;
+        }
+        else
+        {
+            asyncResp->res.jsonValue[jsonPtr / "LanesInUse"] = *lanesInUse;
+        }
+    }
+
+    // The default value of MaxLanes is 0, and the field will be left off if it
+    // is a default value.
+    if (maxLanes != nullptr && *maxLanes != 0)
+    {
+        asyncResp->res.jsonValue[jsonPtr / "MaxLanes"] = *maxLanes;
+    }
+
+    return true;
 }
 
 } // namespace pcie_util

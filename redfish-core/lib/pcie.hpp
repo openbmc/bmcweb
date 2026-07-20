@@ -35,7 +35,6 @@
 #include <cstdint>
 #include <format>
 #include <functional>
-#include <limits>
 #include <memory>
 #include <optional>
 #include <string>
@@ -473,91 +472,21 @@ inline void addPCIeDeviceProperties(
     const std::string& pcieDeviceId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
-    const std::string* generationInUse = nullptr;
-    const std::string* generationSupported = nullptr;
-    const size_t* lanesInUse = nullptr;
-    const size_t* maxLanes = nullptr;
+    // Unpack DeviceType before writing PCIeInterface, so a malformed
+    // DeviceType fails without leaving a partial response.
     const std::string* deviceType = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), pcieDevProperties, "GenerationInUse",
-        generationInUse, "GenerationSupported", generationSupported,
-        "LanesInUse", lanesInUse, "MaxLanes", maxLanes, "DeviceType",
-        deviceType);
-
-    if (!success)
+    if (!sdbusplus::unpackPropertiesNoThrow(dbus_utils::UnpackErrorPrinter(),
+                                            pcieDevProperties, "DeviceType",
+                                            deviceType))
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
-    if (generationInUse != nullptr)
+    if (!pcie_util::addPcieInterfaceProperties(
+            asyncResp, "/PCIeInterface"_json_pointer, pcieDevProperties))
     {
-        std::optional<pcie_device::PCIeTypes> redfishGenerationInUse =
-            pcie_util::redfishPcieGenerationFromDbus(*generationInUse);
-
-        if (!redfishGenerationInUse)
-        {
-            BMCWEB_LOG_WARNING("Unknown PCIe Device Generation: {}",
-                               *generationInUse);
-        }
-        else
-        {
-            if (*redfishGenerationInUse == pcie_device::PCIeTypes::Invalid)
-            {
-                BMCWEB_LOG_ERROR("Invalid PCIe Device Generation: {}",
-                                 *generationInUse);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            asyncResp->res.jsonValue["PCIeInterface"]["PCIeType"] =
-                *redfishGenerationInUse;
-        }
-    }
-
-    if (generationSupported != nullptr)
-    {
-        std::optional<pcie_device::PCIeTypes> redfishGenerationSupported =
-            pcie_util::redfishPcieGenerationFromDbus(*generationSupported);
-
-        if (!redfishGenerationSupported)
-        {
-            BMCWEB_LOG_WARNING("Unknown PCIe Device Generation: {}",
-                               *generationSupported);
-        }
-        else
-        {
-            if (*redfishGenerationSupported == pcie_device::PCIeTypes::Invalid)
-            {
-                BMCWEB_LOG_ERROR("Invalid PCIe Device Generation: {}",
-                                 *generationSupported);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            asyncResp->res.jsonValue["PCIeInterface"]["MaxPCIeType"] =
-                *redfishGenerationSupported;
-        }
-    }
-
-    if (lanesInUse != nullptr)
-    {
-        if (*lanesInUse == std::numeric_limits<size_t>::max())
-        {
-            // The default value of LanesInUse is "maxint", and the field will
-            // be null if it is a default value.
-            asyncResp->res.jsonValue["PCIeInterface"]["LanesInUse"] = nullptr;
-        }
-        else
-        {
-            asyncResp->res.jsonValue["PCIeInterface"]["LanesInUse"] =
-                *lanesInUse;
-        }
-    }
-    // The default value of MaxLanes is 0, and the field will be
-    // left as off if it is a default value.
-    if (maxLanes != nullptr && *maxLanes != 0)
-    {
-        asyncResp->res.jsonValue["PCIeInterface"]["MaxLanes"] = *maxLanes;
+        return;
     }
 
     if (deviceType != nullptr)
