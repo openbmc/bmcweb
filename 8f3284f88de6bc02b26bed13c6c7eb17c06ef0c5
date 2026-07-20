@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d003460_4c9e939f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-20T16:47:57Z",
+      "side": 1,
+      "message": "It does say this but more importantly Redfish says we should restrict so sure \n2\toperator\tUsers are allowed to view and control basic operations. This includes reboot of the host, etc. But users are not allowed to change other configuration like user, network, etc.\n\nhttps://github.com/openbmc/docs/blob/master/architecture/user-management.md#supported-privilege-roles",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5530b160_583c32dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-20T16:47:57Z",
+      "side": 1,
+      "message": "Ideally this is your full name \nhttps://github.com/openbmc/docs/blob/cf706722293b681fbcbb852eee05a9ae045ac635/CONTRIBUTING.md?plain\u003d1#L248\n\n```\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n```",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b83df34_0dc6ee93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-20T16:47:57Z",
+      "side": 1,
+      "message": "Overall I support, but folks care about operator..?",
+      "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a8a9be6_ee7d2d71",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2173,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-20T16:47:57Z",
+      "side": 1,
+      "message": "Create a new interface as Operator ? Seems like you need to modify this one too",
+      "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
