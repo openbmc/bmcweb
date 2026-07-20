@@ -5,16 +5,23 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "generated/enums/pcie_device.hpp"
 #include "generated/enums/pcie_slots.hpp"
+#include "logging.hpp"
 #include "utils/collection.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <cstddef>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <string>
@@ -179,6 +186,107 @@ inline std::optional<pcie_device::DeviceType> redfishPcieDeviceTypeFromDbus(
     }
 
     return pcie_device::DeviceType::Invalid;
+}
+
+/**
+ * @brief Decode one PCIe generation property (GenerationInUse or
+ *        GenerationSupported) into the given Redfish key under jsonPtr.
+ *
+ * @return false if the value was invalid (internalError is set on the
+ *         response); true otherwise, including when the property is absent.
+ */
+inline bool addPcieGenerationProperty(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonPtr, const std::string* generation,
+    const std::string& key)
+{
+    if (generation == nullptr)
+    {
+        return true;
+    }
+    std::optional<pcie_device::PCIeTypes> pcieType =
+        redfishPcieGenerationFromDbus(*generation);
+    if (!pcieType)
+    {
+        BMCWEB_LOG_WARNING("Unknown PCIe Generation: {}", *generation);
+        return true;
+    }
+    if (*pcieType == pcie_device::PCIeTypes::Invalid)
+    {
+        BMCWEB_LOG_ERROR("Invalid PCIe Generation: {}", *generation);
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+    asyncResp->res.jsonValue[jsonPtr / key] = *pcieType;
+    return true;
+}
+
+/**
+ * @brief Populate the common PCIe interface generation and lane properties
+ *        (PCIeType, MaxPCIeType, LanesInUse, MaxLanes) under the given JSON
+ *        pointer from xyz.openbmc_project.Inventory.Item.PCIeDevice properties.
+ *
+ * Shared by the PCIeDevice PCIeInterface and the Processor SystemInterface.
+ *
+ * @return false if a property value was invalid (internalError is set on the
+ *         response and the caller should stop processing); true otherwise.
+ */
+inline bool addPcieInterfaceProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonPtr,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    const std::string* generationInUse = nullptr;
+    const std::string* generationSupported = nullptr;
+    const size_t* lanesInUse = nullptr;
+    const size_t* maxLanes = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "GenerationInUse",
+        generationInUse, "GenerationSupported", generationSupported,
+        "LanesInUse", lanesInUse, "MaxLanes", maxLanes);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+
+    // GenerationInUse and GenerationSupported decode the same way, differing
+    // only in the source property and the Redfish key they populate.
+    if (!addPcieGenerationProperty(asyncResp, jsonPtr, generationInUse,
+                                   "PCIeType"))
+    {
+        return false;
+    }
+    if (!addPcieGenerationProperty(asyncResp, jsonPtr, generationSupported,
+                                   "MaxPCIeType"))
+    {
+        return false;
+    }
+
+    if (lanesInUse != nullptr)
+    {
+        if (*lanesInUse == std::numeric_limits<size_t>::max())
+        {
+            // The default value of LanesInUse is "maxint", and the field will
+            // be null if it is a default value.
+            asyncResp->res.jsonValue[jsonPtr / "LanesInUse"] = nullptr;
+        }
+        else
+        {
+            asyncResp->res.jsonValue[jsonPtr / "LanesInUse"] = *lanesInUse;
+        }
+    }
+
+    // The default value of MaxLanes is 0, and the field will be left off if it
+    // is a default value.
+    if (maxLanes != nullptr && *maxLanes != 0)
+    {
+        asyncResp->res.jsonValue[jsonPtr / "MaxLanes"] = *maxLanes;
+    }
+
+    return true;
 }
 
 } // namespace pcie_util
