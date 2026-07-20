@@ -106,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "881e8196_15aa8958",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-20T02:19:33Z",
+      "side": 1,
+      "message": "We will create ControlMode in PDI to replace the logic here in future.",
+      "parentUuid": "7ca533f3_d6c1e37f",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 53
+      },
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b50b9cd9_2ba28ebd",
@@ -143,6 +167,30 @@
       "side": 1,
       "message": "We will further optimize the overall time complexity by adding PDI.",
       "parentUuid": "b50b9cd9_2ba28ebd",
+      "range": {
+        "startLine": 451,
+        "startChar": 8,
+        "endLine": 455,
+        "endChar": 9
+      },
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b472168c_fcbb6c7f",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-20T02:19:33Z",
+      "side": 1,
+      "message": "\u003e We will further optimize the overall time complexity by adding future.",
+      "parentUuid": "9e38feed_d6f5d7c4",
       "range": {
         "startLine": 451,
         "startChar": 8,
