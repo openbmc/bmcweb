@@ -3,6 +3,7 @@
 
 #include "log_parser.hpp"
 
+#include "console_log_parser.hpp"
 #include "generated/enums/log_entry.hpp"
 #include "utils/log_services_utils.hpp"
 
@@ -23,11 +24,14 @@ namespace log_parser
 using namespace log_services_utils;
 
 std::unique_ptr<Parser> Parser::requestParser(
-    LogService service, LogServiceParentCollection /*collection*/,
-    const std::string& /*resourceId*/, const uint64_t /*computerSystemIndex*/)
+    LogService service, LogServiceParentCollection collection,
+    const std::string& resourceId, const uint64_t computerSystemIndex)
 {
     switch (service)
     {
+        case LogService::HostLogger:
+            return console::ConsoleLogParser::make(
+                service, collection, resourceId, computerSystemIndex);
         default:
             return nullptr;
     }
