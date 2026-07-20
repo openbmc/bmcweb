@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bcea84f_047e08f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-20T21:39:58Z",
+      "side": 1,
+      "message": "Looks like a link to an internal system, are you able have the context here instead?",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "a2e9440c2b6593fba9cb2c67a8b3cb1ad4f415c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
