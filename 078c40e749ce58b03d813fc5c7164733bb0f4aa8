@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf8b5828_fc91bab2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T05:31:56Z",
+      "side": 1,
+      "message": "This seems redundant, I think we can remove this.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "078c40e749ce58b03d813fc5c7164733bb0f4aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5921be4c_b2a848e0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T05:31:56Z",
+      "side": 1,
+      "message": "This function looked very similar to `afterGetFabricSwitchPortInfo` in `switch_port.hpp`. Can we merge the replicated logic into a single util function?",
+      "range": {
+        "startLine": 1344,
+        "startChar": 12,
+        "endLine": 1344,
+        "endChar": 35
+      },
+      "revId": "078c40e749ce58b03d813fc5c7164733bb0f4aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62ce89a2_4f587827",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T05:31:56Z",
+      "side": 1,
+      "message": "Should we add log here for better debug in the future?",
+      "range": {
+        "startLine": 1367,
+        "startChar": 8,
+        "endLine": 1367,
+        "endChar": 48
+      },
+      "revId": "078c40e749ce58b03d813fc5c7164733bb0f4aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
