@@ -148,6 +148,14 @@ option(
                     /redfish/v1/Systems/system/LogServices/HostLogger''',
 )
 
+option(
+    'redfish-host-log-paths',
+    type: 'array',
+    value: ['/log/obmc-console-timestamp.log'],
+    description: '''A list of paths to the timestamped host log files
+                    created by obmc-console''',
+)
+
 # BMCWEB_REDFISH_EVENTLOG_LOCATION
 option(
     'redfish-eventlog-location',
