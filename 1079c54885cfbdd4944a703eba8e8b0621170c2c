@@ -86,6 +86,24 @@
       "parentUuid": "9cceda92_243e5c00",
       "revId": "1079c54885cfbdd4944a703eba8e8b0621170c2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75a5246f_75e3abad",
+        "filename": "test/redfish-core/lib/processor_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-20T18:00:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "26c8ac2a_8d746484",
+      "revId": "1079c54885cfbdd4944a703eba8e8b0621170c2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
