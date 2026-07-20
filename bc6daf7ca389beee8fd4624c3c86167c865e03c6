@@ -52,6 +52,24 @@
       "parentUuid": "d3c78164_d63931f9",
       "revId": "bc6daf7ca389beee8fd4624c3c86167c865e03c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e194f59_2a16b3bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-20T04:27:51Z",
+      "side": 1,
+      "message": "Sorry, mistakenly removed those lines.\nHave them added in PS 15.\n\nThanks for catching this!",
+      "parentUuid": "1ad84c89_21c8f934",
+      "revId": "bc6daf7ca389beee8fd4624c3c86167c865e03c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
