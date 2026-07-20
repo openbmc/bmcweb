@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdfd6453_4a21172c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-20T02:16:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04c6a4a5_4c48b35e",
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ca533f3_d6c1e37f",
@@ -64,6 +82,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f95be34a_85ee227f",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-20T02:16:45Z",
+      "side": 1,
+      "message": "We will do it in furture. Thanks.",
+      "parentUuid": "4d68a4c6_b2581a3d",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 53
+      },
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b50b9cd9_2ba28ebd",
@@ -77,6 +119,30 @@
       "writtenOn": "2026-06-22T11:12:49Z",
       "side": 1,
       "message": "I think we can move this part to the upper function stack. \n\nConceptually, we perform O(M) searching for corresponding inventory item.\nAfter that, by using the matched inventory item we then perform O(N) interfaces walk through to retrieve the desired properties.\n\nYour current implementation is indeed using this approach, but however, in a confusing approach because the looping is nested and only one of the cases can pass through this if condition.",
+      "range": {
+        "startLine": 451,
+        "startChar": 8,
+        "endLine": 455,
+        "endChar": 9
+      },
+      "revId": "03933307809614e8b5ee3bbc1a75eeca448c318c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e38feed_d6f5d7c4",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-20T02:16:45Z",
+      "side": 1,
+      "message": "We will further optimize the overall time complexity by adding PDI.",
+      "parentUuid": "b50b9cd9_2ba28ebd",
       "range": {
         "startLine": 451,
         "startChar": 8,
