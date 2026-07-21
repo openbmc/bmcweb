@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3a2bd6f_c386ca40",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1003007
+      },
+      "writtenOn": "2026-07-21T06:56:11Z",
+      "side": 1,
+      "message": "Agreed on the point, but this CL is scoped to the type-mismatch fix behind the 500, and it matches the same ends_with pattern already used elsewhere in\nthe file. \n\nThe refactor can happen in a separate CL that covers all related call sites.",
+      "parentUuid": "c2cbc858_41f0f71b",
+      "range": {
+        "startLine": 347,
+        "startChar": 20,
+        "endLine": 347,
+        "endChar": 37
+      },
+      "revId": "8ff92aead2319845b664adacbeac62f96d8ffdea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db540d84_9d814d75",
