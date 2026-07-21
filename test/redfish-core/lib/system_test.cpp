@@ -129,5 +129,181 @@ TEST(GetAllowedHostTransition, AllSupported)
     EXPECT_EQ(response->res.jsonValue["Parameters"], parameters);
 }
 
+TEST(dbusToRfBootProgress, Unspecified)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.Unspecified"),
+        "None");
+}
+
+TEST(dbusToRfBootProgress, PrimaryProcInit)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PrimaryProcInit"),
+        "PrimaryProcessorInitializationStarted");
+}
+
+TEST(dbusToRfBootProgress, BusInit)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.BusInit"),
+        "BusInitializationStarted");
+}
+
+TEST(dbusToRfBootProgress, MemoryInit)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.MemoryInit"),
+        "MemoryInitializationStarted");
+}
+
+TEST(dbusToRfBootProgress, SecondaryProcInit)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SecondaryProcInit"),
+        "SecondaryProcessorInitializationStarted");
+}
+
+TEST(dbusToRfBootProgress, PCIInit)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PCIInit"),
+        "PCIResourceConfigStarted");
+}
+
+TEST(dbusToRfBootProgress, SystemSetup)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SystemSetup"),
+        "SetupEntered");
+}
+
+TEST(dbusToRfBootProgress, SystemInitComplete)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SystemInitComplete"),
+        "SystemHardwareInitializationComplete");
+}
+
+TEST(dbusToRfBootProgress, OSStart)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSStart"),
+        "OSBootStarted");
+}
+
+TEST(dbusToRfBootProgress, OSRunning)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSRunning"),
+        "OSRunning");
+}
+
+TEST(dbusToRfBootProgress, Unknown)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.Unknown"),
+        "None");
+}
+
+TEST(assignBootParameters, None)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("None", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Default");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+}
+
+TEST(assignBootParameters, Pxe)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("Pxe", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Network");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+}
+
+TEST(assignBootParameters, Hdd)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("Hdd", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Disk");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+}
+
+TEST(assignBootParameters, Diags)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("Diags", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Default");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe");
+}
+
+TEST(assignBootParameters, Cd)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("Cd", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+}
+
+TEST(assignBootParameters, BiosSetup)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("BiosSetup", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Default");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup");
+}
+
+TEST(assignBootParameters, Usb)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("Usb", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+}
+
+TEST(assignBootParameters, Invalid)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("Invalid", bootSource, bootMode), -1);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Default");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+}
+
 } // namespace
 } // namespace redfish
