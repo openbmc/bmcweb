@@ -330,5 +330,51 @@ TEST(TranslatePowerModeString, RedfishValueWithoutDbusPrefixIsInvalid)
               computer_system::PowerMode::Invalid);
 }
 
+TEST(AssignBootParameters, TranslationsAreExpected)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("None", bootSource, bootMode), 0);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Source.Sources.Default",
+              bootSource);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular", bootMode);
+
+    EXPECT_EQ(assignBootParameters("Pxe", bootSource, bootMode), 0);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Source.Sources.Network",
+              bootSource);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular", bootMode);
+
+    EXPECT_EQ(assignBootParameters("Hdd", bootSource, bootMode), 0);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Source.Sources.Disk",
+              bootSource);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular", bootMode);
+
+    EXPECT_EQ(assignBootParameters("Diags", bootSource, bootMode), 0);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Source.Sources.Default",
+              bootSource);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Mode.Modes.Safe", bootMode);
+
+    EXPECT_EQ(assignBootParameters("Cd", bootSource, bootMode), 0);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia",
+              bootSource);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular", bootMode);
+
+    EXPECT_EQ(assignBootParameters("BiosSetup", bootSource, bootMode), 0);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Source.Sources.Default",
+              bootSource);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Mode.Modes.Setup", bootMode);
+
+    EXPECT_EQ(assignBootParameters("Usb", bootSource, bootMode), 0);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia",
+              bootSource);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular", bootMode);
+
+    EXPECT_EQ(assignBootParameters("Invalid", bootSource, bootMode), -1);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Source.Sources.Default",
+              bootSource);
+    EXPECT_EQ("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular", bootMode);
+}
+
 } // namespace
 } // namespace redfish
