@@ -168,6 +168,26 @@ inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
             getMetricProperty(asyncResp, serviceName, path,
                               "/Networking/TXExcessiveCollisions"_json_pointer);
         }
+        else if (metricName == "rx_errors")
+        {
+            getMetricProperty(asyncResp, serviceName, path,
+                              "/RXErrors"_json_pointer);
+        }
+        else if (metricName == "rx_frames")
+        {
+            getMetricProperty(asyncResp, serviceName, path,
+                              "/Networking/RXFrames"_json_pointer);
+        }
+        else if (metricName == "tx_frames")
+        {
+            getMetricProperty(asyncResp, serviceName, path,
+                              "/Networking/TXFrames"_json_pointer);
+        }
+        else if (metricName == "tx_discards")
+        {
+            getMetricProperty(asyncResp, serviceName, path,
+                              "/Networking/TXDiscards"_json_pointer);
+        }
     }
 }
 
