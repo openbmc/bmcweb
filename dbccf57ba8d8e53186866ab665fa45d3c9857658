@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9864847_fa733c5c",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T19:36:29Z",
+      "side": 1,
+      "message": "Where is the PDI change for this ?\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fphosphor-dbus-interfaces%20rx_errors\u0026type\u003dcode",
+      "range": {
+        "startLine": 171,
+        "startChar": 32,
+        "endLine": 171,
+        "endChar": 41
+      },
+      "revId": "dbccf57ba8d8e53186866ab665fa45d3c9857658",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
