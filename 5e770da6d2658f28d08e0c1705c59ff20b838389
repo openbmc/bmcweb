@@ -16,6 +16,46 @@
       "message": "Implementation looks good to me.",
       "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfdad343_c0af62a2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T16:40:07Z",
+      "side": 1,
+      "message": "Dups the processorInterfaces in processor.hpp oh well\n\nCould be moved later to like a processor_utils like we did chassis \nhttps://github.com/openbmc/bmcweb/blob/a47c6502c58217008695a2320b155d3d8b206630/redfish-core/include/utils/chassis_utils.hpp#L25",
+      "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64646cce_5dbf568a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T16:40:07Z",
+      "side": 1,
+      "message": "How does this work with multiple system stuff?",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 77
+      },
+      "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
