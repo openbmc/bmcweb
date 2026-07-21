@@ -569,6 +569,7 @@ Fields common to all schemas
   - RXFCSErrors
   - RXFalseCarrierErrors
   - RXFrameAlignmentErrors
+  - RXFrames
   - RXMulticastFrames
   - RXOversizeFrames
   - RXPauseXOFFFrames
@@ -576,7 +577,9 @@ Fields common to all schemas
   - RXUndersizeFrames
   - RXUnicastFrames
   - TXBroadcastFrames
+  - TXDiscards
   - TXExcessiveCollisions
+  - TXFrames
   - TXLateCollisions
   - TXMulticastFrames
   - TXMultipleCollisions
@@ -585,6 +588,7 @@ Fields common to all schemas
   - TXSingleCollisions
   - TXUnicastFrames
 - RXBytes
+- RXErrors
 - TXBytes
 
 ### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/
