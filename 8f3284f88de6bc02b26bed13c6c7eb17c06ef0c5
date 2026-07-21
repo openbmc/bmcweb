@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "134146df_4eced88d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003087
+      },
+      "writtenOn": "2026-07-21T09:46:07Z",
+      "side": 1,
+      "message": "Agreed, the commit message cites user-management.md for exactly this restriction. Thanks for the reference.",
+      "parentUuid": "0d003460_4c9e939f",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5530b160_583c32dd",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-20T16:47:57Z",
       "side": 1,
       "message": "Ideally this is your full name \nhttps://github.com/openbmc/docs/blob/cf706722293b681fbcbb852eee05a9ae045ac635/CONTRIBUTING.md?plain\u003d1#L248\n\n```\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n```",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b060d79d_624284f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003087
+      },
+      "writtenOn": "2026-07-21T09:46:07Z",
+      "side": 1,
+      "message": "Fixed in PS4, updated both the author and Signed-off-by to my full name, Sathiyaseelan Lakshminarayanan.",
+      "parentUuid": "5530b160_583c32dd",
       "range": {
         "startLine": 45,
         "startChar": 15,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29d6d05b_8eca0fae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003087
+      },
+      "writtenOn": "2026-07-21T09:46:07Z",
+      "side": 1,
+      "message": "Yes, this came from internal QA flagging that an Operator can currently change and delete BMC network configuration, which user-management.md says they shouldn\u0027t. It\u0027s a real compliance gap for us, not theoretical. Thanks for supporting it.",
+      "parentUuid": "4b83df34_0dc6ee93",
+      "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a8a9be6_ee7d2d71",
@@ -77,6 +143,24 @@
       "writtenOn": "2026-07-20T16:47:57Z",
       "side": 1,
       "message": "Create a new interface as Operator ? Seems like you need to modify this one too",
+      "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca9ee914_555d04a5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2173,
+      "author": {
+        "id": 1003087
+      },
+      "writtenOn": "2026-07-21T09:46:07Z",
+      "side": 1,
+      "message": "You\u0027re right, I\u0027d only covered the instance PATCH/DELETE and missed the collection POST. Fixed in PS4: the POST route now uses postEthernetInterfaceSubOverManagerEthernetInterfaceCollection, matching PATCH/DELETE. Verified POST → 403 for an Operator.",
+      "parentUuid": "2a8a9be6_ee7d2d71",
       "revId": "8f3284f88de6bc02b26bed13c6c7eb17c06ef0c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
