@@ -242,6 +242,40 @@ inline bool getUserGroupFromAccountType(
     return true;
 }
 
+inline void afterGetAllGroups(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dbusObjectPath,
+    const std::vector<std::string>& updatedUserGroups,
+    const boost::system::error_code& ec,
+    const std::vector<std::string>& allGroupsList)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Failed to get AllGroups from user-manager: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& grp : updatedUserGroups)
+    {
+        if (std::find(allGroupsList.begin(), allGroupsList.end(), grp) ==
+            allGroupsList.end())
+        {
+            BMCWEB_LOG_ERROR(
+                "AccountType maps to group '{}' which is not supported on this system",
+                grp);
+            messages::propertyValueNotInList(asyncResp->res, grp,
+                                             "AccountTypes");
+            return;
+        }
+    }
+
+    setDbusProperty(asyncResp, "AccountTypes",
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                    "xyz.openbmc_project.User.Attributes", "UserGroups",
+                    updatedUserGroups);
+}
+
 /**
  * @brief Sets UserGroups property of the user based on the Account Types
  *
@@ -273,10 +307,12 @@ inline void patchAccountTypes(
         // logged.
         return;
     }
-    setDbusProperty(asyncResp, "AccountTypes",
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                    "xyz.openbmc_project.User.Attributes", "UserGroups",
-                    updatedUserGroups);
+
+    dbus::utility::getProperty<std::vector<std::string>>(
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "AllGroups",
+        std::bind_front(afterGetAllGroups, asyncResp, dbusObjectPath,
+                        updatedUserGroups));
 }
 
 inline void userErrorMessageHandler(
