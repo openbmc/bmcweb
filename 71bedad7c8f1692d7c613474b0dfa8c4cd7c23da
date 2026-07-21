@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23faaebb_cf2590e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-21T12:40:15Z",
+      "side": 1,
+      "message": "@ed@tanous.net, Thanks for the comment,\n\nHere, the validator only flags things the spec explicitly forces with the word \"shall.\" The one rule about 405 (Section 7.5.3) says: if the resource exists but doesn\u0027t support the method we used, we must return 405. It never says what to return when the resource doesn\u0027t exist at all. So, returning 405 for a non-existent resource doesn\u0027t break that rule — there\u0027s no rule covering that situation, so the validator has nothing to complain about.\n\nWhy the validator misses that too:\nIt checks one request and its response at a time. It never compares two separate requests against each other to see if they agree. So, this isn\u0027t a hole in the validator\u0027s coverage — comparing two answers against each other for consistency just isn\u0027t the kind of thing it\u0027s built to test.",
+      "parentUuid": "b362db15_0bf96324",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec8f311d_62d8ca6c",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "681bf125_6754f9f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-21T12:40:15Z",
+      "side": 1,
+      "message": "DSP0266, Section 7.5.3 (https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.20.0.pdf)\n\n\"If the resource exists but does not support the requested operation, services shall return the HTTP 405 Method Not Allowed status code.\"",
+      "parentUuid": "ec8f311d_62d8ca6c",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "902952c1_64a715ff",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-07-17T16:40:45Z",
       "side": 1,
       "message": "i\u0027m not terribly interested in maintaining this kind of complexity for writing custom 404/405 handlers for every possible URI.  Please make some attempt to show that this isn\u0027t just adding thousands of lines of code if we\u0027re going to do this.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4c942bb_ff7c34a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-21T12:40:15Z",
+      "side": 1,
+      "message": "Fair concern -- and it\u0027s exactly why this version drops per-resource handlers entirely. The original ManagerAccount-only handler was 61 net lines; this has 269 registered routes across 61 files, so that pattern really would scale into the thousands you\u0027re worried about.\n\nThe current fix is one generic hook in Router::handle(): it probes the URL\u0027s own GET route (privilege-gated) to pick 404 vs 405.  Total cost: 114 lines in routing.hpp, a net-0 reorder in trie.hpp, zero lines in account_service.hpp or any other endpoint file. Every future endpoint gets this for free from its own GET handler -- nothing to write or maintain per URI.",
+      "parentUuid": "902952c1_64a715ff",
       "range": {
         "startLine": 19,
         "startChar": 0,
