@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f35c03d6_83f4daa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T19:17:51Z",
+      "side": 1,
+      "message": "72 chars on these commit msg",
+      "revId": "5847ccf1b1bd190e6fd15fd84f43d938b3d13af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16cd1741_9d33b79a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T19:17:51Z",
+      "side": 1,
+      "message": "Why do we want this change? Is it the correct change?",
+      "revId": "5847ccf1b1bd190e6fd15fd84f43d938b3d13af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "598bc29e_a5f502ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T19:17:51Z",
+      "side": 1,
+      "message": "I don\u0027t see how these help.. LLMs love them but how does it help..?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "5847ccf1b1bd190e6fd15fd84f43d938b3d13af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
