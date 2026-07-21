@@ -211,6 +211,14 @@ TEST(GetCommonNameFromCert, ValidCommonName)
     EXPECT_THAT(commonName, "user");
 }
 
+TEST(GetCommonNameFromCert, EmbeddedNulRejected)
+{
+    OpenSSLX509 x509;
+    x509.setSubjectName(std::string_view("root\0attacker", 13));
+    std::string commonName = x509.getCommonName();
+    EXPECT_THAT(commonName, "");
+}
+
 TEST(GetUPNFromCert, EmptySubjectAlternativeName)
 {
     OpenSSLX509 x509;
@@ -241,6 +249,16 @@ TEST(GetUPNFromCert, ValidUPN)
 
     std::string upn = getUPNFromCert(x509, "hostname.domain.com");
     EXPECT_THAT(upn, "user");
+}
+
+TEST(GetUPNFromCert, EmbeddedNulRejected)
+{
+    OpenSSLX509 x509;
+    ASSERT_TRUE(x509.addAltNameUpns(
+        {std::string_view("root\0attacker@domain.com", 24)}));
+
+    std::string upn = getUPNFromCert(x509, "hostname.domain.com");
+    EXPECT_THAT(upn, "");
 }
 
 TEST(IsUPNMatch, MultipleCases)

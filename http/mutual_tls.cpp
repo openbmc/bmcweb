@@ -115,6 +115,11 @@ std::string getUPNFromCert(OpenSSLX509& peerCert, std::string_view hostname)
         size_t upnLen = static_cast<size_t>(utf8string.length);
 
         std::string_view upn(upnChar, upnLen);
+        if (upn.find('\0') != std::string_view::npos)
+        {
+            BMCWEB_LOG_WARNING("TLS UPN contains embedded NUL");
+            return "";
+        }
         if (!isUPNMatch(upn, hostname))
         {
             continue;

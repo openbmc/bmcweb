@@ -781,6 +781,11 @@ class OpenSSLX509
             length = 0;
         }
         commonName.resize(static_cast<size_t>(length));
+        if (commonName.find('\0') != std::string::npos)
+        {
+            BMCWEB_LOG_WARNING("TLS common name contains embedded NUL");
+            return "";
+        }
         return commonName;
     }
 
