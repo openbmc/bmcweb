@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a50f47fe_e039d630",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T14:48:23Z",
+      "side": 1,
+      "message": "Please wrap at 72 chars for the body https://cbea.ms/git-commit/",
+      "revId": "a2e9440c2b6593fba9cb2c67a8b3cb1ad4f415c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2bcea84f_047e08f8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -20,6 +37,40 @@
         "endLine": 15,
         "endChar": 55
       },
+      "revId": "a2e9440c2b6593fba9cb2c67a8b3cb1ad4f415c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f242168_e42a336f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T14:48:23Z",
+      "side": 1,
+      "message": "You don\u0027t need you sign-off twice here",
+      "revId": "a2e9440c2b6593fba9cb2c67a8b3cb1ad4f415c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5263e1ad_7b9971ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-21T14:48:23Z",
+      "side": 1,
+      "message": "No code changes here. Can you mark as WIP until you are ready for review?",
       "revId": "a2e9440c2b6593fba9cb2c67a8b3cb1ad4f415c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
