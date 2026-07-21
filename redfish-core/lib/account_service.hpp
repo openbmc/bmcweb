@@ -273,10 +273,42 @@ inline void patchAccountTypes(
         // logged.
         return;
     }
-    setDbusProperty(asyncResp, "AccountTypes",
-                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                    "xyz.openbmc_project.User.Attributes", "UserGroups",
-                    updatedUserGroups);
+
+    // Validate that every mapped group actually exists on the system before
+    // sending to user-manager. This prevents a crash in user-manager when a
+    // valid Redfish AccountType (e.g. "IPMI") maps to a group that is not
+    // installed (e.g. "ipmi" when ipmid is absent).
+    dbus::utility::getProperty<std::vector<std::string>>(
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "AllGroups",
+        [asyncResp, dbusObjectPath,
+         updatedUserGroups](const boost::system::error_code& ec,
+                            const std::vector<std::string>& allGroupsList) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to get AllGroups from user-manager: {}",
+                                 ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            for (const auto& grp : updatedUserGroups)
+            {
+                if (std::find(allGroupsList.begin(), allGroupsList.end(), grp) ==
+                    allGroupsList.end())
+                {
+                    BMCWEB_LOG_ERROR(
+                        "AccountType maps to group '{}' which is not supported on this system",
+                        grp);
+                    messages::propertyValueNotInList(asyncResp->res, grp,
+                                                     "AccountTypes");
+                    return;
+                }
+            }
+            setDbusProperty(asyncResp, "AccountTypes",
+                            "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                            "xyz.openbmc_project.User.Attributes", "UserGroups",
+                            updatedUserGroups);
+        });
 }
 
 inline void userErrorMessageHandler(
@@ -2392,7 +2424,7 @@ inline void handleAccountPatch(
             return;
         }
     }
-
+    
     // if user name is not provided in the patch method or if it
     // matches the user name in the URI, then we are treating it as
     // updating user properties other then username. If username
