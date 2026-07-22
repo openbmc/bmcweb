@@ -22,6 +22,30 @@
       },
       "revId": "d47a149c41cfc2d73ddc6e0bf52e96b6fef69967",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "663d5965_c9e1c675",
+        "filename": "redfish-core/include/manager_redundancy.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:58:55Z",
+      "side": 1,
+      "message": "I agree that would be simpler.\n\nI structured like this as additional BMCs will be listed as members of the RedundancySet. (See TODO comment L198-204.) I\u0027d rather leave the code stucture as-is for now and then when the backend support is there for the additional BMCs to be listed I will restructure based on how those are discovered.",
+      "parentUuid": "07e3b3f0_160b6954",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 9
+      },
+      "revId": "d47a149c41cfc2d73ddc6e0bf52e96b6fef69967",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
