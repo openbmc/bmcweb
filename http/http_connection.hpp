@@ -858,7 +858,13 @@ class Connection :
         }
         res.preparePayload(urlView);
 
-        startDeadline(DeadlineTimerType::Default);
+        // For file body responses the transfer may be large; cancel the
+        // deadline so a slow client reading a big file is not timed out.
+        if (res.isFileBody())
+        {
+            cancelDeadlineTimer();
+        }
+
         if (httpType == HttpType::HTTP)
         {
             boost::beast::async_write(
