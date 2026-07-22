@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9772002a_49839412",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T21:43:41Z",
+      "side": 1,
+      "message": "```\n    - name: Width\n      type: size\n      default: maxint\n      description: \u003e\n          The number of lanes, phys, or other physical transport links that this\n          port contains. The default value indicates the property is not\n          supported by this port. A value of 0 indicates that the value for this\n          property is not known at this time (because, for example, the port is\n          inactive).\n```\n\nIs the D-Bus property \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/341308f4b6e8fcb962a572d274153ca269703ba2/yaml/xyz/openbmc_project/Inventory/Connector/Port.interface.yaml#L24\n\nAnd that matches \n\n                \"Width\": {\n                    \"description\": \"The number of lanes, phys, or other physical transport links that this port contains.\",\n                    \"longDescription\": \"This property shall contain the number of physical transport links that this port contains.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"integer\",\n                        \"null\"\n                    ]\n                }\n            },\n\n\nNot \n\n               \"ActiveWidth\": {\n                    \"description\": \"The number of active lanes for this interface.\",\n                    \"longDescription\": \"This property shall contain the number of active lanes for this interface.\",\n                    \"readonly\": true,\n                    \"type\": \"integer\",\n                    \"versionAdded\": \"v1_2_0\"\n                },\n\n\nIt was wrong before but it would be nice to fix",
+      "range": {
+        "startLine": 1185,
+        "startChar": 2,
+        "endLine": 1185,
+        "endChar": 13
+      },
+      "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40c3f453_1b23fc32",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T21:43:41Z",
+      "side": 1,
+      "message": "Can moving these be a separate commit that can go now?",
+      "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71cb9b35_a3ed719d",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T21:43:41Z",
+      "side": 1,
+      "message": "The D-Bus property is measured in bits per second\nRedfish is Gigabits per second\n1,000,000,000 \nNot 2 ^ 32",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 49
+      },
+      "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7efd9c4b_15349ef3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T21:43:41Z",
+      "side": 1,
+      "message": "And if you don\u0027t have the association, it is just an empty collection? I think that is how handleCollectionMembers works",
+      "range": {
+        "startLine": 946,
+        "startChar": 1,
+        "endLine": 949,
+        "endChar": 73
+      },
+      "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
