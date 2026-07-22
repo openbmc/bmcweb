@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc96eaa_e397f90a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T16:32:46Z",
+      "side": 1,
+      "message": "please wrap at 72 chars https://cbea.ms/git-commit/",
+      "range": {
+        "startLine": 9,
+        "startChar": 59,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "8cc2e111c53cf9706c29d4dc1bd382757d10d019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f2c79a7_a4de0b22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T16:32:46Z",
+      "side": 1,
+      "message": "Can you add a sentence about AllGroups..?",
+      "revId": "8cc2e111c53cf9706c29d4dc1bd382757d10d019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "533c9ac6_7c403dc9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T16:32:46Z",
+      "side": 1,
+      "message": "This should be a warning\nhttps://github.com/openbmc/bmcweb/blob/a22a949514a82d954a575933d669bc7526f645c5/DEVELOPING.md?plain\u003d1#L230",
+      "range": {
+        "startLine": 263,
+        "startChar": 12,
+        "endLine": 263,
+        "endChar": 28
+      },
+      "revId": "8cc2e111c53cf9706c29d4dc1bd382757d10d019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
