@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd8f64c8_6d30ab54",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "I see the need for the new object mapper in order to handle the links correctly. But I\u0027m wondering why not use the getAssociatedSubTreePaths()/getAssociatedSubTreePathsById() when finding the owned fans?\n\nSeems like the original getFanPaths() function could still be used but just add the check of the BMCWEB_REDFISH_FAN_LINKS to determine which association should be used to retrieve the object paths.",
+      "range": {
+        "startLine": 157,
+        "startChar": 1,
+        "endLine": 175,
+        "endChar": 1
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36fc1aea_6ca37c72",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "At this caller we have already done the D-Bus call to find the chassis. So seems simpler and more efficient to still just look for the fans associated with this known path. (See my comment on using getAssociatedSubTreePaths() for these case in fan_utils.hpp)\n\nThe use of the D-Bus response here doesn\u0027t care if any of the fans are cooling another chassis. So doing the extra D-Bus work here is not needed.",
+      "range": {
+        "startLine": 277,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 73
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae12eb1_8eab2dd3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "I tested with these updates. I\u0027m seeing the collection is not sorted where it was before. I don\u0027t see a sort that didn\u0027t get carried forward in these changes, so I\u0027m guessing the prior sort was just luck of the order of the objects returned by D-Bus.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 2
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a243a42d_747b1973",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "chassisId is available and could be used here",
+      "range": {
+        "startLine": 91,
+        "startChar": 19,
+        "endLine": 91,
+        "endChar": 41
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe5df9d3_dfcf44d4",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "Same comment here: extra work of finding the chassis again and all the links for the fans is not necessary.",
+      "range": {
+        "startLine": 90,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9727aa31_eff9f5ba",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "Same comment here: extra work of finding the chassis again and all the links for the fans is not necessary.",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 11
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92c30897_039a5641",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "Should be sorted using utility sortJsonArrayByOData()",
+      "range": {
+        "startLine": 445,
+        "startChar": 4,
+        "endLine": 445,
+        "endChar": 5
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae3a8fb_1389e769",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "nit: This function name is obscure. But I don\u0027t have a better suggestion.\n\nMaybe if also renaming the handleSetFanPathById() function the differences in the functions would be more apparent by their names.",
+      "range": {
+        "startLine": 560,
+        "startChar": 12,
+        "endLine": 560,
+        "endChar": 27
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba0bef7_e216475f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "Here also I think using the getAssociatedSubTreePathsById() is still warranted. Use the constexpr to determine whether to find the fans by cooled_by or contained_by.",
+      "range": {
+        "startLine": 574,
+        "startChar": 8,
+        "endLine": 580,
+        "endChar": 51
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

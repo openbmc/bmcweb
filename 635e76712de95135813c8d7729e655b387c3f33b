@@ -277,6 +277,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71ea35bd_1ce40ed5",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T18:12:31Z",
+      "side": 1,
+      "message": "I tried this today with the updated phosphor-objmgr change as well.\n\nWith option enabled: I now am seeing the empty Members array and no error as part of the response. So it looks correct to me. (With option enabled.)\n\nWith option disabled: I see same results as without this commit except for the sorting which I noted as a sepaate comment.",
+      "parentUuid": "0fe47b78_2c853db8",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 152,
+        "endChar": 17
+      },
+      "revId": "635e76712de95135813c8d7729e655b387c3f33b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82167cff_502079e0",
