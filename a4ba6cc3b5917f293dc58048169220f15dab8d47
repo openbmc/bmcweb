@@ -51,6 +51,24 @@
       "parentUuid": "945052ad_13a1f7f8",
       "revId": "a4ba6cc3b5917f293dc58048169220f15dab8d47",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bcd496f_13ecaf04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T20:15:26Z",
+      "side": 1,
+      "message": "Let\u0027s get https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/91587 in first. It is not clear to me either why we need the tri-state",
+      "parentUuid": "bc0d4f38_30211cf1",
+      "revId": "a4ba6cc3b5917f293dc58048169220f15dab8d47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
