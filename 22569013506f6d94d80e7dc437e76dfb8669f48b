@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4890e38_1c916bc8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T15:09:59Z",
+      "side": 1,
+      "message": "I don\u0027t see where this was added. Does this output need to be updated?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 2
+      },
+      "revId": "22569013506f6d94d80e7dc437e76dfb8669f48b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5f9bc63_c3fde095",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T15:09:59Z",
+      "side": 1,
+      "message": "The latest patch set is not setting the Status, please update.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "22569013506f6d94d80e7dc437e76dfb8669f48b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e5f418d_5112bef8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-22T15:09:59Z",
+      "side": 1,
+      "message": "Looks good to me, just a couple of commit message comments.",
+      "revId": "22569013506f6d94d80e7dc437e76dfb8669f48b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
