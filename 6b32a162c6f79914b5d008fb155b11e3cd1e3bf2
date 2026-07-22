@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24c46ec7_56abbf2e",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T20:58:41Z",
+      "side": 1,
+      "message": "Feels like this is separate.. Ideally a separate commit that can go now",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 5
+      },
+      "revId": "6b32a162c6f79914b5d008fb155b11e3cd1e3bf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a83a7bc6_247cf66b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T20:58:41Z",
+      "side": 1,
+      "message": "So this assumes the same path as processor ? \nWe should be using an association here? \nI thought we had a  connecting processor / PCIeDevice association ?",
+      "range": {
+        "startLine": 888,
+        "startChar": 17,
+        "endLine": 888,
+        "endChar": 27
+      },
+      "revId": "6b32a162c6f79914b5d008fb155b11e3cd1e3bf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
