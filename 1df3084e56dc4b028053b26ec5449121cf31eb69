@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4249d198_0beee7c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-22T18:29:07Z",
+      "side": 1,
+      "message": "nvm, this is fine.",
+      "parentUuid": "0558cd23_387e0da7",
+      "revId": "1df3084e56dc4b028053b26ec5449121cf31eb69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd386bd1_fe766dfd",
@@ -65,6 +83,30 @@
       "writtenOn": "2026-07-22T18:28:21Z",
       "side": 1,
       "message": "Why is this code here at all?  json is handled by the core, you just have to write to jsonValue.\n\nAs written this won\u0027t render to html correctly.",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 5
+      },
+      "revId": "1df3084e56dc4b028053b26ec5449121cf31eb69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b11c6dd_bbde4160",
+        "filename": "redfish-core/lib/manager_logservices_dbus_eventlog.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-22T18:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd386bd1_fe766dfd",
       "range": {
         "startLine": 136,
         "startChar": 0,
