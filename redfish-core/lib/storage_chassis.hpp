@@ -309,13 +309,26 @@ inline void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void afterGetSubtreeSystemsStorageDrive(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& driveId, const boost::system::error_code& ec,
+    const std::string& storageId, const std::string& driveId,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
     {
         BMCWEB_LOG_ERROR("Drive mapper call error");
         messages::internalError(asyncResp->res);
+        return;
+    }
+
+    auto storage = std::ranges::find_if(
+        subtree,
+        [&storageId](const std::pair<std::string,
+                                     dbus::utility::MapperServiceMap>& object) {
+            return sdbusplus::object_path(object.first).filename() == storageId;
+        });
+    if (storage == subtree.end())
+    {
+        messages::resourceNotFound(asyncResp->res, "#Storage", storageId);
         return;
     }
 
@@ -337,8 +350,8 @@ inline void afterGetSubtreeSystemsStorageDrive(
 
     asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
     asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Drives/{}",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, driveId);
+        boost::urls::format("/redfish/v1/Systems/{}/Storage/{}/Drives/{}",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId, driveId);
     asyncResp->res.jsonValue["Name"] = driveId;
     asyncResp->res.jsonValue["Id"] = driveId;
 
