@@ -197,6 +197,11 @@ struct Response
         return response.body().payloadSize();
     }
 
+    bool isFileBody() const
+    {
+        return response.body().file().is_open();
+    }
+
     void preparePayload(const boost::urls::url_view& urlView)
     {
         std::optional<uint64_t> pSize = response.body().payloadSize();
