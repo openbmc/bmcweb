@@ -137,6 +137,66 @@ void getAssemblyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void afterGetAssemblyReadyToRemove(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& assemblyJsonPtr,
+    const boost::system::error_code& ec, bool value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res.jsonValue[assemblyJsonPtr]["ReadyToRemove"] = value;
+}
+
+inline void getAssemblyReadyToRemove(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& assembly,
+    const nlohmann::json::json_pointer& assemblyJsonPtr)
+{
+    dbus::utility::getProperty<bool>(
+        serviceName, assembly, "xyz.openbmc_project.State.ReadyToRemove",
+        "ReadyToRemove",
+        std::bind_front(afterGetAssemblyReadyToRemove, asyncResp,
+                        assemblyJsonPtr));
+}
+
+inline void afterSetAssemblyReadyToRemove(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& assembly, bool value,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        BMCWEB_LOG_ERROR("getDbusObject failed for ReadyToRemove on {}: {}",
+                         assembly, ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    const std::string& service = object.begin()->first;
+    setDbusProperty(asyncResp, "ReadyToRemove", service, assembly,
+                    "xyz.openbmc_project.State.ReadyToRemove",
+                    "ReadyToRemove", value);
+}
+
+inline void setAssemblyReadyToRemove(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& assembly, bool value)
+{
+    constexpr std::array<std::string_view, 1> readyToRemoveIface = {
+        "xyz.openbmc_project.State.ReadyToRemove"};
+    dbus::utility::getDbusObject(
+        assembly, readyToRemoveIface,
+        std::bind_front(afterSetAssemblyReadyToRemove, asyncResp, assembly,
+                        value));
+}
+
 inline void afterGetDbusObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& assembly,
@@ -177,6 +237,11 @@ inline void afterGetDbusObject(
             {
                 getAssemblyHealth(asyncResp, serviceName, assembly,
                                   assemblyJsonPtr);
+            }
+            else if (interface == "xyz.openbmc_project.State.ReadyToRemove")
+            {
+                getAssemblyReadyToRemove(asyncResp, serviceName, assembly,
+                                         assemblyJsonPtr);
             }
         }
     }
@@ -351,15 +416,20 @@ inline void afterHandleChassisAssemblyPatch(
     for (nlohmann::json::object_t& item : assemblyData)
     {
         std::optional<bool> locationIndicatorActive;
-        if (json_util::readJsonObject(item, asyncResp->res,
-                                      "LocationIndicatorActive",
-                                      locationIndicatorActive))
+        std::optional<bool> readyToRemove;
+        if (json_util::readJsonObject(
+                item, asyncResp->res, "LocationIndicatorActive",
+                locationIndicatorActive, "ReadyToRemove", readyToRemove))
         {
+            const auto& assembly = assemblyList[assemblyIndex];
             if (locationIndicatorActive.has_value())
             {
-                const auto& assembly = assemblyList[assemblyIndex];
                 setLocationIndicatorActive(asyncResp, assembly,
                                            *locationIndicatorActive);
+            }
+            if (readyToRemove.has_value())
+            {
+                setAssemblyReadyToRemove(asyncResp, assembly, *readyToRemove);
             }
         }
         assemblyIndex++;
