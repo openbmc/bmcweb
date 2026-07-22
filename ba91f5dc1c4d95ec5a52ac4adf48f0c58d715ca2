@@ -34,6 +34,24 @@
       "parentUuid": "8837931f_efd123de",
       "revId": "ba91f5dc1c4d95ec5a52ac4adf48f0c58d715ca2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07a7a27a_eba74a5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-22T18:38:27Z",
+      "side": 1,
+      "message": "There\u0027s already a DMTF discussion on this.",
+      "parentUuid": "10656eca_e5c551d1",
+      "revId": "ba91f5dc1c4d95ec5a52ac4adf48f0c58d715ca2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
