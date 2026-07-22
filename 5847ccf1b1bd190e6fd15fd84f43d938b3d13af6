@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9def640_94f5d2c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-22T10:19:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f35c03d6_83f4daa3",
+      "revId": "5847ccf1b1bd190e6fd15fd84f43d938b3d13af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16cd1741_9d33b79a",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df6a58f6_05d7007d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-22T10:19:57Z",
+      "side": 1,
+      "message": "Done. Updated the commit msg in the new patchset.",
+      "parentUuid": "16cd1741_9d33b79a",
+      "revId": "5847ccf1b1bd190e6fd15fd84f43d938b3d13af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "598bc29e_a5f502ec",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-07-21T19:17:51Z",
       "side": 1,
       "message": "I don\u0027t see how these help.. LLMs love them but how does it help..?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "5847ccf1b1bd190e6fd15fd84f43d938b3d13af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49757e33_c2b1fa00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-22T10:19:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "598bc29e_a5f502ec",
       "range": {
         "startLine": 14,
         "startChar": 0,
