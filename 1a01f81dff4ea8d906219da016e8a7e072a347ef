@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc6d9dfc_781a7a32",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-22T10:16:09Z",
+      "side": 1,
+      "message": "Conversion implementation or else dbus backend implementation should be changed right?",
+      "parentUuid": "a0f03130_148c3748",
+      "range": {
+        "startLine": 940,
+        "startChar": 8,
+        "endLine": 945,
+        "endChar": 9
+      },
+      "revId": "1a01f81dff4ea8d906219da016e8a7e072a347ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a0f64096_88923ff2",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 4
