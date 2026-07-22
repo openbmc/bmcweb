@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad64cae_b1bc2259",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T20:49:31Z",
+      "side": 1,
+      "message": "Bonus if this gets unit tests. ;)",
+      "revId": "9a5d59c10ef5f19a8b5a3bda8d28e909f58a79ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7277b64b_aadcaacb",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T20:49:31Z",
+      "side": 1,
+      "message": "Why unpack separately ? \nWhy can\u0027t DeviceType be here too? \nThe new helper writes the PCIe interface properties first, then separately unpacks DeviceType, it is a corner case but a malformed DeviceType now gets PCIeInterface fields in the response",
+      "range": {
+        "startLine": 437,
+        "startChar": 0,
+        "endLine": 445,
+        "endChar": 74
+      },
+      "revId": "9a5d59c10ef5f19a8b5a3bda8d28e909f58a79ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
