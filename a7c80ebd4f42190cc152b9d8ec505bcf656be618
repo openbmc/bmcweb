@@ -56,6 +56,23 @@
       "message": "https://github.com/openbmc/bmcweb/blob/master/docs/REDFISH_CHECKLIST.md",
       "revId": "a7c80ebd4f42190cc152b9d8ec505bcf656be618",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177fe6b9_710ed0ad",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-22T18:32:04Z",
+      "side": 1,
+      "message": "This lambda is already out of spec.  Please don\u0027t make the problem worse.  EIther break this whole method out, or put your additions in its own method like we do elsewhere.",
+      "revId": "a7c80ebd4f42190cc152b9d8ec505bcf656be618",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
