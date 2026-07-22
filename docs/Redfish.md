@@ -486,6 +486,7 @@ Fields common to all schemas
 - Manufacturer
 - Model
 - PartNumber
+- ReadyToRemove
 - SerialNumber
 - SparePartNumber
 - Status
