@@ -858,7 +858,20 @@ class Connection :
         }
         res.preparePayload(urlView);
 
+        // For file-body responses, the per-chunk callback resets the deadline
+        // after each ACK so the client gets a fresh idle window per chunk.
+        res.response.body().chunkCallback = [weak(weak_from_this())]() {
+            std::shared_ptr<self_type> self = weak.lock();
+            if (!self)
+            {
+                return;
+            }
+            self->cancelDeadlineTimer();
+            self->startDeadline(DeadlineTimerType::Default);
+        };
+
         startDeadline(DeadlineTimerType::Default);
+
         if (httpType == HttpType::HTTP)
         {
             boost::beast::async_write(

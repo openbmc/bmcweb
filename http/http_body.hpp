@@ -175,10 +175,13 @@ class HttpBody::value_type
         return std::nullopt;
     }
 
+    std::function<void()> chunkCallback;
+
     void clear()
     {
         bodyData = std::string{};
         encodingType = EncodingType::Raw;
+        chunkCallback = nullptr;
     }
 
     void open(const char* path, boost::beast::file_mode mode,
@@ -330,6 +333,11 @@ class HttpBody::writer
             // If the number of bytes read equals the amount requested, we
             // haven't reached EOF yet
             ret.second = read == readReq;
+
+            if (body.chunkCallback)
+            {
+                body.chunkCallback();
+            }
             if (body.encodingType == EncodingType::Base64)
             {
                 buf.clear();
