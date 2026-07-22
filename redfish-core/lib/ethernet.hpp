@@ -1226,47 +1226,6 @@ void getEthernetIfaceList(CallbackFunc&& callback)
         });
 }
 
-inline void handleHostnamePatch(
-    const std::string& hostname,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    // SHOULD handle host names of up to 255 characters(RFC 1123)
-    if (hostname.length() > 255)
-    {
-        messages::propertyValueFormatError(asyncResp->res, hostname,
-                                           "HostName");
-        return;
-    }
-    setDbusProperty(
-        asyncResp, "HostName", "xyz.openbmc_project.Network",
-        sdbusplus::object_path("/xyz/openbmc_project/network/config"),
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        hostname);
-}
-
-inline void handleMTUSizePatch(
-    const std::string& ifaceId, const size_t mtuSize,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    sdbusplus::object_path objPath("/xyz/openbmc_project/network");
-    objPath /= ifaceId;
-    setDbusProperty(asyncResp, "MTUSize", "xyz.openbmc_project.Network",
-                    objPath, "xyz.openbmc_project.Network.EthernetInterface",
-                    "MTU", mtuSize);
-}
-
-inline void handleDomainnamePatch(
-    const std::string& ifaceId, const std::string& domainname,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    std::vector<std::string> vectorDomainname = {domainname};
-    setDbusProperty(
-        asyncResp, "FQDN", "xyz.openbmc_project.Network",
-        sdbusplus::object_path("/xyz/openbmc_project/network") / ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", "DomainName",
-        vectorDomainname);
-}
-
 inline bool isHostnameValid(const std::string& hostname)
 {
     // A valid host name can never have the dotted-decimal form (RFC 1123)
@@ -1292,6 +1251,63 @@ inline bool isDomainnameValid(const std::string& domainname)
         "^([A-Za-z0-9][a-zA-Z0-9\\-]{1,61}|[a-zA-Z0-9]{1,30}\\.)*[a-zA-Z]{2,}$");
 
     return std::regex_match(domainname, pattern);
+}
+
+inline void handleHostnamePatch(
+    const std::string& hostname,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    // SHOULD handle host names of up to 255 characters(RFC 1123)
+    if (hostname.length() > 255)
+    {
+        messages::propertyValueFormatError(asyncResp->res, hostname,
+                                           "HostName");
+        return;
+    }
+
+    // Empty HostName resets to the system default hostname.
+    if (!hostname.empty() && !isHostnameValid(hostname))
+    {
+        messages::propertyValueFormatError(asyncResp->res, hostname,
+                                           "HostName");
+        return;
+    }
+
+    setDbusProperty(
+        asyncResp, "HostName", "xyz.openbmc_project.Network",
+        sdbusplus::object_path("/xyz/openbmc_project/network/config"),
+        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+        hostname);
+}
+
+inline void handleMTUSizePatch(
+    const std::string& ifaceId, const size_t mtuSize,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    sdbusplus::object_path objPath("/xyz/openbmc_project/network");
+    objPath /= ifaceId;
+    setDbusProperty(asyncResp, "MTUSize", "xyz.openbmc_project.Network",
+                    objPath, "xyz.openbmc_project.Network.EthernetInterface",
+                    "MTU", mtuSize);
+}
+
+inline void handleDomainnamePatch(
+    const std::string& ifaceId, const std::string& domainname,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!isDomainnameValid(domainname))
+    {
+        messages::propertyValueFormatError(asyncResp->res, domainname,
+                                           "DomainName");
+        return;
+    }
+
+    std::vector<std::string> vectorDomainname = {domainname};
+    setDbusProperty(
+        asyncResp, "FQDN", "xyz.openbmc_project.Network",
+        sdbusplus::object_path("/xyz/openbmc_project/network") / ifaceId,
+        "xyz.openbmc_project.Network.EthernetInterface", "DomainName",
+        vectorDomainname);
 }
 
 inline void handleFqdnPatch(const std::string& ifaceId, const std::string& fqdn,
