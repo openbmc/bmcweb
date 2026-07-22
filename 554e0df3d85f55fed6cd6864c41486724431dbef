@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a64fb2dc_26676bb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T16:51:03Z",
+      "side": 1,
+      "message": "Bonus if you add some tests here",
+      "revId": "554e0df3d85f55fed6cd6864c41486724431dbef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bdd456_75da7435",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T16:51:03Z",
+      "side": 1,
+      "message": "1 \u003c\u003c 30 converts to gibibits, not gigabits.",
+      "revId": "554e0df3d85f55fed6cd6864c41486724431dbef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99900b74_81a35707",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-22T16:51:03Z",
+      "side": 1,
+      "message": "The D-Bus value is expressed in bits per second and Redfish defines MaxSpeedGbps in Gigabits per second, so the divisor should be 1,000,000,000, not 2^30",
+      "range": {
+        "startLine": 445,
+        "startChar": 34,
+        "endLine": 445,
+        "endChar": 46
+      },
+      "revId": "554e0df3d85f55fed6cd6864c41486724431dbef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
