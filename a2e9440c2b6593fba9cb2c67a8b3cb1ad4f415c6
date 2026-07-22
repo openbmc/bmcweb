@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c1ed85_4133f6dc",
+        "filename": "http/app.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-22T07:21:35Z",
+      "side": 0,
+      "message": "getHttpType()\u0027s definition has been moved out of app.hpp into http_connect_types.hpp as a free function. Was that needed to avoid a circular include with the new http_auth_modes.hpp (same reason getAuthMode() lives there), or is there another reason for the refactor?",
+      "revId": "a2e9440c2b6593fba9cb2c67a8b3cb1ad4f415c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

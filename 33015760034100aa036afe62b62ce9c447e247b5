@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e09cb414_f01ac992",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-22T07:21:35Z",
+      "side": 1,
+      "message": "Commit message says: \"include/http_auth_modes.hpp... config/meson.build: pass ALL_SOCKET_UNITS... config/bmcweb.service.in: add @ALL_SOCKET_UNITS@...\" — but this patchset only touches http/http_auth_modes.hpp (not include/), and doesn\u0027t touch meson.build or bmcweb.service.in at all. Can the message be updated to match what\u0027s actually shipped?",
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "989b9d78_960b4a8c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -54,6 +71,40 @@
       "writtenOn": "2026-07-21T14:46:49Z",
       "side": 1,
       "message": "Tested?",
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b5b2893_d04a8882",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-22T07:21:35Z",
+      "side": 1,
+      "message": "NOAUTH is 0 in the enum. Every other AuthMode field/param in this patch defaults to AUTH — this one doesn\u0027t. If a future aggregate-init of Acceptor omits this field, it silently value-initializes to NOAUTH. Suggest AuthMode httpAuthMode \u003d AuthMode::AUTH; for consistency.",
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "461157b4_bb6faae5",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-22T07:21:35Z",
+      "side": 1,
+      "message": "Still tests the old disableAuth() toggle, not the new AuthMode::NOAUTH constructor path this PR adds. Can we get a test that constructs with AuthMode::NOAUTH directly?",
       "revId": "33015760034100aa036afe62b62ce9c447e247b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
