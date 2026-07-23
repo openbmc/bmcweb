@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e25cec5d_31f0b108",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-23T18:48:16Z",
+      "side": 1,
+      "message": "HEAD /redfish/v1/Systems/system/Processors/\u003cdoes-not-exist\u003e/ProcessorMetrics needs to return a 404",
+      "range": {
+        "startLine": 201,
+        "startChar": 18,
+        "endLine": 201,
+        "endChar": 78
+      },
+      "revId": "76650284f73cdf4b6e162e701f8decf1fa6fb074",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
