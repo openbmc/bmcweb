@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a45b0648_4e97f1d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:41Z",
+      "side": 1,
+      "message": "Yes. Agree.",
+      "parentUuid": "edec817a_e6061982",
+      "revId": "65b7bb3e32a45fdce4480badf0aae1454f28b0c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdc02109_b2d8d76b",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-07-22T16:51:03Z",
       "side": 1,
       "message": "Ideally this would go first..",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 60
+      },
+      "revId": "65b7bb3e32a45fdce4480badf0aae1454f28b0c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bf1c124_6a7879f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:41Z",
+      "side": 1,
+      "message": "I think these can be done simultaneously. Happy to see it land first, but this change doesn\u0027t depend on it to compile/merge",
+      "parentUuid": "cdc02109_b2d8d76b",
       "range": {
         "startLine": 34,
         "startChar": 0,

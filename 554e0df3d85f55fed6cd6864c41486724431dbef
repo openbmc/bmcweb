@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b98119d_30de148f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a64fb2dc_26676bb0",
+      "revId": "554e0df3d85f55fed6cd6864c41486724431dbef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23bdd456_75da7435",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ccc8f3_628fd8e7",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23bdd456_75da7435",
+      "revId": "554e0df3d85f55fed6cd6864c41486724431dbef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99900b74_81a35707",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-07-22T16:51:03Z",
       "side": 1,
       "message": "The D-Bus value is expressed in bits per second and Redfish defines MaxSpeedGbps in Gigabits per second, so the divisor should be 1,000,000,000, not 2^30",
+      "range": {
+        "startLine": 445,
+        "startChar": 34,
+        "endLine": 445,
+        "endChar": 46
+      },
+      "revId": "554e0df3d85f55fed6cd6864c41486724431dbef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3931fc80_f4d00564",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99900b74_81a35707",
       "range": {
         "startLine": 445,
         "startChar": 34,
