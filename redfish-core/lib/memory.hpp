@@ -182,14 +182,14 @@ inline void getPersistentMemoryProperties(
     const uint64_t* pmRegionSizeLimitInKiB = nullptr;
     const uint64_t* volatileSizeInKiB = nullptr;
     const uint64_t* pmSizeInKiB = nullptr;
-    const uint64_t* cacheSizeInKB = nullptr;
+    const uint64_t* cacheSizeInKiB = nullptr;
     const uint64_t* volatileRegionMaxSizeInKiB = nullptr;
     const uint64_t* pmRegionMaxSizeInKiB = nullptr;
     const uint64_t* allocationIncrementInKiB = nullptr;
     const uint64_t* allocationAlignmentInKiB = nullptr;
-    const uint64_t* volatileRegionNumberLimit = nullptr;
-    const uint64_t* pmRegionNumberLimit = nullptr;
-    const uint64_t* spareDeviceCount = nullptr;
+    const uint32_t* volatileRegionNumberLimit = nullptr;
+    const uint32_t* pmRegionNumberLimit = nullptr;
+    const uint32_t* spareDeviceCount = nullptr;
     const bool* isSpareDeviceInUse = nullptr;
     const bool* isRankSpareEnabled = nullptr;
     const std::vector<uint32_t>* maxAveragePowerLimitmW = nullptr;
@@ -199,8 +199,8 @@ inline void getPersistentMemoryProperties(
     const bool* configurationLockCapable = nullptr;
     const bool* dataLockCapable = nullptr;
     const bool* passphraseCapable = nullptr;
-    const uint64_t* maxPassphraseCount = nullptr;
-    const uint64_t* passphraseLockLimit = nullptr;
+    const uint32_t* maxPassphraseCount = nullptr;
+    const uint32_t* passphraseLockLimit = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "ModuleManufacturerID",
@@ -209,7 +209,7 @@ inline void getPersistentMemoryProperties(
         subsystemDeviceID, "VolatileRegionSizeLimitInKiB",
         volatileRegionSizeLimitInKiB, "PmRegionSizeLimitInKiB",
         pmRegionSizeLimitInKiB, "VolatileSizeInKiB", volatileSizeInKiB,
-        "PmSizeInKiB", pmSizeInKiB, "CacheSizeInKB", cacheSizeInKB,
+        "PmSizeInKiB", pmSizeInKiB, "CacheSizeInKiB", cacheSizeInKiB,
         "VolatileRegionMaxSizeInKiB", volatileRegionMaxSizeInKiB,
         "PmRegionMaxSizeInKiB", pmRegionMaxSizeInKiB,
         "AllocationIncrementInKiB", allocationIncrementInKiB,
@@ -263,10 +263,10 @@ inline void getPersistentMemoryProperties(
             (*pmSizeInKiB) >> 10;
     }
 
-    if (cacheSizeInKB != nullptr)
+    if (cacheSizeInKiB != nullptr)
     {
         asyncResp->res.jsonValue[jsonPtr]["CacheSizeMiB"] =
-            (*cacheSizeInKB >> 10);
+            (*cacheSizeInKiB >> 10);
     }
 
     if (volatileRegionMaxSizeInKiB != nullptr)
