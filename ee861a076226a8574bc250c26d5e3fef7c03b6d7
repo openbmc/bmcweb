@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcfbea98_7b5c8b1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-23T13:26:05Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/phosphor-dbus-interfaces/commit/8d09e7d0849cc955e59a340fedea81af7c7b0a91 is the PDI commit, always useful to include",
+      "revId": "ee861a076226a8574bc250c26d5e3fef7c03b6d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "027846d2_a8972dad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-23T13:26:05Z",
+      "side": 1,
+      "message": "This is broke out of another commit",
+      "revId": "ee861a076226a8574bc250c26d5e3fef7c03b6d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
