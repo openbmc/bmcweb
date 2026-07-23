@@ -1393,7 +1393,6 @@ functions the same like the default implementation under the System resource.
 
 - @odata.id
 - @odata.type
-- ActiveWidth
 - CurrentSpeedGbps
 - Id
 - LinkStatus
@@ -1404,6 +1403,7 @@ functions the same like the default implementation under the System resource.
 - Status
   - Health
   - State
+- Width
 
 ### /redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/Metrics
 
