@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc989ef_71fb5412",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "Querying subordinate resources kind of has the same issue of possible misconfiguration and out-of-spec.\n\nIf two chassis \u0027own\u0027 a fan on D-Bus it\u0027s out of spec in redfish and we should not return any out-of-spec responses.\nBy using the other mapper calls this full picture is not available. I did not really handle this case in my implementation but at least with a bigger mapper call choices would have been available for anyone willing to tackle it.\n\nAnyways that\u0027s just how it works for now i guess. I changed it to use the original `getFanPaths()` call for the owned fans as suggested.",
+      "parentUuid": "cd8f64c8_6d30ab54",
+      "range": {
+        "startLine": 157,
+        "startChar": 1,
+        "endLine": 175,
+        "endChar": 1
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36fc1aea_6ca37c72",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-22T18:12:31Z",
       "side": 1,
       "message": "At this caller we have already done the D-Bus call to find the chassis. So seems simpler and more efficient to still just look for the fans associated with this known path. (See my comment on using getAssociatedSubTreePaths() for these case in fan_utils.hpp)\n\nThe use of the D-Bus response here doesn\u0027t care if any of the fans are cooling another chassis. So doing the extra D-Bus work here is not needed.",
+      "range": {
+        "startLine": 277,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 73
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7c5d1d2_9ca618fd",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "sure, changed back to `fan_utils::getFanPaths` to avoid the over-query",
+      "parentUuid": "36fc1aea_6ca37c72",
       "range": {
         "startLine": 277,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "febbce63_8a70b479",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "Added the same sorting here that you suggested in the other comment 👍\n\nThanks again for testing my change, much appreciated 😊",
+      "parentUuid": "fae12eb1_8eab2dd3",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 2
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a243a42d_747b1973",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-07-22T18:12:31Z",
       "side": 1,
       "message": "chassisId is available and could be used here",
+      "range": {
+        "startLine": 91,
+        "startChar": 19,
+        "endLine": 91,
+        "endChar": 41
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e5e1b7e_c9bf9239",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "right, thanks 👍",
+      "parentUuid": "a243a42d_747b1973",
       "range": {
         "startLine": 91,
         "startChar": 19,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c20611da_1d97ebdd",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "sure, i switched to `fan_utils::getFanPaths` again to avoid the over-query and extra processing.",
+      "parentUuid": "fe5df9d3_dfcf44d4",
+      "range": {
+        "startLine": 90,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9727aa31_eff9f5ba",
@@ -129,6 +249,30 @@
       "writtenOn": "2026-07-22T18:12:31Z",
       "side": 1,
       "message": "Same comment here: extra work of finding the chassis again and all the links for the fans is not necessary.",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 11
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "106cd611_93cd055a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "ok, i switched to `fan_utils::getFanPaths` to use the existing mapper call without over-querying.",
+      "parentUuid": "9727aa31_eff9f5ba",
       "range": {
         "startLine": 188,
         "startChar": 4,
@@ -162,6 +306,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb92609_784fe5bb",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92c30897_039a5641",
+      "range": {
+        "startLine": 445,
+        "startChar": 4,
+        "endLine": 445,
+        "endChar": 5
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eae3a8fb_1389e769",
@@ -185,6 +353,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75ee2702_92fb5579",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "Appending `2` to the name looked very basic but it communicates the call sequence of the primary and helper function\n\nrenamed it to `handleFanPatchLocationIndicatorActive`.",
+      "parentUuid": "eae3a8fb_1389e769",
+      "range": {
+        "startLine": 560,
+        "startChar": 12,
+        "endLine": 560,
+        "endChar": 27
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ba0bef7_e216475f",
@@ -198,6 +390,30 @@
       "writtenOn": "2026-07-22T18:12:31Z",
       "side": 1,
       "message": "Here also I think using the getAssociatedSubTreePathsById() is still warranted. Use the constexpr to determine whether to find the fans by cooled_by or contained_by.",
+      "range": {
+        "startLine": 574,
+        "startChar": 8,
+        "endLine": 580,
+        "endChar": 51
+      },
+      "revId": "4d295c9be0efbdc466a392b6c4e4d9df7da4af91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77539f32_ba801ed3",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T15:54:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ba0bef7_e216475f",
       "range": {
         "startLine": 574,
         "startChar": 8,
