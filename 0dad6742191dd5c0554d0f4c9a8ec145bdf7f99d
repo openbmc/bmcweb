@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56693a9_db227fad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-23T15:13:35Z",
+      "side": 1,
+      "message": "What is the times you are seeing? What is the idle timeout today? \nWhat size of files are you trying to transfer ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "0dad6742191dd5c0554d0f4c9a8ec145bdf7f99d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44fabb58_79d00191",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-23T15:13:35Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "0dad6742191dd5c0554d0f4c9a8ec145bdf7f99d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
