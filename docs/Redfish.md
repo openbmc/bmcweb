@@ -1149,6 +1149,7 @@ functions the same like the default implementation under the System resource.
 - Manufacturer
 - MaxSpeedMHz
 - PartNumber
+- Ports
 - ProcessorArchitecture
 - ProcessorId
 - ProcessorType
@@ -1179,6 +1180,22 @@ functions the same like the default implementation under the System resource.
 - PowerLimitWatts/ControlMode
 - PowerLimitWatts/DefaultSetPoint
 - PowerLimitWatts/SetPoint
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Ports/
+
+#### PortCollection
+
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Ports/{PortId}/
+
+#### Port
+
+- CurrentSpeedGbps
+- PortProtocol
+- PortType
+- Width
 
 ### /redfish/v1/Systems/system/Processors/{ProcessorId}/SubProcessors
 
