@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3e9dfaf_99d4c8f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-07-23T04:12:22Z",
+      "side": 1,
+      "message": "The current http_body implementation already performs incremental offloading and is better suited for large file handling. We only need to ensure that the connection remains open until any ongoing incremental offload operation has completed",
+      "parentUuid": "5424bf78_59e0dbc8",
+      "revId": "2990b8052cd1c8defeba3999776c3c850b02ffa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "325602c7_0b967fc5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
