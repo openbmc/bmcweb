@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "882f29d2_9db864ce",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1003007
+      },
+      "writtenOn": "2026-07-23T05:31:02Z",
+      "side": 1,
+      "message": "Yes, I\u0027ve updated it, thank you.",
+      "parentUuid": "7e548379_e8f0fd19",
+      "range": {
+        "startLine": 212,
+        "startChar": 53,
+        "endLine": 212,
+        "endChar": 66
+      },
+      "revId": "e5897d5e0f765fcd4d07c390a8801410e68bb0bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95347b01_99629c87",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2026-07-22T20:13:52Z",
       "side": 1,
       "message": "This doesn\u0027t work for https://github.com/openbmc/phosphor-dbus-interfaces/blob/341308f4b6e8fcb962a572d274153ca269703ba2/yaml/xyz/openbmc_project/Inventory/Item/PersistentMemory.interface.yaml#L104\n\nFeel free to remove the allowedMemoryModes and do in a separate commit.. I am good with the const uint32_t changes but let\u0027s fix allowedMemoryModes all at once (either here or in another commit)",
+      "range": {
+        "startLine": 340,
+        "startChar": 69,
+        "endLine": 341,
+        "endChar": 67
+      },
+      "revId": "e5897d5e0f765fcd4d07c390a8801410e68bb0bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c022f64c_f1dc975d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1003007
+      },
+      "writtenOn": "2026-07-23T05:31:02Z",
+      "side": 1,
+      "message": "Agree, I\u0027ve deleted it, thank you.",
+      "parentUuid": "95347b01_99629c87",
       "range": {
         "startLine": 340,
         "startChar": 69,
