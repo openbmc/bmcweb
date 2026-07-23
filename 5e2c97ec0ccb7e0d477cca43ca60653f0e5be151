@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d3e4bb_72e35dca",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-23T18:53:19Z",
+      "side": 1,
+      "message": "Suggest this should be else if",
+      "range": {
+        "startLine": 641,
+        "startChar": 8,
+        "endLine": 641,
+        "endChar": 11
+      },
+      "revId": "5e2c97ec0ccb7e0d477cca43ca60653f0e5be151",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb6fb061_3bb8c53e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-07-23T18:53:19Z",
+      "side": 1,
+      "message": "Suggest this should be just else. If we are in the outside if here and going to return we should be taking one of these branches to log the failure. So the last case should be catching everything else. No need to limit the check.",
+      "range": {
+        "startLine": 648,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 2
+      },
+      "revId": "5e2c97ec0ccb7e0d477cca43ca60653f0e5be151",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
