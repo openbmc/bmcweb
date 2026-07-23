@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea4ee73d_0cc6fddc",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:38:23Z",
+      "side": 1,
+      "message": "Done. Added pcie_util_test.cpp covering addPcieInterfaceProperties.",
+      "parentUuid": "cad64cae_b1bc2259",
+      "revId": "9a5d59c10ef5f19a8b5a3bda8d28e909f58a79ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7277b64b_aadcaacb",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-07-22T20:49:31Z",
       "side": 1,
       "message": "Why unpack separately ? \nWhy can\u0027t DeviceType be here too? \nThe new helper writes the PCIe interface properties first, then separately unpacks DeviceType, it is a corner case but a malformed DeviceType now gets PCIeInterface fields in the response",
+      "range": {
+        "startLine": 437,
+        "startChar": 0,
+        "endLine": 445,
+        "endChar": 74
+      },
+      "revId": "9a5d59c10ef5f19a8b5a3bda8d28e909f58a79ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62abddd7_3628abcb",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:38:23Z",
+      "side": 1,
+      "message": "Can\u0027t move it into the shared helper (Processor SystemInterface has no DeviceType). But you\u0027re right, now unpacking DeviceType before writing PCIeInterface so a bad value doesn\u0027t leave a partial response. Done.",
+      "parentUuid": "7277b64b_aadcaacb",
       "range": {
         "startLine": 437,
         "startChar": 0,
