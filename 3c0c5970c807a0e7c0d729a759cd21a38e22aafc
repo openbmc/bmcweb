@@ -16,6 +16,29 @@
       "message": "PS11: Gated Links/Processors when multi-system support is enabled, and switched to object_path.",
       "revId": "3c0c5970c807a0e7c0d729a759cd21a38e22aafc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a2cc00b_bf000177",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-23T12:27:02Z",
+      "side": 1,
+      "message": "```suggestion\n    BMCWEB_LOG_DEBUG(\"Get chassis processor links for {}\", chassisPath.string());\n```\n\ndirect `.str` member access has been deprecated some time ago",
+      "range": {
+        "startLine": 427,
+        "startChar": 59,
+        "endLine": 427,
+        "endChar": 74
+      },
+      "revId": "3c0c5970c807a0e7c0d729a759cd21a38e22aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
