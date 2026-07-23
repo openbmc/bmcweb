@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9a75d7b_f1d7bfef",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:20Z",
+      "side": 1,
+      "message": "Good catch and thanks for the details. It\u0027s in the shared decoder now, so the Fabric Switch port that was wrong before is corrected too — and updated the docs for both.",
+      "parentUuid": "9772002a_49839412",
+      "range": {
+        "startLine": 1185,
+        "startChar": 2,
+        "endLine": 1185,
+        "endChar": 13
+      },
+      "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40c3f453_1b23fc32",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-07-22T21:43:41Z",
       "side": 1,
       "message": "Can moving these be a separate commit that can go now?",
+      "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61d3199e_96be5875",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:20Z",
+      "side": 1,
+      "message": "Done. The patch link is \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/92654",
+      "parentUuid": "40c3f453_1b23fc32",
       "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e1ec13c_9a6615b4",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:20Z",
+      "side": 1,
+      "message": "Good catch. Fixed to divide by 1e9.",
+      "parentUuid": "71cb9b35_a3ed719d",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 49
+      },
+      "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7efd9c4b_15349ef3",
@@ -77,6 +143,30 @@
       "writtenOn": "2026-07-22T21:43:41Z",
       "side": 1,
       "message": "And if you don\u0027t have the association, it is just an empty collection? I think that is how handleCollectionMembers works",
+      "range": {
+        "startLine": 946,
+        "startChar": 1,
+        "endLine": 949,
+        "endChar": 73
+      },
+      "revId": "211c904ec5272defb643a411223ea72334e8f5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad1a1e0a_349077a9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-23T08:39:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7efd9c4b_15349ef3",
       "range": {
         "startLine": 946,
         "startChar": 1,
