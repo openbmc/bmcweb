@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecfe0725_0a1aa3fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-07-23T05:53:58Z",
+      "side": 1,
+      "message": "PS11: Gated Links/Processors when multi-system support is enabled, and switched to object_path.",
+      "revId": "3c0c5970c807a0e7c0d729a759cd21a38e22aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

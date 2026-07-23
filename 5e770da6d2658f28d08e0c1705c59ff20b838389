@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aed50611_c6b114b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-07-23T05:53:58Z",
+      "side": 1,
+      "message": "Thanks for the review and suggestions!",
+      "parentUuid": "16fb642e_87896d0f",
+      "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d8fbe20_d420f96c",
@@ -58,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1160d03a_410cecce",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-07-23T05:53:58Z",
+      "side": 1,
+      "message": "Done. Also updated the log to use chassisPath.str.",
+      "parentUuid": "1d8fbe20_d420f96c",
+      "range": {
+        "startLine": 413,
+        "startChar": 3,
+        "endLine": 413,
+        "endChar": 35
+      },
+      "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfdad343_c0af62a2",
@@ -71,6 +113,24 @@
       "writtenOn": "2026-07-21T16:40:07Z",
       "side": 1,
       "message": "Dups the processorInterfaces in processor.hpp oh well\n\nCould be moved later to like a processor_utils like we did chassis \nhttps://github.com/openbmc/bmcweb/blob/a47c6502c58217008695a2320b155d3d8b206630/redfish-core/include/utils/chassis_utils.hpp#L25",
+      "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "641de710_4d4f3fa6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-07-23T05:53:58Z",
+      "side": 1,
+      "message": "Sure. processorInterfaces is currently defined in 3 places. I\u0027ll send a separate patch to move it to a shared processor_utils.hpp.",
+      "parentUuid": "cfdad343_c0af62a2",
       "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -124,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59ad0124_78b0cf75",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-07-23T05:53:58Z",
+      "side": 1,
+      "message": "Hi Gunnar and Alexander, I\u0027m also tracking 83773, thanks for the reminder. For multi-system support my plan is to use getSubTreePaths() to find all systems, follow each system\u0027s containing association and match those results against the chassis processors. This will identify the system for each processor uri if association is correct.\nSince 83773 has not landed yet, those multi-system processor uri would currently return 404. I\u0027ve gated Links/Processors when EXPERIMENTAL is enabled.",
+      "parentUuid": "351f351b_b7b4d227",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 77
+      },
+      "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff6ce277_a166b060",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 10
@@ -135,6 +219,30 @@
       "writtenOn": "2026-07-22T10:48:38Z",
       "side": 1,
       "message": "```suggestion\n        getChassisProcessorLinks(asyncResp, objPath);\n```",
+      "range": {
+        "startLine": 613,
+        "startChar": 44,
+        "endLine": 613,
+        "endChar": 48
+      },
+      "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a96b4e40_3ba0394e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-07-23T05:53:58Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ff6ce277_a166b060",
       "range": {
         "startLine": 613,
         "startChar": 44,
