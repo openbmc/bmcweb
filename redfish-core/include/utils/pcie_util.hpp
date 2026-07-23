@@ -9,6 +9,8 @@
 #include "error_messages.hpp"
 #include "generated/enums/pcie_device.hpp"
 #include "generated/enums/pcie_slots.hpp"
+#include "generated/enums/port.hpp"
+#include "generated/enums/protocol.hpp"
 #include "logging.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
@@ -21,6 +23,7 @@
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <limits>
 #include <memory>
 #include <optional>
@@ -283,6 +286,134 @@ inline bool addPcieInterfaceProperties(
     }
 
     return true;
+}
+
+inline std::optional<protocol::Protocol> dbusPortProtocolToRf(
+    const std::string& portProtocol)
+{
+    if (portProtocol ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.PCIe")
+    {
+        return protocol::Protocol::PCIe;
+    }
+    if (portProtocol ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.Unknown")
+    {
+        return std::nullopt;
+    }
+    return protocol::Protocol::Invalid;
+}
+
+inline std::optional<port::PortType> dbusPortTypeToRf(
+    const std::string& portType)
+{
+    if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Upstream")
+    {
+        return port::PortType::UpstreamPort;
+    }
+    if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Downstream")
+    {
+        return port::PortType::DownstreamPort;
+    }
+    if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Unknown")
+    {
+        return std::nullopt;
+    }
+    return port::PortType::Invalid;
+}
+
+/**
+ * @brief Populate common Redfish Port properties from the D-Bus
+ *        xyz.openbmc_project.Inventory.Connector.Port interface.
+ *
+ * Shared by Processor Ports and Fabric Switch Ports. Intended to be used
+ * directly as the getAllProperties callback via std::bind_front(fn, asyncResp).
+ */
+inline void afterGetPortProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBus error getting port properties: {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const size_t* width = nullptr;
+    const uint64_t* speed = nullptr;
+    const std::string* portType = nullptr;
+    const std::string* portProtocol = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "Width", width, "Speed",
+        speed, "PortType", portType, "PortProtocol", portProtocol);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (width != nullptr && *width != 0 &&
+        *width != std::numeric_limits<size_t>::max())
+    {
+        asyncResp->res.jsonValue["Width"] = *width;
+    }
+
+    if (speed != nullptr && *speed != 0 &&
+        *speed != std::numeric_limits<uint64_t>::max())
+    {
+        // D-Bus Speed is bits/s; Gbps is decimal (1 Gbit = 1e9 bits)
+        static constexpr double bitsPerGbit = 1e9;
+        asyncResp->res.jsonValue["CurrentSpeedGbps"] =
+            static_cast<double>(*speed) / bitsPerGbit;
+    }
+
+    if (portType != nullptr)
+    {
+        std::optional<port::PortType> portTypeEnum =
+            dbusPortTypeToRf(*portType);
+        if (!portTypeEnum)
+        {
+            BMCWEB_LOG_WARNING("Unknown Port PortType: {}", *portType);
+        }
+        else
+        {
+            if (*portTypeEnum == port::PortType::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Invalid Port PortType: {}", *portType);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["PortType"] = *portTypeEnum;
+        }
+    }
+
+    if (portProtocol != nullptr)
+    {
+        std::optional<protocol::Protocol> protocolEnum =
+            dbusPortProtocolToRf(*portProtocol);
+        if (!protocolEnum)
+        {
+            BMCWEB_LOG_WARNING("Unknown Port PortProtocol: {}", *portProtocol);
+        }
+        else
+        {
+            if (*protocolEnum == protocol::Protocol::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Invalid Port PortProtocol: {}",
+                                 *portProtocol);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["PortProtocol"] = *protocolEnum;
+        }
+    }
 }
 
 } // namespace pcie_util
