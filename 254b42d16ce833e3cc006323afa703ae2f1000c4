@@ -88,6 +88,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3f0fcfe_8ebbb84e",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-07-23T09:43:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3131968_2c4532e4",
+      "range": {
+        "startLine": 146,
+        "startChar": 20,
+        "endLine": 146,
+        "endChar": 26
+      },
+      "revId": "254b42d16ce833e3cc006323afa703ae2f1000c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e53e7044_4799c318",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-07-23T09:43:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7a8148e_37a764bb",
+      "range": {
+        "startLine": 146,
+        "startChar": 43,
+        "endLine": 146,
+        "endChar": 58
+      },
+      "revId": "254b42d16ce833e3cc006323afa703ae2f1000c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c287492_ff8518d0",
@@ -101,6 +149,30 @@
       "writtenOn": "2026-07-02T20:24:17Z",
       "side": 1,
       "message": "PDI defines PendingAttributes as a dict, not a list.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 63
+      },
+      "revId": "254b42d16ce833e3cc006323afa703ae2f1000c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bce3d8c_f8faac29",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-07-23T09:43:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c287492_ff8518d0",
       "range": {
         "startLine": 153,
         "startChar": 0,
@@ -148,6 +220,30 @@
       "side": 1,
       "message": "Updated D-bus interface to handle boolean type\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/92001",
       "parentUuid": "d7c73ac6_683ad4d5",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 45
+      },
+      "revId": "254b42d16ce833e3cc006323afa703ae2f1000c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09484ce7_dccced7a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2026-07-23T09:43:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "385d13c6_008c8d0d",
       "range": {
         "startLine": 142,
         "startChar": 0,
