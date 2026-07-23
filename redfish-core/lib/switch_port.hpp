@@ -7,127 +7,28 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "fabric.hpp"
-#include "generated/enums/port.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/pcie_util.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
-#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
-#include <cstddef>
 #include <format>
 #include <functional>
-#include <limits>
 #include <memory>
-#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
 
 namespace redfish
 {
-inline port::PortType dBusSensorPortTypeToRedfish(const std::string& portType)
-{
-    if (portType ==
-        "xyz.openbmc_project.Inventory.Connector.Port.PortType.DownstreamPort")
-    {
-        return port::PortType::DownstreamPort;
-    }
-
-    if (portType ==
-        "xyz.openbmc_project.Inventory.Connector.Port.PortType.UpstreamPort")
-    {
-        return port::PortType::UpstreamPort;
-    }
-
-    return port::PortType::Invalid;
-}
-
-inline std::string dBusSensorPortProtocolToRedfish(
-    const std::string& portProtocol)
-{
-    if (portProtocol ==
-        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.PCIe")
-    {
-        return "PCIe";
-    }
-
-    return "Unknown";
-}
-
-inline void afterGetFabricSwitchPortInfo(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
-    const dbus::utility::DBusPropertiesMap& properties)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("DBus response error on GetAllProperties {}",
-                         ec.value());
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    std::optional<uint64_t> speed;
-    std::optional<size_t> width;
-    std::optional<std::string> portType;
-    std::optional<std::string> portProtocol;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), properties, "Speed", speed, "Width",
-        width, "PortType", portType, "PortProtocol", portProtocol);
-
-    if (!success)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    if (speed.has_value())
-    {
-        if (*speed != 0 && *speed != std::numeric_limits<uint64_t>::max())
-        {
-            // Convert from bits per second to Gigabits per second (Gbps)
-            static constexpr int gbpsToBps = 1 << 30;
-            const double convertedSpeed =
-                static_cast<double>(*speed) / gbpsToBps;
-
-            asyncResp->res.jsonValue["CurrentSpeedGbps"] = convertedSpeed;
-        }
-    }
-    if (width.has_value())
-    {
-        if (*width != 0 && *width != std::numeric_limits<size_t>::max())
-        {
-            asyncResp->res.jsonValue["ActiveWidth"] = *width;
-        }
-    }
-    if (portType.has_value())
-    {
-        const port::PortType portTypeEnum =
-            dBusSensorPortTypeToRedfish(*portType);
-        if (portTypeEnum != port::PortType::Invalid)
-        {
-            asyncResp->res.jsonValue["PortType"] = portTypeEnum;
-        }
-    }
-    if (portProtocol.has_value())
-    {
-        const std::string portProtocolStr =
-            dBusSensorPortProtocolToRedfish(*portProtocol);
-        if (portProtocolStr != "Unknown")
-        {
-            asyncResp->res.jsonValue["PortProtocol"] = portProtocolStr;
-        }
-    }
-}
 
 inline void populateMetricsProperty(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -292,7 +193,7 @@ inline void handleFabricSwitchPortPathPortGet(
 
     dbus::utility::getAllProperties(
         serviceName, portPath, "xyz.openbmc_project.Inventory.Connector.Port",
-        std::bind_front(afterGetFabricSwitchPortInfo, asyncResp));
+        std::bind_front(pcie_util::afterGetPortProperties, asyncResp));
 }
 
 inline void afterHandleFabricSwitchPortPaths(

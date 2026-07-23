@@ -3,12 +3,17 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/pcie_device.hpp"
+#include "generated/enums/port.hpp"
+#include "generated/enums/protocol.hpp"
 #include "utils/pcie_util.hpp"
 
+#include <boost/asio/error.hpp>
 #include <boost/beast/http/status.hpp>
+#include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cstddef>
+#include <cstdint>
 #include <limits>
 #include <memory>
 #include <optional>
@@ -161,6 +166,72 @@ TEST(PcieUtil, InterfacePropertiesEmptyMap)
     EXPECT_TRUE(addPcieInterfaceProperties(
         resp, nlohmann::json::json_pointer("/PCIeInterface"), properties));
     EXPECT_FALSE(resp->res.jsonValue.contains("PCIeInterface"));
+}
+
+TEST(PcieUtil, PortPropertiesValid)
+{
+    auto resp = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Width", size_t{16}},
+        {"Speed", uint64_t{25000000000}},
+        {"PortType",
+         std::string(
+             "xyz.openbmc_project.Inventory.Connector.Port.PortType.Upstream")},
+        {"PortProtocol",
+         std::string("xyz.openbmc_project.Inventory.Connector.Port.PortProtocol"
+                     ".PCIe")},
+    };
+
+    afterGetPortProperties(resp, ec, properties);
+
+    EXPECT_EQ(resp->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(resp->res.jsonValue["Width"], 16);
+    // D-Bus Speed 25e9 bits/s -> 25 Gbps (decimal).
+    EXPECT_EQ(resp->res.jsonValue["CurrentSpeedGbps"], 25.0);
+    EXPECT_EQ(resp->res.jsonValue["PortType"], port::PortType::UpstreamPort);
+    EXPECT_EQ(resp->res.jsonValue["PortProtocol"], protocol::Protocol::PCIe);
+}
+
+TEST(PcieUtil, PortPropertiesDefaultsOmitted)
+{
+    auto resp = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Width", std::numeric_limits<size_t>::max()},
+        {"Speed", uint64_t{0}},
+    };
+
+    afterGetPortProperties(resp, ec, properties);
+
+    EXPECT_FALSE(resp->res.jsonValue.contains("Width"));
+    EXPECT_FALSE(resp->res.jsonValue.contains("CurrentSpeedGbps"));
+}
+
+TEST(PcieUtil, PortPropertiesErrorSetsInternalError)
+{
+    auto resp = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::asio::error::invalid_argument;
+    dbus::utility::DBusPropertiesMap properties = {};
+
+    afterGetPortProperties(resp, ec, properties);
+
+    EXPECT_EQ(resp->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(PcieUtil, PortPropertiesWrongTypeFails)
+{
+    auto resp = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Width", std::string("not-a-number")},
+    };
+
+    afterGetPortProperties(resp, ec, properties);
+
+    EXPECT_EQ(resp->res.result(),
+              boost::beast::http::status::internal_server_error);
 }
 
 } // namespace
