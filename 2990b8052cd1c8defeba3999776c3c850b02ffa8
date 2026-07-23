@@ -98,6 +98,24 @@
       "message": "You can\u0027t just disable the timer entirely.  Please include details in your commit message about what times you\u0027re seeing.  We need to be enforcing some amount of progress.\n\nAlso branching this on the file itself isn\u0027t correct.  What if I have a small file?  What if I have a very large json payload?",
       "revId": "2990b8052cd1c8defeba3999776c3c850b02ffa8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f857b99b_393c9931",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-07-23T15:00:35Z",
+      "side": 1,
+      "message": "Small files will be handled within the timeout window. For large string-based payloads, we will retain the existing behavior. We can always enhance http_body later to support chunked handling of string bodies if needed.",
+      "parentUuid": "eb0bafe7_722a8e9f",
+      "revId": "2990b8052cd1c8defeba3999776c3c850b02ffa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
