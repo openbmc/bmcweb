@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0de6952_0455b71f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-24T05:17:30Z",
+      "side": 1,
+      "message": "oic, thanks for catching that!\n\nThat was a typo and I have updated it in PS10.\nFor more details regarding the feature implemented at the backend daemon, please check the following link:\nhttps://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/90170",
+      "parentUuid": "75410bd6_93a2bab5",
+      "revId": "e98e559ae7555d75276f1e8b4aca21cc9ef4d80b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26808a83_0c18a61f",
