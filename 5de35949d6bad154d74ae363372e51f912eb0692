@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32fd0449_52f2459a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T09:37:07Z",
+      "side": 1,
+      "message": "Done, reworked the commit message thanks.",
+      "parentUuid": "2a413f65_03334a65",
+      "revId": "5de35949d6bad154d74ae363372e51f912eb0692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0835403c_b52c5cc1",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-07-21T19:37:52Z",
       "side": 1,
       "message": "I just don\u0027t see this helping.. Why we need the change.. Not repeating how..",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 0
+      },
+      "revId": "5de35949d6bad154d74ae363372e51f912eb0692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acad2ee8_ed0117f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T09:37:07Z",
+      "side": 1,
+      "message": "Done, reworked the commit message thanks.",
+      "parentUuid": "0835403c_b52c5cc1",
       "range": {
         "startLine": 48,
         "startChar": 0,

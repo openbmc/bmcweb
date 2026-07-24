@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc3ea05b_ec899199",
+        "filename": "redfish-core/include/utils/association_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T09:37:07Z",
+      "side": 1,
+      "message": "Done ,thanks.",
+      "parentUuid": "3a873090_b7127359",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "8f42e83af8d02bf1a6f3294e8e817d628ecc7539",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d8d7703_d22d4313",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa7267f6_4aa68a84",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T09:37:07Z",
+      "side": 1,
+      "message": "Not equivalent. The ec.value() \u003d\u003d EBADR case is the D-Bus \"no association\" error, already handled and returned in the if (ec) block above. object.empty() is a successful GetAssociatedSubTree that resolved the association to zero endpoints — a different outcome, not an error. I added a comment above the check documenting this distinction and guarding the dereference below. Keeping them separate.",
+      "parentUuid": "2d8d7703_d22d4313",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "8f42e83af8d02bf1a6f3294e8e817d628ecc7539",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "432a8673_d846b44c",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-07-12T07:35:50Z",
       "side": 1,
       "message": "Should we add log here for better debug?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "8f42e83af8d02bf1a6f3294e8e817d628ecc7539",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f46751_308d5061",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T09:37:07Z",
+      "side": 1,
+      "message": "Done ,thanks.",
+      "parentUuid": "432a8673_d846b44c",
       "range": {
         "startLine": 79,
         "startChar": 8,
