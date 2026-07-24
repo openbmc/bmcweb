@@ -73,6 +73,24 @@
       "message": "Can we please use common methods for this.  Our mapping of functional/present to state should be identical for all components.  processor core shouldn\u0027t have a specific implementation of it.",
       "revId": "89489c5fe233e15f96ec26a1ddb1c5947f096c57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f28016e_181692a8",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T19:36:41Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "b02bb95d_a4b4e82e",
+      "revId": "89489c5fe233e15f96ec26a1ddb1c5947f096c57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
