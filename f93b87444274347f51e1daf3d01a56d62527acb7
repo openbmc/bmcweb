@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9c1a07b_f451f083",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T17:24:03Z",
+      "side": 1,
+      "message": "Ideally this is your full name, both here and in your gerrit profile \nhttps://github.com/openbmc/docs/blob/cf706722293b681fbcbb852eee05a9ae045ac635/CONTRIBUTING.md?plain\u003d1#L248",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 25
+      },
+      "revId": "f93b87444274347f51e1daf3d01a56d62527acb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "777064ff_ea266646",
