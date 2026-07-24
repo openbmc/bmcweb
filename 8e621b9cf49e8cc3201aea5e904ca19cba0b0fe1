@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ae5b47f_839f8c74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T16:25:30Z",
+      "side": 1,
+      "message": "Please wrap at 72 chars. We follow https://cbea.ms/git-commit/",
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfae14b1_922a037e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T16:25:30Z",
+      "side": 1,
+      "message": "But you added an if block.. How about Tested: Inspection only",
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7569f189_5b262407",
@@ -14,6 +48,46 @@
       "writtenOn": "2026-07-24T13:29:29Z",
       "side": 1,
       "message": "Implementation looks good.",
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cf2c924_c9a62e6c",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T16:25:30Z",
+      "side": 1,
+      "message": "let\u0027s move this to line 141 since we shouldn\u0027t log on 4xx errors",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 37
+      },
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7241871a_acfd4339",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T16:25:30Z",
+      "side": 1,
+      "message": "Is this enough ? Couldn\u0027t there be other errors ?",
       "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
