@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "054174d0_1b478656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T03:24:55Z",
+      "side": 1,
+      "message": "Yes, please remove Enabled",
+      "parentUuid": "05c476d6_56274ada",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 2
+      },
+      "revId": "22569013506f6d94d80e7dc437e76dfb8669f48b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5f9bc63_c3fde095",
         "filename": "/COMMIT_MSG",
         "patchSetId": 11
@@ -108,6 +132,23 @@
       "writtenOn": "2026-07-22T15:09:59Z",
       "side": 1,
       "message": "Looks good to me, just a couple of commit message comments.",
+      "revId": "22569013506f6d94d80e7dc437e76dfb8669f48b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef8eaa7_d397c822",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T03:24:55Z",
+      "side": 1,
+      "message": "I think we need ProcessorType \u003d processor::ProcessorType::Core\nCould be later but I think that will be really helpful",
       "revId": "22569013506f6d94d80e7dc437e76dfb8669f48b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
