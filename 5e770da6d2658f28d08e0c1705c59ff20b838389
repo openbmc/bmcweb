@@ -206,6 +206,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f51501_29e64369",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-07-24T11:26:46Z",
+      "side": 1,
+      "message": "Since multi-system processor support depends on change 83773, I\u0027d prefer to address it in a separate follow-up patch after it lands.",
+      "parentUuid": "59ad0124_78b0cf75",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 77
+      },
+      "revId": "5e770da6d2658f28d08e0c1705c59ff20b838389",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff6ce277_a166b060",
