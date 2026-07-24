@@ -22,6 +22,30 @@
       },
       "revId": "9b11b29e902a1215d570b522e10cbba3a9e52f8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "501f91f2_a028f03b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-24T06:04:24Z",
+      "side": 1,
+      "message": "Thanks for the catching!\nI have verified and reverted the removed validator logs in the commit message.",
+      "parentUuid": "dff123b9_3f45de2e",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 2
+      },
+      "revId": "9b11b29e902a1215d570b522e10cbba3a9e52f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
