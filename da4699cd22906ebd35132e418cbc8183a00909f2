@@ -33,6 +33,80 @@
       "message": "LGTM",
       "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c690261e_ba1d5b44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T17:05:54Z",
+      "side": 1,
+      "message": "Overall I am good. A couple questions and maybe some quick fixes",
+      "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "719a9e43_d8692a43",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T17:05:54Z",
+      "side": 1,
+      "message": "I would have defined locally since it mixes chassis and system.. Oh well. Fix if you agree",
+      "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96bcf366_17c0f78a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T17:05:54Z",
+      "side": 1,
+      "message": "Where are we using this ?",
+      "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6f26042_4fcecdaa",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T17:05:54Z",
+      "side": 1,
+      "message": "For single system we point at /redfish/v1/Systems/system/bios. Reason we point just at /redfish/v1/Systems/{} ? I think it is okay.. Just calling it out",
+      "range": {
+        "startLine": 1253,
+        "startChar": 0,
+        "endLine": 1255,
+        "endChar": 78
+      },
+      "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
