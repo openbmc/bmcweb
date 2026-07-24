@@ -483,7 +483,8 @@ inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
 }
 
 inline bool processOnly(crow::App& app, crow::Response& res,
-                        std::function<void(crow::Response&)>& completionHandler)
+                        std::function<void(crow::Response&)>& completionHandler,
+                        const crow::Request& req)
 {
     BMCWEB_LOG_DEBUG("Processing only query param");
     const nlohmann::json::object_t* obj =
@@ -543,8 +544,6 @@ inline bool processOnly(crow::App& app, crow::Response& res,
         completionHandler(res);
         return false;
     }
-    // TODO(Ed) copy request headers?
-    // newReq.session = req.session;
     std::error_code ec;
     auto newReq = std::make_shared<crow::Request>(
         crow::Request::Body{boost::beast::http::verb::get, *url, 11}, ec);
@@ -554,6 +553,8 @@ inline bool processOnly(crow::App& app, crow::Response& res,
         completionHandler(res);
         return false;
     }
+
+    newReq->session = req.session;
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     BMCWEB_LOG_DEBUG("setting completion handler on {}",
@@ -1041,7 +1042,7 @@ inline void processAllParams(
     }
     if (query.isOnly)
     {
-        processOnly(app, intermediateResponse, completionHandler);
+        processOnly(app, intermediateResponse, completionHandler, req);
         return;
     }
 
