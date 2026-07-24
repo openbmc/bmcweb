@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a880899b_d2595a10",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-24T18:06:48Z",
+      "side": 1,
+      "message": "\u003e So, returning 405 for a non-existent resource doesn\u0027t break that rule \n\nI think this is key.  What\u0027s there is in compliance.",
+      "parentUuid": "23faaebb_cf2590e4",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec8f311d_62d8ca6c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -97,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5aafc477_a847e142",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-24T18:06:48Z",
+      "side": 1,
+      "message": "Put that in your commit message.  Based on my read of that quote, the current code implements that correctly.  You\u0027re trying to change a different case (object doesn\u0027t exist).",
+      "parentUuid": "681bf125_6754f9f1",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "902952c1_64a715ff",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -132,6 +180,30 @@
       "side": 1,
       "message": "Fair concern -- and it\u0027s exactly why this version drops per-resource handlers entirely. The original ManagerAccount-only handler was 61 net lines; this has 269 registered routes across 61 files, so that pattern really would scale into the thousands you\u0027re worried about.\n\nThe current fix is one generic hook in Router::handle(): it probes the URL\u0027s own GET route (privilege-gated) to pick 404 vs 405.  Total cost: 114 lines in routing.hpp, a net-0 reorder in trie.hpp, zero lines in account_service.hpp or any other endpoint file. Every future endpoint gets this for free from its own GET handler -- nothing to write or maintain per URI.",
       "parentUuid": "902952c1_64a715ff",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ad2db14_3acff8c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-24T18:06:48Z",
+      "side": 1,
+      "message": "\u003e The current fix is one generic hook in Router::handle()\n\nrouter isn\u0027t specific to Redfish.",
+      "parentUuid": "e4c942bb_ff7c34a1",
       "range": {
         "startLine": 19,
         "startChar": 0,

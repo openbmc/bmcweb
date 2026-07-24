@@ -16,6 +16,75 @@
       "message": "@ed@tanous.net I have updated the code changes, can you please check this",
       "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a1a6444_a468e9b0",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-24T18:06:48Z",
+      "side": 1,
+      "message": "This isn\u0027t a redfish-specific file, why are we mentioning that here.  The router is generic across all http endpoints.\n\nPlease account for that in this whole file.",
+      "range": {
+        "startLine": 306,
+        "startChar": 60,
+        "endLine": 306,
+        "endChar": 67
+      },
+      "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "943fc729_e5f381f9",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-24T18:06:48Z",
+      "side": 1,
+      "message": "Why are we walking up the path when we can register appropriate handlers in the secondary routing tables?",
+      "range": {
+        "startLine": 350,
+        "startChar": 49,
+        "endLine": 350,
+        "endChar": 73
+      },
+      "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f732c1b9_dff7d0f9",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-24T18:06:48Z",
+      "side": 1,
+      "message": "Please review and correct comments like this.",
+      "range": {
+        "startLine": 351,
+        "startChar": 56,
+        "endLine": 351,
+        "endChar": 72
+      },
+      "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
