@@ -175,6 +175,24 @@
       "message": "I think we need ProcessorType \u003d processor::ProcessorType::Core\nCould be later but I think that will be really helpful",
       "revId": "22569013506f6d94d80e7dc437e76dfb8669f48b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7004003_7533fb5d",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-24T17:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ef8eaa7_d397c822",
+      "revId": "22569013506f6d94d80e7dc437e76dfb8669f48b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
