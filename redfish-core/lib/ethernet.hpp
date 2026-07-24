@@ -1226,6 +1226,33 @@ void getEthernetIfaceList(CallbackFunc&& callback)
         });
 }
 
+inline bool isHostnameValid(const std::string& hostname)
+{
+    // A valid host name can never have the dotted-decimal form (RFC 1123)
+    if (std::ranges::all_of(hostname, ::isdigit))
+    {
+        return false;
+    }
+    // Each label(hostname/subdomains) within a valid FQDN
+    // MUST handle host names of up to 63 characters (RFC 1123)
+    // labels cannot start or end with hyphens (RFC 952)
+    // labels can start with numbers (RFC 1123)
+    const static std::regex pattern(
+        "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
+
+    return std::regex_match(hostname, pattern);
+}
+
+inline bool isDomainnameValid(const std::string& domainname)
+{
+    // Can have multiple subdomains
+    // Top Level Domain's min length is 2 character
+    const static std::regex pattern(
+        "^([A-Za-z0-9][a-zA-Z0-9\\-]{1,61}|[a-zA-Z0-9]{1,30}\\.)*[a-zA-Z]{2,}$");
+
+    return std::regex_match(domainname, pattern);
+}
+
 inline void handleHostnamePatch(
     const std::string& hostname,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1265,33 +1292,6 @@ inline void handleDomainnamePatch(
         sdbusplus::object_path("/xyz/openbmc_project/network") / ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "DomainName",
         vectorDomainname);
-}
-
-inline bool isHostnameValid(const std::string& hostname)
-{
-    // A valid host name can never have the dotted-decimal form (RFC 1123)
-    if (std::ranges::all_of(hostname, ::isdigit))
-    {
-        return false;
-    }
-    // Each label(hostname/subdomains) within a valid FQDN
-    // MUST handle host names of up to 63 characters (RFC 1123)
-    // labels cannot start or end with hyphens (RFC 952)
-    // labels can start with numbers (RFC 1123)
-    const static std::regex pattern(
-        "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
-
-    return std::regex_match(hostname, pattern);
-}
-
-inline bool isDomainnameValid(const std::string& domainname)
-{
-    // Can have multiple subdomains
-    // Top Level Domain's min length is 2 character
-    const static std::regex pattern(
-        "^([A-Za-z0-9][a-zA-Z0-9\\-]{1,61}|[a-zA-Z0-9]{1,30}\\.)*[a-zA-Z]{2,}$");
-
-    return std::regex_match(domainname, pattern);
 }
 
 inline void handleFqdnPatch(const std::string& ifaceId, const std::string& fqdn,
