@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "be8fce82_8a08d11a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T17:08:24Z",
+      "side": 1,
+      "message": "Please, please wrap at 72 https://cbea.ms/git-commit/\nPlease fix if you can. But for next time, please follow our contributing guidelines",
+      "revId": "3bed43491bf53a020aebcec461f0db4a84e62875",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5300976_5eaf62e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T17:08:24Z",
+      "side": 1,
+      "message": "This is a stretch..",
+      "revId": "3bed43491bf53a020aebcec461f0db4a84e62875",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "781fdcb8_6460fdd9",
