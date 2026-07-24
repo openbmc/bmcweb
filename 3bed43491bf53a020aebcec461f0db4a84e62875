@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a5e822a_f829f41c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-24T17:18:47Z",
+      "side": 1,
+      "message": "In the future, please don\u0027t say \"no functional changes\"  Agreed, logging is pretty easy to do minimal testing on, and I\u0027m fine with it, but there ARE functional changes.",
+      "parentUuid": "e5300976_5eaf62e3",
+      "revId": "3bed43491bf53a020aebcec461f0db4a84e62875",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "781fdcb8_6460fdd9",
