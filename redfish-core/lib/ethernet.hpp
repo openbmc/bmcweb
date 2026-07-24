@@ -1264,6 +1264,15 @@ inline void handleHostnamePatch(
                                            "HostName");
         return;
     }
+
+    // Empty HostName resets to the system default hostname.
+    if (!hostname.empty() && !isHostnameValid(hostname))
+    {
+        messages::propertyValueFormatError(asyncResp->res, hostname,
+                                           "HostName");
+        return;
+    }
+
     setDbusProperty(
         asyncResp, "HostName", "xyz.openbmc_project.Network",
         sdbusplus::object_path("/xyz/openbmc_project/network/config"),
@@ -1286,6 +1295,13 @@ inline void handleDomainnamePatch(
     const std::string& ifaceId, const std::string& domainname,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if (!isDomainnameValid(domainname))
+    {
+        messages::propertyValueFormatError(asyncResp->res, domainname,
+                                           "DomainName");
+        return;
+    }
+
     std::vector<std::string> vectorDomainname = {domainname};
     setDbusProperty(
         asyncResp, "FQDN", "xyz.openbmc_project.Network",
