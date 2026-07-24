@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a0d364c_e53ca781",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T06:59:20Z",
+      "side": 1,
+      "message": "nit: the GenerationInUse and GenerationSupported blocks are almost identical, differing only in the source pointer and output key. Have you considered folding them into a small helper function?",
+      "revId": "4faad794cabfc08335aec6456bd1823f9e5c84a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ad91e2b_e1150411",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T06:59:20Z",
+      "side": 1,
+      "message": "The comment says unpacking DeviceType first avoids a partial PCIeInterface, but that only holds for a wrong-type DeviceType. A well-typed but unmappable value is validated in the DeviceType block below, after the helper has already written PCIeType/MaxPCIeType. In that case the response ends up with a half-filled PCIeInterface even though it returns internalError.",
+      "revId": "4faad794cabfc08335aec6456bd1823f9e5c84a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ffee157_18a4d34e",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T06:59:20Z",
+      "side": 1,
+      "message": "nit: the Unknown/Invalid cases are only tested for GenerationInUse. GenerationSupported (MaxPCIeType) has the same branches, but they\u0027re untested.",
+      "revId": "4faad794cabfc08335aec6456bd1823f9e5c84a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
