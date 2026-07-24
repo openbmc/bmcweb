@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd703c60_4f61d5ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-07-24T18:26:44Z",
+      "side": 1,
+      "message": "@afogel@nvidia.com \ncan you check and resolve the comments.",
+      "revId": "70e72d7643bc003a7dc777a108c8adc2e10168a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
