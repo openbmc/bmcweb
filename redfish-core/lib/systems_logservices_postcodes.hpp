@@ -100,6 +100,27 @@ inline void handleSystemsLogServicesPostCodesGet(
     etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 }
 
+inline void handlePostCodesClearResponse(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec.value() == ENOENT)
+        {
+            messages::resourceNotFound(asyncResp->res, "LogService",
+                                       "PostCodes");
+            return;
+        }
+        BMCWEB_LOG_ERROR("doClearPostCodes resp_handler got error {}", ec);
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    messages::success(asyncResp->res);
+}
+
 inline void handleSystemsLogServicesPostCodesPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -127,19 +148,8 @@ inline void handleSystemsLogServicesPostCodesPost(
     // Make call to post-code service to request clear all
     dbus::utility::async_method_call(
         asyncResp,
-        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                // TODO Handle for specific error code
-                BMCWEB_LOG_ERROR("doClearPostCodes resp_handler got error {}",
-                                 ec);
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
+            handlePostCodesClearResponse(asyncResp, ec);
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
