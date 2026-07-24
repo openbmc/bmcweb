@@ -93,7 +93,14 @@ inline std::string getCertificateFromReqBody(
     JsonParseResult ret = parseRequestAsJson(req, reqJson);
     if (ret != JsonParseResult::Success)
     {
-        // We did not receive JSON request, proceed as it is RAW data
+        // Non-JSON bodies are accepted as raw PEM to support clients that
+        // pre-date the Redfish JSON format. Reject empty bodies since they
+        // cannot contain a valid certificate.
+        if (req.body().empty())
+        {
+            messages::unrecognizedRequestBody(asyncResp->res);
+            return {};
+        }
         return req.body();
     }
 
@@ -106,8 +113,6 @@ inline std::string getCertificateFromReqBody(
             "CertificateType", certificateType //
             ))
     {
-        BMCWEB_LOG_ERROR("Required parameters are missing");
-        messages::internalError(asyncResp->res);
         return {};
     }
 
@@ -997,8 +1002,6 @@ inline void handleHTTPSCertificateCollectionPost(
 
     if (certHttpBody.empty())
     {
-        BMCWEB_LOG_ERROR("Cannot get certificate from request body.");
-        messages::unrecognizedRequestBody(asyncResp->res);
         return;
     }
 
@@ -1114,8 +1117,6 @@ inline void handleLDAPCertificateCollectionPost(
 
     if (certHttpBody.empty())
     {
-        BMCWEB_LOG_ERROR("Cannot get certificate from request body.");
-        messages::unrecognizedRequestBody(asyncResp->res);
         return;
     }
 
@@ -1253,8 +1254,6 @@ inline void handleTrustStoreCertificateCollectionPost(
 
     if (certHttpBody.empty())
     {
-        BMCWEB_LOG_ERROR("Cannot get certificate from request body.");
-        messages::unrecognizedRequestBody(asyncResp->res);
         return;
     }
 
