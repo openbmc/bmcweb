@@ -51,6 +51,24 @@
       "parentUuid": "37aa40d1_1c72c123",
       "revId": "f93b87444274347f51e1daf3d01a56d62527acb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4282c78_a56ec812",
+        "filename": "subprojects/libcper.wrap",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-24T17:19:58Z",
+      "side": 1,
+      "message": "bmcweb is NOT a common place.  not sure why you thought that.\n\nA bmcweb MR isn\u0027t the right place for this discussion.",
+      "parentUuid": "46076d37_fac57f70",
+      "revId": "f93b87444274347f51e1daf3d01a56d62527acb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
