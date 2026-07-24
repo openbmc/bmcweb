@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a0723e4_e65485a9",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-24T12:36:50Z",
+      "side": 1,
+      "message": "Uploaded new patch-set for by resolving the same.",
+      "parentUuid": "39e34875_39561109",
+      "range": {
+        "startLine": 939,
+        "startChar": 45,
+        "endLine": 939,
+        "endChar": 77
+      },
+      "revId": "1a01f81dff4ea8d906219da016e8a7e072a347ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0f03130_148c3748",
@@ -136,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e9c060_658fdfb4",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-24T12:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df816ae4_f8162bbe",
+      "range": {
+        "startLine": 940,
+        "startChar": 8,
+        "endLine": 945,
+        "endChar": 9
+      },
+      "revId": "1a01f81dff4ea8d906219da016e8a7e072a347ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0f64096_88923ff2",
@@ -173,6 +221,30 @@
       "side": 1,
       "message": "Should I do a unit conversion, or should the dbus backend be changed? @gunnar@gmills.xyz your input would also be highly valuable.",
       "parentUuid": "a0f64096_88923ff2",
+      "range": {
+        "startLine": 1063,
+        "startChar": 0,
+        "endLine": 1063,
+        "endChar": 17
+      },
+      "revId": "1a01f81dff4ea8d906219da016e8a7e072a347ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1276f1c6_c03f5eeb",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-24T12:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ef95637_c53c2779",
       "range": {
         "startLine": 1063,
         "startChar": 0,
