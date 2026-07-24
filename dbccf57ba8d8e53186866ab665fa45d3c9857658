@@ -22,6 +22,30 @@
       },
       "revId": "dbccf57ba8d8e53186866ab665fa45d3c9857658",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "668bc727_a174f6e1",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T09:51:30Z",
+      "side": 1,
+      "message": "Added the PDI change: https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/92699\n\nThanks for review.",
+      "parentUuid": "e9864847_fa733c5c",
+      "range": {
+        "startLine": 171,
+        "startChar": 32,
+        "endLine": 171,
+        "endChar": 41
+      },
+      "revId": "dbccf57ba8d8e53186866ab665fa45d3c9857658",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
