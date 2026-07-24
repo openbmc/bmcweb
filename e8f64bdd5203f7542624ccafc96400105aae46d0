@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40f97414_3ef5b74e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T02:24:49Z",
+      "side": 1,
+      "message": "Agreed, it\u0027s generic — not GPU-specific, modify it, thanks.",
+      "parentUuid": "6cbda467_8d518406",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 59
+      },
+      "revId": "e8f64bdd5203f7542624ccafc96400105aae46d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a45d25d7_866377e0",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-02T11:49:38Z",
       "side": 1,
       "message": "I think we should logs for the case of `ec.value() \u003d\u003d EBADR` here.",
+      "range": {
+        "startLine": 442,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 15
+      },
+      "revId": "e8f64bdd5203f7542624ccafc96400105aae46d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2cebc8e_641b983d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T02:24:49Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "a45d25d7_866377e0",
       "range": {
         "startLine": 442,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d17f4e_ca4b99ea",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T02:24:49Z",
+      "side": 1,
+      "message": "Left as-is: unpackPropertiesNoThrow already logs the offending property via dbus_utils::UnpackErrorPrinter() before returning false, so an extra debug log would be redundant and it matches the surrounding handlers. Happy to add one if you\u0027d prefer it explicit.",
+      "parentUuid": "7c4a4d13_98a21a87",
+      "range": {
+        "startLine": 456,
+        "startChar": 4,
+        "endLine": 460,
+        "endChar": 5
+      },
+      "revId": "e8f64bdd5203f7542624ccafc96400105aae46d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a1b2159_8fbadd6d",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-07-02T11:49:38Z",
       "side": 1,
       "message": "In this case, shouldn\u0027t we distinguish the case for EBADR and the others?",
+      "range": {
+        "startLine": 482,
+        "startChar": 8,
+        "endLine": 482,
+        "endChar": 69
+      },
+      "revId": "e8f64bdd5203f7542624ccafc96400105aae46d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f360005e_a6fee788",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-24T02:24:49Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "8a1b2159_8fbadd6d",
       "range": {
         "startLine": 482,
         "startChar": 8,
