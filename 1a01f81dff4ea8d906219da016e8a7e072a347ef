@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23af4cfc_c1b97e49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T02:57:32Z",
+      "side": 1,
+      "message": "ReadingAccuracy and the legacy property Accuracy have different type of units.",
+      "revId": "1a01f81dff4ea8d906219da016e8a7e072a347ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2df22419_806ea64b",
