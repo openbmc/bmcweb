@@ -18,6 +18,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/fan_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/processor_utils.hpp"
 #include "utils/sensor_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -639,12 +640,8 @@ inline void getProcessorForEnvMetrics(
 {
     BMCWEB_LOG_DEBUG("getProcessorForEnvMetrics: {}", processorId);
 
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Cpu",
-        "xyz.openbmc_project.Inventory.Item.Accelerator"};
-
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        "/xyz/openbmc_project/inventory", 0, processorInterfaces,
         std::bind_front(handleProcessorEnvMetricsSubtree, asyncResp,
                         processorId, std::move(callback)));
 }

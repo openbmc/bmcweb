@@ -19,6 +19,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/processor_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -49,11 +50,6 @@
 
 namespace redfish
 {
-
-// Interfaces which imply a D-Bus object represents a Processor
-constexpr std::array<std::string_view, 2> processorInterfaces = {
-    "xyz.openbmc_project.Inventory.Item.Cpu",
-    "xyz.openbmc_project.Inventory.Item.Accelerator"};
 
 /**
  * @brief Fill out uuid info of a processor by
