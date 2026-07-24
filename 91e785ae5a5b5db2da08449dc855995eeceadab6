@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e45f79c6_e8443219",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-24T02:43:49Z",
+      "side": 1,
+      "message": "Why something special here for SKU.. Why can\u0027t this be like other Chassis properties",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 9
+      },
+      "revId": "91e785ae5a5b5db2da08449dc855995eeceadab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
