@@ -20,6 +20,7 @@
 #include "utils/asset_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/pcie_util.hpp"
+#include "utils/processor_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -211,10 +212,6 @@ inline void linkAssociatedProcessor(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDevicePath)
 {
-    constexpr std::array<std::string_view, 2> processorInterfaces = {
-        "xyz.openbmc_project.Inventory.Item.Cpu",
-        "xyz.openbmc_project.Inventory.Item.Accelerator"};
-
     dbus::utility::getAssociatedSubTreePaths(
         pcieDevicePath + "/connected_to",
         sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
