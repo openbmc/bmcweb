@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c84a8ab6_9eb51504",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-07-24T05:29:40Z",
+      "side": 1,
+      "message": "We are reusing the same timer from the connection object. So it inherits setting from it. Today we have 15s timeout.\n\nWe are anticipating dump sizes in the range of 500Mbs to 1 Gb.",
+      "parentUuid": "d56693a9_db227fad",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "0dad6742191dd5c0554d0f4c9a8ec145bdf7f99d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44fabb58_79d00191",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
