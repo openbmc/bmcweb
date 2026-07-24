@@ -23,6 +23,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/processor_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -420,10 +421,6 @@ inline void getChassisProcessorLinks(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const sdbusplus::object_path& chassisPath)
 {
-    constexpr std::array<std::string_view, 2> procInterfaces = {
-        "xyz.openbmc_project.Inventory.Item.Accelerator",
-        "xyz.openbmc_project.Inventory.Item.Cpu"};
-
     BMCWEB_LOG_DEBUG("Get chassis processor links for {}",
                      chassisPath.string());
 
@@ -433,7 +430,7 @@ inline void getChassisProcessorLinks(
     dbus::utility::getAssociatedSubTreePaths(
         chassisPath / "containing",
         sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
-        procInterfaces,
+        processorInterfaces,
         std::bind_front(afterGetChassisProcessorLinks, asyncResp,
                         std::move(collectionPath),
                         nlohmann::json::json_pointer("/Links/Processors")));
