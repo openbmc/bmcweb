@@ -10,6 +10,7 @@
 #include "zstd_decompressor.hpp"
 
 #include <fcntl.h>
+#include <sys/stat.h>
 
 #include <boost/asio/buffer.hpp>
 #include <boost/beast/core/buffer_traits.hpp>
@@ -31,6 +32,7 @@
 #include <optional>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
 #include <variant>
 
@@ -232,6 +234,102 @@ class HttpBody::value_type
         }
         ec = {};
     }
+
+    std::optional<size_t> getFileSize() const
+    {
+        if (const auto* fileBody = std::get_if<FileBody>(&bodyData))
+        {
+            return fileBody->fileSize;
+        }
+        return std::nullopt;
+    }
+
+    // Clamps length to the bytes actually available from offset in fd.
+    // Returns false (with length set to 0) when fstat fails or offset is at
+    // or beyond EOF. Returns true otherwise, with length clamped as needed.
+    static bool clampLengthToFileContent(int fd, off_t offset, size_t& length)
+    {
+        struct stat st{};
+        if (::fstat(fd, &st) != 0)
+        {
+            // fstat fails for bad/closed fds (EBADF), I/O errors, or overflow.
+            // Proceeding with an unchecked length risks overshooting real EOF,
+            // so treat this as a hard failure.
+            BMCWEB_LOG_ERROR("fstat failed on fd {}: {}", fd,
+                             std::generic_category().message(errno));
+            length = 0;
+            return false;
+        }
+
+        auto actualSize = static_cast<uint64_t>(st.st_size);
+        auto uOffset = static_cast<uint64_t>(offset);
+
+        if (uOffset >= actualSize)
+        {
+            BMCWEB_LOG_WARNING(
+                "Offset {} is at or beyond file size {}; nothing to send",
+                offset, actualSize);
+            length = 0;
+            return false;
+        }
+
+        size_t available = static_cast<size_t>(actualSize - uOffset);
+        if (length > available)
+        {
+            BMCWEB_LOG_WARNING("Requested length {} exceeds available bytes {} "
+                               "(offset={} fileSize={}); clamping",
+                               length, available, offset, actualSize);
+            length = available;
+        }
+        return true;
+    }
+
+    void setFdWithRange(int fd, off_t offset, size_t length,
+                        boost::system::error_code& ec)
+    {
+        if (offset < 0)
+        {
+            BMCWEB_LOG_ERROR("Invalid negative offset: {}", offset);
+            ec = boost::system::error_code(EINVAL,
+                                           boost::system::generic_category());
+            return;
+        }
+
+        if (length > static_cast<size_t>(std::numeric_limits<off_t>::max()))
+        {
+            BMCWEB_LOG_ERROR(
+                "Invalid length {} (likely wrapped from a negative value)",
+                length);
+            ec = boost::system::error_code(EINVAL,
+                                           boost::system::generic_category());
+            return;
+        }
+
+        if (!clampLengthToFileContent(fd, offset, length))
+        {
+            BMCWEB_LOG_ERROR(
+                "setFdWithRange: offset {} is out of range for fd {}", offset,
+                fd);
+            ec = boost::system::error_code(ERANGE,
+                                           boost::system::generic_category());
+            return;
+        }
+
+        off_t seekResult = ::lseek(fd, offset, SEEK_SET);
+        if (seekResult < 0)
+        {
+            BMCWEB_LOG_ERROR("Failed to seek to offset {}: {}", offset,
+                             std::generic_category().message(errno));
+            ec = boost::system::error_code(errno,
+                                           boost::system::generic_category());
+            return;
+        }
+
+        FileBody& fileBody = bodyData.emplace<FileBody>();
+        fileBody.fileHandle.fileHandle.native_handle(fd);
+        fileBody.fileSize = length;
+        ec = {};
+    }
 };
 
 class HttpBody::writer
@@ -308,53 +406,90 @@ class HttpBody::writer
 
             sent += toReturn;
             ret.second = sent < body.str().size();
+            BMCWEB_LOG_INFO("Returning {} bytes more={}", ret.first.size(),
+                            ret.second);
+            return ret;
+        }
+
+        // Check if we have a fileSize limit and respect it
+        size_t remainingBytes = std::numeric_limits<size_t>::max();
+        std::optional<size_t> fileSizeLimit = body.getFileSize();
+        if (fileSizeLimit)
+        {
+            if (sent >= *fileSizeLimit)
+            {
+                // Already sent all requested bytes
+                BMCWEB_LOG_INFO("Reached fileSize limit: sent={} fileSize={}",
+                                sent, *fileSizeLimit);
+                ret.second = false;
+                return ret;
+            }
+            remainingBytes = *fileSizeLimit - sent;
+        }
+
+        size_t readReq =
+            std::min({fileReadBuf.size(), maxSize, remainingBytes});
+        BMCWEB_LOG_INFO("Reading {} (remaining={})", readReq, remainingBytes);
+
+        boost::system::error_code readEc;
+        size_t read = body.file().read(fileReadBuf.data(), readReq, readEc);
+        if (readEc)
+        {
+            if (readEc != boost::system::errc::operation_would_block &&
+                readEc != boost::system::errc::resource_unavailable_try_again)
+            {
+                BMCWEB_LOG_CRITICAL("Failed to read from file {}",
+                                    readEc.message());
+                ec = readEc;
+                return boost::none;
+            }
+        }
+
+        std::string_view chunkView(fileReadBuf.data(), read);
+        BMCWEB_LOG_INFO("Read {} bytes from file", read);
+        sent += read;
+
+        if (read == 0)
+        {
+            BMCWEB_LOG_WARNING(
+                "EOF reached after {} bytes, declared fileSize limit was {}",
+                sent, fileSizeLimit ? *fileSizeLimit : 0);
+            ret.second = false;
+            ret.first = const_buffers_type(fileReadBuf.data(), 0);
+            return ret;
+        }
+
+        // Determine if there's more data to send
+        if (fileSizeLimit)
+        {
+            ret.second = sent < *fileSizeLimit;
         }
         else
         {
-            size_t readReq = std::min(fileReadBuf.size(), maxSize);
-            BMCWEB_LOG_INFO("Reading {}", readReq);
-            boost::system::error_code readEc;
-            size_t read = body.file().read(fileReadBuf.data(), readReq, readEc);
-            if (readEc)
-            {
-                if (readEc != boost::system::errc::operation_would_block &&
-                    readEc !=
-                        boost::system::errc::resource_unavailable_try_again)
-                {
-                    BMCWEB_LOG_CRITICAL("Failed to read from file {}",
-                                        readEc.message());
-                    ec = readEc;
-                    return boost::none;
-                }
-            }
-
-            std::string_view chunkView(fileReadBuf.data(), read);
-            BMCWEB_LOG_INFO("Read {} bytes from file", read);
             // If the number of bytes read equals the amount requested, we
             // haven't reached EOF yet
             ret.second = read == readReq;
+        }
 
-            if (body.chunkCallback)
+        if (body.chunkCallback)
+        {
+            body.chunkCallback();
+        }
+        if (body.encodingType == EncodingType::Base64)
+        {
+            buf.clear();
+            buf.reserve(
+                crow::utility::Base64Encoder::encodedSize(chunkView.size()));
+            encoder.encode(chunkView, buf);
+            if (!ret.second)
             {
-                body.chunkCallback();
+                encoder.finalize(buf);
             }
-            if (body.encodingType == EncodingType::Base64)
-            {
-                buf.clear();
-                buf.reserve(crow::utility::Base64Encoder::encodedSize(
-                    chunkView.size()));
-                encoder.encode(chunkView, buf);
-                if (!ret.second)
-                {
-                    encoder.finalize(buf);
-                }
-                ret.first = const_buffers_type(buf.data(), buf.size());
-            }
-            else
-            {
-                ret.first =
-                    const_buffers_type(chunkView.data(), chunkView.size());
-            }
+            ret.first = const_buffers_type(buf.data(), buf.size());
+        }
+        else
+        {
+            ret.first = const_buffers_type(chunkView.data(), chunkView.size());
         }
 
         if (zstdDecompressor)
