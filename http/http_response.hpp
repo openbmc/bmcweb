@@ -387,6 +387,26 @@ struct Response
         return true;
     }
 
+    bool openFdWithRange(int fd, off_t offset, size_t length,
+                         bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
+    {
+        boost::beast::error_code ec;
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
+        int retval = fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK);
+        if (retval == -1)
+        {
+            BMCWEB_LOG_ERROR("Setting O_NONBLOCK failed");
+        }
+        response.body().encodingType = enc;
+        response.body().setFdWithRange(fd, offset, length, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to set fd with range: {}", ec.message());
+            return false;
+        }
+        return true;
+    }
+
   private:
     std::optional<std::string> requestExpectedEtag;
     std::optional<std::string> currentOverrideEtag;
