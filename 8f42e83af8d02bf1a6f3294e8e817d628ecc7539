@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d12e7651_050b2660",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-26T11:34:59Z",
+      "side": 1,
+      "message": "Understood, thanks for acknowledging this!",
+      "parentUuid": "fa7267f6_4aa68a84",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "8f42e83af8d02bf1a6f3294e8e817d628ecc7539",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "432a8673_d846b44c",
