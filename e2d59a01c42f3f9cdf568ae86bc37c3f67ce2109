@@ -22,6 +22,30 @@
       },
       "revId": "e2d59a01c42f3f9cdf568ae86bc37c3f67ce2109",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "259523a7_3a59e052",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-07-26T06:21:10Z",
+      "side": 1,
+      "message": "Mistakenly added - I have removed it.",
+      "parentUuid": "3e945203_4881958f",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 55
+      },
+      "revId": "e2d59a01c42f3f9cdf568ae86bc37c3f67ce2109",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

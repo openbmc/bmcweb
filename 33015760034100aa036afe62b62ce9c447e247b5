@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c45bddff_9217808b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-07-26T06:21:10Z",
+      "side": 1,
+      "message": "Fixed commit message",
+      "parentUuid": "dc4bff0a_0cf625c3",
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e09cb414_f01ac992",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-22T07:21:35Z",
       "side": 1,
       "message": "Commit message says: \"include/http_auth_modes.hpp... config/meson.build: pass ALL_SOCKET_UNITS... config/bmcweb.service.in: add @ALL_SOCKET_UNITS@...\" — but this patchset only touches http/http_auth_modes.hpp (not include/), and doesn\u0027t touch meson.build or bmcweb.service.in at all. Can the message be updated to match what\u0027s actually shipped?",
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d617322a_7f072c0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-07-26T06:21:10Z",
+      "side": 1,
+      "message": "Fixed and removed",
+      "parentUuid": "e09cb414_f01ac992",
       "revId": "33015760034100aa036afe62b62ce9c447e247b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e9e29e_e4ee462e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-07-26T06:21:10Z",
+      "side": 1,
+      "message": "Yes, you are right.\nAdded \"Currently,\nnoauth is only supported via the BMCWEB_INSECURE_DISABLE_AUTH build\nflag, not on a per-port basis with the use of noauth flag.\"",
+      "parentUuid": "989b9d78_960b4a8c",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 69
+      },
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfc76f7f_4696cf29",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-07-21T14:46:49Z",
       "side": 1,
       "message": "Tested?",
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eded78ae_a7f8dca2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-07-26T06:21:10Z",
+      "side": 1,
+      "message": "Added test for http with noauth flag - works without username and password",
+      "parentUuid": "dfc76f7f_4696cf29",
       "revId": "33015760034100aa036afe62b62ce9c447e247b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -92,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "644adb5f_107e4feb",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-07-26T06:21:10Z",
+      "side": 1,
+      "message": "Thanks, added it",
+      "parentUuid": "0b5b2893_d04a8882",
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "461157b4_bb6faae5",
@@ -105,6 +201,24 @@
       "writtenOn": "2026-07-22T07:21:35Z",
       "side": 1,
       "message": "Still tests the old disableAuth() toggle, not the new AuthMode::NOAUTH constructor path this PR adds. Can we get a test that constructs with AuthMode::NOAUTH directly?",
+      "revId": "33015760034100aa036afe62b62ce9c447e247b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "836f23b7_b58df261",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-07-26T06:21:10Z",
+      "side": 1,
+      "message": "Added two tests:\n1. Set connection with AuthMode::NOAUTH.\n2. Set connection with AuthMode::AUTH - check for failure",
+      "parentUuid": "461157b4_bb6faae5",
       "revId": "33015760034100aa036afe62b62ce9c447e247b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
