@@ -17,6 +17,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/resource_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -71,69 +72,6 @@ inline void getFabricPortLocation(
         std::bind_front(afterGetFabricPortLocation, asyncResp));
 }
 
-inline void afterGetFabricPortState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec, bool present)
-{
-    if (ec)
-    {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error for State, ec {}",
-                             ec.value());
-            messages::internalError(asyncResp->res);
-        }
-        return;
-    }
-    if (!present)
-    {
-        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Absent;
-    }
-}
-
-inline void getFabricPortState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portPath, const std::string& serviceName)
-{
-    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
-    dbus::utility::getProperty<bool>(
-        serviceName, portPath, "xyz.openbmc_project.Inventory.Item", "Present",
-        std::bind_front(afterGetFabricPortState, asyncResp));
-}
-
-inline void afterGetFabricPortHealth(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec, bool functional)
-{
-    if (ec)
-    {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error for Health, ec {}",
-                             ec.value());
-            messages::internalError(asyncResp->res);
-        }
-        return;
-    }
-
-    if (!functional)
-    {
-        asyncResp->res.jsonValue["Status"]["Health"] =
-            resource::Health::Critical;
-    }
-}
-
-inline void getFabricPortHealth(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portPath, const std::string& serviceName)
-{
-    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
-    dbus::utility::getProperty<bool>(
-        serviceName, portPath,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        std::bind_front(afterGetFabricPortHealth, asyncResp));
-}
-
 inline void getFabricPortProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId,
@@ -159,8 +97,10 @@ inline void getFabricPortProperties(
     asyncResp->res.jsonValue["Name"] = "Fabric Port";
 
     getFabricPortLocation(asyncResp, portPath, serviceName);
-    getFabricPortState(asyncResp, portPath, serviceName);
-    getFabricPortHealth(asyncResp, portPath, serviceName);
+    resource_utils::getResourceState(asyncResp, serviceName, portPath,
+                                     ""_json_pointer);
+    resource_utils::getResourceHealth(asyncResp, serviceName, portPath,
+                                      ""_json_pointer);
     getLocationIndicatorActive(asyncResp, portPath);
 }
 
