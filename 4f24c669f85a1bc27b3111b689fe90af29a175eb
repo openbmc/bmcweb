@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38211043_f53cc556",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-07-27T21:02:27Z",
+      "side": 1,
+      "message": "AttributeType can be enumeration, string, password, etc. (as outlined in PDI). A cleaner approach could be looking up the attribute in the BIOS Base table and tagging the attribute based on the table.",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 38
+      },
+      "revId": "4f24c669f85a1bc27b3111b689fe90af29a175eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa119394_92d10368",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-07-27T21:02:27Z",
+      "side": 1,
+      "message": "JSON defines numbers as \"number\" type. There is no int64_t type in JSON.",
+      "range": {
+        "startLine": 138,
+        "startChar": 9,
+        "endLine": 138,
+        "endChar": 66
+      },
+      "revId": "4f24c669f85a1bc27b3111b689fe90af29a175eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
