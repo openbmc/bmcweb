@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c1ce6e_8e2d1c0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-07-27T08:25:46Z",
+      "side": 1,
+      "message": "Is there a patch that adds the associations in entity-manager?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 10
+      },
+      "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65701bd3_958bdae7",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-07-27T08:25:46Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a good idea to introduce too long lambdas and ast-grep ignore them right away in new patches :D I assume this will be cleaned up once we find consensus?",
+      "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c2aa757_248e70da",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-07-27T08:25:46Z",
+      "side": 1,
+      "message": "I assume you wanted to use this in the getFanPaths call?",
+      "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd9f6aa_cff1e166",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-07-27T08:25:46Z",
+      "side": 1,
+      "message": "Same as in environment_metrics.hpp?",
+      "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
