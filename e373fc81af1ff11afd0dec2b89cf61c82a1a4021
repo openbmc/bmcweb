@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c86b2118_183161b1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-07-27T11:00:00Z",
+      "side": 1,
+      "message": "interfaces.find(satelliteControllerIface) can be used instead of auto it \u003d std::ranges::find_if()",
+      "revId": "e373fc81af1ff11afd0dec2b89cf61c82a1a4021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
