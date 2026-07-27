@@ -16,6 +16,23 @@
       "message": "PS12: Use chassisPath.string() and drop redundant object_path construction.",
       "revId": "0c8ba338d181a82b63ecf57abe94a9a3221b15a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cdb5b96_c8bdd02a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-27T21:01:59Z",
+      "side": 1,
+      "message": "It looks good to me",
+      "revId": "0c8ba338d181a82b63ecf57abe94a9a3221b15a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
