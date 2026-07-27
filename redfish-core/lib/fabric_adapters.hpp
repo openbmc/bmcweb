@@ -18,6 +18,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/resource_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -64,61 +65,6 @@ inline void getFabricAdapterLocation(
         });
 }
 
-inline void getFabricAdapterState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& serviceName, const std::string& fabricAdapterPath)
-{
-    dbus::utility::getProperty<bool>(
-        serviceName, fabricAdapterPath, "xyz.openbmc_project.Inventory.Item",
-        "Present",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec, const bool present) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for State");
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            if (!present)
-            {
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Absent;
-            }
-        });
-}
-
-inline void getFabricAdapterHealth(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& serviceName, const std::string& fabricAdapterPath)
-{
-    dbus::utility::getProperty<bool>(
-        serviceName, fabricAdapterPath,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const bool functional) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Health");
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            if (!functional)
-            {
-                asyncResp->res.jsonValue["Status"]["Health"] =
-                    resource::Health::Critical;
-            }
-        });
-}
-
 inline void doAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId,
@@ -134,9 +80,6 @@ inline void doAdapterGet(
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/FabricAdapters/{}", systemName, adapterId);
 
-    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
-    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
-
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters/{}/Ports",
                             systemName, adapterId);
@@ -144,8 +87,10 @@ inline void doAdapterGet(
     getFabricAdapterLocation(asyncResp, serviceName, fabricAdapterPath);
     asset_utils::getAssetInfo(asyncResp, serviceName, fabricAdapterPath,
                               ""_json_pointer, true);
-    getFabricAdapterState(asyncResp, serviceName, fabricAdapterPath);
-    getFabricAdapterHealth(asyncResp, serviceName, fabricAdapterPath);
+    resource_utils::getResourceState(asyncResp, serviceName, fabricAdapterPath,
+                                     ""_json_pointer);
+    resource_utils::getResourceHealth(asyncResp, serviceName, fabricAdapterPath,
+                                      ""_json_pointer);
     getLocationIndicatorActive(asyncResp, fabricAdapterPath);
 }
 
