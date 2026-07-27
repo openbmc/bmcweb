@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d24a15e7_9a0a2412",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-27T06:12:35Z",
+      "side": 1,
+      "message": "I think we don\u0027t need these comment.",
+      "range": {
+        "startLine": 450,
+        "startChar": 8,
+        "endLine": 452,
+        "endChar": 64
+      },
+      "revId": "7ebcd51de8205c22700fb1c409dbf14738e8ca95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab6c7ed_fb8afc11",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-27T06:12:35Z",
+      "side": 1,
+      "message": "I think we don\u0027t need these comment.",
+      "range": {
+        "startLine": 489,
+        "startChar": 9,
+        "endLine": 491,
+        "endChar": 31
+      },
+      "revId": "7ebcd51de8205c22700fb1c409dbf14738e8ca95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64409f96_0db04712",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 10
