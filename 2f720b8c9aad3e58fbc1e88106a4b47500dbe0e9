@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efefeafb_c2d1f355",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-27T06:49:57Z",
+      "side": 1,
+      "message": "Code looks good to me. Wait for PDI.",
+      "revId": "2f720b8c9aad3e58fbc1e88106a4b47500dbe0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
