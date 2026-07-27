@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40778855_fd5b9756",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-27T18:32:48Z",
+      "side": 1,
+      "message": "Don\u0027t you need to include processors then or maybe let\u0027s get in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92726",
+      "range": {
+        "startLine": 107,
+        "startChar": 55,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "95d736f6bff16376bad8c795fb2e21744926ede6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
