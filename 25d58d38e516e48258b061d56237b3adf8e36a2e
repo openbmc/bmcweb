@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b536d1ac_51bc6ac3",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 95
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-27T17:57:26Z",
+      "side": 1,
+      "message": "What if Processor does not exist? Shouldn\u0027t we return a 404 ?",
+      "revId": "25d58d38e516e48258b061d56237b3adf8e36a2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66be6b99_403d9c21",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 95
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-27T17:57:26Z",
+      "side": 1,
+      "message": "If this doesn\u0027t exist, then you just put out an empty collection ?",
+      "revId": "25d58d38e516e48258b061d56237b3adf8e36a2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
