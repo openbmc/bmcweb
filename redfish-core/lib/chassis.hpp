@@ -257,8 +257,6 @@ inline void handlePhysicalSecurityGetSubTree(
                         BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
                         return;
                     }
-                    asyncResp->res.jsonValue["PhysicalSecurity"]
-                                            ["IntrusionSensorNumber"] = 1;
                     asyncResp->res
                         .jsonValue["PhysicalSecurity"]["IntrusionSensor"] =
                         value;
