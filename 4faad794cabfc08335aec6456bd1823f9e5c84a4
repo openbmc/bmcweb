@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ac17f0d_fe29fc79",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-27T01:48:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a0d364c_e53ca781",
+      "revId": "4faad794cabfc08335aec6456bd1823f9e5c84a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ad91e2b_e1150411",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2c038b1_3c6070b8",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-27T01:48:06Z",
+      "side": 1,
+      "message": "Good catch. Now fully resolving DeviceType before writing PCIeInterface, so an error no longer leaves a partial response.",
+      "parentUuid": "2ad91e2b_e1150411",
+      "revId": "4faad794cabfc08335aec6456bd1823f9e5c84a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ffee157_18a4d34e",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-24T06:59:20Z",
       "side": 1,
       "message": "nit: the Unknown/Invalid cases are only tested for GenerationInUse. GenerationSupported (MaxPCIeType) has the same branches, but they\u0027re untested.",
+      "revId": "4faad794cabfc08335aec6456bd1823f9e5c84a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "855e1bf5_941c6397",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-27T01:48:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ffee157_18a4d34e",
       "revId": "4faad794cabfc08335aec6456bd1823f9e5c84a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
