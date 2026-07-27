@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fd73f2d_d98551d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-27T16:06:00Z",
+      "side": 1,
+      "message": "yes, see the gerrit topic. Linked it under `References` section and noted it here 👍",
+      "parentUuid": "80c1ce6e_8e2d1c0e",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 10
+      },
+      "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65701bd3_958bdae7",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-07-27T08:25:46Z",
       "side": 1,
       "message": "I don\u0027t think it\u0027s a good idea to introduce too long lambdas and ast-grep ignore them right away in new patches :D I assume this will be cleaned up once we find consensus?",
+      "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "767cdd75_03e4247f",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-27T16:06:00Z",
+      "side": 1,
+      "message": "O.o gotten rid of this in the latest revision, thanks for pointing it out.",
+      "parentUuid": "65701bd3_958bdae7",
       "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06f989a5_4adc3bb9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-27T16:06:00Z",
+      "side": 1,
+      "message": "yes, fixed it 👍",
+      "parentUuid": "3c2aa757_248e70da",
+      "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cd9f6aa_cff1e166",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-07-27T08:25:46Z",
       "side": 1,
       "message": "Same as in environment_metrics.hpp?",
+      "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aacb9e0_4928b063",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-27T16:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cd9f6aa_cff1e166",
       "revId": "58088f01ec9d770685881a33192f6c1360a3fb06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
