@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8b5f64b_fc4a11df",
+        "filename": "redfish-core/lib/network_device_function.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-27T06:48:20Z",
+      "side": 1,
+      "message": "Why don\u0027t we use `unpackPropertiesNoThrow` in the func?",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 33
+      },
+      "revId": "e29923840f5d8c418e2117b9516ead975e6200d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7011f035_67b96ef9",
         "filename": "redfish-core/lib/network_device_function.hpp",
         "patchSetId": 5
