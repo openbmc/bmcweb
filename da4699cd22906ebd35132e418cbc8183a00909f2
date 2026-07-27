@@ -52,6 +52,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de0929c4_ea2a6a33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-27T14:56:27Z",
+      "side": 1,
+      "message": "Had to change the code flow a little bit as\n1a972a358c0b5b7affd46ad9db683d40511a293c\nadded some unit tests which segfault if there\u0027s any mapper calls in the code path.\n\nThanks for looking into my change 😊",
+      "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "719a9e43_d8692a43",
@@ -65,6 +82,24 @@
       "writtenOn": "2026-07-24T17:05:54Z",
       "side": 1,
       "message": "I would have defined locally since it mixes chassis and system.. Oh well. Fix if you agree",
+      "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf26a128_c8e73904",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-27T14:56:27Z",
+      "side": 1,
+      "message": "changed it to a local definition.",
+      "parentUuid": "719a9e43_d8692a43",
       "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +121,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aee3bd8d_75c356eb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-27T14:56:27Z",
+      "side": 1,
+      "message": "seems like leftovers, LSP agrees, no direct usage. removed it 👍",
+      "parentUuid": "96bcf366_17c0f78a",
+      "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6f26042_4fcecdaa",
@@ -99,6 +152,30 @@
       "writtenOn": "2026-07-24T17:05:54Z",
       "side": 1,
       "message": "For single system we point at /redfish/v1/Systems/system/bios. Reason we point just at /redfish/v1/Systems/{} ? I think it is okay.. Just calling it out",
+      "range": {
+        "startLine": 1253,
+        "startChar": 0,
+        "endLine": 1255,
+        "endChar": 78
+      },
+      "revId": "da4699cd22906ebd35132e418cbc8183a00909f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "669a9a29_2429573f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-07-27T14:56:27Z",
+      "side": 1,
+      "message": "yeah this was only intended as a base patch, but i can add the bios specific link as well here for consistency with the single system code path based on the purpose 👍",
+      "parentUuid": "b6f26042_4fcecdaa",
       "range": {
         "startLine": 1253,
         "startChar": 0,
