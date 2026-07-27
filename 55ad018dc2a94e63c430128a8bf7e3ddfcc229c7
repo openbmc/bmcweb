@@ -71,6 +71,29 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d30ee7e9_5dc5a0a2",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-27T07:21:15Z",
+      "side": 1,
+      "message": "Should we also add debug log here to indicate the out-of-range value issue?",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 15
+      },
+      "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bf90c9ab_52935813",
@@ -85,6 +108,52 @@
       "side": 1,
       "message": "Done. Added break; after calling getProcessorMetricsECCData so we exit the inner interface loop once MemoryECC is matched. Used break (not return) because getProcessorMetricsOperatingSpeed still needs to run afterwards.\n\nSee PS10:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/87802/10/redfish-core/lib/processor_metrics.hpp#200",
       "parentUuid": "75db7845_0a7b302b",
+      "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcb714be_4d7ce6f5",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-27T07:21:15Z",
+      "side": 1,
+      "message": "Please add the debug log for the case `EBADR` and `boost::system::errc::io_error`.",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d33dbeb_bb2901d6",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-27T07:21:15Z",
+      "side": 1,
+      "message": "Perhaps we can try the following implementation to break both the inner and outer loop.\n```\nfor (const auto\u0026 [serviceName, interfaceList] : serviceMap)\n{\n    if (std::ranges::find(interfaceList, \"xyz.openbmc_project.Memory.MemoryECC\") !\u003d interfaceList.end()) \n    {\n        getProcessorMetricsECCData(asyncResp, serviceName, objectPath);\n        break;\n    }\n}\n...\n```",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 5
+      },
       "revId": "55ad018dc2a94e63c430128a8bf7e3ddfcc229c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
