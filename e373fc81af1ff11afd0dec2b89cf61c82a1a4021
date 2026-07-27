@@ -16,6 +16,40 @@
       "message": "interfaces.find(satelliteControllerIface) can be used instead of auto it \u003d std::ranges::find_if()",
       "revId": "e373fc81af1ff11afd0dec2b89cf61c82a1a4021",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "307e923e_1862d345",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-07-27T11:13:21Z",
+      "side": 1,
+      "message": "can we pass emSatelliteSources + aggregationSources directly as parameter?",
+      "revId": "e373fc81af1ff11afd0dec2b89cf61c82a1a4021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f2ab697_b88bdeb3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-07-27T11:13:21Z",
+      "side": 1,
+      "message": "findSatellite reads singleton state via getInstance(), instead we can have it as parameters passed to the function as findSatellite(req, asyncResp, emSatellites, restSources, memberName)",
+      "revId": "e373fc81af1ff11afd0dec2b89cf61c82a1a4021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
