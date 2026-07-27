@@ -19,6 +19,7 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/resource_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -75,68 +76,6 @@ inline void getAssemblyLocationCode(
         });
 }
 
-inline void getAssemblyState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const auto& serviceName, const auto& assembly,
-    const nlohmann::json::json_pointer& assemblyJsonPtr)
-{
-    asyncResp->res.jsonValue[assemblyJsonPtr]["Status"]["State"] =
-        resource::State::Enabled;
-
-    dbus::utility::getProperty<bool>(
-        serviceName, assembly, "xyz.openbmc_project.Inventory.Item", "Present",
-        // ast-grep-ignore: long-lambda
-        [asyncResp, assemblyJsonPtr,
-         assembly](const boost::system::error_code& ec, const bool value) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            if (!value)
-            {
-                asyncResp->res.jsonValue[assemblyJsonPtr]["Status"]["State"] =
-                    resource::State::Absent;
-            }
-        });
-}
-
-void getAssemblyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const auto& serviceName, const auto& assembly,
-                       const nlohmann::json::json_pointer& assemblyJsonPtr)
-{
-    asyncResp->res.jsonValue[assemblyJsonPtr]["Status"]["Health"] =
-        resource::Health::OK;
-
-    dbus::utility::getProperty<bool>(
-        serviceName, assembly,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        // ast-grep-ignore: long-lambda
-        [asyncResp, assemblyJsonPtr](const boost::system::error_code& ec,
-                                     bool functional) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            if (!functional)
-            {
-                asyncResp->res.jsonValue[assemblyJsonPtr]["Status"]["Health"] =
-                    resource::Health::Critical;
-            }
-        });
-}
-
 inline void afterGetDbusObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& assembly,
@@ -169,14 +108,14 @@ inline void afterGetDbusObject(
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
-                getAssemblyState(asyncResp, serviceName, assembly,
-                                 assemblyJsonPtr);
+                resource_utils::getResourceState(asyncResp, serviceName,
+                                                 assembly, assemblyJsonPtr);
             }
             else if (interface ==
                      "xyz.openbmc_project.State.Decorator.OperationalStatus")
             {
-                getAssemblyHealth(asyncResp, serviceName, assembly,
-                                  assemblyJsonPtr);
+                resource_utils::getResourceHealth(asyncResp, serviceName,
+                                                  assembly, assemblyJsonPtr);
             }
         }
     }
