@@ -422,6 +422,7 @@ inline void assembleDimmProperties(
     const std::string* manufacturer = nullptr;
     const uint16_t* revisionCode = nullptr;
     const bool* present = nullptr;
+    const bool* available = nullptr;
     const uint16_t* memoryTotalWidth = nullptr;
     const std::string* ecc = nullptr;
     const std::string* formFactor = nullptr;
@@ -443,10 +444,10 @@ inline void assembleDimmProperties(
         dbus_utils::UnpackErrorPrinter(), properties, "MemoryDataWidth",
         memoryDataWidth, "MemorySizeInKB", memorySizeInKB, "PartNumber",
         partNumber, "SerialNumber", serialNumber, "Manufacturer", manufacturer,
-        "RevisionCode", revisionCode, "Present", present, "MemoryTotalWidth",
-        memoryTotalWidth, "ECC", ecc, "FormFactor", formFactor,
-        "AllowedSpeedsMT", allowedSpeedsMT, "MemoryAttributes",
-        memoryAttributes, "MemoryConfiguredSpeedInMhz",
+        "RevisionCode", revisionCode, "Present", present, "Available",
+        available, "MemoryTotalWidth", memoryTotalWidth, "ECC", ecc,
+        "FormFactor", formFactor, "AllowedSpeedsMT", allowedSpeedsMT,
+        "MemoryAttributes", memoryAttributes, "MemoryConfiguredSpeedInMhz",
         memoryConfiguredSpeedInMhz, "MemoryType", memoryType, "Channel",
         channel, "MemoryController", memoryController, "Slot", slot, "Socket",
         socket, "SparePartNumber", sparePartNumber, "Model", model,
@@ -495,6 +496,11 @@ inline void assembleDimmProperties(
     {
         asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
             resource::State::Absent;
+    }
+    else if (available != nullptr && !*available)
+    {
+        asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
+            resource::State::UnavailableOffline;
     }
 
     if (functional != nullptr)
