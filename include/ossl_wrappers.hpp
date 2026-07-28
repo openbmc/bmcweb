@@ -191,6 +191,22 @@ class OpenSSLEVPKey
         return key;
     }
 
+    // Adopts ownership of an already-created EVP_PKEY (e.g. one returned by
+    // OSSL_STORE_INFO_get1_PKEY). The key is freed when this object is
+    // destroyed.
+    static OpenSSLEVPKey adopt(EVP_PKEY* ptrIn)
+    {
+        return {ptrIn};
+    }
+
+    // Installs this key as the private key of an SSL context. For a
+    // provider-backed key (e.g. a TPM) this installs a reference; the key
+    // material never leaves the provider.
+    bool useInSslContext(SSL_CTX* ctx) const
+    {
+        return SSL_CTX_use_PrivateKey(ctx, ptr) == 1;
+    }
+
     ~OpenSSLEVPKey()
     {
         EVP_PKEY_free(ptr);
@@ -607,6 +623,14 @@ class OpenSSLX509
         ptr = other.ptr;
         other.ptr = nullptr;
         return *this;
+    }
+
+    // Adopts ownership of an already-created X509 (e.g. one returned by
+    // OSSL_STORE_INFO_get1_CERT). The certificate is freed when this object is
+    // destroyed.
+    static OpenSSLX509 adopt(X509* ptrIn)
+    {
+        return {ptrIn};
     }
 
     static std::optional<OpenSSLX509> loadFromPEMData(std::string& data)

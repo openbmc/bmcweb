@@ -1,0 +1,37 @@
+# OpenSSL configuration scoped to the bmcweb process.
+#
+# bmcweb.service points OPENSSL_CONF at this file (when the meson option
+# openssl-config-path is set), so the providers activated here apply to bmcweb
+# only and not to the rest of the system.
+#
+# This is what enables loading a TLS private key from a cryptographic provider
+# such as a TPM (e.g. uri-key=handle:0x81000000): activating the tpm2 provider
+# registers the OSSL_STORE loader for the handle scheme.
+
+openssl_conf = openssl_init
+
+# Treat configuration errors as fatal. If a provider listed below cannot be
+# activated (e.g. tpm2 is not installed) OpenSSL initialization fails and
+# bmcweb fails to start, rather than silently serving without it.
+config_diagnostics = 1
+
+[openssl_init]
+providers = provider_sect
+
+[provider_sect]
+default = default_sect
+tpm2 = tpm2_sect
+
+# Explicitly activating any provider disables the implicit default provider, so
+# the default provider must be activated here as well or standard algorithms
+# become unavailable.
+[default_sect]
+activate = 1
+
+[tpm2_sect]
+activate = 1
+# TPM device / TCTI used by the tpm2 provider. device:/dev/tpmrm0 is the
+# in-kernel resource manager, which arbitrates concurrent TLS handshakes.
+# Change this for a different TPM access method (e.g. a userspace resource
+# manager or a software TPM socket).
+tcti = device:/dev/tpmrm0

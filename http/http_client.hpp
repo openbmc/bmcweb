@@ -284,8 +284,11 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         timer.cancel();
         if (ec)
         {
-            BMCWEB_LOG_ERROR("SSL Handshake failed - id: {} error: {}", connId,
-                             ec.message());
+            BMCWEB_LOG_ERROR(
+                "SSL Handshake failed - id: {} error: {} (negotiated {})",
+                connId, ec.message(),
+                sslConn ? SSL_get_version(sslConn->native_handle()) : "no-ssl");
+            ensuressl::logOpenSSLErrors("aggregation client SSL handshake");
             state = ConnState::handshakeFailed;
             waitAndRetry();
             return;
@@ -485,7 +488,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             // We want to return a 502 to indicate there was an error with
             // the external server
             res.result(boost::beast::http::status::bad_gateway);
-            callback(false, connId, res);
+            if (callback)
+            {
+                callback(false, connId, res);
+            }
             res.clear();
 
             // Reset the retrycount to zero so that client can try
