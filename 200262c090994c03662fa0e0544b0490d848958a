@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd72b284_35f52159",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-28T08:35:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "222e2d9c_fb8c05f3",
+      "revId": "200262c090994c03662fa0e0544b0490d848958a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4e7375f_2468c613",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-24T20:09:50Z",
       "side": 1,
       "message": "Ideally these are processor::ProcessorArchitecture::x86\nBut that goes for the code as well \nhttps://github.com/openbmc/bmcweb/blob/e05fbc05005db284f418f8517d215c97b9b189f4/redfish-core/lib/processor.hpp#L407\n```\nprocessor::ProcessorArchitecture::x86\n```",
+      "revId": "200262c090994c03662fa0e0544b0490d848958a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c82883_2310be51",
+        "filename": "test/redfish-core/lib/processor_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-28T08:35:35Z",
+      "side": 1,
+      "message": "Done and thanks for your support.",
+      "parentUuid": "a4e7375f_2468c613",
       "revId": "200262c090994c03662fa0e0544b0490d848958a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
