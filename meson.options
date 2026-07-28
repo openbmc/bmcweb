@@ -278,6 +278,52 @@ option(
                     client's x509 certificate''',
 )
 
+# BMCWEB_URI_KEY
+option(
+    'uri-key',
+    type: 'string',
+    value: '',
+    description: '''URI of the private key for the BMC's mTLS identity, loaded
+                    via the OpenSSL OSSL_STORE API. It is used in both BMC-to-BMC
+                    aggregation roles: the key the satellite presents as the TLS
+                    server, and the key the aggregator uses as the TLS client.
+                    When empty (the default) the key is read from the filesystem
+                    PEM, preserving existing behavior. A provider-backed URI
+                    (e.g. a TPM object handle such as handle:0x81000000) keeps
+                    the key inside the provider; it requires the tpm2 provider to
+                    be activated via openssl-config-path.''',
+)
+
+# BMCWEB_URI_CERT
+option(
+    'uri-cert',
+    type: 'string',
+    value: '',
+    description: '''URI of the certificate for the BMC's mTLS identity. Paired
+                    with uri-key; used for both aggregation roles (satellite
+                    server cert and aggregator client cert). A file:// URI (or
+                    bare path) keeps the certificate on the filesystem; a
+                    provider URI such as a TPM NV index (handle:0x1500010) is
+                    read via the OpenSSL OSSL_STORE API. When empty (the default)
+                    each role uses its existing hardcoded cert path, preserving
+                    existing behavior.''',
+)
+
+# BMCWEB_OPENSSL_CONFIG_PATH
+option(
+    'openssl-config-path',
+    type: 'string',
+    value: '',
+    description: '''Path to an OpenSSL configuration file scoped to the bmcweb
+                    process via the OPENSSL_CONF environment variable. When set,
+                    bmcweb installs its openssl.cnf to this path and the
+                    bmcweb.service unit points OPENSSL_CONF at it, so OpenSSL
+                    activates the configured providers (e.g. tpm2) for bmcweb
+                    only. When empty (the default) bmcweb uses the system
+                    OpenSSL configuration and the implicit default provider,
+                    with no behavior change.''',
+)
+
 # BMCWEB_IBM_MANAGEMENT_CONSOLE
 option(
     'ibm-management-console',

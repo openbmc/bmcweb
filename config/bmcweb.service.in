@@ -16,6 +16,7 @@ SyslogLevelPrefix=true
 WatchdogSec=@BMCWEB_WATCHDOG_TIMEOUT_SECONDS@s
 TemporaryFileSystem=/tmp/bmcweb:noexec,nodev,nosuid
 WorkingDirectory=@BMCWEB_WORKING_DIRECTORY@
+@BMCWEB_OPENSSL_ENV@
 
 # bmcweb currently uses /tmp as a mechanism to share files.
 PrivateTmp=no
