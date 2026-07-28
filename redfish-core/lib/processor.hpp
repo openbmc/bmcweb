@@ -20,6 +20,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/processor_utils.hpp"
+#include "utils/resource_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -106,6 +107,20 @@ inline void getCpuDataByInterface(
                     // Slot is not populated
                     asyncResp->res.jsonValue["Status"]["State"] =
                         resource::State::Absent;
+                }
+            }
+            else if (property.first == "Available")
+            {
+                const bool* cpuAvailable = std::get_if<bool>(&property.second);
+                if (cpuAvailable == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (!*cpuAvailable)
+                {
+                    asyncResp->res.jsonValue["Status"]["State"] =
+                        resource::State::UnavailableOffline;
                 }
             }
             else if (property.first == "Functional")
@@ -475,55 +490,6 @@ inline void getCpuRevisionData(
         std::bind_front(afterGetCpuRevisionData, asyncResp));
 }
 
-inline void afterGetAcceleratorDataByService(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& acceleratorId, const boost::system::error_code& ec,
-    const dbus::utility::DBusPropertiesMap& properties)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG("DBUS response error");
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    const bool* functional = nullptr;
-    const bool* present = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), properties, "Functional", functional,
-        "Present", present);
-
-    if (!success)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    resource::State state = resource::State::Enabled;
-    resource::Health health = resource::Health::OK;
-
-    if (present != nullptr && !*present)
-    {
-        state = resource::State::Absent;
-    }
-
-    if (functional != nullptr && !*functional)
-    {
-        if (state == resource::State::Enabled)
-        {
-            health = resource::Health::Critical;
-        }
-    }
-
-    asyncResp->res.jsonValue["Id"] = acceleratorId;
-    asyncResp->res.jsonValue["Name"] = "Processor";
-    asyncResp->res.jsonValue["Status"]["State"] = state;
-    asyncResp->res.jsonValue["Status"]["Health"] = health;
-    asyncResp->res.jsonValue["ProcessorType"] =
-        processor::ProcessorType::Accelerator;
-}
-
 inline void afterGetProcessorFirmwareVersion(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const std::string& version)
@@ -609,10 +575,14 @@ inline void getAcceleratorDataByService(
     const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG("Get available system Accelerator resources by service.");
-    dbus::utility::getAllProperties(
-        service, objPath, "",
-        std::bind_front(afterGetAcceleratorDataByService, asyncResp,
-                        acceleratorId));
+    resource_utils::getResourceState(asyncResp, service, objPath,
+                                     ""_json_pointer);
+    resource_utils::getResourceHealth(asyncResp, service, objPath,
+                                      ""_json_pointer);
+    asyncResp->res.jsonValue["Id"] = acceleratorId;
+    asyncResp->res.jsonValue["Name"] = "Processor";
+    asyncResp->res.jsonValue["ProcessorType"] =
+        processor::ProcessorType::Accelerator;
 }
 
 // OperatingConfig D-Bus Types
