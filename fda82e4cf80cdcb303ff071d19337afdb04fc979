@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86f57a77_bd22b9a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-28T18:45:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb6c0077_11b1f82b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 69
+      },
+      "revId": "fda82e4cf80cdcb303ff071d19337afdb04fc979",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d991ebe9_5fcc480e",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62f86f99_b551f083",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-28T18:45:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d991ebe9_5fcc480e",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 12
+      },
+      "revId": "fda82e4cf80cdcb303ff071d19337afdb04fc979",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbe5d03f_de42093d",
@@ -60,6 +108,24 @@
       "writtenOn": "2026-07-28T16:28:38Z",
       "side": 1,
       "message": "I Typically see the signoffed last",
+      "revId": "fda82e4cf80cdcb303ff071d19337afdb04fc979",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18dacda6_fda326d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-28T18:45:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbe5d03f_de42093d",
       "revId": "fda82e4cf80cdcb303ff071d19337afdb04fc979",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
