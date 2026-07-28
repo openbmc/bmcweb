@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd2bdc4_36bf0366",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-28T16:32:24Z",
+      "side": 1,
+      "message": "Please follow https://cbea.ms/git-commit/",
+      "revId": "e375f53a5e38e39957e51ce36d039e4868681710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c48d786b_5f653d25",
