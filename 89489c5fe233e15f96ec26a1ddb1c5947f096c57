@@ -91,6 +91,24 @@
       "parentUuid": "b02bb95d_a4b4e82e",
       "revId": "89489c5fe233e15f96ec26a1ddb1c5947f096c57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37ed05ad_069c8c15",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-28T19:58:20Z",
+      "side": 1,
+      "message": "I\u0027ve put https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92845/1 as a way to standardize Status.State and Status.Health since multiple components duplicate code and have different approaches.",
+      "parentUuid": "3f28016e_181692a8",
+      "revId": "89489c5fe233e15f96ec26a1ddb1c5947f096c57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
