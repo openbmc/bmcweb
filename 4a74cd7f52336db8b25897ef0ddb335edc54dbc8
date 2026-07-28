@@ -16,6 +16,125 @@
       "message": "Why is this better?\nWhy do we need in bmcweb?\n\nThe LLM do a good job of writing about the changes \"How\" but suck at \"Why\" \n\nThis whole changes section really isn\u0027t that helpful",
       "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b93c87_642326ff",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-28T15:07:57Z",
+      "side": 1,
+      "message": "I think it would be better to be explicit.\n```\nstatic constexpr const char* satelliteControllerIface \u003d\n```",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe9e0ee1_3e7ecf30",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-28T15:07:57Z",
+      "side": 1,
+      "message": "It looks like this `ec` case is already handled at L1084.\nBTW, should ignore the case if there are no aggregator service like?\n\n```\n        if (ec)\n        {\n            if(ec.value() !\u003d EBADR)\n            {\n                BMCWEB_LOG_ERROR(\"Error in gettting satellite info {}\",\n                             ec.message());\n            }\n            return;\n        }\n```",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35b73c34_45d4f4cd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-28T15:07:57Z",
+      "side": 1,
+      "message": "Why do need a template\u003c\u003e here?\nWouldn\u0027t `const dbus::utility::DBusPropertiesMap\u0026 properties` be still good?",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758b0fc7_dc3614f8",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-28T15:07:57Z",
+      "side": 1,
+      "message": "Can this be done at once like?\n```\n std::string targetPrefix \u003d prefix + \"_\";\n```",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "210b669d_ff07ddd7",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-28T15:07:57Z",
+      "side": 1,
+      "message": "Add an WARNING log here?",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfc5fd75_c9342345",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-28T15:07:57Z",
+      "side": 1,
+      "message": "Is there a case for `PropertiesChanged`?",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "246b227c_9dc0d278",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-28T15:07:57Z",
+      "side": 1,
+      "message": "I think - the case `EBADR` can be ignored for logging, or use DEBUG?\n```\n   if (ec.value() !\u003d EBADR) {\n         BMCWEB_LOG_ERROR()\n     }",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
