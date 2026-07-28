@@ -110,12 +110,6 @@ inline void handleManagersDBusLogServiceActionsClear(
     {
         return;
     }
-    if (!http_helpers::isContentTypeAllowed(
-            req.getHeaderValue("Accept"),
-            http_helpers::ContentType::OctetStream, true))
-    {
-        asyncResp->res.result(boost::beast::http::status::bad_request);
-    }
     if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "Manager", managerId);
