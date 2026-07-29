@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8aba972_456d8929",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T13:37:49Z",
+      "side": 1,
+      "message": "Please remove these comment. Thanks.",
+      "range": {
+        "startLine": 1257,
+        "startChar": 0,
+        "endLine": 1258,
+        "endChar": 60
+      },
+      "revId": "16e0a5a65493a3ec7177882b3f50df92cc4d280d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a520595_e8288aaa",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T13:37:49Z",
+      "side": 1,
+      "message": "Please remove these comment. Thanks.",
+      "range": {
+        "startLine": 1268,
+        "startChar": 0,
+        "endLine": 1269,
+        "endChar": 63
+      },
+      "revId": "16e0a5a65493a3ec7177882b3f50df92cc4d280d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
