@@ -47,6 +47,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "109ddbf4_60d2593f",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T09:25:36Z",
+      "side": 1,
+      "message": "Added the Redfish key to the log messages instead.",
+      "parentUuid": "f6e859b1_3d29e711",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 5
+      },
+      "revId": "26cf27474ca64a7c9348cd924a649786cac8dd5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73411e53_c55f3a86",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T09:25:36Z",
+      "side": 1,
+      "message": "This is the existing behaviour of this function on master.",
+      "parentUuid": "17dd1fb1_bdadd57c",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 5
+      },
+      "revId": "26cf27474ca64a7c9348cd924a649786cac8dd5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26eed6eb_cb95f719",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-07-29T08:36:04Z",
       "side": 1,
       "message": "Is the error fatal here?\nIt seems like you are skipping the rest of the logic if error here.",
+      "range": {
+        "startLine": 501,
+        "startChar": 8,
+        "endLine": 501,
+        "endChar": 15
+      },
+      "revId": "26cf27474ca64a7c9348cd924a649786cac8dd5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "028692fd_679788c6",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T09:25:36Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "26eed6eb_cb95f719",
       "range": {
         "startLine": 501,
         "startChar": 8,
