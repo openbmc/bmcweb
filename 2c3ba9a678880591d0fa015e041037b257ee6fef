@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f62773a_40eb91a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-29T16:39:02Z",
+      "side": 1,
+      "message": "Is this still being worked?",
+      "revId": "2c3ba9a678880591d0fa015e041037b257ee6fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8e93ce9_1dea492e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-29T16:39:02Z",
+      "side": 1,
+      "message": "std::format is not an appropriate way to construct a dbus path.",
+      "range": {
+        "startLine": 2196,
+        "startChar": 28,
+        "endLine": 2196,
+        "endChar": 34
+      },
+      "revId": "2c3ba9a678880591d0fa015e041037b257ee6fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
