@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17dd1fb1_bdadd57c",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T08:36:04Z",
+      "side": 1,
+      "message": "What if the first `if` success but second `if` failed?\nShould we discard the response written in the first `if`?",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 5
+      },
+      "revId": "26cf27474ca64a7c9348cd924a649786cac8dd5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6e859b1_3d29e711",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T08:36:04Z",
+      "side": 1,
+      "message": "Should we move the logs to the if here so that we can know if the error comes from `generationInUse` or `generationSupported`?",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 5
+      },
+      "revId": "26cf27474ca64a7c9348cd924a649786cac8dd5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26eed6eb_cb95f719",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T08:36:04Z",
+      "side": 1,
+      "message": "Is the error fatal here?\nIt seems like you are skipping the rest of the logic if error here.",
+      "range": {
+        "startLine": 501,
+        "startChar": 8,
+        "endLine": 501,
+        "endChar": 15
+      },
+      "revId": "26cf27474ca64a7c9348cd924a649786cac8dd5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
