@@ -33,6 +33,23 @@
       "message": "@ed@tanous.net / @gunnar@gmills.xyz\ncould you help to review this patch ?",
       "revId": "1a7eec460cb2071e433c8d4daf81705e8f11557a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99904c7a_c4e6d01e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-29T16:41:52Z",
+      "side": 1,
+      "message": "I\u0027m not terribly interested in doing different behavior dependent on whether a user is remote or not.  That breaks an abstraction boundary where individual routes should not be concerned with the users role, auth, or group.  That should be handled long before an individual handler is called.",
+      "revId": "1a7eec460cb2071e433c8d4daf81705e8f11557a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
