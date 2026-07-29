@@ -423,7 +423,7 @@ void productionDateReport(crow::Response& res, const std::string& buildDate)
     std::optional<std::string> valueStr = getDateTimeIso8601(buildDate);
     if (!valueStr)
     {
-        messages::internalError();
+        messages::internalError(res);
         return;
     }
     res.jsonValue["ProductionDate"] = *valueStr;
