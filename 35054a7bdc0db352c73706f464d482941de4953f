@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1663071a_3a8f2ede",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T15:37:56Z",
+      "side": 1,
+      "message": "Should we add a debug logs here?",
+      "range": {
+        "startLine": 1345,
+        "startChar": 12,
+        "endLine": 1345,
+        "endChar": 71
+      },
+      "revId": "35054a7bdc0db352c73706f464d482941de4953f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc7077b1_1bfab5a9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1444,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T15:37:56Z",
+      "side": 1,
+      "message": "Should we add error logs here as well?",
+      "range": {
+        "startLine": 1433,
+        "startChar": 4,
+        "endLine": 1444,
+        "endChar": 5
+      },
+      "revId": "35054a7bdc0db352c73706f464d482941de4953f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3917ea06_6349dc6c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1528,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T15:37:56Z",
+      "side": 1,
+      "message": "Log?",
+      "range": {
+        "startLine": 1516,
+        "startChar": 4,
+        "endLine": 1528,
+        "endChar": 0
+      },
+      "revId": "35054a7bdc0db352c73706f464d482941de4953f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
