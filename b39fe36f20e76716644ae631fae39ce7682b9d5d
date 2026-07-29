@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1109ef9_5ad15f48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-29T19:45:49Z",
+      "side": 1,
+      "message": "maybe break out Cable Status? The PDI for it, needs to go first",
+      "range": {
+        "startLine": 9,
+        "startChar": 22,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af1d6d80_a583cb37",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 11
@@ -19,6 +42,29 @@
         "startChar": 30,
         "endLine": 97,
         "endChar": 56
+      },
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c389419_e2d16eae",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-29T19:45:49Z",
+      "side": 1,
+      "message": "Can we just do Health/State based on Functional / Present like we do other places?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 80
       },
       "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
