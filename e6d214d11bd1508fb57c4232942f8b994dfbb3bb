@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbbf445c_8f962b5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-07-29T13:53:40Z",
+      "side": 1,
+      "message": "I didn\u0027t get you.",
+      "parentUuid": "0a7e19cc_5daad70a",
+      "revId": "e6d214d11bd1508fb57c4232942f8b994dfbb3bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e622c08e_996907bd",
         "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
         "patchSetId": 1
