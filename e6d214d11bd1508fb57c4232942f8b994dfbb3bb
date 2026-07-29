@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc5971bd_a8bd090c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-07-29T13:47:19Z",
+      "side": 1,
+      "message": "I\u0027ll update it to messages::internalError(res) and extend the negative test to verify that an error is reported.",
+      "parentUuid": "edfc7bc9_138468d4",
+      "revId": "e6d214d11bd1508fb57c4232942f8b994dfbb3bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e622c08e_996907bd",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-07-29T09:08:30Z",
       "side": 1,
       "message": "nit: please also assert res.result() \u003d\u003d boost::beast::http::status::internal_server_error.",
+      "revId": "e6d214d11bd1508fb57c4232942f8b994dfbb3bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c055822f_5c8d0a96",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-07-29T13:47:19Z",
+      "side": 1,
+      "message": "Good suggestion. I\u0027ll add an assertion that the response status is boost::beast::http::status::internal_server_error to ensure the invalid build-date path reports the expected HTTP error.",
+      "parentUuid": "e622c08e_996907bd",
       "revId": "e6d214d11bd1508fb57c4232942f8b994dfbb3bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
