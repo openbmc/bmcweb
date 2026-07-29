@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c35cb1c6_bf45537e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:37Z",
+      "side": 1,
+      "message": "Same two entries today, but different concepts: chassisInterfaces identifies a Chassis and is shared by ~10 chassis lookups (must stay Board/Chassis), while relatedItemInterfaces is extended with Item.NetworkAdapter in 90393 — which can\u0027t be added to chassisInterfaces. Kept separate to avoid coupling them.",
+      "parentUuid": "f85f4577_5b5dc190",
+      "range": {
+        "startLine": 1246,
+        "startChar": 0,
+        "endLine": 1248,
+        "endChar": 50
+      },
+      "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddf68a91_5f11e1ff",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-28T09:25:07Z",
       "side": 1,
       "message": "Please add the `if (ec.value() !\u003d EBADR)` case",
+      "range": {
+        "startLine": 1257,
+        "startChar": 8,
+        "endLine": 1257,
+        "endChar": 24
+      },
+      "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e161c36_6af48fe3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:37Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "ddf68a91_5f11e1ff",
       "range": {
         "startLine": 1257,
         "startChar": 8,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab64769_15c993f1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:37Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "03515228_395fd744",
+      "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18615530_539bb72b",
@@ -77,6 +143,30 @@
       "writtenOn": "2026-07-28T09:25:07Z",
       "side": 1,
       "message": "`getAssociatedSubTree` is already filtered by relatedItemInterfaces, so this condition is always true today — it is dead code.",
+      "range": {
+        "startLine": 1273,
+        "startChar": 12,
+        "endLine": 1273,
+        "endChar": 34
+      },
+      "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6de59ed_3f843c5d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:37Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "18615530_539bb72b",
       "range": {
         "startLine": 1273,
         "startChar": 12,
@@ -110,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb088a82_f3c2689f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:37Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "1ab00a40_40146615",
+      "range": {
+        "startLine": 1273,
+        "startChar": 16,
+        "endLine": 1278,
+        "endChar": 36
+      },
+      "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1720f1f4_41664804",
@@ -123,6 +237,24 @@
       "writtenOn": "2026-06-22T11:31:39Z",
       "side": 1,
       "message": "```suggestion\n        sdbusplus::object_path associationPath(path);\n\n```",
+      "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e53b52f_9dd69ea2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:37Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "1720f1f4_41664804",
       "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -144,6 +276,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7574bb15_345e2510",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:37Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "0d62ac56_a9a32182",
+      "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10734981_b4e1e22f",
@@ -157,6 +307,30 @@
       "writtenOn": "2026-07-28T09:25:07Z",
       "side": 1,
       "message": "Leftover from the previous else body. Please drop it or reword.",
+      "range": {
+        "startLine": 1316,
+        "startChar": 8,
+        "endLine": 1316,
+        "endChar": 65
+      },
+      "revId": "ad52f91936b57a88a05009a6f453546e9577eddd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "576abb9a_241386a5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:37Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "10734981_b4e1e22f",
       "range": {
         "startLine": 1316,
         "startChar": 8,
