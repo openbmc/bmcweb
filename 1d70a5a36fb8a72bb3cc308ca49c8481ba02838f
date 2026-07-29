@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "288cccbc_33496216",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T04:05:54Z",
+      "side": 1,
+      "message": "Unknown returns nullopt (property omitted) but anything else returns Invalid (500). Both mean \"don\u0027t recognise it\" — should unknown values be omitted too?",
+      "revId": "1d70a5a36fb8a72bb3cc308ca49c8481ba02838f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52df1577_c2db25f6",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T04:05:54Z",
+      "side": 1,
+      "message": "The old switch_port code just omitted the property when it didn\u0027t recognise a PortType/PortProtocol. This now returns a 500 instead, so one unknown value fails the whole GET. Is the hard failure intended?",
+      "revId": "1d70a5a36fb8a72bb3cc308ca49c8481ba02838f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc209a69_72d1cd11",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T04:05:54Z",
+      "side": 1,
+      "message": "The tests cover the D-Bus error and wrong-type paths, but not the new \"unknown PortType → 500\" one. Feeding a garbage PortType through afterGetPortProperties would cover it.",
+      "revId": "1d70a5a36fb8a72bb3cc308ca49c8481ba02838f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
