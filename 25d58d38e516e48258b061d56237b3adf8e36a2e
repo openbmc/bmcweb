@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a0ac2c3_60875412",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 95
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-29T18:02:00Z",
+      "side": 1,
+      "message": "It turns out - `handleCollectionMembers()` handles the case of `io_error` as empty-collection. So, there is no need to handle `ec` on CollectionGET.\nOn the other hand, `ec` is checked for CollectionHead.",
+      "parentUuid": "96a47ff9_20f558ae",
+      "revId": "25d58d38e516e48258b061d56237b3adf8e36a2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66be6b99_403d9c21",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "In fact, it  currently gives 404 by L84 by checking `(ec \u003d\u003d boost::system::errc::io_error)`.\nNote that\n   // getAssociatedSubTreePathsById() returns io_error if processorId does\n   // not exist\n \nHowever, thinking again, it would make more sense to give the empty collection because the parent Processor GET has a link to SubProcessors collection.\n\nredfish-core/lib/processor.hpp:L906 like\n\n```\n  \"SubProcessors\": {\n    \"@odata.id\": \"/redfish/v1/Systems/system/Processors/cpu0/SubProcessors\"\n  },\n```\n\nIf we check the existence and give 404, this parent Processors would also need to check so that it won\u0027t give the link.\n\nSo, I think - it is proper to give the empty collection if it does not exist.\n```\nL81:\n     if (ec \u0026\u0026 ec !\u003d boost::system::errc::io_error)\n      {\n         // getAssociatedSubTreePathsById() returns io_error if processorId does\n        // not exist. Otherwise, it would be dbus error.\n        BMCWEB_LOG_ERROR();\n        messages::internalError();\n        return;\n    }\n```\n\nWhat do you think?",
       "parentUuid": "66be6b99_403d9c21",
+      "revId": "25d58d38e516e48258b061d56237b3adf8e36a2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74a43527_f645e0be",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 95
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-07-29T18:02:00Z",
+      "side": 1,
+      "message": "It turns out - `handleCollectionMembers()` handles the case of io_error as empty-collection. So, there is no need to handle ec on CollectionGET.",
+      "parentUuid": "18730f8e_5647d63d",
       "revId": "25d58d38e516e48258b061d56237b3adf8e36a2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
