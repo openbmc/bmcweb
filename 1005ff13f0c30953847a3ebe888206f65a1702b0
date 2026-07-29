@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84a8b2a9_b61aa9f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T15:49:05Z",
+      "side": 1,
+      "message": "Overall is fine to me.\nJust some nit questions.",
+      "revId": "1005ff13f0c30953847a3ebe888206f65a1702b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99244146_0d6b71c0",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T15:49:05Z",
+      "side": 1,
+      "message": "nit:\nShould we use switch case here instead of ifs?",
+      "range": {
+        "startLine": 321,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 35
+      },
+      "revId": "1005ff13f0c30953847a3ebe888206f65a1702b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e37bc57_f29c99e0",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T15:49:05Z",
+      "side": 1,
+      "message": "nit:\nShould we use switch case here instead of ifs?",
+      "range": {
+        "startLine": 364,
+        "startChar": 4,
+        "endLine": 388,
+        "endChar": 5
+      },
+      "revId": "1005ff13f0c30953847a3ebe888206f65a1702b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e60a62_d1383509",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-29T15:49:05Z",
+      "side": 1,
+      "message": "nit:\nI noticed that the legacy path didn\u0027t have this,\nbut should we add some logs here to indicate if the property was discarded due to out of ranges or NULL case.",
+      "range": {
+        "startLine": 431,
+        "startChar": 4,
+        "endLine": 453,
+        "endChar": 5
+      },
+      "revId": "1005ff13f0c30953847a3ebe888206f65a1702b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
