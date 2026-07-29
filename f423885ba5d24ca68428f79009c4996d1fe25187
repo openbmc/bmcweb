@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d4623ea_e13bce9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-29T16:23:42Z",
+      "side": 1,
+      "message": "?  nvidia-gpu should never be publishing a chassis object.  nvidia-gpu is ONLY for NSM.  There is no \"co-owned\" model.",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "f423885ba5d24ca68428f79009c4996d1fe25187",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
