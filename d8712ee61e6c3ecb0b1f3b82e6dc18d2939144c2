@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5496ad3_af924726",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T09:35:37Z",
+      "side": 1,
+      "message": "Test suite names in bmcweb are UpperCamelCase.\nPlease rename these to DbusToRfBootProgress and AssignBootParameters.",
+      "revId": "d8712ee61e6c3ecb0b1f3b82e6dc18d2939144c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "019486ea_9bdf411c",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T09:35:37Z",
+      "side": 1,
+      "message": "Please collapse these 11 cases into a single `TEST(DbusToRfBootProgress, TranslationsAreExpected)` with one EXPECT_EQ per mapping, matching `TranslateChassisTypeToRedfish` in chassis_test.cpp:67.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 39
+      },
+      "revId": "d8712ee61e6c3ecb0b1f3b82e6dc18d2939144c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "822ee56c_e8ca7acc",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T09:35:37Z",
+      "side": 1,
+      "message": "Same here. One TEST(AssignBootParameters, ...) covering all eight cases would be easier to read than eight separate blocks.",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 32
+      },
+      "revId": "d8712ee61e6c3ecb0b1f3b82e6dc18d2939144c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
