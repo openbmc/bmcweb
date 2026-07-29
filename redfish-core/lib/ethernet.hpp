@@ -112,6 +112,7 @@ struct EthernetInterfaceData
     uint32_t speed;
     size_t mtuSize;
     bool autoNeg;
+    bool fullDuplex;
     bool dnsv4Enabled;
     bool dnsv6Enabled;
     bool domainv4Enabled;
@@ -278,6 +279,15 @@ inline bool extractEthernetInterfaceData(
                             if (autoNeg != nullptr)
                             {
                                 ethData.autoNeg = *autoNeg;
+                            }
+                        }
+                        else if (propertyPair.first == "FullDuplex")
+                        {
+                            const bool* fullDuplex =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (fullDuplex != nullptr)
+                            {
+                                ethData.fullDuplex = *fullDuplex;
                             }
                         }
                         else if (propertyPair.first == "Speed")
@@ -1899,6 +1909,7 @@ inline void parseInterfaceData(
     }
 
     jsonResponse["SpeedMbps"] = ethData.speed;
+    jsonResponse["FullDuplex"] = ethData.fullDuplex;
     jsonResponse["MTUSize"] = ethData.mtuSize;
     if (ethData.macAddress)
     {
