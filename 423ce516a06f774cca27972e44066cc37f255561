@@ -70,6 +70,30 @@
       },
       "revId": "423ce516a06f774cca27972e44066cc37f255561",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80b4b70f_ab8fce71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-29T15:53:50Z",
+      "side": 1,
+      "message": "Didn\u0027t look done.  You wrapped your commit on some other boundary.  I\u0027ve fixed it, but please make sure your future patches are in compliance.",
+      "parentUuid": "17e3b635_af0d66c6",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "423ce516a06f774cca27972e44066cc37f255561",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
