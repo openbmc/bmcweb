@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "http_response.hpp"
 #include "utils/time_utils.hpp"
+
+#include <boost/beast/http/status.hpp>
 
 #include <chrono>
 #include <cstdint>
@@ -299,6 +302,23 @@ TEST(Utility, GetDateTimeIso8601)
 
     // invalid datetime
     EXPECT_EQ(getDateTimeIso8601("202305"), std::nullopt);
+}
+
+TEST(Utility, ProductionDateReportPublishesNormalizedDate)
+{
+    crow::Response res;
+    productionDateReport(res, "20230531T000000Z");
+
+    EXPECT_EQ(res.jsonValue["ProductionDate"], "2023-05-31T00:00:00+00:00");
+}
+
+TEST(Utility, ProductionDateReportRejectsInvalidBuildDate)
+{
+    crow::Response res;
+    productionDateReport(res, "202305");
+
+    EXPECT_FALSE(res.jsonValue.contains("ProductionDate"));
+    EXPECT_EQ(res.result(), boost::beast::http::status::internal_server_error);
 }
 
 TEST(Utility, GetDateTimeOffsetNow)
