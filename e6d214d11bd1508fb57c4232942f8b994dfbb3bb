@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edfc7bc9_138468d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T09:08:30Z",
+      "side": 1,
+      "message": "productionDateReport calls the no-arg messages::internalError() at time_utils.cpp:426, which only returns JSON and never touches res.\nCould you add a patch to pass res there so this path actually reports the error.",
+      "revId": "e6d214d11bd1508fb57c4232942f8b994dfbb3bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e622c08e_996907bd",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T09:08:30Z",
+      "side": 1,
+      "message": "nit: please also assert res.result() \u003d\u003d boost::beast::http::status::internal_server_error.",
+      "revId": "e6d214d11bd1508fb57c4232942f8b994dfbb3bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
