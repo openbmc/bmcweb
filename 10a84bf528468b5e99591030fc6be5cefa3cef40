@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57b3c8cf_0eced9c7",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:33Z",
+      "side": 1,
+      "message": "Done ,thanks.",
+      "parentUuid": "0ddeb316_3431d3d3",
+      "range": {
+        "startLine": 428,
+        "startChar": 8,
+        "endLine": 428,
+        "endChar": 56
+      },
+      "revId": "10a84bf528468b5e99591030fc6be5cefa3cef40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b84309d_87bc91e1",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-28T09:38:26Z",
       "side": 1,
       "message": "Please use `sdbusplus::object_path`, so do other place in this patch.",
+      "range": {
+        "startLine": 1271,
+        "startChar": 8,
+        "endLine": 1271,
+        "endChar": 39
+      },
+      "revId": "10a84bf528468b5e99591030fc6be5cefa3cef40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4c2c95a_ec23bee1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:33Z",
+      "side": 1,
+      "message": "Done ,thanks.",
+      "parentUuid": "2b84309d_87bc91e1",
       "range": {
         "startLine": 1271,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b00acdc_1b41370f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1351,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:33Z",
+      "side": 1,
+      "message": "Done ,thanks.",
+      "parentUuid": "499c4f4a_23ab9f4d",
+      "range": {
+        "startLine": 1343,
+        "startChar": 12,
+        "endLine": 1351,
+        "endChar": 13
+      },
+      "revId": "10a84bf528468b5e99591030fc6be5cefa3cef40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa1909a7_485f1739",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3396a4eb_9995c139",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:33Z",
+      "side": 1,
+      "message": "Done ,thanks.",
+      "parentUuid": "fa1909a7_485f1739",
+      "range": {
+        "startLine": 1353,
+        "startChar": 8,
+        "endLine": 1357,
+        "endChar": 27
+      },
+      "revId": "10a84bf528468b5e99591030fc6be5cefa3cef40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "370fdf1c_d57e0405",
@@ -106,6 +202,30 @@
       "writtenOn": "2026-07-28T09:38:26Z",
       "side": 1,
       "message": "Manufacturer is versionAdded: v1_2_0, so should we need to change here too?",
+      "range": {
+        "startLine": 1514,
+        "startChar": 28,
+        "endLine": 1514,
+        "endChar": 34
+      },
+      "revId": "10a84bf528468b5e99591030fc6be5cefa3cef40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb11e64_a0a94f77",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T09:51:33Z",
+      "side": 1,
+      "message": "Done ,thanks.",
+      "parentUuid": "370fdf1c_d57e0405",
       "range": {
         "startLine": 1514,
         "startChar": 28,
