@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a7e19cc_5daad70a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T13:50:19Z",
+      "side": 1,
+      "message": "After update please also leave the link here. Thanks.",
+      "parentUuid": "bc5971bd_a8bd090c",
+      "revId": "e6d214d11bd1508fb57c4232942f8b994dfbb3bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e622c08e_996907bd",
         "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
         "patchSetId": 1
