@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9d0acbc_e6ab3ad6",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-29T03:44:22Z",
+      "side": 1,
+      "message": "Cool to see how much code this reduces",
+      "revId": "be0b90050f2dd8c34f5ad5a86f013a2c27e67244",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
