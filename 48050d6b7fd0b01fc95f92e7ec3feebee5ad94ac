@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee64374_d960be99",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T05:41:17Z",
+      "side": 1,
+      "message": "nit: this logs ec.value() (a bare int), while every other BMCWEB_LOG_ERROR in this file passes ec or ec.message(). Passing ec would keep the message readable.",
+      "revId": "48050d6b7fd0b01fc95f92e7ec3feebee5ad94ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e006d3e_9f47a07f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T05:41:17Z",
+      "side": 1,
+      "message": "addPcieInterfaceProperties returns false when a value is invalid (it sets internalError). Should the return be checked here?",
+      "revId": "48050d6b7fd0b01fc95f92e7ec3feebee5ad94ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9267424_ba2b4bad",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T05:41:17Z",
+      "side": 1,
+      "message": "The Tested block shows all four values as \"\", but this path can\u0027t produce empty strings — PCIeType/MaxPCIeType are enums, LanesInUse is a number or null, MaxLanes a number. Suggesut paste the real output.",
+      "revId": "48050d6b7fd0b01fc95f92e7ec3feebee5ad94ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
