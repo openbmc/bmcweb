@@ -301,6 +301,23 @@ TEST(Utility, GetDateTimeIso8601)
     EXPECT_EQ(getDateTimeIso8601("202305"), std::nullopt);
 }
 
+TEST(Utility, ProductionDateReportPublishesNormalizedDate)
+{
+    crow::Response res;
+    productionDateReport(res, "20230531T000000Z");
+
+    EXPECT_EQ(res.jsonValue["ProductionDate"], "2023-05-31T00:00:00+00:00");
+}
+
+TEST(Utility, ProductionDateReportRejectsInvalidBuildDate)
+{
+    crow::Response res;
+    productionDateReport(res, "202305");
+
+    EXPECT_FALSE(res.jsonValue.contains("ProductionDate"));
+    EXPECT_EQ(res.result(), boost::beast::http::status::internal_server_error);
+}
+
 TEST(Utility, GetDateTimeOffsetNow)
 {
     // Not a lot of good ways to verify "now" is correct, but we can at least
