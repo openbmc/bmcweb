@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "188009ab_32f82cb2",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T07:20:56Z",
+      "side": 1,
+      "message": "No, Unknown is a defined PDI enum value meaning the device itself doesn\u0027t know, so the property is omitted; any other string is outside the PDI enum and treated as an error.",
+      "parentUuid": "288cccbc_33496216",
+      "revId": "1d70a5a36fb8a72bb3cc308ca49c8481ba02838f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52df1577_c2db25f6",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37b55220_e7a5aab7",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T07:20:56Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "52df1577_c2db25f6",
+      "revId": "1d70a5a36fb8a72bb3cc308ca49c8481ba02838f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc209a69_72d1cd11",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-29T04:05:54Z",
       "side": 1,
       "message": "The tests cover the D-Bus error and wrong-type paths, but not the new \"unknown PortType → 500\" one. Feeding a garbage PortType through afterGetPortProperties would cover it.",
+      "revId": "1d70a5a36fb8a72bb3cc308ca49c8481ba02838f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "899231d4_a1e89505",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-29T07:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc209a69_72d1cd11",
       "revId": "1d70a5a36fb8a72bb3cc308ca49c8481ba02838f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
