@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "491537ed_67456283",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-07-29T17:50:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f5496ad3_af924726",
+      "revId": "d8712ee61e6c3ecb0b1f3b82e6dc18d2939144c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "019486ea_9bdf411c",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c600b7a_3a509f45",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-07-29T17:50:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "019486ea_9bdf411c",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 39
+      },
+      "revId": "d8712ee61e6c3ecb0b1f3b82e6dc18d2939144c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "822ee56c_e8ca7acc",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-07-29T09:35:37Z",
       "side": 1,
       "message": "Same here. One TEST(AssignBootParameters, ...) covering all eight cases would be easier to read than eight separate blocks.",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 32
+      },
+      "revId": "d8712ee61e6c3ecb0b1f3b82e6dc18d2939144c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75d4cdae_546fb0a8",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-07-29T17:50:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "822ee56c_e8ca7acc",
       "range": {
         "startLine": 220,
         "startChar": 0,
