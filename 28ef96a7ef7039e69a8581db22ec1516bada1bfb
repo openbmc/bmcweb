@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb5c5e18_afa29730",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T10:08:10Z",
+      "side": 1,
+      "message": "nit: Should this log ec instead of ec.value()? The other BMCWEB_LOG_ERROR calls in this file pass ec or ec.message(), so just checking whether the int was deliberate here.",
+      "revId": "28ef96a7ef7039e69a8581db22ec1516bada1bfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fd7541b_d0021fd9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T10:08:10Z",
+      "side": 1,
+      "message": "nit: portInterface is identical to the one at 1397.bmcweb usually hoists a shared interface array to namespace scope — would that work here?",
+      "revId": "28ef96a7ef7039e69a8581db22ec1516bada1bfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea007843_ff918794",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-07-29T10:08:10Z",
+      "side": 1,
+      "message": "nit: These are written before getProcessorObject() resolves, and handleProcessorSubtree adds resourceNotFound when the processor doesn\u0027t exist — so a bad processorId returns a 404 that still carries the PortCollection fields. fan.hpp sets its collection JSON only after the chassis check, and the single-Port GET just below defers everything until the port is found. Should this do the same?",
+      "revId": "28ef96a7ef7039e69a8581db22ec1516bada1bfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
