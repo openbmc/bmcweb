@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "23eccc43_a8c60dac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-29T13:44:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2fd2bdc4_36bf0366",
+      "revId": "e375f53a5e38e39957e51ce36d039e4868681710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c48d786b_5f653d25",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2026-07-24T17:15:33Z",
       "side": 1,
       "message": "Why?",
+      "range": {
+        "startLine": 96,
+        "startChar": 51,
+        "endLine": 96,
+        "endChar": 75
+      },
+      "revId": "e375f53a5e38e39957e51ce36d039e4868681710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5940f12e_d112ec7d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-29T13:44:25Z",
+      "side": 1,
+      "message": "Removed the comment. Thank you for reviewing.",
+      "parentUuid": "babf2da8_cccfb81c",
       "range": {
         "startLine": 96,
         "startChar": 51,
