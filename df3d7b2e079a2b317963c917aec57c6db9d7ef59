@@ -39,6 +39,30 @@
       },
       "revId": "df3d7b2e079a2b317963c917aec57c6db9d7ef59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f402c18c_c1c44f1a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-30T17:26:22Z",
+      "side": 1,
+      "message": "Look at https://redfish.dmtf.org/registries/Base.1.23.0.json\n\n        \"PropertyValueNotInList\": {\n            \"Description\": \"Indicates that a property was given the correct value type but the value of that property was not supported.  The value is not in an enumeration.\",\n            \"LongDescription\": \"This message shall indicate that a property was given the correct value type but the value of that property was not supported.\",\n            \"Message\": \"The value \u0027%1\u0027 for the property %2 is not in the list of acceptable values.\",\n            \"Example\": \"The value \u0027InvalidValue\u0027 for the property \u0027Status\u0027 is not in the list of acceptable values.\",\n            \"Severity\": \"Warning\",\n            \"MessageSeverity\": \"Warning\",\n            \"NumberOfArgs\": 2,\n            \"ParamTypes\": [\n                \"string\",\n                \"string\"\n            ],\n            \"ArgDescriptions\": [\n                \"The value provided for the property.\",\n                \"The name of the property.\"\n            ],\n            \"ArgLongDescriptions\": [\n                \"This argument shall contain the value provided for the property.\",\n                \"This argument shall contain the name of the property.  The value should follow RFC6901-defined JSON pointer notation rules.\"\n            ],\n            \"Resolution\": \"Choose a value from the enumeration list that the implementation can support and resubmit the request if the operation failed.\"\n        },",
+      "parentUuid": "67eede27_1a0a907b",
+      "range": {
+        "startLine": 1701,
+        "startChar": 60,
+        "endLine": 1702,
+        "endChar": 61
+      },
+      "revId": "df3d7b2e079a2b317963c917aec57c6db9d7ef59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
