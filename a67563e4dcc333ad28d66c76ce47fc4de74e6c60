@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a687f32a_b05aa93d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T07:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81760b16_a8ceed91",
+      "range": {
+        "startLine": 497,
+        "startChar": 8,
+        "endLine": 497,
+        "endChar": 15
+      },
+      "revId": "a67563e4dcc333ad28d66c76ce47fc4de74e6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "445b9121_09be7a10",
@@ -94,6 +118,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8ca0906_40143675",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T07:59:27Z",
+      "side": 1,
+      "message": "Done. Added an std::isfinite() guard that reports null, matching switch_port.hpp.",
+      "parentUuid": "1dfd5582_7b5bd39f",
+      "range": {
+        "startLine": 559,
+        "startChar": 4,
+        "endLine": 563,
+        "endChar": 5
+      },
+      "revId": "a67563e4dcc333ad28d66c76ce47fc4de74e6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e907a22b_a499784c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T07:59:27Z",
+      "side": 1,
+      "message": "unpackPropertiesNoThrow validates the type but not the value, so a non-finite double still reaches the cast.",
+      "parentUuid": "0bf21d34_7f152298",
+      "range": {
+        "startLine": 559,
+        "startChar": 4,
+        "endLine": 563,
+        "endChar": 5
+      },
+      "revId": "a67563e4dcc333ad28d66c76ce47fc4de74e6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1246191f_4d5301c2",
@@ -107,6 +179,30 @@
       "writtenOn": "2026-07-30T06:35:31Z",
       "side": 1,
       "message": "Here as well?",
+      "range": {
+        "startLine": 579,
+        "startChar": 8,
+        "endLine": 579,
+        "endChar": 15
+      },
+      "revId": "a67563e4dcc333ad28d66c76ce47fc4de74e6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "069ab55c_8b44df7f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T07:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1246191f_4d5301c2",
       "range": {
         "startLine": 579,
         "startChar": 8,
