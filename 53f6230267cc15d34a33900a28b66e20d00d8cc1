@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90117631_fd1e11c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-07-30T04:15:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "76665d4b_6940ce57",
+      "revId": "53f6230267cc15d34a33900a28b66e20d00d8cc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2584517e_aba12642",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-07-29T09:40:24Z",
       "side": 1,
       "message": "Please collapse each function\u0027s cases into a single test. \n`TEST(DbusToRfBootSource, TranslationsAreExpected)` and so on — matching `TranslateChassisTypeToRedfish` in chassis_test.cpp:67.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 33
+      },
+      "revId": "53f6230267cc15d34a33900a28b66e20d00d8cc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66e3320f_5fc31a70",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-07-30T04:15:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2584517e_aba12642",
       "range": {
         "startLine": 131,
         "startChar": 0,
