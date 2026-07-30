@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0bf21d34_7f152298",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-30T07:48:45Z",
+      "side": 1,
+      "message": "Typo Correction:\nIt seems like `value` is retrieved from `sdbusplus::unpackPropertiesNoThrow()`.",
+      "parentUuid": "445b9121_09be7a10",
+      "range": {
+        "startLine": 559,
+        "startChar": 4,
+        "endLine": 563,
+        "endChar": 5
+      },
+      "revId": "a67563e4dcc333ad28d66c76ce47fc4de74e6c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1246191f_4d5301c2",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 23
