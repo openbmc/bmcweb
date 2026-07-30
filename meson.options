@@ -232,7 +232,9 @@ option(
     'basic-auth',
     type: 'feature',
     value: 'enabled',
-    description: 'Enable basic authentication',
+    description: '''Build support for basic authentication.  Note that basic
+                    auth is disabled at runtime by default; it can be enabled
+                    by PATCHing the AccountService HTTPBasicAuth property.''',
 )
 
 # BMCWEB_SESSION_AUTH
