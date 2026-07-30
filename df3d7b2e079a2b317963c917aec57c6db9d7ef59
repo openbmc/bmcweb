@@ -16,6 +16,29 @@
       "message": "seems trivially correct to me.  Merging quickly.",
       "revId": "df3d7b2e079a2b317963c917aec57c6db9d7ef59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67eede27_1a0a907b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-30T17:23:21Z",
+      "side": 1,
+      "message": "you changed the order are you sure this is correct? \nhttps://github.com/openbmc/bmcweb/blob/df3d7b2e079a2b317963c917aec57c6db9d7ef59/redfish-core/lib/certificate_service.hpp#L116\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20propertyValueNotInList\u0026type\u003dcode",
+      "range": {
+        "startLine": 1701,
+        "startChar": 60,
+        "endLine": 1702,
+        "endChar": 61
+      },
+      "revId": "df3d7b2e079a2b317963c917aec57c6db9d7ef59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
