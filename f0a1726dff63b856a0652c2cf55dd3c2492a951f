@@ -16,6 +16,23 @@
       "message": "Looks good to me, just missed this in the referenced change",
       "revId": "f0a1726dff63b856a0652c2cf55dd3c2492a951f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79af5a2_4008903f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-07-30T19:16:41Z",
+      "side": 1,
+      "message": "Looks good, matches the docs",
+      "revId": "f0a1726dff63b856a0652c2cf55dd3c2492a951f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
