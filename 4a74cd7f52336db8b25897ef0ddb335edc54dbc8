@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23da5fad_2eb49021",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-07-30T06:35:12Z",
+      "side": 1,
+      "message": "modified the commit message",
+      "parentUuid": "9a06a8af_4c3d3bc0",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4b93c87_642326ff",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
