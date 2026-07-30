@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b4904a_d8197c32",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T07:26:31Z",
+      "side": 1,
+      "message": "I think this the code style in bmcweb, you could look at other dbus helper in this recipe.",
+      "parentUuid": "feb1b5a9_029390bf",
+      "range": {
+        "startLine": 321,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 35
+      },
+      "revId": "1005ff13f0c30953847a3ebe888206f65a1702b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e37bc57_f29c99e0",
