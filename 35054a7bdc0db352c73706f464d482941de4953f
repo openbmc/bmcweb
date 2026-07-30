@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1689d39_8b9e3f45",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T07:28:37Z",
+      "side": 1,
+      "message": "Done, but I think this is optional.",
+      "parentUuid": "1663071a_3a8f2ede",
+      "range": {
+        "startLine": 1345,
+        "startChar": 12,
+        "endLine": 1345,
+        "endChar": 71
+      },
+      "revId": "35054a7bdc0db352c73706f464d482941de4953f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc7077b1_1bfab5a9",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7949978e_1afdd937",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1444,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T07:28:37Z",
+      "side": 1,
+      "message": "No. This is a URL mismatch, not a failure, please go to look at other file in this recipe.",
+      "parentUuid": "cc7077b1_1bfab5a9",
+      "range": {
+        "startLine": 1433,
+        "startChar": 4,
+        "endLine": 1444,
+        "endChar": 5
+      },
+      "revId": "35054a7bdc0db352c73706f464d482941de4953f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3917ea06_6349dc6c",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-07-29T15:37:56Z",
       "side": 1,
       "message": "Log?",
+      "range": {
+        "startLine": 1516,
+        "startChar": 4,
+        "endLine": 1528,
+        "endChar": 0
+      },
+      "revId": "35054a7bdc0db352c73706f464d482941de4953f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0eac8c2_4e8bd40d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1528,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T07:28:37Z",
+      "side": 1,
+      "message": "No need.",
+      "parentUuid": "3917ea06_6349dc6c",
       "range": {
         "startLine": 1516,
         "startChar": 4,
