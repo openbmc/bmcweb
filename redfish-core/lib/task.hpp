@@ -61,8 +61,7 @@ constexpr bool completed = true;
 struct Payload
 {
     explicit Payload(const crow::Request& req) :
-        targetUri(req.url().encoded_path()), httpOperation(req.methodString()),
-        httpHeaders(nlohmann::json::array())
+        targetUri(req.url().encoded_path()), httpOperation(req.methodString())
     {
         using field_ns = boost::beast::http::field;
         constexpr const std::array<boost::beast::http::field, 7>
@@ -70,13 +69,14 @@ struct Payload
                                field_ns::user_agent, field_ns::host,
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
-
+        nlohmann::json jsonBody;
         JsonParseResult ret = parseRequestAsJson(req, jsonBody);
         if (ret != JsonParseResult::Success)
         {
             return;
         }
-
+        using enum nlohmann::json::error_handler_t;
+        jsonBodyStr = jsonBody.dump(-1, ' ', true, replace);
         for (const auto& field : req.fields())
         {
             if (std::ranges::find(headerWhitelist, field.name()) ==
@@ -97,8 +97,8 @@ struct Payload
 
     std::string targetUri;
     std::string httpOperation;
-    nlohmann::json httpHeaders;
-    nlohmann::json jsonBody;
+    nlohmann::json::array_t httpHeaders;
+    std::string jsonBodyStr;
 };
 
 struct TaskData : std::enable_shared_from_this<TaskData>
@@ -201,10 +201,9 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 payloadObj["TargetUri"] = p.targetUri;
                 payloadObj["HttpOperation"] = p.httpOperation;
                 payloadObj["HttpHeaders"] = p.httpHeaders;
-                if (p.jsonBody.is_object())
+                if (!p.jsonBodyStr.empty())
                 {
-                    payloadObj["JsonBody"] = p.jsonBody.dump(
-                        2, ' ', true, nlohmann::json::error_handler_t::replace);
+                    payloadObj["JsonBody"] = p.jsonBodyStr;
                 }
                 res.jsonValue["Payload"] = std::move(payloadObj);
             }
@@ -226,6 +225,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     {
         timer.expires_after(timeout);
         timer.async_wait(
+            // ast-grep-ignore: long-lambda
             [self = shared_from_this()](boost::system::error_code ec) {
                 if (ec == boost::asio::error::operation_aborted)
                 {
@@ -317,6 +317,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         match = std::make_unique<sdbusplus::match>(
             static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
             matchStr,
+            // ast-grep-ignore: long-lambda
             [self = shared_from_this()](sdbusplus::message_t& message) {
                 boost::system::error_code ec;
 
@@ -352,7 +353,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     std::chrono::system_clock::time_point startTime;
     std::string status;
     std::string state;
-    nlohmann::json messages;
+    nlohmann::json::array_t messages;
     boost::asio::steady_timer timer;
     std::unique_ptr<sdbusplus::match> match;
     std::optional<std::chrono::system_clock::time_point> endTime;
@@ -368,6 +369,7 @@ inline void requestRoutesTaskMonitor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/TaskMonitors/<str>/")
         .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& strParam) {
@@ -411,6 +413,7 @@ inline void requestRoutesTask(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/")
         .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& strParam) {
@@ -476,9 +479,7 @@ inline void requestRoutesTask(App& app)
                     asyncResp->res.jsonValue["Payload"]["HttpHeaders"] =
                         p.httpHeaders;
                     asyncResp->res.jsonValue["Payload"]["JsonBody"] =
-                        p.jsonBody.dump(
-                            -1, ' ', true,
-                            nlohmann::json::error_handler_t::replace);
+                        p.jsonBodyStr;
                 }
                 asyncResp->res.jsonValue["PercentComplete"] =
                     ptr->percentComplete;
@@ -490,6 +491,7 @@ inline void requestRoutesTaskCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/")
         .privileges(redfish::privileges::getTaskCollection)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -526,6 +528,7 @@ inline void requestRoutesTaskService(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/")
         .privileges(redfish::privileges::getTaskService)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))

@@ -212,6 +212,7 @@ inline void getUserInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     requestUserInfo(
         username, asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, session, callback = std::move(callback)](
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
             if (!populateUserInfo(*session, userInfoMap))

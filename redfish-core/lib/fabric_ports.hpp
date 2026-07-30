@@ -198,6 +198,7 @@ inline void afterGetValidFabricPortPath(
     const std::string& portPath = *it;
     dbus::utility::getDbusObject(
         portPath, portInterfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, portPath, callback{std::move(callback)}](
             const boost::system::error_code& ec1,
             const dbus::utility::MapperGetObject& object) {
@@ -251,6 +252,7 @@ inline void handleFabricPortHead(
 
     getValidFabricPortPath(
         asyncResp, adapterId, portId,
+        // ast-grep-ignore: long-lambda
         [asyncResp, portId](const std::string& portPath, const std::string&) {
             if (portPath.empty())
             {

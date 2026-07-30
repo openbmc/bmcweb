@@ -61,6 +61,7 @@ inline void getOperatingConfigData(
     dbus::utility::getAllProperties(
         service, objPath,
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
             if (ec)
@@ -188,6 +189,7 @@ inline void handleOperatingConfigCollectionGet(
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"};
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          cpuName](const boost::system::error_code& ec,
                   const dbus::utility::MapperGetSubTreePathsResponse& objects) {
@@ -254,6 +256,7 @@ inline void handleOperationConfigGet(
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, cpuName,
          configName](const boost::system::error_code& ec,
                      const dbus::utility::MapperGetSubTreeResponse& subtree) {

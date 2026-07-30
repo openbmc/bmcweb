@@ -20,6 +20,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <functional>
+#include <iterator>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -180,6 +181,12 @@ struct Response
     std::string_view getHeaderValue(boost::beast::http::field key) const
     {
         return fields()[key];
+    }
+
+    std::size_t headerCount() const
+    {
+        return static_cast<std::size_t>(
+            std::distance(fields().begin(), fields().end()));
     }
 
     void keepAlive(bool k)

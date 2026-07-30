@@ -74,6 +74,20 @@ TEST(HttpResponse, Headers)
     addHeaders(res);
     verifyHeaders(res);
 }
+
+TEST(HttpResponse, HeaderCountReturnsTotalHeaders)
+{
+    Response res;
+    res.addHeader("Header-A", "value-a");
+    res.addHeader("Header-B", "value-b");
+    res.addHeader("Header-C", "value-c");
+
+    EXPECT_EQ(res.headerCount(), 3U);
+    EXPECT_EQ(res.getHeaderValue("Header-A"), "value-a");
+    EXPECT_EQ(res.getHeaderValue("Header-B"), "value-b");
+    EXPECT_EQ(res.getHeaderValue("Header-C"), "value-c");
+}
+
 TEST(HttpResponse, StringBody)
 {
     Response res;

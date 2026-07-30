@@ -131,6 +131,11 @@ inline std::optional<pcie_device::PCIeTypes> redfishPcieGenerationFromDbus(
     {
         return pcie_device::PCIeTypes::Gen5;
     }
+    if (generationInUse ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen6")
+    {
+        return pcie_device::PCIeTypes::Gen6;
+    }
     if (generationInUse.empty() ||
         generationInUse ==
             "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown")

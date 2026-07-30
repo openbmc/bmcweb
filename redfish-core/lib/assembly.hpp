@@ -56,6 +56,7 @@ inline void getAssemblyLocationCode(
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, serviceName, assembly,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        // ast-grep-ignore: long-lambda
         [asyncResp, assembly, assemblyJsonPtr](
             const boost::system::error_code& ec, const std::string& value) {
             if (ec)
@@ -84,6 +85,7 @@ inline void getAssemblyState(
 
     dbus::utility::getProperty<bool>(
         serviceName, assembly, "xyz.openbmc_project.Inventory.Item", "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp, assemblyJsonPtr,
          assembly](const boost::system::error_code& ec, const bool value) {
             if (ec)
@@ -114,6 +116,7 @@ void getAssemblyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<bool>(
         serviceName, assembly,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        // ast-grep-ignore: long-lambda
         [asyncResp, assemblyJsonPtr](const boost::system::error_code& ec,
                                      bool functional) {
             if (ec)
@@ -295,6 +298,7 @@ inline void handleChassisAssemblyHead(
 
     assembly_utils::getChassisAssembly(
         asyncResp, chassisID,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          chassisID](const boost::system::error_code& ec,
                     const std::vector<std::string>& /*assemblyList*/) {

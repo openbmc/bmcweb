@@ -1194,6 +1194,7 @@ inline void setReportMetrics(
     dbus::utility::getAllProperties(
         telemetry::service, telemetry::getDbusReportPath(id),
         telemetry::reportInterface,
+        // ast-grep-ignore: long-lambda
         [asyncResp, id = std::string(id), redfishMetrics = std::move(metrics)](
             boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) mutable {
@@ -1274,6 +1275,7 @@ inline void setReportMetrics(
             {
                 retrieveUriToDbusMap(
                     chassis, sensorType,
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, updateMetricsReq](
                         const boost::beast::http::status status,
                         const std::map<std::string, std::string>& uriToDbus) {
@@ -1491,6 +1493,7 @@ inline void handleMetricReportDelete(
 
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, id](const boost::system::error_code& ec) {
             /*
              * boost::system::errc and std::errc are missing value

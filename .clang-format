@@ -50,7 +50,6 @@ BreakInheritanceList: AfterColon
 BreakStringLiterals: false
 BreakTemplateDeclarations: Yes
 ColumnLimit:     80
-CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4

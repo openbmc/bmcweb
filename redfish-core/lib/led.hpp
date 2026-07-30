@@ -44,6 +44,7 @@ inline void getIndicatorLedState(
         "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool blinking) {
             // Some systems may not have enclosure_identify_blink object so
             // proceed to get enclosure_identify state.
@@ -67,6 +68,7 @@ inline void getIndicatorLedState(
                 "xyz.openbmc_project.LED.GroupManager",
                 "/xyz/openbmc_project/led/groups/enclosure_identify",
                 "xyz.openbmc_project.Led.Group", "Asserted",
+                // ast-grep-ignore: long-lambda
                 [asyncResp](const boost::system::error_code& ec2,
                             const bool ledOn) {
                     if (ec2 == boost::system::errc::invalid_argument)
@@ -132,6 +134,7 @@ inline void setIndicatorLedState(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
+        // ast-grep-ignore: long-lambda
         [asyncResp, ledOn,
          ledBlinkng](const boost::system::error_code& ec) mutable {
             if (ec)
@@ -168,6 +171,7 @@ inline void getSystemLocationIndicatorActive(
         "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool blinking) {
             // Some systems may not have enclosure_identify_blink object so
             // proceed to get enclosure_identify state.
@@ -190,6 +194,7 @@ inline void getSystemLocationIndicatorActive(
                 "xyz.openbmc_project.LED.GroupManager",
                 "/xyz/openbmc_project/led/groups/enclosure_identify",
                 "xyz.openbmc_project.Led.Group", "Asserted",
+                // ast-grep-ignore: long-lambda
                 [asyncResp](const boost::system::error_code& ec2,
                             const bool ledOn) {
                     if (ec2 == boost::system::errc::invalid_argument)
@@ -227,6 +232,7 @@ inline void setSystemLocationIndicatorActive(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted", ledState,
+        // ast-grep-ignore: long-lambda
         [asyncResp, ledState](const boost::system::error_code& ec) {
             if (ec)
             {

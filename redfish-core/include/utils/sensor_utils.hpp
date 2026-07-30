@@ -250,6 +250,10 @@ inline std::string_view toReadingUnits(std::string_view sensorType)
     {
         return "Ah";
     }
+    if (sensorType == "frequency")
+    {
+        return "Hz";
+    }
     return "";
 }
 
@@ -309,6 +313,10 @@ inline sensor::ReadingType toReadingType(std::string_view sensorType)
     if (sensorType == "pressure")
     {
         return sensor::ReadingType::PressurePa;
+    }
+    if (sensorType == "frequency")
+    {
+        return sensor::ReadingType::Frequency;
     }
     if (sensorType == "charge")
     {
@@ -1144,6 +1152,7 @@ inline void getAllSensorObjects(
 
     dbus::utility::getAssociatedSubTree(
         endpointPath, sdbusplus::object_path(path), depth, interfaces,
+        // ast-grep-ignore: long-lambda
         [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -1279,6 +1288,7 @@ inline void getSensorsByPurpose(
         dbus::utility::getProperty<std::vector<std::string>>(
             serviceName, sensorPath, "xyz.openbmc_project.Sensor.Purpose",
             "Purpose",
+            // ast-grep-ignore: long-lambda
             [asyncResp, serviceName, sensorPath, sensorPurpose, sensorMatches,
              callback, remainingSensorsToVist,
              asyncErrors](const boost::system::error_code& ec,

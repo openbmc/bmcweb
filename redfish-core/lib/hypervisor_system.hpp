@@ -58,6 +58,7 @@ inline void getHypervisorState(
         "xyz.openbmc_project.State.Hypervisor",
         "/xyz/openbmc_project/state/hypervisor0",
         "xyz.openbmc_project.State.Host", "CurrentHostState",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
             if (ec)
@@ -143,6 +144,7 @@ inline void getHypervisorActions(
         "xyz.openbmc_project.State.Host"};
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/state/hypervisor0", interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp](
             const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
@@ -639,6 +641,7 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
 
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/network/hypervisor", 0, interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& ifaceList) {
@@ -765,6 +768,7 @@ inline void handleHypervisorEthernetInterfacePatch(
 
     getHypervisorIfaceData(
         ifaceId,
+        // ast-grep-ignore: long-lambda
         [asyncResp, ifaceId, hostName = std::move(hostName),
          ipv4StaticAddresses = std::move(ipv4StaticAddresses),
          ipv4DHCPEnabled](bool success, const EthernetInterfaceData& ethData,
@@ -844,6 +848,7 @@ inline void handleHypervisorResetActionGet(
         "xyz.openbmc_project.State.Host"};
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/state/hypervisor0", interfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp](
             const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&

@@ -118,6 +118,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
     sdbusplus::object_path path("/xyz/openbmc_project/network");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
+        // ast-grep-ignore: long-lambda
         [callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& dbusData) {
@@ -218,6 +219,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     getNTPProtocolEnabled(asyncResp);
 
+    // ast-grep-ignore: long-lambda
     getEthernetIfaceData([hostName, asyncResp](
                              const bool& success,
                              const std::vector<std::string>& ntpServers,
@@ -368,6 +370,7 @@ inline void handleNTPServersPatch(
         "xyz.openbmc_project.Network.EthernetInterface"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project", 0, ethInterfaces,
+        // ast-grep-ignore: long-lambda
         [asyncResp, currentNtpServers](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -402,15 +405,17 @@ inline void handleNTPServersPatch(
 inline void handleProtocolEnabled(
     const bool protocolEnabled,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& netBasePath)
+    const std::string& netBasePath, std::string_view redfishProperty)
 {
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Control.Service.Attributes"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/control/service", 0, interfaces,
-        [protocolEnabled, asyncResp,
-         netBasePath](const boost::system::error_code& ec,
-                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        // ast-grep-ignore: long-lambda
+        [protocolEnabled, asyncResp, netBasePath,
+         redfishProperty = std::string(redfishProperty)](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 messages::internalError(asyncResp->res);
@@ -428,17 +433,19 @@ inline void handleProtocolEnabled(
                         continue;
                     }
                     setDbusProperty(
-                        asyncResp, "IPMI/ProtocolEnabled",
-                        entry.second.begin()->first, entry.first,
+                        asyncResp, redfishProperty, entry.second.begin()->first,
+                        entry.first,
                         "xyz.openbmc_project.Control.Service.Attributes",
                         "Running", protocolEnabled);
                     setDbusProperty(
-                        asyncResp, "IPMI/ProtocolEnabled",
-                        entry.second.begin()->first, entry.first,
+                        asyncResp, redfishProperty, entry.second.begin()->first,
+                        entry.first,
                         "xyz.openbmc_project.Control.Service.Attributes",
                         "Enabled", protocolEnabled);
+                    return;
                 }
             }
+            messages::propertyNotWritable(asyncResp->res, redfishProperty);
         });
 }
 
@@ -516,6 +523,7 @@ inline void handleManagersNetworkProtocolPatch(
     if (ntpServerObjects)
     {
         getEthernetIfaceData(
+            // ast-grep-ignore: long-lambda
             [asyncResp, ntpServerObjects](
                 const bool success, std::vector<std::string>& currentNtpServers,
                 const std::vector<std::string>& /*dynamicNtpServers*/,
@@ -534,13 +542,15 @@ inline void handleManagersNetworkProtocolPatch(
     {
         handleProtocolEnabled(
             *ipmiEnabled, asyncResp,
-            encodeServiceObjectPath(std::string(ipmiServiceName) + '@'));
+            encodeServiceObjectPath(std::string(ipmiServiceName) + '@'),
+            "IPMI/ProtocolEnabled");
     }
 
     if (sshEnabled)
     {
         handleProtocolEnabled(*sshEnabled, asyncResp,
-                              encodeServiceObjectPath(sshServiceName));
+                              encodeServiceObjectPath(sshServiceName),
+                              "SSH/ProtocolEnabled");
     }
 }
 

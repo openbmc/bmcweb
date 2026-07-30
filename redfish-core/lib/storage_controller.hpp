@@ -29,6 +29,7 @@ inline void populateStorageController(
 
     dbus::utility::getProperty<bool>(
         connectionName, path, "xyz.openbmc_project.Inventory.Item", "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, bool isPresent) {
             // this interface isn't necessary, only check it
             // if we get a good return

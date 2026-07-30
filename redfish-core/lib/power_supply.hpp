@@ -115,6 +115,7 @@ inline void handlePowerSupplyCollectionHead(
 
     redfish::chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          chassisId](const std::optional<std::string>& validChassisPath) {
             if (!validChassisPath)
@@ -228,6 +229,7 @@ inline void getPowerSupplyState(
 {
     dbus::utility::getProperty<bool>(
         service, path, "xyz.openbmc_project.Inventory.Item", "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -255,6 +257,7 @@ inline void getPowerSupplyHealth(
     dbus::utility::getProperty<bool>(
         service, path, "xyz.openbmc_project.State.Decorator.OperationalStatus",
         "Functional",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -281,6 +284,7 @@ inline void getPowerSupplyAsset(
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Inventory.Decorator.Asset",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
             if (ec)
@@ -321,6 +325,7 @@ inline void getPowerSupplyFirmwareVersion(
 {
     dbus::utility::getProperty<std::string>(
         service, path, "xyz.openbmc_project.Software.Version", "Version",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& value) {
             if (ec)
@@ -345,6 +350,7 @@ inline void getPowerSupplyLocation(
     dbus::utility::getProperty<std::string>(
         service, path, "xyz.openbmc_project.Inventory.Decorator.LocationCode",
         "LocationCode",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& value) {
             if (ec)
@@ -493,6 +499,7 @@ inline void handlePowerSupplyHead(
     // Get the correct Path and Service that match the input parameters
     getValidPowerSupplyPath(
         asyncResp, chassisId, powerSupplyId,
+        // ast-grep-ignore: long-lambda
         [asyncResp, powerSupplyId](const std::string& powerSupplyPath,
                                    const std::string& service) {
             if (powerSupplyPath.empty() || service.empty())

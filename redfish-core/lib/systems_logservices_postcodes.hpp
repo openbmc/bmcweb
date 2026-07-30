@@ -127,6 +127,7 @@ inline void handleSystemsLogServicesPostCodesPost(
     // Make call to post-code service to request clear all
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -346,6 +347,7 @@ inline void getPostCodeForEntry(
 
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, entryId, bootIndex,
          codeIndex](const boost::system::error_code& ec,
                     const boost::container::flat_map<
@@ -383,6 +385,7 @@ inline void getPostCodeForBoot(
 {
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, bootIndex, bootCount, entryCount, skip,
          top](const boost::system::error_code& ec,
               const boost::container::flat_map<
@@ -541,6 +544,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
 
     dbus::utility::async_method_call(
         asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, postCodeID, currentValue](
             const boost::system::error_code& ec,
             const std::vector<std::tuple<std::vector<uint8_t>,

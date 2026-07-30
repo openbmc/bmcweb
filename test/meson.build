@@ -50,6 +50,7 @@ srcfiles_unittest = files(
     'redfish-core/include/utils/stl_utils_test.cpp',
     'redfish-core/include/utils/systems_utils_test.cpp',
     'redfish-core/include/utils/time_utils_test.cpp',
+    'redfish-core/lib/account_service_test.cpp',
     'redfish-core/lib/chassis_test.cpp',
     'redfish-core/lib/ethernet_test.cpp',
     'redfish-core/lib/log_services_dump_test.cpp',
@@ -95,5 +96,26 @@ if (get_option('tests').allowed())
             cpp_args: ['-DTEST_DATA_DIR="' + data_dir + '"'],
         )
         test(fs.stem(test_src), test_bin, protocol: 'gtest')
+    endforeach
+endif
+
+if get_option('fuzz-tests').allowed()
+    if cxx.get_id() != 'clang'
+        error('fuzz-tests requires clang for -fsanitize=fuzzer support')
+    endif
+    fuzz_cpp_args = ['-fsanitize=fuzzer-no-link', '-Wno-missing-prototypes']
+    fuzz_link_args = ['-fsanitize=fuzzer']
+    srcfiles_fuzz = files('http/http_connection_fuzzer.cpp')
+    foreach fuzz_src : srcfiles_fuzz
+        executable(
+            fs.stem(fuzz_src),
+            fuzz_src,
+            link_with: bmcweblib,
+            include_directories: [incdir, include_directories('..')],
+            dependencies: bmcweb_dependencies,
+            cpp_args: fuzz_cpp_args,
+            link_args: fuzz_link_args,
+            install: false,
+        )
     endforeach
 endif

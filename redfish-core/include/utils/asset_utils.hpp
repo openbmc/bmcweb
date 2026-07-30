@@ -80,6 +80,7 @@ inline void getAssetInfo(
 {
     dbus::utility::getAllProperties(
         serviceName, dbusPath, "xyz.openbmc_project.Inventory.Decorator.Asset",
+        // ast-grep-ignore: long-lambda
         [asyncResp, jsonKeyName, includeSparePartNumber, includeManufacturer](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& assetList) {

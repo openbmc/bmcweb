@@ -20,6 +20,7 @@
 #include "utils/asset_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/pcie_util.hpp"
+#include "utils/processor_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -67,6 +68,7 @@ inline void handlePCIeDevicePath(
             "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
         dbus::utility::getDbusObject(
             pcieDevicePath, pcieDeviceInterface,
+            // ast-grep-ignore: long-lambda
             [pcieDevicePath, asyncResp,
              callback](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& object) {
@@ -96,6 +98,7 @@ inline void getValidPCIeDevicePath(
 
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, pcieDeviceInterface,
+        // ast-grep-ignore: long-lambda
         [pcieDeviceId, asyncResp,
          callback](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreePathsResponse&
@@ -209,10 +212,6 @@ inline void linkAssociatedProcessor(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDevicePath)
 {
-    constexpr std::array<std::string_view, 2> processorInterfaces = {
-        "xyz.openbmc_project.Inventory.Item.Cpu",
-        "xyz.openbmc_project.Inventory.Item.Accelerator"};
-
     dbus::utility::getAssociatedSubTreePaths(
         pcieDevicePath + "/connected_to",
         sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
@@ -296,6 +295,7 @@ inline void getPCIeDeviceSlotPath(
         "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
     dbus::utility::getAssociatedSubTreePaths(
         associationPath, path, 0, pcieSlotInterface,
+        // ast-grep-ignore: long-lambda
         [callback = std::move(callback), asyncResp, pcieDevicePath](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& endpoints) {
@@ -335,6 +335,24 @@ inline void getPCIeDeviceSlotPath(
         });
 }
 
+inline void afterGetLocationCode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& property)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for Location {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res
+        .jsonValue["Slot"]["Location"]["PartLocation"]["ServiceLabel"] =
+        property;
+}
+
 inline void afterGetDbusObject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceSlot, const boost::system::error_code& ec,
@@ -347,24 +365,44 @@ inline void afterGetDbusObject(
         messages::internalError(asyncResp->res);
         return;
     }
-    dbus::utility::getAllProperties(
-        object.begin()->first, pcieDeviceSlot,
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](
-            const boost::system::error_code& ec2,
-            const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
-            addPCIeSlotProperties(asyncResp->res, ec2, pcieSlotProperties);
-        });
+    for (const auto& [service, interfaces] : object)
+    {
+        for (const std::string& interface : interfaces)
+        {
+            if (interface == "xyz.openbmc_project.Inventory.Item.PCIeSlot")
+            {
+                dbus::utility::getAllProperties(
+                    service, pcieDeviceSlot,
+                    "xyz.openbmc_project.Inventory.Item.PCIeSlot",
+                    [asyncResp](const boost::system::error_code& ec2,
+                                const dbus::utility::DBusPropertiesMap&
+                                    pcieSlotProperties) {
+                        addPCIeSlotProperties(asyncResp->res, ec2,
+                                              pcieSlotProperties);
+                    });
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+            {
+                dbus::utility::getProperty<std::string>(
+                    service, pcieDeviceSlot,
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+                    "LocationCode",
+                    std::bind_front(afterGetLocationCode, asyncResp));
+            }
+        }
+    }
 }
 
 inline void afterGetPCIeDeviceSlotPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceSlot)
 {
-    static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
+    static constexpr std::array<std::string_view, 2> pcieSlotInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode"};
     dbus::utility::getDbusObject(
-        pcieDeviceSlot, pcieSlotInterface,
+        pcieDeviceSlot, pcieSlotInterfaces,
         [asyncResp,
          pcieDeviceSlot](const boost::system::error_code& ec,
                          const dbus::utility::MapperGetObject& object) {
@@ -379,6 +417,7 @@ inline void getPCIeDeviceHealth(
     dbus::utility::getProperty<bool>(
         service, pcieDevicePath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -406,6 +445,7 @@ inline void getPCIeDeviceState(
     dbus::utility::getProperty<bool>(
         service, pcieDevicePath, "xyz.openbmc_project.Inventory.Item",
         "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, bool value) {
             if (ec)
             {
@@ -552,6 +592,7 @@ inline void getPCIeDeviceProperties(
     dbus::utility::getAllProperties(
         service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Item.PCIeDevice",
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          callback](const boost::system::error_code& ec,
                    const dbus::utility::DBusPropertiesMap& pcieDevProperties) {
@@ -697,6 +738,7 @@ inline void handlePCIeFunctionCollectionGet(
 
     getValidPCIeDevicePath(
         pcieDeviceId, asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, pcieDeviceId](const std::string& pcieDevicePath,
                                   const std::string& service) {
             asyncResp->res.addHeader(
@@ -846,6 +888,7 @@ inline void handlePCIeFunctionGet(
 
     getValidPCIeDevicePath(
         pcieDeviceId, asyncResp,
+        // ast-grep-ignore: long-lambda
         [asyncResp, pcieDeviceId, pcieFunctionId](
             const std::string& pcieDevicePath, const std::string& service) {
             getPCIeDeviceProperties(

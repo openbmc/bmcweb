@@ -56,6 +56,7 @@ inline void getLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        // ast-grep-ignore: long-lambda
         [asyncResp, location](const boost::system::error_code& ec,
                               const std::string& property) {
             if (ec)

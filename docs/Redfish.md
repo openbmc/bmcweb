@@ -141,6 +141,7 @@ Fields common to all schemas
 - `Locked@Redfish.AllowableValues`
 - Password
 - PasswordChangeRequired
+- PasswordExpiration
 - RoleId
 - StrictAccountTypes
 - UserName
@@ -233,6 +234,7 @@ Fields common to all schemas
 - HotPluggable
 - Links/ComputerSystems
 - Links/ManagedBy
+- Links/Processors
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
@@ -277,6 +279,10 @@ Fields common to all schemas
 - `FanSpeedsPercent@odata.count`
 - PowerWatts/DataSourceUri
 - PowerWatts/Reading
+- PowerLimitWatts/AllowableMax
+- PowerLimitWatts/AllowableMin
+- PowerLimitWatts/ControlMode
+- PowerLimitWatts/SetPoint
 
 ### /redfish/v1/Chassis/{ChassisId}/Power/
 
@@ -1131,7 +1137,9 @@ functions the same like the default implementation under the System resource.
 #### Processor
 
 - EnvironmentMetrics
+- FirmwareVersion
 - InstructionSet
+- Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
 - MaxSpeedMHz

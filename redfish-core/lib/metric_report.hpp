@@ -38,6 +38,7 @@ inline void requestRoutesMetricReportCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
         .privileges(redfish::privileges::getMetricReportCollection)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -66,6 +67,7 @@ inline void requestRoutesMetricReport(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
         .privileges(redfish::privileges::getMetricReport)
         .methods(boost::beast::http::verb::get)(
+            // ast-grep-ignore: long-lambda
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
@@ -76,6 +78,7 @@ inline void requestRoutesMetricReport(App& app)
                 const std::string reportPath = telemetry::getDbusReportPath(id);
                 dbus::utility::async_method_call(
                     asyncResp,
+                    // ast-grep-ignore: long-lambda
                     [asyncResp, id,
                      reportPath](const boost::system::error_code& ec) {
                         if (ec.value() == EBADR ||
@@ -96,6 +99,7 @@ inline void requestRoutesMetricReport(App& app)
                             telemetry::TimestampReadings>(
                             *crow::connections::systemBus, telemetry::service,
                             reportPath, telemetry::reportInterface, "Readings",
+                            // ast-grep-ignore: long-lambda
                             [asyncResp,
                              id](const boost::system::error_code& ec2,
                                  const telemetry::TimestampReadings& ret) {

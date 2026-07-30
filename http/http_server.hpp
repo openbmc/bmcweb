@@ -92,6 +92,7 @@ class Server
     void startAsyncWaitForSignal()
     {
         signals.async_wait(
+            // ast-grep-ignore: long-lambda
             [this](const boost::system::error_code& ec, int signalNo) {
                 if (ec)
                 {

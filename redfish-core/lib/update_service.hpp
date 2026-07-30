@@ -1284,13 +1284,6 @@ inline void getSoftwareVersionCallback(
         messages::internalError(asyncResp->res);
         return;
     }
-    if (swInvPurpose == nullptr)
-    {
-        BMCWEB_LOG_DEBUG("Can't find property \"Purpose\"!");
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    BMCWEB_LOG_DEBUG("swInvPurpose = {}", *swInvPurpose);
     if (version == nullptr)
     {
         BMCWEB_LOG_DEBUG("Can't find property \"Version\"!");
@@ -1299,6 +1292,13 @@ inline void getSoftwareVersionCallback(
     }
     asyncResp->res.jsonValue["Version"] = *version;
     asyncResp->res.jsonValue["Id"] = swId;
+
+    if (swInvPurpose == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Software object {} has no \"Purpose\"", swId);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("swInvPurpose = {}", *swInvPurpose);
     // swInvPurpose is of format:
     // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
     // Translate this to "ABC image"

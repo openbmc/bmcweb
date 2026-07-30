@@ -103,6 +103,7 @@ inline void handleFanCollectionHead(
 
     redfish::chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
+        // ast-grep-ignore: long-lambda
         [asyncResp,
          chassisId](const std::optional<std::string>& validChassisPath) {
             if (!validChassisPath)
@@ -154,6 +155,7 @@ inline void handleFanPath(
         }
         dbus::utility::getDbusObject(
             fanPath, fanInterface,
+            // ast-grep-ignore: long-lambda
             [fanPath, asyncResp,
              callback](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& object) {
@@ -208,6 +210,7 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<bool>(
         service, fanPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -233,6 +236,7 @@ inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     dbus::utility::getProperty<bool>(
         service, fanPath, "xyz.openbmc_project.Inventory.Item", "Present",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -260,6 +264,7 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<std::string>(
         service, fanPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
             if (ec)
@@ -425,6 +430,7 @@ inline void handleFanHead(App& app, const crow::Request& req,
 
     redfish::chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
+        // ast-grep-ignore: long-lambda
         [asyncResp, chassisId,
          fanId](const std::optional<std::string>& validChassisPath) {
             if (!validChassisPath)

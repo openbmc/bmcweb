@@ -576,7 +576,15 @@ inline void afterLogEntriesGetManagedObjects(
 {
     if (ec)
     {
-        // TODO Handle for specific error code
+        if (ec.value() == EBADR || ec == boost::system::errc::host_unreachable)
+        {
+            BMCWEB_LOG_DEBUG(
+                "EventLog entry collection unavailable on DBus, returning empty collection: {}",
+                ec);
+            asyncResp->res.jsonValue["Members@odata.count"] = 0;
+            asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+            return;
+        }
         BMCWEB_LOG_ERROR("getLogEntriesIfaceData resp_handler got error {}",
                          ec);
         messages::internalError(asyncResp->res);
@@ -751,6 +759,7 @@ inline void dBusEventLogEntryDelete(
     dbus::utility::escapePathForDbus(entryID);
 
     // Process response from Logging service.
+    // ast-grep-ignore: long-lambda
     auto respHandler = [asyncResp,
                         entryID](const boost::system::error_code& ec) {
         BMCWEB_LOG_DEBUG("EventLogEntry (DBus) doDelete callback: Done");
@@ -785,6 +794,7 @@ inline void dBusLogServiceActionsClear(
     BMCWEB_LOG_DEBUG("Do delete all entries.");
 
     // Process response from Logging service.
+    // ast-grep-ignore: long-lambda
     auto respHandler = [asyncResp](const boost::system::error_code& ec) {
         BMCWEB_LOG_DEBUG("doClearLog resp_handler callback: Done");
         if (ec)
