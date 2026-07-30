@@ -184,7 +184,7 @@ inline MTLSCommonNameParseMode getMTLSCommonNameParseMode(std::string_view name)
 struct AuthConfigMethods
 {
     // Authentication paths
-    bool basic = BMCWEB_BASIC_AUTH;
+    bool basic = false;
     bool sessionToken = BMCWEB_SESSION_AUTH;
     bool xtoken = BMCWEB_XTOKEN_AUTH;
     bool cookie = BMCWEB_COOKIE_AUTH;
