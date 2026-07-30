@@ -54,4 +54,25 @@ TEST(AuthConfigMethods, FromJsonMTLSCommonNameParseModeOutOfRange)
     EXPECT_EQ(methods.xtoken, true);
     EXPECT_EQ(methods.mTLSCommonNameParsingMode, prevValue);
 }
+
+TEST(AuthConfigMethods, BasicAuthDefaultsToDisabled)
+{
+    persistent_data::AuthConfigMethods methods;
+
+    EXPECT_FALSE(methods.basic);
+    EXPECT_EQ(methods.sessionToken, BMCWEB_SESSION_AUTH);
+    EXPECT_EQ(methods.xtoken, BMCWEB_XTOKEN_AUTH);
+    EXPECT_EQ(methods.cookie, BMCWEB_COOKIE_AUTH);
+}
+
+TEST(AuthConfigMethods, FromJsonRestoresEnabledBasicAuth)
+{
+    persistent_data::AuthConfigMethods methods;
+    nlohmann::json::object_t jsonValue;
+    jsonValue["BasicAuth"] = true;
+
+    methods.fromJson(jsonValue);
+
+    EXPECT_TRUE(methods.basic);
+}
 } // namespace
