@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514a933f_baa5fe25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-07-30T23:57:59Z",
+      "side": 1,
+      "message": "And yet, Redfish (the specification we primarily implement) makes heavy use of it in both examples.  Please include quotes and links from Mozilla and OWASP about exactly which recomendation you\u0027re referring to, and we can talk through changing the default, but as written, changing this default is going to break a lot of use cases, and I\u0027m not sure I\u0027m in support just to break certain security models.\n\nDo you maintain an upstream system where you\u0027ve already disabled this?  that might be a good place to start working through what use cases break.\n\nKeep in mind that a CLIENT can opt into whatever security model it wants, we support them all in parallel, and given that\u0027s ultimately the entity that posesses the secret (in this case the password) really the onus is on the client (not bmcweb) to pick a decent security model.  Us changing the default only breaks clients and starts to take an opinion that I don\u0027t care for.  This patch and bmcweb effect clients that use a better security model mtls from working, so I\u0027m not very keen to accept this change as it\u0027s really only a punishment of old/simple clients.\n\nAlso consider bringing this up to DMTF as a specification change to Redfish to deprecate Basic Auth given your sources, and that will likely improve the situation in the tooling.",
+      "revId": "db32ad00b9016265c24e0e77fe8d7cf9498a3bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
