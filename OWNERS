@@ -76,24 +76,11 @@ matchers:
 # unit tests
 - suffix: _test.cpp
   owners:
-      - nanzhoumails@gmail.com
 
 # Redfish schemas
-- exact: redfish-core/include/query.hpp
   owners:
-      - nanzhoumails@gmail.com
-- exact: redfish-core/include/utils/query_param.hpp
   owners:
-      - nanzhoumails@gmail.com
-- exact: redfish-core/lib/certificate_service.hpp
   owners:
-      - nanzhoumails@gmail.com
-- exact: redfish-core/lib/log_services.hpp
   owners:
-      - nanzhoumails@gmail.com
-- exact: redfish-core/lib/memory.hpp
   owners:
-      - nanzhoumails@gmail.com
-- exact: redfish-core/lib/sensors.hpp
   owners:
-      - nanzhoumails@gmail.com
