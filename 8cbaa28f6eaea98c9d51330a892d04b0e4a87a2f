@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5f8e3e7_8c7b5fac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-07-30T03:42:41Z",
+      "side": 1,
+      "message": "LGTM. After modify the commit msg, I will +1.",
+      "revId": "8cbaa28f6eaea98c9d51330a892d04b0e4a87a2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
