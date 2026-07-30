@@ -16,6 +16,29 @@
       "message": "Overall it looked good to me, \njust a few nit questions.",
       "revId": "9dbe4b17824f7601c9293a4dd9bb50460c3a7485",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e9c54c_3ead037f",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-30T16:17:32Z",
+      "side": 1,
+      "message": "Should these tests be more complete to handle e.g. `xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Gen1` and the ones below?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 2
+      },
+      "revId": "9dbe4b17824f7601c9293a4dd9bb50460c3a7485",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
