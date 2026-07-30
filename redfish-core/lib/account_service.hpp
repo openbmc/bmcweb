@@ -1698,8 +1698,8 @@ inline void handleAccountServicePatch(
         }
         else
         {
-            messages::propertyValueNotInList(asyncResp->res, "HTTPBasicAuth",
-                                             *httpBasicAuth);
+            messages::propertyValueNotInList(asyncResp->res, *httpBasicAuth,
+                                             "HTTPBasicAuth");
             return;
         }
     }
