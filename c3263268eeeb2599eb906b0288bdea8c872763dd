@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2a7cbd2_54aa8664",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-31T23:16:06Z",
+      "side": 1,
+      "message": "Already know it is bmcweb. Oh well.",
+      "revId": "c3263268eeeb2599eb906b0288bdea8c872763dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "505f1b93_a3b25753",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-31T23:16:06Z",
+      "side": 1,
+      "message": "This is a stretch since \n\n// Fully resolve DeviceType before writing any PCIeInterface fields, so a\n// malformed DeviceType ...",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "c3263268eeeb2599eb906b0288bdea8c872763dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
