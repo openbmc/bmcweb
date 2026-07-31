@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "313376b2_f8c4125d",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-31T23:09:52Z",
+      "side": 1,
+      "message": "don\u0027t a lot of these have a default  ? \nLike Enabled/Ok ?? I\u0027m looking at Fan/PCIe Above",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "6b7090ded0cfb0ce50433111b6cfc02d1c9168b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
