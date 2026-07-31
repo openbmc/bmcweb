@@ -34,6 +34,24 @@
       "parentUuid": "514a933f_baa5fe25",
       "revId": "db32ad00b9016265c24e0e77fe8d7cf9498a3bca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c876d4a5_701d00ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-31T23:23:55Z",
+      "side": 1,
+      "message": "I don\u0027t find this answers all the questions. \n\nWhat use cases breaks? Do you need changes in https://github.com/openbmc/openbmc-test-automation, etc ? Documentation changes?\n\nCan you take this to the DMTF ?",
+      "parentUuid": "6ba7b040_1fb70efd",
+      "revId": "db32ad00b9016265c24e0e77fe8d7cf9498a3bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
