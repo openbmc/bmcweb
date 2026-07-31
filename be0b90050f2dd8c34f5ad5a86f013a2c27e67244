@@ -16,6 +16,24 @@
       "message": "Cool to see how much code this reduces",
       "revId": "be0b90050f2dd8c34f5ad5a86f013a2c27e67244",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e1895b3_a7c1f813",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-31T18:22:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c9d0acbc_e6ab3ad6",
+      "revId": "be0b90050f2dd8c34f5ad5a86f013a2c27e67244",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
