@@ -22,6 +22,30 @@
       },
       "revId": "5c9347b38576eeec0ce80c39f1dfd7530b766f13",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c050628_3afec25d",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-07-31T13:58:06Z",
+      "side": 1,
+      "message": "Q: Can empty endpoints happens with clear `ec`?\n\nBesides the issue you have mentioned above, I noticed that the code requires refinement indeed. I have changed it so that it can handle `ec.value() \u003d\u003d EBADR` without having `messages::internalError()`.",
+      "parentUuid": "24757a95_5f11b3c6",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 32
+      },
+      "revId": "5c9347b38576eeec0ce80c39f1dfd7530b766f13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
