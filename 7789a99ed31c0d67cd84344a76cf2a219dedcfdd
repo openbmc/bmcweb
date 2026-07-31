@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53b03b89_a5c6a1d7",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-31T14:49:00Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ef78bcf2_538f5a2c",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 1
+      },
+      "revId": "7789a99ed31c0d67cd84344a76cf2a219dedcfdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1eb9b18_6c9a4b0e",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de6a6cf3_b1532ae6",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-31T14:49:00Z",
+      "side": 1,
+      "message": "Thanks for reviewing, the `return` isn\u0027t there since we want resources to default to `Status.Health` to default to `OK` if the interface isn\u0027t there. Similar to PCIe https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92847/5 and other resources they default to `Status.State \u003d\u003d Enabled` and `Status.Health \u003d\u003d OK` so just keeping that behavior as standard now",
+      "parentUuid": "b1eb9b18_6c9a4b0e",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 9
+      },
+      "revId": "7789a99ed31c0d67cd84344a76cf2a219dedcfdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c546a1b6_132933e4",
         "filename": "redfish-core/include/utils/resource_utils.hpp",
         "patchSetId": 4
@@ -60,6 +108,30 @@
       "writtenOn": "2026-07-31T05:21:08Z",
       "side": 1,
       "message": "This overload seems redundant, I think the consumer should be able to handle this.",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 1
+      },
+      "revId": "7789a99ed31c0d67cd84344a76cf2a219dedcfdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608836c8_8c1c7f05",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-07-31T14:49:00Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c546a1b6_132933e4",
       "range": {
         "startLine": 199,
         "startChar": 0,
