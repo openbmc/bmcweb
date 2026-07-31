@@ -9,6 +9,7 @@
 #include <boost/beast/http/status.hpp>
 #include <boost/url/url.hpp>
 
+#include <filesystem>
 #include <memory>
 #include <optional>
 #include <string>
@@ -184,6 +185,25 @@ TEST(UpdateService, MissingVersionIsError)
 
     EXPECT_EQ(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
+}
+
+TEST(UpdateService, UploadImageFileOpenFailureLeavesTargetPath)
+{
+    std::filesystem::path targetPath =
+        std::filesystem::temp_directory_path() /
+        (std::string("bmcweb-upload-test-") + bmcweb::getRandomUUID());
+
+    ASSERT_TRUE(std::filesystem::create_directory(targetPath));
+
+    crow::Response res;
+    uploadImageFile(res, "firmware-image-body", targetPath);
+
+    EXPECT_EQ(res.result(), boost::beast::http::status::internal_server_error);
+    EXPECT_TRUE(std::filesystem::exists(targetPath));
+
+    std::error_code ec;
+    EXPECT_TRUE(std::filesystem::remove(targetPath, ec));
+    EXPECT_FALSE(ec);
 }
 } // namespace
 } // namespace redfish
