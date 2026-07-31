@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24757a95_5f11b3c6",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-07-31T09:29:25Z",
+      "side": 1,
+      "message": "When endpoints are empty but ec is clear, ec.message() still returns \"Success\", which can result in a misleading log entry and misleading call of internalError, I think.",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 32
+      },
+      "revId": "5c9347b38576eeec0ce80c39f1dfd7530b766f13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
