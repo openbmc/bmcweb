@@ -64,6 +64,7 @@
 #include <optional>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <unordered_map>
 #include <utility>
 #include <variant>
@@ -634,10 +635,27 @@ inline void uploadImageFile(crow::Response& res, std::string_view body)
     BMCWEB_LOG_DEBUG("Writing file to {}", filepath.string());
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                     std::ofstream::trunc);
+    if (!out.is_open())
+    {
+        BMCWEB_LOG_ERROR("Failed to open firmware image file {}",
+                         filepath.string());
+        messages::internalError(res);
+        cleanUp();
+        return;
+    }
     // set the permission of the file to 640
     std::filesystem::perms permission =
         std::filesystem::perms::owner_read | std::filesystem::perms::group_read;
-    std::filesystem::permissions(filepath, permission);
+    std::error_code ec;
+    std::filesystem::permissions(filepath, permission, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Failed to set firmware image file permissions: {}",
+                         ec.message());
+        messages::internalError(res);
+        cleanUp();
+        return;
+    }
     out << body;
 
     if (out.bad())
