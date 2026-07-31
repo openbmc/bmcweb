@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7392dc99_40715ab5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-31T18:48:36Z",
+      "side": 1,
+      "message": "Redfish Validator pass?",
+      "revId": "c9aa4b0ec9b0de275602e110eab03a9fb6f4ce10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "172201a0_2956658c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-31T18:48:36Z",
+      "side": 1,
+      "message": "In PDI at https://github.com/openbmc/phosphor-dbus-interfaces/blob/ec0849a9319550581b4275ef0d3fa1d7b72d6e13/yaml/xyz/openbmc_project/Network/EthernetInterface.interface.yaml#L18",
+      "revId": "c9aa4b0ec9b0de275602e110eab03a9fb6f4ce10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
