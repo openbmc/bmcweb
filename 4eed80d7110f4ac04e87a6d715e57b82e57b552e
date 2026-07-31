@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6e4cba_ed6f7a2d",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-07-31T23:21:15Z",
+      "side": 1,
+      "message": "Are these really lifetime?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/ec0849a9319550581b4275ef0d3fa1d7b72d6e13/yaml/xyz/openbmc_project/Memory/MemoryECC.interface.yaml#L8\n\nRedfish defines LifeTime as metrics accumulated since manufacturing\n\nPDI just says \"correctable and uncorrectable event counts\"",
+      "range": {
+        "startLine": 52,
+        "startChar": 55,
+        "endLine": 52,
+        "endChar": 62
+      },
+      "revId": "4eed80d7110f4ac04e87a6d715e57b82e57b552e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
