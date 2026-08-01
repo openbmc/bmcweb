@@ -139,5 +139,39 @@ TEST(PrivilegeTest, PrivilegeHostConsoleConstructor)
                 UnorderedElementsAre("OpenBMCHostConsole"));
 }
 
+TEST(PrivilegeTest, PrivilegeCheckForMethodNotPresent)
+{
+    auto userPrivileges = Privileges{"Login"};
+
+    OperationMap entityPrivileges{{boost::beast::http::verb::get, {{"Login"}}}};
+
+    EXPECT_FALSE(isMethodAllowedWithPrivileges(
+        boost::beast::http::verb::post, entityPrivileges, userPrivileges));
+}
+
+TEST(PrivilegeTest, PrivilegeCheckForMixedAndOrSuccess)
+{
+    auto userPrivileges = Privileges{"Login", "ConfigureManager"};
+
+    OperationMap entityPrivileges{
+        {boost::beast::http::verb::get,
+         {{"Login", "ConfigureManager"}, {"ConfigureUsers"}}}};
+
+    EXPECT_TRUE(isMethodAllowedWithPrivileges(
+        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+}
+
+TEST(PrivilegeTest, PrivilegeCheckForMixedAndOrFailure)
+{
+    auto userPrivileges = Privileges{"ConfigureComponents"};
+
+    OperationMap entityPrivileges{
+        {boost::beast::http::verb::get,
+         {{"Login", "ConfigureManager"}, {"ConfigureUsers"}}}};
+
+    EXPECT_FALSE(isMethodAllowedWithPrivileges(
+        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+}
+
 } // namespace
 } // namespace redfish
