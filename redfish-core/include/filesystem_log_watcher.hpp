@@ -36,5 +36,6 @@ class FilesystemLogWatcher
 
   public:
     explicit FilesystemLogWatcher(boost::asio::io_context& iocIn);
+    ~FilesystemLogWatcher();
 };
 } // namespace redfish
