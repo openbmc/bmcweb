@@ -253,7 +253,7 @@ class EventServiceManager
             }
         }
         noOfEventLogSubscribers = eventLogSubCount;
-        if (eventLogSubCount > 0U)
+        if (serviceEnabled && (eventLogSubCount > 0U))
         {
             if constexpr (BMCWEB_REDFISH_DBUS_LOG)
             {
@@ -278,7 +278,7 @@ class EventServiceManager
         }
 
         noOfMetricReportSubscribers = metricReportSubCount;
-        if (metricReportSubCount > 0U)
+        if (serviceEnabled && (metricReportSubCount > 0U))
         {
             if (!matchTelemetryMonitor)
             {
@@ -468,6 +468,31 @@ class EventServiceManager
                         subscriptionTypeSSE);
             });
         return static_cast<size_t>(size);
+    }
+
+    size_t getNumberOfEventLogSubscribers() const
+    {
+        return noOfEventLogSubscribers;
+    }
+
+    size_t getNumberOfMetricReportSubscribers() const
+    {
+        return noOfMetricReportSubscribers;
+    }
+
+    void resetForTest()
+    {
+        subscriptionsMap.clear();
+        dbusEventLogMonitor.reset();
+        matchTelemetryMonitor.reset();
+        filesystemLogMonitor.reset();
+        eventId = 1;
+        noOfEventLogSubscribers = 0;
+        noOfMetricReportSubscribers = 0;
+        messages.clear();
+        serviceEnabled = false;
+        retryAttempts = 0;
+        retryTimeoutInterval = 0;
     }
 
     std::vector<std::string> getAllIDs()

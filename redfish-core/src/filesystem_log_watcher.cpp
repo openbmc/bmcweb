@@ -252,4 +252,20 @@ FilesystemLogWatcher::FilesystemLogWatcher(boost::asio::io_context& ioc) :
         cacheRedfishLogFile();
     }
 }
+
+FilesystemLogWatcher::~FilesystemLogWatcher()
+{
+    if (fileWatchDesc != -1)
+    {
+        inotify_rm_watch(inotifyConn.native_handle(), fileWatchDesc);
+        fileWatchDesc = -1;
+    }
+    if (dirWatchDesc != -1)
+    {
+        inotify_rm_watch(inotifyConn.native_handle(), dirWatchDesc);
+        dirWatchDesc = -1;
+    }
+    boost::system::error_code ec;
+    inotifyConn.cancel(ec);
+}
 } // namespace redfish
