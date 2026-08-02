@@ -362,6 +362,7 @@ else
         'callable_traits',
         'headers',
         'process',
+        'scope',
         'type_index',
         'url',
         'uuid',
