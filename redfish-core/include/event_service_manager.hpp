@@ -470,6 +470,16 @@ class EventServiceManager
         return static_cast<size_t>(size);
     }
 
+    size_t getNumberOfEventLogSubscribers() const
+    {
+        return noOfEventLogSubscribers;
+    }
+
+    size_t getNumberOfMetricReportSubscribers() const
+    {
+        return noOfMetricReportSubscribers;
+    }
+
     std::vector<std::string> getAllIDs()
     {
         std::vector<std::string> idList;
