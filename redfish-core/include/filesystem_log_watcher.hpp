@@ -35,6 +35,12 @@ class FilesystemLogWatcher
     boost::asio::posix::stream_descriptor inotifyConn;
 
   public:
+    FilesystemLogWatcher(const FilesystemLogWatcher&) = delete;
+    FilesystemLogWatcher& operator=(const FilesystemLogWatcher&) = delete;
+    FilesystemLogWatcher(FilesystemLogWatcher&&) = delete;
+    FilesystemLogWatcher& operator=(FilesystemLogWatcher&&) = delete;
+
     explicit FilesystemLogWatcher(boost::asio::io_context& iocIn);
+    ~FilesystemLogWatcher();
 };
 } // namespace redfish
