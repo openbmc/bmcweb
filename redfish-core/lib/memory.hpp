@@ -16,10 +16,12 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/processor_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -735,6 +737,99 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
     );
 }
 
+inline void afterGetDimmChassisLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("No chassis association: {}", ec);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Memory is contained by exactly one chassis.  Leave the link out rather
+    // than pick one when the inventory describes something else.
+    if (chassisPaths.size() != 1)
+    {
+        BMCWEB_LOG_DEBUG("Expected a single chassis, got {}",
+                         chassisPaths.size());
+        return;
+    }
+
+    std::string chassisName =
+        sdbusplus::object_path(chassisPaths[0]).filename();
+    if (chassisName.empty())
+    {
+        BMCWEB_LOG_ERROR("Malformed chassis path {}", chassisPaths[0]);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}", chassisName);
+}
+
+inline void afterGetDimmProcessorLinks(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& processorPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("No processor association: {}", ec);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (processorPaths.empty())
+    {
+        return;
+    }
+
+    collection_util::handleCollectionMembers(
+        asyncResp,
+        boost::urls::format("/redfish/v1/Systems/{}/Processors",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
+        nlohmann::json::json_pointer("/Links/Processors"), ec, processorPaths);
+
+    // Memory is not associated with a chassis directly, so reach the chassis
+    // that contains it through the processor it belongs to.  With more than
+    // one processor that chassis is ambiguous, so leave the link out.
+    if (processorPaths.size() != 1)
+    {
+        BMCWEB_LOG_DEBUG("Expected a single processor, got {}",
+                         processorPaths.size());
+        return;
+    }
+
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::object_path(processorPaths[0]) / "contained_by",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisInterfaces, std::bind_front(afterGetDimmChassisLink, asyncResp));
+}
+
+inline void getDimmLinks(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const sdbusplus::object_path& dimmPath)
+{
+    dbus::utility::getAssociatedSubTreePaths(
+        dimmPath / "contained_by",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        processorInterfaces,
+        std::bind_front(afterGetDimmProcessorLinks, asyncResp));
+}
+
 inline void afterGetDimmData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& dimmId, const boost::system::error_code& ec,
@@ -751,6 +846,7 @@ inline void afterGetDimmData(
     }
 
     bool found = false;
+    sdbusplus::object_path dimmPath;
     for (const auto& [objectPath, serviceMap] : subtree)
     {
         sdbusplus::object_path path(objectPath);
@@ -773,6 +869,7 @@ inline void afterGetDimmData(
                                          objectPath);
                     dimmInterface = true;
                     found = true;
+                    dimmPath = path;
                 }
                 else if (interface ==
                          "xyz.openbmc_project.Association.Definitions")
@@ -817,6 +914,8 @@ inline void afterGetDimmData(
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+
+    getDimmLinks(asyncResp, dimmPath);
 }
 
 inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
