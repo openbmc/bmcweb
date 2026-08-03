@@ -34,6 +34,24 @@
       "parentUuid": "cc8da589_88107de3",
       "revId": "9e36f324cca95c87732eeeaf01934fc74a9b788d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974c51c4_512812b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-08-03T03:13:05Z",
+      "side": 1,
+      "message": "```suggestion\nAdd test coverage for dbusToRfBootProgress() to validate D-Bus to\nRedfish boot progress mappings.\n\nAdd test coverage for assignBootParameters() to verify correct boot\nsource and boot mode assignments for supported boot override values and\ninvalid input handling.\n```",
+      "parentUuid": "ba3406e4_29a9db31",
+      "revId": "9e36f324cca95c87732eeeaf01934fc74a9b788d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
