@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c7abcca_23a70103",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-03T10:31:16Z",
+      "side": 1,
+      "message": "Current repo doesn\u0027t have processor_utils.hpp. If that header comes from a separate pending change, please mention that.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "db1f47e0dce15a87631e3d3734de01aac5577594",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
