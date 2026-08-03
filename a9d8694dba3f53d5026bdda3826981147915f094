@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9ec39b_b864a064",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-03T22:53:49Z",
+      "side": 1,
+      "message": "Originally was planning on implementing the StandbyOffline enum value as well since currently it doesn\u0027t look to be implemented. Will drop that change. Looking to only implement OK and Critical for Status.Health as well.",
+      "parentUuid": "e2137d5b_7a472362",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07505959_734f8ffb",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "239068b1_e31b70bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-03T22:53:49Z",
+      "side": 1,
+      "message": "This was I think a misunderstanding on my wording. The intent was to convey this is how bmcweb behaves currently (no patch applied). The next paragraph conveys what this patch does in contrast. I will reword for clarity.",
+      "parentUuid": "07505959_734f8ffb",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48c86d36_76b29b60",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-08-03T21:52:17Z",
       "side": 1,
       "message": "A lot of this feels like it was wrote by an LLM and is just super wordy, please make it concise with relevant details",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 46
+      },
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88591ed2_df9316d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-03T22:53:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "48c86d36_76b29b60",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -104,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1ba0315_86395094",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-03T22:53:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c7cde345_c0af814e",
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5980d911_221ac31f",
@@ -117,6 +207,24 @@
       "writtenOn": "2026-08-03T21:52:17Z",
       "side": 1,
       "message": "Why ? Why do we need a class..? We could do more Classes in bmcweb, but let\u0027s just follow the existing code",
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6c539d_7cda3035",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-03T22:53:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5980d911_221ac31f",
       "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
