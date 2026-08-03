@@ -19,6 +19,7 @@
 
 #include <asm-generic/errno.h>
 
+#include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -32,12 +33,24 @@
 #include <memory>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace redfish
 {
 
 constexpr std::array<std::string_view, 1> cableInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Cable"};
+
+constexpr auto cablePowerStateOn =
+    "xyz.openbmc_project.State.Decorator.PowerState.State.On";
+constexpr auto cablePowerStateOff =
+    "xyz.openbmc_project.State.Decorator.PowerState.State.Off";
+constexpr auto cablePowerStatePoweringOn =
+    "xyz.openbmc_project.State.Decorator.PowerState.State.PoweringOn";
+constexpr auto cablePowerStatePoweringOff =
+    "xyz.openbmc_project.State.Decorator.PowerState.State.PoweringOff";
+constexpr auto cablePowerStateUnknown =
+    "xyz.openbmc_project.State.Decorator.PowerState.State.Unknown";
 
 /**
  * @brief Fill cable specific properties.
@@ -94,15 +107,61 @@ inline void fillCableProperties(
     }
 }
 
-inline void fillCableHealthState(
+class CableStateAggregator
+{
+  public:
+    explicit CableStateAggregator(
+        std::shared_ptr<bmcweb::AsyncResp> asyncRespIn) :
+        asyncResp(std::move(asyncRespIn))
+    {}
+
+    CableStateAggregator(const CableStateAggregator&) = delete;
+    CableStateAggregator(CableStateAggregator&&) = delete;
+    CableStateAggregator& operator=(const CableStateAggregator&) = delete;
+    CableStateAggregator& operator=(CableStateAggregator&&) = delete;
+
+    ~CableStateAggregator()
+    {
+        if (asyncResp->res.result() != boost::beast::http::status::ok)
+        {
+            return;
+        }
+        asyncResp->res.jsonValue["Status"]["State"] =
+            present ? poweredState : resource::State::Absent;
+    }
+
+    void setPresent(bool value)
+    {
+        present = value;
+    }
+
+    void setPoweredState(resource::State value)
+    {
+        poweredState = value;
+    }
+
+  private:
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+    bool present = true;
+    resource::State poweredState = resource::State::Enabled;
+};
+
+/**
+ * @brief Record whether the cable is present.
+ *
+ * phosphor-dbus-interfaces documents a "Present" of false as mapping to a
+ * Redfish "Status" "State" of "Absent".
+ */
+inline void fillCablePresence(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<CableStateAggregator>& cableState,
     const std::string& cableObjectPath, const std::string& service)
 {
     dbus::utility::getProperty<bool>(
-        *crow::connections::systemBus, service, cableObjectPath,
-        "xyz.openbmc_project.Inventory.Item", "Present",
+        service, cableObjectPath, "xyz.openbmc_project.Inventory.Item",
+        "Present",
         // ast-grep-ignore: long-lambda
-        [asyncResp,
+        [asyncResp, cableState,
          cableObjectPath](const boost::system::error_code& ec, bool present) {
             if (ec)
             {
@@ -116,10 +175,101 @@ inline void fillCableHealthState(
                 return;
             }
 
-            if (!present)
+            cableState->setPresent(present);
+        });
+}
+
+/**
+ * @brief Derive Status.State from the power state decorator.
+ *
+ * A cable whose attached card is powered off is neither faulty nor missing,
+ * so it is reported as StandbyOffline rather than Disabled or Absent. 
+ * An unknown or unimplemented power state leaves State at its default rather
+ * than asserting a fault from absence of information.
+ */
+inline void fillCablePowerState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<CableStateAggregator>& cableState,
+    const std::string& cableObjectPath, const std::string& service)
+{
+    dbus::utility::getProperty<std::string>(
+        service, cableObjectPath,
+        "xyz.openbmc_project.State.Decorator.PowerState", "PowerState",
+        // ast-grep-ignore: long-lambda
+        [asyncResp, cableState,
+         cableObjectPath](const boost::system::error_code& ec,
+                          const std::string& powerState) {
+            if (ec)
             {
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Absent;
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "get PowerState failed for Cable {} with error {}",
+                        cableObjectPath, ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+
+            if (powerState == cablePowerStateOn)
+            {
+                cableState->setPoweredState(resource::State::Enabled);
+            }
+            else if (powerState == cablePowerStatePoweringOn)
+            {
+                cableState->setPoweredState(resource::State::Starting);
+            }
+            else if (powerState == cablePowerStateOff ||
+                     powerState == cablePowerStatePoweringOff)
+            {
+                cableState->setPoweredState(resource::State::StandbyOffline);
+            }
+            else if (powerState != cablePowerStateUnknown)
+            {
+                BMCWEB_LOG_ERROR("Unknown PowerState {} for Cable {}",
+                                 powerState, cableObjectPath);
+                messages::internalError(asyncResp->res);
+            }
+        });
+}
+
+/**
+ * @brief Fill Status.Health from the operational status decorator.
+ *
+ * phosphor-dbus-interfaces documents a "Functional" of false as mapping to a
+ * Redfish "Status" "Health" of "Critical".  The decorator is optional, so
+ * Health is left at its default when it is not implemented.
+ *
+ * @param[in,out]   asyncResp       Async HTTP response.
+ * @param[in]       cableObjectPath Object path of the Cable.
+ * @param[in]       service         Service hosting the decorator.
+ */
+inline void fillCableHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& cableObjectPath,
+                            const std::string& service)
+{
+    dbus::utility::getProperty<bool>(
+        service, cableObjectPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        // ast-grep-ignore: long-lambda
+        [asyncResp, cableObjectPath](const boost::system::error_code& ec,
+                                     bool functional) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "get Functional failed for Cable {} with error {}",
+                        cableObjectPath, ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+
+            if (!functional)
+            {
+                asyncResp->res.jsonValue["Status"]["Health"] =
+                    resource::Health::Critical;
             }
         });
 }
@@ -137,6 +287,8 @@ inline void getCableProperties(
     const dbus::utility::MapperServiceMap& serviceMap)
 {
     BMCWEB_LOG_DEBUG("Get Properties for cable {}", cableObjectPath);
+
+    auto cableState = std::make_shared<CableStateAggregator>(asyncResp);
 
     for (const auto& [service, interfaces] : serviceMap)
     {
@@ -156,7 +308,19 @@ inline void getCableProperties(
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
-                fillCableHealthState(asyncResp, cableObjectPath, service);
+                fillCablePresence(asyncResp, cableState, cableObjectPath,
+                                  service);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.State.Decorator.PowerState")
+            {
+                fillCablePowerState(asyncResp, cableState, cableObjectPath,
+                                    service);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.State.Decorator.OperationalStatus")
+            {
+                fillCableHealth(asyncResp, cableObjectPath, service);
             }
         }
     }
@@ -193,7 +357,7 @@ inline void afterHandleCableGet(
             boost::urls::format("/redfish/v1/Cables/{}", cableId);
         asyncResp->res.jsonValue["Id"] = cableId;
         asyncResp->res.jsonValue["Name"] = "Cable";
-        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+        asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 
         getCableProperties(asyncResp, objectPath, serviceMap);
         return;
