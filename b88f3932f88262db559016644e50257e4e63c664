@@ -22,6 +22,29 @@
       },
       "revId": "b88f3932f88262db559016644e50257e4e63c664",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73bf77dd_7734cf82",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-03T20:45:18Z",
+      "side": 1,
+      "message": "We could probably put this into pcie_util since it could be reused. Separate for the enums and strings is a plus",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 2
+      },
+      "revId": "b88f3932f88262db559016644e50257e4e63c664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
