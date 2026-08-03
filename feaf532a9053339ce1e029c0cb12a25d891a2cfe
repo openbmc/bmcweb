@@ -658,6 +658,29 @@
       "parentUuid": "6ab2c537_5e288af8",
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38e979a_60b16cff",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 3194,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-03T20:26:01Z",
+      "side": 1,
+      "message": "do we do this elsewhere on the single system? Enforce the system id (e.g. system) equals the last segment of the d-bus path? e.g. /xyz/openbmc_project/inventory/system\n\nI think I\u0027m okay with that but should make the commit msg at least",
+      "range": {
+        "startLine": 3194,
+        "startChar": 53,
+        "endLine": 3194,
+        "endChar": 63
+      },
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
