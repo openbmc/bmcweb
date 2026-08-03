@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf655492_defcc876",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001557
+      },
+      "writtenOn": "2026-08-03T02:13:35Z",
+      "side": 1,
+      "message": "if (errorName \u003d\u003d \"xyz.openbmc_project.Common.Error.InvalidArgument\" ||\n    errorName \u003d\u003d \"org.freedesktop.DBus.Error.InvalidArgs\")\n{\n    BMCWEB_LOG_WARNING(\"DBUS response error: {}\", ec);\n    messages::propertyValueIncorrect(\n        asyncResp-\u003eres, redfishPropertyName, propertyValue);\n    return;\n}",
+      "parentUuid": "9e331188_cd4e03a6",
+      "revId": "b8e51f5d763fb79ab12e5496661d067f93aecfe8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94eeb321_e64eb5d1",
         "filename": "redfish-core/src/utils/dbus_utils.cpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-03T02:11:54Z",
       "side": 1,
       "message": "Instead of creating separate if blocks with identical handler logic, combine the condition checks using logical ||. This reduces duplicate code and makes future updates easier to maintain.\n\nNotAllowed || PropertyReadOnly also",
+      "revId": "b8e51f5d763fb79ab12e5496661d067f93aecfe8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4466fc7f_4a9ad2da",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001557
+      },
+      "writtenOn": "2026-08-03T02:13:35Z",
+      "side": 1,
+      "message": "if (errorName \u003d\u003d \"xyz.openbmc_project.Common.Error.NotAllowed\" ||\n    errorName \u003d\u003d \"org.freedesktop.DBus.Error.PropertyReadOnly\")\n{\n    messages::propertyNotWritable(asyncResp-\u003eres, redfishPropertyName);\n    return;\n}",
+      "parentUuid": "94eeb321_e64eb5d1",
       "revId": "b8e51f5d763fb79ab12e5496661d067f93aecfe8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
