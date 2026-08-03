@@ -22,6 +22,30 @@
       },
       "revId": "6b7090ded0cfb0ce50433111b6cfc02d1c9168b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17aa3df4_d2235469",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-03T15:21:23Z",
+      "side": 1,
+      "message": "Yes, it should default to Enabled/Ok. It won\u0027t write to `Status.State` until all async calls are finished. `present` and `available` should default to whatever the interface says or if `ec \u003d\u003d EBADR` then default to true",
+      "parentUuid": "313376b2_f8c4125d",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "6b7090ded0cfb0ce50433111b6cfc02d1c9168b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
