@@ -22,6 +22,30 @@
       },
       "revId": "4e5ddccd5f1a825b14a04614a94fa7bb22e78fc5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0e0b21a_3fc4b61f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-03T07:09:42Z",
+      "side": 1,
+      "message": "Good catch, thanks. Updated the comment to 0440.",
+      "parentUuid": "292101e9_283e870a",
+      "range": {
+        "startLine": 646,
+        "startChar": 41,
+        "endLine": 646,
+        "endChar": 44
+      },
+      "revId": "4e5ddccd5f1a825b14a04614a94fa7bb22e78fc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
