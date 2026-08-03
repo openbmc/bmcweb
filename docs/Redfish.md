@@ -1083,6 +1083,9 @@ functions the same like the default implementation under the System resource.
 - DataWidthBits
 - ErrorCorrection
 - FirmwareRevision
+- Links/Chassis
+- Links/Processors
+- Links/Processors@odata.count
 - LocationIndicatorActive
 - Manufacturer
 - Model
