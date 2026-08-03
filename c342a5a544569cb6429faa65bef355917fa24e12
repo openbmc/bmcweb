@@ -16,6 +16,23 @@
       "message": "Addressed the Review Comments",
       "revId": "c342a5a544569cb6429faa65bef355917fa24e12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71560a92_f5242ecc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001557
+      },
+      "writtenOn": "2026-08-03T07:48:13Z",
+      "side": 1,
+      "message": "Changes fine",
+      "revId": "c342a5a544569cb6429faa65bef355917fa24e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
