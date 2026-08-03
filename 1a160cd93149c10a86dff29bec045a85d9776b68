@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c18aeea0_7955f496",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-08-03T01:47:27Z",
+      "side": 1,
+      "message": "Yes. It has already merged.\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/87136\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/87137\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/88551\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/88552",
+      "parentUuid": "12638206_d7ad28d6",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 69
+      },
+      "revId": "1a160cd93149c10a86dff29bec045a85d9776b68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4e7b3055_bcf6eb39",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
