@@ -46,6 +46,29 @@
       },
       "revId": "db1f47e0dce15a87631e3d3734de01aac5577594",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "356b6d37_eb944618",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-03T10:41:29Z",
+      "side": 1,
+      "message": "Can we use the existing D-Bus object path here instead of re-resolving by DIMM ID. afterGetDimmData() already has objectPath, so this adds an extra mapper round-trip right?",
+      "range": {
+        "startLine": 826,
+        "startChar": 0,
+        "endLine": 833,
+        "endChar": 1
+      },
+      "revId": "db1f47e0dce15a87631e3d3734de01aac5577594",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
