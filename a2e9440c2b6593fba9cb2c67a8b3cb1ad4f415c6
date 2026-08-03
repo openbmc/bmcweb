@@ -34,6 +34,24 @@
       "parentUuid": "01c1ed85_4133f6dc",
       "revId": "a2e9440c2b6593fba9cb2c67a8b3cb1ad4f415c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ac236c3_094599d4",
+        "filename": "http/app.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-03T02:07:50Z",
+      "side": 0,
+      "message": "I understand the consistency argument with `http_auth_modes.hpp`.\n\nThat said, do we need a separate header for `getHttpType()` here, or would\nkeeping this small inline helper in the existing file also be sufficient unless\nwe expect reuse beyond `app.hpp`?",
+      "parentUuid": "a2fe184d_b4833228",
+      "revId": "a2e9440c2b6593fba9cb2c67a8b3cb1ad4f415c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

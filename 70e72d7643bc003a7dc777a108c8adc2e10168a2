@@ -34,6 +34,57 @@
       "parentUuid": "bd703c60_4f61d5ce",
       "revId": "70e72d7643bc003a7dc777a108c8adc2e10168a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3764f8d_d909139a",
+        "filename": "http/http_connect_types.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-03T02:07:50Z",
+      "side": 1,
+      "message": "I see the consistency argument for keeping `getHttpType()` alongside\n`HttpType`. But instead of adding a new header for a small enum/helper pair,\nwould keeping them in `http_connection.hpp` be a simpler option, given that\n`HttpType` already appears tightly related to that code path?",
+      "revId": "70e72d7643bc003a7dc777a108c8adc2e10168a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a7ab353_94f685f7",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-03T02:07:50Z",
+      "side": 1,
+      "message": "Would it be better to switch that one to `AuthMode::NOAUTH` too, for consistency?",
+      "revId": "70e72d7643bc003a7dc777a108c8adc2e10168a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3275c3d_e71280a6",
+        "filename": "test/http/http_connection_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-03T02:07:50Z",
+      "side": 1,
+      "message": "The new tests use constructor-based `AuthMode` directly, but the older success\ntest still calls `conn-\u003edisableAuth()`. Would it be better to switch that one\nto `AuthMode::NOAUTH` too, for consistency?",
+      "revId": "70e72d7643bc003a7dc777a108c8adc2e10168a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
