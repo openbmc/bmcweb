@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1daa7778_aef43d0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-03T12:42:11Z",
+      "side": 1,
+      "message": "Code looks good to me overall.\nCould we add a happy-path test for afterGetNetworkAdapterLocationService()?\nThe current suite covers error and empty-object scenarios, but a success\ncase would help complete coverage.",
+      "revId": "68e2a32dc1e3022d613ac3b0c01adf299fb7b1b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
