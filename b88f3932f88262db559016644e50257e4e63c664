@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2f87291_e48c6b3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-03T13:25:04Z",
+      "side": 1,
+      "message": "The subject looks longer than the recommended 50-character limit.\nPlease wrap at 50 chars. We follow https://cbea.ms/git-commit/",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "b88f3932f88262db559016644e50257e4e63c664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
