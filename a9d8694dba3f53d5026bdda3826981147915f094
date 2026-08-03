@@ -72,6 +72,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23502ed0_a879f4d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-03T22:00:29Z",
+      "side": 1,
+      "message": "Look at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92845/, can this just go on top of it?",
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5980d911_221ac31f",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 12
