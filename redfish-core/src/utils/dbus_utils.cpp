@@ -53,6 +53,13 @@ void afterSetProperty(
                     asyncResp->res, redfishPropertyName, propertyValue);
                 return;
             }
+            if (errorName == "org.freedesktop.DBus.Error.InvalidArgs")
+            {
+                BMCWEB_LOG_WARNING("DBUS response error: {}", ec);
+                messages::propertyValueIncorrect(
+                    asyncResp->res, redfishPropertyName, propertyValue);
+                return;
+            }
             if (errorName ==
                 "xyz.openbmc_project.State.Chassis.Error.BMCNotReady")
             {
@@ -69,6 +76,12 @@ void afterSetProperty(
                 return;
             }
             if (errorName == "xyz.openbmc_project.Common.Error.NotAllowed")
+            {
+                messages::propertyNotWritable(asyncResp->res,
+                                              redfishPropertyName);
+                return;
+            }
+            if (errorName == "org.freedesktop.DBus.Error.PropertyReadOnly")
             {
                 messages::propertyNotWritable(asyncResp->res,
                                               redfishPropertyName);
