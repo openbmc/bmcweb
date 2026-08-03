@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a851e936_7aab7d0b",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-03T07:10:46Z",
+      "side": 1,
+      "message": "Uploaded new patch set for the same.",
+      "parentUuid": "d8bcb3bc_40c582bc",
+      "range": {
+        "startLine": 20,
+        "startChar": 25,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "61d1033987c1a11f9df0dbe5b90a5f3d767dc15a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9d19586_034ff5ba",
         "filename": "test/include/cookies_test.cpp",
         "patchSetId": 4
