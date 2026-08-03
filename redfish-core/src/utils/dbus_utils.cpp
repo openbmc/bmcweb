@@ -46,7 +46,9 @@ void afterSetProperty(
         {
             std::string_view errorName(dbusError->name);
 
-            if (errorName == "xyz.openbmc_project.Common.Error.InvalidArgument")
+            if (errorName ==
+                    "xyz.openbmc_project.Common.Error.InvalidArgument" ||
+                errorName == "org.freedesktop.DBus.Error.InvalidArgs")
             {
                 BMCWEB_LOG_WARNING("DBUS response error: {}", ec);
                 messages::propertyValueIncorrect(
@@ -54,21 +56,16 @@ void afterSetProperty(
                 return;
             }
             if (errorName ==
-                "xyz.openbmc_project.State.Chassis.Error.BMCNotReady")
+                    "xyz.openbmc_project.State.Chassis.Error.BMCNotReady" ||
+                errorName == "xyz.openbmc_project.State.Host.Error.BMCNotReady")
             {
                 BMCWEB_LOG_WARNING(
                     "BMC not ready, operation not allowed right now");
                 messages::serviceTemporarilyUnavailable(asyncResp->res, "10");
                 return;
             }
-            if (errorName == "xyz.openbmc_project.State.Host.Error.BMCNotReady")
-            {
-                BMCWEB_LOG_WARNING(
-                    "BMC not ready, operation not allowed right now");
-                messages::serviceTemporarilyUnavailable(asyncResp->res, "10");
-                return;
-            }
-            if (errorName == "xyz.openbmc_project.Common.Error.NotAllowed")
+            if (errorName == "xyz.openbmc_project.Common.Error.NotAllowed" ||
+                errorName == "org.freedesktop.DBus.Error.PropertyReadOnly")
             {
                 messages::propertyNotWritable(asyncResp->res,
                                               redfishPropertyName);
