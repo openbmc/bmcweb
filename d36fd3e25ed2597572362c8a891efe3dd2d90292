@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69225a25_29427696",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-03T18:23:13Z",
+      "side": 1,
+      "message": "nit: Should still be dbus::utility::MapperGetSubTreePathsResponse\u0026 to use the defined known type",
+      "range": {
+        "startLine": 261,
+        "startChar": 40,
+        "endLine": 261,
+        "endChar": 64
+      },
+      "revId": "d36fd3e25ed2597572362c8a891efe3dd2d90292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d90809e9_4a40df91",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-03T18:23:13Z",
+      "side": 1,
+      "message": "nit: Should still be dbus::utility::MapperGetSubTreePathsResponse\u0026 to use the defined known type",
+      "range": {
+        "startLine": 45,
+        "startChar": 32,
+        "endLine": 45,
+        "endChar": 57
+      },
+      "revId": "d36fd3e25ed2597572362c8a891efe3dd2d90292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ff9a963_cdc80a16",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-03T18:23:13Z",
+      "side": 1,
+      "message": "nit: Should still be dbus::utility::MapperGetSubTreePathsResponse\u0026 to use the defined known type",
+      "range": {
+        "startLine": 152,
+        "startChar": 10,
+        "endLine": 152,
+        "endChar": 36
+      },
+      "revId": "d36fd3e25ed2597572362c8a891efe3dd2d90292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a6b1001_a2402812",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-03T18:23:13Z",
+      "side": 1,
+      "message": "nit: Should still be dbus::utility::MapperGetSubTreePathsResponse\u0026 to use the defined known type",
+      "range": {
+        "startLine": 553,
+        "startChar": 10,
+        "endLine": 553,
+        "endChar": 35
+      },
+      "revId": "d36fd3e25ed2597572362c8a891efe3dd2d90292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "277ab128_70ea1c9d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-03T18:23:13Z",
+      "side": 1,
+      "message": "Could still have internalError() case here, correct? Should confirm ec.value() represents resourceNotFound and only issue in that case, otherwise handle as internalError().",
+      "revId": "d36fd3e25ed2597572362c8a891efe3dd2d90292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a93b1dd_3d217967",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-03T18:23:13Z",
+      "side": 1,
+      "message": "The current flow is going to do the D-Bus call to find the chassisPath. Then it is going to do another D-Bus call here which will again find the chassisPath to find the associated object.\n\nI think either want to not do the initial getValidChassisPath() (L620) and just use the getAssociatedSubTreePathsById(),\n\nor \nuse getAssociatedSubTreePaths() using the validChassisPath we have found with the association appended to the path.\n\n(I.e. to avoid repeating work in two back-to-back D-Bus calls.)",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 580,
+        "endChar": 2
+      },
+      "revId": "d36fd3e25ed2597572362c8a891efe3dd2d90292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
