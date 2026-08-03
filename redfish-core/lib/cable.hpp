@@ -94,9 +94,9 @@ inline void fillCableProperties(
     }
 }
 
-inline void fillCableHealthState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& cableObjectPath, const std::string& service)
+inline void fillCableState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& cableObjectPath,
+                           const std::string& service)
 {
     dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, cableObjectPath,
@@ -122,6 +122,40 @@ inline void fillCableHealthState(
                     resource::State::Absent;
             }
         });
+}
+
+inline void afterFillCableHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cableObjectPath,
+    const boost::system::error_code& ec,
+    bool functional)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("get Functional failed for Cable {} with error {}",
+                             cableObjectPath, ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (!functional)
+    {
+        asyncResp->res.jsonValue["Status"]["Health"] =
+            resource::Health::Critical;
+    }
+}
+
+inline void fillCableHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& cableObjectPath,
+                            const std::string& service)
+{
+    dbus::utility::getProperty<bool>(
+        *crow::connections::systemBus, service, cableObjectPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        std::bind_front(afterFillCableHealth, asyncResp, cableObjectPath));
 }
 
 /**
@@ -156,7 +190,12 @@ inline void getCableProperties(
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
-                fillCableHealthState(asyncResp, cableObjectPath, service);
+                fillCableState(asyncResp, cableObjectPath, service);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.State.Decorator.OperationalStatus")
+            {
+                fillCableHealth(asyncResp, cableObjectPath, service);
             }
         }
     }
@@ -194,6 +233,7 @@ inline void afterHandleCableGet(
         asyncResp->res.jsonValue["Id"] = cableId;
         asyncResp->res.jsonValue["Name"] = "Cable";
         asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+        asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 
         getCableProperties(asyncResp, objectPath, serviceMap);
         return;
