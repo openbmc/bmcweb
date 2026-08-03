@@ -381,9 +381,17 @@ class HttpBody::writer
 
 class HttpBody::reader
 {
+    // Shared by init() and put() so the declared-length check and the streamed
+    // running-total check enforce the SAME bound.  Without one source of truth
+    // the two protocols can drift apart, which is how HTTP/2 ended up unbounded
+    // while HTTP/1.1 was capped.
+    static constexpr size_t maxBodySize =
+        1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+
     value_type& value;
     std::optional<MultipartParser> multipartParser;
     const boost::beast::http::fields& hdr;
+    size_t bytesReceived = 0;
 
   public:
     template <bool IsRequest, class Fields>
@@ -416,14 +424,11 @@ class HttpBody::reader
 
         if (contentLength)
         {
-            constexpr size_t maxReserveSize =
-                1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
-
-            if (*contentLength > maxReserveSize)
+            if (*contentLength > maxBodySize)
             {
                 BMCWEB_LOG_WARNING(
                     "Content-Length {} exceeds max body size {}, rejecting.",
-                    *contentLength, maxReserveSize);
+                    *contentLength, maxBodySize);
                 ec = boost::beast::http::error::body_limit;
                 return;
             }
@@ -441,6 +446,20 @@ class HttpBody::reader
                     boost::system::error_code& ec)
     {
         size_t extra = boost::beast::buffer_bytes(buffers);
+
+        // Bound the CUMULATIVE body size, not this call's contribution.  A
+        // per-call check is trivially defeated by sending many small frames.
+        // init()'s Content-Length guard cannot help here: a stream may omit
+        // Content-Length entirely, or under-declare it.
+        if (extra > maxBodySize - bytesReceived)
+        {
+            BMCWEB_LOG_WARNING(
+                "Body size {} exceeds max body size {}, rejecting.",
+                bytesReceived + extra, maxBodySize);
+            ec = boost::beast::http::error::body_limit;
+            return 0;
+        }
+
         for (const auto b : boost::beast::buffers_range_ref(buffers))
         {
             const char* ptr = static_cast<const char*>(b.data());
@@ -462,6 +481,7 @@ class HttpBody::reader
                 value.str().append(ptr, b.size());
             }
         }
+        bytesReceived += extra;
         ec = {};
         return extra;
     }
