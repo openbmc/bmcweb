@@ -199,6 +199,8 @@ Fields common to all schemas
 - PartNumber
 - SerialNumber
 - Status
+  - Health
+  - State
 
 ### /redfish/v1/CertificateService/
 
