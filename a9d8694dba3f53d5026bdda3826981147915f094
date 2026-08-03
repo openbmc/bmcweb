@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2137d5b_7a472362",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-03T21:52:17Z",
+      "side": 1,
+      "message": "Just Status.Health and Status.State here right? Then shouldn\u0027t this be a like a 20 line change?",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07505959_734f8ffb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-03T21:52:17Z",
+      "side": 1,
+      "message": "why ? Why can\u0027t we set the Health like other places?",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c86d36_76b29b60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-03T21:52:17Z",
+      "side": 1,
+      "message": "A lot of this feels like it was wrote by an LLM and is just super wordy, please make it concise with relevant details",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 46
+      },
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5980d911_221ac31f",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-03T21:52:17Z",
+      "side": 1,
+      "message": "Why ? Why do we need a class..? We could do more Classes in bmcweb, but let\u0027s just follow the existing code",
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
