@@ -1170,6 +1170,95 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         });
 }
 
+template <typename CallbackFunc>
+void checkActiveBondSlaveDisableConflict(const std::string& ifaceId,
+                                         CallbackFunc&& callback)
+{
+    sdbusplus::object_path path("/xyz/openbmc_project/network");
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Network", path,
+        [ifaceId{std::string{ifaceId}},
+         callback = std::forward<CallbackFunc>(callback)](
+            const boost::system::error_code& ec,
+            const dbus::utility::ManagedObjectType& resp) mutable {
+            if (ec)
+            {
+                callback(std::nullopt);
+                return;
+            }
+
+            std::string activeSlave;
+            for (const auto& objEntry : resp)
+            {
+                const auto& ifaceList = objEntry.second;
+                for (const auto& [ifaceName, properties] : ifaceList)
+                {
+                    if (ifaceName != "xyz.openbmc_project.Network.Bond")
+                    {
+                        continue;
+                    }
+
+                    auto activeSlaveIt = properties.find("ActiveSlave");
+                    if (activeSlaveIt == properties.end())
+                    {
+                        continue;
+                    }
+
+                    const std::string* activeSlaveValue =
+                        std::get_if<std::string>(&activeSlaveIt->second);
+                    if (activeSlaveValue == nullptr)
+                    {
+                        continue;
+                    }
+                    activeSlave = *activeSlaveValue;
+                    break;
+                }
+
+                if (!activeSlave.empty())
+                {
+                    break;
+                }
+            }
+
+            if (activeSlave.empty())
+            {
+                callback(false);
+                return;
+            }
+
+            if (size_t slashPos = activeSlave.find_last_of('/');
+                slashPos != std::string::npos)
+            {
+                activeSlave = activeSlave.substr(slashPos + 1);
+            }
+
+            callback(activeSlave == ifaceId);
+        });
+}
+
+inline void handleInterfaceDisableConflictResult(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ifaceId, const std::optional<bool>& hasConflict)
+{
+    if (!hasConflict.has_value())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (*hasConflict)
+    {
+        messages::propertyValueExternalConflict(asyncResp->res,
+                                                "InterfaceEnabled", false);
+        return;
+    }
+
+    setDbusProperty(
+        asyncResp, "InterfaceEnabled", "xyz.openbmc_project.Network",
+        sdbusplus::object_path("/xyz/openbmc_project/network") / ifaceId,
+        "xyz.openbmc_project.Network.EthernetInterface", "NICEnabled", false);
+}
+
 /**
  * Function that retrieves all Ethernet Interfaces available through Network
  * Manager
@@ -2478,16 +2567,35 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                 ipv6GatewayData, asyncResp);
                         }
 
-                        if (interfaceEnabled)
+                        if (interfaceEnabled.has_value())
                         {
-                            setDbusProperty(
-                                asyncResp, "InterfaceEnabled",
-                                "xyz.openbmc_project.Network",
-                                sdbusplus::object_path(
-                                    "/xyz/openbmc_project/network") /
-                                    ifaceId,
-                                "xyz.openbmc_project.Network.EthernetInterface",
-                                "NICEnabled", *interfaceEnabled);
+                            const bool requestedInterfaceEnabled =
+                                *interfaceEnabled;
+
+                            // First check whether the PATCH included
+                            // InterfaceEnabled. Then, only on disable requests,
+                            // validate bond active-slave conflict.
+                            if (!requestedInterfaceEnabled)
+                            {
+                                checkActiveBondSlaveDisableConflict(
+                                    ifaceId, [asyncResp, ifaceId](
+                                                 const std::optional<bool>&
+                                                     hasConflict) {
+                                        handleInterfaceDisableConflictResult(
+                                            asyncResp, ifaceId, hasConflict);
+                                    });
+                            }
+                            else
+                            {
+                                setDbusProperty(
+                                    asyncResp, "InterfaceEnabled",
+                                    "xyz.openbmc_project.Network",
+                                    sdbusplus::object_path(
+                                        "/xyz/openbmc_project/network") /
+                                        ifaceId,
+                                    "xyz.openbmc_project.Network.EthernetInterface",
+                                    "NICEnabled", true);
+                            }
                         }
 
                         if (mtuSize)
