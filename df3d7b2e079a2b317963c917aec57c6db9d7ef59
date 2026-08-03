@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dc5b250_6243827a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-03T19:35:56Z",
+      "side": 1,
+      "message": "Resolved with another patch.",
+      "revId": "df3d7b2e079a2b317963c917aec57c6db9d7ef59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67eede27_1a0a907b",
@@ -79,6 +96,30 @@
       "side": 1,
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92945",
       "parentUuid": "f402c18c_c1c44f1a",
+      "range": {
+        "startLine": 1701,
+        "startChar": 60,
+        "endLine": 1702,
+        "endChar": 61
+      },
+      "revId": "df3d7b2e079a2b317963c917aec57c6db9d7ef59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d0536b8_6332f555",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-03T19:35:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "75b04e78_62be5383",
       "range": {
         "startLine": 1701,
         "startChar": 60,
