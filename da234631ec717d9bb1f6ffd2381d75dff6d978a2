@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "121352f7_91ecb759",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-08-03T20:20:50Z",
+      "side": 1,
+      "message": "binreaper — thanks; carried forward as patch set 3.\n\nReported-by credit as you preferred, no Co-developed-by. Both points you flagged are kept: the bound is the same BMCWEB_HTTP_BODY_LIMIT the HTTP/1.1 path uses, hoisted to a reader member so init() and put() share one source of truth, and the check is cumulative across put() via a bytesReceived running total rather than per-call.\n\nRebased onto current master; build 177/177, clang-format clean. Runtime evidence per your request: a standalone reproducer of HttpBody::reader::put() driven with the pre-auth pattern (chunked DATA, no Content-Length) accepts unbounded before the change and caps at exactly 31457280 bytes (30 MiB) after, then returns body_limit. The earlier end-to-end reproduction on an ast2600 grew RSS ~1:1 to ~503 MB and hit std::bad_alloc at 539 MB with Redfish offline; the HTTP/1.1 path returned 413 under the same test.\n\nPlease review when you have a chance — and thanks again for the original analysis.",
+      "revId": "da234631ec717d9bb1f6ffd2381d75dff6d978a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
