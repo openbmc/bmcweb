@@ -147,6 +147,16 @@ inline void afterSnmpClientCreate(
         if (dbusError != nullptr)
         {
             if (std::string_view(
+                    "xyz.openbmc_project.Common.ObjectAlreadyExists") ==
+                dbusError->name)
+            {
+                BMCWEB_LOG_WARNING(
+                    "SNMP client already exists for destination {}", host);
+                messages::resourceAlreadyExists(
+                    asyncResp->res, "EventDestination", "Destination", host);
+                return;
+            }
+            if (std::string_view(
                     "xyz.openbmc_project.Common.Error.InvalidArgument") ==
                 dbusError->name)
             {
