@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4452de1_a6990d6f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-03T06:26:02Z",
+      "side": 1,
+      "message": "Q: Is this going to changes the production behaviours?\n\nAlso, I think we should better change the commit title as I thought this should be a patch which only adds some util for testing purpose.",
+      "range": {
+        "startLine": 256,
+        "startChar": 8,
+        "endLine": 256,
+        "endChar": 54
+      },
+      "revId": "1172db48e7beea4d8b9c53c79725445ce76e6984",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56c23a7a_09c04dd8",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-03T06:26:02Z",
+      "side": 1,
+      "message": "This as well.\nCan we make sure this doesn\u0027t changes the production behaviours?",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 58
+      },
+      "revId": "1172db48e7beea4d8b9c53c79725445ce76e6984",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb15ae2d_8bc6a2b6",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-03T06:26:02Z",
+      "side": 1,
+      "message": "I am thinking if we can drop this?\nUsing the constructor in L78 already promises the 3 monitors, `eventId`, and `messages` to be in empty state. \nThe only field that has to be reset manually after the constructor is `serviceEnabled`, which is overwritable as it is a public member data.",
+      "range": {
+        "startLine": 483,
+        "startChar": 4,
+        "endLine": 496,
+        "endChar": 5
+      },
+      "revId": "1172db48e7beea4d8b9c53c79725445ce76e6984",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
