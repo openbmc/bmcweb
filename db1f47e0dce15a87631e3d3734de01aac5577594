@@ -22,6 +22,30 @@
       },
       "revId": "db1f47e0dce15a87631e3d3734de01aac5577594",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d60868b6_9945c6e4",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-08-03T10:41:09Z",
+      "side": 1,
+      "message": "`processor_utils.hpp` is already on master. It was added by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92726, merged 2026-07-28, so there is no pending dependency to mention. Thanks.",
+      "parentUuid": "9c7abcca_23a70103",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "db1f47e0dce15a87631e3d3734de01aac5577594",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
