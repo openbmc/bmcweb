@@ -1083,6 +1083,7 @@ functions the same like the default implementation under the System resource.
 - DataWidthBits
 - ErrorCorrection
 - FirmwareRevision
+- Links/Chassis
 - LocationIndicatorActive
 - Manufacturer
 - Model
