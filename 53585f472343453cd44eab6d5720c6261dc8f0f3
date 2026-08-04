@@ -16,6 +16,23 @@
       "message": "Implementation looks fine for me.",
       "revId": "53585f472343453cd44eab6d5720c6261dc8f0f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dad7e2d1_a7fae823",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-08-04T09:31:49Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "53585f472343453cd44eab6d5720c6261dc8f0f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
