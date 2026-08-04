@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00743e30_1579b190",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-04T02:24:22Z",
+      "side": 1,
+      "message": "Since this is just a line, why don\u0027t we just use them inline?\n\n*If you insist to have this, I suggest to put this function at a util file such as \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/error_code.hpp",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "5ca5f69cfec64ae0d0c8b3a658518721fbeaba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49ca185b_7c153adc",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-04T02:24:22Z",
+      "side": 1,
+      "message": "nit: Log here as well?",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 29
+      },
+      "revId": "5ca5f69cfec64ae0d0c8b3a658518721fbeaba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9c2a03c_dcc9b536",
+        "filename": "redfish-core/lib/processor_memory_summary_metrics.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-04T02:24:22Z",
+      "side": 1,
+      "message": "nit: Can we add a line here before return so that we can know the code dead here?",
+      "range": {
+        "startLine": 216,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 15
+      },
+      "revId": "5ca5f69cfec64ae0d0c8b3a658518721fbeaba80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
