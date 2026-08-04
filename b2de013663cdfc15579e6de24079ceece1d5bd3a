@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69965b13_13f93c60",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-08-04T12:22:30Z",
+      "side": 1,
+      "message": "Add validation for storage instance similar to drive validation.",
+      "revId": "b2de013663cdfc15579e6de24079ceece1d5bd3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
