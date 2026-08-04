@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb48210e_989c89d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T05:27:55Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "42a4a372_da595c64",
+      "revId": "66012a86f3cb19e31fe3a947a68f05c2cf651d9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebbceece_1e10896d",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-07-12T08:29:05Z",
       "side": 1,
       "message": "Should add `BMCWEB_LOG_ERROR()` here for better debug?",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "66012a86f3cb19e31fe3a947a68f05c2cf651d9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99fc4045_8e28277e",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T05:27:55Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "ebbceece_1e10896d",
       "range": {
         "startLine": 56,
         "startChar": 8,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "171d86d0_cbf314ae",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T05:27:55Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "ae858d70_d2379e78",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "66012a86f3cb19e31fe3a947a68f05c2cf651d9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "185820d6_211c53c2",
@@ -77,6 +143,30 @@
       "writtenOn": "2026-07-12T08:29:05Z",
       "side": 1,
       "message": "I think we should move this into the callback function.\nOtherwise we will be receiving the above response even there is any further error.\n\nFor example, `afterGetMemoryMetricsSubTree()` might have `messages::internalError()` or `messages::resourceNotFound()` afterwards.",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 51
+      },
+      "revId": "66012a86f3cb19e31fe3a947a68f05c2cf651d9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4777d2e6_e70516f2",
+        "filename": "redfish-core/lib/memory_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T05:27:55Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "185820d6_211c53c2",
       "range": {
         "startLine": 173,
         "startChar": 4,
