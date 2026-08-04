@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9904eaf_c1e0fe00",
+        "filename": "redfish-core/schema/dmtf/json-schema-installed/Fabric.v1_4_0.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-04T02:18:47Z",
+      "side": 1,
+      "message": "lrwxrwxrwx 1 gmills gmills 40 Aug  3 21:09 EventService.v1_12_0.json -\u003e ../json-schema/EventService.v1_12_0.json\nlrwxrwxrwx 1 gmills gmills 33 Aug  3 21:09 Fabric.v1_4_0.json -\u003e ../json-schema/Fabric.v1_4_0.json\nlrwxrwxrwx 1 gmills gmills 40 Aug  3 21:09 FabricAdapter.v1_5_3.json -\u003e ../json-schema/FabricAdapter.v1_5_3.json\n\nMatches",
+      "revId": "2e45c5aebf436d0d87ed07b5aa1864e35af74e45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

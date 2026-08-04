@@ -16,6 +16,23 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/89769 does the same thing",
       "revId": "a656851a89c4529aecfeb32847c04058387083c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06f5311b_90e60a7c",
+        "filename": "redfish-core/schema/dmtf/installed/Fabric_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-04T02:18:47Z",
+      "side": 1,
+      "message": "lrwxrwxrwx 1 gmills gmills 31 Aug  3 21:09 FabricCollection_v1.xml -\u003e ../csdl/FabricCollection_v1.xml\nlrwxrwxrwx 1 gmills gmills 21 Aug  3 21:09 Fabric_v1.xml -\u003e ../csdl/Fabric_v1.xml\nlrwxrwxrwx 1 gmills gmills 28 Aug  3 21:09 FanCollection_v1.xml -\u003e ../csdl/FanCollection_v1.xml\nlrwxrwxrwx 1 gmills gmills 18 Aug  3 21:09 Fan_v1.xml -\u003e ../csdl/Fan_v1.xml\n\nmatches what we would expect",
+      "revId": "a656851a89c4529aecfeb32847c04058387083c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
