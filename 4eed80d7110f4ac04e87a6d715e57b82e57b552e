@@ -22,6 +22,30 @@
       },
       "revId": "4eed80d7110f4ac04e87a6d715e57b82e57b552e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f398b7_b2a24963",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T01:13:05Z",
+      "side": 1,
+      "message": "Thanks for review, on the source side, the values these are populated from are lifetime: they are aggregate ECC error counts, stored in non-volatile ROM and accumulated over the lifetime of the device — monotonically increasing.\n\nThat said, I agree the PDI itself doesn\u0027t make that guarantee explicit today, so the mapping currently relies on that implicit knowledge.\n\nWould you prefer I submit a phosphor-dbus-interfaces patch to make it explicit — e.g. add a boolean (something like isLifetime) so a consumer can distinguish lifetime counts from volatile ones? bmcweb would then only map to CacheMetricsTotal.LifeTime when that flag is set, turning the semantic from an assumption into a contract. Happy to go that route if you think it\u0027s the right call.Thanks.",
+      "parentUuid": "9a6e4cba_ed6f7a2d",
+      "range": {
+        "startLine": 52,
+        "startChar": 55,
+        "endLine": 52,
+        "endChar": 62
+      },
+      "revId": "4eed80d7110f4ac04e87a6d715e57b82e57b552e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
