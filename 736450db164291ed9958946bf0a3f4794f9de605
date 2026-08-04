@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ff194094_78811a9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T06:47:55Z",
+      "side": 1,
+      "message": "Done,thanks.",
+      "parentUuid": "f42e06d6_9f1f10a3",
+      "revId": "736450db164291ed9958946bf0a3f4794f9de605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "974b21e9_8b1d9667",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 20
@@ -58,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "117ec83e_b380c168",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T06:47:55Z",
+      "side": 1,
+      "message": "Done,thanks.",
+      "parentUuid": "bb23c721_205ef6e7",
+      "range": {
+        "startLine": 580,
+        "startChar": 30,
+        "endLine": 580,
+        "endChar": 33
+      },
+      "revId": "736450db164291ed9958946bf0a3f4794f9de605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "030a1c48_90b83536",
@@ -71,6 +113,30 @@
       "writtenOn": "2026-08-03T19:35:53Z",
       "side": 1,
       "message": "could you use https://github.com/openbmc/bmcweb/blob/9e59f0a176aac9dfa7f029370ea03c25a088d9a2/redfish-core/include/utils/location_utils.hpp#L28  ?",
+      "range": {
+        "startLine": 815,
+        "startChar": 12,
+        "endLine": 815,
+        "endChar": 30
+      },
+      "revId": "736450db164291ed9958946bf0a3f4794f9de605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f83b84d_289ec225",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T06:47:55Z",
+      "side": 1,
+      "message": "Done,thanks.",
+      "parentUuid": "030a1c48_90b83536",
       "range": {
         "startLine": 815,
         "startChar": 12,
