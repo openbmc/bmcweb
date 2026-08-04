@@ -1092,8 +1092,8 @@ class RedfishAggregator
             {
                 // We only want to aggregate collections that contain a
                 // "Members" array
-                if ((!jsonVal->contains("Members")) &&
-                    (!(*jsonVal)["Members"].is_array()))
+                nlohmann::json::iterator membersIt = jsonVal->find("Members");
+                if (membersIt == jsonVal->end() || !membersIt->is_array())
                 {
                     BMCWEB_LOG_DEBUG(
                         "Skipping aggregating unsupported resource");
@@ -1112,9 +1112,10 @@ class RedfishAggregator
             {
                 // We only want to aggregate collections that contain a
                 // "Members" array
-                if ((!asyncResp->res.jsonValue.contains("Members")) &&
-                    (!asyncResp->res.jsonValue["Members"].is_array()))
-
+                nlohmann::json::iterator membersIt =
+                    asyncResp->res.jsonValue.find("Members");
+                if (membersIt == asyncResp->res.jsonValue.end() ||
+                    !membersIt->is_array())
                 {
                     BMCWEB_LOG_DEBUG(
                         "Skipping aggregating unsupported resource");
