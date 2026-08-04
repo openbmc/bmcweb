@@ -86,6 +86,24 @@
       "parentUuid": "7ab48f7d_29c2b64f",
       "revId": "314043cc4d0da60aa8934c155a0514b19ebfd22a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d0cbfb3_4b225ece",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-04T15:43:53Z",
+      "side": 1,
+      "message": "Yep, they should go together. I think openpower-pnor-code-mgmt can go first since we kept the old busname, so nothing breaking there just an additional busname.",
+      "parentUuid": "0b446719_9af88fda",
+      "revId": "314043cc4d0da60aa8934c155a0514b19ebfd22a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
