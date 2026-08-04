@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14cbbf93_0f219b8a",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-04T11:30:51Z",
+      "side": 1,
+      "message": "Could we refactor this into a table-driven mapping or helper? The current if/else chain is long and repetitive, and with more metric entries it will become harder to maintain and more error-prone. I think a data-driven approach would be clearer here.",
+      "revId": "00d25c225787b74e4044145bd2ebdbfb9069f513",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
