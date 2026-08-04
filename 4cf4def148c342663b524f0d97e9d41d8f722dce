@@ -16,6 +16,24 @@
       "message": "https://cbea.ms/git-commit/",
       "revId": "4cf4def148c342663b524f0d97e9d41d8f722dce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94b49b46_d09cf027",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-04T05:27:34Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "e5c1843b_aa031659",
+      "revId": "4cf4def148c342663b524f0d97e9d41d8f722dce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
