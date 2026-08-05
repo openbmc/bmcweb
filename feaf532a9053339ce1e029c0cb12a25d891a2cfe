@@ -705,6 +705,30 @@
       },
       "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d99c4e9_4ed62128",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 3194,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-05T16:16:40Z",
+      "side": 1,
+      "message": "\u003e do we do this elsewhere on the single system? Enforce the system id (e.g. system) equals the last segment of the d-bus path? e.g. /xyz/openbmc_project/inventory/system\n\nNo this would be the first time. \n\nAfaik we have only implemented physical topology associations as documented in em for multi-host so far. The requirement for `systemId \u003d\u003d leaf_name` comes from the current design for multi-host. Tchauly\u0027s usecase was the first case for single-host attempting to use the new topology design, I think. \n\nEarlier in the discussion I explained to her that with the current design in bmcweb, she would need to set BMCWEB_REDFISH_SYSTEM_URI_NAME to the inventory object representing the computer system (ideally implementing `xyz.openbmc_project.Inventory.Item.System`) to make it work. I guess one could also name the em configuration \u0027system\u0027 with the same effect.\n\nA few months ago I wanted to cover this topic in a discord thread in the rf channel, to find alignment on a path forward (if any) providing a sample solution to kick the discussion off: \n\nhttps://discord.com/channels/775381525260664832/1482934915950444594\n\n\nI agree we should add the info to the commit message, but long-term we should document that somehow more accessible since I assume there will follow more association usage on single-host in the future.\n\n\n\n\n\n\u003e i believe that\u0027s the default behavior in bmcweb for collections, right?\n\n\nNo, single-host collection is basically hardcoded. Used to be hardcoded to `system`, now `BMCWEB_REDFISH_SYSTEM_URI_NAME`.\n\nhttps://github.com/openbmc/bmcweb/blob/0f29283cbaa19978a8f9601270df23c85ca16f45/redfish-core/include/utils/systems_utils.hpp#L60",
+      "parentUuid": "afcfcbbc_c677977e",
+      "range": {
+        "startLine": 3194,
+        "startChar": 53,
+        "endLine": 3194,
+        "endChar": 63
+      },
+      "revId": "feaf532a9053339ce1e029c0cb12a25d891a2cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
