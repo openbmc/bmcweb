@@ -15,14 +15,14 @@ namespace redfish
 
 inline void populateStorageController(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& controllerId, const std::string& connectionName,
-    const std::string& path)
+    const std::string& storageId, const std::string& controllerId,
+    const std::string& connectionName, const std::string& path)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#StorageController.v1_6_0.StorageController";
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Controllers/{}",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, controllerId);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Storage/{}/Controllers/{}",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId, controllerId);
     asyncResp->res.jsonValue["Name"] = controllerId;
     asyncResp->res.jsonValue["Id"] = controllerId;
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
@@ -51,7 +51,8 @@ inline void populateStorageController(
 
 inline void getStorageControllerHandler(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& controllerId, const boost::system::error_code& ec,
+    const std::string& storageId, const std::string& controllerId,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec || subtree.empty())
@@ -84,14 +85,14 @@ inline void getStorageControllerHandler(
         }
 
         const std::string& connectionName = interfaceDict.front().first;
-        populateStorageController(asyncResp, controllerId, connectionName,
-                                  path);
+        populateStorageController(asyncResp, storageId, controllerId,
+                                  connectionName, path);
     }
 }
 
 inline void populateStorageControllerCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
+    const std::string& storageId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& controllerList)
 {
     nlohmann::json::array_t members;
@@ -113,8 +114,8 @@ inline void populateStorageControllerCollection(
         }
         nlohmann::json::object_t member;
         member["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/{}/Storage/1/Controllers/{}",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, id);
+            "/redfish/v1/Systems/{}/Storage/{}/Controllers/{}",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId, id);
         members.emplace_back(member);
     }
     asyncResp->res.jsonValue["Members@odata.count"] = members.size();
@@ -124,7 +125,8 @@ inline void populateStorageControllerCollection(
 inline void handleSystemsStorageControllerGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName, const std::string& controllerId)
+    const std::string& systemName, const std::string& storageId,
+    const std::string& controllerId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -142,17 +144,18 @@ inline void handleSystemsStorageControllerGet(
         "xyz.openbmc_project.Inventory.Item.StorageController"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp,
+        [asyncResp, storageId,
          controllerId](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            getStorageControllerHandler(asyncResp, controllerId, ec, subtree);
+            getStorageControllerHandler(asyncResp, storageId, controllerId, ec,
+                                        subtree);
         });
 }
 
 inline void handleSystemsStorageControllerCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName)
+    const std::string& systemName, const std::string& storageId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -171,29 +174,32 @@ inline void handleSystemsStorageControllerCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#StorageControllerCollection.StorageControllerCollection";
     asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Controllers",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        boost::urls::format("/redfish/v1/Systems/{}/Storage/{}/Controllers",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId);
     asyncResp->res.jsonValue["Name"] = "Storage Controller Collection";
 
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.StorageController"};
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp](const boost::system::error_code& ec,
+        [asyncResp,
+         storageId](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreePathsResponse&
                         controllerList) {
-            populateStorageControllerCollection(asyncResp, ec, controllerList);
+            populateStorageControllerCollection(asyncResp, storageId, ec,
+                                                controllerList);
         });
 }
 
 inline void requestRoutesStorageController(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Controllers/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/<str>/Controllers/")
         .privileges(redfish::privileges::getStorageControllerCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsStorageControllerCollectionGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Controllers/<str>/")
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/<str>/Storage/<str>/Controllers/<str>/")
         .privileges(redfish::privileges::getStorageController)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageControllerGet, std::ref(app)));
