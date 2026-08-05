@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06385ba2_d2ea9e8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-05T20:09:19Z",
+      "side": 1,
+      "message": "Why do we need this? Why can\u0027t the backend app handle this and return an error ?",
+      "revId": "6d69c04b0b33442f220f79531b7067daade0c6e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c3553004_9db6ae9d",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
