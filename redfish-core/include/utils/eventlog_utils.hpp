@@ -33,6 +33,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <fstream>
+#include <functional>
 #include <iomanip>
 #include <memory>
 #include <optional>
@@ -456,38 +457,58 @@ inline void handleSystemsAndManagersLogServiceEventLogEntriesGet(
     messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
 }
 
+inline void afterEventLogClearRsyslogReload(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const sdbusplus::message_t& msg)
+{
+    if (ec)
+    {
+        const sd_bus_error* dbusError = msg.get_error();
+        if (dbusError != nullptr && std::string_view(dbusError->name) ==
+                                        "org.freedesktop.systemd1.NoSuchUnit")
+        {
+            BMCWEB_LOG_WARNING(
+                "rsyslog.service missing after clearing EventLog");
+            messages::success(asyncResp->res);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("Failed to reload rsyslog: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    messages::success(asyncResp->res);
+}
+
 inline void handleSystemsAndManagersLogServicesEventLogActionsClearPost(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // Clear the EventLog by deleting the log files
     std::vector<std::filesystem::path> redfishLogFiles;
-    if (getRedfishLogFiles(redfishLogFiles))
+    if (!getRedfishLogFiles(redfishLogFiles))
     {
-        for (const std::filesystem::path& file : redfishLogFiles)
-        {
-            std::error_code ec;
-            std::filesystem::remove(file, ec);
-        }
+        messages::success(asyncResp->res);
+        return;
+    }
+
+    for (const std::filesystem::path& file : redfishLogFiles)
+    {
+        std::error_code ec;
+        std::filesystem::remove(file, ec);
     }
 
     // Reload rsyslog so it knows to start new log files
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Failed to reload rsyslog: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            messages::success(asyncResp->res);
+        [asyncResp](const boost::system::error_code& ec,
+                    const sdbusplus::message_t& msg) {
+            afterEventLogClearRsyslogReload(asyncResp, ec, msg);
         },
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "ReloadUnit", "rsyslog.service",
         "replace");
 }
-
 /*
  * DBus EventLog utilities
  * */
