@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c634982d_f14c704a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T13:25:13Z",
+      "side": 1,
+      "message": "You are right that the earlier version could still list all drives globally. I changed this, so drives are now collected from the selected Storage object\u0027s drive association path. Because of this, each Storage instance now lists only its associated drives, instead of sharing the same full drive list.",
+      "parentUuid": "6835fd94_b281e2b9",
+      "revId": "af376229afc655644f655fa920da4c96aa7d689c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f89745ea_bb78e85b",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "640571b1_52edf4fc",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T13:25:13Z",
+      "side": 1,
+      "message": "I handled this in a separate follow-up change. Routes and generated odata links are now parameterized to use the requested storage ID instead of hardcoded Storage/1.",
+      "parentUuid": "f89745ea_bb78e85b",
+      "revId": "af376229afc655644f655fa920da4c96aa7d689c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "729b4372_4dd32b3f",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-05T03:25:24Z",
       "side": 1,
       "message": "I think neither lookup checks the interface, just the filename — and the subtree now has Storage objects in it too. So /Storage/HDD1 404s while /Storage/HDD1/Drives/HDD1 returns 200. Would it be worth requiring Item.Storage on the storage one?",
+      "revId": "af376229afc655644f655fa920da4c96aa7d689c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b867e15_332c248b",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T13:25:13Z",
+      "side": 1,
+      "message": "You are right that filename-only matching was not enough after including both Storage and Drive objects in the same subtree query. I updated the logic to validate both object name and expected interface type:\n\n\u003e storage lookup now requires Storage interface\n\u003e drive lookup now requires Drive interface\nThis prevents cross-type false matches.",
+      "parentUuid": "729b4372_4dd32b3f",
       "revId": "af376229afc655644f655fa920da4c96aa7d689c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
