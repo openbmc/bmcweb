@@ -12,6 +12,9 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
+#include "utils/resource_utils.hpp"
+
+#include <asm-generic/errno.h>
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -28,6 +31,10 @@
 
 static constexpr std::array<std::string_view, 1> switchInterfaces = {
     "xyz.openbmc_project.Inventory.Item.PCIeSwitch"};
+
+static constexpr std::array<std::string_view, 1>
+    switchOperationalStatusInterfaces = {
+        "xyz.openbmc_project.State.Decorator.OperationalStatus"};
 
 namespace redfish
 {
@@ -117,6 +124,50 @@ inline void afterGetSwitchPowerStateService(
         std::bind_front(afterGetSwitchPowerState, asyncResp, switchPath));
 }
 
+inline void afterGetFabricSwitchHealthObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& switchPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec.value() != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error on GetObject, ec {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        // The switch does not implement the interface, so Status.Health
+        // keeps its default of OK.
+        return;
+    }
+
+    if (object.empty())
+    {
+        return;
+    }
+
+    resource_utils::getResourceHealth(asyncResp, object.begin()->first,
+                                      switchPath, ""_json_pointer);
+}
+
+/**
+ * @brief Populates Status.Health of the switch
+ *
+ * Reads Functional of State.Decorator.OperationalStatus from the switch
+ * object and downgrades Status.Health to Critical when it is false. The
+ * default of OK is kept when the object does not implement the interface.
+ */
+inline void getFabricSwitchHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& switchPath)
+{
+    dbus::utility::getDbusObject(
+        switchPath, switchOperationalStatusInterfaces,
+        std::bind_front(afterGetFabricSwitchHealthObject, asyncResp,
+                        switchPath));
+}
+
 inline void handleFabricSwitchPathSwitchGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
@@ -141,6 +192,8 @@ inline void handleFabricSwitchPathSwitchGet(
         switchPath, powerStateInterface,
         std::bind_front(afterGetSwitchPowerStateService, asyncResp,
                         switchPath));
+
+    getFabricSwitchHealth(asyncResp, switchPath);
 }
 
 inline void handleFabricSwitchPaths(
