@@ -367,6 +367,19 @@ class Router
         }
     }
 
+    // Read-only lookup, unrelated to dispatch: lets callers check whether a
+    // rule is registered for url/verb, e.g. to tell a missing resource (404)
+    // apart from one that just doesn't support the requested method (405).
+    FindRoute findRouteForVerb(std::string_view url, HttpVerb verb) const
+    {
+        size_t index = static_cast<size_t>(verb);
+        if (index >= perMethods.size())
+        {
+            return FindRoute{};
+        }
+        return findRouteByPerMethod(url, perMethods[index]);
+    }
+
     std::vector<const std::string*> getRoutes(const std::string& parent)
     {
         std::vector<const std::string*> ret;
