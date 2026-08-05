@@ -461,7 +461,8 @@ inline void handleSystemsAndManagersLogServicesEventLogActionsClearPost(
 {
     // Clear the EventLog by deleting the log files
     std::vector<std::filesystem::path> redfishLogFiles;
-    if (getRedfishLogFiles(redfishLogFiles))
+    const bool hasRedfishLogFiles = getRedfishLogFiles(redfishLogFiles);
+    if (hasRedfishLogFiles)
     {
         for (const std::filesystem::path& file : redfishLogFiles)
         {
@@ -470,12 +471,31 @@ inline void handleSystemsAndManagersLogServicesEventLogActionsClearPost(
         }
     }
 
+    if (!hasRedfishLogFiles)
+    {
+        messages::success(asyncResp->res);
+        return;
+    }
+
     // Reload rsyslog so it knows to start new log files
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp](const boost::system::error_code& ec) {
+        [asyncResp](const boost::system::error_code& ec,
+                    const sdbusplus::message_t& msg,
+                    const sdbusplus::object_path&) {
             if (ec)
             {
+                const sd_bus_error* dbusError = msg.get_error();
+                if (dbusError != nullptr &&
+                    std::string_view(dbusError->name) ==
+                        "org.freedesktop.systemd1.NoSuchUnit")
+                {
+                    BMCWEB_LOG_WARNING(
+                        "rsyslog.service missing after clearing EventLog");
+                    messages::success(asyncResp->res);
+                    return;
+                }
+
                 BMCWEB_LOG_ERROR("Failed to reload rsyslog: {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
