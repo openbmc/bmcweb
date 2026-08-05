@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32eb89f4_edec7443",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-08-05T10:27:43Z",
+      "side": 1,
+      "message": "@ed@tanous.net/ @gunnar@gmills.xyz,\ncould you help to re-review this patch?\nPDI commit: https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/93185",
+      "revId": "4b94e02a06ce7d9c878b94fae3cb275fc6b7af66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
