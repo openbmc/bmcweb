@@ -22,6 +22,30 @@
       },
       "revId": "91e785ae5a5b5db2da08449dc855995eeceadab6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a8c9140_5e274001",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-05T04:34:26Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "e45f79c6_e8443219",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 9
+      },
+      "revId": "91e785ae5a5b5db2da08449dc855995eeceadab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

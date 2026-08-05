@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faeeb7fb_20f0503e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-05T04:34:26Z",
+      "side": 1,
+      "message": "Also, I will prefer having this as a callback.",
+      "range": {
+        "startLine": 481,
+        "startChar": 8,
+        "endLine": 490,
+        "endChar": 11
+      },
+      "revId": "c435ffc61f3e22a726e68dca8a142e302844609e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43824657_3fef269e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-05T04:34:26Z",
+      "side": 1,
+      "message": "It seems like the function only call `dbus::utility::getProperty\u003c\u003e()`.\nIn this case, why don\u0027t we just invoke it at the call site?",
+      "range": {
+        "startLine": 474,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 1
+      },
+      "revId": "c435ffc61f3e22a726e68dca8a142e302844609e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
