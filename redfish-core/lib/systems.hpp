@@ -272,7 +272,7 @@ inline void afterGetUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    if (uuid != nullptr)
+    if (uuid != nullptr && !uuid->empty())
     {
         std::string valueStr = *uuid;
         if (valueStr.size() == 32)
@@ -314,7 +314,7 @@ inline void afterGetInventory(
         return;
     }
 
-    if (subModel != nullptr)
+    if (subModel != nullptr && !subModel->empty())
     {
         asyncResp->res.jsonValue["SubModel"] = *subModel;
     }
