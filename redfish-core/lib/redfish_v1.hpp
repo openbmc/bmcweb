@@ -4,6 +4,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "dbus_privileges.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -11,7 +12,9 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "routing/baserule.hpp"
 #include "str_utility.hpp"
+#include "verb.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -65,7 +68,100 @@ inline void redfish404(App& app, const crow::Request& req,
     messages::resourceNotFound(asyncResp->res, "", name);
 }
 
-inline void redfish405(App& app, const crow::Request& req,
+inline void respondMethodNotAllowed(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    asyncResp->res.result(boost::beast::http::status::method_not_allowed);
+    if (req.method() == boost::beast::http::verb::delete_)
+    {
+        messages::resourceCannotBeDeleted(asyncResp->res);
+    }
+    else
+    {
+        messages::operationNotAllowed(asyncResp->res);
+    }
+}
+
+inline void respondResourceNotFound(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path)
+{
+    // The router already filled in Allow for the verbs it found; a missing
+    // resource shouldn't advertise them.
+    asyncResp->res.fields().erase(boost::beast::http::field::allow);
+
+    BMCWEB_LOG_WARNING("404 on path {}", path);
+    std::string name = req.url().segments().back();
+    messages::resourceNotFound(asyncResp->res, "", name);
+}
+
+// Mirrors crow::validatePrivilege, but takes Request& directly since callers
+// here don't hold a std::shared_ptr<Request>.
+inline void validatePrivilegeForProbe(
+    crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    crow::BaseRule& rule, std::move_only_function<void()>&& callback)
+{
+    if (req.session == nullptr)
+    {
+        return;
+    }
+    crow::requestUserInfo(
+        req.session->username, asyncResp,
+        [&req, asyncResp, &rule, callback = std::move(callback)](
+            const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
+            if (crow::afterGetUserInfoValidate(req, asyncResp, rule,
+                                               userInfoMap))
+            {
+                callback();
+            }
+        });
+}
+
+// Runs getRule the way a real GET would, then turns its resulting status
+// code -- never its body -- into a 404 or 405 response.
+inline void runGetProbe(crow::Request& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& path, crow::BaseRule& getRule,
+                        const std::vector<std::string>& getParams)
+{
+    auto probeResp = std::make_shared<bmcweb::AsyncResp>();
+    probeResp->res.setCompleteRequestHandler(
+        [&req, asyncResp, path](crow::Response& probeResult) {
+            if (probeResult.result() == boost::beast::http::status::not_found)
+            {
+                respondResourceNotFound(req, asyncResp, path);
+                return;
+            }
+            respondMethodNotAllowed(req, asyncResp);
+        });
+    getRule.handle(req, probeResp, getParams);
+}
+
+// Probes getRule the same way a real GET would run (privilege-gated on
+// getRule's own privileges first), then uses only its resulting status code
+// -- never its body -- to tell a missing resource (404) apart from an
+// existing one that just doesn't support the requested method (405).
+inline void probeGetThenRespond(
+    crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path, crow::BaseRule& getRule,
+    const std::vector<std::string>& getParams)
+{
+    auto runProbe = [&req, asyncResp, &getRule, getParams, path]() mutable {
+        runGetProbe(req, asyncResp, path, getRule, getParams);
+    };
+    if (req.session == nullptr)
+    {
+        runProbe();
+    }
+    else
+    {
+        validatePrivilegeForProbe(req, asyncResp, getRule, std::move(runProbe));
+    }
+}
+
+inline void redfish405(App& app, crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& path)
 {
@@ -77,15 +173,20 @@ inline void redfish405(App& app, const crow::Request& req,
     }
 
     BMCWEB_LOG_WARNING("405 on path {}", path);
-    asyncResp->res.result(boost::beast::http::status::method_not_allowed);
-    if (req.method() == boost::beast::http::verb::delete_)
+
+    // A GET rule may be registered for this exact URL even though the
+    // requested method's isn't. Probe it (privilege-gated on its own
+    // privileges) to tell a missing resource (404) apart from an existing
+    // one that just doesn't support this method (405), per DSP0266 7.5.3.
+    crow::Router::FindRoute getRoute =
+        app.findRouteForVerb(req.url().encoded_path(), HttpVerb::Get);
+    if (getRoute.rule == nullptr)
     {
-        messages::resourceCannotBeDeleted(asyncResp->res);
+        respondMethodNotAllowed(req, asyncResp);
+        return;
     }
-    else
-    {
-        messages::operationNotAllowed(asyncResp->res);
-    }
+
+    probeGetThenRespond(req, asyncResp, path, *getRoute.rule, getRoute.params);
 }
 
 inline void jsonSchemaIndexGet(

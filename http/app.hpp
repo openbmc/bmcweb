@@ -69,6 +69,12 @@ class App
         router.validate();
     }
 
+    crow::Router::FindRoute findRouteForVerb(std::string_view url,
+                                             HttpVerb verb) const
+    {
+        return router.findRouteForVerb(url, verb);
+    }
+
     void loadCertificate()
     {
         BMCWEB_LOG_DEBUG("Loading certificate");
