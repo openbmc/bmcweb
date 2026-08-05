@@ -13,6 +13,8 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/url.hpp>
@@ -28,13 +30,78 @@
 static constexpr std::array<std::string_view, 1> switchInterfaces = {
     "xyz.openbmc_project.Inventory.Item.PCIeSwitch"};
 
+static constexpr std::array<std::string_view, 1>
+    switchOperationalStatusInterfaces = {
+        "xyz.openbmc_project.State.Decorator.OperationalStatus"};
+
 namespace redfish
 {
+
+inline void afterGetFabricSwitchHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, bool functional)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error for Health, ec {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["Status"]["Health"] =
+        functional ? resource::Health::OK : resource::Health::Critical;
+}
+
+inline void afterGetFabricSwitchHealthObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& switchPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR && ec.value() != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error on GetObject, ec {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        // The switch does not implement the interface, so Status.Health is
+        // left out of the response.
+        return;
+    }
+
+    if (object.empty())
+    {
+        return;
+    }
+
+    dbus::utility::getProperty<bool>(
+        object.begin()->first, switchPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        std::bind_front(afterGetFabricSwitchHealth, asyncResp));
+}
+
+/**
+ * @brief Populates Status.Health of the switch
+ *
+ * Reads Functional of State.Decorator.OperationalStatus from the switch
+ * object. Status.Health is left out of the response when the object does not
+ * implement the interface.
+ */
+inline void getFabricSwitchHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& switchPath)
+{
+    dbus::utility::getDbusObject(
+        switchPath, switchOperationalStatusInterfaces,
+        std::bind_front(afterGetFabricSwitchHealthObject, asyncResp,
+                        switchPath));
+}
 
 inline void handleFabricSwitchPathSwitchGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
-    [[maybe_unused]] const std::string& switchPath)
+    const std::string& switchPath)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#Switch.v1_7_0.Switch";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
@@ -42,12 +109,12 @@ inline void handleFabricSwitchPathSwitchGet(
     asyncResp->res.jsonValue["Id"] = switchId;
     asyncResp->res.jsonValue["Name"] = switchId;
 
-    nlohmann::json& status = asyncResp->res.jsonValue["Status"];
-    status["Health"] = resource::Health::OK;
-    status["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     asyncResp->res.jsonValue["Ports"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Fabrics/{}/Switches/{}/Ports", fabricId, switchId);
+
+    getFabricSwitchHealth(asyncResp, switchPath);
 }
 
 inline void handleFabricSwitchPaths(
