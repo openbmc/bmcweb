@@ -22,6 +22,30 @@
       },
       "revId": "f423885ba5d24ca68428f79009c4996d1fe25187",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c36c499_a501ff79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-05T08:46:17Z",
+      "side": 1,
+      "message": "Thanks for review.\n\nCurrent state:\n\nEntity-Manager owns the GPU chassis board object path, and that object path hosts the Item.Chassis / Item.Board interfaces.\n\nGpuSensor resolves that EM board object path via the endpoint\u0027s configured_by association, then calls add_interface() on that same object path to publish:\n\nCommon.UUID\nDecorator.PowerBounds\nDecorator.SKU\nDecorator.LocationCode\nConnector.Slot\n\nSo a single object path carries interfaces from two services — EM the identity interfaces, GpuSensor the attribute interfaces — with no association in between.\nI\u0027d like to make sure I\u0027ve understood your point correctly — would this be the co-owned pattern you\u0027re referring to?\n\nOr should GpuSensor instead publish these attribute interfaces on its own object path (never touching EM\u0027s path), and use Association.Definitions (contained_by / containing) to link its own object path to the EM chassis object path — with bmcweb reading GpuSensor\u0027s attributes by following that association? That way every object path has a single owner and EM\u0027s path is never modified by another service.\n\nThank you very much for the guidance.",
+      "parentUuid": "9d4623ea_e13bce9d",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "f423885ba5d24ca68428f79009c4996d1fe25187",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
