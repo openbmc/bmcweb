@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d4371f9c_e23c0641",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002754
+      },
+      "writtenOn": "2026-08-05T07:07:35Z",
+      "side": 1,
+      "message": "yes , updated the validator results in commit message.",
+      "parentUuid": "7392dc99_40715ab5",
+      "revId": "c9aa4b0ec9b0de275602e110eab03a9fb6f4ce10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "172201a0_2956658c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
