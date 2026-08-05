@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d82c1518_67b2e7fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T17:45:16Z",
+      "side": 1,
+      "message": "Fixed wording. Commit message now says \"An unsupported method (e.g. POST/PUT) on a registered path\" -- a truly unregistered path already returns 404 via the existing redfish404 catch-all; this fix is specifically about a registered path whose GET handler proves the resource is missing.",
+      "parentUuid": "6c3a0829_69f043fb",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "992173fa_0296f683",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-24T18:08:11Z",
       "side": 1,
       "message": "Please rewrite this.  As written, this is basically saying that what we have is in compliance, so why would we add a hundred lines of new core code if we\u0027re already in compliance?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c930398f_4c4bc4db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T17:45:16Z",
+      "side": 1,
+      "message": "Reworded. Commit message now states explicitly: \"DSP0266 7.5.3 is only required when the resource exists... this isn\u0027t a compliance fix -- it closes an inconsistency that itself leaks resource existence.\" Today\u0027s 405-for-missing-resource behavior isn\u0027t non-compliant; the fix closes the inconsistency where the status code for the same missing resource depends on which method was used, not a spec violation.",
+      "parentUuid": "992173fa_0296f683",
       "range": {
         "startLine": 15,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7dd61de_c5cd8c13",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T17:45:16Z",
+      "side": 1,
+      "message": "Fixed. This file no longer mentions ManagerAccount, DSP0266, or any Redfish concept. findRouteForVerb() is generic across all HTTP endpoints. All Redfish-specific logic now lives entirely in redfish-core.",
+      "parentUuid": "6a1a6444_a468e9b0",
+      "range": {
+        "startLine": 306,
+        "startChar": 60,
+        "endLine": 306,
+        "endChar": 67
+      },
+      "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "943fc729_e5f381f9",
@@ -110,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db0cd725_017cb6f5",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T17:45:16Z",
+      "side": 1,
+      "message": "Removed. No more ancestor-walking -- findRouteForVerb() only looks up the exact URL. If no GET is registered for it, redfish405() just returns 405 as before, same as today\u0027s behavior.",
+      "parentUuid": "943fc729_e5f381f9",
+      "range": {
+        "startLine": 350,
+        "startChar": 49,
+        "endLine": 350,
+        "endChar": 73
+      },
+      "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f732c1b9_dff7d0f9",
@@ -123,6 +219,30 @@
       "writtenOn": "2026-07-24T18:06:48Z",
       "side": 1,
       "message": "Please review and correct comments like this.",
+      "range": {
+        "startLine": 351,
+        "startChar": 56,
+        "endLine": 351,
+        "endChar": 72
+      },
+      "revId": "1a4757199c359fa856eba67b867746d4cc86d338",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16c321d3_99302cf4",
+        "filename": "http/routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T17:45:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f732c1b9_dff7d0f9",
       "range": {
         "startLine": 351,
         "startChar": 56,

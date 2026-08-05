@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "169bb890_086858a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T17:45:16Z",
+      "side": 1,
+      "message": "Agreed, no violation of 7.5.3 today — this was never a compliance fix. \n\nThe gap is consistency: GET/PATCH/DELETE on a ManagerAccount already return 404 for a missing account, POST/PUT return 405 regardless. \nSo the status code depends on which method you used, and per 13.2 that inconsistency itself leaks existence info.",
+      "parentUuid": "a880899b_d2595a10",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec8f311d_62d8ca6c",
@@ -143,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfdb355d_ae7fce2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T17:45:16Z",
+      "side": 1,
+      "message": "Done — quote is now in the commit message. \nAnd yes, you\u0027re right: the case I\u0027m changing is different from that quote (resource doesn\u0027t exist), not the \"exists but wrong method\" case that quote covers — the commit message now says this explicitly and no longer frames it as a compliance fix.",
+      "parentUuid": "5aafc477_a847e142",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "902952c1_64a715ff",
@@ -204,6 +252,30 @@
       "side": 1,
       "message": "\u003e The current fix is one generic hook in Router::handle()\n\nrouter isn\u0027t specific to Redfish.",
       "parentUuid": "e4c942bb_ff7c34a1",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "71bedad7c8f1692d7c613474b0dfa8c4cd7c23da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "447b1001_45203c07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-05T17:45:16Z",
+      "side": 1,
+      "message": "Fixed. Router::findRouteForVerb() is now a small, generic url+verb lookup with zero Redfish knowledge -- it just answers whether a rule is registered for an exact url+verb, reusing the existing per-verb trie. All 404/405 decision-making (GET probe, privilege-gating) moved to redfish-core/redfish_v1.hpp.",
+      "parentUuid": "5ad2db14_3acff8c3",
       "range": {
         "startLine": 19,
         "startChar": 0,
