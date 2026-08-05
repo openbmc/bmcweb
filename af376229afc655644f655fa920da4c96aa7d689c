@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6835fd94_b281e2b9",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-05T03:25:24Z",
+      "side": 1,
+      "message": "getDrives() still grabs every drive, so two Storage objects would list the same set — that doesn\u0027t quite match the commit message saying each Drive\u0027s wrong parent is fixed. Item.Storage has nothing to filter by either, so is a follow-up planned for that part?",
+      "revId": "af376229afc655644f655fa920da4c96aa7d689c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f89745ea_bb78e85b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-05T03:25:24Z",
+      "side": 1,
+      "message": "nit: storage_controller.hpp still hardcodes Storage/1 (routes at :191 and :196), so this link would 404 on anything not named 1. Worth a follow-up?\nhttps://github.com/openbmc/bmcweb/blob/eec0a5d/redfish-core/lib/storage_controller.hpp#L191-L196",
+      "revId": "af376229afc655644f655fa920da4c96aa7d689c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "729b4372_4dd32b3f",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-05T03:25:24Z",
+      "side": 1,
+      "message": "I think neither lookup checks the interface, just the filename — and the subtree now has Storage objects in it too. So /Storage/HDD1 404s while /Storage/HDD1/Drives/HDD1 returns 200. Would it be worth requiring Item.Storage on the storage one?",
+      "revId": "af376229afc655644f655fa920da4c96aa7d689c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
