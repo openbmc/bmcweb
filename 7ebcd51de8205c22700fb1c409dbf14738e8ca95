@@ -68,6 +68,30 @@
       },
       "revId": "7ebcd51de8205c22700fb1c409dbf14738e8ca95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5135ded9_a5a64d67",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-05T13:06:54Z",
+      "side": 1,
+      "message": "Thanks for review.\n\nCurrent state:\n\nEntity-Manager owns the GPU chassis board object path, and that object path hosts the Item.Chassis / Item.Board interfaces.\n\nGpuSensor resolves that EM board object path via the endpoint\u0027s configured_by association, then calls add_interface() on that same object path to publish:\n\nCommon.UUID\nDecorator.PowerBounds\n\nbmcweb\u0027s chassis discovery filters on Item.Board / Item.Chassis, so those daemon-published attribute interfaces — which live on the same path but under a different service — are not surfaced by the main lookup.\n\nThis code issues an extra mapper query scoped to that chassis path to pick them up. So this workaround exists only because those attributes are published directly on EM\u0027s path rather than linked via an association.\n\nOr should GpuSensor instead publish these attribute interfaces on its own object path (never touching EM\u0027s path), and use Association.Definitions (contained_by / containing) to link its own object path to the EM chassis object path — with bmcweb reading GpuSensor\u0027s attributes by following that association? That would let this extra scoped mapper query go away, and every object path would have a single owner.\n\nI\u0027m also discussing the same root cause on the producer side.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/90837/7..8//COMMIT_MSG#b10\n\nThank you very much for the guidance.",
+      "parentUuid": "64409f96_0db04712",
+      "range": {
+        "startLine": 533,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 64
+      },
+      "revId": "7ebcd51de8205c22700fb1c409dbf14738e8ca95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
