@@ -392,7 +392,7 @@ inline void handleFabricSwitchPathPortCollection(
 inline void getFabricSwitchPortPaths(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
-    const std::string& switchPath)
+    const std::string& switchPath, const std::string& /*switchService*/)
 {
     std::string associationPath = switchPath + "/connecting";
     dbus::utility::getAssociatedSubTreePaths(
@@ -450,10 +450,15 @@ inline void handleFabricSwitchPortMetricsGet(
 
     getFabricSwitchPath(
         asyncResp, fabricId, switchId,
-        std::bind_front(
-            getAssociatedPortPath, asyncResp, portId,
-            std::bind_front(handleFabricSwitchPortPathPortMetricsGet, asyncResp,
-                            fabricId, switchId, portId)));
+        [asyncResp, fabricId, switchId,
+         portId](const std::string& switchPath,
+                 const std::string& /*switchService*/) {
+            getAssociatedPortPath(
+                asyncResp, portId,
+                std::bind_front(handleFabricSwitchPortPathPortMetricsGet,
+                                asyncResp, fabricId, switchId, portId),
+                switchPath);
+        });
 }
 
 inline void handleFabricSwitchPortGet(
@@ -469,10 +474,15 @@ inline void handleFabricSwitchPortGet(
 
     getFabricSwitchPath(
         asyncResp, fabricId, switchId,
-        std::bind_front(
-            getAssociatedPortPath, asyncResp, portId,
-            std::bind_front(handleFabricSwitchPortPathPortGet, asyncResp,
-                            fabricId, switchId, portId)));
+        [asyncResp, fabricId, switchId,
+         portId](const std::string& switchPath,
+                 const std::string& /*switchService*/) {
+            getAssociatedPortPath(
+                asyncResp, portId,
+                std::bind_front(handleFabricSwitchPortPathPortGet, asyncResp,
+                                fabricId, switchId, portId),
+                switchPath);
+        });
 }
 
 inline void handleFabricSwitchPortsCollectionGet(
