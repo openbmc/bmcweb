@@ -196,6 +196,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8aa55d6_57ed6f7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-06T21:12:21Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "23502ed0_a879f4d5",
+      "revId": "a9d8694dba3f53d5026bdda3826981147915f094",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5980d911_221ac31f",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 12
