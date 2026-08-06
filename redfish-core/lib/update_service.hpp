@@ -849,13 +849,54 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
     return multiRet;
 }
 
+inline void mapDbusErrorToRedfish(crow::Response& res,
+                                  std::string_view errorName)
+{
+    if (errorName == "xyz.openbmc_project.Software.Image.Error.SpaceAccess")
+    {
+        messages::resourceExhaustion(res, "xyz.openbmc_project.Software.Image");
+        return;
+    }
+    if (errorName == "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
+    {
+        messages::resourceAlreadyExists(res, "UpdateService", "Version",
+                                        "uploaded version");
+        return;
+    }
+    if (errorName == "xyz.openbmc_project.Software.Image.Error.BusyFailure")
+    {
+        messages::serviceTemporarilyUnavailable(res, "30");
+        return;
+    }
+    if (errorName ==
+        "xyz.openbmc_project.Software.Version.Error.InvalidSignature")
+    {
+        messages::missingOrMalformedPart(res);
+        return;
+    }
+    if (errorName == "xyz.openbmc_project.Common.Error.InvalidArgument")
+    {
+        messages::internalError(res);
+        return;
+    }
+
+    messages::internalError(res);
+}
+
 inline void handleStartUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const std::string& objectPath, const boost::system::error_code& ec,
-    const sdbusplus::object_path& retPath)
+    const sdbusplus::message_t& msg, const sdbusplus::object_path& retPath)
 {
     if (ec)
     {
+        const sd_bus_error* dbusError = msg.get_error();
+        if (dbusError != nullptr)
+        {
+            mapDbusErrorToRedfish(asyncResp->res, dbusError->name);
+            return;
+        }
+
         BMCWEB_LOG_ERROR("error_code = {}", ec);
         BMCWEB_LOG_ERROR("error msg = {}", ec.message());
         messages::internalError(asyncResp->res);
@@ -876,9 +917,10 @@ inline void startUpdate(
         asyncResp,
         [asyncResp, payload = std::move(payload),
          objectPath](const boost::system::error_code& ec1,
+                     const sdbusplus::message_t& msg,
                      const sdbusplus::object_path& retPath) mutable {
             handleStartUpdate(asyncResp, std::move(payload), objectPath, ec1,
-                              retPath);
+                              msg, retPath);
         },
         serviceName, objectPath, updateInterface, "StartUpdate",
         sdbusplus::message::unix_fd(memfd.fd), applyTime);
