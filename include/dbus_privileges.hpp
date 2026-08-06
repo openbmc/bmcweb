@@ -154,7 +154,7 @@ inline void handleRequestUserInfo(
             BMCWEB_LOG_ERROR(
                 "User manager service not reachable, this suggests the user manager service is not healthy");
             asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+                boost::beast::http::status::service_unavailable);
             return;
         }
 
