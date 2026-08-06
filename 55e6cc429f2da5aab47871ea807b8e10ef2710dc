@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a919654e_fef9b69f",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-06T21:12:10Z",
+      "side": 1,
+      "message": "This could go on top of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92845 where it should keep a similar format and use `resource_utils::getResourceState` and `resource_utils::getResourceHealth` to reduce code duplication and keep the Status.State and Status.Health consistent among resources while keeping the functionality of your change the same. Let me know if you think otherwise.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 13
+      },
+      "revId": "55e6cc429f2da5aab47871ea807b8e10ef2710dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
