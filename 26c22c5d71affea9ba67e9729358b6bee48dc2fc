@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9a10b3c_bd07cd6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T03:33:52Z",
+      "side": 1,
+      "message": "Please read and understand the testing requirements.  for changes to Redfish, they\u0027re pretty clear, and the below isn\u0027t sufficient.",
+      "revId": "26c22c5d71affea9ba67e9729358b6bee48dc2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b1d131e_6f24c7a5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
