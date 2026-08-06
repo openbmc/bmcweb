@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd975ad0_0baa9856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002932
+      },
+      "writtenOn": "2026-08-06T15:45:07Z",
+      "side": 1,
+      "message": "acknowledged",
+      "parentUuid": "d76ffbcd_1304d47d",
+      "revId": "28c7b79eeda921415a6811e5feedcf7382ecdb4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c51cb9dc_0cb04159",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "+1.  If somehow bmcweb is up, but user management isn\u0027t, that\u0027s an internal error that the user can do nothing about.  There\u0027s nothing about this patch that would imply that this is a temporary condition.",
       "parentUuid": "c51cb9dc_0cb04159",
+      "revId": "28c7b79eeda921415a6811e5feedcf7382ecdb4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "318bde9b_740419d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002932
+      },
+      "writtenOn": "2026-08-06T15:45:07Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz @ed@tanous.net\n\nThe specific scenario I am targeting here is the BMC initialization sequence.\n\nDuring a BMC reboot, bmcweb comes up and can accept incoming HTTP requests before the user management D-Bus service has fully started. If a client (or a script running a curl while loop) makes a Redfish request during this transient window, bmcweb receives EHOSTUNREACH.\n\nBecause this is purely an initialization delay, a retry will work once the user management service finishes starting.\n\nPer the Redfish specification (DSP0266 v1.24.0), 503 is intended exactly for this scenario:\n\"A service may also use this response to indicate that the service itself is undergoing maintenance, such as finishing initialization steps after reboot of the service.\"\n\nA 500 Internal Server Error implies an unexpected, unrecoverable fault. Since this unreachable state during boot is a known, temporary initialization condition where \"retry later\" is the correct action for the client, 503 Service Unavailable is the more accurate representation.",
+      "parentUuid": "9e6356fa_548c15cc",
       "revId": "28c7b79eeda921415a6811e5feedcf7382ecdb4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
