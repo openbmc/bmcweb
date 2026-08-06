@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "13b5e212_b39d6a50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T03:39:20Z",
+      "side": 1,
+      "message": "........  You acked it again and closed out the thread.  Please use words and sentences in your reply.",
+      "parentUuid": "d1395984_48174524",
+      "revId": "59b1805ed1ec5ed9902f154eb664071ed5db43e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "56f9caf8_ebfc4d88",
