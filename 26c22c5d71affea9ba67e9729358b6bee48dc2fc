@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3c31e8b_3fd72632",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T01:29:13Z",
+      "side": 1,
+      "message": "on second thought, I actually don\u0027t even understand this.  A user might INTENTIONALLY disable a portion of a bonded interface as a test, or to intentionally bring down the link.  We shouldn\u0027t prevent that.",
+      "range": {
+        "startLine": 10,
+        "startChar": 16,
+        "endLine": 10,
+        "endChar": 70
+      },
+      "revId": "26c22c5d71affea9ba67e9729358b6bee48dc2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b1d131e_6f24c7a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T01:29:13Z",
+      "side": 1,
+      "message": "I read this as \"I implemented a feature and I didn\u0027t test it\".  That\u0027s not really acceptable.  If you need this feature, find a platform that uses it.  Don\u0027t just say the platform you picked didn\u0027t support the feature.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 48
+      },
+      "revId": "26c22c5d71affea9ba67e9729358b6bee48dc2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b39a3c9c_0b889501",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -14,6 +60,24 @@
       "writtenOn": "2026-08-05T19:30:07Z",
       "side": 1,
       "message": "This is complexity I don\u0027t want to maintain.  While I\u0027m normally willing to accept some amount of code to prevent a user shooting themselves in the foot, this adds a new dependency on an interface, and 100 lines of code to enforce something that is largely optional.  I don\u0027t really want to maintain that.",
+      "revId": "26c22c5d71affea9ba67e9729358b6bee48dc2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21efcf1b_58d2d4d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T01:29:13Z",
+      "side": 1,
+      "message": "Actually, and",
+      "parentUuid": "b39a3c9c_0b889501",
       "revId": "26c22c5d71affea9ba67e9729358b6bee48dc2fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
