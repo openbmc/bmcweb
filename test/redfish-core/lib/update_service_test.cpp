@@ -3,10 +3,12 @@
 
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "http_request.hpp"
 #include "http_response.hpp"
 #include "update_service.hpp"
 
 #include <boost/beast/http/status.hpp>
+#include <boost/system/errc.hpp>
 #include <boost/url/url.hpp>
 
 #include <memory>
@@ -181,6 +183,19 @@ TEST(UpdateService, MissingVersionIsError)
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     getSoftwareVersionCallback(asyncResp, "swId", {},
                                dbus::utility::DBusPropertiesMap{});
+
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(UpdateService, StartUpdateErrorReturnsInternalError)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Request req;
+    handleStartUpdate(
+        asyncResp, task::Payload{req}, "/software",
+        boost::system::errc::make_error_code(boost::system::errc::io_error),
+        sdbusplus::object_path{});
 
     EXPECT_EQ(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
