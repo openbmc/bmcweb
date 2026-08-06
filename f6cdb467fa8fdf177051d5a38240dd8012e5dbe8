@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "17537d9c_9a5a8310",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-06T02:41:16Z",
+      "side": 1,
+      "message": "Fair point — the spec is silent on the missing-resource case, so returning 405 there isn\u0027t a violation; this patch isn\u0027t closing a compliance gap. What it fixes is an inconsistency, and it\u0027s grounded in RFC 9110 itself (which DSP0266 builds on):\n\nLink: \nRFC - https://www.rfc-editor.org/rfc/rfc9110.html#name-403-forbidden\nDSP - https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.20.0.pdf\n\n\u003e RFC - In Section 15.5.4 defines 404 as the standard way to \"hide the current existence\" of a resource (used there for 403→404, but the same logic applies to any status code that would otherwise reveal existence).\n\n\u003e RFC - In Section 10.2.1 requires a 405 response to include an Allow header listing \"the target resource\u0027s currently supported methods\" — which presupposes the resource exists and has defined methods. A 405 for a URL with no resource behind it is asserting something that isn\u0027t true.\n\nSo today, for the same resource and the same caller/privileges, GET/PATCH/DELETE correctly reveal \"this doesn\u0027t exist\" (404) while POST/PUT incorrectly imply \"this exists but doesn\u0027t support that method\" (405) — a direct contradiction, not just a style inconsistency.\n\nOn \"simple code\": the router-level probe is actually simpler than what we replace — we deletes the ad-hoc per-resource methodNotAllowed() override in account_service.hpp and the trie.hpp reorder it as needed, centralizing the behavior once for every route instead of requiring each resource handler to remember to do it.",
+      "parentUuid": "2fc981ff_3bf2e94c",
+      "range": {
+        "startLine": 19,
+        "startChar": 31,
+        "endLine": 20,
+        "endChar": 25
+      },
+      "revId": "f6cdb467fa8fdf177051d5a38240dd8012e5dbe8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "36ee1edf_8c439b08",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
