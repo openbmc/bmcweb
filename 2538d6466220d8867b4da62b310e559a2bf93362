@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b31e83d4_d87f6a91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T03:59:06Z",
+      "side": 1,
+      "message": "What is a \"multi storage system\"?  This sounds like you have a DBus modeling issue.",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "2538d6466220d8867b4da62b310e559a2bf93362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee1c4a5f_37c4506f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T03:59:06Z",
+      "side": 1,
+      "message": "please read and understand the testing requirements documented for patches.  The above is inadequate and overly abstract",
+      "revId": "2538d6466220d8867b4da62b310e559a2bf93362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
