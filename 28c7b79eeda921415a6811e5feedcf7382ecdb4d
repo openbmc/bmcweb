@@ -87,6 +87,24 @@
       "parentUuid": "9e6356fa_548c15cc",
       "revId": "28c7b79eeda921415a6811e5feedcf7382ecdb4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fd13e79_dff59dc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T15:51:09Z",
+      "side": 1,
+      "message": "\u003e During a BMC reboot, bmcweb comes up and can accept incoming HTTP requests before the user management D-Bus service has fully started\n\nSo lets just fix that?  PUM is supposed to be dbus name activated, so we shouldn\u0027t see this behavior.  If you\u0027re seeing it, then something is broken either in PUM or the service file.",
+      "parentUuid": "318bde9b_740419d2",
+      "revId": "28c7b79eeda921415a6811e5feedcf7382ecdb4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
