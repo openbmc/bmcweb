@@ -185,5 +185,35 @@ TEST(UpdateService, MissingVersionIsError)
     EXPECT_EQ(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
 }
+
+TEST(UpdateService, MapDbusErrorToRedfishSuccess)
+{
+    {
+        crow::Response res;
+        mapDbusErrorToRedfish(
+            res, "xyz.openbmc_project.Software.Image.Error.SpaceAccess");
+        EXPECT_EQ(res.result(),
+                  boost::beast::http::status::service_unavailable);
+    }
+    {
+        crow::Response res;
+        mapDbusErrorToRedfish(
+            res, "xyz.openbmc_project.Software.Version.Error.AlreadyExists");
+        EXPECT_EQ(res.result(), boost::beast::http::status::conflict);
+    }
+    {
+        crow::Response res;
+        mapDbusErrorToRedfish(
+            res, "xyz.openbmc_project.Software.Image.Error.BusyFailure");
+        EXPECT_EQ(res.result(),
+                  boost::beast::http::status::service_unavailable);
+    }
+    {
+        crow::Response res;
+        mapDbusErrorToRedfish(
+            res, "xyz.openbmc_project.Software.Version.Error.InvalidSignature");
+        EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+    }
+}
 } // namespace
 } // namespace redfish
