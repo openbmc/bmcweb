@@ -111,6 +111,30 @@
       },
       "revId": "6b7090ded0cfb0ce50433111b6cfc02d1c9168b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a86349a1_e4b7ee10",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-06T16:00:56Z",
+      "side": 1,
+      "message": "I\u0027ll resolve this thread for now; please re-open if you think additional explanation or changes are required.",
+      "parentUuid": "cfa8db26_f80e3602",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "6b7090ded0cfb0ce50433111b6cfc02d1c9168b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
