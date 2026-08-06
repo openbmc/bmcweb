@@ -80,6 +80,24 @@
       "parentUuid": "b39a3c9c_0b889501",
       "revId": "26c22c5d71affea9ba67e9729358b6bee48dc2fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9576e47_ecf509a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-06T03:33:21Z",
+      "side": 1,
+      "message": "I\u0027m not really sure I understand the use case for this.",
+      "parentUuid": "21efcf1b_58d2d4d4",
+      "revId": "26c22c5d71affea9ba67e9729358b6bee48dc2fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
