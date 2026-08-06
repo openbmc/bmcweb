@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d76ffbcd_1304d47d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-06T14:28:43Z",
+      "side": 1,
+      "message": "Please follow https://cbea.ms/git-commit/",
+      "revId": "28c7b79eeda921415a6811e5feedcf7382ecdb4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c51cb9dc_0cb04159",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-06T14:28:43Z",
+      "side": 1,
+      "message": "Why is 503 better? I am not convinced. Why would user management be down and if it was, why is 503 better? 503 says \"retry later\", we think later it would work ?",
+      "revId": "28c7b79eeda921415a6811e5feedcf7382ecdb4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
