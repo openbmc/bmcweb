@@ -60,7 +60,7 @@ TEST(HandleRequestUserInfo, UserManagerUnreachableError)
         },
         {});
     EXPECT_FALSE(called);
-    EXPECT_EQ(asyncResp->res.resultInt(), 500);
+    EXPECT_EQ(asyncResp->res.resultInt(), 503);
 }
 
 TEST(HandleRequestUserInfo, UnauthorizedError)
