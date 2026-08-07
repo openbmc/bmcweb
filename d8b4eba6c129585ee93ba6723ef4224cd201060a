@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9229e37b_7ef15532",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002132
+      },
+      "writtenOn": "2026-08-07T18:53:50Z",
+      "side": 1,
+      "message": "Reopen this since the maintainer hasn\u0027t agreed to close it.\n@gunnar@gmills.xyz, could you please see my reply about this -\n\u003e Would you prefer to move the MemberId code change to another commit change? I just thought they\u0027re fixing the same thing, so put them together.\n\nThat\u0027s whay I put them together.",
+      "parentUuid": "00374278_eedcd042",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 35
+      },
+      "revId": "d8b4eba6c129585ee93ba6723ef4224cd201060a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cda5d021_a8d2ed78",
         "filename": "redfish-core/schema/oem/openbmc/json-schema/OpenBMCManager.json",
         "patchSetId": 1
