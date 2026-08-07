@@ -44,7 +44,6 @@ inline void requestRoutesThermal(App& app)
                     sensor_utils::chassisSubNodeToString(
                         sensor_utils::ChassisSubNode::thermalNode));
 
-                // TODO Need to get Chassis Redundancy information.
                 getChassisData(sensorAsyncResp);
             });
 
@@ -85,7 +84,7 @@ inline void requestRoutesThermal(App& app)
                 {
                     messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
                                                "Thermal",
-                                               "Temperatures / Voltages");
+                                               "Temperatures / Fans");
                     return;
                 }
                 if (temperatureCollections)
