@@ -16,6 +16,23 @@
       "message": "\u003e Previously, any D-Bus error was unconditionally mapped to 404 Not Found, which was misleading for users that existed but could not be removed.\n\nI don\u0027t think we need to wait for spec changes to fix obvious bugs in the implementation. Returning 404 not found for accounts that do exist is clearly a bug.\n\nIf we don\u0027t agree which message is most appropriate, we can change the message again in the future when the spec is clarified. If the spec does not tell us what exactly the implementation should do, it should be okay to change the implementation again in the future.",
       "revId": "cebda1ad84209fa92f3035280701b4f265829653",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acebde18_9b8da339",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002932
+      },
+      "writtenOn": "2026-08-07T17:04:26Z",
+      "side": 1,
+      "message": "LGTM, this fixes open issue #2271",
+      "revId": "cebda1ad84209fa92f3035280701b4f265829653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
