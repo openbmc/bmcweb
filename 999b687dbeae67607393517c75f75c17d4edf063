@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d8461e_6a66f3c2",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T07:36:27Z",
+      "side": 1,
+      "message": "Please also validate full parse: result.ptr \u003d\u003d majorVersionStr.end(). std::from_chars can return success on partial input (example: 1abc), which would silently accept malformed version strings.",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b1cd025_2f1eab2e",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T07:36:27Z",
+      "side": 1,
+      "message": "If parsing fails, defaulting versions to 0 may create synthetic MessageId values. Can we define explicit behavior: either return parse error for malformed version fields, or fall back to registry header versions?",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f06448_a741afcf",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T07:36:27Z",
+      "side": 1,
+      "message": "If the function uses the same verb, can we consolidate it into a common utility function and pass different arguments to handle the version updates?",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e799f0d3_874d7841",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T07:36:27Z",
+      "side": 1,
+      "message": "Same concern here: please require result.ptr \u003d\u003d minorVersionStr.end() in addition to result.ec \u003d\u003d std::errc{} to reject partial parses.",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec3d80a4_c1590ea8",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T07:36:27Z",
+      "side": 1,
+      "message": "If parsing fails, defaulting versions to 0 may create synthetic MessageId values. Can we define explicit behavior: either return parse error for malformed version fields, or fall back to registry header versions?",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
