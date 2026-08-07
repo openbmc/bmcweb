@@ -1,0 +1,10 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Code-Review+1: Myung Bae <myungbae@us.ibm.com>
+Submitted-by: Alexander <alexander.hansen@9elements.com>
+Submitted-at: Fri, 07 Aug 2026 11:58:21 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87082
+Comments-Total: 24
+Comments-Unresolved: 2
+Project: openbmc/bmcweb
+Branch: refs/heads/master
