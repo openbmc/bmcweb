@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09072360_e8e7084a",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T10:06:44Z",
+      "side": 1,
+      "message": "This metricName decode logic is repetitive. Can we refactor the else-if chain to a table-driven lookup (metricName -\u003e JSON pointer) and do a single lookup before calling getMetricProperty? It would be cleaner and easier to maintain.",
+      "revId": "e813210257906cf98b5a24a155651b85692992f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b8123ac_a151a228",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T10:06:44Z",
+      "side": 1,
+      "message": "This metricName decode logic is repetitive. Can we refactor the else-if chain to a table-driven lookup (metricName -\u003e JSON pointer) and do a single lookup before calling getMetricProperty? It would be cleaner and easier to maintain.",
+      "revId": "e813210257906cf98b5a24a155651b85692992f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c95db02e_71f3d2d9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1390,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T10:06:44Z",
+      "side": 1,
+      "message": "Port always exposes a Metrics link, but Metrics retrieval can return InternalError when measured_by is missing. That creates a broken navigable link in Redfish. Please either gate the Metrics link on association existence, or handle missing association as ResourceNotFound/empty metrics instead of 500.",
+      "revId": "e813210257906cf98b5a24a155651b85692992f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4885d7e0_1df63b23",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1427,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T10:06:44Z",
+      "side": 1,
+      "message": "HEAD should follow the same validation as GET. Right now it returns success with only the schema link, even for invalid system/processor/port IDs. Please align HEAD with GET so invalid IDs return ResourceNotFound.",
+      "revId": "e813210257906cf98b5a24a155651b85692992f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef8f5ba9_61425de0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T10:06:44Z",
+      "side": 1,
+      "message": "HEAD should follow the same validation as GET. Right now it returns success with only the schema link, even for invalid system/processor/port IDs. Please align HEAD with GET so invalid IDs return ResourceNotFound.",
+      "revId": "e813210257906cf98b5a24a155651b85692992f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "228dbae3_3e3d9ee2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T10:06:44Z",
+      "side": 1,
+      "message": "HEAD should follow the same validation as GET. Right now it returns success with only the schema link, even for invalid system/processor/port IDs. Please align HEAD with GET so invalid IDs return ResourceNotFound.",
+      "revId": "e813210257906cf98b5a24a155651b85692992f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
