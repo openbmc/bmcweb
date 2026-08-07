@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b43a84b5_ed38de7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-07T10:20:54Z",
+      "side": 1,
+      "message": "The subject looks longer than the recommended 50-character limit.\nPlease wrap at 50 chars. We follow https://cbea.ms/git-commit/",
+      "revId": "813e0ccb5b96f9fc97e166e613fc81853f151850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d73aae6_4925f8a4",
@@ -14,6 +31,23 @@
       "writtenOn": "2026-08-07T10:12:05Z",
       "side": 1,
       "message": "CLGTM",
+      "revId": "813e0ccb5b96f9fc97e166e613fc81853f151850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5099e19_1841a45b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-07T10:20:54Z",
+      "side": 1,
+      "message": "Looks good to me.",
       "revId": "813e0ccb5b96f9fc97e166e613fc81853f151850",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
