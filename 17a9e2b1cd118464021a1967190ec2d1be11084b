@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6278686_16eecf26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-07T17:07:25Z",
+      "side": 1,
+      "message": "Please run the basic Service Validator test and attach the results.",
+      "revId": "17a9e2b1cd118464021a1967190ec2d1be11084b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
