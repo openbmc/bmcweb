@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3dd1fa4a_9331c4f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-08-07T06:50:25Z",
+      "side": 1,
+      "message": "Ok Thanks. Then this change may not be required. Can I abandon change.",
+      "parentUuid": "dd3b53b0_1b6e9f33",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 5
+      },
+      "revId": "6a609848f6a943996e7cd5e7ce58521f465a1647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5555317_29841732",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4b0e7b7_a001d120",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-08-07T06:50:25Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "c5555317_29841732",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 61
+      },
+      "revId": "6a609848f6a943996e7cd5e7ce58521f465a1647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2228cad6_d0f637f1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -60,6 +108,24 @@
       "writtenOn": "2026-07-08T00:10:52Z",
       "side": 1,
       "message": "More detail needed here.  What did you do to test the code below?",
+      "revId": "6a609848f6a943996e7cd5e7ce58521f465a1647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d98e0fc5_6710706c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-08-07T06:50:25Z",
+      "side": 1,
+      "message": "Updated commit message.",
+      "parentUuid": "2228cad6_d0f637f1",
       "revId": "6a609848f6a943996e7cd5e7ce58521f465a1647",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -100,6 +166,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7161fac9_f6551ede",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-08-07T06:50:25Z",
+      "side": 1,
+      "message": "Hi @Ed Tanous, thanks for the comments. Updated commit massage.",
+      "parentUuid": "d11d25e6_5402df2f",
+      "revId": "6a609848f6a943996e7cd5e7ce58521f465a1647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad195f8d_dbcc7d04",
         "filename": "include/webassets.hpp",
         "patchSetId": 3
@@ -111,6 +195,30 @@
       "writtenOn": "2026-07-08T00:10:52Z",
       "side": 1,
       "message": "Looks like an unrelated and incorrect change.",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 160,
+        "endChar": 24
+      },
+      "revId": "6a609848f6a943996e7cd5e7ce58521f465a1647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e096d1_376cdff6",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-08-07T06:50:25Z",
+      "side": 1,
+      "message": "This line is flooding with more journalctl logs. So clubbed in this commit itself. Currently removed.",
+      "parentUuid": "ad195f8d_dbcc7d04",
       "range": {
         "startLine": 160,
         "startChar": 8,
