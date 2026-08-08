@@ -88,7 +88,8 @@ inline void requestRoutesEventService(App& app)
                     .getEventServiceConfig();
 
             asyncResp->res.jsonValue["Status"]["State"] =
-                (eventServiceConfig.enabled ? "Enabled" : "Disabled");
+                (eventServiceConfig.enabled ? resource::State::Enabled
+                                            : resource::State::Disabled);
             asyncResp->res.jsonValue["ServiceEnabled"] =
                 eventServiceConfig.enabled;
             asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
