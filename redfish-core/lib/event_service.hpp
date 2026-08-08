@@ -9,6 +9,7 @@
 #include "event_service_manager.hpp"
 #include "event_service_store.hpp"
 #include "generated/enums/event_destination.hpp"
+#include "generated/enums/resource.hpp"
 #include "http/utility.hpp"
 #include "http_request.hpp"
 #include "io_context_singleton.hpp"
@@ -88,7 +89,8 @@ inline void requestRoutesEventService(App& app)
                     .getEventServiceConfig();
 
             asyncResp->res.jsonValue["Status"]["State"] =
-                (eventServiceConfig.enabled ? "Enabled" : "Disabled");
+                (eventServiceConfig.enabled ? resource::State::Enabled
+                                            : resource::State::Disabled);
             asyncResp->res.jsonValue["ServiceEnabled"] =
                 eventServiceConfig.enabled;
             asyncResp->res.jsonValue["DeliveryRetryAttempts"] =

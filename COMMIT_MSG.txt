@@ -1,0 +1,22 @@
+Use enums for State and Health properties
+
+Several utility functions return State and Health values as
+std::string literals, which lacks compile-time type safety.
+This can lead to typos or invalid values that are only caught
+at runtime.
+
+Convert these functions to return resource::State and
+resource::Health enums instead. These enums are already
+defined in resource.hpp with NLOHMANN_JSON_SERIALIZE_ENUM
+mappings and are used extensively throughout the codebase.
+
+The enums automatically serialize to the same JSON strings, so
+there is no functional change. This provides compile-time type
+checking.
+
+Tested: 
+- No functional change. 
+- Verified State and Health properties serialize to identical
+  JSON values.
+
+Signed-off-by: Vinothkumar Shanmugavel <vinothkumars@ami.com>
