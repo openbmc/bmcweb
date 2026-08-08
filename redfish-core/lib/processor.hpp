@@ -500,19 +500,19 @@ inline void afterGetAcceleratorDataByService(
         return;
     }
 
-    std::string state = "Enabled";
-    std::string health = "OK";
+    resource::State state = resource::State::Enabled;
+    resource::Health health = resource::Health::OK;
 
     if (present != nullptr && !*present)
     {
-        state = "Absent";
+        state = resource::State::Absent;
     }
 
     if (functional != nullptr && !*functional)
     {
-        if (state == "Enabled")
+        if (state == resource::State::Enabled)
         {
-            health = "Critical";
+            health = resource::Health::Critical;
         }
     }
 

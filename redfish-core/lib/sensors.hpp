@@ -642,19 +642,15 @@ inline void populateFanRedundancy(
                                 }
                                 std::ranges::replace(name, '_', ' ');
 
-                                std::string health;
+                                resource::Health health = resource::Health::Critical;
 
                                 if (status->ends_with("Full"))
                                 {
-                                    health = "OK";
+                                    health = resource::Health::OK;
                                 }
                                 else if (status->ends_with("Degraded"))
                                 {
-                                    health = "Warning";
-                                }
-                                else
-                                {
-                                    health = "Critical";
+                                    health = resource::Health::Warning;
                                 }
                                 nlohmann::json::array_t redfishCollection;
                                 const auto& fanRedfish =
@@ -1861,7 +1857,9 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
 
     powerSupply["Status"]["State"] =
         sensor_utils::getState(&inventoryItem, true);
-    const char* health = inventoryItem.isFunctional ? "OK" : "Critical";
+    resource::Health health = inventoryItem.isFunctional
+                                  ? resource::Health::OK
+                                  : resource::Health::Critical;
     powerSupply["Status"]["Health"] = health;
 
     return powerSupply;
