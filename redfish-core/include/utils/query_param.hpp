@@ -10,6 +10,7 @@
 #include "filter_expr_executor.hpp"
 #include "filter_expr_parser_ast.hpp"
 #include "filter_expr_printer.hpp"
+#include "http_connection.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "json_formatters.hpp"
@@ -766,93 +767,396 @@ inline std::optional<std::string> formatQueryForExpand(const Query& query)
     return str;
 }
 
+} // namespace query_param
+} // namespace redfish
+
+// $expand budget constants: query-layer policy, so they live here rather
+// than in http_connection.hpp.  Must reopen the top-level ::crow namespace,
+// not a nested redfish::query_param::crow.
+namespace crow
+{
+// Per-request $expand payload cap; 0 disables the limit.
+constexpr uint64_t httpResponseBodyLimit =
+    1024UL * BMCWEB_EXPAND_RESPONSE_BODY_LIMIT_KIB;
+
+// Process-wide cap across all concurrent $expand operations; 0 disables.
+constexpr uint64_t expandGlobalBodyLimit =
+    1024UL * BMCWEB_EXPAND_GLOBAL_BODY_LIMIT_KIB;
+} // namespace crow
+
+namespace redfish
+{
+namespace query_param
+{
+
+// Gauge of $expand payload bytes across concurrent response assembly. This is
+// not total resident response memory: MultiAsyncResp refunds its contribution
+// when assembly finishes, before serialization and the asynchronous write.
+inline uint64_t& expandBytesInFlight()
+{
+    static uint64_t bytes = 0;
+    return bytes;
+}
+
+// Owns the byte count and refunds it from expandBytesInFlight() on
+// destruction; see makeExpandBudget().
+struct ExpandBudget
+{
+    uint64_t bytes = 0;
+
+    ExpandBudget() = default;
+    ExpandBudget(const ExpandBudget&) = delete;
+    ExpandBudget(ExpandBudget&&) = delete;
+    ExpandBudget& operator=(const ExpandBudget&) = delete;
+    ExpandBudget& operator=(ExpandBudget&&) = delete;
+
+    ~ExpandBudget()
+    {
+        expandBytesInFlight() -= bytes;
+    }
+};
+
+// Shared by every level of a $levels>1 expand tree, so expandBytesInFlight()
+// is refunded once, when the last copy anywhere in the tree is released --
+// not per-MultiAsyncResp, which would under-report during assembly while a
+// nested object is destroyed before its data merges into its parent. The
+// gauge covers assembly only and is refunded before serialization and write.
+inline std::shared_ptr<uint64_t> makeExpandBudget()
+{
+    auto owner = std::make_shared<ExpandBudget>();
+    return {owner, &owner->bytes};
+}
+
+// Query-layer state propagated while an internal $expand subrequest is routed.
+struct ExpandContext
+{
+    std::shared_ptr<uint64_t> payloadUsed;
+    std::shared_ptr<bool> budgetExceeded;
+    bool budgetCharged = false;
+};
+
+// Authenticated internal requests can be deferred while their privileges are
+// resolved. Keep their context in the query layer, keyed by the AsyncResp that
+// already travels through dispatch, until route setup captures it.
+inline std::map<const bmcweb::AsyncResp*, std::weak_ptr<ExpandContext>>&
+    expandContexts()
+{
+    static std::map<const bmcweb::AsyncResp*, std::weak_ptr<ExpandContext>>
+        contexts;
+    return contexts;
+}
+
+inline void registerExpandContext(const bmcweb::AsyncResp* asyncResp,
+                                  const std::shared_ptr<ExpandContext>& context)
+{
+    expandContexts().insert_or_assign(asyncResp, context);
+}
+
+inline std::shared_ptr<ExpandContext> takeExpandContext(
+    const bmcweb::AsyncResp* asyncResp)
+{
+    auto& contexts = expandContexts();
+    auto contextIt = contexts.find(asyncResp);
+    if (contextIt == contexts.end())
+    {
+        return nullptr;
+    }
+    std::shared_ptr<ExpandContext> context = contextIt->second.lock();
+    contexts.erase(contextIt);
+    return context;
+}
+
+// asyncResp's address may already be reused by another request by the time
+// this fires, so only erase if the slot still holds our own context.
+inline void clearExpandContext(const bmcweb::AsyncResp* asyncResp,
+                               const std::shared_ptr<ExpandContext>& ownContext)
+{
+    auto& contexts = expandContexts();
+    auto contextIt = contexts.find(asyncResp);
+    if (contextIt == contexts.end())
+    {
+        return;
+    }
+    if (contextIt->second.lock() != ownContext)
+    {
+        return;
+    }
+    contexts.erase(contextIt);
+}
+
+// Like messages::insufficientStorage(), but restores any higher-priority
+// status |res| already carried (error_code.hpp), so a later 507 doesn't
+// clobber an earlier legitimate 500.
+inline void addInsufficientStorage(crow::Response& res)
+{
+    unsigned restoredCode = propogateErrorCode(
+        res.resultInt(), static_cast<unsigned>(
+                             boost::beast::http::status::insufficient_storage));
+    messages::insufficientStorage(res);
+    res.result(restoredCode);
+}
+
 class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 {
   public:
+    // Charge: not yet charged against expandPayloadUsed, charge it now.
+    // VerifyOnly: a nested startQuery() already charged its own bytes;
+    // only verify limits before merging.
+    // Skip: not part of any $expand tree (OEM fragment merge); merge
+    // unconditionally, without budget checks or accounting.
+    enum class BudgetAction
+    {
+        Charge,
+        VerifyOnly,
+        Skip,
+    };
+
     // This object takes a single asyncResp object as the "final" one, then
     // allows callers to attach sub-responses within the json tree that need
     // to be executed and filled into their appropriate locations.  This
     // class manages the final "merge" of the json resources.
     MultiAsyncResp(crow::App& appIn,
                    std::shared_ptr<bmcweb::AsyncResp> finalResIn) :
-        app(&appIn), finalRes(std::move(finalResIn))
+        app(&appIn), finalRes(std::move(finalResIn)),
+        expandPayloadUsed(makeExpandBudget()),
+        budgetExceeded(std::make_shared<bool>(false))
     {}
 
     explicit MultiAsyncResp(std::shared_ptr<bmcweb::AsyncResp> finalResIn) :
-        app(nullptr), finalRes(std::move(finalResIn))
+        app(nullptr), finalRes(std::move(finalResIn)),
+        expandPayloadUsed(makeExpandBudget()),
+        budgetExceeded(std::make_shared<bool>(false))
     {}
+
+    MultiAsyncResp(const MultiAsyncResp&) = delete;
+    MultiAsyncResp(MultiAsyncResp&&) = delete;
+    MultiAsyncResp& operator=(const MultiAsyncResp&) = delete;
+    MultiAsyncResp& operator=(MultiAsyncResp&&) = delete;
+    ~MultiAsyncResp() = default;
 
     void addAwaitingResponse(
         const std::shared_ptr<bmcweb::AsyncResp>& res,
         const nlohmann::json::json_pointer& finalExpandLocation)
     {
-        res->res.setCompleteRequestHandler(std::bind_front(
-            placeResultStatic, shared_from_this(), finalExpandLocation));
+        // OEM fragment merging, not $expand; Skip so it's never budget-checked.
+        res->res.setCompleteRequestHandler(
+            std::bind_front(placeResultStatic, shared_from_this(),
+                            finalExpandLocation, BudgetAction::Skip));
     }
 
-    void placeResult(const nlohmann::json::json_pointer& locationToPlace,
-                     crow::Response& res)
+    // Starts the sub-query for node at |nodeIndex|.
+    void startSubquery(size_t nodeIndex)
     {
-        BMCWEB_LOG_DEBUG("placeResult for {}", locationToPlace);
-        propogateError(finalRes->res, res);
-        nlohmann::json::object_t* obj =
-            res.jsonValue.get_ptr<nlohmann::json::object_t*>();
-        if (obj == nullptr || res.jsonValue.empty())
+        if (nodeIndex >= nodes.size())
         {
             return;
         }
-        nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
-        finalObj = std::move(*obj);
-    }
-
-    // Handles the very first level of Expand, and starts a chain of sub-queries
-    // for deeper levels.
-    void startQuery(const Query& query, const Query& delegated,
-                    const crow::Request& req)
-    {
-        std::vector<ExpandNode> nodes = findNavigationReferences(
-            query.expandType, query.expandLevel, delegated.expandLevel,
-            finalRes->res.jsonValue);
-        BMCWEB_LOG_DEBUG("{} nodes to traverse", nodes.size());
-        const std::optional<std::string> queryStr = formatQueryForExpand(query);
-        if (!queryStr)
+        // Once any branch trips the shared budget, don't dispatch further
+        // descendants whose results would just be discarded.
+        if (*budgetExceeded)
+        {
+            return;
+        }
+        ExpandNode& node = nodes[nodeIndex];
+        const std::string subQuery = node.uri + queryStr;
+        BMCWEB_LOG_DEBUG("URL of subquery:  {}", subQuery);
+        std::error_code ec;
+        auto newReq = std::make_shared<crow::Request>(
+            crow::Request::Body{boost::beast::http::verb::get, subQuery, 11},
+            ec);
+        if (ec)
         {
             messages::internalError(finalRes->res);
             return;
         }
-        for (const ExpandNode& node : nodes)
+        newReq->session = session;
+        auto expandContext = std::make_shared<ExpandContext>(ExpandContext{
+            .payloadUsed = expandPayloadUsed,
+            .budgetExceeded = budgetExceeded,
+        });
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        BMCWEB_LOG_DEBUG("setting completion handler on {}",
+                         logPtr(&asyncResp->res));
+        // Decided from budgetCharged, not URL shape: a handler that
+        // fully delegates its own $expand (e.g. Sensors) never runs
+        // startQuery(), so it must be charged here instead.
+        asyncResp->res.setCompleteRequestHandler(
+            [self = shared_from_this(), expandContext,
+             asyncRespPtr = asyncResp.get(),
+             location = nodes[nodeIndex].location](crow::Response& res) {
+                clearExpandContext(asyncRespPtr, expandContext);
+                BudgetAction action = expandContext->budgetCharged
+                                          ? BudgetAction::VerifyOnly
+                                          : BudgetAction::Charge;
+                self->placeResult(location, res, action);
+            });
+        if (app != nullptr)
         {
-            const std::string subQuery = node.uri + *queryStr;
-            BMCWEB_LOG_DEBUG("URL of subquery:  {}", subQuery);
-            std::error_code ec;
-            auto newReq = std::make_shared<crow::Request>(
-                crow::Request::Body{boost::beast::http::verb::get, subQuery,
-                                    11},
-                ec);
-            if (ec)
+            registerExpandContext(asyncResp.get(), expandContext);
+            app->handle(newReq, asyncResp);
+        }
+    }
+
+    bool placeResult(const nlohmann::json::json_pointer& locationToPlace,
+                     crow::Response& res, BudgetAction action)
+    {
+        BMCWEB_LOG_DEBUG("placeResult for {}", locationToPlace);
+
+        // Always propagate errors so non-507 sibling errors aren't lost
+        // even after the budget has been exceeded.
+        propogateError(finalRes->res, res);
+
+        // Skip merges (OEM fragments) aren't part of any $expand tree, so
+        // budgetExceeded/507 from a concurrent tree must not affect them.
+        if (action == BudgetAction::Skip)
+        {
+            nlohmann::json::object_t* skipObj =
+                res.jsonValue.get_ptr<nlohmann::json::object_t*>();
+            if (skipObj == nullptr || res.jsonValue.empty())
             {
-                messages::internalError(finalRes->res);
+                return true;
+            }
+            nlohmann::json& skipFinalObj =
+                finalRes->res.jsonValue[locationToPlace];
+            skipFinalObj = std::move(*skipObj);
+            return true;
+        }
+
+        if (*budgetExceeded)
+        {
+            return false;
+        }
+
+        nlohmann::json::object_t* obj =
+            res.jsonValue.get_ptr<nlohmann::json::object_t*>();
+        if (obj == nullptr || res.jsonValue.empty())
+        {
+            return true;
+        }
+
+        if (action == BudgetAction::Charge)
+        {
+            uint64_t addition = json_util::getEstimatedJsonSize(res.jsonValue);
+            uint64_t newPayloadSize = *expandPayloadUsed + addition;
+            BMCWEB_LOG_DEBUG("newPayloadSize={}", newPayloadSize);
+            if (crow::httpResponseBodyLimit > 0 &&
+                newPayloadSize >= crow::httpResponseBodyLimit)
+            {
+                BMCWEB_LOG_DEBUG("insufficientStorage: per-request limit");
+                addInsufficientStorage(finalRes->res);
+                *budgetExceeded = true;
+                return false;
+            }
+            if (crow::expandGlobalBodyLimit > 0 &&
+                expandBytesInFlight() + addition >= crow::expandGlobalBodyLimit)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "insufficientStorage: global limit, {} in flight",
+                    expandBytesInFlight());
+                addInsufficientStorage(finalRes->res);
+                *budgetExceeded = true;
+                return false;
+            }
+            *expandPayloadUsed = newPayloadSize;
+            expandBytesInFlight() += addition;
+        }
+        else
+        {
+            // Child already charged; only verify limits before merging.
+            if (crow::httpResponseBodyLimit > 0 &&
+                *expandPayloadUsed >= crow::httpResponseBodyLimit)
+            {
+                BMCWEB_LOG_DEBUG("insufficientStorage: per-request limit");
+                addInsufficientStorage(finalRes->res);
+                *budgetExceeded = true;
+                return false;
+            }
+            if (crow::expandGlobalBodyLimit > 0 &&
+                expandBytesInFlight() >= crow::expandGlobalBodyLimit)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "insufficientStorage: global limit, {} in flight",
+                    expandBytesInFlight());
+                addInsufficientStorage(finalRes->res);
+                *budgetExceeded = true;
+                return false;
+            }
+        }
+
+        nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
+        finalObj = std::move(*obj);
+        return true;
+    }
+
+    void startQuery(
+        const Query& query, const Query& delegated, const crow::Request& req,
+        const std::shared_ptr<ExpandContext>& inheritedContext = nullptr)
+    {
+        session = req.session;
+
+        // A missing inherited context means this is the true root of the
+        // $expand tree; otherwise inherit the parent's budget and stop flag.
+        bool isTopLevel = inheritedContext == nullptr;
+        if (!isTopLevel)
+        {
+            expandPayloadUsed = inheritedContext->payloadUsed;
+            budgetExceeded = inheritedContext->budgetExceeded;
+        }
+
+        // May have been dispatched before another branch exceeded the
+        // shared budget; don't charge or expand further if so.
+        if (*budgetExceeded)
+        {
+            return;
+        }
+
+        nodes = findNavigationReferences(query.expandType, query.expandLevel,
+                                         delegated.expandLevel,
+                                         finalRes->res.jsonValue);
+        BMCWEB_LOG_DEBUG("{} nodes to traverse", nodes.size());
+
+        std::optional<std::string> queryStrOp = formatQueryForExpand(query);
+        if (!queryStrOp)
+        {
+            messages::internalError(finalRes->res);
+            return;
+        }
+        queryStr = std::move(*queryStrOp);
+
+        // Skip the self-charge at the true root when there's no fan-out
+        // work: rejecting an already-built response with nothing to expand
+        // would prevent no allocation. Nested levels always self-charge,
+        // since the parent verifies against it in placeResult().
+        if (!isTopLevel || !nodes.empty())
+        {
+            uint64_t addition =
+                json_util::getEstimatedJsonSize(finalRes->res.jsonValue);
+            uint64_t newPayloadSize = *expandPayloadUsed + addition;
+            if ((crow::httpResponseBodyLimit > 0 &&
+                 newPayloadSize >= crow::httpResponseBodyLimit) ||
+                (crow::expandGlobalBodyLimit > 0 &&
+                 expandBytesInFlight() + addition >=
+                     crow::expandGlobalBodyLimit))
+            {
+                addInsufficientStorage(finalRes->res);
+                *budgetExceeded = true;
                 return;
             }
-
-            if (req.session == nullptr)
+            *expandPayloadUsed = newPayloadSize;
+            expandBytesInFlight() += addition;
+            // Tells the parent to merge with VerifyOnly, not double-count.
+            if (inheritedContext != nullptr)
             {
-                BMCWEB_LOG_ERROR("Session is null");
-                messages::internalError(finalRes->res);
-                return;
+                inheritedContext->budgetCharged = true;
             }
-            // Share the session from the original request
-            newReq->session = req.session;
-
-            auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-            BMCWEB_LOG_DEBUG("setting completion handler on {}",
-                             logPtr(&asyncResp->res));
-
-            addAwaitingResponse(asyncResp, node.location);
-            if (app != nullptr)
+        }
+        for (size_t i = 0; i < nodes.size(); i++)
+        {
+            if (*budgetExceeded)
             {
-                app->handle(newReq, asyncResp);
+                break;
             }
+            startSubquery(i);
         }
     }
 
@@ -892,13 +1196,20 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     static void placeResultStatic(
         const std::shared_ptr<MultiAsyncResp>& multi,
         const nlohmann::json::json_pointer& locationToPlace,
-        crow::Response& res)
+        BudgetAction action, crow::Response& res)
     {
-        multi->placeResult(locationToPlace, res);
+        multi->placeResult(locationToPlace, res, action);
     }
 
     crow::App* app;
     std::shared_ptr<bmcweb::AsyncResp> finalRes;
+    std::shared_ptr<uint64_t> expandPayloadUsed;
+    // Shared across every MultiAsyncResp in this $expand tree, so once any
+    // branch trips the budget, siblings stop dispatching further work.
+    std::shared_ptr<bool> budgetExceeded;
+    std::vector<ExpandNode> nodes;
+    std::string queryStr;
+    std::shared_ptr<persistent_data::UserSession> session;
 };
 
 inline void processTopAndSkip(const Query& query, crow::Response& res)
@@ -1022,7 +1333,8 @@ inline void processSelect(crow::Response& intermediateResponse,
 inline void processAllParams(
     crow::App& app, const Query& query, const Query& delegated,
     std::function<void(crow::Response&)>& completionHandler,
-    crow::Response& intermediateResponse, const crow::Request& req)
+    crow::Response& intermediateResponse, const crow::Request& req,
+    const std::shared_ptr<ExpandContext>& expandContext)
 {
     if (!completionHandler)
     {
@@ -1058,7 +1370,7 @@ inline void processAllParams(
 
         asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
         auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
-        multi->startQuery(query, delegated, req);
+        multi->startQuery(query, delegated, req, expandContext);
         return;
     }
 
