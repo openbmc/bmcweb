@@ -40,6 +40,10 @@ struct Request
 
     std::shared_ptr<persistent_data::UserSession> session;
 
+    // Shared $expand budget; null on non-expand requests.  Passed down to
+    // sub-requests so the budget spans the full expand tree.
+    std::shared_ptr<uint64_t> expandPayloadUsed;
+
     std::string userRole;
     Request(Body&& reqIn, std::error_code& ec) : req(std::move(reqIn))
     {
@@ -81,6 +85,7 @@ struct Request
         urlBase.clear();
         ipAddress = boost::asio::ip::address();
         session = nullptr;
+        expandPayloadUsed = nullptr;
         userRole = "";
     }
 

@@ -95,10 +95,11 @@ inline void handleServiceRootGetImpl(
 
     protocolFeatures["ExpandQuery"]["ExpandAll"] =
         BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
-    // This is the maximum level defined in ServiceRoot.v1_13_0.json
+    // MaxLevels is bounded by the 750 KB per-response payload cap in
+    // httpResponseBodyLimit.  Re-validate after any change to that constant.
     if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
     {
-        protocolFeatures["ExpandQuery"]["MaxLevels"] = 6;
+        protocolFeatures["ExpandQuery"]["MaxLevels"] = 4;
     }
     protocolFeatures["ExpandQuery"]["Levels"] =
         BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
