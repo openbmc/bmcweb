@@ -189,6 +189,8 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     // TODO: making a copy for every GET request is expensive,
     // Cleanup is required here.
     auto newReq = std::make_shared<crow::Request>(req.copy());
+    std::shared_ptr<query_param::ExpandContext> expandContext =
+        query_param::takeExpandContext(asyncResp.get());
 
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
     std::function<void(crow::Response&)> handler =
@@ -196,9 +198,11 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
 
     asyncResp->res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)), query{std::move(*queryOpt)},
-         delegated{delegated},
-         newReq{std::move(newReq)}](crow::Response& resIn) mutable {
-            processAllParams(app, query, delegated, handler, resIn, *newReq);
+         delegated{delegated}, newReq{std::move(newReq)},
+         expandContext{std::move(expandContext)}](
+            crow::Response& resIn) mutable {
+            processAllParams(app, query, delegated, handler, resIn, *newReq,
+                             expandContext);
         });
 
     return needToCallHandlers;

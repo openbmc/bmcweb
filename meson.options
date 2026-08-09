@@ -306,6 +306,36 @@ option(
     description: 'Specifies the http request body length limit in MiB.',
 )
 
+# BMCWEB_EXPAND_RESPONSE_BODY_LIMIT_KIB
+option(
+    'expand-response-body-limit-kib',
+    type: 'integer',
+    min: 0,
+    max: 524288,
+    value: 750,
+    description: '''Per-request $expand response payload budget in KiB. 0 disables the limit.
+                    This bounds concurrent expand assembly, not total resident response
+                    memory; accounting is refunded before serialization and asynchronous
+                    write. Known limitation: a top-level request that fully delegates its
+                    expansion, or has nothing left to expand after delegation
+                    (canDelegateExpandLevel, e.g. Sensors collections), never reaches this
+                    accounting. Nested occurrences are charged by their dispatching parent.''',
+)
+
+# BMCWEB_EXPAND_GLOBAL_BODY_LIMIT_KIB
+option(
+    'expand-global-body-limit-kib',
+    type: 'integer',
+    min: 0,
+    max: 524288,
+    value: 2048,
+    description: '''Process-wide $expand payload budget in KiB shared across concurrent
+                    response assembly. 0 disables the limit. This bounds concurrent expand
+                    assembly, not total resident response memory; accounting is refunded
+                    before serialization and asynchronous write. Subject to the same
+                    top-level delegation limitation noted above.''',
+)
+
 # BMCWEB_HTTP_ZSTD
 option(
     'http-zstd',
