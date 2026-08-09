@@ -66,6 +66,13 @@ static int connectionCount = 0;
 // request body limit size set by the BMCWEB_HTTP_BODY_LIMIT option
 constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
 
+// Per-request $expand payload cap; returns 507 on breach.
+constexpr uint64_t httpResponseBodyLimit = 750UL * 1024UL;
+
+// Process-wide cap across all concurrent $expand operations so N clients
+// cannot each claim the per-request budget simultaneously.
+constexpr uint64_t expandGlobalBodyLimit = 2UL * 1024UL * 1024UL;
+
 constexpr uint64_t loggedOutPostBodyLimit = 4096U;
 
 constexpr uint32_t httpHeaderLimit = 8192U;
