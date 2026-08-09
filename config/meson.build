@@ -56,7 +56,12 @@ string_options = [
     'tls-profile',
 ]
 
-int_options = ['http-body-limit', 'watchdog-timeout-seconds']
+int_options = [
+    'http-body-limit',
+    'watchdog-timeout-seconds',
+    'expand-response-body-limit-kib',
+    'expand-global-body-limit-kib',
+]
 
 feature_options_string = '\n// Feature options\n'
 string_options_string = '\n// String options\n'
