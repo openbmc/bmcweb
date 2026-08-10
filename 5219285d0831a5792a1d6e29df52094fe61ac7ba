@@ -16,6 +16,24 @@
       "message": "we can refactor this long property if/else chain to sdbusplus::unpackPropertiesNoThrow? It will reduce repetitive code, keep type parsing consistent, and make future property additions easier.",
       "revId": "5219285d0831a5792a1d6e29df52094fe61ac7ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8651eb4f_97ab8efc",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1002754
+      },
+      "writtenOn": "2026-08-10T05:49:45Z",
+      "side": 1,
+      "message": "This patch is focused on exposing the FullDuplex property. Refactoring the existing if/else property parsing chain is a valid improvement but is out of scope for this change.",
+      "parentUuid": "c913d825_fa6c8f45",
+      "revId": "5219285d0831a5792a1d6e29df52094fe61ac7ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
