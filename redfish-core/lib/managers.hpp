@@ -243,19 +243,23 @@ inline void handleManagerResetToDefaultsAction(
             "ResetType", resetType  //
             ))
     {
-        BMCWEB_LOG_DEBUG("Missing property ResetType.");
+        return;
+    }
 
+    if (!resetType)
+    {
+        BMCWEB_LOG_DEBUG("Missing property ResetType.");
         messages::actionParameterMissing(asyncResp->res, "ResetToDefaults",
                                          "ResetType");
         return;
     }
 
-    if (resetType.value_or("") != "ResetAll")
+    if (*resetType != "ResetAll")
     {
         BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
-                         resetType.value_or(""));
-        messages::actionParameterNotSupported(
-            asyncResp->res, resetType.value_or(""), "ResetType");
+                         *resetType);
+        messages::actionParameterNotSupported(asyncResp->res, *resetType,
+                                              "ResetType");
         return;
     }
 
