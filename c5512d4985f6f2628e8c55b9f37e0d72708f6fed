@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3e383aa_178ca727",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-10T04:45:55Z",
+      "side": 1,
+      "message": "Why are we adding this? This argument seems to have no caller at all.",
+      "range": {
+        "startLine": 462,
+        "startChar": 4,
+        "endLine": 462,
+        "endChar": 61
+      },
+      "revId": "c5512d4985f6f2628e8c55b9f37e0d72708f6fed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc094ae0_da7aa5db",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-10T04:45:55Z",
+      "side": 1,
+      "message": "nit: I would prefer the following format.\n\n```\nif (!getRedfishLogFiles(redfishLogFiles))\n{\n    messages::success(asyncResp-\u003eres);\n    return;\n}\n\nfor(const std::filesystem::path\u0026 file : redfishLogFiles)\n{\n    std::error_code ec;\n    std::filesystem::remove(file, ec);\n}\n```",
+      "range": {
+        "startLine": 489,
+        "startChar": 4,
+        "endLine": 503,
+        "endChar": 5
+      },
+      "revId": "c5512d4985f6f2628e8c55b9f37e0d72708f6fed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6950e416_34d75964",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-10T04:45:55Z",
+      "side": 1,
+      "message": "Can we use `std::bind_front()` here?",
+      "range": {
+        "startLine": 508,
+        "startChar": 8,
+        "endLine": 511,
+        "endChar": 76
+      },
+      "revId": "c5512d4985f6f2628e8c55b9f37e0d72708f6fed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
