@@ -903,25 +903,18 @@ inline void handleHypervisorSystemResetPost(
     const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    std::optional<std::string> resetType;
+    std::string resetType;
     if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
     {
-        // readJson adds appropriate error to response
-        return;
-    }
-
-    if (!resetType)
-    {
-        messages::actionParameterMissing(asyncResp->res, "ComputerSystem.Reset",
-                                         "ResetType");
+        BMCWEB_LOG_WARNING("Required parameters are missing");
         return;
     }
 
     // Hypervisor object only support On operation
     if (resetType != "On")
     {
-        messages::propertyValueNotInList(asyncResp->res, *resetType,
-                                         "ResetType");
+        messages::actionParameterNotSupported(asyncResp->res, resetType,
+                                              "ResetType");
         return;
     }
 
