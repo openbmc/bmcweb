@@ -169,6 +169,30 @@
       },
       "revId": "720367fa3ea9bfeabe55e51e60a5f3dea5a09753",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b8e29ce_49d42a26",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-10T19:14:14Z",
+      "side": 1,
+      "message": "also, another patch is addressing it.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/92605",
+      "parentUuid": "033da55f_a5c8336a",
+      "range": {
+        "startLine": 338,
+        "startChar": 32,
+        "endLine": 338,
+        "endChar": 41
+      },
+      "revId": "720367fa3ea9bfeabe55e51e60a5f3dea5a09753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
