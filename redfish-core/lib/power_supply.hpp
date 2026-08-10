@@ -16,6 +16,7 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/resource_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -223,61 +224,6 @@ inline void getValidPowerSupplyPath(
         });
 }
 
-inline void getPowerSupplyState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& service, const std::string& path)
-{
-    dbus::utility::getProperty<bool>(
-        service, path, "xyz.openbmc_project.Inventory.Item", "Present",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec, const bool value) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for State {}",
-                                     ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            if (!value)
-            {
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Absent;
-            }
-        });
-}
-
-inline void getPowerSupplyHealth(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& service, const std::string& path)
-{
-    dbus::utility::getProperty<bool>(
-        service, path, "xyz.openbmc_project.State.Decorator.OperationalStatus",
-        "Functional",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec, const bool value) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Health {}",
-                                     ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            if (!value)
-            {
-                asyncResp->res.jsonValue["Status"]["Health"] =
-                    resource::Health::Critical;
-            }
-        });
-}
-
 inline void getPowerSupplyAsset(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& service, const std::string& path)
@@ -474,11 +420,10 @@ inline void doPowerSupplyGet(
         "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies/{}", chassisId,
         powerSupplyId);
 
-    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
-    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
-
-    getPowerSupplyState(asyncResp, service, powerSupplyPath);
-    getPowerSupplyHealth(asyncResp, service, powerSupplyPath);
+    resource_utils::getResourceState(asyncResp, service, powerSupplyPath,
+                                     ""_json_pointer);
+    resource_utils::getResourceHealth(asyncResp, service, powerSupplyPath,
+                                      ""_json_pointer);
     getPowerSupplyAsset(asyncResp, service, powerSupplyPath);
     getPowerSupplyFirmwareVersion(asyncResp, service, powerSupplyPath);
     getPowerSupplyLocation(asyncResp, service, powerSupplyPath);
