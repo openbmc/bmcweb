@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4465b7aa_ada4e8f8",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-10T12:56:51Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand this change. org.freedesktop.systemd1.NoSuchUnit will only be returned when rsyslog.service is not present in systemd. Could you clarify the deployment scenario where rsyslog.service is expected to be absent? \n\nIf rsyslog is an optional component, should we explicitly validate the unit\u0027s existence before invoking ReloadUnit() rather than treating NoSuchUnit as a success path?",
+      "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56c678dd_f8e6dccd",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-10T12:56:51Z",
+      "side": 1,
+      "message": "I\u0027m not able to understand the reason for this change. Based on the Redfish specification, if the log file does not exist, the service should return a 404 Not Found response. In that case, returning a success message does not appear to be appropriate.",
+      "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e04df9f_01483629",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-10T12:56:51Z",
+      "side": 1,
+      "message": "If the file does not exist, the expected Redfish response is 404 Not Found. Returning a success message for a missing file appears to be incorrect.",
+      "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
