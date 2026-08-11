@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5fea5c5_9fe5b52c",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-11T16:40:51Z",
+      "side": 1,
+      "message": "In this case, the old behavior was correct.  If rsyslog isn\u0027t installed, but bmcweb is configured to use rsyslog, the config is broken, so internal error is appropriate.\n\n\nThere\u0027s no case where on an error we should return success as this code branch does.",
+      "parentUuid": "518c6425_ffa693be",
+      "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e04df9f_01483629",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 5
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "The client is invoking LogService.ClearLog on an existing EventLog service, not requesting a specific file resource.",
       "parentUuid": "4e04df9f_01483629",
+      "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70124953_ab026103",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-11T16:40:51Z",
+      "side": 1,
+      "message": "\u003e , the expected Redfish response is 404 Not Found.\n\nNo, it isn\u0027t.  If the folder is missing, the build was misconfigured (and should be a 500 response).  If the folder is empty, that might not be an error, but that should be handled within getRedfishLogFiles",
+      "parentUuid": "58d61dc9_6ed032ed",
       "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
