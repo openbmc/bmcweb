@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99a8840e_78ca9ca5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-08-11T13:58:03Z",
+      "side": 1,
+      "message": "i don\u0027t think this can actually happen since we set it as array in line 388.\n\nTherefore it\u0027s more like a failsafe in case the code is changed in the future that there is some kind of log. It\u0027s not expected this log will ever be printed with the current code.\n\nIt\u0027s just that\u0027s the way the nlohmann API is structured that we need to take this branch in the error case.\n\nLet me know if you find a better solution to set it as array with a different type so we do not need to handle this error at all. That would probably be a better use of our time than improving log messages which will never print.",
+      "parentUuid": "eed6c85c_6078219d",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e621aad_e994cb8d",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06b1f1cb_0f89ed6a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-08-11T13:58:03Z",
+      "side": 1,
+      "message": "no. even with `BMCWEB_REDFISH_FAN_LINKS` the `cooling` association is entirely optional and an empty result is allowed here.",
+      "parentUuid": "9e621aad_e994cb8d",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25aca881_ff169307",
@@ -65,6 +101,24 @@
       "writtenOn": "2026-08-11T13:27:18Z",
       "side": 1,
       "message": "Since we return when nonOwningChassisPaths is empty, should this be treated as an error condition instead? If the absence of a chassis path indicates that the request cannot be fulfilled as expected, a BMCWEB_LOG_ERROR (or possibly WARNING) may be more appropriate than BMCWEB_LOG_DEBUG.",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee09a9ac_b256208d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-08-11T13:58:03Z",
+      "side": 1,
+      "message": "no. even with `BMCWEB_REDFISH_FAN_LINKS` the `cooling` association is entirely optional and an empty result is allowed here.",
+      "parentUuid": "25aca881_ff169307",
       "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
