@@ -70,6 +70,30 @@
       },
       "revId": "06ba89081a0fccc6e015ab5a43c26e8d448c51d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "099342ec_9b9e1bef",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-11T14:55:53Z",
+      "side": 1,
+      "message": "Thanks for pointing that out. I reviewed the ActionParameterValueNotInList message registry entry and have made the necessary changes.",
+      "parentUuid": "b7f4993a_3c063805",
+      "range": {
+        "startLine": 916,
+        "startChar": 18,
+        "endLine": 916,
+        "endChar": 45
+      },
+      "revId": "06ba89081a0fccc6e015ab5a43c26e8d448c51d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
