@@ -16,6 +16,24 @@
       "message": "Instead of doing `determineResourceState()` inside `getStatusProperty()` [which may evaluate state twice], can it be done here like\n\n```\ninline void getResourceState()\n{\n\n...\n\n    getStatusProperty(asyncResp, status, service, path,\n                      \"xyz.openbmc_project.Inventory.Item\", \"Present\", jsonPtr,\n                      [](ResourceStatus\u0026 s, bool val) { s.present \u003d val; });\n    getStatusProperty(asyncResp, status, service, path,\n                      \"xyz.openbmc_project.State.Decorator.Availability\",\n                      \"Available\", jsonPtr,\n                      [](ResourceStatus\u0026 s, bool val) { s.available \u003d val; });\n                      \n    determineResourceState(asyncResp, status, jsonPtr); \u003c\u003d\u003d Here\n}\n```\n\nand `getStatusProperty()` is doing only callback (not `determineResourceState()`)\u0027?\n\nOr perhaps separate Present \u0026 Availability handling? This may be better to read?\n- getStatusPresentProperty()\n- getStatusAvailabiltyProperty()",
       "revId": "2d92fc97b01bbbe28d114e8ddb2ec61448d2669b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38aa6d5b_a448faa9",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-11T23:10:30Z",
+      "side": 1,
+      "message": "`getStatusProperty()` will do async DBus calls and so if `determineResourceState()` is in `getResourceState()`, it would complete before we aggregate the Status.State properties. We could do nested callbacks to ensure that `determineResourceState()` is called only once but it would cause lots of nested callbacks if anymore properties that impact the Status.State are added. The current approach is to keep property retrieval independent and straightforward to add new properties. Let me know what you think",
+      "parentUuid": "a6b7b949_f01b7a49",
+      "revId": "2d92fc97b01bbbe28d114e8ddb2ec61448d2669b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
