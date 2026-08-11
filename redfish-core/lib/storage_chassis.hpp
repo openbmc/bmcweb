@@ -347,77 +347,32 @@ inline void afterGetSubtreeSystemsStorageDrive(
 
 inline void afterChassisDriveCollectionSubtreeGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId, const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& subtree)
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
 {
-    if (ec)
+    if (!validChassisPath)
     {
-        if (ec == boost::system::errc::host_unreachable)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
-        messages::internalError(asyncResp->res);
+        BMCWEB_LOG_WARNING("Not a valid chassis ID{}", chassisId);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
         return;
     }
 
-    // Iterate over all retrieved ObjectPaths.
-    for (const auto& [path, connectionNames] : subtree)
-    {
-        sdbusplus::object_path objPath(path);
-        if (objPath.filename() != chassisId)
-        {
-            continue;
-        }
+    sdbusplus::object_path chassisPath(*validChassisPath);
 
-        if (connectionNames.empty())
-        {
-            BMCWEB_LOG_ERROR("Got 0 Connection names");
-            continue;
-        }
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#DriveCollection.DriveCollection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Drives", chassisId);
+    asyncResp->res.jsonValue["Name"] = "Drive Collection";
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#DriveCollection.DriveCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            boost::urls::format("/redfish/v1/Chassis/{}/Drives", chassisId);
-        asyncResp->res.jsonValue["Name"] = "Drive Collection";
-
-        // Association lambda
-        dbus::utility::getAssociationEndPoints(
-            path + "/drive",
-            // ast-grep-ignore: long-lambda
-            [asyncResp, chassisId](const boost::system::error_code& ec3,
-                                   const dbus::utility::MapperEndPoints& resp) {
-                if (ec3)
-                {
-                    BMCWEB_LOG_ERROR("Error in chassis Drive association ");
-                }
-                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-                // important if array is empty
-                members = nlohmann::json::array();
-
-                std::vector<std::string> leafNames;
-                for (const auto& drive : resp)
-                {
-                    sdbusplus::object_path drivePath(drive);
-                    leafNames.push_back(drivePath.filename());
-                }
-
-                std::ranges::sort(leafNames, AlphanumLess<std::string>());
-
-                for (const auto& leafName : leafNames)
-                {
-                    nlohmann::json::object_t member;
-                    member["@odata.id"] =
-                        boost::urls::format("/redfish/v1/Chassis/{}/Drives/{}",
-                                            chassisId, leafName);
-                    members.emplace_back(std::move(member));
-                    // navigation links will be registered in next patch set
-                }
-                asyncResp->res.jsonValue["Members@odata.count"] = resp.size();
-            }); // end association lambda
-
-    } // end Iterate over all retrieved ObjectPaths
+    dbus::utility::getAssociatedSubTreePaths(
+        chassisPath / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        driveInterface,
+        std::bind_front(
+            collection_util::handleCollectionMembers, asyncResp,
+            boost::urls::format("/redfish/v1/Chassis/{}/Drives", chassisId),
+            nlohmann::json::json_pointer("/Members")));
 }
 
 /**
@@ -434,9 +389,8 @@ inline void chassisDriveCollectionGet(
         return;
     }
 
-    // mapper call lambda
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
         std::bind_front(afterChassisDriveCollectionSubtreeGet, asyncResp,
                         chassisId));
 }
