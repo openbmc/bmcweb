@@ -116,6 +116,24 @@
       "parentUuid": "eb0bafe7_722a8e9f",
       "revId": "2990b8052cd1c8defeba3999776c3c850b02ffa8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "993225fc_73f313d7",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-11T16:21:25Z",
+      "side": 1,
+      "message": "Point still remains.  You can\u0027t branch on whether it\u0027s a file.",
+      "parentUuid": "f857b99b_393c9931",
+      "revId": "2990b8052cd1c8defeba3999776c3c850b02ffa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
