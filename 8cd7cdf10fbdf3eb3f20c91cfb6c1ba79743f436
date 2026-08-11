@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7942565_2b42a294",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-08-11T11:39:47Z",
+      "side": 1,
+      "message": "you extracted a lot of inline lambdas into named functions which is great and improves readability. But in the same patch you also implemented behavior changes.\n\ni would prefer if you made separate patches below for each of the functions you extracted. Those will be easy to review and should not be controversial.\n\nThen as the last part of your patch series should be the feature/behavior change.\ne.g.\n\n- patch 3 with subject e.g.: Multi-host Storage Inventory\n- patch 2 with subject e.g.: extract ..\n- patch 1 with subject e.g.: extract ..\n\nOtherwise you are combining various things and creating a large diff which also has behavior changes in there, making it tough to review. And in case of behavior changes causing problems it would be hard to revert such a large diff.",
+      "revId": "8cd7cdf10fbdf3eb3f20c91cfb6c1ba79743f436",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
