@@ -16,6 +16,57 @@
       "message": "Thanks for your review 👍",
       "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eed6c85c_6078219d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-11T13:27:18Z",
+      "side": 1,
+      "message": "Since we return when jARrr is nullptr, should this be treated as an error condition instead? If the absence of a jArr indicates that the request cannot be fulfilled as expected, a BMCWEB_LOG_ERROR (or possibly WARNING) may be more appropriate than BMCWEB_LOG_DEBUG.",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e621aad_e994cb8d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-11T13:27:18Z",
+      "side": 1,
+      "message": "Since we return when subtreePaths is empty, should this be treated as an error condition instead? If the absence of a chassis indicates that the request cannot be fulfilled as expected, a BMCWEB_LOG_ERROR (or possibly WARNING) may be more appropriate than BMCWEB_LOG_DEBUG.",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25aca881_ff169307",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-11T13:27:18Z",
+      "side": 1,
+      "message": "Since we return when nonOwningChassisPaths is empty, should this be treated as an error condition instead? If the absence of a chassis path indicates that the request cannot be fulfilled as expected, a BMCWEB_LOG_ERROR (or possibly WARNING) may be more appropriate than BMCWEB_LOG_DEBUG.",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
