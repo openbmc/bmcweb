@@ -33,6 +33,24 @@
       "message": "Don\u0027t you need to include these enums?\n\n#include \"generated/enums/resource.hpp\"",
       "revId": "993e65a8c76f9d13c7c94cebb887afaf4db3b087",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76493a64_3fbf858d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-08-11T05:05:03Z",
+      "side": 1,
+      "message": "Agreed! The code compiled due to transitive includes, but you\u0027re right that we should explicitly include what we directly use. Thanks.",
+      "parentUuid": "0c05a2f4_987a0325",
+      "revId": "993e65a8c76f9d13c7c94cebb887afaf4db3b087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
