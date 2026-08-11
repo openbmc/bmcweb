@@ -346,79 +346,56 @@ inline void afterGetSubtreeSystemsStorageDrive(
                     connectionNames[0].second);
 }
 
-inline void afterChassisDriveCollectionSubtreeGet(
+inline void handleDriveCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId, const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& subtree)
+    const boost::urls::url& collectionPath,
+    const nlohmann::json::json_pointer& jsonKeyName,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& items)
 {
     if (ec)
     {
-        if (ec == boost::system::errc::host_unreachable)
+        if (ec.value() == boost::system::errc::io_error || ec.value() == EBADR)
         {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+            BMCWEB_LOG_DEBUG("No associated resources (drives): {}", ec);
             return;
         }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
+    collection_util::handleCollectionMembers(asyncResp, collectionPath,
+                                             jsonKeyName, ec, items);
+}
 
-    // Iterate over all retrieved ObjectPaths.
-    for (const auto& [path, connectionNames] : subtree)
+inline void afterGetValidPathDriveCollectionGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
     {
-        sdbusplus::object_path objPath(path);
-        if (objPath.filename() != chassisId)
-        {
-            continue;
-        }
+        BMCWEB_LOG_ERROR("Not a valid chassis ID: {}", chassisId);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
 
-        if (connectionNames.empty())
-        {
-            BMCWEB_LOG_ERROR("Got 0 Connection names");
-            continue;
-        }
+    sdbusplus::object_path chassisPath(*validChassisPath);
 
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#DriveCollection.DriveCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            boost::urls::format("/redfish/v1/Chassis/{}/Drives", chassisId);
-        asyncResp->res.jsonValue["Name"] = "Drive Collection";
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#DriveCollection.DriveCollection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Drives", chassisId);
+    asyncResp->res.jsonValue["Name"] = "Drive Collection";
 
-        // Association lambda
-        dbus::utility::getAssociationEndPoints(
-            path + "/drive",
-            // ast-grep-ignore: long-lambda
-            [asyncResp, chassisId](const boost::system::error_code& ec3,
-                                   const dbus::utility::MapperEndPoints& resp) {
-                if (ec3)
-                {
-                    BMCWEB_LOG_ERROR("Error in chassis Drive association ");
-                }
-                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-                // important if array is empty
-                members = nlohmann::json::array();
-
-                std::vector<std::string> leafNames;
-                for (const auto& drive : resp)
-                {
-                    sdbusplus::object_path drivePath(drive);
-                    leafNames.push_back(drivePath.filename());
-                }
-
-                std::ranges::sort(leafNames, AlphanumLess<std::string>());
-
-                for (const auto& leafName : leafNames)
-                {
-                    nlohmann::json::object_t member;
-                    member["@odata.id"] =
-                        boost::urls::format("/redfish/v1/Chassis/{}/Drives/{}",
-                                            chassisId, leafName);
-                    members.emplace_back(std::move(member));
-                    // navigation links will be registered in next patch set
-                }
-                asyncResp->res.jsonValue["Members@odata.count"] = resp.size();
-            }); // end association lambda
-
-    } // end Iterate over all retrieved ObjectPaths
+    dbus::utility::getAssociatedSubTreePaths(
+        chassisPath / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        driveInterface,
+        std::bind_front(
+            handleDriveCollection, asyncResp,
+            boost::urls::format("/redfish/v1/Chassis/{}/Drives", chassisId),
+            nlohmann::json::json_pointer("/Members")));
 }
 
 /**
@@ -435,10 +412,9 @@ inline void chassisDriveCollectionGet(
         return;
     }
 
-    // mapper call lambda
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
-        std::bind_front(afterChassisDriveCollectionSubtreeGet, asyncResp,
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(afterGetValidPathDriveCollectionGet, asyncResp,
                         chassisId));
 }
 
