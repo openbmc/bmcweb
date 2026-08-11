@@ -105,6 +105,24 @@
       "parentUuid": "e2d03a55_62893fb2",
       "revId": "5219285d0831a5792a1d6e29df52094fe61ac7ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2132a984_ceb2c8ff",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1002754
+      },
+      "writtenOn": "2026-08-11T14:27:02Z",
+      "side": 1,
+      "message": "@yuvakumars@ami.com, Will raise this refactor as separate commit, revoke your -1.",
+      "parentUuid": "364f0227_89532cd1",
+      "revId": "5219285d0831a5792a1d6e29df52094fe61ac7ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
