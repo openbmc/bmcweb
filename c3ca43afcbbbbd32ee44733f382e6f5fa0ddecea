@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbd77754_5e6f4f81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-11T09:31:44Z",
+      "side": 1,
+      "message": "Got it.",
+      "parentUuid": "d6d2f6b4_3b7fc9fa",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "c3ca43afcbbbbd32ee44733f382e6f5fa0ddecea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29e58363_04113eaf",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e274d993_3c584f1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-11T09:31:44Z",
+      "side": 1,
+      "message": "Got it, thanks for reviewing.",
+      "parentUuid": "29e58363_04113eaf",
+      "revId": "c3ca43afcbbbbd32ee44733f382e6f5fa0ddecea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "226b8e42_18646dd2",
@@ -54,6 +96,24 @@
       "writtenOn": "2026-08-10T13:31:23Z",
       "side": 1,
       "message": "If std::optional is removed from the declaration, readJsonAction() will automatically report a missing property error, eliminating the need for an explicit check afterward.",
+      "revId": "c3ca43afcbbbbd32ee44733f382e6f5fa0ddecea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebba0c5d_48c33047",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-11T09:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "226b8e42_18646dd2",
       "revId": "c3ca43afcbbbbd32ee44733f382e6f5fa0ddecea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +166,24 @@
       "writtenOn": "2026-08-10T13:31:23Z",
       "side": 1,
       "message": "If ResetType is not declared as std::optional, this check can be removed because readJsonAction() will automatically return an error when the property is missing.",
+      "revId": "c3ca43afcbbbbd32ee44733f382e6f5fa0ddecea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f89dcb0a_c22b7efe",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-11T09:31:44Z",
+      "side": 1,
+      "message": "Acknowledged in new patch-set.",
+      "parentUuid": "e4e9bf7a_4f22c894",
       "revId": "c3ca43afcbbbbd32ee44733f382e6f5fa0ddecea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
