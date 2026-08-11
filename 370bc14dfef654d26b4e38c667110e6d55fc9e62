@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c42e803_689ebe8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-11T16:41:48Z",
+      "side": 1,
+      "message": "Please wrap your commits appropriately.",
+      "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20ced11c_6cb8bdcd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-11T16:41:48Z",
+      "side": 1,
+      "message": "Please don\u0027t randomly test with arbitrary file creation.  Set up your build correctly, and verify that the feature works as expected.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 63
+      },
+      "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4465b7aa_ada4e8f8",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 5
