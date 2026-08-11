@@ -258,7 +258,7 @@ Fields common to all schemas
 #### Drive
 
 - Members (This is dependent on a entity manager association from Chassis to
-  Drives, The name of the association is `chassis<->drive`)
+  Drives, The name of the association is `containing`, `contained_by`)
 
 ### /redfish/v1/Chassis/{ChassisId}/Drive/{DriveId}/
 
