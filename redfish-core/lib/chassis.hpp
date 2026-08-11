@@ -639,20 +639,28 @@ inline void handleChassisGetSubTree(
             .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
             boost::urls::format("/redfish/v1/Chassis/{}/ResetActionInfo",
                                 chassisId);
-        dbus::utility::getAssociationEndPoints(
-            path + "/drive",
-            // ast-grep-ignore: long-lambda
-            [asyncResp, chassisId](const boost::system::error_code& ec3,
-                                   const dbus::utility::MapperEndPoints& resp) {
-                if (ec3 || resp.empty())
-                {
-                    return; // no drives = no failures
-                }
 
-                nlohmann::json reference;
-                reference["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Chassis/{}/Drives", chassisId);
-                asyncResp->res.jsonValue["Drives"] = std::move(reference);
+        constexpr std::array<std::string_view, 1> driveInterface = {
+            "xyz.openbmc_project.Inventory.Item.Drive"};
+
+        dbus::utility::getAssociatedSubTreePaths(
+            objPath / "containing",
+            sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+            driveInterface,
+            // ast-grep-ignore: long-lambda
+            [asyncResp,
+             chassisId](const boost::system::error_code& ec3,
+                        const dbus::utility::MapperGetSubTreePathsResponse&
+                            drivePaths) {
+                // 1. If error or vector is empty, no drives are present.
+                if (ec3 || drivePaths.empty())
+                {
+                    return;
+                }
+                // 2. If we reach here, we know at least one drive exists.
+                asyncResp->res.jsonValue["Drives"]["@odata.id"] =
+                    boost::urls::format("/redfish/v1/Chassis/{}/Drives",
+                                        chassisId);
             });
 
         const std::string& connectionName = connectionNames[0].first;
