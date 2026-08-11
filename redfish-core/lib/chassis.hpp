@@ -638,21 +638,9 @@ inline void handleChassisGetSubTree(
             .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
             boost::urls::format("/redfish/v1/Chassis/{}/ResetActionInfo",
                                 chassisId);
-        dbus::utility::getAssociationEndPoints(
-            path + "/drive",
-            // ast-grep-ignore: long-lambda
-            [asyncResp, chassisId](const boost::system::error_code& ec3,
-                                   const dbus::utility::MapperEndPoints& resp) {
-                if (ec3 || resp.empty())
-                {
-                    return; // no drives = no failures
-                }
 
-                nlohmann::json reference;
-                reference["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Chassis/{}/Drives", chassisId);
-                asyncResp->res.jsonValue["Drives"] = std::move(reference);
-            });
+        asyncResp->res.jsonValue["Drives"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/Drives", chassisId);
 
         const std::string& connectionName = connectionNames[0].first;
 
