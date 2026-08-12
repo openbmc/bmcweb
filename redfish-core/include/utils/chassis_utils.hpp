@@ -63,7 +63,8 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 std::string chassisName = path.filename();
                 if (chassisName.empty())
                 {
-                    BMCWEB_LOG_ERROR("Failed to find '/' in {}", chassis);
+                    BMCWEB_LOG_ERROR("Failed to extract filename from {}",
+                                     chassis);
                     continue;
                 }
                 if (chassisName == chassisId)
@@ -87,7 +88,7 @@ inline std::vector<sdbusplus::object_path> getChassisFromManagedObj(
     std::vector<sdbusplus::object_path> res;
     for (const auto& pathPair : managedObj)
     {
-        const sdbusplus::object_path path = pathPair.first;
+        const sdbusplus::object_path& path = pathPair.first;
 
         for (const auto& intfPair : pathPair.second)
         {
@@ -96,10 +97,11 @@ inline std::vector<sdbusplus::object_path> getChassisFromManagedObj(
             if (std::ranges::contains(chassisInterfaces, interface))
             {
                 res.emplace_back(path);
+                break;
             }
         }
     }
-    return {res.begin(), res.end()};
+    return res;
 }
 
 } // namespace chassis_utils
