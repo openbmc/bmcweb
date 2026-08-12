@@ -33,6 +33,24 @@
       "message": "Overall, I\u0027m not comfortable with this.  If a user doesn\u0027t have credentials, pam should be rejecting it, we shouldn\u0027t have to then check for privileges.\n\nThis patch is ONLY fixing the flow for Session auth.  It doesn\u0027t fix it for basic/mtls/cookie auth, so even if this patch were the way forward, it\u0027s broken.",
       "revId": "627360c51a7ee70dcc52edb765bcb7fae5aa330b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "085ce2a8_0689e098",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-12T14:06:54Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "7a921b0d_984c1a3d",
+      "revId": "627360c51a7ee70dcc52edb765bcb7fae5aa330b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
