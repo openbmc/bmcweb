@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af08f28_289b708a",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-12T20:22:34Z",
+      "side": 1,
+      "message": "Is this needed? Looks like `redfish::utils::getPrettyName()` already sets driveId as default before overwriting if PrettyName exists",
+      "range": {
+        "startLine": 347,
+        "startChar": 4,
+        "endLine": 351,
+        "endChar": 1
+      },
+      "revId": "e5126f6639ccf55a6d3c7e2805f6a1000dc8e8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
