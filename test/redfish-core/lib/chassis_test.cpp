@@ -1,16 +1,22 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "chassis.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/chassis.hpp"
+#include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+
+#include <asm-generic/errno.h>
 
 #include <boost/beast/core/string_type.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
+#include <boost/system/errc.hpp>
 #include <nlohmann/json.hpp>
 
 #include <functional>
@@ -155,6 +161,267 @@ TEST(HandleChassisProperties, TypeNotFound)
     auto properties = dbus::utility::DBusPropertiesMap();
     handleChassisProperties(response, properties);
     ASSERT_EQ("RackMount", response->res.jsonValue["ChassisType"]);
+}
+
+TEST(HandleChassisPowerState, PowerStateOn)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    handleChassisPowerState(response,
+                            "/xyz/openbmc_project/inventory/system/chassis", ec,
+                            "xyz.openbmc_project.State.Chassis.PowerState.On");
+    EXPECT_EQ(response->res.jsonValue["PowerState"], resource::PowerState::On);
+    EXPECT_EQ(response->res.jsonValue["Status"]["State"],
+              resource::State::Enabled);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, PowerStateOff)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    handleChassisPowerState(response,
+                            "/xyz/openbmc_project/inventory/system/chassis", ec,
+                            "xyz.openbmc_project.State.Chassis.PowerState.Off");
+    EXPECT_EQ(response->res.jsonValue["PowerState"], resource::PowerState::Off);
+    EXPECT_EQ(response->res.jsonValue["Status"]["State"],
+              resource::State::StandbyOffline);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, PowerStateTransitioningToOff)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    handleChassisPowerState(
+        response, "/xyz/openbmc_project/inventory/system/chassis", ec,
+        "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOff");
+    EXPECT_EQ(response->res.jsonValue["PowerState"],
+              resource::PowerState::PoweringOff);
+    EXPECT_EQ(response->res.jsonValue["Status"]["State"],
+              resource::State::StandbyOffline);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, PowerStateTransitioningToOn)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    handleChassisPowerState(
+        response, "/xyz/openbmc_project/inventory/system/chassis", ec,
+        "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOn");
+    EXPECT_EQ(response->res.jsonValue["PowerState"],
+              resource::PowerState::PoweringOn);
+    EXPECT_EQ(response->res.jsonValue["Status"]["State"],
+              resource::State::Starting);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, HostUnreachableNoError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::system::errc::make_error_code(
+        boost::system::errc::host_unreachable);
+    handleChassisPowerState(
+        response, "/xyz/openbmc_project/inventory/system/chassis", ec, "");
+    EXPECT_FALSE(response->res.jsonValue.contains("PowerState"));
+    EXPECT_FALSE(response->res.jsonValue.contains("Status"));
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, GenericErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    handleChassisPowerState(
+        response, "/xyz/openbmc_project/inventory/system/chassis", ec, "");
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+void assertFallback(bool& callbackCalled, const boost::system::error_code& cbEc,
+                    const std::string& statePath, const std::string& service)
+{
+    callbackCalled = true;
+    EXPECT_EQ(cbEc, boost::system::errc::make_error_code(
+                        boost::system::errc::success));
+    if constexpr (BMCWEB_REDFISH_CHASSIS_STATE_OBJECT_FALLBACK)
+    {
+        EXPECT_EQ(statePath, "/xyz/openbmc_project/state/chassis0");
+        EXPECT_EQ(service, "xyz.openbmc_project.State.Chassis");
+    }
+    else
+    {
+        EXPECT_EQ(statePath, "");
+        EXPECT_EQ(service, "");
+    }
+}
+
+void assertEmptySubtreeFallback(
+    bool& callbackCalled, const boost::system::error_code& cbEc,
+    const std::string& statePath, const std::string& service)
+{
+    callbackCalled = true;
+    EXPECT_EQ(cbEc, boost::system::error_code{});
+    if constexpr (BMCWEB_REDFISH_CHASSIS_STATE_OBJECT_FALLBACK)
+    {
+        EXPECT_EQ(statePath, "/xyz/openbmc_project/state/chassis0");
+        EXPECT_EQ(service, "xyz.openbmc_project.State.Chassis");
+    }
+    else
+    {
+        EXPECT_EQ(statePath, "");
+        EXPECT_EQ(service, "");
+    }
+}
+
+TEST(AfterGetChassisStatePath, SuccessSingleEntry)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/state/chassis_custom",
+         {{"xyz.openbmc_project.State.ChassisCustom",
+           {"xyz.openbmc_project.State.Chassis"}}}}};
+
+    bool callbackCalled = false;
+    auto callback = [&callbackCalled](const boost::system::error_code& cbEc,
+                                      const std::string& statePath,
+                                      const std::string& service) {
+        callbackCalled = true;
+        EXPECT_EQ(cbEc, boost::system::error_code{});
+        EXPECT_EQ(statePath, "/xyz/openbmc_project/state/chassis_custom");
+        EXPECT_EQ(service, "xyz.openbmc_project.State.ChassisCustom");
+    };
+
+    afterGetChassisStatePath(response,
+                             "/xyz/openbmc_project/inventory/system/chassis",
+                             callback, ec, subtree);
+
+    EXPECT_TRUE(callbackCalled);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetChassisStatePath, AssociationMissingEbadr)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec(EBADR, boost::system::generic_category());
+    dbus::utility::MapperGetSubTreeResponse subtree;
+
+    bool callbackCalled = false;
+    afterGetChassisStatePath(
+        response, "/xyz/openbmc_project/inventory/system/chassis",
+        std::bind_front(assertFallback, std::ref(callbackCalled)), ec, subtree);
+
+    EXPECT_TRUE(callbackCalled);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetChassisStatePath, HostUnreachableFallback)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::system::errc::make_error_code(
+        boost::system::errc::host_unreachable);
+    dbus::utility::MapperGetSubTreeResponse subtree;
+
+    bool callbackCalled = false;
+    afterGetChassisStatePath(
+        response, "/xyz/openbmc_project/inventory/system/chassis",
+        std::bind_front(assertFallback, std::ref(callbackCalled)), ec, subtree);
+
+    EXPECT_TRUE(callbackCalled);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetChassisStatePath, OtherErrorPassesThrough)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    dbus::utility::MapperGetSubTreeResponse subtree;
+
+    bool callbackCalled = false;
+    auto callback = [&callbackCalled, ec](const boost::system::error_code& cbEc,
+                                          const std::string& statePath,
+                                          const std::string& service) {
+        callbackCalled = true;
+        EXPECT_EQ(cbEc, ec);
+        EXPECT_EQ(statePath, "");
+        EXPECT_EQ(service, "");
+    };
+
+    afterGetChassisStatePath(response,
+                             "/xyz/openbmc_project/inventory/system/chassis",
+                             callback, ec, subtree);
+
+    EXPECT_TRUE(callbackCalled);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetChassisStatePath, EmptySubtreeUsesFallback)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree;
+
+    bool callbackCalled = false;
+    afterGetChassisStatePath(
+        response, "/xyz/openbmc_project/inventory/system/chassis",
+        std::bind_front(assertEmptySubtreeFallback, std::ref(callbackCalled)),
+        ec, subtree);
+
+    EXPECT_TRUE(callbackCalled);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetChassisStatePath, MultipleSubtreeObjectsSetInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/state/chassis0",
+         {{"xyz.openbmc_project.State.Chassis0",
+           {"xyz.openbmc_project.State.Chassis"}}}},
+        {"/xyz/openbmc_project/state/chassis1",
+         {{"xyz.openbmc_project.State.Chassis1",
+           {"xyz.openbmc_project.State.Chassis"}}}}};
+
+    bool callbackCalled = false;
+    auto callback = [&callbackCalled](const boost::system::error_code&,
+                                      const std::string&, const std::string&) {
+        callbackCalled = true;
+    };
+
+    afterGetChassisStatePath(response,
+                             "/xyz/openbmc_project/inventory/system/chassis",
+                             callback, ec, subtree);
+
+    EXPECT_FALSE(callbackCalled);
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetChassisStatePath, EmptyServiceMapSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/state/chassis0", {}}};
+
+    bool callbackCalled = false;
+    auto callback = [&callbackCalled](const boost::system::error_code&,
+                                      const std::string&, const std::string&) {
+        callbackCalled = true;
+    };
+
+    afterGetChassisStatePath(response,
+                             "/xyz/openbmc_project/inventory/system/chassis",
+                             callback, ec, subtree);
+
+    EXPECT_FALSE(callbackCalled);
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
 }
 
 } // namespace

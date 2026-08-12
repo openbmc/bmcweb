@@ -402,6 +402,18 @@ option(
                     recommends using MultiPartUpdate.''',
 )
 
+# BMCWEB_REDFISH_CHASSIS_STATE_OBJECT_FALLBACK
+option(
+    'redfish-chassis-state-object-fallback',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enables falling back to the hard-coded D-Bus service and
+                    path for the chassis0 state manager object if no
+                    monitored_by association is found for the specified
+                    chassis. This preserves existing behavior.
+                ''',
+)
+
 
 option(
     'https_port',

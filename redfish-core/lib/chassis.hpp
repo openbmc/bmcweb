@@ -154,71 +154,174 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 /**
- * @brief Retrieves chassis state properties over dbus
+ * @brief Handles the CurrentPowerState property response and populates
+ *        PowerState/Status fields on the chassis response.
+ */
+inline void handleChassisPowerState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath, const boost::system::error_code& ec,
+    const std::string& chassisState)
+{
+    BMCWEB_LOG_DEBUG("handleChassisPowerState: {} {}", chassisPath,
+                     chassisState);
+    if (ec)
+    {
+        if (ec == boost::system::errc::host_unreachable)
+        {
+            BMCWEB_LOG_DEBUG("Service not available {}", chassisPath);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {} {}", chassisPath, ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (chassisState == "xyz.openbmc_project.State.Chassis.PowerState.On")
+    {
+        asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+    }
+    else if (chassisState == "xyz.openbmc_project.State.Chassis.PowerState.Off")
+    {
+        asyncResp->res.jsonValue["PowerState"] = resource::PowerState::Off;
+        asyncResp->res.jsonValue["Status"]["State"] =
+            resource::State::StandbyOffline;
+    }
+    else if (chassisState ==
+             "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOff")
+    {
+        asyncResp->res.jsonValue["PowerState"] =
+            resource::PowerState::PoweringOff;
+        asyncResp->res.jsonValue["Status"]["State"] =
+            resource::State::StandbyOffline;
+    }
+    else if (chassisState ==
+             "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOn")
+    {
+        asyncResp->res.jsonValue["PowerState"] =
+            resource::PowerState::PoweringOn;
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Starting;
+    }
+}
+
+inline void getChassisState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath, const boost::system::error_code& ec,
+    const std::string& statePath, const std::string& service)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Failure getting state for {} {}", chassisPath, ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (statePath.empty() || service.empty())
+    {
+        BMCWEB_LOG_DEBUG("No chassis state object found for {}", chassisPath);
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+        return;
+    }
+
+    dbus::utility::getProperty<std::string>(
+        service, statePath, "xyz.openbmc_project.State.Chassis",
+        "CurrentPowerState",
+        std::bind_front(handleChassisPowerState, asyncResp, chassisPath));
+}
+
+inline void afterGetChassisStatePath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath,
+    const std::function<void(const boost::system::error_code& ec,
+                             const std::string& statePath,
+                             const std::string& service)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    std::string defaultPath;
+    std::string defaultService;
+
+    if constexpr (BMCWEB_REDFISH_CHASSIS_STATE_OBJECT_FALLBACK)
+    {
+        /* Use hard-coded service and path if no associated object is
+         * found.
+         */
+        defaultPath = "/xyz/openbmc_project/state/chassis0";
+        defaultService = "xyz.openbmc_project.State.Chassis";
+    }
+
+    if (ec)
+    {
+        if (ec.value() == EBADR ||
+            ec.value() == boost::system::errc::host_unreachable)
+        {
+            BMCWEB_LOG_DEBUG("No monitored_by association for chassis: {}",
+                             chassisPath);
+            callback(boost::system::errc::make_error_code(
+                         boost::system::errc::success),
+                     defaultPath, defaultService);
+            return;
+        }
+
+        callback(ec, "", "");
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG("No monitored_by association for chassis: {}",
+                         chassisPath);
+        callback(ec, defaultPath, defaultService);
+        return;
+    }
+
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "More than one State.Chassis in monitored_by association");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto& [statePath, serviceMap] = subtree.front();
+    if (serviceMap.empty())
+    {
+        BMCWEB_LOG_ERROR("No service owns {}", statePath);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    callback(ec, statePath, serviceMap.begin()->first);
+}
+
+/**
+ * @brief Retrieves chassis state object
+ *
+ * @details Tries to find the corresponding State.Chassis object via the
+ *          'monitored_by' association. If that object is not found then will
+ *          fallback to using the hard-coded chassis0 path if enabled by
+ *          redfish-chassis-state-object-fallback.
  *
  * @param[in] asyncResp - Shared pointer for completing asynchronous calls.
+ * @param[in] chassisPath - Inventory chassis DBus object path.
  *
  * @return None.
  */
-inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+inline void getChassisStatePath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath,
+    std::function<void(const boost::system::error_code& ec,
+                       const std::string& statePath,
+                       const std::string& service)>&& callback)
 {
-    dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.State.Chassis",
-        "/xyz/openbmc_project/state/chassis0",
-        "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
-        [asyncResp{std::move(asyncResp)}](const boost::system::error_code& ec,
-                                          const std::string& chassisState) {
-            if (ec)
-            {
-                if (ec == boost::system::errc::host_unreachable)
-                {
-                    // Service not available, no error, just don't return
-                    // chassis state info
-                    BMCWEB_LOG_DEBUG("Service not available {}", ec);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.State.Chassis"};
 
-            BMCWEB_LOG_DEBUG("Chassis state: {}", chassisState);
-            // Verify Chassis State
-            if (chassisState ==
-                "xyz.openbmc_project.State.Chassis.PowerState.On")
-            {
-                asyncResp->res.jsonValue["PowerState"] =
-                    resource::PowerState::On;
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Enabled;
-            }
-            else if (chassisState ==
-                     "xyz.openbmc_project.State.Chassis.PowerState.Off")
-            {
-                asyncResp->res.jsonValue["PowerState"] =
-                    resource::PowerState::Off;
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::StandbyOffline;
-            }
-            else if (
-                chassisState ==
-                "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOff")
-            {
-                asyncResp->res.jsonValue["PowerState"] =
-                    resource::PowerState::PoweringOff;
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::StandbyOffline;
-            }
-            else if (
-                chassisState ==
-                "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOn")
-            {
-                asyncResp->res.jsonValue["PowerState"] =
-                    resource::PowerState::PoweringOn;
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Starting;
-            }
-        });
+    dbus::utility::getAssociatedSubTree(
+        chassisPath + "/monitored_by",
+        sdbusplus::object_path("/xyz/openbmc_project/state"), 0, interfaces,
+        std::bind_front(afterGetChassisStatePath, asyncResp, chassisPath,
+                        std::move(callback)));
 }
 
 /**
@@ -530,7 +633,6 @@ inline void handleDecoratorAssetProperties(
     // SensorCollection
     asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/Sensors", chassisId);
-    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     // TODO (Alexander): Support Multi Computer System
     if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
@@ -552,7 +654,6 @@ inline void handleDecoratorAssetProperties(
                                                BMCWEB_REDFISH_MANAGER_URI_NAME);
     managedBy.emplace_back(std::move(manager));
     asyncResp->res.jsonValue["Links"]["ManagedBy"] = std::move(managedBy);
-    getChassisState(asyncResp);
     getStorageLink(asyncResp, path);
 }
 
@@ -745,6 +846,9 @@ inline void handleChassisGetSubTree(
                 break;
             }
         }
+
+        getChassisStatePath(asyncResp, path,
+                            std::bind_front(getChassisState, asyncResp, path));
 
         dbus::utility::getAllProperties(
             *crow::connections::systemBus, connectionName, path,
