@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f93f4571_620029cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2026-08-12T08:17:57Z",
+      "side": 1,
+      "message": "What is the ForceUpdate flag behavior when redfish-updateservice-use-dbus is disabled ?",
+      "revId": "06aa88a2003447dc17cb5211496b68ef77440059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1014193_b070db81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2026-08-12T08:17:57Z",
+      "side": 1,
+      "message": "Please add tests for invalid ForceUpdate option",
+      "revId": "06aa88a2003447dc17cb5211496b68ef77440059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e18cee69_ef59b728",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2026-08-12T08:17:57Z",
+      "side": 1,
+      "message": "Can we pass UpdateParameters struct instead of passing update options individually to the different methods here ?",
+      "revId": "06aa88a2003447dc17cb5211496b68ef77440059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
