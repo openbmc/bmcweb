@@ -29,6 +29,7 @@ feature_options = [
     'redfish-allow-rotational-fans',
     'redfish-allow-simple-update',
     'redfish-bmc-journal',
+    'redfish-chassis-state-object-fallback',
     'redfish-cpu-log',
     'redfish-dbus-log',
     'redfish-dump-log',
