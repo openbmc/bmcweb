@@ -16,6 +16,24 @@
       "message": "As it is internalError, it would be better BMCWEB_LOG_ERROR",
       "revId": "cfd5492c69f80c341f9248ee87b8f0bdcd775b31",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "479d3043_805e5562",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002998
+      },
+      "writtenOn": "2026-08-12T20:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "451cb8e9_e276a659",
+      "revId": "cfd5492c69f80c341f9248ee87b8f0bdcd775b31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
