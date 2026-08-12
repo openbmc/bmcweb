@@ -123,8 +123,13 @@ inline void afterAsyncPopulatePid(
     }
     BMCWEB_LOG_DEBUG("profile = {} !", currentProfile);
 
-    const std::vector<sdbusplus::object_path> chassisPaths =
+    const std::optional<std::vector<sdbusplus::object_path>> chassisPaths =
         chassis_utils::getChassisFromManagedObj(managedObj);
+    if (!chassisPaths)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
 
     for (const auto& pathPair : managedObj)
     {
@@ -191,7 +196,7 @@ inline void afterAsyncPopulatePid(
             if (intfPair.first == pidZoneConfigurationIface)
             {
                 nlohmann::json& zone = zones[name];
-                getChassisForZone(zone, chassisPaths, pathPair.first);
+                getChassisForZone(zone, *chassisPaths, pathPair.first);
                 url.set_fragment(
                     ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
                         .to_string());

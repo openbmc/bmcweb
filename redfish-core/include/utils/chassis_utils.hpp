@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cstddef>
 #include <memory>
 #include <optional>
 #include <ranges>
@@ -54,7 +55,7 @@ void afterGetValidChassisPath(
         std::string chassisName = path.filename();
         if (chassisName.empty())
         {
-            BMCWEB_LOG_ERROR("Failed to find '/' in {}", chassis);
+            BMCWEB_LOG_ERROR("Failed to extract filename from {}", chassis);
             continue;
         }
         if (chassisName == chassisId)
@@ -93,26 +94,33 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 /**
  * @brief Retrieves valid chassis paths from managed objects response
  * @param managedObj  The getManagedObjects response
+ * @return The chassis paths, or std::nullopt if an object implements more than
+ *         one chassis interface, which is an invalid composition.
  */
-inline std::vector<sdbusplus::object_path> getChassisFromManagedObj(
-    const dbus::utility::ManagedObjectType& managedObj)
+inline std::optional<std::vector<sdbusplus::object_path>>
+    getChassisFromManagedObj(
+        const dbus::utility::ManagedObjectType& managedObj)
 {
     std::vector<sdbusplus::object_path> res;
-    for (const auto& pathPair : managedObj)
+    for (const auto& [path, interfaces] : managedObj)
     {
-        const sdbusplus::object_path path = pathPair.first;
+        std::ptrdiff_t matches =
+            std::ranges::count_if(interfaces, [](const auto& intfPair) {
+                return std::ranges::contains(chassisInterfaces, intfPair.first);
+            });
 
-        for (const auto& intfPair : pathPair.second)
+        if (matches > 1)
         {
-            const std::string& interface = intfPair.first;
-
-            if (std::ranges::contains(chassisInterfaces, interface))
-            {
-                res.emplace_back(path);
-            }
+            BMCWEB_LOG_ERROR("Object {} implements {} chassis interfaces",
+                             path.str, matches);
+            return std::nullopt;
+        }
+        if (matches == 1)
+        {
+            res.emplace_back(path);
         }
     }
-    return {res.begin(), res.end()};
+    return res;
 }
 
 } // namespace chassis_utils
