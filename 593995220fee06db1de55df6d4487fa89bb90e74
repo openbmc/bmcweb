@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2656cbe7_130b15cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-13T04:47:35Z",
+      "side": 1,
+      "message": "Can you please provide more details about Why we need this, in the commit and how have you implemented it.",
+      "revId": "593995220fee06db1de55df6d4487fa89bb90e74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "346f06d3_d3f759ac",
