@@ -16,6 +16,24 @@
       "message": "Please add \"Tested\" block in the commit message.",
       "revId": "e554fb1547f17d5d3b455395b942dbab8b67e9ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7376ebe5_55c5f299",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-13T13:20:00Z",
+      "side": 1,
+      "message": "\u003e Please add \"Tested\" block in the commit message.",
+      "parentUuid": "bc9498fe_abd107be",
+      "revId": "e554fb1547f17d5d3b455395b942dbab8b67e9ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
