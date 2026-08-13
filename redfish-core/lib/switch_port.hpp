@@ -27,6 +27,7 @@
 #include <limits>
 #include <memory>
 #include <optional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -165,6 +166,37 @@ inline void getMetricProperty(
         std::bind_front(populateMetricsProperty, asyncResp, jsonPtr));
 }
 
+inline void getMappedMetricProperty(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const sdbusplus::object_path& objectPath,
+    std::string_view metricName,
+    std::span<const std::pair<std::string_view, std::string_view>> table)
+{
+    for (const auto& [name, pointer] : table)
+    {
+        if (name != metricName)
+        {
+            continue;
+        }
+        getMetricProperty(asyncResp, serviceName, objectPath,
+                          nlohmann::json::json_pointer(std::string(pointer)));
+        return;
+    }
+}
+
+static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
+    pciePortMetrics = {{
+        {"correctable_error_count", "/PCIeErrors/CorrectableErrorCount"},
+        {"non_fatal_error_count", "/PCIeErrors/NonFatalErrorCount"},
+        {"fatal_error_count", "/PCIeErrors/FatalErrorCount"},
+        {"l0_to_recovery_count", "/PCIeErrors/L0ToRecoveryCount"},
+        {"replay_count", "/PCIeErrors/ReplayCount"},
+        {"replay_rollover_count", "/PCIeErrors/ReplayRolloverCount"},
+        {"nak_sent_count", "/PCIeErrors/NAKSentCount"},
+        {"nak_received_count", "/PCIeErrors/NAKReceivedCount"},
+        {"unsupported_request_count", "/PCIeErrors/UnsupportedRequestCount"},
+    }};
+
 inline void handleFabricSwitchPortMetricsPathPortMetricsGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
@@ -194,54 +226,8 @@ inline void handleFabricSwitchPortMetricsPathPortMetricsGet(
             continue;
         }
 
-        const auto& serviceName = service.begin()->first;
-
-        if (metricName == "correctable_error_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/CorrectableErrorCount"_json_pointer);
-        }
-        else if (metricName == "non_fatal_error_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/NonFatalErrorCount"_json_pointer);
-        }
-        else if (metricName == "fatal_error_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/FatalErrorCount"_json_pointer);
-        }
-        else if (metricName == "l0_to_recovery_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/L0ToRecoveryCount"_json_pointer);
-        }
-        else if (metricName == "replay_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/ReplayCount"_json_pointer);
-        }
-        else if (metricName == "replay_rollover_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/ReplayRolloverCount"_json_pointer);
-        }
-        else if (metricName == "nak_sent_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/NAKSentCount"_json_pointer);
-        }
-        else if (metricName == "nak_received_count")
-        {
-            getMetricProperty(asyncResp, serviceName, path,
-                              "/PCIeErrors/NAKReceivedCount"_json_pointer);
-        }
-        else if (metricName == "unsupported_request_count")
-        {
-            getMetricProperty(
-                asyncResp, serviceName, path,
-                "/PCIeErrors/UnsupportedRequestCount"_json_pointer);
-        }
+        getMappedMetricProperty(asyncResp, service.begin()->first, path,
+                                metricName, pciePortMetrics);
     }
 }
 
