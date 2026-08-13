@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddec9bdb_797797e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-13T08:38:31Z",
+      "side": 1,
+      "message": "Here, \"multi-Storage system\" refers to a device connected to multiple storage instances — each gets populated accordingly on DBus. This was previously hardcoded as /Storage/1, it\u0027s now fixed to dynamically resolve the correct Storage instance.\n\nNot a DBus modeling issue — DBus already exposes multiple Storage instances correctly, each with its own drive/storage association. I\u0027ve updated the commit message accordingly, please refer to it.",
+      "parentUuid": "b31e83d4_d87f6a91",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "2538d6466220d8867b4da62b310e559a2bf93362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee1c4a5f_37c4506f",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-08-06T03:59:06Z",
       "side": 1,
       "message": "please read and understand the testing requirements documented for patches.  The above is inadequate and overly abstract",
+      "revId": "2538d6466220d8867b4da62b310e559a2bf93362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bcdd02a_20fce78d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-13T08:38:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ee1c4a5f_37c4506f",
       "revId": "2538d6466220d8867b4da62b310e559a2bf93362",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
