@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa3ec38_b037fa82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-13T19:38:21Z",
+      "side": 1,
+      "message": "Looks good, https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Connector/Port.interface.yaml width matches better with Redfish Width than ActiveWidth",
+      "revId": "368bbd698b0777899ee86cdd0bad37f9b056b3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
