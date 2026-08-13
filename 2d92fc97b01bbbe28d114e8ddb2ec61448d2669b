@@ -34,6 +34,24 @@
       "parentUuid": "a6b7b949_f01b7a49",
       "revId": "2d92fc97b01bbbe28d114e8ddb2ec61448d2669b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a81ddb9a_1f04aa9e",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-08-13T14:22:56Z",
+      "side": 1,
+      "message": "As we discussed, I think this may need to be chained due to the async calls.\n```\ngetStatusPresentProperty()\n  -\u003e getStatusAvailableProperty()\n      -\u003e getStatusEnabledProperty()\n          -\u003e determineResourceState()\n```",
+      "parentUuid": "38aa6d5b_a448faa9",
+      "revId": "2d92fc97b01bbbe28d114e8ddb2ec61448d2669b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
