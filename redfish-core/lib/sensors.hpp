@@ -172,15 +172,6 @@ class SensorsAsyncResp
 
     ~SensorsAsyncResp()
     {
-        if (asyncResp->res.result() ==
-            boost::beast::http::status::internal_server_error)
-        {
-            // Reset the json object to clear out any data that made it in
-            // before the error happened todo(ed) handle error condition with
-            // proper code
-            asyncResp->res.jsonValue = nlohmann::json::object();
-        }
-
         if (dataComplete && metadata)
         {
             std::map<std::string, std::string> map;
