@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c3a834f_3eed3941",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-13T13:39:55Z",
+      "side": 1,
+      "message": "Thermal resource is deprecated by the way",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 52
+      },
+      "revId": "17a9e2b1cd118464021a1967190ec2d1be11084b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6278686_16eecf26",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -32,6 +55,47 @@
       "side": 1,
       "message": "Ran Redfish Service Validator on the QEMU/Romulus image.\n\nResults:\n\n+--------------+--------------+--------------+--------------+\n|     PASS     |     WARN     |     FAIL     |  NOT TESTED  |\n+--------------+--------------+--------------+--------------+\n|     5757     |     353      |      0       |     4943     |\n+--------------+--------------+--------------+--------------+\n\nReport artifacts:\n\nHTML Report:  logs/2026-08-13-062724/RedfishServiceValidatorReport_08_13_2026_062724.html\nExcel Report: logs/2026-08-13-062724/RedfishServiceValidatorReport_08_13_2026_062724.xlsx\nDebug Log:    logs/2026-08-13-062724/RedfishServiceValidatorDebug_08_13_2026_062724.log\n\nNo validation failures were reported (FAIL \u003d 0).",
       "parentUuid": "b6278686_16eecf26",
+      "revId": "17a9e2b1cd118464021a1967190ec2d1be11084b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17e1fcd5_98652dda",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-13T13:39:55Z",
+      "side": 1,
+      "message": "For next time, add to the commit msg",
+      "parentUuid": "e0fbc066_3d749d87",
+      "revId": "17a9e2b1cd118464021a1967190ec2d1be11084b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f7aeaee_516ff1b7",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-13T13:39:55Z",
+      "side": 1,
+      "message": ":shrug: I guess this is better..",
+      "range": {
+        "startLine": 87,
+        "startChar": 63,
+        "endLine": 87,
+        "endChar": 67
+      },
       "revId": "17a9e2b1cd118464021a1967190ec2d1be11084b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
