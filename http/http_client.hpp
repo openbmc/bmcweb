@@ -17,6 +17,7 @@
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/socket_base.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/error.hpp>
 #include <boost/asio/ssl/host_name_verification.hpp>
@@ -63,6 +64,11 @@ constexpr size_t maxPoolSize = 20;
 constexpr size_t maxRequestQueueSize = 500;
 constexpr unsigned int httpReadBodyLimit = 131072;
 constexpr unsigned int httpReadBufferSize = 4096;
+
+// Close a kept-alive connection once it has been idle this long, rather than
+// let the remote end close it first in between two requests.  Also a backstop
+// for a peer that drops the connection without sending a FIN.
+constexpr auto idleConnectionTimeout = std::chrono::seconds(60);
 
 enum class ConnState
 {
@@ -163,6 +169,11 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         sslConn;
 
     boost::asio::steady_timer timer;
+    boost::asio::steady_timer idleTimer;
+
+    // Set when the in-flight request was sent on a connection taken from the
+    // idle pool, and so may fail simply because the remote end closed it.
+    bool reusedConnection = false;
 
     friend class ConnectionPool;
 
@@ -332,6 +343,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         timer.cancel();
         if (ec)
         {
+            if (retryStaleConnection(false))
+            {
+                return;
+            }
             BMCWEB_LOG_ERROR("sendMessage() failed: {} {}", ec.message(), host);
             state = ConnState::sendFailed;
             waitAndRetry();
@@ -385,6 +400,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         timer.cancel();
         if (ec && ec != boost::asio::ssl::error::stream_truncated)
         {
+            if (retryStaleConnection(parser && parser->got_some()))
+            {
+                return;
+            }
             BMCWEB_LOG_ERROR("recvMessage() failed: {} from {}", ec.message(),
                              host);
             state = ConnState::recvFailed;
@@ -407,6 +426,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         // before we handle this as an error.
         if (!parser->is_done())
         {
+            if (retryStaleConnection(parser->got_some()))
+            {
+                return;
+            }
             state = ConnState::recvFailed;
             waitAndRetry();
             return;
@@ -507,6 +530,73 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         timer.expires_after(connPolicy->retryIntervalSecs);
         timer.async_wait(std::bind_front(&ConnectionInfo::onTimerDone, this,
                                          shared_from_this()));
+    }
+
+    // A connection taken from the idle pool can have been closed by the remote
+    // end while it sat idle.  That failure says nothing about whether the host
+    // is reachable, so resend on a fresh connection right away rather than
+    // consuming a retry attempt and waiting out the retry interval.  Returns
+    // true if the request was rescheduled.
+    bool retryStaleConnection(bool responseStarted)
+    {
+        if (!reusedConnection || responseStarted)
+        {
+            return false;
+        }
+        BMCWEB_LOG_DEBUG(
+            "{}, id: {} reused connection was closed by the remote host, resending",
+            host, connId);
+        // Clears reusedConnection, so this can only happen once per request
+        shutdownConn(true);
+        return true;
+    }
+
+    // Nothing reads from a kept-alive connection in between requests, so a
+    // close by the remote end goes unnoticed until the next request fails on
+    // it.  Watch for readability, which a FIN triggers, and drop the
+    // connection so the next request starts from a fresh connect.
+    void startIdleWatch()
+    {
+        conn.async_wait(
+            boost::asio::socket_base::wait_read,
+            std::bind_front(&ConnectionInfo::dropIdleConn, weak_from_this(),
+                            "closed by remote host"));
+        idleTimer.expires_after(idleConnectionTimeout);
+        idleTimer.async_wait(
+            std::bind_front(&ConnectionInfo::dropIdleConn, weak_from_this(),
+                            "idle timeout expired"));
+    }
+
+    void stopIdleWatch()
+    {
+        idleTimer.cancel();
+        boost::system::error_code ec;
+        conn.cancel(ec);
+    }
+
+    // Completion for both halves of the idle watch.  Either one means the
+    // connection should not be handed out again.
+    static void dropIdleConn(const std::weak_ptr<ConnectionInfo>& weakSelf,
+                             std::string_view reason,
+                             const boost::system::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+        std::shared_ptr<ConnectionInfo> self = weakSelf.lock();
+        // The connection was handed out for a request before this handler ran
+        if (self == nullptr || self->state != ConnState::idle)
+        {
+            return;
+        }
+        BMCWEB_LOG_DEBUG("{}, id: {} dropping idle connection: {}", self->host,
+                         self->connId, reason);
+        // Whichever of the two waits did not fire is still outstanding.  The
+        // timer needs cancelling; closing the socket aborts the readability
+        // wait.
+        self->idleTimer.cancel();
+        self->shutdownConn(false);
     }
 
     void onTimerDone(const std::shared_ptr<ConnectionInfo>& /*self*/,
@@ -644,6 +734,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     void initializeConnection(bool ssl)
     {
+        reusedConnection = false;
         conn = boost::asio::ip::tcp::socket(ioc);
         if (ssl)
         {
@@ -677,7 +768,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         ensuressl::VerifyCertificate verifyCertIn, unsigned int connIdIn) :
         subId(idIn), connPolicy(connPolicyIn), host(hostIn),
         verifyCert(verifyCertIn), connId(connIdIn), ioc(iocIn), resolver(iocIn),
-        conn(iocIn), timer(iocIn)
+        conn(iocIn), timer(iocIn), idleTimer(iocIn)
     {
         initializeConnection(host.scheme() == "https");
     }
@@ -753,6 +844,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
             if (keepAlive)
             {
+                conn->reusedConnection = true;
                 conn->sendMessage();
             }
             else
@@ -769,6 +861,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         if (keepAlive)
         {
             conn->state = ConnState::idle;
+            conn->startIdleWatch();
         }
         else
         {
@@ -808,6 +901,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                 if (conn->state == ConnState::idle)
                 {
                     BMCWEB_LOG_DEBUG("Grabbing idle connection {}", commonMsg);
+                    conn->stopIdleWatch();
+                    conn->reusedConnection = true;
                     conn->sendMessage();
                 }
                 else
