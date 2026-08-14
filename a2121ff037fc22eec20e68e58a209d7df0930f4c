@@ -16,6 +16,24 @@
       "message": "Similar patch here https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72821\n\n\nLets start with what value this actually gives (I\u0027m not aware of any redfish clients that implement range support) and we can go from there.",
       "revId": "a2121ff037fc22eec20e68e58a209d7df0930f4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33092263_2ac8d417",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-08-14T05:21:54Z",
+      "side": 1,
+      "message": "This is a genuine requirement for IBM systems, where certain types of dumps can be quite large in size (often exceeding 500 MB). Once support for this functionality is available, we will have a corresponding client implementation in place.\n\nFor testing purposes, I developed a client that retrieves the dump in multiple 1 MB chunks. After all the chunks are downloaded, the client stitches them together to reconstruct the complete file. I have validated this approach, and it works as expected.",
+      "parentUuid": "308b49c2_fb80d7d2",
+      "revId": "a2121ff037fc22eec20e68e58a209d7df0930f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
