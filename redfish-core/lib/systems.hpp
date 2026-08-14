@@ -2924,7 +2924,8 @@ inline void processComputerSystemResetActionPost(
     }
     else
     {
-        messages::actionParameterUnknown(asyncResp->res, "Reset", resetType);
+        messages::actionParameterValueNotInList(asyncResp->res, resetType,
+                                                "ResetType", "Reset");
         return;
     }
 
