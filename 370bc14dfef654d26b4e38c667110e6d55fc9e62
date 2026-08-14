@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1113782_195ee4a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-14T18:15:59Z",
+      "side": 1,
+      "message": "It\u0027s not.  Your first paragraph is wrapped at 61 chars, and no line is longer than 63.  I know this because I loaded it into my vim and hit autoformat, and there were rewrapping changes done.  Get your tools to do this for you.",
+      "parentUuid": "3d33a034_0cc43927",
+      "revId": "370bc14dfef654d26b4e38c667110e6d55fc9e62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20ced11c_6cb8bdcd",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
