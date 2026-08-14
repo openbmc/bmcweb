@@ -52,6 +52,24 @@
       "parentUuid": "6ba7b040_1fb70efd",
       "revId": "db32ad00b9016265c24e0e77fe8d7cf9498a3bca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "029accc6_ccdd74c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-14T22:28:07Z",
+      "side": 1,
+      "message": "Planning to take this to DMTF, will be worked on in the future",
+      "parentUuid": "c876d4a5_701d00ac",
+      "revId": "db32ad00b9016265c24e0e77fe8d7cf9498a3bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
