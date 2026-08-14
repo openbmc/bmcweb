@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0eb1c81_de4acb65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002986
+      },
+      "writtenOn": "2026-08-14T22:19:52Z",
+      "side": 1,
+      "message": "Rebased onto https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92845/",
+      "revId": "3ed136702fa3717674a77fb8f3a7a0efa3da81fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
