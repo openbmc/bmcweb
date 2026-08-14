@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e4d4f75_40db5217",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-14T04:23:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7c3a834f_3eed3941",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 52
+      },
+      "revId": "17a9e2b1cd118464021a1967190ec2d1be11084b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6278686_16eecf26",
@@ -77,6 +101,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "056bd39f_0e2b6e0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-14T04:23:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "17e1fcd5_98652dda",
+      "revId": "17a9e2b1cd118464021a1967190ec2d1be11084b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f7aeaee_516ff1b7",
@@ -90,6 +132,30 @@
       "writtenOn": "2026-08-13T13:39:55Z",
       "side": 1,
       "message": ":shrug: I guess this is better..",
+      "range": {
+        "startLine": 87,
+        "startChar": 63,
+        "endLine": 87,
+        "endChar": 67
+      },
+      "revId": "17a9e2b1cd118464021a1967190ec2d1be11084b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5213eba_714c2c9e",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-14T04:23:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5f7aeaee_516ff1b7",
       "range": {
         "startLine": 87,
         "startChar": 63,
