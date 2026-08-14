@@ -63,6 +63,9 @@ inline void createSubscription(crow::sse_socket::Connection& conn,
         return;
     }
 
+    // Save filter expression
+    subValue->filter = std::move(filter);
+
     // GET on this URI means, Its SSE subscriptionType.
     subValue->userSub->subscriptionType = redfish::subscriptionTypeSSE;
 
