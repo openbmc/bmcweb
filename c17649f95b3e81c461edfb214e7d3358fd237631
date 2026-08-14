@@ -22,6 +22,30 @@
       },
       "revId": "c17649f95b3e81c461edfb214e7d3358fd237631",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59df3641_ec5276ab",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-14T05:30:16Z",
+      "side": 1,
+      "message": "Thanks for catching this,\nI have refined it in PS18.",
+      "parentUuid": "09567b70_53c72ca4",
+      "range": {
+        "startLine": 582,
+        "startChar": 22,
+        "endLine": 582,
+        "endChar": 51
+      },
+      "revId": "c17649f95b3e81c461edfb214e7d3358fd237631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
