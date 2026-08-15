@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c4d2e6_242f187a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-15T11:17:49Z",
+      "side": 1,
+      "message": "Could you specify what was broken before?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 52
+      },
+      "revId": "3ea2939203beb753cfb315acca04e86354fb03df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b675ff94_277e10a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-15T11:17:49Z",
+      "side": 1,
+      "message": "Normally we link documents/patches etc at the end of the commit message. Have a look at this commit message: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88227",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "3ea2939203beb753cfb315acca04e86354fb03df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
