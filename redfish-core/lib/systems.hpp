@@ -2369,29 +2369,31 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * @param[in] dbusAction    The watchdog timeout action in D-BUS.
  *
- * @return Returns as a string, the timeout action in Redfish terms. If
- * translation cannot be done, returns an empty string.
+ * @return Returns a WatchdogTimeoutActions enum value representing the timeout
+ * action in Redfish terms. If translation cannot be done, returns
+ * WatchdogTimeoutActions::Invalid.
  */
-inline std::string dbusToRfWatchdogAction(const std::string& dbusAction)
+inline computer_system::WatchdogTimeoutActions dbusToRfWatchdogAction(
+    const std::string& dbusAction)
 {
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.None")
     {
-        return "None";
+        return computer_system::WatchdogTimeoutActions::None;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.HardReset")
     {
-        return "ResetSystem";
+        return computer_system::WatchdogTimeoutActions::ResetSystem;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerOff")
     {
-        return "PowerDown";
+        return computer_system::WatchdogTimeoutActions::PowerDown;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerCycle")
     {
-        return "PowerCycle";
+        return computer_system::WatchdogTimeoutActions::PowerCycle;
     }
 
-    return "";
+    return computer_system::WatchdogTimeoutActions::Invalid;
 }
 
 /**
@@ -2426,6 +2428,64 @@ inline std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
 }
 
 /**
+ * @brief Callback for getting host watchdog timer properties
+ *
+ * @param[in] asyncResp  Shared pointer for completing asynchronous calls.
+ * @param[in] ec         Error code from D-Bus call.
+ * @param[in] properties Watchdog properties from D-Bus.
+ *
+ * @return None.
+ */
+inline void afterGetHostWatchdogTimer(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        // watchdog service is stopped
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        return;
+    }
+
+    nlohmann::json& hostWatchdogTimer =
+        asyncResp->res.jsonValue["HostWatchdogTimer"];
+
+    // watchdog service is running/enabled
+    hostWatchdogTimer["Status"]["State"] = resource::State::Enabled;
+
+    const bool* enabled = nullptr;
+    const std::string* expireAction = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "Enabled", enabled,
+        "ExpireAction", expireAction);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (enabled != nullptr)
+    {
+        hostWatchdogTimer["FunctionEnabled"] = *enabled;
+    }
+
+    if (expireAction != nullptr && !expireAction->empty())
+    {
+        computer_system::WatchdogTimeoutActions action =
+            dbusToRfWatchdogAction(*expireAction);
+        if (action == computer_system::WatchdogTimeoutActions::Invalid)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        hostWatchdogTimer["TimeoutAction"] = action;
+    }
+}
+
+/**
  * @brief Retrieves host watchdog timer properties over DBUS
  *
  * @param[in] asyncResp     Shared pointer for completing asynchronous calls.
@@ -2435,57 +2495,10 @@ inline std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
 inline void getHostWatchdogTimer(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG("Get host watchodg");
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
         "xyz.openbmc_project.State.Watchdog",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec)
-            {
-                // watchdog service is stopped
-                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG("Got {} wdt prop.", properties.size());
-
-            nlohmann::json& hostWatchdogTimer =
-                asyncResp->res.jsonValue["HostWatchdogTimer"];
-
-            // watchdog service is running/enabled
-            hostWatchdogTimer["Status"]["State"] = resource::State::Enabled;
-
-            const bool* enabled = nullptr;
-            const std::string* expireAction = nullptr;
-
-            const bool success = sdbusplus::unpackPropertiesNoThrow(
-                dbus_utils::UnpackErrorPrinter(), properties, "Enabled",
-                enabled, "ExpireAction", expireAction);
-
-            if (!success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            if (enabled != nullptr)
-            {
-                hostWatchdogTimer["FunctionEnabled"] = *enabled;
-            }
-
-            if (expireAction != nullptr)
-            {
-                std::string action = dbusToRfWatchdogAction(*expireAction);
-                if (action.empty())
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                hostWatchdogTimer["TimeoutAction"] = action;
-            }
-        });
+        std::bind_front(afterGetHostWatchdogTimer, asyncResp));
 }
 
 /**
