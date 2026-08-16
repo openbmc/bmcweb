@@ -570,20 +570,21 @@ inline std::string dbusToRfBootSource(const std::string& dbusSource)
  *
  * @param[in] dbusType    The boot type in DBUS speak.
  *
- * @return Returns as a string, the boot type in Redfish terms. If translation
- * cannot be done, returns an empty string.
+ * @return Returns the boot type in Redfish terms. If translation
+ * cannot be done, returns computer_system::BootSourceOverrideMode::Invalid.
  */
-inline std::string dbusToRfBootType(const std::string& dbusType)
+inline computer_system::BootSourceOverrideMode dbusToRfBootType(
+    const std::string& dbusType)
 {
     if (dbusType == "xyz.openbmc_project.Control.Boot.Type.Types.Legacy")
     {
-        return "Legacy";
+        return computer_system::BootSourceOverrideMode::Legacy;
     }
     if (dbusType == "xyz.openbmc_project.Control.Boot.Type.Types.EFI")
     {
-        return "UEFI";
+        return computer_system::BootSourceOverrideMode::UEFI;
     }
-    return "";
+    return computer_system::BootSourceOverrideMode::Invalid;
 }
 
 /**
@@ -591,24 +592,24 @@ inline std::string dbusToRfBootType(const std::string& dbusType)
  *
  * @param[in] dbusMode    The boot mode in DBUS speak.
  *
- * @return Returns as a string, the boot mode in Redfish terms. If translation
- * cannot be done, returns an empty string.
+ * @return Returns the boot mode in Redfish terms. If translation
+ * cannot be done, returns computer_system::BootSource::Invalid.
  */
-inline std::string dbusToRfBootMode(const std::string& dbusMode)
+inline computer_system::BootSource dbusToRfBootMode(const std::string& dbusMode)
 {
     if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
     {
-        return "None";
+        return computer_system::BootSource::None;
     }
     if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe")
     {
-        return "Diags";
+        return computer_system::BootSource::Diags;
     }
     if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup")
     {
-        return "BiosSetup";
+        return computer_system::BootSource::BiosSetup;
     }
-    return "";
+    return computer_system::BootSource::Invalid;
 }
 
 /**
@@ -616,79 +617,77 @@ inline std::string dbusToRfBootMode(const std::string& dbusMode)
  *
  * @param[in] dbusBootProgress    The boot progress in DBUS speak.
  *
- * @return Returns as a string, the boot progress in Redfish terms. If
- *         translation cannot be done, returns "None".
+ * @return Returns the boot progress in Redfish terms. If translation
+ *         cannot be done, returns computer_system::BootProgressTypes::Invalid.
  */
-inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
+inline computer_system::BootProgressTypes dbusToRfBootProgress(
+    const std::string& dbusBootProgress)
 {
     // Now convert the D-Bus BootProgress to the appropriate Redfish
     // enum
-    std::string rfBpLastState = "None";
     if (dbusBootProgress == "xyz.openbmc_project.State.Boot.Progress."
                             "ProgressStages.Unspecified")
     {
-        rfBpLastState = "None";
+        return computer_system::BootProgressTypes::None;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "PrimaryProcInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "PrimaryProcInit")
     {
-        rfBpLastState = "PrimaryProcessorInitializationStarted";
+        return computer_system::BootProgressTypes::
+            PrimaryProcessorInitializationStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "BusInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "BusInit")
     {
-        rfBpLastState = "BusInitializationStarted";
+        return computer_system::BootProgressTypes::BusInitializationStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "MemoryInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "MemoryInit")
     {
-        rfBpLastState = "MemoryInitializationStarted";
+        return computer_system::BootProgressTypes::MemoryInitializationStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SecondaryProcInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "SecondaryProcInit")
     {
-        rfBpLastState = "SecondaryProcessorInitializationStarted";
+        return computer_system::BootProgressTypes::
+            SecondaryProcessorInitializationStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "PCIInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "PCIInit")
     {
-        rfBpLastState = "PCIResourceConfigStarted";
+        return computer_system::BootProgressTypes::PCIResourceConfigStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SystemSetup")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "SystemSetup")
     {
-        rfBpLastState = "SetupEntered";
+        return computer_system::BootProgressTypes::SetupEntered;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SystemInitComplete")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "SystemInitComplete")
     {
-        rfBpLastState = "SystemHardwareInitializationComplete";
+        return computer_system::BootProgressTypes::
+            SystemHardwareInitializationComplete;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "OSStart")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "OSStart")
     {
-        rfBpLastState = "OSBootStarted";
+        return computer_system::BootProgressTypes::OSBootStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "OSRunning")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "OSRunning")
     {
-        rfBpLastState = "OSRunning";
+        return computer_system::BootProgressTypes::OSRunning;
     }
-    else
-    {
-        BMCWEB_LOG_DEBUG("Unsupported D-Bus BootProgress {}", dbusBootProgress);
-        // Just return the default
-    }
-    return rfBpLastState;
+    return computer_system::BootProgressTypes::Invalid;
 }
 
 /**
@@ -774,8 +773,13 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
             BMCWEB_LOG_DEBUG("Boot Progress: {}", bootProgressStr);
 
-            asyncResp->res.jsonValue["BootProgress"]["LastState"] =
+            computer_system::BootProgressTypes rfBootProgress =
                 dbusToRfBootProgress(bootProgressStr);
+            if (rfBootProgress != computer_system::BootProgressTypes::Invalid)
+            {
+                asyncResp->res.jsonValue["BootProgress"]["LastState"] =
+                    rfBootProgress;
+            }
         });
 }
 
@@ -852,14 +856,13 @@ inline void getBootOverrideType(
                           ["BootSourceOverrideMode@Redfish.AllowableValues"] =
                 nlohmann::json::array_t({"Legacy", "UEFI"});
 
-            auto rfType = dbusToRfBootType(bootType);
-            if (rfType.empty())
+            computer_system::BootSourceOverrideMode rfType =
+                dbusToRfBootType(bootType);
+            if (rfType != computer_system::BootSourceOverrideMode::Invalid)
             {
-                messages::internalError(asyncResp->res);
-                return;
+                asyncResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] =
+                    rfType;
             }
-
-            asyncResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = rfType;
         });
 }
 
@@ -909,8 +912,9 @@ inline void getBootOverrideMode(
             if (bootModeStr !=
                 "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
             {
-                auto rfMode = dbusToRfBootMode(bootModeStr);
-                if (!rfMode.empty())
+                computer_system::BootSource rfMode =
+                    dbusToRfBootMode(bootModeStr);
+                if (rfMode != computer_system::BootSource::Invalid)
                 {
                     asyncResp->res
                         .jsonValue["Boot"]["BootSourceOverrideTarget"] = rfMode;
@@ -1496,8 +1500,8 @@ inline void setTrustedModuleRequiredToBootCallback(
     }
     if (subtree.empty())
     {
-        messages::propertyValueNotInList(asyncResp->res, "ComputerSystem",
-                                         "TrustedModuleRequiredToBoot");
+        messages::propertyNotWritable(asyncResp->res,
+                                      "TrustedModuleRequiredToBoot");
         return;
     }
 
@@ -2369,29 +2373,31 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * @param[in] dbusAction    The watchdog timeout action in D-BUS.
  *
- * @return Returns as a string, the timeout action in Redfish terms. If
- * translation cannot be done, returns an empty string.
+ * @return Returns a WatchdogTimeoutActions enum value representing the timeout
+ * action in Redfish terms. If translation cannot be done, returns
+ * WatchdogTimeoutActions::Invalid.
  */
-inline std::string dbusToRfWatchdogAction(const std::string& dbusAction)
+inline computer_system::WatchdogTimeoutActions dbusToRfWatchdogAction(
+    const std::string& dbusAction)
 {
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.None")
     {
-        return "None";
+        return computer_system::WatchdogTimeoutActions::None;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.HardReset")
     {
-        return "ResetSystem";
+        return computer_system::WatchdogTimeoutActions::ResetSystem;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerOff")
     {
-        return "PowerDown";
+        return computer_system::WatchdogTimeoutActions::PowerDown;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerCycle")
     {
-        return "PowerCycle";
+        return computer_system::WatchdogTimeoutActions::PowerCycle;
     }
 
-    return "";
+    return computer_system::WatchdogTimeoutActions::Invalid;
 }
 
 /**
@@ -2477,8 +2483,9 @@ inline void getHostWatchdogTimer(
 
             if (expireAction != nullptr)
             {
-                std::string action = dbusToRfWatchdogAction(*expireAction);
-                if (action.empty())
+                computer_system::WatchdogTimeoutActions action =
+                    dbusToRfWatchdogAction(*expireAction);
+                if (action == computer_system::WatchdogTimeoutActions::Invalid)
                 {
                     messages::internalError(asyncResp->res);
                     return;
@@ -2924,7 +2931,8 @@ inline void processComputerSystemResetActionPost(
     }
     else
     {
-        messages::actionParameterUnknown(asyncResp->res, "Reset", resetType);
+        messages::actionParameterValueNotInList(asyncResp->res, resetType,
+                                                "ResetType", "Reset");
         return;
     }
 
