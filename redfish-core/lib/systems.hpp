@@ -2373,29 +2373,31 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * @param[in] dbusAction    The watchdog timeout action in D-BUS.
  *
- * @return Returns as a string, the timeout action in Redfish terms. If
- * translation cannot be done, returns an empty string.
+ * @return Returns a WatchdogTimeoutActions enum value representing the timeout
+ * action in Redfish terms. If translation cannot be done, returns
+ * WatchdogTimeoutActions::Invalid.
  */
-inline std::string dbusToRfWatchdogAction(const std::string& dbusAction)
+inline computer_system::WatchdogTimeoutActions dbusToRfWatchdogAction(
+    const std::string& dbusAction)
 {
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.None")
     {
-        return "None";
+        return computer_system::WatchdogTimeoutActions::None;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.HardReset")
     {
-        return "ResetSystem";
+        return computer_system::WatchdogTimeoutActions::ResetSystem;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerOff")
     {
-        return "PowerDown";
+        return computer_system::WatchdogTimeoutActions::PowerDown;
     }
     if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerCycle")
     {
-        return "PowerCycle";
+        return computer_system::WatchdogTimeoutActions::PowerCycle;
     }
 
-    return "";
+    return computer_system::WatchdogTimeoutActions::Invalid;
 }
 
 /**
@@ -2481,8 +2483,9 @@ inline void getHostWatchdogTimer(
 
             if (expireAction != nullptr)
             {
-                std::string action = dbusToRfWatchdogAction(*expireAction);
-                if (action.empty())
+                computer_system::WatchdogTimeoutActions action =
+                    dbusToRfWatchdogAction(*expireAction);
+                if (action == computer_system::WatchdogTimeoutActions::Invalid)
                 {
                     messages::internalError(asyncResp->res);
                     return;
