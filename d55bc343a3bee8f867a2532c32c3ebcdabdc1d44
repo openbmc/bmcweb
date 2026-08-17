@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b2f3254_9d02efca",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-17T21:54:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "8f9cafa3_b807f744",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 2
+      },
+      "revId": "d55bc343a3bee8f867a2532c32c3ebcdabdc1d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5500b75_1bcfaaf2",
@@ -81,6 +105,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1dba47_114fd44f",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-17T21:54:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e5500b75_1bcfaaf2",
+      "range": {
+        "startLine": 103,
+        "startChar": 67,
+        "endLine": 103,
+        "endChar": 76
+      },
+      "revId": "d55bc343a3bee8f867a2532c32c3ebcdabdc1d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c20e200_d0ae63a1",
@@ -94,6 +142,30 @@
       "writtenOn": "2026-08-17T21:46:32Z",
       "side": 1,
       "message": "Should this be Functional?",
+      "range": {
+        "startLine": 139,
+        "startChar": 67,
+        "endLine": 139,
+        "endChar": 76
+      },
+      "revId": "d55bc343a3bee8f867a2532c32c3ebcdabdc1d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6310e32b_ae9afb3d",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-17T21:54:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "4c20e200_d0ae63a1",
       "range": {
         "startLine": 139,
         "startChar": 67,
