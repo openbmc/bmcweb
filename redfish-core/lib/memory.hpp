@@ -45,97 +45,98 @@
 namespace redfish
 {
 
-inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
+inline memory::MemoryDeviceType translateMemoryTypeToRedfish(
+    const std::string& memoryType)
 {
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR")
     {
-        return "DDR";
+        return memory::MemoryDeviceType::DDR;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR2")
     {
-        return "DDR2";
+        return memory::MemoryDeviceType::DDR2;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR3")
     {
-        return "DDR3";
+        return memory::MemoryDeviceType::DDR3;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR4")
     {
-        return "DDR4";
+        return memory::MemoryDeviceType::DDR4;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR4E_SDRAM")
     {
-        return "DDR4E_SDRAM";
+        return memory::MemoryDeviceType::DDR4E_SDRAM;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR5")
     {
-        return "DDR5";
+        return memory::MemoryDeviceType::DDR5;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.LPDDR4_SDRAM")
     {
-        return "LPDDR4_SDRAM";
+        return memory::MemoryDeviceType::LPDDR4_SDRAM;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.LPDDR3_SDRAM")
     {
-        return "LPDDR3_SDRAM";
+        return memory::MemoryDeviceType::LPDDR3_SDRAM;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR2_SDRAM_FB_DIMM")
     {
-        return "DDR2_SDRAM_FB_DIMM";
+        return memory::MemoryDeviceType::DDR2_SDRAM_FB_DIMM;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR2_SDRAM_FB_DIMM_PROB")
     {
-        return "DDR2_SDRAM_FB_DIMM_PROBE";
+        return memory::MemoryDeviceType::DDR2_SDRAM_FB_DIMM_PROBE;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR_SGRAM")
     {
-        return "DDR_SGRAM";
+        return memory::MemoryDeviceType::DDR_SGRAM;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.ROM")
     {
-        return "ROM";
+        return memory::MemoryDeviceType::ROM;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.SDRAM")
     {
-        return "SDRAM";
+        return memory::MemoryDeviceType::SDRAM;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.EDO")
     {
-        return "EDO";
+        return memory::MemoryDeviceType::EDO;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.FastPageMode")
     {
-        return "FastPageMode";
+        return memory::MemoryDeviceType::FastPageMode;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.PipelinedNibble")
     {
-        return "PipelinedNibble";
+        return memory::MemoryDeviceType::PipelinedNibble;
     }
     if (memoryType ==
         "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.Logical")
     {
-        return "Logical";
+        return memory::MemoryDeviceType::Logical;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.HBM")
     {
-        return "HBM";
+        return memory::MemoryDeviceType::HBM;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.HBM2")
     {
-        return "HBM2";
+        return memory::MemoryDeviceType::HBM2;
     }
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.HBM3")
     {
-        return "HBM3";
+        return memory::MemoryDeviceType::HBM3;
     }
     // This is values like Other or Unknown
     // Also D-Bus values:
@@ -155,7 +156,7 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     // LPDDR_SDRAM
     // LPDDR2_SDRAM
     // LPDDR5_SDRAM
-    return "";
+    return memory::MemoryDeviceType::Invalid;
 }
 
 inline void dimmPropToHex(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -567,11 +568,11 @@ inline void assembleDimmProperties(
 
     if (memoryType != nullptr)
     {
-        std::string memoryDeviceType =
+        memory::MemoryDeviceType memoryDeviceType =
             translateMemoryTypeToRedfish(*memoryType);
-        // Values like "Unknown" or "Other" will return empty
+        // Values like "Unknown" or "Other" will return Invalid
         // so just leave off
-        if (!memoryDeviceType.empty())
+        if (memoryDeviceType != memory::MemoryDeviceType::Invalid)
         {
             asyncResp->res.jsonValue[jsonPtr]["MemoryDeviceType"] =
                 memoryDeviceType;
