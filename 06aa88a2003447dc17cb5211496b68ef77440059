@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd0e78f4_a165991d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2026-08-17T18:27:28Z",
+      "side": 1,
+      "message": "ForceUpdate has no effect when redfish-updateservice-use-dbus is disabled. I’ve documented this behavior in both the code and commit message",
+      "parentUuid": "f93f4571_620029cc",
+      "revId": "06aa88a2003447dc17cb5211496b68ef77440059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1014193_b070db81",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-12T08:17:57Z",
       "side": 1,
       "message": "Please add tests for invalid ForceUpdate option",
+      "revId": "06aa88a2003447dc17cb5211496b68ef77440059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f24d77_8a83cf04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2026-08-17T18:27:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b1014193_b070db81",
       "revId": "06aa88a2003447dc17cb5211496b68ef77440059",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2026-08-12T08:17:57Z",
       "side": 1,
       "message": "Can we pass UpdateParameters struct instead of passing update options individually to the different methods here ?",
+      "revId": "06aa88a2003447dc17cb5211496b68ef77440059",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ec0b321_d0756cf5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2026-08-17T18:27:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e18cee69_ef59b728",
       "revId": "06aa88a2003447dc17cb5211496b68ef77440059",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
