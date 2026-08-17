@@ -14,6 +14,7 @@
 #include "logging.hpp"
 #include "str_utility.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -667,12 +668,14 @@ inline bool fillSensorIdentity(
     std::optional<double> maxValue;
     std::optional<double> minValue;
     std::optional<double> value;
+    std::optional<uint64_t> updatedTime;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesDict, "ReadingBasis",
         readingBasis, "Implementation", implementation, "Type", physicalContext,
         "Readings", statistics, "ReadingParameters", readingParameters,
-        "MaxValue", maxValue, "MinValue", minValue, "Value", value);
+        "MaxValue", maxValue, "MinValue", minValue, "Value", value,
+        "UpdatedTime", updatedTime);
     if (!success)
     {
         BMCWEB_LOG_ERROR("Failed to unpack properties");
@@ -746,6 +749,13 @@ inline bool fillSensorIdentity(
             {
                 sensorJson["PhysicalContext"] = redfishContext;
             }
+        }
+
+        // A service that has not obtained a reading leaves this zero.
+        if (updatedTime.has_value() && *updatedTime != 0)
+        {
+            sensorJson["ReadingTime"] =
+                time_utils::getDateTimeUintUs(*updatedTime);
         }
 
         updateSensorStatistics(sensorJson, statistics, readingParameters);
