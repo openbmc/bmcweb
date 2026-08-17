@@ -119,6 +119,23 @@ inline void getSystemCollectionMembers(
         std::bind_front(handleSystemCollectionMembers, asyncResp));
 }
 
+inline void afterGetManagedHostProperty(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& systemPath,
+    const std::function<void(const uint64_t computerSystemIndex)>& callback,
+    const boost::system::error_code& ec, const uint64_t hostIndex)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("DBUS response error {}", ec);
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Got index {} for path {}", hostIndex, systemPath);
+    callback(hostIndex);
+}
+
 inline void getManagedHostProperty(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& systemPath,
@@ -127,19 +144,8 @@ inline void getManagedHostProperty(
     dbus::utility::getProperty<uint64_t>(
         "xyz.openbmc_project.EntityManager", systemPath,
         "xyz.openbmc_project.Inventory.Decorator.ManagedHost", "HostIndex",
-        // ast-grep-ignore: long-lambda
-        [asyncResp, systemName, systemPath, callback = std::move(callback)](
-            const boost::system::error_code& ec, const uint64_t hostIndex) {
-            if (ec)
-            {
-                BMCWEB_LOG_WARNING("DBUS response error {}", ec);
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
-            BMCWEB_LOG_DEBUG("Got index {} for path {}", hostIndex, systemPath);
-            callback(hostIndex);
-        });
+        std::bind_front(afterGetManagedHostProperty, asyncResp, systemName,
+                        systemPath, std::move(callback)));
 }
 
 inline void afterGetComputerSystemSubTreePaths(
