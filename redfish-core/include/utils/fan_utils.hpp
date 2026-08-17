@@ -83,6 +83,25 @@ inline void getFanSensorObjects(
         std::bind_front(afterGetFanSensorObjects, asyncResp, callback));
 }
 
+inline void afterGetFanPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::function<void(const dbus::utility::MapperGetSubTreePathsResponse&
+                                 fanPaths)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths)
+{
+    if (ec)
+    {
+        if (ec.value() != boost::system::errc::io_error && ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    callback(subtreePaths);
+}
+
 inline void getFanPaths(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& validChassisPath,
@@ -95,22 +114,7 @@ inline void getFanPaths(
     dbus::utility::getAssociatedSubTreePaths(
         endpointPath, sdbusplus::object_path("/xyz/openbmc_project/inventory"),
         0, fanInterface,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, callback](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
-            if (ec)
-            {
-                if (ec.value() != boost::system::errc::io_error &&
-                    ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-            callback(subtreePaths);
-        });
+        std::bind_front(afterGetFanPaths, asyncResp, callback));
 }
 
 } // namespace fan_utils
