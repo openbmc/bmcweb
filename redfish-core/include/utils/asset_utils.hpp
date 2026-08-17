@@ -72,6 +72,27 @@ inline void extractAssetInfo(
     }
 }
 
+inline void afterGetAssetInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonKeyName,
+    bool includeSparePartNumber, bool includeManufacturer,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& assetList)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for Properties {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    extractAssetInfo(asyncResp, jsonKeyName, assetList, includeSparePartNumber,
+                     includeManufacturer);
+}
+
 inline void getAssetInfo(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& serviceName, const std::string& dbusPath,
@@ -80,23 +101,8 @@ inline void getAssetInfo(
 {
     dbus::utility::getAllProperties(
         serviceName, dbusPath, "xyz.openbmc_project.Inventory.Decorator.Asset",
-        // ast-grep-ignore: long-lambda
-        [asyncResp, jsonKeyName, includeSparePartNumber, includeManufacturer](
-            const boost::system::error_code& ec,
-            const dbus::utility::DBusPropertiesMap& assetList) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Properties {}",
-                                     ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-            extractAssetInfo(asyncResp, jsonKeyName, assetList,
-                             includeSparePartNumber, includeManufacturer);
-        });
+        std::bind_front(afterGetAssetInfo, asyncResp, jsonKeyName,
+                        includeSparePartNumber, includeManufacturer));
 }
 
 } // namespace asset_utils
