@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbddbcd4_6f25bf04",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-08-17T13:26:07Z",
+      "side": 0,
+      "message": "it looks like we are moving away from `drive` association, which is not documented in the relevant sections in PDI, to `containing` which is valid on inventory items in general.\n\n\nI assume you did some digging on existing usages and how people have configured and testing things when this code was first developed, would it be helpful to add these findings to the commit message?",
+      "range": {
+        "startLine": 643,
+        "startChar": 11,
+        "endLine": 643,
+        "endChar": 28
+      },
+      "revId": "b2fc97958faaea5230a676f775bf5ea090a464c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
