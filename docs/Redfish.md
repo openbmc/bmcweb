@@ -315,6 +315,7 @@ Fields common to all schemas
 - ReadingBasis
 - ReadingRangeMax
 - ReadingRangeMin
+- ReadingTime
 - ReadingType
 - ReadingUnits
 - SpeedRPM
