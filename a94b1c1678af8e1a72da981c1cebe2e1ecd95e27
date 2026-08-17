@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21713888_d5916b5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-17T14:23:19Z",
+      "side": 1,
+      "message": "This changes the drive-discovery mechanism from a direct drive association to a generic containing association traversal, but the new chassisInterface array used to locate the chassis only contains xyz.openbmc_project.Inventory.Item.Chassis, while every other chassis-drive/chassis-power lookup in this codebase (including this same file) uses the shared chassisInterfaces constant which also includes xyz.openbmc_project.Inventory.Item.Board. As written, chassis objects modeled with the Board interface will never get a Drives link even if drives exist. Please reuse the existing shared constant, and also address Alexander\u0027s open question about the association semantics change before this merges.",
+      "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa5d2ee1_73168f6d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-17T14:23:19Z",
+      "side": 1,
+      "message": "This duplicates and narrows the existing chassisInterfaces constant already included via chassis_utils.hpp and already used elsewhere in this file. That constant has 2 entries (Item.Board and Item.Chassis); this new array only has Item.Chassis. Since this is used as subtreeInterfaces to match the chassis by id, any chassis exposed via Item.Board will fail to match here and silently never get a Drives link. Please reuse chassisInterfaces instead of introducing a narrower local copy.",
+      "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e40a9f9_4e4403c2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-17T14:23:19Z",
+      "side": 1,
+      "message": "At this point in handleChassisGetSubTree we already have the resolved chassis object path (objPath/path), and it\u0027s used two lines above for getChassisProcessorLinks(asyncResp, objPath), which calls getAssociatedSubTreePaths(objPath / \"containing\", ...) directly — no id re-lookup needed. Using getAssociatedSubTreePathsById(chassisId, ...) here instead forces the object mapper to redo a subtree/id resolution that\u0027s already been done in this same scope. Consider reusing objPath directly for consistency with getChassisProcessorLinks and to avoid the redundant lookup.",
+      "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c0e22be_00612ed8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-17T14:23:19Z",
+      "side": 1,
+      "message": "Switching from the dedicated drive association to the generic containing association changes match semantics from \"directly associated drive\" to \"any drive anywhere in the containment subtree below this chassis.\" That may be intentional, but it isn\u0027t explained in the commit message. Please document why this is the correct direction and whether it was validated against a config where a drive is nested more than one level below the chassis (to confirm it doesn\u0027t over-match drives belonging to a different sub-chassis).",
+      "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
