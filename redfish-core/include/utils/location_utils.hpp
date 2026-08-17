@@ -38,6 +38,27 @@ inline std::optional<std::string> getLocationType(const std::string& interface)
     return std::nullopt;
 }
 
+inline void afterGetLocationCode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& location,
+    const boost::system::error_code& ec, const std::string& property)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for Location");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error for Location with EBADR error");
+        return;
+    }
+
+    asyncResp->res.jsonValue[location]["PartLocation"]["ServiceLabel"] =
+        property;
+}
+
 /**
  * @brief Fill out location code of a resource by requesting data from the
  * given D-Bus object.
@@ -56,25 +77,7 @@ inline void getLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        // ast-grep-ignore: long-lambda
-        [asyncResp, location](const boost::system::error_code& ec,
-                              const std::string& property) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Location");
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error for Location with EBADR error");
-                return;
-            }
-
-            asyncResp->res.jsonValue[location]["PartLocation"]["ServiceLabel"] =
-                property;
-        });
+        std::bind_front(afterGetLocationCode, asyncResp, location));
 }
 
 } // namespace location_util
