@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1736418e_cbcb1bfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-08-17T21:20:49Z",
+      "side": 1,
+      "message": "Patchset 11 was good as `const std::optional\u003cbool\u003e\u0026 var` carries the \"missing\" interface (EBADR) and it is assuming as true via `var.value_or(true)`.\n\nPatchset 13 is also okay as the caller explicitly sets as true if EBADR occurs.",
+      "revId": "d55bc343a3bee8f867a2532c32c3ebcdabdc1d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
