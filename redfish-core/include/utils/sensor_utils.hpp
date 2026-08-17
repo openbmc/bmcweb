@@ -1142,6 +1142,31 @@ inline bool objectExcerptToJson(
 using SensorServicePathMap = std::pair<std::string, std::string>;
 using SensorServicePathList = std::vector<SensorServicePathMap>;
 
+inline void afterGetAllSensorObjects(
+    const std::function<void(const boost::system::error_code& ec,
+                             SensorServicePathList&)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    SensorServicePathList sensorsServiceAndPath;
+
+    if (ec)
+    {
+        callback(ec, sensorsServiceAndPath);
+        return;
+    }
+
+    for (const auto& [sensorPath, serviceMaps] : subtree)
+    {
+        for (const auto& [service, mapInterfaces] : serviceMaps)
+        {
+            sensorsServiceAndPath.emplace_back(service, sensorPath);
+        }
+    }
+
+    callback(ec, sensorsServiceAndPath);
+}
+
 inline void getAllSensorObjects(
     const std::string& associatedPath, const std::string& path,
     std::span<const std::string_view> interfaces, const int32_t depth,
@@ -1153,28 +1178,7 @@ inline void getAllSensorObjects(
 
     dbus::utility::getAssociatedSubTree(
         endpointPath, sdbusplus::object_path(path), depth, interfaces,
-        // ast-grep-ignore: long-lambda
-        [callback = std::move(callback)](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            SensorServicePathList sensorsServiceAndPath;
-
-            if (ec)
-            {
-                callback(ec, sensorsServiceAndPath);
-                return;
-            }
-
-            for (const auto& [sensorPath, serviceMaps] : subtree)
-            {
-                for (const auto& [service, mapInterfaces] : serviceMaps)
-                {
-                    sensorsServiceAndPath.emplace_back(service, sensorPath);
-                }
-            }
-
-            callback(ec, sensorsServiceAndPath);
-        });
+        std::bind_front(afterGetAllSensorObjects, std::move(callback)));
 }
 
 enum class SensorPurpose
@@ -1244,6 +1248,35 @@ inline void checkSensorPurpose(
     }
 }
 
+inline void afterGetSensorPurpose(
+    const std::string& serviceName, const std::string& sensorPath,
+    const SensorPurpose sensorPurpose,
+    const std::shared_ptr<SensorServicePathList>& sensorMatches,
+    const std::function<void(
+        const boost::system::error_code& ec,
+        const std::shared_ptr<SensorServicePathList>& sensorMatches)>& callback,
+    const std::shared_ptr<int>& remainingSensorsToVist,
+    const std::shared_ptr<boost::system::error_code>& asyncErrors,
+    const boost::system::error_code& ec,
+    const std::vector<std::string>& purposeList)
+{
+    // Keep track of sensor visited
+    (*remainingSensorsToVist)--;
+    BMCWEB_LOG_DEBUG("Visited {}. Remaining sensors {}", sensorPath,
+                     *remainingSensorsToVist);
+
+    checkSensorPurpose(serviceName, sensorPath, sensorPurpose, sensorMatches,
+                       asyncErrors, ec, purposeList);
+
+    // All sensors have been visited
+    if (*remainingSensorsToVist == 0)
+    {
+        BMCWEB_LOG_DEBUG("getSensorsByPurpose, exit found {} matches",
+                         sensorMatches->size());
+        callback(*asyncErrors, sensorMatches);
+    }
+}
+
 /**
  * @brief Gets sensors from list with specified purpose
  *
@@ -1261,7 +1294,7 @@ inline void checkSensorPurpose(
  * @param[in] callback Callback to handle list of matching sensors
  */
 inline void getSensorsByPurpose(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    [[maybe_unused]] const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const SensorServicePathList& sensorListIn,
     const SensorPurpose sensorPurpose,
     const std::shared_ptr<SensorServicePathList>& sensorMatches,
@@ -1289,29 +1322,9 @@ inline void getSensorsByPurpose(
         dbus::utility::getProperty<std::vector<std::string>>(
             serviceName, sensorPath, "xyz.openbmc_project.Sensor.Purpose",
             "Purpose",
-            // ast-grep-ignore: long-lambda
-            [asyncResp, serviceName, sensorPath, sensorPurpose, sensorMatches,
-             callback, remainingSensorsToVist,
-             asyncErrors](const boost::system::error_code& ec,
-                          const std::vector<std::string>& purposeList) {
-                // Keep track of sensor visited
-                (*remainingSensorsToVist)--;
-                BMCWEB_LOG_DEBUG("Visited {}. Remaining sensors {}", sensorPath,
-                                 *remainingSensorsToVist);
-
-                checkSensorPurpose(serviceName, sensorPath, sensorPurpose,
-                                   sensorMatches, asyncErrors, ec, purposeList);
-
-                // All sensors have been visited
-                if (*remainingSensorsToVist == 0)
-                {
-                    BMCWEB_LOG_DEBUG(
-                        "getSensorsByPurpose, exit found {} matches",
-                        sensorMatches->size());
-                    callback(*asyncErrors, sensorMatches);
-                    return;
-                }
-            });
+            std::bind_front(afterGetSensorPurpose, serviceName, sensorPath,
+                            sensorPurpose, sensorMatches, callback,
+                            remainingSensorsToVist, asyncErrors));
     }
 }
 
