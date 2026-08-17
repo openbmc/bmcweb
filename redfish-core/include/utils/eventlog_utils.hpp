@@ -751,6 +751,30 @@ inline void dBusEventLogEntryPatch(
                     resolved.value_or(false));
 }
 
+// Process response from Logging service.
+inline void afterDBusEventLogEntryDelete(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryID, const boost::system::error_code& ec)
+{
+    BMCWEB_LOG_DEBUG("EventLogEntry (DBus) doDelete callback: Done");
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+            return;
+        }
+        // TODO Handle for specific error code
+        BMCWEB_LOG_ERROR(
+            "EventLogEntry (DBus) doDelete respHandler got error {}", ec);
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+
+    messages::success(asyncResp->res);
+}
+
 inline void dBusEventLogEntryDelete(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string entryID)
 {
@@ -758,34 +782,32 @@ inline void dBusEventLogEntryDelete(
 
     dbus::utility::escapePathForDbus(entryID);
 
-    // Process response from Logging service.
-    // ast-grep-ignore: long-lambda
-    auto respHandler = [asyncResp,
-                        entryID](const boost::system::error_code& ec) {
-        BMCWEB_LOG_DEBUG("EventLogEntry (DBus) doDelete callback: Done");
-        if (ec)
-        {
-            if (ec.value() == EBADR)
-            {
-                messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
-                return;
-            }
-            // TODO Handle for specific error code
-            BMCWEB_LOG_ERROR(
-                "EventLogEntry (DBus) doDelete respHandler got error {}", ec);
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return;
-        }
-
-        messages::success(asyncResp->res);
-    };
-
     // Make call to Logging service to request Delete Log
     dbus::utility::async_method_call(
-        asyncResp, respHandler, "xyz.openbmc_project.Logging",
+        asyncResp,
+        std::function<void(const boost::system::error_code&)>(
+            std::bind_front(afterDBusEventLogEntryDelete, asyncResp, entryID)),
+        "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID,
         "xyz.openbmc_project.Object.Delete", "Delete");
+}
+
+// Process response from Logging service.
+inline void afterDBusLogServiceActionsClear(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec)
+{
+    BMCWEB_LOG_DEBUG("doClearLog resp_handler callback: Done");
+    if (ec)
+    {
+        // TODO Handle for specific error code
+        BMCWEB_LOG_ERROR("doClearLog resp_handler got error {}", ec);
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+
+    messages::success(asyncResp->res);
 }
 
 inline void dBusLogServiceActionsClear(
@@ -793,26 +815,12 @@ inline void dBusLogServiceActionsClear(
 {
     BMCWEB_LOG_DEBUG("Do delete all entries.");
 
-    // Process response from Logging service.
-    // ast-grep-ignore: long-lambda
-    auto respHandler = [asyncResp](const boost::system::error_code& ec) {
-        BMCWEB_LOG_DEBUG("doClearLog resp_handler callback: Done");
-        if (ec)
-        {
-            // TODO Handle for specific error code
-            BMCWEB_LOG_ERROR("doClearLog resp_handler got error {}", ec);
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return;
-        }
-
-        messages::success(asyncResp->res);
-    };
-
     // Make call to Logging service to request Clear Log
     dbus::utility::async_method_call(
-        asyncResp, respHandler, "xyz.openbmc_project.Logging",
-        "/xyz/openbmc_project/logging",
+        asyncResp,
+        std::function<void(const boost::system::error_code&)>(
+            std::bind_front(afterDBusLogServiceActionsClear, asyncResp)),
+        "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
