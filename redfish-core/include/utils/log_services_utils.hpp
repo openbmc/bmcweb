@@ -7,24 +7,18 @@
 #include "async_resp.hpp"
 #include "boost_formatters.hpp"
 #include "error_messages.hpp"
-#include "http_body.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 
 #include <asm-generic/errno.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
-#include <boost/beast/http/status.hpp>
-#include <boost/beast/http/verb.hpp>
-#include <boost/system/linux_error.hpp>
-#include <boost/url/format.hpp>
-#include <boost/url/url.hpp>
-#include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
-#include <sdbusplus/unpack_properties.hpp>
 
 #include <cstdio>
+#include <memory>
 #include <string>
 
 namespace redfish
