@@ -21,7 +21,7 @@
 namespace redfish
 {
 
-inline void handleLogServicesDumpServiceGet(
+inline void handleManagersLogServicesDumpServiceGet(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
@@ -40,7 +40,7 @@ inline void handleLogServicesDumpServiceGet(
     dump_utils::getDumpServiceInfo(asyncResp, dumpType);
 }
 
-inline void handleLogServicesDumpEntriesCollectionGet(
+inline void handleManagersLogServicesDumpEntriesCollectionGet(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
@@ -58,7 +58,7 @@ inline void handleLogServicesDumpEntriesCollectionGet(
     dump_utils::getDumpEntryCollection(asyncResp, dumpType);
 }
 
-inline void handleLogServicesDumpEntryGet(
+inline void handleManagersLogServicesDumpEntryGet(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& dumpId)
@@ -75,7 +75,7 @@ inline void handleLogServicesDumpEntryGet(
     dump_utils::getDumpEntryById(asyncResp, dumpId, dumpType);
 }
 
-inline void handleLogServicesDumpEntryDelete(
+inline void handleManagersLogServicesDumpEntryDelete(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& dumpId)
@@ -93,7 +93,7 @@ inline void handleLogServicesDumpEntryDelete(
     dump_utils::deleteDumpEntry(asyncResp, dumpId, dumpType);
 }
 
-inline void handleLogServicesDumpEntryDownloadGet(
+inline void handleManagersLogServicesDumpEntryDownloadGet(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& dumpId)
@@ -111,7 +111,7 @@ inline void handleLogServicesDumpEntryDownloadGet(
     dump_utils::downloadDumpEntry(asyncResp, dumpId, dumpType);
 }
 
-inline void handleLogServicesDumpCollectDiagnosticDataPost(
+inline void handleManagersLogServicesDumpCollectDiagnosticDataPost(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
@@ -129,7 +129,7 @@ inline void handleLogServicesDumpCollectDiagnosticDataPost(
     dump_utils::createDump(asyncResp, req, dumpType);
 }
 
-inline void handleLogServicesDumpClearLogPost(
+inline void handleManagersLogServicesDumpClearLogPost(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
@@ -152,79 +152,84 @@ inline void requestRoutesManagersLogServicesDump(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/Dump/")
         .privileges(redfish::privileges::getLogService)
         .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpServiceGet, std::ref(app), "BMC"));
+            handleManagersLogServicesDumpServiceGet, std::ref(app), "BMC"));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/Dump/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntriesCollectionGet, std::ref(app), "BMC"));
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleManagersLogServicesDumpEntriesCollectionGet,
+                            std::ref(app), "BMC"));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/LogServices/Dump/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntryGet, std::ref(app), "BMC"));
+            handleManagersLogServicesDumpEntryGet, std::ref(app), "BMC"));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/LogServices/Dump/Entries/<str>/")
         .privileges(redfish::privileges::deleteLogEntry)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
-            handleLogServicesDumpEntryDelete, std::ref(app), "BMC"));
+            handleManagersLogServicesDumpEntryDelete, std::ref(app), "BMC"));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/Dump/Entries/<str>/attachment/")
         .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntryDownloadGet, std::ref(app), "BMC"));
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleManagersLogServicesDumpEntryDownloadGet,
+                            std::ref(app), "BMC"));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/Dump/Actions/LogService.CollectDiagnosticData/")
         .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(
-            std::bind_front(handleLogServicesDumpCollectDiagnosticDataPost,
-                            std::ref(app), "BMC"));
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleManagersLogServicesDumpCollectDiagnosticDataPost,
+            std::ref(app), "BMC"));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/Dump/Actions/LogService.ClearLog/")
         .privileges(redfish::privileges::postLogService)
         .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleLogServicesDumpClearLogPost, std::ref(app), "BMC"));
+            handleManagersLogServicesDumpClearLogPost, std::ref(app), "BMC"));
 }
 
 inline void requestRoutesManagersLogServicesFaultLog(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/FaultLog/")
         .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpServiceGet, std::ref(app), "FaultLog"));
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleManagersLogServicesDumpServiceGet,
+                            std::ref(app), "FaultLog"));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/LogServices/FaultLog/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleLogServicesDumpEntriesCollectionGet,
+            std::bind_front(handleManagersLogServicesDumpEntriesCollectionGet,
                             std::ref(app), "FaultLog"));
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/<str>/LogServices/FaultLog/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntryGet, std::ref(app), "FaultLog"));
+            handleManagersLogServicesDumpEntryGet, std::ref(app), "FaultLog"));
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/<str>/LogServices/FaultLog/Entries/<str>/")
         .privileges(redfish::privileges::deleteLogEntry)
-        .methods(boost::beast::http::verb::delete_)(std::bind_front(
-            handleLogServicesDumpEntryDelete, std::ref(app), "FaultLog"));
+        .methods(boost::beast::http::verb::delete_)(
+            std::bind_front(handleManagersLogServicesDumpEntryDelete,
+                            std::ref(app), "FaultLog"));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/FaultLog/Actions/LogService.ClearLog/")
         .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleLogServicesDumpClearLogPost, std::ref(app), "FaultLog"));
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleManagersLogServicesDumpClearLogPost,
+                            std::ref(app), "FaultLog"));
 }
 } // namespace redfish
