@@ -10,6 +10,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/event.hpp"
 #include "generated/enums/log_entry.hpp"
 #include "generated/enums/log_service.hpp"
 #include "http_body.hpp"
@@ -334,14 +335,16 @@ inline void getDumpEntryCollection(
 
                 if (dumpType == "BMC")
                 {
-                    thisEntry["DiagnosticDataType"] = "Manager";
+                    thisEntry["DiagnosticDataType"] =
+                        event::DiagnosticDataTypes::Manager;
                     thisEntry["AdditionalDataURI"] = boost::urls::format(
                         "{}/{}/attachment", entriesPath, entryID);
                     thisEntry["AdditionalDataSizeBytes"] = size;
                 }
                 else if (dumpType == "System")
                 {
-                    thisEntry["DiagnosticDataType"] = "OEM";
+                    thisEntry["DiagnosticDataType"] =
+                        event::DiagnosticDataTypes::OEM;
                     thisEntry["OEMDiagnosticDataType"] = "System";
                     thisEntry["AdditionalDataURI"] = boost::urls::format(
                         "{}/{}/attachment", entriesPath, entryID);
@@ -431,7 +434,8 @@ inline void getDumpEntryById(
 
                 if (dumpType == "BMC")
                 {
-                    asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
+                    asyncResp->res.jsonValue["DiagnosticDataType"] =
+                        event::DiagnosticDataTypes::Manager;
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
                         boost::urls::format("{}/{}/attachment", entriesPath,
                                             entryID);
@@ -439,7 +443,8 @@ inline void getDumpEntryById(
                 }
                 else if (dumpType == "System")
                 {
-                    asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
+                    asyncResp->res.jsonValue["DiagnosticDataType"] =
+                        event::DiagnosticDataTypes::OEM;
                     asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
                         "System";
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
@@ -854,17 +859,17 @@ inline void parseCrashdumpParameters(
         return;
     }
 
-    if (filenamePtr != nullptr)
+    if (filenamePtr != nullptr && !filenamePtr->empty())
     {
         filename = *filenamePtr;
     }
 
-    if (timestampPtr != nullptr)
+    if (timestampPtr != nullptr && !timestampPtr->empty())
     {
         timestamp = *timestampPtr;
     }
 
-    if (logfilePtr != nullptr)
+    if (logfilePtr != nullptr && !logfilePtr->empty())
     {
         logfile = *logfilePtr;
     }
@@ -1823,7 +1828,7 @@ inline void logCrashdumpEntry(
             logEntry["AdditionalDataURI"] = boost::urls::format(
                 "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries/{}/{}",
                 BMCWEB_REDFISH_SYSTEM_URI_NAME, logID, filename);
-            logEntry["DiagnosticDataType"] = "OEM";
+            logEntry["DiagnosticDataType"] = event::DiagnosticDataTypes::OEM;
             logEntry["OEMDiagnosticDataType"] = "PECICrashdump";
             logEntry["Created"] = std::move(timestamp);
 

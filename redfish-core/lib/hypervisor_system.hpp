@@ -205,7 +205,7 @@ inline bool extractHypervisorInterfaceData(
                         {
                             const std::string* dhcp =
                                 std::get_if<std::string>(&propertyPair.second);
-                            if (dhcp != nullptr)
+                            if (dhcp != nullptr && !dhcp->empty())
                             {
                                 ethData.dhcpEnabled = *dhcp;
                                 break; // Interested on only "DHCPEnabled".
@@ -244,7 +244,7 @@ inline bool extractHypervisorInterfaceData(
                         {
                             const std::string* address =
                                 std::get_if<std::string>(&property.second);
-                            if (address != nullptr)
+                            if (address != nullptr && !address->empty())
                             {
                                 ipv4Address.address = *address;
                             }
@@ -253,7 +253,7 @@ inline bool extractHypervisorInterfaceData(
                         {
                             const std::string* origin =
                                 std::get_if<std::string>(&property.second);
-                            if (origin != nullptr)
+                            if (origin != nullptr && !origin->empty())
                             {
                                 ipv4Address.origin =
                                     translateAddressOriginDbusToRedfish(*origin,
@@ -298,7 +298,7 @@ inline bool extractHypervisorInterfaceData(
                         {
                             const std::string* hostName =
                                 std::get_if<std::string>(&propertyPair.second);
-                            if (hostName != nullptr)
+                            if (hostName != nullptr && !hostName->empty())
                             {
                                 ethData.hostName = *hostName;
                             }
@@ -307,7 +307,8 @@ inline bool extractHypervisorInterfaceData(
                         {
                             const std::string* defaultGateway =
                                 std::get_if<std::string>(&propertyPair.second);
-                            if (defaultGateway != nullptr)
+                            if (defaultGateway != nullptr &&
+                                !defaultGateway->empty())
                             {
                                 ethData.defaultGateway = *defaultGateway;
                             }
