@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aa7f0be_c5881ab6",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-18T19:09:33Z",
+      "side": 1,
+      "message": "Where is format used?",
+      "revId": "f60a602d2487c976277a697e2513d48735adcd0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b608e7_e7094f59",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-18T19:09:33Z",
+      "side": 1,
+      "message": "Where is native_types used?",
+      "revId": "f60a602d2487c976277a697e2513d48735adcd0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35c44298_e70deac7",
+        "filename": "redfish-core/include/utils/resource_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-18T19:09:33Z",
+      "side": 1,
+      "message": "Status.Health",
+      "range": {
+        "startLine": 150,
+        "startChar": 49,
+        "endLine": 150,
+        "endChar": 61
+      },
+      "revId": "f60a602d2487c976277a697e2513d48735adcd0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfeb25ba_c5bf17a3",
+        "filename": "test/redfish-core/include/utils/resource_utils_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-18T19:09:33Z",
+      "side": 1,
+      "message": "Might be good to test EBADR, up to you. These are rough but here is the idea:\n\n```\nTEST(GetStatusAvailableState, MissingInterfaceDefaultsToEnabled)\n{\n    auto asyncResp \u003d createAsyncResp();\n\n    boost::system::error_code ec(EBADR, boost::system::generic_category());\n\n    // EBADR should cause Enabled \n    getStatusAvailableState(asyncResp, \"\"_json_pointer, true, ec, false);\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"],\n              resource::State::Enabled);\n}\n\nTEST(GetStatusAvailableState, MissingInterfacePreservesAbsent)\n{\n    auto asyncResp \u003d createAsyncResp();\n\n    boost::system::error_code ec(EBADR, boost::system::generic_category());\n\n    getStatusAvailableState(asyncResp, \"\"_json_pointer, false, ec, false);\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"],\n              resource::State::Absent);\n}\n\nTEST(AfterGetResourceHealth, MissingInterfaceDefaultsToOK)\n{\n    auto asyncResp \u003d createAsyncResp();\n\n    boost::system::error_code ec(EBADR, boost::system::generic_category());\n\n    // The bool value supplied on error is false, but EBADR should \n    afterGetResourceHealth(asyncResp, \"\"_json_pointer, ec, false);\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Status\"][\"Health\"],\n              resource::Health::OK);\n}\n```",
+      "revId": "f60a602d2487c976277a697e2513d48735adcd0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
