@@ -34,6 +34,7 @@
 
 #include <boost/asio/error.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/beast/http/field.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -1139,14 +1140,19 @@ inline void handleUpdateServicePost(
     BMCWEB_LOG_DEBUG("doPost: contentType={}", contentType);
 
     // Make sure that content type is application/octet-stream
-    if (bmcweb::asciiIEquals(contentType, "application/octet-stream"))
+    if (!req.req.contains(boost::beast::http::field::content_type))
+    {
+        messages::headerMissing(asyncResp->res, "Content-Type");
+    }
+    else if (bmcweb::asciiIEquals(contentType, "application/octet-stream"))
     {
         doHTTPUpdate(asyncResp, req);
     }
     else
     {
         BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
-        asyncResp->res.result(boost::beast::http::status::bad_request);
+        messages::headerInvalid(asyncResp->res,
+                                std::format("Content-Type: {}", contentType));
     }
 }
 
