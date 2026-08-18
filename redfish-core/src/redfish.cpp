@@ -156,24 +156,11 @@ RedfishService::RedfishService(App& app)
 
     if constexpr (BMCWEB_REDFISH_DUMP_LOG)
     {
-        requestRoutesSystemDumpService(app);
-        requestRoutesSystemDumpEntryCollection(app);
-        requestRoutesSystemDumpEntry(app);
-        requestRoutesSystemDumpEntryDownload(app);
-        requestRoutesSystemDumpCreate(app);
-        requestRoutesSystemDumpClear(app);
+        requestRoutesSystemsLogServicesDump(app);
 
-        requestRoutesBMCDumpService(app);
-        requestRoutesBMCDumpEntryCollection(app);
-        requestRoutesBMCDumpEntry(app);
-        requestRoutesBMCDumpEntryDownload(app);
-        requestRoutesBMCDumpCreate(app);
-        requestRoutesBMCDumpClear(app);
+        requestRoutesManagersLogServicesDump(app);
 
-        requestRoutesFaultLogDumpService(app);
-        requestRoutesFaultLogDumpEntryCollection(app);
-        requestRoutesFaultLogDumpEntry(app);
-        requestRoutesFaultLogDumpClear(app);
+        requestRoutesManagersLogServicesFaultLog(app);
     }
 
     if constexpr (BMCWEB_REDFISH_BMC_JOURNAL)
