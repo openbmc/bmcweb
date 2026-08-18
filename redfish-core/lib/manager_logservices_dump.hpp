@@ -147,24 +147,18 @@ inline void handleLogServicesDumpClearLogPost(
     dump_utils::clearDump(asyncResp, dumpType);
 }
 
-inline void requestRoutesBMCDumpService(App& app)
+inline void requestRoutesManagersLogServicesDump(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/Dump/")
         .privileges(redfish::privileges::getLogService)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleLogServicesDumpServiceGet, std::ref(app), "BMC"));
-}
 
-inline void requestRoutesBMCDumpEntryCollection(App& app)
-{
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/Dump/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleLogServicesDumpEntriesCollectionGet, std::ref(app), "BMC"));
-}
 
-inline void requestRoutesBMCDumpEntry(App& app)
-{
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/LogServices/Dump/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
@@ -176,20 +170,14 @@ inline void requestRoutesBMCDumpEntry(App& app)
         .privileges(redfish::privileges::deleteLogEntry)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
             handleLogServicesDumpEntryDelete, std::ref(app), "BMC"));
-}
 
-inline void requestRoutesBMCDumpEntryDownload(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/Dump/Entries/<str>/attachment/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleLogServicesDumpEntryDownloadGet, std::ref(app), "BMC"));
-}
 
-inline void requestRoutesBMCDumpCreate(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/Dump/Actions/LogService.CollectDiagnosticData/")
@@ -197,10 +185,7 @@ inline void requestRoutesBMCDumpCreate(App& app)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleLogServicesDumpCollectDiagnosticDataPost,
                             std::ref(app), "BMC"));
-}
 
-inline void requestRoutesBMCDumpClear(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/Dump/Actions/LogService.ClearLog/")
@@ -209,26 +194,20 @@ inline void requestRoutesBMCDumpClear(App& app)
             handleLogServicesDumpClearLogPost, std::ref(app), "BMC"));
 }
 
-inline void requestRoutesFaultLogDumpService(App& app)
+inline void requestRoutesManagersLogServicesFaultLog(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/FaultLog/")
         .privileges(redfish::privileges::getLogService)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleLogServicesDumpServiceGet, std::ref(app), "FaultLog"));
-}
 
-inline void requestRoutesFaultLogDumpEntryCollection(App& app)
-{
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/LogServices/FaultLog/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleLogServicesDumpEntriesCollectionGet,
                             std::ref(app), "FaultLog"));
-}
 
-inline void requestRoutesFaultLogDumpEntry(App& app)
-{
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/<str>/LogServices/FaultLog/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
@@ -240,10 +219,7 @@ inline void requestRoutesFaultLogDumpEntry(App& app)
         .privileges(redfish::privileges::deleteLogEntry)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
             handleLogServicesDumpEntryDelete, std::ref(app), "FaultLog"));
-}
 
-inline void requestRoutesFaultLogDumpClear(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/LogServices/FaultLog/Actions/LogService.ClearLog/")
@@ -251,5 +227,4 @@ inline void requestRoutesFaultLogDumpClear(App& app)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleLogServicesDumpClearLogPost, std::ref(app), "FaultLog"));
 }
-
 } // namespace redfish

@@ -168,25 +168,19 @@ inline void handleLogServicesDumpClearLogComputerSystemPost(
     dump_utils::clearDump(asyncResp, "System");
 }
 
-inline void requestRoutesSystemDumpService(App& app)
+inline void requestRoutesSystemsLogServicesDump(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Dump/")
         .privileges(redfish::privileges::getLogService)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleLogServicesDumpServiceComputerSystemGet, std::ref(app)));
-}
 
-inline void requestRoutesSystemDumpEntryCollection(App& app)
-{
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleLogServicesDumpEntriesCollectionComputerSystemGet,
             std::ref(app)));
-}
 
-inline void requestRoutesSystemDumpEntry(App& app)
-{
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
@@ -198,10 +192,7 @@ inline void requestRoutesSystemDumpEntry(App& app)
         .privileges(redfish::privileges::deleteLogEntry)
         .methods(boost::beast::http::verb::delete_)(std::bind_front(
             handleLogServicesDumpEntryComputerSystemDelete, std::ref(app)));
-}
 
-inline void requestRoutesSystemDumpEntryDownload(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/attachment/")
@@ -209,10 +200,7 @@ inline void requestRoutesSystemDumpEntryDownload(App& app)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleLogServicesSystemDumpEntryDownloadGet,
                             std::ref(app), "System"));
-}
 
-inline void requestRoutesSystemDumpCreate(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.CollectDiagnosticData/")
@@ -221,10 +209,7 @@ inline void requestRoutesSystemDumpCreate(App& app)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleLogServicesDumpCollectDiagnosticDataComputerSystemPost,
             std::ref(app)));
-}
 
-inline void requestRoutesSystemDumpClear(App& app)
-{
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.ClearLog/")
@@ -233,5 +218,4 @@ inline void requestRoutesSystemDumpClear(App& app)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleLogServicesDumpClearLogComputerSystemPost, std::ref(app)));
 }
-
 } // namespace redfish
