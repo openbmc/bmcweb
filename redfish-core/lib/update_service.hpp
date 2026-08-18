@@ -34,6 +34,7 @@
 
 #include <boost/asio/error.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/beast/http/field.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -1142,10 +1143,15 @@ inline void handleUpdateServicePost(
     {
         doHTTPUpdate(asyncResp, req);
     }
+    else if (req.req.find(boost::beast::http::field::content_type) ==
+             req.req.end())
+    {
+        messages::headerMissing(asyncResp->res, "Content-Type");
+    }
     else
     {
         BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
-        asyncResp->res.result(boost::beast::http::status::bad_request);
+        messages::headerInvalid(asyncResp->res, "Content-Type");
     }
 }
 
