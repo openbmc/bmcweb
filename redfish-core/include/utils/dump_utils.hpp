@@ -226,7 +226,7 @@ inline void parseDumpEntryFromDbusObject(
     }
 }
 
-static boost::urls::url getDumpEntriesPath(const std::string& dumpType)
+inline boost::urls::url getDumpEntriesPath(const std::string& dumpType)
 {
     boost::urls::url entriesPath;
 
