@@ -32,6 +32,7 @@
 #include <chrono>
 #include <cstdint>
 #include <format>
+#include <functional>
 #include <iterator>
 #include <memory>
 #include <optional>
@@ -525,6 +526,119 @@ inline void downloadDumpEntry(
         "xyz.openbmc_project.Dump.Entry", "GetFileHandle");
 }
 
+inline bool runCreateDumpTask(
+    const sdbusplus::object_path& createdObjPath, const std::string& dumpId,
+    bool isProgressIntfPresent, const boost::system::error_code& ec2,
+    sdbusplus::message_t& msg, const std::shared_ptr<task::TaskData>& taskData)
+{
+    if (ec2)
+    {
+        BMCWEB_LOG_ERROR("{}: Error in creating dump", createdObjPath.str);
+        taskData->messages.emplace_back(messages::internalError());
+        taskData->state = "Cancelled";
+        return task::completed;
+    }
+
+    if (isProgressIntfPresent)
+    {
+        dbus::utility::DBusPropertiesMap values;
+        std::string prop;
+        msg.read(prop, values);
+
+        DumpCreationProgress dumpStatus = getDumpCompletionStatus(values);
+        if (dumpStatus == DumpCreationProgress::DUMP_CREATE_FAILED)
+        {
+            BMCWEB_LOG_ERROR("{}: Error in creating dump", createdObjPath.str);
+            taskData->state = "Cancelled";
+            return task::completed;
+        }
+
+        if (dumpStatus == DumpCreationProgress::DUMP_CREATE_INPROGRESS)
+        {
+            BMCWEB_LOG_DEBUG("{}: Dump creation task is in progress",
+                             createdObjPath.str);
+            return !task::completed;
+        }
+    }
+
+    nlohmann::json retMessage = messages::success();
+    taskData->messages.emplace_back(retMessage);
+
+    boost::urls::url url = boost::urls::format(
+        "/redfish/v1/Managers/{}/LogServices/Dump/Entries/{}",
+        BMCWEB_REDFISH_MANAGER_URI_NAME, dumpId);
+
+    std::string headerLoc = "Location: ";
+    headerLoc += url.buffer();
+
+    taskData->payload->httpHeaders.emplace_back(std::move(headerLoc));
+
+    BMCWEB_LOG_DEBUG("{}: Dump creation task completed", createdObjPath.str);
+    taskData->state = "Completed";
+    return task::completed;
+}
+
+inline void startCreateDumpTask(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const task::Payload& payload, const sdbusplus::object_path& createdObjPath,
+    const std::string& dumpId, const boost::system::error_code& ec,
+    const std::string& introspectXml)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Introspect call failed with error: {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Check if the created dump object has implemented Progress
+    // interface to track dump completion. If yes, fetch the "Status"
+    // property of the interface, modify the task state accordingly.
+    // Else, return task completed.
+    tinyxml2::XMLDocument doc;
+
+    doc.Parse(introspectXml.data(), introspectXml.size());
+    tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
+    if (pRoot == nullptr)
+    {
+        BMCWEB_LOG_ERROR("XML document failed to parse");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    tinyxml2::XMLElement* interfaceNode = pRoot->FirstChildElement("interface");
+
+    bool isProgressIntfPresent = false;
+    while (interfaceNode != nullptr)
+    {
+        const char* thisInterfaceName = interfaceNode->Attribute("name");
+        if (thisInterfaceName != nullptr)
+        {
+            if (thisInterfaceName ==
+                std::string_view("xyz.openbmc_project.Common.Progress"))
+            {
+                interfaceNode = interfaceNode->NextSiblingElement("interface");
+                continue;
+            }
+            isProgressIntfPresent = true;
+            break;
+        }
+        interfaceNode = interfaceNode->NextSiblingElement("interface");
+    }
+
+    std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+        std::bind_front(runCreateDumpTask, createdObjPath, dumpId,
+                        isProgressIntfPresent),
+        "type='signal',interface='org.freedesktop.DBus.Properties',"
+        "member='PropertiesChanged',path='" +
+            createdObjPath.str + "'");
+
+    // The task timer is set to max time limit within which the
+    // requested dump will be collected.
+    task->startTimer(std::chrono::minutes(6));
+    task->payload.emplace(payload);
+    task->populateResp(asyncResp->res);
+}
+
 inline void createDumpTaskCallback(
     task::Payload&& payload,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -534,128 +648,65 @@ inline void createDumpTaskCallback(
 
     dbus::utility::async_method_call(
         asyncResp,
-        // ast-grep-ignore: long-lambda
         [asyncResp, payload = std::move(payload), createdObjPath,
          dumpId](const boost::system::error_code& ec,
                  const std::string& introspectXml) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Introspect call failed with error: {}",
-                                 ec.message());
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // Check if the created dump object has implemented Progress
-            // interface to track dump completion. If yes, fetch the "Status"
-            // property of the interface, modify the task state accordingly.
-            // Else, return task completed.
-            tinyxml2::XMLDocument doc;
-
-            doc.Parse(introspectXml.data(), introspectXml.size());
-            tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
-            if (pRoot == nullptr)
-            {
-                BMCWEB_LOG_ERROR("XML document failed to parse");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            tinyxml2::XMLElement* interfaceNode =
-                pRoot->FirstChildElement("interface");
-
-            bool isProgressIntfPresent = false;
-            while (interfaceNode != nullptr)
-            {
-                const char* thisInterfaceName =
-                    interfaceNode->Attribute("name");
-                if (thisInterfaceName != nullptr)
-                {
-                    if (thisInterfaceName ==
-                        std::string_view("xyz.openbmc_project.Common.Progress"))
-                    {
-                        interfaceNode =
-                            interfaceNode->NextSiblingElement("interface");
-                        continue;
-                    }
-                    isProgressIntfPresent = true;
-                    break;
-                }
-                interfaceNode = interfaceNode->NextSiblingElement("interface");
-            }
-
-            std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                // ast-grep-ignore: long-lambda
-                [createdObjPath, dumpId, isProgressIntfPresent](
-                    const boost::system::error_code& ec2,
-                    sdbusplus::message_t& msg,
-                    const std::shared_ptr<task::TaskData>& taskData) {
-                    if (ec2)
-                    {
-                        BMCWEB_LOG_ERROR("{}: Error in creating dump",
-                                         createdObjPath.str);
-                        taskData->messages.emplace_back(
-                            messages::internalError());
-                        taskData->state = "Cancelled";
-                        return task::completed;
-                    }
-
-                    if (isProgressIntfPresent)
-                    {
-                        dbus::utility::DBusPropertiesMap values;
-                        std::string prop;
-                        msg.read(prop, values);
-
-                        DumpCreationProgress dumpStatus =
-                            getDumpCompletionStatus(values);
-                        if (dumpStatus ==
-                            DumpCreationProgress::DUMP_CREATE_FAILED)
-                        {
-                            BMCWEB_LOG_ERROR("{}: Error in creating dump",
-                                             createdObjPath.str);
-                            taskData->state = "Cancelled";
-                            return task::completed;
-                        }
-
-                        if (dumpStatus ==
-                            DumpCreationProgress::DUMP_CREATE_INPROGRESS)
-                        {
-                            BMCWEB_LOG_DEBUG(
-                                "{}: Dump creation task is in progress",
-                                createdObjPath.str);
-                            return !task::completed;
-                        }
-                    }
-
-                    nlohmann::json retMessage = messages::success();
-                    taskData->messages.emplace_back(retMessage);
-
-                    boost::urls::url url = boost::urls::format(
-                        "/redfish/v1/Managers/{}/LogServices/Dump/Entries/{}",
-                        BMCWEB_REDFISH_MANAGER_URI_NAME, dumpId);
-
-                    std::string headerLoc = "Location: ";
-                    headerLoc += url.buffer();
-
-                    taskData->payload->httpHeaders.emplace_back(
-                        std::move(headerLoc));
-
-                    BMCWEB_LOG_DEBUG("{}: Dump creation task completed",
-                                     createdObjPath.str);
-                    taskData->state = "Completed";
-                    return task::completed;
-                },
-                "type='signal',interface='org.freedesktop.DBus.Properties',"
-                "member='PropertiesChanged',path='" +
-                    createdObjPath.str + "'");
-
-            // The task timer is set to max time limit within which the
-            // requested dump will be collected.
-            task->startTimer(std::chrono::minutes(6));
-            task->payload.emplace(payload);
-            task->populateResp(asyncResp->res);
+            startCreateDumpTask(asyncResp, payload, createdObjPath, dumpId, ec,
+                                introspectXml);
         },
         "xyz.openbmc_project.Dump.Manager", createdObjPath,
         "org.freedesktop.DBus.Introspectable", "Introspect");
+}
+
+inline void afterCreateDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            task::Payload&& payload, boost::urls::url& dumpPath,
+                            const boost::system::error_code& ec,
+                            const sdbusplus::message_t& msg,
+                            const sdbusplus::object_path& objPath)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("CreateDump resp_handler got error {}", ec);
+        const sd_bus_error* dbusError = msg.get_error();
+        if (dbusError == nullptr)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("CreateDump DBus error: {} and error msg: {}",
+                         dbusError->name, dbusError->message);
+        if (std::string_view("xyz.openbmc_project.Common.Error.NotAllowed") ==
+            dbusError->name)
+        {
+            messages::resourceInStandby(asyncResp->res);
+            return;
+        }
+        if (std::string_view(
+                "xyz.openbmc_project.Dump.Create.Error.Disabled") ==
+            dbusError->name)
+        {
+            messages::serviceDisabled(asyncResp->res, dumpPath.c_str());
+            return;
+        }
+        if (std::string_view("xyz.openbmc_project.Common.Error.Unavailable") ==
+            dbusError->name)
+        {
+            messages::resourceInUse(asyncResp->res);
+            return;
+        }
+        // Other Dbus errors such as:
+        // xyz.openbmc_project.Common.Error.InvalidArgument &
+        // org.freedesktop.DBus.Error.InvalidArgs are all related to
+        // the dbus call that is made here in the bmcweb
+        // implementation and has nothing to do with the client's
+        // input in the request. Hence, returning internal error
+        // back to the client.
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Dump Created. Path: {}", objPath.str);
+    createDumpTaskCallback(std::move(payload), asyncResp, objPath);
 }
 
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -743,51 +794,8 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
          dumpPath](const boost::system::error_code& ec,
                    const sdbusplus::message_t& msg,
                    const sdbusplus::object_path& objPath) mutable {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("CreateDump resp_handler got error {}", ec);
-                const sd_bus_error* dbusError = msg.get_error();
-                if (dbusError == nullptr)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                BMCWEB_LOG_ERROR("CreateDump DBus error: {} and error msg: {}",
-                                 dbusError->name, dbusError->message);
-                if (std::string_view(
-                        "xyz.openbmc_project.Common.Error.NotAllowed") ==
-                    dbusError->name)
-                {
-                    messages::resourceInStandby(asyncResp->res);
-                    return;
-                }
-                if (std::string_view(
-                        "xyz.openbmc_project.Dump.Create.Error.Disabled") ==
-                    dbusError->name)
-                {
-                    messages::serviceDisabled(asyncResp->res, dumpPath.c_str());
-                    return;
-                }
-                if (std::string_view(
-                        "xyz.openbmc_project.Common.Error.Unavailable") ==
-                    dbusError->name)
-                {
-                    messages::resourceInUse(asyncResp->res);
-                    return;
-                }
-                // Other Dbus errors such as:
-                // xyz.openbmc_project.Common.Error.InvalidArgument &
-                // org.freedesktop.DBus.Error.InvalidArgs are all related to
-                // the dbus call that is made here in the bmcweb
-                // implementation and has nothing to do with the client's
-                // input in the request. Hence, returning internal error
-                // back to the client.
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            BMCWEB_LOG_DEBUG("Dump Created. Path: {}", objPath.str);
-            createDumpTaskCallback(std::move(payload), asyncResp, objPath);
+            afterCreateDump(asyncResp, std::move(payload), dumpPath, ec, msg,
+                            objPath);
         },
         "xyz.openbmc_project.Dump.Manager", getDumpPath(dumpType),
         "xyz.openbmc_project.Dump.Create", "CreateDump", createDumpParamVec);
