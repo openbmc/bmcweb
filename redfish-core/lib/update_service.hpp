@@ -1139,15 +1139,19 @@ inline void handleUpdateServicePost(
     BMCWEB_LOG_DEBUG("doPost: contentType={}", contentType);
 
     // Make sure that content type is application/octet-stream
-    if (bmcweb::asciiIEquals(contentType, "application/octet-stream"))
+    if (contentType.empty())
     {
-        doHTTPUpdate(asyncResp, req);
+        messages::headerMissing(asyncResp->res, "Content-Type");
+        return;
     }
-    else
+    if (!bmcweb::asciiIEquals(contentType, "application/octet-stream"))
     {
         BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
-        asyncResp->res.result(boost::beast::http::status::bad_request);
+        messages::headerInvalid(asyncResp->res,
+                                std::format("Content-Type: {}", contentType));
+        return;
     }
+    doHTTPUpdate(asyncResp, req);
 }
 
 inline void handleUpdateServiceMultipartUpdatePost(
