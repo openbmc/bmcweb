@@ -586,7 +586,7 @@ inline void checkForQuiesced(
 {
     dbus::utility::getProperty<std::string>(
         "org.freedesktop.systemd1",
-        "/org/freedesktop/systemd1/unit/obmc-bmc-service-quiesce@0.target",
+        "/org/freedesktop/systemd1/unit/obmc_2dbmc_2dservice_2dquiesce_400_2etarget",
         "org.freedesktop.systemd1.Unit", "ActiveState",
         // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
