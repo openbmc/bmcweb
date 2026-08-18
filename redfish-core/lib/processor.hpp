@@ -145,7 +145,7 @@ inline void getCpuDataByInterface(
             {
                 const std::string* value =
                     std::get_if<std::string>(&property.second);
-                if (value != nullptr)
+                if (value != nullptr && !value->empty())
                 {
                     asyncResp->res.jsonValue["Socket"] = *value;
                 }
@@ -393,29 +393,35 @@ inline void afterGetCpuAssetData(
         asyncResp->res.jsonValue["Model"] = *model;
     }
 
-    if (manufacturer != nullptr)
+    if (manufacturer != nullptr && !manufacturer->empty())
     {
         asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
 
         // Otherwise would be unexpected.
         if (manufacturer->contains("Intel"))
         {
-            asyncResp->res.jsonValue["ProcessorArchitecture"] = "x86";
-            asyncResp->res.jsonValue["InstructionSet"] = "x86-64";
+            asyncResp->res.jsonValue["ProcessorArchitecture"] =
+                processor::ProcessorArchitecture::x86;
+            asyncResp->res.jsonValue["InstructionSet"] =
+                processor::InstructionSet::x8664;
         }
         else if (manufacturer->contains("IBM"))
         {
-            asyncResp->res.jsonValue["ProcessorArchitecture"] = "Power";
-            asyncResp->res.jsonValue["InstructionSet"] = "PowerISA";
+            asyncResp->res.jsonValue["ProcessorArchitecture"] =
+                processor::ProcessorArchitecture::Power;
+            asyncResp->res.jsonValue["InstructionSet"] =
+                processor::InstructionSet::PowerISA;
         }
         else if (manufacturer->contains("Ampere"))
         {
-            asyncResp->res.jsonValue["ProcessorArchitecture"] = "ARM";
-            asyncResp->res.jsonValue["InstructionSet"] = "ARM-A64";
+            asyncResp->res.jsonValue["ProcessorArchitecture"] =
+                processor::ProcessorArchitecture::ARM;
+            asyncResp->res.jsonValue["InstructionSet"] =
+                processor::InstructionSet::ARMA64;
         }
     }
 
-    if (partNumber != nullptr)
+    if (partNumber != nullptr && !partNumber->empty())
     {
         asyncResp->res.jsonValue["PartNumber"] = *partNumber;
     }
@@ -459,7 +465,7 @@ inline void afterGetCpuRevisionData(
         return;
     }
 
-    if (version != nullptr)
+    if (version != nullptr && !version->empty())
     {
         asyncResp->res.jsonValue["Version"] = *version;
     }
