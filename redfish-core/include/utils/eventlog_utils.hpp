@@ -3,43 +3,47 @@
 // SPDX-FileCopyrightText: Copyright 2018 Intel Corporation
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_log.hpp"
 #include "generated/enums/log_service.hpp"
+#include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
 #include "utils/dbus_event_log_entry.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/etag_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/log_services_utils.hpp"
 #include "utils/query_param.hpp"
 #include "utils/time_utils.hpp"
 
-#include <boost/beast/http/field.hpp>
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/status.hpp>
-#include <boost/beast/http/verb.hpp>
-#include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
-#include <boost/url/url.hpp>
-#include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
-#include <sdbusplus/unpack_properties.hpp>
 
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <filesystem>
+#include <format>
 #include <fstream>
-#include <iomanip>
+#include <functional>
 #include <memory>
 #include <optional>
-#include <sstream>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
+#include <vector>
 
 namespace redfish
 {

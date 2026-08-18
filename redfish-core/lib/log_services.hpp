@@ -12,7 +12,6 @@
 #include "error_messages.hpp"
 #include "generated/enums/log_entry.hpp"
 #include "generated/enums/log_service.hpp"
-#include "http_body.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "human_sort.hpp"
@@ -30,12 +29,10 @@
 #include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
-#include <systemd/sd-bus.h>
+#include <systemd/sd-bus-protocol.h>
 #include <tinyxml2.h>
-#include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
-#include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
@@ -287,7 +284,7 @@ inline void getDumpEntryCollection(
 
             for (auto& object : resp)
             {
-                if (object.first.str.find(dumpEntryPath) == std::string::npos)
+                if (object.first.str.contains(dumpEntryPath))
                 {
                     continue;
                 }
@@ -959,7 +956,7 @@ inline void handleSystemsLogServiceCollectionGet(
 
             for (const auto& pathStr : subtreePath)
             {
-                if (pathStr.find("PostCode") != std::string::npos)
+                if (pathStr.contains("PostCode"))
                 {
                     nlohmann::json& logServiceArrayLocal =
                         asyncResp->res.jsonValue["Members"];
