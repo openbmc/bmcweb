@@ -502,7 +502,8 @@ inline void logCrashdumpEntry(
             logEntry["AdditionalDataURI"] = boost::urls::format(
                 "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries/{}/{}",
                 BMCWEB_REDFISH_SYSTEM_URI_NAME, logID, filename);
-            logEntry["DiagnosticDataType"] = "OEM";
+            logEntry["DiagnosticDataType"] =
+                log_entry::LogDiagnosticDataTypes::OEM;
             logEntry["OEMDiagnosticDataType"] = "PECICrashdump";
             logEntry["Created"] = std::move(timestamp);
 

@@ -8,6 +8,7 @@
 #include "async_resp.hpp"
 #include "dbus_singleton.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/log_service.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
 #include "query.hpp"
@@ -56,7 +57,8 @@ inline void handleManagersLogServiceJournalGet(
     asyncResp->res.jsonValue["Name"] = "Open BMC Journal Log Service";
     asyncResp->res.jsonValue["Description"] = "BMC Journal Log Service";
     asyncResp->res.jsonValue["Id"] = "Journal";
-    asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+    asyncResp->res.jsonValue["OverWritePolicy"] =
+        log_service::OverWritePolicy::WrapsWhenFull;
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
         redfish::time_utils::getDateTimeOffsetNow();
