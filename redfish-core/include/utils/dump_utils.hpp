@@ -255,6 +255,102 @@ inline boost::urls::url getDumpEntriesPath(const std::string& dumpType)
     return entriesPath;
 }
 
+inline void afterGetManagedObjectsDumpEntryCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    boost::urls::url entriesPath, std::string& dumpType,
+    const boost::system::error_code& ec,
+    const dbus::utility::ManagedObjectType& objects)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DumpEntry resp_handler got error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#LogEntryCollection.LogEntryCollection";
+    asyncResp->res.jsonValue["@odata.id"] = entriesPath;
+    asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entries";
+    asyncResp->res.jsonValue["Description"] =
+        "Collection of " + dumpType + " Dump Entries";
+
+    nlohmann::json::array_t entriesArray;
+    std::string dumpEntryPath = getDumpPath(dumpType) + "/entry/";
+
+    dbus::utility::ManagedObjectType resp(objects);
+    std::ranges::sort(resp, [](const auto& l, const auto& r) {
+        return AlphanumLess<std::string>()(l.first.filename(),
+                                           r.first.filename());
+    });
+
+    for (auto& object : resp)
+    {
+        if (object.first.str.contains(dumpEntryPath))
+        {
+            continue;
+        }
+        uint64_t timestampUs = 0;
+        uint64_t size = 0;
+        std::string dumpStatus;
+        std::string originatorId;
+        log_entry::OriginatorTypes originatorType =
+            log_entry::OriginatorTypes::Internal;
+        nlohmann::json::object_t thisEntry;
+
+        std::string entryID = object.first.filename();
+        if (entryID.empty())
+        {
+            continue;
+        }
+
+        parseDumpEntryFromDbusObject(object, dumpStatus, size, timestampUs,
+                                     originatorId, originatorType, asyncResp);
+
+        if (dumpStatus !=
+                "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
+            !dumpStatus.empty())
+        {
+            // Dump status is not Complete, no need to enumerate
+            continue;
+        }
+
+        thisEntry["@odata.type"] = "#LogEntry.v1_11_0.LogEntry";
+        thisEntry["@odata.id"] =
+            boost::urls::format("{}/{}", entriesPath, entryID);
+        thisEntry["Id"] = entryID;
+        thisEntry["EntryType"] = "Event";
+        thisEntry["Name"] = dumpType + " Dump Entry";
+        thisEntry["Created"] =
+            redfish::time_utils::getDateTimeUintUs(timestampUs);
+
+        if (!originatorId.empty())
+        {
+            thisEntry["Originator"] = originatorId;
+            thisEntry["OriginatorType"] = originatorType;
+        }
+
+        if (dumpType == "BMC")
+        {
+            thisEntry["DiagnosticDataType"] = "Manager";
+            thisEntry["AdditionalDataURI"] =
+                boost::urls::format("{}/{}/attachment", entriesPath, entryID);
+            thisEntry["AdditionalDataSizeBytes"] = size;
+        }
+        else if (dumpType == "System")
+        {
+            thisEntry["DiagnosticDataType"] = "OEM";
+            thisEntry["OEMDiagnosticDataType"] = "System";
+            thisEntry["AdditionalDataURI"] =
+                boost::urls::format("{}/{}/attachment", entriesPath, entryID);
+            thisEntry["AdditionalDataSizeBytes"] = size;
+        }
+        entriesArray.emplace_back(std::move(thisEntry));
+    }
+    asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
+    asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
+}
+
 inline void getDumpEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& dumpType)
@@ -269,101 +365,92 @@ inline void getDumpEntryCollection(
     sdbusplus::object_path path("/xyz/openbmc_project/dump");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager", path,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, entriesPath,
-         dumpType](const boost::system::error_code& ec,
-                   const dbus::utility::ManagedObjectType& objects) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DumpEntry resp_handler got error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
+        std::bind_front(afterGetManagedObjectsDumpEntryCollection, asyncResp,
+                        entriesPath, dumpType));
+}
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogEntryCollection.LogEntryCollection";
-            asyncResp->res.jsonValue["@odata.id"] = entriesPath;
-            asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entries";
-            asyncResp->res.jsonValue["Description"] =
-                "Collection of " + dumpType + " Dump Entries";
+inline void afterGetManagedObjectsDumpEntryById(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string& entryID,
+    std::string& dumpType, boost::urls::url entriesPath,
+    const boost::system::error_code& ec,
+    const dbus::utility::ManagedObjectType& objects)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DumpEntry resp_handler got error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
 
-            nlohmann::json::array_t entriesArray;
-            std::string dumpEntryPath = getDumpPath(dumpType) + "/entry/";
+    bool foundDumpEntry = false;
+    std::string dumpEntryPath = getDumpPath(dumpType) + "/entry/";
 
-            dbus::utility::ManagedObjectType resp(objects);
-            std::ranges::sort(resp, [](const auto& l, const auto& r) {
-                return AlphanumLess<std::string>()(l.first.filename(),
-                                                   r.first.filename());
-            });
+    for (const auto& objectPath : objects)
+    {
+        if (objectPath.first.str != dumpEntryPath + entryID)
+        {
+            continue;
+        }
 
-            for (auto& object : resp)
-            {
-                if (object.first.str.contains(dumpEntryPath))
-                {
-                    continue;
-                }
-                uint64_t timestampUs = 0;
-                uint64_t size = 0;
-                std::string dumpStatus;
-                std::string originatorId;
-                log_entry::OriginatorTypes originatorType =
-                    log_entry::OriginatorTypes::Internal;
-                nlohmann::json::object_t thisEntry;
+        foundDumpEntry = true;
+        uint64_t timestampUs = 0;
+        uint64_t size = 0;
+        std::string dumpStatus;
+        std::string originatorId;
+        log_entry::OriginatorTypes originatorType =
+            log_entry::OriginatorTypes::Internal;
 
-                std::string entryID = object.first.filename();
-                if (entryID.empty())
-                {
-                    continue;
-                }
+        parseDumpEntryFromDbusObject(objectPath, dumpStatus, size, timestampUs,
+                                     originatorId, originatorType, asyncResp);
 
-                parseDumpEntryFromDbusObject(object, dumpStatus, size,
-                                             timestampUs, originatorId,
-                                             originatorType, asyncResp);
+        if (dumpStatus !=
+                "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
+            !dumpStatus.empty())
+        {
+            // Dump status is not Complete
+            // return not found until status is changed to Completed
+            messages::resourceNotFound(asyncResp->res, dumpType + " dump",
+                                       entryID);
+            return;
+        }
 
-                if (dumpStatus !=
-                        "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
-                    !dumpStatus.empty())
-                {
-                    // Dump status is not Complete, no need to enumerate
-                    continue;
-                }
+        asyncResp->res.jsonValue["@odata.type"] = "#LogEntry.v1_11_0.LogEntry";
+        asyncResp->res.jsonValue["@odata.id"] =
+            boost::urls::format("{}/{}", entriesPath, entryID);
+        asyncResp->res.jsonValue["Id"] = entryID;
+        asyncResp->res.jsonValue["EntryType"] = "Event";
+        asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
+        asyncResp->res.jsonValue["Created"] =
+            redfish::time_utils::getDateTimeUintUs(timestampUs);
 
-                thisEntry["@odata.type"] = "#LogEntry.v1_11_0.LogEntry";
-                thisEntry["@odata.id"] =
-                    boost::urls::format("{}/{}", entriesPath, entryID);
-                thisEntry["Id"] = entryID;
-                thisEntry["EntryType"] = "Event";
-                thisEntry["Name"] = dumpType + " Dump Entry";
-                thisEntry["Created"] =
-                    redfish::time_utils::getDateTimeUintUs(timestampUs);
+        if (!originatorId.empty())
+        {
+            asyncResp->res.jsonValue["Originator"] = originatorId;
+            asyncResp->res.jsonValue["OriginatorType"] = originatorType;
+        }
 
-                if (!originatorId.empty())
-                {
-                    thisEntry["Originator"] = originatorId;
-                    thisEntry["OriginatorType"] = originatorType;
-                }
-
-                if (dumpType == "BMC")
-                {
-                    thisEntry["DiagnosticDataType"] = "Manager";
-                    thisEntry["AdditionalDataURI"] = boost::urls::format(
-                        "{}/{}/attachment", entriesPath, entryID);
-                    thisEntry["AdditionalDataSizeBytes"] = size;
-                }
-                else if (dumpType == "System")
-                {
-                    thisEntry["DiagnosticDataType"] = "OEM";
-                    thisEntry["OEMDiagnosticDataType"] = "System";
-                    thisEntry["AdditionalDataURI"] = boost::urls::format(
-                        "{}/{}/attachment", entriesPath, entryID);
-                    thisEntry["AdditionalDataSizeBytes"] = size;
-                }
-                entriesArray.emplace_back(std::move(thisEntry));
-            }
-            asyncResp->res.jsonValue["Members@odata.count"] =
-                entriesArray.size();
-            asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
-        });
+        if (dumpType == "BMC")
+        {
+            asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
+            asyncResp->res.jsonValue["AdditionalDataURI"] =
+                boost::urls::format("{}/{}/attachment", entriesPath, entryID);
+            asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
+        }
+        else if (dumpType == "System")
+        {
+            asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
+            asyncResp->res.jsonValue["OEMDiagnosticDataType"] = "System";
+            asyncResp->res.jsonValue["AdditionalDataURI"] =
+                boost::urls::format("{}/{}/attachment", entriesPath, entryID);
+            asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
+        }
+    }
+    if (!foundDumpEntry)
+    {
+        BMCWEB_LOG_WARNING("Can't find Dump Entry {}", entryID);
+        messages::resourceNotFound(asyncResp->res, dumpType + " dump", entryID);
+        return;
+    }
 }
 
 inline void getDumpEntryById(
@@ -380,120 +467,40 @@ inline void getDumpEntryById(
     sdbusplus::object_path path("/xyz/openbmc_project/dump");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager", path,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, entryID, dumpType,
-         entriesPath](const boost::system::error_code& ec,
-                      const dbus::utility::ManagedObjectType& resp) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DumpEntry resp_handler got error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
+        std::bind_front(afterGetManagedObjectsDumpEntryById, asyncResp, entryID,
+                        dumpType, entriesPath));
+}
 
-            bool foundDumpEntry = false;
-            std::string dumpEntryPath = getDumpPath(dumpType) + "/entry/";
-
-            for (const auto& objectPath : resp)
-            {
-                if (objectPath.first.str != dumpEntryPath + entryID)
-                {
-                    continue;
-                }
-
-                foundDumpEntry = true;
-                uint64_t timestampUs = 0;
-                uint64_t size = 0;
-                std::string dumpStatus;
-                std::string originatorId;
-                log_entry::OriginatorTypes originatorType =
-                    log_entry::OriginatorTypes::Internal;
-
-                parseDumpEntryFromDbusObject(objectPath, dumpStatus, size,
-                                             timestampUs, originatorId,
-                                             originatorType, asyncResp);
-
-                if (dumpStatus !=
-                        "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
-                    !dumpStatus.empty())
-                {
-                    // Dump status is not Complete
-                    // return not found until status is changed to Completed
-                    messages::resourceNotFound(asyncResp->res,
-                                               dumpType + " dump", entryID);
-                    return;
-                }
-
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntry.v1_11_0.LogEntry";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    boost::urls::format("{}/{}", entriesPath, entryID);
-                asyncResp->res.jsonValue["Id"] = entryID;
-                asyncResp->res.jsonValue["EntryType"] = "Event";
-                asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
-                asyncResp->res.jsonValue["Created"] =
-                    redfish::time_utils::getDateTimeUintUs(timestampUs);
-
-                if (!originatorId.empty())
-                {
-                    asyncResp->res.jsonValue["Originator"] = originatorId;
-                    asyncResp->res.jsonValue["OriginatorType"] = originatorType;
-                }
-
-                if (dumpType == "BMC")
-                {
-                    asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
-                    asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        boost::urls::format("{}/{}/attachment", entriesPath,
-                                            entryID);
-                    asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
-                }
-                else if (dumpType == "System")
-                {
-                    asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
-                    asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
-                        "System";
-                    asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        boost::urls::format("{}/{}/attachment", entriesPath,
-                                            entryID);
-                    asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
-                }
-            }
-            if (!foundDumpEntry)
-            {
-                BMCWEB_LOG_WARNING("Can't find Dump Entry {}", entryID);
-                messages::resourceNotFound(asyncResp->res, dumpType + " dump",
-                                           entryID);
-                return;
-            }
-        });
+inline void deleteDumpEntryResponseHandler(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryID, const boost::system::error_code& ec)
+{
+    BMCWEB_LOG_DEBUG("Dump Entry doDelete callback: Done");
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+            return;
+        }
+        BMCWEB_LOG_ERROR(
+            "Dump (DBus) doDelete respHandler got error {} entryID={}", ec,
+            entryID);
+        messages::internalError(asyncResp->res);
+        return;
+    }
 }
 
 inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& entryID,
                             const std::string& dumpType)
 {
-    // ast-grep-ignore: long-lambda
-    auto respHandler = [asyncResp,
-                        entryID](const boost::system::error_code& ec) {
-        BMCWEB_LOG_DEBUG("Dump Entry doDelete callback: Done");
-        if (ec)
-        {
-            if (ec.value() == EBADR)
-            {
-                messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
-                return;
-            }
-            BMCWEB_LOG_ERROR(
-                "Dump (DBus) doDelete respHandler got error {} entryID={}", ec,
-                entryID);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    };
-
     dbus::utility::async_method_call(
-        asyncResp, respHandler, "xyz.openbmc_project.Dump.Manager",
+        asyncResp,
+        [asyncResp, entryID](const boost::system::error_code& ec) {
+            deleteDumpEntryResponseHandler(asyncResp, entryID, ec);
+        },
+        "xyz.openbmc_project.Dump.Manager",
         std::format("{}/entry/{}", getDumpPath(dumpType), entryID),
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
@@ -826,6 +833,32 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
+inline void afterGetSubtreePathsDumpServiceInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dumpType, boost::urls::url& dumpPath,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("getDumpServiceInfo respHandler got error {}", ec);
+        // Assume that getting an error simply means there are no dump
+        // LogServices. Return without adding any error response.
+        return;
+    }
+    std::string dbusDumpPath = getDumpPath(dumpType);
+    for (const std::string& path : subTreePaths)
+    {
+        if (path == dbusDumpPath)
+        {
+            asyncResp->res
+                .jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
+                boost::urls::format("{}/Actions/LogService.ClearLog", dumpPath);
+            break;
+        }
+    }
+}
+
 inline void getDumpServiceInfo(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& dumpType)
@@ -899,30 +932,8 @@ inline void getDumpServiceInfo(
     constexpr std::array<std::string_view, 1> interfaces = {deleteAllInterface};
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/dump", 0, interfaces,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, dumpType, dumpPath](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("getDumpServiceInfo respHandler got error {}",
-                                 ec);
-                // Assume that getting an error simply means there are no dump
-                // LogServices. Return without adding any error response.
-                return;
-            }
-            std::string dbusDumpPath = getDumpPath(dumpType);
-            for (const std::string& path : subTreePaths)
-            {
-                if (path == dbusDumpPath)
-                {
-                    asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]
-                                            ["target"] = boost::urls::format(
-                        "{}/Actions/LogService.ClearLog", dumpPath);
-                    break;
-                }
-            }
-        });
+        std::bind_front(afterGetSubtreePathsDumpServiceInfo, asyncResp,
+                        dumpType, dumpPath));
 }
 
 } // namespace dump_utils
