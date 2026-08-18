@@ -636,27 +636,27 @@ inline void getPhysicalAssets(
         return;
     }
 
-    if (partNumber != nullptr)
+    if (partNumber != nullptr && !partNumber->empty())
     {
         asyncResp->res.jsonValue["PartNumber"] = *partNumber;
     }
 
-    if (serialNumber != nullptr)
+    if (serialNumber != nullptr && !serialNumber->empty())
     {
         asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
     }
 
-    if (manufacturer != nullptr)
+    if (manufacturer != nullptr && !manufacturer->empty())
     {
         asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
     }
 
-    if (model != nullptr)
+    if (model != nullptr && !model->empty())
     {
         asyncResp->res.jsonValue["Model"] = *model;
     }
 
-    if (sparePartNumber != nullptr)
+    if (sparePartNumber != nullptr && !sparePartNumber->empty())
     {
         asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
     }
