@@ -400,18 +400,24 @@ inline void afterGetCpuAssetData(
         // Otherwise would be unexpected.
         if (manufacturer->contains("Intel"))
         {
-            asyncResp->res.jsonValue["ProcessorArchitecture"] = "x86";
-            asyncResp->res.jsonValue["InstructionSet"] = "x86-64";
+            asyncResp->res.jsonValue["ProcessorArchitecture"] =
+                processor::ProcessorArchitecture::x86;
+            asyncResp->res.jsonValue["InstructionSet"] =
+                processor::InstructionSet::x8664;
         }
         else if (manufacturer->contains("IBM"))
         {
-            asyncResp->res.jsonValue["ProcessorArchitecture"] = "Power";
-            asyncResp->res.jsonValue["InstructionSet"] = "PowerISA";
+            asyncResp->res.jsonValue["ProcessorArchitecture"] =
+                processor::ProcessorArchitecture::Power;
+            asyncResp->res.jsonValue["InstructionSet"] =
+                processor::InstructionSet::PowerISA;
         }
         else if (manufacturer->contains("Ampere"))
         {
-            asyncResp->res.jsonValue["ProcessorArchitecture"] = "ARM";
-            asyncResp->res.jsonValue["InstructionSet"] = "ARM-A64";
+            asyncResp->res.jsonValue["ProcessorArchitecture"] =
+                processor::ProcessorArchitecture::ARM;
+            asyncResp->res.jsonValue["InstructionSet"] =
+                processor::InstructionSet::ARMA64;
         }
     }
 
