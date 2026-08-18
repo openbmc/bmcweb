@@ -1145,7 +1145,7 @@ inline void handleUpdateServicePost(
     else
     {
         BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
-        asyncResp->res.result(boost::beast::http::status::bad_request);
+        messages::headerInvalid(asyncResp->res, "Content-Type");
     }
 }
 
