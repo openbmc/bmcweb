@@ -130,25 +130,26 @@ inline void findAndParseObject(
 /**
  * @brief Function extracts transfer protocol name from URI.
  */
-inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
+inline virtual_media::TransferProtocolType getTransferProtocolTypeFromUri(
+    const std::string& imageUri)
 {
     boost::system::result<boost::urls::url_view> url =
         boost::urls::parse_uri(imageUri);
     if (!url)
     {
-        return "None";
+        return virtual_media::TransferProtocolType::Invalid;
     }
     std::string_view scheme = url->scheme();
     if (scheme == "smb")
     {
-        return "CIFS";
+        return virtual_media::TransferProtocolType::CIFS;
     }
     if (scheme == "https")
     {
-        return "HTTPS";
+        return virtual_media::TransferProtocolType::HTTPS;
     }
 
-    return "None";
+    return virtual_media::TransferProtocolType::Invalid;
 }
 
 /**
@@ -179,7 +180,7 @@ inline void vmParseInterfaceObject(
                             .jsonValue["Oem"]["OpenBMC"]["WebSocketEndpoint"] =
                             *endpointIdValue;
                         asyncResp->res.jsonValue["TransferProtocolType"] =
-                            "OEM";
+                            virtual_media::TransferProtocolType::OEM;
                     }
                 }
                 if (property == "ImageURL")
