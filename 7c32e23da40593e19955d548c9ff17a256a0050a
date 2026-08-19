@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "731d59da_5583a5ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-19T13:24:47Z",
+      "side": 1,
+      "message": "the drive association does not work, drives did not show up in redfish at all.\nalso, it does not exist according to PDI.",
+      "parentUuid": "5de156c2_52116075",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "7c32e23da40593e19955d548c9ff17a256a0050a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a0519b4_6078c1bb",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-08-15T11:15:26Z",
       "side": 1,
       "message": "Normally we link documents/patches etc at the end of the commit message. Have a look at this commit message: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88227",
+      "revId": "7c32e23da40593e19955d548c9ff17a256a0050a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "960e84e0_7e5f02e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-19T13:24:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a0519b4_6078c1bb",
       "revId": "7c32e23da40593e19955d548c9ff17a256a0050a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
