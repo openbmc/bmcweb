@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb601a19_38f336b3",
+        "filename": "test/redfish-core/include/utils/resource_utils_test.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-19T19:15:38Z",
+      "side": 1,
+      "message": "EXPECT_FALSE(asyncResp-\u003eres.jsonValue[\"Status\"].contains(\"Health\"));\n\nSince you are doing this to Health not State",
+      "revId": "16546966d272d7436971c2776423ed7d10db719c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
