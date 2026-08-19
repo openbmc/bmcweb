@@ -547,6 +547,7 @@ Fields common to all schemas
 - @odata.id
 - @odata.type
 - Id
+- LinkStatus
 - Metrics
 - Name
 - Status

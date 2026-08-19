@@ -6,6 +6,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/port.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
@@ -13,8 +14,12 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/resource_utils.hpp"
+
+#include <asm-generic/errno.h>
 
 #include <boost/beast/http/verb.hpp>
+#include <boost/system/error_code.hpp>
 
 #include <array>
 #include <format>
@@ -192,11 +197,52 @@ inline void handleNetworkAdapterPortPathPortMetricsGet(
                         asyncResp));
 }
 
+inline void afterGetNetworkAdapterPortLinkStatus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& linkStatus)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBus response error for LinkStatus {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.State.Decorator.LinkStatus.Status.Connected")
+    {
+        asyncResp->res.jsonValue["LinkStatus"] = port::LinkStatus::LinkUp;
+    }
+    else if (
+        linkStatus ==
+        "xyz.openbmc_project.State.Decorator.LinkStatus.Status.Disconnected")
+    {
+        asyncResp->res.jsonValue["LinkStatus"] = port::LinkStatus::LinkDown;
+    }
+    else
+    {
+        BMCWEB_LOG_WARNING("Unknown LinkStatus {}", linkStatus);
+    }
+}
+
+inline void getNetworkAdapterPortLinkStatus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portPath, const std::string& serviceName)
+{
+    dbus::utility::getProperty<std::string>(
+        serviceName, portPath, "xyz.openbmc_project.State.Decorator.LinkStatus",
+        "LinkStatus",
+        std::bind_front(afterGetNetworkAdapterPortLinkStatus, asyncResp));
+}
+
 inline void handleNetworkAdapterPathPortGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassiId, const std::string& networkAdapterId,
-    const std::string& portId, [[maybe_unused]] const std::string& portPath,
-    [[maybe_unused]] const std::string& serviceName)
+    const std::string& portId, const std::string& portPath,
+    const std::string& serviceName)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#Port.v1_9_0.Port";
     asyncResp->res.jsonValue["@odata.id"] =
@@ -206,14 +252,17 @@ inline void handleNetworkAdapterPathPortGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port", networkAdapterId, portId);
 
-    nlohmann::json& status = asyncResp->res.jsonValue["Status"];
-    status["Health"] = resource::Health::OK;
-    status["HealthRollup"] = resource::Health::OK;
-    status["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["HealthRollup"] = resource::Health::OK;
 
     asyncResp->res.jsonValue["Metrics"]["@odata.id"] = std::format(
         "/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports/{}/Metrics", chassiId,
         networkAdapterId, portId);
+
+    resource_utils::getResourceState(asyncResp, serviceName, portPath,
+                                     ""_json_pointer);
+    resource_utils::getResourceHealth(asyncResp, serviceName, portPath,
+                                      ""_json_pointer);
+    getNetworkAdapterPortLinkStatus(asyncResp, portPath, serviceName);
 }
 
 inline void afterNetworkAdapterPortPaths(
@@ -329,7 +378,7 @@ inline void getNetworkAdapterPortPaths(
 inline void handleNetworkAdapterPathNetworkAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
-    [[maybe_unused]] const std::string& path)
+    const std::string& path, const std::string& serviceName)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#NetworkAdapter.v1_11_0.NetworkAdapter";
@@ -339,14 +388,44 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Id"] = networkAdapterId;
     asyncResp->res.jsonValue["Name"] = networkAdapterId + " Network Adapter";
 
-    auto& status = asyncResp->res.jsonValue["Status"];
-    status["Health"] = resource::Health::OK;
-    status["HealthRollup"] = resource::Health::OK;
-    status["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["HealthRollup"] = resource::Health::OK;
 
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    resource_utils::getResourceState(asyncResp, serviceName, path,
+                                     ""_json_pointer);
+    resource_utils::getResourceHealth(asyncResp, serviceName, path,
+                                      ""_json_pointer);
+}
+
+inline void afterGetNetworkAdapterService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& networkAdapterId,
+    const std::string& path, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        BMCWEB_LOG_ERROR("DBUS response error on getDbusObject {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    handleNetworkAdapterPathNetworkAdapterGet(
+        asyncResp, chassisId, networkAdapterId, path, object.begin()->first);
+}
+
+inline void getNetworkAdapterService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& networkAdapterId,
+    const std::string& path)
+{
+    dbus::utility::getDbusObject(
+        path, networkAdapterInterface,
+        std::bind_front(afterGetNetworkAdapterService, asyncResp, chassisId,
+                        networkAdapterId, path));
 }
 
 inline void handleNetworkAdapterPaths(
@@ -433,10 +512,9 @@ inline void handleNetworkAdapterGet(
         return;
     }
 
-    getNetworkAdapterPath(
-        asyncResp, chassisId, networkAdapterId,
-        std::bind_front(handleNetworkAdapterPathNetworkAdapterGet, asyncResp,
-                        chassisId, networkAdapterId));
+    getNetworkAdapterPath(asyncResp, chassisId, networkAdapterId,
+                          std::bind_front(getNetworkAdapterService, asyncResp,
+                                          chassisId, networkAdapterId));
 }
 
 inline void handleNetworkAdapterCollectionGet(
