@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04e88fc4_348794e9",
+        "filename": "test/redfish-core/include/utils/resource_utils_test.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-19T14:14:01Z",
+      "side": 1,
+      "message": "Should the expectation be that it is null?",
+      "range": {
+        "startLine": 209,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 40
+      },
+      "revId": "fde60a2a080102036876d633a743e57bc1ae3957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f098bf7f_12edc785",
+        "filename": "test/redfish-core/include/utils/resource_utils_test.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-19T14:14:01Z",
+      "side": 1,
+      "message": "Similar to above, should the expectation be that it is null?",
+      "range": {
+        "startLine": 226,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "fde60a2a080102036876d633a743e57bc1ae3957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8acccd4a_5450a301",
+        "filename": "test/redfish-core/include/utils/resource_utils_test.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-19T14:14:01Z",
+      "side": 1,
+      "message": "missing the end of the comment here?",
+      "range": {
+        "startLine": 240,
+        "startChar": 50,
+        "endLine": 240,
+        "endChar": 66
+      },
+      "revId": "fde60a2a080102036876d633a743e57bc1ae3957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fb22e4f_f620d8af",
+        "filename": "test/redfish-core/include/utils/resource_utils_test.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-19T14:14:01Z",
+      "side": 1,
+      "message": "Similar to above, should the expectation be that it is null?",
+      "range": {
+        "startLine": 256,
+        "startChar": 4,
+        "endLine": 259,
+        "endChar": 42
+      },
+      "revId": "fde60a2a080102036876d633a743e57bc1ae3957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
