@@ -50,8 +50,10 @@ class BmcwebSaxParse : public nlohmann::json::json_sax_t
     int currentDepth = 0;
     constexpr static int maxDepth = 10;
 
-    int totalValues = 0;
-    constexpr static int maxValues = 2000;
+    int64_t totalValues = 0;
+    // Scale with http-body-limit; a JSON value needs at least ~4 body bytes
+    constexpr static int64_t maxValues =
+        static_cast<int64_t>(BMCWEB_HTTP_BODY_LIMIT) * 1024LL * 1024LL / 4;
 
   public:
     BmcwebSaxParse(nlohmann::json& j) : parser(j, false) {}
