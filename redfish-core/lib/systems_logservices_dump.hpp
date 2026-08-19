@@ -22,7 +22,7 @@ namespace redfish
 {
 
 inline void handleSystemsLogServicesDumpServiceGet(
-    crow::App& app, const crow::Request& req,
+    crow::App& app, dump_utils::DumpType dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -35,11 +35,11 @@ inline void handleSystemsLogServicesDumpServiceGet(
         messages::resourceNotFound(asyncResp->res, "ComputerSystem", chassisId);
         return;
     }
-    dump_utils::getDumpServiceInfo(asyncResp, "System");
+    dump_utils::getDumpServiceInfo(asyncResp, dumpType);
 }
 
 inline void handleSystemsLogServicesDumpEntriesCollectionGet(
-    crow::App& app, const crow::Request& req,
+    crow::App& app, dump_utils::DumpType dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -52,11 +52,11 @@ inline void handleSystemsLogServicesDumpEntriesCollectionGet(
         messages::resourceNotFound(asyncResp->res, "ComputerSystem", chassisId);
         return;
     }
-    dump_utils::getDumpEntryCollection(asyncResp, "System");
+    dump_utils::getDumpEntryCollection(asyncResp, dumpType);
 }
 
 inline void handleSystemsLogServicesDumpEntryGet(
-    crow::App& app, const crow::Request& req,
+    crow::App& app, dump_utils::DumpType dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& dumpId)
 {
@@ -69,11 +69,11 @@ inline void handleSystemsLogServicesDumpEntryGet(
         messages::resourceNotFound(asyncResp->res, "ComputerSystem", chassisId);
         return;
     }
-    dump_utils::getDumpEntryById(asyncResp, dumpId, "System");
+    dump_utils::getDumpEntryById(asyncResp, dumpId, dumpType);
 }
 
 inline void handleSystemsLogServicesDumpEntryDelete(
-    crow::App& app, const crow::Request& req,
+    crow::App& app, dump_utils::DumpType dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& dumpId)
 {
@@ -86,11 +86,11 @@ inline void handleSystemsLogServicesDumpEntryDelete(
         messages::resourceNotFound(asyncResp->res, "ComputerSystem", chassisId);
         return;
     }
-    dump_utils::deleteDumpEntry(asyncResp, dumpId, "System");
+    dump_utils::deleteDumpEntry(asyncResp, dumpId, dumpType);
 }
 
 inline void handleSystemsLogServicesDumpEntryDownloadGet(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    crow::App& app, dump_utils::DumpType dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& dumpId)
 {
@@ -118,7 +118,7 @@ inline void handleSystemsLogServicesDumpEntryDownloadGet(
 }
 
 inline void handleSystemsLogServicesDumpCollectDiagnosticDataPost(
-    crow::App& app, const crow::Request& req,
+    crow::App& app, dump_utils::DumpType dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -140,11 +140,11 @@ inline void handleSystemsLogServicesDumpCollectDiagnosticDataPost(
                                    systemName);
         return;
     }
-    dump_utils::createDump(asyncResp, req, "System");
+    dump_utils::createDump(asyncResp, req, dumpType);
 }
 
 inline void handleSystemsLogServicesDumpClearLogPost(
-    crow::App& app, const crow::Request& req,
+    crow::App& app, dump_utils::DumpType dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -165,32 +165,36 @@ inline void handleSystemsLogServicesDumpClearLogPost(
                                    systemName);
         return;
     }
-    dump_utils::clearDump(asyncResp, "System");
+    dump_utils::clearDump(asyncResp, dumpType);
 }
 
 inline void requestRoutesSystemsLogServicesDump(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Dump/")
         .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleSystemsLogServicesDumpServiceGet, std::ref(app)));
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleSystemsLogServicesDumpServiceGet,
+                            std::ref(app), dump_utils::DumpType::System));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleSystemsLogServicesDumpEntriesCollectionGet, std::ref(app)));
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleSystemsLogServicesDumpEntriesCollectionGet,
+                            std::ref(app), dump_utils::DumpType::System));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleSystemsLogServicesDumpEntryGet, std::ref(app)));
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleSystemsLogServicesDumpEntryGet, std::ref(app),
+                            dump_utils::DumpType::System));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/")
         .privileges(redfish::privileges::deleteLogEntry)
-        .methods(boost::beast::http::verb::delete_)(std::bind_front(
-            handleSystemsLogServicesDumpEntryDelete, std::ref(app)));
+        .methods(boost::beast::http::verb::delete_)(
+            std::bind_front(handleSystemsLogServicesDumpEntryDelete,
+                            std::ref(app), dump_utils::DumpType::System));
 
     BMCWEB_ROUTE(
         app,
@@ -198,7 +202,7 @@ inline void requestRoutesSystemsLogServicesDump(App& app)
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsLogServicesDumpEntryDownloadGet,
-                            std::ref(app), "System"));
+                            std::ref(app), dump_utils::DumpType::System));
 
     BMCWEB_ROUTE(
         app,
@@ -207,14 +211,15 @@ inline void requestRoutesSystemsLogServicesDump(App& app)
                         postLogServiceSubOverComputerSystemLogServiceCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleSystemsLogServicesDumpCollectDiagnosticDataPost,
-            std::ref(app)));
+            std::ref(app), dump_utils::DumpType::System));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.ClearLog/")
         .privileges(redfish::privileges::
                         postLogServiceSubOverComputerSystemLogServiceCollection)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleSystemsLogServicesDumpClearLogPost, std::ref(app)));
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleSystemsLogServicesDumpClearLogPost,
+                            std::ref(app), dump_utils::DumpType::System));
 }
 } // namespace redfish
