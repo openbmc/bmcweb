@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30aeac93_6f969d86",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-19T13:03:40Z",
+      "side": 1,
+      "message": "Should we treat protocol_error as an internalError?",
+      "range": {
+        "startLine": 615,
+        "startChar": 8,
+        "endLine": 618,
+        "endChar": 97
+      },
+      "revId": "eb726801e9b1e3141566b6fd16f778b82f4aeeb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
