@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e922ec_603d472c",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-19T18:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7766c5de_56ea4284",
+      "range": {
+        "startLine": 15,
+        "startChar": 19,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "f52e6ea3245b5c6d4739ec301b8ac16d621288f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab98ec4f_d8f3480c",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-20T04:53:15Z",
       "side": 1,
       "message": "Should we use `nlohmann::json::json_pointer` here instead of `const std::string`?",
+      "range": {
+        "startLine": 31,
+        "startChar": 26,
+        "endLine": 31,
+        "endChar": 62
+      },
+      "revId": "f52e6ea3245b5c6d4739ec301b8ac16d621288f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91c15935_2ed42dfe",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-19T18:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab98ec4f_d8f3480c",
       "range": {
         "startLine": 31,
         "startChar": 26,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9abb968f_b70b7585",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-19T18:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78b3332d_39f3f40b",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 11
+      },
+      "revId": "f52e6ea3245b5c6d4739ec301b8ac16d621288f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e6003cd_0cf6a1ef",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01761196_6e26ce0a",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-19T18:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e6003cd_0cf6a1ef",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 73
+      },
+      "revId": "f52e6ea3245b5c6d4739ec301b8ac16d621288f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0625c53_4e89feb8",
@@ -106,6 +202,30 @@
       "writtenOn": "2026-07-20T04:53:15Z",
       "side": 1,
       "message": "nit: \nMake this inline lambda a callback would looked cleaner.",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 11
+      },
+      "revId": "f52e6ea3245b5c6d4739ec301b8ac16d621288f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "033eba36_3395c977",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-19T18:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0625c53_4e89feb8",
       "range": {
         "startLine": 77,
         "startChar": 4,
