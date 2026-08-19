@@ -571,7 +571,14 @@ inline bool runCreateDumpTask(
     std::string headerLoc = "Location: ";
     headerLoc += url.buffer();
 
-    taskData->payload->httpHeaders.emplace_back(std::move(headerLoc));
+    if (taskData->payload)
+    {
+        taskData->payload->httpHeaders.emplace_back(std::move(headerLoc));
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG("no task payload, skipping location header");
+    }
 
     BMCWEB_LOG_DEBUG("{}: Dump creation task completed", createdObjPath.str);
     taskData->state = "Completed";
