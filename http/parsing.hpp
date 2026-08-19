@@ -30,6 +30,10 @@ inline bool isJsonContentType(std::string_view contentType)
 
 namespace details
 {
+// Scale with http-body-limit; a JSON value needs at least ~4 body bytes
+constexpr int64_t defaultMaxValues =
+    static_cast<int64_t>(BMCWEB_HTTP_BODY_LIMIT) * 1024LL * 1024LL / 4;
+
 class BmcwebSaxParse : public nlohmann::json::json_sax_t
 {
   private:
@@ -50,11 +54,13 @@ class BmcwebSaxParse : public nlohmann::json::json_sax_t
     int currentDepth = 0;
     constexpr static int maxDepth = 10;
 
-    int totalValues = 0;
-    constexpr static int maxValues = 2000;
+    int64_t totalValues = 0;
+    int64_t maxValues;
 
   public:
-    BmcwebSaxParse(nlohmann::json& j) : parser(j, false) {}
+    BmcwebSaxParse(nlohmann::json& j, int64_t maxValuesIn) :
+        parser(j, false), maxValues(maxValuesIn)
+    {}
 
     bool null() override
     {
@@ -190,7 +196,8 @@ class BmcwebSaxParse : public nlohmann::json::json_sax_t
 };
 } // namespace details
 
-inline std::optional<nlohmann::json> parseStringAsJson(std::string_view body)
+inline std::optional<nlohmann::json> parseStringAsJson(
+    std::string_view body, int64_t maxValues = details::defaultMaxValues)
 {
     nlohmann::json jsonOut;
     // Limit JSON payloads to the platform-configured http-body-limit (MiB)
@@ -201,7 +208,7 @@ inline std::optional<nlohmann::json> parseStringAsJson(std::string_view body)
         BMCWEB_LOG_WARNING("Request body is too large");
         return std::nullopt;
     }
-    details::BmcwebSaxParse sax(jsonOut);
+    details::BmcwebSaxParse sax(jsonOut, maxValues);
 
     if (!nlohmann::json::sax_parse(body, &sax))
     {
