@@ -22,6 +22,30 @@
       },
       "revId": "b2fc97958faaea5230a676f775bf5ea090a464c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06a0b946_5a928674",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-19T13:21:57Z",
+      "side": 0,
+      "message": "i\u0027ve updated the commit message to include this information:\n- PDI does not have a drive association\n- the original patch does introducing it does not include a test setup that shows how it was supposed to have worked.",
+      "parentUuid": "bbddbcd4_6f25bf04",
+      "range": {
+        "startLine": 643,
+        "startChar": 11,
+        "endLine": 643,
+        "endChar": 28
+      },
+      "revId": "b2fc97958faaea5230a676f775bf5ea090a464c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

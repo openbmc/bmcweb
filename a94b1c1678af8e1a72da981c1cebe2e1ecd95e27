@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeec6a3e_a5021e12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-19T13:21:57Z",
+      "side": 1,
+      "message": "i have changed the associations to use chassisInterfaces.",
+      "parentUuid": "21713888_d5916b5f",
+      "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa5d2ee1_73168f6d",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-17T14:23:19Z",
       "side": 1,
       "message": "This duplicates and narrows the existing chassisInterfaces constant already included via chassis_utils.hpp and already used elsewhere in this file. That constant has 2 entries (Item.Board and Item.Chassis); this new array only has Item.Chassis. Since this is used as subtreeInterfaces to match the chassis by id, any chassis exposed via Item.Board will fail to match here and silently never get a Drives link. Please reuse chassisInterfaces instead of introducing a narrower local copy.",
+      "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71bb64f6_8c20ea03",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-19T13:21:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa5d2ee1_73168f6d",
       "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3d75c4e_fac2e3c2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-19T13:21:57Z",
+      "side": 1,
+      "message": "i have corrected the lookup to reuse objpath",
+      "parentUuid": "4e40a9f9_4e4403c2",
+      "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c0e22be_00612ed8",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-08-17T14:23:19Z",
       "side": 1,
       "message": "Switching from the dedicated drive association to the generic containing association changes match semantics from \"directly associated drive\" to \"any drive anywhere in the containment subtree below this chassis.\" That may be intentional, but it isn\u0027t explained in the commit message. Please document why this is the correct direction and whether it was validated against a config where a drive is nested more than one level below the chassis (to confirm it doesn\u0027t over-match drives belonging to a different sub-chassis).",
+      "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19d754e_bc31fe74",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-19T13:21:57Z",
+      "side": 1,
+      "message": "i have added this information to the commit message:\n- the drive \u003c-\u003e chassis association does not exist in PDI\n- i have checked and drives do not over-match to a chassis a level above (added another test uri)",
+      "parentUuid": "0c0e22be_00612ed8",
       "revId": "a94b1c1678af8e1a72da981c1cebe2e1ecd95e27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
