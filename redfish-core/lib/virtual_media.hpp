@@ -3,6 +3,8 @@
 // SPDX-FileCopyrightText: Copyright 2018 Intel Corporation
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "credential_pipe.hpp"
@@ -715,7 +717,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
     }
 
     constexpr std::string_view action = "VirtualMedia.InsertMedia";
-    if (name != "bmc")
+    if (name != BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, action, resName);
 
@@ -802,7 +804,7 @@ inline void handleManagersVirtualMediaActionEject(
     }
 
     constexpr std::string_view action = "VirtualMedia.EjectMedia";
-    if (managerName != "bmc")
+    if (managerName != BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, action, resName);
 
@@ -868,7 +870,7 @@ inline void handleManagersVirtualMediaCollectionGet(
     {
         return;
     }
-    if (name != "bmc")
+    if (name != BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "VirtualMedia", name);
 
@@ -909,7 +911,7 @@ inline void handleVirtualMediaGet(
     {
         return;
     }
-    if (name != "bmc")
+    if (name != BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
 
