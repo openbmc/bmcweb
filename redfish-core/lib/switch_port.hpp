@@ -14,6 +14,8 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
@@ -268,6 +270,47 @@ inline void handleFabricSwitchPortPathPortMetricsGet(
                         asyncResp));
 }
 
+inline void afterGetFabricSwitchPortLinkStatus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& linkStatus)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBus response error for LinkStatus {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.State.Decorator.LinkStatus.Status.Connected")
+    {
+        asyncResp->res.jsonValue["LinkStatus"] = port::LinkStatus::LinkUp;
+    }
+    else if (
+        linkStatus ==
+        "xyz.openbmc_project.State.Decorator.LinkStatus.Status.Disconnected")
+    {
+        asyncResp->res.jsonValue["LinkStatus"] = port::LinkStatus::LinkDown;
+    }
+    else
+    {
+        BMCWEB_LOG_WARNING("Unknown LinkStatus {}", linkStatus);
+    }
+}
+
+inline void getFabricSwitchPortLinkStatus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portPath, const std::string& serviceName)
+{
+    dbus::utility::getProperty<std::string>(
+        serviceName, portPath, "xyz.openbmc_project.State.Decorator.LinkStatus",
+        "LinkStatus",
+        std::bind_front(afterGetFabricSwitchPortLinkStatus, asyncResp));
+}
+
 inline void handleFabricSwitchPortPathPortGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
@@ -293,6 +336,8 @@ inline void handleFabricSwitchPortPathPortGet(
     dbus::utility::getAllProperties(
         serviceName, portPath, "xyz.openbmc_project.Inventory.Connector.Port",
         std::bind_front(afterGetFabricSwitchPortInfo, asyncResp));
+
+    getFabricSwitchPortLinkStatus(asyncResp, portPath, serviceName);
 }
 
 inline void afterHandleFabricSwitchPortPaths(
