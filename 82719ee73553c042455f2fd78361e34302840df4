@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d469fc01_892be2f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-08-20T10:54:14Z",
+      "side": 1,
+      "message": "\u003e they changed the behavior for non LDAP users.\n\nlocal users are unaffected because their role is resolved differently, not the LDAP privilege mapper.",
+      "parentUuid": "b698f65f_72564d44",
+      "revId": "82719ee73553c042455f2fd78361e34302840df4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78ae1522_e0aa6684",
