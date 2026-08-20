@@ -389,6 +389,15 @@
             "Resolution": "None.",
             "Severity": "Critical"
         },
+        "FirmwareUpdateAwaitingActivation": {
+            "Description": "Indicates a firmware update was applied but requires a manual action to become active.",
+            "Message": "Firmware update to %2 is awaiting %1 to activate.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "Perform the indicated action (AC power cycle, DC power cycle, system reboot, or medium-specific reset) to activate the newly installed firmware.",
+            "Severity": "Warning"
+        },
         "FirmwareUpdateCompleted": {
             "Description": "Indicates a firmware update has completed successfully.",
             "Message": "%1 firmware update to version %2 completed successfully.",
