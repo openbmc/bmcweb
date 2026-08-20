@@ -46,10 +46,10 @@ namespace obmc_vm
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static crow::websocket::Connection* session = nullptr;
 
-// The max network block device buffer size is 128kb plus 16bytes
+// The max network block device buffer size is 4096kb plus 16bytes
 // for the message header:
 // https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md#simple-reply-message
-static constexpr auto nbdBufferSize = (128 * 1024 + 16) * 4;
+static constexpr auto nbdBufferSize = (4096 * 1024 + 16) * 4;
 
 class Handler : public std::enable_shared_from_this<Handler>
 {
@@ -193,10 +193,10 @@ namespace nbd_proxy
 {
 using boost::asio::local::stream_protocol;
 
-// The max network block device buffer size is 128kb plus 16bytes
+// The max network block device buffer size is 4096kb plus 16bytes
 // for the message header:
 // https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md#simple-reply-message
-static constexpr auto nbdBufferSize = (128 * 1024 + 16) * 4;
+static constexpr auto nbdBufferSize = (4096 * 1024 + 16) * 4;
 
 struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 {
