@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47c34e55_13a357e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T23:08:16Z",
+      "side": 1,
+      "message": "After this patch, getTransferProtocolTypeFromUri() returns TransferProtocolType::Invalid, and the does not add TransferProtocolType in this case.. Now I think this more correct but this is a functional change",
+      "revId": "a5c3a96976c80df3a06e58cbacf9f9131f996392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0c010b_ef560622",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T23:08:16Z",
+      "side": 1,
+      "message": "I think this and getTransferProtocolFromUri should be roughly the same..\n\n```\ninline std::optional\u003cTransferProtocol\u003e getTransferProtocolFromUri(\n    const boost::urls::url_view_base\u0026 imageUri)\n{\n    std::string_view scheme \u003d imageUri.scheme();\n    if (scheme \u003d\u003d \"smb\")\n    {\n        return TransferProtocol::smb;\n    }\n    if (scheme \u003d\u003d \"https\")\n    {\n        return TransferProtocol::https;\n    }\n    if (!scheme.empty())\n    {\n        return TransferProtocol::invalid;\n    }\n\n    return {};\n}\n```\nLet\u0027s make it an optional and return null when it is empty \n\n    if (!url)\n    {\n        return std::nullopt;\n    }\n\nI am okay with Invalid when the scheme is something other than smb / https\nBut these feel like 2 different cases and 1 we might want to throw an error for",
+      "revId": "a5c3a96976c80df3a06e58cbacf9f9131f996392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
