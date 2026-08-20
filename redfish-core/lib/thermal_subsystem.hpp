@@ -59,6 +59,21 @@ inline void doThermalSubsystemCollection(
     asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 }
 
+inline void doThermalSubsystemCollectionHead(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json>; rel=describedby");
+}
+
 inline void handleThermalSubsystemCollectionHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -69,20 +84,10 @@ inline void handleThermalSubsystemCollectionHead(
         return;
     }
 
-    // ast-grep-ignore: long-lambda
-    auto respHandler = [asyncResp, chassisId](
-                           const std::optional<std::string>& validChassisPath) {
-        if (!validChassisPath)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
-        asyncResp->res.addHeader(
-            boost::beast::http::field::link,
-            "</redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json>; rel=describedby");
-    };
-    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
-                                                std::bind_front(respHandler));
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(doThermalSubsystemCollectionHead, asyncResp,
+                        chassisId));
 }
 
 inline void handleThermalSubsystemCollectionGet(
