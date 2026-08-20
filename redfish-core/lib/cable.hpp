@@ -94,6 +94,28 @@ inline void fillCableProperties(
     }
 }
 
+inline void afterGetCableHealthState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cableObjectPath, const boost::system::error_code& ec,
+    bool present)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("get presence failed for Cable {} with error {}",
+                             cableObjectPath, ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (!present)
+    {
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Absent;
+    }
+}
+
 inline void fillCableHealthState(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& cableObjectPath, const std::string& service)
@@ -101,27 +123,7 @@ inline void fillCableHealthState(
     dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, cableObjectPath,
         "xyz.openbmc_project.Inventory.Item", "Present",
-        // ast-grep-ignore: long-lambda
-        [asyncResp,
-         cableObjectPath](const boost::system::error_code& ec, bool present) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR(
-                        "get presence failed for Cable {} with error {}",
-                        cableObjectPath, ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            if (!present)
-            {
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Absent;
-            }
-        });
+        std::bind_front(afterGetCableHealthState, asyncResp, cableObjectPath));
 }
 
 /**
