@@ -12,6 +12,7 @@
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/beast/http/status.hpp>
 
+#include <cstddef>
 #include <functional>
 #include <memory>
 #include <string>
@@ -88,6 +89,12 @@ class WebSocketRule : public BaseRule
         return *this;
     }
 
+    self_t& maxRequestPayloadBytes(std::size_t bytes)
+    {
+        maxRequestPayloadSize = bytes;
+        return *this;
+    }
+
   protected:
     std::function<void(websocket::Connection&)> openHandler;
     std::function<void(websocket::Connection&, const std::string&, bool)>
@@ -99,5 +106,6 @@ class WebSocketRule : public BaseRule
     std::function<void(websocket::Connection&, const std::string&)>
         closeHandler;
     std::function<void(websocket::Connection&)> errorHandler;
+    std::size_t maxRequestPayloadSize{crow::websocket::defaultInputBufferLimit};
 };
 } // namespace crow

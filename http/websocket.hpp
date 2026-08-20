@@ -3,6 +3,7 @@
 #pragma once
 #include <boost/url/url_view.hpp>
 
+#include <cstddef>
 #include <functional>
 #include <memory>
 #include <string_view>
@@ -11,6 +12,8 @@ namespace crow
 {
 namespace websocket
 {
+
+inline constexpr std::size_t defaultInputBufferLimit = 128 * 1024 + 16;
 
 enum class MessageType
 {

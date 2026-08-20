@@ -26,7 +26,8 @@ void WebSocketRule::handleUpgrade(
         myConnection = std::make_shared<
             crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
             req.url(), req.session, std::move(adaptor), openHandler,
-            messageHandler, messageExHandler, closeHandler, errorHandler);
+            messageHandler, messageExHandler, closeHandler, errorHandler,
+            maxRequestPayloadSize);
     myConnection->start(req);
 }
 
@@ -40,7 +41,8 @@ void WebSocketRule::handleUpgrade(
         myConnection = std::make_shared<crow::websocket::ConnectionImpl<
             boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
             req.url(), req.session, std::move(adaptor), openHandler,
-            messageHandler, messageExHandler, closeHandler, errorHandler);
+            messageHandler, messageExHandler, closeHandler, errorHandler,
+            maxRequestPayloadSize);
     myConnection->start(req);
 }
 } // namespace crow
