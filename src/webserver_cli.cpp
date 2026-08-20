@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <functional>
 #include <memory>
 #include <string>
 
@@ -50,6 +51,21 @@ static std::string helpMsg()
     return help;
 }
 
+static void afterSetLogLevel(boost::asio::io_context& io,
+                             const std::string& loglevel,
+                             const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("SetLogLevel returned error with {}", ec);
+    }
+    else
+    {
+        BMCWEB_LOG_INFO("logging level changed to: {}", loglevel);
+    }
+    io.stop();
+}
+
 static int setLogLevel(std::string& loglevel)
 {
     // Define sdbus interfaces:
@@ -65,18 +81,8 @@ static int setLogLevel(std::string& loglevel)
 
     // Attempt to async_call to set logging level
     conn->async_method_call(
-        // ast-grep-ignore: long-lambda
-        [&io, loglevel](boost::system::error_code& ec) mutable {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("SetLogLevel returned error with {}", ec);
-            }
-            else
-            {
-                BMCWEB_LOG_INFO("logging level changed to: {}", loglevel);
-            }
-            io.stop();
-        },
+        std::function<void(boost::system::error_code&)>(
+            std::bind_front(afterSetLogLevel, std::ref(io), loglevel)),
         service, path, iface, method, loglevel);
 
     io.run();
