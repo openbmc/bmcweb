@@ -89,29 +89,30 @@ class Server
         adaptorCtx = ensuressl::getSslServerContext();
     }
 
+    void afterWaitForSignal(const boost::system::error_code& ec, int signalNo)
+    {
+        if (ec)
+        {
+            BMCWEB_LOG_INFO("Error in signal handler{}", ec.message());
+        }
+        else
+        {
+            if (signalNo == SIGHUP)
+            {
+                BMCWEB_LOG_INFO("Received reload signal");
+                loadCertificate();
+                startAsyncWaitForSignal();
+            }
+            else
+            {
+                getIoContext().stop();
+            }
+        }
+    }
+
     void startAsyncWaitForSignal()
     {
-        signals.async_wait(
-            // ast-grep-ignore: long-lambda
-            [this](const boost::system::error_code& ec, int signalNo) {
-                if (ec)
-                {
-                    BMCWEB_LOG_INFO("Error in signal handler{}", ec.message());
-                }
-                else
-                {
-                    if (signalNo == SIGHUP)
-                    {
-                        BMCWEB_LOG_INFO("Receivied reload signal");
-                        loadCertificate();
-                        startAsyncWaitForSignal();
-                    }
-                    else
-                    {
-                        getIoContext().stop();
-                    }
-                }
-            });
+        signals.async_wait(std::bind_front(&self_t::afterWaitForSignal, this));
     }
 
     using SocketPtr = std::unique_ptr<Adaptor>;
