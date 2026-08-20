@@ -58,8 +58,10 @@ class ConnectionImpl : public Connection
                            std::function<void()>&& whenComplete)>
             messageExHandlerIn,
         std::function<void(Connection&, const std::string&)> closeHandlerIn,
-        std::function<void(Connection&)> errorHandlerIn) :
-        uri(urlViewIn), ws(std::move(adaptorIn)), inBuffer(inString, 131088),
+        std::function<void(Connection&)> errorHandlerIn,
+        std::size_t inputBufferLimit = defaultInputBufferLimit) :
+        uri(urlViewIn), ws(std::move(adaptorIn)),
+        inBuffer(inString, inputBufferLimit),
         openHandler(std::move(openHandlerIn)),
         messageHandler(std::move(messageHandlerIn)),
         messageExHandler(std::move(messageExHandlerIn)),

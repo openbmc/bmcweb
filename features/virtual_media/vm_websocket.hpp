@@ -40,16 +40,17 @@
 namespace crow
 {
 
+// The max network block device buffer size is 4096kb plus 16bytes;
+// payload size is multiplied by 4 to prevent buffer overflows (explained in
+// commit 4ee8f0b7); for the message header:
+// https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md#simple-reply-message
+inline constexpr auto nbdBufferSize = (4096 * 1024 + 16) * 4;
+
 namespace obmc_vm
 {
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static crow::websocket::Connection* session = nullptr;
-
-// The max network block device buffer size is 128kb plus 16bytes
-// for the message header:
-// https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md#simple-reply-message
-static constexpr auto nbdBufferSize = (128 * 1024 + 16) * 4;
 
 class Handler : public std::enable_shared_from_this<Handler>
 {
@@ -192,11 +193,6 @@ static std::shared_ptr<Handler> handler;
 namespace nbd_proxy
 {
 using boost::asio::local::stream_protocol;
-
-// The max network block device buffer size is 128kb plus 16bytes
-// for the message header:
-// https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md#simple-reply-message
-static constexpr auto nbdBufferSize = (128 * 1024 + 16) * 4;
 
 struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 {
@@ -548,6 +544,7 @@ inline void requestRoutes(App& app)
         BMCWEB_ROUTE(app, "/nbd/<str>/")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
+            .maxRequestPayloadBytes(static_cast<std::size_t>(nbdBufferSize))
             .onopen(nbd_proxy::onOpen)
             .onclose(nbd_proxy::onClose)
             .onmessageex(nbd_proxy::onMessage);
@@ -555,6 +552,7 @@ inline void requestRoutes(App& app)
         BMCWEB_ROUTE(app, "/vm/0/0/")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
+            .maxRequestPayloadBytes(static_cast<std::size_t>(nbdBufferSize))
             .onopen(nbd_proxy::onOpen)
             .onclose(nbd_proxy::onClose)
             .onmessageex(nbd_proxy::onMessage);
@@ -564,6 +562,7 @@ inline void requestRoutes(App& app)
         BMCWEB_ROUTE(app, "/vm/0/0/")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
+            .maxRequestPayloadBytes(static_cast<std::size_t>(nbdBufferSize))
             // ast-grep-ignore: long-lambda
             .onopen([](crow::websocket::Connection& conn) {
                 BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
