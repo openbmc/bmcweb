@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06cf1511_d9cde21a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2076,
+      "author": {
+        "id": 1003079
+      },
+      "writtenOn": "2026-08-20T12:48:34Z",
+      "side": 1,
+      "message": "Consider moving passwordChangeRequired into UserCreateProperties since it is also a user creation property. This keeps related fields grouped together and reduces the number of separate variables.",
+      "revId": "6c276ee4877e876efab073773d126b2912768c12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
