@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc334d59_3e9831ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T21:11:06Z",
+      "side": 1,
+      "message": "Look at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38044 \n\nI am okay revisiting this but can you quote the redfish spec ? And need more why to the commit msg",
+      "parentUuid": "720a655d_2f16681b",
+      "revId": "62f7280495469332049ec9343deadf222e38c2ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3817b411_8de100b3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
