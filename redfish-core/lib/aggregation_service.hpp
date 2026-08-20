@@ -326,6 +326,24 @@ inline void handleAggregationSourceCollectionPost(
     messages::created(asyncResp->res);
 }
 
+inline void afterGetSatelliteConfigsForPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& aggregationSourceId,
+    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+{
+    // Check if it exists in Entity Manager sources
+    if (satelliteInfo.contains(aggregationSourceId))
+    {
+        // Source exists but is read-only (from Entity Manager)
+        messages::propertyNotWritable(asyncResp->res, "UserName");
+        return;
+    }
+
+    // Doesn't exist anywhere
+    messages::resourceNotFound(asyncResp->res, "AggregationSource",
+                               aggregationSourceId);
+}
+
 inline void handleAggregationSourcePatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -376,23 +394,8 @@ inline void handleAggregationSourcePatch(
 
     // Not in writable sources, query D-Bus to check if it exists in
     // Entity Manager sources
-    RedfishAggregator::getInstance().getSatelliteConfigs(
-        // ast-grep-ignore: long-lambda
-        [asyncResp, aggregationSourceId](
-            const std::unordered_map<std::string, boost::urls::url>&
-                satelliteInfo) {
-            // Check if it exists in Entity Manager sources
-            if (satelliteInfo.contains(aggregationSourceId))
-            {
-                // Source exists but is read-only (from Entity Manager)
-                messages::propertyNotWritable(asyncResp->res, "UserName");
-                return;
-            }
-
-            // Doesn't exist anywhere
-            messages::resourceNotFound(asyncResp->res, "AggregationSource",
-                                       aggregationSourceId);
-        });
+    RedfishAggregator::getInstance().getSatelliteConfigs(std::bind_front(
+        afterGetSatelliteConfigsForPatch, asyncResp, aggregationSourceId));
 }
 
 inline void handleAggregationSourceDelete(
