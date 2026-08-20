@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be1bc7c5_d2e38991",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T16:01:47Z",
+      "side": 1,
+      "message": "Please follow https://cbea.ms/git-commit/ though\n\nredfish-core: Refactor fillCableHealthState lambda\n\nExtract the long D-Bus GetProperty callback lambda in\nfillCableHealthState() into a named function, afterGetCableHealthState(),\nbound via std::bind_front(). This follows the \u003c10-line lambda coding\nstandard in docs/COMMON_ERRORS.md.\n\nTested:\n- No other functional change.\n- Tested on an AST2600 SoC platform.\n- Redfish Service Validator passed with no new errors or warnings\n  introduced.",
+      "revId": "213d266e3e7f64c1bd4bb51228996cb29460add4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
