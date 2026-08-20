@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ac96670_c2eaa45e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T15:51:26Z",
+      "side": 1,
+      "message": "Please follow https://cbea.ms/git-commit/ and wrap at 72 chars",
+      "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31634417_29eec8ea",
