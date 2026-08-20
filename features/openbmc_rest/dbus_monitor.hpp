@@ -131,6 +131,129 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     return 0;
 }
 
+inline void handleDbusMonitorMessage(crow::websocket::Connection& conn,
+                                     const std::string& data,
+                                     bool /*unused*/)
+{
+    const auto sessionPair = sessions.find(&conn);
+    if (sessionPair == sessions.end())
+    {
+        conn.close("Internal error");
+    }
+    DbusWebsocketSession& thisSession = sessionPair->second;
+    BMCWEB_LOG_DEBUG("Connection {} received {}", logPtr(&conn), data);
+    std::optional<nlohmann::json> j = parseStringAsJson(data);
+    if (!j)
+    {
+        BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
+        conn.close("Unable to parse json request");
+        return;
+    }
+    nlohmann::json::object_t* obj = j->get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
+        conn.close("Unable to parse json request");
+        return;
+    }
+    nlohmann::json::object_t::iterator interfaces = obj->find("interfaces");
+    if (interfaces != obj->end())
+    {
+        thisSession.interfaces.reserve(interfaces->second.size());
+        for (const auto& interface : interfaces->second)
+        {
+            const std::string* str = interface.get_ptr<const std::string*>();
+            if (str != nullptr)
+            {
+                thisSession.interfaces.insert(*str);
+            }
+        }
+    }
+
+    nlohmann::json::object_t::iterator paths = obj->find("paths");
+    if (paths == obj->end())
+    {
+        BMCWEB_LOG_ERROR("Unable to find paths in json data");
+        conn.close("Unable to find paths in json data");
+        return;
+    }
+
+    // These regexes derived on the rules here:
+    // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
+    static std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
+    static std::regex validInterface(
+        "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$");
+
+    for (const auto& thisPath : paths->second)
+    {
+        const std::string* thisPathString =
+            thisPath.get_ptr<const std::string*>();
+        if (thisPathString == nullptr)
+        {
+            BMCWEB_LOG_ERROR("subscribe path isn't a string?");
+            conn.close();
+            return;
+        }
+        if (!std::regex_match(*thisPathString, validPath))
+        {
+            BMCWEB_LOG_ERROR("Invalid path name {}", *thisPathString);
+            conn.close();
+            return;
+        }
+        std::string propertiesMatchString =
+            ("type='signal',"
+             "interface='org.freedesktop.DBus.Properties',"
+             "path_namespace='" +
+             *thisPathString +
+             "',"
+             "member='PropertiesChanged'");
+        // If interfaces weren't specified, add a single match for all
+        // interfaces
+        if (thisSession.interfaces.empty())
+        {
+            BMCWEB_LOG_DEBUG("Creating match {}", propertiesMatchString);
+
+            thisSession.matches.emplace_back(std::make_unique<sdbusplus::match>(
+                *crow::connections::systemBus, propertiesMatchString,
+                onPropertyUpdate, &conn));
+        }
+        else
+        {
+            // If interfaces were specified, add a match for each
+            // interface
+            for (const std::string& interface : thisSession.interfaces)
+            {
+                if (!std::regex_match(interface, validInterface))
+                {
+                    BMCWEB_LOG_ERROR("Invalid interface name {}", interface);
+                    conn.close();
+                    return;
+                }
+                std::string ifaceMatchString = propertiesMatchString;
+                ifaceMatchString += ",arg0='";
+                ifaceMatchString += interface;
+                ifaceMatchString += "'";
+                BMCWEB_LOG_DEBUG("Creating match {}", ifaceMatchString);
+                thisSession.matches.emplace_back(
+                    std::make_unique<sdbusplus::match>(
+                        *crow::connections::systemBus, ifaceMatchString,
+                        onPropertyUpdate, &conn));
+            }
+        }
+        std::string objectManagerMatchString =
+            ("type='signal',"
+             "interface='org.freedesktop.DBus.ObjectManager',"
+             "path_namespace='" +
+             *thisPathString +
+             "',"
+             "member='InterfacesAdded'");
+        BMCWEB_LOG_DEBUG("Creating match {}", objectManagerMatchString);
+        thisSession.matches.emplace_back(std::make_unique<sdbusplus::match>(
+            *crow::connections::systemBus, objectManagerMatchString,
+            onPropertyUpdate, &conn));
+    }
+}
+
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/subscribe/")
@@ -143,140 +266,7 @@ inline void requestRoutes(App& app)
         .onclose([](crow::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);
         })
-        // ast-grep-ignore: long-lambda
-        .onmessage([](crow::websocket::Connection& conn,
-                      const std::string& data, bool) {
-            const auto sessionPair = sessions.find(&conn);
-            if (sessionPair == sessions.end())
-            {
-                conn.close("Internal error");
-            }
-            DbusWebsocketSession& thisSession = sessionPair->second;
-            BMCWEB_LOG_DEBUG("Connection {} received {}", logPtr(&conn), data);
-            std::optional<nlohmann::json> j = parseStringAsJson(data);
-            if (!j)
-            {
-                BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
-                conn.close("Unable to parse json request");
-                return;
-            }
-            nlohmann::json::object_t* obj =
-                j->get_ptr<nlohmann::json::object_t*>();
-            if (obj == nullptr)
-            {
-                BMCWEB_LOG_ERROR("Unable to parse json data for monitor");
-                conn.close("Unable to parse json request");
-                return;
-            }
-            nlohmann::json::object_t::iterator interfaces =
-                obj->find("interfaces");
-            if (interfaces != obj->end())
-            {
-                thisSession.interfaces.reserve(interfaces->second.size());
-                for (const auto& interface : interfaces->second)
-                {
-                    const std::string* str =
-                        interface.get_ptr<const std::string*>();
-                    if (str != nullptr)
-                    {
-                        thisSession.interfaces.insert(*str);
-                    }
-                }
-            }
-
-            nlohmann::json::object_t::iterator paths = obj->find("paths");
-            if (paths == obj->end())
-            {
-                BMCWEB_LOG_ERROR("Unable to find paths in json data");
-                conn.close("Unable to find paths in json data");
-                return;
-            }
-
-            size_t interfaceCount = thisSession.interfaces.size();
-            if (interfaceCount == 0)
-            {
-                interfaceCount = 1;
-            }
-
-            // These regexes derived on the rules here:
-            // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
-            static std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
-            static std::regex validInterface(
-                "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)+$");
-
-            for (const auto& thisPath : paths->second)
-            {
-                const std::string* thisPathString =
-                    thisPath.get_ptr<const std::string*>();
-                if (thisPathString == nullptr)
-                {
-                    BMCWEB_LOG_ERROR("subscribe path isn't a string?");
-                    conn.close();
-                    return;
-                }
-                if (!std::regex_match(*thisPathString, validPath))
-                {
-                    BMCWEB_LOG_ERROR("Invalid path name {}", *thisPathString);
-                    conn.close();
-                    return;
-                }
-                std::string propertiesMatchString =
-                    ("type='signal',"
-                     "interface='org.freedesktop.DBus.Properties',"
-                     "path_namespace='" +
-                     *thisPathString +
-                     "',"
-                     "member='PropertiesChanged'");
-                // If interfaces weren't specified, add a single match for all
-                // interfaces
-                if (thisSession.interfaces.empty())
-                {
-                    BMCWEB_LOG_DEBUG("Creating match {}",
-                                     propertiesMatchString);
-
-                    thisSession.matches.emplace_back(
-                        std::make_unique<sdbusplus::match>(
-                            *crow::connections::systemBus,
-                            propertiesMatchString, onPropertyUpdate, &conn));
-                }
-                else
-                {
-                    // If interfaces were specified, add a match for each
-                    // interface
-                    for (const std::string& interface : thisSession.interfaces)
-                    {
-                        if (!std::regex_match(interface, validInterface))
-                        {
-                            BMCWEB_LOG_ERROR("Invalid interface name {}",
-                                             interface);
-                            conn.close();
-                            return;
-                        }
-                        std::string ifaceMatchString = propertiesMatchString;
-                        ifaceMatchString += ",arg0='";
-                        ifaceMatchString += interface;
-                        ifaceMatchString += "'";
-                        BMCWEB_LOG_DEBUG("Creating match {}", ifaceMatchString);
-                        thisSession.matches.emplace_back(
-                            std::make_unique<sdbusplus::match>(
-                                *crow::connections::systemBus, ifaceMatchString,
-                                onPropertyUpdate, &conn));
-                    }
-                }
-                std::string objectManagerMatchString =
-                    ("type='signal',"
-                     "interface='org.freedesktop.DBus.ObjectManager',"
-                     "path_namespace='" +
-                     *thisPathString +
-                     "',"
-                     "member='InterfacesAdded'");
-                BMCWEB_LOG_DEBUG("Creating match {}", objectManagerMatchString);
-                thisSession.matches.emplace_back(
-                    std::make_unique<sdbusplus::match>(
-                        *crow::connections::systemBus, objectManagerMatchString,
-                        onPropertyUpdate, &conn));
-            }
-        });
+        .onmessage(handleDbusMonitorMessage);
 }
 } // namespace dbus_monitor
 } // namespace crow
