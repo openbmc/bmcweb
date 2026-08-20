@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3239fe9d_cf0fabda",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-20T16:00:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3ae5b47f_839f8c74",
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dfae14b1_922a037e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -49,6 +67,24 @@
       "writtenOn": "2026-07-24T16:25:30Z",
       "side": 1,
       "message": "But you added an if block.. How about Tested: Inspection only",
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a79a543b_7f8c7ae0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-20T16:00:47Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "dfae14b1_922a037e",
       "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +142,30 @@
       "writtenOn": "2026-08-20T15:48:45Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "1edc6c5f_d5c7d90c",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 39
+      },
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d6b65ec_f84a73dd",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-20T16:00:47Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve moved the callback handling into a separate\nhelper method instead of extending the existing lambda.",
       "parentUuid": "1edc6c5f_d5c7d90c",
       "range": {
         "startLine": 130,
@@ -190,6 +250,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d8fb5ab_debdcb92",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-20T16:00:47Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "9071a8f8_41280c57",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 37
+      },
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7241871a_acfd4339",
         "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
         "patchSetId": 1
@@ -201,6 +285,24 @@
       "writtenOn": "2026-07-24T16:25:30Z",
       "side": 1,
       "message": "Is this enough ? Couldn\u0027t there be other errors ?",
+      "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a62f28_879410ae",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-08-20T16:00:47Z",
+      "side": 1,
+      "message": "Added explicit handling for EBADR and ENOENT, returning\nResourceNotFound.",
+      "parentUuid": "7241871a_acfd4339",
       "revId": "8e621b9cf49e8cc3201aea5e904ca19cba0b0fe1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
