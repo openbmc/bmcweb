@@ -51,6 +51,21 @@ inline void doPowerSubsystemCollection(
             "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies", chassisId);
 }
 
+inline void doPowerSubsystemCollectionHead(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/PowerSubsystem/PowerSubsystem.json>; rel=describedby");
+}
+
 inline void handlePowerSubsystemCollectionHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -61,20 +76,9 @@ inline void handlePowerSubsystemCollectionHead(
         return;
     }
 
-    // ast-grep-ignore: long-lambda
-    auto respHandler = [asyncResp, chassisId](
-                           const std::optional<std::string>& validChassisPath) {
-        if (!validChassisPath)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
-        asyncResp->res.addHeader(
-            boost::beast::http::field::link,
-            "</redfish/v1/JsonSchemas/PowerSubsystem/PowerSubsystem.json>; rel=describedby");
-    };
-    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
-                                                std::move(respHandler));
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(doPowerSubsystemCollectionHead, asyncResp, chassisId));
 }
 
 inline void handlePowerSubsystemCollectionGet(
