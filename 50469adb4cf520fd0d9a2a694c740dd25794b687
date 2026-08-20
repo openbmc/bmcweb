@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca01d6ee_17bad891",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-20T07:26:22Z",
+      "side": 1,
+      "message": "In the D-Bus contract, PredictedMediaLifeLeftPercent is a byte, not a uint64_t.",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 60
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7b207b_4e4fa2d2",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-20T07:26:22Z",
+      "side": 1,
+      "message": "I think this refactor broke the Unknown case. These helpers return an empty optional for Unknown, but this code now logs and then still dereferences the optional right after that.",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 5
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2380b37_e4bd2eb3",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-20T07:26:22Z",
+      "side": 1,
+      "message": "Handle std::optional same as previous comment.",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 5
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
