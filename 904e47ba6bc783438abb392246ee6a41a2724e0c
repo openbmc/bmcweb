@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5af63c0_6bff1151",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T21:13:49Z",
+      "side": 1,
+      "message": "The getLocationCode function contained an inline lambda that triggered\nthe long-lambda ast-grep rule and required an inline suppression... \n\nPlease follow https://cbea.ms/git-commit/",
+      "revId": "904e47ba6bc783438abb392246ee6a41a2724e0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d61bdd75_41dbdf35",
@@ -14,6 +31,23 @@
       "writtenOn": "2026-08-20T17:59:01Z",
       "side": 1,
       "message": "It looks good to me",
+      "revId": "904e47ba6bc783438abb392246ee6a41a2724e0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3279bcde_710598f9",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T21:13:49Z",
+      "side": 1,
+      "message": "This should be a WARNING, either fix here or in another commit if you don\u0027t mind",
       "revId": "904e47ba6bc783438abb392246ee6a41a2724e0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
