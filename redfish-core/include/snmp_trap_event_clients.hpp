@@ -22,6 +22,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <string>
 #include <string_view>
@@ -92,48 +93,49 @@ inline void getSnmpTrapClientdata(
         });
 }
 
+inline void afterGetSnmpTrapClient(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
+    const boost::system::error_code& ec,
+    const dbus::utility::ManagedObjectType& resp)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("D-Bus response error on GetManagedObjects {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& objpath : resp)
+    {
+        sdbusplus::object_path path(objpath.first);
+        const std::string snmpId = path.filename();
+        if (snmpId.empty())
+        {
+            BMCWEB_LOG_ERROR("The SNMP client ID is wrong");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string subscriptionId = "snmp" + snmpId;
+        if (id != subscriptionId)
+        {
+            continue;
+        }
+
+        getSnmpTrapClientdata(asyncResp, id, objpath.first);
+        return;
+    }
+
+    messages::resourceNotFound(asyncResp->res, "Subscriptions", id);
+    EventServiceManager::getInstance().deleteSubscription(id);
+}
+
 inline void getSnmpTrapClient(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
-    dbus::utility::async_method_call(
-        asyncResp,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, id](const boost::system::error_code& ec,
-                        dbus::utility::ManagedObjectType& resp) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("D-Bus response error on GetManagedObjects {}",
-                                 ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            for (const auto& objpath : resp)
-            {
-                sdbusplus::object_path path(objpath.first);
-                const std::string snmpId = path.filename();
-                if (snmpId.empty())
-                {
-                    BMCWEB_LOG_ERROR("The SNMP client ID is wrong");
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                const std::string subscriptionId = "snmp" + snmpId;
-                if (id != subscriptionId)
-                {
-                    continue;
-                }
-
-                getSnmpTrapClientdata(asyncResp, id, objpath.first);
-                return;
-            }
-
-            messages::resourceNotFound(asyncResp->res, "Subscriptions", id);
-            EventServiceManager::getInstance().deleteSubscription(id);
-        },
+    dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network.SNMP",
-        "/xyz/openbmc_project/network/snmp/manager",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        sdbusplus::object_path("/xyz/openbmc_project/network/snmp/manager"),
+        std::bind_front(afterGetSnmpTrapClient, asyncResp, id));
 }
 
 inline void afterSnmpClientCreate(
