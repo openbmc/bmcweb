@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96546d7e_0427adb7",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-20T07:40:10Z",
+      "side": 1,
+      "message": "This switches the collection lookup to getAssociatedSubTreePaths, which is the right direction, but binding it straight to collection_util::handleCollectionMembers() looks risky. That helper only treats io_error as an empty collection, for association-based lookups we usually also treat EBADR as “no associated resources”.",
+      "range": {
+        "startLine": 368,
+        "startChar": 4,
+        "endLine": 375,
+        "endChar": 55
+      },
+      "revId": "529b41f1962f05fcb93a4e8eed7c2c823923b652",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
