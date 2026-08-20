@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c71ee1b_a0fc77d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T15:59:59Z",
+      "side": 1,
+      "message": "Wrap at 72 chars for the body please, for this commit and you other commits.. Just feed https://cbea.ms/git-commit/ to your LLM\n```\nredfish-core: Refactor EnvironmentMetrics Head\n\n123456789012345678901234567890123456789012345678901234567890123456789012\nExtract the long respHandler lambda in handleEnvironmentMetricsHead()\ninto a named function, doEnvironmentMetricsHead(), bound via\nstd::bind_front(). This matches the pattern already used by\nhandleEnvironmentMetricsGet() and follows the \u003c10-line lambda coding\nstandard in docs/COMMON_ERRORS.md.\n\nTested:\n- No other functional change.\n- Tested on an AST2600 SoC platform.\n- Redfish Service Validator passed with no new errors or warnings\n  introduced.\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "ea54ee6f3823866c0ffc10b76b97e8f1a8e3eb5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
