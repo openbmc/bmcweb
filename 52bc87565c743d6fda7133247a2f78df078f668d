@@ -46,6 +46,29 @@
       },
       "revId": "52bc87565c743d6fda7133247a2f78df078f668d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a72d3e62_eae9a539",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-20T11:32:41Z",
+      "side": 1,
+      "message": "This helper hardcodes raw0 and drops computerSystemIndex, so BootProgress.OemLastState is no longer tied to the requested ComputerSystem. On multi-system builds, /redfish/v1/Systems/\u003cid\u003e can return host0’s OEM boot code for every system. Please pass computerSystemIndex through and resolve the Boot.Raw service/path the same way the other host-state lookups in this file do.",
+      "range": {
+        "startLine": 793,
+        "startChar": 8,
+        "endLine": 793,
+        "endChar": 46
+      },
+      "revId": "52bc87565c743d6fda7133247a2f78df078f668d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
