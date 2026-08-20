@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54a956ef_9aaf5d60",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-08-20T11:20:09Z",
+      "side": 1,
+      "message": "Thank you for the review! I’ve addressed this concern with a different approach that aligns better with our implementation. This ensures Invalid never appears in the JSON response, meeting the DMTF requirement.\n\nAlso, just to clarify one point from the review: our implementation uses VirtualMedia v1_3_0, not v1_6_5. Both versions specify TransferProtocolType as nullable value, so filtering at the call site maintains schema compliance.",
+      "parentUuid": "ba53c4d2_719aa7e9",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 60
+      },
+      "revId": "7dff3ea0715da9ce057201bf3c246fb5c9406bb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9e90281_cf41facf",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8618aa57_af370a8a",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-08-20T11:20:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a9e90281_cf41facf",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 56
+      },
+      "revId": "7dff3ea0715da9ce057201bf3c246fb5c9406bb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77272a84_57f15e0c",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-08-20T07:55:56Z",
       "side": 1,
       "message": "Suggestion: \nUsing `std::optional` and a if statement here to determine whether there is valid property for the assignment.",
+      "range": {
+        "startLine": 206,
+        "startChar": 24,
+        "endLine": 207,
+        "endChar": 75
+      },
+      "revId": "7dff3ea0715da9ce057201bf3c246fb5c9406bb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "024f6b5e_707ac471",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-08-20T11:20:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "77272a84_57f15e0c",
       "range": {
         "startLine": 206,
         "startChar": 24,
