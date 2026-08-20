@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30ed4862_e2a43c37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T23:03:53Z",
+      "side": 1,
+      "message": "please follow https://cbea.ms/git-commit/ \nPlease wrap lines at 72 chars and not a random length",
+      "revId": "6e5c516688949e6b1ba77c8829b6d8ef19db17cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a667548_2d8d5ac1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T23:03:53Z",
+      "side": 1,
+      "message": "Ideally this is your full name \n\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n\nhttps://github.com/openbmc/docs/blob/854f0893e6f6015912e2ebf72d6350dec6e9a34e/CONTRIBUTING.md?plain\u003d1#L251",
+      "range": {
+        "startLine": 57,
+        "startChar": 15,
+        "endLine": 57,
+        "endChar": 24
+      },
+      "revId": "6e5c516688949e6b1ba77c8829b6d8ef19db17cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
