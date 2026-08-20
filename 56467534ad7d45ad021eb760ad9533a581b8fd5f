@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "415c02bf_41153c9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T15:54:22Z",
+      "side": 1,
+      "message": "The enum change looks good but we had this discussion before on empty values. Can we separate those changes ?\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/38044",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "56467534ad7d45ad021eb760ad9533a581b8fd5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
