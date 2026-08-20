@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f120cd2_408e87d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T16:04:21Z",
+      "side": 1,
+      "message": "Can you break these commits up ?\nA fix a long lambdas commit and then this enum commit.. \nAlso there should not be any other changes..",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "639dc103_52e981dc",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 2
@@ -14,6 +37,30 @@
       "writtenOn": "2026-08-20T06:56:03Z",
       "side": 1,
       "message": "The legacy approach used `BMCWEB_LOG_DEBUG()` instead of `BMCWEB_LOG_ERROR()`.\nNot sure if we should changes them here?",
+      "range": {
+        "startLine": 2447,
+        "startChar": 8,
+        "endLine": 2447,
+        "endChar": 55
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e2a796b_fafda847",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2447,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T16:04:21Z",
+      "side": 1,
+      "message": "No changes here.. I thought this was just a refactor..",
+      "parentUuid": "639dc103_52e981dc",
       "range": {
         "startLine": 2447,
         "startChar": 8,
