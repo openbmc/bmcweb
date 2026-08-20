@@ -2,7 +2,7 @@
     "@Redfish.Copyright": "Copyright 2022 OpenBMC. All rights reserved.",
     "@odata.type": "#MessageRegistry.v1_4_0.MessageRegistry",
     "Description": "This registry defines the base messages for OpenBMC.",
-    "Id": "OpenBMC.0.5.0",
+    "Id": "OpenBMC.0.6.0",
     "Language": "en",
     "Messages": {
         "ADDDCCorrectable": {
@@ -388,6 +388,15 @@
             "ParamTypes": ["string"],
             "Resolution": "None.",
             "Severity": "Critical"
+        },
+        "FirmwareUpdateAwaitingActivation": {
+            "Description": "Indicates a firmware update was applied but requires a manual action to become active.",
+            "Message": "Firmware update to %2 is awaiting %1 to activate.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "Perform the indicated action (AC power cycle, DC power cycle, system reboot, or medium-specific reset) to activate the newly installed firmware.",
+            "Severity": "Warning"
         },
         "FirmwareUpdateCompleted": {
             "Description": "Indicates a firmware update has completed successfully.",
@@ -1675,5 +1684,5 @@
     "Name": "OpenBMC Message Registry",
     "OwningEntity": "OpenBMC",
     "RegistryPrefix": "OpenBMC",
-    "RegistryVersion": "0.5.0"
+    "RegistryVersion": "0.6.0"
 }
