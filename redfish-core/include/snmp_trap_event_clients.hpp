@@ -125,7 +125,7 @@ inline void afterGetSnmpTrapClient(
         return;
     }
 
-    messages::resourceNotFound(asyncResp->res, "Subscriptions", id);
+    messages::resourceNotFound(asyncResp->res, "EventDestination", id);
     EventServiceManager::getInstance().deleteSubscription(id);
 }
 
@@ -233,7 +233,8 @@ inline void handleDeleteSnmpTrapClientResponse(
         if (ec.value() == EBADR)
         {
             BMCWEB_LOG_WARNING("Invalid SNMP trap client id: {}", param);
-            messages::resourceNotFound(asyncResp->res, "Subscription", param);
+            messages::resourceNotFound(asyncResp->res, "EventDestination",
+                                       param);
             return;
         }
 
