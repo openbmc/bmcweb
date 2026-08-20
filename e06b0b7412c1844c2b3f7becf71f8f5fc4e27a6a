@@ -16,6 +16,24 @@
       "message": "If both Present and Available are false, this overwrites Status.State from Absent to UnavailableOffline. For an empty CPU socket, Absent is the correct Redfish state. Please compute the state once with Absent taking precedence, similar to the shared resource helper.",
       "revId": "e06b0b7412c1844c2b3f7becf71f8f5fc4e27a6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b3d8cad_7ccdce17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-20T21:20:09Z",
+      "side": 1,
+      "message": "Done, I\u0027ve added `present` and `available` variables to be set when iterating through the properties. It should determine the resource state once all the properties have been gathered with Absent taking priority.",
+      "parentUuid": "7f36af46_f10c5356",
+      "revId": "e06b0b7412c1844c2b3f7becf71f8f5fc4e27a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
