@@ -24,6 +24,47 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a4c58f_2a55249b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-20T22:13:51Z",
+      "side": 1,
+      "message": "Done, I\u0027ve changed it to `utils:`",
+      "parentUuid": "77294cc6_0b4fa9ac",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "c345be67ac8121923b26eaf7e4bb57087f11c029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f407362_0886fcbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-20T22:13:51Z",
+      "side": 1,
+      "message": "Currently WIP",
+      "revId": "c345be67ac8121923b26eaf7e4bb57087f11c029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "357ee1b2_a2eb69d7",
@@ -37,6 +78,30 @@
       "writtenOn": "2026-08-20T18:56:09Z",
       "side": 1,
       "message": "Other utility functions use the name of the file as the name of the namespace. I suggest the same for this one. (I don\u0027t have a strong feeling on whether to change the filename or the namespace. I slightly lean towards using name_utils for both as it would open the file up to make sense for other utility functions in the future.)",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 20
+      },
+      "revId": "c345be67ac8121923b26eaf7e4bb57087f11c029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf868157_7a1bdf18",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-20T22:13:51Z",
+      "side": 1,
+      "message": "I\u0027ve renamed the file to `name_utils.hpp` to match the namespace.",
+      "parentUuid": "357ee1b2_a2eb69d7",
       "range": {
         "startLine": 17,
         "startChar": 10,
@@ -70,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2c3116c_9e5c27f0",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-20T22:13:51Z",
+      "side": 1,
+      "message": "Done, removed.",
+      "parentUuid": "411bf01c_fb44711b",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 2
+      },
+      "revId": "c345be67ac8121923b26eaf7e4bb57087f11c029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32e9e0df_361c9c7a",
@@ -83,6 +172,30 @@
       "writtenOn": "2026-08-20T18:56:09Z",
       "side": 1,
       "message": "nit: Code is obvious here, no need for this comment.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 2
+      },
+      "revId": "c345be67ac8121923b26eaf7e4bb57087f11c029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c964305_982afba5",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-20T22:13:51Z",
+      "side": 1,
+      "message": "Done, removed.",
+      "parentUuid": "32e9e0df_361c9c7a",
       "range": {
         "startLine": 49,
         "startChar": 0,
@@ -118,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c8d9984_4de044d3",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-20T22:13:51Z",
+      "side": 1,
+      "message": "I\u0027ve changed the comment to reflect that. It should go through the services and choose the first service that implements that interface.",
+      "parentUuid": "f800f6a2_35d0480a",
+      "range": {
+        "startLine": 56,
+        "startChar": 62,
+        "endLine": 58,
+        "endChar": 68
+      },
+      "revId": "c345be67ac8121923b26eaf7e4bb57087f11c029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8a93dbf_cc9c1b7a",
         "filename": "redfish-core/include/utils/pretty_name.hpp",
         "patchSetId": 6
@@ -129,6 +266,30 @@
       "writtenOn": "2026-08-20T18:56:09Z",
       "side": 1,
       "message": "This doesn\u0027t seem to be a parameter here.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 2
+      },
+      "revId": "c345be67ac8121923b26eaf7e4bb57087f11c029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96573862_be1fddc9",
+        "filename": "redfish-core/include/utils/pretty_name.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-20T22:13:51Z",
+      "side": 1,
+      "message": "Done, removed.",
+      "parentUuid": "a8a93dbf_cc9c1b7a",
       "range": {
         "startLine": 65,
         "startChar": 0,
