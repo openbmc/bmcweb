@@ -771,8 +771,8 @@ inline void requestRoutesEventDestination(App& app)
                     EventServiceManager::getInstance().getSubscription(param);
                 if (subValue == nullptr)
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EventDestination", param);
                     return;
                 }
                 const std::string& id = param;
