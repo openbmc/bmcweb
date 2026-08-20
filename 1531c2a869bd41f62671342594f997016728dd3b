@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "639dc103_52e981dc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2447,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-20T06:56:03Z",
+      "side": 1,
+      "message": "The legacy approach used `BMCWEB_LOG_DEBUG()` instead of `BMCWEB_LOG_ERROR()`.\nNot sure if we should changes them here?",
+      "range": {
+        "startLine": 2447,
+        "startChar": 8,
+        "endLine": 2447,
+        "endChar": 55
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f23c3848_d37954d5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2463,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-20T06:56:03Z",
+      "side": 1,
+      "message": "I just noticed that this `expireAction` came from the following PDI:\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/079b8cd84f979a4863333864bad140fd5c28c0b6/yaml/xyz/openbmc_project/State/Watchdog.interface.yaml#L41\n\nIn this case, I think the empty case is unreachable and should be removed and aligns with the legacy flow.",
+      "range": {
+        "startLine": 2460,
+        "startChar": 4,
+        "endLine": 2463,
+        "endChar": 0
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cabbc362_e9ef13c1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2475,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-20T06:56:03Z",
+      "side": 1,
+      "message": "This is a behaviour changes instead of refactoring.\nThe legacy approach will eventually enter triggers `messages::internalError()` if the `expireAction` is empty.\n\nHowever, putting this on the guard make the logic simply ignores the empty case and return silently.\n\nNot sure if this behaviour is what we wanted?",
+      "range": {
+        "startLine": 2475,
+        "startChar": 35,
+        "endLine": 2475,
+        "endChar": 57
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
