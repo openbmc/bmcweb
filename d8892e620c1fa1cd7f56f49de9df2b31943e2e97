@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f01ee374_d3dc636e",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-08-20T02:03:31Z",
+      "side": 1,
+      "message": "Correct. The discovery is scoped to contained Inventory.Item.Accelerator objects. CPU support can be added by whoever needs it in the future.",
+      "parentUuid": "0cd1ea8e_71552ab8",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 41
+      },
+      "revId": "d8892e620c1fa1cd7f56f49de9df2b31943e2e97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8421c970_af8b5a9f",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a3c5a5e_f21aa2a8",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-08-20T02:03:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8421c970_af8b5a9f",
+      "range": {
+        "startLine": 530,
+        "startChar": 12,
+        "endLine": 530,
+        "endChar": 39
+      },
+      "revId": "d8892e620c1fa1cd7f56f49de9df2b31943e2e97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d6bdf4b_0930e953",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-08-19T06:48:17Z",
       "side": 1,
       "message": "This also needs the same chassis existence check as the GET path.",
+      "range": {
+        "startLine": 544,
+        "startChar": 12,
+        "endLine": 544,
+        "endChar": 29
+      },
+      "revId": "d8892e620c1fa1cd7f56f49de9df2b31943e2e97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86886ee3_628b9329",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-08-20T02:03:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d6bdf4b_0930e953",
       "range": {
         "startLine": 544,
         "startChar": 12,
