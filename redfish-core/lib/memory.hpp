@@ -636,6 +636,21 @@ inline void assembleDimmProperties(
     getPersistentMemoryProperties(asyncResp, properties, jsonPtr);
 }
 
+inline void afterGetDimmDataByService(
+    const std::string& dimmId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("DBUS response error");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    assembleDimmProperties(dimmId, asyncResp, properties, ""_json_pointer);
+}
+
 inline void getDimmDataByService(
     std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& dimmId,
     const std::string& service, const std::string& objPath)
@@ -643,19 +658,8 @@ inline void getDimmDataByService(
     BMCWEB_LOG_DEBUG("Get available system components.");
     dbus::utility::getAllProperties(
         service, objPath, "",
-        // ast-grep-ignore: long-lambda
-        [dimmId, asyncResp{std::move(asyncResp)}](
-            const boost::system::error_code& ec,
-            const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("DBUS response error");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            assembleDimmProperties(dimmId, asyncResp, properties,
-                                   ""_json_pointer);
-        });
+        std::bind_front(afterGetDimmDataByService, dimmId,
+                        std::move(asyncResp)));
 }
 
 inline void assembleDimmPartitionData(
