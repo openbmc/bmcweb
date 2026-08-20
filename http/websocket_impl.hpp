@@ -324,6 +324,20 @@ class ConnectionImpl : public Connection
     }
 
   private:
+    void afterHandleMessage(const std::shared_ptr<Connection>& self,
+                            size_t bytesRead)
+    {
+        if (self == nullptr)
+        {
+            return;
+        }
+
+        inBuffer.consume(bytesRead);
+        inString.clear();
+
+        doRead();
+    }
+
     void handleMessage(size_t bytesRead)
     {
         if (messageExHandler)
@@ -331,18 +345,8 @@ class ConnectionImpl : public Connection
             // Note, because of the interactions with the read buffers,
             // this message handler overrides the normal message handler
             messageExHandler(*this, inString, MessageType::Binary,
-                             // ast-grep-ignore: long-lambda
-                             [this, self(shared_from_this()), bytesRead]() {
-                                 if (self == nullptr)
-                                 {
-                                     return;
-                                 }
-
-                                 inBuffer.consume(bytesRead);
-                                 inString.clear();
-
-                                 doRead();
-                             });
+                             std::bind_front(&self_t::afterHandleMessage, this,
+                                             shared_from_this(), bytesRead));
             return;
         }
 
