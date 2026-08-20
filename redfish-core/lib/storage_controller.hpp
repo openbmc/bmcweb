@@ -10,8 +10,27 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 
+#include <functional>
+
 namespace redfish
 {
+
+inline void afterGetStorageControllerPresent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, bool isPresent)
+{
+    // this interface isn't necessary, only check it
+    // if we get a good return
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("Failed to get Present property");
+        return;
+    }
+    if (!isPresent)
+    {
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Absent;
+    }
+}
 
 inline void populateStorageController(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -29,21 +48,7 @@ inline void populateStorageController(
 
     dbus::utility::getProperty<bool>(
         connectionName, path, "xyz.openbmc_project.Inventory.Item", "Present",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec, bool isPresent) {
-            // this interface isn't necessary, only check it
-            // if we get a good return
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("Failed to get Present property");
-                return;
-            }
-            if (!isPresent)
-            {
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Absent;
-            }
-        });
+        std::bind_front(afterGetStorageControllerPresent, asyncResp));
 
     asset_utils::getAssetInfo(asyncResp, connectionName, path, ""_json_pointer,
                               false);
