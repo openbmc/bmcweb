@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97cf06e0_7513461b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-20T15:50:48Z",
+      "side": 1,
+      "message": "What does this have to do with the enum change?",
+      "range": {
+        "startLine": 148,
+        "startChar": 36,
+        "endLine": 148,
+        "endChar": 54
+      },
+      "revId": "b67a23950e6866b7f1bcfd536a2f72650823c825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
