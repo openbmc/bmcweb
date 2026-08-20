@@ -16,6 +16,23 @@
       "message": "Consider moving passwordChangeRequired into UserCreateProperties since it is also a user creation property. This keeps related fields grouped together and reduces the number of separate variables.",
       "revId": "6c276ee4877e876efab073773d126b2912768c12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9202ceea_80614c3a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2300,
+      "author": {
+        "id": 1003079
+      },
+      "writtenOn": "2026-08-20T13:20:01Z",
+      "side": 1,
+      "message": "Consider adding PasswordChangeRequired@​Redfish.AllowableValues with only true as an allowable value, similar to how Locked@​Redfish.AllowableValues is exposed, since clients can only set PasswordChangeRequired to true.",
+      "revId": "6c276ee4877e876efab073773d126b2912768c12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
