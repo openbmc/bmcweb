@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2646a176_da0d07b5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2076,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-08-21T09:16:05Z",
+      "side": 1,
+      "message": "please review the latest PS.",
+      "parentUuid": "06cf1511_d9cde21a",
+      "revId": "6c276ee4877e876efab073773d126b2912768c12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9202ceea_80614c3a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-20T13:20:01Z",
       "side": 1,
       "message": "Consider adding PasswordChangeRequired@​Redfish.AllowableValues with only true as an allowable value, similar to how Locked@​Redfish.AllowableValues is exposed, since clients can only set PasswordChangeRequired to true.",
+      "revId": "6c276ee4877e876efab073773d126b2912768c12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd36018_bb9efd7e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2300,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-08-21T09:16:05Z",
+      "side": 1,
+      "message": "please review the latest PS.\n\n\u003e since clients can only set PasswordChangeRequired to true.\n\nLet the PUM handles the values.",
+      "parentUuid": "9202ceea_80614c3a",
       "revId": "6c276ee4877e876efab073773d126b2912768c12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
