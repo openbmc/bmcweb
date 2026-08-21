@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "152a619d_a4be48b8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-21T02:48:20Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "5e87151e_37f91aaa",
+      "range": {
+        "startLine": 1252,
+        "startChar": 12,
+        "endLine": 1252,
+        "endChar": 19
+      },
+      "revId": "c0404ba2f97c67e0f661e35f4f1007808a7dd473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b88f6aa_8670b9c4",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec36b706_42b8b10b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-21T02:48:20Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "5b88f6aa_8670b9c4",
+      "range": {
+        "startLine": 1286,
+        "startChar": 0,
+        "endLine": 1297,
+        "endChar": 1
+      },
+      "revId": "c0404ba2f97c67e0f661e35f4f1007808a7dd473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fb0b2b2_f83c9f93",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-08-10T08:15:49Z",
       "side": 1,
       "message": "It seems like you are prioritizing NetworkAdapter over Chassis/Board object?\nHowever, how are we going to ensure that the cases with NetworkAdapter interface comes first?\n\nIf there is an object implemented with NetworkAdapter but comes after another object with Chassis/Board interfaces, are we going to discard that NetworkAdapter-embedded object?",
+      "range": {
+        "startLine": 1338,
+        "startChar": 12,
+        "endLine": 1356,
+        "endChar": 13
+      },
+      "revId": "c0404ba2f97c67e0f661e35f4f1007808a7dd473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "818a2f44_8d0e71fe",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1356,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-21T02:48:20Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "2fb0b2b2_f83c9f93",
       "range": {
         "startLine": 1338,
         "startChar": 12,
