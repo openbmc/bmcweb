@@ -5,6 +5,7 @@
 #include "bmcweb_config.h"
 
 #include "dbus_utility.hpp"
+#include "duplicatable_file_handle.hpp"
 #include "forward_unauthorized.hpp"
 #include "logging.hpp"
 #include "ossl_random.hpp"
@@ -159,8 +160,11 @@ static std::optional<OpenSSLX509> loadCert(const std::string& filePath)
     return x509Obj;
 }
 
-static void afterInstallCertificate(const std::filesystem::path& certPath,
-                                    const boost::system::error_code& ec)
+// certFile is kept alive until this callback runs, so its destructor
+// removes the temporary file on both success and failure.
+static void afterInstallCertificate(
+    const std::shared_ptr<DuplicatableFileHandle>& /*certFile*/,
+    const boost::system::error_code& ec)
 {
     if (ec)
     {
@@ -168,14 +172,7 @@ static void afterInstallCertificate(const std::filesystem::path& certPath,
         return;
     }
 
-    BMCWEB_LOG_INFO("Replace HTTPs Certificate Success, "
-                    "remove temporary certificate file..");
-    std::error_code ec2;
-    std::filesystem::remove(certPath.c_str(), ec2);
-    if (ec2)
-    {
-        BMCWEB_LOG_ERROR("Failed to remove certificate");
-    }
+    BMCWEB_LOG_INFO("Replace HTTPs Certificate Success");
 }
 
 void regenerateCertificateIfHostnameChanged(const std::string& filepath,
@@ -223,15 +220,21 @@ void regenerateCertificateIfHostnameChanged(const std::string& filepath,
             BMCWEB_LOG_ERROR("Failed to generate cert");
             return;
         }
-        ensuressl::writeCertificateToFile("/tmp/hostname_cert.tmp", certData);
+        auto tempCertFile = std::make_shared<DuplicatableFileHandle>(certData);
+        if (tempCertFile->filePath.empty() ||
+            !std::filesystem::exists(tempCertFile->filePath))
+        {
+            BMCWEB_LOG_ERROR("Failed to create temporary certificate file");
+            return;
+        }
 
-        const std::filesystem::path certPath = "/tmp/hostname_cert.tmp";
         dbus::utility::async_method_call(
             std::function<void(const boost::system::error_code&)>(
-                std::bind_front(afterInstallCertificate, certPath)),
+                std::bind_front(afterInstallCertificate, tempCertFile)),
             "xyz.openbmc_project.Certs.Manager.Server.Https",
             "/xyz/openbmc_project/certs/server/https/1",
-            "xyz.openbmc_project.Certs.Replace", "Replace", certPath.string());
+            "xyz.openbmc_project.Certs.Replace", "Replace",
+            tempCertFile->filePath);
     }
 }
 
