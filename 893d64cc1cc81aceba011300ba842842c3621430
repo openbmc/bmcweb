@@ -75,6 +75,30 @@
       },
       "revId": "893d64cc1cc81aceba011300ba842842c3621430",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00c879d_887b257f",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-08-21T12:16:29Z",
+      "side": 1,
+      "message": "I initially aimed to keep the change minimal, but I agree route scoping is the safer approach.\nI updated the patch so the larger limit is applied only to the Virtual Media/NBD websocket endpoints, while the default websocket limit remains unchanged for all other routes.\nPlease take another look.",
+      "parentUuid": "cd50c619_4b752f6d",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 51
+      },
+      "revId": "893d64cc1cc81aceba011300ba842842c3621430",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
