@@ -5,6 +5,7 @@
 #include "bmcweb_config.h"
 
 #include "dbus_utility.hpp"
+#include "duplicatable_file_handle.hpp"
 #include "forward_unauthorized.hpp"
 #include "logging.hpp"
 #include "ossl_random.hpp"
@@ -158,29 +159,25 @@ static std::optional<OpenSSLX509> loadCert(const std::string& filePath)
     return x509Obj;
 }
 
-static void installCertificate(const std::filesystem::path& certPath)
+static void installCertificate(
+    const std::shared_ptr<DuplicatableFileHandle>& certFile)
 {
     dbus::utility::async_method_call(
+        // certFile is kept alive until the callback runs, so its
+        // destructor removes the temp file on both success and failure.
         // ast-grep-ignore: long-lambda
-        [certPath](const boost::system::error_code& ec) {
+        [certFile](const boost::system::error_code& ec) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("Replace Certificate Fail..");
                 return;
             }
 
-            BMCWEB_LOG_INFO("Replace HTTPs Certificate Success, "
-                            "remove temporary certificate file..");
-            std::error_code ec2;
-            std::filesystem::remove(certPath.c_str(), ec2);
-            if (ec2)
-            {
-                BMCWEB_LOG_ERROR("Failed to remove certificate");
-            }
+            BMCWEB_LOG_INFO("Replace HTTPs Certificate Success");
         },
         "xyz.openbmc_project.Certs.Manager.Server.Https",
         "/xyz/openbmc_project/certs/server/https/1",
-        "xyz.openbmc_project.Certs.Replace", "Replace", certPath.string());
+        "xyz.openbmc_project.Certs.Replace", "Replace", certFile->filePath);
 }
 
 void regenerateCertificateIfHostnameChanged(const std::string& filepath,
@@ -228,9 +225,15 @@ void regenerateCertificateIfHostnameChanged(const std::string& filepath,
             BMCWEB_LOG_ERROR("Failed to generate cert");
             return;
         }
-        ensuressl::writeCertificateToFile("/tmp/hostname_cert.tmp", certData);
+        auto tempCertFile = std::make_shared<DuplicatableFileHandle>(certData);
+        if (tempCertFile->filePath.empty() ||
+            !std::filesystem::exists(tempCertFile->filePath))
+        {
+            BMCWEB_LOG_ERROR("Failed to create temporary certificate file");
+            return;
+        }
 
-        installCertificate("/tmp/hostname_cert.tmp");
+        installCertificate(tempCertFile);
     }
 }
 
