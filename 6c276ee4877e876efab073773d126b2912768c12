@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f179051c_daa067ca",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2076,
+      "author": {
+        "id": 1003079
+      },
+      "writtenOn": "2026-08-21T13:59:41Z",
+      "side": 1,
+      "message": "@vijaysankarr@ami.com This issue has been resolved in latest Patchset comment has been added by quoting older Patchset, hence resolving this thread.",
+      "parentUuid": "06cf1511_d9cde21a",
+      "revId": "6c276ee4877e876efab073773d126b2912768c12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9202ceea_80614c3a",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "please review the latest PS.\n\n\u003e since clients can only set PasswordChangeRequired to true.\n\nLet the PUM handles the values.",
       "parentUuid": "9202ceea_80614c3a",
+      "revId": "6c276ee4877e876efab073773d126b2912768c12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6262c10f_c4bda9eb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2300,
+      "author": {
+        "id": 1003079
+      },
+      "writtenOn": "2026-08-21T13:59:41Z",
+      "side": 1,
+      "message": "@vijaysankarr@ami.com ​The Redfish.AllowableValues annotation for the Locked property is an existing implementation, and based on that precedent, I had previously requested the implementation of the AllowableValues annotation for PasswordChangeRequired. However, after clarification from the Redfish Forum (https://redfishforum.com/thread/1318/clarification-on-redfish-allowablevalues-annotation), it was confirmed that Redfish.AllowableValues is intended only for string properties. Therefore, the existing implementation of the AllowableValues annotation for the Locked property is incorrect. Hence this thread can be resolved.",
+      "parentUuid": "4dd36018_bb9efd7e",
       "revId": "6c276ee4877e876efab073773d126b2912768c12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
