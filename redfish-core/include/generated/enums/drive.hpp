@@ -31,7 +31,6 @@ enum class EncryptionAbility{
 
 enum class EncryptionStatus{
     Invalid,
-    Unecrypted,
     Unlocked,
     Locked,
     Foreign,
@@ -148,7 +147,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionAbility, {
 
 NLOHMANN_JSON_SERIALIZE_ENUM(EncryptionStatus, {
     {EncryptionStatus::Invalid, "Invalid"},
-    {EncryptionStatus::Unecrypted, "Unecrypted"},
     {EncryptionStatus::Unlocked, "Unlocked"},
     {EncryptionStatus::Locked, "Locked"},
     {EncryptionStatus::Foreign, "Foreign"},
