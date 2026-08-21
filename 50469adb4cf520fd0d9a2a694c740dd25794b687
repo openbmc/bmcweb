@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99a4560c_ee7174ba",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-21T07:00:06Z",
+      "side": 1,
+      "message": "Isn\u0027t this a boolean?\n\nrefs:\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/079b8cd84f979a4863333864bad140fd5c28c0b6/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml#L40",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 44
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd7b207b_4e4fa2d2",
         "filename": "redfish-core/lib/storage_chassis.hpp",
         "patchSetId": 3
@@ -65,6 +88,29 @@
         "startChar": 4,
         "endLine": 189,
         "endChar": 5
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6fa4d30_d9e22ec3",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-21T07:00:06Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we do a `chassisId` check here before the rest of the logic?\n\nConsider a case where 2 chassis has their drive with same naming, bypassing the `chassisId` might lead to the incorrect response here because we simply uses the first result to construct the response.",
+      "range": {
+        "startLine": 460,
+        "startChar": 8,
+        "endLine": 464,
+        "endChar": 9
       },
       "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
