@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba3bd833_610da9ff",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-21T22:29:38Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "3922668a_e8acbad7",
+      "revId": "8963f4b5ac0fc5b17dda521dfcfaf5895ec2e091",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe3405dd_cfbd8cf7",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-21T20:51:32Z",
       "side": 0,
       "message": "Didn\u0027t you lose this Default ?",
+      "revId": "8963f4b5ac0fc5b17dda521dfcfaf5895ec2e091",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646661fa_0e08c5a8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-21T22:29:38Z",
+      "side": 0,
+      "message": "Should still default to Enabled/OK. It\u0027s just not written to until after the properties are retrieved.",
+      "parentUuid": "fe3405dd_cfbd8cf7",
       "revId": "8963f4b5ac0fc5b17dda521dfcfaf5895ec2e091",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
