@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ab5069a_26e75a1a",
+        "filename": "redfish-core/include/generated/enums/drive.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-21T20:43:34Z",
+      "side": 1,
+      "message": "These are generated...",
+      "revId": "3493d8e604815304e637ea1f78209baf33c305bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
