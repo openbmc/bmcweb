@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee2c1fc_8fd57f22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-21T20:42:30Z",
+      "side": 1,
+      "message": "```\n- Redfish Service Validator passed with no new errors or warnings\n  introduced.\n```",
+      "revId": "69218916e403ffac99299b4dcb88e0db8688f082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
