@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "454678c8_c0257301",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-21T08:17:10Z",
+      "side": 1,
+      "message": "Done. Reworded the commit message to follow the guidelines in https://cbea.ms/git-commit/",
+      "parentUuid": "a5af63c0_6bff1151",
+      "revId": "904e47ba6bc783438abb392246ee6a41a2724e0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d61bdd75_41dbdf35",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2026-08-20T21:13:49Z",
       "side": 1,
       "message": "This should be a WARNING, either fix here or in another commit if you don\u0027t mind",
+      "revId": "904e47ba6bc783438abb392246ee6a41a2724e0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c203128a_dc75be0b",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-21T08:17:10Z",
+      "side": 1,
+      "message": "Updated and Fixed in this Patch itself.\nThanks for letting me know.",
+      "parentUuid": "3279bcde_710598f9",
       "revId": "904e47ba6bc783438abb392246ee6a41a2724e0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
