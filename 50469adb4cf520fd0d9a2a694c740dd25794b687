@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "426e6915_5d6bcd07",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-22T19:51:21Z",
+      "side": 1,
+      "message": "This can be removed?",
+      "range": {
+        "startLine": 171,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 5
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2380b37_e4bd2eb3",
         "filename": "redfish-core/lib/storage_chassis.hpp",
         "patchSetId": 3
