@@ -570,20 +570,21 @@ inline std::string dbusToRfBootSource(const std::string& dbusSource)
  *
  * @param[in] dbusType    The boot type in DBUS speak.
  *
- * @return Returns as a string, the boot type in Redfish terms. If translation
- * cannot be done, returns an empty string.
+ * @return Returns the boot type in Redfish terms. If translation
+ * cannot be done, returns computer_system::BootSourceOverrideMode::Invalid.
  */
-inline std::string dbusToRfBootType(const std::string& dbusType)
+inline computer_system::BootSourceOverrideMode dbusToRfBootType(
+    const std::string& dbusType)
 {
     if (dbusType == "xyz.openbmc_project.Control.Boot.Type.Types.Legacy")
     {
-        return "Legacy";
+        return computer_system::BootSourceOverrideMode::Legacy;
     }
     if (dbusType == "xyz.openbmc_project.Control.Boot.Type.Types.EFI")
     {
-        return "UEFI";
+        return computer_system::BootSourceOverrideMode::UEFI;
     }
-    return "";
+    return computer_system::BootSourceOverrideMode::Invalid;
 }
 
 /**
@@ -591,24 +592,24 @@ inline std::string dbusToRfBootType(const std::string& dbusType)
  *
  * @param[in] dbusMode    The boot mode in DBUS speak.
  *
- * @return Returns as a string, the boot mode in Redfish terms. If translation
- * cannot be done, returns an empty string.
+ * @return Returns the boot mode in Redfish terms. If translation
+ * cannot be done, returns computer_system::BootSource::Invalid.
  */
-inline std::string dbusToRfBootMode(const std::string& dbusMode)
+inline computer_system::BootSource dbusToRfBootMode(const std::string& dbusMode)
 {
     if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
     {
-        return "None";
+        return computer_system::BootSource::None;
     }
     if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe")
     {
-        return "Diags";
+        return computer_system::BootSource::Diags;
     }
     if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup")
     {
-        return "BiosSetup";
+        return computer_system::BootSource::BiosSetup;
     }
-    return "";
+    return computer_system::BootSource::Invalid;
 }
 
 /**
@@ -852,14 +853,13 @@ inline void getBootOverrideType(
                           ["BootSourceOverrideMode@Redfish.AllowableValues"] =
                 nlohmann::json::array_t({"Legacy", "UEFI"});
 
-            auto rfType = dbusToRfBootType(bootType);
-            if (rfType.empty())
+            computer_system::BootSourceOverrideMode rfType =
+                dbusToRfBootType(bootType);
+            if (rfType != computer_system::BootSourceOverrideMode::Invalid)
             {
-                messages::internalError(asyncResp->res);
-                return;
+                asyncResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] =
+                    rfType;
             }
-
-            asyncResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = rfType;
         });
 }
 
@@ -909,8 +909,9 @@ inline void getBootOverrideMode(
             if (bootModeStr !=
                 "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
             {
-                auto rfMode = dbusToRfBootMode(bootModeStr);
-                if (!rfMode.empty())
+                computer_system::BootSource rfMode =
+                    dbusToRfBootMode(bootModeStr);
+                if (rfMode != computer_system::BootSource::Invalid)
                 {
                     asyncResp->res
                         .jsonValue["Boot"]["BootSourceOverrideTarget"] = rfMode;
