@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58f04e8c_c5fbcf3d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-22T00:23:35Z",
+      "side": 1,
+      "message": "Should we have BMCWEB_LOG_DEBUG since we\u0027re mapping multiple errors to internalError?",
+      "range": {
+        "startLine": 764,
+        "startChar": 0,
+        "endLine": 764,
+        "endChar": 2
+      },
+      "revId": "9cb0958becd698f54195fd60ad8329b556402041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c18cb3f7_ed713fd2",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 10
@@ -19,6 +42,29 @@
         "startChar": 8,
         "endLine": 863,
         "endChar": 39
+      },
+      "revId": "9cb0958becd698f54195fd60ad8329b556402041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0040428_094f2578",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-22T00:23:35Z",
+      "side": 1,
+      "message": "Not part of your change but looks like IPv6 isn\u0027t validated so when the entry is \"updated\" it\u0027ll delete but not create and send as an internal error",
+      "range": {
+        "startLine": 876,
+        "startChar": 0,
+        "endLine": 884,
+        "endChar": 2
       },
       "revId": "9cb0958becd698f54195fd60ad8329b556402041",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
