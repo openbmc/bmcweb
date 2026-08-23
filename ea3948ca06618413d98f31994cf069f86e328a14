@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51fcb3ae_575c1555",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-23T15:29:54Z",
+      "side": 1,
+      "message": "Ideally you test this. \n\nTested:\n- Built bmcweb with -Dredfish-manager-uri-name\u003dmanager.\n- Verified GET /redfish/v1/Managers/manager/VirtualMedia works.\n- Verified the default manager URI behavior remains unchanged.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "ea3948ca06618413d98f31994cf069f86e328a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
