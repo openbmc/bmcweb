@@ -616,79 +616,77 @@ inline std::string dbusToRfBootMode(const std::string& dbusMode)
  *
  * @param[in] dbusBootProgress    The boot progress in DBUS speak.
  *
- * @return Returns as a string, the boot progress in Redfish terms. If
- *         translation cannot be done, returns "None".
+ * @return Returns the boot progress in Redfish terms. If translation
+ *         cannot be done, returns computer_system::BootProgressTypes::Invalid.
  */
-inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
+inline computer_system::BootProgressTypes dbusToRfBootProgress(
+    const std::string& dbusBootProgress)
 {
     // Now convert the D-Bus BootProgress to the appropriate Redfish
     // enum
-    std::string rfBpLastState = "None";
     if (dbusBootProgress == "xyz.openbmc_project.State.Boot.Progress."
                             "ProgressStages.Unspecified")
     {
-        rfBpLastState = "None";
+        return computer_system::BootProgressTypes::None;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "PrimaryProcInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "PrimaryProcInit")
     {
-        rfBpLastState = "PrimaryProcessorInitializationStarted";
+        return computer_system::BootProgressTypes::
+            PrimaryProcessorInitializationStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "BusInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "BusInit")
     {
-        rfBpLastState = "BusInitializationStarted";
+        return computer_system::BootProgressTypes::BusInitializationStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "MemoryInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "MemoryInit")
     {
-        rfBpLastState = "MemoryInitializationStarted";
+        return computer_system::BootProgressTypes::MemoryInitializationStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SecondaryProcInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "SecondaryProcInit")
     {
-        rfBpLastState = "SecondaryProcessorInitializationStarted";
+        return computer_system::BootProgressTypes::
+            SecondaryProcessorInitializationStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "PCIInit")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "PCIInit")
     {
-        rfBpLastState = "PCIResourceConfigStarted";
+        return computer_system::BootProgressTypes::PCIResourceConfigStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SystemSetup")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "SystemSetup")
     {
-        rfBpLastState = "SetupEntered";
+        return computer_system::BootProgressTypes::SetupEntered;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "SystemInitComplete")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "SystemInitComplete")
     {
-        rfBpLastState = "SystemHardwareInitializationComplete";
+        return computer_system::BootProgressTypes::
+            SystemHardwareInitializationComplete;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "OSStart")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "OSStart")
     {
-        rfBpLastState = "OSBootStarted";
+        return computer_system::BootProgressTypes::OSBootStarted;
     }
-    else if (dbusBootProgress ==
-             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
-             "OSRunning")
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+        "OSRunning")
     {
-        rfBpLastState = "OSRunning";
+        return computer_system::BootProgressTypes::OSRunning;
     }
-    else
-    {
-        BMCWEB_LOG_DEBUG("Unsupported D-Bus BootProgress {}", dbusBootProgress);
-        // Just return the default
-    }
-    return rfBpLastState;
+    return computer_system::BootProgressTypes::Invalid;
 }
 
 /**
@@ -774,8 +772,13 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
             BMCWEB_LOG_DEBUG("Boot Progress: {}", bootProgressStr);
 
-            asyncResp->res.jsonValue["BootProgress"]["LastState"] =
+            computer_system::BootProgressTypes rfBootProgress =
                 dbusToRfBootProgress(bootProgressStr);
+            if (rfBootProgress != computer_system::BootProgressTypes::Invalid)
+            {
+                asyncResp->res.jsonValue["BootProgress"]["LastState"] =
+                    rfBootProgress;
+            }
         });
 }
 
