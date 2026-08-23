@@ -1,0 +1,11 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Asmitha Karunanithi <asmitk01@in.ibm.com>
+Code-Review+1: Sivaprabu Ganesan <sivaprabug@ami.com>
+Code-Review+1: Vinothkumar Shanmugavel <vinothkumars@ami.com>
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Submitted-by: Yuvakumar Selvamani <yuvakumars@ami.com>
+Submitted-at: Sun, 23 Aug 2026 08:58:21 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/93363
+Comments-Total: 7
+Project: openbmc/bmcweb
+Branch: refs/heads/master
