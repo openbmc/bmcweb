@@ -17,6 +17,7 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/fan_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/name_utils.hpp"
 #include "utils/resource_utils.hpp"
 #include "utils/sensor_utils.hpp"
 
@@ -197,7 +198,6 @@ inline void addFanCommonProperties(crow::Response& resp,
     resp.addHeader(boost::beast::http::field::link,
                    "</redfish/v1/JsonSchemas/Fan/Fan.json>; rel=describedby");
     resp.jsonValue["@odata.type"] = "#Fan.v1_6_0.Fan";
-    resp.jsonValue["Name"] = "Fan";
     resp.jsonValue["Id"] = fanId;
     resp.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/ThermalSubsystem/Fans/{}", chassisId, fanId);
@@ -342,6 +342,7 @@ inline void afterGetValidFanObject(
                                      ""_json_pointer);
     resource_utils::getResourceHealth(asyncResp, service, fanPath,
                                       ""_json_pointer);
+    name_utils::getPrettyName(asyncResp, service, fanPath, "Fan");
     asset_utils::getAssetInfo(asyncResp, service, fanPath, ""_json_pointer,
                               true);
     getFanLocation(asyncResp, fanPath, service);
