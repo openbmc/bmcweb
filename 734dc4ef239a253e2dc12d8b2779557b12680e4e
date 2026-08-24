@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90bb1e4a_568a5360",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-24T07:20:18Z",
+      "side": 1,
+      "message": "Done - broke the lambda out into a named afterDeleteIPAddress callback wired via std::bind_front.",
+      "parentUuid": "364fe581_34074f84",
+      "revId": "734dc4ef239a253e2dc12d8b2779557b12680e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "089e35de_2d594533",
@@ -66,6 +84,24 @@
       "writtenOn": "2026-06-28T08:27:39Z",
       "side": 1,
       "message": "Acknowledged",
+      "parentUuid": "089e35de_2d594533",
+      "revId": "734dc4ef239a253e2dc12d8b2779557b12680e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f2f07ca_30ea2dce",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-24T07:20:18Z",
+      "side": 1,
+      "message": "Done - broke the lambda out into a named afterCreateIPv6 callback wired via std::bind_front.",
       "parentUuid": "089e35de_2d594533",
       "revId": "734dc4ef239a253e2dc12d8b2779557b12680e4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
