@@ -24,6 +24,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01498282_4143476c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-24T07:20:31Z",
+      "side": 1,
+      "message": "Done - added BMCWEB_LOG_DEBUG of the DBus error name before falling back to internalError, matching the pattern used by afterDelete/afterVlanCreate in this file.",
+      "parentUuid": "58f04e8c_c5fbcf3d",
+      "revId": "9cb0958becd698f54195fd60ad8329b556402041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c18cb3f7_ed713fd2",
@@ -43,6 +61,24 @@
         "endLine": 863,
         "endChar": 39
       },
+      "revId": "9cb0958becd698f54195fd60ad8329b556402041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "867162ae_d3e09db9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-24T07:20:31Z",
+      "side": 1,
+      "message": "Done - moved into a named afterDeleteIPAddress callback via std::bind_front and dropped the ast-grep-ignore suppression.",
+      "parentUuid": "c18cb3f7_ed713fd2",
       "revId": "9cb0958becd698f54195fd60ad8329b556402041",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -89,6 +125,24 @@
         "endLine": 950,
         "endChar": 39
       },
+      "revId": "9cb0958becd698f54195fd60ad8329b556402041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e32013a2_a0b79eec",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-24T07:20:31Z",
+      "side": 1,
+      "message": "Done - moved into a named afterCreateIPv6 callback via std::bind_front and dropped the ast-grep-ignore suppression.",
+      "parentUuid": "3be73385_17bcd5c5",
       "revId": "9cb0958becd698f54195fd60ad8329b556402041",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
