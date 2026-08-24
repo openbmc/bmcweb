@@ -42,6 +42,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "717965e3_90545ffa",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-24T21:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58f04e8c_c5fbcf3d",
+      "range": {
+        "startLine": 764,
+        "startChar": 0,
+        "endLine": 764,
+        "endChar": 2
+      },
+      "revId": "9cb0958becd698f54195fd60ad8329b556402041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c18cb3f7_ed713fd2",
@@ -79,6 +103,30 @@
       "side": 1,
       "message": "Done - moved into a named afterDeleteIPAddress callback via std::bind_front and dropped the ast-grep-ignore suppression.",
       "parentUuid": "c18cb3f7_ed713fd2",
+      "revId": "9cb0958becd698f54195fd60ad8329b556402041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a1977ff_2fa86931",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-24T21:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c18cb3f7_ed713fd2",
+      "range": {
+        "startLine": 863,
+        "startChar": 8,
+        "endLine": 863,
+        "endChar": 39
+      },
       "revId": "9cb0958becd698f54195fd60ad8329b556402041",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -143,6 +191,30 @@
       "side": 1,
       "message": "Done - moved into a named afterCreateIPv6 callback via std::bind_front and dropped the ast-grep-ignore suppression.",
       "parentUuid": "3be73385_17bcd5c5",
+      "revId": "9cb0958becd698f54195fd60ad8329b556402041",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77d94428_5a9bd864",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-24T21:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3be73385_17bcd5c5",
+      "range": {
+        "startLine": 950,
+        "startChar": 8,
+        "endLine": 950,
+        "endChar": 39
+      },
       "revId": "9cb0958becd698f54195fd60ad8329b556402041",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
