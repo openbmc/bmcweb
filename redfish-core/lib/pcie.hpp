@@ -19,6 +19,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/asset_utils.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/name_utils.hpp"
 #include "utils/pcie_util.hpp"
 #include "utils/processor_utils.hpp"
 #include "utils/resource_utils.hpp"
@@ -566,7 +567,6 @@ inline void addPCIeDeviceCommonProperties(
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
-    asyncResp->res.jsonValue["Name"] = "PCIe Device";
     asyncResp->res.jsonValue["Id"] = pcieDeviceId;
 }
 
@@ -576,6 +576,8 @@ inline void afterGetValidPcieDevicePath(
     const std::string& service)
 {
     addPCIeDeviceCommonProperties(asyncResp, pcieDeviceId);
+    name_utils::getPrettyName(asyncResp, service, pcieDevicePath,
+                              "PCIe Device");
     asset_utils::getAssetInfo(asyncResp, service, pcieDevicePath,
                               ""_json_pointer, true);
     resource_utils::getResourceState(asyncResp, service, pcieDevicePath,
