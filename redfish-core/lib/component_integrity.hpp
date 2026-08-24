@@ -578,11 +578,20 @@ inline void handleSPDMGetSignedMeasurementsPost(
             "ComponentIntegrity.SPDMGetSignedMeasurements");
         return;
     }
-    // SPDM nonces are 32 bytes; allow up to 64 chars for hex encoding
-    constexpr size_t maxNonceSize = 64;
-    if (nonceStr.size() > maxNonceSize)
+    // SPDM nonces are 32 bytes. If the Redfish client omits the nonce,
+    // the SPDM requester generates one; otherwise it must be exactly
+    // 32 bytes encoded as 64 hexadecimal characters.
+    constexpr size_t nonceSize = 64;
+    if (nonceStr.size() > nonceSize)
     {
-        messages::stringValueTooLong(asyncResp->res, "Nonce", maxNonceSize);
+        messages::stringValueTooLong(asyncResp->res, "Nonce", nonceSize);
+        return;
+    }
+    if (!nonceStr.empty() && nonceStr.size() < nonceSize)
+    {
+        messages::actionParameterValueFormatError(
+            asyncResp->res, nonceStr, "Nonce",
+            "ComponentIntegrity.SPDMGetSignedMeasurements");
         return;
     }
 
