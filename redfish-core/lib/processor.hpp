@@ -220,6 +220,18 @@ inline void getCpuDataByInterface(
                         std::format("{:#04x}", *value);
                 }
             }
+            else if (property.first == "PrettyName")
+            {
+                const std::string* cpuName =
+                    std::get_if<std::string>(&property.second);
+                if (cpuName != nullptr)
+                {
+                    if (!cpuName->empty())
+                    {
+                        asyncResp->res.jsonValue["Name"] = *cpuName;
+                    }
+                }
+            }
         }
     }
 }
