@@ -17,6 +17,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/resource_utils.hpp"
+#include "utils/name_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -414,7 +415,6 @@ inline void doPowerSupplyGet(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/PowerSupply/PowerSupply.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] = "#PowerSupply.v1_5_0.PowerSupply";
-    asyncResp->res.jsonValue["Name"] = "Power Supply";
     asyncResp->res.jsonValue["Id"] = powerSupplyId;
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies/{}", chassisId,
@@ -424,6 +424,8 @@ inline void doPowerSupplyGet(
                                      ""_json_pointer);
     resource_utils::getResourceHealth(asyncResp, service, powerSupplyPath,
                                       ""_json_pointer);
+    name_utils::getPrettyName(asyncResp, service, powerSupplyPath,
+                              "Power Supply");
     getPowerSupplyAsset(asyncResp, service, powerSupplyPath);
     getPowerSupplyFirmwareVersion(asyncResp, service, powerSupplyPath);
     getPowerSupplyLocation(asyncResp, service, powerSupplyPath);
