@@ -16,6 +16,23 @@
       "message": "lgtm",
       "revId": "afd25f408bfd8db268b4136830eb4544ac5ee461",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98c4aa9e_6e21aa2d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-08-24T16:53:35Z",
+      "side": 1,
+      "message": "This is a latest addition in patch, hence mentioning this. Have you tested this with Anacapa like system you mentioned in your UT? I think this path won\u0027t be a fixed one /.../Bios (as it gets its name from EM config). So, the relevant firmware inventory needs to be linked here.",
+      "revId": "afd25f408bfd8db268b4136830eb4544ac5ee461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
