@@ -18,6 +18,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/name_utils.hpp"
 #include "utils/resource_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -75,7 +76,8 @@ inline void doAdapterGet(
         "</redfish/v1/JsonSchemas/FabricAdapter/FabricAdapter.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
         "#FabricAdapter.v1_4_0.FabricAdapter";
-    asyncResp->res.jsonValue["Name"] = "Fabric Adapter";
+    name_utils::getPrettyName(asyncResp, serviceName, fabricAdapterPath,
+                              "Fabric Adapter");
     asyncResp->res.jsonValue["Id"] = adapterId;
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/FabricAdapters/{}", systemName, adapterId);
