@@ -19,6 +19,7 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/name_utils.hpp"
 #include "utils/resource_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -110,6 +111,10 @@ inline void afterGetDbusObject(
             {
                 resource_utils::getResourceState(asyncResp, serviceName,
                                                  assembly, assemblyJsonPtr);
+                name_utils::getPrettyName(
+                    asyncResp, object, assembly,
+                    sdbusplus::object_path(assembly).filename(),
+                    assemblyJsonPtr);
             }
             else if (interface ==
                      "xyz.openbmc_project.State.Decorator.OperationalStatus")
@@ -144,7 +149,6 @@ inline void getAssemblyProperties(
             "/redfish/v1/Chassis/{}/Assembly#/Assemblies/{}", chassisId,
             std::to_string(assemblyIndex));
         item["MemberId"] = std::to_string(assemblyIndex);
-        item["Name"] = sdbusplus::object_path(assembly).filename();
 
         asyncResp->res.jsonValue["Assemblies"].emplace_back(item);
 

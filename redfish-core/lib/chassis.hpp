@@ -23,6 +23,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/name_utils.hpp"
 #include "utils/processor_utils.hpp"
 
 #include <asm-generic/errno.h>
@@ -495,7 +496,6 @@ inline void handleDecoratorAssetProperties(
     asset_utils::extractAssetInfo(asyncResp, ""_json_pointer, propertiesList,
                                   true);
 
-    asyncResp->res.jsonValue["Name"] = chassisId;
     asyncResp->res.jsonValue["Id"] = chassisId;
 
     if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_POWER_THERMAL)
@@ -631,7 +631,7 @@ inline void handleChassisGetSubTree(
         asyncResp->res.jsonValue["@odata.type"] = "#Chassis.v1_22_0.Chassis";
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-        asyncResp->res.jsonValue["Name"] = "Chassis Collection";
+        name_utils::getPrettyName(asyncResp, connectionNames, path, chassisId);
         asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
             boost::urls::format("/redfish/v1/Chassis/{}/Actions/Chassis.Reset",
                                 chassisId);
