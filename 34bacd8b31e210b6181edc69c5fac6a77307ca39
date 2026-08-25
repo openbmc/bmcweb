@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "88c46dad_157d36c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:14:26Z",
+      "side": 1,
+      "message": "Done\nThanks!",
+      "parentUuid": "3ac96670_c2eaa45e",
+      "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "31634417_29eec8ea",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -70,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e29a36_4bd2b215",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ba6457d_c2243dd4",
+      "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "661a12a9_7b0970b4",
@@ -93,6 +129,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d0415f5_32f0477f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "661a12a9_7b0970b4",
+      "range": {
+        "startLine": 656,
+        "startChar": 20,
+        "endLine": 656,
+        "endChar": 23
+      },
+      "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0764950b_ae8badfd",
@@ -106,6 +166,30 @@
       "writtenOn": "2026-08-21T06:13:31Z",
       "side": 1,
       "message": "Can we have some logs here to know if the function return here?",
+      "range": {
+        "startLine": 658,
+        "startChar": 20,
+        "endLine": 658,
+        "endChar": 27
+      },
+      "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "038df8e4_98d7e7b8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:14:26Z",
+      "side": 1,
+      "message": "when the chassis has no drives:\nAug 24 07:23:26 yosemite4-XXXX-XXXX bmcweb[815]: [chassis.hpp:608] No drive association found - drivePaths.empty()\nThanks for the review!",
+      "parentUuid": "0764950b_ae8badfd",
       "range": {
         "startLine": 658,
         "startChar": 20,
@@ -153,6 +237,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "dc8b1cf0_04136859",
+      "range": {
+        "startLine": 651,
+        "startChar": 12,
+        "endLine": 664,
+        "endChar": 15
+      },
+      "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "464ac3fd_f78b9d87",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25c4dc7b_b89f4eb0",
       "range": {
         "startLine": 651,
         "startChar": 12,
