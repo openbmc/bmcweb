@@ -16,6 +16,24 @@
       "message": "Maybe just leave this where it was? THey don\u0027t match now",
       "revId": "769168f83713cea430a8dad9e13f924a1cd4e61a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d56dab9b_ca24b44c",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T14:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b634e5e_33ba8f31",
+      "revId": "769168f83713cea430a8dad9e13f924a1cd4e61a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
