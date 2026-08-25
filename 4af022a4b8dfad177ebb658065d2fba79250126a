@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5020e9a1_e9ac74c9",
+        "filename": "test/meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:27:16Z",
+      "side": 0,
+      "message": "This deletes the only existing test for getDumpServiceInfo\u0027s invalid-type handling, and the new dump_utils.cpp test doesn\u0027t cover the default:/nullopt branches at all. Please add at least minimal failure-path coverage in this same patch.",
+      "revId": "4af022a4b8dfad177ebb658065d2fba79250126a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

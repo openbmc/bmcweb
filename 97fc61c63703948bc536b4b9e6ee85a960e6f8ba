@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0ccce36_1ef29417",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:27:16Z",
+      "side": 1,
+      "message": "Can you please address the review comments",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fc86f8c_8ef0051c",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:27:16Z",
+      "side": 1,
+      "message": "Using default: here defeats the exhaustiveness check enum class gives you — adding a 4th DumpType later won\u0027t trigger a compiler warning. Please list all enumerators explicitly and drop default.",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda38c22_91b0c637",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:27:16Z",
+      "side": 1,
+      "message": "Same as above — remove default: so the compiler forces updates here when DumpType grows.",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6d38e1b_4eb7b3f9",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:27:16Z",
+      "side": 1,
+      "message": "Same default: concern as dumpTypeToStr/dumpTypeToObjPath — please make this exhaustive too.",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33639816_a13d94db",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:27:16Z",
+      "side": 1,
+      "message": "This looks inverted — it skips entries that do belong to this dump type and keeps everything else. Original code used find(...) \u003d\u003d npos to skip non-matching entries. Please verify with a test that has BMC + System entries at the same time.\n\nPlease refer (Logservices.hpp, getDumpEntryCollection function).",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e787fee1_867ad9d8",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:27:16Z",
+      "side": 1,
+      "message": "\"default: break; silently no-ops for any dump type you forget to add here — same exhaustiveness concern as the other switches.\"",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aa9b708_e807c0c9",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:27:16Z",
+      "side": 1,
+      "message": "\"default: break; silently no-ops for any dump type you forget to add here — same exhaustiveness concern as the other switches.\"",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
