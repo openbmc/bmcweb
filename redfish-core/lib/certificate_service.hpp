@@ -746,8 +746,8 @@ inline void handleGenerateCSRAction(
     // value
     if (!optChallengePassword->empty())
     {
-        messages::actionParameterNotSupported(asyncResp->res, "GenerateCSR",
-                                              "ChallengePassword");
+        messages::actionParameterNotSupported(
+            asyncResp->res, "ChallengePassword", "GenerateCSR");
         return;
     }
 

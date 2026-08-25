@@ -675,8 +675,8 @@ inline bool getChassisSensorNodeFromMetrics(
         if (error)
         {
             messages::propertyValueIncorrect(
-                asyncResp->res, error->uri,
-                "MetricProperties/" + std::to_string(error->index));
+                asyncResp->res,
+                "MetricProperties/" + std::to_string(error->index), error->uri);
             return false;
         }
     }
@@ -1262,8 +1262,9 @@ inline void setReportMetrics(
                 if (error)
                 {
                     messages::propertyValueIncorrect(
-                        asyncResp->res, error->uri,
-                        "MetricProperties/" + std::to_string(error->index));
+                        asyncResp->res,
+                        "MetricProperties/" + std::to_string(error->index),
+                        error->uri);
                     return;
                 }
 
