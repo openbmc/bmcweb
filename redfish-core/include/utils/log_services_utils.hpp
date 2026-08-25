@@ -26,14 +26,13 @@ namespace redfish
 namespace log_services_utils
 {
 
-inline bool checkSizeLimit(int fd, crow::Response& res)
+inline bool checkSizeLimit(int fd)
 {
     long long int size = lseek(fd, 0, SEEK_END);
     if (size <= 0)
     {
         BMCWEB_LOG_ERROR("Failed to get size of file, lseek() returned {}",
                          size);
-        messages::internalError(res);
         return false;
     }
 
@@ -43,14 +42,12 @@ inline bool checkSizeLimit(int fd, crow::Response& res)
     {
         BMCWEB_LOG_ERROR("File size {} exceeds maximum allowed size of {}",
                          size, maxFileSize);
-        messages::internalError(res);
         return false;
     }
     off_t rc = lseek(fd, 0, SEEK_SET);
     if (rc < 0)
     {
         BMCWEB_LOG_ERROR("Failed to reset file offset to 0");
-        messages::internalError(res);
         return false;
     }
     return true;
@@ -90,8 +87,9 @@ inline void downloadEntryCallback(
         messages::internalError(asyncResp->res);
         return;
     }
-    if (!checkSizeLimit(fd, asyncResp->res))
+    if (!checkSizeLimit(fd))
     {
+        messages::internalError(asyncResp->res);
         close(fd);
         return;
     }
