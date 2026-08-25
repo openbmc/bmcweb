@@ -1006,8 +1006,8 @@ inline void handleChassisResetActionInfoPost(
     if (resetType != "PowerCycle")
     {
         BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}", resetType);
-        messages::actionParameterNotSupported(asyncResp->res, resetType,
-                                              "ResetType");
+        messages::actionParameterValueNotInList(asyncResp->res, resetType,
+                                                "ResetType", "Chassis.Reset");
 
         return;
     }

@@ -518,8 +518,9 @@ inline std::optional<boost::urls::url> parseSimpleUpdateUrl(
         }
         else
         {
-            messages::actionParameterNotSupported(res, "TransferProtocol",
-                                                  *transferProtocol);
+            messages::actionParameterValueNotInList(
+                res, *transferProtocol, "TransferProtocol",
+                "UpdateService.SimpleUpdate");
             BMCWEB_LOG_ERROR("Request incorrect protocol parameter: {}",
                              *transferProtocol);
             return std::nullopt;
