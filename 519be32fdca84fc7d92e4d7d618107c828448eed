@@ -67,6 +67,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44adbf31_2d781c1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-25T17:31:21Z",
+      "side": 1,
+      "message": "Can you wrap the Commit message with 72 char, as per the \"https://cbea.ms/git-commit/\"",
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cdc39a0c_19d01b17",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 9
