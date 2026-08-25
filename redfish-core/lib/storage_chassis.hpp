@@ -601,7 +601,7 @@ inline void requestRoutesChassisDrive(App& app)
             std::bind_front(chassisDriveCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/<str>/")
-        .privileges(redfish::privileges::getChassis)
+        .privileges(redfish::privileges::getDrive)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisDriveGet, std::ref(app)));
 }
