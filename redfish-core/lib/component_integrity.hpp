@@ -453,7 +453,10 @@ inline void afterGetSignedMeasurements(
                            certificate.str);
     }
     asyncResp->res.jsonValue["HashingAlgorithm"] = hashingAlgorithm;
-    asyncResp->res.jsonValue["PublicKey"] = publicKey;
+    if (!publicKey.empty())
+    {
+        asyncResp->res.jsonValue["PublicKey"] = publicKey;
+    }
     asyncResp->res.jsonValue["SignedMeasurements"] = signedMeasurements;
     asyncResp->res.jsonValue["SigningAlgorithm"] = signingAlgorithm;
     asyncResp->res.jsonValue["Version"] = version;

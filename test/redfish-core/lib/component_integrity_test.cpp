@@ -486,6 +486,19 @@ TEST(AfterGetSignedMeasurements, MeasurementFieldsPopulated)
     EXPECT_EQ(asyncResp->res.jsonValue["Version"], "1.1.0");
 }
 
+TEST(AfterGetSignedMeasurements, EmptyPublicKeyIsOmitted)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetSignedMeasurements(
+        asyncResp, ec,
+        sdbusplus::object_path("/xyz/openbmc_project/certs/server/https/1"),
+        "TPM_ALG_SHA_384", "", "c2lnbmVk", "TPMT_SIGNATURE", "1.1.0");
+
+    EXPECT_FALSE(asyncResp->res.jsonValue.contains("PublicKey"));
+}
+
 // --- Collection handler ---
 
 TEST(HandleComponentIntegrityCollectionGet, StaticFieldsCorrect)
