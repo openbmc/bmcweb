@@ -138,7 +138,7 @@ inline void requestRoutesAggregationSourceCollection(App& app)
             handleAggregationSourceCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AggregationService/AggregationSources/")
-        .privileges(redfish::privileges::getAggregationSourceCollection)
+        .privileges(redfish::privileges::headAggregationSourceCollection)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleAggregationSourceCollectionHead, std::ref(app)));
 }
