@@ -1231,7 +1231,8 @@ inline void afterVerifyUserExists(
         std::string priv = getPrivilegeFromRoleId(*params.roleId);
         if (priv.empty())
         {
-            messages::propertyValueNotInList(asyncResp->res, true, "Locked");
+            messages::propertyValueNotInList(asyncResp->res, *params.roleId,
+                                             "RoleId");
             return;
         }
         setDbusProperty(asyncResp, "RoleId", "xyz.openbmc_project.User.Manager",
