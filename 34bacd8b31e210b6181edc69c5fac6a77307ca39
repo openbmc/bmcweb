@@ -22,6 +22,30 @@
       },
       "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "227d910d_57f1bfee",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:17:45Z",
+      "side": 0,
+      "message": "i have swapped the calling function to getAssociatedSubTreeById()",
+      "parentUuid": "46b1db68_940d44c5",
+      "range": {
+        "startLine": 563,
+        "startChar": 16,
+        "endLine": 566,
+        "endChar": 17
+      },
+      "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

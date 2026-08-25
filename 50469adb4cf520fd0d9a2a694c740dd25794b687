@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1905f1d_4aacd910",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:17:45Z",
+      "side": 1,
+      "message": "yes, this is a know bug / feature, this number is u64 on dbus. i can\u0027t fix that in this patch.\nso if i try to use u8 or any other type, it kills my function:\n\u0027\u0027\u0027\nAug 20 03:47:11 yosemite4-XXXX-XXXX bmcweb[941]: [dbus_utils.hpp:33] DBUS property error in property: PredictedMediaLifeLeftPercent, reason: 1\nAug 20 03:47:11 yosemite4-XXXX-XXXX bmcweb[941]: [error_messages.cpp:1253] Internal Error /usr/src/debug/bmcweb/1.0+git/redfish-core/lib/storage_chassis.hpp(140:32) `void redfish::handleDriveItemProperties(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026, const dbus::utility::DBusPropertiesMap\u0026)`:\n\u0027\u0027\u0027",
+      "parentUuid": "ca01d6ee_17bad891",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 60
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99a4560c_ee7174ba",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-08-21T07:00:06Z",
       "side": 1,
       "message": "Isn\u0027t this a boolean?\n\nrefs:\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/079b8cd84f979a4863333864bad140fd5c28c0b6/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml#L40",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 44
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e774080d_41a5e3f3",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:17:45Z",
+      "side": 1,
+      "message": "it is indeed! nice catch!\nThanks!",
+      "parentUuid": "99a4560c_ee7174ba",
       "range": {
         "startLine": 129,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b7e20f9_d7ddb6c1",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:17:45Z",
+      "side": 1,
+      "message": "added conditionals to fix it.\nThanks!",
+      "parentUuid": "bd7b207b_4e4fa2d2",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 5
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "426e6915_5d6bcd07",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-08-22T19:51:21Z",
       "side": 1,
       "message": "This can be removed?",
+      "range": {
+        "startLine": 171,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 5
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eebe153d_d6f285a3",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:17:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "426e6915_5d6bcd07",
       "range": {
         "startLine": 171,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2f34a3a_acb6d45c",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:17:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2380b37_e4bd2eb3",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 5
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6fa4d30_d9e22ec3",
@@ -129,6 +249,30 @@
       "writtenOn": "2026-08-21T07:00:06Z",
       "side": 1,
       "message": "Shouldn\u0027t we do a `chassisId` check here before the rest of the logic?\n\nConsider a case where 2 chassis has their drive with same naming, bypassing the `chassisId` might lead to the incorrect response here because we simply uses the first result to construct the response.",
+      "range": {
+        "startLine": 460,
+        "startChar": 8,
+        "endLine": 464,
+        "endChar": 9
+      },
+      "revId": "50469adb4cf520fd0d9a2a694c740dd25794b687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81fedda5_86f0f9f0",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-25T11:17:45Z",
+      "side": 1,
+      "message": "i have swapped the calling function to getAssociatedSubTreeById() and expanded the error checking.\nThanks!",
+      "parentUuid": "a6fa4d30_d9e22ec3",
       "range": {
         "startLine": 460,
         "startChar": 8,
