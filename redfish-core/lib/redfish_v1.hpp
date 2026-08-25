@@ -253,12 +253,12 @@ inline void requestRoutesRedfish(App& app)
         .methods(boost::beast::http::verb::get)(jsonSchemaGetFile);
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/")
-        .privileges(redfish::privileges::getJsonSchemaFileCollection)
+        .privileges(redfish::privileges::getJsonSchemaFile)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/")
-        .privileges(redfish::privileges::getJsonSchemaFile)
+        .privileges(redfish::privileges::getJsonSchemaFileCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaIndexGet, std::ref(app)));
 
