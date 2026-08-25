@@ -860,7 +860,7 @@ inline void handleHypervisorResetActionGet(
                 // No hypervisor objects found by mapper
                 if (ec.value() == boost::system::errc::io_error)
                 {
-                    messages::resourceNotFound(asyncResp->res, "hypervisor",
+                    messages::resourceNotFound(asyncResp->res, "ActionInfo",
                                                "ResetActionInfo");
                     return;
                 }
