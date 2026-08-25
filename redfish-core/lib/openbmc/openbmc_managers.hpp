@@ -1001,8 +1001,8 @@ inline CreatePIDRet createPidInterface(
             if (std::ranges::find(allowedDirections, *direction) ==
                 allowedDirections.end())
             {
-                messages::propertyValueTypeError(response->res, "Direction",
-                                                 *direction);
+                messages::propertyValueNotInList(response->res, *direction,
+                                                 "Direction");
                 return CreatePIDRet::fail;
             }
             output.emplace_back("Class", *direction);
