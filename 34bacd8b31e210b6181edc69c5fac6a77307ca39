@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d994e80d_a898fc9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-25T13:06:11Z",
+      "side": 1,
+      "message": "Not done. Wrap by 72 chars.",
+      "parentUuid": "88c46dad_157d36c3",
+      "revId": "34bacd8b31e210b6181edc69c5fac6a77307ca39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31634417_29eec8ea",
