@@ -1544,7 +1544,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::getMetricReportDefinition)
+        .privileges(redfish::privileges::headMetricReportDefinition)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleMetricReportHead, std::ref(app)));
 
