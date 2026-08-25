@@ -26,6 +26,9 @@
 #include <cstddef>
 #include <functional>
 #include <memory>
+#include <optional>
+#include <string>
+#include <string_view>
 #include <unordered_map>
 #include <utility>
 
@@ -227,34 +230,54 @@ inline void handleAggregationSourceHead(
                      aggregationSourceId);
 }
 
-inline bool validateCredentialField(const std::optional<std::string>& field,
-                                    const std::string& fieldName,
-                                    crow::Response& res)
+// RFC 7617 section 2 excludes the colon from the user-id: Basic authentication
+// joins the credentials as "user-id:password" and a decoder recovers the split
+// by scanning to the first colon, which bmcweb's own decoder does at
+// include/authentication.hpp:55.
+//
+// NIST SP 800-63B-4 section 3.1.1.2 recommends that a verifier permit a
+// maximum password length of at least 64 characters.
+constexpr size_t maxCredentialLength = 64;
+
+// Report the limit rather than the offending string, so that a rejected
+// Password is not echoed: DSP0266 1.25.0 section 13.2 requires properties
+// holding sensitive data to be null in responses.
+inline bool validateCredentialLength(
+    std::string_view value, std::string_view fieldName, crow::Response& res)
 {
-    if (!field.has_value())
+    if (value.size() > maxCredentialLength)
     {
-        return true; // Field not provided, that's okay
-    }
-
-    if (field->empty())
-    {
-        messages::stringValueTooShort(res, fieldName, 1);
+        messages::stringValueTooLong(res, fieldName, maxCredentialLength);
         return false;
     }
-
-    if (field->find(':') != std::string::npos)
-    {
-        messages::propertyValueIncorrect(res, *field, fieldName);
-        return false;
-    }
-
-    if (field->length() > 40)
-    {
-        messages::stringValueTooLong(res, fieldName, 40);
-        return false;
-    }
-
     return true;
+}
+
+inline bool validateUserName(const std::optional<std::string>& userName,
+                             crow::Response& res)
+{
+    if (!userName.has_value())
+    {
+        return true;
+    }
+    if (userName->contains(':'))
+    {
+        messages::propertyValueFormatError(res, *userName, "UserName");
+        return false;
+    }
+    return validateCredentialLength(*userName, "UserName", res);
+}
+
+// The password is whatever follows that first colon, so unlike the user-id it
+// may contain one.  Length is its only constraint.
+inline bool validatePassword(const std::optional<std::string>& password,
+                             crow::Response& res)
+{
+    if (!password.has_value())
+    {
+        return true;
+    }
+    return validateCredentialLength(*password, "Password", res);
 }
 
 inline void handleAggregationSourceCollectionPost(
@@ -303,12 +326,11 @@ inline void handleAggregationSourceCollectionPost(
         }
     }
 
-    // Validate username and password
-    if (!validateCredentialField(username, "UserName", asyncResp->res))
+    if (!validateUserName(username, asyncResp->res))
     {
         return;
     }
-    if (!validateCredentialField(password, "Password", asyncResp->res))
+    if (!validatePassword(password, asyncResp->res))
     {
         return;
     }
@@ -363,12 +385,11 @@ inline void handleAggregationSourcePatch(
         return;
     }
 
-    // Validate username and password
-    if (!validateCredentialField(username, "UserName", asyncResp->res))
+    if (!validateUserName(username, asyncResp->res))
     {
         return;
     }
-    if (!validateCredentialField(password, "Password", asyncResp->res))
+    if (!validatePassword(password, asyncResp->res))
     {
         return;
     }
