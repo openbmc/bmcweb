@@ -1496,8 +1496,8 @@ inline void setTrustedModuleRequiredToBootCallback(
     }
     if (subtree.empty())
     {
-        messages::propertyValueNotInList(asyncResp->res, "ComputerSystem",
-                                         "TrustedModuleRequiredToBoot");
+        messages::propertyNotWritable(asyncResp->res,
+                                      "TrustedModuleRequiredToBoot");
         return;
     }
 
