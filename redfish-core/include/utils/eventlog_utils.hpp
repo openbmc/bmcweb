@@ -619,9 +619,10 @@ inline void afterLogEntriesGetManagedObjects(
             messages::internalError(asyncResp->res);
             return;
         }
+        nlohmann::json& entryJson = entriesArray.emplace_back();
         fillEventLogLogEntryFromDbusLogEntry(
-            *optEntry, entriesArray.emplace_back(), collectionStr, memberId,
-            logEntryDescriptor);
+            *optEntry, entryJson, collectionStr, memberId, logEntryDescriptor);
+        fillEventLogCperFromPropertyMap(propsFlattened, entryJson);
     }
 
     redfish::json_util::sortJsonArrayByKey(entriesArray, "Id");
@@ -702,6 +703,7 @@ inline void afterDBusEventLogEntryGet(
     fillEventLogLogEntryFromDbusLogEntry(
         *optEntry, asyncResp->res.jsonValue, collectionStr, memberId,
         logEntryDescriptor);
+    fillEventLogCperFromPropertyMap(resp, asyncResp->res.jsonValue);
 }
 
 inline void dBusEventLogEntryGet(

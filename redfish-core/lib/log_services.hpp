@@ -1029,6 +1029,14 @@ inline void handleManagersLogServicesCollectionGet(
         logServiceArray.emplace_back(std::move(eventLog));
     }
 
+    {
+        nlohmann::json::object_t rawCper;
+        rawCper["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Managers/{}/LogServices/CPERRawLog",
+            BMCWEB_REDFISH_MANAGER_URI_NAME);
+        logServiceArray.emplace_back(std::move(rawCper));
+    }
+
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
 
     if constexpr (BMCWEB_REDFISH_DUMP_LOG)

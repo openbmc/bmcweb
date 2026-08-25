@@ -26,6 +26,7 @@
 #include "manager_logservices_dbus_eventlog.hpp"
 #include "manager_logservices_journal.hpp"
 #include "manager_logservices_journal_eventlog.hpp"
+#include "manager_logservices_rawcper.hpp"
 #include "managers.hpp"
 #include "memory.hpp"
 #include "message_registries.hpp"
@@ -125,6 +126,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesManagersLogServiceCollection(app);
 
     requestRoutesSystemsLogServicesPostCode(app);
+
+    requestRoutesManagersRawCper(app);
 
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
     {
