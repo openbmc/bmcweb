@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78532013_8184a2ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-25T12:44:47Z",
+      "side": 1,
+      "message": "Generally I agree with this statement.\n\nBut there may be platforms configured through yaml files used by phosphor-inventory-manager, that are using the undocumented association (chassis\u003c-\u003edrive)..\n\nShould be checked, if there are platforms upstream that break through this change",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 13
+      },
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc436080_e4d0063e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-25T12:44:47Z",
+      "side": 1,
+      "message": "nit: It is assumed that the yv4 platform consists of 8 blade chassis. You might want to point out that we have reduced the amount of emulated chassis for testing purposes and increases in performance on the qemu side",
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
