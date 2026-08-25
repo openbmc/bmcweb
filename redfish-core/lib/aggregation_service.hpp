@@ -279,13 +279,13 @@ inline void handleAggregationSourceCollectionPost(
         boost::urls::parse_absolute_uri(hostname);
     if (!url)
     {
-        messages::propertyValueIncorrect(asyncResp->res, hostname, "HostName");
+        messages::propertyValueIncorrect(asyncResp->res, "HostName", hostname);
         return;
     }
     url->normalize();
     if (url->scheme() != "http" && url->scheme() != "https")
     {
-        messages::propertyValueIncorrect(asyncResp->res, hostname, "HostName");
+        messages::propertyValueIncorrect(asyncResp->res, "HostName", hostname);
         return;
     }
     crow::utility::setPortDefaults(*url);
