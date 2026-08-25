@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b62f77f7_e60b3b48",
+        "filename": "http/app.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-25T06:40:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab164a1b_648b6ac2",
+      "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e313da64_ac778b01",
@@ -114,6 +132,24 @@
       "side": 1,
       "message": "I will update the comment to \n```\n            /*\n             * The default configuration of authMode is AuthMode::AUTH\n             */\n```\nIs it your idea? because we need the default authMode. And I think AuthMode::AUTH is correct one in this case.",
       "parentUuid": "e313da64_ac778b01",
+      "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90f4bb93_94d647f5",
+        "filename": "http/app.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-25T06:40:58Z",
+      "side": 1,
+      "message": "Fixed in PS18 — insecure-disable-auth now applies only to the default socket; other sockets take their additional-auth param or default to auth.",
+      "parentUuid": "94a91ced_b41a4874",
       "revId": "95dc0dec4707f28c0a00bdb8f2f1b3885254d154",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
