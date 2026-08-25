@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2add3e17_6cd8d932",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-25T07:45:31Z",
+      "side": 1,
+      "message": "Please wrap your commit message using 50/72.",
+      "range": {
+        "startLine": 12,
+        "startChar": 59,
+        "endLine": 13,
+        "endChar": 11
+      },
+      "revId": "790103021cef42e5998737996ee1ce504fc9bc17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
