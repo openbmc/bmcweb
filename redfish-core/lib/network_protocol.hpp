@@ -313,7 +313,7 @@ inline void handleNTPServersPatch(
             if (currentNtpServer == currentNtpServers.end())
             {
                 messages::propertyValueNotInList(
-                    asyncResp->res, "null",
+                    asyncResp->res, nullptr,
                     "NTP/NTPServers/" + std::to_string(index));
 
                 return;
