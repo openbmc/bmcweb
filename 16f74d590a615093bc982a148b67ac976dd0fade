@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b769e5_203a8534",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001557
+      },
+      "writtenOn": "2026-08-25T17:38:35Z",
+      "side": 1,
+      "message": "Standard practice in bmcweb callbacks bound via std::bind_front is to take string parameters by value rather than by reference to avoid lifetime and binding reference semantics issues.\n\n```c++\ninline void afterGetCableHealthState(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    std::string cableObjectPath,\n    const boost::system::error_code\u0026 ec,\n    bool present)\n```",
+      "revId": "16f74d590a615093bc982a148b67ac976dd0fade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
