@@ -30,6 +30,7 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -281,7 +282,7 @@ static LogParseError fillEventLogEntryJson(
     }
 
     // Fill in the log entry with the gathered data
-    logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+    logEntryJson["@odata.type"] = "#LogEntry.v1_15_0.LogEntry";
     logEntryJson["@odata.id"] =
         boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}",
                             collectionStr, memberId, logEntryID);
@@ -538,7 +539,7 @@ inline void fillEventLogLogEntryFromDbusLogEntry(
     const std::string& collectionStr, const std::string_view memberId,
     const std::string& logEntryDescriptor)
 {
-    objectToFillOut["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+    objectToFillOut["@odata.type"] = "#LogEntry.v1_15_0.LogEntry";
     objectToFillOut["@odata.id"] =
         boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}",
                             collectionStr, memberId, std::to_string(entry.Id));
@@ -623,9 +624,16 @@ inline void afterLogEntriesGetManagedObjects(
             messages::internalError(asyncResp->res);
             return;
         }
+        // CPER.Raw has no properties, so check the interface list instead.
+        const bool hasRawCper =
+            std::ranges::any_of(objectPath.second, [](const auto& iface) {
+                return iface.first == "xyz.openbmc_project.Logging.CPER.Raw";
+            });
+        nlohmann::json& entryJson = entriesArray.emplace_back();
         fillEventLogLogEntryFromDbusLogEntry(
-            *optEntry, entriesArray.emplace_back(), collectionStr, memberId,
-            logEntryDescriptor);
+            *optEntry, entryJson, collectionStr, memberId, logEntryDescriptor);
+        fillEventLogCperFromPropertyMap(propsFlattened, optEntry->Id,
+                                        hasRawCper, entryJson);
     }
 
     redfish::json_util::sortJsonArrayByKey(entriesArray, "Id");
@@ -679,7 +687,7 @@ inline void afterDBusEventLogEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& collectionStr, const std::string_view memberId,
     const std::string& logEntryDescriptor, const std::string& entryID,
-    const boost::system::error_code& ec,
+    bool hasRawCper, const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& resp)
 {
     if (ec.value() == EBADR)
@@ -706,11 +714,47 @@ inline void afterDBusEventLogEntryGet(
     fillEventLogLogEntryFromDbusLogEntry(
         *optEntry, asyncResp->res.jsonValue, collectionStr, memberId,
         logEntryDescriptor);
+    fillEventLogCperFromPropertyMap(resp, optEntry->Id, hasRawCper,
+                                    asyncResp->res.jsonValue);
+}
+
+inline void afterDBusEventLogEntryGetObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& collectionStr, const std::string_view memberId,
+    const std::string& logEntryDescriptor, const std::string& entryID,
+    const std::string& entryPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    // Mapper reports a missing object as io_error.
+    if (ec == boost::system::errc::io_error || ec.value() == EBADR)
+    {
+        messages::resourceNotFound(asyncResp->res, "EventLogEntry", entryID);
+        return;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("EventLogEntry (DBus) GetObject got error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // CPER.Raw has no properties, so GetAll can't reveal it.
+    const bool hasRawCper =
+        std::ranges::any_of(object, [](const auto& serviceIfaces) {
+            return std::ranges::any_of(
+                serviceIfaces.second, [](const std::string& iface) {
+                    return iface == "xyz.openbmc_project.Logging.CPER.Raw";
+                });
+        });
+    dbus::utility::getAllProperties(
+        "xyz.openbmc_project.Logging", entryPath, "",
+        std::bind_front(afterDBusEventLogEntryGet, asyncResp, collectionStr,
+                        memberId, logEntryDescriptor, entryID, hasRawCper));
 }
 
 inline void dBusEventLogEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    LogServiceParentCollection collection, std::string entryID)
+    LogServiceParentCollection collection, const std::string& entryID)
 {
     const std::string collectionStr =
         logServiceParentCollectionToString(collection);
@@ -725,15 +769,16 @@ inline void dBusEventLogEntryGet(
         return;
     }
 
-    dbus::utility::escapePathForDbus(entryID);
-
-    // DBus implementation of EventLog/Entries
-    // Make call to Logging Service to find all log entry objects
-    dbus::utility::getAllProperties(
-        "xyz.openbmc_project.Logging",
-        "/xyz/openbmc_project/logging/entry/" + entryID, "",
-        std::bind_front(afterDBusEventLogEntryGet, asyncResp, collectionStr,
-                        memberId, logEntryDescriptor, entryID));
+    std::string entryPath =
+        sdbusplus::object_path("/xyz/openbmc_project/logging/entry") / entryID;
+    constexpr std::array<std::string_view, 2> interfaces = {
+        "xyz.openbmc_project.Logging.Entry",
+        "xyz.openbmc_project.Logging.CPER.Raw"};
+    dbus::utility::getDbusObject(
+        entryPath, interfaces,
+        std::bind_front(afterDBusEventLogEntryGetObject, asyncResp,
+                        collectionStr, memberId, logEntryDescriptor, entryID,
+                        entryPath));
 }
 
 inline void dBusEventLogEntryPatch(
