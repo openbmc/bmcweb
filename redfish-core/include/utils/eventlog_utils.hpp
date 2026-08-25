@@ -30,6 +30,7 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -623,9 +624,17 @@ inline void afterLogEntriesGetManagedObjects(
             messages::internalError(asyncResp->res);
             return;
         }
+        // Raw-CPER membership is authoritatively signalled by the
+        // xyz.openbmc_project.Logging.CPERRaw interface being present on the
+        // entry object (it carries no properties, so check the interface list).
+        const bool hasRawCper =
+            std::ranges::any_of(objectPath.second, [](const auto& iface) {
+                return iface.first == "xyz.openbmc_project.Logging.CPERRaw";
+            });
+        nlohmann::json& entryJson = entriesArray.emplace_back();
         fillEventLogLogEntryFromDbusLogEntry(
-            *optEntry, entriesArray.emplace_back(), collectionStr, memberId,
-            logEntryDescriptor);
+            *optEntry, entryJson, collectionStr, memberId, logEntryDescriptor);
+        fillEventLogCperFromPropertyMap(propsFlattened, entryJson, hasRawCper);
     }
 
     redfish::json_util::sortJsonArrayByKey(entriesArray, "Id");
@@ -706,6 +715,19 @@ inline void afterDBusEventLogEntryGet(
     fillEventLogLogEntryFromDbusLogEntry(
         *optEntry, asyncResp->res.jsonValue, collectionStr, memberId,
         logEntryDescriptor);
+    // The raw counterpart cross-link is added only when the entry exposes the
+    // xyz.openbmc_project.Logging.CPERRaw interface. That interface has no
+    // properties, so detect it via the object mapper rather than the property
+    // map returned by GetAll.
+    constexpr std::array<std::string_view, 1> rawCperIfaces = {
+        "xyz.openbmc_project.Logging.CPERRaw"};
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/logging/entry/" + entryID, rawCperIfaces,
+        [asyncResp, resp](const boost::system::error_code& ec2,
+                          const dbus::utility::MapperGetObject& object) {
+            fillEventLogCperFromPropertyMap(resp, asyncResp->res.jsonValue,
+                                            !ec2 && !object.empty());
+        });
 }
 
 inline void dBusEventLogEntryGet(
