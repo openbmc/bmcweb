@@ -63,6 +63,52 @@
       "message": "nit: It is assumed that the yv4 platform consists of 8 blade chassis. You might want to point out that we have reduced the amount of emulated chassis for testing purposes and increases in performance on the qemu side",
       "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdc39a0c_19d01b17",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-25T15:03:30Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 605,
+        "startChar": 4,
+        "endLine": 605,
+        "endChar": 52
+      },
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc5f5a61_aa7bdbd2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-25T15:03:30Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 611,
+        "startChar": 4,
+        "endLine": 611,
+        "endChar": 62
+      },
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
