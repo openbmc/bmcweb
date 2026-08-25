@@ -22,6 +22,7 @@
 #include "fan.hpp"
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
+#include "log_services_rawcper.hpp"
 #include "manager_diagnostic_data.hpp"
 #include "manager_logservices_dbus_eventlog.hpp"
 #include "manager_logservices_journal.hpp"
@@ -125,6 +126,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesManagersLogServiceCollection(app);
 
     requestRoutesSystemsLogServicesPostCode(app);
+
+    requestRoutesRawCper(app);
 
     if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
     {
