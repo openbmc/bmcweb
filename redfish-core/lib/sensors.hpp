@@ -2500,7 +2500,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         redfish::sensor_utils::splitSensorNameAndType(sensorId);
     if (nameType.first.empty() || nameType.second.empty())
     {
-        messages::resourceNotFound(asyncResp->res, sensorId, "Sensor");
+        messages::resourceNotFound(asyncResp->res, "Sensor", sensorId);
         return;
     }
 
@@ -2525,7 +2525,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
             if (ec == boost::system::errc::io_error)
             {
                 BMCWEB_LOG_WARNING("Sensor not found from getSensorPaths");
-                messages::resourceNotFound(asyncResp->res, sensorId, "Sensor");
+                messages::resourceNotFound(asyncResp->res, "Sensor", sensorId);
                 return;
             }
             if (ec)

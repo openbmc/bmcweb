@@ -1224,7 +1224,7 @@ inline void handleProcessorPatch(
         if (!parsed)
         {
             messages::propertyValueFormatError(
-                asyncResp->res, "AppliedOperatingConfig", *appliedConfigStr);
+                asyncResp->res, *appliedConfigStr, "AppliedOperatingConfig");
             return;
         }
         appliedConfigUri = std::move(*parsed);
