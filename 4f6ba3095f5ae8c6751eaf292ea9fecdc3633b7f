@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066b5283_1e3b5f9b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T19:03:06Z",
+      "side": 1,
+      "message": "Would prefer we used the helper functions to generate this, so it\u0027s more obvious this is correct, but this is fine.",
+      "revId": "4f6ba3095f5ae8c6751eaf292ea9fecdc3633b7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
