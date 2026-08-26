@@ -55,6 +55,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfa46bf7_6cf9ba8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-26T16:04:16Z",
+      "side": 1,
+      "message": "done?",
+      "parentUuid": "4a24c095_f5015656",
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f2bd647_aeec9ef7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-26T16:04:16Z",
+      "side": 1,
+      "message": "yes, these properties are required. also the previous implementation returns with internalError() for each individual property when they are manually unpacked, so it had similar behavior.",
+      "parentUuid": "1d4f3076_f7d87884",
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "260d199d_5961d18d",
         "filename": "redfish-core/lib/storage_chassis.hpp",
         "patchSetId": 4
@@ -78,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0874b875_a91bb5c7",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-26T16:04:16Z",
+      "side": 1,
+      "message": "i know, but it\u0027s not a byte when i get it from Dbus. The function will error out if i change this to a byte. As soon as we find and patch this bug in EM/Dbus, we can patch it in bmcweb too. is that acceptable?",
+      "parentUuid": "260d199d_5961d18d",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 60
+      },
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "129e0c07_37a8e6d3",
         "filename": "redfish-core/lib/storage_chassis.hpp",
         "patchSetId": 4
@@ -89,6 +149,30 @@
       "writtenOn": "2026-08-26T07:31:48Z",
       "side": 1,
       "message": "This silently treating “no associated subtree” as success??",
+      "range": {
+        "startLine": 452,
+        "startChar": 5,
+        "endLine": 457,
+        "endChar": 9
+      },
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76df0185_4b32cf90",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-26T16:04:16Z",
+      "side": 1,
+      "message": "i have added internalErorr() here. \ngood catch, thanks!",
+      "parentUuid": "129e0c07_37a8e6d3",
       "range": {
         "startLine": 452,
         "startChar": 5,
