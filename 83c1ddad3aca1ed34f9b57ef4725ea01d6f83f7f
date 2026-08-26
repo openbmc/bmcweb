@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eada7cca_206d9199",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T19:08:28Z",
+      "side": 1,
+      "message": "minor nits",
+      "revId": "83c1ddad3aca1ed34f9b57ef4725ea01d6f83f7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad433783_d99d0f70",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T19:08:28Z",
+      "side": 1,
+      "message": "Nit, this should really be called \"handleErrorAndCreateIpAddress\"",
+      "range": {
+        "startLine": 841,
+        "startChar": 12,
+        "endLine": 841,
+        "endChar": 32
+      },
+      "revId": "83c1ddad3aca1ed34f9b57ef4725ea01d6f83f7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a361cc87_0943aefe",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T19:08:28Z",
+      "side": 1,
+      "message": "why are we partially handling the error, then calling \"handle error\"?",
+      "revId": "83c1ddad3aca1ed34f9b57ef4725ea01d6f83f7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
