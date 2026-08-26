@@ -118,6 +118,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "989aaf53_c9bd8528",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T19:18:30Z",
+      "side": 1,
+      "message": "Settings would be its own resource, so you need to call out explicitly which properties under settings you support.",
+      "parentUuid": "8ef13fef_86484d09",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ff0e860_26ca91f9",
         "filename": "docs/Redfish.md",
         "patchSetId": 14
