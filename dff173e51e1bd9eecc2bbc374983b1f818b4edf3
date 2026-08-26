@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97e5eab7_d0620e2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T19:17:28Z",
+      "side": 1,
+      "message": "This path doesn\u0027t look correct.  There is no device called \"settings\"",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c0cda2a_238f1c68",
         "filename": "/COMMIT_MSG",
         "patchSetId": 14
