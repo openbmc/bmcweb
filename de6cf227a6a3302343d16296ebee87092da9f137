@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9227ed8a_201f4a1a",
+        "filename": "features/virtual_media/vm_websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-26T10:56:54Z",
+      "side": 1,
+      "message": "Formula has an extra * 4 — actual value is ~16MiB, not the documented 4MiB. Intentional?",
+      "revId": "de6cf227a6a3302343d16296ebee87092da9f137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b159ed6_9d09ae56",
+        "filename": "features/virtual_media/vm_websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-26T10:56:54Z",
+      "side": 1,
+      "message": "nbdBufferSize duplicated verbatim in two namespaces — worth sharing one definition?",
+      "revId": "de6cf227a6a3302343d16296ebee87092da9f137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f922789_bcec7791",
+        "filename": "features/virtual_media/vm_websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-08-26T10:56:54Z",
+      "side": 1,
+      "message": "Considered memory impact with multiple concurrent VM websocket connections?",
+      "revId": "de6cf227a6a3302343d16296ebee87092da9f137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
