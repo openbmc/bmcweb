@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ef91fc3_b92a25d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T18:42:36Z",
+      "side": 1,
+      "message": "redfish service validator here.  \"Code logic stays untouched in this patch.\" isn\u0027t something we can validate by inspection on a 1400 line commit.",
+      "revId": "364af3b68c0e0910a8bee9694debd2c6ce64d998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b335f5a_2c256fde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T18:42:36Z",
+      "side": 1,
+      "message": "Needs tested, then this is fine.",
+      "revId": "364af3b68c0e0910a8bee9694debd2c6ce64d998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6debc938_b2eb2c16",
+        "filename": "redfish-core/lib/manager_logservices_dump.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T18:42:36Z",
+      "side": 1,
+      "message": "I realize these are copy/pastes, so this is fine, but generally we\u0027d combine all of these into a single \"requestroutes\" call for everything in the file.",
+      "revId": "364af3b68c0e0910a8bee9694debd2c6ce64d998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
