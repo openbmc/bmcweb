@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aedad999_c685a032",
+        "filename": "redfish-core/lib/manager_logservices_dump.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T18:43:28Z",
+      "side": 1,
+      "message": "Any reason we still need two route registrations in the same file?  I suspect these could all be 1?",
+      "revId": "c8288df40cf9d3387bd3a6a70328f52f46a8e851",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
