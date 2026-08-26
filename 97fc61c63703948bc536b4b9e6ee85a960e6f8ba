@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a263719_42953c9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T12:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0ccce36_1ef29417",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fc86f8c_8ef0051c",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-25T17:27:16Z",
       "side": 1,
       "message": "Using default: here defeats the exhaustiveness check enum class gives you — adding a 4th DumpType later won\u0027t trigger a compiler warning. Please list all enumerators explicitly and drop default.",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f061d59_91a752ec",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T12:40:38Z",
+      "side": 1,
+      "message": "Does not work, we compile with `-Werror -Wswitch-default`.",
+      "parentUuid": "0fc86f8c_8ef0051c",
       "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4a0c78d_5d55882b",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T12:40:38Z",
+      "side": 1,
+      "message": "Does not work, we compile with `-Werror -Wswitch-default`.",
+      "parentUuid": "eda38c22_91b0c637",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6d38e1b_4eb7b3f9",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-08-25T17:27:16Z",
       "side": 1,
       "message": "Same default: concern as dumpTypeToStr/dumpTypeToObjPath — please make this exhaustive too.",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b6213da_6886785f",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T12:40:38Z",
+      "side": 1,
+      "message": "Does not work, we compile with `-Werror -Wswitch-default`.",
+      "parentUuid": "d6d38e1b_4eb7b3f9",
       "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "097c9a3f_1bafe6f8",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T12:40:38Z",
+      "side": 1,
+      "message": "I have addressed the issue in 93875. No functional / logical changes after the fix applied, the suggested testing should be out of scope.",
+      "parentUuid": "33639816_a13d94db",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e787fee1_867ad9d8",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67b366ad_b2c03755",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T12:40:38Z",
+      "side": 1,
+      "message": "Returning internalError now. Done",
+      "parentUuid": "e787fee1_867ad9d8",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6aa9b708_e807c0c9",
@@ -116,6 +224,24 @@
       "writtenOn": "2026-08-25T17:27:16Z",
       "side": 1,
       "message": "\"default: break; silently no-ops for any dump type you forget to add here — same exhaustiveness concern as the other switches.\"",
+      "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca48170_9509ca34",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T12:40:38Z",
+      "side": 1,
+      "message": "Returning internalError now. Done",
+      "parentUuid": "6aa9b708_e807c0c9",
       "revId": "97fc61c63703948bc536b4b9e6ee85a960e6f8ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
