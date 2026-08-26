@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37d154f1_3cfe71ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T20:15:15Z",
+      "side": 1,
+      "message": "From TESTING.md, I think we should run the Redfish Service Validator against this change.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 2
+      },
+      "revId": "810d68c8b66462441d0c23083d6aa9afba8f793d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caa65cc3_29ae424c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T20:15:15Z",
+      "side": 1,
+      "message": "Was it just decided to not test or it\u0027s not feasible?",
+      "range": {
+        "startLine": 61,
+        "startChar": 52,
+        "endLine": 62,
+        "endChar": 51
+      },
+      "revId": "810d68c8b66462441d0c23083d6aa9afba8f793d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5612691f_24b71e05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T20:15:15Z",
+      "side": 1,
+      "message": "Looks good when looking overhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2065_2026.1.pdf for argument ordering, just some comments",
+      "revId": "810d68c8b66462441d0c23083d6aa9afba8f793d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
