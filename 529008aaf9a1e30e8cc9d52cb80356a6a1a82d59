@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01a10515_1bab3bb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T14:47:58Z",
+      "side": 1,
+      "message": "Just realized, this seems to be a duplicate of 82485",
+      "revId": "529008aaf9a1e30e8cc9d52cb80356a6a1a82d59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
