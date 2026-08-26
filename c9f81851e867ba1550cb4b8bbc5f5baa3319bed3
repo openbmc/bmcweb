@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3836a566_e8165ce1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-26T07:31:48Z",
+      "side": 1,
+      "message": "Please wrap you commit message using 50/72 formatting.",
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260d199d_5961d18d",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-26T07:31:48Z",
+      "side": 1,
+      "message": "In PDI it is defined as byte.",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 60
+      },
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129e0c07_37a8e6d3",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-26T07:31:48Z",
+      "side": 1,
+      "message": "This silently treating “no associated subtree” as success??",
+      "range": {
+        "startLine": 452,
+        "startChar": 5,
+        "endLine": 457,
+        "endChar": 9
+      },
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
