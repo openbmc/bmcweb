@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c0cda2a_238f1c68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T14:09:54Z",
+      "side": 1,
+      "message": "Could you provide a sample curl output for that too?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88e33e39_a0ab9c65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T14:09:54Z",
+      "side": 1,
+      "message": "This change should be merged after the pdi commit got in",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80bd3f0c_fb87a9ae",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T14:09:54Z",
+      "side": 1,
+      "message": "nit: why wrap it in \"\" ? i think `@Redfish` already indicates it is an annotation",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ff0e860_26ca91f9",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T14:09:54Z",
+      "side": 1,
+      "message": "nit: same as above",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4439816_e44ae378",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-08-26T14:09:54Z",
+      "side": 1,
+      "message": "Please run clang-tidy on this file, it appears some includes are missing",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
