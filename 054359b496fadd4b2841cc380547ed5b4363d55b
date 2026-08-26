@@ -80,6 +80,24 @@
       "message": "@paligill@gmail.com ?",
       "revId": "054359b496fadd4b2841cc380547ed5b4363d55b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "269fe481_45b9eae7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-08-26T21:58:34Z",
+      "side": 1,
+      "message": "@ed@tanous.net Sorry whats your exact question here -\n1. Why so many sensors ?\n2. Or, how many sensors ?",
+      "parentUuid": "1ef1d294_22e6039c",
+      "revId": "054359b496fadd4b2841cc380547ed5b4363d55b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
