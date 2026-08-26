@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92ef21b8_be0172f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T15:57:29Z",
+      "side": 1,
+      "message": "Sounds good, I\u0027ve re-added Akash\u0027s signed-off",
+      "parentUuid": "26b41693_31275707",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "aab6d9b6eb373e245cab29fe921361a0208e0ddc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff1fe0c0_d71057cb",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-08-26T04:48:35Z",
       "side": 1,
       "message": "afterGetPrettyName swallows every ec with no log. resource_utils.hpp checks ec.value() !\u003d EBADR and logs otherwise — could this follow the same pattern?",
+      "revId": "aab6d9b6eb373e245cab29fe921361a0208e0ddc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "209c69bd_87301061",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T15:57:29Z",
+      "side": 1,
+      "message": "Sounds good, I added a DEBUG log for ec. I don\u0027t think we need anything higher, however, since PrettyName is optional and would just pollute the log.",
+      "parentUuid": "ff1fe0c0_d71057cb",
       "revId": "aab6d9b6eb373e245cab29fe921361a0208e0ddc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74ed1a0c_cc6278fa",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T15:57:29Z",
+      "side": 1,
+      "message": "No, services order is not guaranteed and there is no priority order. I\u0027ve changed the parameter\u0027s description",
+      "parentUuid": "75dfb8ed_c8ad0963",
+      "revId": "aab6d9b6eb373e245cab29fe921361a0208e0ddc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e165213_07c21732",
@@ -71,6 +131,30 @@
       "writtenOn": "2026-08-26T04:48:35Z",
       "side": 1,
       "message": "Line 61 says \"if no service returns valid PrettyName\", but the code only tries the first matching service. Please reword to match.",
+      "range": {
+        "startLine": 61,
+        "startChar": 50,
+        "endLine": 61,
+        "endChar": 57
+      },
+      "revId": "aab6d9b6eb373e245cab29fe921361a0208e0ddc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e95f36a_059ecca1",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T15:57:29Z",
+      "side": 1,
+      "message": "Done, it now states that it falls back to defaultName if no service implements Inventory.Item.",
+      "parentUuid": "1e165213_07c21732",
       "range": {
         "startLine": 61,
         "startChar": 50,

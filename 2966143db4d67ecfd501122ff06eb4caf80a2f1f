@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b1dfd1_9d00aa31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T15:57:29Z",
+      "side": 1,
+      "message": "I\u0027ve changed this back in order to maintain the author\u0027s contributions.",
+      "parentUuid": "53f70422_75adc9f8",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 55
+      },
+      "revId": "2966143db4d67ecfd501122ff06eb4caf80a2f1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a5d1c85_fe396ac3",
