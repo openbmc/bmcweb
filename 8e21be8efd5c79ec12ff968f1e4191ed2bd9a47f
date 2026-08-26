@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ad69ff6_697700ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T18:40:08Z",
+      "side": 1,
+      "message": "because you\u0027re changing code, and it\u0027s required in the documentation would be the general reason.\n\nI\u0027m comfortable approving this without testing given it\u0027s header changes (should be no op) and find -\u003e contains, which is a well known enough transform that we can pass by inspection.",
+      "parentUuid": "d59ca807_493352a9",
+      "revId": "8e21be8efd5c79ec12ff968f1e4191ed2bd9a47f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ae26275_04de56e8",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Why would I need to run validator?",
       "parentUuid": "2ae26275_04de56e8",
+      "revId": "8e21be8efd5c79ec12ff968f1e4191ed2bd9a47f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5bfd715_742291fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T18:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a1a1c51_0b816e69",
       "revId": "8e21be8efd5c79ec12ff968f1e4191ed2bd9a47f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
