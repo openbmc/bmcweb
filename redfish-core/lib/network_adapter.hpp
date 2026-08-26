@@ -6,6 +6,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/port.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
@@ -13,19 +14,29 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
 #include <format>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
+#include <vector>
 
 static constexpr std::array<std::string_view, 1> networkAdapterInterface = {
     "xyz.openbmc_project.Inventory.Item.NetworkAdapter"};
+
+static constexpr std::array<std::string_view, 1> lldpConfigurationInterface = {
+    "xyz.openbmc_project.Network.LLDP.Configuration"};
+
+static constexpr std::array<std::string_view, 1> lldpTlvsInterface = {
+    "xyz.openbmc_project.Network.LLDP.TLVs"};
 
 namespace redfish
 {
@@ -192,10 +203,314 @@ inline void handleNetworkAdapterPortPathPortMetricsGet(
                         asyncResp));
 }
 
+// The agent of a network device is described by a mode per direction, while
+// Redfish asks only whether it is on. It is on when it is doing something in
+// either direction: a port that only announces itself still speaks the
+// protocol.
+inline bool lldpEnabledFrom(const std::string& transmitMode,
+                            const std::string& receiveMode)
+{
+    constexpr std::string_view disabled =
+        "xyz.openbmc_project.Network.LLDP.Configuration.Mode.Disabled";
+    return transmitMode != disabled || receiveMode != disabled;
+}
+
+inline void afterGetLldpConfiguration(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& target,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    // What the agent is set to decorates the resource; it is not the resource.
+    // A device that went away between being found and being read leaves the
+    // rest of what was gathered standing rather than turning it into an error.
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("Reading the LLDP configuration failed: {}", ec);
+        return;
+    }
+
+    std::optional<std::string> transmitMode;
+    std::optional<std::string> receiveMode;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "TransmitMode",
+        transmitMode, "ReceiveMode", receiveMode);
+
+    if (!success)
+    {
+        BMCWEB_LOG_WARNING("The LLDP configuration is not what was expected");
+        return;
+    }
+
+    if (transmitMode && receiveMode)
+    {
+        asyncResp->res.jsonValue[target] =
+            lldpEnabledFrom(*transmitMode, *receiveMode);
+    }
+}
+
+inline void afterGetLldpConfigurationPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& target,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& object)
+{
+    // A device whose agent cannot be configured has no such object, which is
+    // not an error: the resource simply says nothing about it.
+    if (ec || object.empty() || object.front().second.empty())
+    {
+        return;
+    }
+
+    if (object.size() > 1)
+    {
+        BMCWEB_LOG_WARNING(
+            "An adapter has more than one LLDP configuration; reporting {}",
+            object.front().first);
+    }
+
+    dbus::utility::getAllProperties(
+        object.front().second.front().first, object.front().first,
+        "xyz.openbmc_project.Network.LLDP.Configuration",
+        std::bind_front(afterGetLldpConfiguration, asyncResp, target));
+}
+
+// The object that configures the agent is not part of the inventory, so it is
+// reached from the adapter it controls rather than found beneath it.
+inline void getLldpEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& adapterPath,
+                           const nlohmann::json::json_pointer& target)
+{
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path{adapterPath} / "controlled_by",
+        sdbusplus::object_path{"/xyz/openbmc_project/network/lldp"}, 0,
+        lldpConfigurationInterface,
+        std::bind_front(afterGetLldpConfigurationPath, asyncResp, target));
+}
+
+// The interface names a subtype with the same words IEEE 802.1AB uses, and so
+// does Redfish, but a name is matched rather than trimmed so that a value
+// either side stops recognising is reported as such.
+inline port::IEEE802IdSubtype toIdSubtype(const std::string& value)
+{
+    constexpr std::string_view prefix =
+        "xyz.openbmc_project.Network.LLDP.TLVs.IdSubtype.";
+    if (!value.starts_with(prefix))
+    {
+        return port::IEEE802IdSubtype::Invalid;
+    }
+    // The generated enum knows its own names, and a name it does not know
+    // deserialises to Invalid, which is what an unrecognised value should be.
+    return nlohmann::json(value.substr(prefix.size()))
+        .get<port::IEEE802IdSubtype>();
+}
+
+inline port::LLDPSystemCapabilities toSystemCapability(const std::string& value)
+{
+    constexpr std::string_view prefix =
+        "xyz.openbmc_project.Network.LLDP.TLVs.SystemCapability.";
+    if (!value.starts_with(prefix))
+    {
+        return port::LLDPSystemCapabilities::Invalid;
+    }
+    return nlohmann::json(value.substr(prefix.size()))
+        .get<port::LLDPSystemCapabilities>();
+}
+
+// A subtype only means something next to the identifier it describes, so one
+// the frame did not carry is reported as absent rather than guessed. A subtype
+// this build has no name for is reported the same way: the enumeration has no
+// member to stand for it, and inventing one would put a value in the resource
+// that the schema does not define.
+inline void reportSubtype(nlohmann::json& frame, const char* name,
+                          const std::optional<std::string>& value)
+{
+    if (!value)
+    {
+        return;
+    }
+    const port::IEEE802IdSubtype subtype = toIdSubtype(*value);
+    frame[name] = (subtype == port::IEEE802IdSubtype::NotTransmitted ||
+                   subtype == port::IEEE802IdSubtype::Invalid)
+                      ? nlohmann::json(nullptr)
+                      : nlohmann::json(subtype);
+}
+
+inline void afterGetLldpFrame(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    // As above: a frame that could not be read leaves the port described by
+    // everything else that was gathered.
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("Reading an LLDP frame failed: {}", ec);
+        return;
+    }
+
+    std::optional<std::string> chassisId;
+    std::optional<std::string> portId;
+    std::optional<std::string> systemName;
+    std::optional<std::string> systemDescription;
+    std::optional<std::string> managementAddressIPv4;
+    std::optional<std::string> managementAddressIPv6;
+    std::optional<std::string> managementAddressMAC;
+    std::optional<uint64_t> managementVlanId;
+    std::optional<std::string> direction;
+    std::optional<std::string> chassisIdSubtype;
+    std::optional<std::string> portIdSubtype;
+    std::optional<std::vector<std::string>> systemCapabilities;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "ChassisId", chassisId,
+        "PortId", portId, "SystemName", systemName, "SystemDescription",
+        systemDescription, "ManagementAddressIPv4", managementAddressIPv4,
+        "ManagementAddressIPv6", managementAddressIPv6, "ManagementAddressMAC",
+        managementAddressMAC, "ManagementVlanId", managementVlanId,
+        "ChassisIdSubtype", chassisIdSubtype, "PortIdSubtype", portIdSubtype,
+        "SystemCapabilities", systemCapabilities, "Direction", direction);
+
+    if (!success)
+    {
+        BMCWEB_LOG_WARNING("An LLDP frame is not what was expected");
+        return;
+    }
+
+    // Which of a port's two frames this is comes from the frame itself. The
+    // interface says so in as many words, because the names its objects are
+    // given are not part of what it promises.
+    constexpr std::string_view receivedDirection =
+        "xyz.openbmc_project.Network.LLDP.TLVs.Direction.Received";
+    constexpr std::string_view transmittedDirection =
+        "xyz.openbmc_project.Network.LLDP.TLVs.Direction.Transmitted";
+
+    if (!direction)
+    {
+        BMCWEB_LOG_WARNING("An LLDP frame does not say which way it went");
+        return;
+    }
+
+    nlohmann::json::json_pointer target;
+    if (*direction == receivedDirection)
+    {
+        target = nlohmann::json::json_pointer("/Ethernet/LLDPReceive");
+    }
+    else if (*direction == transmittedDirection)
+    {
+        target = nlohmann::json::json_pointer("/Ethernet/LLDPTransmit");
+    }
+    else
+    {
+        BMCWEB_LOG_WARNING("An LLDP frame went a way this does not know of");
+        return;
+    }
+
+    nlohmann::json& frame = asyncResp->res.jsonValue[target];
+
+    // A field the frame did not carry is reported as null rather than as an
+    // empty string, which would claim the peer sent an empty value.
+    auto reportText =
+        [&frame](const char* name, const std::optional<std::string>& value) {
+            if (value)
+            {
+                frame[name] = value->empty() ? nlohmann::json(nullptr)
+                                             : nlohmann::json(*value);
+            }
+        };
+
+    reportText("ChassisId", chassisId);
+    reportText("PortId", portId);
+    reportText("SystemName", systemName);
+    reportText("SystemDescription", systemDescription);
+    reportText("ManagementAddressIPv4", managementAddressIPv4);
+    reportText("ManagementAddressIPv6", managementAddressIPv6);
+    reportText("ManagementAddressMAC", managementAddressMAC);
+
+    // The schema allows the twelve bits a VLAN identifier is, so anything
+    // wider is either the value that means there is none or a peer saying
+    // something a VLAN identifier cannot say.
+    constexpr uint64_t highestVlanId = 4095;
+    if (managementVlanId)
+    {
+        frame["ManagementVlanId"] = *managementVlanId > highestVlanId
+                                        ? nlohmann::json(nullptr)
+                                        : nlohmann::json(*managementVlanId);
+    }
+
+    reportSubtype(frame, "ChassisIdSubtype", chassisIdSubtype);
+    reportSubtype(frame, "PortIdSubtype", portIdSubtype);
+
+    // The schema says this property is absent when the peer sent no
+    // capabilities, and that it never holds None. A peer that sent the field
+    // but claimed nothing in it therefore reads the same as one that sent no
+    // field at all, and a name this build cannot place is dropped rather than
+    // reported as something the schema does not define.
+    if (systemCapabilities)
+    {
+        nlohmann::json::array_t capabilities;
+        for (const std::string& capability : *systemCapabilities)
+        {
+            const port::LLDPSystemCapabilities named =
+                toSystemCapability(capability);
+            if (named == port::LLDPSystemCapabilities::None ||
+                named == port::LLDPSystemCapabilities::Invalid)
+            {
+                continue;
+            }
+            capabilities.emplace_back(named);
+        }
+        if (!capabilities.empty())
+        {
+            frame["SystemCapabilities"] = std::move(capabilities);
+        }
+    }
+}
+
+inline void afterGetLldpFramePaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& object)
+{
+    // A port whose device does not report what it discovers has no such
+    // object; the resource says nothing about it rather than failing.
+    if (ec)
+    {
+        return;
+    }
+
+    for (const auto& [path, services] : object)
+    {
+        if (services.empty())
+        {
+            continue;
+        }
+
+        dbus::utility::getAllProperties(
+            services.front().first, path,
+            "xyz.openbmc_project.Network.LLDP.TLVs",
+            std::bind_front(afterGetLldpFrame, asyncResp));
+    }
+}
+
+// What a port discovers is not part of the inventory either, so it is reached
+// from the port it describes.
+inline void getPortLldpFrames(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portPath)
+{
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path{portPath} / "monitored_by",
+        sdbusplus::object_path{"/xyz/openbmc_project/network/lldp"}, 0,
+        lldpTlvsInterface, std::bind_front(afterGetLldpFramePaths, asyncResp));
+}
+
 inline void handleNetworkAdapterPathPortGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassiId, const std::string& networkAdapterId,
-    const std::string& portId, [[maybe_unused]] const std::string& portPath,
+    const std::string& portId, const std::string& adapterPath,
+    const std::string& portPath,
     [[maybe_unused]] const std::string& serviceName)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#Port.v1_9_0.Port";
@@ -214,6 +529,12 @@ inline void handleNetworkAdapterPathPortGet(
     asyncResp->res.jsonValue["Metrics"]["@odata.id"] = std::format(
         "/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports/{}/Metrics", chassiId,
         networkAdapterId, portId);
+
+    // The device runs one agent for all of its ports, so every port of an
+    // adapter reports the same answer here.
+    getLldpEnabled(asyncResp, adapterPath,
+                   nlohmann::json::json_pointer("/Ethernet/LLDPEnabled"));
+    getPortLldpFrames(asyncResp, portPath);
 }
 
 inline void afterNetworkAdapterPortPaths(
@@ -329,7 +650,7 @@ inline void getNetworkAdapterPortPaths(
 inline void handleNetworkAdapterPathNetworkAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
-    [[maybe_unused]] const std::string& path)
+    const std::string& path)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#NetworkAdapter.v1_11_0.NetworkAdapter";
@@ -347,6 +668,9 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports",
                     chassisId, networkAdapterId);
+
+    getLldpEnabled(asyncResp, path,
+                   nlohmann::json::json_pointer("/LLDPEnabled"));
 }
 
 inline void handleNetworkAdapterPaths(
@@ -488,10 +812,15 @@ inline void handleNetworkAdapterPortGet(
 
     getNetworkAdapterPath(
         asyncResp, chassisId, networkAdapterId,
-        std::bind_front(
-            getAssociatedPortPath, asyncResp, portId,
-            std::bind_front(handleNetworkAdapterPathPortGet, asyncResp,
-                            chassisId, networkAdapterId, portId)));
+        [asyncResp, chassisId, networkAdapterId,
+         portId](const std::string& adapterPath) {
+            getAssociatedPortPath(
+                asyncResp, portId,
+                std::bind_front(handleNetworkAdapterPathPortGet, asyncResp,
+                                chassisId, networkAdapterId, portId,
+                                adapterPath),
+                adapterPath);
+        });
 }
 
 inline void handleNetworkAdapterPortCollectionGet(
