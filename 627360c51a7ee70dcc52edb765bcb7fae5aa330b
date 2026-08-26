@@ -105,6 +105,41 @@
       "parentUuid": "c9bb4125_73dad91e",
       "revId": "627360c51a7ee70dcc52edb765bcb7fae5aa330b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db22dbc6_f9b145e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T18:35:55Z",
+      "side": 1,
+      "message": "Still not comfortable with this.  Not sure why this was closed.\n\nHow do other webservers handle LDAP auth with pam?  Surely \"run password through pam, then check a dbus property\" isn\u0027t a standard interface.",
+      "parentUuid": "158b46d2_0ecffc95",
+      "revId": "627360c51a7ee70dcc52edb765bcb7fae5aa330b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c6b29d6_26ad60bf",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-26T18:35:55Z",
+      "side": 1,
+      "message": "Why are we creating a session, then removing it later?  Just create the session in the appropriate place.",
+      "revId": "627360c51a7ee70dcc52edb765bcb7fae5aa330b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
