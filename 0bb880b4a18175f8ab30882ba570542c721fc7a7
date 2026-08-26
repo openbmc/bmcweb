@@ -39,6 +39,30 @@
       },
       "revId": "0bb880b4a18175f8ab30882ba570542c721fc7a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73c379f6_0e20feb0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-26T16:28:27Z",
+      "side": 1,
+      "message": "Done, I\u0027ve moved the `getPrettyName()` call to the Inventory.Item conditional",
+      "parentUuid": "ce8ff2ee_f8f9ef0e",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 47
+      },
+      "revId": "0bb880b4a18175f8ab30882ba570542c721fc7a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
