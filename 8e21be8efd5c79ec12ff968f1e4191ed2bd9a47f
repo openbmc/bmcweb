@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f60e009_e25e9edc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-26T09:10:46Z",
+      "side": 1,
+      "message": "Can you run the service validator and provide the test result here.",
+      "revId": "8e21be8efd5c79ec12ff968f1e4191ed2bd9a47f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ae26275_04de56e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-26T09:10:46Z",
+      "side": 1,
+      "message": "Can you provide the validation and its result.",
+      "revId": "8e21be8efd5c79ec12ff968f1e4191ed2bd9a47f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810299d2_f82b0ec0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-26T09:10:46Z",
+      "side": 1,
+      "message": "This clang-tidy auto-fix dropped the negation: find(x)\u003d\u003dnpos means \u0027not found\u0027, so the equivalent form is !x.contains(dumpEntryPath). As written, it now skips entries that DO belong to this dump type and keeps ones that don\u0027t — inverts the entry list. Please add ! and add a test with mixed BMC/System/FaultLog entries in one response.",
+      "revId": "8e21be8efd5c79ec12ff968f1e4191ed2bd9a47f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
