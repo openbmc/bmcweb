@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfdb7e73_2e37894a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-26T14:08:09Z",
+      "side": 1,
+      "message": "Actually you should not remove the signed-off from someone else. They also contributed to this commit.",
+      "parentUuid": "cde62ea9_f0623a17",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 55
+      },
+      "revId": "94e1e5574a6badbb363f6d6c3dcaa600982e16de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9049ff26_37fc2e1a",
         "filename": "redfish-core/lib/storage_chassis.hpp",
         "patchSetId": 8
