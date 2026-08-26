@@ -65,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3ca899_6cd7b77e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-26T16:02:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc436080_e4d0063e",
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44adbf31_2d781c1e",
@@ -78,6 +96,24 @@
       "writtenOn": "2026-08-25T17:31:21Z",
       "side": 1,
       "message": "Can you wrap the Commit message with 72 char, as per the \"https://cbea.ms/git-commit/\"",
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29cc6737_f5a82555",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-26T16:02:39Z",
+      "side": 1,
+      "message": "done?",
+      "parentUuid": "44adbf31_2d781c1e",
       "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78de7010_e37ac758",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-26T16:02:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdc39a0c_19d01b17",
+      "range": {
+        "startLine": 605,
+        "startChar": 4,
+        "endLine": 605,
+        "endChar": 52
+      },
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc5f5a61_aa7bdbd2",
@@ -118,6 +178,30 @@
       "writtenOn": "2026-08-25T15:03:30Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 611,
+        "startChar": 4,
+        "endLine": 611,
+        "endChar": 62
+      },
+      "revId": "519be32fdca84fc7d92e4d7d618107c828448eed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c06a655_ab82a397",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-08-26T16:02:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc5f5a61_aa7bdbd2",
       "range": {
         "startLine": 611,
         "startChar": 4,
