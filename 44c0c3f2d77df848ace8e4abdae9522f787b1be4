@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2005fbc6_c45ae086",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-26T05:04:35Z",
+      "side": 1,
+      "message": "Please wrap your commit message properly. Use 50/72 formatting.",
+      "revId": "44c0c3f2d77df848ace8e4abdae9522f787b1be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
