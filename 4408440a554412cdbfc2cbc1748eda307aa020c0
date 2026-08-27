@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb23bb0d_5465c806",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-27T09:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9477a28_5dd6892e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "4408440a554412cdbfc2cbc1748eda307aa020c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5372ad8f_6ee1c7b1",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-08-26T18:33:51Z",
       "side": 1,
       "message": "what did you test?  Interesting that ast2600 would have any impact here.  can you comment?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "4408440a554412cdbfc2cbc1748eda307aa020c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13431807_26cb2edd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-08-27T09:50:33Z",
+      "side": 1,
+      "message": "Good point, AST2600 doesn\u0027t actually matter here - it was just the board.\nI had on hand, not something specific to this change.\n\nI sent PATCH requests to the AggregationSource endpoint covering both branches the extracted function handles\n\n1. An AggregationSourceId that exists in Entity Manager -\u003e got propertyNotWritable on UserName, as expected.\n2. An AggregationSourceId that doesn\u0027t exist -\u003e got ResourceNotFound, as expected.\n\nBoth matched the pre-refactor behavior, confirming the extraction into afterGetSatelliteConfigsForPatch() via std::bind_front() didn\u0027t change any behavior. I\u0027ll reword the commit message so it reflects this instead of the generic AST2600 line.",
+      "parentUuid": "5372ad8f_6ee1c7b1",
       "range": {
         "startLine": 16,
         "startChar": 0,
