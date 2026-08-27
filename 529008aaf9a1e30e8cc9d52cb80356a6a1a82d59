@@ -16,6 +16,24 @@
       "message": "Just realized, this seems to be a duplicate of 82485",
       "revId": "529008aaf9a1e30e8cc9d52cb80356a6a1a82d59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90bff39d_867c0a75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-08-27T20:18:32Z",
+      "side": 1,
+      "message": "Yes, i see 82485 is older than this and incorporate lot of feedback changes which seems to be missing in this patch. @alexander.hansen@9elements.com @haghera@nvidia.com Please converge and decide which one of the two patches we plan to keep.",
+      "parentUuid": "01a10515_1bab3bb0",
+      "revId": "529008aaf9a1e30e8cc9d52cb80356a6a1a82d59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
