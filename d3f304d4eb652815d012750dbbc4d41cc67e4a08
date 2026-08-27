@@ -16,6 +16,52 @@
       "message": "Code LGTM, could you rebase? Thanks.",
       "revId": "d3f304d4eb652815d012750dbbc4d41cc67e4a08",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0da4e7f1_7de1f5fb",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-27T19:18:20Z",
+      "side": 1,
+      "message": "Should this instead be using `dbus::utility::async_method_call()`?",
+      "range": {
+        "startLine": 597,
+        "startChar": 4,
+        "endLine": 597,
+        "endChar": 51
+      },
+      "revId": "d3f304d4eb652815d012750dbbc4d41cc67e4a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04605ab1_69b92bfd",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-27T19:18:20Z",
+      "side": 1,
+      "message": "Do we need a check similar to line 402 and 408 similar to the GET path?",
+      "range": {
+        "startLine": 637,
+        "startChar": 0,
+        "endLine": 637,
+        "endChar": 2
+      },
+      "revId": "d3f304d4eb652815d012750dbbc4d41cc67e4a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
