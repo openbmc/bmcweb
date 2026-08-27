@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33f7a27c_69e2abeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-27T19:22:29Z",
+      "side": 1,
+      "message": "How big is that?",
+      "range": {
+        "startLine": 11,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 36
+      },
+      "revId": "f7605be5c1f683f16336bef1af3223e8dcc30826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "053c49fe_64b7f955",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-27T19:22:29Z",
+      "side": 1,
+      "message": "http-body-limit defaults to 30 MB (and allows values up to 512). It is  intended for large non-JSON request bodies such as firmware uploads. Do we really want parseStringAsJson() to permit JSON payloads up to that same limit?\n\nparser limits depth/value count protect us some..",
+      "revId": "f7605be5c1f683f16336bef1af3223e8dcc30826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
