@@ -418,6 +418,16 @@ inline void handleProtocolEnabled(
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
+                if (ec.value() == boost::system::errc::io_error)
+                {
+                    BMCWEB_LOG_WARNING("Service not found for protocol: {}",
+                                       redfishProperty);
+                    messages::resourceNotFound(asyncResp->res, "Protocol",
+                                               std::string(redfishProperty));
+                    return;
+                }
+                BMCWEB_LOG_ERROR("DBus method call failed with error {}",
+                                 ec.value());
                 messages::internalError(asyncResp->res);
                 return;
             }
