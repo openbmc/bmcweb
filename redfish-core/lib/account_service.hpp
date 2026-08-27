@@ -2370,24 +2370,21 @@ inline void handleAccountPatch(
     bool userHasConfigureUsers =
         effectiveUserPrivileges.isSupersetOf(configureUsers) &&
         !req.session->isConfigureSelfOnly;
-    if (userHasConfigureUsers)
+    // Parse all writable ManagerAccount properties
+    if (!json_util::readJsonPatch(                    //
+            req, asyncResp->res,                      //
+            "AccountTypes", accountTypes,             //
+            "Enabled", enabled,                       //
+            "Locked", locked,                         //
+            "Password", password,                     //
+            "PasswordExpiration", passwordExpiration, //
+            "RoleId", roleId,                         //
+            "UserName", newUserName))
     {
-        // Users with ConfigureUsers can modify for all users
-        if (!json_util::readJsonPatch(                    //
-                req, asyncResp->res,                      //
-                "AccountTypes", accountTypes,             //
-                "Enabled", enabled,                       //
-                "Locked", locked,                         //
-                "Password", password,                     //
-                "PasswordExpiration", passwordExpiration, //
-                "RoleId", roleId,                         //
-                "UserName", newUserName                   //
-                ))
-        {
-            return;
-        }
+        return;
     }
-    else
+    // Apply privilege-based restrictions
+    if (!userHasConfigureUsers)
     {
         // ConfigureSelf accounts can only modify their own account
         if (!userSelf)
@@ -2395,11 +2392,14 @@ inline void handleAccountPatch(
             messages::insufficientPrivilege(asyncResp->res);
             return;
         }
-
-        // ConfigureSelf accounts can only modify their password
-        if (!json_util::readJsonPatch(req, asyncResp->res, "Password",
-                                      password))
+        // ConfigureSelf can ONLY modify Password
+        // NOTE: When adding new writable properties to ManagerAccount,
+        // add them to readJsonPatch above AND to this check to ensure
+        // ConfigureSelf users cannot modify them
+        if (accountTypes || enabled || locked || passwordExpiration || roleId ||
+            newUserName)
         {
+            messages::insufficientPrivilege(asyncResp->res);
             return;
         }
     }
