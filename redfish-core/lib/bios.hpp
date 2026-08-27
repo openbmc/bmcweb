@@ -113,7 +113,7 @@ inline void handleBiosServiceGet(
     }
     asyncResp->res.jsonValue["@odata.id"] = std::format(
         "/redfish/v1/Systems/{}/Bios", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
+    asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_2_0.Bios";
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
     asyncResp->res.jsonValue["Description"] = "BIOS Configuration Service";
     asyncResp->res.jsonValue["Id"] = "BIOS";
