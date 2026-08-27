@@ -2404,40 +2404,48 @@ inline void handleAccountPatch(
     bool userHasConfigureUsers =
         effectiveUserPrivileges.isSupersetOf(configureUsers) &&
         !req.session->isConfigureSelfOnly;
-    if (userHasConfigureUsers)
+
+    // ConfigureSelf users can only modify their own account
+    if (!userHasConfigureUsers && !userSelf)
     {
-        // Users with ConfigureUsers can modify for all users
-        if (!json_util::readJsonPatch(                    //
-                req, asyncResp->res,                      //
-                "AccountTypes", accountTypes,             //
-                "Enabled", enabled,                       //
-                "Locked", locked,                         //
-                "Password", password,                     //
-                "PasswordExpiration", passwordExpiration, //
-                "RoleId", roleId,                         //
-                "UserName", newUserName                   //
-                ))
+        messages::insufficientPrivilege(asyncResp->res);
+        return;
+    }
+    // ConfigureSelf users may only modify Password.
+    // Validate the incoming PATCH payload directly so newly
+    // added writable properties are automatically restricted.
+    if (!userHasConfigureUsers)
+    {
+        nlohmann::json patchData =
+            nlohmann::json::parse(req.body(), nullptr, false);
+        const nlohmann::json::object_t* patchObj =
+            patchData.get_ptr<const nlohmann::json::object_t*>();
+
+        if (patchObj != nullptr)
         {
-            return;
+            for (const auto& [key, value] : *patchObj)
+            {
+                if (key != "Password")
+                {
+                    messages::insufficientPrivilege(asyncResp->res);
+                    return;
+                }
+            }
         }
     }
-    else
+    // Parse all writable ManagerAccount properties
+    if (!json_util::readJsonPatch(                    //
+            req, asyncResp->res,                      //
+            "AccountTypes", accountTypes,             //
+            "Enabled", enabled,                       //
+            "Locked", locked,                         //
+            "Password", password,                     //
+            "PasswordExpiration", passwordExpiration, //
+            "RoleId", roleId,                         //
+            "UserName", newUserName))
     {
-        // ConfigureSelf accounts can only modify their own account
-        if (!userSelf)
-        {
-            messages::insufficientPrivilege(asyncResp->res);
-            return;
-        }
-
-        // ConfigureSelf accounts can only modify their password
-        if (!json_util::readJsonPatch(req, asyncResp->res, "Password",
-                                      password))
-        {
-            return;
-        }
+        return;
     }
-
     // if user name is not provided in the patch method or if it
     // matches the user name in the URI, then we are treating it as
     // updating user properties other then username. If username
