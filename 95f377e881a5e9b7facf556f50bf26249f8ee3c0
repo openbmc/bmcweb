@@ -39,6 +39,30 @@
       },
       "revId": "95f377e881a5e9b7facf556f50bf26249f8ee3c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a562117_7a155f05",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-27T08:09:46Z",
+      "side": 1,
+      "message": "Can we do that in another patch and make this commit atomic?",
+      "parentUuid": "67c39f55_9e0d3759",
+      "range": {
+        "startLine": 822,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 2
+      },
+      "revId": "95f377e881a5e9b7facf556f50bf26249f8ee3c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
