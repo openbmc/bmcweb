@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43136baa_47da96e6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-27T09:11:20Z",
+      "side": 1,
+      "message": "nit: \nI am thinking if we should do a prefix pruning for these string matcher, \nbecause I noticed that there are a lot of strings that are having very similar prefix.\n\nPerhaps comparing only their suffix is already enough?",
+      "range": {
+        "startLine": 579,
+        "startChar": 21,
+        "endLine": 579,
+        "endChar": 65
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01a95148_6ae71fbe",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-27T09:11:20Z",
+      "side": 1,
+      "message": "nit:\nSimilar here, it looked like the only difference happens at the end of the string.\nNot sure if we can compare only the last word.\n\nBut I am not strongly against with the current pattern, it is totally fine if you prefer the current approach.",
+      "range": {
+        "startLine": 600,
+        "startChar": 4,
+        "endLine": 610,
+        "endChar": 54
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97e43e90_a54d7d54",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-27T09:11:20Z",
+      "side": 1,
+      "message": "Looks like you have changed the behaviour here.\nNot sure if this is intended?\n\nWhy don\u0027t we align with the legacy approach and check if `rfType` is invalid and uses `messages::internalError(async-\u003eres)`?",
+      "range": {
+        "startLine": 858,
+        "startChar": 12,
+        "endLine": 862,
+        "endChar": 13
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
