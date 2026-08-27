@@ -16,6 +16,23 @@
       "message": "Before this patch, a ConfigureSelf user trying to patch another account got InsufficientPrivilege before any property parsing. Now we parse the whole body first, so a bad value on a recognized property can return 400 instead of 403.",
       "revId": "5c9dd17948df0fb47b30d8fbd2afe284602adec2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40d56a5a_ec61d178",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-08-27T14:30:51Z",
+      "side": 1,
+      "message": "It looks good to me",
+      "revId": "5c9dd17948df0fb47b30d8fbd2afe284602adec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
