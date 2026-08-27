@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "185d8b2f_67162263",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-27T14:22:34Z",
+      "side": 1,
+      "message": "Probably should just be Debug but :shrug:\nBetter than it was",
+      "revId": "d7dd228a5a77ca13ac4f8053022286e83a92deb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
