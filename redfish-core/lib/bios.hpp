@@ -123,6 +123,11 @@ inline void handleBiosServiceGet(
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
     asyncResp->res.jsonValue["Description"] = "BIOS Configuration Service";
     asyncResp->res.jsonValue["Id"] = "BIOS";
+    asyncResp->res.jsonValue["AttributeRegistry"] =
+        "BiosAttributeRegistry.1.0.0";
+    // Always present, empty until the host publishes its attribute table -
+    // Redfish Host Interface clients use this to detect first boot.
+    asyncResp->res.jsonValue["Attributes"] = nlohmann::json::object();
     asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"]["target"] =
         boost::urls::format(
             "/redfish/v1/Systems/{}/Bios/Actions/Bios.ResetBios",
