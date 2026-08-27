@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76137937_71d8ed76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-27T06:05:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ee4e7eb3_9f800127",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "1df9bbb8342778881135e321d3dfa4da871085ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f14011f2_e9dccc1f",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6593e14_eef9b369",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-27T06:05:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f14011f2_e9dccc1f",
+      "range": {
+        "startLine": 372,
+        "startChar": 4,
+        "endLine": 378,
+        "endChar": 5
+      },
+      "revId": "1df9bbb8342778881135e321d3dfa4da871085ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fb818d1_8c5b0096",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-08-26T13:20:11Z",
       "side": 1,
       "message": "As in github issues we are trying to reduce non const global variables; should we add the same in new commits?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "1df9bbb8342778881135e321d3dfa4da871085ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fa88604_29cf8fbf",
+        "filename": "include/user_monitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-27T06:05:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fb818d1_8c5b0096",
       "range": {
         "startLine": 55,
         "startChar": 0,
