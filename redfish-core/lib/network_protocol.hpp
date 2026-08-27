@@ -402,6 +402,52 @@ inline void handleNTPServersPatch(
         });
 }
 
+inline void afterHandleProtocolEnabled(
+    const bool protocolEnabled,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& netBasePath, const std::string& redfishProperty,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_WARNING("Service not found for protocol: {}",
+                               redfishProperty);
+            messages::resourceNotFound(asyncResp->res, "Protocol",
+                                       redfishProperty);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus method call failed with error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& entry : subtree)
+    {
+        if (entry.first.starts_with(netBasePath))
+        {
+            if (entry.second.empty())
+            {
+                BMCWEB_LOG_ERROR(
+                    "Protocol handler: Mapper returned entry with no service");
+                continue;
+            }
+            setDbusProperty(asyncResp, redfishProperty,
+                            entry.second.begin()->first, entry.first,
+                            "xyz.openbmc_project.Control.Service.Attributes",
+                            "Running", protocolEnabled);
+            setDbusProperty(asyncResp, redfishProperty,
+                            entry.second.begin()->first, entry.first,
+                            "xyz.openbmc_project.Control.Service.Attributes",
+                            "Enabled", protocolEnabled);
+            return;
+        }
+    }
+    messages::propertyNotWritable(asyncResp->res, redfishProperty);
+}
+
 inline void handleProtocolEnabled(
     const bool protocolEnabled,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -411,42 +457,8 @@ inline void handleProtocolEnabled(
         "xyz.openbmc_project.Control.Service.Attributes"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/control/service", 0, interfaces,
-        // ast-grep-ignore: long-lambda
-        [protocolEnabled, asyncResp, netBasePath,
-         redfishProperty = std::string(redfishProperty)](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            for (const auto& entry : subtree)
-            {
-                if (entry.first.starts_with(netBasePath))
-                {
-                    if (entry.second.empty())
-                    {
-                        BMCWEB_LOG_ERROR(
-                            "Protocol handler: Mapper returned entry with no service");
-                        continue;
-                    }
-                    setDbusProperty(
-                        asyncResp, redfishProperty, entry.second.begin()->first,
-                        entry.first,
-                        "xyz.openbmc_project.Control.Service.Attributes",
-                        "Running", protocolEnabled);
-                    setDbusProperty(
-                        asyncResp, redfishProperty, entry.second.begin()->first,
-                        entry.first,
-                        "xyz.openbmc_project.Control.Service.Attributes",
-                        "Enabled", protocolEnabled);
-                    return;
-                }
-            }
-            messages::propertyNotWritable(asyncResp->res, redfishProperty);
-        });
+        std::bind_front(afterHandleProtocolEnabled, protocolEnabled, asyncResp,
+                        netBasePath, std::string(redfishProperty)));
 }
 
 inline void getNTPProtocolEnabled(
