@@ -533,6 +533,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7ae4314_c75b7f9c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2026-08-27T15:28:44Z",
+      "side": 1,
+      "message": "We deffinitly have the real use case to remove an attribute. If someone made a mistake and did a PATCH with a bad value in Attributes, how would they remove that mistake? There is no clear action, and setting the attribute to \"null\" is not a good solution. Unless you want to make a PATCH to attributes overrite the current values? But since it is not a list, that doesn\u0027t make intuitive sense.",
+      "parentUuid": "8daf4c99_4858757f",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80fe483f_fb29c2c6",
         "filename": "redfish-core/src/redfish.cpp",
         "patchSetId": 14
