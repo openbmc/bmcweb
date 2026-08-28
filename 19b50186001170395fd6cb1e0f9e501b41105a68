@@ -26,6 +26,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de8b1534_93d72cd2",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-28T09:52:09Z",
+      "side": 1,
+      "message": "This should be using the shared typed unpacking path from json_utils (preferred) or explicitly validate each array element before conversion.",
+      "range": {
+        "startLine": 284,
+        "startChar": 16,
+        "endLine": 284,
+        "endChar": 72
+      },
+      "revId": "19b50186001170395fd6cb1e0f9e501b41105a68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c21e1cfc_c01945b1",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-28T09:52:09Z",
+      "side": 1,
+      "message": "Should we really use array here, since Bios CSDL defines Attributes as a dynamic object of BIOS setting values, not an array, right???",
+      "range": {
+        "startLine": 378,
+        "startChar": 4,
+        "endLine": 378,
+        "endChar": 60
+      },
+      "revId": "19b50186001170395fd6cb1e0f9e501b41105a68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bf8fb46_60e93957",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 1
