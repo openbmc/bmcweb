@@ -746,6 +746,61 @@ inline int assignBootParameters(const std::string& rfSource,
     return 0;
 }
 
+inline void afterGetBootProgress(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR ||
+            ec.value() == boost::asio::error::host_unreachable)
+        {
+            BMCWEB_LOG_DEBUG("Boot progress unavailable: {}", ec);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const std::string* bootProgressStr = nullptr;
+    const uint64_t* lastStateTime = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "BootProgress",
+        bootProgressStr, "BootProgressLastUpdate", lastStateTime);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (bootProgressStr != nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Boot Progress: {}", *bootProgressStr);
+        asyncResp->res.jsonValue["BootProgress"]["LastState"] =
+            dbusToRfBootProgress(*bootProgressStr);
+    }
+
+    if (lastStateTime == nullptr)
+    {
+        return;
+    }
+
+    // BootProgressLastUpdate is the last time the BootProgress property
+    // was updated. The time is the Epoch time, number of microseconds
+    // since 1 Jan 1970 00::00::00 UTC."
+    // https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/
+    // yaml/xyz/openbmc_project/State/Boot/Progress.interface.yaml#L11
+
+    // Convert to ISO 8601 standard
+    asyncResp->res.jsonValue["BootProgress"]["LastStateTime"] =
+        redfish::time_utils::getDateTimeUintUs(*lastStateTime);
+}
+
 /**
  * @brief Retrieves boot progress of the system
  *
@@ -759,62 +814,10 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     sdbusplus::object_path path =
         systems_utils::getHostStateObjectPath(computerSystemIndex);
-    dbus::utility::getProperty<std::string>(
+    dbus::utility::getAllProperties(
         systems_utils::getHostStateServiceName(computerSystemIndex), path,
-        "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code ec,
-                    const std::string& bootProgressStr) {
-            if (ec)
-            {
-                // BootProgress is an optional object so just do nothing if
-                // not found
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG("Boot Progress: {}", bootProgressStr);
-
-            asyncResp->res.jsonValue["BootProgress"]["LastState"] =
-                dbusToRfBootProgress(bootProgressStr);
-        });
-}
-
-/**
- * @brief Retrieves boot progress Last Update of the system
- *
- * @param[in] asyncResp  Shared pointer for generating response message.
- * @param[in] computerSystemIndex Index associated with the requested system
- *
- * @return None.
- */
-inline void getBootProgressLastStateTime(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const uint64_t computerSystemIndex)
-{
-    sdbusplus::object_path path =
-        systems_utils::getHostStateObjectPath(computerSystemIndex);
-    dbus::utility::getProperty<uint64_t>(
-        systems_utils::getHostStateServiceName(computerSystemIndex), path,
-        "xyz.openbmc_project.State.Boot.Progress", "BootProgressLastUpdate",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const uint64_t lastStateTime) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("D-BUS response error {}", ec);
-                return;
-            }
-
-            // BootProgressLastUpdate is the last time the BootProgress property
-            // was updated. The time is the Epoch time, number of microseconds
-            // since 1 Jan 1970 00::00::00 UTC."
-            // https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/
-            // yaml/xyz/openbmc_project/State/Boot/Progress.interface.yaml#L11
-
-            // Convert to ISO 8601 standard
-            asyncResp->res.jsonValue["BootProgress"]["LastStateTime"] =
-                redfish::time_utils::getDateTimeUintUs(lastStateTime);
-        });
+        "xyz.openbmc_project.State.Boot.Progress",
+        std::bind_front(afterGetBootProgress, asyncResp));
 }
 
 /**
@@ -3191,7 +3194,6 @@ inline void processComputerSystemGet(
     getHostState(asyncResp, computerSystemIndex);
     getBootProperties(asyncResp, computerSystemIndex);
     getBootProgress(asyncResp, computerSystemIndex);
-    getBootProgressLastStateTime(asyncResp, computerSystemIndex);
     getHostWatchdogTimer(asyncResp);
     getPowerRestorePolicy(asyncResp, computerSystemIndex);
     getStopBootOnFault(asyncResp);
