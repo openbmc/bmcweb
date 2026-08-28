@@ -33,6 +33,24 @@
       "message": "It looks good to me",
       "revId": "5c9dd17948df0fb47b30d8fbd2afe284602adec2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb9a4f00_20728235",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002932
+      },
+      "writtenOn": "2026-08-28T05:52:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1b63bda4_9fc51432",
+      "revId": "5c9dd17948df0fb47b30d8fbd2afe284602adec2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
