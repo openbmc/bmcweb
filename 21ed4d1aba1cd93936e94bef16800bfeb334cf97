@@ -16,6 +16,52 @@
       "message": "Looks good to me.",
       "revId": "21ed4d1aba1cd93936e94bef16800bfeb334cf97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01b85691_8fc6c2b1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2383,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-08-28T10:21:53Z",
+      "side": 1,
+      "message": "nit: can this be flattened to a single condition?",
+      "range": {
+        "startLine": 2375,
+        "startChar": 3,
+        "endLine": 2383,
+        "endChar": 5
+      },
+      "revId": "21ed4d1aba1cd93936e94bef16800bfeb334cf97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b80b7ce_3ba2cc13",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2411,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-08-28T10:21:53Z",
+      "side": 1,
+      "message": "nit: can this be flattened to a single condition?",
+      "range": {
+        "startLine": 2399,
+        "startChar": 4,
+        "endLine": 2411,
+        "endChar": 5
+      },
+      "revId": "21ed4d1aba1cd93936e94bef16800bfeb334cf97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
