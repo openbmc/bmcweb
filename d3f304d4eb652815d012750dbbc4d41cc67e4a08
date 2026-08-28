@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6bc3849_10871e76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-28T07:58:37Z",
+      "side": 1,
+      "message": "Sure, thanks for acknowledging this.\nI have rebased to the latest patch now.",
+      "parentUuid": "0f73adcc_e049f241",
+      "revId": "d3f304d4eb652815d012750dbbc4d41cc67e4a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0da4e7f1_7de1f5fb",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3878f80a_06540629",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-28T07:58:37Z",
+      "side": 1,
+      "message": "Thanks for the catching!\nI have refined it to use `dbus::utility::async_method_call() in PS19.`",
+      "parentUuid": "0da4e7f1_7de1f5fb",
+      "range": {
+        "startLine": 597,
+        "startChar": 4,
+        "endLine": 597,
+        "endChar": 51
+      },
+      "revId": "d3f304d4eb652815d012750dbbc4d41cc67e4a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04605ab1_69b92bfd",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-08-27T19:18:20Z",
       "side": 1,
       "message": "Do we need a check similar to line 402 and 408 similar to the GET path?",
+      "range": {
+        "startLine": 637,
+        "startChar": 0,
+        "endLine": 637,
+        "endChar": 2
+      },
+      "revId": "d3f304d4eb652815d012750dbbc4d41cc67e4a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a89ead04_a6c38fd5",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-28T07:58:37Z",
+      "side": 1,
+      "message": "Sure, validator added in PS19 as well.\nThanks for the catching!",
+      "parentUuid": "04605ab1_69b92bfd",
       "range": {
         "startLine": 637,
         "startChar": 0,
