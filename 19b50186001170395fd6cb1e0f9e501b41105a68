@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51538b38_0a887147",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-28T07:30:47Z",
+      "side": 1,
+      "message": "Please follow 50/72 formatting.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 57
+      },
+      "revId": "19b50186001170395fd6cb1e0f9e501b41105a68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bf8fb46_60e93957",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-08-28T07:30:47Z",
+      "side": 1,
+      "message": "Already emits request body error on failure.",
+      "range": {
+        "startLine": 379,
+        "startChar": 4,
+        "endLine": 382,
+        "endChar": 58
+      },
+      "revId": "19b50186001170395fd6cb1e0f9e501b41105a68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
