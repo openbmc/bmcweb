@@ -281,7 +281,7 @@ static LogParseError fillEventLogEntryJson(
     }
 
     // Fill in the log entry with the gathered data
-    logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+    logEntryJson["@odata.type"] = "#LogEntry.v1_15_0.LogEntry";
     logEntryJson["@odata.id"] =
         boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}",
                             collectionStr, memberId, logEntryID);
@@ -538,7 +538,7 @@ inline void fillEventLogLogEntryFromDbusLogEntry(
     const std::string& collectionStr, const std::string_view memberId,
     const std::string& logEntryDescriptor)
 {
-    objectToFillOut["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+    objectToFillOut["@odata.type"] = "#LogEntry.v1_15_0.LogEntry";
     objectToFillOut["@odata.id"] =
         boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}",
                             collectionStr, memberId, std::to_string(entry.Id));
@@ -623,9 +623,17 @@ inline void afterLogEntriesGetManagedObjects(
             messages::internalError(asyncResp->res);
             return;
         }
+        // Raw-CPER membership is authoritatively signalled by the
+        // xyz.openbmc_project.Logging.CPER.Raw interface being present on the
+        // entry object (it carries no properties, so check the interface list).
+        const bool hasRawCper =
+            std::ranges::any_of(objectPath.second, [](const auto& iface) {
+                return iface.first == "xyz.openbmc_project.Logging.CPER.Raw";
+            });
+        nlohmann::json& entryJson = entriesArray.emplace_back();
         fillEventLogLogEntryFromDbusLogEntry(
-            *optEntry, entriesArray.emplace_back(), collectionStr, memberId,
-            logEntryDescriptor);
+            *optEntry, entryJson, collectionStr, memberId, logEntryDescriptor);
+        fillEventLogCperFromPropertyMap(propsFlattened, entryJson, hasRawCper);
     }
 
     redfish::json_util::sortJsonArrayByKey(entriesArray, "Id");
@@ -706,6 +714,19 @@ inline void afterDBusEventLogEntryGet(
     fillEventLogLogEntryFromDbusLogEntry(
         *optEntry, asyncResp->res.jsonValue, collectionStr, memberId,
         logEntryDescriptor);
+    // The raw counterpart cross-link is added only when the entry exposes the
+    // xyz.openbmc_project.Logging.CPER.Raw interface. That interface has no
+    // properties, so detect it via the object mapper rather than the property
+    // map returned by GetAll.
+    constexpr std::array<std::string_view, 1> rawCperIfaces = {
+        "xyz.openbmc_project.Logging.CPER.Raw"};
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/logging/entry/" + entryID, rawCperIfaces,
+        [asyncResp, resp](const boost::system::error_code& ec2,
+                          const dbus::utility::MapperGetObject& object) {
+            fillEventLogCperFromPropertyMap(resp, asyncResp->res.jsonValue,
+                                            !ec2 && !object.empty());
+        });
 }
 
 inline void dBusEventLogEntryGet(

@@ -943,6 +943,15 @@ inline void handleSystemsLogServiceCollectionGet(
                                 BMCWEB_REDFISH_SYSTEM_URI_NAME);
         logServiceArray.emplace_back(std::move(hostlogger));
     }
+
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
+    {
+        nlohmann::json::object_t rawCper;
+        rawCper["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/CPERRawLog",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        logServiceArray.emplace_back(std::move(rawCper));
+    }
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
 
     constexpr std::array<std::string_view, 1> interfaces = {
@@ -1024,6 +1033,15 @@ inline void handleManagersLogServicesCollectionGet(
             boost::urls::format("/redfish/v1/Managers/{}/LogServices/EventLog",
                                 BMCWEB_REDFISH_MANAGER_URI_NAME);
         logServiceArray.emplace_back(std::move(eventLog));
+    }
+
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
+    {
+        nlohmann::json::object_t rawCper;
+        rawCper["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Managers/{}/LogServices/CPERRawLog",
+            BMCWEB_REDFISH_MANAGER_URI_NAME);
+        logServiceArray.emplace_back(std::move(rawCper));
     }
 
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
