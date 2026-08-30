@@ -16,6 +16,24 @@
       "message": "Hi! Can you make sure you are on your company\u0027s CCLA and then an admin should be able to add you to their approved Gerrit list so CI starts automatically. Thanks!",
       "revId": "f097d4fe917a0b08401b695d8b155a26a2d0a740",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8126a2af_06851f40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-08-30T08:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "134c716e_04dbee9a",
+      "revId": "f097d4fe917a0b08401b695d8b155a26a2d0a740",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
