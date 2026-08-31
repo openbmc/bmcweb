@@ -13,15 +13,18 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/json_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 
@@ -140,6 +143,73 @@ inline void handleSecureBootHead(
         "</redfish/v1/JsonSchemas/SecureBoot/SecureBoot.json>; rel=describedby");
 }
 
+/**
+ * Handle PATCH of the SecureBoot resource.
+ *
+ * SecureBootEnable is the administrator's request to change the setting;
+ * it is staged in the BIOSConfig.SecureBoot PendingEnable property for
+ * the host firmware to apply at next boot. SecureBootCurrentBoot and
+ * SecureBootMode are read-only facts about the current boot and are
+ * rejected here.
+ */
+inline void handleSecureBootPatch(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    [[maybe_unused]] const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, aResp))
+    {
+        return;
+    }
+
+    std::optional<std::string> secureBootCurrentBoot;
+    std::optional<std::string> secureBootMode;
+    std::optional<bool> secureBootEnable;
+    if (!json_util::readJsonPatch(                          //
+            req, aResp->res,                                //
+            "SecureBootCurrentBoot", secureBootCurrentBoot, //
+            "SecureBootEnable", secureBootEnable,           //
+            "SecureBootMode", secureBootMode))
+    {
+        return;
+    }
+
+    constexpr const char* sbService = "xyz.openbmc_project.BIOSConfigManager";
+    constexpr const char* sbPath =
+        "/xyz/openbmc_project/bios_config/secure_boot";
+    constexpr const char* sbIface = "xyz.openbmc_project.BIOSConfig.SecureBoot";
+
+    // SecureBootCurrentBoot and SecureBootMode are read-only per the
+    // Redfish SecureBoot schema: they describe the state of the current
+    // boot, which only the host firmware can know. Host-firmware state
+    // reporting over the Redfish Host Interface will enable writing them
+    // for the host identity once bootstrap account support is available.
+    if (secureBootCurrentBoot)
+    {
+        messages::propertyNotWritable(aResp->res, "SecureBootCurrentBoot");
+        return;
+    }
+    if (secureBootMode)
+    {
+        messages::propertyNotWritable(aResp->res, "SecureBootMode");
+        return;
+    }
+
+    if (secureBootEnable)
+    {
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, sbService, sbPath, sbIface,
+            "PendingEnable", *secureBootEnable,
+            [aResp](const boost::system::error_code& ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("Failed to set PendingEnable: {}", ec);
+                    messages::internalError(aResp->res);
+                }
+            });
+    }
+}
+
 inline void requestRoutesSecureBoot(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/SecureBoot/")
@@ -150,5 +220,9 @@ inline void requestRoutesSecureBoot(App& app)
         .privileges(redfish::privileges::getSecureBoot)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSecureBootGet, std::ref(app)));
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/SecureBoot/")
+        .privileges(redfish::privileges::patchSecureBoot)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleSecureBootPatch, std::ref(app)));
 }
 } // namespace redfish
