@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f797a724_fff629e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-31T19:40:17Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "ac1f78dd_e0d7b52d",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 6
+      },
+      "revId": "13f8fa7afc119103edce3a7b34fc9ff665d65d79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc9a6da1_8bc24c45",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-08-31T19:00:36Z",
       "side": 1,
       "message": "This was reported? Or you are looking at logs with tons of these in them ?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 2
+      },
+      "revId": "13f8fa7afc119103edce3a7b34fc9ff665d65d79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6029ae67_4de730f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-08-31T19:40:17Z",
+      "side": 1,
+      "message": "I was looking at a system that had a bunch, seemed like a trivial fix.  We have the same behavior for http1.1, so I figured we should make them match.\n\n\nSome day we need to abstract out the \"socket\" class from the http1/http2 connection class so this stuff is actually common in code, but that\u0027s a problem for another day.",
+      "parentUuid": "dc9a6da1_8bc24c45",
       "range": {
         "startLine": 20,
         "startChar": 0,
