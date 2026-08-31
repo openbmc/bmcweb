@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81909a07_dc0626e9",
+        "filename": "features/virtual_media/vm_websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-08-31T11:36:19Z",
+      "side": 1,
+      "message": "The *4 was not added in my patch; it was introduced earlier in commit https://github.com/openbmc/bmcweb/commit/4ee8f0b7c758125b938ff7530f4ef460c3703b62 to prevent websocket buffer overflows when incoming data arrives before previous data is fully processed.\nI kept this behavior unchanged in my change.\n\nIn recent patch (Patchset 4) I added a brief in-code comment to clarify this, so future readers are not confused.",
+      "parentUuid": "9227ed8a_201f4a1a",
+      "revId": "de6cf227a6a3302343d16296ebee87092da9f137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b159ed6_9d09ae56",
         "filename": "features/virtual_media/vm_websocket.hpp",
         "patchSetId": 3
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a145504_395163fc",
+        "filename": "features/virtual_media/vm_websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-08-31T11:36:19Z",
+      "side": 1,
+      "message": "Good idea. I initially kept separate definitions to preserve the existing code structure, but I addressed this in Patchset 4 by introducing a shared definition.",
+      "parentUuid": "6b159ed6_9d09ae56",
+      "revId": "de6cf227a6a3302343d16296ebee87092da9f137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f922789_bcec7791",
         "filename": "features/virtual_media/vm_websocket.hpp",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-26T10:56:54Z",
       "side": 1,
       "message": "Considered memory impact with multiple concurrent VM websocket connections?",
+      "revId": "de6cf227a6a3302343d16296ebee87092da9f137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5888287f_a3decbf7",
+        "filename": "features/virtual_media/vm_websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-08-31T11:36:19Z",
+      "side": 1,
+      "message": "I tested concurrent connections to two different slots at once and saw no issues.\n\nIs there another multi-connection scenario you’d like me to validate?",
+      "parentUuid": "2f922789_bcec7791",
       "revId": "de6cf227a6a3302343d16296ebee87092da9f137",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
