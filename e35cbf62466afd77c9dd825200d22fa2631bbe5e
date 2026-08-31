@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ec6307_ec3fe427",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:13:31Z",
+      "side": 1,
+      "message": "Unknown falls through here and just left off.. I think that is okay.. Another choice for unknown would be null",
+      "revId": "e35cbf62466afd77c9dd825200d22fa2631bbe5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
