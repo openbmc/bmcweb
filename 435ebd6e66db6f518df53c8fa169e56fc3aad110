@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8018db4a_89d7dc88",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T07:34:32Z",
+      "side": 1,
+      "message": "Thanks for acknowledging this, and thanks for the patch as well!",
+      "parentUuid": "70172e3f_620a370a",
+      "range": {
+        "startLine": 231,
+        "startChar": 24,
+        "endLine": 231,
+        "endChar": 68
+      },
+      "revId": "435ebd6e66db6f518df53c8fa169e56fc3aad110",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18725cad_1df4c93b",
