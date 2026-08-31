@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ab0282a_38d40dbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-31T21:39:07Z",
+      "side": 1,
+      "message": "nit: I think it would be better to include the new unit testcases in the commit which introduces the code. It is easier to review the tests for completness when also reviewing the code.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "c18d14612b2eea93c4981efb3a8677a1f7d70353",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6ed70f37_e185dd07",
