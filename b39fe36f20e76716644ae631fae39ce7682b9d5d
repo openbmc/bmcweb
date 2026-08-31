@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d1a374_4da42a5d",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-31T18:45:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af1d6d80_a583cb37",
+      "range": {
+        "startLine": 97,
+        "startChar": 30,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c389419_e2d16eae",
@@ -84,6 +108,30 @@
       "writtenOn": "2026-07-29T19:45:49Z",
       "side": 1,
       "message": "Can we just do Health/State based on Functional / Present like we do other places?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 80
+      },
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06b0b6d7_b3b7a51f",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-31T18:45:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c389419_e2d16eae",
       "range": {
         "startLine": 104,
         "startChar": 0,
@@ -140,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9af626_ea39944d",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-31T18:45:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c56a28c6_46c57fd8",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 80
+      },
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b08a5974_cc73c43f",
@@ -157,6 +229,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "868fc56c_fa38f698",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-31T18:45:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b08a5974_cc73c43f",
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77b94fd1_5db27730",
@@ -170,6 +260,24 @@
       "writtenOn": "2026-06-29T14:09:15Z",
       "side": 1,
       "message": "Part number is https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70197",
+      "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ad235f7_19aa5780",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-08-31T18:45:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "77b94fd1_5db27730",
       "revId": "b39fe36f20e76716644ae631fae39ce7682b9d5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
