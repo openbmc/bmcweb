@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1d07bd6_a270470e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T11:00:57Z",
+      "side": 1,
+      "message": "Could you link any currently open PDI patch in the commit message?",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620313b5_eaec8a03",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T11:00:57Z",
+      "side": 1,
+      "message": "StartUpdate currently only throws these[https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Software/Update.errors.yaml] errors, so this function is essentially dead code",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "713518b0_04c94be7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T11:00:57Z",
+      "side": 1,
+      "message": "This error does not exist in https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Software/Image.errors.yaml",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afc6e2a3_8b85d4f5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T11:00:57Z",
+      "side": 1,
+      "message": "Should we be exposing D-Bus interfaces to the user?",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f8fd254_e9fd16d9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T11:00:57Z",
+      "side": 1,
+      "message": "Error doesn\u0027t exist in PDI",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb9a181_6a24d503",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T11:00:57Z",
+      "side": 1,
+      "message": "nit: Move the Error logs to before the new check",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
