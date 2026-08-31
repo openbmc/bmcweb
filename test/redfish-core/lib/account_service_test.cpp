@@ -22,32 +22,31 @@ TEST(Conversion, PositiveToUint64)
 {
     std::optional<uint64_t> passwordExpiration;
 
-    passwordExpiration = passwordExpirationToUint64(nullptr);
+    passwordExpiration = expirationToUint64(nullptr);
     EXPECT_THAT(passwordExpiration, Optional(Eq(0)));
 
-    passwordExpiration = passwordExpirationToUint64("1970-01-01T00:00:00");
+    passwordExpiration = expirationToUint64("1970-01-01T00:00:00");
     EXPECT_THAT(passwordExpiration, Eq(std::nullopt));
 
-    passwordExpiration = passwordExpirationToUint64("2024-10-17T18:12:04");
+    passwordExpiration = expirationToUint64("2024-10-17T18:12:04");
     EXPECT_THAT(passwordExpiration, Optional(Eq(1729188724)));
 
-    passwordExpiration = passwordExpirationToUint64("2024-10-17T18:12:04Z");
+    passwordExpiration = expirationToUint64("2024-10-17T18:12:04Z");
     EXPECT_THAT(passwordExpiration, Optional(Eq(1729188724)));
 
-    passwordExpiration =
-        passwordExpirationToUint64("2024-10-17T18:12:04+03:00");
+    passwordExpiration = expirationToUint64("2024-10-17T18:12:04+03:00");
     EXPECT_THAT(passwordExpiration, Optional(Eq(1729177924)));
 }
 
 TEST(Conversion, NegativeToUint64)
 {
-    EXPECT_EQ(passwordExpirationToUint64("01-02-03"), std::nullopt);
+    EXPECT_EQ(expirationToUint64("01-02-03"), std::nullopt);
 
-    EXPECT_EQ(passwordExpirationToUint64("1912-02-03"), std::nullopt);
+    EXPECT_EQ(expirationToUint64("1912-02-03"), std::nullopt);
 
-    EXPECT_EQ(passwordExpirationToUint64("2024-10-17T00:00"), std::nullopt);
+    EXPECT_EQ(expirationToUint64("2024-10-17T00:00"), std::nullopt);
 
-    EXPECT_EQ(passwordExpirationToUint64("ABC"), std::nullopt);
+    EXPECT_EQ(expirationToUint64("ABC"), std::nullopt);
 }
 
 TEST(Conversion, PositiveToJson)
