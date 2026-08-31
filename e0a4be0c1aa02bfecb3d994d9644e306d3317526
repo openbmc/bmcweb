@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fda78ad_ad119d46",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T10:48:29Z",
+      "side": 1,
+      "message": "Could you clear the fwAvailableTimer here? Otherwise, the timer would add another InternalError message to the response after it expires",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "294c5831_f5c60108",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T10:48:29Z",
+      "side": 1,
+      "message": "Can we close the stream in the error path?",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d172f9_3d6db2fa",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1002297
+      },
+      "writtenOn": "2026-08-31T10:48:29Z",
+      "side": 1,
+      "message": "Same as above",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
