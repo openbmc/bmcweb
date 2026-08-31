@@ -3,6 +3,97 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27d97db1_ebad2ad9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:34:27Z",
+      "side": 1,
+      "message": "Please wrap at 50/72. We follow https://cbea.ms/git-commit/",
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a6ad2a5_a29c357f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:34:27Z",
+      "side": 1,
+      "message": "Why do we need this commit?",
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba833125_e0c49c61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:34:27Z",
+      "side": 1,
+      "message": "Tested? Redfish validator, etc",
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcfd750c_fe2097be",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:34:27Z",
+      "side": 1,
+      "message": "Let\u0027s follow how we do this elsewhere..",
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ca2f600_1e44fef1",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:34:27Z",
+      "side": 1,
+      "message": "Let\u0027s make sure to use the Redfish Generated Enums here.. Less likely to make a mistake",
+      "range": {
+        "startLine": 89,
+        "startChar": 61,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89fc7af5_82092b2e",
         "filename": "redfish-core/lib/secure_boot.hpp",
         "patchSetId": 6
@@ -19,6 +110,29 @@
         "startChar": 0,
         "endLine": 122,
         "endChar": 52
+      },
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30008b70_59175b40",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:34:27Z",
+      "side": 1,
+      "message": "/redfish/v1/Systems/badsystemid/SecureBoot/ should return 404",
+      "range": {
+        "startLine": 145,
+        "startChar": 23,
+        "endLine": 145,
+        "endChar": 60
       },
       "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
