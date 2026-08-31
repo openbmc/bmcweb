@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a3138b4_cbf55c8f",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:30:52Z",
+      "side": 1,
+      "message": "Same comment on the GET.. \n\n    dbus::utility::getAllProperties(\n        \"xyz.openbmc_project.BIOSConfigManager\",\n        \"/xyz/openbmc_project/bios_config/secure_boot\",\n        \"xyz.openbmc_project.BIOSConfig.SecureBoot\",\n\nIs this documented somewhere? In PDI?",
+      "range": {
+        "startLine": 176,
+        "startChar": 1,
+        "endLine": 180,
+        "endChar": 80
+      },
+      "revId": "5a56c62e70dd7dbda839e0cabbb8fa5c3572420d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdc06edb_21fb02ed",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:30:52Z",
+      "side": 1,
+      "message": "Doesn\u0027t readJsonPatch already handle this ?",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 5
+      },
+      "revId": "5a56c62e70dd7dbda839e0cabbb8fa5c3572420d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
