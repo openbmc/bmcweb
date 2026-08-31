@@ -659,7 +659,7 @@ class HTTP2Connection :
         {
             // EOF is normal when client closes HTTP/2 connection
             // Only log non-EOF errors
-            if (ec != boost::asio::error::eof)
+            if (ec != boost::asio::error::eof || ec != boost::asio::error::stream_truncated)
             {
                 BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
                                  ec.message());
