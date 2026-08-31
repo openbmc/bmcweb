@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89fc7af5_82092b2e",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T20:30:22Z",
+      "side": 1,
+      "message": "These are hardcoded.. Is this documented in PDI ?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 52
+      },
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
