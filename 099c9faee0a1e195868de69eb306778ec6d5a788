@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72191b1d_5fb44c32",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T05:37:42Z",
+      "side": 0,
+      "message": "The legacy implementation has this logs while your implementation doesn\u0027t.\nIs this intentional?",
+      "range": {
+        "startLine": 775,
+        "startChar": 12,
+        "endLine": 775,
+        "endChar": 67
+      },
+      "revId": "099c9faee0a1e195868de69eb306778ec6d5a788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
