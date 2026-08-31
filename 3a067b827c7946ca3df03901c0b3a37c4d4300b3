@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03d09eeb_30588207",
+        "filename": "redfish-core/lib/systems_logservices_dump.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T09:21:14Z",
+      "side": 1,
+      "message": "nit:\nShould we change `chassisId` to `systemId`?",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "3a067b827c7946ca3df03901c0b3a37c4d4300b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9f2848d_3758cab7",
+        "filename": "redfish-core/lib/systems_logservices_dump.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T09:21:14Z",
+      "side": 1,
+      "message": "This as well.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 33
+      },
+      "revId": "3a067b827c7946ca3df03901c0b3a37c4d4300b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f807a1d8_1b31f446",
+        "filename": "redfish-core/lib/systems_logservices_dump.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T09:21:14Z",
+      "side": 1,
+      "message": "and this?",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 33
+      },
+      "revId": "3a067b827c7946ca3df03901c0b3a37c4d4300b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
