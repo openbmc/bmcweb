@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfe4ea26_9ff81266",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T08:39:22Z",
+      "side": 1,
+      "message": "Can we modify the line to as follows?\n```\nboost::urls::url\u0026 entriesPath, const std::string\u0026 dumpType\n```",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 56
+      },
+      "revId": "a81819c7b95c136f5f83ed0f4caedffd412ccd07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62d631fd_53279123",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T08:39:22Z",
+      "side": 1,
+      "message": "This looked very similar to L419-L450.\nIs it possible to extract the logic here into a util function?",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 350,
+        "endChar": 56
+      },
+      "revId": "a81819c7b95c136f5f83ed0f4caedffd412ccd07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d3312bf_5940e96f",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T08:39:22Z",
+      "side": 1,
+      "message": "Here as well, can we do pass-by-reference and `const` here?",
+      "range": {
+        "startLine": 376,
+        "startChar": 4,
+        "endLine": 376,
+        "endChar": 56
+      },
+      "revId": "a81819c7b95c136f5f83ed0f4caedffd412ccd07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
