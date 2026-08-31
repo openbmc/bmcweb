@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f63a6114_862314a7",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T08:08:41Z",
+      "side": 1,
+      "message": "Should we use `BMCWEB_LOG_DEBUG()` here?",
+      "range": {
+        "startLine": 167,
+        "startChar": 12,
+        "endLine": 167,
+        "endChar": 61
+      },
+      "revId": "b9bf82c48510db9a8760cf18d215ffa1df0704cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce093bda_8d942c10",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T08:08:41Z",
+      "side": 1,
+      "message": "The association names doesn\u0027t match with the ones defined in the mentioned PDI patch, please update it.",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 36
+      },
+      "revId": "b9bf82c48510db9a8760cf18d215ffa1df0704cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b906bb91_d754528c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-08-31T08:08:41Z",
+      "side": 1,
+      "message": "Can we make this into callback instead of lambda?",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 19
+      },
+      "revId": "b9bf82c48510db9a8760cf18d215ffa1df0704cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
