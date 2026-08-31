@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0287852a_7b0664dd",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-08-31T19:32:52Z",
+      "side": 1,
+      "message": "getPCIeDeviceUUID() follows existing pattern of using the service returned for Inventory.Item.PCIeDevice, as getAssetInfo(), getResourceState(), and getResourceHealth() already do.",
+      "revId": "8e0dc2c4c49ba403f4ca4410aada8eb3e64b68fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
