@@ -20,6 +20,46 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "01da3fc3_0f73f40d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-31T21:32:05Z",
+      "side": 1,
+      "message": "Just one minor nit comment, but otherwise looks good to me.",
+      "revId": "e35cbf62466afd77c9dd825200d22fa2631bbe5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e012ee3_af5c7e5b",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-08-31T21:32:05Z",
+      "side": 1,
+      "message": "nit: Please put in alphabetical order",
+      "range": {
+        "startLine": 1369,
+        "startChar": 2,
+        "endLine": 1369,
+        "endChar": 12
+      },
+      "revId": "e35cbf62466afd77c9dd825200d22fa2631bbe5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "52ec6307_ec3fe427",
         "filename": "redfish-core/lib/fabric.hpp",
         "patchSetId": 12
