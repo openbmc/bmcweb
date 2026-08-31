@@ -1119,10 +1119,10 @@ inline void handleLDAPPatch(LdapPatchParams&& input,
     });
 }
 
-inline nlohmann::json passwordExpirationToJson(uint64_t value,
-                                               std::string_view timezone = "")
+inline nlohmann::json expirationToJson(uint64_t value,
+                                       std::string_view timezone = "")
 {
-    // value indicating that password does not expire
+    // value indicating that password or account does not expire
     if (value == 0)
     {
         return nullptr;
@@ -1131,13 +1131,13 @@ inline nlohmann::json passwordExpirationToJson(uint64_t value,
     return time_utils::getDateTimeUint(value, timezone);
 }
 
-inline std::optional<uint64_t> passwordExpirationToUint64(
+inline std::optional<uint64_t> expirationToUint64(
     const std::variant<std::string, std::nullptr_t>& value)
 {
     const std::string* str = std::get_if<std::string>(&value);
     if (str == nullptr)
     {
-        // value indicating that password does not expire
+        // value indicating that password or account does not expire
         return 0;
     }
 
@@ -1173,6 +1173,7 @@ struct UserUpdateParams
     std::shared_ptr<persistent_data::UserSession> session;
     std::string dbusObjectPath;
     std::optional<std::variant<std::string, std::nullptr_t>> passwordExpiration;
+    std::optional<std::variant<std::string, std::nullptr_t>> accountExpiration;
 };
 
 inline void afterVerifyUserExists(
@@ -1267,7 +1268,7 @@ inline void afterVerifyUserExists(
     if (params.passwordExpiration)
     {
         const std::optional<uint64_t> passwordExpiration =
-            passwordExpirationToUint64(*params.passwordExpiration);
+            expirationToUint64(*params.passwordExpiration);
         if (!passwordExpiration)
         {
             messages::propertyValueFormatError(asyncResp->res, nullptr,
@@ -1280,6 +1281,23 @@ inline void afterVerifyUserExists(
             params.dbusObjectPath, "xyz.openbmc_project.User.Attributes",
             "PasswordExpiration", *passwordExpiration);
     }
+
+    if (params.accountExpiration)
+    {
+        const std::optional<uint64_t> accountExpiration =
+            expirationToUint64(*params.accountExpiration);
+        if (!accountExpiration)
+        {
+            messages::propertyValueFormatError(asyncResp->res, nullptr,
+                                               "AccountExpiration");
+            return;
+        }
+
+        setDbusProperty(
+            asyncResp, "AccountExpiration", "xyz.openbmc_project.User.Manager",
+            params.dbusObjectPath, "xyz.openbmc_project.User.Attributes",
+            "AccountExpiration", *accountExpiration);
+    }
 }
 
 inline void updateUserProperties(
@@ -1290,15 +1308,18 @@ inline void updateUserProperties(
     const std::optional<std::vector<std::string>>& accountTypes, bool userSelf,
     const std::shared_ptr<persistent_data::UserSession>& session,
     const std::optional<std::variant<std::string, std::nullptr_t>>&
-        passwordExpiration)
+        passwordExpiration,
+    const std::optional<std::variant<std::string, std::nullptr_t>>&
+        accountExpiration)
 {
     sdbusplus::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     std::string dbusObjectPath(tempObjPath);
 
     UserUpdateParams params{
-        username,     password, enabled, roleId,         locked,
-        accountTypes, userSelf, session, dbusObjectPath, passwordExpiration};
+        username,       password,           enabled,          roleId,
+        locked,         accountTypes,       userSelf,         session,
+        dbusObjectPath, passwordExpiration, accountExpiration};
 
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
@@ -1918,6 +1939,7 @@ struct UserCreateProperties
     bool enabled{};
     std::optional<std::vector<std::string>> accountTypes;
     std::optional<std::variant<std::string, std::nullptr_t>> passwordExpiration;
+    std::optional<std::variant<std::string, std::nullptr_t>> accountExpiration;
 };
 
 inline void processAfterGetAllGroups(
@@ -1993,7 +2015,7 @@ inline void processAfterGetAllGroups(
     if (userCreateProps.passwordExpiration)
     {
         std::optional<uint64_t> passwordExpirationTime =
-            passwordExpirationToUint64(*userCreateProps.passwordExpiration);
+            expirationToUint64(*userCreateProps.passwordExpiration);
         if (!passwordExpirationTime)
         {
             messages::propertyValueFormatError(asyncResp->res, nullptr,
@@ -2010,6 +2032,29 @@ inline void processAfterGetAllGroups(
         // specified
         userProps.emplace_back(
             "xyz.openbmc_project.User.Manager.UserProperty.PasswordExpiration",
+            std::numeric_limits<uint64_t>::max());
+    }
+
+    if (userCreateProps.accountExpiration)
+    {
+        std::optional<uint64_t> accountExpirationTime =
+            expirationToUint64(*userCreateProps.accountExpiration);
+        if (!accountExpirationTime)
+        {
+            messages::propertyValueFormatError(asyncResp->res, nullptr,
+                                               "AccountExpiration");
+            return;
+        }
+        userProps.emplace_back(
+            "xyz.openbmc_project.User.Manager.UserProperty.AccountExpiration",
+            *accountExpirationTime);
+    }
+    else
+    {
+        // value for CreateUser2 indicating that account expiration is not
+        // specified
+        userProps.emplace_back(
+            "xyz.openbmc_project.User.Manager.UserProperty.AccountExpiration",
             std::numeric_limits<uint64_t>::max());
     }
 
@@ -2053,6 +2098,7 @@ inline void handleAccountCollectionPost(
             "Enabled", enabledJson,                                   //
             "Password", password,                                     //
             "PasswordExpiration", userCreateProps.passwordExpiration, //
+            "AccountExpiration", userCreateProps.accountExpiration,   //
             "RoleId", roleIdJson,                                     //
             "UserName", username                                      //
             ))
@@ -2185,7 +2231,7 @@ inline void handleAccountGet(
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#ManagerAccount.v1_7_0.ManagerAccount";
+                "#ManagerAccount.v1_8_0.ManagerAccount";
             asyncResp->res.jsonValue["Name"] = "User Account";
             asyncResp->res.jsonValue["Description"] = "User Account";
             asyncResp->res.jsonValue["Password"] = nullptr;
@@ -2201,6 +2247,7 @@ inline void handleAccountGet(
                     const bool* userPasswordExpired = nullptr;
                     const std::vector<std::string>* userGroups = nullptr;
                     const uint64_t* passwordExpiration = nullptr;
+                    const uint64_t* accountExpiration = nullptr;
 
                     const bool success = sdbusplus::unpackPropertiesNoThrow(
                         dbus_utils::UnpackErrorPrinter(), interface.second,
@@ -2208,7 +2255,8 @@ inline void handleAccountGet(
                         "UserLockedForFailedAttempt", userLocked,
                         "UserPrivilege", userPrivPtr, "UserPasswordExpired",
                         userPasswordExpired, "UserGroups", userGroups,
-                        "PasswordExpiration", passwordExpiration);
+                        "PasswordExpiration", passwordExpiration,
+                        "AccountExpiration", accountExpiration);
                     if (!success)
                     {
                         messages::internalError(asyncResp->res);
@@ -2287,7 +2335,17 @@ inline void handleAccountGet(
                          std::numeric_limits<uint64_t>::max()))
                     {
                         asyncResp->res.jsonValue["PasswordExpiration"] =
-                            passwordExpirationToJson(*passwordExpiration);
+                            expirationToJson(*passwordExpiration);
+                    }
+
+                    // default value indicating that account expiration is not
+                    // specified
+                    if (accountExpiration &&
+                        (*accountExpiration !=
+                         std::numeric_limits<uint64_t>::max()))
+                    {
+                        asyncResp->res.jsonValue["AccountExpiration"] =
+                            expirationToJson(*accountExpiration);
                     }
                 }
             }
@@ -2398,6 +2456,7 @@ inline void handleAccountPatch(
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
     std::optional<std::variant<std::string, std::nullptr_t>> passwordExpiration;
+    std::optional<std::variant<std::string, std::nullptr_t>> accountExpiration;
 
     if (req.session == nullptr)
     {
@@ -2423,6 +2482,7 @@ inline void handleAccountPatch(
                 "Locked", locked,                         //
                 "Password", password,                     //
                 "PasswordExpiration", passwordExpiration, //
+                "AccountExpiration", accountExpiration,   //
                 "RoleId", roleId,                         //
                 "UserName", newUserName                   //
                 ))
@@ -2456,7 +2516,7 @@ inline void handleAccountPatch(
     {
         updateUserProperties(asyncResp, username, password, enabled, roleId,
                              locked, accountTypes, userSelf, req.session,
-                             passwordExpiration);
+                             passwordExpiration, accountExpiration);
         return;
     }
     dbus::utility::async_method_call(
@@ -2465,7 +2525,8 @@ inline void handleAccountPatch(
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
          locked, userSelf, session = req.session,
          accountTypes(std::move(accountTypes)),
-         passwordExpiration(std::move(passwordExpiration))](
+         passwordExpiration(std::move(passwordExpiration)),
+         accountExpiration(std::move(accountExpiration))](
             const boost::system::error_code& ec, sdbusplus::message_t& m) {
             if (ec)
             {
@@ -2476,7 +2537,7 @@ inline void handleAccountPatch(
 
             updateUserProperties(asyncResp, newUser, password, enabled, roleId,
                                  locked, accountTypes, userSelf, session,
-                                 passwordExpiration);
+                                 passwordExpiration, accountExpiration);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
