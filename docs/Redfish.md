@@ -142,6 +142,7 @@ Fields common to all schemas
 - Password
 - PasswordChangeRequired
 - PasswordExpiration
+- AccountExpiration
 - RoleId
 - StrictAccountTypes
 - UserName
