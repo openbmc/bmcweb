@@ -132,25 +132,26 @@ inline void findAndParseObject(
 /**
  * @brief Function extracts transfer protocol name from URI.
  */
-inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
+inline std::optional<virtual_media::TransferProtocolType>
+    getTransferProtocolTypeFromUri(const std::string& imageUri)
 {
     boost::system::result<boost::urls::url_view> url =
         boost::urls::parse_uri(imageUri);
     if (!url)
     {
-        return "None";
+        return std::nullopt;
     }
     std::string_view scheme = url->scheme();
     if (scheme == "smb")
     {
-        return "CIFS";
+        return virtual_media::TransferProtocolType::CIFS;
     }
     if (scheme == "https")
     {
-        return "HTTPS";
+        return virtual_media::TransferProtocolType::HTTPS;
     }
 
-    return "None";
+    return std::nullopt;
 }
 
 /**
@@ -181,7 +182,7 @@ inline void vmParseInterfaceObject(
                             .jsonValue["Oem"]["OpenBMC"]["WebSocketEndpoint"] =
                             *endpointIdValue;
                         asyncResp->res.jsonValue["TransferProtocolType"] =
-                            "OEM";
+                            virtual_media::TransferProtocolType::OEM;
                     }
                 }
                 if (property == "ImageURL")
@@ -204,8 +205,15 @@ inline void vmParseInterfaceObject(
                         }
 
                         asyncResp->res.jsonValue["Image"] = *imageUrlValue;
-                        asyncResp->res.jsonValue["TransferProtocolType"] =
-                            getTransferProtocolTypeFromUri(*imageUrlValue);
+                        std::optional<virtual_media::TransferProtocolType>
+                            transferProtocolType =
+                                getTransferProtocolTypeFromUri(*imageUrlValue);
+                        if (transferProtocolType)
+                        {
+                            asyncResp->res
+                                .jsonValue["TransferProtocolType"] =
+                                *transferProtocolType;
+                        }
 
                         asyncResp->res.jsonValue["ConnectedVia"] =
                             virtual_media::ConnectedVia::URI;
@@ -262,7 +270,8 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     item["Id"] = resName;
     item["WriteProtected"] = true;
     item["ConnectedVia"] = virtual_media::ConnectedVia::NotConnected;
-    item["MediaTypes"] = nlohmann::json::array_t({"CD", "USBStick"});
+    item["MediaTypes"] = nlohmann::json::array_t(
+        {virtual_media::MediaType::CD, virtual_media::MediaType::USBStick});
     item["TransferMethod"] = virtual_media::TransferMethod::Stream;
     item["Oem"]["OpenBMC"]["@odata.type"] =
         "#OpenBMCVirtualMedia.v1_0_0.VirtualMedia";
