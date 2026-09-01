@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "71d3bc03_dc978c86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-01T16:21:37Z",
+      "side": 1,
+      "message": "Understood, I was trying to make the patch looked smaller and thus I separated them.\nWill align to your suggestion in the future, thanks for acknowledging this!",
+      "parentUuid": "0ab0282a_38d40dbe",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "c18d14612b2eea93c4981efb3a8677a1f7d70353",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6ed70f37_e185dd07",
         "filename": "test/redfish-core/lib/fabric_test.cpp",
         "patchSetId": 7
@@ -58,6 +82,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3697f4ca_8c851b50",
+        "filename": "test/redfish-core/lib/fabric_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-01T16:21:37Z",
+      "side": 1,
+      "message": "Thanks for catching that, removed in PS9.",
+      "parentUuid": "b0c712e2_24b7c562",
+      "revId": "c18d14612b2eea93c4981efb3a8677a1f7d70353",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffe958eb_91b2009e",
@@ -71,6 +113,30 @@
       "writtenOn": "2026-08-31T20:23:35Z",
       "side": 1,
       "message": "Why token for a name ? dbusValue ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 22,
+        "endLine": 104,
+        "endChar": 31
+      },
+      "revId": "c18d14612b2eea93c4981efb3a8677a1f7d70353",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1839f5cd_d5686300",
+        "filename": "test/redfish-core/lib/fabric_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-01T16:21:37Z",
+      "side": 1,
+      "message": "Acknowledged, renamed to `dbusValue` in PS8.",
+      "parentUuid": "ffe958eb_91b2009e",
       "range": {
         "startLine": 104,
         "startChar": 22,
