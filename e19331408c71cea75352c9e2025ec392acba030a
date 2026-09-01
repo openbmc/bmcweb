@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7091dbf_68608890",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-01T06:49:34Z",
+      "side": 1,
+      "message": "Please wrap you commit message by 50/72 formatting. Other than this, patch looks good to me.",
+      "revId": "e19331408c71cea75352c9e2025ec392acba030a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76bc49df_10c83fce",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-01T06:49:34Z",
+      "side": 1,
+      "message": "Can we make this const?",
+      "range": {
+        "startLine": 775,
+        "startChar": 12,
+        "endLine": 775,
+        "endChar": 61
+      },
+      "revId": "e19331408c71cea75352c9e2025ec392acba030a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
