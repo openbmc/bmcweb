@@ -1416,13 +1416,13 @@ functions the same like the default implementation under the System resource.
 - Name
 - PCIeErrors
   - CorrectableErrorCount
-  - NonFatalErrorCount
   - FatalErrorCount
   - L0ToRecoveryCount
+  - NAKReceivedCount
+  - NAKSentCount
+  - NonFatalErrorCount
   - ReplayCount
   - ReplayRolloverCount
-  - NAKSentCount
-  - NAKReceivedCount
   - UnsupportedRequestCount
 
 [1]: https://www.dmtf.org/standards/redfish
