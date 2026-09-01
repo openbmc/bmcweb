@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa9e286c_7ffb21a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-01T11:14:48Z",
+      "side": 1,
+      "message": "Please wrap your commit message properly.",
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43136baa_47da96e6",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -60,6 +77,30 @@
       "writtenOn": "2026-08-27T09:11:20Z",
       "side": 1,
       "message": "Looks like you have changed the behaviour here.\nNot sure if this is intended?\n\nWhy don\u0027t we align with the legacy approach and check if `rfType` is invalid and uses `messages::internalError(async-\u003eres)`?",
+      "range": {
+        "startLine": 858,
+        "startChar": 12,
+        "endLine": 862,
+        "endChar": 13
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08b188a5_5e432dcf",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-01T11:14:48Z",
+      "side": 1,
+      "message": "+1, yes, this patch does introduce a silent behavior change.",
+      "parentUuid": "97e43e90_a54d7d54",
       "range": {
         "startLine": 858,
         "startChar": 12,
