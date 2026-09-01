@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebc7ddf3_c9a2da64",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:15:16Z",
+      "side": 1,
+      "message": "`entriesPath` gets removed in the follow-up (93883) and dumpType becomes an enum in the same follow-up.",
+      "parentUuid": "bfe4ea26_9ff81266",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 56
+      },
+      "revId": "a81819c7b95c136f5f83ed0f4caedffd412ccd07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62d631fd_53279123",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb2d1065_1ca38ace",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:15:16Z",
+      "side": 1,
+      "message": "On a first glance yes, but this type of change is out of scope for this patch. I try to follow-up on this though. Thanks!",
+      "parentUuid": "62d631fd_53279123",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 350,
+        "endChar": 56
+      },
+      "revId": "a81819c7b95c136f5f83ed0f4caedffd412ccd07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d3312bf_5940e96f",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-08-31T08:39:22Z",
       "side": 1,
       "message": "Here as well, can we do pass-by-reference and `const` here?",
+      "range": {
+        "startLine": 376,
+        "startChar": 4,
+        "endLine": 376,
+        "endChar": 56
+      },
+      "revId": "a81819c7b95c136f5f83ed0f4caedffd412ccd07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "497818ce_7b8f086f",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:15:16Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "4d3312bf_5940e96f",
       "range": {
         "startLine": 376,
         "startChar": 4,
