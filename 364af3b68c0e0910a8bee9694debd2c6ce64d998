@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e55d7de0_653de1df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:13:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ef91fc3_b92a25d3",
+      "revId": "364af3b68c0e0910a8bee9694debd2c6ce64d998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b335f5a_2c256fde",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b29f013d_a9ba1548",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:13:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b335f5a_2c256fde",
+      "revId": "364af3b68c0e0910a8bee9694debd2c6ce64d998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6debc938_b2eb2c16",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-26T18:42:36Z",
       "side": 1,
       "message": "I realize these are copy/pastes, so this is fine, but generally we\u0027d combine all of these into a single \"requestroutes\" call for everything in the file.",
+      "revId": "364af3b68c0e0910a8bee9694debd2c6ce64d998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeeba73f_60500c09",
+        "filename": "redfish-core/lib/manager_logservices_dump.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:13:56Z",
+      "side": 1,
+      "message": "Done in the follow-up patch.",
+      "parentUuid": "6debc938_b2eb2c16",
       "revId": "364af3b68c0e0910a8bee9694debd2c6ce64d998",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
