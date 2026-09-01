@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e2292270_1c4f3f4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-01T15:19:58Z",
+      "side": 1,
+      "message": "Acknowledged, attached the redfish service validator as well.",
+      "parentUuid": "4067df9a_ed5550b9",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "e35cbf62466afd77c9dd825200d22fa2631bbe5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bcd4d534_29cea6b7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 12
@@ -83,6 +107,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "60db68bc_6150d32a",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-01T15:19:58Z",
+      "side": 1,
+      "message": "Sure, modified in PS14.",
+      "parentUuid": "6e012ee3_af5c7e5b",
+      "range": {
+        "startLine": 1369,
+        "startChar": 2,
+        "endLine": 1369,
+        "endChar": 12
+      },
+      "revId": "e35cbf62466afd77c9dd825200d22fa2631bbe5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "52ec6307_ec3fe427",
         "filename": "redfish-core/lib/fabric.hpp",
         "patchSetId": 12
@@ -111,6 +159,24 @@
       "writtenOn": "2026-08-31T21:27:18Z",
       "side": 1,
       "message": "For the consistency, would it be better like this?\n```\n\n    if (ec)\n    {\n        if (ec.value() \u003d\u003d EBADR || ec.value() \u003d\u003d boost::system::errc::io_error)\n        {\n            // Not mandatory features thus is okay to skip\n             BMCWEB_LOG_DEBUG(\"PowerState interface absent on {}\", switchPath);\n             return;\n        }\n        BMCWEB_LOG_ERROR(\"Mapper GetObject error for {}: {}\", switchPath,\n                         ec.message());\n        messages::internalError(asyncResp-\u003eres);\n        return;\n    }\n    ```",
+      "revId": "e35cbf62466afd77c9dd825200d22fa2631bbe5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9607a71_91e1bf18",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-01T15:19:58Z",
+      "side": 1,
+      "message": "Thanks for catching this!\nI have refined the implementation in PS13.",
+      "parentUuid": "2a08b0aa_164a87a4",
       "revId": "e35cbf62466afd77c9dd825200d22fa2631bbe5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
