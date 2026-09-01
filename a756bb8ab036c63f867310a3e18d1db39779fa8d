@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27808ca4_d4708bf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:14:57Z",
+      "side": 1,
+      "message": "I did manual testing as far as possible (see Tested). Is that enough for the `System` dump, since the `BMC` dump went through the full flow.\n\nI was trying to get the p10bmc machine running in qemu (got still some quirks to figure out) since I believe it ships biosconfig-manager + a default base bios table so that phosphor-debug-collector can actually read some BIOS attributes and proceed with the createDump task and finally set it to \"Completed\" so that task manager registers it as a completed task.\n\nOtherwise, @gunnar@gmills.xyz could you help me with testing on real hw?",
+      "parentUuid": "fd10820e_e71386b6",
+      "revId": "a756bb8ab036c63f867310a3e18d1db39779fa8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95187dbe_21931583",
         "filename": "redfish-core/include/utils/dump_utils.hpp",
         "patchSetId": 5
@@ -31,6 +49,30 @@
       "writtenOn": "2026-09-01T14:11:54Z",
       "side": 1,
       "message": "Would prefer const boost::urls::url\u0026 dumpPath \n\nsince dumpPath isn\u0027t modified",
+      "range": {
+        "startLine": 674,
+        "startChar": 53,
+        "endLine": 674,
+        "endChar": 80
+      },
+      "revId": "a756bb8ab036c63f867310a3e18d1db39779fa8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86d2c594_f1fdb0af",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:14:57Z",
+      "side": 1,
+      "message": "Good catch. Done",
+      "parentUuid": "95187dbe_21931583",
       "range": {
         "startLine": 674,
         "startChar": 53,
