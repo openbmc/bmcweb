@@ -237,6 +237,7 @@ Fields common to all schemas
 - Links/ComputerSystems
 - Links/ManagedBy
 - Links/Processors
+- Location/PartLocation/LocationType
 - Location/PartLocation/ServiceLabel
 - LocationIndicatorActive
 - Manufacturer
@@ -246,6 +247,7 @@ Fields common to all schemas
 - PowerSubsystem
 - PowerState
 - PhysicalSecurity
+- Replaceable
 - Sensors
 - SerialNumber
 - SparePartNumber

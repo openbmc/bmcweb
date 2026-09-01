@@ -23,6 +23,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 #include "utils/name_utils.hpp"
 #include "utils/processor_utils.hpp"
 
@@ -730,6 +731,18 @@ inline void handleChassisGetSubTree(
             else if (interface == locationCodeInterface)
             {
                 getChassisLocationCode(asyncResp, connectionName, path);
+            }
+            else if (std::optional<resource::LocationType> locationType =
+                         location_util::getLocationType(interface);
+                     locationType.has_value())
+            {
+                asyncResp->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    *locationType;
+                if (*locationType == resource::LocationType::Embedded)
+                {
+                    asyncResp->res.jsonValue["Replaceable"] = false;
+                }
             }
         }
 
