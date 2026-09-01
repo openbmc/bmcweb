@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0de56a13_16028ec8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-09-01T12:15:10Z",
+      "side": 1,
+      "message": "The \"PAM + D-Bus property check\" is already the existing flow for every authenticated request.\nhttps://github.com/openbmc/bmcweb/blob/43d0cb81b162832ada3969f34409ca11d6e7ba26/include/authentication.hpp#L73\nhttps://github.com/openbmc/bmcweb/blob/43d0cb81b162832ada3969f34409ca11d6e7ba26/include/dbus_privileges.hpp#L187-L206",
+      "parentUuid": "db22dbc6_f9b145e7",
+      "revId": "627360c51a7ee70dcc52edb765bcb7fae5aa330b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c6b29d6_26ad60bf",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 6
@@ -138,6 +156,24 @@
       "writtenOn": "2026-08-26T18:35:55Z",
       "side": 1,
       "message": "Why are we creating a session, then removing it later?  Just create the session in the appropriate place.",
+      "revId": "627360c51a7ee70dcc52edb765bcb7fae5aa330b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "695855b0_14262369",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-09-01T12:15:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c6b29d6_26ad60bf",
       "revId": "627360c51a7ee70dcc52edb765bcb7fae5aa330b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
