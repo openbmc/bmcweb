@@ -279,6 +279,21 @@ class HTTP2Connection :
         return session;
     }
 
+    static void afterCompleteRequest(const std::weak_ptr<self_type>& weakSelf,
+                                     int32_t streamId, Response& completeRes)
+    {
+        BMCWEB_LOG_DEBUG("res.completeRequestHandler called");
+        std::shared_ptr<self_type> self = weakSelf.lock();
+        if (self == nullptr)
+        {
+            return;
+        }
+        if (self->sendResponse(completeRes, streamId) != 0)
+        {
+            self->close();
+        }
+    }
+
     int onRequestRecv(int32_t streamId)
     {
         BMCWEB_LOG_DEBUG("onRequestRecv streamId:{}", streamId);
@@ -311,19 +326,8 @@ class HTTP2Connection :
 
         Response& thisRes = it->second.res;
 
-        thisRes.setCompleteRequestHandler(
-            // ast-grep-ignore: long-lambda
-            [weakSelf = weak_from_this(), streamId](Response& completeRes) {
-                BMCWEB_LOG_DEBUG("res.completeRequestHandler called");
-                if (auto self = weakSelf.lock(); self)
-                {
-                    if (self->sendResponse(completeRes, streamId) != 0)
-                    {
-                        self->close();
-                        return;
-                    }
-                }
-            });
+        thisRes.setCompleteRequestHandler(std::bind_front(
+            &self_type::afterCompleteRequest, weak_from_this(), streamId));
 
         auto asyncResp =
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));

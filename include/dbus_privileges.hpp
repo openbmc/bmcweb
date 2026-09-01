@@ -205,6 +205,22 @@ inline void validatePrivilege(
         });
 }
 
+inline void afterGetUserInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<persistent_data::UserSession>& session,
+    std::move_only_function<void()>& callback,
+    const dbus::utility::DBusPropertiesMap& userInfoMap)
+{
+    if (!populateUserInfo(*session, userInfoMap))
+    {
+        BMCWEB_LOG_ERROR("Failed to populate user information");
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+    callback();
+}
+
 inline void getUserInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& username,
                         std::shared_ptr<persistent_data::UserSession>& session,
@@ -212,17 +228,9 @@ inline void getUserInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     requestUserInfo(
         username, asyncResp,
-        // ast-grep-ignore: long-lambda
         [asyncResp, session, callback = std::move(callback)](
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
-            if (!populateUserInfo(*session, userInfoMap))
-            {
-                BMCWEB_LOG_ERROR("Failed to populate user information");
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                return;
-            }
-            callback();
+            afterGetUserInfo(asyncResp, session, callback, userInfoMap);
         });
 }
 
