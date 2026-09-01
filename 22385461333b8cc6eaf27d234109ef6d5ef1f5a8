@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f36e68_5f9bdf59",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-01T16:42:32Z",
+      "side": 1,
+      "message": "Thanks for the suggestion! I kept full string comparisons here for consistency with the existing bmcweb patterns and because this change focuses specifically on enum type safety rather than string optimization.\n\nIf prefix pruning is desired, it would be more appropriate as a separate change that updates all D-Bus string matchers consistently across bmcweb. Happy to pursue that as a follow-up if preferred.",
+      "parentUuid": "43136baa_47da96e6",
+      "range": {
+        "startLine": 579,
+        "startChar": 21,
+        "endLine": 579,
+        "endChar": 65
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01a95148_6ae71fbe",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-08-27T09:11:20Z",
       "side": 1,
       "message": "nit:\nSimilar here, it looked like the only difference happens at the end of the string.\nNot sure if we can compare only the last word.\n\nBut I am not strongly against with the current pattern, it is totally fine if you prefer the current approach.",
+      "range": {
+        "startLine": 600,
+        "startChar": 4,
+        "endLine": 610,
+        "endChar": 54
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "479f6775_34162f2b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-01T16:42:32Z",
+      "side": 1,
+      "message": "Thanks for the suggestion! I kept full string comparisons here for consistency with the existing bmcweb patterns and because this change focuses specifically on enum type safety rather than string optimization.\n\nIf prefix pruning is desired, it would be more appropriate as a separate change that updates all D-Bus string matchers consistently across bmcweb. Happy to pursue that as a follow-up if preferred.",
+      "parentUuid": "01a95148_6ae71fbe",
       "range": {
         "startLine": 600,
         "startChar": 4,
@@ -101,6 +149,30 @@
       "side": 1,
       "message": "+1, yes, this patch does introduce a silent behavior change.",
       "parentUuid": "97e43e90_a54d7d54",
+      "range": {
+        "startLine": 858,
+        "startChar": 12,
+        "endLine": 862,
+        "endChar": 13
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "663a3570_ea80b8f2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-01T16:42:32Z",
+      "side": 1,
+      "message": "Skipping this property is intentional and follows the existing pattern in the file for optional fields, ensuring that a single unrecognized value doesn’t cause the entire GET response to fail.",
+      "parentUuid": "08b188a5_5e432dcf",
       "range": {
         "startLine": 858,
         "startChar": 12,
