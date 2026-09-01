@@ -16,6 +16,29 @@
       "message": "need more here.",
       "revId": "a756bb8ab036c63f867310a3e18d1db39779fa8d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95187dbe_21931583",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-01T14:11:54Z",
+      "side": 1,
+      "message": "Would prefer const boost::urls::url\u0026 dumpPath \n\nsince dumpPath isn\u0027t modified",
+      "range": {
+        "startLine": 674,
+        "startChar": 53,
+        "endLine": 674,
+        "endChar": 80
+      },
+      "revId": "a756bb8ab036c63f867310a3e18d1db39779fa8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
