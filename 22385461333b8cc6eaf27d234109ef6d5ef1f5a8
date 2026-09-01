@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10da2e1f_9f8a6f47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-01T17:21:37Z",
+      "side": 1,
+      "message": "You are wrapping at some random length like 60\n\n123456789012345678901234567890123456789012345678901234567890123456789012\nThe dbusToRfBootType() and dbusToRfBootMode() functions return boot\nconfiguration values as std::string literals, which lacks compile-time\ntype safety. This can lead to typos or invalid values that are only\ncaught at runtime.\n\nConvert these functions to return\ncomputer_system::BootSourceOverrideMode and computer_system::BootSource\nenums instead. These enums are already defined in\ngenerated/enums/computer_system.hpp with NLOHMANN_JSON_SERIALIZE_ENUM\nmappings and provide proper type checking.",
+      "parentUuid": "def241da_f0ebc138",
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43136baa_47da96e6",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
