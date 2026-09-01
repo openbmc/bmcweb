@@ -16,6 +16,24 @@
       "message": "Any reason we still need two route registrations in the same file?  I suspect these could all be 1?",
       "revId": "c8288df40cf9d3387bd3a6a70328f52f46a8e851",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c40a8ae3_003652de",
+        "filename": "redfish-core/lib/manager_logservices_dump.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-01T14:05:25Z",
+      "side": 1,
+      "message": "In case 1 day you wanted a meson option for FaultLog or something.? I am fine either way. This is an improvement",
+      "parentUuid": "aedad999_c685a032",
+      "revId": "c8288df40cf9d3387bd3a6a70328f52f46a8e851",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
