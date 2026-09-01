@@ -34,6 +34,24 @@
       "parentUuid": "aedad999_c685a032",
       "revId": "c8288df40cf9d3387bd3a6a70328f52f46a8e851",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5db4c2dd_159ecf58",
+        "filename": "redfish-core/lib/manager_logservices_dump.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-01T20:14:13Z",
+      "side": 1,
+      "message": "Technically yes, they can be one. I have kept them separate since they still register routes for two separate LogServices, but they get registered together nevertheless, so can be just one. Done",
+      "parentUuid": "aedad999_c685a032",
+      "revId": "c8288df40cf9d3387bd3a6a70328f52f46a8e851",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
