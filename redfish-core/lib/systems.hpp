@@ -3094,6 +3094,16 @@ inline void processComputerSystemGet(
             boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName);
         asyncResp->res.jsonValue["Storage"]["@odata.id"] =
             boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName);
+        dbus::utility::checkDbusPathExists(
+            "/xyz/openbmc_project/bios_config/secure_boot",
+            [asyncResp, systemName](int rc) {
+                if (rc > 0)
+                {
+                    asyncResp->res.jsonValue["SecureBoot"]["@odata.id"] =
+                        boost::urls::format("/redfish/v1/Systems/{}/SecureBoot",
+                                            systemName);
+                }
+            });
         asyncResp->res.jsonValue["FabricAdapters"]["@odata.id"] =
             boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters",
                                 systemName);
