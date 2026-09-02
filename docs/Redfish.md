@@ -972,6 +972,7 @@ functions the same like the default implementation under the System resource.
 - PowerState
 - ProcessorSummary
 - Processors
+- SecureBoot
 - SerialConsole/IPMI/ServiceEnabled
 - SerialConsole/MaxConcurrentSessions
 - SerialConsole/SSH/HotKeySequenceDisplay
@@ -1224,6 +1225,14 @@ functions the same like the default implementation under the System resource.
 - Parameters/AllowableValues
 - Parameters/DataType
 - Parameters/Required
+
+### /redfish/v1/Systems/system/SecureBoot/
+
+#### SecureBoot
+
+- SecureBootCurrentBoot
+- SecureBootEnable
+- SecureBootMode
 
 ### /redfish/v1/Systems/system/Storage/
 
