@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b56d993_84a97136",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T10:06:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9a1ea357_e6c2b0ca",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "294c5831_f5c60108",
@@ -71,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "baaa21e2_d6447b2a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T10:06:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ca291868_dfb3c037",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93d172f9_3d6db2fa",
@@ -102,6 +138,24 @@
       "side": 1,
       "message": "This branch returns immediately after cleanUp, so scope exit closes the stream.",
       "parentUuid": "93d172f9_3d6db2fa",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8c97476_1f0c3287",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T10:06:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ae102ca3_91abfd82",
       "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
