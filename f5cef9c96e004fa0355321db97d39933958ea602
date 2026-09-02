@@ -34,6 +34,24 @@
       "parentUuid": "b4b43fad_b60e4436",
       "revId": "f5cef9c96e004fa0355321db97d39933958ea602",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c1c8806_a833cb33",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-02T19:18:46Z",
+      "side": 0,
+      "message": "Yes, I like the approach of leaving alone here but not adding elsewhere. We did that in other refactors of log_services",
+      "parentUuid": "de7f43a2_238a7a6f",
+      "revId": "f5cef9c96e004fa0355321db97d39933958ea602",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
