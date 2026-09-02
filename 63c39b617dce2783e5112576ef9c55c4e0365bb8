@@ -26,6 +26,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3049f518_484361d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T09:51:10Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "808b9dbb_90300405",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 2
+      },
+      "revId": "63c39b617dce2783e5112576ef9c55c4e0365bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9103af6_723224c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T09:51:10Z",
+      "side": 1,
+      "message": "This handler still advertises ManagerAccount v1.7.0, but the patch now returns AccountExpiration, which is only defined starting in ManagerAccount v1.8.0. Please bump version.",
+      "revId": "63c39b617dce2783e5112576ef9c55c4e0365bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "047ab0c8_f9933aa5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 2
