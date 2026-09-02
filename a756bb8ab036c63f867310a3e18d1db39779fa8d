@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40e3ae7f_49ad4275",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-02T11:40:06Z",
+      "side": 1,
+      "message": "I got around this by setting the `Status` property of the created dump entry manually to `xyz.openbmc_project.Common.Progress.OperationStatus.Completed`. Task manager ran through and registered the task as completed same as in the BMC dump case. Let me know if this works for you.",
+      "parentUuid": "27808ca4_d4708bf8",
+      "revId": "a756bb8ab036c63f867310a3e18d1db39779fa8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95187dbe_21931583",
         "filename": "redfish-core/include/utils/dump_utils.hpp",
         "patchSetId": 5
