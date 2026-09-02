@@ -14,20 +14,26 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/bios_utils.hpp"
+#include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
 
 #include <sys/types.h>
 
 #include <boost/beast/http/verb.hpp>
+#include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
 #include <format>
 #include <functional>
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <variant>
 #include <vector>
 
 namespace redfish
@@ -133,12 +139,287 @@ inline void handleBiosServiceGet(
                                          true);
 }
 
+/*
+ * D-Bus type of xyz.openbmc_project.BIOSConfig.Manager BaseBIOSTable
+ * (signature a{s(sbsssvva(svs))}).
+ */
+using BiosBaseTableSet = boost::container::flat_map<
+    std::string,
+    std::tuple<
+        std::string, bool, std::string, std::string, std::string,
+        std::variant<int64_t, std::string, bool>,
+        std::variant<int64_t, std::string, bool>,
+        std::vector<std::tuple<std::string, std::variant<int64_t, std::string>,
+                               std::string>>>>;
+
+inline std::string getDbusBiosAttrType(const std::string& attrType)
+{
+    if (attrType == "Enumeration" || attrType == "String" ||
+        attrType == "Password" || attrType == "Integer" ||
+        attrType == "Boolean")
+    {
+        return std::format(
+            "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.{}",
+            attrType);
+    }
+    return "UNKNOWN";
+}
+
+inline void fillBiosTable(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<nlohmann::json::object_t>& baseBiosTableJson,
+    const std::string& service)
+{
+    BiosBaseTableSet baseBiosTable;
+    for (const nlohmann::json::object_t& attrMap : baseBiosTableJson)
+    {
+        nlohmann::json attrJson(attrMap);
+        // CurrentValue/DefaultValue types depend on the attribute Type, so
+        // they are validated explicitly per type below.
+        auto currentValueIt = attrJson.find("CurrentValue");
+        if (currentValueIt == attrJson.end())
+        {
+            messages::propertyMissing(asyncResp->res, "CurrentValue");
+            return;
+        }
+        nlohmann::json currentValueJson = std::move(*currentValueIt);
+        attrJson.erase(currentValueIt);
+        auto defaultValueIt = attrJson.find("DefaultValue");
+        if (defaultValueIt == attrJson.end())
+        {
+            messages::propertyMissing(asyncResp->res, "DefaultValue");
+            return;
+        }
+        nlohmann::json defaultValueJson = std::move(*defaultValueIt);
+        attrJson.erase(defaultValueIt);
+
+        std::string attr;
+        std::string dispName;
+        std::string descr;
+        std::string menuPath;
+        std::string type;
+        bool readOnly = false;
+        std::optional<std::vector<std::string>> values;
+        std::optional<int64_t> lowerBound;
+        std::optional<int64_t> upperBound;
+        std::optional<int64_t> scalarIncrement;
+        std::optional<int64_t> minLength;
+        std::optional<int64_t> maxLength;
+        if (!json_util::readJson(                   //
+                attrJson, asyncResp->res,           //
+                "AttributeName", attr,              //
+                "Description", descr,               //
+                "DisplayName", dispName,            //
+                "LowerBound", lowerBound,           //
+                "MaxLength", maxLength,             //
+                "MenuPath", menuPath,               //
+                "MinLength", minLength,             //
+                "ReadOnly", readOnly,               //
+                "ScalarIncrement", scalarIncrement, //
+                "Type", type,                       //
+                "UpperBound", upperBound,           //
+                "Values", values))
+        {
+            return;
+        }
+        std::vector<std::tuple<std::string, std::variant<int64_t, std::string>,
+                               std::string>>
+            bounds;
+        std::variant<int64_t, std::string, bool> currValue;
+        std::variant<int64_t, std::string, bool> defaultValue;
+        // A null DefaultValue is stored with a mismatched variant type to
+        // mark it absent, matching the existing platform convention.
+        const bool defaultIsNull = defaultValueJson.is_null();
+
+        if (type == "Enumeration" || type == "String")
+        {
+            const std::string* currStr =
+                currentValueJson.get_ptr<const std::string*>();
+            if (currStr == nullptr)
+            {
+                messages::propertyValueTypeError(
+                    asyncResp->res, currentValueJson, "CurrentValue");
+                return;
+            }
+            currValue = *currStr;
+            if (defaultIsNull)
+            {
+                defaultValue = int64_t{0};
+            }
+            else
+            {
+                const std::string* defStr =
+                    defaultValueJson.get_ptr<const std::string*>();
+                if (defStr == nullptr)
+                {
+                    messages::propertyValueTypeError(
+                        asyncResp->res, defaultValueJson, "DefaultValue");
+                    return;
+                }
+                defaultValue = *defStr;
+            }
+            if (type == "Enumeration")
+            {
+                if (!values)
+                {
+                    messages::propertyMissing(asyncResp->res, "Values");
+                    return;
+                }
+                for (const std::string& value : *values)
+                {
+                    bounds.emplace_back(
+                        "xyz.openbmc_project.BIOSConfig.Manager.BoundType.OneOf",
+                        value, "");
+                }
+            }
+            else
+            {
+                if (!minLength || !maxLength)
+                {
+                    messages::propertyMissing(
+                        asyncResp->res, !minLength ? "MinLength" : "MaxLength");
+                    return;
+                }
+                bounds.emplace_back(
+                    "xyz.openbmc_project.BIOSConfig.Manager.BoundType.MinStringLength",
+                    *minLength, "");
+                bounds.emplace_back(
+                    "xyz.openbmc_project.BIOSConfig.Manager.BoundType.MaxStringLength",
+                    *maxLength, "");
+            }
+        }
+        else if (type == "Integer")
+        {
+            if (!currentValueJson.is_number_integer())
+            {
+                messages::propertyValueTypeError(
+                    asyncResp->res, currentValueJson, "CurrentValue");
+                return;
+            }
+            currValue = currentValueJson.get<int64_t>();
+            if (defaultIsNull)
+            {
+                defaultValue = std::string{};
+            }
+            else
+            {
+                if (!defaultValueJson.is_number_integer())
+                {
+                    messages::propertyValueTypeError(
+                        asyncResp->res, defaultValueJson, "DefaultValue");
+                    return;
+                }
+                defaultValue = defaultValueJson.get<int64_t>();
+            }
+            if (!lowerBound || !upperBound || !scalarIncrement)
+            {
+                messages::propertyMissing(
+                    asyncResp->res,
+                    !lowerBound
+                        ? "LowerBound"
+                        : (!upperBound ? "UpperBound" : "ScalarIncrement"));
+                return;
+            }
+            bounds.emplace_back(
+                "xyz.openbmc_project.BIOSConfig.Manager.BoundType.LowerBound",
+                *lowerBound, "");
+            bounds.emplace_back(
+                "xyz.openbmc_project.BIOSConfig.Manager.BoundType.UpperBound",
+                *upperBound, "");
+            bounds.emplace_back(
+                "xyz.openbmc_project.BIOSConfig.Manager.BoundType.ScalarIncrement",
+                *scalarIncrement, "");
+        }
+        else if (type == "Boolean")
+        {
+            const bool* currBool = currentValueJson.get_ptr<const bool*>();
+            if (currBool == nullptr)
+            {
+                messages::propertyValueTypeError(
+                    asyncResp->res, currentValueJson, "CurrentValue");
+                return;
+            }
+            // The backend stores Boolean values as int64
+            currValue = static_cast<int64_t>(*currBool);
+            if (defaultIsNull)
+            {
+                defaultValue = std::string{};
+            }
+            else
+            {
+                const bool* defBool = defaultValueJson.get_ptr<const bool*>();
+                if (defBool == nullptr)
+                {
+                    messages::propertyValueTypeError(
+                        asyncResp->res, defaultValueJson, "DefaultValue");
+                    return;
+                }
+                defaultValue = static_cast<int64_t>(*defBool);
+            }
+        }
+        else
+        {
+            messages::propertyValueIncorrect(asyncResp->res, "Type", type);
+            return;
+        }
+        baseBiosTable.emplace(
+            attr,
+            std::make_tuple(getDbusBiosAttrType(type), readOnly, dispName,
+                            descr, menuPath, currValue, defaultValue, bounds));
+    }
+
+    setDbusProperty(
+        asyncResp, "Attributes", service,
+        sdbusplus::message::object_path(bios_utils::biosConfigManagerPath),
+        bios_utils::biosConfigManagerInterface, "BaseBIOSTable", baseBiosTable);
+}
+
+/**
+ * Handle PUT of the whole Bios resource: the host firmware publishes its
+ * full BIOS attribute registry (names, types, bounds, current/default
+ * values) via the Redfish Host Interface, which becomes the
+ * BaseBIOSTable.
+ */
+inline void handleBiosServicePut(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    std::vector<nlohmann::json::object_t> baseBiosTableJson;
+    if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "Attributes",
+                                           baseBiosTableJson))
+    {
+        return;
+    }
+    bios_utils::getBIOSManagerObject(
+        asyncResp,
+        [asyncResp, baseBiosTableJson = std::move(baseBiosTableJson)](
+            const std::string& service) {
+            fillBiosTable(asyncResp, baseBiosTableJson, service);
+        });
+}
+
 inline void requestRoutesBiosService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/")
         .privileges(redfish::privileges::getBios)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleBiosServiceGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/")
+        .privileges(redfish::privileges::putBios)
+        .methods(boost::beast::http::verb::put)(
+            std::bind_front(handleBiosServicePut, std::ref(app)));
 }
 
 /**
