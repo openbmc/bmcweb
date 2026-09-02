@@ -22,6 +22,30 @@
       },
       "revId": "43d0cb81b162832ada3969f34409ca11d6e7ba26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8795afe6_ce86320c",
+        "filename": "features/openbmc_rest/dbus_monitor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-02T15:56:21Z",
+      "side": 0,
+      "message": "We should not be removing code or anything else in a factor",
+      "parentUuid": "39304816_35f81f4f",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 1
+      },
+      "revId": "43d0cb81b162832ada3969f34409ca11d6e7ba26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
