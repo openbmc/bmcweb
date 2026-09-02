@@ -217,6 +217,30 @@
       },
       "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec942e87_ffdf5b7c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T13:10:25Z",
+      "side": 1,
+      "message": "Then please document in the commit message.",
+      "parentUuid": "663a3570_ea80b8f2",
+      "range": {
+        "startLine": 858,
+        "startChar": 12,
+        "endLine": 862,
+        "endChar": 13
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
