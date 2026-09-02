@@ -47,6 +47,7 @@
 #include "redfish_sessions.hpp"
 #include "redfish_v1.hpp"
 #include "roles.hpp"
+#include "secure_boot.hpp"
 #include "sensors.hpp"
 #include "service_root.hpp"
 #include "storage.hpp"
@@ -205,6 +206,7 @@ RedfishService::RedfishService(App& app)
 
     requestRoutesBiosService(app);
     requestRoutesBiosReset(app);
+    requestRoutesSecureBoot(app);
 
     if constexpr (BMCWEB_VM_NBDPROXY)
     {
