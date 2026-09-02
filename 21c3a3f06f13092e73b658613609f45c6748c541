@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d693e101_494b1da7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T11:29:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3d75b14_8303ca8e",
+      "range": {
+        "startLine": 756,
+        "startChar": 8,
+        "endLine": 761,
+        "endChar": 9
+      },
+      "revId": "21c3a3f06f13092e73b658613609f45c6748c541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a72b77a9_0457219d",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-08-31T05:37:42Z",
       "side": 1,
       "message": "nit:\nPutting these line into the if might aligns to the `if (bootProgressStr !\u003d nullptr) {...}`",
+      "range": {
+        "startLine": 785,
+        "startChar": 4,
+        "endLine": 798,
+        "endChar": 63
+      },
+      "revId": "21c3a3f06f13092e73b658613609f45c6748c541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c44ebf4f_e5e21e05",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T11:29:50Z",
+      "side": 1,
+      "message": "both the debug log and dbusToRfBootProgress(*bootProgressStr) assignment are already inside the null-check block.",
+      "parentUuid": "a72b77a9_0457219d",
       "range": {
         "startLine": 785,
         "startChar": 4,
