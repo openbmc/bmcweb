@@ -286,6 +286,52 @@ inline void parseDumpEntryFromDbusObject(
     }
 }
 
+inline std::optional<nlohmann::json::object_t> getEntryJson(
+    DumpType dumpType, const boost::urls::url& entriesUrl,
+    const std::string& entryID, const std::string& dumpTypeStr,
+    const uint64_t timestampUs, const std::string& originatorId,
+    log_entry::OriginatorTypes originatorType, const uint64_t size)
+{
+    nlohmann::json::object_t entry;
+    entry["@odata.type"] = "#LogEntry.v1_11_0.LogEntry";
+    entry["@odata.id"] = boost::urls::format("{}/{}", entriesUrl, entryID);
+    entry["Id"] = entryID;
+    entry["EntryType"] = log_entry::LogEntryType::Event;
+    entry["Name"] = std::format("{} Dump Entry", dumpTypeStr);
+    entry["Created"] = redfish::time_utils::getDateTimeUintUs(timestampUs);
+
+    if (!originatorId.empty())
+    {
+        entry["Originator"] = originatorId;
+        entry["OriginatorType"] = originatorType;
+    }
+
+    switch (dumpType)
+    {
+        case DumpType::BMC:
+            entry["DiagnosticDataType"] =
+                log_entry::LogDiagnosticDataTypes::Manager;
+            entry["AdditionalDataURI"] =
+                boost::urls::format("{}/{}/attachment", entriesUrl, entryID);
+            entry["AdditionalDataSizeBytes"] = size;
+            break;
+        case DumpType::System:
+            entry["DiagnosticDataType"] =
+                log_entry::LogDiagnosticDataTypes::OEM;
+            entry["OEMDiagnosticDataType"] = "System";
+            entry["AdditionalDataURI"] =
+                boost::urls::format("{}/{}/attachment", entriesUrl, entryID);
+            entry["AdditionalDataSizeBytes"] = size;
+            break;
+        default:
+            BMCWEB_LOG_ERROR("Invalid dumpType: {}",
+                             static_cast<int>(dumpType));
+            return std::nullopt;
+    }
+
+    return entry;
+}
+
 inline void afterGetManagedObjectsDumpEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, DumpType dumpType,
     const boost::system::error_code& ec,
@@ -333,19 +379,19 @@ inline void afterGetManagedObjectsDumpEntryCollection(
         {
             continue;
         }
-        uint64_t timestampUs = 0;
-        uint64_t size = 0;
-        std::string dumpStatus;
-        std::string originatorId;
-        log_entry::OriginatorTypes originatorType =
-            log_entry::OriginatorTypes::Internal;
-        nlohmann::json::object_t thisEntry;
 
         std::string entryID = object.first.filename();
         if (entryID.empty())
         {
             continue;
         }
+
+        uint64_t timestampUs = 0;
+        uint64_t size = 0;
+        std::string dumpStatus;
+        std::string originatorId;
+        log_entry::OriginatorTypes originatorType =
+            log_entry::OriginatorTypes::Internal;
 
         parseDumpEntryFromDbusObject(object, dumpStatus, size, timestampUs,
                                      originatorId, originatorType, asyncResp);
@@ -358,43 +404,13 @@ inline void afterGetManagedObjectsDumpEntryCollection(
             continue;
         }
 
-        thisEntry["@odata.type"] = "#LogEntry.v1_11_0.LogEntry";
-        thisEntry["@odata.id"] =
-            boost::urls::format("{}/{}", *entriesUrl, entryID);
-        thisEntry["Id"] = entryID;
-        thisEntry["EntryType"] = log_entry::LogEntryType::Event;
-        thisEntry["Name"] = std::format("{} Dump Entry", *dumpTypeStr);
-        thisEntry["Created"] =
-            redfish::time_utils::getDateTimeUintUs(timestampUs);
+        std::optional<nlohmann::json::object_t> thisEntry =
+            getEntryJson(dumpType, *entriesUrl, entryID, *dumpTypeStr,
+                         timestampUs, originatorId, originatorType, size);
 
-        if (!originatorId.empty())
+        if (!thisEntry)
         {
-            thisEntry["Originator"] = originatorId;
-            thisEntry["OriginatorType"] = originatorType;
-        }
-
-        switch (dumpType)
-        {
-            case DumpType::BMC:
-                thisEntry["DiagnosticDataType"] =
-                    log_entry::LogDiagnosticDataTypes::Manager;
-                thisEntry["AdditionalDataURI"] = boost::urls::format(
-                    "{}/{}/attachment", *entriesUrl, entryID);
-                thisEntry["AdditionalDataSizeBytes"] = size;
-                break;
-            case DumpType::System:
-                thisEntry["DiagnosticDataType"] =
-                    log_entry::LogDiagnosticDataTypes::OEM;
-                thisEntry["OEMDiagnosticDataType"] = "System";
-                thisEntry["AdditionalDataURI"] = boost::urls::format(
-                    "{}/{}/attachment", *entriesUrl, entryID);
-                thisEntry["AdditionalDataSizeBytes"] = size;
-                break;
-            default:
-                BMCWEB_LOG_ERROR("Invalid dumpType: {}",
-                                 static_cast<int>(dumpType));
-                messages::internalError(asyncResp->res);
-                return;
+            messages::internalError(asyncResp->res);
         }
 
         entriesArray.emplace_back(std::move(thisEntry));
@@ -470,48 +486,18 @@ inline void afterGetManagedObjectsDumpEntryById(
             return;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] = "#LogEntry.v1_11_0.LogEntry";
-        asyncResp->res.jsonValue["@odata.id"] =
-            boost::urls::format("{}/{}", *entriesUrl, entryID);
-        asyncResp->res.jsonValue["Id"] = entryID;
-        asyncResp->res.jsonValue["EntryType"] = log_entry::LogEntryType::Event;
-        asyncResp->res.jsonValue["Name"] =
-            std::format("{} Dump Entry", *dumpTypeStr);
-        asyncResp->res.jsonValue["Created"] =
-            redfish::time_utils::getDateTimeUintUs(timestampUs);
+        std::optional<nlohmann::json::object_t> entry =
+            getEntryJson(dumpType, *entriesUrl, entryID, *dumpTypeStr,
+                         timestampUs, originatorId, originatorType, size);
 
-        if (!originatorId.empty())
+        if (!entry)
         {
-            asyncResp->res.jsonValue["Originator"] = originatorId;
-            asyncResp->res.jsonValue["OriginatorType"] = originatorType;
+            messages::internalError(asyncResp->res);
         }
 
-        switch (dumpType)
-        {
-            case DumpType::BMC:
-                asyncResp->res.jsonValue["DiagnosticDataType"] =
-                    log_entry::LogDiagnosticDataTypes::Manager;
-                asyncResp->res.jsonValue["AdditionalDataURI"] =
-                    boost::urls::format("{}/{}/attachment", *entriesUrl,
-                                        entryID);
-                asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
-                break;
-            case DumpType::System:
-                asyncResp->res.jsonValue["DiagnosticDataType"] =
-                    log_entry::LogDiagnosticDataTypes::OEM;
-                asyncResp->res.jsonValue["OEMDiagnosticDataType"] = "System";
-                asyncResp->res.jsonValue["AdditionalDataURI"] =
-                    boost::urls::format("{}/{}/attachment", *entriesUrl,
-                                        entryID);
-                asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
-                break;
-            default:
-                BMCWEB_LOG_ERROR("Invalid dumpType: {}",
-                                 static_cast<int>(dumpType));
-                messages::internalError(asyncResp->res);
-                return;
-        }
+        asyncResp->res.jsonValue = entry;
     }
+
     if (!foundDumpEntry)
     {
         BMCWEB_LOG_WARNING("Can't find Dump Entry {}", entryID);
