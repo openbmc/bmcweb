@@ -46,6 +46,30 @@
       },
       "revId": "43d0cb81b162832ada3969f34409ca11d6e7ba26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72716603_b3f5f134",
+        "filename": "features/openbmc_rest/dbus_monitor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-02T15:57:00Z",
+      "side": 0,
+      "message": "Please if you are just refactoring, just do that. Nothing more. In a separate commit you then do whatever needs to happen",
+      "parentUuid": "8795afe6_ce86320c",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 1
+      },
+      "revId": "43d0cb81b162832ada3969f34409ca11d6e7ba26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
