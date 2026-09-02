@@ -33,6 +33,40 @@
       "message": "LGTM",
       "revId": "c28214343f0854d9e82a997351dd16689245974d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0228576_f62b65b4",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-02T15:46:34Z",
+      "side": 1,
+      "message": "Ideally this is 2 commits, a refactor moving this to its own function and then a commit adding this new error",
+      "revId": "c28214343f0854d9e82a997351dd16689245974d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab67726_95b0f298",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-02T15:46:34Z",
+      "side": 1,
+      "message": "I don\u0027t think ResourceNotFound is the right Redfish error here. The ManagerNetworkProtocol resource exists, what\u0027s missing is the backend needed to update IPMI/ProtocolEnabled/SSH/ProtocolEnabled.. I think what was there before is better propertyNotWritable",
+      "revId": "c28214343f0854d9e82a997351dd16689245974d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
