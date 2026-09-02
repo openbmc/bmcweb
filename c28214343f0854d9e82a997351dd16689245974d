@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f8097d_5959ba8c",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-09-02T16:27:53Z",
+      "side": 1,
+      "message": "Will submit the callback refactor as a separate follow-up change once this merge.",
+      "parentUuid": "d0228576_f62b65b4",
+      "revId": "c28214343f0854d9e82a997351dd16689245974d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ab67726_95b0f298",
@@ -65,6 +83,24 @@
       "writtenOn": "2026-09-02T15:46:34Z",
       "side": 1,
       "message": "I don\u0027t think ResourceNotFound is the right Redfish error here. The ManagerNetworkProtocol resource exists, what\u0027s missing is the backend needed to update IPMI/ProtocolEnabled/SSH/ProtocolEnabled.. I think what was there before is better propertyNotWritable",
+      "revId": "c28214343f0854d9e82a997351dd16689245974d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e7ea14a_43927e72",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1002630
+      },
+      "writtenOn": "2026-09-02T16:27:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab67726_95b0f298",
       "revId": "c28214343f0854d9e82a997351dd16689245974d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
