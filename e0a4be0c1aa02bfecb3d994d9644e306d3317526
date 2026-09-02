@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a1ea357_e6c2b0ca",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T10:06:01Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7fda78ad_ad119d46",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "294c5831_f5c60108",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 4
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca291868_dfb3c037",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T10:06:01Z",
+      "side": 1,
+      "message": "The stream is a stack-local std::ofstream in uploadImageFile; this branch returns immediately after cleanUp, so scope exit closes the stream.",
+      "parentUuid": "294c5831_f5c60108",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93d172f9_3d6db2fa",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 4
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-31T10:48:29Z",
       "side": 1,
       "message": "Same as above",
+      "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae102ca3_91abfd82",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-02T10:06:01Z",
+      "side": 1,
+      "message": "This branch returns immediately after cleanUp, so scope exit closes the stream.",
+      "parentUuid": "93d172f9_3d6db2fa",
       "revId": "e0a4be0c1aa02bfecb3d994d9644e306d3317526",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
