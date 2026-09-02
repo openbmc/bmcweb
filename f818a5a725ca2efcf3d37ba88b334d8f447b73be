@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "389cbb19_cb90bf2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-02T14:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27d97db1_ebad2ad9",
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a6ad2a5_a29c357f",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-31T20:34:27Z",
       "side": 1,
       "message": "Why do we need this commit?",
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8a34c9b_b716014b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-02T14:06:03Z",
+      "side": 1,
+      "message": "BIOS sends the UEFI Secure Boot state to the BMC via bios-settings-mgr, but bmcweb had no way to surface it out-of-band.",
+      "parentUuid": "2a6ad2a5_a29c357f",
       "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29351f9a_a4bd8b44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-02T14:06:03Z",
+      "side": 1,
+      "message": "Added a Tested section with the GET response from a vr-nvl BMC and the 404 for a bad system id. Also ran the DMTF Redfish Service Validator — the SecureBoot resource passed all checks.",
+      "parentUuid": "ba833125_e0c49c61",
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcfd750c_fe2097be",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b9b33fb_c4ab0e20",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-02T14:06:03Z",
+      "side": 1,
+      "message": "Replaced the unordered_map table with translateModeToRedfish() / translateCurrentBootToRedfish() helpers",
+      "parentUuid": "bcfd750c_fe2097be",
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ca2f600_1e44fef1",
@@ -82,6 +154,30 @@
       "writtenOn": "2026-08-31T20:34:27Z",
       "side": 1,
       "message": "Let\u0027s make sure to use the Redfish Generated Enums here.. Less likely to make a mistake",
+      "range": {
+        "startLine": 89,
+        "startChar": 61,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d864bda_cbf3e634",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-02T14:06:03Z",
+      "side": 1,
+      "message": "now using generated/enums/secure_boot.hpp.",
+      "parentUuid": "7ca2f600_1e44fef1",
       "range": {
         "startLine": 89,
         "startChar": 61,
@@ -115,6 +211,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b77ddf60_afae4e97",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-02T14:06:03Z",
+      "side": 1,
+      "message": "not documented in PDI \nnow Service name and object path are now resolved at runtime via getSubTree(),",
+      "parentUuid": "89fc7af5_82092b2e",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 52
+      },
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30008b70_59175b40",
@@ -128,6 +248,30 @@
       "writtenOn": "2026-08-31T20:34:27Z",
       "side": 1,
       "message": "/redfish/v1/Systems/badsystemid/SecureBoot/ should return 404",
+      "range": {
+        "startLine": 145,
+        "startChar": 23,
+        "endLine": 145,
+        "endChar": 60
+      },
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ca05d34_93122b21",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-02T14:06:03Z",
+      "side": 1,
+      "message": "Fixed, GET and HEAD now validate the system name against BMCWEB_REDFISH_SYSTEM_URI_NAME and return resourceNotFound(\"ComputerSystem\", ...)",
+      "parentUuid": "30008b70_59175b40",
       "range": {
         "startLine": 145,
         "startChar": 23,
