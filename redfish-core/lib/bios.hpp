@@ -13,21 +13,29 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "user_monitor.hpp"
 #include "utils/bios_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
 
 #include <sys/types.h>
 
 #include <boost/beast/http/verb.hpp>
+#include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 #include <format>
 #include <functional>
+#include <limits>
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <type_traits>
+#include <variant>
 #include <vector>
 
 namespace redfish
@@ -133,12 +141,416 @@ inline void handleBiosServiceGet(
                                          true);
 }
 
+/*
+ * D-Bus type of xyz.openbmc_project.BIOSConfig.Manager BaseBIOSTable
+ * (signature a{s(sbsssvva(svs))}).
+ */
+using BiosBaseTableSet = boost::container::flat_map<
+    std::string,
+    std::tuple<
+        std::string, bool, std::string, std::string, std::string,
+        std::variant<int64_t, std::string, bool>,
+        std::variant<int64_t, std::string, bool>,
+        std::vector<std::tuple<std::string, std::variant<int64_t, std::string>,
+                               std::string>>>>;
+
+inline std::string getDbusBiosAttrType(const std::string& attrType)
+{
+    if (attrType == "Enumeration" || attrType == "String" ||
+        attrType == "Password" || attrType == "Integer" ||
+        attrType == "Boolean")
+    {
+        return std::format(
+            "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.{}",
+            attrType);
+    }
+    return "UNKNOWN";
+}
+
+inline void afterSetBaseBiosTable(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Error setting BaseBIOSTable: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    messages::success(asyncResp->res);
+}
+
+template <typename Type>
+struct IsOptionalField : std::false_type
+{};
+template <typename Type>
+struct IsOptionalField<std::optional<Type>> : std::true_type
+{};
+
+/**
+ * Convert one attribute registry field, reporting PropertyValueTypeError
+ * when the JSON type does not match the expected C++ type.
+ */
+template <typename Type>
+bool convertAttributeField(const nlohmann::json& json, crow::Response& res,
+                           std::string_view key, Type& value)
+{
+    if constexpr (std::is_same_v<Type, std::vector<std::string>>)
+    {
+        const nlohmann::json::array_t* arr =
+            json.get_ptr<const nlohmann::json::array_t*>();
+        if (arr == nullptr)
+        {
+            messages::propertyValueTypeError(res, json, key);
+            return false;
+        }
+        value.clear();
+        for (const nlohmann::json& item : *arr)
+        {
+            const std::string* str = item.get_ptr<const std::string*>();
+            if (str == nullptr)
+            {
+                messages::propertyValueTypeError(res, item, key);
+                return false;
+            }
+            value.push_back(*str);
+        }
+        return true;
+    }
+    else if constexpr (std::is_same_v<Type, int64_t>)
+    {
+        if (!json.is_number_integer())
+        {
+            messages::propertyValueTypeError(res, json, key);
+            return false;
+        }
+        if (json.is_number_unsigned() &&
+            json.get<uint64_t>() >
+                static_cast<uint64_t>(std::numeric_limits<int64_t>::max()))
+        {
+            messages::propertyValueOutOfRange(res, json, key);
+            return false;
+        }
+        value = json.get<int64_t>();
+        return true;
+    }
+    else
+    {
+        const Type* ptr = json.get_ptr<const Type*>();
+        if (ptr == nullptr)
+        {
+            messages::propertyValueTypeError(res, json, key);
+            return false;
+        }
+        value = *ptr;
+        return true;
+    }
+}
+
+/**
+ * Read one field of an attribute registry entry.
+ *
+ * Only the fields the BMC stores are read; any other field the firmware
+ * includes (ResetRequired, HelpText, Hidden, ...) is left untouched, so a
+ * registry carrying additional AttributeRegistry schema fields is accepted.
+ * A missing required field reports PropertyMissing; a missing optional
+ * field is left empty.
+ */
+template <typename Type>
+bool readAttributeField(const nlohmann::json& attrJson, crow::Response& res,
+                        std::string_view key, Type& value)
+{
+    auto it = attrJson.find(key);
+    if (it == attrJson.end())
+    {
+        if constexpr (IsOptionalField<Type>::value)
+        {
+            return true;
+        }
+        messages::propertyMissing(res, key);
+        return false;
+    }
+    if constexpr (IsOptionalField<Type>::value)
+    {
+        value.emplace();
+        return convertAttributeField(*it, res, key, *value);
+    }
+    else
+    {
+        return convertAttributeField(*it, res, key, value);
+    }
+}
+
+inline void fillBiosTable(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<nlohmann::json::object_t>& baseBiosTableJson,
+    const std::string& service)
+{
+    BiosBaseTableSet baseBiosTable;
+    for (const nlohmann::json::object_t& attrMap : baseBiosTableJson)
+    {
+        nlohmann::json attrJson(attrMap);
+        // CurrentValue/DefaultValue types depend on the attribute Type, so
+        // they are validated explicitly per type below.
+        auto currentValueIt = attrJson.find("CurrentValue");
+        if (currentValueIt == attrJson.end())
+        {
+            messages::propertyMissing(asyncResp->res, "CurrentValue");
+            return;
+        }
+        nlohmann::json currentValueJson = std::move(*currentValueIt);
+        auto defaultValueIt = attrJson.find("DefaultValue");
+        if (defaultValueIt == attrJson.end())
+        {
+            messages::propertyMissing(asyncResp->res, "DefaultValue");
+            return;
+        }
+        nlohmann::json defaultValueJson = std::move(*defaultValueIt);
+
+        std::string attr;
+        std::string dispName;
+        std::string descr;
+        std::string menuPath;
+        std::string type;
+        bool readOnly = false;
+        std::optional<std::vector<std::string>> values;
+        std::optional<int64_t> lowerBound;
+        std::optional<int64_t> upperBound;
+        std::optional<int64_t> scalarIncrement;
+        std::optional<int64_t> minLength;
+        std::optional<int64_t> maxLength;
+        crow::Response& res = asyncResp->res;
+        if (!readAttributeField(attrJson, res, "AttributeName", attr) ||
+            !readAttributeField(attrJson, res, "Description", descr) ||
+            !readAttributeField(attrJson, res, "DisplayName", dispName) ||
+            !readAttributeField(attrJson, res, "MenuPath", menuPath) ||
+            !readAttributeField(attrJson, res, "Type", type) ||
+            !readAttributeField(attrJson, res, "ReadOnly", readOnly) ||
+            !readAttributeField(attrJson, res, "LowerBound", lowerBound) ||
+            !readAttributeField(attrJson, res, "UpperBound", upperBound) ||
+            !readAttributeField(attrJson, res, "ScalarIncrement",
+                                scalarIncrement) ||
+            !readAttributeField(attrJson, res, "MinLength", minLength) ||
+            !readAttributeField(attrJson, res, "MaxLength", maxLength) ||
+            !readAttributeField(attrJson, res, "Values", values))
+        {
+            return;
+        }
+        std::vector<std::tuple<std::string, std::variant<int64_t, std::string>,
+                               std::string>>
+            bounds;
+        std::variant<int64_t, std::string, bool> currValue;
+        std::variant<int64_t, std::string, bool> defaultValue;
+        // A null DefaultValue is stored with a mismatched variant type to
+        // mark it absent, matching the existing platform convention.
+        const bool defaultIsNull = defaultValueJson.is_null();
+
+        if (type == "Enumeration" || type == "String")
+        {
+            const std::string* currStr =
+                currentValueJson.get_ptr<const std::string*>();
+            if (currStr == nullptr)
+            {
+                messages::propertyValueTypeError(
+                    asyncResp->res, currentValueJson, "CurrentValue");
+                return;
+            }
+            currValue = *currStr;
+            if (defaultIsNull)
+            {
+                defaultValue = int64_t{0};
+            }
+            else
+            {
+                const std::string* defStr =
+                    defaultValueJson.get_ptr<const std::string*>();
+                if (defStr == nullptr)
+                {
+                    messages::propertyValueTypeError(
+                        asyncResp->res, defaultValueJson, "DefaultValue");
+                    return;
+                }
+                defaultValue = *defStr;
+            }
+            if (type == "Enumeration")
+            {
+                if (!values)
+                {
+                    messages::propertyMissing(asyncResp->res, "Values");
+                    return;
+                }
+                for (const std::string& value : *values)
+                {
+                    bounds.emplace_back(
+                        "xyz.openbmc_project.BIOSConfig.Manager.BoundType.OneOf",
+                        value, "");
+                }
+            }
+            else
+            {
+                if (!minLength || !maxLength)
+                {
+                    messages::propertyMissing(
+                        asyncResp->res, !minLength ? "MinLength" : "MaxLength");
+                    return;
+                }
+                bounds.emplace_back(
+                    "xyz.openbmc_project.BIOSConfig.Manager.BoundType.MinStringLength",
+                    *minLength, "");
+                bounds.emplace_back(
+                    "xyz.openbmc_project.BIOSConfig.Manager.BoundType.MaxStringLength",
+                    *maxLength, "");
+            }
+        }
+        else if (type == "Integer")
+        {
+            if (!currentValueJson.is_number_integer())
+            {
+                messages::propertyValueTypeError(
+                    asyncResp->res, currentValueJson, "CurrentValue");
+                return;
+            }
+            currValue = currentValueJson.get<int64_t>();
+            if (defaultIsNull)
+            {
+                defaultValue = std::string{};
+            }
+            else
+            {
+                if (!defaultValueJson.is_number_integer())
+                {
+                    messages::propertyValueTypeError(
+                        asyncResp->res, defaultValueJson, "DefaultValue");
+                    return;
+                }
+                defaultValue = defaultValueJson.get<int64_t>();
+            }
+            if (!lowerBound)
+            {
+                messages::propertyMissing(asyncResp->res, "LowerBound");
+                return;
+            }
+            if (!upperBound)
+            {
+                messages::propertyMissing(asyncResp->res, "UpperBound");
+                return;
+            }
+            if (!scalarIncrement)
+            {
+                messages::propertyMissing(asyncResp->res, "ScalarIncrement");
+                return;
+            }
+            bounds.emplace_back(
+                "xyz.openbmc_project.BIOSConfig.Manager.BoundType.LowerBound",
+                *lowerBound, "");
+            bounds.emplace_back(
+                "xyz.openbmc_project.BIOSConfig.Manager.BoundType.UpperBound",
+                *upperBound, "");
+            bounds.emplace_back(
+                "xyz.openbmc_project.BIOSConfig.Manager.BoundType.ScalarIncrement",
+                *scalarIncrement, "");
+        }
+        else if (type == "Boolean")
+        {
+            const bool* currBool = currentValueJson.get_ptr<const bool*>();
+            if (currBool == nullptr)
+            {
+                messages::propertyValueTypeError(
+                    asyncResp->res, currentValueJson, "CurrentValue");
+                return;
+            }
+            // The backend stores Boolean values as int64
+            currValue = static_cast<int64_t>(*currBool);
+            if (defaultIsNull)
+            {
+                defaultValue = std::string{};
+            }
+            else
+            {
+                const bool* defBool = defaultValueJson.get_ptr<const bool*>();
+                if (defBool == nullptr)
+                {
+                    messages::propertyValueTypeError(
+                        asyncResp->res, defaultValueJson, "DefaultValue");
+                    return;
+                }
+                defaultValue = static_cast<int64_t>(*defBool);
+            }
+        }
+        else
+        {
+            messages::propertyValueIncorrect(asyncResp->res, "Type", type);
+            return;
+        }
+        baseBiosTable.emplace(
+            attr,
+            std::make_tuple(getDbusBiosAttrType(type), readOnly, dispName,
+                            descr, menuPath, currValue, defaultValue, bounds));
+    }
+
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, service,
+        std::string(bios_utils::biosConfigManagerPath),
+        std::string(bios_utils::biosConfigManagerInterface), "BaseBIOSTable",
+        baseBiosTable, [asyncResp](const boost::system::error_code& ec) {
+            afterSetBaseBiosTable(asyncResp, ec);
+        });
+}
+
+/**
+ * Handle PUT of the whole Bios resource: the host firmware publishes its
+ * full BIOS attribute registry (names, types, bounds, current/default
+ * values) via the Redfish Host Interface, which becomes the BaseBIOSTable.
+ * The registry is owned by the host firmware, so only the Redfish Host
+ * Interface bootstrap identity may publish it; other callers are rejected.
+ */
+inline void handleBiosServicePut(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (req.session == nullptr ||
+        !bmcweb::isBootStrapAccount(req.session->username))
+    {
+        BMCWEB_LOG_ERROR("Bios PUT allowed only for bootstrap accounts");
+        messages::insufficientPrivilege(asyncResp->res);
+        return;
+    }
+    std::vector<nlohmann::json::object_t> baseBiosTableJson;
+    if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "Attributes",
+                                           baseBiosTableJson))
+    {
+        return;
+    }
+    bios_utils::getBIOSManagerObject(
+        asyncResp,
+        [asyncResp, baseBiosTableJson = std::move(baseBiosTableJson)](
+            const std::string& service) {
+            fillBiosTable(asyncResp, baseBiosTableJson, service);
+        });
+}
+
 inline void requestRoutesBiosService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/")
         .privileges(redfish::privileges::getBios)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleBiosServiceGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/")
+        .privileges(redfish::privileges::putBios)
+        .methods(boost::beast::http::verb::put)(
+            std::bind_front(handleBiosServicePut, std::ref(app)));
 }
 
 /**
