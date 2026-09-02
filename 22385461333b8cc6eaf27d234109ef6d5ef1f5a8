@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aba7e27_0314119d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-02T15:43:06Z",
+      "side": 1,
+      "message": "Thanks, understoo. updated the commit message.",
+      "parentUuid": "10da2e1f_9f8a6f47",
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43136baa_47da96e6",
@@ -233,6 +251,30 @@
       "side": 1,
       "message": "Then please document in the commit message.",
       "parentUuid": "663a3570_ea80b8f2",
+      "range": {
+        "startLine": 858,
+        "startChar": 12,
+        "endLine": 862,
+        "endChar": 13
+      },
+      "revId": "22385461333b8cc6eaf27d234109ef6d5ef1f5a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ea3c481_e9598c19",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-02T15:43:06Z",
+      "side": 1,
+      "message": "Thanks, updated the commit message.",
+      "parentUuid": "ec942e87_ffdf5b7c",
       "range": {
         "startLine": 858,
         "startChar": 12,
