@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86d50901_a51d9aea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-02T16:04:46Z",
+      "side": 1,
+      "message": "Thanks, update the commit message.",
+      "parentUuid": "f7091dbf_68608890",
+      "revId": "e19331408c71cea75352c9e2025ec392acba030a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76bc49df_10c83fce",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-09-01T06:49:34Z",
       "side": 1,
       "message": "Can we make this const?",
+      "range": {
+        "startLine": 775,
+        "startChar": 12,
+        "endLine": 775,
+        "endChar": 61
+      },
+      "revId": "e19331408c71cea75352c9e2025ec392acba030a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4592fba_d4251955",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-02T16:04:46Z",
+      "side": 1,
+      "message": "No need to make it const, as this value is only read and returned in the response without any further manipulation",
+      "parentUuid": "76bc49df_10c83fce",
       "range": {
         "startLine": 775,
         "startChar": 12,
