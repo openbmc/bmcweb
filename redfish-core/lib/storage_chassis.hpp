@@ -14,6 +14,8 @@
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 
+#include <cerrno>
+
 namespace redfish
 {
 
@@ -460,32 +462,36 @@ inline void chassisDriveCollectionGet(
                         chassisId));
 }
 
-inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& chassisId,
-                       const std::string& driveName,
-                       const boost::system::error_code& ec,
-                       const dbus::utility::MapperGetSubTreeResponse& subtree)
+inline void buildDrive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& driveName,
+    const std::string& drivePath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+        BMCWEB_LOG_ERROR("DBus response error while looking up drive {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
 
+    bool found = false;
+
     // Iterate over all retrieved ObjectPaths.
     for (const auto& [path, connectionNames] : subtree)
     {
-        sdbusplus::object_path objPath(path);
-        if (objPath.filename() != driveName)
+        if (path != drivePath)
         {
             continue;
         }
 
+        found = true;
+
         if (connectionNames.empty())
         {
-            BMCWEB_LOG_ERROR("Got 0 Connection names");
-            continue;
+            BMCWEB_LOG_ERROR("Got 0 connection names for drive path {}", path);
+            messages::internalError(asyncResp->res);
+            return;
         }
 
         asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
@@ -504,6 +510,12 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         addAllDriveInfo(asyncResp, connectionNames[0].first, path,
                         connectionNames[0].second);
+    }
+
+    if (!found)
+    {
+        BMCWEB_LOG_WARNING("Drive path returned by mapper was not found");
+        messages::resourceNotFound(asyncResp->res, "Drive", driveName);
     }
 }
 
@@ -525,12 +537,39 @@ inline void matchAndFillDrive(
             "xyz.openbmc_project.Inventory.Item.Drive"};
         dbus::utility::getSubTree(
             "/xyz/openbmc_project/inventory", 0, driveInterface,
-            [asyncResp, chassisId, driveName](
+            [asyncResp, chassisId, driveName, drivePath](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
-                buildDrive(asyncResp, chassisId, driveName, ec, subtree);
+                buildDrive(asyncResp, chassisId, driveName, drivePath, ec,
+                           subtree);
             });
+        return;
     }
+
+    BMCWEB_LOG_WARNING("Drive was not found in the chassis association");
+    messages::resourceNotFound(asyncResp->res, "Drive", driveName);
+}
+
+inline void afterChassisDriveAssociationGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& driveName,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& resp)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR ||
+            ec == boost::system::errc::host_unreachable)
+        {
+            BMCWEB_LOG_WARNING("Chassis drive association was not found");
+            messages::resourceNotFound(asyncResp->res, "Drive", driveName);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error for drive association {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    matchAndFillDrive(asyncResp, chassisId, driveName, resp);
 }
 
 inline void handleChassisDriveGet(
@@ -552,6 +591,9 @@ inline void handleChassisDriveGet(
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
+                BMCWEB_LOG_ERROR(
+                    "DBus response error while looking up chassis for drive {}",
+                    ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -573,16 +615,8 @@ inline void handleChassisDriveGet(
 
                 dbus::utility::getAssociationEndPoints(
                     path + "/drive",
-                    [asyncResp, chassisId,
-                     driveName](const boost::system::error_code& ec3,
-                                const dbus::utility::MapperEndPoints& resp) {
-                        if (ec3)
-                        {
-                            return; // no drives = no failures
-                        }
-                        matchAndFillDrive(asyncResp, chassisId, driveName,
-                                          resp);
-                    });
+                    std::bind_front(afterChassisDriveAssociationGet, asyncResp,
+                                    chassisId, driveName));
                 return;
             }
             // Couldn't find an object with that name.  return an error
