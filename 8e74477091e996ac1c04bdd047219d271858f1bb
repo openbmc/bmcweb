@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa927ef_37b82379",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:52:35Z",
+      "side": 1,
+      "message": "can you follow wrap 72 in body as per https://cbea.ms/git-commit/",
+      "revId": "8e74477091e996ac1c04bdd047219d271858f1bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d132a1b0_ba7f7da6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:52:35Z",
+      "side": 1,
+      "message": "This block and the permissions() block below are structurally identical.\nconsider a small helper to avoid duplication.",
+      "revId": "8e74477091e996ac1c04bdd047219d271858f1bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a12b82c6_fa7ce85f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:52:35Z",
+      "side": 1,
+      "message": "cleanUp() (defined line 125) never removes the file — this leaves a stale empty file at filepath on both new failure paths.",
+      "revId": "8e74477091e996ac1c04bdd047219d271858f1bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90938d3b_a0896fb6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:52:35Z",
+      "side": 1,
+      "message": "This new failure path isn\u0027t exercised in the Tested section.",
+      "revId": "8e74477091e996ac1c04bdd047219d271858f1bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "172e7914_1cca5c67",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:52:35Z",
+      "side": 1,
+      "message": "cleanUp() (defined line 125) never removes the file — this leaves a stale empty file at filepath on both new failure paths.",
+      "revId": "8e74477091e996ac1c04bdd047219d271858f1bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
