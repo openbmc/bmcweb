@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "251af718_8bcc1a9f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-03T07:09:15Z",
+      "side": 1,
+      "message": "I will add the same as a separate commit. Thanks for reviewing.",
+      "parentUuid": "d2734b38_866ca49c",
+      "revId": "b401c454e05fc28f441c9a5bf8a3b7d68d65a08f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c24b5d9_b161289e",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-02T22:17:13Z",
       "side": 1,
       "message": "This looks correct but again, you kind of snuck this change in here",
+      "revId": "b401c454e05fc28f441c9a5bf8a3b7d68d65a08f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7333bfd2_96029543",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-03T07:09:15Z",
+      "side": 1,
+      "message": "Good catch, updated the commit message.",
+      "parentUuid": "4c24b5d9_b161289e",
       "revId": "b401c454e05fc28f441c9a5bf8a3b7d68d65a08f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
