@@ -52,12 +52,12 @@ namespace redfish
 inline void handlePCIeDevicePath(
     const std::string& pcieDeviceId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const dbus::utility::MapperGetSubTreePathsResponse& pcieDevicePaths,
+    const dbus::utility::MapperGetSubTreeResponse& pcieDevices,
     const std::function<void(const std::string& pcieDevicePath,
                              const std::string& service)>& callback)
 
 {
-    for (const std::string& pcieDevicePath : pcieDevicePaths)
+    for (const auto& [pcieDevicePath, services] : pcieDevices)
     {
         std::string pcieDeviceName =
             sdbusplus::object_path(pcieDevicePath).filename();
@@ -65,27 +65,35 @@ inline void handlePCIeDevicePath(
         {
             continue;
         }
-        static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
-            "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
-        dbus::utility::getDbusObject(
-            pcieDevicePath, pcieDeviceInterface,
-            // ast-grep-ignore: long-lambda
-            [pcieDevicePath, asyncResp,
-             callback](const boost::system::error_code& ec,
-                       const dbus::utility::MapperGetObject& object) {
-                if (ec || object.empty())
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                callback(pcieDevicePath, object.begin()->first);
-            });
+        if (services.empty())
+        {
+            BMCWEB_LOG_ERROR("No service found for PCIe Device");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        callback(pcieDevicePath, services.front().first);
         return;
     }
 
     BMCWEB_LOG_WARNING("PCIe Device not found");
     messages::resourceNotFound(asyncResp->res, "PCIeDevice", pcieDeviceId);
+}
+
+inline void afterGetPCIeDeviceSubTree(
+    const std::string& pcieDeviceId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::function<void(const std::string& pcieDevicePath,
+                             const std::string& service)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& pcieDevices)
+{
+    if (ec && ec != boost::system::errc::io_error)
+    {
+        BMCWEB_LOG_ERROR("D-Bus response error on GetSubTree {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    handlePCIeDevicePath(pcieDeviceId, asyncResp, pcieDevices, callback);
 }
 
 inline void getValidPCIeDevicePath(
@@ -97,23 +105,10 @@ inline void getValidPCIeDevicePath(
     static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
         "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
 
-    dbus::utility::getSubTreePaths(
+    dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, pcieDeviceInterface,
-        // ast-grep-ignore: long-lambda
-        [pcieDeviceId, asyncResp,
-         callback](const boost::system::error_code& ec,
-                   const dbus::utility::MapperGetSubTreePathsResponse&
-                       pcieDevicePaths) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("D-Bus response error on GetSubTree {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            handlePCIeDevicePath(pcieDeviceId, asyncResp, pcieDevicePaths,
-                                 callback);
-            return;
-        });
+        std::bind_front(afterGetPCIeDeviceSubTree, pcieDeviceId, asyncResp,
+                        callback));
 }
 
 inline void handlePCIeDeviceCollectionGet(
