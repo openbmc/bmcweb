@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a37894e_a7fae3f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:25:47Z",
+      "side": 1,
+      "message": "can you follow wrap 72 in body as per https://cbea.ms/git-commit/",
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6dde0a1a_02a216fb",
@@ -14,6 +31,23 @@
       "writtenOn": "2026-09-03T09:03:19Z",
       "side": 1,
       "message": "Looks good to me, minor nits are non-blocking.",
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f080fd81_52967c19",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:25:47Z",
+      "side": 1,
+      "message": "These are now independently named/testable functions but no unit tests were added — dump_utils_test.cpp doesn\u0027t exist anywhere in the tree.",
       "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -37,6 +71,40 @@
         "endLine": 539,
         "endChar": 68
       },
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de756c2e_d82fb140",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:25:47Z",
+      "side": 1,
+      "message": "These are now independently named/testable functions but no unit tests were added — dump_utils_test.cpp doesn\u0027t exist anywhere in the tree.",
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3051f07b_c3e3e8f3",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:25:47Z",
+      "side": 1,
+      "message": "Pre-existing inverted logic, carried over verbatim — sets true for any interface that ISN\u0027T Common.Progress. Not introduced by this patch, but worth fixing since you\u0027re relocating this exact block.",
       "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -84,6 +152,23 @@
         "endLine": 670,
         "endChar": 47
       },
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61be917d_8f386c2b",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:25:47Z",
+      "side": 1,
+      "message": "These are now independently named/testable functions but no unit tests were added — dump_utils_test.cpp doesn\u0027t exist anywhere in the tree.",
       "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
