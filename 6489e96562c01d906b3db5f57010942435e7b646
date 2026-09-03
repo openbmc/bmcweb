@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52b20382_cec7c6b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-03T16:52:03Z",
+      "side": 1,
+      "message": "Overall I am good, have some comments incase you want to fix or fix in other commit",
+      "revId": "6489e96562c01d906b3db5f57010942435e7b646",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95479f90_b56921cf",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-03T16:52:03Z",
+      "side": 1,
+      "message": "An edge case would be no Inventory.Item but an Availabel interface \n\nProbably should be an \"or available\" here?\n|| xyz.openbmc_project.State.Decorator.Availability\n\nOh well",
+      "revId": "6489e96562c01d906b3db5f57010942435e7b646",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cca791c3_49557539",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-03T16:52:03Z",
+      "side": 1,
+      "message": "This is slighter harder to follow.. Kind of wish this was called: coreIt, probably should also be \u0026coreId instead of copying in, also should compare and log ec like we do elsewhere \n\n\n    auto coreIt \u003d\n        std::ranges::find_if(coreSubTree, [\u0026coreId](const auto\u0026 core) {\n            return sdbusplus::message::object_path(core.first).filename() \u003d\u003d\n                   coreId;\n        });\n\n    if (coreIt \u003d\u003d coreSubTree.end())\n    {\n        BMCWEB_LOG_WARNING(\"Core {} not found.\", coreId);\n        messages::resourceNotFound(asyncResp-\u003eres, \"Processor\", coreId);\n        return;\n    }\n\n    const auto\u0026 [corePath, object] \u003d *coreIt;\n    getSubProcessorCoreData(asyncResp, systemName, processorId, coreId,\n                            corePath, object);",
+      "range": {
+        "startLine": 179,
+        "startChar": 38,
+        "endLine": 179,
+        "endChar": 40
+      },
+      "revId": "6489e96562c01d906b3db5f57010942435e7b646",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
