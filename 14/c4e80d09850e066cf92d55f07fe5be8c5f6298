@@ -1,0 +1,11 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: <jvoon@nvidia.com>
+Code-Review+1: Joel Pullokaran Jesin <joelpj@ami.com>
+Code-Review+1: Justin Nguyen <justinnanguyen@gmail.com>
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Submitted-by: Vinothkumar Shanmugavel <vinothkumars@ami.com>
+Submitted-at: Thu, 03 Sep 2026 02:35:32 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/93639
+Comments-Total: 13
+Project: openbmc/bmcweb
+Branch: refs/heads/master
