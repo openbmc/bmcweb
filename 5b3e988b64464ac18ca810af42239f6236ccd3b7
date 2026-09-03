@@ -276,6 +276,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "995d6982_6f1bed5a",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-03T18:52:38Z",
+      "side": 1,
+      "message": "Thank you for checking.",
+      "parentUuid": "9cdf6294_a5202c2b",
+      "range": {
+        "startLine": 666,
+        "startChar": 8,
+        "endLine": 670,
+        "endChar": 47
+      },
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61be917d_8f386c2b",
