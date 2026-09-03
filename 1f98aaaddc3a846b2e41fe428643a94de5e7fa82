@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5749087_8c385fa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:31:39Z",
+      "side": 1,
+      "message": "can you follow wrap 72 in body as per https://cbea.ms/git-commit/",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa756d8f_1f59c2c4",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:31:39Z",
+      "side": 1,
+      "message": "Please confirm \"monitored_by\" is the actual association name exposed by the backing service.",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f17e63_94ae444a",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:31:39Z",
+      "side": 1,
+      "message": "This silently return to a 200 OK with an empty body on EBADR; should call messages::resourceNotFound() here.",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdfa894c_9bed412b",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:31:39Z",
+      "side": 1,
+      "message": "Name implies collection-only, but this also registers the item route below — rename to requestRoutesLeakDetector.",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b30e30db_deb75b0e",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T09:31:39Z",
+      "side": 1,
+      "message": "Missing HEAD method for both routes, as compare with requestRoutesLeakDetection in leak_detection.hpp which registers both.",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
