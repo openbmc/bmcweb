@@ -21,6 +21,8 @@
 #include "fabric_ports.hpp"
 #include "fan.hpp"
 #include "hypervisor_system.hpp"
+#include "leak_detection.hpp"
+#include "leak_detector.hpp"
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
 #include "manager_logservices_dbus_eventlog.hpp"
@@ -105,6 +107,9 @@ RedfishService::RedfishService(App& app)
         requestRoutesThermalMetrics(app);
         requestRoutesThermalSubsystem(app);
         requestRoutesFan(app);
+        requestRoutesLeakDetection(app);
+        requestRoutesLeakDetectorCollection(app);
+        requestRoutesLeakDetector(app);
     }
     requestRoutesManager(app);
     requestRoutesManagerResetAction(app);
