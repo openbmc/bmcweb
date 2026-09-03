@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bb453e9f_870899dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T18:29:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a37894e_a7fae3f1",
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6dde0a1a_02a216fb",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cde43e2_543d148f",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T18:29:49Z",
+      "side": 1,
+      "message": "Out of scope for this patch, as this is supposed to be a simple refactoring. I\u0027ll try to follow-up on this in the patch that reintroduces the dump util test.",
+      "parentUuid": "f080fd81_52967c19",
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e8ccd43_24fe9f8b",
@@ -65,6 +101,30 @@
       "writtenOn": "2026-09-02T21:34:23Z",
       "side": 1,
       "message": "nit: Since no longer nested could just call this variable ec.",
+      "range": {
+        "startLine": 539,
+        "startChar": 65,
+        "endLine": 539,
+        "endChar": 68
+      },
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9511325_1245970b",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T18:29:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e8ccd43_24fe9f8b",
       "range": {
         "startLine": 539,
         "startChar": 65,
@@ -92,6 +152,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1e16d1f_bce4e268",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T18:29:49Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "de756c2e_d82fb140",
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3051f07b_c3e3e8f3",
@@ -105,6 +183,24 @@
       "writtenOn": "2026-09-03T10:25:47Z",
       "side": 1,
       "message": "Pre-existing inverted logic, carried over verbatim — sets true for any interface that ISN\u0027T Common.Progress. Not introduced by this patch, but worth fixing since you\u0027re relocating this exact block.",
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8dc6b8b_3bc1ac1d",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T18:29:49Z",
+      "side": 1,
+      "message": "Yes, this looks fishy. However, out of scope for this patch as this is a simple refactoring. I\u0027ll try to follow-up on this separately, need to investigate further.",
+      "parentUuid": "3051f07b_c3e3e8f3",
       "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -156,6 +252,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cdf6294_a5202c2b",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T18:29:49Z",
+      "side": 1,
+      "message": "This doesn\u0027t compile. I believe this is due to the fact that the async_method_call wrapper is not able to deduce the returned object from std::bind_front.",
+      "parentUuid": "78decd1b_c90eb477",
+      "range": {
+        "startLine": 666,
+        "startChar": 8,
+        "endLine": 670,
+        "endChar": 47
+      },
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61be917d_8f386c2b",
@@ -169,6 +289,24 @@
       "writtenOn": "2026-09-03T10:25:47Z",
       "side": 1,
       "message": "These are now independently named/testable functions but no unit tests were added — dump_utils_test.cpp doesn\u0027t exist anywhere in the tree.",
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8af0a80_af5ddde4",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T18:29:49Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "61be917d_8f386c2b",
       "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -210,6 +348,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "5ce418ab_36d06783",
+      "range": {
+        "startLine": 808,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 37
+      },
+      "revId": "5b3e988b64464ac18ca810af42239f6236ccd3b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0421926_9f05acdf",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T18:29:49Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "f2d07222_49f2db14",
       "range": {
         "startLine": 808,
         "startChar": 8,
