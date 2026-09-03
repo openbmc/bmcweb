@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a11c4263_84154463",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T19:21:43Z",
+      "side": 1,
+      "message": "Thanks, fixed. Done",
+      "parentUuid": "f9900cb7_436b87bf",
+      "range": {
+        "startLine": 322,
+        "startChar": 23,
+        "endLine": 322,
+        "endChar": 28
+      },
+      "revId": "bf0ef5c2f0683f011b42eea454d12ab45209f1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d0a9467_e56bdff8",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b483454_59cd92a0",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T19:21:43Z",
+      "side": 1,
+      "message": "Yes this makes sense. `dumpType` gets now checked before the call to dbus. Done",
+      "parentUuid": "5d0a9467_e56bdff8",
+      "revId": "bf0ef5c2f0683f011b42eea454d12ab45209f1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c4494b0_b83547ba",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-09-02T21:16:53Z",
       "side": 1,
       "message": "Should the dumpType be validated before calling DBus? In the old code it was being validated by the call to getDumpEntriesPath() here. (I see the afterGetManagedObjectsDumpEntryById() will catch the error, but I\u0027m just wondering about short-circuiting and skipping the DBus call when we know it is not valid.)",
+      "range": {
+        "startLine": 528,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 2
+      },
+      "revId": "bf0ef5c2f0683f011b42eea454d12ab45209f1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "581299dc_932e8729",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-03T19:21:43Z",
+      "side": 1,
+      "message": "Same as above. Done",
+      "parentUuid": "2c4494b0_b83547ba",
       "range": {
         "startLine": 528,
         "startChar": 0,
