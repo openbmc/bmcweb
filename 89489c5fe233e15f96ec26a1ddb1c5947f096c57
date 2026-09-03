@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ea04ba1_4d144b51",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-03T16:26:02Z",
+      "side": 1,
+      "message": "One way we have absent cores is CPU binning from the manufacturing process where physical cores are intentionally left unused or disabled. \n\nAnother is hardware guarding where faulty units are guarded and excluded from use at boot.",
+      "parentUuid": "139b8802_c99ed5f6",
+      "range": {
+        "startLine": 162,
+        "startChar": 71,
+        "endLine": 162,
+        "endChar": 77
+      },
+      "revId": "89489c5fe233e15f96ec26a1ddb1c5947f096c57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7018f71a_6cb7f6ef",
         "filename": "redfish-core/lib/processor_core.hpp",
         "patchSetId": 1
