@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7823701c_64ac8138",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-03T15:27:28Z",
+      "side": 1,
+      "message": "Done. Removed using namespace host_interface; and qualified the single usage as host_interface::HostInterfaceType::NetworkHostInterface.",
+      "parentUuid": "0eebba9d_8a97c096",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "08c3ccb09474834e7b160d4f4dcb315af779c3c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e78f8471_3d90c790",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-01-28T09:22:00Z",
       "side": 1,
       "message": "Not all systems expose this. So should we check if the Interfaces exists and populate this URI ?",
+      "revId": "08c3ccb09474834e7b160d4f4dcb315af779c3c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f91c85d7_1d73ca99",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-03T15:27:28Z",
+      "side": 1,
+      "message": "Done. getHostInterfacesLink now looks up the CredentialBootstrapping interface via getDbusObject and only sets the HostInterfaces link when it exists, so systems without host-interface support don\u0027t advertise it.",
+      "parentUuid": "e78f8471_3d90c790",
       "revId": "08c3ccb09474834e7b160d4f4dcb315af779c3c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
