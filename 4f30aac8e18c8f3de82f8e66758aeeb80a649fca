@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c55ba534_e0209f01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:17:42Z",
+      "side": 1,
+      "message": "can you follow wrap 72 in body as per https://cbea.ms/git-commit/",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8ec4389d_cdeb4de2",
@@ -14,6 +31,91 @@
       "writtenOn": "2026-09-03T09:18:06Z",
       "side": 1,
       "message": "LGTM",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac5a651d_3aed19f9",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:17:42Z",
+      "side": 1,
+      "message": "If possible, can you update the Debug log here too, to identify where it gets return.",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c5767f6_bbd26f6f",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:17:42Z",
+      "side": 1,
+      "message": "if EBADR is present, how will we handle it, can you update the code as like the validation for afterGetSwitchPowerStateService() function.",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bff6a236_fd1331e8",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:17:42Z",
+      "side": 1,
+      "message": "This path (GetObject error other than EBADR/io_error) isn\u0027t demonstrated in Tested",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb5d4618_01c2d2e4",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:17:42Z",
+      "side": 1,
+      "message": "Unlike the ec branch above, this has no BMCWEB_LOG_DEBUG — add one for debuggability parity",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba251a91_b673f185",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T10:17:42Z",
+      "side": 1,
+      "message": "Is this existence-check round trip necessary given getResourceHealth\u0027s own callback already defaults to OK on EBADR? Worth a one-line note in the commit message either way.",
       "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
