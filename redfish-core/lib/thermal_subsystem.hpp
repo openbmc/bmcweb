@@ -40,7 +40,7 @@ inline void doThermalSubsystemCollection(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
-        "#ThermalSubsystem.v1_0_0.ThermalSubsystem";
+        "#ThermalSubsystem.v1_5_0.ThermalSubsystem";
     asyncResp->res.jsonValue["Name"] = "Thermal Subsystem";
     asyncResp->res.jsonValue["Id"] = "ThermalSubsystem";
 
@@ -54,6 +54,10 @@ inline void doThermalSubsystemCollection(
         boost::urls::format(
             "/redfish/v1/Chassis/{}/ThermalSubsystem/ThermalMetrics",
             chassisId);
+
+    asyncResp->res.jsonValue["LeakDetection"]["@odata.id"] =
+        boost::urls::format(
+            "/redfish/v1/Chassis/{}/ThermalSubsystem/LeakDetection", chassisId);
 
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
     asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
