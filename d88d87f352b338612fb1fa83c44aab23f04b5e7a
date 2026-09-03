@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7735f8cd_11eefe52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-03T13:23:59Z",
+      "side": 1,
+      "message": "Abandoning — this refactor is superseded by commit e76fecea5 (\"Cable: Add Available state and Status.Health\"), which already removed fillCableHealthState/afterGetCableHealthState and replaced them with the generic resource_utils::getResourceState()/getResourceHealth() helpers (already free of long lambdas). Nothing left here to refactor.",
+      "revId": "d88d87f352b338612fb1fa83c44aab23f04b5e7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5a6db97_433d773b",
