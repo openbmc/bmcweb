@@ -235,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87cb2bf2_d37e6020",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-03T09:00:58Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bios-settings-mgr/blob/master/README.md\ndocumneted here",
+      "parentUuid": "b77ddf60_afae4e97",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 52
+      },
+      "revId": "f818a5a725ca2efcf3d37ba88b334d8f447b73be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30008b70_59175b40",
