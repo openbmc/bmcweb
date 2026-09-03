@@ -48,6 +48,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <tuple>
 #include <unordered_map>
 #include <utility>
 #include <variant>
@@ -2540,6 +2541,157 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         });
 }
 
+struct ThresholdWrite
+{
+    std::string redfishName;
+    std::string_view interface;
+    std::string_view property;
+    double value = 0;
+};
+
+inline void setSensorThresholds(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& sensorId, const sdbusplus::object_path& sensorPath,
+    const std::vector<ThresholdWrite>& thresholds,
+    const boost::system::error_code& ec,
+    const ::dbus::utility::MapperGetObject& object)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_WARNING("Sensor {} is not on D-Bus", sensorId);
+            messages::resourceNotFound(asyncResp->res, "Sensor", sensorId);
+            return;
+        }
+        BMCWEB_LOG_ERROR("Sensor {} getDbusObject: D-Bus error {}", sensorId,
+                         ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (object.empty())
+    {
+        BMCWEB_LOG_WARNING("No service hosts sensor {}", sensorId);
+        messages::resourceNotFound(asyncResp->res, "Sensor", sensorId);
+        return;
+    }
+
+    const std::string& service = object.begin()->first;
+    for (const ThresholdWrite& threshold : thresholds)
+    {
+        setDbusProperty(asyncResp,
+                        "Thresholds/" + threshold.redfishName + "/Reading",
+                        service, sensorPath, threshold.interface,
+                        threshold.property, threshold.value);
+    }
+
+    BMCWEB_LOG_DEBUG("Set {} threshold(s) on sensor {}", thresholds.size(),
+                     sensorId);
+}
+
+inline void handleSensorPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /*chassisId*/, const std::string& sensorId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::optional<nlohmann::json::object_t> thresholdsJson;
+    if (!json_util::readJsonPatch(req, asyncResp->res, "Thresholds",
+                                  thresholdsJson))
+    {
+        return;
+    }
+
+    if (!thresholdsJson)
+    {
+        return;
+    }
+
+    const std::pair<std::string, std::string> nameType =
+        redfish::sensor_utils::splitSensorNameAndType(sensorId);
+    if (nameType.first.empty() || nameType.second.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "Sensor", sensorId);
+        return;
+    }
+
+    sensor_utils::SensorPropertyList readable;
+    nlohmann::json::json_pointer unit("/Reading");
+    sensor_utils::mapPropertiesBySubnode(
+        nameType.first, sensor_utils::ChassisSubNode::sensorsNode, readable,
+        unit, false);
+
+    std::vector<ThresholdWrite> thresholds;
+    for (auto& [redfishName, body] : *thresholdsJson)
+    {
+        nlohmann::json::object_t* threshold =
+            body.get_ptr<nlohmann::json::object_t*>();
+        if (threshold == nullptr)
+        {
+            messages::propertyValueTypeError(asyncResp->res, body,
+                                             "Thresholds/" + redfishName);
+            return;
+        }
+
+        for (const auto& entry : *threshold)
+        {
+            if (entry.first != "Reading")
+            {
+                messages::propertyNotWritable(
+                    asyncResp->res,
+                    "Thresholds/" + redfishName + "/" + entry.first);
+                return;
+            }
+        }
+
+        double value = 0;
+        if (!json_util::readJsonObject(*threshold, asyncResp->res, "Reading",
+                                       value))
+        {
+            return;
+        }
+
+        const nlohmann::json::json_pointer pointer =
+            "/Thresholds"_json_pointer / redfishName / "Reading";
+        const auto entry = std::ranges::find_if(
+            readable, [&pointer](const sensor_utils::SensorPropertyMap& p) {
+                return std::get<2>(p) == pointer;
+            });
+
+        if (entry == readable.end())
+        {
+            messages::propertyUnknown(asyncResp->res,
+                                      "Thresholds/" + redfishName);
+            return;
+        }
+
+        thresholds.emplace_back(redfishName, std::get<0>(*entry),
+                                std::get<1>(*entry), value);
+    }
+
+    if (thresholds.empty())
+    {
+        return;
+    }
+
+    const sdbusplus::object_path sensorPath =
+        sdbusplus::object_path("/xyz/openbmc_project/sensors") /
+        nameType.first / nameType.second;
+
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Sensor.Value"};
+
+    ::dbus::utility::getDbusObject(
+        sensorPath.str, interfaces,
+        std::bind_front(setSensorThresholds, asyncResp, sensorId, sensorPath,
+                        thresholds));
+}
+
 } // namespace sensors
 
 inline void requestRoutesSensorCollection(App& app)
@@ -2556,6 +2708,11 @@ inline void requestRoutesSensor(App& app)
         .privileges(redfish::privileges::getSensor)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(sensors::handleSensorGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/")
+        .privileges(redfish::privileges::patchSensor)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(sensors::handleSensorPatch, std::ref(app)));
 }
 
 } // namespace redfish
