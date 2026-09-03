@@ -23,11 +23,13 @@ constexpr const char* validChassisPath = "ChassisPath";
 void assertThermalCollectionGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
-    EXPECT_EQ(json["@odata.type"], "#ThermalSubsystem.v1_0_0.ThermalSubsystem");
+    EXPECT_EQ(json["@odata.type"], "#ThermalSubsystem.v1_5_0.ThermalSubsystem");
     EXPECT_EQ(json["Name"], "Thermal Subsystem");
     EXPECT_EQ(json["Id"], "ThermalSubsystem");
     EXPECT_EQ(json["@odata.id"],
               "/redfish/v1/Chassis/ChassisId/ThermalSubsystem");
+    EXPECT_EQ(json["LeakDetection"]["@odata.id"],
+              "/redfish/v1/Chassis/ChassisId/ThermalSubsystem/LeakDetection");
     EXPECT_EQ(json["Status"]["State"], "Enabled");
     EXPECT_EQ(json["Status"]["Health"], "OK");
 }

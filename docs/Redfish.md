@@ -376,8 +376,31 @@ Fields common to all schemas
 
 #### ThermalSubsystem
 
+- LeakDetection
 - Status
 - ThermalMetrics
+
+### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/
+
+#### LeakDetection
+
+- LeakDetectors
+- Status
+
+### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors/
+
+#### LeakDetectorCollection
+
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors/{LeakDetectorId}/
+
+#### LeakDetector
+
+- DetectorState
+- LeakDetectorType
+- Status
 
 #### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/ThermalMetrics/
 
