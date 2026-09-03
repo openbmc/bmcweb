@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6069100d_63cb5e4a",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-03T19:55:17Z",
+      "side": 1,
+      "message": "I also thought there was NotStarted and InProgress ?\nOh well",
+      "revId": "63c2d0eb70ac7d0f224db6ca3757afa63fe36b26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a3d5db5_0fbfb27b",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-03T19:55:17Z",
+      "side": 1,
+      "message": "nitpick: looks like all other test cases are capitalized",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "63c2d0eb70ac7d0f224db6ca3757afa63fe36b26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
