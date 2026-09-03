@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ed68f80_e44fa0ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002771
+      },
+      "writtenOn": "2026-09-03T14:14:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2005fbc6_c45ae086",
+      "revId": "44c0c3f2d77df848ace8e4abdae9522f787b1be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08b6ebdf_042fe4ae",
@@ -48,6 +66,30 @@
       "writtenOn": "2026-08-26T06:01:36Z",
       "side": 1,
       "message": "Should this really be warning here?",
+      "range": {
+        "startLine": 395,
+        "startChar": 12,
+        "endLine": 395,
+        "endChar": 41
+      },
+      "revId": "44c0c3f2d77df848ace8e4abdae9522f787b1be4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dd7705e_1bd492db",
+        "filename": "redfish-core/include/registries/openbmc.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1002771
+      },
+      "writtenOn": "2026-09-03T14:14:25Z",
+      "side": 1,
+      "message": "Warning is intentional — firmware is applied but not live, operator\nmust do AC/DC/reboot/reset. At OK the event gets filtered by consoles\nand the operator misses it. Happy to drop to OK + pair with a Critical\nif that fits OpenBMC convention better.",
+      "parentUuid": "08b6ebdf_042fe4ae",
       "range": {
         "startLine": 395,
         "startChar": 12,
