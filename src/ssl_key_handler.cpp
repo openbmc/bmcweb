@@ -474,22 +474,28 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
     mSslContext.set_options(sslOptions);
 
     BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
-    mSslContext.add_verify_path(trustStorePath);
+    boost::system::error_code ec;
+    mSslContext.add_verify_path(trustStorePath, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_CRITICAL("Failed to add verify path: {}", ec.message());
+        return false;
+    }
 
     if (!sslPemFile.empty())
     {
-        boost::system::error_code ec;
-
         boost::asio::const_buffer buf(sslPemFile.data(), sslPemFile.size());
         mSslContext.use_certificate_chain(buf, ec);
         if (ec)
         {
+            BMCWEB_LOG_CRITICAL("Failed to open ssl certificate: {}",
+                                ec.message());
             return false;
         }
         mSslContext.use_private_key(buf, boost::asio::ssl::context::pem, ec);
         if (ec)
         {
-            BMCWEB_LOG_CRITICAL("Failed to open ssl pkey");
+            BMCWEB_LOG_CRITICAL("Failed to open ssl pkey: {}", ec.message());
             return false;
         }
     }
