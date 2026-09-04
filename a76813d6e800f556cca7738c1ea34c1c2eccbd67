@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e3f47f_6faf3ea0",
+        "filename": "redfish-core/lib/leak_detection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T07:09:48Z",
+      "side": 1,
+      "message": "Please add error_messages.hpp and boost field",
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a387cc27_cd1c183a",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T07:09:48Z",
+      "side": 1,
+      "message": "Please include \u003cutility\u003e and boost field.hpp",
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae48655_8e2e4d23",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T07:09:48Z",
+      "side": 1,
+      "message": "nit:\n`services` is unused, use something like entry and access entry.first",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 48
+      },
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d11517f_1ad38700",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T07:09:48Z",
+      "side": 1,
+      "message": "Collection GET omits the required rel\u003ddescribedby Link header. Add the same schema link used by HEAD.",
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff5a3f16_2b7cbbd0",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T07:09:48Z",
+      "side": 1,
+      "message": "DetectorState is populated without corresponding Status.Health. CSDL says these should agree.",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 255,
+        "endChar": 5
+      },
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
