@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "212431a2_73bce0a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-04T05:22:09Z",
+      "side": 1,
+      "message": "Those lines are inside the fenced block in the Tested section",
+      "parentUuid": "d5749087_8c385fa3",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa756d8f_1f59c2c4",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24bb7d46_73c89434",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-04T05:22:09Z",
+      "side": 1,
+      "message": "Confirmed. It is the reverse_name of the monitoring association defined in phosphor-dbus-interfaces, yaml/xyz/openbmc_project/State/Leak/Detector.interface.yaml, whose required endpoint interface is xyz.openbmc_project.Inventory.Item. The producer is https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/94199, which publishes it from each SMA leak detector to the inventory item it monitors.",
+      "parentUuid": "fa756d8f_1f59c2c4",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0f17e63_94ae444a",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-09-03T09:31:39Z",
       "side": 1,
       "message": "This silently return to a 200 OK with an empty body on EBADR; should call messages::resourceNotFound() here.",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e91989c_6756f4c9",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-04T05:22:09Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "f0f17e63_94ae444a",
       "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +136,42 @@
       "writtenOn": "2026-09-03T09:31:39Z",
       "side": 1,
       "message": "Missing HEAD method for both routes, as compare with requestRoutesLeakDetection in leak_detection.hpp which registers both.",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e67ea40a_40510cbd",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-04T05:22:09Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "fdfa894c_9bed412b",
+      "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "833ff9a6_21af6c57",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-04T05:22:09Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "b30e30db_deb75b0e",
       "revId": "1f98aaaddc3a846b2e41fe428643a94de5e7fa82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
