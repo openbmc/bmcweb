@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "737efa13_f2107732",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T06:38:35Z",
+      "side": 1,
+      "message": "Will it be nice to use EXPECT_EQ for the complete error message?",
+      "revId": "e9453db97d8ec70ed54582c48a27c47cf0542bd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a071c6d3_bb9c27e0",
+        "filename": "test/redfish-core/lib/leak_detection_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T06:38:35Z",
+      "side": 1,
+      "message": "Use resource::State::Enabled and resource::Health::OK",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 46
+      },
+      "revId": "e9453db97d8ec70ed54582c48a27c47cf0542bd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06697056_4edd1470",
+        "filename": "test/redfish-core/lib/leak_detector_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T06:38:35Z",
+      "side": 1,
+      "message": "Use the corresponding leak_detector:: and resource:: enums",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 50
+      },
+      "revId": "e9453db97d8ec70ed54582c48a27c47cf0542bd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2c98dd2_bc730b02",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T06:38:35Z",
+      "side": 1,
+      "message": "dbus_utility.hpp and nlohmann/json.hpp are unused direct includes???",
+      "revId": "e9453db97d8ec70ed54582c48a27c47cf0542bd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
