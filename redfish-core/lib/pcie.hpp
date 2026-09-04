@@ -715,6 +715,12 @@ inline void handlePCIeFunctionCollectionGet(
                                    systemName);
         return;
     }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
 
     getValidPCIeDevicePath(
         pcieDeviceId, asyncResp,
