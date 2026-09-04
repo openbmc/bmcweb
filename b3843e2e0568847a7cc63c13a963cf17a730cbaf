@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2969f31_42f46205",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2562,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T09:46:53Z",
+      "side": 1,
+      "message": "Can we return 404 only for absence and handle other errors as internal failures here?",
+      "range": {
+        "startLine": 2558,
+        "startChar": 4,
+        "endLine": 2562,
+        "endChar": 5
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc27189_d96fdf0d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2580,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T09:46:53Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 2580,
+        "startChar": 4,
+        "endLine": 2580,
+        "endChar": 36
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "327c8311_4407c509",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2599,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T09:46:53Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fe700d7_95af7d33",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2654,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T09:46:53Z",
+      "side": 1,
+      "message": "Can we use the typed JSON unpacking helper??",
+      "range": {
+        "startLine": 2647,
+        "startChar": 9,
+        "endLine": 2654,
+        "endChar": 9
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "578ea50e_45ee6f8b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2657,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T09:46:53Z",
+      "side": 1,
+      "message": "The below would be better, I think.\n\n```suggestion\n        const nlohmann::json::json_pointer pointer \u003d\n        \"/Thresholds\"_json_pointer / redfishName / \"Reading\";\n```",
+      "range": {
+        "startLine": 2656,
+        "startChar": 8,
+        "endLine": 2657,
+        "endChar": 55
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "559e298b_4fb98df2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2660,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-04T09:46:53Z",
+      "side": 1,
+      "message": "Please include header for the same.",
+      "range": {
+        "startLine": 2660,
+        "startChar": 23,
+        "endLine": 2660,
+        "endChar": 49
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
