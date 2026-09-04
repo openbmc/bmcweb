@@ -432,16 +432,16 @@ class HTTP2Connection :
                                          const nghttp2_frame* frame,
                                          void* userData)
     {
+        if (frame == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL("frame was null?");
+            return NGHTTP2_ERR_CALLBACK_FAILURE;
+        }
         BMCWEB_LOG_DEBUG("on_frame_recv_callback.  Frame type {}",
                          static_cast<int>(frame->hd.type));
         if (userData == nullptr)
         {
             BMCWEB_LOG_CRITICAL("user data was null?");
-            return NGHTTP2_ERR_CALLBACK_FAILURE;
-        }
-        if (frame == nullptr)
-        {
-            BMCWEB_LOG_CRITICAL("frame was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         return userPtrToSelf(userData).onFrameRecvCallback(*frame);
