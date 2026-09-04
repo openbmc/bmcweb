@@ -1624,8 +1624,8 @@ inline bool parseAddresses(
                 uint8_t prefixLength = 0;
                 // Ignore return code.  It came from internal, it's it's invalid
                 // nothing we can do
-                ip_util::ipv4VerifyIpAndGetBitcount(nicIpEntry->netmask,
-                                                    &prefixLength);
+                (void)ip_util::ipv4VerifyIpAndGetBitcount(nicIpEntry->netmask,
+                                                          &prefixLength);
 
                 thisAddress.prefixLength = prefixLength;
             }
