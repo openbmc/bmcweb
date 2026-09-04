@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1003a15b_9a15fb10",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-04T18:26:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3049f518_484361d3",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 2
+      },
+      "revId": "63c39b617dce2783e5112576ef9c55c4e0365bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9103af6_723224c0",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -67,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8766e162_251355ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-04T18:26:42Z",
+      "side": 1,
+      "message": "I\u0027ll do",
+      "parentUuid": "b9103af6_723224c0",
+      "revId": "63c39b617dce2783e5112576ef9c55c4e0365bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "047ab0c8_f9933aa5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 2
@@ -78,6 +120,30 @@
       "writtenOn": "2026-09-01T22:59:05Z",
       "side": 1,
       "message": "nit: or account",
+      "range": {
+        "startLine": 1140,
+        "startChar": 33,
+        "endLine": 1140,
+        "endChar": 41
+      },
+      "revId": "63c39b617dce2783e5112576ef9c55c4e0365bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f7d5e38_ed70a4e4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-04T18:26:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "047ab0c8_f9933aa5",
       "range": {
         "startLine": 1140,
         "startChar": 33,
@@ -113,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4f476c8_8817519e",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-04T18:26:42Z",
+      "side": 1,
+      "message": "yeap",
+      "parentUuid": "8e44e511_136cb6ed",
+      "range": {
+        "startLine": 54,
+        "startChar": 23,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "63c39b617dce2783e5112576ef9c55c4e0365bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4e0f9f4_beb39d82",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 2
@@ -136,6 +226,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7a746dbb_231ad889",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-04T18:26:42Z",
+      "side": 1,
+      "message": "yes, it should be",
+      "parentUuid": "b4e0f9f4_beb39d82",
+      "range": {
+        "startLine": 56,
+        "startChar": 17,
+        "endLine": 56,
+        "endChar": 41
+      },
+      "revId": "63c39b617dce2783e5112576ef9c55c4e0365bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "abf41045_bdbc566a",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 2
@@ -147,6 +261,30 @@
       "writtenOn": "2026-09-01T22:59:05Z",
       "side": 1,
       "message": "Same as above",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 36
+      },
+      "revId": "63c39b617dce2783e5112576ef9c55c4e0365bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed8313c7_7f3315fd",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-04T18:26:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "abf41045_bdbc566a",
       "range": {
         "startLine": 59,
         "startChar": 12,
