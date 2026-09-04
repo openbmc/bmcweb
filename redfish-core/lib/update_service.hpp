@@ -911,6 +911,17 @@ inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         sdbusplus::object_path path(entry.first);
         std::string swId = path.filename();
+        if (entry.second.empty())
+        {
+            BMCWEB_LOG_ERROR(
+                "No D-Bus service found for software object {}", entry.first);
+            if (swId == target)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            continue;
+        }
         swInfoMap.emplace(swId, make_pair(path, entry.second[0].first));
     }
 
