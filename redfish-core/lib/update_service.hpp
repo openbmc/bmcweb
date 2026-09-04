@@ -911,6 +911,10 @@ inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         sdbusplus::object_path path(entry.first);
         std::string swId = path.filename();
+        if (entry.second.empty())
+        {
+            continue;
+        }
         swInfoMap.emplace(swId, make_pair(path, entry.second[0].first));
     }
 
