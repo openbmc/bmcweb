@@ -2221,7 +2221,7 @@ inline void setSensorsOverride(
     BMCWEB_LOG_INFO("setSensorsOverride for subNode{}",
                     sensorAsyncResp->chassisSubNode);
 
-    std::string_view propertyValueName;
+    std::string_view propertyValueName{};
     std::unordered_map<std::string, std::pair<double, std::string>> overrideMap;
     std::string memberId;
     double value = 0.0;

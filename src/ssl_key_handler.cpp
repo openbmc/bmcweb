@@ -17,6 +17,7 @@
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/system/system_error.hpp>
 
 #include <array>
 #include <chrono>
@@ -474,20 +475,33 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
     mSslContext.set_options(sslOptions);
 
     BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
-    mSslContext.add_verify_path(trustStorePath);
+    try
+    {
+        mSslContext.add_verify_path(trustStorePath);
+    }
+    catch (const boost::system::system_error& e)
+    {
+        BMCWEB_LOG_CRITICAL("Failed to add verify path: {}", e.what());
+        return false;
+    }
 
     if (!sslPemFile.empty())
     {
-        boost::system::error_code ec;
-
         boost::asio::const_buffer buf(sslPemFile.data(), sslPemFile.size());
-        mSslContext.use_certificate_chain(buf, ec);
-        if (ec)
+        try
         {
+            mSslContext.use_certificate_chain(buf);
+        }
+        catch (const boost::system::system_error& e)
+        {
+            BMCWEB_LOG_CRITICAL("Failed to open ssl certificate: {}", e.what());
             return false;
         }
-        mSslContext.use_private_key(buf, boost::asio::ssl::context::pem, ec);
-        if (ec)
+        try
+        {
+            mSslContext.use_private_key(buf, boost::asio::ssl::context::pem);
+        }
+        catch (const boost::system::system_error&)
         {
             BMCWEB_LOG_CRITICAL("Failed to open ssl pkey");
             return false;
