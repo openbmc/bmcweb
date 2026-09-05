@@ -70,6 +70,24 @@
       "parentUuid": "c876d4a5_701d00ac",
       "revId": "db32ad00b9016265c24e0e77fe8d7cf9498a3bca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78ca253_065110db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-05T12:39:52Z",
+      "side": 1,
+      "message": "If the primary concern is security, why is changing the factory default necessary? HTTPBasicAuth is already runtime-configurable through PATCH /redfish/v1/AccountService. An administrator can explicitly disable Basic Authentication according to the platform\u0027s security policy without changing the Redfish factory default. Could we keep the current factory default and rely on the existing runtime configuration to disable it where required?",
+      "parentUuid": "029accc6_ccdd74c2",
+      "revId": "db32ad00b9016265c24e0e77fe8d7cf9498a3bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
