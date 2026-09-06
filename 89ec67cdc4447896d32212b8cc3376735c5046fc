@@ -33,6 +33,24 @@
       "message": "Can you give an example output ?",
       "revId": "89ec67cdc4447896d32212b8cc3376735c5046fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8598197b_c6f9f516",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-06T14:24:27Z",
+      "side": 1,
+      "message": "Added the real output from a vr-nvl-obmc BMC (4859 attributes) to the Tested section.",
+      "parentUuid": "7a82f42e_f14c33a7",
+      "revId": "89ec67cdc4447896d32212b8cc3376735c5046fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

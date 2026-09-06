@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2109fdd4_01455d6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-06T14:24:27Z",
+      "side": 1,
+      "message": "Done — dropped the qemu test and re-tested on a real vr-nvl-obmc system: bios-settings-mgr publishes 4859 attributes and GET /Bios returns them correctly. Updated the Tested section with the output.",
+      "parentUuid": "8c9a3197_1e25c97a",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "937fd30514e3571f31b0f6c056346733d3987fb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "325fb8fd_e66a02ac",
@@ -85,6 +109,24 @@
       "writtenOn": "2025-10-06T23:55:16Z",
       "side": 1,
       "message": "Is this still being worked on? We are still hoping to have a upstream solution eventually. Currently we have a patch where we are adding most of this, but we don\u0027t have a system to test the bios-mgr side of the dbus.",
+      "revId": "937fd30514e3571f31b0f6c056346733d3987fb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93569162_0fc7f191",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-06T14:24:27Z",
+      "side": 1,
+      "message": "It\u0027s now tested end-to-end on real hardware (vr-nvl-obmc with bios-settings-mgr)",
+      "parentUuid": "325fb8fd_e66a02ac",
       "revId": "937fd30514e3571f31b0f6c056346733d3987fb8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
