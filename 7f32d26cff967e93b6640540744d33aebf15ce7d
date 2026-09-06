@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75b84946_3b81e397",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-06T16:06:10Z",
+      "side": 1,
+      "message": "Hi, Thanks for the commit! Can you get on your company\u0027s CCLA / and an admin should be able to add you to approved Gerrit list so you don\u0027t get a \"User not approved, see admin, no CI\"",
+      "revId": "7f32d26cff967e93b6640540744d33aebf15ce7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
