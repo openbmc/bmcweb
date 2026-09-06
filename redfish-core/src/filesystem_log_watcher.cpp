@@ -244,12 +244,11 @@ FilesystemLogWatcher::FilesystemLogWatcher(boost::asio::io_context& ioc) :
         // Watch on directory will handle create/delete of file.
     }
 
+    // Seek past entries that predate this watcher so they are not replayed
+    // as new events.
+    cacheRedfishLogFile();
+
     // monitor redfish event log file
     watchRedfishEventLogFile();
-
-    if (redfishLogFilePosition != 0)
-    {
-        cacheRedfishLogFile();
-    }
 }
 } // namespace redfish
