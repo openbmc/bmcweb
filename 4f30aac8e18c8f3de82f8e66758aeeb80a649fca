@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7b96ee0e_094bb112",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-07T03:05:22Z",
+      "side": 1,
+      "message": "Sorry but I didn\u0027t found any line violating the 50-72 char rule within this commit message.\n\n*Note that `State.Decorator.OperationalStatus` is a single word that can\u0027t be splitted into multiple.",
+      "parentUuid": "c55ba534_e0209f01",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8ec4389d_cdeb4de2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -31,6 +49,23 @@
       "writtenOn": "2026-09-03T09:18:06Z",
       "side": 1,
       "message": "LGTM",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb35870_04a45ae0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-07T03:05:22Z",
+      "side": 1,
+      "message": "Thanks for the reviewing though!",
       "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +87,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "579728e4_d2219df3",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-07T03:05:22Z",
+      "side": 1,
+      "message": "Acknowledged, I have added the the requested log in PS7.",
+      "parentUuid": "ac5a651d_3aed19f9",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c5767f6_bbd26f6f",
@@ -65,6 +118,24 @@
       "writtenOn": "2026-09-03T10:17:42Z",
       "side": 1,
       "message": "if EBADR is present, how will we handle it, can you update the code as like the validation for afterGetSwitchPowerStateService() function.",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcdaecb6_50193f87",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-07T03:05:22Z",
+      "side": 1,
+      "message": "This path has been removed due to the changes of the suggested comment to resue the existing path.",
+      "parentUuid": "6c5767f6_bbd26f6f",
       "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +157,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7862e1c_9a51691d",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-07T03:05:22Z",
+      "side": 1,
+      "message": "Resolved in PS7.",
+      "parentUuid": "bff6a236_fd1331e8",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb5d4618_01c2d2e4",
@@ -103,6 +192,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10e5469d_c4bb4620",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-07T03:05:22Z",
+      "side": 1,
+      "message": "Resolved in PS7.",
+      "parentUuid": "eb5d4618_01c2d2e4",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba251a91_b673f185",
@@ -116,6 +223,24 @@
       "writtenOn": "2026-09-03T10:17:42Z",
       "side": 1,
       "message": "Is this existence-check round trip necessary given getResourceHealth\u0027s own callback already defaults to OK on EBADR? Worth a one-line note in the commit message either way.",
+      "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83af1a1e_b2287906",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-07T03:05:22Z",
+      "side": 1,
+      "message": "Sure, I have modified the implementation and reuse the recently refactored path to retrieve the health property.\nThanks for acknowledging this!!",
+      "parentUuid": "ba251a91_b673f185",
       "revId": "4f30aac8e18c8f3de82f8e66758aeeb80a649fca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
