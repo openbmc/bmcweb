@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c5904cd_e9735425",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-07T12:11:36Z",
+      "side": 1,
+      "message": "Also adding InProgress explicitly to the test in next patchset.",
+      "parentUuid": "96736ae5_5b7775ed",
+      "revId": "63c2d0eb70ac7d0f224db6ca3757afa63fe36b26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a3d5db5_0fbfb27b",
         "filename": "test/redfish-core/include/utils/dump_utils.cpp",
         "patchSetId": 12
