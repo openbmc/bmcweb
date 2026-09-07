@@ -66,7 +66,9 @@ enum class DumpCreationProgress
 {
     DUMP_CREATE_SUCCESS,
     DUMP_CREATE_FAILED,
-    DUMP_CREATE_INPROGRESS
+    DUMP_CREATE_ABORTED,
+    DUMP_CREATE_INPROGRESS,
+    DUMP_CREATE_NOTSTARTED
 };
 
 inline std::optional<std::string> dumpTypeToStr(DumpType dumpType)
@@ -130,17 +132,25 @@ inline std::optional<boost::urls::url> getDumpEntriesUrl(DumpType dumpType)
 inline DumpCreationProgress mapDbusStatusToDumpProgress(
     const std::string& status)
 {
-    if (status ==
-            "xyz.openbmc_project.Common.Progress.OperationStatus.Failed" ||
-        status == "xyz.openbmc_project.Common.Progress.OperationStatus.Aborted")
+    if (status == "xyz.openbmc_project.Common.Progress.OperationStatus.Failed")
     {
         return DumpCreationProgress::DUMP_CREATE_FAILED;
+    }
+    if (status == "xyz.openbmc_project.Common.Progress.OperationStatus.Aborted")
+    {
+        return DumpCreationProgress::DUMP_CREATE_ABORTED;
     }
     if (status ==
         "xyz.openbmc_project.Common.Progress.OperationStatus.Completed")
     {
         return DumpCreationProgress::DUMP_CREATE_SUCCESS;
     }
+    if (status ==
+        "xyz.openbmc_project.Common.Progress.OperationStatus.NotStarted")
+    {
+        return DumpCreationProgress::DUMP_CREATE_NOTSTARTED;
+    }
+
     return DumpCreationProgress::DUMP_CREATE_INPROGRESS;
 }
 
@@ -636,8 +646,15 @@ inline bool runCreateDumpTask(
             taskData->state = "Cancelled";
             return task::completed;
         }
+        if (dumpStatus == DumpCreationProgress::DUMP_CREATE_ABORTED)
+        {
+            BMCWEB_LOG_ERROR("{}: Aborted creating dump", createdObjPath.str);
+            taskData->state = "Cancelled";
+            return task::completed;
+        }
 
-        if (dumpStatus == DumpCreationProgress::DUMP_CREATE_INPROGRESS)
+        if (dumpStatus == DumpCreationProgress::DUMP_CREATE_NOTSTARTED ||
+            dumpStatus == DumpCreationProgress::DUMP_CREATE_INPROGRESS)
         {
             BMCWEB_LOG_DEBUG("{}: Dump creation task is in progress",
                              createdObjPath.str);

@@ -56,7 +56,12 @@ TEST(DumpUtils, MapDbusStatusToDumpProgress)
     EXPECT_EQ(
         mapDbusStatusToDumpProgress(
             "xyz.openbmc_project.Common.Progress.OperationStatus.Aborted"),
-        DumpCreationProgress::DUMP_CREATE_FAILED);
+        DumpCreationProgress::DUMP_CREATE_ABORTED);
+
+    EXPECT_EQ(
+        mapDbusStatusToDumpProgress(
+            "xyz.openbmc_project.Common.Progress.OperationStatus.NotStarted"),
+        DumpCreationProgress::DUMP_CREATE_NOTSTARTED);
 
     EXPECT_EQ(
         mapDbusStatusToDumpProgress(
@@ -79,6 +84,11 @@ TEST(DumpUtils, GetDumpCompletionStatus)
               DumpCreationProgress::DUMP_CREATE_SUCCESS);
 
     values[0].second =
+        "xyz.openbmc_project.Common.Progress.OperationStatus.NotStarted";
+    EXPECT_EQ(getDumpCompletionStatus(values),
+              DumpCreationProgress::DUMP_CREATE_NOTSTARTED);
+
+    values[0].second =
         "xyz.openbmc_project.Common.Progress.OperationStatus.Failed";
     EXPECT_EQ(getDumpCompletionStatus(values),
               DumpCreationProgress::DUMP_CREATE_FAILED);
@@ -86,7 +96,7 @@ TEST(DumpUtils, GetDumpCompletionStatus)
     values[0].second =
         "xyz.openbmc_project.Common.Progress.OperationStatus.Aborted";
     EXPECT_EQ(getDumpCompletionStatus(values),
-              DumpCreationProgress::DUMP_CREATE_FAILED);
+              DumpCreationProgress::DUMP_CREATE_ABORTED);
 
     values[0].second =
         "xyz.openbmc_project.Common.Progress.OperationStatus.InProgress";
