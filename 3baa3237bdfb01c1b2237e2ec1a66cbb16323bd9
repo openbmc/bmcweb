@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7941b1f_76ef9963",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002873
+      },
+      "writtenOn": "2026-09-08T07:11:43Z",
+      "side": 1,
+      "message": "LGTM. Callback logic is unchanged and extraction improves readability while\naligning with the bmcweb \u003c10-line lambda guideline. No functional change.",
+      "revId": "3baa3237bdfb01c1b2237e2ec1a66cbb16323bd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
