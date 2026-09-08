@@ -210,7 +210,8 @@ class OpenSSLEVPKey
 class OpenSSLASN1String
 {
   public:
-    OpenSSLASN1String(std::string_view data) : ptr(ASN1_STRING_new())
+    OpenSSLASN1String(std::string_view data, int type = V_ASN1_OCTET_STRING) :
+        ptr(ASN1_STRING_type_new(type))
     {
         if (ptr == nullptr)
         {
@@ -249,8 +250,8 @@ class OpenSSLASN1String
     }
     std::string_view getAsString() const
     {
-        return {std::bit_cast<const char*>(ptr->data),
-                static_cast<size_t>(ptr->length)};
+        return {std::bit_cast<const char*>(ASN1_STRING_get0_data(ptr)),
+                static_cast<size_t>(ASN1_STRING_length(ptr))};
     }
 
     ASN1_STRING* release()
@@ -277,21 +278,21 @@ struct OpenSSLGeneralName
     friend OpenSSLGeneralNames;
     OpenSSLGeneralName() : ptr(GENERAL_NAME_new()) {}
 
-    OpenSSLGeneralName(int type, OpenSSLASN1String& value) :
+    OpenSSLGeneralName(int type, std::string_view value) :
         ptr(GENERAL_NAME_new())
     {
         if (type >= 0 && type <= GEN_RID)
         {
-            GENERAL_NAME_set0_value(ptr, type, value.release());
+            OpenSSLASN1String str(value);
+            GENERAL_NAME_set0_value(ptr, type, str.release());
         }
         else
         {
             // type is a NID: build an otherName SAN with that OID
+            OpenSSLASN1String str(value, V_ASN1_UTF8STRING);
             ASN1_OBJECT* oid = OBJ_dup(OBJ_nid2obj(type));
-            ASN1_STRING* str = value.release();
-            str->type = V_ASN1_UTF8STRING;
             ASN1_TYPE* atype = ASN1_TYPE_new();
-            ASN1_TYPE_set(atype, V_ASN1_UTF8STRING, str);
+            ASN1_TYPE_set(atype, V_ASN1_UTF8STRING, str.release());
             GENERAL_NAME_set0_othername(ptr, oid, atype);
         }
     }
@@ -578,6 +579,49 @@ class OpenSSLEVPKeyCTX
 
 class OpenSSLX509StoreCTX;
 class OpenSSLSSL;
+class OpenSSLX509;
+
+class OpenSSLX509Name
+{
+  public:
+    friend OpenSSLX509;
+
+    explicit OpenSSLX509Name(const X509_NAME* nameIn) :
+        ptr(X509_NAME_dup(nameIn))
+    {}
+
+    OpenSSLX509Name(const OpenSSLX509Name&) = delete;
+    OpenSSLX509Name(OpenSSLX509Name&&) noexcept = delete;
+    OpenSSLX509Name& operator=(const OpenSSLX509Name&) = delete;
+    OpenSSLX509Name& operator=(OpenSSLX509Name&&) noexcept = delete;
+
+    bool addEntryByTxt(std::string_view field, std::string_view value) const
+    {
+        if (ptr == nullptr)
+        {
+            return false;
+        }
+        std::string fieldStr(field);
+        const unsigned char* valuePtr =
+            std::bit_cast<const unsigned char*>(value.data());
+        int valueLength = static_cast<int>(value.size());
+        return X509_NAME_add_entry_by_txt(ptr, fieldStr.c_str(), MBSTRING_ASC,
+                                          valuePtr, valueLength, -1, 0) == 1;
+    }
+
+    ~OpenSSLX509Name()
+    {
+        X509_NAME_free(ptr);
+    }
+
+  private:
+    X509_NAME* get() const
+    {
+        return ptr;
+    }
+
+    X509_NAME* ptr;
+};
 
 class OpenSSLX509
 {
@@ -625,34 +669,26 @@ class OpenSSLX509
         return PEM_write_bio_X509(bufio.get(), ptr) > 0;
     }
 
-    void setSubjectName(std::string_view cn) const
+    bool addSubjectEntry(std::string_view field, std::string_view value) const
     {
-        X509_NAME* name = X509_get_subject_name(ptr);
-        const unsigned char* cnPtr =
-            std::bit_cast<const unsigned char*>(cn.data());
-        int cnLength = static_cast<int>(cn.size());
-        X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnPtr, cnLength,
-                                   -1, 0);
+        OpenSSLX509Name name(X509_get_subject_name(ptr));
+        return name.addEntryByTxt(field, value) &&
+               X509_set_subject_name(ptr, name.get()) == 1;
     }
 
-    void setCountry(std::string_view country) const
+    bool setSubjectName(std::string_view cn) const
     {
-        X509_NAME* name = X509_get_subject_name(ptr);
-        const unsigned char* countryPtr =
-            std::bit_cast<const unsigned char*>(country.data());
-        int countryLength = static_cast<int>(country.size());
-        X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, countryPtr,
-                                   countryLength, -1, 0);
+        return addSubjectEntry("CN", cn);
     }
 
-    void setOrganization(std::string_view organization) const
+    bool setCountry(std::string_view country) const
     {
-        X509_NAME* name = X509_get_subject_name(ptr);
-        const unsigned char* organizationPtr =
-            std::bit_cast<const unsigned char*>(organization.data());
-        int organizationLength = static_cast<int>(organization.size());
-        X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, organizationPtr,
-                                   organizationLength, -1, 0);
+        return addSubjectEntry("C", country);
+    }
+
+    bool setOrganization(std::string_view organization) const
+    {
+        return addSubjectEntry("O", organization);
     }
 
     bool setIssuerNameToSubject() const
@@ -703,8 +739,7 @@ class OpenSSLX509
         OpenSSLGeneralNames gens;
         for (const std::string_view altName : altNames)
         {
-            OpenSSLASN1String altNameStr(altName);
-            OpenSSLGeneralName gen(gnType, altNameStr);
+            OpenSSLGeneralName gen(gnType, altName);
             if (!gens.push(std::move(gen)))
             {
                 return false;
@@ -768,20 +803,29 @@ class OpenSSLX509
 
     std::string getCommonName() const
     {
-        std::string commonName;
         // Extract username contained in CommonName
-        int commonNameLenMax = 256;
-        commonName.resize(static_cast<size_t>(commonNameLenMax), '\0');
-        int length = X509_NAME_get_text_by_NID(
-            X509_get_subject_name(ptr), NID_commonName, commonName.data(),
-            commonNameLenMax);
-        if (length <= 0)
+        const X509_NAME* name = X509_get_subject_name(ptr);
+        int index = X509_NAME_get_index_by_NID(name, NID_commonName, -1);
+        if (index < 0)
         {
             BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
-            length = 0;
+            return "";
         }
-        commonName.resize(static_cast<size_t>(length));
-        return commonName;
+        const X509_NAME_ENTRY* entry = X509_NAME_get_entry(name, index);
+        const ASN1_STRING* data = X509_NAME_ENTRY_get_data(entry);
+        if (data == nullptr)
+        {
+            BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
+            return "";
+        }
+        int length = ASN1_STRING_length(data);
+        if (length <= 0)
+        {
+            BMCWEB_LOG_DEBUG("TLS common name is empty");
+            return "";
+        }
+        return {std::bit_cast<const char*>(ASN1_STRING_get0_data(data)),
+                static_cast<size_t>(length)};
     }
 
     std::string getComment() const
