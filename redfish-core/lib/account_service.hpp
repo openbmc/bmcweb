@@ -329,8 +329,12 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
 {
     nlohmann::json::object_t ldap;
     ldap["ServiceEnabled"] = confData.serviceEnabled;
+
+    // Only surface connection/authentication details while the service is
+    // enabled, so a disabled provider's stale server/credential info is not
+    // echoed back in the Redfish response.
     nlohmann::json::array_t serviceAddresses;
-    if (!confData.uri.empty())
+    if (confData.serviceEnabled && !confData.uri.empty())
     {
         serviceAddresses.emplace_back(confData.uri);
     }
@@ -339,22 +343,24 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
     nlohmann::json::object_t authentication;
     authentication["AuthenticationType"] =
         account_service::AuthenticationTypes::UsernameAndPassword;
-    authentication["Username"] = confData.bindDN;
+    authentication["Username"] = confData.serviceEnabled ? confData.bindDN : "";
     authentication["Password"] = nullptr;
     ldap["Authentication"] = std::move(authentication);
 
     nlohmann::json::object_t ldapService;
     nlohmann::json::object_t searchSettings;
     nlohmann::json::array_t baseDistinguishedNames;
-    if (!confData.baseDN.empty())
+    if (confData.serviceEnabled && !confData.baseDN.empty())
     {
         baseDistinguishedNames.emplace_back(confData.baseDN);
     }
 
     searchSettings["BaseDistinguishedNames"] =
         std::move(baseDistinguishedNames);
-    searchSettings["UsernameAttribute"] = confData.userNameAttribute;
-    searchSettings["GroupsAttribute"] = confData.groupAttribute;
+    searchSettings["UsernameAttribute"] =
+        confData.serviceEnabled ? confData.userNameAttribute : "";
+    searchSettings["GroupsAttribute"] =
+        confData.serviceEnabled ? confData.groupAttribute : "";
     ldapService["SearchSettings"] = std::move(searchSettings);
     ldap["LDAPService"] = std::move(ldapService);
 
