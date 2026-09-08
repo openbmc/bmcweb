@@ -271,9 +271,20 @@ static std::string constructX509(const std::string& cn, OpenSSLEVPKey& pPrivKey)
         return "";
     }
 
-    x509Obj.setCountry("US");
-    x509Obj.setOrganization("OpenBMC");
-    x509Obj.setSubjectName(cn);
+    if (!x509Obj.setCountry("US"))
+    {
+        return "";
+    }
+
+    if (!x509Obj.setOrganization("OpenBMC"))
+    {
+        return "";
+    }
+
+    if (!x509Obj.setSubjectName(cn))
+    {
+        return "";
+    }
 
     // set the CSR options
     if (!x509Obj.setIssuerNameToSubject())
