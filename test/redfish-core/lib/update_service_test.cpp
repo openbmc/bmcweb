@@ -247,6 +247,16 @@ TEST(UpdateService, InvalidContentTypeReturnsCompleteHeader)
               })"_json);
 }
 
+TEST(UpdateService, MalformedUpdateParametersReturnsBadRequest)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    ASSERT_EQ(processUpdateParameters(asyncResp, "{"), std::nullopt);
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::bad_request);
+    EXPECT_EQ(asyncResp->res.jsonValue["error"]["code"],
+              "Base.1.19.MalformedJSON");
+}
+
 // A Software.Version object that omits the deprecated Purpose property must
 // still succeed: the handler must not fail the resource and must skip the
 // Purpose-derived Description.
