@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f0638f_472236a1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T13:59:53Z",
+      "side": 1,
+      "message": "remove error handling",
+      "parentUuid": "dca4e151_ccba1fd5",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35b73c34_45d4f4cd",
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "yes it is needed. The function is called from two places with different type. Once is map and other is vector.",
       "parentUuid": "35b73c34_45d4f4cd",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c63f8b14_bd3b5f2b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T13:59:53Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "2a3a0e1f_8d406905",
       "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -223,6 +259,24 @@
       "side": 1,
       "message": "EBADR will never come for satellite not available case. In cases it come, it must be a valid error scenario. So we should not ignore it",
       "parentUuid": "246b227c_9dc0d278",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9299422_7cc9bd79",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T13:59:53Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "207dad68_700b394f",
       "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
