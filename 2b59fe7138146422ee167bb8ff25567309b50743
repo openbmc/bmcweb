@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd5d392b_fe8e843b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-08T11:42:26Z",
+      "side": 1,
+      "message": "Could we preserve BMCWEB_INSECURE_DISABLE_AUTH here? When bmcweb is started without systemd socket activation, this fallback listener on port 18080 is created with AuthMode::AUTH unconditionally. As a result, a build configured with authentication disabled still requires authentication in standalone mode.",
+      "revId": "2b59fe7138146422ee167bb8ff25567309b50743",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
