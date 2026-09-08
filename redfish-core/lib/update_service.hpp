@@ -753,6 +753,7 @@ inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
     std::optional<nlohmann::json> jsonContent = parseStringAsJson(content);
     if (!jsonContent)
     {
+        messages::malformedJSON(asyncResp->res);
         return std::nullopt;
     }
     nlohmann::json::object_t* obj =
@@ -811,6 +812,7 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
         if (it == formpart.fields.end())
         {
             BMCWEB_LOG_ERROR("Couldn't find Content-Disposition");
+            messages::unrecognizedRequestBody(asyncResp->res);
             return std::nullopt;
         }
         BMCWEB_LOG_INFO("Parsing value {}", it->value());
