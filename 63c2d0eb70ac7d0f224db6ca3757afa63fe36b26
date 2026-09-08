@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ab98ed_16a0864d",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-08T16:06:01Z",
+      "side": 1,
+      "message": "Fixed here and followed-up in 94347. Done",
+      "parentUuid": "1c5904cd_e9735425",
+      "revId": "63c2d0eb70ac7d0f224db6ca3757afa63fe36b26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a3d5db5_0fbfb27b",
@@ -91,6 +109,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "5a3d5db5_0fbfb27b",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "63c2d0eb70ac7d0f224db6ca3757afa63fe36b26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "693a5814_2bf0c0d7",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-08T16:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4793255c_72a9551d",
       "range": {
         "startLine": 76,
         "startChar": 16,
