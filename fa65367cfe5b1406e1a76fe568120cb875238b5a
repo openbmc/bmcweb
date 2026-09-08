@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09af2e2_f254843b",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-08T16:06:08Z",
+      "side": 1,
+      "message": "Yep. Done",
+      "parentUuid": "63a7eb18_b2d33a76",
+      "range": {
+        "startLine": 411,
+        "startChar": 8,
+        "endLine": 414,
+        "endChar": 9
+      },
+      "revId": "fa65367cfe5b1406e1a76fe568120cb875238b5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eafb3080_fd6dc7b8",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85fbadf4_ab9ecab1",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-08T16:06:08Z",
+      "side": 1,
+      "message": "Yep. Done",
+      "parentUuid": "eafb3080_fd6dc7b8",
+      "range": {
+        "startLine": 495,
+        "startChar": 11,
+        "endLine": 495,
+        "endChar": 52
+      },
+      "revId": "fa65367cfe5b1406e1a76fe568120cb875238b5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0586107d_40f85e80",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-09-03T08:33:28Z",
       "side": 1,
       "message": "Could we use asyncResp-\u003eres.jsonValue.update(*entry) here?\nhttps://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md?plain\u003d1#L322",
+      "range": {
+        "startLine": 498,
+        "startChar": 8,
+        "endLine": 498,
+        "endChar": 41
+      },
+      "revId": "fa65367cfe5b1406e1a76fe568120cb875238b5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92ab7bcc_6085717f",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-08T16:06:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0586107d_40f85e80",
       "range": {
         "startLine": 498,
         "startChar": 8,
