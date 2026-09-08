@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e17797ee_6985719d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-08T08:59:54Z",
+      "side": 1,
+      "message": "The implementation currently relies on an single-sensor-per-type assumption; if that assumption is not guaranteed by the backend model, this should not fail the whole response with 500. Right?",
+      "range": {
+        "startLine": 718,
+        "startChar": 4,
+        "endLine": 725,
+        "endChar": 5
+      },
+      "revId": "ae7a2ebebefa3beb7c0993c4a72e5c3d02406e48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
