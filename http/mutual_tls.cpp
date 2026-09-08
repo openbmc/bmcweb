@@ -110,9 +110,10 @@ std::string getUPNFromCert(OpenSSLX509& peerCert, std::string_view hostname)
             continue;
         }
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
-        ASN1_UTF8STRING& utf8string = *value.value.utf8string;
-        const char* upnChar = std::bit_cast<const char*>(utf8string.data);
-        size_t upnLen = static_cast<size_t>(utf8string.length);
+        const ASN1_UTF8STRING* utf8string = value.value.utf8string;
+        const char* upnChar =
+            std::bit_cast<const char*>(ASN1_STRING_get0_data(utf8string));
+        size_t upnLen = static_cast<size_t>(ASN1_STRING_length(utf8string));
 
         std::string_view upn(upnChar, upnLen);
         if (!isUPNMatch(upn, hostname))
