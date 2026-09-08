@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b16774_05179467",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T14:01:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "23da5fad_2eb49021",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4b93c87_642326ff",
@@ -49,6 +67,24 @@
       "writtenOn": "2026-07-28T15:07:57Z",
       "side": 1,
       "message": "I think it would be better to be explicit.\n```\nstatic constexpr const char* satelliteControllerIface \u003d\n```",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e13e431_5059be22",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T14:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4b93c87_642326ff",
       "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -176,6 +212,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a62ba390_5c1cdeed",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T14:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "758b0fc7_dc3614f8",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "210b669d_ff07ddd7",
@@ -189,6 +243,24 @@
       "writtenOn": "2026-07-28T15:07:57Z",
       "side": 1,
       "message": "Add an WARNING log here?",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4b64f91_2ae75902",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T14:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "210b669d_ff07ddd7",
       "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -224,6 +296,24 @@
       "side": 1,
       "message": "SatelliteControllers are always added and removed. No updation. So property change watcher is not required",
       "parentUuid": "bfc5fd75_c9342345",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0db6d5b_066c8445",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T14:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f34ca0c_f62b7f09",
       "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
