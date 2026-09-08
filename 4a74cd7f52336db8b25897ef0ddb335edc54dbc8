@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dca4e151_ccba1fd5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T13:54:56Z",
+      "side": 1,
+      "message": "If satelliter is not available, the function returns success with empty data.",
+      "parentUuid": "fe9e0ee1_3e7ecf30",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35b73c34_45d4f4cd",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -83,6 +101,24 @@
       "writtenOn": "2026-07-28T15:07:57Z",
       "side": 1,
       "message": "Why do need a template\u003c\u003e here?\nWouldn\u0027t `const dbus::utility::DBusPropertiesMap\u0026 properties` be still good?",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a3a0e1f_8d406905",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T13:54:56Z",
+      "side": 1,
+      "message": "yes it is needed. The function is called from two places with different type. Once is map and other is vector.",
+      "parentUuid": "35b73c34_45d4f4cd",
       "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -169,6 +205,24 @@
       "writtenOn": "2026-07-28T15:07:57Z",
       "side": 1,
       "message": "I think - the case `EBADR` can be ignored for logging, or use DEBUG?\n```\n   if (ec.value() !\u003d EBADR) {\n         BMCWEB_LOG_ERROR()\n     }",
+      "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "207dad68_700b394f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-09-08T13:54:56Z",
+      "side": 1,
+      "message": "EBADR will never come for satellite not available case. In cases it come, it must be a valid error scenario. So we should not ignore it",
+      "parentUuid": "246b227c_9dc0d278",
       "revId": "4a74cd7f52336db8b25897ef0ddb335edc54dbc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
