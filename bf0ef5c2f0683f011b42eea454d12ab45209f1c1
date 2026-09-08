@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e64cf2d8_eb03ce67",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-08T16:04:37Z",
+      "side": 1,
+      "message": "I had to revert this change, as it wouldn\u0027t create the entry collection anymore.\n\n\nAdding a segment via sdbusplus api using a string with a trailing slash breaks the object path like this `/xyz/openbmc_project/dump/bmc/_65ntry_2f`.\n\nI changed this to now create the exact match using the string api.",
+      "parentUuid": "a11c4263_84154463",
+      "range": {
+        "startLine": 322,
+        "startChar": 23,
+        "endLine": 322,
+        "endChar": 28
+      },
+      "revId": "bf0ef5c2f0683f011b42eea454d12ab45209f1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d0a9467_e56bdff8",
