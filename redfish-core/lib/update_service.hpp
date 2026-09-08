@@ -753,6 +753,7 @@ inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
     std::optional<nlohmann::json> jsonContent = parseStringAsJson(content);
     if (!jsonContent)
     {
+        messages::malformedJSON(asyncResp->res);
         return std::nullopt;
     }
     nlohmann::json::object_t* obj =

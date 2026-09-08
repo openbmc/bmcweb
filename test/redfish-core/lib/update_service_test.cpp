@@ -144,6 +144,24 @@ TEST(UpdateService, ParseHTTPSNegative)
     ASSERT_EQ(parseSimpleUpdateUrl("/path", "HTTPS", res), std::nullopt);
 }
 
+TEST(UpdateService, MalformedUpdateParametersReturnsBadRequest)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    ASSERT_EQ(processUpdateParameters(asyncResp, "{"), std::nullopt);
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::bad_request);
+
+    const nlohmann::json& extInfo =
+        asyncResp->res.jsonValue["error"]["@Message.ExtendedInfo"];
+    ASSERT_TRUE(extInfo.is_array());
+    ASSERT_EQ(extInfo.size(), 1U);
+
+    const nlohmann::json& message = extInfo[0];
+    EXPECT_EQ(message["MessageId"], "Base.1.19.MalformedJSON");
+    ASSERT_TRUE(message["MessageArgs"].is_array());
+    EXPECT_TRUE(message["MessageArgs"].empty());
+}
+
 // A Software.Version object that omits the deprecated Purpose property must
 // still succeed: the handler must not fail the resource and must skip the
 // Purpose-derived Description.
