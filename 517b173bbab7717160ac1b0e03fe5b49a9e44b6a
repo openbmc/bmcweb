@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c4678b2_ba2c6f6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-08T13:41:14Z",
+      "side": 1,
+      "message": "Please add results:\nhttps://github.com/openbmc/bmcweb/blob/master/docs/TESTING.md?plain\u003d1#L5",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "517b173bbab7717160ac1b0e03fe5b49a9e44b6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
