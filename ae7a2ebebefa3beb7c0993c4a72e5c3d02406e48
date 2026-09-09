@@ -22,6 +22,30 @@
       },
       "revId": "ae7a2ebebefa3beb7c0993c4a72e5c3d02406e48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d08d41f2_014b7699",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T05:22:39Z",
+      "side": 1,
+      "message": "I was making this assumption according to the redfish schema in the following link:\nhttps://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.v1_6_0.json\n\nTo expose more than one sensor and its reading per type, each of the property will have to publishes an array, which is not applicable in the current schema.",
+      "parentUuid": "e17797ee_6985719d",
+      "range": {
+        "startLine": 718,
+        "startChar": 4,
+        "endLine": 725,
+        "endChar": 5
+      },
+      "revId": "ae7a2ebebefa3beb7c0993c4a72e5c3d02406e48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
