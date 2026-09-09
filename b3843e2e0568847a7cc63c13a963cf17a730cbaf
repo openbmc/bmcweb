@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50c00599_af8ed217",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2553,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T06:08:32Z",
+      "side": 1,
+      "message": "Use `sdbusplus::object_path` here will be better, \nI noticed that this function even convert it into `sdbusplus::object_path` later.",
+      "range": {
+        "startLine": 2553,
+        "startChar": 33,
+        "endLine": 2553,
+        "endChar": 62
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0292c7f_d777f75f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2560,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T06:08:32Z",
+      "side": 1,
+      "message": "Can we have debug log here as well?",
+      "range": {
+        "startLine": 2560,
+        "startChar": 8,
+        "endLine": 2560,
+        "endChar": 71
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2969f31_42f46205",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 3
@@ -128,6 +174,29 @@
         "startChar": 23,
         "endLine": 2660,
         "endChar": 49
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e45d278_2e3f2e54",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T06:08:32Z",
+      "side": 1,
+      "message": "I think we can use `sdbusplus::object_path` directly.",
+      "range": {
+        "startLine": 2679,
+        "startChar": 4,
+        "endLine": 2680,
+        "endChar": 74
       },
       "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
