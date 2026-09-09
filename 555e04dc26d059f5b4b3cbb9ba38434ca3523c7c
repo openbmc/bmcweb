@@ -88,6 +88,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e514bda3_d1f80d83",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-09T07:45:35Z",
+      "side": 1,
+      "message": "Suggest using the Update.Error flavour here — PDI declares InvalidSignature in both Update.errors.yaml and Version.errors.yaml, and the Version one is already mapped on the Logging.Entry path at line 394.",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a2aee91_2994dd02",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-09T07:45:35Z",
+      "side": 1,
+      "message": "Suggest adding #include \u003csystemd/sd-bus.h\u003e here, the way managers.hpp:32 does — sd_bus_error looks new to this file and currently comes in transitively via \u003csdbusplus/message.hpp\u003e.",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cfb9a181_6a24d503",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
@@ -99,6 +133,23 @@
       "writtenOn": "2026-08-31T11:00:57Z",
       "side": 1,
       "message": "nit: Move the Error logs to before the new check",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dcdf2f9_690fe691",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-09T07:45:35Z",
+      "side": 1,
+      "message": "Suggest also asserting the Retry-After \"30\" and adding an unmapped name that hits internalError — SpaceAccess and BusyFailure both expect 503, so swapping the two branches would still pass.",
       "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
