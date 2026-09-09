@@ -16,6 +16,24 @@
       "message": "This notation is only meant for hyperlinks. Just add the sentence to the tested statement.",
       "revId": "64a2a2f8acc8981d1ddf9ed20af084cf212b4f16",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7274a2cf_147a4968",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-09-09T19:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e420d74_b7f97b3a",
+      "revId": "64a2a2f8acc8981d1ddf9ed20af084cf212b4f16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
