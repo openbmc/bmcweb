@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f3093c_02b7eaf4",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-09T15:06:41Z",
+      "side": 1,
+      "message": "nit: Both paths are looking for Asserted property value. Maybe name this one based on the path to better differentiate the two functions. E.g. afterGetLocationIndicatorEnclosure",
+      "range": {
+        "startLine": 159,
+        "startChar": 12,
+        "endLine": 159,
+        "endChar": 45
+      },
+      "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
