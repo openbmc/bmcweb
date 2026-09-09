@@ -89,6 +89,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9808d0_7260c236",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-09-09T19:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfa46bf7_6cf9ba8d",
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "489b325f_046bd3d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-09-09T19:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f2bd647_aeec9ef7",
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "260d199d_5961d18d",
@@ -126,6 +162,30 @@
       "side": 1,
       "message": "i know, but it\u0027s not a byte when i get it from Dbus. The function will error out if i change this to a byte. As soon as we find and patch this bug in EM/Dbus, we can patch it in bmcweb too. is that acceptable?",
       "parentUuid": "260d199d_5961d18d",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 60
+      },
+      "revId": "c9f81851e867ba1550cb4b8bbc5f5baa3319bed3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8381e7_a1144991",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-09-09T19:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0874b875_a91bb5c7",
       "range": {
         "startLine": 128,
         "startChar": 4,
