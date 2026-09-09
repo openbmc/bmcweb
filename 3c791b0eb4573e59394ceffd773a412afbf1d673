@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2fdd73cd_875fefc9",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-09T22:34:19Z",
+      "side": 1,
+      "message": "Looks like circular dependency so it\u0027ll need a forward declaration",
+      "parentUuid": "54a2b25d_8b2cbee0",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 70
+      },
+      "revId": "3c791b0eb4573e59394ceffd773a412afbf1d673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27d74205_f7160835",
         "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
         "patchSetId": 5
