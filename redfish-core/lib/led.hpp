@@ -215,6 +215,24 @@ inline void getSystemLocationIndicatorActive(
         });
 }
 
+inline void afterSetLocationIndicatorBlink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool ledState,
+    const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        // Some systems may not have enclosure_identify_blink object so
+        // lets set enclosure_identify state also if
+        // enclosure_identify_blink failed
+        setDbusProperty(
+            asyncResp, "LocationIndicatorActive",
+            "xyz.openbmc_project.LED.GroupManager",
+            sdbusplus::object_path(
+                "/xyz/openbmc_project/led/groups/enclosure_identify"),
+            "xyz.openbmc_project.Led.Group", "Asserted", ledState);
+    }
+}
+
 /**
  * @brief Sets identify system led group properties
  *
@@ -232,20 +250,8 @@ inline void setSystemLocationIndicatorActive(
         *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted", ledState,
-        // ast-grep-ignore: long-lambda
         [asyncResp, ledState](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                // Some systems may not have enclosure_identify_blink object so
-                // lets set enclosure_identify state also if
-                // enclosure_identify_blink failed
-                setDbusProperty(
-                    asyncResp, "LocationIndicatorActive",
-                    "xyz.openbmc_project.LED.GroupManager",
-                    sdbusplus::object_path(
-                        "/xyz/openbmc_project/led/groups/enclosure_identify"),
-                    "xyz.openbmc_project.Led.Group", "Asserted", ledState);
-            }
+            afterSetLocationIndicatorBlink(asyncResp, ledState, ec);
         });
 }
 
