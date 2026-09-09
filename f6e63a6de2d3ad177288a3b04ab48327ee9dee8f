@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cedc44f4_83729765",
+        "filename": "test/redfish-core/lib/network_adapter_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-09T11:44:30Z",
+      "side": 1,
+      "message": "These four no-op cases only assert Location is absent — suggest EXPECT_TRUE(jsonValue.empty()) so a future handler change that writes anything on these paths gets caught?",
+      "revId": "f6e63a6de2d3ad177288a3b04ab48327ee9dee8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47702514_af71505c",
+        "filename": "test/redfish-core/lib/network_adapter_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-09T11:44:30Z",
+      "side": 1,
+      "message": "The handler only checks object.empty(), so this would pass with any interface string — suggest also asserting that a non-Embedded connector leaves LocationType unset?",
+      "revId": "f6e63a6de2d3ad177288a3b04ab48327ee9dee8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
