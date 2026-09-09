@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a28f2605_502b0324",
+        "filename": "redfish-core/lib/leak_detection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T07:00:37Z",
+      "side": 1,
+      "message": "Didn\u0027t found the `LeakDetection.json` in the json-schema-installed yet.\nNot sure if this should be done by the maintainer or can be submitted along in this patch,\n\nRef:\nhttps://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/dmtf/json-schema-installed",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 87
+      },
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a387cc27_cd1c183a",
         "filename": "redfish-core/lib/leak_detector.hpp",
         "patchSetId": 3
@@ -31,6 +54,29 @@
       "writtenOn": "2026-09-04T07:09:48Z",
       "side": 1,
       "message": "Please include \u003cutility\u003e and boost field.hpp",
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "950b32c4_e5b7929a",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T07:00:37Z",
+      "side": 1,
+      "message": "Should we add a debug log here indicating no detector association is found as well?",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 21
+      },
       "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +117,29 @@
       "writtenOn": "2026-09-04T07:09:48Z",
       "side": 1,
       "message": "Collection GET omits the required rel\u003ddescribedby Link header. Add the same schema link used by HEAD.",
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8657aa9d_b05c3b52",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T07:00:37Z",
+      "side": 1,
+      "message": "Can we add a debug log here?",
+      "range": {
+        "startLine": 210,
+        "startChar": 12,
+        "endLine": 211,
+        "endChar": 51
+      },
       "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
