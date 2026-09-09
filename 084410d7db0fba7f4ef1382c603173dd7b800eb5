@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90656812_40ebb92e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T03:47:54Z",
+      "side": 1,
+      "message": "How can we distinguish the 2 different errors from `parseStringAsJson()`?\nI noticed that `parseStringAsJson()` return `std::nullopt` either for `body.size() \u003e 1048576U` or `!nlohmann::json::sax_parse(body, \u0026sax)`.\n\nhttps://github.com/openbmc/bmcweb/blob/e10c52ed88e8ef349777f054733bcf9f5fc70ba3/http/parsing.hpp#L199\n\nIn this case, `messages::malformedJSON()` represents only the second case I suspect. As such, I think we should also refactor/overload the function for `parseStringAsJSON()`?",
+      "range": {
+        "startLine": 756,
+        "startChar": 8,
+        "endLine": 756,
+        "endChar": 48
+      },
+      "revId": "084410d7db0fba7f4ef1382c603173dd7b800eb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177ce373_41ece24e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T03:47:54Z",
+      "side": 1,
+      "message": "Should we add `messages::unrecognizedRequestBody(async-\u003eres)` here as well?\nI think this also looked like an early return.",
+      "range": {
+        "startLine": 814,
+        "startChar": 12,
+        "endLine": 814,
+        "endChar": 66
+      },
+      "revId": "084410d7db0fba7f4ef1382c603173dd7b800eb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30d28d6e_e58e4ff2",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-09T03:47:54Z",
+      "side": 1,
+      "message": "Instead of asserting the type, shall we do the error code checking, such as:\n`EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"error\"][\"code\"], \"Base.1.19.MalformedJSON\")`?",
+      "range": {
+        "startLine": 161,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "084410d7db0fba7f4ef1382c603173dd7b800eb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
