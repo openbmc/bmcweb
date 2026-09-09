@@ -45,6 +45,57 @@
       },
       "revId": "d9409ff7cd1466154327f96e376419628539d39d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "854c3d40_0e99d24a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-09T12:33:30Z",
+      "side": 1,
+      "message": "If Create fails after the delete succeeds, the old entry is already gone and the callback only reports internalError — could the recreate be ordered so nothing is lost?",
+      "revId": "d9409ff7cd1466154327f96e376419628539d39d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e44f8cc_d96e828a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-09T12:33:30Z",
+      "side": 1,
+      "message": "master\u0027s delete callback set jsonValue[serverType][\"RemoteRoleMapping\"][index] \u003d nullptr, but this one writes nothing to the response — was dropping that intentional?",
+      "revId": "d9409ff7cd1466154327f96e376419628539d39d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e8cd614_7fd36efd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-09T12:33:30Z",
+      "side": 1,
+      "message": "deferred is created at line 557 and never reset, so deferred is always true here — is the check needed, or would if (!deleteFailed) be enough?",
+      "revId": "d9409ff7cd1466154327f96e376419628539d39d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
