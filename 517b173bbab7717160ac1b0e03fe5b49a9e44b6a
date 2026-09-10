@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44a33ad0_98e1c0b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-10T11:27:13Z",
+      "side": 1,
+      "message": "As this change is purely a refactor and does not introduce any functional modifications, attaching the test results is not necessary. Verification that the build completed successfully is sufficient. The commit message has also been updated.",
+      "parentUuid": "4c4678b2_ba2c6f6c",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "517b173bbab7717160ac1b0e03fe5b49a9e44b6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6785a0be_faa47eec",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-09-09T06:01:38Z",
       "side": 1,
       "message": "Can we add a debug log here?",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 78
+      },
+      "revId": "517b173bbab7717160ac1b0e03fe5b49a9e44b6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cc0a8c6_cc69cb6e",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-10T11:27:13Z",
+      "side": 1,
+      "message": "Since a failure already results in the state response being shown as \"Absent\", adding an additional debug log would not provide any meaningful value in this scenario.",
+      "parentUuid": "6785a0be_faa47eec",
       "range": {
         "startLine": 52,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69f69853_1edd50f8",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-10T11:27:13Z",
+      "side": 1,
+      "message": "Done. Changed the log message to include the function name: BMCWEB_LOG_ERROR(\"afterGetTelemetryServiceProperties DBus error {}\", ec);",
+      "parentUuid": "705780e7_fc284caf",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 58
+      },
+      "revId": "517b173bbab7717160ac1b0e03fe5b49a9e44b6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c1c12dc_d7ed4869",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-09-09T06:01:38Z",
       "side": 1,
       "message": "nit:\nCan we pack these `ec`-related logic within a `if`, this helps align the code style.\n\nRef: https://github.com/openbmc/bmcweb/blob/e10c52ed88e8ef349777f054733bcf9f5fc70ba3/redfish-core/lib/fabric_adapters.hpp#L146",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "517b173bbab7717160ac1b0e03fe5b49a9e44b6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f48082a9_deaaafdb",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-10T11:27:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c1c12dc_d7ed4869",
       "range": {
         "startLine": 50,
         "startChar": 4,
