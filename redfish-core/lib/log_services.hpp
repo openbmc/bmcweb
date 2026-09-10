@@ -155,12 +155,12 @@ inline void handleSystemsLogServiceCollectionGet(
     if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
     {
         nlohmann::json::object_t hostlogger;
-        hostlogger["@odata.id"] =
-            boost::urls::format("/redfish/v1/Systems/{}/LogServices/HostLogger",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        hostlogger["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/LogServices/HostLogger", systemName);
         logServiceArray.emplace_back(std::move(hostlogger));
+        asyncResp->res.jsonValue["Members@odata.count"] =
+            logServiceArray.size();
     }
-    asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
 
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.State.Boot.PostCode"};
