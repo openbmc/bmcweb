@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "15d26b8b_62215e04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-10T12:39:57Z",
+      "side": 1,
+      "message": "There is no specification present in Redfish for this: ServiceAddresses/Authentication.Username/LDAPService.SearchSettings and ExternalAccountProvider.ServiceEnabled is just documented as \"an indication of whether this service is enabled.\" This wasn\u0027t meant as a spec-compliance claim.\n\nThe intent is security hardening rather than spec conformance: once an LDAP provider is disabled, its server address and bind DN are stale config that\u0027s still exposed via GET to any authenticated client, even though the provider is no longer in use. Masking them while disabled reduces disclosure of internal directory infrastructure (server address, bind account) to clients that only need to know a provider exists and is off.",
+      "parentUuid": "397d78f4_9180fcaa",
+      "revId": "a2ffe3f211e7d2382f581514eeaad17fd228af78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d5cca9bd_8d0544d3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
