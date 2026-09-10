@@ -398,6 +398,7 @@ srcfiles_bmcweb = files(
     'http/routing/websocketrule.cpp',
     'http/zstd_compressor.cpp',
     'http/zstd_decompressor.cpp',
+    'redfish-core/src/console_log_parser.cpp',
     'redfish-core/src/dbus_log_watcher.cpp',
     'redfish-core/src/error_message_utils.cpp',
     'redfish-core/src/error_messages.cpp',
