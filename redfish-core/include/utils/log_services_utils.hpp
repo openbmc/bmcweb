@@ -22,6 +22,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 
 namespace redfish
 {
@@ -31,11 +32,31 @@ namespace log_services_utils
 constexpr const char* rfSystemsStr = "Systems";
 constexpr const char* rfManagersStr = "Managers";
 
+constexpr const char* hostLoggerStr = "HostLogger";
+
 enum class LogServiceParentCollection
 {
     Systems,
     Managers
 };
+
+enum class LogService
+{
+    HostLogger
+};
+
+inline std::optional<std::string> logServiceToString(LogService logService)
+{
+    switch (logService)
+    {
+        case LogService::HostLogger:
+            return hostLoggerStr;
+        default:
+            BMCWEB_LOG_ERROR("Unknonw log service {}",
+                             static_cast<int>(logService));
+            return std::nullopt;
+    }
+}
 
 inline std::optional<std::string> logServiceParentCollectionToString(
     LogServiceParentCollection collection)

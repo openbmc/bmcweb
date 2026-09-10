@@ -13,6 +13,13 @@ namespace
 
 using namespace log_services_utils;
 
+TEST(LogServicesUtils, LogServiceToString)
+{
+    EXPECT_EQ(logServiceToString(LogService::HostLogger), "HostLogger");
+
+    EXPECT_EQ(logServiceToString(static_cast<LogService>(99)), std::nullopt);
+}
+
 TEST(LogServicesUtils, LogServiceParentCollectionToString)
 {
     EXPECT_EQ(logServiceParentCollectionToString(
