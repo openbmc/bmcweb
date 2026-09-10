@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd85bd00_10f512bd",
+        "filename": "test/redfish-core/lib/leak_detector_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-09-10T11:13:00Z",
+      "side": 1,
+      "message": "This repeats the assertion two lines above; looks like a stray copy.",
+      "range": {
+        "startLine": 222,
+        "startChar": 4,
+        "endLine": 224,
+        "endChar": 88
+      },
+      "revId": "da3bf6ef14373502ff3889def5790e86a7b3860d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79a4ca55_7753a921",
         "filename": "test/redfish-core/lib/sensors_test.cpp",
         "patchSetId": 3
