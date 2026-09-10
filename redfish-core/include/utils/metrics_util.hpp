@@ -93,7 +93,7 @@ static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
         {"unsupported_request_count", "/PCIeErrors/UnsupportedRequestCount"},
     }};
 
-inline void afterGetPortPCIeMetrics(
+inline void afterGetPortMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& object)
@@ -131,16 +131,15 @@ inline void afterGetPortPCIeMetrics(
     }
 }
 
-inline void getPortPCIeMetrics(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portPath)
+inline void getPortMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& portPath)
 {
     const sdbusplus::object_path associationPath =
         sdbusplus::object_path(portPath) / "measured_by";
     dbus::utility::getAssociatedSubTree(
         associationPath, sdbusplus::object_path("/xyz/openbmc_project/metric"),
         0, std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
-        std::bind_front(afterGetPortPCIeMetrics, asyncResp));
+        std::bind_front(afterGetPortMetrics, asyncResp));
 }
 
 } // namespace metrics_util

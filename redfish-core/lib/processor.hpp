@@ -1596,7 +1596,7 @@ inline void afterGetPortPathsForMetrics(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port Metrics", processorId, portId);
 
-    metrics_util::getPortPCIeMetrics(asyncResp, *portPath);
+    metrics_util::getPortMetrics(asyncResp, *portPath);
 }
 
 inline void afterGetPortPathsForMetricsHead(

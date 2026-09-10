@@ -45,7 +45,7 @@ inline void handleFabricSwitchPortPathPortMetricsGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port Metrics", switchId, portId);
 
-    metrics_util::getPortPCIeMetrics(asyncResp, portPath);
+    metrics_util::getPortMetrics(asyncResp, portPath);
 }
 
 inline void handleFabricSwitchPortPathPortGet(
