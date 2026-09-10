@@ -16,6 +16,24 @@
       "message": "Make a single if else statement by merging this into below.",
       "revId": "6a83b62e09f2c45a1b2a36d178276949ebf6e4c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef8768f8_a8acb71d",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-09-10T10:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44046a06_6488c21b",
+      "revId": "6a83b62e09f2c45a1b2a36d178276949ebf6e4c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
