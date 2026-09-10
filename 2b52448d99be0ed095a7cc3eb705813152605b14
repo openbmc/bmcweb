@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ffa034b_1b3423d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-10T06:19:17Z",
+      "side": 1,
+      "message": "Use 50/72 formatting",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8fd9a442_f11ee4f9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -78,6 +101,23 @@
       "writtenOn": "2026-09-10T06:15:25Z",
       "side": 1,
       "message": "Looks good.",
+      "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd02e751_e72433b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-10T06:19:17Z",
+      "side": 1,
+      "message": "Implementation looks good to me, other than small formatting issue.",
       "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
