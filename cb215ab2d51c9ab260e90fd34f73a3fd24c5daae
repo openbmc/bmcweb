@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bea31ab5_f0912861",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-09-10T05:50:07Z",
+      "side": 1,
+      "message": "Could you put in the topic https://gerrit.openbmc.org/q/topic:%22long-lambda-cleanup%22 that will be easier to review.\nThanks.",
+      "revId": "cb215ab2d51c9ab260e90fd34f73a3fd24c5daae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
