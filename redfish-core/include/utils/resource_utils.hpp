@@ -46,11 +46,13 @@ inline void determineResourceHealth(
 
 inline void determineResourceState(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool present,
-    bool available, const nlohmann::json::json_pointer& jsonPtr)
+    bool available, bool degraded, const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG("determineResourceState");
 
-    // Absent takes priority over unavailable
+    // Absent takes priority over unavailable, and unavailable over degraded.
+    // A degraded resource is present and available, but operates below its
+    // expected level.
     if (!present)
     {
         asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
@@ -60,6 +62,11 @@ inline void determineResourceState(
     {
         asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
             resource::State::UnavailableOffline;
+    }
+    else if (degraded)
+    {
+        asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
+            resource::State::Degraded;
     }
     else
     {
@@ -84,7 +91,9 @@ inline void getStatusAvailableState(
         }
         available = true;
     }
-    determineResourceState(asyncResp, present, available, jsonPtr);
+    // The resources which take this path do not implement
+    // State.Decorator.Performance, so they are never degraded.
+    determineResourceState(asyncResp, present, available, false, jsonPtr);
 }
 
 inline void getStatusPresentState(

@@ -89,6 +89,7 @@ inline void getCpuDataByInterface(
     bool present = true;
     bool available = true;
     bool functional = true;
+    bool degraded = false;
 
     for (const auto& interface : cpuInterfacesProperties)
     {
@@ -124,6 +125,16 @@ inline void getCpuDataByInterface(
                     return;
                 }
                 functional = *cpuFunctional;
+            }
+            else if (property.first == "Degraded")
+            {
+                const bool* cpuDegraded = std::get_if<bool>(&property.second);
+                if (cpuDegraded == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                degraded = *cpuDegraded;
             }
             else if (property.first == "CoreCount")
             {
@@ -226,7 +237,7 @@ inline void getCpuDataByInterface(
         }
     }
     resource_utils::determineResourceState(asyncResp, present, available,
-                                           ""_json_pointer);
+                                           degraded, ""_json_pointer);
     resource_utils::determineResourceHealth(asyncResp, ""_json_pointer,
                                             functional);
 }
