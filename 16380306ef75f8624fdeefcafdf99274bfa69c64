@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "293bca22_f4828cdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-10T18:56:20Z",
+      "side": 1,
+      "message": "PDI needs to go first but overall seems reasonable to me",
+      "revId": "16380306ef75f8624fdeefcafdf99274bfa69c64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
