@@ -31,8 +31,10 @@ TEST(DetermineResourceState, Absent)
     auto asyncResp = createAsyncResp();
     bool present = false;
     bool available = true;
+    bool degraded = false;
 
-    determineResourceState(asyncResp, present, available, ""_json_pointer);
+    determineResourceState(asyncResp, present, available, degraded,
+                           ""_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::Absent);
@@ -43,8 +45,10 @@ TEST(DetermineResourceState, UnavailableOffline)
     auto asyncResp = createAsyncResp();
     bool present = true;
     bool available = false;
+    bool degraded = false;
 
-    determineResourceState(asyncResp, present, available, ""_json_pointer);
+    determineResourceState(asyncResp, present, available, degraded,
+                           ""_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::UnavailableOffline);
@@ -55,11 +59,41 @@ TEST(DetermineResourceState, Enabled)
     auto asyncResp = createAsyncResp();
     bool present = true;
     bool available = true;
+    bool degraded = false;
 
-    determineResourceState(asyncResp, present, available, ""_json_pointer);
+    determineResourceState(asyncResp, present, available, degraded,
+                           ""_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::Enabled);
+}
+
+TEST(DetermineResourceState, Degraded)
+{
+    auto asyncResp = createAsyncResp();
+    bool present = true;
+    bool available = true;
+    bool degraded = true;
+
+    determineResourceState(asyncResp, present, available, degraded,
+                           ""_json_pointer);
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
+              resource::State::Degraded);
+}
+
+TEST(DetermineResourceState, UnavailableTakesPriorityOverDegraded)
+{
+    auto asyncResp = createAsyncResp();
+    bool present = true;
+    bool available = false;
+    bool degraded = true;
+
+    determineResourceState(asyncResp, present, available, degraded,
+                           ""_json_pointer);
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
+              resource::State::UnavailableOffline);
 }
 
 TEST(DetermineResourceState, AbsentTakesPriorityOverUnavailable)
@@ -67,8 +101,10 @@ TEST(DetermineResourceState, AbsentTakesPriorityOverUnavailable)
     auto asyncResp = createAsyncResp();
     bool present = false;
     bool available = false;
+    bool degraded = false;
 
-    determineResourceState(asyncResp, present, available, ""_json_pointer);
+    determineResourceState(asyncResp, present, available, degraded,
+                           ""_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::Absent);
@@ -79,9 +115,10 @@ TEST(DetermineResourceState, WithJsonPointer)
     auto asyncResp = createAsyncResp();
     bool present = true;
     bool available = true;
+    bool degraded = false;
 
     nlohmann::json::json_pointer ptr("/Assemblies/0");
-    determineResourceState(asyncResp, present, available, ptr);
+    determineResourceState(asyncResp, present, available, degraded, ptr);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Assemblies"][0]["Status"]["State"],
               resource::State::Enabled);
@@ -130,13 +167,20 @@ TEST(ResourceUtils, MultipleResourcesWithDifferentStates)
     auto asyncResp = createAsyncResp();
 
     // Resource 1: Absent
-    determineResourceState(asyncResp, false, true, "/Resource1"_json_pointer);
+    determineResourceState(asyncResp, false, true, false,
+                           "/Resource1"_json_pointer);
 
     // Resource 2: UnavailableOffline
-    determineResourceState(asyncResp, true, false, "/Resource2"_json_pointer);
+    determineResourceState(asyncResp, true, false, false,
+                           "/Resource2"_json_pointer);
 
     // Resource 3: Enabled
-    determineResourceState(asyncResp, true, true, "/Resource3"_json_pointer);
+    determineResourceState(asyncResp, true, true, false,
+                           "/Resource3"_json_pointer);
+
+    // Resource 4: Degraded
+    determineResourceState(asyncResp, true, true, true,
+                           "/Resource4"_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Resource1"]["Status"]["State"],
               resource::State::Absent);
@@ -144,13 +188,15 @@ TEST(ResourceUtils, MultipleResourcesWithDifferentStates)
               resource::State::UnavailableOffline);
     EXPECT_EQ(asyncResp->res.jsonValue["Resource3"]["Status"]["State"],
               resource::State::Enabled);
+    EXPECT_EQ(asyncResp->res.jsonValue["Resource4"]["Status"]["State"],
+              resource::State::Degraded);
 }
 
 TEST(ResourceUtils, StateAndHealthSeparately)
 {
     auto asyncResp = createAsyncResp();
 
-    determineResourceState(asyncResp, true, true, ""_json_pointer);
+    determineResourceState(asyncResp, true, true, false, ""_json_pointer);
     determineResourceHealth(asyncResp, ""_json_pointer, false);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
@@ -164,7 +210,7 @@ TEST(ResourceUtils, StateAndHealthWithJsonPointer)
     auto asyncResp = createAsyncResp();
     nlohmann::json::json_pointer ptr("/Component");
 
-    determineResourceState(asyncResp, true, false, ptr);
+    determineResourceState(asyncResp, true, false, false, ptr);
     determineResourceHealth(asyncResp, ptr, true);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Component"]["Status"]["State"],
