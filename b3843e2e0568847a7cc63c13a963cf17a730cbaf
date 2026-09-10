@@ -95,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25688193_588df465",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2580,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-09-10T10:50:56Z",
+      "side": 1,
+      "message": "I think `chassisId` should need it, and I think we can use `chassis_utils::getValidChassisPath` to confirm whether the sensor is under that chassis.\nYou could ref the `handleEnvironmentMetricsPatch` in environment_metrics.hpp.",
+      "parentUuid": "abc27189_d96fdf0d",
+      "range": {
+        "startLine": 2580,
+        "startChar": 4,
+        "endLine": 2580,
+        "endChar": 36
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "327c8311_4407c509",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 3
