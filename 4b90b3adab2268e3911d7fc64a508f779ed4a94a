@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1c40b6b0_a6db8b5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-10T06:53:28Z",
+      "side": 1,
+      "message": "As this change is purely a refactor and does not introduce any functional modifications, attaching the test results is not necessary. Verification that the build completed successfully is sufficient. The commit message has also been updated.",
+      "parentUuid": "4c455cd7_d566f356",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 36
+      },
+      "revId": "4b90b3adab2268e3911d7fc64a508f779ed4a94a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8de7bff4_9a2c330c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
