@@ -205,6 +205,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e9192e_6df18176",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-09-10T13:15:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cc8e992_6b459fe9",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71ae459e_69c4d723",
@@ -388,6 +406,24 @@
       "side": 1,
       "message": "Can you please elaborate on \"rest of our code\"? or provide me with an example?",
       "parentUuid": "7f10bddf_0a4bc854",
+      "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f504dac6_4a6f955e",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-09-10T13:15:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "385d0bd5_37d76949",
       "revId": "260d01be5a5ff4108109dda8f2321e599c97ab01",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
