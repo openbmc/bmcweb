@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b64f9e_8fefda39",
+        "filename": "test/redfish-core/lib/network_adapter_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-10T07:14:38Z",
+      "side": 1,
+      "message": "Done, thanks for acknowledging this.",
+      "parentUuid": "cedc44f4_83729765",
+      "revId": "f6e63a6de2d3ad177288a3b04ab48327ee9dee8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47702514_af71505c",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-09T11:44:30Z",
       "side": 1,
       "message": "The handler only checks object.empty(), so this would pass with any interface string — suggest also asserting that a non-Embedded connector leaves LocationType unset?",
+      "revId": "f6e63a6de2d3ad177288a3b04ab48327ee9dee8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a9fe81_dfe6f0be",
+        "filename": "test/redfish-core/lib/network_adapter_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-10T07:14:38Z",
+      "side": 1,
+      "message": "Thanks for the catching!\nI have added this assertion in PS8.",
+      "parentUuid": "47702514_af71505c",
       "revId": "f6e63a6de2d3ad177288a3b04ab48327ee9dee8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
