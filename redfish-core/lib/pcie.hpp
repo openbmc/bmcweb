@@ -31,6 +31,7 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <algorithm>
 #include <array>
 #include <charconv>
 #include <cstddef>
@@ -45,6 +46,7 @@
 #include <system_error>
 #include <utility>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -285,54 +287,102 @@ inline void addPCIeSlotProperties(
     }
 }
 
+inline bool serviceMapHasPCIeSlotInterface(
+    const dbus::utility::MapperServiceMap& serviceMap)
+{
+    for (const auto& [service, interfaces] : serviceMap)
+    {
+        static_cast<void>(service);
+        if (std::ranges::find(interfaces,
+                              "xyz.openbmc_project.Inventory.Item.PCIeSlot") !=
+            interfaces.end())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+inline void afterGetPCIeDeviceSlotSubtree(
+    const std::string& pcieDevicePath,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::function<void(const std::string& pcieDeviceSlot,
+                       const dbus::utility::MapperServiceMap& serviceMap)>&&
+        callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& endpoints)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec.value() == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("PCIeDevice {} has no PCIeSlot association",
+                             pcieDevicePath);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error for getAssociatedSubTree {}",
+                         ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    std::vector<const std::string*> matchingSlotPaths;
+    const dbus::utility::MapperServiceMap* matchingServiceMap = nullptr;
+    for (const auto& [slotPath, serviceMap] : endpoints)
+    {
+        if (!serviceMapHasPCIeSlotInterface(serviceMap))
+        {
+            continue;
+        }
+
+        matchingSlotPaths.push_back(&slotPath);
+        matchingServiceMap = &serviceMap;
+    }
+
+    if (matchingSlotPaths.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "PCIeDevice {} is associated with more than one PCIeSlot: {}",
+            pcieDevicePath, matchingSlotPaths.size());
+        for (const std::string* slotPath : matchingSlotPaths)
+        {
+            BMCWEB_LOG_ERROR("Invalid PCIeSlotPath: {}", *slotPath);
+        }
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (matchingSlotPaths.empty())
+    {
+        // If the device doesn't have an association, return without
+        // PCIe Slot properties
+        BMCWEB_LOG_DEBUG("PCIeDevice is not associated with PCIeSlot");
+        return;
+    }
+
+    std::move(callback)(*matchingSlotPaths.front(), *matchingServiceMap);
+}
+
 inline void getPCIeDeviceSlotPath(
     const std::string& pcieDevicePath,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    std::function<void(const std::string& pcieDeviceSlot)>&& callback)
+    std::function<void(const std::string& pcieDeviceSlot,
+                       const dbus::utility::MapperServiceMap& serviceMap)>&&
+        callback)
 {
     std::string associationPath = pcieDevicePath + "/contained_by";
     sdbusplus::object_path path("/xyz/openbmc_project/inventory");
-    static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
-    dbus::utility::getAssociatedSubTreePaths(
-        associationPath, path, 0, pcieSlotInterface,
-        // ast-grep-ignore: long-lambda
+    static constexpr std::array<std::string_view, 2> pcieSlotInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode"};
+    dbus::utility::getAssociatedSubTree(
+        associationPath, path, 0, pcieSlotInterfaces,
         [callback = std::move(callback), asyncResp, pcieDevicePath](
             const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& endpoints) {
-            if (ec)
-            {
-                if (ec.value() == EBADR)
-                {
-                    // Missing association is not an error
-                    return;
-                }
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error for getAssociatedSubTreePaths {}",
-                    ec.value());
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            if (endpoints.size() > 1)
-            {
-                BMCWEB_LOG_ERROR(
-                    "PCIeDevice {} is associated with more than one PCIeSlot: {}",
-                    pcieDevicePath, endpoints.size());
-                for (const std::string& slotPath : endpoints)
-                {
-                    BMCWEB_LOG_ERROR("Invalid PCIeSlotPath: {}", slotPath);
-                }
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            if (endpoints.empty())
-            {
-                // If the device doesn't have an association, return without
-                // PCIe Slot properties
-                BMCWEB_LOG_DEBUG("PCIeDevice is not associated with PCIeSlot");
-                return;
-            }
-            callback(endpoints[0]);
+            const dbus::utility::MapperGetSubTreeResponse& endpoints) mutable {
+            afterGetPCIeDeviceSlotSubtree(pcieDevicePath, asyncResp,
+                                          std::move(callback), ec, endpoints);
         });
 }
 
@@ -354,19 +404,19 @@ inline void afterGetLocationCode(
         property;
 }
 
-inline void afterGetDbusObject(
+inline void afterGetPCIeDeviceSlotPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& pcieDeviceSlot, const boost::system::error_code& ec,
-    const dbus::utility::MapperGetObject& object)
+    const std::string& pcieDeviceSlot,
+    const dbus::utility::MapperServiceMap& serviceMap)
 {
-    if (ec || object.empty())
+    if (serviceMap.empty())
     {
-        BMCWEB_LOG_ERROR("DBUS response error for getDbusObject {}",
-                         ec.value());
+        BMCWEB_LOG_ERROR("DBUS response error for associated PCIeSlot lookup");
         messages::internalError(asyncResp->res);
         return;
     }
-    for (const auto& [service, interfaces] : object)
+
+    for (const auto& [service, interfaces] : serviceMap)
     {
         for (const std::string& interface : interfaces)
         {
@@ -393,22 +443,6 @@ inline void afterGetDbusObject(
             }
         }
     }
-}
-
-inline void afterGetPCIeDeviceSlotPath(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& pcieDeviceSlot)
-{
-    static constexpr std::array<std::string_view, 2> pcieSlotInterfaces = {
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode"};
-    dbus::utility::getDbusObject(
-        pcieDeviceSlot, pcieSlotInterfaces,
-        [asyncResp,
-         pcieDeviceSlot](const boost::system::error_code& ec,
-                         const dbus::utility::MapperGetObject& object) {
-            afterGetDbusObject(asyncResp, pcieDeviceSlot, ec, object);
-        });
 }
 
 inline void addPCIeDeviceProperties(
