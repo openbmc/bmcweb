@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a4878e9_ef13908a",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T17:01:54Z",
+      "side": 1,
+      "message": "getDateTimeUint has an overload that accepts a timezone string that we used for solving this unit test timezone issue.  Would it make more sense to just pass through the timezone through passwordExpirationToJson, so this test can be something like\n\n\npasswordExpirationToJson(1729188724, \"UTC\");\n\n\nThen we avoid the need for the regex entirely below?",
+      "revId": "cb1ed8669881031f0d8a35f093d17f4f754d565c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb56e0d6_b62bea5c",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T17:01:54Z",
+      "side": 1,
+      "message": "nit, we\u0027re already using matchers here, technically we\u0027d want \n\nEXPECT_THAT(value, VariantWith\u003cstd::string\u003e(MatchesRegex(....)));\n\nChange if you want, fine either way.",
+      "revId": "cb1ed8669881031f0d8a35f093d17f4f754d565c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee0563b_b50d296f",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T17:01:54Z",
+      "side": 1,
+      "message": "Nit, should we do this all in one regex?\n\n2024-10-1[678]T[0-9]{2}:[0-9]{2}:[0-9]{2}[-+][0-9]{2}:[0-9]{2}\n\nFine either way, change if you want.",
+      "revId": "cb1ed8669881031f0d8a35f093d17f4f754d565c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
