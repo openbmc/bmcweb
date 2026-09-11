@@ -16,6 +16,29 @@
       "message": "Looks good.",
       "revId": "b931a52bea83d45fb74b50079e5bbc86b542981a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b287e54_4144c3d7",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-11T14:10:14Z",
+      "side": 1,
+      "message": "const boost::system::error_code\u0026 ec",
+      "range": {
+        "startLine": 56,
+        "startChar": 29,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "b931a52bea83d45fb74b50079e5bbc86b542981a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
