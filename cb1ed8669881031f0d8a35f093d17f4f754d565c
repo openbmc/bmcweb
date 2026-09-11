@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1acb900_1f1fdc21",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-09-11T21:21:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20d46de6_e37c6c59",
+      "revId": "cb1ed8669881031f0d8a35f093d17f4f754d565c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb56e0d6_b62bea5c",
@@ -53,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d2bbd0b_2adcf537",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-09-11T21:21:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "eb56e0d6_b62bea5c",
+      "revId": "cb1ed8669881031f0d8a35f093d17f4f754d565c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fee0563b_b50d296f",
@@ -66,6 +102,24 @@
       "writtenOn": "2026-09-11T17:01:54Z",
       "side": 1,
       "message": "Nit, should we do this all in one regex?\n\n2024-10-1[678]T[0-9]{2}:[0-9]{2}:[0-9]{2}[-+][0-9]{2}:[0-9]{2}\n\nFine either way, change if you want.",
+      "revId": "cb1ed8669881031f0d8a35f093d17f4f754d565c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68952ae4_20e2d3e4",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-09-11T21:21:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fee0563b_b50d296f",
       "revId": "cb1ed8669881031f0d8a35f093d17f4f754d565c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
