@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "589286c5_e58859cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T17:12:15Z",
+      "side": 1,
+      "message": "The expectation is that for anything not yocto, we\u0027re just using the subproject boost.  The odds your distro has the right version of boost has classically been very low, is it possible your distro had 1.88?  If so, would it make more sense to make sure the submodule works in that case rather than try to support dynamic link?\n\nIf you really want to dynamic link, this isn\u0027t a bridge I\u0027ll stand and die on, but we do static link today because people would move binaries around between systems then complain that they didn\u0027t run and file bugs.  I\u0027d like to avoid those \"bug\" reports if we can.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "a8a4eb689c1ba3cdcacc93b1fff3cc877f6852cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d2dc0a7_ec8b16f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T17:12:15Z",
+      "side": 1,
+      "message": "This boost URL link requirement has been a mess and wasn\u0027t required at the time James picked the url dependency up.  I\u0027ve considered replacing it with a homegrown URL class (or a copy/pasted urls.hpp from boost) several times because of it.\n\nThe stick that is likely to break the camels back is that it shows up in unit test coverage profiles, including all the modules we don\u0027t use.\n\nEnd rant.",
+      "range": {
+        "startLine": 11,
+        "startChar": 23,
+        "endLine": 12,
+        "endChar": 9
+      },
+      "revId": "a8a4eb689c1ba3cdcacc93b1fff3cc877f6852cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
