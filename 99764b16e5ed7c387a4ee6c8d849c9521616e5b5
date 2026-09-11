@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1d66548_e32a4b85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-11T14:17:14Z",
+      "side": 1,
+      "message": "Isn\u0027t capturing a shared_ptr\u003cAsyncResp\u003e semantically important because AsyncResp::~AsyncResp() calls res.end(), so holding that shared pointer keeps the response alive while the asynchronous D-Bus operations are outstanding ?",
+      "revId": "99764b16e5ed7c387a4ee6c8d849c9521616e5b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b1241f1d_c557fd71",
