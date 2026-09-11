@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
+#include "dbus_utility.hpp"
 #include "fabric.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_response.hpp"
@@ -14,7 +15,9 @@
 #include <array>
 #include <memory>
 #include <optional>
+#include <string>
 #include <utility>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -25,6 +28,8 @@ namespace
 
 constexpr const char* switchPath =
     "/xyz/openbmc_project/inventory/system/fabric0/switch0";
+constexpr const char* chassisPath =
+    "/xyz/openbmc_project/inventory/system/chassis/chassis0";
 
 TEST(DbusToRfPowerState, MapsKnownValues)
 {
@@ -159,6 +164,155 @@ TEST(AfterGetSwitchPowerStateService, EmptyObjectOmitsPowerState)
 
     EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
     EXPECT_FALSE(response->res.jsonValue.contains("PowerState"));
+}
+
+TEST(AfterGetSwitchContainedBy, AbsentAssociationOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::linux_error::bad_request_descriptor;
+
+    afterGetSwitchContainedBy(response, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchContainedBy, AnUnreachableMapperOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::asio::error::invalid_argument;
+
+    afterGetSwitchContainedBy(response, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchContainedBy, NoChassisOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetSwitchContainedBy(response, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchContainedBy, MoreThanOneChassisIsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreePathsResponse paths{
+        chassisPath, "/xyz/openbmc_project/inventory/system/chassis/chassis1"};
+
+    afterGetSwitchContainedBy(response, ec, paths);
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetSwitchContainedBy, OneChassisSetsTheLink)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreePathsResponse paths{chassisPath};
+
+    afterGetSwitchContainedBy(response, ec, paths);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(response->res.jsonValue["Links"]["Chassis"]["@odata.id"],
+              "/redfish/v1/Chassis/chassis0");
+}
+
+TEST(AfterGetSwitchContainedBy, AMalformedChassisPathOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreePathsResponse paths{"/"};
+
+    afterGetSwitchContainedBy(response, ec, paths);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchPCIeDevice, AbsentInterfaceOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::linux_error::bad_request_descriptor;
+
+    afterGetSwitchPCIeDevice(response, switchPath, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchPCIeDevice, IoErrorOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+
+    afterGetSwitchPCIeDevice(response, switchPath, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchPCIeDevice, AnUnreachableMapperOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::asio::error::invalid_argument;
+
+    afterGetSwitchPCIeDevice(response, switchPath, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchPCIeDevice, ASwitchThatIsNotAPCIeDeviceOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetSwitchPCIeDevice(response, switchPath, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchPCIeDevice, AMalformedSwitchPathOmitsLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetObject object;
+    object.emplace_back("xyz.openbmc_project.Inventory.Manager",
+                        std::vector<std::string>{
+                            "xyz.openbmc_project.Inventory.Item.PCIeDevice"});
+
+    afterGetSwitchPCIeDevice(response, "/", ec, object);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetSwitchPCIeDevice, APCIeDeviceSwitchSetsTheLink)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetObject object;
+    object.emplace_back("xyz.openbmc_project.Inventory.Manager",
+                        std::vector<std::string>{
+                            "xyz.openbmc_project.Inventory.Item.PCIeDevice"});
+
+    afterGetSwitchPCIeDevice(response, switchPath, ec, object);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(response->res.jsonValue["Links"]["PCIeDevice"]["@odata.id"],
+              "/redfish/v1/Systems/system/PCIeDevices/switch0");
 }
 
 } // namespace
