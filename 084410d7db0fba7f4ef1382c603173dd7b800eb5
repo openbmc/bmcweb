@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "254a832e_ec6275c2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-11T10:37:55Z",
+      "side": 1,
+      "message": "Good point. parseStringAsJson does not currently distinguish oversized input from malformed JSON; both return std::nullopt. I kept this patch scoped to the malformed UpdateParameters bug in the commit message, so I did not refactor the generic parser API here. A status-returning overload/refactor would make sense, but I think that should be a separate follow-up if we want to map the size-limit case to PayloadTooLarge consistently.",
+      "parentUuid": "90656812_40ebb92e",
+      "range": {
+        "startLine": 756,
+        "startChar": 8,
+        "endLine": 756,
+        "endChar": 48
+      },
+      "revId": "084410d7db0fba7f4ef1382c603173dd7b800eb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "177ce373_41ece24e",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f214ef4c_97c5845c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-11T10:37:55Z",
+      "side": 1,
+      "message": "Done, thanks for reviewing.",
+      "parentUuid": "177ce373_41ece24e",
+      "range": {
+        "startLine": 814,
+        "startChar": 12,
+        "endLine": 814,
+        "endChar": 66
+      },
+      "revId": "084410d7db0fba7f4ef1382c603173dd7b800eb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30d28d6e_e58e4ff2",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-09-09T03:47:54Z",
       "side": 1,
       "message": "Instead of asserting the type, shall we do the error code checking, such as:\n`EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"error\"][\"code\"], \"Base.1.19.MalformedJSON\")`?",
+      "range": {
+        "startLine": 161,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "084410d7db0fba7f4ef1382c603173dd7b800eb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8258c3a1_66d4e581",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-11T10:37:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30d28d6e_e58e4ff2",
       "range": {
         "startLine": 161,
         "startChar": 4,
