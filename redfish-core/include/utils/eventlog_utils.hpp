@@ -54,25 +54,25 @@ inline void handleSystemsAndManagersEventLogServiceGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     log_services_utils::LogServiceParentCollection collection)
 {
-    const std::string collectionStr =
+    std::optional<std::string> collectionStr =
         logServiceParentCollectionToString(collection);
-    const std::string_view memberId =
+    std::optional<std::string_view> memberId =
         getMemberIdFromParentCollection(collection);
-    const std::string logEntryDescriptor =
+    std::optional<std::string> logEntryDescriptor =
         getLogEntryDescriptorFromParentCollection(collection);
 
-    if (collectionStr.empty() || memberId.empty() || logEntryDescriptor.empty())
+    if (!collectionStr || !memberId || !logEntryDescriptor)
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/{}/{}/LogServices/EventLog", collectionStr, memberId);
+        "/redfish/v1/{}/{}/LogServices/EventLog", *collectionStr, *memberId);
     asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
     asyncResp->res.jsonValue["Name"] = "Event Log Service";
     asyncResp->res.jsonValue["Description"] =
-        std::format("{} Event Log Service", logEntryDescriptor);
+        std::format("{} Event Log Service", *logEntryDescriptor);
     asyncResp->res.jsonValue["Id"] = "EventLog";
     asyncResp->res.jsonValue["OverWritePolicy"] =
         log_service::OverWritePolicy::WrapsWhenFull;
@@ -86,12 +86,12 @@ inline void handleSystemsAndManagersEventLogServiceGet(
 
     asyncResp->res.jsonValue["Entries"]["@odata.id"] =
         boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
-                            collectionStr, memberId);
+                            *collectionStr, *memberId);
     asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]["target"]
 
         = boost::urls::format(
             "/redfish/v1/{}/{}/LogServices/EventLog/Actions/LogService.ClearLog",
-            collectionStr, memberId);
+            *collectionStr, *memberId);
     etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 }
 
@@ -239,14 +239,14 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
     size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
     size_t skip = delegatedQuery.skip.value_or(0);
 
-    const std::string collectionStr =
+    std::optional<std::string> collectionStr =
         logServiceParentCollectionToString(collection);
-    const std::string_view memberId =
+    std::optional<std::string_view> memberId =
         getMemberIdFromParentCollection(collection);
-    const std::string logEntryDescriptor =
+    std::optional<std::string> logEntryDescriptor =
         getLogEntryDescriptorFromParentCollection(collection);
 
-    if (collectionStr.empty() || memberId.empty() || logEntryDescriptor.empty())
+    if (!collectionStr || !memberId || !logEntryDescriptor)
     {
         messages::internalError(asyncResp->res);
         return;
@@ -258,11 +258,11 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
         "#LogEntryCollection.LogEntryCollection";
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
-                            collectionStr, memberId);
+                            *collectionStr, *memberId);
     asyncResp->res.jsonValue["Name"] =
-        std::format("{} Event Log Entries", logEntryDescriptor);
+        std::format("{} Event Log Entries", *logEntryDescriptor);
     asyncResp->res.jsonValue["Description"] =
-        std::format("Collection of {} Event Log Entries", logEntryDescriptor);
+        std::format("Collection of {} Event Log Entries", *logEntryDescriptor);
 
     nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
     logEntryArray = nlohmann::json::array();
@@ -295,8 +295,8 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
 
             nlohmann::json::object_t bmcLogEntry;
             LogParseError status = fillEventLogEntryJson(
-                idStr, logEntry, bmcLogEntry, collectionStr, memberId,
-                logEntryDescriptor);
+                idStr, logEntry, bmcLogEntry, *collectionStr, *memberId,
+                *logEntryDescriptor);
             if (status == LogParseError::messageIdNotInRegistry)
             {
                 continue;
@@ -324,7 +324,7 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
         asyncResp->res.jsonValue["Members@odata.nextLink"] =
             boost::urls::format(
                 "/redfish/v1/{}/{}/LogServices/EventLog/Entries?$skip={}",
-                collectionStr, memberId, std::to_string(skip + top));
+                *collectionStr, *memberId, std::to_string(skip + top));
     }
 }
 
@@ -335,14 +335,14 @@ inline void handleSystemsAndManagersLogServiceEventLogEntriesGet(
 {
     const std::string& targetID = param;
 
-    const std::string collectionStr =
+    std::optional<std::string> collectionStr =
         logServiceParentCollectionToString(collection);
-    const std::string_view memberId =
+    std::optional<std::string_view> memberId =
         getMemberIdFromParentCollection(collection);
-    const std::string logEntryDescriptor =
+    std::optional<std::string> logEntryDescriptor =
         getLogEntryDescriptorFromParentCollection(collection);
 
-    if (collectionStr.empty() || memberId.empty() || logEntryDescriptor.empty())
+    if (!collectionStr || !memberId || !logEntryDescriptor)
     {
         messages::internalError(asyncResp->res);
         return;
@@ -378,8 +378,8 @@ inline void handleSystemsAndManagersLogServiceEventLogEntriesGet(
             {
                 nlohmann::json::object_t bmcLogEntry;
                 LogParseError status = fillEventLogEntryJson(
-                    idStr, logEntry, bmcLogEntry, collectionStr, memberId,
-                    logEntryDescriptor);
+                    idStr, logEntry, bmcLogEntry, *collectionStr, *memberId,
+                    *logEntryDescriptor);
                 if (status != LogParseError::success)
                 {
                     messages::internalError(asyncResp->res);
@@ -571,14 +571,14 @@ inline void dBusEventLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     log_services_utils::LogServiceParentCollection collection)
 {
-    const std::string_view memberId =
+    std::optional<std::string_view> memberId =
         getMemberIdFromParentCollection(collection);
-    const std::string collectionStr =
+    std::optional<std::string> collectionStr =
         logServiceParentCollectionToString(collection);
-    const std::string logEntryDescriptor =
+    std::optional<std::string> logEntryDescriptor =
         getLogEntryDescriptorFromParentCollection(collection);
 
-    if (collectionStr.empty() || memberId.empty() || logEntryDescriptor.empty())
+    if (!collectionStr || !memberId || !logEntryDescriptor)
     {
         messages::internalError(asyncResp->res);
         return;
@@ -590,11 +590,11 @@ inline void dBusEventLogEntryCollection(
         "#LogEntryCollection.LogEntryCollection";
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
-                            collectionStr, memberId);
+                            *collectionStr, *memberId);
     asyncResp->res.jsonValue["Name"] =
-        std::format("{} Event Log Entries", logEntryDescriptor);
+        std::format("{} Event Log Entries", *logEntryDescriptor);
     asyncResp->res.jsonValue["Description"] =
-        std::format("Collection of {} Event Log Entries", logEntryDescriptor);
+        std::format("Collection of {} Event Log Entries", *logEntryDescriptor);
 
     // DBus implementation of EventLog/Entries
     // Make call to Logging Service to find all log entry objects
@@ -604,8 +604,9 @@ inline void dBusEventLogEntryCollection(
         [asyncResp, collectionStr, memberId,
          logEntryDescriptor](const boost::system::error_code& ec,
                              const dbus::utility::ManagedObjectType& resp) {
-            afterLogEntriesGetManagedObjects(asyncResp, collectionStr, memberId,
-                                             logEntryDescriptor, ec, resp);
+            afterLogEntriesGetManagedObjects(asyncResp, *collectionStr,
+                                             *memberId, *logEntryDescriptor, ec,
+                                             resp);
         });
 }
 
@@ -647,14 +648,14 @@ inline void dBusEventLogEntryGet(
     log_services_utils::LogServiceParentCollection collection,
     std::string entryID)
 {
-    const std::string collectionStr =
+    std::optional<std::string> collectionStr =
         logServiceParentCollectionToString(collection);
-    const std::string_view memberId =
+    std::optional<std::string_view> memberId =
         getMemberIdFromParentCollection(collection);
-    const std::string logEntryDescriptor =
+    std::optional<std::string> logEntryDescriptor =
         getLogEntryDescriptorFromParentCollection(collection);
 
-    if (collectionStr.empty() || memberId.empty() || logEntryDescriptor.empty())
+    if (!collectionStr || !memberId || !logEntryDescriptor)
     {
         messages::internalError(asyncResp->res);
         return;
@@ -667,8 +668,8 @@ inline void dBusEventLogEntryGet(
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID, "",
-        std::bind_front(afterDBusEventLogEntryGet, asyncResp, collectionStr,
-                        memberId, logEntryDescriptor, entryID));
+        std::bind_front(afterDBusEventLogEntryGet, asyncResp, *collectionStr,
+                        *memberId, *logEntryDescriptor, entryID));
 }
 
 inline void dBusEventLogEntryPatch(
