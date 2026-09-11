@@ -3,7 +3,6 @@
 // SPDX-FileCopyrightText: Copyright 2018 Intel Corporation
 
 #pragma once
-
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
@@ -21,6 +20,7 @@
 
 #include <cstdio>
 #include <memory>
+#include <optional>
 #include <string>
 
 namespace redfish
@@ -37,63 +37,55 @@ enum class LogServiceParentCollection
     Managers
 };
 
-inline std::string logServiceParentCollectionToString(
+inline std::optional<std::string> logServiceParentCollectionToString(
     LogServiceParentCollection collection)
 {
-    std::string collectionStr;
     switch (collection)
     {
         case LogServiceParentCollection::Managers:
-            collectionStr = rfManagersStr;
-            break;
+            return rfManagersStr;
         case LogServiceParentCollection::Systems:
-            collectionStr = rfSystemsStr;
-            break;
-        default:
-            BMCWEB_LOG_ERROR("Unable to stringify bmcweb eventlog location");
-            break;
-    }
-    return collectionStr;
-}
-
-inline std::string_view getMemberIdFromParentCollection(
-    LogServiceParentCollection collection)
-{
-    std::string_view memberId;
-
-    switch (collection)
-    {
-        case LogServiceParentCollection::Managers:
-            memberId = BMCWEB_REDFISH_MANAGER_URI_NAME;
-            break;
-        case LogServiceParentCollection::Systems:
-            memberId = BMCWEB_REDFISH_SYSTEM_URI_NAME;
-            break;
+            return rfSystemsStr;
         default:
             BMCWEB_LOG_ERROR(
-                "Unable to stringify bmcweb eventlog location childId");
-            break;
+                "Invalid LogServiceParentCollection {}, can't get collection string",
+                static_cast<int>(collection));
+            return std::nullopt;
     }
-    return memberId;
 }
 
-inline std::string getLogEntryDescriptorFromParentCollection(
+inline std::optional<std::string_view> getMemberIdFromParentCollection(
     LogServiceParentCollection collection)
 {
-    std::string descriptor;
     switch (collection)
     {
         case LogServiceParentCollection::Managers:
-            descriptor = "Manager";
-            break;
+            return BMCWEB_REDFISH_MANAGER_URI_NAME;
         case LogServiceParentCollection::Systems:
-            descriptor = "System";
-            break;
+            return BMCWEB_REDFISH_SYSTEM_URI_NAME;
         default:
-            BMCWEB_LOG_ERROR("Unable to get Log Entry descriptor");
-            break;
+            BMCWEB_LOG_ERROR(
+                "Invalid LogServiceParentCollection {}, can't get member id",
+                static_cast<int>(collection));
+            return std::nullopt;
     }
-    return descriptor;
+}
+
+inline std::optional<std::string> getLogEntryDescriptorFromParentCollection(
+    LogServiceParentCollection collection)
+{
+    switch (collection)
+    {
+        case LogServiceParentCollection::Managers:
+            return std::string("Manager");
+        case LogServiceParentCollection::Systems:
+            return std::string("System");
+        default:
+            BMCWEB_LOG_ERROR(
+                "Invalid LogServiceParentCollection {}, can't get entry descriptor",
+                static_cast<int>(collection));
+            return std::nullopt;
+    }
 }
 
 inline bool checkSizeLimit(int fd, crow::Response& res)
