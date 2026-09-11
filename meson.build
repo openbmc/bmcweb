@@ -302,7 +302,7 @@ nlohmann_json_dep = dependency(
 )
 bmcweb_dependencies += nlohmann_json_dep
 
-boost = dependency(
+boost_static = dependency(
     'boost',
     modules: ['url', 'process'],
     version: '>=1.88.0',
@@ -310,6 +310,27 @@ boost = dependency(
     required: false,
     include_type: 'system',
 )
+
+# Check boost url linking and fall back to dynamic libraries.
+boost = boost_static
+static_ok = false
+if boost_static.found()
+    static_ok = cxx.links(
+        '#include <boost/url.hpp>\nint main() { boost::urls::url u; return 0; }',
+        dependencies: boost_static,
+        name: 'boost static links',
+    )
+endif
+if not static_ok
+    boost = dependency(
+        'boost',
+        modules: ['url', 'process'],
+        version: '>=1.88.0',
+        static: false,
+        required: false,
+        include_type: 'system',
+    )
+endif
 
 if boost.found()
     bmcweb_dependencies += [boost]
