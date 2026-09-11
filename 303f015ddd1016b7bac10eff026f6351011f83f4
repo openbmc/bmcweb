@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdbea524_2f74e1e7",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-09-11T12:07:17Z",
+      "side": 1,
+      "message": "Kept as a log-and-return: this link is optional, so a mapper failure shouldn\u0027t turn an otherwise complete Switch into a 500.",
+      "parentUuid": "30777773_76d3392d",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 134,
+        "endChar": 15
+      },
+      "revId": "303f015ddd1016b7bac10eff026f6351011f83f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e84717d_12d285ba",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-09-11T10:26:24Z",
       "side": 1,
       "message": "Same as above??",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 175,
+        "endChar": 15
+      },
+      "revId": "303f015ddd1016b7bac10eff026f6351011f83f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ff7a1e4_60c646cb",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-09-11T12:07:17Z",
+      "side": 1,
+      "message": "Kept as a log-and-return: this link is optional, so a mapper failure shouldn\u0027t turn an otherwise complete Switch into a 500.",
+      "parentUuid": "1e84717d_12d285ba",
       "range": {
         "startLine": 173,
         "startChar": 8,
