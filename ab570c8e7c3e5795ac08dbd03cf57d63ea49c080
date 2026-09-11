@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5333d14_8614a58f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T17:21:13Z",
+      "side": 1,
+      "message": "You\u0027ve copy/pasted this same \"Tested\" statement on a ton of your commits, and it\u0027s not really acceptable.  Please fix it to ensure you\u0027re actually testing the functions you\u0027ve modified.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 13
+      },
+      "revId": "ab570c8e7c3e5795ac08dbd03cf57d63ea49c080",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
