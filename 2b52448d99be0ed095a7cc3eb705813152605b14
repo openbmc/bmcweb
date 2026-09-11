@@ -71,6 +71,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1de1722_17a34852",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-11T07:10:46Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "d78dcdce_274b8f50",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9d94917_2d51f951",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-11T07:10:46Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "7ffa034b_1b3423d6",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fd9a442_f11ee4f9",
@@ -122,6 +170,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1931fb00_12d852f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-11T07:10:46Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "dd02e751_e72433b3",
+      "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba00d82e_c1580a5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-11T07:10:46Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "8fd9a442_f11ee4f9",
+      "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41f3093c_02b7eaf4",
@@ -135,6 +219,30 @@
       "writtenOn": "2026-09-09T15:06:41Z",
       "side": 1,
       "message": "nit: Both paths are looking for Asserted property value. Maybe name this one based on the path to better differentiate the two functions. E.g. afterGetLocationIndicatorEnclosure",
+      "range": {
+        "startLine": 159,
+        "startChar": 12,
+        "endLine": 159,
+        "endChar": 45
+      },
+      "revId": "2b52448d99be0ed095a7cc3eb705813152605b14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eabc9fb0_0db695da",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-11T07:10:46Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "41f3093c_02b7eaf4",
       "range": {
         "startLine": 159,
         "startChar": 12,
