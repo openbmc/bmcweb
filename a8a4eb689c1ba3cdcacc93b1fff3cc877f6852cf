@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e03ba929_a8a3d8cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-09-11T21:05:25Z",
+      "side": 1,
+      "message": "I have Boost 1.90.0 installed.\n\n\u003e The expectation is that for anything not yocto, we\u0027re just using the subproject boost.\n\nWe don\u0027t do this for Ubuntu either.\n\nThe issue though is that you can\u0027t \"force\" a subproject boost.  As currently written, Meson detects boost is present and silently filters out all the modules that don\u0027t have static linking and then everything builds correctly until linking phase where I get tons of missing symbol linking errors.\n\n\u003e If so, would it make more sense to make sure the submodule works in that case rather than try to support dynamic link?\n\nI\u0027m not sure what this means.  The submodule works when we don\u0027t force static.  It doesn\u0027t work when we force static because there are no static submodule libraries available.\n\nThis is just a sample of the issues I see:\n```\n/usr/x86_64-pc-linux-gnu/binutils-bin/2.46.0/ld: /tmp/cc4PlNPq.ltrans92.ltrans.o:/home/apwillia/local/sync/openbmc-sources/bmcweb/builddir/../http/http_request.hpp:57: more undefined references to `boost::urls::url::url(boost::urls::url\u0026\u0026)\u0027 follow\n/usr/x86_64-pc-linux-gnu/binutils-bin/2.46.0/ld: /tmp/cc4PlNPq.ltrans94.ltrans.o: in function `_sub_I_65535_0.0\u0027:\n/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/g++-v16/bits/shared_ptr_base.h:1135:(.text.startup+0xf62): undefined reference to `boost::process::v2::error::get_utf8_category()\u0027\n/usr/x86_64-pc-linux-gnu/binutils-bin/2.46.0/ld: /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/g++-v16/bits/shared_ptr_base.h:1135:(.text.startup+0xf67): undefined reference to `boost::process::v2::error::get_exit_code_category()\u0027\n/usr/x86_64-pc-linux-gnu/binutils-bin/2.46.0/ld: warning: creating DT_TEXTREL in a PIE\ncollect2: error: ld returned 1 exit status\n[44/79] Compiling C++ object test/account_service_test.p/redfish-core_lib_account_service_test.cpp.o\n```",
+      "parentUuid": "589286c5_e58859cc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "a8a4eb689c1ba3cdcacc93b1fff3cc877f6852cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8d2dc0a7_ec8b16f9",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-09-11T17:12:15Z",
       "side": 1,
       "message": "This boost URL link requirement has been a mess and wasn\u0027t required at the time James picked the url dependency up.  I\u0027ve considered replacing it with a homegrown URL class (or a copy/pasted urls.hpp from boost) several times because of it.\n\nThe stick that is likely to break the camels back is that it shows up in unit test coverage profiles, including all the modules we don\u0027t use.\n\nEnd rant.",
+      "range": {
+        "startLine": 11,
+        "startChar": 23,
+        "endLine": 12,
+        "endChar": 9
+      },
+      "revId": "a8a4eb689c1ba3cdcacc93b1fff3cc877f6852cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f52a96e_67296f06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-09-11T21:05:25Z",
+      "side": 1,
+      "message": "I just picked boost url as one of the first ones that was failing.  We could pick any (or all) of the boost modules as the link-test instead if you wanted.",
+      "parentUuid": "8d2dc0a7_ec8b16f9",
       "range": {
         "startLine": 11,
         "startChar": 23,
