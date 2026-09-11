@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b64ab1f3_efcb0dfd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T22:12:34Z",
+      "side": 1,
+      "message": "\u003e I have Boost 1.90.0 installed.\n\nOk, I understand now.  Usually yocto/openbmc has boost version requirements greater than the distro, but we\u0027ve now stabilized.\n\n\u003e \n\u003e \u003e The expectation is that for anything not yocto, we\u0027re just using the subproject boost.\n\u003e \n\u003e We don\u0027t do this for Ubuntu either.\n\u003e \n\u003e The issue though is that you can\u0027t \"force\" a subproject boost.  As currently written, Meson detects boost is present and silently filters out all the modules that don\u0027t have static linking and then everything builds correctly until linking phase where I get tons of missing symbol linking errors.\n\u003e \n\u003e \u003e If so, would it make more sense to make sure the submodule works in that case rather than try to support dynamic link?\n\u003e \n\u003e I\u0027m not sure what this means.  The submodule works when we don\u0027t force static.  It doesn\u0027t work when we force static because there are no static submodule libraries available.\n\u003e \n\u003e This is just a sample of the issues I see:\n\u003e ```\n\u003e /usr/x86_64-pc-linux-gnu/binutils-bin/2.46.0/ld: /tmp/cc4PlNPq.ltrans92.ltrans.o:/home/apwillia/local/sync/openbmc-sources/bmcweb/builddir/../http/http_request.hpp:57: more undefined references to `boost::urls::url::url(boost::urls::url\u0026\u0026)\u0027 follow\n\u003e /usr/x86_64-pc-linux-gnu/binutils-bin/2.46.0/ld: /tmp/cc4PlNPq.ltrans94.ltrans.o: in function `_sub_I_65535_0.0\u0027:\n\u003e /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/g++-v16/bits/shared_ptr_base.h:1135:(.text.startup+0xf62): undefined reference to `boost::process::v2::error::get_utf8_category()\u0027\n\u003e /usr/x86_64-pc-linux-gnu/binutils-bin/2.46.0/ld: /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/g++-v16/bits/shared_ptr_base.h:1135:(.text.startup+0xf67): undefined reference to `boost::process::v2::error::get_exit_code_category()\u0027\n\u003e /usr/x86_64-pc-linux-gnu/binutils-bin/2.46.0/ld: warning: creating DT_TEXTREL in a PIE\n\u003e collect2: error: ld returned 1 exit status\n\u003e [44/79] Compiling C++ object test/account_service_test.p/redfish-core_lib_account_service_test.cpp.o\n\u003e ```\n\n\nyep, I understand what happened now, this is fine.",
+      "parentUuid": "e03ba929_a8a3d8cb",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "a8a4eb689c1ba3cdcacc93b1fff3cc877f6852cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8d2dc0a7_ec8b16f9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
