@@ -1,6 +1,63 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a46df54_4fd86dfd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T15:46:08Z",
+      "side": 1,
+      "message": "Please don\u0027t make generic statements like this.  HOW did you verify there was no functional change.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 23
+      },
+      "revId": "d4868f9120da69183feb9c949769324453ff354a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2326e12e_731f58eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T15:46:08Z",
+      "side": 1,
+      "message": "nit, no need to put this.  CI verifies this for you.",
+      "revId": "d4868f9120da69183feb9c949769324453ff354a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a780d9f8_d24bd3b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T15:46:08Z",
+      "side": 1,
+      "message": "not sure how RSV tests this websocket change.",
+      "revId": "d4868f9120da69183feb9c949769324453ff354a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6dfb7c5e_0517bca5",
@@ -14,6 +71,23 @@
       "writtenOn": "2026-09-11T05:30:53Z",
       "side": 1,
       "message": "LGTM",
+      "revId": "d4868f9120da69183feb9c949769324453ff354a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d86414fb_86ffeb40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-11T15:46:08Z",
+      "side": 1,
+      "message": "This is fine because it\u0027s pretty clearly correct from review, but please actually test your changes in the future.",
       "revId": "d4868f9120da69183feb9c949769324453ff354a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
