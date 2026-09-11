@@ -703,12 +703,15 @@ def main() -> None:
     # Registries generated and exposed by default.
     default_registries = [
         "base",
+        "environmental",
         "heartbeat_event",
         "openbmc",
         "privilege",
         "resource_event",
+        "sensor_event",
         "task_event",
         "telemetry",
+        "update",
     ]
 
     parser = argparse.ArgumentParser()

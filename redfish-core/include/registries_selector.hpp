@@ -3,9 +3,12 @@
 #pragma once
 // NOLINTBEGIN(misc-include-cleaner)
 #include "registries/base_message_registry.hpp"
+#include "registries/environmental_message_registry.hpp"
 #include "registries/heartbeat_event_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
+#include "registries/sensor_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 #include "registries/telemetry_message_registry.hpp"
+#include "registries/update_message_registry.hpp"
 // NOLINTEND(misc-include-cleaner)
