@@ -57,9 +57,20 @@ TEST(Conversion, PositiveToJson)
     json value = passwordExpirationToJson(unexpiringPasswordExpiration);
     EXPECT_TRUE(value.is_null());
 
-    value = passwordExpirationToJson(1729188724);
+    value = passwordExpirationToJson(1729188724, "UTC");
     EXPECT_TRUE(value.is_string());
     EXPECT_EQ(value, R"("2024-10-17T18:12:04+00:00")"_json);
+
+    value = passwordExpirationToJson(1729188724, "America/New_York");
+    EXPECT_TRUE(value.is_string());
+    EXPECT_EQ(value, R"("2024-10-17T14:12:04-04:00")"_json);
+
+    // Default (empty timezone) uses the local zone, matching the previous
+    // behavior of getDateTimeUint(value).
+    value = passwordExpirationToJson(1729188724);
+    EXPECT_TRUE(value.is_string());
+    EXPECT_EQ(value.get<std::string>(),
+              time_utils::getDateTimeUint(1729188724));
 }
 
 } // namespace

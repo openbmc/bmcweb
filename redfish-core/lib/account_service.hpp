@@ -1120,7 +1120,8 @@ inline void handleLDAPPatch(LdapPatchParams&& input,
     });
 }
 
-inline nlohmann::json passwordExpirationToJson(uint64_t value)
+inline nlohmann::json passwordExpirationToJson(uint64_t value,
+                                               std::string_view timezone = "")
 {
     // value indicating that password does not expire
     if (value == 0)
@@ -1128,7 +1129,7 @@ inline nlohmann::json passwordExpirationToJson(uint64_t value)
         return nullptr;
     }
 
-    return time_utils::getDateTimeUint(value);
+    return time_utils::getDateTimeUint(value, timezone);
 }
 
 inline std::optional<uint64_t> passwordExpirationToUint64(
