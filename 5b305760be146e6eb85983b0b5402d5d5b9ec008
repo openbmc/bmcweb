@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbb1fa3f_1223f771",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T20:13:13Z",
+      "side": 1,
+      "message": "I think explicitly checking or at least a comment.. \n```\nif (status \u003d\u003d\n    \"xyz.openbmc_project.Common.Progress.OperationStatus.InProgress\")\n{\n    return DumpCreationProgress::DUMP_CREATE_INPROGRESS;\n}\n```",
+      "revId": "5b305760be146e6eb85983b0b5402d5d5b9ec008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d52f6ed_c52e2b4f",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T20:13:13Z",
+      "side": 1,
+      "message": "Should Failed set the Redfish task state to Exception ?\n\n    taskData-\u003estate \u003d \"Exception\";\n\nhttps://github.com/openbmc/bmcweb/blob/4b6220f877c92cd0ee7106754ec1afc81e39ad33/redfish-core/lib/update_service.hpp#L187",
+      "revId": "5b305760be146e6eb85983b0b5402d5d5b9ec008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
