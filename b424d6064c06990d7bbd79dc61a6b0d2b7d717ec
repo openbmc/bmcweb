@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d313e2df_b73173d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-14T18:35:25Z",
+      "side": 1,
+      "message": "Looks good some minor comments",
+      "revId": "b424d6064c06990d7bbd79dc61a6b0d2b7d717ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc8e701_f741509a",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-14T18:35:25Z",
+      "side": 1,
+      "message": "Since we\u0027re changing this from `getSubTreePaths` to `getSubTree` should this be changed as well?",
+      "range": {
+        "startLine": 168,
+        "startChar": 49,
+        "endLine": 168,
+        "endChar": 64
+      },
+      "revId": "b424d6064c06990d7bbd79dc61a6b0d2b7d717ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "323e73ec_396bad74",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-14T18:35:25Z",
+      "side": 1,
+      "message": "Do we need to guard against serviceMap being empty? Might not be an issue though since I see fabric_adapters not checking",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 2
+      },
+      "revId": "b424d6064c06990d7bbd79dc61a6b0d2b7d717ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
