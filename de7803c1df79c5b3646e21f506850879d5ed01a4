@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad8bd5f6_fa143636",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T19:30:33Z",
+      "side": 1,
+      "message": "Overall, I am good",
+      "revId": "de7803c1df79c5b3646e21f506850879d5ed01a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19d83fbc_64decf93",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T19:30:33Z",
+      "side": 1,
+      "message": "Could do the invalid-enum check \n    EXPECT_FALSE(dumpTypeToStr(static_cast\u003cDumpType\u003e(99)));",
+      "revId": "de7803c1df79c5b3646e21f506850879d5ed01a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "796d9cfa_2dad95fa",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T19:30:33Z",
+      "side": 1,
+      "message": "Could do something like \n```\nTEST(DumpUtils, GetDumpEntriesUrl)\n{\n    std::optional\u003cboost::urls::url\u003e bmcUrl \u003d\n        getDumpEntriesUrl(DumpType::BMC);\n    EXPECT_EQ(\n        bmcUrl-\u003ebuffer(),\n        \"/redfish/v1/Managers/\" BMCWEB_REDFISH_MANAGER_URI_NAME\n        \"/LogServices/Dump/Entries\");\n\n    std::optional\u003cboost::urls::url\u003e systemUrl \u003d\n        getDumpEntriesUrl(DumpType::System);\n    EXPECT_EQ(\n        systemUrl-\u003ebuffer(),\n        \"/redfish/v1/Systems/\" BMCWEB_REDFISH_SYSTEM_URI_NAME\n        \"/LogServices/Dump/Entries\");\n\n    std::optional\u003cboost::urls::url\u003e faultLogUrl \u003d\n        getDumpEntriesUrl(DumpType::FaultLog);\n    EXPECT_EQ(\n        faultLogUrl-\u003ebuffer(),\n        \"/redfish/v1/Managers/\" BMCWEB_REDFISH_MANAGER_URI_NAME\n        \"/LogServices/FaultLog/Entries\");\n\n    EXPECT_FALSE(getDumpEntriesUrl(static_cast\u003cDumpType\u003e(99)));\n}\n```\nas well",
+      "revId": "de7803c1df79c5b3646e21f506850879d5ed01a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da539f6e_079630bc",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T19:30:33Z",
+      "side": 1,
+      "message": "Same here, could do the invalid check \n    EXPECT_FALSE(dumpTypeToObjPath(static_cast\u003cDumpType\u003e(99)));",
+      "revId": "de7803c1df79c5b3646e21f506850879d5ed01a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
