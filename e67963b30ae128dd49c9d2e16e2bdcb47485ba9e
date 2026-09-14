@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeacf7f7_c18d30da",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-14T14:43:23Z",
+      "side": 1,
+      "message": "Hmm, I\u0027m not sure about the use of this method. Documentation shows that this can throw. It is not explicitly listed, but https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md#5-using-methods-that-throw-or-not-handling-bad-inputs specifies avoiding those that throw.",
+      "range": {
+        "startLine": 493,
+        "startChar": 33,
+        "endLine": 493,
+        "endChar": 39
+      },
+      "revId": "e67963b30ae128dd49c9d2e16e2bdcb47485ba9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
