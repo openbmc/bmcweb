@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "459e4ca2_a8fc7423",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T19:38:04Z",
+      "side": 1,
+      "message": "Overall I am good",
+      "revId": "5a331dce5df092b91c1a998fa78a802c85c00ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1901ac5_7c0fded8",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T19:38:04Z",
+      "side": 1,
+      "message": "```\nEXPECT_EQ(\n    mapDbusStatusToDumpProgress(\n        \"xyz.openbmc_project.Common.Progress.OperationStatus.NotStarted\"),\n    DumpCreationProgress::DUMP_CREATE_INPROGRESS);\n```",
+      "revId": "5a331dce5df092b91c1a998fa78a802c85c00ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce4f4bd1_03a8a11e",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T19:38:04Z",
+      "side": 1,
+      "message": "How about NotStarted ?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/b6b181749a2811874e9276d473f753d303d3b8a7/yaml/xyz/openbmc_project/Common/Progress.interface.yaml#L32",
+      "revId": "5a331dce5df092b91c1a998fa78a802c85c00ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f91b0e7_d10aaefd",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-14T19:38:04Z",
+      "side": 1,
+      "message": "values.emplace_back(\n        \"Status\", dbus::utility::DbusVariantType{uint64_t{1}});\n    EXPECT_EQ(getDumpCompletionStatus(values),\n              DumpCreationProgress::DUMP_CREATE_FAILED);\n\nwould test this branch \n```\nconst std::string* value \u003d std::get_if\u003cstd::string\u003e(\u0026val);\nif (value \u003d\u003d nullptr)\n{\n    ...\n    return DumpCreationProgress::DUMP_CREATE_FAILED;\n}\n```\n\noh well",
+      "revId": "5a331dce5df092b91c1a998fa78a802c85c00ce6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
