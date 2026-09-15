@@ -25,6 +25,11 @@ static constexpr std::string_view biosConfigManagerPath =
     "/xyz/openbmc_project/bios_config/manager";
 static constexpr std::string_view biosConfigManagerInterface =
     "xyz.openbmc_project.BIOSConfig.Manager";
+static constexpr std::string_view biosAttributeRegistryId =
+    "BiosAttributeRegistry";
+static constexpr std::string_view biosAttributeRegistryVersion = "1.0.0";
+static constexpr std::string_view biosAttributeRegistryName =
+    "BiosAttributeRegistry.1.0.0";
 
 template <typename Type>
 inline void extractValue(nlohmann::json& attributes, const std::string& name,

@@ -125,6 +125,8 @@ inline void handleBiosServiceGet(
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
     asyncResp->res.jsonValue["Description"] = "BIOS Configuration Service";
     asyncResp->res.jsonValue["Id"] = "BIOS";
+    asyncResp->res.jsonValue["AttributeRegistry"] =
+        bios_utils::biosAttributeRegistryName;
     asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"]["target"] =
         boost::urls::format(
             "/redfish/v1/Systems/{}/Bios/Actions/Bios.ResetBios",
