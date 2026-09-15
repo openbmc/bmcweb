@@ -58,6 +58,8 @@ srcfiles_unittest = files(
     'redfish-core/lib/chassis_test.cpp',
     'redfish-core/lib/ethernet_test.cpp',
     'redfish-core/lib/fabric_test.cpp',
+    'redfish-core/lib/leak_detection_test.cpp',
+    'redfish-core/lib/leak_detector_test.cpp',
     'redfish-core/lib/manager_diagnostic_data_test.cpp',
     'redfish-core/lib/metadata_test.cpp',
     'redfish-core/lib/openbmc_managers_test.cpp',
