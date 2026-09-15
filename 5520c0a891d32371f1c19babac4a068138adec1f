@@ -16,6 +16,24 @@
       "message": "I see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88540/25 in the relation chain. Do we need this separate commit to rename the function names over amending the change?",
       "revId": "5520c0a891d32371f1c19babac4a068138adec1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b771173_858b0eda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-09-15T02:23:05Z",
+      "side": 1,
+      "message": "I\u0027ve folded the rename into 88540 and will abandon this one. Thanks.",
+      "parentUuid": "0331f561_2705470c",
+      "revId": "5520c0a891d32371f1c19babac4a068138adec1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
