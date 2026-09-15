@@ -1,0 +1,10 @@
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Janet Adkins <janeta@us.ibm.com>
+Code-Review+1: Ender <andhsieh@nvidia.com>
+Submitted-by: Eric Liu <liuer@nvidia.com>
+Submitted-at: Tue, 15 Sep 2026 02:01:44 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/94371
+Comments-Total: 12
+Project: openbmc/bmcweb
+Branch: refs/heads/master
