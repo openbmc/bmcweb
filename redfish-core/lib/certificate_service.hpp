@@ -39,7 +39,9 @@
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <algorithm>
 #include <array>
+#include <cctype>
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
@@ -48,7 +50,6 @@
 #include <format>
 #include <fstream>
 #include <functional>
-#include <iterator>
 #include <memory>
 #include <optional>
 #include <string>
@@ -177,6 +178,23 @@ class CertificateFile
     std::filesystem::path certDirectory;
 };
 
+inline bool startsWithDnAttribute(std::string_view text)
+{
+    for (size_t i = 0; i < text.size(); i++)
+    {
+        char c = text[i];
+        if (c == '=')
+        {
+            return i > 0;
+        }
+        if (std::isalnum(static_cast<unsigned char>(c)) == 0 && c != '.')
+        {
+            return false;
+        }
+    }
+    return false;
+}
+
 /**
  * @brief Parse and update Certificate Issue/Subject property
  *
@@ -189,26 +207,30 @@ inline void updateCertIssuerOrSubject(nlohmann::json& out,
                                       std::string_view value)
 {
     // example: O=openbmc-project.xyz,CN=localhost
-    std::string_view::iterator i = value.begin();
-    while (i != value.end())
+    // The DN is printed with XN_FLAG_SEP_COMMA_PLUS, which does not escape
+    // ',' or '+' inside a value, so a separator only ends a value when an
+    // attribute type follows it.
+    while (!value.empty())
     {
-        std::string_view::iterator tokenBegin = i;
-        while (i != value.end() && *i != '=')
+        size_t end = 0;
+        for (; end < value.size(); end++)
         {
-            std::advance(i, 1);
+            if ((value[end] == ',' || value[end] == '+') &&
+                startsWithDnAttribute(value.substr(end + 1)))
+            {
+                break;
+            }
         }
-        if (i == value.end())
+        std::string_view component = value.substr(0, end);
+        value.remove_prefix(std::min(end + 1, value.size()));
+
+        size_t equals = component.find('=');
+        if (equals == std::string_view::npos)
         {
-            break;
+            continue;
         }
-        std::string_view key(tokenBegin, static_cast<size_t>(i - tokenBegin));
-        std::advance(i, 1);
-        tokenBegin = i;
-        while (i != value.end() && *i != ',')
-        {
-            std::advance(i, 1);
-        }
-        std::string_view val(tokenBegin, static_cast<size_t>(i - tokenBegin));
+        std::string_view key = component.substr(0, equals);
+        std::string_view val = component.substr(equals + 1);
         if (key == "L")
         {
             out["City"] = val;
@@ -232,11 +254,6 @@ inline void updateCertIssuerOrSubject(nlohmann::json& out,
         else if (key == "ST")
         {
             out["State"] = val;
-        }
-        // skip comma character
-        if (i != value.end())
-        {
-            std::advance(i, 1);
         }
     }
 }
