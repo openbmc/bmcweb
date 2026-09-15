@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbd1e3d6_c8864a99",
+        "filename": "redfish-core/lib/leak_detection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "07e3f47f_6faf3ea0",
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a28f2605_502b0324",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-09-09T07:00:37Z",
       "side": 1,
       "message": "Didn\u0027t found the `LeakDetection.json` in the json-schema-installed yet.\nNot sure if this should be done by the maintainer or can be submitted along in this patch,\n\nRef:\nhttps://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/dmtf/json-schema-installed",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 87
+      },
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fab94744_86faba97",
+        "filename": "redfish-core/lib/leak_detection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Good catch. Added the six symlinks here rather than leaving it to a follow-up, following Install Fabric (cc8f1c79). Before: /redfish/v1/JsonSchemas/LeakDetection 404. After: all three listed and 200.",
+      "parentUuid": "a28f2605_502b0324",
       "range": {
         "startLine": 36,
         "startChar": 8,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f51aaedf_5bad7dde",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "a387cc27_cd1c183a",
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "950b32c4_e5b7929a",
@@ -71,6 +131,30 @@
       "writtenOn": "2026-09-09T07:00:37Z",
       "side": 1,
       "message": "Should we add a debug log here indicating no detector association is found as well?",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8db840d3_83f7f34e",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "950b32c4_e5b7929a",
       "range": {
         "startLine": 56,
         "startChar": 8,
@@ -104,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ea61aa_9c921dc3",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "eae48655_8e2e4d23",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 48
+      },
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d11517f_1ad38700",
@@ -117,6 +225,24 @@
       "writtenOn": "2026-09-04T07:09:48Z",
       "side": 1,
       "message": "Collection GET omits the required rel\u003ddescribedby Link header. Add the same schema link used by HEAD.",
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ebffc47_6ba51e12",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "3d11517f_1ad38700",
       "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -144,6 +270,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f9cb3ba_f7b5e72e",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "8657aa9d_b05c3b52",
+      "range": {
+        "startLine": 210,
+        "startChar": 12,
+        "endLine": 211,
+        "endChar": 51
+      },
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff5a3f16_2b7cbbd0",
@@ -157,6 +307,30 @@
       "writtenOn": "2026-09-04T07:09:48Z",
       "side": 1,
       "message": "DetectorState is populated without corresponding Status.Health. CSDL says these should agree.",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 255,
+        "endChar": 5
+      },
+      "revId": "a76813d6e800f556cca7738c1ea34c1c2eccbd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09dc91df_b0cfcb8d",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "ff5a3f16_2b7cbbd0",
       "range": {
         "startLine": 243,
         "startChar": 4,

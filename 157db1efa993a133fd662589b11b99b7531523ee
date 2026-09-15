@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "542fd075_b721adde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "aee655b3_b92b2911",
+      "revId": "157db1efa993a133fd662589b11b99b7531523ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55050322_e90da95a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-10T11:08:28Z",
       "side": 1,
       "message": "Please use `collection_util::handleCollectionMembers`.",
+      "revId": "157db1efa993a133fd662589b11b99b7531523ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "709cb171_f6b06d2a",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "55050322_e90da95a",
       "revId": "157db1efa993a133fd662589b11b99b7531523ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd9a943_4b16f554",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "We cannot — PDI\u0027s DetectorState is only Normal/Abnormal/Unknown, so toDetectorState never returns Warning. Dead branch removed.",
+      "parentUuid": "5a669de4_fa44696c",
+      "revId": "157db1efa993a133fd662589b11b99b7531523ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "296f9b53_fa7745bd",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-09-10T11:08:28Z",
       "side": 1,
       "message": "Add the `Unknown` case too, so a legitimate PDI value is not folded into the same Invalid as an unrecognised string.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/16e8e26c70194ba8f8851947d07620fe6993d1f9/yaml/xyz/openbmc_project/State/Leak/Detector.interface.yaml#L31",
+      "revId": "157db1efa993a133fd662589b11b99b7531523ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85fea68b_51969608",
+        "filename": "redfish-core/lib/leak_detector.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:14Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "296f9b53_fa7745bd",
       "revId": "157db1efa993a133fd662589b11b99b7531523ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
