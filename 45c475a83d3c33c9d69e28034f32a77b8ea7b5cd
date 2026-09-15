@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61505fdf_14d3e95c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "2a258cae_f0e4e610",
+      "revId": "45c475a83d3c33c9d69e28034f32a77b8ea7b5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec70a126_027f251d",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-10T10:50:56Z",
       "side": 1,
       "message": "Should we also add a check for `if (object.size() \u003e 1)`?",
+      "revId": "45c475a83d3c33c9d69e28034f32a77b8ea7b5cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8ffcced_786255c1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2579,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "ec70a126_027f251d",
       "revId": "45c475a83d3c33c9d69e28034f32a77b8ea7b5cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

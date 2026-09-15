@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "440163fc_819c024a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2553,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "50c00599_af8ed217",
+      "range": {
+        "startLine": 2553,
+        "startChar": 33,
+        "endLine": 2553,
+        "endChar": 62
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0292c7f_d777f75f",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffbd3fff_1a4f0606",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2560,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "a0292c7f_d777f75f",
+      "range": {
+        "startLine": 2560,
+        "startChar": 8,
+        "endLine": 2560,
+        "endChar": 71
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2969f31_42f46205",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-09-04T09:46:53Z",
       "side": 1,
       "message": "Can we return 404 only for absence and handle other errors as internal failures here?",
+      "range": {
+        "startLine": 2558,
+        "startChar": 4,
+        "endLine": 2562,
+        "endChar": 5
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e435f391_2d8775c7",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2562,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "f2969f31_42f46205",
       "range": {
         "startLine": 2558,
         "startChar": 4,
@@ -117,6 +189,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bde66aa7_ba32c9be",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2580,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "The sensor is addressed by sensorId alone; the D-Bus path has no chassis component. handleSensorGet above does the same, so validating only in PATCH would make the two inconsistent. Better as a separate change.",
+      "parentUuid": "25688193_588df465",
+      "range": {
+        "startLine": 2580,
+        "startChar": 4,
+        "endLine": 2580,
+        "endChar": 36
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "327c8311_4407c509",
@@ -134,6 +230,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ad3458e_16552d89",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2599,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "327c8311_4407c509",
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fe700d7_95af7d33",
@@ -147,6 +261,30 @@
       "writtenOn": "2026-09-04T09:46:53Z",
       "side": 1,
       "message": "Can we use the typed JSON unpacking helper??",
+      "range": {
+        "startLine": 2647,
+        "startChar": 9,
+        "endLine": 2654,
+        "endChar": 9
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d8ccd4_462671cf",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2654,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "7fe700d7_95af7d33",
       "range": {
         "startLine": 2647,
         "startChar": 9,
@@ -180,6 +318,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44f2c5f7_a3f3d6df",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2657,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "578ea50e_45ee6f8b",
+      "range": {
+        "startLine": 2656,
+        "startChar": 8,
+        "endLine": 2657,
+        "endChar": 55
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "559e298b_4fb98df2",
@@ -203,6 +365,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "816469ff_1eed73f1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2660,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "559e298b_4fb98df2",
+      "range": {
+        "startLine": 2660,
+        "startChar": 23,
+        "endLine": 2660,
+        "endChar": 49
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e45d278_2e3f2e54",
@@ -216,6 +402,30 @@
       "writtenOn": "2026-09-09T06:08:32Z",
       "side": 1,
       "message": "I think we can use `sdbusplus::object_path` directly.",
+      "range": {
+        "startLine": 2679,
+        "startChar": 4,
+        "endLine": 2680,
+        "endChar": 74
+      },
+      "revId": "b3843e2e0568847a7cc63c13a963cf17a730cbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10227275_ed37d441",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T08:55:21Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "3e45d278_2e3f2e54",
       "range": {
         "startLine": 2679,
         "startChar": 4,
