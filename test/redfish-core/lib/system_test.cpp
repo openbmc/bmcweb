@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
+#include "generated/enums/computer_system.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_response.hpp"
 #include "systems.hpp"
@@ -127,6 +128,90 @@ TEST(GetAllowedHostTransition, AllSupported)
     parameters.emplace_back(std::move(parameter));
 
     EXPECT_EQ(response->res.jsonValue["Parameters"], parameters);
+}
+
+TEST(TranslatePowerModeString, Static)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "Static"),
+              computer_system::PowerMode::Static);
+}
+
+TEST(TranslatePowerModeString, MaximumPerformance)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "MaximumPerformance"),
+              computer_system::PowerMode::MaximumPerformance);
+}
+
+TEST(TranslatePowerModeString, PowerSaving)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "PowerSaving"),
+              computer_system::PowerMode::PowerSaving);
+}
+
+TEST(TranslatePowerModeString, BalancedPerformance)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "BalancedPerformance"),
+              computer_system::PowerMode::BalancedPerformance);
+}
+
+TEST(TranslatePowerModeString, EfficiencyFavorPerformance)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "EfficiencyFavorPerformance"),
+              computer_system::PowerMode::EfficiencyFavorPerformance);
+}
+
+TEST(TranslatePowerModeString, EfficiencyFavorPower)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "EfficiencyFavorPower"),
+              computer_system::PowerMode::EfficiencyFavorPower);
+}
+
+TEST(TranslatePowerModeString, Oem)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "OEM"),
+              computer_system::PowerMode::OEM);
+}
+
+TEST(TranslatePowerModeString, OsControlledIsNotMapped)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "OSControlled"),
+              computer_system::PowerMode::Invalid);
+}
+
+TEST(TranslatePowerModeString, MatchIsCaseSensitive)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode."
+                  "static"),
+              computer_system::PowerMode::Invalid);
+}
+
+TEST(TranslatePowerModeString, EmptyStringIsInvalid)
+{
+    EXPECT_EQ(translatePowerModeString(""),
+              computer_system::PowerMode::Invalid);
+}
+
+TEST(TranslatePowerModeString, RedfishValueWithoutDbusPrefixIsInvalid)
+{
+    EXPECT_EQ(translatePowerModeString("Static"),
+              computer_system::PowerMode::Invalid);
 }
 
 } // namespace
