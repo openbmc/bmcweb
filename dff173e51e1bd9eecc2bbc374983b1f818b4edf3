@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74bceb76_b9c760a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T11:55:44Z",
+      "side": 1,
+      "message": "Thanks for catching this -- I would like to make sure I understand your\nconcern correctly.\n\nMy intent was to follow the Redfish settings pattern, using the same shape as\n/redfish/v1/Systems/{SystemId}/Bios/Settings. From what I could find, the\nSettings schema is not scoped to a particular resource type (\"shall describe\nany settings of a resource\"), and @Redfish.Settings is a generic annotation,\nwhich would explain why Processor.v1_18_0 does not declare it.\n\nThat said, I may well be missing something here. Could you let me know which\npart of the URI you would change, or what shape you would expect instead? I am\nhappy to rework it.",
+      "parentUuid": "97e5eab7_d0620e2e",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c0cda2a_238f1c68",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-08-26T14:09:54Z",
       "side": 1,
       "message": "Could you provide a sample curl output for that too?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df588d75_94715ce0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T11:55:44Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "9c0cda2a_238f1c68",
       "range": {
         "startLine": 60,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c70d96f7_0fd70015",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T11:55:44Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "28fef850_97cfa5b7",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88e33e39_a0ab9c65",
@@ -77,6 +143,24 @@
       "writtenOn": "2026-08-26T14:09:54Z",
       "side": 1,
       "message": "This change should be merged after the pdi commit got in",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ed5ca7_10dc8005",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T11:55:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "88e33e39_a0ab9c65",
       "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -134,6 +218,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f26d53_e9a20b2c",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T11:55:44Z",
+      "side": 1,
+      "message": "Done, thanks. Added a \"Settings resources\" section to docs/Redfish.md, and\nthe supported properties are listed under the\n.../Processors/{ProcessorId}/Settings/ section below.",
+      "parentUuid": "989aaf53_c9bd8528",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ff0e860_26ca91f9",
@@ -147,6 +249,24 @@
       "writtenOn": "2026-08-26T14:09:54Z",
       "side": 1,
       "message": "nit: same as above",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89906af5_01f79a49",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T11:55:44Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "0ff0e860_26ca91f9",
       "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -174,6 +294,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb0b126_76e454d2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T11:55:44Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "6c4dd461_7f29e4d3",
+      "range": {
+        "startLine": 1020,
+        "startChar": 0,
+        "endLine": 1022,
+        "endChar": 44
+      },
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4439816_e44ae378",
@@ -187,6 +331,24 @@
       "writtenOn": "2026-08-26T14:09:54Z",
       "side": 1,
       "message": "Please run clang-tidy on this file, it appears some includes are missing",
+      "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d285530_8a17d5c0",
+        "filename": "redfish-core/lib/processor_settings.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-15T11:55:44Z",
+      "side": 1,
+      "message": "Ran clang-tidy on this file -- no findings.",
+      "parentUuid": "b4439816_e44ae378",
       "revId": "dff173e51e1bd9eecc2bbc374983b1f818b4edf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
