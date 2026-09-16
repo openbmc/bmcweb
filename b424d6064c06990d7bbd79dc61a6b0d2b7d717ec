@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "063acf40_9859d3f3",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-16T07:07:14Z",
+      "side": 1,
+      "message": "Thanks for catching this!\nI have modified this in PS9.",
+      "parentUuid": "bbc8e701_f741509a",
+      "range": {
+        "startLine": 168,
+        "startChar": 49,
+        "endLine": 168,
+        "endChar": 64
+      },
+      "revId": "b424d6064c06990d7bbd79dc61a6b0d2b7d717ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "323e73ec_396bad74",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-09-14T18:35:25Z",
       "side": 1,
       "message": "Do we need to guard against serviceMap being empty? Might not be an issue though since I see fabric_adapters not checking",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 2
+      },
+      "revId": "b424d6064c06990d7bbd79dc61a6b0d2b7d717ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1a3f4d4_183eff4d",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-16T07:07:14Z",
+      "side": 1,
+      "message": "Sure, I have added a sizing guard to handle the cases.\nThanks for acknowledging this!",
+      "parentUuid": "323e73ec_396bad74",
       "range": {
         "startLine": 190,
         "startChar": 0,
