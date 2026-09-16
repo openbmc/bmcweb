@@ -478,8 +478,11 @@ inline void requestRoutesTask(App& app)
                         p.httpOperation;
                     asyncResp->res.jsonValue["Payload"]["HttpHeaders"] =
                         p.httpHeaders;
-                    asyncResp->res.jsonValue["Payload"]["JsonBody"] =
-                        p.jsonBodyStr;
+                    if (!p.jsonBodyStr.empty())
+                    {
+                        asyncResp->res.jsonValue["Payload"]["JsonBody"] =
+                            p.jsonBodyStr;
+                    }
                 }
                 asyncResp->res.jsonValue["PercentComplete"] =
                     ptr->percentComplete;
