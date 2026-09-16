@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf744187_25c8b86c",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-16T19:32:42Z",
+      "side": 1,
+      "message": "ps21 drops RoleId from the PATCH; GET still reports it. It can be made writable\nonce the other roles are usable",
+      "parentUuid": "00e67c17_40d27436",
+      "range": {
+        "startLine": 201,
+        "startChar": 37,
+        "endLine": 201,
+        "endChar": 43
+      },
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85db999e_e2af9afe",
