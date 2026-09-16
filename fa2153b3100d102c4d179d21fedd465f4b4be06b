@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4131176_a46e4e23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-16T17:13:14Z",
+      "side": 1,
+      "message": "Let\u0027s remove this \"no functional change\" from the testing..",
+      "revId": "fa2153b3100d102c4d179d21fedd465f4b4be06b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a77f90b_649f1d33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-16T17:13:14Z",
+      "side": 1,
+      "message": "Without a telemetry report the redfish service validator.. isn\u0027t going to test anything.. Did you have a telemetry report ?",
+      "revId": "fa2153b3100d102c4d179d21fedd465f4b4be06b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
