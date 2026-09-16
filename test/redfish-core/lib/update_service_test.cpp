@@ -3,15 +3,18 @@
 
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "http_request.hpp"
 #include "http_response.hpp"
 #include "update_service.hpp"
 
+#include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/url/url.hpp>
 
 #include <memory>
 #include <optional>
 #include <string>
+#include <system_error>
 
 #include <gtest/gtest.h>
 
@@ -184,6 +187,23 @@ TEST(UpdateService, MissingVersionIsError)
 
     EXPECT_EQ(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
+}
+
+// A multipart update request whose body is not multipart/form-data
+// cannot carry the required form parts; it is rejected with 415.
+TEST(UpdateService, MultipartUpdateRejectsNonMultipartContentType)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    std::error_code ec;
+    crow::Request req("", ec);
+    ASSERT_FALSE(ec);
+    req.addHeader(boost::beast::http::field::content_type,
+                  "application/octet-stream");
+
+    updateMultipartContext(asyncResp, req);
+
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::unsupported_media_type);
 }
 } // namespace
 } // namespace redfish
