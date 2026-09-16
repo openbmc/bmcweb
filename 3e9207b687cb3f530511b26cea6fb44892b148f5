@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d7f6d2c_e99e1e20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-16T10:27:29Z",
+      "side": 1,
+      "message": "LGTM.",
+      "revId": "3e9207b687cb3f530511b26cea6fb44892b148f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d2321d6_5eddeae1",
+        "filename": "test/redfish-core/include/utils/telemetry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-16T10:27:29Z",
+      "side": 1,
+      "message": "nit: Add this first.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "3e9207b687cb3f530511b26cea6fb44892b148f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
