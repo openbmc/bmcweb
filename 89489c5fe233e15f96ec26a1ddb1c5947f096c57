@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a95cb20a_f6b21de8",
+        "filename": "redfish-core/lib/processor_core.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-16T16:30:11Z",
+      "side": 1,
+      "message": "I\u0027m going to mark this as resolved, please re-open if you think this isn\u0027t sufficient.",
+      "parentUuid": "7ea04ba1_4d144b51",
+      "range": {
+        "startLine": 162,
+        "startChar": 71,
+        "endLine": 162,
+        "endChar": 77
+      },
+      "revId": "89489c5fe233e15f96ec26a1ddb1c5947f096c57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7018f71a_6cb7f6ef",
