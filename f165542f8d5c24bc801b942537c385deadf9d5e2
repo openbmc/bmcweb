@@ -22,6 +22,30 @@
       },
       "revId": "f165542f8d5c24bc801b942537c385deadf9d5e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5062181_bf6f6cdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003107
+      },
+      "writtenOn": "2026-09-16T15:27:16Z",
+      "side": 1,
+      "message": "@ed@tanous.net Since this is code optimization and does not require any change in functionality, and it is also tested using Service Validator, do you still want to add any test cases specific to the optimized code or Service Validator test is sufficient. @yuvakumars@ami.com Can help to remove the same \"No functional Change\".",
+      "parentUuid": "ff014b13_d5220b3c",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "f165542f8d5c24bc801b942537c385deadf9d5e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
