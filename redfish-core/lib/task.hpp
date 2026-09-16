@@ -13,6 +13,7 @@
 #include "http/parsing.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -111,7 +112,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         callback(std::move(handler)), matchStr(matchIn), index(idx),
         startTime(std::chrono::system_clock::now()), status("OK"),
         state("Running"), messages(nlohmann::json::array()),
-        timer(crow::connections::systemBus->get_io_context())
+        timer(getIoContext())
 
     {}
 
@@ -332,9 +333,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     sendTaskEvent(self->state, self->index);
 
                     // reset the match after the callback was successful
-                    boost::asio::post(
-                        crow::connections::systemBus->get_io_context(),
-                        [self] { self->match.reset(); });
+                    boost::asio::post(getIoContext(),
+                                      [self] { self->match.reset(); });
                     return;
                 }
             });
