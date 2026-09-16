@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88b0c433_755137eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-16T09:55:21Z",
+      "side": 1,
+      "message": "Can you let me know what this is about?",
+      "range": {
+        "startLine": 14,
+        "startChar": 25,
+        "endLine": 14,
+        "endChar": 59
+      },
+      "revId": "18aa9b6a827712f26b379a4c9455e70101dc6322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8fae763c_4ae8c7c5",
         "filename": "test/redfish-core/lib/trigger_test.cpp",
         "patchSetId": 1
