@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6013b7a8_e586cd20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-16T17:55:22Z",
+      "side": 1,
+      "message": "This should be a default that works in all BMCs.  The largest json size IS NOT dependent on the largest body size.",
+      "revId": "4d7fcf59c5fb8fa49f9ded21bc04cec5f3996188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
