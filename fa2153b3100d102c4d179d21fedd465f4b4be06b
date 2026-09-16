@@ -33,6 +33,29 @@
       "message": "Without a telemetry report the redfish service validator.. isn\u0027t going to test anything.. Did you have a telemetry report ?",
       "revId": "fa2153b3100d102c4d179d21fedd465f4b4be06b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e289a09_c9117db0",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-16T17:15:31Z",
+      "side": 1,
+      "message": "This is a good change, but please please don\u0027t hide changes in a refactor.. Specially when you don\u0027t call them out in the commit msg",
+      "range": {
+        "startLine": 59,
+        "startChar": 26,
+        "endLine": 59,
+        "endChar": 61
+      },
+      "revId": "fa2153b3100d102c4d179d21fedd465f4b4be06b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
