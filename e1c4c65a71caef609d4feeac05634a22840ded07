@@ -16,6 +16,24 @@
       "message": "Bonus if you add tests for this in a separate commit ;) \n\n```\nTEST(Systems, DbusToRfBootType)\n{\n    EXPECT_EQ(\n        dbusToRfBootType(\n            \"xyz.openbmc_project.Control.Boot.Type.Types.Legacy\"),\n        computer_system::BootSourceOverrideMode::Legacy);\n\n    EXPECT_EQ(\n        dbusToRfBootType(\n            \"xyz.openbmc_project.Control.Boot.Type.Types.EFI\"),\n        computer_system::BootSourceOverrideMode::UEFI);\n\n    EXPECT_EQ(dbusToRfBootType(\"invalid\"),\n              computer_system::BootSourceOverrideMode::Invalid);\n}\n\nTEST(Systems, DbusToRfBootMode)\n{\n    EXPECT_EQ(\n        dbusToRfBootMode(\n            \"xyz.openbmc_project.Control.Boot.Mode.Modes.Regular\"),\n        computer_system::BootSource::None);\n\n    EXPECT_EQ(\n        dbusToRfBootMode(\n            \"xyz.openbmc_project.Control.Boot.Mode.Modes.Safe\"),\n        computer_system::BootSource::Diags);\n\n    EXPECT_EQ(\n        dbusToRfBootMode(\n            \"xyz.openbmc_project.Control.Boot.Mode.Modes.Setup\"),\n        computer_system::BootSource::BiosSetup);\n\n    EXPECT_EQ(dbusToRfBootMode(\"invalid\"),\n              computer_system::BootSource::Invalid);\n}\n```",
       "revId": "e1c4c65a71caef609d4feeac05634a22840ded07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ce1f8d1_d5cbb814",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-16T17:56:38Z",
+      "side": 1,
+      "message": "Sure, I’ll add the relevant tests in a separate commit. Thanks for the suggestion!",
+      "parentUuid": "6a412f7f_80e83c41",
+      "revId": "e1c4c65a71caef609d4feeac05634a22840ded07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
