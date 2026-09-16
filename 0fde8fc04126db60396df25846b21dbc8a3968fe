@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9d81559_63f60664",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-16T11:07:40Z",
+      "side": 1,
+      "message": "HostInterfaceCollection_v1.xml installed and both JSON schemas linked; /redfish/v1/JsonSchemas/HostInterfaceCollection now resolves.",
+      "parentUuid": "ad85badd_0221469c",
+      "revId": "0fde8fc04126db60396df25846b21dbc8a3968fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39d521fe_1e4d7999",
@@ -65,6 +83,30 @@
       "writtenOn": "2026-09-07T11:07:48Z",
       "side": 1,
       "message": "Is this a privilege escalation risk???",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "0fde8fc04126db60396df25846b21dbc8a3968fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e7830e_79198047",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-16T11:07:40Z",
+      "side": 1,
+      "message": "an unknown role now returns an empty string and the handler throws internalError in that case",
+      "parentUuid": "39d521fe_1e4d7999",
       "range": {
         "startLine": 39,
         "startChar": 4,
@@ -121,6 +163,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cbaebee_5bc2072a",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-16T11:07:40Z",
+      "side": 1,
+      "message": "D-Bus property is now read as CredentialBootstrappingRole,",
+      "parentUuid": "278df5c7_b2c0fa16",
+      "range": {
+        "startLine": 104,
+        "startChar": 58,
+        "endLine": 104,
+        "endChar": 64
+      },
+      "revId": "0fde8fc04126db60396df25846b21dbc8a3968fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cddd302_ce9df851",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-16T11:07:40Z",
+      "side": 1,
+      "message": "D-Bus property is now read as CredentialBootstrappingEnabled,",
+      "parentUuid": "70880df5_3c8bdd8b",
+      "range": {
+        "startLine": 104,
+        "startChar": 28,
+        "endLine": 104,
+        "endChar": 45
+      },
+      "revId": "0fde8fc04126db60396df25846b21dbc8a3968fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6c20952_d07217f2",
@@ -134,6 +224,30 @@
       "writtenOn": "2026-09-07T11:07:48Z",
       "side": 1,
       "message": "Please guard this using BMCWEB_REDFISH_HOST_INTERFACE.",
+      "range": {
+        "startLine": 787,
+        "startChar": 4,
+        "endLine": 787,
+        "endChar": 48
+      },
+      "revId": "0fde8fc04126db60396df25846b21dbc8a3968fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f9406a6_a22f5c68",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-16T11:07:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b6c20952_d07217f2",
       "range": {
         "startLine": 787,
         "startChar": 4,
