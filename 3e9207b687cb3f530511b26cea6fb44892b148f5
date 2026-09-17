@@ -39,6 +39,30 @@
       },
       "revId": "3e9207b687cb3f530511b26cea6fb44892b148f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b4a6c1f_fcd97872",
+        "filename": "test/redfish-core/include/utils/telemetry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-17T09:08:42Z",
+      "side": 1,
+      "message": "clang-format reverts this — no IncludeIsMainRegex, so both sort\nalphabetically and \"generated/...\" wins.",
+      "parentUuid": "7d2321d6_5eddeae1",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "3e9207b687cb3f530511b26cea6fb44892b148f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
