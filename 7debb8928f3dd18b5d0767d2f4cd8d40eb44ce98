@@ -16,6 +16,24 @@
       "message": "This does change behavior, an invalid is now not put out.",
       "revId": "7debb8928f3dd18b5d0767d2f4cd8d40eb44ce98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfc23186_780a83a9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-17T04:22:24Z",
+      "side": 0,
+      "message": "Correct, invalid values now map to Invalid and are not included in the Redfish response.",
+      "parentUuid": "cb4f70e0_30bd758c",
+      "revId": "7debb8928f3dd18b5d0767d2f4cd8d40eb44ce98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
