@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb9fc0d7_6a6caa7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-17T18:49:25Z",
+      "side": 1,
+      "message": "Ideally this commit msg, cites some sources \n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf\n\nProperties in service responses that represent sensitive data, such as passwords, shall be null.\n\n13.2 section ^\n\nOWASP might same something here?\nhttps://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d01cc98c_8aa16f67",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-17T18:49:25Z",
+      "side": 1,
+      "message": "I am surprised we don\u0027t allow : for the password \"p@ss:word!123\" \nThis is probably here due to basic auth.. But even so.. I would think disallowing for the username would be enough. Oh well.",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
