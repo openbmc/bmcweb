@@ -371,7 +371,8 @@ inline void handleFabricPortCollectionGet(
 
 inline void afterHandlePortPatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& portId, const bool locationIndicatorActive,
+    const std::string& portId,
+    const std::optional<bool>& locationIndicatorActive,
     const std::string& portPath, const std::string& /*serviceName*/)
 {
     if (portPath.empty())
@@ -381,7 +382,11 @@ inline void afterHandlePortPatch(
         return;
     }
 
-    setLocationIndicatorActive(asyncResp, portPath, locationIndicatorActive);
+    if (locationIndicatorActive)
+    {
+        setLocationIndicatorActive(asyncResp, portPath,
+                                   *locationIndicatorActive);
+    }
 }
 
 inline void handlePortPatch(App& app, const crow::Request& req,
@@ -415,13 +420,10 @@ inline void handlePortPatch(App& app, const crow::Request& req,
     {
         return;
     }
-    if (locationIndicatorActive)
-    {
-        getValidFabricPortPath(
-            asyncResp, adapterId, portId,
-            std::bind_front(afterHandlePortPatch, asyncResp, portId,
-                            *locationIndicatorActive));
-    }
+
+    getValidFabricPortPath(asyncResp, adapterId, portId,
+                           std::bind_front(afterHandlePortPatch, asyncResp,
+                                           portId, locationIndicatorActive));
 }
 
 inline void requestRoutesFabricPort(App& app)
