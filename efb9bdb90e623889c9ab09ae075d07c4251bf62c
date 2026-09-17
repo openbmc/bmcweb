@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ef29e6f_c528b2cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-17T20:30:43Z",
+      "side": 1,
+      "message": "I don\u0027t think this changes the permission for any of these.. So I don\u0027t think we have to worry about a breaking change.. Just getting these correct.",
+      "revId": "efb9bdb90e623889c9ab09ae075d07c4251bf62c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
