@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "eddcd2bb_41d487fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-17T12:09:23Z",
+      "side": 1,
+      "message": "Updated with concrete test evidence: ran bmcweb loglevel debug against a live BMC and confirmed via journalctl -u bmcweb that the log level change actually took effect (DEBUG-only trace lines started appearing). \nAlso re-ran the Redfish Service Validator (0 Fail) and the build. PTAL.",
+      "parentUuid": "1d564b8c_30ff33bd",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 13
+      },
+      "revId": "b931a52bea83d45fb74b50079e5bbc86b542981a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b1d04aa4_ef47b1b0",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2026-09-11T14:10:14Z",
       "side": 1,
       "message": "const boost::system::error_code\u0026 ec",
+      "range": {
+        "startLine": 56,
+        "startChar": 29,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "b931a52bea83d45fb74b50079e5bbc86b542981a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b22d5f_6b4b81c4",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-17T12:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b287e54_4144c3d7",
       "range": {
         "startLine": 56,
         "startChar": 29,
