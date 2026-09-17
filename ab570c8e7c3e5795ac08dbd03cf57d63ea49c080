@@ -46,6 +46,30 @@
       },
       "revId": "ab570c8e7c3e5795ac08dbd03cf57d63ea49c080",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dbc953d_568ff925",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-17T14:04:54Z",
+      "side": 1,
+      "message": "Done. \n\nReplaced the generic testing statement with actual evidence for this change: triggered a real hostname-change D-Bus signal on AST2600 SoC to exercise regenerateCertificateIfHostnameChanged() end-to-end, confirmed via journalctl that the new afterInstallCertificate() callback fired and the temp cert file was removed, verified the new cert\u0027s CN via curl, confirmed Redfish still responds (HTTP 200), and ran RSV (0 Fail). \n\nWill apply the same practice (specific, per-change testing evidence) to other commits going forward.",
+      "parentUuid": "e22b6c1d_4a8d598d",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 13
+      },
+      "revId": "ab570c8e7c3e5795ac08dbd03cf57d63ea49c080",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
