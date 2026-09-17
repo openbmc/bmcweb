@@ -20,6 +20,7 @@
 #include <format>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -284,7 +285,8 @@ inline void handleNetworkAdapterPortPathPortCollection(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR("DBus response error on GetSubTreePaths {}", ec);
+        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTreePaths {}",
+                         ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -358,7 +360,7 @@ inline void handleNetworkAdapterPaths(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTreeById {}",
+        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTreePaths {}",
                          ec);
         messages::internalError(asyncResp->res);
         return;
@@ -378,16 +380,37 @@ inline void handleNetworkAdapterPaths(
                                networkAdapterId);
 }
 
+inline void handleValidChassisNetworkAdapterPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& networkAdapterId,
+    const std::function<void(const std::string& path)>& callback,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    const std::string associationPath =
+        sdbusplus::object_path(*validChassisPath) / "containing";
+    dbus::utility::getAssociatedSubTreePaths(
+        associationPath,
+        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
+        networkAdapterInterface,
+        std::bind_front(handleNetworkAdapterPaths, asyncResp, networkAdapterId,
+                        callback));
+}
+
 inline void getNetworkAdapterPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
     std::function<void(const std::string& path)>&& callback)
 {
-    dbus::utility::getAssociatedSubTreePathsById(
-        chassisId, "/xyz/openbmc_project/inventory", chassisInterfaces,
-        "containing", networkAdapterInterface,
-        std::bind_front(handleNetworkAdapterPaths, asyncResp, networkAdapterId,
-                        std::move(callback)));
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(handleValidChassisNetworkAdapterPath, asyncResp,
+                        chassisId, networkAdapterId, std::move(callback)));
 }
 
 inline void handleNetworkAdapterPathsNetworkAdapterCollection(
@@ -397,7 +420,8 @@ inline void handleNetworkAdapterPathsNetworkAdapterCollection(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR("DBus response error on GetSubTreePaths {}", ec);
+        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTreePaths {}",
+                         ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -421,6 +445,27 @@ inline void handleNetworkAdapterPathsNetworkAdapterCollection(
             "/redfish/v1/Chassis/{}/NetworkAdapters/{}", chassisId, name);
         members.push_back(std::move(member));
     }
+}
+
+inline void doNetworkAdapterCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    const std::string associationPath =
+        sdbusplus::object_path(*validChassisPath) / "containing";
+    dbus::utility::getAssociatedSubTreePaths(
+        associationPath,
+        sdbusplus::object_path{"/xyz/openbmc_project/inventory"}, 0,
+        networkAdapterInterface,
+        std::bind_front(handleNetworkAdapterPathsNetworkAdapterCollection,
+                        asyncResp, chassisId));
 }
 
 inline void handleNetworkAdapterGet(
@@ -449,11 +494,9 @@ inline void handleNetworkAdapterCollectionGet(
         return;
     }
 
-    dbus::utility::getAssociatedSubTreePathsById(
-        chassisId, "/xyz/openbmc_project/inventory", chassisInterfaces,
-        "containing", networkAdapterInterface,
-        std::bind_front(handleNetworkAdapterPathsNetworkAdapterCollection,
-                        asyncResp, chassisId));
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(doNetworkAdapterCollection, asyncResp, chassisId));
 }
 
 inline void handleNetworkAdapterPortMetricsGet(
