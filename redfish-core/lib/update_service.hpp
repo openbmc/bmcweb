@@ -1060,6 +1060,18 @@ inline void processUpdateRequest(
 inline void updateMultipartContext(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, crow::Request& req)
 {
+    std::string_view contentType = req.getHeaderValue("Content-Type");
+
+    BMCWEB_LOG_DEBUG("doPost: contentType={}", contentType);
+
+    if (!contentType.starts_with("multipart/form-data"))
+    {
+        BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
+        asyncResp->res.result(
+            boost::beast::http::status::unsupported_media_type);
+        return;
+    }
+
     std::optional<MultiPartUpdate> multipart =
         extractMultipartUpdateParameters(asyncResp, req);
     if (!multipart)
