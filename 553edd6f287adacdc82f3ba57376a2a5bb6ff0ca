@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "19110b11_1202feaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-09-17T11:30:36Z",
+      "side": 1,
+      "message": "Done. Thanks",
+      "parentUuid": "2b8d28fe_4ede0d2a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "553edd6f287adacdc82f3ba57376a2a5bb6ff0ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2faf02a5_21f86b93",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 15
