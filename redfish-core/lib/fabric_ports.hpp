@@ -248,7 +248,7 @@ inline void afterHandleFabricPortCollectionHead(
             return;
         }
         BMCWEB_LOG_WARNING("Adapter not found");
-        messages::resourceNotFound(asyncResp->res, "Adapter", adapterId);
+        messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
         return;
     }
     asyncResp->res.addHeader(
@@ -301,7 +301,7 @@ inline void doHandleFabricPortCollectionGet(
             return;
         }
         BMCWEB_LOG_WARNING("Adapter not found");
-        messages::resourceNotFound(asyncResp->res, "Adapter", adapterId);
+        messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
         return;
     }
     asyncResp->res.addHeader(
