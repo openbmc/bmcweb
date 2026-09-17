@@ -55,6 +55,7 @@ srcfiles_unittest = files(
     'redfish-core/lib/account_service_test.cpp',
     'redfish-core/lib/chassis_test.cpp',
     'redfish-core/lib/ethernet_test.cpp',
+    'redfish-core/lib/fabric_ports_test.cpp',
     'redfish-core/lib/fabric_test.cpp',
     'redfish-core/lib/log_services_dump_test.cpp',
     'redfish-core/lib/manager_diagnostic_data_test.cpp',
@@ -87,6 +88,7 @@ if (get_option('tests').allowed())
             gmock.partial_dependency(includes: true),
         ],
     )
+
     # generate the test executable
     foreach test_src : srcfiles_unittest
         data_dir = fs.parent(meson.current_source_dir()) / fs.parent(test_src)
