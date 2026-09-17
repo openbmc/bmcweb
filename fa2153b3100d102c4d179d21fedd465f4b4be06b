@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76dca6f4_13c989ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-17T09:45:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c4131176_a46e4e23",
+      "revId": "fa2153b3100d102c4d179d21fedd465f4b4be06b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a77f90b_649f1d33",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5aecd46_ed9eaeb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-17T09:45:35Z",
+      "side": 1,
+      "message": "Yes — created a real MetricReportDefinition + MetricReport on a live platform against a live phosphor-telemetry daemon.\n\nVerified a live sampled MetricValue (45.500000) after one collection interval, and RSV shows 0 Fail / 0 Warn across TelemetryService, MetricReportDefinitions, MetricReports, and Triggers. \n\nCommit message updated with this detail.",
+      "parentUuid": "2a77f90b_649f1d33",
+      "revId": "fa2153b3100d102c4d179d21fedd465f4b4be06b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e289a09_c9117db0",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-09-16T17:15:31Z",
       "side": 1,
       "message": "This is a good change, but please please don\u0027t hide changes in a refactor.. Specially when you don\u0027t call them out in the commit msg",
+      "range": {
+        "startLine": 59,
+        "startChar": 26,
+        "endLine": 59,
+        "endChar": 61
+      },
+      "revId": "fa2153b3100d102c4d179d21fedd465f4b4be06b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c731515c_67f3f78d",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-17T09:45:35Z",
+      "side": 1,
+      "message": "Fair point — beyond the extraction, I also changed the debug log message from \"respHandler DBus error {}\" to \"afterGetTelemetryServiceProperties DBus error {}\" per JY-Voon\u0027s earlier comment. Should have called that out — updating the commit message now.",
+      "parentUuid": "8e289a09_c9117db0",
       "range": {
         "startLine": 59,
         "startChar": 26,
