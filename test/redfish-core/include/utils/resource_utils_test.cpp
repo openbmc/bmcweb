@@ -32,7 +32,8 @@ TEST(DetermineResourceState, Absent)
     bool present = false;
     bool available = true;
 
-    determineResourceState(asyncResp, present, available, ""_json_pointer);
+    determineResourceState(asyncResp, present, available, true,
+                           ""_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::Absent);
@@ -44,7 +45,8 @@ TEST(DetermineResourceState, UnavailableOffline)
     bool present = true;
     bool available = false;
 
-    determineResourceState(asyncResp, present, available, ""_json_pointer);
+    determineResourceState(asyncResp, present, available, true,
+                           ""_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::UnavailableOffline);
@@ -56,10 +58,24 @@ TEST(DetermineResourceState, Enabled)
     bool present = true;
     bool available = true;
 
-    determineResourceState(asyncResp, present, available, ""_json_pointer);
+    determineResourceState(asyncResp, present, available, true,
+                           ""_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::Enabled);
+}
+
+TEST(DetermineResourceState, Disabled)
+{
+    auto asyncResp = createAsyncResp();
+    bool present = true;
+    bool available = true;
+
+    determineResourceState(asyncResp, present, available, false,
+                           ""_json_pointer);
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
+              resource::State::Disabled);
 }
 
 TEST(DetermineResourceState, AbsentTakesPriorityOverUnavailable)
@@ -68,10 +84,31 @@ TEST(DetermineResourceState, AbsentTakesPriorityOverUnavailable)
     bool present = false;
     bool available = false;
 
-    determineResourceState(asyncResp, present, available, ""_json_pointer);
+    determineResourceState(asyncResp, present, available, true,
+                           ""_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::Absent);
+}
+
+TEST(DetermineResourceState, AbsentTakesPriorityOverDisabled)
+{
+    auto asyncResp = createAsyncResp();
+
+    determineResourceState(asyncResp, false, true, false, ""_json_pointer);
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
+              resource::State::Absent);
+}
+
+TEST(DetermineResourceState, UnavailableTakesPriorityOverDisabled)
+{
+    auto asyncResp = createAsyncResp();
+
+    determineResourceState(asyncResp, true, false, false, ""_json_pointer);
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
+              resource::State::UnavailableOffline);
 }
 
 TEST(DetermineResourceState, WithJsonPointer)
@@ -81,7 +118,7 @@ TEST(DetermineResourceState, WithJsonPointer)
     bool available = true;
 
     nlohmann::json::json_pointer ptr("/Assemblies/0");
-    determineResourceState(asyncResp, present, available, ptr);
+    determineResourceState(asyncResp, present, available, true, ptr);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Assemblies"][0]["Status"]["State"],
               resource::State::Enabled);
@@ -130,13 +167,20 @@ TEST(ResourceUtils, MultipleResourcesWithDifferentStates)
     auto asyncResp = createAsyncResp();
 
     // Resource 1: Absent
-    determineResourceState(asyncResp, false, true, "/Resource1"_json_pointer);
+    determineResourceState(asyncResp, false, true, true,
+                           "/Resource1"_json_pointer);
 
     // Resource 2: UnavailableOffline
-    determineResourceState(asyncResp, true, false, "/Resource2"_json_pointer);
+    determineResourceState(asyncResp, true, false, true,
+                           "/Resource2"_json_pointer);
 
     // Resource 3: Enabled
-    determineResourceState(asyncResp, true, true, "/Resource3"_json_pointer);
+    determineResourceState(asyncResp, true, true, true,
+                           "/Resource3"_json_pointer);
+
+    // Resource 4: Disabled
+    determineResourceState(asyncResp, true, true, false,
+                           "/Resource4"_json_pointer);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Resource1"]["Status"]["State"],
               resource::State::Absent);
@@ -144,13 +188,15 @@ TEST(ResourceUtils, MultipleResourcesWithDifferentStates)
               resource::State::UnavailableOffline);
     EXPECT_EQ(asyncResp->res.jsonValue["Resource3"]["Status"]["State"],
               resource::State::Enabled);
+    EXPECT_EQ(asyncResp->res.jsonValue["Resource4"]["Status"]["State"],
+              resource::State::Disabled);
 }
 
 TEST(ResourceUtils, StateAndHealthSeparately)
 {
     auto asyncResp = createAsyncResp();
 
-    determineResourceState(asyncResp, true, true, ""_json_pointer);
+    determineResourceState(asyncResp, true, true, true, ""_json_pointer);
     determineResourceHealth(asyncResp, ""_json_pointer, false);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
@@ -164,7 +210,7 @@ TEST(ResourceUtils, StateAndHealthWithJsonPointer)
     auto asyncResp = createAsyncResp();
     nlohmann::json::json_pointer ptr("/Component");
 
-    determineResourceState(asyncResp, true, false, ptr);
+    determineResourceState(asyncResp, true, false, true, ptr);
     determineResourceHealth(asyncResp, ptr, true);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Component"]["Status"]["State"],
@@ -172,30 +218,60 @@ TEST(ResourceUtils, StateAndHealthWithJsonPointer)
     EXPECT_EQ(asyncResp->res.jsonValue["Component"]["Status"]["Health"],
               resource::Health::OK);
 }
-TEST(GetStatusAvailableState, MissingInterfaceDefaultsToEnabled)
+
+// Tests for getStatusEnabledState
+
+TEST(GetStatusEnabledState, MissingInterfaceDefaultsToEnabled)
 {
     auto asyncResp = createAsyncResp();
 
     boost::system::error_code ec(EBADR, boost::system::generic_category());
 
-    // EBADR should cause Enabled
-    getStatusAvailableState(asyncResp, ""_json_pointer, true, ec, false);
+    // EBADR should default enabled=true, yielding Enabled state
+    getStatusEnabledState(asyncResp, ""_json_pointer, true, true, ec, false);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::Enabled);
 }
 
-TEST(GetStatusAvailableState, MissingInterfacePreservesAbsent)
+TEST(GetStatusEnabledState, MissingInterfacePreservesAbsent)
 {
     auto asyncResp = createAsyncResp();
 
     boost::system::error_code ec(EBADR, boost::system::generic_category());
 
-    getStatusAvailableState(asyncResp, ""_json_pointer, false, ec, false);
+    // present=false takes priority even when enabled defaults to true
+    getStatusEnabledState(asyncResp, ""_json_pointer, false, true, ec, false);
 
     EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
               resource::State::Absent);
 }
+
+TEST(GetStatusEnabledState, NonMissingInterfaceError)
+{
+    auto asyncResp = createAsyncResp();
+
+    boost::system::error_code ec(ENONET, boost::system::generic_category());
+
+    getStatusEnabledState(asyncResp, ""_json_pointer, false, true, ec, true);
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::internal_server_error);
+    EXPECT_FALSE(asyncResp->res.jsonValue["Status"].contains("State"));
+}
+
+TEST(GetStatusEnabledState, EnabledFalseYieldsDisabled)
+{
+    auto asyncResp = createAsyncResp();
+
+    boost::system::error_code ec;
+
+    getStatusEnabledState(asyncResp, ""_json_pointer, true, true, ec, false);
+
+    EXPECT_EQ(asyncResp->res.jsonValue["Status"]["State"],
+              resource::State::Disabled);
+}
+
+// Tests for getStatusAvailableState
 
 TEST(GetStatusAvailableState, NonMissingInterfaceError)
 {
@@ -203,11 +279,13 @@ TEST(GetStatusAvailableState, NonMissingInterfaceError)
 
     boost::system::error_code ec(ENONET, boost::system::generic_category());
 
-    getStatusAvailableState(asyncResp, ""_json_pointer, false, ec, true);
+    getStatusAvailableState(asyncResp, "Service", "Path", ""_json_pointer,
+                            false, ec, true);
     EXPECT_EQ(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
     EXPECT_FALSE(asyncResp->res.jsonValue["Status"].contains("State"));
 }
+
 TEST(GetStatusPresentState, NonMissingInterfaceError)
 {
     auto asyncResp = createAsyncResp();

@@ -46,11 +46,11 @@ inline void determineResourceHealth(
 
 inline void determineResourceState(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool present,
-    bool available, const nlohmann::json::json_pointer& jsonPtr)
+    bool available, bool enabled, const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG("determineResourceState");
 
-    // Absent takes priority over unavailable
+    // Priority: Absent > UnavailableOffline > Disabled
     if (!present)
     {
         asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
@@ -61,6 +61,11 @@ inline void determineResourceState(
         asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
             resource::State::UnavailableOffline;
     }
+    else if (!enabled)
+    {
+        asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
+            resource::State::Disabled;
+    }
     else
     {
         asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
@@ -68,8 +73,28 @@ inline void determineResourceState(
     }
 }
 
+inline void getStatusEnabledState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonPtr, bool present, bool available,
+    const boost::system::error_code& ec, bool enabled)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for {}, ec {}", "Enabled",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        enabled = true;
+    }
+    determineResourceState(asyncResp, present, available, enabled, jsonPtr);
+}
+
 inline void getStatusAvailableState(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path,
     const nlohmann::json::json_pointer& jsonPtr, bool present,
     const boost::system::error_code& ec, bool available)
 {
@@ -84,7 +109,17 @@ inline void getStatusAvailableState(
         }
         available = true;
     }
-    determineResourceState(asyncResp, present, available, jsonPtr);
+    if (!available)
+    {
+        // UnavailableOffline takes priority over Disabled
+        determineResourceState(asyncResp, present, available, true, jsonPtr);
+        return;
+    }
+    dbus::utility::getProperty<bool>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Object.Enable", "Enabled",
+        std::bind_front(getStatusEnabledState, asyncResp, jsonPtr, present,
+                        available));
 }
 
 inline void getStatusPresentState(
@@ -108,7 +143,8 @@ inline void getStatusPresentState(
     dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.State.Decorator.Availability", "Available",
-        std::bind_front(getStatusAvailableState, asyncResp, jsonPtr, present));
+        std::bind_front(getStatusAvailableState, asyncResp, service, path,
+                        jsonPtr, present));
 }
 
 inline void getResourceState(
@@ -126,8 +162,8 @@ inline void getResourceState(
 
 /*
  * @brief Retrieves the status.state of the first service that implements
- * Inventory.Item or State.Decorator.Availability. If no service implements
- * these interfaces, it will default to Status.State Enabled
+ * Inventory.Item, State.Decorator.Availability, or Object.Enable. If no service
+ * implements these interfaces, it will default to Status.State Enabled
  *
  * @param[in] asyncResp AsyncResp object to update
  * @param[in] services Map of services to interfaces
@@ -144,7 +180,9 @@ inline void getResourceState(
         for (const auto& interface : interfaces)
         {
             if (interface == "xyz.openbmc_project.Inventory.Item" ||
-                interface == "xyz.openbmc_project.State.Decorator.Availability")
+                interface ==
+                    "xyz.openbmc_project.State.Decorator.Availability" ||
+                interface == "xyz.openbmc_project.Object.Enable")
             {
                 getResourceState(asyncResp, serviceName, path, jsonPtr);
                 return;
