@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4949e981_2e0d75bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-17T19:17:23Z",
+      "side": 1,
+      "message": "This needs an overall fix.  We shouldn\u0027t be returning configuration errors on internal changes during the hot path.",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d01cc98c_8aa16f67",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 6
@@ -31,6 +48,64 @@
       "writtenOn": "2026-09-17T18:49:25Z",
       "side": 1,
       "message": "I am surprised we don\u0027t allow : for the password \"p@ss:word!123\" \nThis is probably here due to basic auth.. But even so.. I would think disallowing for the username would be enough. Oh well.",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa735bd9_9e6838d0",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-17T19:17:23Z",
+      "side": 1,
+      "message": "LLM seems to think : is just disallowed entirely in basic auth, at least given that we\u0027re using ascii encoding.  In theory we probably should have more checks here:\n\n```\nFor the user-id, recipients MUST support all characters defined in the \"UsernameCasePreserved\" profile defined in Section 3.3 of [RFC7613], with the exception of the colon (\":\") character.\n```\n\nhttps://httpwg.org/specs/rfc7617.html",
+      "parentUuid": "d01cc98c_8aa16f67",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b156be29_1ec41605",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-17T19:17:23Z",
+      "side": 1,
+      "message": "None of these messages are correct for the uses in handleAggregationSourceCollectionPost.\n\nWe probably should remove them all.",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f464dbb9_4727c0a4",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-17T19:17:23Z",
+      "side": 1,
+      "message": "40 isn\u0027t correct either.  NIST recommends 64.",
+      "range": {
+        "startLine": 251,
+        "startChar": 26,
+        "endLine": 251,
+        "endChar": 28
+      },
       "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
