@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "799fd697_598d8404",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-17T22:04:35Z",
+      "side": 1,
+      "message": "wish this was rewrote to not use the value_or(\"\") like the rest of the code in the code base. Oh well",
+      "range": {
+        "startLine": 256,
+        "startChar": 34,
+        "endLine": 256,
+        "endChar": 47
+      },
+      "revId": "6b76594f0a41e4f540f79b4abd5b1a3789710242",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
