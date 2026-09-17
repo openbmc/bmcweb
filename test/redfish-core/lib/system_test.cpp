@@ -22,6 +22,38 @@ namespace redfish
 namespace
 {
 
+TEST(Systems, DbusToRfBootType)
+{
+    EXPECT_EQ(
+        dbusToRfBootType("xyz.openbmc_project.Control.Boot.Type.Types.Legacy"),
+        computer_system::BootSourceOverrideMode::Legacy);
+
+    EXPECT_EQ(
+        dbusToRfBootType("xyz.openbmc_project.Control.Boot.Type.Types.EFI"),
+        computer_system::BootSourceOverrideMode::UEFI);
+
+    EXPECT_EQ(dbusToRfBootType("invalid"),
+              computer_system::BootSourceOverrideMode::Invalid);
+}
+
+TEST(Systems, DbusToRfBootMode)
+{
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Regular"),
+        computer_system::BootSource::None);
+
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Safe"),
+        computer_system::BootSource::Diags);
+
+    EXPECT_EQ(
+        dbusToRfBootMode("xyz.openbmc_project.Control.Boot.Mode.Modes.Setup"),
+        computer_system::BootSource::BiosSetup);
+
+    EXPECT_EQ(dbusToRfBootMode("invalid"),
+              computer_system::BootSource::Invalid);
+}
+
 TEST(GetAllowedHostTransition, UnexpectedError)
 {
     auto response = std::make_shared<bmcweb::AsyncResp>();
