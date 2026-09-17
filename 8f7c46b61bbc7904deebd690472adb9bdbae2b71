@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f01b4373_b9e52cf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-17T15:38:26Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz As discussed in the following PR, I’ve added the unit tests based on your feedback: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/93865/comments/6a412f7f_80e83c41\nCould you please take a look at the changes when you get a chance? Thanks!",
+      "revId": "8f7c46b61bbc7904deebd690472adb9bdbae2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
