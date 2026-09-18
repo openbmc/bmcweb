@@ -16,6 +16,24 @@
       "message": "Could just simply to std::filesystem::remove(certPath, ec2); but that was there before, oh well",
       "revId": "17a3d1b8a8dfe0d1e4dcbb48f8cdd623459fec41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8862490f_7879c5d1",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-18T09:07:02Z",
+      "side": 1,
+      "message": "Good catch - agreed this is redundant. Since this change is scoped purely to the lambda refactor, I\u0027ve addressed this cleanup in a separate follow-up change to avoid re-spinning this patch set:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/94682",
+      "parentUuid": "f47a7c89_6f2bd620",
+      "revId": "17a3d1b8a8dfe0d1e4dcbb48f8cdd623459fec41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
