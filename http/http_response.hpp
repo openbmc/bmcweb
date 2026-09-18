@@ -370,17 +370,21 @@ struct Response
         return OpenCode::Success;
     }
 
-    bool openFd(int fd, bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
+    bool openFd(DuplicatableFileHandle handle,
+                bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
     {
         boost::beast::error_code ec;
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
-        int retval = fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK);
+        // NOLINTBEGIN(cppcoreguidelines-pro-type-vararg)
+        int retval = fcntl(handle.fileHandle.native_handle(), F_SETFL,
+                           fcntl(handle.fileHandle.native_handle(), F_GETFL) |
+                               O_NONBLOCK);
+        // NOLINTEND(cppcoreguidelines-pro-type-vararg)
         if (retval == -1)
         {
             BMCWEB_LOG_ERROR("Setting O_NONBLOCK failed");
         }
         response.body().encodingType = enc;
-        response.body().setFd(fd, ec);
+        response.body().setFd(std::move(handle), ec);
         if (ec)
         {
             BMCWEB_LOG_ERROR("Failed to set fd");
