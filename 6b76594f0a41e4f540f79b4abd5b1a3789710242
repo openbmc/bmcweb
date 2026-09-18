@@ -22,6 +22,30 @@
       },
       "revId": "6b76594f0a41e4f540f79b4abd5b1a3789710242",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18f16621_4e3f922a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1003010
+      },
+      "writtenOn": "2026-09-18T03:20:11Z",
+      "side": 1,
+      "message": "Fair point, though all three value_or(\"\") calls here predate this change — I only swapped the message function on the last one.\nI\u0027ll drop the optional in a follow-up rather than reset the votes here.",
+      "parentUuid": "799fd697_598d8404",
+      "range": {
+        "startLine": 256,
+        "startChar": 34,
+        "endLine": 256,
+        "endChar": 47
+      },
+      "revId": "6b76594f0a41e4f540f79b4abd5b1a3789710242",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
