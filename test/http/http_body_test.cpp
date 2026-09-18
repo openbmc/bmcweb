@@ -123,7 +123,7 @@ TEST(HttpFileBodyValueType, SetFd)
     boost::system::error_code ec;
     FILE* r = fopen(temporaryFile.filePath.c_str(), "r");
     ASSERT_NE(r, nullptr);
-    value.setFd(fileno(r), ec);
+    value.setFd(DuplicatableFileHandle(fileno(r)), ec);
     ASSERT_FALSE(ec);
 
     std::array<char, 4096> buffer{};

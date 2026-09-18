@@ -10,19 +10,27 @@
 #include "http_body.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "parsing.hpp"
 #include "ssl_key_handler.hpp"
 
+#include <fcntl.h>
+#include <unistd.h>
+
 #include <boost/asio/connect.hpp>
+#include <boost/asio/connect_pipe.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/post.hpp>
+#include <boost/asio/readable_pipe.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/error.hpp>
 #include <boost/asio/ssl/host_name_verification.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/ssl/stream_base.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/asio/writable_pipe.hpp>
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http/field.hpp>
@@ -41,15 +49,20 @@
 #include <boost/url/url.hpp>
 #include <boost/url/url_view_base.hpp>
 
+#include <algorithm>
+#include <charconv>
 #include <chrono>
+#include <cstddef>
 #include <cstdint>
 #include <cstdlib>
 #include <format>
 #include <functional>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <type_traits>
 #include <unordered_map>
 #include <utility>
@@ -62,7 +75,7 @@ namespace crow
 constexpr size_t maxPoolSize = 20;
 constexpr size_t maxRequestQueueSize = 500;
 constexpr unsigned int httpReadBodyLimit = 131072;
-constexpr unsigned int httpReadBufferSize = 4096;
+constexpr unsigned int httpReadBufferSize = 4096 * 8;
 
 enum class ConnState
 {
@@ -131,6 +144,76 @@ struct PendingRequest
 };
 
 namespace http = boost::beast::http;
+
+struct StreamingState
+{
+    explicit StreamingState(boost::asio::io_context& ioc) :
+        readPipe(ioc), writePipe(ioc), chunkStallTimer(ioc),
+        streamingDeadline(ioc)
+    {}
+    boost::asio::readable_pipe readPipe;
+    boost::asio::writable_pipe writePipe;
+    boost::asio::steady_timer chunkStallTimer;
+    boost::asio::steady_timer streamingDeadline;
+    std::function<void()> onRelayDone;
+    size_t contentLength = 0;
+    size_t byteCount = 0;
+};
+
+// Returns 0 if Content-Length is absent or unparseable.
+inline size_t parseStreamingContentLength(
+    const http::response<bmcweb::HttpBody>& response)
+{
+    auto contentLengthIt =
+        response.find(boost::beast::http::field::content_length);
+    if (contentLengthIt == response.end())
+    {
+        BMCWEB_LOG_DEBUG(
+            "afterReadHeader: HMC response has no Content-Length header; "
+            "will not stream");
+        return 0;
+    }
+    std::string_view val = contentLengthIt->value();
+    size_t parsed = 0;
+    auto [ptr, parseEc] = std::from_chars(val.begin(), val.end(), parsed);
+    if (parseEc != std::errc{})
+    {
+        BMCWEB_LOG_WARNING(
+            "afterReadHeader: failed to parse Content-Length '{}', "
+            "will not stream",
+            val);
+        return 0;
+    }
+    return parsed;
+}
+
+inline bool isJsonResponse(const http::response<bmcweb::HttpBody>& response)
+{
+    auto contentTypeIt = response.find(boost::beast::http::field::content_type);
+    if (contentTypeIt == response.end())
+    {
+        return false;
+    }
+    return isJsonContentType(contentTypeIt->value());
+}
+
+inline bool shouldStreamResponse(
+    const http::response<bmcweb::HttpBody>& response, size_t contentLength,
+    bool responseIsInvalid)
+{
+    if (isJsonResponse(response))
+    {
+        return false;
+    }
+    if (responseIsInvalid ||
+        response.result() == boost::beast::http::status::no_content ||
+        contentLength == 0)
+    {
+        return false;
+    }
+    return true;
+}
+
 class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 {
   private:
@@ -151,6 +234,11 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     // Async callables
     std::function<void(bool, uint32_t, Response&)> callback;
 
+    // Invoked by ConnectionPool once a streamed response has finished
+    // relaying to the client, so the connection can be returned to the
+    // pool for reuse.
+    std::function<void()> onRelayDone;
+
     boost::asio::io_context& ioc;
 
     using Resolver = std::conditional_t<BMCWEB_DNS_RESOLVER == "systemd-dbus",
@@ -164,8 +252,19 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     boost::asio::steady_timer timer;
 
+    // Set only during active streaming.
+    static constexpr std::chrono::minutes streamingDeadlineDuration{15};
+    std::optional<StreamingState> streaming;
+
     friend class ConnectionPool;
 
+  public:
+    bool isBusyStreaming() const
+    {
+        return streaming.has_value();
+    }
+
+  private:
     void doResolve()
     {
         state = ConnState::resolveInProgress;
@@ -348,26 +447,555 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         state = ConnState::recvInProgress;
 
         parser_type& thisParser = parser.emplace();
-
-        thisParser.body_limit(connPolicy->requestByteLimit);
+        // Header-first receive: the body limit is widened here so the
+        // header can always be read, then narrowed in readJsonBody() for
+        // the buffered-JSON path once we know it isn't a large streamed
+        // binary download.
+        thisParser.body_limit(std::numeric_limits<std::uint64_t>::max());
+        thisParser.get().body().setStreamingReceiver(true);
 
         timer.expires_after(std::chrono::seconds(30));
         timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
 
-        // Receive the HTTP response
+        // Receive the HTTP response headers first; the body is either read
+        // in full (readJsonBody) or streamed chunk-by-chunk through a pipe
+        // (startStreamingResponse), decided in afterReadHeader().
+        if (sslConn)
+        {
+            boost::beast::http::async_read_header(
+                *sslConn, buffer, thisParser,
+                std::bind_front(&ConnectionInfo::afterReadHeader, this,
+                                shared_from_this()));
+        }
+        else
+        {
+            boost::beast::http::async_read_header(
+                conn, buffer, thisParser,
+                std::bind_front(&ConnectionInfo::afterReadHeader, this,
+                                shared_from_this()));
+        }
+    }
+
+    void handleReadHeaderError(const boost::beast::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted ||
+            ec == boost::system::errc::operation_canceled)
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("afterReadHeader error: {} {}", ec, ec.message());
+        timer.cancel();
+        state = ConnState::recvFailed;
+        waitAndRetry();
+    }
+
+    void readJsonBody()
+    {
+        if (!parser)
+        {
+            BMCWEB_LOG_ERROR("readJsonBody: parser not initialised");
+            return;
+        }
+        // Tighten body limit now that we know it's JSON.
+        parser->body_limit(connPolicy->requestByteLimit);
         if (sslConn)
         {
             boost::beast::http::async_read(
-                *sslConn, buffer, thisParser,
+                *sslConn, buffer, *parser,
                 std::bind_front(&ConnectionInfo::afterRead, this,
                                 shared_from_this()));
         }
         else
         {
             boost::beast::http::async_read(
-                conn, buffer, thisParser,
+                conn, buffer, *parser,
                 std::bind_front(&ConnectionInfo::afterRead, this,
                                 shared_from_this()));
+        }
+    }
+
+    void startStreamingResponse(
+        const http::response<bmcweb::HttpBody>& response, size_t contentLength)
+    {
+        if (!parser)
+        {
+            BMCWEB_LOG_ERROR("startStreamingResponse: parser not initialised");
+            return;
+        }
+        // Streaming uses per-chunk timeouts; cancel the read-header recv
+        // timeout.
+        timer.cancel();
+        res.response = response;
+        if (!createStreamPipe())
+        {
+            if (callback)
+            {
+                callback(false, connId, res);
+            }
+            shutdownConn(false);
+            return;
+        }
+        if (!streaming)
+        {
+            return;
+        }
+        streaming->contentLength = contentLength;
+        streaming->byteCount = 0;
+        if (!openStreamFdAndStart())
+        {
+            // openStreamFdAndStart already fired callback(false) +
+            // shutdownConn.
+            return;
+        }
+        resetChunkStallTimer();
+        startStreamingDeadline();
+        scheduleStreamBodyRead();
+    }
+
+    void afterReadHeader(const std::shared_ptr<ConnectionInfo>& /*self*/,
+                         const boost::beast::error_code& ec,
+                         const std::size_t& bytesTransferred)
+    {
+        if (ec)
+        {
+            handleReadHeaderError(ec);
+            return;
+        }
+        BMCWEB_LOG_DEBUG("afterReadHeader() bytes transferred: {}",
+                         bytesTransferred);
+        if (!parser)
+        {
+            BMCWEB_LOG_ERROR("afterReadHeader: parser not initialised");
+            return;
+        }
+        const auto& response = parser->get();
+        size_t contentLength = parseStreamingContentLength(response);
+        auto ctIt = response.find(boost::beast::http::field::content_type);
+        BMCWEB_LOG_DEBUG("afterReadHeader() content_length={} type={}",
+                         contentLength,
+                         ctIt != response.end() ? ctIt->value() : "(none)");
+        // Route to the buffered-JSON path or the streamed-pipe path.
+        if (!shouldStreamResponse(response, contentLength,
+                                  static_cast<bool>(connPolicy->invalidResp(
+                                      response.result_int()))))
+        {
+            readJsonBody();
+            return;
+        }
+        startStreamingResponse(response, contentLength);
+    }
+
+    bool createStreamPipe()
+    {
+        streaming.emplace(ioc);
+        streaming->onRelayDone = onRelayDone;
+        boost::system::error_code pipeEc{};
+        boost::asio::connect_pipe(streaming->readPipe, streaming->writePipe,
+                                  pipeEc);
+        if (pipeEc)
+        {
+            BMCWEB_LOG_ERROR("createStreamPipe: pipe create failed: {}",
+                             pipeEc.message());
+            streaming.reset();
+            return false;
+        }
+        // Expand the pipe buffer to reduce write stalls under backpressure.
+        constexpr int pipeBufferSize = 1 * 1024 * 1024;
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
+        if (::fcntl(streaming->writePipe.native_handle(), F_SETPIPE_SZ,
+                    pipeBufferSize) < 0)
+        {
+            BMCWEB_LOG_WARNING(
+                "createStreamPipe: F_SETPIPE_SZ failed, using default pipe size");
+        }
+        return true;
+    }
+
+    bool openStreamFdAndStart()
+    {
+        if (!streaming)
+        {
+            BMCWEB_LOG_ERROR("openStreamFdAndStart: readPipe not initialised");
+            streaming.reset();
+            if (callback)
+            {
+                callback(false, connId, res);
+            }
+            shutdownConn(false);
+            return false;
+        }
+        DuplicatableFileHandle dupHandle(
+            ::dup(streaming->readPipe.native_handle()));
+        if (!dupHandle.fileHandle.is_open())
+        {
+            BMCWEB_LOG_ERROR("openStreamFdAndStart: dup() failed: {}",
+                             std::generic_category().message(errno));
+            streaming.reset();
+            if (callback)
+            {
+                callback(false, connId, res);
+            }
+            shutdownConn(false);
+            return false;
+        }
+        // Close the original read-end now that the dup'd FD is handed to the
+        // connection handler.  This makes the dup'd FD the sole reader: when
+        // the downstream session closes it (client disconnect / stream
+        // cancel), the kernel delivers EPIPE to writePipe immediately instead
+        // of waiting for the 1 MB pipe buffer to fill up.
+        boost::system::error_code closeEc;
+        streaming->readPipe.close(closeEc);
+        if (closeEc)
+        {
+            BMCWEB_LOG_WARNING(
+                "openStreamFdAndStart: readPipe close failed: {}",
+                closeEc.message());
+        }
+        res.openFd(std::move(dupHandle), bmcweb::EncodingType::Raw);
+        // fstat on a pipe returns 0; set fileSize from the Content-Length
+        // header so Beast emits Content-Length instead of chunked encoding.
+        if (streaming->contentLength > 0)
+        {
+            res.response.body().setFileSize(streaming->contentLength);
+        }
+        if (callback)
+        {
+            callback(true, connId, res);
+        }
+        res.clear();
+        return true;
+    }
+
+    void resetChunkStallTimer()
+    {
+        if (!streaming)
+        {
+            return;
+        }
+        streaming->chunkStallTimer.cancel();
+        streaming->chunkStallTimer.expires_after(std::chrono::seconds(120));
+        streaming->chunkStallTimer.async_wait(
+            std::bind_front(onChunkStallTimeout, weak_from_this()));
+    }
+
+    void startStreamingDeadline()
+    {
+        if (!streaming)
+        {
+            return;
+        }
+        streaming->streamingDeadline.cancel();
+        streaming->streamingDeadline.expires_after(streamingDeadlineDuration);
+        streaming->streamingDeadline.async_wait(
+            std::bind_front(onStreamingDeadlineFired, weak_from_this()));
+    }
+
+    [[nodiscard]] static std::shared_ptr<std::string> drainParserBodyChunk(
+        parser_type& msgParser)
+    {
+        auto chunk = std::make_shared<std::string>(
+            std::move(msgParser.get().body().str()));
+        msgParser.get().body().str().clear();
+        return chunk;
+    }
+
+    void scheduleStreamBodyRead()
+    {
+        if (!streaming || !parser)
+        {
+            return;
+        }
+        // Drain any bytes already in the read buffer.
+        if (!drainPrefetchedStreamBuffer())
+        {
+            scheduleStreamBodyRawRead();
+        }
+    }
+
+    void scheduleStreamBodyRawRead()
+    {
+        if (!streaming || !parser)
+        {
+            return;
+        }
+        size_t remaining{streaming->contentLength - streaming->byteCount};
+        size_t readLimit{
+            std::min(buffer.max_size() - buffer.size(), remaining)};
+        if (readLimit == 0)
+        {
+            // Buffer is full; yield so the write side can drain it.
+            boost::asio::post(
+                sslConn ? sslConn->get_executor() : conn.get_executor(),
+                std::bind_front(&ConnectionInfo::scheduleStreamBodyRead,
+                                shared_from_this()));
+            return;
+        }
+        if (sslConn)
+        {
+            sslConn->async_read_some(
+                buffer.prepare(readLimit),
+                std::bind_front(&ConnectionInfo::afterStreamBodyRawRead, this,
+                                shared_from_this()));
+        }
+        else
+        {
+            conn.async_read_some(
+                buffer.prepare(readLimit),
+                std::bind_front(&ConnectionInfo::afterStreamBodyRawRead, this,
+                                shared_from_this()));
+        }
+    }
+
+    bool drainPrefetchedStreamBuffer()
+    {
+        if (!parser || buffer.size() == 0)
+        {
+            return false;
+        }
+        boost::beast::error_code ec{};
+        size_t consumed{parser.value().put(buffer.data(), ec)};
+        buffer.consume(consumed);
+        if (consumed == 0 && !ec && !parser.value().is_done())
+        {
+            return false;
+        }
+        // Post to break synchronous recursion when the full body is already
+        // buffered.
+        boost::asio::post(
+            sslConn ? sslConn->get_executor() : conn.get_executor(),
+            [self = shared_from_this(), ec, consumed]() {
+                self->afterStreamBodyRead(self, ec, consumed);
+            });
+        return true;
+    }
+
+    void afterStreamBodyRawRead(const std::shared_ptr<ConnectionInfo>& self,
+                                boost::beast::error_code ec, size_t bytesRead)
+    {
+        buffer.commit(bytesRead);
+        if (!parser)
+        {
+            return;
+        }
+        boost::beast::error_code parseEc{};
+        size_t consumed{parser.value().put(buffer.data(), parseEc)};
+        buffer.consume(consumed);
+        afterStreamBodyRead(self, parseEc.failed() ? parseEc : ec, bytesRead);
+    }
+
+    void afterStreamBodyRead(const std::shared_ptr<ConnectionInfo>& /*self*/,
+                             const boost::beast::error_code& ec,
+                             const std::size_t& bytesTransferred)
+    {
+        if (ec == boost::asio::error::operation_aborted ||
+            ec == boost::system::errc::operation_canceled)
+        {
+            return;
+        }
+        if (!streaming || !parser)
+        {
+            return;
+        }
+        auto& parserRef = *parser;
+        if (ec && ec != boost::asio::error::eof)
+        {
+            BMCWEB_LOG_ERROR("afterStreamBodyRead upstream error: {} {}", ec,
+                             ec.message());
+            // Close write-end without flushing so the client receives a
+            // short EOF it can detect, rather than silently truncated data.
+            auto cb = std::move(streaming->onRelayDone);
+            streaming.reset();
+            if (cb)
+            {
+                cb();
+            }
+            return;
+        }
+        bool hadEof = (ec == boost::asio::error::eof);
+        BMCWEB_LOG_DEBUG(
+            "afterStreamBodyRead bytesTransferred={} done={} eof={}",
+            bytesTransferred, parserRef.is_done(), hadEof);
+        if (!hadEof)
+        {
+            resetChunkStallTimer();
+        }
+        auto chunk = drainParserBodyChunk(parserRef);
+        bool done = parserRef.is_done();
+        if (chunk->empty())
+        {
+            handleEmptyChunk(done, hadEof);
+            return;
+        }
+        writeChunkToPipe(chunk, done, hadEof);
+    }
+
+    void handleEmptyChunk(bool done, bool hadEof)
+    {
+        if (!streaming)
+        {
+            return;
+        }
+        if (done || hadEof)
+        {
+            if (hadEof && !done)
+            {
+                BMCWEB_LOG_ERROR(
+                    "afterStreamBodyRead: remote server closed connection "
+                    "before transfer complete (EOF mid-stream), closing pipe");
+            }
+            auto cb = std::move(streaming->onRelayDone);
+            streaming.reset();
+            if (cb)
+            {
+                cb();
+            }
+        }
+        else
+        {
+            scheduleStreamBodyRead();
+        }
+    }
+
+    void writeChunkToPipe(const std::shared_ptr<std::string>& chunk, bool done,
+                          bool hadEof)
+    {
+        if (!streaming)
+        {
+            BMCWEB_LOG_ERROR("writeChunkToPipe: writePipe not initialised");
+            return;
+        }
+        streaming->byteCount += chunk->size();
+        boost::asio::async_write(
+            streaming->writePipe, boost::asio::buffer(*chunk),
+            std::bind_front(&ConnectionInfo::afterChunkWrite, this,
+                            shared_from_this(), chunk, done, hadEof));
+    }
+
+    void afterChunkWrite(const std::shared_ptr<ConnectionInfo>& /*self*/,
+                         const std::shared_ptr<std::string>& /*chunk*/,
+                         bool done, bool hadEof,
+                         boost::system::error_code writeEc,
+                         size_t /*bytesWritten*/)
+    {
+        if (!streaming)
+        {
+            return;
+        }
+        if (writeEc)
+        {
+            // operation_canceled/operation_aborted means the stall timer
+            // already fired and closed the pipe; don't double-close.
+            if (writeEc == boost::system::errc::operation_canceled ||
+                writeEc == boost::asio::error::operation_aborted)
+            {
+                return;
+            }
+            if (writeEc == boost::system::errc::broken_pipe)
+            {
+                BMCWEB_LOG_ERROR(
+                    "afterChunkWrite: client disconnected mid-download "
+                    "(EPIPE after {} bytes); closing HMC relay",
+                    streaming->byteCount);
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR("afterStreamBodyRead pipe write error: {}",
+                                 writeEc);
+            }
+            auto cb = std::move(streaming->onRelayDone);
+            streaming.reset();
+            if (cb)
+            {
+                cb();
+            }
+            return;
+        }
+        if (done || hadEof)
+        {
+            if (done && streaming->contentLength > 0 &&
+                streaming->byteCount != streaming->contentLength)
+            {
+                BMCWEB_LOG_ERROR(
+                    "afterStreamBodyRead: pipe byte count mismatch: "
+                    "wrote {} bytes, expected {}",
+                    streaming->byteCount, streaming->contentLength);
+            }
+            if (hadEof && !done)
+            {
+                BMCWEB_LOG_ERROR(
+                    "afterStreamBodyRead: upstream disconnected "
+                    "mid-transfer (EOF), closing pipe after flushing "
+                    "last chunk");
+            }
+            auto cb = std::move(streaming->onRelayDone);
+            streaming.reset();
+            if (cb)
+            {
+                cb();
+            }
+        }
+        else
+        {
+            scheduleStreamBodyRead();
+        }
+    }
+
+    static void onChunkStallTimeout(
+        const std::weak_ptr<ConnectionInfo>& weakSelf,
+        const boost::system::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("chunk-stall async_wait failed: {}", ec.message());
+        }
+        std::shared_ptr<ConnectionInfo> self = weakSelf.lock();
+        if (self == nullptr)
+        {
+            return;
+        }
+        if (!self->streaming.has_value())
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR("Streaming stall: 120 s without data from upstream {}",
+                         self->host);
+        auto cb = std::move(self->streaming->onRelayDone);
+        self->streaming.reset();
+        if (cb)
+        {
+            cb();
+        }
+    }
+
+    static void onStreamingDeadlineFired(
+        const std::weak_ptr<ConnectionInfo>& weakSelf,
+        const boost::system::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+        std::shared_ptr<ConnectionInfo> self = weakSelf.lock();
+        if (self == nullptr)
+        {
+            return;
+        }
+        if (!self->streaming.has_value())
+        {
+            return;
+        }
+        BMCWEB_LOG_ERROR(
+            "Streaming deadline ({} min) exceeded for {}, closing pipe",
+            streamingDeadlineDuration.count(), self->host);
+        auto cb = std::move(self->streaming->onRelayDone);
+        self->streaming.reset();
+        if (cb)
+        {
+            cb();
         }
     }
 
@@ -742,6 +1370,15 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         // AsyncResponse shared_ptr to this callback
         conn->callback = nullptr;
 
+        // Body still streaming; sendNext deferred to onRelayDone.
+        if (conn->isBusyStreaming())
+        {
+            BMCWEB_LOG_DEBUG(
+                "sendNext() deferring idle for conn {} - streaming active",
+                connId);
+            return;
+        }
+
         // Reuse the connection to send the next request in the queue
         if (!requestQueue.empty())
         {
@@ -875,6 +1512,13 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
         auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
             ioc, id, connPolicy, destIP, verifyCert, newId));
+
+        ret->onRelayDone = [weakPool = weak_from_this(), newId]() {
+            if (auto pool = weakPool.lock())
+            {
+                pool->sendNext(false, newId);
+            }
+        };
 
         BMCWEB_LOG_DEBUG("Added connection {} to pool {}",
                          connections.size() - 1, id);

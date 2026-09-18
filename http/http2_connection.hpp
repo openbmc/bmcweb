@@ -21,8 +21,10 @@
 #include <unistd.h>
 
 #include <boost/asio/buffer.hpp>
+#include <boost/asio/posix/stream_descriptor.hpp>
 #include <boost/asio/ssl/error.hpp>
 #include <boost/asio/ssl/stream.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/fields.hpp>
@@ -34,6 +36,8 @@
 
 #include <array>
 #include <bit>
+#include <cerrno>
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -43,6 +47,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -59,6 +64,10 @@ struct Http2StreamData
     boost::optional<uint64_t> contentLength;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
+    // 15-min hard cap for fd-backed streaming responses.
+    std::optional<boost::asio::steady_timer> streamAbortTimer;
+    // Armed on EAGAIN; fires resumeData() when pipe data is available.
+    std::optional<boost::asio::posix::stream_descriptor> watchSd;
 };
 
 template <typename Adaptor, typename Handler>
@@ -66,6 +75,15 @@ class HTTP2Connection :
     public std::enable_shared_from_this<HTTP2Connection<Adaptor, Handler>>
 {
     using self_type = HTTP2Connection<Adaptor, Handler>;
+
+    // Matches the default nghttp2 DATA frame budget; a single
+    // flat_static_buffer read fills exactly one frame with the 32 KiB
+    // http_client buffer.
+    static constexpr uint32_t http2MaxFrameSize = 1 << 14;
+    // nghttp2's default 65 KiB connection window stalls after ~four frames
+    // and forces the server to wait for WINDOW_UPDATE ACKs from the client.
+    // A 1 MiB window allows ~64 frames in-flight and sustains ~4 MB/s.
+    static constexpr uint32_t http2InitialWindowSize = 1 << 20;
 
   public:
     HTTP2Connection(
@@ -121,16 +139,15 @@ class HTTP2Connection :
         // Both of these settings were found experimentally to allow a single
         // fast stream to upload at a rate equivalent to http1.1  They will
         // likely be tuned in the future.
-        uint32_t maxFrameSize = 1 << 14;
-        uint32_t windowSize = 1 << 20;
         std::array<nghttp2_settings_entry, 4> iv = {{
             {NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS, maxStreams},
             {NGHTTP2_SETTINGS_ENABLE_PUSH, 0},
             // Set an approximately 1MB window size
-            {NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE, windowSize},
-            {NGHTTP2_SETTINGS_MAX_FRAME_SIZE, maxFrameSize},
+            {NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE, http2InitialWindowSize},
+            {NGHTTP2_SETTINGS_MAX_FRAME_SIZE, http2MaxFrameSize},
         }};
-        if (ngSession.setLocalWindowSize(NGHTTP2_FLAG_NONE, 0, 1 << 20) != 0)
+        if (ngSession.setLocalWindowSize(NGHTTP2_FLAG_NONE, 0,
+                                         http2InitialWindowSize) != 0)
         {
             BMCWEB_LOG_ERROR("Failed to set local window size");
         }
@@ -142,6 +159,50 @@ class HTTP2Connection :
         }
         writeBuffer();
         return 0;
+    }
+
+    // Resumes a DEFERRED stream when the pipe signals more data is available.
+    static bool onDataReady(const std::weak_ptr<self_type>& selfWeak,
+                            int32_t streamId, boost::system::error_code ec)
+    {
+        auto s = selfWeak.lock();
+        if (!s)
+        {
+            return false;
+        }
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            return false;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("body data-ready notifier error: {}", ec);
+            s->ngSession.resumeData(streamId);
+            s->writeBuffer();
+            return false;
+        }
+        s->ngSession.resumeData(streamId);
+        s->writeBuffer();
+        return true;
+    }
+
+    // Completion handler for the pipe-readable wait armed in
+    // fileReadCallback() when the body data source returned EAGAIN.
+    static void onWatchSdWaitComplete(const std::weak_ptr<self_type>& selfWeak,
+                                      int32_t streamId,
+                                      boost::system::error_code waitEc)
+    {
+        auto s = selfWeak.lock();
+        if (!s)
+        {
+            return;
+        }
+        auto it = s->streams.find(streamId);
+        if (it != s->streams.end())
+        {
+            it->second.watchSd.reset();
+        }
+        onDataReady(selfWeak, streamId, waitEc);
     }
 
     static ssize_t fileReadCallback(
@@ -167,7 +228,37 @@ class HTTP2Connection :
             stream.writer->getWithMaxSize(ec, length);
         if (ec)
         {
-            BMCWEB_LOG_CRITICAL("Failed to get buffer");
+            if (ec == boost::system::errc::operation_would_block ||
+                ec == boost::system::errc::resource_unavailable_try_again)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "fileReadCallback: no body data ready, deferring "
+                    "stream {}",
+                    streamId);
+                if (!stream.watchSd)
+                {
+                    int pipeFd =
+                        stream.res.response.body().file().native_handle();
+                    int watchFd = ::dup(pipeFd);
+                    if (watchFd < 0)
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "dup() failed for pipe fd {}: {}", pipeFd,
+                            std::generic_category().message(errno));
+                        return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+                    }
+                    stream.watchSd.emplace(self.adaptor.get_executor(),
+                                           watchFd);
+                    stream.watchSd->async_wait(
+                        boost::asio::posix::stream_descriptor::wait_read,
+                        [selfWeak = self.weak_from_this(),
+                         streamId](boost::system::error_code waitEc) {
+                            onWatchSdWaitComplete(selfWeak, streamId, waitEc);
+                        });
+                }
+                return NGHTTP2_ERR_DEFERRED;
+            }
+            BMCWEB_LOG_CRITICAL("Failed to get buffer: {}", ec);
             return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
         }
         if (!out)
@@ -247,6 +338,24 @@ class HTTP2Connection :
         }
         http::response<bmcweb::HttpBody>& fbody = res.response;
         stream.writer.emplace(fbody.base(), fbody.body());
+
+        // Abort streaming after 15 minutes to resist slow-read attacks.
+        if (fbody.body().file().is_open())
+        {
+            static constexpr std::chrono::minutes streamAbortTimeout{15};
+            stream.streamAbortTimer.emplace(adaptor.get_executor());
+            stream.streamAbortTimer->expires_after(streamAbortTimeout);
+            stream.streamAbortTimer->async_wait(
+                [weakSelf = weak_from_this(),
+                 streamId](boost::system::error_code ec) {
+                    auto self = weakSelf.lock();
+                    if (!self)
+                    {
+                        return;
+                    }
+                    self->onStreamAbortTimer(streamId, ec);
+                });
+        }
 
         nghttp2_data_provider dataPrd{
             .source = {.fd = 0},
@@ -461,10 +570,25 @@ class HTTP2Connection :
             BMCWEB_LOG_CRITICAL("user data was null?");
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
-        if (userPtrToSelf(userData).streams.erase(streamId) <= 0)
+        auto& self = userPtrToSelf(userData);
+        auto it = self.streams.find(streamId);
+        if (it == self.streams.end())
         {
             return -1;
         }
+        // Cancel before erase to prevent resumeData() on a recycled stream
+        // id.
+        if (it->second.watchSd)
+        {
+            it->second.watchSd->cancel();
+            it->second.watchSd.reset();
+        }
+        if (it->second.streamAbortTimer)
+        {
+            it->second.streamAbortTimer->cancel();
+            it->second.streamAbortTimer.reset();
+        }
+        self.streams.erase(it);
         return 0;
     }
 
@@ -601,6 +725,19 @@ class HTTP2Connection :
             return NGHTTP2_ERR_CALLBACK_FAILURE;
         }
         return userPtrToSelf(userData).onBeginHeadersCallback(*frame);
+    }
+
+    void onStreamAbortTimer(int32_t streamId,
+                            const boost::system::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+        BMCWEB_LOG_WARNING(
+            "HTTP/2 stream {} streamAbortTimer fired; RST_STREAM", streamId);
+        ngSession.submitRstStream(streamId, NGHTTP2_CANCEL);
+        writeBuffer();
     }
 
     static void afterWriteBuffer(const std::shared_ptr<self_type>& self,
