@@ -113,7 +113,7 @@ TEST(HttpResponse, HttpBodyWithFd)
     DuplicatableFileHandle temporaryFile("sample text");
     FILE* fd = fopen(temporaryFile.filePath.c_str(), "r+");
     ASSERT_NE(fd, nullptr);
-    res.openFd(fileno(fd));
+    res.openFd(DuplicatableFileHandle(fileno(fd)));
     verifyHeaders(res);
     fclose(fd);
 }
@@ -125,7 +125,8 @@ TEST(HttpResponse, Base64HttpBodyWithFd)
     DuplicatableFileHandle temporaryFile("sample text");
     FILE* fd = fopen(temporaryFile.filePath.c_str(), "r");
     ASSERT_NE(fd, nullptr);
-    res.openFd(fileno(fd), bmcweb::EncodingType::Base64);
+    res.openFd(DuplicatableFileHandle(fileno(fd)),
+               bmcweb::EncodingType::Base64);
     verifyHeaders(res);
     fclose(fd);
 }
@@ -168,7 +169,7 @@ TEST(HttpResponse, Base64HttpBodyWriter)
     DuplicatableFileHandle temporaryFile(data);
     FILE* f = fopen(temporaryFile.filePath.c_str(), "r+");
     ASSERT_NE(f, nullptr);
-    res.openFd(fileno(f), bmcweb::EncodingType::Base64);
+    res.openFd(DuplicatableFileHandle(fileno(f)), bmcweb::EncodingType::Base64);
     EXPECT_EQ(getData(res.response), "c2FtcGxlIHRleHQ=");
     fclose(f);
 }
@@ -184,7 +185,8 @@ TEST(HttpResponse, Base64HttpBodyWriterLarge)
     file.open(temporaryFile.filePath.c_str(), boost::beast::file_mode::read,
               ec);
     EXPECT_EQ(ec.value(), 0);
-    res.openFd(file.native_handle(), bmcweb::EncodingType::Base64);
+    res.openFd(DuplicatableFileHandle(file.native_handle()),
+               bmcweb::EncodingType::Base64);
     EXPECT_EQ(getData(res.response), utility::base64encode(data));
 }
 
@@ -199,7 +201,7 @@ TEST(HttpResponse, HttpBodyWriterLarge)
     file.open(temporaryFile.filePath.c_str(), boost::beast::file_mode::read,
               ec);
     EXPECT_EQ(ec.value(), 0);
-    res.openFd(file.native_handle());
+    res.openFd(DuplicatableFileHandle(file.native_handle()));
     EXPECT_EQ(getData(res.response), data);
 }
 
