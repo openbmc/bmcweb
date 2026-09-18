@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a3a2cee_2e300f06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003010
+      },
+      "writtenOn": "2026-09-18T09:01:01Z",
+      "side": 1,
+      "message": "Cited.\nThe commit message now names DSP0266 1.25.0 section 13.2 for the null-in-responses rule, and NIST SP 800-63B section 3.1.1.2 for the 64 character minimum that replaced the unexplained 40.",
+      "parentUuid": "bb9fc0d7_6a6caa7e",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4949e981_2e0d75bf",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-17T19:17:23Z",
       "side": 1,
       "message": "This needs an overall fix.  We shouldn\u0027t be returning configuration errors on internal changes during the hot path.",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b222ab_31efb2c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003010
+      },
+      "writtenOn": "2026-09-18T09:01:01Z",
+      "side": 1,
+      "message": "I may be misreading which path you mean.\nBoth validators are on the configuration path only -- four call sites, all in handleAggregationSourceCollectionPost and handleAggregationSourcePatch, where a client is submitting these values.\nThe per-request path, prepareAggregationHeaders at redfish_aggregator.hpp, reports no errors at all: it gates the authorization header on !username.empty() \u0026\u0026 !password.empty() and otherwise forwards silently.\n\nIs the concern that this validation should not exist at all, or that a bad stored credential should surface somewhere other than a forwarded request?",
+      "parentUuid": "4949e981_2e0d75bf",
       "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -70,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2a9b5e_c8ea2168",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1003010
+      },
+      "writtenOn": "2026-09-18T09:01:01Z",
+      "side": 1,
+      "message": "I split validateCredentialField into validateUserName and validatePassword.\nvalidateUserName keeps the colon rejection, validatePassword does not.",
+      "parentUuid": "aa735bd9_9e6838d0",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b156be29_1ec41605",
@@ -87,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a6c2123_077826dc",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1003010
+      },
+      "writtenOn": "2026-09-18T09:01:01Z",
+      "side": 1,
+      "message": "I split validateCredentialField into validateUserName and validatePassword.\nPost and Patch handler would call them for UserName and Password.\nEach message now belongs to the rule that emits it.\n\n- StringValueTooShort is gone.\n  Empty is how a source records \"no credentials\": prepareAggregationHeaders only adds the authorization header when both are non-empty.\n- The colon rule kept a message, but PropertyValueFormatError, which uses for a rejected UserName.\n- StringValueTooLong stays, with the property name in arg1 rather than the value.",
+      "parentUuid": "b156be29_1ec41605",
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f464dbb9_4727c0a4",
@@ -100,6 +172,30 @@
       "writtenOn": "2026-09-17T19:17:23Z",
       "side": 1,
       "message": "40 isn\u0027t correct either.  NIST recommends 64.",
+      "range": {
+        "startLine": 251,
+        "startChar": 26,
+        "endLine": 251,
+        "endChar": 28
+      },
+      "revId": "1b31bf007003508e8de8c054f059d6d27ccf9e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83d42943_4e927f07",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1003010
+      },
+      "writtenOn": "2026-09-18T09:01:01Z",
+      "side": 1,
+      "message": "Done -- maxCredentialLength is 64, citing NIST SP 800-63B section 3.1.1.2 (a verifier shall accept secrets of at least 64 characters).",
+      "parentUuid": "f464dbb9_4727c0a4",
       "range": {
         "startLine": 251,
         "startChar": 26,
