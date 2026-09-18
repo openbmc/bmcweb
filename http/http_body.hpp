@@ -17,6 +17,7 @@
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
+#include <boost/beast/http/error.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/none.hpp>
 #include <boost/optional/optional.hpp>
@@ -98,6 +99,9 @@ class HttpBody::value_type
     }
 
   public:
+    // Skips the Content-Length DoS guard for trusted internal streaming.
+    bool streamingReceiver = false;
+
     value_type() = default;
     explicit value_type(std::string_view s) : bodyData(std::string(s)) {}
     explicit value_type(EncodingType e) : encodingType(e) {}
@@ -111,8 +115,8 @@ class HttpBody::value_type
         encodingType(enc), compressionType(comp)
     {}
 
-    value_type(const value_type& other) noexcept = default;
-    value_type& operator=(const value_type& other) noexcept = default;
+    value_type(const value_type& other) = default;
+    value_type& operator=(const value_type& other) = default;
     value_type(value_type&& other) noexcept = default;
     value_type& operator=(value_type&& other) noexcept = default;
 
@@ -124,6 +128,20 @@ class HttpBody::value_type
         }
         static boost::beast::file_posix emptyFile;
         return emptyFile;
+    }
+
+    void setStreamingReceiver(bool enable)
+    {
+        streamingReceiver = enable;
+    }
+
+    // Set file size when fstat cannot determine it (e.g. pipes).
+    void setFileSize(size_t size)
+    {
+        if (auto* fileBody = std::get_if<FileBody>(&bodyData))
+        {
+            fileBody->fileSize = size;
+        }
     }
 
     std::string& str()
@@ -179,6 +197,7 @@ class HttpBody::value_type
     {
         bodyData = std::string{};
         encodingType = EncodingType::Raw;
+        streamingReceiver = false;
     }
 
     void open(const char* path, boost::beast::file_mode mode,
@@ -213,10 +232,10 @@ class HttpBody::value_type
         ec = {};
     }
 
-    void setFd(int fd, boost::system::error_code& ec)
+    void setFd(DuplicatableFileHandle handle, boost::system::error_code& ec)
     {
         FileBody& fileBody = bodyData.emplace<FileBody>();
-        fileBody.fileHandle.fileHandle.native_handle(fd);
+        fileBody.fileHandle = std::move(handle);
 
         boost::system::error_code ec2;
         uint64_t size = fileBody.fileHandle.fileHandle.size(ec2);
@@ -245,6 +264,7 @@ class HttpBody::writer
 
     value_type& body;
     size_t sent = 0;
+    size_t fileBytesRead = 0;
     // 64KB This number is arbitrary, and selected to try to optimize for larger
     // files and fewer loops over per-connection reduction in memory usage.
     // Nginx uses 16-32KB here, so we're in the range of what other webservers
@@ -309,14 +329,23 @@ class HttpBody::writer
         else
         {
             size_t readReq = std::min(fileReadBuf.size(), maxSize);
-            BMCWEB_LOG_INFO("Reading {}", readReq);
+            BMCWEB_LOG_DEBUG("Reading {}", readReq);
             boost::system::error_code readEc;
             size_t read = body.file().read(fileReadBuf.data(), readReq, readEc);
             if (readEc)
             {
-                if (readEc != boost::system::errc::operation_would_block &&
-                    readEc !=
+                if (readEc == boost::system::errc::operation_would_block ||
+                    readEc ==
                         boost::system::errc::resource_unavailable_try_again)
+                {
+                    if (read == 0)
+                    {
+                        ec = readEc;
+                        return boost::none;
+                    }
+                    readEc = {};
+                }
+                else
                 {
                     BMCWEB_LOG_CRITICAL("Failed to read from file {}",
                                         readEc.message());
@@ -326,10 +355,34 @@ class HttpBody::writer
             }
 
             std::string_view chunkView(fileReadBuf.data(), read);
-            BMCWEB_LOG_INFO("Read {} bytes from file", read);
-            // If the number of bytes read equals the amount requested, we
-            // haven't reached EOF yet
-            ret.second = read == readReq;
+            BMCWEB_LOG_DEBUG("Read {} bytes from file", read);
+            fileBytesRead += read;
+            // Detect EOF by byte count; pipes can short-read.
+            const auto* fb = std::get_if<FileBody>(&body.bodyData);
+            if (read == 0 && readReq > 0)
+            {
+                if (fb != nullptr && fb->fileSize &&
+                    fileBytesRead < *fb->fileSize)
+                {
+                    // Upstream closed before delivering the declared
+                    // Content-Length. Fail the response so the client sees a
+                    // truncated transfer rather than a hung 200.
+                    BMCWEB_LOG_ERROR(
+                        "Upstream closed early: got {} of {} bytes, failing response",
+                        fileBytesRead, *fb->fileSize);
+                    ec = boost::beast::http::error::partial_message;
+                    return boost::none;
+                }
+                ret.second = false;
+            }
+            else if (fb != nullptr && fb->fileSize)
+            {
+                ret.second = fileBytesRead < *fb->fileSize;
+            }
+            else
+            {
+                ret.second = read != 0;
+            }
             if (body.encodingType == EncodingType::Base64)
             {
                 buf.clear();
@@ -373,8 +426,8 @@ class HttpBody::writer
             }
             ret.first = *compressed;
         }
-        BMCWEB_LOG_INFO("Returning {} bytes more={}", ret.first.size(),
-                        ret.second);
+        BMCWEB_LOG_DEBUG("Returning {} bytes more={}", ret.first.size(),
+                         ret.second);
         return ret;
     }
 };
@@ -414,7 +467,8 @@ class HttpBody::reader
             ec = {};
         }
 
-        if (contentLength)
+        if (contentLength && !value.file().is_open() &&
+            !value.streamingReceiver)
         {
             constexpr size_t maxReserveSize =
                 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
@@ -428,10 +482,8 @@ class HttpBody::reader
                 return;
             }
 
-            if (!value.file().is_open())
-            {
-                value.str().reserve(static_cast<size_t>(*contentLength));
-            }
+            value.str().reserve(
+                std::min(static_cast<size_t>(*contentLength), maxReserveSize));
         }
         ec = {};
     }
