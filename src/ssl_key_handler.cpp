@@ -167,11 +167,10 @@ static void afterInstallCertificate(const std::filesystem::path& certPath,
         BMCWEB_LOG_ERROR("Replace Certificate Fail..");
         return;
     }
-
     BMCWEB_LOG_INFO("Replace HTTPs Certificate Success, "
                     "remove temporary certificate file..");
     std::error_code ec2;
-    std::filesystem::remove(certPath.c_str(), ec2);
+    std::filesystem::remove(certPath, ec2);
     if (ec2)
     {
         BMCWEB_LOG_ERROR("Failed to remove certificate");
