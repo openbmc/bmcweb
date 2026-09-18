@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "375fe909_35a85762",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-18T10:00:26Z",
+      "side": 1,
+      "message": "Fixed - rewrapped the commit message to 50/72 formatting.",
+      "parentUuid": "879d9955_b328a9c4",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "216ad6df88ff2c78ba2299dfbf90995cce75e565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5fe4039_80ba22ac",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-09-17T19:45:39Z",
       "side": 1,
       "message": "How would the RSV test HTTP2 ?",
+      "revId": "216ad6df88ff2c78ba2299dfbf90995cce75e565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c0db907_9d4ab2f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-18T10:00:26Z",
+      "side": 1,
+      "message": "Good question - it doesn\u0027t. \n\nRSV\u0027s client only speaks HTTP/1.1, so it never exercises onRequestRecv()/afterCompleteRequest() (the HTTP/2 stream-completion path in http2_connection.hpp). I tested that path separately with `curl --http2`, confirmed ALPN negotiated h2 and got a real HTTP/2 200, and verified via journalctl that both \"onRequestRecv streamId:1\" and \"res.completeRequestHandler called\" fired for that stream. \n\nAdded this detail to the commit message.",
+      "parentUuid": "a5fe4039_80ba22ac",
       "revId": "216ad6df88ff2c78ba2299dfbf90995cce75e565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
