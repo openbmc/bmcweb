@@ -37,8 +37,8 @@ inline bool checkSizeLimit(int fd, crow::Response& res)
         return false;
     }
 
-    // Arbitrary max size of 20MB to accommodate BMC dumps
-    constexpr long long int maxFileSize = 20LL * 1024LL * 1024LL;
+    // Arbitrary max size of 2 GB to accommodate BMC dumps
+    constexpr long long int maxFileSize = 2LL * 1024LL * 1024LL * 1024LL;
     if (size > maxFileSize)
     {
         BMCWEB_LOG_ERROR("File size {} exceeds maximum allowed size of {}",
@@ -97,20 +97,18 @@ inline void downloadEntryCallback(
     }
     if (downloadEntryType == "System")
     {
-        if (!asyncResp->res.openFd(fd))
+        if (!asyncResp->res.openFd(DuplicatableFileHandle(fd)))
         {
             messages::internalError(asyncResp->res);
-            close(fd);
             return;
         }
         asyncResp->res.addHeader(boost::beast::http::field::content_type,
                                  "application/json");
         return;
     }
-    if (!asyncResp->res.openFd(fd))
+    if (!asyncResp->res.openFd(DuplicatableFileHandle(fd)))
     {
         messages::internalError(asyncResp->res);
-        close(fd);
         return;
     }
     asyncResp->res.addHeader(boost::beast::http::field::content_type,
