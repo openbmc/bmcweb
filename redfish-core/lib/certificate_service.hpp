@@ -505,10 +505,17 @@ inline void handleCertificateLocationsGet(
                        "/Links/Certificates@odata.count"_json_pointer);
 }
 
-inline void handleError(const std::string_view dbusErrorName,
-                        const std::string& id, const std::string& certificate,
+inline void handleError(const sd_bus_error* dbusError, const std::string& id,
+                        const std::string& certificate,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if ((dbusError == nullptr) || (dbusError->name == nullptr))
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const std::string_view dbusErrorName(dbusError->name);
     if (dbusErrorName == "org.freedesktop.DBus.Error.UnknownObject")
     {
         messages::resourceNotFound(asyncResp->res, "Certificate", id);
@@ -518,6 +525,10 @@ inline void handleError(const std::string_view dbusErrorName,
     {
         messages::propertyValueIncorrect(asyncResp->res, "Certificate",
                                          certificate);
+    }
+    else if (dbusErrorName == "xyz.openbmc_project.Common.Error.QuotaExceeded")
+    {
+        messages::createLimitReachedForResource(asyncResp->res);
     }
     else
     {
@@ -617,15 +628,7 @@ inline void handleReplaceCertificateAction(
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-                const sd_bus_error* dbusError = m.get_error();
-                if ((dbusError != nullptr) && (dbusError->name != nullptr))
-                {
-                    handleError(dbusError->name, id, certificate, asyncResp);
-                }
-                else
-                {
-                    messages::internalError(asyncResp->res);
-                }
+                handleError(m.get_error(), id, certificate, asyncResp);
                 return;
             }
             getCertificateProperties(asyncResp, objectPath, service, id, url,
@@ -1008,12 +1011,13 @@ inline void handleHTTPSCertificateCollectionPost(
     dbus::utility::async_method_call(
         asyncResp,
         // ast-grep-ignore: long-lambda
-        [asyncResp, certFile, certHttpBody](const boost::system::error_code& ec,
-                                            const std::string& objectPath) {
+        [asyncResp, certFile,
+         certHttpBody](const boost::system::error_code& ec,
+                       sdbusplus::message_t& m, const std::string& objectPath) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-                handleError(ec.message(), "", certHttpBody, asyncResp);
+                handleError(m.get_error(), "", certHttpBody, asyncResp);
                 return;
             }
 
@@ -1125,12 +1129,13 @@ inline void handleLDAPCertificateCollectionPost(
     dbus::utility::async_method_call(
         asyncResp,
         // ast-grep-ignore: long-lambda
-        [asyncResp, certFile, certHttpBody](const boost::system::error_code& ec,
-                                            const std::string& objectPath) {
+        [asyncResp, certFile,
+         certHttpBody](const boost::system::error_code& ec,
+                       sdbusplus::message_t& m, const std::string& objectPath) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-                handleError(ec.message(), "", certHttpBody, asyncResp);
+                handleError(m.get_error(), "", certHttpBody, asyncResp);
                 return;
             }
 
@@ -1263,12 +1268,13 @@ inline void handleTrustStoreCertificateCollectionPost(
     dbus::utility::async_method_call(
         asyncResp,
         // ast-grep-ignore: long-lambda
-        [asyncResp, certFile, certHttpBody](const boost::system::error_code& ec,
-                                            const std::string& objectPath) {
+        [asyncResp, certFile,
+         certHttpBody](const boost::system::error_code& ec,
+                       sdbusplus::message_t& m, const std::string& objectPath) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-                handleError(ec.message(), "", certHttpBody, asyncResp);
+                handleError(m.get_error(), "", certHttpBody, asyncResp);
                 return;
             }
 
