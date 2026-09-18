@@ -16,6 +16,24 @@
       "message": "I don\u0027t think this changes the permission for any of these.. So I don\u0027t think we have to worry about a breaking change.. Just getting these correct.",
       "revId": "efb9bdb90e623889c9ab09ae075d07c4251bf62c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fdf1dc9_efb1a5d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003010
+      },
+      "writtenOn": "2026-09-18T03:41:00Z",
+      "side": 1,
+      "message": "Right — each pair resolves to the same privilege set today, so nothing client-visible changes; this is correctness only.\nDetails per pair are in the commit message.",
+      "parentUuid": "9ef29e6f_c528b2cf",
+      "revId": "efb9bdb90e623889c9ab09ae075d07c4251bf62c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
