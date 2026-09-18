@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3beeb8fe_4306b337",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-18T20:06:51Z",
+      "side": 1,
+      "message": "Should limit to 50 characters for subject line and around 72 for the body. https://cbea.ms/git-commit/",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 2
+      },
+      "revId": "b3d8be6b6f203a0cbc5145e70f4e36abde1c0ac8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
