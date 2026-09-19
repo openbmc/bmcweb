@@ -1,0 +1,11 @@
+Code-Review+1: Janet Adkins <janeta@us.ibm.com>
+Code-Review+1: Joel Pullokaran Jesin <joelpj@ami.com>
+Code-Review+1: Vinothkumar Shanmugavel <vinothkumars@ami.com>
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Yuvakumar Selvamani <yuvakumars@ami.com>
+Submitted-at: Sat, 19 Sep 2026 14:49:16 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/94330
+Comments-Total: 5
+Project: openbmc/bmcweb
+Branch: refs/heads/master
