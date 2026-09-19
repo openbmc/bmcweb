@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84117cc1_a25c57dc",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-19T01:01:06Z",
+      "side": 1,
+      "message": "Can you write some tests for this ?\n\ntest/redfish-core/include/utils/name_utils_test.cpp\n\n```\n#include \"utils/name_utils.hpp\"\n\n#include \"async_resp.hpp\"\n#include \"dbus_utility.hpp\"\n\n#include \u003cboost/system/errc.hpp\u003e\n#include \u003cboost/system/error_code.hpp\u003e\n\n#include \u003cmemory\u003e\n\n#include \u003cgtest/gtest.h\u003e\n\nnamespace redfish::name_utils\n{\nnamespace\n{\n\nTEST(NameUtils, PrettyNameOverridesDefault)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n    asyncResp-\u003eres.jsonValue[\"Name\"] \u003d \"Default Name\";\n\n    boost::system::error_code ec;\n    afterGetPrettyName(asyncResp, \"\"_json_pointer, ec, \"Pretty Name\");\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Name\"], \"Pretty Name\");\n}\n\nTEST(NameUtils, EmptyPrettyNamePreservesDefault)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n    asyncResp-\u003eres.jsonValue[\"Name\"] \u003d \"Default Name\";\n\n    boost::system::error_code ec;\n    afterGetPrettyName(asyncResp, \"\"_json_pointer, ec, \"\");\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Name\"], \"Default Name\");\n}\n\nTEST(NameUtils, ErrorPreservesDefault)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n    asyncResp-\u003eres.jsonValue[\"Name\"] \u003d \"Default Name\";\n\n    boost::system::error_code ec \u003d\n        boost::system::errc::make_error_code(boost::system::errc::io_error);\n\n    afterGetPrettyName(asyncResp, \"\"_json_pointer, ec, \"Pretty Name\");\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Name\"], \"Default Name\");\n}\n\nTEST(NameUtils, PrettyNameUsesJsonPointer)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n    asyncResp-\u003eres.jsonValue[\"Nested\"][\"Name\"] \u003d \"Default Name\";\n\n    boost::system::error_code ec;\n    afterGetPrettyName(asyncResp, \"/Nested\"_json_pointer, ec, \"Pretty Name\");\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Nested\"][\"Name\"], \"Pretty Name\");\n}\n\nTEST(NameUtils, MissingInventoryItemUsesDefault)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n    dbus::utility::MapperServiceMap services;\n\n    getPrettyName(asyncResp, services, \"/xyz/openbmc_project/inventory/test\",\n                  \"Default Name\");\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Name\"], \"Default Name\");\n}\n\n} // namespace\n} // namespace redfish::name_utils\n```",
+      "revId": "92237ce9ad4d0b14c18e25846d9e1ac957f5b808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a378fa6_df71b457",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-19T01:01:06Z",
+      "side": 1,
+      "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "92237ce9ad4d0b14c18e25846d9e1ac957f5b808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
