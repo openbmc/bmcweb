@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27eda7c7_6cab450c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-19T00:31:52Z",
+      "side": 1,
+      "message": "isn\u0027t systemName the new way to do this, to support multi computer system ?",
+      "range": {
+        "startLine": 878,
+        "startChar": 29,
+        "endLine": 878,
+        "endChar": 58
+      },
+      "revId": "b15b9d5bb2d00774a91a5f4a597cb2561c791fd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
