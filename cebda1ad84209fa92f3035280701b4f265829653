@@ -167,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ade34b6_752a7e6c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2162,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-19T14:54:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9882e72c_20355235",
+      "range": {
+        "startLine": 2162,
+        "startChar": 4,
+        "endLine": 2162,
+        "endChar": 27
+      },
+      "revId": "cebda1ad84209fa92f3035280701b4f265829653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d150579_66661131",
@@ -180,6 +204,30 @@
       "writtenOn": "2026-09-17T17:28:23Z",
       "side": 1,
       "message": "error or dbusError https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+sd_bus_error\u0026type\u003dcode",
+      "range": {
+        "startLine": 2166,
+        "startChar": 28,
+        "endLine": 2166,
+        "endChar": 29
+      },
+      "revId": "cebda1ad84209fa92f3035280701b4f265829653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93bd7cd8_b030cc69",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-19T14:54:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d150579_66661131",
       "range": {
         "startLine": 2166,
         "startChar": 28,
@@ -213,6 +261,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c51ada7_5ff3134f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2174,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-19T14:54:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd81d50a_ae7f291e",
+      "range": {
+        "startLine": 2174,
+        "startChar": 31,
+        "endLine": 2174,
+        "endChar": 34
+      },
+      "revId": "cebda1ad84209fa92f3035280701b4f265829653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6bd136e_43744c3c",
@@ -226,6 +298,30 @@
       "writtenOn": "2026-09-17T17:28:23Z",
       "side": 1,
       "message": "Ideally msg here or even message \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+sdbusplus%3A%3Amessage_t\u0026type\u003dcode",
+      "range": {
+        "startLine": 2219,
+        "startChar": 30,
+        "endLine": 2219,
+        "endChar": 53
+      },
+      "revId": "cebda1ad84209fa92f3035280701b4f265829653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63d3be3f_4612b8ab",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2219,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-19T14:54:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6bd136e_43744c3c",
       "range": {
         "startLine": 2219,
         "startChar": 30,
