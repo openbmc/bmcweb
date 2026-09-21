@@ -30,6 +30,11 @@
 static constexpr std::array<std::string_view, 1> switchInterfaces = {
     "xyz.openbmc_project.Inventory.Item.PCIeSwitch"};
 
+static constexpr std::array<std::string_view, 3> switchPathInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.PCIeSwitch",
+    "xyz.openbmc_project.State.Decorator.OperationalStatus",
+    "xyz.openbmc_project.State.Decorator.PowerState"};
+
 namespace redfish
 {
 
@@ -88,41 +93,50 @@ inline void afterGetSwitchPowerState(
     asyncResp->res.jsonValue["PowerState"] = *rfState;
 }
 
-inline void afterGetSwitchPowerStateService(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& switchPath, const boost::system::error_code& ec,
-    const dbus::utility::MapperGetObject& obj)
+inline bool serviceMapHasInterface(
+    const dbus::utility::MapperServiceMap& serviceMap,
+    std::string_view interface)
 {
-    if (ec)
+    for (const auto& serviceEntry : serviceMap)
     {
-        if (ec.value() == EBADR || ec.value() == boost::system::errc::io_error)
+        const auto& interfaces = serviceEntry.second;
+        for (const std::string& serviceInterface : interfaces)
         {
-            // Not mandatory features thus is okay to skip
-            BMCWEB_LOG_DEBUG("PowerState interface absent on {}", switchPath);
-            return;
+            if (serviceInterface == interface)
+            {
+                return true;
+            }
         }
-        BMCWEB_LOG_ERROR("Mapper GetObject error for {}: {}", switchPath,
-                         ec.message());
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    if (obj.empty())
-    {
-        BMCWEB_LOG_DEBUG("No service implements PowerState on {}", switchPath);
-        return;
     }
 
-    const std::string& service = obj.begin()->first;
-    dbus::utility::getProperty<std::string>(
-        service, switchPath, "xyz.openbmc_project.State.Decorator.PowerState",
-        "PowerState",
-        std::bind_front(afterGetSwitchPowerState, asyncResp, switchPath));
+    return false;
+}
+
+inline std::optional<std::string> getPowerStateService(
+    const dbus::utility::MapperServiceMap& serviceMap)
+{
+    constexpr std::string_view powerStateInterface =
+        "xyz.openbmc_project.State.Decorator.PowerState";
+
+    for (const auto& [serviceName, interfaces] : serviceMap)
+    {
+        for (const std::string& serviceInterface : interfaces)
+        {
+            if (serviceInterface == powerStateInterface)
+            {
+                return serviceName;
+            }
+        }
+    }
+
+    return std::nullopt;
 }
 
 inline void handleFabricSwitchPathSwitchGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
-    const std::string& switchPath, const std::string& switchService)
+    const std::string& switchPath,
+    const dbus::utility::MapperServiceMap& serviceMap)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#Switch.v1_7_0.Switch";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
@@ -137,22 +151,29 @@ inline void handleFabricSwitchPathSwitchGet(
     asyncResp->res.jsonValue["Ports"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Fabrics/{}/Switches/{}/Ports", fabricId, switchId);
 
-    constexpr std::array<std::string_view, 1> powerStateInterface = {
-        "xyz.openbmc_project.State.Decorator.PowerState"};
-    dbus::utility::getDbusObject(
-        switchPath, powerStateInterface,
-        std::bind_front(afterGetSwitchPowerStateService, asyncResp,
-                        switchPath));
-
-    resource_utils::getResourceHealth(asyncResp, switchService, switchPath,
+    resource_utils::getResourceHealth(asyncResp, serviceMap, switchPath,
                                       ""_json_pointer);
+
+    const std::optional<std::string> powerStateService =
+        getPowerStateService(serviceMap);
+    if (!powerStateService)
+    {
+        BMCWEB_LOG_DEBUG("PowerState interface absent on {}", switchPath);
+        return;
+    }
+
+    dbus::utility::getProperty<std::string>(
+        *powerStateService, switchPath,
+        "xyz.openbmc_project.State.Decorator.PowerState", "PowerState",
+        std::bind_front(afterGetSwitchPowerState, asyncResp, switchPath));
 }
 
 inline void handleFabricSwitchPaths(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& switchId,
-    const std::function<void(const std::string& switchPath,
-                             const std::string& switchService)>& callback,
+    const std::function<
+        void(const std::string& switchPath,
+             const dbus::utility::MapperServiceMap& serviceMap)>& callback,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& object)
 {
@@ -171,14 +192,19 @@ inline void handleFabricSwitchPaths(
     }
 
     std::string switchPath;
-    std::string switchService;
+    const dbus::utility::MapperServiceMap* matchedServiceMap = nullptr;
 
     for (const auto& [path, serviceMap] : object)
     {
         std::string switchName = sdbusplus::object_path(path).filename();
         if (switchName == switchId)
         {
-            if (!switchPath.empty())
+            if (!serviceMapHasInterface(serviceMap, switchInterfaces[0]))
+            {
+                continue;
+            }
+
+            if (matchedServiceMap != nullptr)
             {
                 BMCWEB_LOG_ERROR("Multiple Switch resources found for {}",
                                  switchId);
@@ -187,13 +213,13 @@ inline void handleFabricSwitchPaths(
             }
 
             switchPath = path;
-            switchService = serviceMap.begin()->first;
+            matchedServiceMap = &serviceMap;
         }
     }
 
-    if (!switchPath.empty())
+    if (matchedServiceMap != nullptr)
     {
-        callback(switchPath, switchService);
+        callback(switchPath, *matchedServiceMap);
         return;
     }
 
@@ -204,7 +230,8 @@ inline void getFabricSwitchPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
     std::function<void(const std::string& switchPath,
-                       const std::string& switchService)>&& callback)
+                       const dbus::utility::MapperServiceMap& serviceMap)>&&
+        callback)
 {
     if (fabricId != BMCWEB_REDFISH_FABRIC_URI_NAME)
     {
@@ -213,7 +240,7 @@ inline void getFabricSwitchPath(
     }
 
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, switchInterfaces,
+        "/xyz/openbmc_project/inventory", 0, switchPathInterfaces,
         std::bind_front(handleFabricSwitchPaths, asyncResp, switchId,
                         std::move(callback)));
 }
