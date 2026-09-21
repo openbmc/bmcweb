@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "41716907_9e79b668",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-21T17:08:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c436197a_4c2a4c3b",
+      "range": {
+        "startLine": 21,
+        "startChar": 144,
+        "endLine": 21,
+        "endChar": 161
+      },
+      "revId": "978d45ac7134028d60d9ac5fe33fea66daa40103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "054a7e01_d0335576",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -37,6 +61,24 @@
       "writtenOn": "2026-09-10T21:18:31Z",
       "side": 1,
       "message": "IBM is interested in getting a security auditing solution into OpenBMC.\n\nThe PAM library contains linux audit entry points which will audit user authentication and related events.\n\nMore interesting to IBM is to be able to audit the POST, PATCH, and DELETE events coming through bmcweb. The scaling of configuring for those events using this mechanism is not clear to me.",
+      "revId": "978d45ac7134028d60d9ac5fe33fea66daa40103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51049776_eda0225c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-21T17:08:28Z",
+      "side": 1,
+      "message": "Sorry, didn\u0027t notice that comment but looks like I\u0027ve answered on https://gerrit.openbmc.org/c/openbmc/phosphor-logging/+/76959/comment/91c30558_74a36ef3/\n\nI\u0027ve same thoughts about those events which represents specific paths. Any ideas on that point would be good. Maybe the key should be as path + action, where path as example `AccountService/Accounts`, and the action is - `PATCH`. Something like:\n`[path, action] \u003d pathActionId`",
+      "parentUuid": "054a7e01_d0335576",
       "revId": "978d45ac7134028d60d9ac5fe33fea66daa40103",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +96,30 @@
       "writtenOn": "2026-09-10T21:18:31Z",
       "side": 1,
       "message": "bmcweb caches the ipAddresses as strings. Since the trace is going to convert this structure back into a string it would be nice to have an interface that took the ipAddress as a string to avoid the double conversion.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "978d45ac7134028d60d9ac5fe33fea66daa40103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "450429ce_df228b6a",
+        "filename": "redfish-core/lib/audit.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-09-21T17:08:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3b893709_96e05a64",
       "range": {
         "startLine": 26,
         "startChar": 4,
