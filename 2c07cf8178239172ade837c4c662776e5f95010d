@@ -16,6 +16,24 @@
       "message": "Please add tested part.",
       "revId": "2c07cf8178239172ade837c4c662776e5f95010d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d051ddd_0f4f059c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-21T09:18:28Z",
+      "side": 1,
+      "message": "in commit message",
+      "parentUuid": "902c17b3_85d688d4",
+      "revId": "2c07cf8178239172ade837c4c662776e5f95010d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
