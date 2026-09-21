@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c41b3329_e39bfc1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-21T13:03:24Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz Now the commit is focused solely on enum conversion, with no other changes included.",
+      "parentUuid": "8f120cd2_408e87d2",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "639dc103_52e981dc",
@@ -71,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6eb9fd1_37b9d4f3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2447,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-21T13:03:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9e2a796b_fafda847",
+      "range": {
+        "startLine": 2447,
+        "startChar": 8,
+        "endLine": 2447,
+        "endChar": 55
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f23c3848_d37954d5",
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a0c3bfb_b0546446",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2463,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-21T13:03:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f23c3848_d37954d5",
+      "range": {
+        "startLine": 2460,
+        "startChar": 4,
+        "endLine": 2463,
+        "endChar": 0
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cabbc362_e9ef13c1",
@@ -107,6 +179,30 @@
       "writtenOn": "2026-08-20T06:56:03Z",
       "side": 1,
       "message": "This is a behaviour changes instead of refactoring.\nThe legacy approach will eventually enter triggers `messages::internalError()` if the `expireAction` is empty.\n\nHowever, putting this on the guard make the logic simply ignores the empty case and return silently.\n\nNot sure if this behaviour is what we wanted?",
+      "range": {
+        "startLine": 2475,
+        "startChar": 35,
+        "endLine": 2475,
+        "endChar": 57
+      },
+      "revId": "1531c2a869bd41f62671342594f997016728dd3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e87442e9_8aa7ae04",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2475,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-09-21T13:03:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cabbc362_e9ef13c1",
       "range": {
         "startLine": 2475,
         "startChar": 35,
