@@ -22,6 +22,30 @@
       },
       "revId": "e67963b30ae128dd49c9d2e16e2bdcb47485ba9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fa7e66e_de56fbf6",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-21T16:31:55Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. In that case I don\u0027t see a reliable way to deduplicate this. Will abandon.",
+      "parentUuid": "eeacf7f7_c18d30da",
+      "range": {
+        "startLine": 493,
+        "startChar": 33,
+        "endLine": 493,
+        "endChar": 39
+      },
+      "revId": "e67963b30ae128dd49c9d2e16e2bdcb47485ba9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
