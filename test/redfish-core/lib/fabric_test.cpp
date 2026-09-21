@@ -115,47 +115,47 @@ TEST(AfterGetSwitchPowerState, MappedValuesSetPowerState)
     }
 }
 
-TEST(AfterGetSwitchPowerStateService, EbadrOmitsPowerState)
+TEST(AfterGetSwitchPowerState, EbadrOmitsPowerState)
 {
     auto response = std::make_shared<bmcweb::AsyncResp>();
     boost::system::error_code ec =
         boost::system::linux_error::bad_request_descriptor;
 
-    afterGetSwitchPowerStateService(response, switchPath, ec, {});
+    afterGetSwitchPowerState(response, switchPath, ec, {});
 
     EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
     EXPECT_FALSE(response->res.jsonValue.contains("PowerState"));
 }
 
-TEST(AfterGetSwitchPowerStateService, IoErrorOmitsPowerState)
+TEST(AfterGetSwitchPowerState, IoErrorOmitsPowerState)
 {
     auto response = std::make_shared<bmcweb::AsyncResp>();
     boost::system::error_code ec =
         boost::system::errc::make_error_code(boost::system::errc::io_error);
 
-    afterGetSwitchPowerStateService(response, switchPath, ec, {});
+    afterGetSwitchPowerState(response, switchPath, ec, {});
 
     EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
     EXPECT_FALSE(response->res.jsonValue.contains("PowerState"));
 }
 
-TEST(AfterGetSwitchPowerStateService, ErrorSetsInternalError)
+TEST(AfterGetSwitchPowerState, ErrorSetsInternalError)
 {
     auto response = std::make_shared<bmcweb::AsyncResp>();
     boost::system::error_code ec = boost::asio::error::invalid_argument;
 
-    afterGetSwitchPowerStateService(response, switchPath, ec, {});
+    afterGetSwitchPowerState(response, switchPath, ec, {});
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
 }
 
-TEST(AfterGetSwitchPowerStateService, EmptyObjectOmitsPowerState)
+TEST(AfterGetSwitchPowerState, EmptyObjectOmitsPowerState)
 {
     auto response = std::make_shared<bmcweb::AsyncResp>();
     boost::system::error_code ec;
 
-    afterGetSwitchPowerStateService(response, switchPath, ec, {});
+    afterGetSwitchPowerState(response, switchPath, ec, {});
 
     EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
     EXPECT_FALSE(response->res.jsonValue.contains("PowerState"));
