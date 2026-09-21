@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fec478d_c790e054",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T16:21:16Z",
+      "side": 1,
+      "message": "Coverage looks good. I just have a couple of questions on the validation methods in the tests.",
+      "revId": "bd649e50c864a8930cefe75ce4d162dcd601dc63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec5c8436_593819ba",
+        "filename": "test/redfish-core/lib/led_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T16:21:16Z",
+      "side": 1,
+      "message": "Checking for FALSE here seems strange, should it be a success ec instead? (Similar comment in other tests below.)",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 16
+      },
+      "revId": "bd649e50c864a8930cefe75ce4d162dcd601dc63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54b76a1e_4671dded",
+        "filename": "test/redfish-core/lib/led_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T16:21:16Z",
+      "side": 1,
+      "message": "I\u0027m wondering if the expected error can be generated instead of hard-coded here. As the Base message version gets updated this testcase will have to be updated. But if it is being generated that would not be necessary.\n\n(Similar comment for other expected errors.)",
+      "range": {
+        "startLine": 410,
+        "startChar": 39,
+        "endLine": 428,
+        "endChar": 14
+      },
+      "revId": "bd649e50c864a8930cefe75ce4d162dcd601dc63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
