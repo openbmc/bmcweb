@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "678fdea8_46e5afc8",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-21T16:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbb1fa3f_1223f771",
+      "revId": "5b305760be146e6eb85983b0b5402d5d5b9ec008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d52f6ed_c52e2b4f",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-14T20:13:13Z",
       "side": 1,
       "message": "Should Failed set the Redfish task state to Exception ?\n\n    taskData-\u003estate \u003d \"Exception\";\n\nhttps://github.com/openbmc/bmcweb/blob/4b6220f877c92cd0ee7106754ec1afc81e39ad33/redfish-core/lib/update_service.hpp#L187",
+      "revId": "5b305760be146e6eb85983b0b5402d5d5b9ec008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16569720_7ebf83f2",
+        "filename": "redfish-core/include/utils/dump_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-21T16:30:33Z",
+      "side": 1,
+      "message": "Yes, this aligns better with the spec. Did the same in L632. Done",
+      "parentUuid": "9d52f6ed_c52e2b4f",
       "revId": "5b305760be146e6eb85983b0b5402d5d5b9ec008",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
