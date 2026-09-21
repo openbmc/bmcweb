@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c69ee9c_6bed3ec1",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-21T16:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19d83fbc_64decf93",
+      "revId": "de7803c1df79c5b3646e21f506850879d5ed01a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "796d9cfa_2dad95fa",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b870b674_eef18ca0",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-21T16:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "796d9cfa_2dad95fa",
+      "revId": "de7803c1df79c5b3646e21f506850879d5ed01a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da539f6e_079630bc",
@@ -65,6 +101,24 @@
       "writtenOn": "2026-09-14T19:30:33Z",
       "side": 1,
       "message": "Same here, could do the invalid check \n    EXPECT_FALSE(dumpTypeToObjPath(static_cast\u003cDumpType\u003e(99)));",
+      "revId": "de7803c1df79c5b3646e21f506850879d5ed01a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a3cfd0b_f78d6343",
+        "filename": "test/redfish-core/include/utils/dump_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-21T16:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da539f6e_079630bc",
       "revId": "de7803c1df79c5b3646e21f506850879d5ed01a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
