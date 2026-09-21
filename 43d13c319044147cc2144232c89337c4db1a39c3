@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c82576_a954dbfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T18:20:09Z",
+      "side": 1,
+      "message": "I also see ledObjectPath and ledState in InventoryItem, but I don\u0027t see these being tested.",
+      "range": {
+        "startLine": 10,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 57
+      },
+      "revId": "43d13c319044147cc2144232c89337c4db1a39c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59d8acb1_def2a640",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T18:20:09Z",
+      "side": 1,
+      "message": "Why use char* instead of std::string?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "43d13c319044147cc2144232c89337c4db1a39c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66fc67b9_845c6e5d",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T18:20:09Z",
+      "side": 1,
+      "message": "The InventoryItem constructor doesn\u0027t have default values for these. It takes what was passed in. For clarity I think either this function should be renamed or the validation of the name fields should be separated out.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "43d13c319044147cc2144232c89337c4db1a39c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5e2d426_cecf8248",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T18:20:09Z",
+      "side": 1,
+      "message": "These are valid tests. However, I\u0027m wondering how useful it is to test this. Since those values are coming from DBus and the PDI defines the field as a boolean could it ever be a non-boolean in practice?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 1
+      },
+      "revId": "43d13c319044147cc2144232c89337c4db1a39c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37b7b775_f4b9e43a",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T18:20:09Z",
+      "side": 1,
+      "message": "Similar as comment above, since PDI controls the types of these fields coming from DBus is this test worth including? In practice will it ever catch a real problem in the bmcweb code?",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 1
+      },
+      "revId": "43d13c319044147cc2144232c89337c4db1a39c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae22fc5f_488be308",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T18:20:09Z",
+      "side": 1,
+      "message": "Similar as comments above, since PDI controls the types of these fields coming from DBus is this test worth including? In practice will it ever catch a real problem in the bmcweb code?",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 1
+      },
+      "revId": "43d13c319044147cc2144232c89337c4db1a39c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
