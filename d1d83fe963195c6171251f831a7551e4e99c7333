@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb28f28b_bc00500a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-21T07:23:48Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz Can you please review, already got +2 from you. Just rebased.",
+      "revId": "d1d83fe963195c6171251f831a7551e4e99c7333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
