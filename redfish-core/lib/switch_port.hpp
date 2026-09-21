@@ -421,7 +421,8 @@ inline void handleFabricSwitchPathPortCollection(
 inline void getFabricSwitchPortPaths(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
-    const std::string& switchPath, const std::string& /*switchService*/)
+    const std::string& switchPath,
+    const dbus::utility::MapperServiceMap& /*serviceMap*/)
 {
     std::string associationPath = switchPath + "/connecting";
     dbus::utility::getAssociatedSubTreePaths(
@@ -481,7 +482,7 @@ inline void handleFabricSwitchPortMetricsGet(
         asyncResp, fabricId, switchId,
         [asyncResp, fabricId, switchId,
          portId](const std::string& switchPath,
-                 const std::string& /*switchService*/) {
+                 const dbus::utility::MapperServiceMap& /*serviceMap*/) {
             getAssociatedPortPath(
                 asyncResp, portId,
                 std::bind_front(handleFabricSwitchPortPathPortMetricsGet,
@@ -505,7 +506,7 @@ inline void handleFabricSwitchPortGet(
         asyncResp, fabricId, switchId,
         [asyncResp, fabricId, switchId,
          portId](const std::string& switchPath,
-                 const std::string& /*switchService*/) {
+                 const dbus::utility::MapperServiceMap& /*serviceMap*/) {
             getAssociatedPortPath(
                 asyncResp, portId,
                 std::bind_front(handleFabricSwitchPortPathPortGet, asyncResp,
