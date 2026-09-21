@@ -490,6 +490,7 @@ Fields common to all schemas
 - Manufacturer
 - Model
 - PartNumber
+- PowerCapacityWatts
 - SerialNumber
 - SparePartNumber
 - Status
