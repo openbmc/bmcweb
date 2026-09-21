@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7428e820_b97ab445",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-21T12:18:43Z",
+      "side": 1,
+      "message": "Not breaking!\n\nstorage.hpp already builds the parent Storage resource\u0027s Controllers link with the real, dynamic storageId — this route was the only place still hardcoded to 1. Any other storageId already 404\u0027d before this fix; nothing else needs to change. \n\nThis is also called out in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92605\u0027s commit message, where 2 RSV fails were attributed to this same Controllers-link bug and noted as fixed separately here. \n\nVerified on AST2600 SoC: Storage/1, Storage/Storage0, and Storage/2 Controllers all now return HTTP 200 with the correct @odata.id.",
+      "parentUuid": "aec5fc57_4c6fe7f8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "53f04e072a11528fe71f64af51647a064ab9004c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef4c6637_760081b7",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-09-17T10:40:21Z",
       "side": 1,
       "message": "Please attach more details,\nhttps://github.com/openbmc/bmcweb/blob/master/docs/TESTING.md",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "53f04e072a11528fe71f64af51647a064ab9004c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70f1b15b_3fda53e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-21T12:18:43Z",
+      "side": 1,
+      "message": "Updated the commit message with concrete test evidence: exact GET URIs tested, expected vs. actual HTTP status, and the actual @odata.id returned for three storageId values (the old literal 1, plus two previously-404 cases), verified on AST2600 SoC platform. Also added a fresh Redfish Service Validator run: 5830 Pass / 353 Warn / 0 Fail / 4901 Not Tested.",
+      "parentUuid": "ef4c6637_760081b7",
       "range": {
         "startLine": 24,
         "startChar": 0,
