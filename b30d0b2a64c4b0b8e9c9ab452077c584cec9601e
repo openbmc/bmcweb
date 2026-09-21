@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "449c9ac9_d7331ffd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-21T15:50:08Z",
+      "side": 1,
+      "message": "I\u0027m confused about the testcase failure. This test was failing without this change? I\u0027m surprised CI wasn\u0027t reporting problems as the test looks like it already existed?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "b30d0b2a64c4b0b8e9c9ab452077c584cec9601e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
