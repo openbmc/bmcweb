@@ -16,6 +16,23 @@
       "message": "@gunnar@gmills.xyz \ncan you please review",
       "revId": "90c8fd7d8111f7104e5bbef93af406fca6782116",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18bc661a_e4dcf6d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-22T12:51:11Z",
+      "side": 1,
+      "message": "Please add utility header.",
+      "revId": "90c8fd7d8111f7104e5bbef93af406fca6782116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
