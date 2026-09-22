@@ -12,6 +12,7 @@
 #include <nlohmann/json.hpp>
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -55,51 +56,88 @@ TEST(Systems, DbusToRfBootMode)
               computer_system::BootSource::Invalid);
 }
 
+TEST(Systems, DbusToRfBootSource)
+{
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Default"),
+              "None");
+
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Disk"),
+              "Hdd");
+
+    EXPECT_EQ(
+        dbusToRfBootSource(
+            "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia"),
+        "Cd");
+
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Network"),
+              "Pxe");
+
+    EXPECT_EQ(
+        dbusToRfBootSource(
+            "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia"),
+        "Usb");
+
+    EXPECT_EQ(dbusToRfBootSource("invalid"), "");
+}
+
 TEST(Systems, DbusToRfBootProgress)
 {
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.Unspecified"),
         computer_system::BootProgressTypes::None);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PrimaryProcInit"),
         computer_system::BootProgressTypes::
             PrimaryProcessorInitializationStarted);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.BusInit"),
         computer_system::BootProgressTypes::BusInitializationStarted);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.MemoryInit"),
         computer_system::BootProgressTypes::MemoryInitializationStarted);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SecondaryProcInit"),
         computer_system::BootProgressTypes::
             SecondaryProcessorInitializationStarted);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PCIInit"),
         computer_system::BootProgressTypes::PCIResourceConfigStarted);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SystemSetup"),
         computer_system::BootProgressTypes::SetupEntered);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SystemInitComplete"),
         computer_system::BootProgressTypes::
             SystemHardwareInitializationComplete);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSStart"),
         computer_system::BootProgressTypes::OSBootStarted);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSRunning"),
         computer_system::BootProgressTypes::OSRunning);
+
     EXPECT_EQ(
         dbusToRfBootProgress(
             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.MotherboardInit"),
@@ -107,8 +145,195 @@ TEST(Systems, DbusToRfBootProgress)
     EXPECT_EQ(dbusToRfBootProgress(
                   "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OEM"),
               computer_system::BootProgressTypes::Invalid);
+
     EXPECT_EQ(dbusToRfBootProgress("invalid"),
               computer_system::BootProgressTypes::Invalid);
+}
+
+TEST(Systems, AssignBootParameters)
+{
+    std::string bootSource;
+    std::string bootMode;
+
+    EXPECT_EQ(assignBootParameters("None", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Default");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+
+    EXPECT_EQ(assignBootParameters("Pxe", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Network");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+
+    EXPECT_EQ(assignBootParameters("Hdd", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Disk");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+
+    EXPECT_EQ(assignBootParameters("Cd", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+
+    EXPECT_EQ(assignBootParameters("Usb", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular");
+
+    // Diags and BiosSetup select a boot mode and leave the source at default
+    EXPECT_EQ(assignBootParameters("Diags", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Default");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe");
+
+    EXPECT_EQ(assignBootParameters("BiosSetup", bootSource, bootMode), 0);
+    EXPECT_EQ(bootSource,
+              "xyz.openbmc_project.Control.Boot.Source.Sources.Default");
+    EXPECT_EQ(bootMode, "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup");
+
+    EXPECT_EQ(assignBootParameters("invalid", bootSource, bootMode), -1);
+}
+
+TEST(Systems, RedfishPowerRestorePolicyFromDbus)
+{
+    EXPECT_EQ(
+        redfishPowerRestorePolicyFromDbus(
+            "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn"),
+        computer_system::PowerRestorePolicyTypes::AlwaysOn);
+
+    EXPECT_EQ(
+        redfishPowerRestorePolicyFromDbus(
+            "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff"),
+        computer_system::PowerRestorePolicyTypes::AlwaysOff);
+
+    EXPECT_EQ(
+        redfishPowerRestorePolicyFromDbus(
+            "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore"),
+        computer_system::PowerRestorePolicyTypes::LastState);
+
+    // Redfish has no equivalent of Policy.None, so it reports as AlwaysOff
+    EXPECT_EQ(
+        redfishPowerRestorePolicyFromDbus(
+            "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.None"),
+        computer_system::PowerRestorePolicyTypes::AlwaysOff);
+
+    EXPECT_EQ(redfishPowerRestorePolicyFromDbus("invalid"),
+              computer_system::PowerRestorePolicyTypes::Invalid);
+}
+
+TEST(Systems, DbusPowerRestorePolicyFromRedfish)
+{
+    EXPECT_EQ(
+        dbusPowerRestorePolicyFromRedfish("AlwaysOn"),
+        "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn");
+
+    EXPECT_EQ(
+        dbusPowerRestorePolicyFromRedfish("AlwaysOff"),
+        "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff");
+
+    EXPECT_EQ(dbusPowerRestorePolicyFromRedfish("LastState"),
+              "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore");
+
+    EXPECT_EQ(dbusPowerRestorePolicyFromRedfish("invalid"), "");
+}
+
+TEST(Systems, TranslatePowerModeString)
+{
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode.Static"),
+              computer_system::PowerMode::Static);
+
+    EXPECT_EQ(
+        translatePowerModeString(
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.MaximumPerformance"),
+        computer_system::PowerMode::MaximumPerformance);
+
+    EXPECT_EQ(
+        translatePowerModeString(
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.PowerSaving"),
+        computer_system::PowerMode::PowerSaving);
+
+    EXPECT_EQ(
+        translatePowerModeString(
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.BalancedPerformance"),
+        computer_system::PowerMode::BalancedPerformance);
+
+    EXPECT_EQ(
+        translatePowerModeString(
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPerformance"),
+        computer_system::PowerMode::EfficiencyFavorPerformance);
+
+    EXPECT_EQ(
+        translatePowerModeString(
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPower"),
+        computer_system::PowerMode::EfficiencyFavorPower);
+
+    EXPECT_EQ(translatePowerModeString(
+                  "xyz.openbmc_project.Control.Power.Mode.PowerMode.OEM"),
+              computer_system::PowerMode::OEM);
+
+    EXPECT_EQ(translatePowerModeString("invalid"),
+              computer_system::PowerMode::Invalid);
+}
+
+TEST(Systems, DbusToRfWatchdogAction)
+{
+    EXPECT_EQ(dbusToRfWatchdogAction(
+                  "xyz.openbmc_project.State.Watchdog.Action.None"),
+              computer_system::WatchdogTimeoutActions::None);
+
+    EXPECT_EQ(dbusToRfWatchdogAction(
+                  "xyz.openbmc_project.State.Watchdog.Action.HardReset"),
+              computer_system::WatchdogTimeoutActions::ResetSystem);
+
+    EXPECT_EQ(dbusToRfWatchdogAction(
+                  "xyz.openbmc_project.State.Watchdog.Action.PowerOff"),
+              computer_system::WatchdogTimeoutActions::PowerDown);
+
+    EXPECT_EQ(dbusToRfWatchdogAction(
+                  "xyz.openbmc_project.State.Watchdog.Action.PowerCycle"),
+              computer_system::WatchdogTimeoutActions::PowerCycle);
+
+    EXPECT_EQ(dbusToRfWatchdogAction("invalid"),
+              computer_system::WatchdogTimeoutActions::Invalid);
+}
+
+TEST(Systems, RfToDbusWDTTimeOutAct)
+{
+    EXPECT_EQ(rfToDbusWDTTimeOutAct("None"),
+              "xyz.openbmc_project.State.Watchdog.Action.None");
+
+    EXPECT_EQ(rfToDbusWDTTimeOutAct("ResetSystem"),
+              "xyz.openbmc_project.State.Watchdog.Action.HardReset");
+
+    EXPECT_EQ(rfToDbusWDTTimeOutAct("PowerDown"),
+              "xyz.openbmc_project.State.Watchdog.Action.PowerOff");
+
+    EXPECT_EQ(rfToDbusWDTTimeOutAct("PowerCycle"),
+              "xyz.openbmc_project.State.Watchdog.Action.PowerCycle");
+
+    EXPECT_EQ(rfToDbusWDTTimeOutAct("invalid"), "");
+}
+
+TEST(Systems, WatchdogActionRoundTrip)
+{
+    for (computer_system::WatchdogTimeoutActions action :
+         {computer_system::WatchdogTimeoutActions::None,
+          computer_system::WatchdogTimeoutActions::ResetSystem,
+          computer_system::WatchdogTimeoutActions::PowerDown,
+          computer_system::WatchdogTimeoutActions::PowerCycle})
+    {
+        EXPECT_EQ(dbusToRfWatchdogAction(rfToDbusWDTTimeOutAct(
+                      nlohmann::json(action).get<std::string>())),
+                  action);
+    }
+}
+
+TEST(Systems, ValidStopBootOnFault)
+{
+    EXPECT_EQ(validstopBootOnFault("AnyFault"), std::make_optional(true));
+    EXPECT_EQ(validstopBootOnFault("Never"), std::make_optional(false));
+    EXPECT_EQ(validstopBootOnFault("invalid"), std::nullopt);
 }
 
 TEST(GetAllowedHostTransition, UnexpectedError)
