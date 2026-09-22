@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5777d80_47e39039",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-22T10:43:18Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bios-settings-mgr/blob/master/README.md\ndocumneted here\n\nnow Service name and object path are now resolved at runtime via getSubTree()",
+      "parentUuid": "3a3138b4_cbf55c8f",
+      "range": {
+        "startLine": 176,
+        "startChar": 1,
+        "endLine": 180,
+        "endChar": 80
+      },
+      "revId": "5a56c62e70dd7dbda839e0cabbb8fa5c3572420d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdc06edb_21fb02ed",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-08-31T20:30:52Z",
       "side": 1,
       "message": "Doesn\u0027t readJsonPatch already handle this ?",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 5
+      },
+      "revId": "5a56c62e70dd7dbda839e0cabbb8fa5c3572420d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41c20b06_7fbf1019",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-22T10:43:18Z",
+      "side": 1,
+      "message": "readJsonPatch rejects properties that are not in the list, for every caller. Here the two properties are valid on the resource but writable only by the host firmware, since only the firmware knows the current boot state. So they stay in the list, and the check after readJsonPatch answers PropertyNotWritable for non-host callers. readJsonPatch has no way to make that depend on the caller.",
+      "parentUuid": "cdc06edb_21fb02ed",
       "range": {
         "startLine": 182,
         "startChar": 0,
