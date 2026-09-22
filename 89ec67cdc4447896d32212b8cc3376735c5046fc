@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13a77ac8_e0a7f64f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-09-22T09:41:32Z",
+      "side": 1,
+      "message": "1. On boot the host firmware publishes its BIOS configuration to the BMC. It is stored in the BaseBIOSTable property of xyz.openbmc_project.BIOSConfig.Manager (bios-settings-mgr), one entry per attribute.\n \n▎ 2. On GET Bios, bmcweb reads that table and converts each entry\u0027s current value to JSON by its type: Enumeration/String/Password → string, Integer → number, Boolean → boolean. Each entry becomes one property under Attributes, for example \"DisableSmt\": false.",
+      "parentUuid": "9ab5b96e_0e59e757",
+      "revId": "89ec67cdc4447896d32212b8cc3376735c5046fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a82f42e_f14c33a7",
