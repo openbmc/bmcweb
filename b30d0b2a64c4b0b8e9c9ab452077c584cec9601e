@@ -22,6 +22,30 @@
       },
       "revId": "b30d0b2a64c4b0b8e9c9ab452077c584cec9601e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfa28bc3_557aae2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-09-22T11:50:48Z",
+      "side": 1,
+      "message": "The previous testcase does not use readJsonObject() to extract the payload.\nInstead, it checks the existence of the parameter using `find()` and this approach is not typically used in bmcweb code.\nIn most areas (in patch/post), bmcweb uses readJsonObject()/readJsonPatch() - which will not work with the current code, if more than one Oem subkeys are used.",
+      "parentUuid": "449c9ac9_d7331ffd",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "b30d0b2a64c4b0b8e9c9ab452077c584cec9601e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
