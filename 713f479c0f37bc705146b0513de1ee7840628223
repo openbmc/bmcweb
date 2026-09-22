@@ -16,6 +16,24 @@
       "message": "const dbus::utility::ManagedObjectType\u0026 resp",
       "revId": "713f479c0f37bc705146b0513de1ee7840628223",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac0b55fd_2f4e9c08",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-22T07:52:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b57d9d34_1f9133b6",
+      "revId": "713f479c0f37bc705146b0513de1ee7840628223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
