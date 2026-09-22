@@ -58,6 +58,433 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
 static constexpr const std::array<const char*, 2> supportedResourceTypes = {
     "Task", "Heartbeat"};
 
+inline void handleEventServiceSubscriptionsPost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (EventServiceManager::getInstance().getNumberOfSubscriptions() >=
+        maxNoOfSubscriptions)
+    {
+        messages::eventSubscriptionLimitExceeded(asyncResp->res);
+        return;
+    }
+    std::string destUrl;
+    std::string protocol;
+    std::optional<bool> verifyCertificate;
+    std::optional<std::string> context;
+    std::optional<std::string> subscriptionType;
+    std::optional<std::string> eventFormatType2;
+    std::optional<std::string> retryPolicy;
+    std::optional<bool> sendHeartbeat;
+    std::optional<uint64_t> hbIntervalMinutes;
+    std::optional<std::vector<std::string>> msgIds;
+    std::optional<std::vector<std::string>> regPrefixes;
+    std::optional<std::vector<std::string>> originResources;
+    std::optional<std::vector<std::string>> resTypes;
+    std::optional<std::vector<nlohmann::json::object_t>> headers;
+    std::optional<std::vector<nlohmann::json::object_t>> mrdJsonArray;
+
+    if (!json_util::readJsonPatch(                         //
+            req, asyncResp->res,                           //
+            "Context", context,                            //
+            "DeliveryRetryPolicy", retryPolicy,            //
+            "Destination", destUrl,                        //
+            "EventFormatType", eventFormatType2,           //
+            "HeartbeatIntervalMinutes", hbIntervalMinutes, //
+            "HttpHeaders", headers,                        //
+            "MessageIds", msgIds,                          //
+            "MetricReportDefinitions", mrdJsonArray,       //
+            "OriginResources", originResources,            //
+            "Protocol", protocol,                          //
+            "RegistryPrefixes", regPrefixes,               //
+            "ResourceTypes", resTypes,                     //
+            "SendHeartbeat", sendHeartbeat,                //
+            "SubscriptionType", subscriptionType,          //
+            "VerifyCertificate", verifyCertificate         //
+            ))
+    {
+        return;
+    }
+    // clang-format on
+
+    // https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+    static constexpr const uint16_t maxDestinationSize = 2000;
+    if (destUrl.size() > maxDestinationSize)
+    {
+        messages::stringValueTooLong(asyncResp->res, "Destination",
+                                     maxDestinationSize);
+        return;
+    }
+
+    if (regPrefixes && msgIds)
+    {
+        if (!regPrefixes->empty() && !msgIds->empty())
+        {
+            messages::propertyValueConflict(asyncResp->res, "MessageIds",
+                                            "RegistryPrefixes");
+            return;
+        }
+    }
+
+    boost::system::result<boost::urls::url> url =
+        boost::urls::parse_absolute_uri(destUrl);
+    if (!url)
+    {
+        BMCWEB_LOG_WARNING("Failed to validate and split destination url");
+        messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                           "Destination");
+        return;
+    }
+    url->normalize();
+
+    // port_number returns zero if it is not a valid representable port
+    if (url->has_port() && url->port_number() == 0)
+    {
+        BMCWEB_LOG_WARNING("{} is an invalid port in destination url",
+                           url->port());
+        messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                           "Destination");
+        return;
+    }
+
+    crow::utility::setProtocolDefaults(*url, protocol);
+    crow::utility::setPortDefaults(*url);
+
+    if (url->path().empty())
+    {
+        url->set_path("/");
+    }
+
+    if (url->has_userinfo())
+    {
+        messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                           "Destination");
+        return;
+    }
+
+    if (protocol == "SNMPv2c")
+    {
+        if (context)
+        {
+            messages::propertyValueConflict(asyncResp->res, "Context",
+                                            "Protocol");
+            return;
+        }
+        if (eventFormatType2)
+        {
+            messages::propertyValueConflict(asyncResp->res, "EventFormatType",
+                                            "Protocol");
+            return;
+        }
+        if (retryPolicy)
+        {
+            messages::propertyValueConflict(asyncResp->res, "RetryPolicy",
+                                            "Protocol");
+            return;
+        }
+        if (sendHeartbeat)
+        {
+            messages::propertyValueConflict(asyncResp->res, "SendHeartbeat",
+                                            "Protocol");
+            return;
+        }
+        if (hbIntervalMinutes)
+        {
+            messages::propertyValueConflict(
+                asyncResp->res, "HeartbeatIntervalMinutes", "Protocol");
+            return;
+        }
+        if (msgIds)
+        {
+            messages::propertyValueConflict(asyncResp->res, "MessageIds",
+                                            "Protocol");
+            return;
+        }
+        if (regPrefixes)
+        {
+            messages::propertyValueConflict(asyncResp->res, "RegistryPrefixes",
+                                            "Protocol");
+            return;
+        }
+        if (resTypes)
+        {
+            messages::propertyValueConflict(asyncResp->res, "ResourceTypes",
+                                            "Protocol");
+            return;
+        }
+        if (headers)
+        {
+            messages::propertyValueConflict(asyncResp->res, "HttpHeaders",
+                                            "Protocol");
+            return;
+        }
+        if (mrdJsonArray)
+        {
+            messages::propertyValueConflict(
+                asyncResp->res, "MetricReportDefinitions", "Protocol");
+            return;
+        }
+        if (url->scheme() != "snmp")
+        {
+            messages::propertyValueConflict(asyncResp->res, "Destination",
+                                            "Protocol");
+            return;
+        }
+
+        addSnmpTrapClient(asyncResp, url->host_address(), url->port_number());
+        return;
+    }
+
+    std::shared_ptr<Subscription> subValue = std::make_shared<Subscription>(
+        std::make_shared<persistent_data::UserSubscription>(), *url,
+        getIoContext());
+
+    if (subscriptionType)
+    {
+        if (*subscriptionType != "RedfishEvent")
+        {
+            messages::propertyValueNotInList(asyncResp->res, *subscriptionType,
+                                             "SubscriptionType");
+            return;
+        }
+        subValue->userSub->subscriptionType = *subscriptionType;
+    }
+    else
+    {
+        // Default
+        subValue->userSub->subscriptionType = "RedfishEvent";
+    }
+
+    if (protocol != "Redfish")
+    {
+        messages::propertyValueNotInList(asyncResp->res, protocol, "Protocol");
+        return;
+    }
+    subValue->userSub->protocol = protocol;
+
+    if (verifyCertificate)
+    {
+        subValue->userSub->verifyCertificate = *verifyCertificate;
+    }
+
+    if (eventFormatType2)
+    {
+        if (std::ranges::find(supportedEvtFormatTypes, *eventFormatType2) ==
+            supportedEvtFormatTypes.end())
+        {
+            messages::propertyValueNotInList(asyncResp->res, *eventFormatType2,
+                                             "EventFormatType");
+            return;
+        }
+        subValue->userSub->eventFormatType = *eventFormatType2;
+    }
+    else
+    {
+        // If not specified, use default "Event"
+        subValue->userSub->eventFormatType = "Event";
+    }
+
+    if (context)
+    {
+        // This value is selected arbitrarily.
+        constexpr const size_t maxContextSize = 256;
+        if (context->size() > maxContextSize)
+        {
+            messages::stringValueTooLong(asyncResp->res, "Context",
+                                         maxContextSize);
+            return;
+        }
+        subValue->userSub->customText = *context;
+    }
+
+    if (headers)
+    {
+        size_t cumulativeLen = 0;
+
+        for (const nlohmann::json::object_t& headerChunk : *headers)
+        {
+            for (const auto& item : headerChunk)
+            {
+                const std::string* value =
+                    item.second.get_ptr<const std::string*>();
+                if (value == nullptr)
+                {
+                    messages::propertyValueFormatError(
+                        asyncResp->res, item.second,
+                        "HttpHeaders/" + item.first);
+                    return;
+                }
+                // Adding a new json value is the size of the key, +
+                // the size of the value + 2 * 2 quotes for each, +
+                // the colon and space between. example:
+                // "key": "value"
+                cumulativeLen += item.first.size() + value->size() + 6;
+                // This value is selected to mirror http_connection.hpp
+                constexpr const uint16_t maxHeaderSizeED = 8096;
+                if (cumulativeLen > maxHeaderSizeED)
+                {
+                    messages::arraySizeTooLong(asyncResp->res, "HttpHeaders",
+                                               maxHeaderSizeED);
+                    return;
+                }
+                subValue->userSub->httpHeaders.set(item.first, *value);
+            }
+        }
+    }
+
+    if (regPrefixes)
+    {
+        for (const std::string& it : *regPrefixes)
+        {
+            if (std::ranges::find(supportedRegPrefixes, it) ==
+                supportedRegPrefixes.end())
+            {
+                messages::propertyValueNotInList(asyncResp->res, it,
+                                                 "RegistryPrefixes");
+                return;
+            }
+        }
+        subValue->userSub->registryPrefixes = *regPrefixes;
+    }
+
+    if (originResources)
+    {
+        subValue->userSub->originResources = *originResources;
+    }
+
+    if (resTypes)
+    {
+        for (const std::string& it : *resTypes)
+        {
+            if (std::ranges::find(supportedResourceTypes, it) ==
+                supportedResourceTypes.end())
+            {
+                messages::propertyValueNotInList(asyncResp->res, it,
+                                                 "ResourceTypes");
+                return;
+            }
+        }
+        subValue->userSub->resourceTypes = *resTypes;
+    }
+
+    if (msgIds)
+    {
+        std::vector<std::string> registryPrefix;
+
+        // If no registry prefixes are mentioned, consider all
+        // supported prefixes
+        if (subValue->userSub->registryPrefixes.empty())
+        {
+            registryPrefix.assign(supportedRegPrefixes.begin(),
+                                  supportedRegPrefixes.end());
+        }
+        else
+        {
+            registryPrefix = subValue->userSub->registryPrefixes;
+        }
+
+        for (const std::string& id : *msgIds)
+        {
+            bool validId = false;
+
+            // Check for Message ID in each of the selected Registry
+            for (const std::string& it : registryPrefix)
+            {
+                const registries::MessageEntries registry =
+                    redfish::registries::getRegistryMessagesFromPrefix(it);
+
+                if (std::ranges::any_of(
+                        registry, [&id](const redfish::registries::MessageEntry&
+                                            messageEntry) {
+                            return id == messageEntry.first;
+                        }))
+                {
+                    validId = true;
+                    break;
+                }
+            }
+
+            if (!validId)
+            {
+                messages::propertyValueNotInList(asyncResp->res, id,
+                                                 "MessageIds");
+                return;
+            }
+        }
+
+        subValue->userSub->registryMsgIds = *msgIds;
+    }
+
+    if (retryPolicy)
+    {
+        if (std::ranges::find(supportedRetryPolicies, *retryPolicy) ==
+            supportedRetryPolicies.end())
+        {
+            messages::propertyValueNotInList(asyncResp->res, *retryPolicy,
+                                             "DeliveryRetryPolicy");
+            return;
+        }
+        subValue->userSub->retryPolicy = *retryPolicy;
+    }
+    else
+    {
+        // Default "TerminateAfterRetries"
+        subValue->userSub->retryPolicy = "TerminateAfterRetries";
+    }
+    if (sendHeartbeat)
+    {
+        subValue->userSub->sendHeartbeat = *sendHeartbeat;
+    }
+    if (hbIntervalMinutes)
+    {
+        if (*hbIntervalMinutes < 1 || *hbIntervalMinutes > 65535)
+        {
+            messages::propertyValueOutOfRange(
+                asyncResp->res, *hbIntervalMinutes, "HeartbeatIntervalMinutes");
+            return;
+        }
+        subValue->userSub->hbIntervalMinutes = *hbIntervalMinutes;
+    }
+
+    if (mrdJsonArray)
+    {
+        for (nlohmann::json::object_t& mrdObj : *mrdJsonArray)
+        {
+            std::string mrdUri;
+
+            if (!json_util::readJsonObject(mrdObj, asyncResp->res, "@odata.id",
+                                           mrdUri))
+
+            {
+                return;
+            }
+            subValue->userSub->metricReportDefinitions.emplace_back(mrdUri);
+        }
+    }
+
+    std::string id =
+        EventServiceManager::getInstance().addPushSubscription(subValue);
+    if (id.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    messages::created(asyncResp->res);
+    asyncResp->res.addHeader("Location",
+                             "/redfish/v1/EventService/Subscriptions/" + id);
+
+    // schedule a heartbeat
+    if (subValue->userSub->sendHeartbeat)
+    {
+        subValue->scheduleNextHeartbeatEvent();
+    }
+}
+
 inline void requestRoutesEventService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
@@ -310,442 +737,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
         .privileges(redfish::privileges::postEventDestinationCollection)
-        .methods(boost::beast::http::verb::post)
-        // ast-grep-ignore: long-lambda
-        ([&app](const crow::Request& req,
-                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
-            if (EventServiceManager::getInstance().getNumberOfSubscriptions() >=
-                maxNoOfSubscriptions)
-            {
-                messages::eventSubscriptionLimitExceeded(asyncResp->res);
-                return;
-            }
-            std::string destUrl;
-            std::string protocol;
-            std::optional<bool> verifyCertificate;
-            std::optional<std::string> context;
-            std::optional<std::string> subscriptionType;
-            std::optional<std::string> eventFormatType2;
-            std::optional<std::string> retryPolicy;
-            std::optional<bool> sendHeartbeat;
-            std::optional<uint64_t> hbIntervalMinutes;
-            std::optional<std::vector<std::string>> msgIds;
-            std::optional<std::vector<std::string>> regPrefixes;
-            std::optional<std::vector<std::string>> originResources;
-            std::optional<std::vector<std::string>> resTypes;
-            std::optional<std::vector<nlohmann::json::object_t>> headers;
-            std::optional<std::vector<nlohmann::json::object_t>> mrdJsonArray;
-
-            if (!json_util::readJsonPatch(                         //
-                    req, asyncResp->res,                           //
-                    "Context", context,                            //
-                    "DeliveryRetryPolicy", retryPolicy,            //
-                    "Destination", destUrl,                        //
-                    "EventFormatType", eventFormatType2,           //
-                    "HeartbeatIntervalMinutes", hbIntervalMinutes, //
-                    "HttpHeaders", headers,                        //
-                    "MessageIds", msgIds,                          //
-                    "MetricReportDefinitions", mrdJsonArray,       //
-                    "OriginResources", originResources,            //
-                    "Protocol", protocol,                          //
-                    "RegistryPrefixes", regPrefixes,               //
-                    "ResourceTypes", resTypes,                     //
-                    "SendHeartbeat", sendHeartbeat,                //
-                    "SubscriptionType", subscriptionType,          //
-                    "VerifyCertificate", verifyCertificate         //
-                    ))
-            {
-                return;
-            }
-            // clang-format on
-
-            // https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
-            static constexpr const uint16_t maxDestinationSize = 2000;
-            if (destUrl.size() > maxDestinationSize)
-            {
-                messages::stringValueTooLong(asyncResp->res, "Destination",
-                                             maxDestinationSize);
-                return;
-            }
-
-            if (regPrefixes && msgIds)
-            {
-                if (!regPrefixes->empty() && !msgIds->empty())
-                {
-                    messages::propertyValueConflict(
-                        asyncResp->res, "MessageIds", "RegistryPrefixes");
-                    return;
-                }
-            }
-
-            boost::system::result<boost::urls::url> url =
-                boost::urls::parse_absolute_uri(destUrl);
-            if (!url)
-            {
-                BMCWEB_LOG_WARNING(
-                    "Failed to validate and split destination url");
-                messages::propertyValueFormatError(asyncResp->res, destUrl,
-                                                   "Destination");
-                return;
-            }
-            url->normalize();
-
-            // port_number returns zero if it is not a valid representable port
-            if (url->has_port() && url->port_number() == 0)
-            {
-                BMCWEB_LOG_WARNING("{} is an invalid port in destination url",
-                                   url->port());
-                messages::propertyValueFormatError(asyncResp->res, destUrl,
-                                                   "Destination");
-                return;
-            }
-
-            crow::utility::setProtocolDefaults(*url, protocol);
-            crow::utility::setPortDefaults(*url);
-
-            if (url->path().empty())
-            {
-                url->set_path("/");
-            }
-
-            if (url->has_userinfo())
-            {
-                messages::propertyValueFormatError(asyncResp->res, destUrl,
-                                                   "Destination");
-                return;
-            }
-
-            if (protocol == "SNMPv2c")
-            {
-                if (context)
-                {
-                    messages::propertyValueConflict(asyncResp->res, "Context",
-                                                    "Protocol");
-                    return;
-                }
-                if (eventFormatType2)
-                {
-                    messages::propertyValueConflict(
-                        asyncResp->res, "EventFormatType", "Protocol");
-                    return;
-                }
-                if (retryPolicy)
-                {
-                    messages::propertyValueConflict(asyncResp->res,
-                                                    "RetryPolicy", "Protocol");
-                    return;
-                }
-                if (sendHeartbeat)
-                {
-                    messages::propertyValueConflict(
-                        asyncResp->res, "SendHeartbeat", "Protocol");
-                    return;
-                }
-                if (hbIntervalMinutes)
-                {
-                    messages::propertyValueConflict(
-                        asyncResp->res, "HeartbeatIntervalMinutes", "Protocol");
-                    return;
-                }
-                if (msgIds)
-                {
-                    messages::propertyValueConflict(asyncResp->res,
-                                                    "MessageIds", "Protocol");
-                    return;
-                }
-                if (regPrefixes)
-                {
-                    messages::propertyValueConflict(
-                        asyncResp->res, "RegistryPrefixes", "Protocol");
-                    return;
-                }
-                if (resTypes)
-                {
-                    messages::propertyValueConflict(
-                        asyncResp->res, "ResourceTypes", "Protocol");
-                    return;
-                }
-                if (headers)
-                {
-                    messages::propertyValueConflict(asyncResp->res,
-                                                    "HttpHeaders", "Protocol");
-                    return;
-                }
-                if (mrdJsonArray)
-                {
-                    messages::propertyValueConflict(
-                        asyncResp->res, "MetricReportDefinitions", "Protocol");
-                    return;
-                }
-                if (url->scheme() != "snmp")
-                {
-                    messages::propertyValueConflict(asyncResp->res,
-                                                    "Destination", "Protocol");
-                    return;
-                }
-
-                addSnmpTrapClient(asyncResp, url->host_address(),
-                                  url->port_number());
-                return;
-            }
-
-            std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(
-                    std::make_shared<persistent_data::UserSubscription>(), *url,
-                    getIoContext());
-
-            if (subscriptionType)
-            {
-                if (*subscriptionType != "RedfishEvent")
-                {
-                    messages::propertyValueNotInList(
-                        asyncResp->res, *subscriptionType, "SubscriptionType");
-                    return;
-                }
-                subValue->userSub->subscriptionType = *subscriptionType;
-            }
-            else
-            {
-                // Default
-                subValue->userSub->subscriptionType = "RedfishEvent";
-            }
-
-            if (protocol != "Redfish")
-            {
-                messages::propertyValueNotInList(asyncResp->res, protocol,
-                                                 "Protocol");
-                return;
-            }
-            subValue->userSub->protocol = protocol;
-
-            if (verifyCertificate)
-            {
-                subValue->userSub->verifyCertificate = *verifyCertificate;
-            }
-
-            if (eventFormatType2)
-            {
-                if (std::ranges::find(supportedEvtFormatTypes,
-                                      *eventFormatType2) ==
-                    supportedEvtFormatTypes.end())
-                {
-                    messages::propertyValueNotInList(
-                        asyncResp->res, *eventFormatType2, "EventFormatType");
-                    return;
-                }
-                subValue->userSub->eventFormatType = *eventFormatType2;
-            }
-            else
-            {
-                // If not specified, use default "Event"
-                subValue->userSub->eventFormatType = "Event";
-            }
-
-            if (context)
-            {
-                // This value is selected arbitrarily.
-                constexpr const size_t maxContextSize = 256;
-                if (context->size() > maxContextSize)
-                {
-                    messages::stringValueTooLong(asyncResp->res, "Context",
-                                                 maxContextSize);
-                    return;
-                }
-                subValue->userSub->customText = *context;
-            }
-
-            if (headers)
-            {
-                size_t cumulativeLen = 0;
-
-                for (const nlohmann::json::object_t& headerChunk : *headers)
-                {
-                    for (const auto& item : headerChunk)
-                    {
-                        const std::string* value =
-                            item.second.get_ptr<const std::string*>();
-                        if (value == nullptr)
-                        {
-                            messages::propertyValueFormatError(
-                                asyncResp->res, item.second,
-                                "HttpHeaders/" + item.first);
-                            return;
-                        }
-                        // Adding a new json value is the size of the key, +
-                        // the size of the value + 2 * 2 quotes for each, +
-                        // the colon and space between. example:
-                        // "key": "value"
-                        cumulativeLen += item.first.size() + value->size() + 6;
-                        // This value is selected to mirror http_connection.hpp
-                        constexpr const uint16_t maxHeaderSizeED = 8096;
-                        if (cumulativeLen > maxHeaderSizeED)
-                        {
-                            messages::arraySizeTooLong(
-                                asyncResp->res, "HttpHeaders", maxHeaderSizeED);
-                            return;
-                        }
-                        subValue->userSub->httpHeaders.set(item.first, *value);
-                    }
-                }
-            }
-
-            if (regPrefixes)
-            {
-                for (const std::string& it : *regPrefixes)
-                {
-                    if (std::ranges::find(supportedRegPrefixes, it) ==
-                        supportedRegPrefixes.end())
-                    {
-                        messages::propertyValueNotInList(asyncResp->res, it,
-                                                         "RegistryPrefixes");
-                        return;
-                    }
-                }
-                subValue->userSub->registryPrefixes = *regPrefixes;
-            }
-
-            if (originResources)
-            {
-                subValue->userSub->originResources = *originResources;
-            }
-
-            if (resTypes)
-            {
-                for (const std::string& it : *resTypes)
-                {
-                    if (std::ranges::find(supportedResourceTypes, it) ==
-                        supportedResourceTypes.end())
-                    {
-                        messages::propertyValueNotInList(asyncResp->res, it,
-                                                         "ResourceTypes");
-                        return;
-                    }
-                }
-                subValue->userSub->resourceTypes = *resTypes;
-            }
-
-            if (msgIds)
-            {
-                std::vector<std::string> registryPrefix;
-
-                // If no registry prefixes are mentioned, consider all
-                // supported prefixes
-                if (subValue->userSub->registryPrefixes.empty())
-                {
-                    registryPrefix.assign(supportedRegPrefixes.begin(),
-                                          supportedRegPrefixes.end());
-                }
-                else
-                {
-                    registryPrefix = subValue->userSub->registryPrefixes;
-                }
-
-                for (const std::string& id : *msgIds)
-                {
-                    bool validId = false;
-
-                    // Check for Message ID in each of the selected Registry
-                    for (const std::string& it : registryPrefix)
-                    {
-                        const registries::MessageEntries registry =
-                            redfish::registries::getRegistryMessagesFromPrefix(
-                                it);
-
-                        if (std::ranges::any_of(
-                                registry,
-                                [&id](const redfish::registries::MessageEntry&
-                                          messageEntry) {
-                                    return id == messageEntry.first;
-                                }))
-                        {
-                            validId = true;
-                            break;
-                        }
-                    }
-
-                    if (!validId)
-                    {
-                        messages::propertyValueNotInList(asyncResp->res, id,
-                                                         "MessageIds");
-                        return;
-                    }
-                }
-
-                subValue->userSub->registryMsgIds = *msgIds;
-            }
-
-            if (retryPolicy)
-            {
-                if (std::ranges::find(supportedRetryPolicies, *retryPolicy) ==
-                    supportedRetryPolicies.end())
-                {
-                    messages::propertyValueNotInList(
-                        asyncResp->res, *retryPolicy, "DeliveryRetryPolicy");
-                    return;
-                }
-                subValue->userSub->retryPolicy = *retryPolicy;
-            }
-            else
-            {
-                // Default "TerminateAfterRetries"
-                subValue->userSub->retryPolicy = "TerminateAfterRetries";
-            }
-            if (sendHeartbeat)
-            {
-                subValue->userSub->sendHeartbeat = *sendHeartbeat;
-            }
-            if (hbIntervalMinutes)
-            {
-                if (*hbIntervalMinutes < 1 || *hbIntervalMinutes > 65535)
-                {
-                    messages::propertyValueOutOfRange(
-                        asyncResp->res, *hbIntervalMinutes,
-                        "HeartbeatIntervalMinutes");
-                    return;
-                }
-                subValue->userSub->hbIntervalMinutes = *hbIntervalMinutes;
-            }
-
-            if (mrdJsonArray)
-            {
-                for (nlohmann::json::object_t& mrdObj : *mrdJsonArray)
-                {
-                    std::string mrdUri;
-
-                    if (!json_util::readJsonObject(mrdObj, asyncResp->res,
-                                                   "@odata.id", mrdUri))
-
-                    {
-                        return;
-                    }
-                    subValue->userSub->metricReportDefinitions.emplace_back(
-                        mrdUri);
-                }
-            }
-
-            std::string id =
-                EventServiceManager::getInstance().addPushSubscription(
-                    subValue);
-            if (id.empty())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            messages::created(asyncResp->res);
-            asyncResp->res.addHeader(
-                "Location", "/redfish/v1/EventService/Subscriptions/" + id);
-
-            // schedule a heartbeat
-            if (subValue->userSub->sendHeartbeat)
-            {
-                subValue->scheduleNextHeartbeatEvent();
-            }
-        });
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleEventServiceSubscriptionsPost, std::ref(app)));
 }
 
 inline void handleEventDestinationDelete(
