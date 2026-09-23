@@ -40,6 +40,24 @@
 namespace redfish
 {
 
+inline void afterGetFabricAdapterLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& property)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for Location");
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        property;
+}
+
 inline void getFabricAdapterLocation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& serviceName, const std::string& fabricAdapterPath)
@@ -47,23 +65,7 @@ inline void getFabricAdapterLocation(
     dbus::utility::getProperty<std::string>(
         serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const std::string& property) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Location");
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            asyncResp->res
-                .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-                property;
-        });
+        std::bind_front(afterGetFabricAdapterLocation, asyncResp));
 }
 
 inline void doAdapterGet(
