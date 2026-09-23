@@ -810,11 +810,11 @@ inline CreatePIDRet createPidInterface(
             // translate between redfish and dbus names
             if (*setpointOffset == "UpperThresholdNonCritical")
             {
-                output.emplace_back("SetPointOffset", "WarningLow");
+                output.emplace_back("SetPointOffset", "WarningHigh");
             }
             else if (*setpointOffset == "LowerThresholdNonCritical")
             {
-                output.emplace_back("SetPointOffset", "WarningHigh");
+                output.emplace_back("SetPointOffset", "WarningLow");
             }
             else if (*setpointOffset == "LowerThresholdCritical")
             {
@@ -827,7 +827,7 @@ inline CreatePIDRet createPidInterface(
             else
             {
                 BMCWEB_LOG_ERROR("Invalid setpointoffset {}", *setpointOffset);
-                messages::propertyValueNotInList(response->res, name,
+                messages::propertyValueNotInList(response->res, *setpointOffset,
                                                  "SetPointOffset");
                 return CreatePIDRet::fail;
             }
