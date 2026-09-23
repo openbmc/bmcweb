@@ -34,6 +34,39 @@ namespace chassis_utils
  * @param callback  Callback for next step to get valid chassis path
  */
 template <typename Callback>
+void afterGetValidChassisPath(
+    Callback callback, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths)
+{
+    BMCWEB_LOG_DEBUG("getValidChassisPath respHandler enter");
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("getValidChassisPath respHandler DBUS error: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    std::optional<std::string> chassisPath;
+    for (const std::string& chassis : chassisPaths)
+    {
+        sdbusplus::object_path path(chassis);
+        std::string chassisName = path.filename();
+        if (chassisName.empty())
+        {
+            BMCWEB_LOG_ERROR("Failed to find '/' in {}", chassis);
+            continue;
+        }
+        if (chassisName == chassisId)
+        {
+            chassisPath = chassis;
+            break;
+        }
+    }
+    callback(chassisPath);
+}
+
+template <typename Callback>
 void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& chassisId, Callback&& callback)
 {
@@ -42,38 +75,9 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Get the Chassis Collection
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
-        // ast-grep-ignore: long-lambda
-        [callback = std::forward<Callback>(callback), asyncResp,
-         chassisId](const boost::system::error_code& ec,
-                    const dbus::utility::MapperGetSubTreePathsResponse&
-                        chassisPaths) mutable {
-            BMCWEB_LOG_DEBUG("getValidChassisPath respHandler enter");
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR(
-                    "getValidChassisPath respHandler DBUS error: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            std::optional<std::string> chassisPath;
-            for (const std::string& chassis : chassisPaths)
-            {
-                sdbusplus::object_path path(chassis);
-                std::string chassisName = path.filename();
-                if (chassisName.empty())
-                {
-                    BMCWEB_LOG_ERROR("Failed to find '/' in {}", chassis);
-                    continue;
-                }
-                if (chassisName == chassisId)
-                {
-                    chassisPath = chassis;
-                    break;
-                }
-            }
-            callback(chassisPath);
-        });
+        std::bind_front(afterGetValidChassisPath<Callback>,
+                        std::forward<Callback>(callback), asyncResp,
+                        chassisId));
     BMCWEB_LOG_DEBUG("checkChassisId exit");
 }
 
