@@ -138,6 +138,7 @@ inline void afterAsyncPopulatePid(
             }
 
             std::string name;
+            bool inCurrentProfile = true;
 
             for (const std::pair<std::string, dbus::utility::DbusVariantType>&
                      propPair : intfPair.second)
@@ -165,15 +166,21 @@ inline void afterAsyncPopulatePid(
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    if (std::ranges::find(*profiles, currentProfile) ==
-                        profiles->end())
+                    // Without a selected profile there is nothing to filter on
+                    if (!currentProfile.empty())
                     {
-                        BMCWEB_LOG_INFO("{} not supported in current profile",
-                                        name);
-                        continue;
+                        inCurrentProfile =
+                            std::ranges::contains(*profiles, currentProfile);
                     }
                 }
             }
+
+            if (!inCurrentProfile)
+            {
+                BMCWEB_LOG_INFO("{} not supported in current profile", name);
+                continue;
+            }
+
             nlohmann::json* config = nullptr;
             const std::string* classPtr = nullptr;
 

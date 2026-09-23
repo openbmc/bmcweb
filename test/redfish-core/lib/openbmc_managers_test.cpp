@@ -481,5 +481,59 @@ TEST(AfterAsyncPopulatePid, InputsAndOutputsArePassedThrough)
     EXPECT_EQ(pid["Outputs"], (std::vector<std::string>{"FanOut1"}));
 }
 
+TEST(AfterAsyncPopulatePid, ControllerNotInCurrentProfileIsOmitted)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    dbus::utility::DBusPropertiesMap props;
+    props.emplace_back("Name", "MyPid");
+    props.emplace_back("Class", "temperature");
+    props.emplace_back("Profiles", std::vector<std::string>{"ProfileB"});
+    props.emplace_back("SetPoint", 42.0);
+
+    dbus::utility::DBusInterfacesMap interfaces;
+    interfaces.emplace_back("xyz.openbmc_project.Configuration.Pid",
+                            std::move(props));
+
+    dbus::utility::ManagedObjectType managed;
+    managed.emplace_back(sdbusplus::object_path("/xyz/p"),
+                         std::move(interfaces));
+
+    afterAsyncPopulatePid(asyncResp, "ProfileA", {"ProfileA", "ProfileB"}, {},
+                          managed);
+
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(
+        asyncResp->res.jsonValue["Fan"]["PidControllers"].contains("MyPid"));
+}
+
+TEST(AfterAsyncPopulatePid, ControllerInCurrentProfileIsPopulated)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    dbus::utility::DBusPropertiesMap props;
+    props.emplace_back("Name", "MyPid");
+    props.emplace_back("Class", "temperature");
+    props.emplace_back("Profiles",
+                       std::vector<std::string>{"ProfileA", "ProfileB"});
+    props.emplace_back("SetPoint", 42.0);
+
+    dbus::utility::DBusInterfacesMap interfaces;
+    interfaces.emplace_back("xyz.openbmc_project.Configuration.Pid",
+                            std::move(props));
+
+    dbus::utility::ManagedObjectType managed;
+    managed.emplace_back(sdbusplus::object_path("/xyz/p"),
+                         std::move(interfaces));
+
+    afterAsyncPopulatePid(asyncResp, "ProfileA", {"ProfileA", "ProfileB"}, {},
+                          managed);
+
+    const nlohmann::json& pids =
+        asyncResp->res.jsonValue["Fan"]["PidControllers"];
+    ASSERT_TRUE(pids.contains("MyPid"));
+    EXPECT_DOUBLE_EQ(pids["MyPid"]["SetPoint"].get<double>(), 42.0);
+}
+
 } // namespace
 } // namespace redfish
