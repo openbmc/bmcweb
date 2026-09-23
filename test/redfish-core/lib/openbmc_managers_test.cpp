@@ -10,10 +10,12 @@
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
+#include <algorithm>
 #include <array>
 #include <memory>
 #include <string>
 #include <utility>
+#include <variant>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -479,6 +481,62 @@ TEST(AfterAsyncPopulatePid, InputsAndOutputsArePassedThrough)
         asyncResp->res.jsonValue["Fan"]["PidControllers"]["MyPid"];
     EXPECT_EQ(pid["Inputs"], (std::vector<std::string>{"Sensor1", "Sensor2"}));
     EXPECT_EQ(pid["Outputs"], (std::vector<std::string>{"FanOut1"}));
+}
+
+TEST(CreatePidInterface, SetPointOffsetTranslationRoundTrips)
+{
+    struct Translation
+    {
+        std::string redfish;
+        std::string dbus;
+    };
+
+    const auto translations = std::to_array<Translation>(
+        {{"UpperThresholdNonCritical", "WarningHigh"},
+         {"LowerThresholdNonCritical", "WarningLow"},
+         {"UpperThresholdCritical", "CriticalHigh"},
+         {"LowerThresholdCritical", "CriticalLow"}});
+
+    for (const auto& t : translations)
+    {
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+        nlohmann::json jsonValue = nlohmann::json::object();
+        jsonValue["SetPointOffset"] = t.redfish;
+
+        dbus::utility::DBusPropertiesMap output;
+        std::string chassis;
+
+        EXPECT_EQ(createPidInterface(asyncResp, "PidControllers", "MyPid",
+                                     jsonValue, "/xyz/p", {}, true, output,
+                                     chassis, ""),
+                  CreatePIDRet::patch)
+            << "redfish value: " << t.redfish;
+
+        auto it = std::ranges::find_if(output, [](const auto& prop) {
+            return prop.first == "SetPointOffset";
+        });
+        ASSERT_NE(it, output.end()) << "redfish value: " << t.redfish;
+        const std::string* dbusValue = std::get_if<std::string>(&it->second);
+        ASSERT_NE(dbusValue, nullptr);
+        EXPECT_EQ(*dbusValue, t.dbus);
+    }
+}
+
+TEST(CreatePidInterface, SetPointOffsetUnknownValueFails)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    nlohmann::json jsonValue = nlohmann::json::object();
+    jsonValue["SetPointOffset"] = "NotARealValue";
+
+    dbus::utility::DBusPropertiesMap output;
+    std::string chassis;
+
+    EXPECT_EQ(createPidInterface(asyncResp, "PidControllers", "MyPid",
+                                 jsonValue, "/xyz/p", {}, true, output, chassis,
+                                 ""),
+              CreatePIDRet::fail);
 }
 
 } // namespace
