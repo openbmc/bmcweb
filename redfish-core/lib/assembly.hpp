@@ -49,6 +49,27 @@ namespace redfish
  * @param[in] assemblyJsonPtr - json-keyname on the assembly list output.
  * @return None.
  */
+inline void afterGetAssemblyLocationCode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& assembly,
+    const nlohmann::json::json_pointer& assemblyJsonPtr,
+    const boost::system::error_code& ec, const std::string& value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error: {} for assembly {}",
+                             ec.value(), assembly);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    asyncResp->res.jsonValue[assemblyJsonPtr]["Location"]["PartLocation"]
+                            ["ServiceLabel"] = value;
+}
+
 inline void getAssemblyLocationCode(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& serviceName, const std::string& assembly,
@@ -57,23 +78,8 @@ inline void getAssemblyLocationCode(
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, serviceName, assembly,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        // ast-grep-ignore: long-lambda
-        [asyncResp, assembly, assemblyJsonPtr](
-            const boost::system::error_code& ec, const std::string& value) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error: {} for assembly {}",
-                                     ec.value(), assembly);
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            asyncResp->res.jsonValue[assemblyJsonPtr]["Location"]
-                                    ["PartLocation"]["ServiceLabel"] = value;
-        });
+        std::bind_front(afterGetAssemblyLocationCode, asyncResp, assembly,
+                        assemblyJsonPtr));
 }
 
 inline void afterGetDbusObject(
@@ -225,6 +231,22 @@ inline void handleChassisAssemblyGet(
         std::bind_front(afterHandleChassisAssemblyGet, asyncResp, chassisID));
 }
 
+inline void afterHandleChassisAssemblyHead(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID, const boost::system::error_code& ec,
+    const std::vector<std::string>& /*assemblyList*/)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("Chassis {} not found, ec={}", chassisID, ec);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Assembly.json>; rel=describedby");
+}
+
 inline void handleChassisAssemblyHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -237,22 +259,7 @@ inline void handleChassisAssemblyHead(
 
     assembly_utils::getChassisAssembly(
         asyncResp, chassisID,
-        // ast-grep-ignore: long-lambda
-        [asyncResp,
-         chassisID](const boost::system::error_code& ec,
-                    const std::vector<std::string>& /*assemblyList*/) {
-            if (ec)
-            {
-                BMCWEB_LOG_WARNING("Chassis {} not found, ec={}", chassisID,
-                                   ec);
-                messages::resourceNotFound(asyncResp->res, "Chassis",
-                                           chassisID);
-                return;
-            }
-            asyncResp->res.addHeader(
-                boost::beast::http::field::link,
-                "</redfish/v1/JsonSchemas/Assembly.json>; rel=describedby");
-        });
+        std::bind_front(afterHandleChassisAssemblyHead, asyncResp, chassisID));
 }
 
 inline void afterHandleChassisAssemblyPatch(
