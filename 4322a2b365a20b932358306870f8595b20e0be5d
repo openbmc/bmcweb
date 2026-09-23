@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb062368_65539a1f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-23T12:08:00Z",
+      "side": 1,
+      "message": "Content-Type\u0027s subtype tokens are case-insensitive,\nhttps://www.rfc-editor.org/rfc/rfc9110.html#section-8.3.1",
+      "range": {
+        "startLine": 1067,
+        "startChar": 21,
+        "endLine": 1067,
+        "endChar": 56
+      },
+      "revId": "4322a2b365a20b932358306870f8595b20e0be5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
