@@ -639,6 +639,21 @@ inline void highSpeedCoreIdsHandler(
     }
 }
 
+inline void afterGetBaseSpeedPrioritySettings(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec2,
+    const BaseSpeedPrioritySettingsProperty& baseSpeedList)
+{
+    if (ec2)
+    {
+        BMCWEB_LOG_WARNING("D-Bus Property Get error: {}", ec2);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    highSpeedCoreIdsHandler(asyncResp, baseSpeedList);
+}
+
 inline void afterGetCpuConfigData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& cpuId, const std::string& service,
@@ -703,19 +718,7 @@ inline void afterGetCpuConfigData(
             "xyz.openbmc_project.Inventory.Item.Cpu."
             "OperatingConfig",
             "BaseSpeedPrioritySettings",
-            // ast-grep-ignore: long-lambda
-            [asyncResp](
-                const boost::system::error_code& ec2,
-                const BaseSpeedPrioritySettingsProperty& baseSpeedList) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_WARNING("D-Bus Property Get error: {}", ec2);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                highSpeedCoreIdsHandler(asyncResp, baseSpeedList);
-            });
+            std::bind_front(afterGetBaseSpeedPrioritySettings, asyncResp));
     }
 
     if (baseSpeedPriorityEnabled != nullptr)
@@ -789,6 +792,20 @@ inline void getProcessorLocationCode(
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
+inline void afterGetCpuUniqueId(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& id)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Failed to read cpu unique id: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["ProcessorId"]["ProtectedIdentificationNumber"] =
+        id;
+}
+
 inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& service,
                            const std::string& objectPath)
@@ -797,19 +814,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     dbus::utility::getProperty<std::string>(
         service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
-        "UniqueIdentifier",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const std::string& id) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Failed to read cpu unique id: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            asyncResp->res
-                .jsonValue["ProcessorId"]["ProtectedIdentificationNumber"] = id;
-        });
+        "UniqueIdentifier", std::bind_front(afterGetCpuUniqueId, asyncResp));
 }
 
 inline void afterGetAssociatedSubTreeForEnvMetricsLink(
