@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb4631dc_462d2f78",
+        "filename": "redfish-core/lib/secure_boot.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-23T08:48:18Z",
+      "side": 1,
+      "message": "#include \u003cutility\u003e",
+      "revId": "6c5aa6ad194b3215bf9a684ac79836c07cdcc3f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
