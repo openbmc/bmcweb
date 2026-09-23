@@ -104,6 +104,24 @@ inline void getFabricPortProperties(
     getLocationIndicatorActive(asyncResp, portPath);
 }
 
+inline void afterGetDbusObjectForFabricPort(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portPath,
+    const std::function<void(const std::string& portPath,
+                             const std::string& portServiceName)>& callback,
+    const boost::system::error_code& ec1,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec1 || object.empty())
+    {
+        BMCWEB_LOG_ERROR("DBUS response error on getDbusObject {}",
+                         ec1.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    callback(portPath, object.begin()->first);
+}
+
 inline void afterGetValidFabricPortPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& portId,
@@ -138,18 +156,11 @@ inline void afterGetValidFabricPortPath(
     const std::string& portPath = *it;
     dbus::utility::getDbusObject(
         portPath, portInterfaces,
-        // ast-grep-ignore: long-lambda
         [asyncResp, portPath, callback{std::move(callback)}](
             const boost::system::error_code& ec1,
             const dbus::utility::MapperGetObject& object) {
-            if (ec1 || object.empty())
-            {
-                BMCWEB_LOG_ERROR("DBUS response error on getDbusObject {}",
-                                 ec1.value());
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            callback(portPath, object.begin()->first);
+            afterGetDbusObjectForFabricPort(asyncResp, portPath, callback, ec1,
+                                            object);
         });
 }
 
@@ -164,6 +175,21 @@ inline void getValidFabricPortPath(
         "connecting", portInterfaces,
         std::bind_front(afterGetValidFabricPortPath, asyncResp, portId,
                         std::move(callback)));
+}
+
+inline void afterGetValidFabricPortPathForHead(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portId, const std::string& portPath, const std::string&)
+{
+    if (portPath.empty())
+    {
+        BMCWEB_LOG_WARNING("Port not found");
+        messages::resourceNotFound(asyncResp->res, "Port", portId);
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Port/Port.json>; rel=describedby");
 }
 
 inline void handleFabricPortHead(
@@ -192,18 +218,7 @@ inline void handleFabricPortHead(
 
     getValidFabricPortPath(
         asyncResp, adapterId, portId,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, portId](const std::string& portPath, const std::string&) {
-            if (portPath.empty())
-            {
-                BMCWEB_LOG_WARNING("Port not found");
-                messages::resourceNotFound(asyncResp->res, "Port", portId);
-                return;
-            }
-            asyncResp->res.addHeader(
-                boost::beast::http::field::link,
-                "</redfish/v1/JsonSchemas/Port/Port.json>; rel=describedby");
-        });
+        std::bind_front(afterGetValidFabricPortPathForHead, asyncResp, portId));
 }
 
 inline void handleFabricPortGet(
