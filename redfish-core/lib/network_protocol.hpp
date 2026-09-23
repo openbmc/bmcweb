@@ -113,30 +113,34 @@ inline void extractNTPServersAndDomainNamesData(
 }
 
 template <typename CallbackFunc>
+void afterGetEthernetIfaceData(CallbackFunc callback,
+                               const boost::system::error_code& ec,
+                               const dbus::utility::ManagedObjectType& dbusData)
+{
+    std::vector<std::string> ntpServers;
+    std::vector<std::string> dynamicNtpServers;
+    std::vector<std::string> domainNames;
+
+    if (ec)
+    {
+        callback(false, ntpServers, dynamicNtpServers, domainNames);
+        return;
+    }
+
+    extractNTPServersAndDomainNamesData(dbusData, ntpServers, dynamicNtpServers,
+                                        domainNames);
+
+    callback(true, ntpServers, dynamicNtpServers, domainNames);
+}
+
+template <typename CallbackFunc>
 void getEthernetIfaceData(CallbackFunc&& callback)
 {
     sdbusplus::object_path path("/xyz/openbmc_project/network");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
-        // ast-grep-ignore: long-lambda
-        [callback = std::forward<CallbackFunc>(callback)](
-            const boost::system::error_code& ec,
-            const dbus::utility::ManagedObjectType& dbusData) {
-            std::vector<std::string> ntpServers;
-            std::vector<std::string> dynamicNtpServers;
-            std::vector<std::string> domainNames;
-
-            if (ec)
-            {
-                callback(false, ntpServers, dynamicNtpServers, domainNames);
-                return;
-            }
-
-            extractNTPServersAndDomainNamesData(dbusData, ntpServers,
-                                                dynamicNtpServers, domainNames);
-
-            callback(true, ntpServers, dynamicNtpServers, domainNames);
-        });
+        std::bind_front(afterGetEthernetIfaceData<CallbackFunc>,
+                        std::forward<CallbackFunc>(callback)));
 }
 
 inline void afterNetworkPortRequest(
@@ -168,6 +172,34 @@ inline void afterNetworkPortRequest(
             }
             asyncResp->res.jsonValue[protocolName]["Port"] = portNumber;
         });
+    }
+}
+
+inline void afterGetEthernetIfaceDataForNetworkProtocol(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& hostName, const bool& success,
+    const std::vector<std::string>& ntpServers,
+    const std::vector<std::string>& dynamicNtpServers,
+    const std::vector<std::string>& domainNames)
+{
+    if (!success)
+    {
+        messages::resourceNotFound(asyncResp->res, "ManagerNetworkProtocol",
+                                   "NetworkProtocol");
+        return;
+    }
+    asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
+    asyncResp->res.jsonValue["NTP"]["NetworkSuppliedServers"] =
+        dynamicNtpServers;
+    if (!hostName.empty())
+    {
+        std::string fqdn = hostName;
+        if (!domainNames.empty())
+        {
+            fqdn += ".";
+            fqdn += domainNames[0];
+        }
+        asyncResp->res.jsonValue["FQDN"] = std::move(fqdn);
     }
 }
 
@@ -219,32 +251,8 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     getNTPProtocolEnabled(asyncResp);
 
-    // ast-grep-ignore: long-lambda
-    getEthernetIfaceData([hostName, asyncResp](
-                             const bool& success,
-                             const std::vector<std::string>& ntpServers,
-                             const std::vector<std::string>& dynamicNtpServers,
-                             const std::vector<std::string>& domainNames) {
-        if (!success)
-        {
-            messages::resourceNotFound(asyncResp->res, "ManagerNetworkProtocol",
-                                       "NetworkProtocol");
-            return;
-        }
-        asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
-        asyncResp->res.jsonValue["NTP"]["NetworkSuppliedServers"] =
-            dynamicNtpServers;
-        if (!hostName.empty())
-        {
-            std::string fqdn = hostName;
-            if (!domainNames.empty())
-            {
-                fqdn += ".";
-                fqdn += domainNames[0];
-            }
-            asyncResp->res.jsonValue["FQDN"] = std::move(fqdn);
-        }
-    });
+    getEthernetIfaceData(std::bind_front(
+        afterGetEthernetIfaceDataForNetworkProtocol, asyncResp, hostName));
 
     Privileges effectiveUserPrivileges =
         redfish::getUserPrivileges(*req.session);
@@ -296,6 +304,39 @@ inline void handleNTPProtocolEnabled(
 // object_t, empty json object, to ignore the value
 using IpAddress =
     std::variant<std::string, nlohmann::json::object_t, std::nullptr_t>;
+
+inline void afterGetNtpServersSubtree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<std::string>& currentNtpServers,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& [objectPath, serviceMap] : subtree)
+    {
+        for (const auto& [service, interfaces] : serviceMap)
+        {
+            for (const auto& interface : interfaces)
+            {
+                if (interface !=
+                    "xyz.openbmc_project.Network.EthernetInterface")
+                {
+                    continue;
+                }
+
+                setDbusProperty(asyncResp, "NTP/NTPServers/", service,
+                                objectPath, interface, "StaticNTPServers",
+                                currentNtpServers);
+            }
+        }
+    }
+}
 
 inline void handleNTPServersPatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -368,38 +409,53 @@ inline void handleNTPServersPatch(
 
     constexpr std::array<std::string_view, 1> ethInterfaces = {
         "xyz.openbmc_project.Network.EthernetInterface"};
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project", 0, ethInterfaces,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, currentNtpServers](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
-                messages::internalError(asyncResp->res);
-                return;
-            }
+    dbus::utility::getSubTree("/xyz/openbmc_project", 0, ethInterfaces,
+                              std::bind_front(afterGetNtpServersSubtree,
+                                              asyncResp, currentNtpServers));
+}
 
-            for (const auto& [objectPath, serviceMap] : subtree)
-            {
-                for (const auto& [service, interfaces] : serviceMap)
-                {
-                    for (const auto& interface : interfaces)
-                    {
-                        if (interface !=
-                            "xyz.openbmc_project.Network.EthernetInterface")
-                        {
-                            continue;
-                        }
+inline void afterGetProtocolEnabledSubtree(
+    bool protocolEnabled, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& netBasePath, const std::string& redfishProperty,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_WARNING("Service not found for protocol: {}",
+                               redfishProperty);
+            messages::propertyNotWritable(asyncResp->res, redfishProperty);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus method call failed with error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
 
-                        setDbusProperty(asyncResp, "NTP/NTPServers/", service,
-                                        objectPath, interface,
-                                        "StaticNTPServers", currentNtpServers);
-                    }
-                }
+    for (const auto& entry : subtree)
+    {
+        if (entry.first.starts_with(netBasePath))
+        {
+            if (entry.second.empty())
+            {
+                BMCWEB_LOG_ERROR(
+                    "Protocol handler: Mapper returned entry with no service");
+                continue;
             }
-        });
+            setDbusProperty(asyncResp, redfishProperty,
+                            entry.second.begin()->first, entry.first,
+                            "xyz.openbmc_project.Control.Service.Attributes",
+                            "Running", protocolEnabled);
+            setDbusProperty(asyncResp, redfishProperty,
+                            entry.second.begin()->first, entry.first,
+                            "xyz.openbmc_project.Control.Service.Attributes",
+                            "Enabled", protocolEnabled);
+            return;
+        }
+    }
+    messages::propertyNotWritable(asyncResp->res, redfishProperty);
 }
 
 inline void handleProtocolEnabled(
@@ -411,52 +467,8 @@ inline void handleProtocolEnabled(
         "xyz.openbmc_project.Control.Service.Attributes"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/control/service", 0, interfaces,
-        // ast-grep-ignore: long-lambda
-        [protocolEnabled, asyncResp, netBasePath,
-         redfishProperty = std::string(redfishProperty)](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                if (ec.value() == boost::system::errc::io_error)
-                {
-                    BMCWEB_LOG_WARNING("Service not found for protocol: {}",
-                                       redfishProperty);
-                    messages::propertyNotWritable(asyncResp->res,
-                                                  redfishProperty);
-                    return;
-                }
-                BMCWEB_LOG_ERROR("DBus method call failed with error {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            for (const auto& entry : subtree)
-            {
-                if (entry.first.starts_with(netBasePath))
-                {
-                    if (entry.second.empty())
-                    {
-                        BMCWEB_LOG_ERROR(
-                            "Protocol handler: Mapper returned entry with no service");
-                        continue;
-                    }
-                    setDbusProperty(
-                        asyncResp, redfishProperty, entry.second.begin()->first,
-                        entry.first,
-                        "xyz.openbmc_project.Control.Service.Attributes",
-                        "Running", protocolEnabled);
-                    setDbusProperty(
-                        asyncResp, redfishProperty, entry.second.begin()->first,
-                        entry.first,
-                        "xyz.openbmc_project.Control.Service.Attributes",
-                        "Enabled", protocolEnabled);
-                    return;
-                }
-            }
-            messages::propertyNotWritable(asyncResp->res, redfishProperty);
-        });
+        std::bind_front(afterGetProtocolEnabledSubtree, protocolEnabled,
+                        asyncResp, netBasePath, std::string(redfishProperty)));
 }
 
 inline void getNTPProtocolEnabled(
@@ -482,6 +494,22 @@ inline std::string encodeServiceObjectPath(std::string_view serviceName)
     sdbusplus::object_path objPath("/xyz/openbmc_project/control/service");
     objPath /= serviceName;
     return objPath.str;
+}
+
+inline void afterGetEthernetIfaceDataForNtpPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<IpAddress>& ntpServerObjects, const bool success,
+    std::vector<std::string>& currentNtpServers,
+    const std::vector<std::string>& /*dynamicNtpServers*/,
+    const std::vector<std::string>& /*domainNames*/)
+{
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    handleNTPServersPatch(asyncResp, ntpServerObjects,
+                          std::move(currentNtpServers));
 }
 
 inline void handleManagersNetworkProtocolPatch(
@@ -532,20 +560,9 @@ inline void handleManagersNetworkProtocolPatch(
     }
     if (ntpServerObjects)
     {
-        getEthernetIfaceData(
-            // ast-grep-ignore: long-lambda
-            [asyncResp, ntpServerObjects](
-                const bool success, std::vector<std::string>& currentNtpServers,
-                const std::vector<std::string>& /*dynamicNtpServers*/,
-                const std::vector<std::string>& /*domainNames*/) {
-                if (!success)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                handleNTPServersPatch(asyncResp, *ntpServerObjects,
-                                      std::move(currentNtpServers));
-            });
+        getEthernetIfaceData(std::bind_front(
+            afterGetEthernetIfaceDataForNtpPatch, asyncResp,
+            *ntpServerObjects));
     }
 
     if (ipmiEnabled)
