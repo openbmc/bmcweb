@@ -16,6 +16,24 @@
       "message": "This also adds new NetworkAdapter port-metrics fields, so redfish.md should be updated to list there too, right??",
       "revId": "ddb8fe1fefd0a0f33f99a49fdf522a2c3f35019b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ee33c9_e378fa4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-24T21:57:51Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "30307f8d_48fb8781",
+      "revId": "ddb8fe1fefd0a0f33f99a49fdf522a2c3f35019b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
