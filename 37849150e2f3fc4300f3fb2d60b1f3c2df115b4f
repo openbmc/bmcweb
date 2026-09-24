@@ -16,6 +16,24 @@
       "message": "We are removing log_services_dump_test.cpp  from the build but I don\u0027t actually see the file removed",
       "revId": "37849150e2f3fc4300f3fb2d60b1f3c2df115b4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7ad8545_16793ba8",
+        "filename": "test/meson.build",
+        "patchSetId": 19
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-24T15:59:43Z",
+      "side": 0,
+      "message": "Removed it. Done",
+      "parentUuid": "09eb9082_1b0180fb",
+      "revId": "37849150e2f3fc4300f3fb2d60b1f3c2df115b4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
