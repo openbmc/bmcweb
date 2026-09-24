@@ -39,6 +39,30 @@
       },
       "revId": "8f7be8bd762d71a95b60faf488787979a856e4b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24e04e92_336d8d28",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-24T15:04:20Z",
+      "side": 1,
+      "message": "Good catch, thanks! Switched to calling dbus::utility::getManagedObjects() directly instead of the manual async_method_call + std::function wrapper.",
+      "parentUuid": "6edf9907_96c35188",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 67
+      },
+      "revId": "8f7be8bd762d71a95b60faf488787979a856e4b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
