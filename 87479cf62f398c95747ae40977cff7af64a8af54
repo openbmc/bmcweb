@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "688246ad_cae5df13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-24T03:22:18Z",
+      "side": 1,
+      "message": "Overall I am good",
+      "revId": "87479cf62f398c95747ae40977cff7af64a8af54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79eba2bc_b49da50a",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-24T03:22:18Z",
+      "side": 1,
+      "message": "A good one for some tests.. Bonus \n\nMatching chassis ID -\u003e Callback receives the matching object path\nNo matching chassis -\u003e Callback receives std::nullopt\nD-Bus error -\u003e InternalError and no callback \nMultiple chassis paths -\u003e Callback receives only the matching path",
+      "revId": "87479cf62f398c95747ae40977cff7af64a8af54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cae6bfac_545189dd",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-24T03:22:18Z",
+      "side": 1,
+      "message": "I am struggling with Callback\u0026 vs Callback\u0026\u0026 here?\n\nIt never forwards it.. Would Callback\u0026 better communicate the intended ownership? \nWhat does the rest of the code do?\n\nI guess the rest of the code does a Callback\u0026\u0026\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+Callback%26\u0026type\u003dcode",
+      "range": {
+        "startLine": 38,
+        "startChar": 34,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "87479cf62f398c95747ae40977cff7af64a8af54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
