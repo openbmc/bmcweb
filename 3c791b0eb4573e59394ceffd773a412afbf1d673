@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "948df272_6823942a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-24T18:13:30Z",
+      "side": 1,
+      "message": "Not intentionally, I simply copied the existing code from the lambda into its own function. However, it prob should respond with internal error. Done",
+      "parentUuid": "96f4f448_ece27b91",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 0
+      },
+      "revId": "3c791b0eb4573e59394ceffd773a412afbf1d673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54a2b25d_8b2cbee0",
@@ -71,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efaddc7c_ba9c3645",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-24T18:13:30Z",
+      "side": 1,
+      "message": "Yes, `getPostCodeForBoot` calls `afterGetPostCodeForBoot` and vice versa.",
+      "parentUuid": "2fdd73cd_875fefc9",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 70
+      },
+      "revId": "3c791b0eb4573e59394ceffd773a412afbf1d673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27d74205_f7160835",
@@ -84,6 +132,30 @@
       "writtenOn": "2026-09-09T05:27:07Z",
       "side": 1,
       "message": "Can we add debug log here?",
+      "range": {
+        "startLine": 547,
+        "startChar": 8,
+        "endLine": 547,
+        "endChar": 75
+      },
+      "revId": "3c791b0eb4573e59394ceffd773a412afbf1d673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5ec8521_567a7087",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-09-24T18:13:30Z",
+      "side": 1,
+      "message": "Might as well. Done.",
+      "parentUuid": "27d74205_f7160835",
       "range": {
         "startLine": 547,
         "startChar": 8,
