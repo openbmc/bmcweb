@@ -16,6 +16,23 @@
       "message": "@joelpj@ami.com Over the past three months, your bmcweb contributions across Redfish fixes, error handling, performance, and test coverage. You’ve also been actively reviewing changes across the project. I support adding you as a reviewer.",
       "revId": "a7204fb060f875ee00990a599559cebc719ad8da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d06025c3_2814609b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001685
+      },
+      "writtenOn": "2026-09-24T10:21:22Z",
+      "side": 1,
+      "message": "He is highly deserving of a reviewer role in the bmcweb repository, as he consistently demonstrates dedication through his valuable contribution",
+      "revId": "a7204fb060f875ee00990a599559cebc719ad8da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
