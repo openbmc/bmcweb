@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComponentIntegrity v1.4.0                                           -->
+<!--# Redfish Schema:  ComponentIntegrity v1.5.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -62,7 +62,7 @@
 
       <Action Name="SPDMGetSignedMeasurements" IsBound="true">
         <Annotation Term="OData.Description" String="This action generates an SPDM cryptographic signed statement over the given nonce and measurements of the SPDM Responder."/>
-        <Annotation Term="OData.LongDescription" String="This action shall generate a cryptographic signed statement over the given nonce and measurements corresponding to the SPDM Responder.  This action shall not be present if the `ComponentIntegrityType` property does not contain the value `SPDM`.  The SPDM Requester shall issue one or more SPDM 'GET_MEASUREMENTS' requests for each of the requested measurement indices to the SPDM Responder.  When the SPDM 'GET_MEASUREMENTS' requests are made for version 1.2, the parameter 'RawBitStreamRequested' shall contain `0`.  The SPDM Requester shall provide the nonce for the action to the SPDM Responder in the last SPDM 'GET_MEASUREMENTS' request.  The SPDM Requester shall request a signature in the last SPDM 'GET_MEASUREMENTS' request."/>
+        <Annotation Term="OData.LongDescription" String="This action shall generate a cryptographic signed statement over the given nonce and measurements corresponding to the SPDM Responder.  This action shall not be present if the `ComponentIntegrityType` property does not contain the value `SPDM`.  The SPDM Requester shall issue one or more SPDM 'GET_MEASUREMENTS' requests for each of the requested measurement indices to the SPDM Responder.  The SPDM Requester shall provide the nonce for the action to the SPDM Responder in the last SPDM 'GET_MEASUREMENTS' request.  The SPDM Requester shall request a signature in the last SPDM 'GET_MEASUREMENTS' request."/>
         <Parameter Name="ComponentIntegrity" Type="ComponentIntegrity.v1_0_0.Actions"/>
         <Parameter Name="Nonce" Type="Edm.String">
           <Annotation Term="OData.Description" String="A 32-byte hex-encoded string that is signed with the measurements.  The value should be unique."/>
@@ -77,6 +77,18 @@
           <Annotation Term="OData.Description" String="An array of indices that identify the measurement blocks to sign."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of indices that identify the measurement blocks to sign.  This array shall contain one or more unique values between `0` to `254`, inclusive, or contain a single value of `255`.  If not provided by the client, the value shall be assumed to be an array containing a single value of `255`."/>
         </Parameter>
+        <Parameter Name="RawBitstream" Type="Edm.Boolean">
+          <Annotation Term="OData.Description" String="An indication of whether a raw bitstream is requested for the measurements.  The SPDM Responder might return a hash if it is unable to produce a raw bitstream."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether the 'RawBitStreamRequested' parameter for SPDM 'GET_MEASUREMENTS' requests is set.  The SPDM Responder may return a hash if it is unable to produce a raw bitstream.  If the SPDM version is 1.0 or 1.1, this parameter shall be ignored.  If this parameter is not provided or supported, the value shall be `false`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
         <ReturnType Type="ComponentIntegrity.v1_0_0.SPDMGetSignedMeasurementsResponse" Nullable="false"/>
       </Action>
 
@@ -87,7 +99,7 @@
         <Parameter Name="Nonce" Type="Edm.String">
           <Annotation Term="OData.Description" String="A set of bytes as a hex-encoded string that is signed with the measurements.  The value should be unique."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain a set of bytes as a hex-encoded string that is signed with the measurements.  Services shall reject the action request if the number of bytes provided is larger than the value specified by the `NonceSizeBytesMaximum` property in the `TPM` property.  If not provided by the client, the service shall generate the nonce.  The value should be unique and generated using a random or a pseudo-random generator.  The service shall send this value to the TPM in the 'qualifyingData' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
-          <Annotation Term="Validation.Pattern" String="^[0-9a-fA-F]$"/>
+          <Annotation Term="Validation.Pattern" String="^[0-9a-fA-F]+$"/>
         </Parameter>
         <Parameter Name="Certificate" Type="Certificate.Certificate" Nullable="false">
           <Annotation Term="OData.Description" String="The URI for the certificate that represents the TPM attestation key."/>
@@ -585,7 +597,7 @@
         <Property Name="SignedMeasurements" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Base64-encoded cryptographic signed statement generated by the signer."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the cryptographic signed statement over the given nonce and measurement blocks corresponding to the requested measurement indices.  If the SPDM version is 1.2, this value shall be a concatenation of SPDM 'VCA' and 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  If SPDM version is 1.0 or 1.1, this value shall be a concatenation of SPDM 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  The last 'MEASUREMENTS' response shall contain a signature generated over the 'L2' string by the SPDM Responder."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the cryptographic signed statement over the given nonce and measurement blocks corresponding to the requested measurement indices.  If the SPDM version is 1.2, 1.3, or 1.4, this value shall be a concatenation of SPDM 'VCA' and 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  If the SPDM version is 1.0 or 1.1, this value shall be a concatenation of SPDM 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  The last 'MEASUREMENTS' response shall contain a signature generated over the 'L2' string by the SPDM Responder."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <NavigationProperty Name="Certificate" Type="Certificate.Certificate" Nullable="false">
@@ -659,6 +671,12 @@
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_5.ComponentIntegrity"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the SPDM version references for the `SignedMeasurements` property from the `SPDMGetSignedMeasurements` action response to include versions 1.3 and 1.4.  It was also created to correct the regular expression for the `Nonce` parameter in the `TPMGetSignedMeasurements` action."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_6.ComponentIntegrity"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -709,6 +727,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the reference to the asymmetric signing algorithm names in DSP0274 for the `SigningAlgorithm` property in responses to the `SPDMGetSignedMeasurements` action.  It was also created to update the TCG reference in the `MeasurementHashAlgorithm` description within TPM measurements."/>
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_5.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the SPDM version references for the `SignedMeasurements` property from the `SPDMGetSignedMeasurements` action response to include versions 1.3 and 1.4.  It was also created to correct the regular expression for the `Nonce` parameter in the `TPMGetSignedMeasurements` action."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_6.ComponentIntegrity"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_0">
@@ -774,6 +798,12 @@
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_4.ComponentIntegrity"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the SPDM version references for the `SignedMeasurements` property from the `SPDMGetSignedMeasurements` action response to include versions 1.3 and 1.4.  It was also created to correct the regular expression for the `Nonce` parameter in the `TPMGetSignedMeasurements` action."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_5.ComponentIntegrity"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -792,6 +822,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the reference to the asymmetric signing algorithm names in DSP0274 for the `SigningAlgorithm` property in responses to the `SPDMGetSignedMeasurements` action.  It was also created to update the TCG reference in the `MeasurementHashAlgorithm` description within TPM measurements."/>
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_3_1.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the SPDM version references for the `SignedMeasurements` property from the `SPDMGetSignedMeasurements` action response to include versions 1.3 and 1.4.  It was also created to correct the regular expression for the `Nonce` parameter in the `TPMGetSignedMeasurements` action."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_3_2.ComponentIntegrity"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_4_0">
@@ -816,6 +852,20 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of additional asymmetric signing algorithms negotiated between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the asymmetric key signature algorithm names found in the 'SPDM Asymmetric Signature Reference Information' table in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`.  This property shall not be present if only one asymmetric signing algorithm is negotiated.  The first asymmetric signing algorithm shall not appear in this property."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the SPDM version references for the `SignedMeasurements` property from the `SPDMGetSignedMeasurements` action response to include versions 1.3 and 1.4.  It was also created to correct the regular expression for the `Nonce` parameter in the `TPMGetSignedMeasurements` action."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_4_0.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `RawBitstream` parameter to `SPDMGetSignedMeasurements`."/>
+
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_4_1.ComponentIntegrity"/>
     </Schema>
 
   </edmx:DataServices>

@@ -178,6 +178,10 @@
         <Annotation Term="OData.Description" String="The identifier of the next entry where retrieval for this client context key will start."/>
         <Annotation Term="OData.LongDescription" String="This term shall contain the identifier of the next entry stored as the next start point for the client context key supplied in the `clientcontext` query parameter, reflecting the updated progress record after the current `GET` completes.  This term shall be present when `@Redfish.ClientContextStatus` contains `Applied`."/>
       </Term>
+      <Term Name="Alias" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The user-defined alias assigned to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This term shall contain the user-defined alias assigned to this resource, as defined in the 'Alias annotation' clause of the Redfish Specification."/>
+      </Term>
 
       <EnumType Name="ClientContextStatusType">
         <Member Name="Applied">

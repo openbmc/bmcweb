@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PortMetrics v1.9.0                                                  -->
+<!--# Redfish Schema:  PortMetrics v1.9.1                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -90,6 +90,11 @@
             <String>/redfish/v1/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}/Metrics</String>
             <String>/redfish/v1/Managers/{ManagerId}/USBPorts/{PortId}/Metrics</String>
             <String>/redfish/v1/Managers/{ManagerId}/DedicatedNetworkPorts/{PortId}/Metrics</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports/{PortId}/Metrics</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -777,8 +782,8 @@
         <Property Name="WavelengthNanometers" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The laser wavelength, in nanometers, for the transceiver."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the laser wavelength, in nanometers, for the transceiver.  This property shall not be present for non-optic transceiver mediums."/>
-          <Annotation Term="Measures.Unit" String="nm"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the laser wavelength for the transceiver, in nanometer units, as a string representation of the number.  This property shall not be present for non-optic transceiver mediums."/>
+          <Annotation Term="Validation.Pattern" String="^\d+$"/>
         </Property>
       </ComplexType>
     </Schema>
@@ -787,6 +792,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was added to add support for non-SFP transceivers."/>
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_7_0.PortMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the format of the `WavelengthNanometers` property."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_7_1.PortMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_8_0">
@@ -847,6 +858,12 @@
       <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_8_0.PortMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the format of the `WavelengthNanometers` property."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_8_1.PortMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2026.1"/>
@@ -891,6 +908,12 @@
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the format of the `WavelengthNanometers` property."/>
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_9_0.PortMetrics"/>
     </Schema>
 
   </edmx:DataServices>

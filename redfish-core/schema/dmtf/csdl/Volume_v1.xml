@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
-<!-- Copyright 2015-2025 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<!-- Copyright 2015-2026 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
 
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
 
@@ -360,6 +360,20 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_5_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ClearReservations" IsBound="true">
+        <Parameter Name="Volume" Type="Volume.v1_0_0.Actions"/>
+        <Annotation Term="OData.Description" String="Request to clear any reservations held by the volume."/>
+        <Annotation Term="OData.LongDescription" String="This action shall request to clear any reservations held by the volume.  This command should only be performed by StorageAdministrators when host applications using the reservations have encountered an unresolvable state."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_11_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -786,6 +800,28 @@
         </Member>
         <Member Name="Degraded">
           <Annotation Term="OData.Description" String="Degraded performance."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ReservationType">
+          <Annotation Term="OData.Description" String="Indicate the possible type of reservations."/>
+        <Member Name="WriteExclusive">
+          <Annotation Term="OData.Description" String="Reservation type that allows only the host holding the reservation to read and write to a shared namespace. Only one reservation holder is allowed. All other hosts have read-only access to the shared namespace."/>
+        </Member>
+        <Member Name="ExclusiveAccess">
+          <Annotation Term="OData.Description" String="Reservation type that allows only the host holding the reservation to read and write to a shared namespace. Only one reservation holder is allowed. All other hosts are denied access."/>
+        </Member>
+        <Member Name="WriteExclusiveRegistrantsOnly">
+          <Annotation Term="OData.Description" String="Reservation type that allows the host holding a reservation to read and write to a shared namespace. Only one reservation holder is allowed. Hosts that have registered are permitted read/write access. Hosts not holding registrations have read-only access."/>
+        </Member>
+        <Member Name="ExclusiveAccessRegistrantsOnly">
+          <Annotation Term="OData.Description" String="Reservation type that allows the host holding a reservation to read and write to a shared namespace. Only one reservation holder is allowed. Hosts that have registered are permitted read/write access. Hosts not holding registrations are not permitted access."/>
+        </Member>
+        <Member Name="WriteExclusiveAllRegistrants">
+          <Annotation Term="OData.Description" String="Reservation type that allows all hosts that have registered to act as reservation holder and to read and write to a shared namespace. Hosts not holding registrations have read-only access."/>
+        </Member>
+        <Member Name="ExclusiveAccessAllRegistrants">
+          <Annotation Term="OData.Description" String="Reservation type that allows all hosts that have registered to act as reservation holder and to have read and write access to a shared namespace. Hosts not holding registrations are not permitted access."/>
         </Member>
       </EnumType>
     </Schema>
@@ -1706,7 +1742,7 @@
       </ComplexType>
 
       <ComplexType Name="NVMeNamespaceProperties" BaseType="Volume.v1_9_0.NVMeNamespaceProperties">
-        <Annotation Term="OData.Description" String="Add the SupportsMultipathandSharing, and ReservationCapabilities properties."/>
+        <Annotation Term="OData.Description" String="Add the SupportsMultipathandSharing and SupportsIOPerformanceHints properties."/>
         <Property Name="SupportsMultipleNamespaceAttachments" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether the namespace may be attached to two or more controllers."/>
@@ -1741,6 +1777,37 @@
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
      <Annotation Term="OData.LongDescription" String="Change Capacity references to unversioned."/>
       <EntityType Name="Volume" BaseType="Volume.v1_10_1.Volume"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to add Reservations information to the Volume."/>
+      <Annotation Term="Redfish.Release" String="1.2.9"/>
+      <EntityType Name="Volume" BaseType="Volume.v1_10_0.Volume">
+         <Property Name="ReservationState" Type="Volume.v1_11_0.ReservationState">
+          <Annotation Term="OData.Description" String="Describes the currently configured reservations for this volume."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the currently configured reservations for this volume."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="ReservationState">
+        <Annotation Term="OData.Description" String="Defines the ReservationState for this Volume."/>
+        <Property Name="ReservationType" Type="Volume.ReservationType">
+          <Annotation Term="OData.Description" String="Reservation type for this Volume."/>
+          <Annotation Term="OData.LongDescription" String="This shall identify therReservation type for this Volume."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+        </Property>
+       <Property Name="RegisteredKeys" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Description" String="List of Registered keys for the volume."/>
+          <Annotation Term="OData.LongDescription" String="This shall identify the registered keys for the Volume. Hosts need to register a unique key to be able to reserve a volume for access. Key is 64-bit number. A volume can have 1 or more registered keys up to the supported maximum limit."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+        </Property>
+        <Property Name="ReservationHolder" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Description" String="List of one or more reservation keys that currently hold the reservations on this volume."/>
+          <Annotation Term="OData.LongDescription" String="This shall identify the registered keys for the Volume. Hosts need to register a unique key to be able to reserve a volume for access. Key is 64-bit number. A volume can have 1 or more registered keys up to the supported maximum limit."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

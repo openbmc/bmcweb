@@ -1,0 +1,231 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateServiceCapabilities.v1_1_0.json",
+    "$ref": "#/definitions/UpdateServiceCapabilities",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2026 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "AllowableTargetReferenceType": {
+            "enum": [
+                "SoftwareInventory",
+                "DeviceResource",
+                "ResourceCollection",
+                "Aggregate",
+                "ComputerSystem"
+            ],
+            "enumDescriptions": {
+                "Aggregate": "The service accepts URIs that reference `Aggregate` resources as valid values for the `Targets` parameter.",
+                "ComputerSystem": "The service accepts URIs that reference `ComputerSystem` resources as valid values for the `Targets` parameter.",
+                "DeviceResource": "The service accepts URIs that reference device resources, such as `NetworkAdapter`, `Processor`, `Storage`, or `Drive` resources, as valid values for the `Targets` parameter.",
+                "ResourceCollection": "The service accepts URIs that reference resource collections, such as `NetworkAdapterCollection`, `ProcessorCollection`, `StorageCollection`, or `DriveCollection` resources, as valid values for the `Targets` parameter.",
+                "SoftwareInventory": "The service accepts URIs that reference `SoftwareInventory` resources as valid values for the `Targets` parameter."
+            },
+            "enumLongDescriptions": {
+                "Aggregate": "This value shall indicate that the service accepts URIs that reference `Aggregate` resources as valid values for the `Targets` parameter.",
+                "ComputerSystem": "This value shall indicate that the service accepts URIs that reference `ComputerSystem` resources as valid values for the `Targets` parameter.",
+                "DeviceResource": "This value shall indicate that the service accepts URIs that reference device resources, such as `NetworkAdapter`, `Processor`, `Storage`, or `Drive` resources, as valid values for the `Targets` parameter.",
+                "ResourceCollection": "This value shall indicate that the service accepts URIs that reference resource collections, such as `NetworkAdapterCollection`, `ProcessorCollection`, `StorageCollection`, or `DriveCollection` resources, as valid values for the `Targets` parameter.",
+                "SoftwareInventory": "This value shall indicate that the service accepts URIs that reference `SoftwareInventory` resources as valid values for the `Targets` parameter."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "UpdateServiceCapabilities": {
+            "additionalProperties": false,
+            "description": "The `UpdateServiceCapabilities` schema contains capabilities of the update service.",
+            "longDescription": "This resource shall represent the update service capabilities for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "AllowableStaging": {
+                    "description": "The allowable URIs that a client can specify in the `Targets` parameter for update requests when requesting to stage an image on target devices.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain an array of the allowable URIs that a client can specify in the `Targets` parameter for `SimpleUpdate` or `MultipartHttpPushUri` update requests with `Stage` set to `true`.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "AllowableTargetReferenceTypes": {
+                    "description": "The types of URI references that the service accepts in the `Targets` and parameter for update requests.",
+                    "items": {
+                        "$ref": "#/definitions/AllowableTargetReferenceType"
+                    },
+                    "longDescription": "This property shall contain an array that indicates the types of URI references that the service accepts as valid values in the `Targets` parameter for `SimpleUpdate` or `MultipartHttpPushUri` update requests.  If this property is not present, the `AllowableTargets` property contains the exact set of URIs that are allowed in the `Targets` parameter.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "AllowableTargets": {
+                    "description": "The allowable URIs that a client can specify in the `Targets` parameter for update requests.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain an array of the allowable URIs that a client can specify in the `Targets` parameter for `SimpleUpdate` or `MultipartHttpPushUri` update requests.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "ExcludeTargetsParameterSupported": {
+                    "description": "An indication of whether the service supports the `ExcludeTargets` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests.",
+                    "longDescription": "This property shall indicate whether the service supports the `ExcludeTargets` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "ForceUpdateParameterSupported": {
+                    "description": "An indication of whether the service supports the `ForceUpdate` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests.",
+                    "longDescription": "This property shall indicate whether the service supports the `ForceUpdate` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LocalImageParameterSupported": {
+                    "description": "An indication of whether the service supports the `LocalImage` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests.",
+                    "longDescription": "This property shall indicate whether the service supports the `LocalImage` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "StageParameterSupported": {
+                    "description": "An indication of whether the service supports the `Stage` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests.",
+                    "longDescription": "This property shall indicate whether the service supports the `Stage` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TargetsParameterSupported": {
+                    "description": "An indication of whether the service supports the `Targets` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests.",
+                    "longDescription": "This property shall indicate whether the service supports the `Targets` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2026.2",
+    "title": "#UpdateServiceCapabilities.v1_1_0.UpdateServiceCapabilities"
+}

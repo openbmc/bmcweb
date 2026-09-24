@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Circuit v1.9.0                                                      -->
+<!--# Redfish Schema:  Circuit v1.10.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -117,7 +117,7 @@
         </Member>
         <Member Name="PowerCycle">
           <Annotation Term="OData.Description" String="Power cycle."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  The transistion to a power on state shall be delayed by the value of the `PowerCycleDelaySeconds` property, if present in the resource.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -254,6 +254,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OpenRackV3">
+          <Annotation Term="OData.Description" String="OCP Open Rack DC 50V nominal range."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the device supports a nominal voltage range of 46-52VDC as specified by the Open Compute Project Open Rack V3 Base Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -942,7 +954,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add `DC50V` to `NominalVoltageType`."/>
+      <Annotation Term="OData.Description" String="This version was created to add `DC48V` to `NominalVoltageType`."/>
 
       <EntityType Name="Circuit" BaseType="Circuit.v1_1_1.Circuit"/>
     </Schema>
@@ -1134,6 +1146,12 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_5_2.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the `PowerCycle` value in `PowerControl` will adhere to the value of `PowerCycleDelaySeconds`."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_5_3.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1158,6 +1176,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
       <EntityType Name="Circuit" BaseType="Circuit.v1_6_2.Circuit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the `PowerCycle` value in `PowerControl` will adhere to the value of `PowerCycleDelaySeconds`."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_6_3.Circuit"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_7_0">
@@ -1186,6 +1210,12 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_7_2.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the `PowerCycle` value in `PowerControl` will adhere to the value of `PowerCycleDelaySeconds`."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_7_3.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -1205,12 +1235,53 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_8_0.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the `PowerCycle` value in `PowerControl` will adhere to the value of `PowerCycleDelaySeconds`."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_8_1.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.4"/>
       <Annotation Term="OData.Description" String="This version was created to add `DC400V` and `DC800V` to `NominalVoltageType`."/>
 
       <EntityType Name="Circuit" BaseType="Circuit.v1_8_1.Circuit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the `PowerCycle` value in `PowerControl` will adhere to the value of `PowerCycleDelaySeconds`."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_9_0.Circuit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `OpenRackV3` to `NominalVoltageType`."/>
+
+      <EntityType Name="Circuit" BaseType="Circuit.v1_9_1.Circuit">
+        <Property Name="PowerFlowDirection" Type="Circuit.v1_10_0.PowerFlowDirection">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The direction of power flow under normal conditions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the nominal flow of power from the perspective of the owning equipment."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="PowerFlowDirection">
+        <Member Name="Source">
+          <Annotation Term="OData.Description" String="Source circuit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that power normally flows into the equipment from this circuit as a source, input, or import."/>
+        </Member>
+        <Member Name="Load">
+          <Annotation Term="OData.Description" String="Load circuit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that power normally flows out from the equipment to this circuit as a load, output, or export."/>
+        </Member>
+        <Member Name="Bidirectional">
+          <Annotation Term="OData.Description" String="Bidirectional circuit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that power normally flows in either direction depending on the mode of the equipment.  This value typically represents an energy storage unit that contains a single electrical connection serving as both a source or import, as well as a load or export circuit."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

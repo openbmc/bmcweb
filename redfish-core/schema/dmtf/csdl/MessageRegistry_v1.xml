@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistry v1.8.0                                              -->
+<!--# Redfish Schema:  MessageRegistry v1.9.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -61,32 +61,27 @@
         <Property Name="Language" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The RFC5646-conformant language code for the message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an RFC5646-conformant language code."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an RFC5646-conformant language code.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
         </Property>
         <Property Name="RegistryPrefix" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The single-word prefix that is used in forming and decoding `MessageId` values."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Redfish Specification-defined prefix used in forming and decoding `MessageId` values that uniquely identifies all messages that belong to this message registry."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Redfish Specification-defined prefix used in forming and decoding `MessageId` values that uniquely identifies all messages that belong to this message registry.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
         </Property>
         <Property Name="RegistryVersion" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The message registry version in the middle portion of a `MessageId`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this message registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this message registry.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
           <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
-          <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OwningEntity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The organization or company that publishes this message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the publisher of this message registry."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the publisher of this message registry.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
         </Property>
         <Property Name="Messages" Type="MessageRegistry.v1_0_0.MessageProperty" Nullable="false">
           <Annotation Term="OData.Description" String="The message keys contained in the message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the message keys contained in the message registry.  The message keys are the suffix of the `MessageId` and shall be unique within this message registry."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the message keys contained in the message registry.  The message keys are the suffix of the `MessageId` and shall be unique within this message registry.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
         </Property>
       </EntityType>
 
@@ -111,20 +106,17 @@
         <Property Name="Description" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A short description of how and when to use this message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate how and when this message is returned by the Redfish service."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate how and when this message is returned by the Redfish service.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
         </Property>
         <Property Name="Message" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The actual message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the message to display.  If a %integer is included in part of the string, it shall represent a string substitution for any `MessageArgs` that accompany the message, in order."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the message to display.  If a %integer is included in part of the string, it shall represent a string substitution for any `MessageArgs` that accompany the message, in order.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
         </Property>
         <Property Name="Severity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The severity of the message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the condition resulting in the message, as defined in the 'Status' clause of the Redfish Specification.  Services can replace the severity defined in the message registry with a value more applicable to the implementation in message payloads and event payloads."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the condition resulting in the message, as defined in the 'Status' clause of the Redfish Specification.  Services can replace the severity defined in the message registry with a value more applicable to the implementation in message payloads and event payloads.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -138,8 +130,7 @@
         <Property Name="NumberOfArgs" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The number of arguments in the message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of arguments that are substituted for the locations marked with %&lt;integer&gt; in the message."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of arguments that are substituted for the locations marked with %&lt;integer&gt; in the message.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="ParamTypes" Type="Collection(MessageRegistry.v1_0_0.ParamType)" Nullable="false">
@@ -150,8 +141,7 @@
         <Property Name="Resolution" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Used to provide suggestions on how to resolve the situation that caused the error."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the resolution of the message.  Services can replace the resolution defined in the message registry with a more specific resolution in message payloads."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the resolution of the message.  Services can replace the resolution defined in the message registry with a more specific resolution in message payloads.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
@@ -455,8 +445,7 @@
         <Property Name="MessageSeverity" Type="Resource.Health">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The severity of the message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the message.  Services can replace the severity defined in the message registry with a value more applicable to the implementation in message payloads and event payloads."/>
-          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the message.  Services can replace the severity defined in the message registry with a value more applicable to the implementation in message payloads and event payloads.  If the `ReferencedRegistry` property is not present, this property shall be required."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -588,11 +577,32 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2026.1"/>
 
-      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_7_0.MessageRegistry">
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_7_0.MessageRegistry"/>
+
+      <ComplexType Name="Message" BaseType="MessageRegistry.v1_6_0.Message">
         <Property Name="Example" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An example of the message including values for all message arguments."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an example of the `Message` text with all argument values populated according to the definitions of `MessageArgs`.  This property should not be present if the value of `NumberOfArgs` contains `0`.  Services can omit or replace this property with a value more applicable to the implementation."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the schema placement of the `Example` property."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_8_0.MessageRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_8_1.MessageRegistry">
+        <Property Name="ReferencedRegistry" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The source registry from which this message originates."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the registry from which this message is copied by reference.  The contents of this message shall be as described in the source registry.  This property should not be present if the message does not originate from another registry. If this property is present, the only other property that may be present is `VersionAdded`."/>
         </Property>
       </EntityType>
     </Schema>

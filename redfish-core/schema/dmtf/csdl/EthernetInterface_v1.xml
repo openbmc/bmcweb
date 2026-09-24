@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.12.5                                           -->
+<!--# Redfish Schema:  EthernetInterface v1.12.6                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -767,8 +767,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the configuration of DHCP v6."/>
         </Property>
         <Property Name="StatelessAddressAutoConfig" Type="EthernetInterface.v1_4_0.StatelessAddressAutoConfiguration" Nullable="false">
-          <Annotation Term="OData.Description" String="Stateless address autoconfiguration (SLAAC) parameters for this interface."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain the IPv4 and IPv6 stateless address automatic configuration (SLAAC) properties for this interface."/>
+          <Annotation Term="OData.Description" String="Stateless address autoconfiguration parameters for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the IPv4 and IPv6 stateless address automatic configuration properties for this interface."/>
         </Property>
         <Property Name="IPv6StaticDefaultGateways" Type="Collection(IPAddresses.IPv6GatewayStaticAddress)">
           <Annotation Term="OData.Description" String="The IPv6 static default gateways for this interface."/>
@@ -899,12 +899,12 @@
 
       <ComplexType Name="StatelessAddressAutoConfiguration">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="Stateless address autoconfiguration (SLAAC) parameters for this interface."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the IPv4 and IPv6 stateless address autoconfiguration (SLAAC) for this interface."/>
+        <Annotation Term="OData.Description" String="Stateless address autoconfiguration parameters for this interface."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the IPv4 and IPv6 stateless address autoconfiguration for this interface."/>
         <Property Name="IPv4AutoConfigEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An indication of whether IPv4 stateless address autoconfiguration (SLAAC) is enabled for this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether IPv4 stateless address autoconfiguration (SLAAC) is enabled for this interface."/>
+          <Annotation Term="OData.Description" String="An indication of whether IPv4 link-local addressing is enabled for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether RFC3927-defined IPv4 stateless, link-local addressing is enabled for this interface."/>
         </Property>
         <Property Name="IPv6AutoConfigEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -1002,6 +1002,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_14.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_15.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_0">
@@ -1112,6 +1118,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_12.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_13.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1220,6 +1232,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_10.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_11.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1279,6 +1297,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_6.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_7.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1327,6 +1351,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_6.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_7.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_0">
@@ -1427,6 +1457,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_6.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_7.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1477,6 +1513,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_5.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_6.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_0">
@@ -1547,6 +1589,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_11_5.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_11_6.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -1588,6 +1636,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that modifying `HostName` can also modify `FQDN` and vice versa."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_12_4.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_12_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `IPv4AutoConfigEnabled` to be for IPv4 link-local addressing."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_12_5.EthernetInterface"/>
     </Schema>
 
   </edmx:DataServices>

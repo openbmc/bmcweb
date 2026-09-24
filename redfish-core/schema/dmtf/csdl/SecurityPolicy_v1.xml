@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SecurityPolicy v1.0.3                                               -->
+<!--# Redfish Schema:  SecurityPolicy v1.1.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -27,6 +27,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AllowDenyCollection_v1.xml">
+    <edmx:Include Namespace="AllowDenyCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -277,6 +280,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Client` and `Server` properties within the `TLS` property."/>
       <EntityType Name="SecurityPolicy" BaseType="SecurityPolicy.v1_0_2.SecurityPolicy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecurityPolicy.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="SecurityPolicy" BaseType="SecurityPolicy.v1_0_3.SecurityPolicy">
+        <NavigationProperty Name="AllowDeny" Type="AllowDenyCollection.AllowDenyCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of allow and deny permissions for packets leaving and arriving at the manager on any interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `AllowDenyCollection` that contains the permissions for packets leaving and arriving at the manager on any interface."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

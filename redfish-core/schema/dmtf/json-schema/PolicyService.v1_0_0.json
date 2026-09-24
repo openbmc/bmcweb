@@ -1,0 +1,230 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PolicyService.v1_0_0.json",
+    "$ref": "#/definitions/PolicyService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2026 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OperatingMode": {
+            "enum": [
+                "Disabled",
+                "AlertOnly",
+                "Enabled"
+            ],
+            "enumDescriptions": {
+                "AlertOnly": "The policy service is operating in alert only mode.",
+                "Disabled": "The policy service is disabled.",
+                "Enabled": "The policy service is fully enabled."
+            },
+            "enumLongDescriptions": {
+                "AlertOnly": "This value shall indicate that the policy service is operating in alert only mode and shall only perform responses of type `Event` or `Recheck`.  The underlying service implementation may still perform some actions as determined by the manufacturer, such as throttling on thermal events, in order to preserve the system.",
+                "Disabled": "This value shall indicate that the policy service is disabled and shall take no automatic action.  The underlying service implementation may still perform some actions as determined by the manufacturer, such as throttling on thermal events, in order to preserve the system.",
+                "Enabled": "This value shall indicate that the policy service is operating in autonomous mode where it performs all responses."
+            },
+            "type": "string"
+        },
+        "PolicyService": {
+            "additionalProperties": false,
+            "description": "The `PolicyService` schema describes the policy service and its properties, with links to the list of policies configured on this service.",
+            "longDescription": "This resource contains the policy service properties for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "ActionsSupported": {
+                    "description": "The response actions this policy service can perform.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Policy.json#/definitions/ResponseAction"
+                    },
+                    "longDescription": "This property shall contain a list of all action types that this policy service can perform.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ConditionTypesSupported": {
+                    "description": "The condition types this policy service can check.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Policy.json#/definitions/ConditionType"
+                    },
+                    "longDescription": "This property shall contain a list of all condition types that this policy service can check.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OperatingMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/OperatingMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The mode in which this service is operating.",
+                    "longDescription": "This property shall contain the mode in which this service is operating.",
+                    "readonly": false
+                },
+                "Policies": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PolicyCollection.json#/definitions/PolicyCollection",
+                    "description": "The link to a collection of policies.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PolicyCollection`.",
+                    "readonly": true
+                },
+                "ResourceTypesSupported": {
+                    "description": "The resource types this policy service can act upon.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain a list of all resource types that this policy service can reference in a response.  Values shall contain the schema name and shall not contain the complete `@odata.type` value with version information.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2026.2",
+    "title": "#PolicyService.v1_0_0.PolicyService"
+}
