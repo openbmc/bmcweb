@@ -13,6 +13,7 @@ enum class PowerSupplyType{
     DC,
     ACorDC,
     DCRegulator,
+    PSU,
 };
 
 enum class LineStatus{
@@ -28,6 +29,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerSupplyType, {
     {PowerSupplyType::DC, "DC"},
     {PowerSupplyType::ACorDC, "ACorDC"},
     {PowerSupplyType::DCRegulator, "DCRegulator"},
+    {PowerSupplyType::PSU, "PSU"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LineStatus, {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.28.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.29.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -384,6 +384,88 @@
           </Annotation>
         </Member>
       </EnumType>
+
+      <Action Name="GraphicalConsoleGetOneTimeURL" IsBound="true">
+        <Annotation Term="OData.Description" String="This action generates a single-use URL for accessing the graphical console."/>
+        <Annotation Term="OData.LongDescription" String="This action shall generate and return a single-use URL that provides time-limited access to the graphical console.  The URL should expire after a single use and validity for a new connection shall expire after a service-defined time period.  This action is typically used with HTML5 console services."/>
+        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
+        <Parameter Name="ConsoleType" Type="ComputerSystem.v1_29_0.GraphicalConsoleType">
+          <Annotation Term="OData.Description" String="The type of graphical console for which to generate the URL."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of graphical console for which to generate the single-use URL.  If not provided, the service may select a default console type."/>
+        </Parameter>
+        <Parameter Name="ValidityPeriodSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The number of seconds for which the URL remains valid for a new connection request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of seconds for which the URL remains valid.  If not provided, the service shall use an implementation-specific default validity period."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Parameter>
+        <Parameter Name="AccessMode" Type="ComputerSystem.v1_29_0.ConsoleAccessMode">
+          <Annotation Term="OData.Description" String="The access mode requested for this console session."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the requested access mode for the console session.  If not provided, the service shall grant `ReadWrite` access if supported."/>
+        </Parameter>
+        <ReturnType Type="ComputerSystem.v1_29_0.GraphicalConsoleGetOneTimeURLResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_29_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="GraphicalConsoleSetOneTimePassword" IsBound="true">
+        <Annotation Term="OData.Description" String="This action sets a one-time or single-use password for accessing the graphical console."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set a one-time or single-use password for accessing the graphical console.  The password shall expire after a single successful authentication or after a service-defined time period.  This action is typically used with VNC console services.  The service may return an error if it cannot rotate the password due to an in-progress session."/>
+        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
+        <Parameter Name="ConsoleType" Type="ComputerSystem.v1_29_0.GraphicalConsoleType">
+          <Annotation Term="OData.Description" String="The type of graphical console for which to set the password."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of graphical console for which to set the one-time password.  If not provided, the service may select a default console type."/>
+        </Parameter>
+        <Parameter Name="Password" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The one-time password to set."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the one-time password to set for the graphical console.  If not provided, the service shall generate a random password."/>
+        </Parameter>
+        <Parameter Name="ValidityPeriodSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The number of seconds for which the password should remain valid."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of seconds for which the password should remain valid.  If not provided, the service shall use an implementation-specific default validity period."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Parameter>
+        <Parameter Name="AccessMode" Type="ComputerSystem.v1_29_0.ConsoleAccessMode">
+          <Annotation Term="OData.Description" String="The access mode for sessions using this password."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the access mode for sessions that authenticate using this password.  If not provided, the service shall grant `ReadWrite` access if supported."/>
+        </Parameter>
+        <ReturnType Type="ComputerSystem.v1_29_0.GraphicalConsoleSetOneTimePasswordResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_29_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="GraphicalConsoleSetPassword" IsBound="true">
+        <Annotation Term="OData.Description" String="This action sets a persistent password for accessing the graphical console."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set a persistent password for accessing the graphical console.  This action is typically used with VNC services where the Redfish client is the authoritative manager and needs to establish or change the console password.  The password shall remain valid until explicitly changed through another invocation of this action."/>
+        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
+        <Parameter Name="ConsoleType" Type="ComputerSystem.v1_29_0.GraphicalConsoleType" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of graphical console for which to set the password."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of graphical console for which to set the persistent password."/>
+        </Parameter>
+        <Parameter Name="Password" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The persistent password to set."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the persistent password to set for the graphical console."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_29_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_0">
@@ -2776,8 +2858,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain information about the serial console services of this system."/>
         </Property>
         <Property Name="GraphicalConsole" Type="ComputerSystem.v1_13_0.HostGraphicalConsole" Nullable="false">
-          <Annotation Term="OData.Description" String="The information about the graphical console (KVM-IP) service of this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the graphical console (KVM-IP) service of this system."/>
+          <Annotation Term="OData.Description" String="The graphical console services that this system provides."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the graphical console services of this system."/>
         </Property>
         <Property Name="VirtualMediaConfig" Type="ComputerSystem.v1_13_0.VirtualMediaConfig" Nullable="false">
           <Annotation Term="OData.Description" String="The information about the virtual media service of this system."/>
@@ -2929,23 +3011,50 @@
 
       <ComplexType Name="HostGraphicalConsole">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The information about a graphical console service for this system."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a graphical console service for a computer system."/>
+        <Annotation Term="OData.Description" String="The information about the graphical console services that this system provides."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the graphical console services for a computer system."/>
         <Property Name="ServiceEnabled" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_29_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `ServiceEnabled` property in the protocol-specific properties."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="Port" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The protocol port."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the port assigned to the service."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_29_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `Port` property in the protocol-specific properties."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="ConnectTypesSupported" Type="Collection(ComputerSystem.v1_13_0.GraphicalConnectTypesSupported)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="This property enumerates the graphical console connection types that the implementation allows."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of the enumerations.  `KVMIP` shall be included if a vendor-defined KVM-IP protocol is supported."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_29_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the protocol-specific properties."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="MaxConcurrentSessions" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -4279,6 +4388,210 @@
           <Annotation Term="OData.Description" String="SHA-256 hash algorithm."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_29_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to restructure the `GraphicalConsole` property to provide protocol-specific connection details, add support to obtain connection URIs and hostnames, enable credential management for graphical console access, and support to control access modes."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_28_0.ComputerSystem">
+        <Property Name="ProductionDate" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The production or manufacturing date of this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date of production or manufacture for this system."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="HostGraphicalConsole" BaseType="ComputerSystem.v1_13_0.HostGraphicalConsole">
+        <Property Name="VNC" Type="ComputerSystem.v1_29_0.VNCConsole" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for a VNC graphical console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a graphical console service that uses the Virtual Network Computing (VNC) protocol.  VNC uses the RFC6143-defined Remote Framebuffer (RFB) protocol as its base protocol, which shall always be available for console session engagement when VNC is an available protocol.  The service may additionally support extended encodings as indicated by the `SupportedEncodings` property."/>
+        </Property>
+        <Property Name="RDP" Type="ComputerSystem.v1_29_0.GraphicalConsoleProtocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for an RDP graphical console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a graphical console service that uses the Remote Desktop Protocol (RDP)."/>
+        </Property>
+        <Property Name="HTML5" Type="ComputerSystem.v1_29_0.HTML5Console" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for an HTML5 browser-based graphical console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a graphical console service that provides user access to the graphical console through an HTML5-capable web browser.  The HTML5 console shall be served over HTTPS to protect session credentials and console data in transit."/>
+        </Property>
+        <Property Name="KVMIP" Type="ComputerSystem.v1_29_0.GraphicalConsoleProtocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for a vendor-specific KVM-IP graphical console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a graphical console service that uses a vendor-specific Keyboard-Video-Mouse over IP protocol.  Vendors should provide additional details about the protocol through OEM extensions or documentation."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="GraphicalConsoleProtocol">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about a graphical console service that this system provides."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a graphical console service for a computer system."/>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
+        </Property>
+        <Property Name="Port" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The protocol port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port assigned to the service."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="HostName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hostname or IP address to use when connecting to the graphical console."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hostname or IP address to use when connecting to the graphical console."/>
+        </Property>
+        <Property Name="AuthenticationMethod" Type="ComputerSystem.v1_29_0.ConsoleAuthenticationMethod">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The authentication method required for accessing the graphical console."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the authentication method required for accessing the graphical console."/>
+        </Property>
+        <Property Name="SupportedAccessModes" Type="Collection(ComputerSystem.v1_29_0.ConsoleAccessMode)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The access modes supported by this console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the access modes that this console service supports.  If not present, only exclusive `ReadWrite` access shall be assumed."/>
+        </Property>
+        <Property Name="AllowsSharedAccess" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether multiple users can access the console simultaneously."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the console service allows multiple concurrent users to access the same console session.  If `true`, the console supports shared or multiple concurrent sessions.  If `false`, console access is exclusive to a single user at a time."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="VNCConsole" BaseType="ComputerSystem.v1_29_0.GraphicalConsoleProtocol">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about a VNC graphical console service that this system provides."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a VNC graphical console service for a computer system."/>
+        <Property Name="SupportedEncodings" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The encoding methods supported by the VNC service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the encoding methods supported by the VNC service.  This property is informational and intended to provide integrators with context about the encoding capabilities of the VNC endpoint.  Values may include well-known encoding names such as `Raw`, `Tight`, or `ZRLE`, as well as vendor-specific encoding names.  The actual encoding used for a session is negotiated at the VNC protocol level between the client and server.  The RFC6143-defined base RFB encoding is always expected to be available regardless of the values listed in this property."/>
+        </Property>
+        <Property Name="SupportsOneTimePassword" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the VNC service supports one-time or single-use passwords."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the VNC service supports setting one-time or single-use passwords through the `GraphicalConsoleSetOneTimePassword` action."/>
+        </Property>
+        <Property Name="SupportsPersistentPassword" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the VNC service supports setting a persistent password."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the VNC service supports setting a persistent password through the `GraphicalConsoleSetPassword` action.  This is typically used when the service has a pre-configured VNC password that needs to be changed by the authoritative management system."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="HTML5Console" BaseType="ComputerSystem.v1_29_0.GraphicalConsoleProtocol">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about an HTML5 graphical console service that this system provides."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe an HTML5 graphical console service for a computer system.  HTML5 console services shall be served over HTTPS to protect session credentials and console data in transit."/>
+        <Property Name="ConsoleURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI at which to access the HTML5 graphical console."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the HTML5 graphical console.  The value may be a relative path from the service root or a fully qualified URI.  If the value is a relative path, clients shall prepend the scheme, host, and service root to form the complete URI.  The resolved URI shall use HTTPS to protect session credentials and console data in transit.  The URI shall provide access only to the graphical console and shall not provide access to other resources or management interfaces through the browser.  For HTML5 consoles that support one-time URLs, use the `GraphicalConsoleGetOneTimeURL` action instead of relying on this static URI."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="SupportsOneTimeURL" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the HTML5 console service supports generating one-time URLs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the HTML5 console service supports generating one-time URLs through the `GraphicalConsoleGetOneTimeURL` action."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ConsoleAuthenticationMethod">
+        <Member Name="ExplicitLogin">
+          <Annotation Term="OData.Description" String="The console requires explicit login with separate credentials."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the console service requires explicit login with credentials that are independent of any other session.  This is the typical authentication method for end-user access to HTML5 consoles and VNC password-based authentication."/>
+        </Member>
+        <Member Name="OneTimeURL">
+          <Annotation Term="OData.Description" String="The console is accessed through a one-time URL obtained from the `GraphicalConsoleGetOneTimeURL` action."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the console requires a one-time URL obtained through the `GraphicalConsoleGetOneTimeURL` action.  The URL itself serves as the authentication credential."/>
+        </Member>
+        <Member Name="OneTimePassword">
+          <Annotation Term="OData.Description" String="The console requires a one-time password obtained from the `GraphicalConsoleSetOneTimePassword` action."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the console requires a one-time password obtained through the `GraphicalConsoleSetOneTimePassword` action."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ConsoleAccessMode">
+        <Member Name="ReadWrite">
+          <Annotation Term="OData.Description" String="Full read-write access to the console with keyboard and mouse control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate full interactive access to the console with the ability to view the display and provide keyboard and mouse input."/>
+        </Member>
+        <Member Name="ReadOnly">
+          <Annotation Term="OData.Description" String="Read-only access to view the console display without input capabilities."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate read-only access where the user can view the console display but cannot provide keyboard or mouse input.  This mode is typically used for monitoring, observation, or troubleshooting scenarios."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="GraphicalConsoleType">
+        <Member Name="VNC">
+          <Annotation Term="OData.Description" String="Virtual Network Computing (VNC) protocol, which uses the RFC6143-defined Remote Framebuffer (RFB) protocol as its base protocol."/>
+        </Member>
+        <Member Name="RDP">
+          <Annotation Term="OData.Description" String="Remote Desktop Protocol."/>
+        </Member>
+        <Member Name="HTML5">
+          <Annotation Term="OData.Description" String="HTML5 browser-based console."/>
+        </Member>
+        <Member Name="KVMIP">
+          <Annotation Term="OData.Description" String="Vendor-specific KVM-IP protocol."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="GraphicalConsoleGetOneTimeURLResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response from the GraphicalConsoleGetOneTimeURL action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the response from the GraphicalConsoleGetOneTimeURL action."/>
+        <Property Name="ConsoleURL" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The single-use URL for accessing the graphical console."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the single-use HTTPS URL for accessing the graphical console.  The URL serves as an authentication credential and shall use HTTPS to prevent exposure of the token in transit.  This URL shall expire after a single use or after the specified validity period."/>
+          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="ValidUntil" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the URL will expire."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the URL will expire and no longer be valid for accessing the graphical console."/>
+        </Property>
+        <Property Name="ConsoleType" Type="ComputerSystem.v1_29_0.GraphicalConsoleType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of graphical console to which the URL provides access."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of graphical console to which the URL provides access."/>
+        </Property>
+        <Property Name="AccessMode" Type="ComputerSystem.v1_29_0.ConsoleAccessMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The access mode granted for this console session."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the access mode that was granted for the console session."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="GraphicalConsoleSetOneTimePasswordResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response from the GraphicalConsoleSetOneTimePassword action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the response from the GraphicalConsoleSetOneTimePassword action."/>
+        <Property Name="Password" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The one-time password for accessing the graphical console."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the one-time password for accessing the graphical console.  If the client provided a password in the action request, this value should match.  If the service generated a password, this value shall contain the generated password."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="ValidUntil" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the password will expire."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the password will expire and no longer be valid for accessing the graphical console."/>
+        </Property>
+        <Property Name="ConsoleType" Type="ComputerSystem.v1_29_0.GraphicalConsoleType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of graphical console to which the password provides access."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of graphical console to which the password provides access."/>
+        </Property>
+        <Property Name="AccessMode" Type="ComputerSystem.v1_29_0.ConsoleAccessMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The access mode granted for sessions using this password."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the access mode that was granted for sessions that authenticate using this password."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.23.0                                                   -->
+<!--# Redfish Schema:  Processor v1.24.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -2568,6 +2568,27 @@
       <Annotation Term="OData.Description" String="This version was created to add `HBM3E` and `HBM4` to `ProcessorMemoryType`."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_22_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_24_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_23_0.Processor">
+        <Property Name="HardwareSecurityVersion" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The security version of the processor hardware."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the security version of the processor hardware."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="UALink" BaseType="Processor.v1_22_0.UALink">
+        <Property Name="MaxSupportedAcceleratorID" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum supported UALink Accelerator ID of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum value allowed for the Source and Destination Accelerator ID on this processor."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

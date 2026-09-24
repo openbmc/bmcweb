@@ -88,6 +88,8 @@ enum class RackUnits{
 
 enum class RackMountWidth{
     Invalid,
+    OpenRack,
+    OpenRackWide,
     OpenU,
     EIA_310,
     EIA_310_Telco,
@@ -175,6 +177,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(RackUnits, {
 
 NLOHMANN_JSON_SERIALIZE_ENUM(RackMountWidth, {
     {RackMountWidth::Invalid, "Invalid"},
+    {RackMountWidth::OpenRack, "OpenRack"},
+    {RackMountWidth::OpenRackWide, "OpenRackWide"},
     {RackMountWidth::OpenU, "OpenU"},
     {RackMountWidth::EIA_310, "EIA_310"},
     {RackMountWidth::EIA_310_Telco, "EIA_310_Telco"},

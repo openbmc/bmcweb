@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VirtualMedia v1.6.5                                                 -->
+<!--# Redfish Schema:  VirtualMedia v1.7.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -136,6 +136,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="HTTPHeaders" Type="VirtualMedia.v1_7_0.HTTPHeaderProperty">
+          <Annotation Term="OData.Description" String="The HTTP headers to send when accessing the URI specified by the `Image` parameter if the transfer protocol is HTTP or HTTPS."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an object consisting of the names and values of HTTP headers to send when accessing the URI specified by the `Image` parameter if the transfer protocol is HTTP or HTTPS."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -695,6 +707,33 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the `InsertMedia` action if there is already an image attached to the slot.  It was also created to clarify the usage of the `Inserted` property.  It was also created to give guidance to handling error conditions with accessing the URI of the image."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_6_4.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `HTTPHeaders` parameter to the `InsertMedia` action."/>
+
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_6_5.VirtualMedia">
+        <Property Name="HTTPHeaders" Type="VirtualMedia.v1_7_0.HTTPHeaderProperty" Nullable="false">
+          <Annotation Term="OData.Description" String="The HTTP headers to send when accessing the URI specified by the `Image` property if the transfer protocol is HTTP or HTTPS."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an object consisting of the names and values of HTTP headers to send when accessing the URI specified by the `Image` property if the transfer protocol is HTTP or HTTPS.  This property shall be an empty object in responses."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="HTTPHeaderProperty">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The HTTP header value is the property value.  The header name is the property name."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the HTTP header name and value to include when accessing accessing the virtual media image."/>
+        <Annotation Term="Redfish.DynamicPropertyPatterns">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Pattern" String="^[^:\s]+$"/>
+              <PropertyValue Property="Type" String="Edm.String"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

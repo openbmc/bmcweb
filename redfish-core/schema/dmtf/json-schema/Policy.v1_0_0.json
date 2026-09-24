@@ -1,0 +1,569 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Policy.v1_0_0.json",
+    "$ref": "#/definitions/Policy",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2026 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Condition": {
+            "additionalProperties": false,
+            "description": "A condition to trigger the policy or a parent condition.",
+            "longDescription": "This type shall contain properties that describe conditions for a policy.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CompareValue": {
+                    "description": "The value to compare against.",
+                    "longDescription": "This property shall contain the value for the comparison operator to compare against for conditions with an operator.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Operator": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Operator"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The comparison operator for this condition, if applicable.",
+                    "longDescription": "This property shall contain the comparison operator for condition types that require comparisons.",
+                    "readonly": false
+                },
+                "PropertyPath": {
+                    "description": "The property path in the resource from which to obtain data.",
+                    "longDescription": "This property shall contain the property path from which to obtain data.  The value shall follow RFC6901-defined JSON pointer notation rules.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ResourcePath": {
+                    "description": "The resource from which to obtain data.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI to a Redfish resource from which to obtain data.  If the resource is of type `Sensor` and the `Property` is not present, the `Reading` property from the `Sensor` reading shall be used.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SubordinateConditions": {
+                    "description": "Subordinate conditions that are evaluated to determine the status of this condition.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/Condition"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of subordinate conditions that are evaluated to determine the status of this condition.",
+                    "type": "array"
+                },
+                "Type": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Policy.json#/definitions/ConditionType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of this condition.",
+                    "longDescription": "This property shall contain the type of this condition.",
+                    "readonly": false
+                }
+            },
+            "type": "object"
+        },
+        "EventResponse": {
+            "additionalProperties": false,
+            "description": "Parameters for an event response type.",
+            "longDescription": "This type shall contain properties that describe the event to send as a response.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MessageArgs": {
+                    "description": "The message arguments to send in the event.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the message arguments to send as the `MessageArgs` property in the event.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "MessageId": {
+                    "description": "The identifier of the message to send in the event.",
+                    "longDescription": "This property shall contain the identifier of the message to send as the `MessageId` property in the event.  If the value is in the `MessageRegistryPrefix.MessageKey` format, the service shall use the highest version of the message supported by the service.  If the value is in the `MessageRegistryPrefix.MajorVersion.MinorVersion.MessageKey` format, the service shall use the exact value in the event response.",
+                    "pattern": "^[A-Za-z0-9]+\\.(\\d+\\.\\d+\\.)?[A-Za-z0-9]+$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MessageOriginOfCondition": {
+                    "description": "The origin of condition to send in the event.",
+                    "longDescription": "This property shall contain the origin of condition to send as the `OriginOfCondition` property in the event.  If this property is not specified or is an empty string, the origin of condition shall be the URI of this policy.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "HTTPHeaderProperty": {
+            "additionalProperties": false,
+            "description": "The HTTP header value is the property value.  The header name is the property name.",
+            "longDescription": "This type shall contain the HTTP header name and value to include when performing an HTTP operation for a policy response.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                },
+                "^[^:\\s]+$": {
+                    "type": "string"
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "HTTPResponse": {
+            "additionalProperties": false,
+            "description": "Parameters for an HTTP/HTTPS response type.",
+            "longDescription": "This type shall contain properties that describe the HTTP/HTTPS operation to perform as a response.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Body": {
+                    "description": "The body of the HTTP operation to perform.",
+                    "longDescription": "This property shall contain the body of HTTP/HTTPS operation to send.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Headers": {
+                    "$ref": "#/definitions/HTTPHeaderProperty",
+                    "description": "The HTTP headers to include when performing the HTTP operation.",
+                    "longDescription": "This property shall contain an object consisting of the names and values of HTTP headers to include when performing the HTTP operation.  This property shall be an empty object in responses."
+                },
+                "Operation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/HTTPVerb"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of HTTP operation to perform.",
+                    "longDescription": "This property shall contain the type of HTTP operation to perform.",
+                    "readonly": false
+                }
+            },
+            "type": "object"
+        },
+        "HTTPVerb": {
+            "enum": [
+                "GET",
+                "PATCH",
+                "POST",
+                "DELETE"
+            ],
+            "enumDescriptions": {
+                "DELETE": "The response performs an HTTP `DELETE` operation.",
+                "GET": "The response performs an HTTP `GET` operation.",
+                "PATCH": "The response performs an HTTP `PATCH` operation.",
+                "POST": "The response performs an HTTP `POST` operation."
+            },
+            "enumLongDescriptions": {
+                "DELETE": "This value shall indicate that the response sends an HTTP `DELETE` operation as specified in RFC2616.",
+                "GET": "This value shall indicate that the response sends an HTTP `GET` operation as specified in RFC2616.",
+                "PATCH": "This value shall indicate that the response sends an HTTP `PATCH` operation as specified in RFC2616.",
+                "POST": "This value shall indicate that the response sends an HTTP `POST` operation as specified in RFC2616."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Operator": {
+            "enum": [
+                "Equal",
+                "NotEqual",
+                "GreaterThan",
+                "LessThan",
+                "GreaterThanOrEqual",
+                "LessThanOrEqual"
+            ],
+            "enumDescriptions": {
+                "Equal": "Check whether the values to compare are equal.",
+                "GreaterThan": "Check whether the value calculated is greater than the value specified in the condition.",
+                "GreaterThanOrEqual": "Check whether the value calculated is greater than or equal to the value specified in the condition.",
+                "LessThan": "Check whether the value calculated is less than the value specified in the condition.",
+                "LessThanOrEqual": "Check whether the value calculated is less than or equal to the value specified in the condition.",
+                "NotEqual": "Check whether the values to compare not equal."
+            },
+            "enumLongDescriptions": {
+                "Equal": "This value shall indicate that the condition evaluates to true if the value calculated exactly matches the value specified by the condition.",
+                "GreaterThan": "This value shall indicate that the condition evaluates to true if the value calculated is greater than the value specified by the condition.  If both values evaluate to numbers, the service shall perform numeric comparison.  Otherwise, the service shall perform string comparison.",
+                "GreaterThanOrEqual": "This value shall indicate that the condition evaluates to true if the value calculated is greater than or equal to the value specified by the condition.  If both values evaluate to numbers, the service shall perform numeric comparison.  Otherwise, the service shall perform string comparison.",
+                "LessThan": "This value shall indicate that the condition evaluates to true if the value calculated is less than the value specified by the condition.  If both values evaluate to numbers, the service shall perform numeric comparison.  Otherwise, the service shall perform string comparison.",
+                "LessThanOrEqual": "This value shall indicate that the condition evaluates to true if the value calculated is less than or equal to the value specified by the condition.  If both values evaluate to numbers, the service shall perform numeric comparison.  Otherwise, the service shall perform string comparison.",
+                "NotEqual": "This value shall indicate that the condition evaluates to true if the value calculated does not match the value specified by the condition."
+            },
+            "type": "string"
+        },
+        "Policy": {
+            "additionalProperties": false,
+            "description": "The `Policy` schema contains a definition for a policy.",
+            "longDescription": "This resource shall be used to represent a policy for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Enabled": {
+                    "description": "An indication of whether the policy is enabled.",
+                    "longDescription": "This property indicate whether the policy is enabled.  The value `true` shall indicate the service performs the actions specified by this policy.  The value `false` shall indicate the service takes no actions specified by this policy.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Predefined": {
+                    "description": "An indication of whether the policy is predefined by Redfish or an OEM rather than a client-defined policy.",
+                    "longDescription": "This property shall indicate whether the policy is predefined by Redfish or an OEM as contrasted with a client-defined policy.  If this property is not present, the value should be assumed to be `false`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Response": {
+                    "description": "A list of responses to perform when the condition is triggered.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/Response"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain a list of responses to perform when the policy condition is triggered.  Services shall perform the responses sequentially.",
+                    "type": "array"
+                },
+                "TriggerCondition": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Condition"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The condition that causes the service to perform the actions of this policy.",
+                    "longDescription": "This property shall contain the condition that causes the service to perform the actions of this policy."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Response": {
+            "additionalProperties": false,
+            "description": "A response that is executed in the order specified.",
+            "longDescription": "This type shall contain properties that describe response to a policy.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DelaySeconds": {
+                    "description": "The delay in seconds before performing the response action.",
+                    "longDescription": "This property shall contain the number of seconds to wait before performing the response action.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "s"
+                },
+                "Event": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EventResponse"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The event parameters for a response if the action type is `Event`.",
+                    "longDescription": "This property shall contain the event parameters for a response if `ResponseAction` contains `Event`.  If `ResponseAction` does not contain `Event`, this property shall be ignored."
+                },
+                "HTTP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/HTTPResponse"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The HTTP/HTTPS parameters for a response if the action type is `HTTP`.",
+                    "longDescription": "This property shall contain the HTTP/HTTPS parameters for a response if `ResponseAction` contains `HTTP`.  If `ResponseAction` does not contain `HTTP`, this property shall be ignored."
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "ResetType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of reset to perform if the action type is `Reset`.",
+                    "longDescription": "This property shall contain the type of reset to perform if `ResponseAction` contains `Reset`.  If `ResponseAction` does not contain `Reset`, this property shall be ignored.",
+                    "readonly": false
+                },
+                "ResponseAction": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Policy.json#/definitions/ResponseAction"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The action type of this response.",
+                    "longDescription": "This property shall contain the action type of this response.",
+                    "readonly": false
+                },
+                "TargetURI": {
+                    "description": "The URI on which to perform the response action.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI on which to perform the response action.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2026.2",
+    "title": "#Policy.v1_0_0.Policy"
+}

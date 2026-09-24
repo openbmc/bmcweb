@@ -21,6 +21,15 @@ enum class ReleaseType{
     Other,
 };
 
+enum class ImageState{
+    Invalid,
+    Active,
+    Staged,
+    Armed,
+    TargetSpecific,
+    OEM,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(VersionScheme, {
     {VersionScheme::Invalid, "Invalid"},
     {VersionScheme::SemVer, "SemVer"},
@@ -33,6 +42,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReleaseType, {
     {ReleaseType::Production, "Production"},
     {ReleaseType::Prototype, "Prototype"},
     {ReleaseType::Other, "Other"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ImageState, {
+    {ImageState::Invalid, "Invalid"},
+    {ImageState::Active, "Active"},
+    {ImageState::Staged, "Staged"},
+    {ImageState::Armed, "Armed"},
+    {ImageState::TargetSpecific, "TargetSpecific"},
+    {ImageState::OEM, "OEM"},
 });
 
 // clang-format on

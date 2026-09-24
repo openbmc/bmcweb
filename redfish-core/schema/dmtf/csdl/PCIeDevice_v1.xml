@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.22.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.23.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -60,6 +60,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryExtentCollection_v1.xml">
     <edmx:Include Namespace="MemoryExtentCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/FabricAdapter_v1.xml">
+    <edmx:Include Namespace="FabricAdapter"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -1421,6 +1424,45 @@
           <Annotation Term="OData.Description" String="The total data payload in bytes transferred through inbound completion transaction layer packets (TLPs)."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the total data payload in bytes transferred through inbound completion transaction layer packets (TLPs)."/>
         </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_23_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_22_0.PCIeDevice"/>
+
+      <ComplexType Name="CXLDevice" BaseType="PCIeDevice.v1_18_0.CXLDevice">
+        <Property Name="DeviceClass" Type="PCIeDevice.v1_23_0.CXLDeviceClass">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CXL device class."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the class of this device as defined in the CXL Specification."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="CXLDeviceClass">
+        <Member Name="SLD">
+          <Annotation Term="OData.Description" String="Single logical device (SLD) CXL device."/>
+        </Member>
+        <Member Name="MLD">
+          <Annotation Term="OData.Description" String="Multi-logical device (MLD) CXL device."/>
+        </Member>
+        <Member Name="MH_SLD">
+          <Annotation Term="OData.Description" String="Multi-headed single logical device (MH-SLD) CXL device."/>
+        </Member>
+        <Member Name="MH_MLD">
+          <Annotation Term="OData.Description" String="Multi-headed multi-logical device (MH-MLD) CXL device."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="PCIeDevice.v1_19_0.Links">
+        <NavigationProperty Name="FabricAdapters" Type="Collection(FabricAdapter.FabricAdapter)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the fabric adapters associated with this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `FabricAdapter` that represent the fabric adapters associated with this device."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
       </ComplexType>
     </Schema>
 
