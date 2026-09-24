@@ -70,5 +70,13 @@ owners:
 # included on code reviews to stay informed of progress.
 
 reviewers:
+- joelpj@ami.com
 - nanzhoumails@gmail.com
+
+matchers:
+
+openbmc:
+- name: Joel Pullokaran Jesin
+  email: joelpj@ami.com
+  discord: joel_p_j
 
