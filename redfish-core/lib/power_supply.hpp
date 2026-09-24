@@ -132,13 +132,15 @@ inline void handlePowerSupplyCollectionHead(
         });
 }
 
-inline void handlePowerSupplyCollectionGet(
-    App& app, const crow::Request& req,
+inline void afterGetValidPowerSupplyCollectionChassisPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId)
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!validChassisPath)
     {
+        BMCWEB_LOG_WARNING("Chassis not found");
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
         return;
     }
 
@@ -152,6 +154,22 @@ inline void handlePowerSupplyCollectionGet(
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
             doPowerSupplyCollection(asyncResp, chassisId, ec, subtreePaths);
         });
+}
+
+inline void handlePowerSupplyCollectionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(afterGetValidPowerSupplyCollectionChassisPath,
+                        asyncResp, chassisId));
 }
 
 inline void requestRoutesPowerSupplyCollection(App& app)
