@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab32838e_d9095642",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002825
+      },
+      "writtenOn": "2026-09-24T13:01:49Z",
+      "side": 1,
+      "message": "If I understand correctly, your idea is to: track pending VM/NBD data, pause websocket reads when message queue grows, and resume reads after the queue is drained?\n\nRight now we do have buffering and some gating (including the historical x4 safety margin from 4ee8f0b7c758125b938ff7530f4ef460c3703b62), but it is still a fixed-capacity model (about 16 MiB), so we can still end up chasing limits.\n\nEven with backpressure, we should still need some limits (per-message and/or queue cap) so RAM usage stays predictable.\n\nIf this matches what you mean, I can create and test appropriate patch.",
+      "parentUuid": "c80a1264_4c4b271e",
+      "revId": "58f3ca24c5d58491732f90f182252900f90dbd3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df4cd812_b5f97864",
         "filename": "features/virtual_media/vm_websocket.hpp",
         "patchSetId": 4
