@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d67136e_f5a8a880",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-24T12:45:52Z",
+      "side": 1,
+      "message": "Added unit tests for afterGetValidChassisPath covering all 4 scenarios you mentioned (match found, no match, D-Bus error skips the callback, multiple candidate paths). \nSince this change was meant to stay a pure refactor, I split them into a separate stacked change: \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/94904 — PTAL, thanks!",
+      "parentUuid": "79eba2bc_b49da50a",
+      "revId": "87479cf62f398c95747ae40977cff7af64a8af54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cae6bfac_545189dd",
@@ -48,6 +66,30 @@
       "writtenOn": "2026-09-24T03:22:18Z",
       "side": 1,
       "message": "I am struggling with Callback\u0026 vs Callback\u0026\u0026 here?\n\nIt never forwards it.. Would Callback\u0026 better communicate the intended ownership? \nWhat does the rest of the code do?\n\nI guess the rest of the code does a Callback\u0026\u0026\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+Callback%26\u0026type\u003dcode",
+      "range": {
+        "startLine": 38,
+        "startChar": 34,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "87479cf62f398c95747ae40977cff7af64a8af54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5da881e3_f5534e82",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-24T12:45:52Z",
+      "side": 1,
+      "message": "Good catch — updated to Callback\u0026 in the latest patch set. afterGetValidChassisPath only invokes callback once as a named lvalue and never moves or std::forwards it, so Callback\u0026\u0026 wasn\u0027t communicating the actual ownership semantics. Thanks for pointing this out.",
+      "parentUuid": "cae6bfac_545189dd",
       "range": {
         "startLine": 38,
         "startChar": 34,
