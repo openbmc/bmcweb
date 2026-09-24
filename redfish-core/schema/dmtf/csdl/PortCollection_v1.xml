@@ -93,6 +93,11 @@
             <String>/redfish/v1/Managers/{ManagerId}/SharedNetworkPorts</String>
           </Collection>
         </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports</String>
+          </Collection>
+        </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Port.Port)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>

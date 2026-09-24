@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerSubsystem v1.1.4                                               -->
+<!--# Redfish Schema:  PowerSubsystem v1.2.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -36,6 +36,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Redundancy_v1.xml">
     <edmx:Include Namespace="Redundancy"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -203,6 +209,104 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CapacityWatts` property."/>
       <EntityType Name="PowerSubsystem" BaseType="PowerSubsystem.v1_1_3.PowerSubsystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSubsystem.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="PowerSubsystem" BaseType="PowerSubsystem.v1_1_4.PowerSubsystem">
+        <NavigationProperty Name="MaxRampRateWattsPerSecond" Type="Control.Control" Nullable="false">
+          <Annotation Term="Redfish.ExcerptCopy" String="Single"/>
+          <Annotation Term="OData.Description" String="The maximum AC power ramp rate settings for this subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum AC power ramp rate settings for this subsystem, including the desired ramp rate and the allowable range, in watts per second.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value of `Power`."/>
+        </NavigationProperty>
+        <Property Name="PowerBrake" Type="PowerSubsystem.v1_2_0.PowerBrake" Nullable="false">
+          <Annotation Term="OData.Description" String="The emergency power brake settings for this subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the emergency power brake settings for this subsystem.  Equipment that implements power brake control, such as a power shelf, monitors associated sensors and applies the power brake when configured conditions are met.  Equipment that receives the power brake, such as a server, shall report when the power brake is applied and shall immediately limit power consumption while it is applied."/>
+        </Property>
+        <Property Name="Links" Type="PowerSubsystem.v1_2_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="PowerBrakeTemperatureSensor" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the temperature sensor used to determine when to apply the emergency power brake."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Sensor` that represents the temperature sensor whose thresholds are monitored to determine when to apply the emergency power brake.  This property applies to equipment that implements the power brake control and shall not be present on equipment that only receive the power brake."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="PowerBrakeLoadPercentSensor" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the load percent sensor used to determine when to apply the emergency power brake."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Sensor` that represents the load percent sensor whose thresholds are monitored to determine when to apply the emergency power brake.  This property applies to equipment that implements the power brake control and shall not be present on equipment that only receive the power brake."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="PowerBrake">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The emergency power brake settings."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the emergency power brake."/>
+        <Property Name="Enabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the emergency power brake is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the emergency power brake is enabled for this equipment.  The value `true` shall indicate the power brake is enabled.  The value `false` shall indicate the emergency power brake is disabled."/>
+        </Property>
+        <Property Name="Applied" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the emergency power brake is currently applied."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the emergency power brake is currently applied.  The value `true` shall indicate the power brake is applied.  For equipment that receives the power brake, this shall indicate the equipment is subject to an applied power brake.  The value `false` shall indicate the power brake is not applied."/>
+        </Property>
+        <Property Name="TemperatureThreshold" Type="PowerSubsystem.v1_2_0.ThresholdLevel">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The sensor threshold level at which the temperature-based emergency power brake is applied."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the threshold level of the associated temperature sensor at which the emergency power brake is applied.  This property shall not be present on equipment that only receives the power brake."/>
+        </Property>
+        <Property Name="LoadPercentThreshold" Type="PowerSubsystem.v1_2_0.ThresholdLevel">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The sensor threshold level at which the load-percent-based emergency power brake is applied."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the threshold level of the associated load percent sensor at which the emergency power brake is applied.  This property shall not be present on equipment that only receives the power brake."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ThresholdLevel">
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Disabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the associated sensor is not used to apply the power brake."/>
+        </Member>
+        <Member Name="UpperCaution">
+          <Annotation Term="OData.Description" String="The upper caution threshold."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the power brake is applied when the associated sensor reading exceeds the upper caution threshold."/>
+        </Member>
+        <Member Name="UpperCritical">
+          <Annotation Term="OData.Description" String="The upper critical threshold."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the power brake is applied when the associated sensor reading exceeds the upper critical threshold."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="PowerBrakeReason">
+        <Member Name="LoadPercent">
+          <Annotation Term="OData.Description" String="The power brake is applied due to load percent threshold exceeded."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the power brake is applied because the load percent sensor reading exceeded the configured threshold."/>
+        </Member>
+        <Member Name="Temperature">
+          <Annotation Term="OData.Description" String="The power brake is applied due to temperature threshold exceeded."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the power brake is applied because the temperature sensor reading exceeded the configured threshold."/>
+        </Member>
+        <Member Name="LossOfComms">
+          <Annotation Term="OData.Description" String="The power brake is applied due to loss of communications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the power brake is applied because communications with the power equipment have been lost."/>
+        </Member>
+        <Member Name="ExternalSignal">
+          <Annotation Term="OData.Description" String="The power brake is applied due to an external signal or command."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the power brake is applied due to the receipt of a signal or command from an external source.  In large deployments, this value may be used to indicate the power brake was triggered from a rack-scale power management system."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

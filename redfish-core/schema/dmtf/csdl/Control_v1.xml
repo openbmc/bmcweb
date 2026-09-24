@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Control v1.8.0                                                      -->
+<!--# Redfish Schema:  Control v1.8.1                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -580,6 +580,12 @@
       <EntityType Name="Control" BaseType="Control.v1_0_5.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_0_6.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -618,6 +624,12 @@
       <EntityType Name="Control" BaseType="Control.v1_1_4.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_1_5.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -654,6 +666,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
       <EntityType Name="Control" BaseType="Control.v1_2_4.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_2_5.Control"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_0">
@@ -701,6 +719,12 @@
       <EntityType Name="Control" BaseType="Control.v1_3_4.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_3_5.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -745,6 +769,12 @@
       <EntityType Name="Control" BaseType="Control.v1_4_4.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_4_5.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -777,6 +807,12 @@
       <EntityType Name="Control" BaseType="Control.v1_5_3.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_5_4.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.4"/>
@@ -795,6 +831,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the enumeration descriptions for `ControlMode`."/>
       <EntityType Name="Control" BaseType="Control.v1_6_1.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_6_2.Control"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_7_0">
@@ -817,12 +859,24 @@
       <EntityType Name="Control" BaseType="Control.v1_7_0.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_7_1.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2026.1"/>
       <Annotation Term="OData.Description" String="This version was created to add `Voltage` to `ControlType`."/>
 
       <EntityType Name="Control" BaseType="Control.v1_7_0.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema files to include `Oem` in excerpts."/>
+      <EntityType Name="Control" BaseType="Control.v1_8_0.Control"/>
     </Schema>
 
   </edmx:DataServices>

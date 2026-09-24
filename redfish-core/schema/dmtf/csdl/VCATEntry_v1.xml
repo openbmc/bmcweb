@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VCATEntry v1.0.3                                                    -->
+<!--# Redfish Schema:  VCATEntry v1.1.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -95,6 +95,28 @@
             <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/VCAT/{VCATEntryId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/REQ-VCAT/{VCATEntryId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/RSP-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/GenZ/VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/GenZ/VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/GenZ/REQ-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/GenZ/RSP-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/GenZ/VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/GenZ/REQ-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/GenZ/RSP-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/GenZ/VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/GenZ/REQ-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{SystemId}/FabricAdapters/{FabricAdapterId}/GenZ/RSP-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/GenZ/VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/GenZ/REQ-VCAT/{VCATEntryId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/GenZ/RSP-VCAT/{VCATEntryId}</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+              <PropertyValue Property="Version" String="v1_1_0"/>
+              <PropertyValue Property="Description" String="This schema has been deprecated in favor of CXL support."/>
+            </Record>
           </Collection>
         </Annotation>
       </EntityType>
@@ -171,6 +193,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="VCATEntry" BaseType="VCATEntry.v1_0_2.VCATEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VCATEntry.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the schema."/>
+
+      <EntityType Name="VCATEntry" BaseType="VCATEntry.v1_0_3.VCATEntry"/>
     </Schema>
 
   </edmx:DataServices>

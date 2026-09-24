@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot v1.21.0                                                 -->
+<!--# Redfish Schema:  ServiceRoot v1.22.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -123,6 +123,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AutomationNodeCollection_v1.xml">
     <edmx:Include Namespace="AutomationNodeCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PolicyService_v1.xml">
+    <edmx:Include Namespace="PolicyService"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -366,6 +369,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add `StorageSystems`, `StorageServices`, `Fabrics`, and `UpdateService` to the `ServiceContainer` term."/>
 
       <EntityContainer Name="ServiceContainer" Extends="ServiceRoot.v1_0_0.ServiceContainer">
         <Singleton Name="StorageSystems" Type="StorageSystemCollection.StorageSystemCollection"/>
@@ -683,7 +687,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the upper limit on the `MaxLevels` property."/>
-      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_3.ServiceRoot"/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_4.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_7">
@@ -1331,6 +1335,32 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether the service supports the `clientcontext` query parameter for incremental retrieval from resource collections."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the `clientcontext` query parameter for stateless incremental retrieval from resource collections, as described in the Redfish Specification.  This parameter is currently defined for `LogEntryCollection` resource collections and is designed to be extensible to other resource collections in future versions."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_22_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityContainer Name="ServiceContainer" Extends="ServiceRoot.v1_19_0.ServiceContainer">
+        <Singleton Name="PolicyService" Type="PolicyService.PolicyService"/>
+      </EntityContainer>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_21_0.ServiceRoot">
+        <NavigationProperty Name="PolicyService" Type="PolicyService.PolicyService" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the policy service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `PolicyService`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="ProtocolFeaturesSupported" BaseType="ServiceRoot.v1_21_0.ProtocolFeaturesSupported">
+        <Property Name="Alias" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the use of alias values in URI segments for redirecting requests to resource collection members."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports redirction using resource alias values prefixed with a `~` in URI segments, as defined in the 'Resource aliases' clause of the Redfish Specification."/>
         </Property>
       </ComplexType>
     </Schema>

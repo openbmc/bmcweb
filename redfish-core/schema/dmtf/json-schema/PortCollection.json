@@ -128,6 +128,9 @@
                 "/redfish/v1/Managers/{ManagerId}/USBPorts",
                 "/redfish/v1/Managers/{ManagerId}/DedicatedNetworkPorts",
                 "/redfish/v1/Managers/{ManagerId}/SharedNetworkPorts"
+            ],
+            "urisDeprecated": [
+                "/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports"
             ]
         }
     },

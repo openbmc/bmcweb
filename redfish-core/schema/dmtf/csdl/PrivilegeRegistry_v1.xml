@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PrivilegeRegistry v1.2.0                                            -->
+<!--# Redfish Schema:  PrivilegeRegistry v1.3.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -18,10 +18,12 @@
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Privileges_v1.xml">
     <edmx:Include Namespace="Privileges"/>
@@ -76,6 +78,7 @@
       </EntityType>
 
       <ComplexType Name="Mapping">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The mapping between a resource type and the relevant privileges that accesses the resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a mapping between a resource type and the relevant privileges that accesses the resource."/>
         <Property Name="Entity" Type="Edm.String" Nullable="false">
@@ -102,6 +105,7 @@
       </ComplexType>
 
       <ComplexType Name="Target_PrivilegeMap">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="This type describes a mapping between one or more targets and the HTTP operations associated with them."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a mapping between one or more targets and the HTTP operations associated with them."/>
         <Property Name="Targets" Type="Collection(Edm.String)">
@@ -116,9 +120,9 @@
       </ComplexType>
 
       <ComplexType Name="OperationMap">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The specific privileges required to complete a set of HTTP operations."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe the specific privileges required to complete a set of HTTP operations."/>
-        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="GET" Type="Collection(PrivilegeRegistry.v1_0_0.OperationPrivilege)" Nullable="false">
           <Annotation Term="OData.Description" String="The privilege required to complete an HTTP `GET` operation."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete an HTTP `GET` operation."/>
@@ -146,6 +150,7 @@
       </ComplexType>
 
       <ComplexType Name="OperationPrivilege">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The privileges for a specific HTTP operation."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe the privileges required to complete a specific HTTP operation."/>
         <Property Name="Privilege" Type="Collection(Edm.String)" Nullable="false">
@@ -261,6 +266,43 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of the descriptions of the values of the `OEMPrivilegesUsed` property.  The order of this array shall match the order of the `OEMPrivilegesUsed` property."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_2_0.PrivilegeRegistry"/>
+
+      <ComplexType Name="OperationMap" BaseType="PrivilegeRegistry.v1_0_0.OperationMap">
+        <Property Name="ActionPrivileges" Type="Collection(PrivilegeRegistry.v1_3_0.ActionPrivilege)" Nullable="false">
+          <Annotation Term="OData.Description" String="The privilege required to complete specific actions.  If not present or if the action is not found in this property, the `POST` property specifies the privilege required."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete specific actions.  If not present or if the action is not found in this property, the `POST` property shall specify the privilege required."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="ActionPrivilege">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The specific privileges required to complete an action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the specific privileges required to complete an action."/>
+        <Property Name="ActionName" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The action name, such as `#Manager.Reset`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the action name, such as `#Manager.Reset`.  The value shall follow the format of the action property name defined in the 'Actions property' clause of the Redfish Specification."/>
+          <Annotation Term="Validation.Pattern" String="^#.+\..+$"/>
+        </Property>
+        <Property Name="Privileges" Type="Collection(PrivilegeRegistry.v1_0_0.OperationPrivilege)" Nullable="false">
+          <Annotation Term="OData.Description" String="The privilege required to complete the action specified by the `ActionName` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete the action specified by the `ActionName` property."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OperationPrivilege" BaseType="PrivilegeRegistry.v1_0_0.OperationPrivilege">
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

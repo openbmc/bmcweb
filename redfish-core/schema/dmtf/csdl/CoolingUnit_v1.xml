@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CoolingUnit v1.5.0                                                  -->
+<!--# Redfish Schema:  CoolingUnit v1.6.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -234,13 +234,13 @@
         <NavigationProperty Name="PrimaryCoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the primary coolant connectors for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the primary coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the primary coolant connectors for this equipment.  Equipment with connections to a single cooling loop or redundant group shall use this resource collection for its coolant connectors.  Equipment with connections to multiple cooling loops shall use this resource collection for connections to the primary side or upstream cooling loop."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SecondaryCoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the secondary coolant connectors for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the secondary coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the secondary coolant connectors for this equipment.  This property shall not be present in resources describing equipment with coolant connections to a single cooling loop.  Equipment with connections to multiple cooling loops shall use this resource collection to describe connections to the secondary side or downstream cooling loops."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="LeakDetection" Type="LeakDetection.LeakDetection" Nullable="false">
@@ -370,6 +370,12 @@
       <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_0_2.CoolingUnit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `PrimaryCoolantConnectors` and `SecondaryCoolantConnectors`."/>
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_0_3.CoolingUnit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -400,6 +406,12 @@
       <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_1_2.CoolingUnit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `PrimaryCoolantConnectors` and `SecondaryCoolantConnectors`."/>
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_1_3.CoolingUnit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.4"/>
@@ -419,12 +431,24 @@
       </EnumType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `PrimaryCoolantConnectors` and `SecondaryCoolantConnectors`."/>
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_2_0.CoolingUnit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.2"/>
       <Annotation Term="OData.Description" String="This version was created to add `RPU` to `CoolingUnitType`."/>
 
       <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_2_0.CoolingUnit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `PrimaryCoolantConnectors` and `SecondaryCoolantConnectors`."/>
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_3_0.CoolingUnit"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_4_0">
@@ -492,6 +516,12 @@
       </EnumType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `PrimaryCoolantConnectors` and `SecondaryCoolantConnectors`."/>
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_4_0.CoolingUnit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.4"/>
@@ -500,6 +530,25 @@
         <Property Name="CoolingUnitRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
           <Annotation Term="OData.Description" String="The redundancy information for the groups of cooling units."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the groups of cooling units."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `PrimaryCoolantConnectors` and `SecondaryCoolantConnectors`."/>
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_5_0.CoolingUnit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_5_1.CoolingUnit">
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare or replacement part number as defined by the manufacturer for this equipment."/>
         </Property>
       </EntityType>
     </Schema>

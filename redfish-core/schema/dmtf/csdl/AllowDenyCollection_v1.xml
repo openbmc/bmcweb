@@ -59,6 +59,7 @@
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/AllowDeny</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(AllowDeny.AllowDeny)">

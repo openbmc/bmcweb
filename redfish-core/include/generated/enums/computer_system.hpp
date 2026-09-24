@@ -243,6 +243,27 @@ enum class ImageChecksumAlgorithm{
     SHA256,
 };
 
+enum class ConsoleAuthenticationMethod{
+    Invalid,
+    ExplicitLogin,
+    OneTimeURL,
+    OneTimePassword,
+};
+
+enum class ConsoleAccessMode{
+    Invalid,
+    ReadWrite,
+    ReadOnly,
+};
+
+enum class GraphicalConsoleType{
+    Invalid,
+    VNC,
+    RDP,
+    HTML5,
+    KVMIP,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSource, {
     {BootSource::Invalid, "Invalid"},
     {BootSource::None, "None"},
@@ -477,6 +498,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
 NLOHMANN_JSON_SERIALIZE_ENUM(ImageChecksumAlgorithm, {
     {ImageChecksumAlgorithm::Invalid, "Invalid"},
     {ImageChecksumAlgorithm::SHA256, "SHA256"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ConsoleAuthenticationMethod, {
+    {ConsoleAuthenticationMethod::Invalid, "Invalid"},
+    {ConsoleAuthenticationMethod::ExplicitLogin, "ExplicitLogin"},
+    {ConsoleAuthenticationMethod::OneTimeURL, "OneTimeURL"},
+    {ConsoleAuthenticationMethod::OneTimePassword, "OneTimePassword"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ConsoleAccessMode, {
+    {ConsoleAccessMode::Invalid, "Invalid"},
+    {ConsoleAccessMode::ReadWrite, "ReadWrite"},
+    {ConsoleAccessMode::ReadOnly, "ReadOnly"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(GraphicalConsoleType, {
+    {GraphicalConsoleType::Invalid, "Invalid"},
+    {GraphicalConsoleType::VNC, "VNC"},
+    {GraphicalConsoleType::RDP, "RDP"},
+    {GraphicalConsoleType::HTML5, "HTML5"},
+    {GraphicalConsoleType::KVMIP, "KVMIP"},
 });
 
 // clang-format on

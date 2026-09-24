@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.28.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.29.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -2739,9 +2739,42 @@
       </EnumType>
 
       <EnumType Name="RackMountWidth">
+        <Member Name="OpenRack">
+          <Annotation Term="OData.Description" String="Open Rack (21.0 in or 533.4 mm)."/>
+          <Annotation Term="OData.LongDescription" String="Rack mounting width and mounting hole spacing shall conform to the Open Compute Project Open Rack V3 Base Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_29_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OpenRackWide">
+          <Annotation Term="OData.Description" String="Open Rack Wide (42.0 in or 1066.8 mm)."/>
+          <Annotation Term="OData.LongDescription" String="Rack mounting width and mounting hole spacing shall conform to the Open Compute Project Open Rack Wide Base Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_29_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="OpenU">
           <Annotation Term="OData.Description" String="Open Rack (21.0 in or 533.4 mm)."/>
           <Annotation Term="OData.LongDescription" String="Rack mounting width and mounting hole spacing shall conform to the Open Rack standard for 21-inch racks."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_29_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `OpenRack` as the correct terminology for the width described by the Open Rack V3 specification."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="EIA_310">
           <Annotation Term="OData.Description" String="EIA-310 19-inch."/>
@@ -2756,6 +2789,20 @@
           <Annotation Term="OData.LongDescription" String="Rack mounting width and mounting hole spacing shall be approximately 9.5 inches in width, following de facto industry practice for a rack half the width of a 19-inch EIA-310 equipment racks."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_29_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `OpenRack` and `OpenRackWide` values, and deprecate the `OpenU` value in `RackMountWidth`."/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_28_0.Chassis">
+        <Property Name="ProductionDate" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The production or manufacturing date of this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date of production or manufacture for this chassis."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -85,6 +85,15 @@ enum class NMVePersonalityKeyAlgorithm{
     HMAC_SHA384,
 };
 
+enum class ReservationCapabilities{
+    Invalid,
+    CompatibleReservationHandling,
+    SpecifyInitiatorPorts,
+    MultipleTargetPorts,
+    PersistThroughPowerLoss,
+    SupportClearReservationsOutOfBand,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::Invalid, "Invalid"},
     {ResetToDefaultsType::ResetAll, "ResetAll"},
@@ -161,6 +170,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NMVeUnfreezeAuthMode, {
 NLOHMANN_JSON_SERIALIZE_ENUM(NMVePersonalityKeyAlgorithm, {
     {NMVePersonalityKeyAlgorithm::Invalid, "Invalid"},
     {NMVePersonalityKeyAlgorithm::HMAC_SHA384, "HMAC_SHA384"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ReservationCapabilities, {
+    {ReservationCapabilities::Invalid, "Invalid"},
+    {ReservationCapabilities::CompatibleReservationHandling, "CompatibleReservationHandling"},
+    {ReservationCapabilities::SpecifyInitiatorPorts, "SpecifyInitiatorPorts"},
+    {ReservationCapabilities::MultipleTargetPorts, "MultipleTargetPorts"},
+    {ReservationCapabilities::PersistThroughPowerLoss, "PersistThroughPowerLoss"},
+    {ReservationCapabilities::SupportClearReservationsOutOfBand, "SupportClearReservationsOutOfBand"},
 });
 
 // clang-format on

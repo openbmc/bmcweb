@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.14.0                                           -->
+<!--# Redfish Schema:  SoftwareInventory v1.15.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -593,13 +593,13 @@
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_11_0.SoftwareInventory">
         <Property Name="Active" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This image is active on one or more devices."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate that the software image is currently in use on one or more devices."/>
+          <Annotation Term="OData.Description" String="This software image is currently running on one or more targets."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that this software image is currently running on one or more targets."/>
         </Property>
         <Property Name="Staged" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This image is ready to be activated to one or more devices."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate that the software image is ready to be activated to one or more devices."/>
+          <Annotation Term="OData.Description" String="This software image is queued for activation on the next `Activate` action request on one or more targets."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that this software image is queued for activation on the next `Activate` action request on one or more targets."/>
         </Property>
         <Property Name="ResetRequiredOnUpdate" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -617,14 +617,14 @@
         <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="StagedTargets" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of devices where this software image is staged and ready to be activated."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that represent the devices where this software image is staged and ready to be activated."/>
+          <Annotation Term="OData.Description" String="An array of devices where this software image is queued for activation on the next `Activate` action request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that represent the devices where this software image is queued for activation on the next `Activate` action request."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ActiveTargets" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of devices where this software image is currently running."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that represent the devices where this software image is currently running."/>
+          <Annotation Term="OData.Description" String="An array of targets where this software image is currently running."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that represent the targets where this software image is currently running."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -655,6 +655,61 @@
       <Annotation Term="OData.Description" String="This version was created to add the `Cancel` action."/>
 
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_13_0.SoftwareInventory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_14_0.SoftwareInventory">
+        <Property Name="ImageState" Type="SoftwareInventory.v1_15_0.ImageState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The state of the image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the image."/>
+        </Property>
+        <Property Name="OEMImageState" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The OEM-defined state of the image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined state of the image.  This property shall be present if `ImageState` is `OEM`."/>
+        </Property>
+        <Property Name="Armed" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This software image will become active on the next reset or applicable trigger on one or more targets."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that this software image will become active on the next reset or applicable trigger on one or more targets."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ImageState">
+        <Member Name="Active">
+          <Annotation Term="OData.Description" String="The software image is currently running on all targets."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the software image is currently running on all targets.  The `StagedTargets` and `ArmedTargets` properties in `Links` shall contain empty arrays if present."/>
+        </Member>
+        <Member Name="Staged">
+          <Annotation Term="OData.Description" String="The software image is queued for activation on the next `Activate` action request on all targets.  After `Activate` is performed, the image transitions to `Active` state or to the `Armed` state if a subsequent reset or applicable trigger is required after the activation request."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the software image is queued for activation on the next `Activate` action request on all targets.  The `ActiveTargets` and `ArmedTargets` properties in `Links` shall contain empty arrays if present."/>
+        </Member>
+        <Member Name="Armed">
+          <Annotation Term="OData.Description" String="The software image will become active on the next reset or applicable trigger on all targets.  The image transitions to the `Active` state after the next reset or applicable trigger."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the software image will become active on the next reset or applicable trigger on all targets.  The `ActiveTargets` and `StagedTargets` properties in `Links` shall contain empty arrays if present."/>
+        </Member>
+        <Member Name="TargetSpecific">
+          <Annotation Term="OData.Description" String="The software image is in different states for different targets.  Properties such as `ActiveTargets`, `StagedTargets`, and `ArmedTargets` in `Links` provide more granular details."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the software image is in different states for different targets."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="The software image is in an OEM-defined state.  See the `OEMImageState` property."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the software image is in an OEM-defined state.  The `OEMImageState` property shall contain the image state."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="SoftwareInventory.v1_12_0.Links">
+        <NavigationProperty Name="ArmedTargets" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of targets where this software image will become active on the next reset or applicable trigger."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that represent the targets where this software image will become active on the next reset or applicable trigger."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

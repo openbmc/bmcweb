@@ -95,7 +95,8 @@
                 "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny",
                 "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny",
                 "/redfish/v1/ResourceBlocks/{ResourceBlockId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny",
-                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny"
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces/{NetworkInterfaceId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/AllowDeny",
+                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/AllowDeny"
             ]
         }
     },

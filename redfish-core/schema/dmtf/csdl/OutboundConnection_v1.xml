@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  OutboundConnection v1.0.2                                           -->
+<!--# Redfish Schema:  OutboundConnection v1.0.3                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -175,7 +175,7 @@
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
-              <PropertyValue Property="Pattern" String="^[^:\\s]+$"/>
+              <PropertyValue Property="Pattern" String="^[^:\s]+$"/>
               <PropertyValue Property="Type" String="Edm.String"/>
             </Record>
           </Collection>
@@ -241,6 +241,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="OutboundConnection" BaseType="OutboundConnection.v1_0_1.OutboundConnection"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutboundConnection.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the pattern property definition for the contents of the `PreUpgradeHTTPHeaders` property."/>
+      <EntityType Name="OutboundConnection" BaseType="OutboundConnection.v1_0_2.OutboundConnection"/>
     </Schema>
 
   </edmx:DataServices>

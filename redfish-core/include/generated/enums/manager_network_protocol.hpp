@@ -58,6 +58,14 @@ enum class SSHPreferredAuthentication{
     HostBased,
 };
 
+enum class NTPState{
+    Invalid,
+    Synchronized,
+    NotSynchronized,
+    Disabled,
+    Unreachable,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(NotifyIPv6Scope, {
     {NotifyIPv6Scope::Invalid, "Invalid"},
     {NotifyIPv6Scope::Link, "Link"},
@@ -107,6 +115,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SSHPreferredAuthentication, {
     {SSHPreferredAuthentication::KeyboardInteractive, "KeyboardInteractive"},
     {SSHPreferredAuthentication::GSSAPIWithMIC, "GSSAPIWithMIC"},
     {SSHPreferredAuthentication::HostBased, "HostBased"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(NTPState, {
+    {NTPState::Invalid, "Invalid"},
+    {NTPState::Synchronized, "Synchronized"},
+    {NTPState::NotSynchronized, "NotSynchronized"},
+    {NTPState::Disabled, "Disabled"},
+    {NTPState::Unreachable, "Unreachable"},
 });
 
 // clang-format on

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.22.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.23.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -2189,6 +2189,39 @@
       <EntityType Name="Storage" BaseType="Storage.v1_21_0.Storage"/>
 
       <EntityType Name="StorageController" BaseType="Storage.v1_21_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_23_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_22_0.Storage">
+        <Property Name="ReservationCapabilities" Type="Collection(Storage.v1_23_0.ReservationCapabilities)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates the reservation capabilities supported by this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the reservation capabilities supported by this storage subsystem.  Persistent reservations are not reset by hard resets, logical unit resets, or I_T nexus loss conditions."/>
+        </Property>
+      </EntityType>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_22_0.StorageController"/>
+
+      <EnumType Name="ReservationCapabilities">
+        <Member Name="CompatibleReservationHandling">
+          <Annotation Term="OData.Description" String="Indicates that the storage subsystem supports SPC-5-defined 'Reserve' and 'Release' commands."/>
+        </Member>
+        <Member Name="SpecifyInitiatorPorts">
+          <Annotation Term="OData.Description" String="Indicates that the storage subsystem supports initiator port-based reservation in the 'Persistent Reserve Out' command."/>
+        </Member>
+        <Member Name="MultipleTargetPorts">
+          <Annotation Term="OData.Description" String="Indicates that the storage subsystem supports the 'Persistent Reserve Out' command on all target ports."/>
+        </Member>
+        <Member Name="PersistThroughPowerLoss">
+          <Annotation Term="OData.Description" String="Indicates that the storage subsystem supports persistent reservations preserved through resets or power loss."/>
+        </Member>
+        <Member Name="SupportClearReservationsOutOfBand">
+          <Annotation Term="OData.Description" String="Indicates that the storage subsystem supports the ability to clear reservations out of band for administrator use.  If this capability is supported, the services should support the `ClearReservations` action on corresponding `Volume` resources."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

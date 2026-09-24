@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MediaController v1.3.2                                              -->
+<!--# Redfish Schema:  MediaController v1.3.3                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -76,7 +76,7 @@
           <Collection>
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
-              <PropertyValue Property="Version" String="v1_2_0"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
               <PropertyValue Property="Description" String="This schema has been deprecated in favor of the `FabricAdapter` schema."/>
             </Record>
           </Collection>
@@ -248,6 +248,12 @@
       <EntityType Name="MediaController" BaseType="MediaController.v1_2_1.MediaController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MediaController.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the deprecated schema annotation."/>
+      <EntityType Name="MediaController" BaseType="MediaController.v1_2_2.MediaController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MediaController.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -266,6 +272,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="MediaController" BaseType="MediaController.v1_3_1.MediaController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MediaController.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the deprecated schema annotation."/>
+      <EntityType Name="MediaController" BaseType="MediaController.v1_3_2.MediaController"/>
     </Schema>
 
   </edmx:DataServices>

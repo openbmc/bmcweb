@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CertificateEnrollment v1.0.1                                        -->
+<!--# Redfish Schema:  CertificateEnrollment v1.0.2                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -279,7 +279,7 @@
         <Property Name="KeyPairAlgorithm" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The type of key-pair for use with signing algorithms."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the type of key-pair for use with signing algorithms.  The allowable values for this property shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of key-pair for use with signing algorithms.  The allowable values for this property shall be the strings in the 'Algorithm Name' field of the 'TCG_ALG_ID Constants' table, formerly the 'TPM_ALG_ID Constants' table, within the 'Trusted Computing Group Algorithm Registry'."/>
         </Property>
         <Property Name="KeyBitLength" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -289,7 +289,7 @@
         <Property Name="KeyCurveId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The curve ID to use with the key, if needed based on the `KeyPairAlgorithm` property value."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the curve ID to use with the key, if needed based on the `KeyPairAlgorithm` property value.  The allowable values for this property shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the curve ID to use with the key, if needed based on the `KeyPairAlgorithm` property value.  The allowable values for this property shall be the strings in the 'Name' field of the 'TCG_ECC_CURVE Constants' table, formerly the 'TPM_ECC_CURVE Constants' table, within the 'Trusted Computing Group Algorithm Registry'."/>
         </Property>
         <Property Name="KeyUsage" Type="Collection(Certificate.KeyUsage)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -373,6 +373,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description of the `CommonName` property to allow for more general usage."/>
       <EntityType Name="CertificateEnrollment" BaseType="CertificateEnrollment.v1_0_0.CertificateEnrollment"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateEnrollment.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` properties."/>
+      <EntityType Name="CertificateEnrollment" BaseType="CertificateEnrollment.v1_0_1.CertificateEnrollment"/>
     </Schema>
 
   </edmx:DataServices>

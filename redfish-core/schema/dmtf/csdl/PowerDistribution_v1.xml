@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerDistribution v1.6.0                                            -->
+<!--# Redfish Schema:  PowerDistribution v1.7.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -39,6 +39,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SensorCollection_v1.xml">
     <edmx:Include Namespace="SensorCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Circuit_v1.xml">
+    <edmx:Include Namespace="Circuit"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CircuitCollection_v1.xml">
     <edmx:Include Namespace="CircuitCollection"/>
@@ -136,6 +139,37 @@
           </Collection>
         </Annotation>
       </Action>
+
+      <Action Name="PowerControl" IsBound="true">
+        <Annotation Term="OData.Description" String="This action turns the equipment on or off."/>
+        <Annotation Term="OData.LongDescription" String="This action shall control the power state of the equipment."/>
+        <Parameter Name="PowerDistribution" Type="PowerDistribution.v1_0_0.Actions"/>
+        <Parameter Name="PowerState" Type="PowerDistribution.PowerState">
+          <Annotation Term="OData.Description" String="The desired power state of the equipment."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the desired power state of the equipment."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_7_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <EnumType Name="PowerState">
+        <Member Name="On">
+          <Annotation Term="OData.Description" String="Power on."/>
+        </Member>
+        <Member Name="Off">
+          <Annotation Term="OData.Description" String="Power off."/>
+        </Member>
+        <Member Name="PowerCycle">
+          <Annotation Term="OData.Description" String="Power cycle."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  The transition to a power on state shall be delayed by the value of the `PowerCycleDelaySeconds` property, if present in the resource."/>
+        </Member>
+      </EnumType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_0_0">
@@ -774,6 +808,40 @@
         <Property Name="PowerDistributionRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
           <Annotation Term="OData.Description" String="The redundancy information for the groups of power distribution units."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the groups of power distribution units."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `PowerControl` action."/>
+
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_6_0.PowerDistribution">
+        <Property Name="PowerOnDelaySeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power up after a power cycle or a `PowerControl` action.  Zero seconds indicates no delay to power up."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power up after a power cycle or a `PowerControl` action.  The value `0` shall indicate no delay to power up."/>
+        </Property>
+        <Property Name="PowerCycleDelaySeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a `PowerControl` action to cycle power.  Zero seconds indicates no delay."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a `PowerControl` action to cycle power.  The value `0` shall indicate no delay to power on."/>
+        </Property>
+        <Property Name="PowerRestoreDelaySeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power on after power has been restored.  Zero seconds indicates no delay."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a power fault.  The value `0` shall indicate no delay to power on."/>
+        </Property>
+        <Property Name="PowerRestorePolicy" Type="Circuit.PowerRestorePolicyTypes" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The desired power state of the equipment when power is restored after a power loss."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired power state of the equipment when input power is applied.  The value `LastState` shall return the equipment to the power state it was in when input power was lost."/>
+        </Property>
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare or replacement part number as defined by the manufacturer for this equipment."/>
         </Property>
       </EntityType>
     </Schema>

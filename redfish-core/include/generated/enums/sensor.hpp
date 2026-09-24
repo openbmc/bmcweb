@@ -75,6 +75,9 @@ enum class ReadingType{
     RotationalVelocity,
     RotationalAcceleration,
     Valve,
+    Turbidity,
+    LiquidConductivity,
+    pH,
 };
 
 enum class ImplementationType{
@@ -159,6 +162,9 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingType, {
     {ReadingType::RotationalVelocity, "RotationalVelocity"},
     {ReadingType::RotationalAcceleration, "RotationalAcceleration"},
     {ReadingType::Valve, "Valve"},
+    {ReadingType::Turbidity, "Turbidity"},
+    {ReadingType::LiquidConductivity, "LiquidConductivity"},
+    {ReadingType::pH, "pH"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {

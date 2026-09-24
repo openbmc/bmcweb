@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.21.0                                                    -->
+<!--# Redfish Schema:  LogEntry v1.22.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -2112,8 +2112,8 @@
         </Property>
         <Property Name="UserAuthenticationSource" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The source of authentication for the username property associated with the log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URL to the authentication service that is associated with the username property.  This should be used for audit logs that result from a user action."/>
+          <Annotation Term="OData.Description" String="The source of authentication for the user associated with the log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain source of authentication for the user, specified by the `Username` property, associated with the log entry.  For local users, this property shall contain `/redfish/v1/AccountService`.  For users managed by external account providers, this property shall contain the member of the `ServiceAddresses` property that authenticated the user.  This should be used for conditions that result from a user action.  This should be used for audit logs that result from a user action."/>
         </Property>
       </EntityType>
     </Schema>
@@ -2130,12 +2130,24 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_17_1.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_17_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the format of `UserAuthenticationSource`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_17_2.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_18_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.1"/>
       <Annotation Term="OData.Description" String="This version was created to add `Device` to `DiagnosticDataType`."/>
 
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_17_2.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_18_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the format of `UserAuthenticationSource`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_18_0.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_19_0">
@@ -2156,6 +2168,12 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_19_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the format of `UserAuthenticationSource`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_19_0.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_20_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.3"/>
@@ -2167,6 +2185,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the `OriginOfCondition` link is unavailable.  If `true`, services shall not expand the `OriginOfCondition` link.  If this property is not present, the value shall be assumed to be `false`."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_20_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the format of `UserAuthenticationSource`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_20_0.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_21_0">
@@ -2183,6 +2207,25 @@
         </Property>
       </EntityType>
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_21_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the format of `UserAuthenticationSource`."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_21_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_22_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_21_1.LogEntry">
+        <Property Name="VendorCode" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The vendor-defined code used to identify this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a vendor-defined code or identifier equivalent to this log entry or `MessageId` value.  This value allows clients to map a `MessageId` value to a legacy or vendor-specific value for the same condition or error message."/>
+        </Property>
+	  </EntityType>
+	</Schema>
 
   </edmx:DataServices>
 </edmx:Edmx>
