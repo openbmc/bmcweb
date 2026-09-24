@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.14.1                                              -->
+<!--# Redfish Schema:  ManagerAccount v1.14.2                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -96,7 +96,7 @@
 
       <Action Name="GenerateSecretKey" IsBound="true">
         <Annotation Term="OData.Description" String="This action randomly generates a new secret key for Time-based One-Time Password (TOTP) multi-factor authentication for this account."/>
-        <Annotation Term="OData.LongDescription" String="This action shall randomly generate a new secret key for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication for this account."/>
+        <Annotation Term="OData.LongDescription" String="This action shall randomly generate a new secret key for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication for this account.  The service may require a client to invoke the `VerifyTimeBasedOneTimePassword` action after receiving the secret key to apply the new secret key to the account."/>
         <Parameter Name="ManagerAccount" Type="ManagerAccount.v1_1_0.Actions"/>
         <ReturnType Type="ManagerAccount.v1_13_0.GenerateSecretKeyResponse" Nullable="false"/>
         <Annotation Term="Redfish.Revisions">
@@ -275,12 +275,12 @@
         <Property Name="Locked" Type="Edm.Boolean" Nullable="false" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the account service automatically locked the account because the lockout threshold was exceeded.  To manually unlock the account before the lockout duration period, an administrator can change the property to `false` to clear the lockout condition."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the account service automatically locked the account because the `AccountLockoutThreshold` was exceeded.  To manually unlock the account before the lockout duration period, an administrator shall be able to change the property to `false` to clear the lockout condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the account service automatically locked the account because the `AccountLockoutThreshold` was exceeded.  To manually unlock the account before the lockout duration period, an administrator shall be able to change the property to `false` to clear the lockout condition.  If this property is modified to `true`, any currently open sessions for this account should be automatically closed by the service."/>
         </Property>
         <Property Name="Enabled" Type="Edm.Boolean" Nullable="false" DefaultValue="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether an account is enabled.  An administrator can disable it without deleting the user information.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether an account is enabled.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether an account is enabled.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.  If this property is modified to `false`, any currently open sessions for this account should be automatically closed by the service."/>
         </Property>
         <Property Name="Links" Type="ManagerAccount.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
@@ -378,6 +378,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_0_13.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_0_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_0_14.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -472,6 +478,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_1_10.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_1_11.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -534,6 +546,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_2_7.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_2_8.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -587,6 +605,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_6.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_7.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_0">
@@ -802,6 +826,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_9.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_10.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -876,6 +906,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_8.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_9.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -943,6 +979,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_8.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_9.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -999,6 +1041,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_6.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_7.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1053,6 +1101,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_5.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_6.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1096,6 +1150,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_9_4.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_9_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_9_5.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -1130,6 +1190,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `PasswordExpiration` values may be rejected by the service."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_10_3.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_10_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_10_4.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_11_0">
@@ -1180,6 +1246,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_11_3.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_11_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_11_4.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -1204,6 +1276,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `PasswordExpiration` values may be rejected by the service."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_12_2.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_12_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_12_3.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_13_0">
@@ -1237,6 +1315,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_13_0.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_13_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow a service to require a client to invoke `VerifyTimeBasedOneTimePassword` after invoking `GenerateSecretKey`.  It was also created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_13_1.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.2"/>
@@ -1249,6 +1333,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `PasswordExpiration` values may be rejected by the service."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_14_0.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_14_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow a service to require a client to invoke `VerifyTimeBasedOneTimePassword` after invoking `GenerateSecretKey`.  It was also created to clarify the behavior of open sessions when `Locked` and `Enabled` are modified."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_14_1.ManagerAccount"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateServiceCapabilities v1.0.0                                    -->
+<!--# Redfish Schema:  UpdateServiceCapabilities v1.1.0                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -92,6 +92,67 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateServiceCapabilities.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="UpdateServiceCapabilities" BaseType="UpdateServiceCapabilities.v1_0_0.UpdateServiceCapabilities">
+        <Property Name="TargetsParameterSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `Targets` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `Targets` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests."/>
+        </Property>
+        <Property Name="ExcludeTargetsParameterSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `ExcludeTargets` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `ExcludeTargets` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests."/>
+        </Property>
+        <Property Name="ForceUpdateParameterSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `ForceUpdate` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `ForceUpdate` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests."/>
+        </Property>
+        <Property Name="StageParameterSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `Stage` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `Stage` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests."/>
+        </Property>
+        <Property Name="LocalImageParameterSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `LocalImage` parameter in `SimpleUpdate` and `MultipartHttpPushUri` update requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `LocalImage` parameter in `SimpleUpdate` action requests and `MultipartHttpPushUri` update requests."/>
+        </Property>
+        <Property Name="AllowableTargetReferenceTypes" Type="Collection(UpdateServiceCapabilities.v1_1_0.AllowableTargetReferenceType)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The types of URI references that the service accepts in the `Targets` and parameter for update requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array that indicates the types of URI references that the service accepts as valid values in the `Targets` parameter for `SimpleUpdate` or `MultipartHttpPushUri` update requests.  If this property is not present, the `AllowableTargets` property contains the exact set of URIs that are allowed in the `Targets` parameter."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="AllowableTargetReferenceType">
+        <Member Name="SoftwareInventory">
+          <Annotation Term="OData.Description" String="The service accepts URIs that reference `SoftwareInventory` resources as valid values for the `Targets` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the service accepts URIs that reference `SoftwareInventory` resources as valid values for the `Targets` parameter."/>
+        </Member>
+        <Member Name="DeviceResource">
+          <Annotation Term="OData.Description" String="The service accepts URIs that reference device resources, such as `NetworkAdapter`, `Processor`, `Storage`, or `Drive` resources, as valid values for the `Targets` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the service accepts URIs that reference device resources, such as `NetworkAdapter`, `Processor`, `Storage`, or `Drive` resources, as valid values for the `Targets` parameter."/>
+        </Member>
+        <Member Name="ResourceCollection">
+          <Annotation Term="OData.Description" String="The service accepts URIs that reference resource collections, such as `NetworkAdapterCollection`, `ProcessorCollection`, `StorageCollection`, or `DriveCollection` resources, as valid values for the `Targets` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the service accepts URIs that reference resource collections, such as `NetworkAdapterCollection`, `ProcessorCollection`, `StorageCollection`, or `DriveCollection` resources, as valid values for the `Targets` parameter."/>
+        </Member>
+        <Member Name="Aggregate">
+          <Annotation Term="OData.Description" String="The service accepts URIs that reference `Aggregate` resources as valid values for the `Targets` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the service accepts URIs that reference `Aggregate` resources as valid values for the `Targets` parameter."/>
+        </Member>
+        <Member Name="ComputerSystem">
+          <Annotation Term="OData.Description" String="The service accepts URIs that reference `ComputerSystem` resources as valid values for the `Targets` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the service accepts URIs that reference `ComputerSystem` resources as valid values for the `Targets` parameter."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

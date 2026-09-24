@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerSupply v1.7.0                                                  -->
+<!--# Redfish Schema:  PowerSupply v1.8.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -295,12 +295,39 @@
       <EnumType Name="PowerSupplyType">
         <Member Name="AC">
           <Annotation Term="OData.Description" String="Alternating Current (AC) power supply."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `PSU`.  AC or DC usage is determined using `InputNominalVoltageType`."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="DC">
           <Annotation Term="OData.Description" String="Direct Current (DC) power supply."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `PSU`.  AC or DC usage is determined using `InputNominalVoltageType`."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="ACorDC">
           <Annotation Term="OData.Description" String="The power supply supports both DC and AC."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `PSU`.  AC or DC usage is determined using `InputNominalVoltageType`."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="DCRegulator">
           <Annotation Term="OData.Description" String="Direct Current (DC) voltage regulator."/>
@@ -309,6 +336,17 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="PSU">
+          <Annotation Term="OData.Description" String="Power supply unit (PSU)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -617,6 +655,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the desired output voltage, in volt units, for this output rail.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Voltage`.  A `ControlMode` value of `Override` shall indicate the user has selected a desired output voltage, while a value of `Automatic` shall indicate the output voltage reflects the value of `NominalVoltage`.  Changing the value of `ControlMode` to `Automatic` should change the value of `SetPoint` to match the `NominalVoltage`."/>
         </NavigationProperty>
 	  </ComplexType>
+	</Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `PSU` and deprecate `AC`, `DC`, and `ACorDC` in `PowerSupplyType`."/>
+
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_7_0.PowerSupply"/>
 	</Schema>
 
   </edmx:DataServices>

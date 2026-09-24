@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  RouteSetEntry v1.0.2                                                -->
+<!--# Redfish Schema:  RouteSetEntry v1.1.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -60,6 +60,29 @@
             <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/SSDT/{SSDTId}/RouteSet/{RouteId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/LPRT/{LPRTId}/RouteSet/{RouteId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/MPRT/{MPRTId}/RouteSet/{RouteId}</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/LPRT/{LPRTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/MPRT/{MPRTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/MPRT/{MPRTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/LPRT/{LPRTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/MSDT/{MSDTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/SSDT/{SSDTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/MSDT/{MSDTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/SSDT/{SSDTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/LPRT/{LPRTId}/RouteSet/{RouteId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/MPRT/{MPRTId}/RouteSet/{RouteId}</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+              <PropertyValue Property="Version" String="v1_1_0"/>
+              <PropertyValue Property="Description" String="This schema has been deprecated in favor of CXL support."/>
+            </Record>
           </Collection>
         </Annotation>
       </EntityType>
@@ -123,6 +146,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="RouteSetEntry" BaseType="RouteSetEntry.v1_0_1.RouteSetEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="RouteSetEntry.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the schema."/>
+
+      <EntityType Name="RouteSetEntry" BaseType="RouteSetEntry.v1_0_2.RouteSetEntry"/>
     </Schema>
 
   </edmx:DataServices>

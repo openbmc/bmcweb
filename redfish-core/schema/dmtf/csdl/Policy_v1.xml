@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  Policy v1.0.0                                                       -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2026 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Policy">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
+
+      <EntityType Name="Policy" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The `Policy` schema contains a definition for a policy."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a policy for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Any writable properties can be updated."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Policies can be deleted."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/PolicyService/Policies/{PolicyId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <EnumType Name="ConditionType">
+        <Member Name="And">
+          <Annotation Term="OData.Description" String="All subordinate conditions trigger for this condition to trigger."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that this condition requires all conditions in the `SubordinateConditions` property to evaluate to true at the same time before this condition triggers.  This condition shall contain the `SubordinateConditions` property.  All other properties in this condition shall be omitted."/>
+        </Member>
+        <Member Name="Or">
+          <Annotation Term="OData.Description" String="Any subordinate conditions trigger for this condition to trigger."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that this condition requires any condition in the `SubordinateConditions` property to evaluate to true before this condition triggers.  This condition shall contain the `SubordinateConditions` property.  All other properties in this condition shall be omitted."/>
+        </Member>
+        <Member Name="Compare">
+          <Annotation Term="OData.Description" String="Compare a value from a Redfish resource to a specified value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the `Resource` and `Property` values are used to determine the data to read and compare to the `Value` property.  This condition shall not contain the `SubordinateConditions` property."/>
+        </Member>
+        <Member Name="Read">
+          <Annotation Term="OData.Description" String="Read a value from a Redfish resource.  This condition type is used to provide values to a parent condition."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the `Resource` and `Property` values to determine the data to read.  This condition shall not contain the `SubordinateConditions` and `Value` properties.  This condition shall be subordinate to another condition."/>
+        </Member>
+        <Member Name="Sum">
+          <Annotation Term="OData.Description" String="Add the values of all subordinate conditions together and compare the sum to the specified value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the values specified by each member of `SubordinateConditions` are added, and then compared using the `Operator` and `Value` properties.  This condition shall not contain the `Property` or `Resource` properties.  If the result of the subordinate conditions cannot be converted to a number then the value for that condition shall be `0`."/>
+        </Member>
+        <Member Name="Average">
+          <Annotation Term="OData.Description" String="Average the values of all subordinate conditions together and compare the average to the given value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the values specified by each member of `SubordinateConditions` are averaged, by performing an arithmetic mean, and then compared using the `Operator` and `Value` properties.  This condition shall not contain the `Property` or `Resource` properties.  If the result of the subordinate conditions cannot be converted to a number then the value for that condition shall be `0`."/>
+        </Member>
+        <Member Name="Event">
+          <Annotation Term="OData.Description" String="The condition triggers when the message specified is emitted by the service."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the condition evaluates to true when the message specified in the `Value` property is emitted by the service.  If the `Resource` property is specified and is not an empty string, then the condition shall only evaluate to true if the event was emitted with the resource referenced by `OriginOfCondition`.  If the `MessageId` specified by the `Value` property does not specify the version of the message, then it shall apply to all versions of the message."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ResponseAction">
+        <Member Name="Recheck">
+          <Annotation Term="OData.Description" String="The response reevaluates and, if the condition is no longer true, the response actions stop at this point."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response causes the policy condition to be reevaluated.  If the condition is still true after this reevaluation, then the response actions shall continue.  If the condition is no longer true, then the response actions shall stop at this point."/>
+        </Member>
+        <Member Name="Event">
+          <Annotation Term="OData.Description" String="The response sends an event corresponding to the event parameters specified."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response sends the event specified by the parameters in the `Event` property of the response."/>
+        </Member>
+        <Member Name="Reset">
+          <Annotation Term="OData.Description" String="The response performs a `Reset` action on the specified resource."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response performs a `Reset` action on the resource specified by the `Resource` property with the specified `ResetType`."/>
+        </Member>
+        <Member Name="HTTP">
+          <Annotation Term="OData.Description" String="The response performs an HTTP/HTTPS operation as specified by the parameters."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response performs an HTTP/HTTPS operation as specified by the `HTTP` property."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="The response performs an OEM-defined operation as specified by the parameters."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response performs an OEM-defined operation as specified by the `Oem` property."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Policy.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="Policy" BaseType="Policy.Policy">
+        <Property Name="Predefined" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the policy is predefined by Redfish or an OEM rather than a client-defined policy."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the policy is predefined by Redfish or an OEM as contrasted with a client-defined policy.  If this property is not present, the value should be assumed to be `false`."/>
+        </Property>
+        <Property Name="Enabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the policy is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property indicate whether the policy is enabled.  The value `true` shall indicate the service performs the actions specified by this policy.  The value `false` shall indicate the service takes no actions specified by this policy."/>
+        </Property>
+        <Property Name="TriggerCondition" Type="Policy.v1_0_0.Condition">
+          <Annotation Term="OData.Description" String="The condition that causes the service to perform the actions of this policy."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the condition that causes the service to perform the actions of this policy."/>
+        </Property>
+        <Property Name="Response" Type="Collection(Policy.v1_0_0.Response)">
+          <Annotation Term="OData.Description" String="A list of responses to perform when the condition is triggered."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of responses to perform when the policy condition is triggered.  Services shall perform the responses sequentially."/>
+        </Property>
+        <Property Name="Links" Type="Policy.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Actions" Type="Policy.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="Policy.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <ComplexType Name="Condition">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A condition to trigger the policy or a parent condition."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe conditions for a policy."/>
+        <Property Name="Type" Type="Policy.ConditionType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of this condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of this condition."/>
+        </Property>
+        <Property Name="Operator" Type="Policy.v1_0_0.Operator">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The comparison operator for this condition, if applicable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the comparison operator for condition types that require comparisons."/>
+        </Property>
+        <Property Name="CompareValue" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The value to compare against."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value for the comparison operator to compare against for conditions with an operator."/>
+        </Property>
+        <Property Name="ResourcePath" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The resource from which to obtain data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI to a Redfish resource from which to obtain data.  If the resource is of type `Sensor` and the `Property` is not present, the `Reading` property from the `Sensor` reading shall be used."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="PropertyPath" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The property path in the resource from which to obtain data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the property path from which to obtain data.  The value shall follow RFC6901-defined JSON pointer notation rules."/>
+        </Property>
+        <Property Name="SubordinateConditions" Type="Collection(Policy.v1_0_0.Condition)">
+          <Annotation Term="OData.Description" String="Subordinate conditions that are evaluated to determine the status of this condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of subordinate conditions that are evaluated to determine the status of this condition."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Response">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A response that is executed in the order specified."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe response to a policy."/>
+        <Property Name="ResponseAction" Type="Policy.ResponseAction">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The action type of this response."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the action type of this response."/>
+        </Property>
+        <Property Name="TargetURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The URI on which to perform the response action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI on which to perform the response action."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="DelaySeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The delay in seconds before performing the response action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to wait before performing the response action."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="ResetType" Type="Resource.ResetType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of reset to perform if the action type is `Reset`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of reset to perform if `ResponseAction` contains `Reset`.  If `ResponseAction` does not contain `Reset`, this property shall be ignored."/>
+        </Property>
+        <Property Name="Event" Type="Policy.v1_0_0.EventResponse">
+          <Annotation Term="OData.Description" String="The event parameters for a response if the action type is `Event`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the event parameters for a response if `ResponseAction` contains `Event`.  If `ResponseAction` does not contain `Event`, this property shall be ignored."/>
+        </Property>
+        <Property Name="HTTP" Type="Policy.v1_0_0.HTTPResponse">
+          <Annotation Term="OData.Description" String="The HTTP/HTTPS parameters for a response if the action type is `HTTP`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the HTTP/HTTPS parameters for a response if `ResponseAction` contains `HTTP`.  If `ResponseAction` does not contain `HTTP`, this property shall be ignored."/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="EventResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Parameters for an event response type."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the event to send as a response."/>
+        <Property Name="MessageId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The identifier of the message to send in the event."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the message to send as the `MessageId` property in the event.  If the value is in the `MessageRegistryPrefix.MessageKey` format, the service shall use the highest version of the message supported by the service.  If the value is in the `MessageRegistryPrefix.MajorVersion.MinorVersion.MessageKey` format, the service shall use the exact value in the event response."/>
+          <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9]+\.(\d+\.\d+\.)?[A-Za-z0-9]+$"/>
+        </Property>
+        <Property Name="MessageOriginOfCondition" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The origin of condition to send in the event."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the origin of condition to send as the `OriginOfCondition` property in the event.  If this property is not specified or is an empty string, the origin of condition shall be the URI of this policy."/>
+        </Property>
+        <Property Name="MessageArgs" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The message arguments to send in the event."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the message arguments to send as the `MessageArgs` property in the event."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="HTTPResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Parameters for an HTTP/HTTPS response type."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the HTTP/HTTPS operation to perform as a response."/>
+        <Property Name="Operation" Type="Policy.v1_0_0.HTTPVerb">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of HTTP operation to perform."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of HTTP operation to perform."/>
+        </Property>
+        <Property Name="Headers" Type="Policy.v1_0_0.HTTPHeaderProperty" Nullable="false">
+          <Annotation Term="OData.Description" String="The HTTP headers to include when performing the HTTP operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an object consisting of the names and values of HTTP headers to include when performing the HTTP operation.  This property shall be an empty object in responses."/>
+        </Property>
+        <Property Name="Body" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The body of the HTTP operation to perform."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the body of HTTP/HTTPS operation to send."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="HTTPHeaderProperty">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The HTTP header value is the property value.  The header name is the property name."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the HTTP header name and value to include when performing an HTTP operation for a policy response."/>
+        <Annotation Term="Redfish.DynamicPropertyPatterns">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Pattern" String="^[^:\s]+$"/>
+              <PropertyValue Property="Type" String="Edm.String"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </ComplexType>
+
+      <EnumType Name="Operator">
+        <Member Name="Equal">
+          <Annotation Term="OData.Description" String="Check whether the values to compare are equal."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the condition evaluates to true if the value calculated exactly matches the value specified by the condition."/>
+        </Member>
+        <Member Name="NotEqual">
+          <Annotation Term="OData.Description" String="Check whether the values to compare not equal."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the condition evaluates to true if the value calculated does not match the value specified by the condition."/>
+        </Member>
+        <Member Name="GreaterThan">
+          <Annotation Term="OData.Description" String="Check whether the value calculated is greater than the value specified in the condition."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the condition evaluates to true if the value calculated is greater than the value specified by the condition.  If both values evaluate to numbers, the service shall perform numeric comparison.  Otherwise, the service shall perform string comparison."/>
+        </Member>
+        <Member Name="LessThan">
+          <Annotation Term="OData.Description" String="Check whether the value calculated is less than the value specified in the condition."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the condition evaluates to true if the value calculated is less than the value specified by the condition.  If both values evaluate to numbers, the service shall perform numeric comparison.  Otherwise, the service shall perform string comparison."/>
+        </Member>
+        <Member Name="GreaterThanOrEqual">
+          <Annotation Term="OData.Description" String="Check whether the value calculated is greater than or equal to the value specified in the condition."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the condition evaluates to true if the value calculated is greater than or equal to the value specified by the condition.  If both values evaluate to numbers, the service shall perform numeric comparison.  Otherwise, the service shall perform string comparison."/>
+        </Member>
+        <Member Name="LessThanOrEqual">
+          <Annotation Term="OData.Description" String="Check whether the value calculated is less than or equal to the value specified in the condition."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the condition evaluates to true if the value calculated is less than or equal to the value specified by the condition.  If both values evaluate to numbers, the service shall perform numeric comparison.  Otherwise, the service shall perform string comparison."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="HTTPVerb">
+        <Member Name="GET">
+          <Annotation Term="OData.Description" String="The response performs an HTTP `GET` operation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response sends an HTTP `GET` operation as specified in RFC2616."/>
+        </Member>
+        <Member Name="PATCH">
+          <Annotation Term="OData.Description" String="The response performs an HTTP `PATCH` operation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response sends an HTTP `PATCH` operation as specified in RFC2616."/>
+        </Member>
+        <Member Name="POST">
+          <Annotation Term="OData.Description" String="The response performs an HTTP `POST` operation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response sends an HTTP `POST` operation as specified in RFC2616."/>
+        </Member>
+        <Member Name="DELETE">
+          <Annotation Term="OData.Description" String="The response performs an HTTP `DELETE` operation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the response sends an HTTP `DELETE` operation as specified in RFC2616."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

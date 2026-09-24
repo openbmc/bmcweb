@@ -151,6 +151,16 @@ enum class LBARelativePerformanceType{
     Degraded,
 };
 
+enum class ReservationType{
+    Invalid,
+    WriteExclusive,
+    ExclusiveAccess,
+    WriteExclusiveRegistrantsOnly,
+    ExclusiveAccessRegistrantsOnly,
+    WriteExclusiveAllRegistrants,
+    ExclusiveAccessAllRegistrants,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(InitializeType, {
     {InitializeType::Invalid, "Invalid"},
     {InitializeType::Fast, "Fast"},
@@ -293,6 +303,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LBARelativePerformanceType, {
     {LBARelativePerformanceType::Better, "Better"},
     {LBARelativePerformanceType::Good, "Good"},
     {LBARelativePerformanceType::Degraded, "Degraded"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ReservationType, {
+    {ReservationType::Invalid, "Invalid"},
+    {ReservationType::WriteExclusive, "WriteExclusive"},
+    {ReservationType::ExclusiveAccess, "ExclusiveAccess"},
+    {ReservationType::WriteExclusiveRegistrantsOnly, "WriteExclusiveRegistrantsOnly"},
+    {ReservationType::ExclusiveAccessRegistrantsOnly, "ExclusiveAccessRegistrantsOnly"},
+    {ReservationType::WriteExclusiveAllRegistrants, "WriteExclusiveAllRegistrants"},
+    {ReservationType::ExclusiveAccessAllRegistrants, "ExclusiveAccessAllRegistrants"},
 });
 
 // clang-format on

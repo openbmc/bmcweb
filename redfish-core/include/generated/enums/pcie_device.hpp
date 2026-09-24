@@ -71,6 +71,14 @@ enum class CXLProtocolVersion{
     CXL3_2,
 };
 
+enum class CXLDeviceClass{
+    Invalid,
+    SLD,
+    MLD,
+    MH_SLD,
+    MH_MLD,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PCIeTypes, {
     {PCIeTypes::Invalid, "Invalid"},
     {PCIeTypes::Gen1, "Gen1"},
@@ -133,6 +141,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLProtocolVersion, {
     {CXLProtocolVersion::CXL3_0, "CXL3_0"},
     {CXLProtocolVersion::CXL3_1, "CXL3_1"},
     {CXLProtocolVersion::CXL3_2, "CXL3_2"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CXLDeviceClass, {
+    {CXLDeviceClass::Invalid, "Invalid"},
+    {CXLDeviceClass::SLD, "SLD"},
+    {CXLDeviceClass::MLD, "MLD"},
+    {CXLDeviceClass::MH_SLD, "MH_SLD"},
+    {CXLDeviceClass::MH_MLD, "MH_MLD"},
 });
 
 // clang-format on

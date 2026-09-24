@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  HostInterface v1.3.3                                                -->
+<!--# Redfish Schema:  HostInterface v1.4.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -17,11 +17,15 @@
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
@@ -481,6 +485,28 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for `InterfaceEnabled` to show `EthernetInterface` and `HostInterface` may have ties."/>
       <EntityType Name="HostInterface" BaseType="HostInterface.v1_3_2.HostInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="HostInterface" BaseType="HostInterface.v1_3_3.HostInterface"/>
+
+      <ComplexType Name="CredentialBootstrapping" BaseType="HostInterface.v1_3_0.CredentialBootstrapping">
+        <Property Name="ExpirationWindowEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether credential bootstraping is automatically disabled for this interface after a period of time."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether credential bootstraping is automatically disabled for this interface after a period of time.  If `Enabled` in `CredentialBootstrapping` contains `true` when the system firmware transitions to the operating system and this property contains `true`, the service shall set `Enabled` in `CredentialBootstrapping` to `false` when the interval specified by `ExirationWindowMinutes` expires ."/>
+        </Property>
+        <Property Name="ExpirationWindowMinutes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The time window, in minutes, that credential bootstrapping remains enabled after the system firmware transitions to the operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time window, in minutes, during which credential bootstrapping remains enabled after the system firmware transitions to the operating system."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+          <Annotation Term="Measures.Unit" String="min"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

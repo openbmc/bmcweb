@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.19.0                                                        -->
+<!--# Redfish Schema:  Port v1.20.0                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -57,6 +57,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EthernetInterface_v1.xml">
     <edmx:Include Namespace="EthernetInterface"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CXLLogicalDevice_v1.xml">
+    <edmx:Include Namespace="CXLLogicalDevice"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -119,6 +122,11 @@
             <String>/redfish/v1/Managers/{ManagerId}/DedicatedNetworkPorts/{PortId}</String>
           </Collection>
         </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports/{PortId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
       <Action Name="Reset" IsBound="true">
@@ -140,6 +148,20 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_8_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ResetTransceivers" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets the transceivers for this port."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset all transceivers, such as a small form-factor pluggable (SFP) devices, attached to this port."/>
+        <Parameter Name="Port" Type="Port.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_20_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -2503,6 +2525,429 @@
         <Member Name="OtherFault">
           <Annotation Term="OData.Description" String="Other fault detected."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate that the PoE detection is in the 'otherFault' state, as defined in IEEE Std 802.3af Section 30.9.1.1.5."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_20_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ResetTransceivers` action."/>
+
+      <EntityType Name="Port" BaseType="Port.v1_19_0.Port">
+        <Property Name="LinkPartnerExpected" Type="Port.v1_20_0.LinkPartnerExpected">
+          <Annotation Term="OData.Description" String="The configured link partner information expected from the device connected to this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the expected link partner information received from the device connected to this port."/>
+        </Property>
+        <Property Name="LinkPartnerTransmit" Type="Port.v1_20_0.LinkPartnerTransmit">
+          <Annotation Term="OData.Description" String="The link partner information transmitted to the link partner of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link partner information that is sent to the link partner of this port."/>
+        </Property>
+        <Property Name="LinkPartnerReceived" Type="Port.v1_20_0.LinkPartnerReceived">
+          <Annotation Term="OData.Description" String="The link partner information received from the device connected to this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link partner information received from the device connected to this port."/>
+        </Property>
+        <Property Name="LinkPartnerValidation" Type="Port.v1_20_0.LinkPartnerValidation">
+          <Annotation Term="OData.Description" String="The link partner validation information for the device connected to this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link partner validation information for the device connected to this port."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="LinkPartnerExpected">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The configured link partner information expected from the device connected to a port."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the expected link partner information received from the device connected to a port."/>
+        <Property Name="LinkPartnerId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The expected identifier of the remote device to be received across the link from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the expected identifier of the remote device to be received across the link from the link partner."/>
+        </Property>
+        <Property Name="PortId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The expected identifier of the remote port to be received from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the expected identifier of the remote port to be received from the link partner."/>
+        </Property>
+        <Property Name="DeviceType" Type="Port.v1_20_0.PartnerDeviceType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The expected device type that is to be received from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the expected type of device that is to be received from the link partner."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="LinkPartnerTransmit">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The link partner information transmitted to the link partner of a port."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the link partner information that is sent to the link partner of a port."/>
+        <Property Name="LinkPartnerId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier of the local device that contains this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the local device that contains this port.  This identifier is transmitted to the link partner upon establishing the link."/>
+        </Property>
+        <Property Name="PortId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The local port identifier that is transmitted to the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the local port identifier that is transmitted to the link partner."/>
+        </Property>
+        <Property Name="DeviceType" Type="Port.v1_20_0.PartnerDeviceType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The device type of this device that is transmitted to the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of device of this device that is transmitted to the link partner."/>
+        </Property>
+        <Property Name="PBRId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CXL-specific Port Based Routing (PBR) identifier of this port that is transmitted to the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Port Based Routing (PBR) identifier, as defined by the Compute Express Link (CXL) Specification, of this port that is transmitted to the link partner."/>
+        </Property>
+        <Property Name="PrimaryFMId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CXL-specific identifier of the primary fabric manager that manages this device that is transmitted to the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the primary fabric manager, as defined by the Compute Express Link (CXL) Specification, that manages this device that is transmitted to the link partner."/>
+        </Property>
+        <Property Name="SecondaryFMId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CXL-specific identifier of the secondary fabric manager that manages this device that is transmitted to the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the secondary fabric manager, as defined by the Compute Express Link (CXL) Specification, that manages this device that is transmitted to the link partner."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="LinkPartnerReceived">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The link partner information received from the device connected to a port."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the link partner information received from the device connected to a port."/>
+        <Property Name="LinkPartnerId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier of the remote device received across the link from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the remote device received across the link from the link partner."/>
+        </Property>
+        <Property Name="PortId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier of the remote port received from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the remote port received from the link partner."/>
+        </Property>
+         <Property Name="DeviceType" Type="Port.v1_20_0.PartnerDeviceType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The device type of this device that is received from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of device of this device that is received from the link partner."/>
+        </Property>
+        <Property Name="PBRId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CXL-specific Port Based Routing (PBR) identifier of this port that is received from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Port Based Routing (PBR) identifier, as defined by the Compute Express link (CXL) Specification, of this port that is received from the link partner."/>
+        </Property>
+        <Property Name="PrimaryFMId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CXL-specific identifier of the primary fabric manager that manages this device that is received from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the primary fabric manager, as defined by the Compute Express Link (CXL) Specification, that manages this device that is received from the link partner."/>
+        </Property>
+        <Property Name="SecondaryFMId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CXL-specific identifier of the secondary fabric manager that manages this device that is received from the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the secondary fabric manager, as defined by the Compute Express Link (CXL) Specification, that manages this device that is received from the link partner."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="LinkPartnerValidation">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The link partner validation information for the device connected to a port."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the link partner validation information for the device connected to a port."/>
+        <Property Name="DeviceCheckEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the device check is enabled for the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the device check is enabled for the link partner."/>
+        </Property>
+        <Property Name="PortCheckEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the port check is enabled for the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the port check is enabled for the link partner."/>
+        </Property>
+        <Property Name="ValidationState" Type="Port.v1_20_0.PartnerValidationState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The validation state of the link partner."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the validation state of the link partner."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Port.v1_18_0.Links">
+        <NavigationProperty Name="CXLLogicalDevices" Type="Collection(CXLLogicalDevice.CXLLogicalDevice)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the CXL logical devices mapped to this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `CXLLogicalDevice` that represent the CXL logical devices mapped to this physical port as defined in the CXL Specification."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="UALink" BaseType="Port.v1_18_0.UALink">
+        <Property Name="LinkResiliencySupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether link resiliency is supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the UALink-defined 'Link Resiliency' feature is supported on the port."/>
+        </Property>
+        <Property Name="LinkFoldingSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether link folding is supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the UALink-defined 'Link Folding' feature is supported on the port."/>
+        </Property>
+        <Property Name="PLDLAdminEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the PL and DL layer are enabled on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the UALink Physical Layer (PL) and UALink Data Link (DL) layer are enabled on the port, reflecting the UALink 'Configured PL/DL Admin State' attribute and enabling link partner discovery."/>
+        </Property>
+        <Property Name="TLUPLIAdminEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the TL and UPLI are enabled on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the UALink Transaction Layer (TL) and UALink Protocol Level Interface (UPLI) are enabled on the port, reflecting the UALink 'Configured TL/UPLI Admin State' attribute and enabling workload traffic."/>
+        </Property>
+        <Property Name="UARTAdminEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the UART is enabled on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the UALink UART channel is enabled on the port, reflecting the UALink 'Configured UART Admin State' attribute."/>
+        </Property>
+        <Property Name="DLDownDelayMilliseconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The time delay before the DL layer is declared down on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time delay, in milliseconds, before UALink Data Link (DL) layer is declared down and in the 'DL Fault' state."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="10"/>
+          <Annotation Term="Measures.Unit" String="ms"/>
+        </Property>
+        <Property Name="TXAckTimeoutNanoseconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The timeout for transmission acknowledgement on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the timeout for UALink transmission acknowledgement, in nanoseconds."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="4294967295"/>
+          <Annotation Term="Measures.Unit" String="ns"/>
+        </Property>
+        <Property Name="UALink128GExtendedSpeedMode" Type="Port.v1_20_0.UALink128GExtendedSpeedMode" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The UALink 128G 'Extended Speed Mode' on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property contains the UALink 128G 'Extended Speed Mode' (ESM) of this port."/>
+        </Property>
+        <Property Name="UALink200GSerialRate" Type="Port.v1_20_0.UALink200GSerialRate" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The UALink 200G serial rate on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property contains the UALink 200G serial rate of this port."/>
+        </Property>
+        <Property Name="UALink200GCodewordInterleave" Type="Port.v1_20_0.UALink200GCodewordInterleave" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The UALink 200G codeword interleave ratio on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property contains the UALink 200G codeword interleave ratio of this port, as a function of serial rate and bifurcation."/>
+        </Property>
+        <Property Name="LinkResiliencyEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether link resiliency is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the UALink-defined 'Link Resiliency' feature is enabled on the port."/>
+        </Property>
+        <Property Name="LinkFoldingEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether link folding is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the UALink-defined 'Link Folding' feature is enabled on the port."/>
+        </Property>
+        <Property Name="PLState" Type="Port.v1_20_0.UALinkPLState" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UALink PL state on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property contains the operational UALink Physical Layer (PL) state of this port."/>
+        </Property>
+        <Property Name="DLState" Type="Port.v1_20_0.UALinkDLState" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UALink DL layer state on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property contains the operational UALink Data Link (DL) layer state of this port."/>
+        </Property>
+        <Property Name="TLState" Type="Port.v1_20_0.UALinkTLState" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UALink TL state on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property contains the operational UALink Transaction Layer (TL) state of this port."/>
+        </Property>
+        <Property Name="UPLIOriginatorState" Type="Port.v1_20_0.UALinkUPLIOriginatorState" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UPLI Originator state on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property contains the operational UALink Protocol Level Interface (UPLI) Originator state of this port."/>
+        </Property>
+        <Property Name="UPLICompleterState" Type="Port.v1_20_0.UALinkUPLICompleterState" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UPLI Completer state on this port."/>
+          <Annotation Term="OData.LongDescription" String="This property contains the operational UALink Protocol Level Interface (UPLI) Completer state of this port."/>
+        </Property>
+      </ComplexType>
+
+      <TypeDefinition Name="UALink128GExtendedSpeedMode" UnderlyingType="Edm.String">
+        <Annotation Term="Redfish.Enumeration">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Member" String="NoESM"/>
+              <Annotation Term="OData.Description" String="No Extended Speed Mode."/>
+              <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 128G port is not operating in 'Extended Speed Mode', as defined in the UALink 128G Data Link Layer Specification."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="104G"/>
+              <Annotation Term="OData.Description" String="104G Extended Speed Mode."/>
+              <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 128G port is operating in the '104G Extended Speed Mode', as defined in the UALink 128G Data Link Layer Specification."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="112G"/>
+              <Annotation Term="OData.Description" String="112G Extended Speed Mode."/>
+              <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 128G port is operating in the '112G Extended Speed Mode', as defined in the UALink 128G Data Link Layer Specification."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="120G"/>
+              <Annotation Term="OData.Description" String="120G Extended Speed Mode."/>
+              <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 128G port is operating in the '120G Extended Speed Mode', as defined in the UALink 128G Data Link Layer Specification."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="128G"/>
+              <Annotation Term="OData.Description" String="128G Extended Speed Mode."/>
+              <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 128G port is operating in the '128G Extended Speed Mode', as defined in the UALink 128G Data Link Layer Specification."/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </TypeDefinition>
+
+      <TypeDefinition Name="UALink200GSerialRate" UnderlyingType="Edm.String">
+        <Annotation Term="Redfish.Enumeration">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Member" String="100G"/>
+              <Annotation Term="OData.Description" String="100G serial rate."/>
+              <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 200G port is operating at a serial rate of 100G, as defined in the UALink 200G Data Link Layer Specification."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="200G"/>
+              <Annotation Term="OData.Description" String="200G serial rate."/>
+              <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 200G port is operating at a serial rate of 200G, as defined in the UALink 200G Data Link Layer Specification."/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </TypeDefinition>
+
+      <EnumType Name="UALink200GCodewordInterleave">
+        <Member Name="OneWay">
+          <Annotation Term="OData.Description" String="1-way interleave."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 200G port is operating with 1-way interleave, as defined in the UALink 200G Data Link Layer Specification."/>
+        </Member>
+        <Member Name="TwoWay">
+          <Annotation Term="OData.Description" String="2-way interleave."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 200G port is operating with 2-way interleave, as defined in the UALink 200G Data Link Layer Specification."/>
+        </Member>
+        <Member Name="FourWay">
+          <Annotation Term="OData.Description" String="4-way interleave."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink 200G port is operating with 4-way interleave, as defined in the UALink 200G Data Link Layer Specification."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="UALinkPLState">
+        <Member Name="Idle">
+          <Annotation Term="OData.Description" String="The PL is idle."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Physical Layer (PL) on this port is idle."/>
+        </Member>
+        <Member Name="TrainingInProgress">
+          <Annotation Term="OData.Description" String="The PL is training."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Physical Layer (PL) on this port is actively attempting to train."/>
+        </Member>
+        <Member Name="TrainingFailed">
+          <Annotation Term="OData.Description" String="The PL failed to train."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Physical Layer (PL) training has failed on this port."/>
+        </Member>
+        <Member Name="TrainingTimeout">
+          <Annotation Term="OData.Description" String="The PL encountered a training timeout."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Physical Layer (PL) training has timed out on this port."/>
+        </Member>
+        <Member Name="Up">
+          <Annotation Term="OData.Description" String="The PL is up."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Physical Layer (PL) on this port is up and active."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="UALinkDLState">
+        <Member Name="Idle">
+          <Annotation Term="OData.Description" String="The DL is idle."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Data Link (DL) layer transmitter on this port is sending idle."/>
+        </Member>
+        <Member Name="NOP">
+          <Annotation Term="OData.Description" String="The DL is sending NOP flits."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Data Link (DL) layer transmitter on this port is sending no-op (NOP) flits."/>
+        </Member>
+        <Member Name="Fault">
+          <Annotation Term="OData.Description" String="The DL is faulted."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Data Link (DL) layer on this port is in fault state."/>
+        </Member>
+        <Member Name="PowerDown">
+          <Annotation Term="OData.Description" String="The DL is powered down."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Data Link (DL) layer on this port is in powered down state."/>
+        </Member>
+        <Member Name="Up">
+          <Annotation Term="OData.Description" String="The DL is up."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Data Link (DL) layer on this port is in up state and may transmit payload flits."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="UALinkTLState">
+        <Member Name="DropMode">
+          <Annotation Term="OData.Description" String="The TL is in Drop Mode."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Transaction Layer (TL) on this port is in 'Drop Mode'."/>
+        </Member>
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="The TL is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Transaction Layer (TL) on this port is enabled."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="UALinkUPLIOriginatorState">
+        <Member Name="DropMode">
+          <Annotation Term="OData.Description" String="The UPLI Originator is in Drop Mode."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Protocol Level Interface (UPLI) Originator on this port is in 'Drop Mode'."/>
+        </Member>
+        <Member Name="IsolationMode">
+          <Annotation Term="OData.Description" String="The UPLI Originator is Isolation Mode."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Protocol Level Interface (UPLI) Originator on this port is in 'Isolation Mode'."/>
+        </Member>
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="The UPLI Originator is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Protocol Level Interface (UPLI) Originator on this port is enabled."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="UALinkUPLICompleterState">
+        <Member Name="DropMode">
+          <Annotation Term="OData.Description" String="The UPLI Completer is in 'Drop Mode'."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Protocol Level Interface (UPLI) Completer on this port is in 'Drop Mode'."/>
+        </Member>
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="The UPLI Completer is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the UALink Protocol Level Interface (UPLI) Completer on this port is enabled."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="PartnerDeviceType">
+        <Member Name="Switch">
+          <Annotation Term="OData.Description" String="A switch."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a switch device type."/>
+        </Member>
+        <Member Name="Endpoint">
+          <Annotation Term="OData.Description" String="An endpoint."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an endpoint device type."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="PartnerValidationState">
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Validation is disabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate link partner validation is disabled."/>
+        </Member>
+        <Member Name="LinkDown">
+          <Annotation Term="OData.Description" String="The link is down, preventing validation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the link is down, which prevents link partner validation."/>
+        </Member>
+        <Member Name="Discovering">
+          <Annotation Term="OData.Description" String="Validation is in progress."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate link partner validation is in progress."/>
+        </Member>
+        <Member Name="Invalid">
+          <Annotation Term="OData.Description" String="Partner invalid."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate link partnet validation completed and the discovered link partner is invalid."/>
+        </Member>
+        <Member Name="Validated">
+          <Annotation Term="OData.Description" String="Partner validated."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate link partnet validation completed and the discovered link partner is valid."/>
         </Member>
       </EnumType>
     </Schema>

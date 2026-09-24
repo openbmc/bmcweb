@@ -219,6 +219,79 @@ enum class PoEDetectionStatus{
     OtherFault,
 };
 
+enum class UALink128GExtendedSpeedMode{
+    Invalid,
+    NoESM,
+    104G,
+    112G,
+    120G,
+    128G,
+};
+
+enum class UALink200GSerialRate{
+    Invalid,
+    100G,
+    200G,
+};
+
+enum class UALink200GCodewordInterleave{
+    Invalid,
+    OneWay,
+    TwoWay,
+    FourWay,
+};
+
+enum class UALinkPLState{
+    Invalid,
+    Idle,
+    TrainingInProgress,
+    TrainingFailed,
+    TrainingTimeout,
+    Up,
+};
+
+enum class UALinkDLState{
+    Invalid,
+    Idle,
+    NOP,
+    Fault,
+    PowerDown,
+    Up,
+};
+
+enum class UALinkTLState{
+    Invalid,
+    DropMode,
+    Enabled,
+};
+
+enum class UALinkUPLIOriginatorState{
+    Invalid,
+    DropMode,
+    IsolationMode,
+    Enabled,
+};
+
+enum class UALinkUPLICompleterState{
+    Invalid,
+    DropMode,
+    Enabled,
+};
+
+enum class PartnerDeviceType{
+    Invalid,
+    Switch,
+    Endpoint,
+};
+
+enum class PartnerValidationState{
+    Disabled,
+    LinkDown,
+    Discovering,
+    Invalid,
+    Validated,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PortType, {
     {PortType::Invalid, "Invalid"},
     {PortType::UpstreamPort, "UpstreamPort"},
@@ -429,6 +502,79 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PoEDetectionStatus, {
     {PoEDetectionStatus::Fault, "Fault"},
     {PoEDetectionStatus::Test, "Test"},
     {PoEDetectionStatus::OtherFault, "OtherFault"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALink128GExtendedSpeedMode, {
+    {UALink128GExtendedSpeedMode::Invalid, "Invalid"},
+    {UALink128GExtendedSpeedMode::NoESM, "NoESM"},
+    {UALink128GExtendedSpeedMode::104G, "104G"},
+    {UALink128GExtendedSpeedMode::112G, "112G"},
+    {UALink128GExtendedSpeedMode::120G, "120G"},
+    {UALink128GExtendedSpeedMode::128G, "128G"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALink200GSerialRate, {
+    {UALink200GSerialRate::Invalid, "Invalid"},
+    {UALink200GSerialRate::100G, "100G"},
+    {UALink200GSerialRate::200G, "200G"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALink200GCodewordInterleave, {
+    {UALink200GCodewordInterleave::Invalid, "Invalid"},
+    {UALink200GCodewordInterleave::OneWay, "OneWay"},
+    {UALink200GCodewordInterleave::TwoWay, "TwoWay"},
+    {UALink200GCodewordInterleave::FourWay, "FourWay"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALinkPLState, {
+    {UALinkPLState::Invalid, "Invalid"},
+    {UALinkPLState::Idle, "Idle"},
+    {UALinkPLState::TrainingInProgress, "TrainingInProgress"},
+    {UALinkPLState::TrainingFailed, "TrainingFailed"},
+    {UALinkPLState::TrainingTimeout, "TrainingTimeout"},
+    {UALinkPLState::Up, "Up"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALinkDLState, {
+    {UALinkDLState::Invalid, "Invalid"},
+    {UALinkDLState::Idle, "Idle"},
+    {UALinkDLState::NOP, "NOP"},
+    {UALinkDLState::Fault, "Fault"},
+    {UALinkDLState::PowerDown, "PowerDown"},
+    {UALinkDLState::Up, "Up"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALinkTLState, {
+    {UALinkTLState::Invalid, "Invalid"},
+    {UALinkTLState::DropMode, "DropMode"},
+    {UALinkTLState::Enabled, "Enabled"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALinkUPLIOriginatorState, {
+    {UALinkUPLIOriginatorState::Invalid, "Invalid"},
+    {UALinkUPLIOriginatorState::DropMode, "DropMode"},
+    {UALinkUPLIOriginatorState::IsolationMode, "IsolationMode"},
+    {UALinkUPLIOriginatorState::Enabled, "Enabled"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UALinkUPLICompleterState, {
+    {UALinkUPLICompleterState::Invalid, "Invalid"},
+    {UALinkUPLICompleterState::DropMode, "DropMode"},
+    {UALinkUPLICompleterState::Enabled, "Enabled"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PartnerDeviceType, {
+    {PartnerDeviceType::Invalid, "Invalid"},
+    {PartnerDeviceType::Switch, "Switch"},
+    {PartnerDeviceType::Endpoint, "Endpoint"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PartnerValidationState, {
+    {PartnerValidationState::Disabled, "Disabled"},
+    {PartnerValidationState::LinkDown, "LinkDown"},
+    {PartnerValidationState::Discovering, "Discovering"},
+    {PartnerValidationState::Invalid, "Invalid"},
+    {PartnerValidationState::Validated, "Validated"},
 });
 
 // clang-format on

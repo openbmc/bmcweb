@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CoolantConnector v1.4.0                                             -->
+<!--# Redfish Schema:  CoolantConnector v1.5.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -486,8 +486,40 @@
         </NavigationProperty>
         <Property Name="ConnectorGroup" Type="Redundancy.RedundantGroup" Nullable="false">
           <Annotation Term="OData.Description" String="The group of coolant connectors represented by this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain information for a group of coolant connectors that provide the full capacity represented by this coolant connector instance.  The `CoolantConnectorType` of each member in this group shall contain a value of `SupplyGroupMember`, `ReturnGroupMember` or 'PairGroupMember`, to align with the `Supply`, `Return` or `Pair` value of this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information for a group of coolant connectors that provide the full capacity represented by this coolant connector instance.  The `CoolantConnectorType` of each member in this group shall contain a value of `SupplyGroupMember`, `ReturnGroupMember`, or `PairGroupMember`, to align with the `Supply`, `Return`, or `Pair` value of this resource."/>
         </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolantConnector.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of `ConnectorGroup` to correct a mismatch quote mark style that affected generated documentation."/>
+      <EntityType Name="CoolantConnector" BaseType="CoolantConnector.v1_4_0.CoolantConnector"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolantConnector.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="CoolantConnector" BaseType="CoolantConnector.v1_4_0.CoolantConnector">
+        <NavigationProperty Name="TurbidityNTU" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The turbidity of the coolant (NTU)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the turbidity of the coolant, in Nephelometric Turbidity Units (NTU).  The `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Turbidity`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="ConductivityMSPerCm" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The conductivity of the coolant (mS/cm)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the liquid conductivity of the coolant, in millisiemens per centimeter (mS/cm) units.  The `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `LiquidConductivity`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="pH" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The pH (acidity or alkalinity) of the coolant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the acidity or alkalinity of the coolant, in pH units.  The `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `pH`."/>
+        </NavigationProperty>
       </EntityType>
     </Schema>
 

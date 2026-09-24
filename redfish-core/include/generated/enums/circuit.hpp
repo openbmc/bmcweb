@@ -55,6 +55,7 @@ enum class NominalVoltageType{
     AC400V,
     AC480V,
     DC48V,
+    OpenRackV3,
     DC240V,
     DC380V,
     DC400V,
@@ -119,6 +120,13 @@ enum class VoltageType{
     DC,
 };
 
+enum class PowerFlowDirection{
+    Invalid,
+    Source,
+    Load,
+    Bidirectional,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
     {PowerState::Invalid, "Invalid"},
     {PowerState::On, "On"},
@@ -167,6 +175,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(NominalVoltageType, {
     {NominalVoltageType::AC400V, "AC400V"},
     {NominalVoltageType::AC480V, "AC480V"},
     {NominalVoltageType::DC48V, "DC48V"},
+    {NominalVoltageType::OpenRackV3, "OpenRackV3"},
     {NominalVoltageType::DC240V, "DC240V"},
     {NominalVoltageType::DC380V, "DC380V"},
     {NominalVoltageType::DC400V, "DC400V"},
@@ -229,6 +238,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(VoltageType, {
     {VoltageType::Invalid, "Invalid"},
     {VoltageType::AC, "AC"},
     {VoltageType::DC, "DC"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PowerFlowDirection, {
+    {PowerFlowDirection::Invalid, "Invalid"},
+    {PowerFlowDirection::Source, "Source"},
+    {PowerFlowDirection::Load, "Load"},
+    {PowerFlowDirection::Bidirectional, "Bidirectional"},
 });
 
 // clang-format on

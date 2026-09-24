@@ -1,0 +1,384 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSubsystem.v1_2_0.json",
+    "$ref": "#/definitions/PowerSubsystem",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2026 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PowerBrakeLoadPercentSensor": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/Sensor",
+                    "description": "A link to the load percent sensor used to determine when to apply the emergency power brake.",
+                    "longDescription": "This property shall contain a link to a resource of type `Sensor` that represents the load percent sensor whose thresholds are monitored to determine when to apply the emergency power brake.  This property applies to equipment that implements the power brake control and shall not be present on equipment that only receive the power brake.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "PowerBrakeTemperatureSensor": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/Sensor",
+                    "description": "A link to the temperature sensor used to determine when to apply the emergency power brake.",
+                    "longDescription": "This property shall contain a link to a resource of type `Sensor` that represents the temperature sensor whose thresholds are monitored to determine when to apply the emergency power brake.  This property applies to equipment that implements the power brake control and shall not be present on equipment that only receive the power brake.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PowerAllocation": {
+            "additionalProperties": false,
+            "description": "Power allocation for a subsystem.",
+            "longDescription": "This type shall contain the set of properties describing the allocation of power for a subsystem.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllocatedWatts": {
+                    "description": "The total amount of power that has been allocated or budgeted to this subsystem.",
+                    "longDescription": "This property shall represent the total power currently allocated or budgeted to this subsystem.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "W"
+                },
+                "RequestedWatts": {
+                    "description": "The potential power, in watt units, that the subsystem requests, which might be higher than the current level being consumed because the requested power includes a budget that the subsystem wants for future use.",
+                    "longDescription": "This property shall represent the amount of power, in watt units, that the subsystem currently requests to be budgeted for future use.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "W"
+                }
+            },
+            "type": "object"
+        },
+        "PowerBrake": {
+            "additionalProperties": false,
+            "description": "The emergency power brake settings.",
+            "longDescription": "This type shall contain properties that describe the emergency power brake.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Applied": {
+                    "description": "An indication of whether the emergency power brake is currently applied.",
+                    "longDescription": "This property shall indicate whether the emergency power brake is currently applied.  The value `true` shall indicate the power brake is applied.  For equipment that receives the power brake, this shall indicate the equipment is subject to an applied power brake.  The value `false` shall indicate the power brake is not applied.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "Enabled": {
+                    "description": "An indication of whether the emergency power brake is enabled.",
+                    "longDescription": "This property shall indicate whether the emergency power brake is enabled for this equipment.  The value `true` shall indicate the power brake is enabled.  The value `false` shall indicate the emergency power brake is disabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "LoadPercentThreshold": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ThresholdLevel"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The sensor threshold level at which the load-percent-based emergency power brake is applied.",
+                    "longDescription": "This property shall contain the threshold level of the associated load percent sensor at which the emergency power brake is applied.  This property shall not be present on equipment that only receives the power brake.",
+                    "readonly": false,
+                    "versionAdded": "v1_2_0"
+                },
+                "TemperatureThreshold": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ThresholdLevel"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The sensor threshold level at which the temperature-based emergency power brake is applied.",
+                    "longDescription": "This property shall contain the threshold level of the associated temperature sensor at which the emergency power brake is applied.  This property shall not be present on equipment that only receives the power brake.",
+                    "readonly": false,
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "PowerBrakeReason": {
+            "enum": [
+                "LoadPercent",
+                "Temperature",
+                "LossOfComms",
+                "ExternalSignal"
+            ],
+            "enumDescriptions": {
+                "ExternalSignal": "The power brake is applied due to an external signal or command.",
+                "LoadPercent": "The power brake is applied due to load percent threshold exceeded.",
+                "LossOfComms": "The power brake is applied due to loss of communications.",
+                "Temperature": "The power brake is applied due to temperature threshold exceeded."
+            },
+            "enumLongDescriptions": {
+                "ExternalSignal": "This value shall indicate the power brake is applied due to the receipt of a signal or command from an external source.  In large deployments, this value may be used to indicate the power brake was triggered from a rack-scale power management system.",
+                "LoadPercent": "This value shall indicate the power brake is applied because the load percent sensor reading exceeded the configured threshold.",
+                "LossOfComms": "This value shall indicate the power brake is applied because communications with the power equipment have been lost.",
+                "Temperature": "This value shall indicate the power brake is applied because the temperature sensor reading exceeded the configured threshold."
+            },
+            "type": "string"
+        },
+        "PowerSubsystem": {
+            "additionalProperties": false,
+            "description": "This `PowerSubsystem schema` contains the definition for the power subsystem of a chassis.",
+            "longDescription": "This resource shall represent a power subsystem for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The `Actions` property shall contain the available actions for this resource."
+                },
+                "Allocation": {
+                    "$ref": "#/definitions/PowerAllocation",
+                    "description": "Power allocation for this subsystem when it represents a subset of the power infrastructure for the chassis or its upstream chassis, such as a chassis containing multiple server blades.",
+                    "longDescription": "This property shall contain the set of properties describing the allocation of power for this subsystem as part of the power infrastructure for the chassis or an upstream chassis.  This property should not be present in resources that are not part of a shared power infrastructure."
+                },
+                "Batteries": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/BatteryCollection.json#/definitions/BatteryCollection",
+                    "description": "The link to the collection of batteries within this subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `BatteryCollection`.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "CapacityWatts": {
+                    "description": "The total amount of power that this subsystem can draw.",
+                    "longDescription": "This property shall represent the total amount of power that this subsystem can draw, either from power supplies or other physically installed means of power delivery. This value does not take into account the status or health of power delivery components.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "W"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+                    "versionAdded": "v1_2_0"
+                },
+                "MaxRampRateWattsPerSecond": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.json#/definitions/ControlSingleExcerpt",
+                    "description": "The maximum AC power ramp rate settings for this subsystem.",
+                    "excerptCopy": "ControlSingleExcerpt",
+                    "longDescription": "This property shall contain the maximum AC power ramp rate settings for this subsystem, including the desired ramp rate and the allowable range, in watts per second.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value of `Power`.",
+                    "versionAdded": "v1_2_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PowerBrake": {
+                    "$ref": "#/definitions/PowerBrake",
+                    "description": "The emergency power brake settings for this subsystem.",
+                    "longDescription": "This property shall contain the emergency power brake settings for this subsystem.  Equipment that implements power brake control, such as a power shelf, monitors associated sensors and applies the power brake when configured conditions are met.  Equipment that receives the power brake, such as a server, shall report when the power brake is applied and shall immediately limit power consumption while it is applied.",
+                    "versionAdded": "v1_2_0"
+                },
+                "PowerSupplies": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupplyCollection.json#/definitions/PowerSupplyCollection",
+                    "description": "The link to the collection of power supplies within this subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PowerSupplyCollection`.",
+                    "readonly": true
+                },
+                "PowerSupplyRedundancy": {
+                    "description": "The redundancy information for the set of power supplies in this subsystem.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/RedundantGroup"
+                    },
+                    "longDescription": "This property shall contain redundancy information for the set of power supplies in this subsystem.  The values of the `RedundancyGroup` array shall reference resources of type `PowerSupply`.",
+                    "type": "array"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ThresholdLevel": {
+            "enum": [
+                "Disabled",
+                "UpperCaution",
+                "UpperCritical"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Disabled.",
+                "UpperCaution": "The upper caution threshold.",
+                "UpperCritical": "The upper critical threshold."
+            },
+            "enumLongDescriptions": {
+                "Disabled": "This value shall indicate the associated sensor is not used to apply the power brake.",
+                "UpperCaution": "This value shall indicate the power brake is applied when the associated sensor reading exceeds the upper caution threshold.",
+                "UpperCritical": "This value shall indicate the power brake is applied when the associated sensor reading exceeds the upper critical threshold."
+            },
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2026.2",
+    "title": "#PowerSubsystem.v1_2_0.PowerSubsystem"
+}

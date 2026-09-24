@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CXLLogicalDevice v1.4.0                                             -->
+<!--# Redfish Schema:  CXLLogicalDevice v1.5.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -51,6 +51,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
     <edmx:Include Namespace="PCIeDevice"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
+    <edmx:Include Namespace="Port"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -512,7 +515,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2026.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add the `DynamicCapacityAdd` and `DynamicCapacityAdd` actions."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `DynamicCapacityAdd` and `DynamicCapacityRelease` actions."/>
 
       <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_3_0.CXLLogicalDevice">
         <Property Name="TotalSupportedExtents" Type="Edm.Int64" Nullable="false">
@@ -536,6 +539,22 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of tags available on this logical device."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2026.2"/>
+
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_4_0.CXLLogicalDevice"/>
+
+      <ComplexType Name="Links" BaseType="CXLLogicalDevice.v1_0_0.Links">
+        <NavigationProperty Name="Port" Type="Port.Port">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the fabric port that provides connectivity to this CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to resource of type `Port` that represents the fabric port that provides connectivity to this CXL logical device as described in the CXL Specification."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

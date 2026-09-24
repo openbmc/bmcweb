@@ -7,6 +7,13 @@ namespace power_distribution
 {
 // clang-format off
 
+enum class PowerState{
+    Invalid,
+    On,
+    Off,
+    PowerCycle,
+};
+
 enum class PowerEquipmentType{
     Invalid,
     RackPDU,
@@ -46,6 +53,13 @@ enum class ExportSecurity{
     HashedDataOnly,
     ExcludeSensitiveData,
 };
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
+    {PowerState::Invalid, "Invalid"},
+    {PowerState::On, "On"},
+    {PowerState::Off, "Off"},
+    {PowerState::PowerCycle, "PowerCycle"},
+});
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PowerEquipmentType, {
     {PowerEquipmentType::Invalid, "Invalid"},
