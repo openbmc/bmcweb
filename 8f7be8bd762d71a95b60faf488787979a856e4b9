@@ -16,6 +16,29 @@
       "message": "This commit looks good to me.",
       "revId": "8f7be8bd762d71a95b60faf488787979a856e4b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6edf9907_96c35188",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-24T03:11:41Z",
+      "side": 1,
+      "message": "Can we refactor 135-142 to just \n\n```\ndbus::utility::getManagedObjects(\n    \"xyz.openbmc_project.Network.SNMP\",\n    sdbusplus::object_path(\n        \"/xyz/openbmc_project/network/snmp/manager\"),\n    std::bind_front(afterGetSnmpTrapClient, asyncResp, id));\n ```",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 67
+      },
+      "revId": "8f7be8bd762d71a95b60faf488787979a856e4b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
