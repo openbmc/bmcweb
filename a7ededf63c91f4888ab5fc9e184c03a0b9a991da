@@ -16,6 +16,24 @@
       "message": "Let\u0027s not worry about where it came from, just why we need it",
       "revId": "a7ededf63c91f4888ab5fc9e184c03a0b9a991da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9d6099e_b5f6f794",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-25T08:24:31Z",
+      "side": 1,
+      "message": "Good point — reworded to focus on the \"why\" (testable D-Bus response logic) instead of attribution.",
+      "parentUuid": "f2a1dc11_f4ec7d0c",
+      "revId": "a7ededf63c91f4888ab5fc9e184c03a0b9a991da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
