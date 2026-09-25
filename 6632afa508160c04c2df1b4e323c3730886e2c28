@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83dc3fb8_80cb4ccb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-25T04:02:59Z",
+      "side": 1,
+      "message": "What patch broke this ?",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6252ecef_b11ee015",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-25T04:02:59Z",
+      "side": 1,
+      "message": "Is this correct? *setpointOffset ??",
+      "range": {
+        "startLine": 830,
+        "startChar": 64,
+        "endLine": 830,
+        "endChar": 68
+      },
+      "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fceb522_3874096a",
+        "filename": "test/redfish-core/lib/openbmc_managers_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-25T04:02:59Z",
+      "side": 1,
+      "message": "SetPointOffsetTranslatesKnownValues ?",
+      "range": {
+        "startLine": 486,
+        "startChar": 25,
+        "endLine": 486,
+        "endChar": 60
+      },
+      "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc1b558_561321ab",
+        "filename": "test/redfish-core/lib/openbmc_managers_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-25T04:02:59Z",
+      "side": 1,
+      "message": "```\n+    EXPECT_EQ(asyncResp-\u003eres.result(),\n+              boost::beast::http::status::bad_request);\n+\n+    const nlohmann::json\u0026 extendedInfo \u003d\n+        asyncResp-\u003eres.jsonValue[\"error\"][\"@Message.ExtendedInfo\"];\n+    ASSERT_EQ(extendedInfo.size(), 1);\n+    EXPECT_EQ(extendedInfo[0][\"MessageArgs\"],\n+              nlohmann::json::array({\"\\\"NotARealValue\\\"\", \"SetPointOffset\"}));\n```\n\ncould strengthen the test",
+      "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
