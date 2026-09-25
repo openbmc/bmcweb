@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37bd3d19_236abb65",
+        "filename": "test/meson.build",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-25T03:08:20Z",
+      "side": 1,
+      "message": "Why touch this line?",
+      "revId": "b70ec103e431b5af59cb8dbecfaa68172e535af8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
