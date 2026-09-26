@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e1286a0_52d09a0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-26T01:19:41Z",
+      "side": 1,
+      "message": "Can\u0027t test without the commit above, be good to mention that",
+      "revId": "92237ce9ad4d0b14c18e25846d9e1ac957f5b808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84117cc1_a25c57dc",
         "filename": "redfish-core/include/utils/name_utils.hpp",
         "patchSetId": 11
