@@ -46,6 +46,47 @@
       },
       "revId": "d864aeec63aa0eb0c913598727f84423817cdcea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac64f2a5_aaa8ddcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-28T03:11:07Z",
+      "side": 1,
+      "message": "I just noticed that there is a PDI patch containing the required properties has recently merged.\nThus, I have updated the patch to use that merged PDI instead.\n\nFor more PDI details, please check in the following link:\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/498414811a8119c5b447b3a96ec92ab5736cba3f/yaml/xyz/openbmc_project/Inventory/Connector/Port.interface.yaml#L102",
+      "parentUuid": "c7de4e96_1d6a5cf3",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 2
+      },
+      "revId": "d864aeec63aa0eb0c913598727f84423817cdcea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8eb9996_5ee30ca4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-28T03:11:07Z",
+      "side": 1,
+      "message": "Thanks for the reviews!",
+      "revId": "d864aeec63aa0eb0c913598727f84423817cdcea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
