@@ -56,6 +56,30 @@
       },
       "revId": "cab7257e0d6e9a57a59b2d315cdcbf9a458656d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfe26194_97386b5b",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-28T23:58:59Z",
+      "side": 1,
+      "message": "I am just trying to handle the 3 cases. If you prefer all the cases to be handled, feel free to tell me, I\u0027d be happy to do so.",
+      "parentUuid": "f2e762a5_a6086663",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "cab7257e0d6e9a57a59b2d315cdcbf9a458656d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
