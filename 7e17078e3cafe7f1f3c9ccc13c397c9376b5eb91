@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f49e968c_534e0c60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-28T16:07:14Z",
+      "side": 1,
+      "message": "unit tests don\u0027t give full coverage of this code.  Any functional testing done on a system?",
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "27c27fa4_e8eda299",
@@ -14,6 +31,86 @@
       "writtenOn": "2026-09-27T01:25:41Z",
       "side": 1,
       "message": "Can we please get this reviewed and merged so we can update Yocto?",
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a297b010_8f4942dd",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-28T16:07:14Z",
+      "side": 1,
+      "message": "why was this required?  Generally we didn\u0027t construct strings of differing types.",
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0129e988_28b01138",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-28T16:07:14Z",
+      "side": 1,
+      "message": "any reason for char* here and string view on the next arg?",
+      "range": {
+        "startLine": 629,
+        "startChar": 25,
+        "endLine": 629,
+        "endChar": 42
+      },
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "623f3e8a_6184efd5",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-28T16:07:14Z",
+      "side": 1,
+      "message": "Why do we need dup here?  We would try to wrap these in RAII objects so we get exception safety on the free on line 643, but I\u0027m not really understanding why this is required",
+      "range": {
+        "startLine": 631,
+        "startChar": 26,
+        "endLine": 631,
+        "endChar": 39
+      },
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6270eadf_3529872e",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-09-28T16:07:14Z",
+      "side": 1,
+      "message": "Please keep these separate.  This makes it tougher to read.",
       "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
