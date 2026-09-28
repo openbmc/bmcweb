@@ -16,6 +16,7 @@
 #include "registries/privilege_registry.hpp"
 #include "storage_chassis.hpp"
 #include "utils/collection.hpp"
+#include "utils/systems_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -35,6 +36,59 @@
 namespace redfish
 {
 
+constexpr std::array<std::string_view, 1> storageInterface = {
+    "xyz.openbmc_project.Inventory.Item.Storage"};
+
+constexpr std::array<std::string_view, 1> systemInterface{
+    "xyz.openbmc_project.Inventory.Item.System"};
+
+inline void multiHostStorageCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::urls::url& collectionPath,
+    const nlohmann::json::json_pointer& jsonKeyName,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& items)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::system::errc::io_error || ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No associated resources (storage): {}", ec);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (items.empty())
+    {
+        BMCWEB_LOG_ERROR("empty storage collection");
+    }
+    collection_util::handleCollectionMembers(asyncResp, collectionPath,
+                                             jsonKeyName, ec, items);
+}
+
+inline void multiHostHandleSystemsStorageCollectionGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::optional<std::string>& systemPath)
+
+{
+    if (!systemPath.has_value())
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    dbus::utility::getAssociatedSubTreePathsById(
+        systemName, "/xyz/openbmc_project/inventory", systemInterface,
+        "containing", storageInterface,
+        std::bind_front(
+            multiHostStorageCollection, asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName),
+            nlohmann::json::json_pointer("/Members")));
+}
+
 inline void handleSystemsStorageCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -44,26 +98,34 @@ inline void handleSystemsStorageCollectionGet(
     {
         return;
     }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
 
     asyncResp->res.jsonValue["@odata.type"] =
         "#StorageCollection.StorageCollection";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Storage", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName);
     asyncResp->res.jsonValue["Name"] = "Storage Collection";
 
-    constexpr std::array<std::string_view, 1> interface{
-        "xyz.openbmc_project.Inventory.Item.Storage"};
-    collection_util::getCollectionMembers(
-        asyncResp,
-        boost::urls::format("/redfish/v1/Systems/{}/Storage",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
-        interface, "/xyz/openbmc_project/inventory");
+    if (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            std::bind_front(multiHostHandleSystemsStorageCollectionGet,
+                            asyncResp, systemName));
+    }
+    else
+    {
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        collection_util::getCollectionMembers(
+            asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName),
+            storageInterface, "/xyz/openbmc_project/inventory");
+    }
 }
 
 inline void handleStorageCollectionGet(
