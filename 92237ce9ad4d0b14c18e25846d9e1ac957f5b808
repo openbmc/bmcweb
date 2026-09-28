@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "207e30c7_4b096651",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-28T18:05:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e1286a0_52d09a0c",
+      "revId": "92237ce9ad4d0b14c18e25846d9e1ac957f5b808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84117cc1_a25c57dc",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcf4ce07_e4c30377",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-28T18:05:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84117cc1_a25c57dc",
+      "revId": "92237ce9ad4d0b14c18e25846d9e1ac957f5b808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a378fa6_df71b457",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-09-19T01:01:06Z",
       "side": 1,
       "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "92237ce9ad4d0b14c18e25846d9e1ac957f5b808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2156231_0caad9c8",
+        "filename": "redfish-core/include/utils/name_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-28T18:05:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a378fa6_df71b457",
       "range": {
         "startLine": 24,
         "startChar": 10,
