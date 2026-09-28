@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c20f20_ec0b4de6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-28T22:01:28Z",
+      "side": 1,
+      "message": "Overall looks good to me. Just one suggestion on beefing up one of the tests.",
+      "revId": "e34a7f18b7fd15a3b07812aec5e6257407fff0ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad41aa1b_b7458ed0",
+        "filename": "test/redfish-core/include/utils/name_utils_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-28T22:01:28Z",
+      "side": 1,
+      "message": "For this test it might be good to also have a non-nested \"Name\" and confirm it is not modified.",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "e34a7f18b7fd15a3b07812aec5e6257407fff0ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
