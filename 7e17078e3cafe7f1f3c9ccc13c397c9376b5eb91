@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "837f11ea_ee7f4d71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-28T19:35:41Z",
+      "side": 1,
+      "message": "Yes. I\u0027ve added my test plan to the commit message.",
+      "parentUuid": "f49e968c_534e0c60",
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "27c27fa4_e8eda299",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e67d3fea_5a107311",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-28T19:35:41Z",
+      "side": 1,
+      "message": "`OpenSSLGeneralNames` did this before:\n\n```\nASN1_STRING* str \u003d value.release();\nstr-\u003etype \u003d V_ASN1_UTF8STRING;\n```\n\nThis doesn\u0027t work with OpenSSL 4.0 anymore because `ASN1_STRING` is now opaque. The string must be initialised with the type directly. `V_ASN1_OCTET_STRING` is what\u0027s being used in `ASN1_STRING_new()`.",
+      "parentUuid": "a297b010_8f4942dd",
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0129e988_28b01138",
@@ -65,6 +101,30 @@
       "writtenOn": "2026-09-28T16:07:14Z",
       "side": 1,
       "message": "any reason for char* here and string view on the next arg?",
+      "range": {
+        "startLine": 629,
+        "startChar": 25,
+        "endLine": 629,
+        "endChar": 42
+      },
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "917d471a_2d60b824",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-28T19:35:41Z",
+      "side": 1,
+      "message": "bad habit. fixed",
+      "parentUuid": "0129e988_28b01138",
       "range": {
         "startLine": 629,
         "startChar": 25,
@@ -98,6 +158,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8001b2b4_0b97ea61",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-28T19:35:41Z",
+      "side": 1,
+      "message": "because in OpenSSL 4.0 `X509_NAME` is now a const:\n```\n../include/ossl_wrappers.hpp:632:48: error: invalid conversion from ‘const X509_NAME*’ {aka ‘const X509_name_st*’} to ‘X509_NAME*’ {aka ‘X509_name_st*’} [-fpermissive]\n  632 |         X509_NAME* name \u003d X509_get_subject_name(ptr);\n      |                           ~~~~~~~~~~~~~~~~~~~~~^~~~~\n      |                                                |\n      |                                                const X509_NAME* {aka const X509_name_st*}\n\n```\n\n\nIntroduced by https://github.com/openssl/openssl/commit/b0f2107b44049805b39434d104c8bb0daf8ae079\n\nI\u0027ve change it to be an RAII object.",
+      "parentUuid": "623f3e8a_6184efd5",
+      "range": {
+        "startLine": 631,
+        "startChar": 26,
+        "endLine": 631,
+        "endChar": 39
+      },
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6270eadf_3529872e",
@@ -111,6 +195,24 @@
       "writtenOn": "2026-09-28T16:07:14Z",
       "side": 1,
       "message": "Please keep these separate.  This makes it tougher to read.",
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5f21e95_115e42d8",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-28T19:35:41Z",
+      "side": 1,
+      "message": "agreed. fixed.",
+      "parentUuid": "6270eadf_3529872e",
       "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
