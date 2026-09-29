@@ -80,7 +80,7 @@ struct LDAPRoleMapData
 
 struct LDAPConfigData
 {
-    std::string uri;
+    std::vector<std::string> uris;
     std::string bindDN;
     std::string baseDN;
     std::string searchScope;
@@ -330,9 +330,9 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
     nlohmann::json::object_t ldap;
     ldap["ServiceEnabled"] = confData.serviceEnabled;
     nlohmann::json::array_t serviceAddresses;
-    if (!confData.uri.empty())
+    for (const auto& uri : confData.uris)
     {
-        serviceAddresses.emplace_back(confData.uri);
+        serviceAddresses.emplace_back(uri);
     }
     ldap["ServiceAddresses"] = std::move(serviceAddresses);
 
@@ -651,7 +651,14 @@ inline void getLDAPConfigData(const std::string& ldapType,
                                     }
                                     if (property.first == "LDAPServerURI")
                                     {
-                                        confData.uri = *strValue;
+                                        const std::vector<std::string>*
+                                            uriList = std::get_if<
+                                                std::vector<std::string>>(
+                                                &property.second);
+                                        if (uriList != nullptr)
+                                        {
+                                            confData.uris = *uriList;
+                                        }
                                     }
                                     else if (property.first == "LDAPBindDN")
                                     {
@@ -733,9 +740,9 @@ inline void handleServiceAddressPatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    setDbusProperty(asyncResp, ldapServerElementName + "/ServiceAddress",
+    setDbusProperty(asyncResp, ldapServerElementName + "/ServiceAddresses",
                     ldapDbusService, ldapConfigObject, ldapConfigInterface,
-                    "LDAPServerURI", serviceAddressList.front());
+                    "LDAPServerURIs", serviceAddressList);
 }
 /**
  * @brief updates the LDAP Bind DN and updates the
