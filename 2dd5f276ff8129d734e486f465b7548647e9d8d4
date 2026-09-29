@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d815f21_1fd5005b",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-29T11:32:41Z",
+      "side": 1,
+      "message": "Can you align the code with the existing format.",
+      "revId": "2dd5f276ff8129d734e486f465b7548647e9d8d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
