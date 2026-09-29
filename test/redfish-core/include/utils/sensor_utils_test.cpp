@@ -8,8 +8,13 @@
 #include "generated/enums/thermal.hpp"
 #include "utils/sensor_utils.hpp"
 
+#include <asm-generic/errno.h>
+
+#include <boost/system/errc.hpp>
+
 #include <cmath>
 #include <functional>
+#include <memory>
 #include <optional>
 #include <string>
 #include <tuple>
@@ -742,6 +747,116 @@ TEST(GetFanPercent, Fail)
     percentValue = getFanPercent("defaultMinMax", maxValue, minValue, value);
     EXPECT_FALSE(percentValue.has_value());
     percentValue.reset();
+}
+
+TEST(CheckSensorPurpose, MatchFound)
+{
+    auto sensorMatches = std::make_shared<SensorServicePathList>();
+    auto asyncErrors = std::make_shared<boost::system::error_code>();
+
+    checkSensorPurpose("service0", "/sensor0", SensorPurpose::totalPower,
+                       sensorMatches, asyncErrors, boost::system::error_code(),
+                       {"xyz.openbmc_project.Sensor.Purpose.SensorPurpose."
+                        "TotalPower"});
+
+    ASSERT_EQ(sensorMatches->size(), 1U);
+    EXPECT_EQ(sensorMatches->front().first, "service0");
+    EXPECT_EQ(sensorMatches->front().second, "/sensor0");
+    EXPECT_FALSE(*asyncErrors);
+}
+
+TEST(CheckSensorPurpose, NoMatchingPurpose)
+{
+    auto sensorMatches = std::make_shared<SensorServicePathList>();
+    auto asyncErrors = std::make_shared<boost::system::error_code>();
+
+    checkSensorPurpose("service0", "/sensor0", SensorPurpose::totalPower,
+                       sensorMatches, asyncErrors, boost::system::error_code(),
+                       {"xyz.openbmc_project.Sensor.Purpose.SensorPurpose."
+                        "Unknown"});
+
+    EXPECT_TRUE(sensorMatches->empty());
+    EXPECT_FALSE(*asyncErrors);
+}
+
+TEST(CheckSensorPurpose, IgnorableErrorSkipped)
+{
+    auto sensorMatches = std::make_shared<SensorServicePathList>();
+    auto asyncErrors = std::make_shared<boost::system::error_code>();
+
+    checkSensorPurpose(
+        "service0", "/sensor0", SensorPurpose::totalPower, sensorMatches,
+        asyncErrors,
+        boost::system::errc::make_error_code(boost::system::errc::io_error),
+        {});
+    EXPECT_TRUE(sensorMatches->empty());
+    EXPECT_FALSE(*asyncErrors);
+
+    checkSensorPurpose(
+        "service1", "/sensor1", SensorPurpose::totalPower, sensorMatches,
+        asyncErrors,
+        boost::system::error_code(EBADR, boost::system::generic_category()),
+        {});
+    EXPECT_TRUE(sensorMatches->empty());
+    EXPECT_FALSE(*asyncErrors);
+}
+
+TEST(CheckSensorPurpose, RealErrorRecorded)
+{
+    auto sensorMatches = std::make_shared<SensorServicePathList>();
+    auto asyncErrors = std::make_shared<boost::system::error_code>();
+    const boost::system::error_code realEc =
+        boost::system::errc::make_error_code(
+            boost::system::errc::permission_denied);
+
+    checkSensorPurpose("service0", "/sensor0", SensorPurpose::totalPower,
+                       sensorMatches, asyncErrors, realEc, {});
+
+    EXPECT_TRUE(sensorMatches->empty());
+    EXPECT_EQ(*asyncErrors, realEc);
+}
+
+TEST(AfterGetSensorPurpose, IgnorableErrorSkippedRealErrorSurfaces)
+{
+    // Covers one sensor with an ignorable EBADR/io_error and one sensor
+    // with a real error, aggregated across a single getSensorsByPurpose call.
+    auto sensorMatches = std::make_shared<SensorServicePathList>();
+    auto asyncErrors = std::make_shared<boost::system::error_code>();
+    auto remainingSensorsToVist = std::make_shared<int>(2);
+    const boost::system::error_code realEc =
+        boost::system::errc::make_error_code(
+            boost::system::errc::permission_denied);
+
+    boost::system::error_code capturedEc;
+    std::shared_ptr<SensorServicePathList> capturedMatches;
+    std::function<void(const boost::system::error_code&,
+                       const std::shared_ptr<SensorServicePathList>&)>
+        callback = [&capturedEc, &capturedMatches](
+                       const boost::system::error_code& ec,
+                       const std::shared_ptr<SensorServicePathList>& matches) {
+            capturedEc = ec;
+            capturedMatches = matches;
+        };
+
+    // Sensor 1: ignorable io_error, should be skipped without recording.
+    afterGetSensorPurpose(
+        "service0", "/sensor0", SensorPurpose::totalPower, sensorMatches,
+        callback, remainingSensorsToVist, asyncErrors,
+        boost::system::errc::make_error_code(boost::system::errc::io_error),
+        {});
+    EXPECT_FALSE(capturedMatches)
+        << "callback must not fire until all "
+           "sensors are visited";
+
+    // Sensor 2: a real error, should be recorded and surfaced once all
+    // sensors have been visited.
+    afterGetSensorPurpose("service1", "/sensor1", SensorPurpose::totalPower,
+                          sensorMatches, callback, remainingSensorsToVist,
+                          asyncErrors, realEc, {});
+
+    ASSERT_TRUE(capturedMatches);
+    EXPECT_TRUE(capturedMatches->empty());
+    EXPECT_EQ(capturedEc, realEc);
 }
 
 } // namespace
