@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e310a90a_c45c16e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-09-29T15:09:21Z",
+      "side": 1,
+      "message": "Maybe change the title?\n```\nMove long lambda into separate function\n```",
+      "revId": "d3517d58d7e75334722fe4182511c9c6eeb03dac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc442c2_eaa3a14a",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-09-29T15:09:21Z",
+      "side": 1,
+      "message": "This forward declaration is because the function is recursively used by `afterGetPostCodeForBoot()`.\nWouldn\u0027t it be better to move this forward declaration right before `afterGetPostCodeForBoot()`?\n\n```\ninline void getPostCodeForBoot(...);\n\ninline void afterGetPostCodeForBoot(...)\n{\n      ...\n      getPostCodeForBoot();\n      ...\n}\n\ninline void getPostCodeForBoot(...)\n{\n    ...\n    afterGetPostCodeForBoot();\n    ...\n}\n```",
+      "revId": "d3517d58d7e75334722fe4182511c9c6eeb03dac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
