@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efa968bc_69e345b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-29T04:43:57Z",
+      "side": 1,
+      "message": "Overall it\u0027s okay, just some minor parts to be refined.\n\nThanks for the patch!",
+      "revId": "98fadbf33f0a779ebabb2f4afd107147d43c2d8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b335d8_edfae739",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-29T04:43:57Z",
+      "side": 1,
+      "message": "Why would we need to separate the function declaration and definition?\nI think it can saves some lines if we combine them together.",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 18
+      },
+      "revId": "98fadbf33f0a779ebabb2f4afd107147d43c2d8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20f5b2c4_9d3cb870",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-29T04:43:57Z",
+      "side": 1,
+      "message": "nit: Not an error here but should we log it?",
+      "range": {
+        "startLine": 326,
+        "startChar": 12,
+        "endLine": 326,
+        "endChar": 50
+      },
+      "revId": "98fadbf33f0a779ebabb2f4afd107147d43c2d8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "674e48f9_a7a58ab3",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-29T04:43:57Z",
+      "side": 1,
+      "message": "Instead of looping through `endpoints` again, can we store all the matched slot in a vector during the initial loop and then just print them out here?",
+      "range": {
+        "startLine": 350,
+        "startChar": 4,
+        "endLine": 365,
+        "endChar": 5
+      },
+      "revId": "98fadbf33f0a779ebabb2f4afd107147d43c2d8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
