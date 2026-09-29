@@ -24,6 +24,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1599354e_fa488ef1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-29T10:46:56Z",
+      "side": 1,
+      "message": "You\u0027re right, \"unused\" was misleading. asyncResp lifetime is still preserved through the callback chain, since callers bind it into callback, which is then captured by afterGetSensorPurpose for each outstanding getProperty() call. I\u0027ve updated the commit message to clarify this and added a brief code comment for future readers.",
+      "parentUuid": "d504e8f0_64282c6a",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "fb3d32289ff501416b5250d05eff7ffb663f9e13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fef9190_33702082",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-29T10:46:56Z",
+      "side": 1,
+      "message": "You\u0027re right, \"unused\" was misleading. asyncResp lifetime is still preserved through the callback chain, since callers bind it into callback, which is then captured by afterGetSensorPurpose for each outstanding getProperty() call. I\u0027ve updated the commit message to clarify this and added a brief code comment for future readers.",
+      "parentUuid": "d504e8f0_64282c6a",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "fb3d32289ff501416b5250d05eff7ffb663f9e13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "833bc0eb_8ec19faa",
@@ -37,6 +85,24 @@
       "writtenOn": "2026-09-19T00:56:51Z",
       "side": 1,
       "message": "This one is tricker.. \nTesting like \n1 sensor returns an ignorable EBADR/io_error\n1 sensor returns a real error\nwould help",
+      "revId": "fb3d32289ff501416b5250d05eff7ffb663f9e13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7842158a_433c2434",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-29T10:46:56Z",
+      "side": 1,
+      "message": "Split into a follow-up so this stays refactor-only: change 95031 adds tests for exactly this — one sensor with an ignorable EBADR/io_error, one with a real error, verifying only the real error surfaces. 25/25 pass. PTAL.",
+      "parentUuid": "833bc0eb_8ec19faa",
       "revId": "fb3d32289ff501416b5250d05eff7ffb663f9e13",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
