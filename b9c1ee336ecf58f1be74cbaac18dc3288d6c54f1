@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6a22ec3f_be51e705",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001685
+      },
+      "writtenOn": "2026-09-29T11:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "966c33b4_7e1001df",
+      "revId": "b9c1ee336ecf58f1be74cbaac18dc3288d6c54f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c5d31f3e_e2aafd61",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -65,6 +83,24 @@
       "writtenOn": "2026-09-29T10:14:58Z",
       "side": 1,
       "message": "can you remove this extra space",
+      "revId": "b9c1ee336ecf58f1be74cbaac18dc3288d6c54f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "126b6434_12a216c4",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001685
+      },
+      "writtenOn": "2026-09-29T11:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d06396a0_c381d1da",
       "revId": "b9c1ee336ecf58f1be74cbaac18dc3288d6c54f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
