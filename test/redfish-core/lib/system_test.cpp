@@ -55,6 +55,62 @@ TEST(Systems, DbusToRfBootMode)
               computer_system::BootSource::Invalid);
 }
 
+TEST(Systems, DbusToRfBootProgress)
+{
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.Unspecified"),
+        computer_system::BootProgressTypes::None);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PrimaryProcInit"),
+        computer_system::BootProgressTypes::
+            PrimaryProcessorInitializationStarted);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.BusInit"),
+        computer_system::BootProgressTypes::BusInitializationStarted);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.MemoryInit"),
+        computer_system::BootProgressTypes::MemoryInitializationStarted);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SecondaryProcInit"),
+        computer_system::BootProgressTypes::
+            SecondaryProcessorInitializationStarted);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.PCIInit"),
+        computer_system::BootProgressTypes::PCIResourceConfigStarted);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SystemSetup"),
+        computer_system::BootProgressTypes::SetupEntered);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.SystemInitComplete"),
+        computer_system::BootProgressTypes::
+            SystemHardwareInitializationComplete);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSStart"),
+        computer_system::BootProgressTypes::OSBootStarted);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OSRunning"),
+        computer_system::BootProgressTypes::OSRunning);
+    EXPECT_EQ(
+        dbusToRfBootProgress(
+            "xyz.openbmc_project.State.Boot.Progress.ProgressStages.MotherboardInit"),
+        computer_system::BootProgressTypes::Invalid);
+    EXPECT_EQ(dbusToRfBootProgress(
+                  "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OEM"),
+              computer_system::BootProgressTypes::Invalid);
+    EXPECT_EQ(dbusToRfBootProgress("invalid"),
+              computer_system::BootProgressTypes::Invalid);
+}
+
 TEST(GetAllowedHostTransition, UnexpectedError)
 {
     auto response = std::make_shared<bmcweb::AsyncResp>();
