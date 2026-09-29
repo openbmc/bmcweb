@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53950951_e0d89a67",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2622,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-29T21:30:11Z",
+      "side": 1,
+      "message": "Should we do `const auto [sensorType, sensorName]` to make it more readable? Feels like `nameType` naming is misleading when `splitSensorNameAndType` returns `{type, name}`",
+      "range": {
+        "startLine": 2622,
+        "startChar": 0,
+        "endLine": 2622,
+        "endChar": 2
+      },
+      "revId": "312d0b299249e4937b8d530690737e153f776fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e6b4e31_926e4d4e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2656,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-29T21:30:11Z",
+      "side": 1,
+      "message": "Does this need to check if there\u0027s an invalid option e.g. `PropertyUnknown`?",
+      "range": {
+        "startLine": 2650,
+        "startChar": 0,
+        "endLine": 2656,
+        "endChar": 13
+      },
+      "revId": "312d0b299249e4937b8d530690737e153f776fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f17e503_e8f85884",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-09-29T21:30:11Z",
+      "side": 1,
+      "message": "Should we have a test e.g. {\"Thresholds\": {\"LowerCaution\": {\"Bogus\": XXX}}}?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 4
+      },
+      "revId": "312d0b299249e4937b8d530690737e153f776fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
