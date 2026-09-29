@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "204d5b7e_0b319b86",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-29T15:31:50Z",
+      "side": 1,
+      "message": "It was wrong before so oh well, but bonus if you fix this in a separate commit \n\nPretty sure this should be EventDestination\n\nhttps://redfish.dmtf.org/registries/Base.1.23.0.json\n\n```\n\"ResourceNotFound\": {\n            \"Description\": \"Indicates that the operation expected a resource identifier that corresponds to an existing resource but one was not found.\",\n            \"LongDescription\": \"This message shall indicate that the operation expected a resource identifier that corresponds to an existing resource but one was not found.\",\n            \"Message\": \"The requested resource of type \u0027%1\u0027 named \u0027%2\u0027 was not found.\",\n            \"Example\": \"The requested resource of type \u0027Drive\u0027 named \u0027Drive1\u0027 was not found.\",\n            \"Severity\": \"Critical\",\n            \"MessageSeverity\": \"Critical\",\n            \"VersionAdded\": \"1.2.0\",\n            \"NumberOfArgs\": 2,\n            \"ParamTypes\": [\n                \"string\",\n                \"string\"\n            ],\n            \"ArgDescriptions\": [\n                \"The type of resource.\",\n                \"The `Id` of the resource.\"\n            ],\n            \"ArgLongDescriptions\": [\n                \"This argument shall contain the schema name of the resource.\",\n                \"This argument shall contain the value of the `Id` property of the requested resource.\"\n            ],\n            \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n        },\n```",
+      "range": {
+        "startLine": 128,
+        "startChar": 48,
+        "endLine": 128,
+        "endChar": 61
+      },
+      "revId": "4d6a67eec054d30dfc1ce1955081943ccbd02636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
