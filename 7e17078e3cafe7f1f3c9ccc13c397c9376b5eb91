@@ -208,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7d6f1a6_89c2895b",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1002321
+      },
+      "writtenOn": "2026-09-29T22:00:08Z",
+      "side": 1,
+      "message": "`X509_set_subject_name` may allow it, but not `X509_NAME_add_entry_by_txt` which is the failing one here.",
+      "parentUuid": "441d7b0e_52d5ec4f",
+      "range": {
+        "startLine": 631,
+        "startChar": 26,
+        "endLine": 631,
+        "endChar": 39
+      },
+      "revId": "7e17078e3cafe7f1f3c9ccc13c397c9376b5eb91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6270eadf_3529872e",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 2
