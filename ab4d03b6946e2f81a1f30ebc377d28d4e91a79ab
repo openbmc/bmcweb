@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "551df4a5_d3534785",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3102,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-09-30T13:23:44Z",
+      "side": 1,
+      "message": "Please test this change and mention it in the commit message, even though it is a trivial change.",
+      "range": {
+        "startLine": 3101,
+        "startChar": 4,
+        "endLine": 3102,
+        "endChar": 74
+      },
+      "revId": "ab4d03b6946e2f81a1f30ebc377d28d4e91a79ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
