@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "792cd3aa_d1d39510",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-30T14:05:47Z",
+      "side": 1,
+      "message": "We should go with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/93757 since it was up first",
+      "revId": "72a8d160bde0fef9d3ec233e46efd1d457bb1515",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
