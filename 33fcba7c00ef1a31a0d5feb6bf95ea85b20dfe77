@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36911568_03d35f8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-30T18:31:51Z",
+      "side": 1,
+      "message": "Thank you for adding these. Overall they look good. I have suggestion on a couple of additional tests for coverage.",
+      "revId": "33fcba7c00ef1a31a0d5feb6bf95ea85b20dfe77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e77dd156_ed454cbe",
+        "filename": "test/redfish-core/include/utils/sensor_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-09-30T18:31:51Z",
+      "side": 1,
+      "message": "Tests look good. I suggest a couple of additional coverage tests:\n - Positive test where there are multiple matches and all are returned.\n - Mixed test where there is a match and an ignorable error. Result should be returning the match only and no error.",
+      "revId": "33fcba7c00ef1a31a0d5feb6bf95ea85b20dfe77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
