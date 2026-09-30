@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a83c626b_9d4a8c14",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-09-30T10:32:50Z",
+      "side": 1,
+      "message": "the below combined map is overhead\nEvery aggregation request allocates a new heap map, copies all entries then discards it. Since emSatelliteSources and aggregationSources are already in-memory and consistent, this copy is pure overhead.\nstatic void aggregateAndHandle(\n    AggregationType aggType,\n    const std::shared_ptr\u003ccrow::Request\u003e\u0026 sharedReq,\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::unordered_map\u003cstd::string, boost::urls::url\u003e\u0026 emSources,\n    const std::unordered_map\u003cstd::string, AggregationSource\u003e\u0026 restSources)\n\nfindSatellite already takes satelliteInfo as a parameter — it should not need to call getInstance() inside its body at all. Both maps can be passed by const-ref from startAggregation, eliminating the singleton re-entry and the heap allocation.",
+      "parentUuid": "09d3a6ad_8c24ce42",
+      "revId": "e373fc81af1ff11afd0dec2b89cf61c82a1a4021",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f2ab697_b88bdeb3",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 2
