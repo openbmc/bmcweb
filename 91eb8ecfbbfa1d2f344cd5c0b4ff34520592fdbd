@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3e327f9_1aee9c07",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-30T08:59:08Z",
+      "side": 1,
+      "message": "Can we uses `std::bind_front()` here?",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 11
+      },
+      "revId": "91eb8ecfbbfa1d2f344cd5c0b4ff34520592fdbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e69053a_5458b610",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-30T08:59:08Z",
+      "side": 1,
+      "message": "Should we check whether `storageId` before doing this?",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "91eb8ecfbbfa1d2f344cd5c0b4ff34520592fdbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05585a77_074912cc",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-09-30T08:59:08Z",
+      "side": 1,
+      "message": "This as well, can we uses `std::bind_front()` here as well?",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 11
+      },
+      "revId": "91eb8ecfbbfa1d2f344cd5c0b4ff34520592fdbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
