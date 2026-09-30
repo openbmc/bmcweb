@@ -80,6 +80,30 @@
       },
       "revId": "4d6a67eec054d30dfc1ce1955081943ccbd02636",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d58275aa_521f4e22",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-09-30T11:54:23Z",
+      "side": 1,
+      "message": "Filed a separate change for this: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95062\n\nChanged the resourceNotFound resource type from \"Subscriptions\" to \"EventDestination\" in getSnmpTrapClient(), matching the existing convention used in event_service.hpp.",
+      "parentUuid": "baf4b835_079db085",
+      "range": {
+        "startLine": 128,
+        "startChar": 48,
+        "endLine": 128,
+        "endChar": 61
+      },
+      "revId": "4d6a67eec054d30dfc1ce1955081943ccbd02636",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
