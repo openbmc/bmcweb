@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bccf1f72_7f14ad6c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1002622
+      },
+      "writtenOn": "2026-09-30T11:23:39Z",
+      "side": 1,
+      "message": "Both maps are public and accessed directly by aggregation_service.hpp may be private with read accessors can be appropriate?",
+      "revId": "f45c53454195cce34299ec72af310627248df155",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "918ac069_9537f609",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 7
