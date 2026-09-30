@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ac576b_39bf6a0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-30T07:30:02Z",
+      "side": 1,
+      "message": "That was the docker image of the local unit-test CI, which isn\u0027t\nmeaningful here. Remove it.",
+      "parentUuid": "88b0c433_755137eb",
+      "range": {
+        "startLine": 14,
+        "startChar": 25,
+        "endLine": 14,
+        "endChar": 59
+      },
+      "revId": "18aa9b6a827712f26b379a4c9455e70101dc6322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fae763c_4ae8c7c5",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-09-16T09:51:43Z",
       "side": 1,
       "message": "Add #include \"trigger.hpp\" first, please refer existing test files pattern.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 22
+      },
+      "revId": "18aa9b6a827712f26b379a4c9455e70101dc6322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50291617_815b8f90",
+        "filename": "test/redfish-core/lib/trigger_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-30T07:30:02Z",
+      "side": 1,
+      "message": "clang-format reverts this -- no IncludeIsMainRegex, so local headers sort\nalphabetically and \"generated/...\" wins. Existing tests follow the same\norder, e.g. fabric_test.cpp has async_resp.hpp before fabric.hpp.",
+      "parentUuid": "8fae763c_4ae8c7c5",
       "range": {
         "startLine": 5,
         "startChar": 0,
