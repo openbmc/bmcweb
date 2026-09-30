@@ -125,7 +125,7 @@ inline void afterGetSnmpTrapClient(
         return;
     }
 
-    messages::resourceNotFound(asyncResp->res, "Subscriptions", id);
+    messages::resourceNotFound(asyncResp->res, "EventDestination", id);
     EventServiceManager::getInstance().deleteSubscription(id);
 }
 
