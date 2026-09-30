@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41beb158_a7e599cf",
+        "filename": "test/redfish-core/include/utils/name_utils_test.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-30T16:49:36Z",
+      "side": 1,
+      "message": "Could verify \n```\nEXPECT_EQ(asyncResp-\u003eres.result(),\n          boost::beast::http::status::ok);\n```\n\nWould need to include \u003cboost/beast/http/status.hpp\u003e",
+      "revId": "6304ae84c1b25a95f5ba47ef47076c52e6935a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc0561ea_9933240e",
+        "filename": "test/redfish-core/include/utils/name_utils_test.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-09-30T16:49:36Z",
+      "side": 1,
+      "message": "Could also do an array \n\n```\nTEST(NameUtils, PrettyNameUsesArrayJsonPointer)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n\n    asyncResp-\u003eres.jsonValue[\"Members\"][0][\"Name\"] \u003d \"First\";\n    asyncResp-\u003eres.jsonValue[\"Members\"][1][\"Name\"] \u003d \"Second\";\n\n    boost::system::error_code ec;\n\n    afterGetPrettyName(asyncResp, \"/Members/0\"_json_pointer,\n                       ec, \"Pretty Name\");\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Members\"][0][\"Name\"],\n              \"Pretty Name\");\n\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Members\"][1][\"Name\"],\n              \"Second\");\n}\n```",
+      "revId": "6304ae84c1b25a95f5ba47ef47076c52e6935a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
