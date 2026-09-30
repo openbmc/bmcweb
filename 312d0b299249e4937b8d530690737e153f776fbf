@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e11466_e6885a6c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2622,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-30T02:00:31Z",
+      "side": 1,
+      "message": "Done,thanks.",
+      "parentUuid": "53950951_e0d89a67",
+      "range": {
+        "startLine": 2622,
+        "startChar": 0,
+        "endLine": 2622,
+        "endChar": 2
+      },
+      "revId": "312d0b299249e4937b8d530690737e153f776fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e6b4e31_926e4d4e",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd45ad9_861f7c0f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2656,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-30T02:00:31Z",
+      "side": 1,
+      "message": "Done,thanks.",
+      "parentUuid": "9e6b4e31_926e4d4e",
+      "range": {
+        "startLine": 2650,
+        "startChar": 0,
+        "endLine": 2656,
+        "endChar": 13
+      },
+      "revId": "312d0b299249e4937b8d530690737e153f776fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f17e503_e8f85884",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-09-29T21:30:11Z",
       "side": 1,
       "message": "Should we have a test e.g. {\"Thresholds\": {\"LowerCaution\": {\"Bogus\": XXX}}}?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 4
+      },
+      "revId": "312d0b299249e4937b8d530690737e153f776fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4168e4ae_202ee050",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-09-30T02:00:31Z",
+      "side": 1,
+      "message": "The existing test covers this now: Activation and Bogus take the same path\nthrough readJsonObject, so a second test would exercise the same code. Updated\nit to expect PropertyUnknown (400).",
+      "parentUuid": "6f17e503_e8f85884",
       "range": {
         "startLine": 54,
         "startChar": 0,
