@@ -307,6 +307,54 @@ inline void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
+inline void setDriveChassisLink(
+    const std::string& chassisId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    asyncResp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
+}
+
+inline void afterGetDriveChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths)
+{
+    if (ec && ec.value() != EBADR)
+    {
+        BMCWEB_LOG_ERROR("Drive contained_by association error: {}", ec);
+    }
+    if (ec || chassisPaths.empty())
+    {
+        // No association for this drive, keep the legacy behavior
+        getMainChassisId(asyncResp, setDriveChassisLink);
+        return;
+    }
+    if (chassisPaths.size() > 1)
+    {
+        BMCWEB_LOG_WARNING("Drive is contained by {} chassis, using the first",
+                           chassisPaths.size());
+    }
+    std::string chassisId =
+        sdbusplus::object_path(chassisPaths.front()).filename();
+    if (chassisId.empty())
+    {
+        BMCWEB_LOG_ERROR("Can't parse chassis ID");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    setDriveChassisLink(chassisId, asyncResp);
+}
+
+inline void getDriveChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& drivePath)
+{
+    dbus::utility::getAssociatedSubTreePaths(
+        drivePath + "/contained_by",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisInterfaces, std::bind_front(afterGetDriveChassis, asyncResp));
+}
+
 inline void afterGetSubtreeSystemsStorageDrive(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& driveId, const boost::system::error_code& ec,
@@ -350,12 +398,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
         return;
     }
 
-    getMainChassisId(
-        asyncResp, [](const std::string& chassisId,
-                      const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-            aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
-                boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-        });
+    getDriveChassis(asyncResp, path);
 
     // default it to Enabled
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
