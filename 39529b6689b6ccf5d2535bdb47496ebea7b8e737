@@ -16,6 +16,40 @@
       "message": "@gunnar@gmills.xyz\ncan you please help to review",
       "revId": "39529b6689b6ccf5d2535bdb47496ebea7b8e737",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "273a571c_7f0e8090",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T10:04:31Z",
+      "side": 1,
+      "message": "Add nlohmann/json.hpp, boost/system/error_code.hpp",
+      "revId": "39529b6689b6ccf5d2535bdb47496ebea7b8e737",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c76d912_b44c33b0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T10:04:31Z",
+      "side": 1,
+      "message": "Add nlohmann/json.hpp",
+      "revId": "39529b6689b6ccf5d2535bdb47496ebea7b8e737",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
