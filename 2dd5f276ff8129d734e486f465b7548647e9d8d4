@@ -51,6 +51,46 @@
       "parentUuid": "6d815f21_1fd5005b",
       "revId": "2dd5f276ff8129d734e486f465b7548647e9d8d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ed0451a_4f9ecaa3",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-01T15:54:38Z",
+      "side": 1,
+      "message": "I think \n\n```   \n\n  \"xyz.openbmc_project.State.Boot.Progress.ProgressStages.Unspecified\"),\n\n```\nwill also pass clang-format and that is a lot easier to read \n\nI could be wrong",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 33
+      },
+      "revId": "2dd5f276ff8129d734e486f465b7548647e9d8d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a528dfc_47c9f41e",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-01T15:54:38Z",
+      "side": 1,
+      "message": "Could test for values we don\u0027t support.. \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/498414811a8119c5b447b3a96ec92ab5736cba3f/yaml/xyz/openbmc_project/State/Boot/Progress.interface.yaml#L56\n\n```\nEXPECT_EQ(\n    dbusToRfBootProgress(\n        \"xyz.openbmc_project.State.Boot.Progress.ProgressStages.MotherboardInit\"),\n    computer_system::BootProgressTypes::Invalid);\n\nEXPECT_EQ(\n    dbusToRfBootProgress(\n        \"xyz.openbmc_project.State.Boot.Progress.ProgressStages.OEM\"),\n    computer_system::BootProgressTypes::Invalid);\n```",
+      "revId": "2dd5f276ff8129d734e486f465b7548647e9d8d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
