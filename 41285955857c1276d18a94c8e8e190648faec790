@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33fac815_50057938",
+        "filename": "test/redfish-core/lib/memory_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-01T15:48:19Z",
+      "side": 1,
+      "message": "you could also test some of the other invalids but oh well \n\nE.g. LPDDR5_SDRAM\n```\nEXPECT_EQ(\n    translateMemoryTypeToRedfish(\n        \"xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.LPDDR5_SDRAM\"),\n    memory::MemoryDeviceType::Invalid);\n```\nhttps://github.com/openbmc/bmcweb/blob/51f5e752fc312cac52bd36e4a258de97f7bdd952/redfish-core/lib/memory.hpp#L159",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 1
+      },
+      "revId": "41285955857c1276d18a94c8e8e190648faec790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
