@@ -15,6 +15,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/name_utils.hpp"
 #include "utils/processor_utils.hpp"
 #include "utils/resource_utils.hpp"
 
@@ -120,9 +121,10 @@ inline void getSubProcessorCoreData(
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/Processors/{}/SubProcessors/{}", systemName,
         processorId, coreId);
-    asyncResp->res.jsonValue["Name"] = "SubProcessor";
     asyncResp->res.jsonValue["Id"] = coreId;
     asyncResp->res.jsonValue["ProcessorType"] = processor::ProcessorType::Core;
+    name_utils::getPrettyName(asyncResp, object, corePath, "SubProcessor",
+                              ""_json_pointer);
     resource_utils::getResourceState(asyncResp, object, corePath,
                                      ""_json_pointer);
     resource_utils::getResourceHealth(asyncResp, object, corePath,
