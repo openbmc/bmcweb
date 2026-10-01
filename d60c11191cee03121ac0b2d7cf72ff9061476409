@@ -39,6 +39,30 @@
       },
       "revId": "d60c11191cee03121ac0b2d7cf72ff9061476409",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3955327_291cc2a8",
+        "filename": "test/redfish-core/lib/certificate_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-01T12:00:24Z",
+      "side": 1,
+      "message": "Yes, please include an escaped-character case.",
+      "parentUuid": "8116a523_e8f0839a",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "d60c11191cee03121ac0b2d7cf72ff9061476409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
