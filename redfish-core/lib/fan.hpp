@@ -141,39 +141,49 @@ inline bool checkFanId(const std::string& fanPath, const std::string& fanId)
     return !(fanName.empty() || fanName != fanId);
 }
 
-inline void handleFanPath(
-    const std::string& fanId,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const dbus::utility::MapperGetSubTreePathsResponse& fanPaths,
-    const std::function<void(const std::string& fanPath,
-                             const std::string& service)>& callback)
+inline const dbus::utility::MapperServiceMap* findFanServiceMap(
+    const dbus::utility::MapperGetSubTreeResponse& fanSubtree,
+    const std::string& fanId, std::string& fanPath)
 {
-    for (const auto& fanPath : fanPaths)
+    for (const auto& [candidatePath, serviceMaps] : fanSubtree)
     {
-        if (!checkFanId(fanPath, fanId))
+        if (!checkFanId(candidatePath, fanId))
         {
             continue;
         }
-        dbus::utility::getDbusObject(
-            fanPath, fanInterface,
-            // ast-grep-ignore: long-lambda
-            [fanPath, asyncResp,
-             callback](const boost::system::error_code& ec,
-                       const dbus::utility::MapperGetObject& object) {
-                if (ec || object.empty())
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error on getDbusObject {}",
-                                     ec.value());
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                callback(fanPath, object.begin()->first);
-            });
 
+        fanPath = candidatePath;
+        return &serviceMaps;
+    }
+
+    fanPath.clear();
+    return nullptr;
+}
+
+inline void afterGetFanSubtree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& fanId,
+    const std::function<void(const std::string& fanPath,
+                             const std::string& service)>& callback,
+    const dbus::utility::MapperGetSubTreeResponse& fanSubtree)
+{
+    std::string fanPath;
+    const dbus::utility::MapperServiceMap* serviceMap =
+        findFanServiceMap(fanSubtree, fanId, fanPath);
+    if (serviceMap == nullptr)
+    {
+        BMCWEB_LOG_WARNING("Fan not found");
+        messages::resourceNotFound(asyncResp->res, "Fan", fanId);
         return;
     }
-    BMCWEB_LOG_WARNING("Fan not found {}", fanId);
-    messages::resourceNotFound(asyncResp->res, "Fan", fanId);
+    if (serviceMap->empty())
+    {
+        BMCWEB_LOG_ERROR("Fan subtree entry missing service");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    callback(fanPath, serviceMap->begin()->first);
 }
 
 inline void getValidFanObject(
@@ -182,12 +192,9 @@ inline void getValidFanObject(
     const std::function<void(const std::string& fanPath,
                              const std::string& service)>& callback)
 {
-    fan_utils::getFanPaths(
+    fan_utils::getFanSubtree(
         asyncResp, validChassisPath,
-        [fanId, asyncResp, callback](
-            const dbus::utility::MapperGetSubTreePathsResponse& fanPaths) {
-            handleFanPath(fanId, asyncResp, fanPaths, callback);
-        });
+        std::bind_front(afterGetFanSubtree, asyncResp, fanId, callback));
 }
 
 inline void addFanCommonProperties(crow::Response& resp,

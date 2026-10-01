@@ -117,5 +117,44 @@ inline void getFanPaths(
         std::bind_front(afterGetFanPaths, asyncResp, callback));
 }
 
+inline void afterGetFanSubtree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::function<void(
+        const dbus::utility::MapperGetSubTreeResponse& fanSubtree)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::system::errc::io_error || ec.value() == EBADR)
+        {
+            // Not found
+            dbus::utility::MapperGetSubTreeResponse emptySubtree;
+            callback(emptySubtree);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    callback(subtree);
+}
+
+inline void getFanSubtree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& validChassisPath,
+    const std::function<void(
+        const dbus::utility::MapperGetSubTreeResponse& fanSubtree)>& callback)
+{
+    sdbusplus::object_path endpointPath{validChassisPath};
+    endpointPath /= "cooled_by";
+
+    dbus::utility::getAssociatedSubTree(
+        endpointPath, sdbusplus::object_path("/xyz/openbmc_project/inventory"),
+        0, fanInterface,
+        std::bind_front(afterGetFanSubtree, asyncResp, callback));
+}
+
 } // namespace fan_utils
 } // namespace redfish
