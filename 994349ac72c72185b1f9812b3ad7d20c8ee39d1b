@@ -50,6 +50,69 @@
       "message": "Add vector.",
       "revId": "994349ac72c72185b1f9812b3ad7d20c8ee39d1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac47f40b_0742ac67",
+        "filename": "redfish-core/lib/bios_attribute_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T10:37:28Z",
+      "side": 1,
+      "message": "Are we really using this?",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 28
+      },
+      "revId": "994349ac72c72185b1f9812b3ad7d20c8ee39d1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2d30693_105af6b7",
+        "filename": "redfish-core/lib/bios_attribute_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T10:37:28Z",
+      "side": 1,
+      "message": "Please add header vector",
+      "revId": "994349ac72c72185b1f9812b3ad7d20c8ee39d1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64b299aa_59935881",
+        "filename": "redfish-core/lib/bios_attribute_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T10:37:28Z",
+      "side": 1,
+      "message": "Will this be returning 500 for absent object? Is that intended?",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 234,
+        "endChar": 78
+      },
+      "revId": "994349ac72c72185b1f9812b3ad7d20c8ee39d1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
