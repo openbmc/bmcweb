@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17ecaba1_ef97ae0f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T07:37:03Z",
+      "side": 1,
+      "message": "Please include \u003cboost/url/url.hpp\u003e",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 26
+      },
+      "revId": "580ea68c3e483f6400e34e5eeda6bd1909a51fb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00e5b4f_d93a9634",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T07:37:03Z",
+      "side": 1,
+      "message": "Please add \u003casm-generic/errno.h\u003e",
+      "range": {
+        "startLine": 54,
+        "startChar": 73,
+        "endLine": 54,
+        "endChar": 78
+      },
+      "revId": "580ea68c3e483f6400e34e5eeda6bd1909a51fb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c922b2be_3a568f0e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T07:37:03Z",
+      "side": 1,
+      "message": "IO Error is already handled in getAssociatedSubTreePathsById()",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 55
+      },
+      "revId": "580ea68c3e483f6400e34e5eeda6bd1909a51fb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00fabb11_e88bf473",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T07:37:03Z",
+      "side": 1,
+      "message": "Should this be ERROR?",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 53
+      },
+      "revId": "580ea68c3e483f6400e34e5eeda6bd1909a51fb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bfe12b6_2eb50f1c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-01T07:37:03Z",
+      "side": 1,
+      "message": "Please include \u003coptional\u003e",
+      "range": {
+        "startLine": 73,
+        "startChar": 41,
+        "endLine": 73,
+        "endChar": 79
+      },
+      "revId": "580ea68c3e483f6400e34e5eeda6bd1909a51fb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
