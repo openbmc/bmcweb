@@ -6,7 +6,7 @@ srcfiles_unittest = files(
     'http/http_connection_test.cpp',
     'http/http_response_test.cpp',
     'http/http_server_test.cpp',
-    'http/mutual_tls.cpp',
+    'http/mutual_tls_test.cpp',
     'http/parsing_test.cpp',
     'http/router_test.cpp',
     'http/server_sent_event_test.cpp',
@@ -19,9 +19,9 @@ srcfiles_unittest = files(
     'include/dbus_privileges_test.cpp',
     'include/http_utility_test.cpp',
     'include/human_sort_test.cpp',
-    'include/json_html_serializer.cpp',
+    'include/json_html_serializer_test.cpp',
     'include/multipart_test.cpp',
-    'include/ossl_random.cpp',
+    'include/ossl_random_test.cpp',
     'include/security_headers_test.cpp',
     'include/sessions_test.cpp',
     'include/ssl_key_handler_test.cpp',
@@ -32,7 +32,7 @@ srcfiles_unittest = files(
     'redfish-core/include/event_matches_filter_test.cpp',
     'redfish-core/include/filter_expr_executor_test.cpp',
     'redfish-core/include/filter_expr_parser_test.cpp',
-    'redfish-core/include/journal_read_state.cpp',
+    'redfish-core/include/journal_read_state_test.cpp',
     'redfish-core/include/privileges_test.cpp',
     'redfish-core/include/redfish_aggregator_test.cpp',
     'redfish-core/include/redfish_oem_routing_test.cpp',
@@ -40,8 +40,8 @@ srcfiles_unittest = files(
     'redfish-core/include/registries_test.cpp',
     'redfish-core/include/submit_test_event_test.cpp',
     'redfish-core/include/utils/collection_test.cpp',
-    'redfish-core/include/utils/dbus_utils.cpp',
-    'redfish-core/include/utils/dump_utils.cpp',
+    'redfish-core/include/utils/dbus_utils_test.cpp',
+    'redfish-core/include/utils/dump_utils_test.cpp',
     'redfish-core/include/utils/error_code_test.cpp',
     'redfish-core/include/utils/hex_utils_test.cpp',
     'redfish-core/include/utils/ip_utils_test.cpp',
@@ -66,7 +66,7 @@ srcfiles_unittest = files(
     'redfish-core/lib/processor_test.cpp',
     'redfish-core/lib/service_root_test.cpp',
     'redfish-core/lib/system_test.cpp',
-    'redfish-core/lib/systems_logservices_postcode.cpp',
+    'redfish-core/lib/systems_logservices_postcode_test.cpp',
     'redfish-core/lib/telemetry_service_test.cpp',
     'redfish-core/lib/thermal_subsystem_test.cpp',
     'redfish-core/lib/update_service_test.cpp',
@@ -110,7 +110,7 @@ if get_option('fuzz-tests').allowed()
     endif
     fuzz_cpp_args = ['-fsanitize=fuzzer-no-link', '-Wno-missing-prototypes']
     fuzz_link_args = ['-fsanitize=fuzzer']
-    srcfiles_fuzz = files('http/http_connection_fuzzer.cpp')
+    srcfiles_fuzz = files('http/http_connection_fuzzer_test.cpp')
     foreach fuzz_src : srcfiles_fuzz
         executable(
             fs.stem(fuzz_src),

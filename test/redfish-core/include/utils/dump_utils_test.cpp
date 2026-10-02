@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 
-#include "utils/dump_utils.hpp"
-
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/log_entry.hpp"
+#include "utils/dump_utils.hpp"
 
 #include <boost/beast/http/status.hpp>
 #include <boost/url/format.hpp>
