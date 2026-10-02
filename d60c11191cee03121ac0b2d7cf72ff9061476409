@@ -63,6 +63,30 @@
       },
       "revId": "d60c11191cee03121ac0b2d7cf72ff9061476409",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b64abbd_e5f569d7",
+        "filename": "test/redfish-core/lib/certificate_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-02T05:08:53Z",
+      "side": 1,
+      "message": "Done ,thanks for review.",
+      "parentUuid": "a3955327_291cc2a8",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "d60c11191cee03121ac0b2d7cf72ff9061476409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
