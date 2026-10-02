@@ -22,6 +22,30 @@
       },
       "revId": "41285955857c1276d18a94c8e8e190648faec790",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7823cfd4_40b081e2",
+        "filename": "test/redfish-core/lib/memory_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-02T13:56:28Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz Added the explicit unsupported LPDDR5_SDRAM regression assertion and verified it.",
+      "parentUuid": "33fac815_50057938",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 1
+      },
+      "revId": "41285955857c1276d18a94c8e8e190648faec790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
