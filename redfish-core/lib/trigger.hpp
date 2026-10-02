@@ -241,6 +241,13 @@ inline std::optional<sdbusplus::object_path>
         return std::nullopt;
     }
 
+    if (id.empty())
+    {
+        // A URI ending in "//" or carrying a "/" fragment yields an empty id;
+        // appending it to the object path would throw, so treat it as invalid.
+        return std::nullopt;
+    }
+
     return sdbusplus::object_path("/xyz/openbmc_project/Telemetry/Reports") /
            "TelemetryService" / id;
 }
