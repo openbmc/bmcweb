@@ -76,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75ed63e2_5560206f",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-02T13:55:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2ed0451a_4f9ecaa3",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 33
+      },
+      "revId": "2dd5f276ff8129d734e486f465b7548647e9d8d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a528dfc_47c9f41e",
@@ -89,6 +113,24 @@
       "writtenOn": "2026-10-01T15:54:38Z",
       "side": 1,
       "message": "Could test for values we don\u0027t support.. \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/498414811a8119c5b447b3a96ec92ab5736cba3f/yaml/xyz/openbmc_project/State/Boot/Progress.interface.yaml#L56\n\n```\nEXPECT_EQ(\n    dbusToRfBootProgress(\n        \"xyz.openbmc_project.State.Boot.Progress.ProgressStages.MotherboardInit\"),\n    computer_system::BootProgressTypes::Invalid);\n\nEXPECT_EQ(\n    dbusToRfBootProgress(\n        \"xyz.openbmc_project.State.Boot.Progress.ProgressStages.OEM\"),\n    computer_system::BootProgressTypes::Invalid);\n```",
+      "revId": "2dd5f276ff8129d734e486f465b7548647e9d8d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35ece819_4d52ac9e",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-02T13:55:57Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz Added a regression test assertion for unsupported values and validated it.",
+      "parentUuid": "9a528dfc_47c9f41e",
       "revId": "2dd5f276ff8129d734e486f465b7548647e9d8d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
