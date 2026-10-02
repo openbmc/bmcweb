@@ -99,6 +99,32 @@ class Handler : public std::enable_shared_from_this<Handler>
         doRead();
     }
 
+    void afterWrite(const std::shared_ptr<Handler>& /*self*/,
+                    const boost::beast::error_code& ec,
+                    std::size_t bytesWritten)
+    {
+        BMCWEB_LOG_DEBUG("Wrote {}bytes", bytesWritten);
+        doingWrite = false;
+        inputBuffer.consume(bytesWritten);
+
+        if (session == nullptr)
+        {
+            return;
+        }
+        if (ec == boost::asio::error::eof)
+        {
+            session->close("VM socket port closed");
+            return;
+        }
+        if (ec)
+        {
+            session->close("Error in writing to proxy port");
+            BMCWEB_LOG_ERROR("Error in VM socket write {}", ec);
+            return;
+        }
+        doWrite();
+    }
+
     void doWrite()
     {
         if (doingWrite)
@@ -116,29 +142,34 @@ class Handler : public std::enable_shared_from_this<Handler>
         doingWrite = true;
         pipeIn.async_write_some(
             inputBuffer.data(),
-            [this, self(shared_from_this())](const boost::beast::error_code& ec,
-                                             std::size_t bytesWritten) {
-                BMCWEB_LOG_DEBUG("Wrote {}bytes", bytesWritten);
-                doingWrite = false;
-                inputBuffer.consume(bytesWritten);
+            std::bind_front(&Handler::afterWrite, this, shared_from_this()));
+    }
 
-                if (session == nullptr)
-                {
-                    return;
-                }
-                if (ec == boost::asio::error::eof)
-                {
-                    session->close("VM socket port closed");
-                    return;
-                }
-                if (ec)
-                {
-                    session->close("Error in writing to proxy port");
-                    BMCWEB_LOG_ERROR("Error in VM socket write {}", ec);
-                    return;
-                }
-                doWrite();
-            });
+    void afterRead(const std::shared_ptr<Handler>& /*self*/,
+                   const boost::system::error_code& ec, std::size_t bytesRead)
+    {
+        BMCWEB_LOG_DEBUG("Read done.  Read {} bytes", bytesRead);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Couldn't read from VM port: {}", ec);
+            if (session != nullptr)
+            {
+                session->close("Error in connecting to VM port");
+            }
+            return;
+        }
+        if (session == nullptr)
+        {
+            return;
+        }
+
+        outputBuffer.commit(bytesRead);
+        std::string_view payload(
+            static_cast<const char*>(outputBuffer.data().data()), bytesRead);
+        session->sendBinary(payload);
+        outputBuffer.consume(bytesRead);
+
+        doRead();
     }
 
     void doRead()
@@ -147,32 +178,7 @@ class Handler : public std::enable_shared_from_this<Handler>
 
         pipeOut.async_read_some(
             outputBuffer.prepare(bytes),
-            [this, self(shared_from_this())](
-                const boost::system::error_code& ec, std::size_t bytesRead) {
-                BMCWEB_LOG_DEBUG("Read done.  Read {} bytes", bytesRead);
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("Couldn't read from VM port: {}", ec);
-                    if (session != nullptr)
-                    {
-                        session->close("Error in connecting to VM port");
-                    }
-                    return;
-                }
-                if (session == nullptr)
-                {
-                    return;
-                }
-
-                outputBuffer.commit(bytesRead);
-                std::string_view payload(
-                    static_cast<const char*>(outputBuffer.data().data()),
-                    bytesRead);
-                session->sendBinary(payload);
-                outputBuffer.consume(bytesRead);
-
-                doRead();
-            });
+            std::bind_front(&Handler::afterRead, this, shared_from_this()));
     }
 
     boost::asio::readable_pipe pipeOut;
