@@ -8,6 +8,7 @@
 #include "complete_response_fields.hpp"
 #include "forward_unauthorized.hpp"
 #include "http_body.hpp"
+#include "http_body_limits.hpp"
 #include "http_connect_types.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -27,6 +28,7 @@
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/system/error_code.hpp>
@@ -57,6 +59,18 @@ struct Http2StreamData
     std::string accept;
     std::string acceptEnc;
     boost::optional<uint64_t> contentLength;
+    // Resolved once the request headers are in: the most body bytes this
+    // stream may buffer before auth runs at END_STREAM. Mirrors the HTTP/1.1
+    // body limit (loggedOutPostBodyLimit when unauthenticated, otherwise
+    // httpReqBodyLimit).
+    uint64_t bodyLimit = httpReqBodyLimit;
+    uint64_t receivedBytes = 0;
+    // Set once the stream has been authenticated at header time, so
+    // onRequestRecv() does not authenticate a second time.
+    bool authenticated = false;
+    // Set once an error response has been sent for this stream (body over the
+    // limit), so further DATA is dropped and onRequestRecv() does not dispatch.
+    bool responseSent = false;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
 };
@@ -305,6 +319,12 @@ class HTTP2Connection :
             close();
             return -1;
         }
+        if (it->second.responseSent)
+        {
+            // The body exceeded the limit and an error response was already
+            // sent at header or DATA time; do not dispatch the request.
+            return 0;
+        }
         auto& reqReader = it->second.reqReader;
         if (reqReader)
         {
@@ -334,8 +354,12 @@ class HTTP2Connection :
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
         if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
-            thisReq.session = authentication::authenticate(
-                ip, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
+            if (!it->second.authenticated)
+            {
+                thisReq.session = authentication::authenticate(
+                    ip, asyncResp->res, thisReq.method(), thisReq.req,
+                    mtlsSession);
+            }
             if (!authentication::isOnAllowlist(thisReq.url().path(),
                                                thisReq.method()) &&
                 thisReq.session == nullptr)
@@ -369,6 +393,20 @@ class HTTP2Connection :
             BMCWEB_LOG_ERROR("Unknown stream{}", streamId);
             close();
             return -1;
+        }
+
+        if (thisStream->second.responseSent)
+        {
+            // Already rejected this stream for exceeding the body limit; drop
+            // any further body rather than buffering it.
+            return 0;
+        }
+
+        thisStream->second.receivedBytes += len;
+        if (thisStream->second.receivedBytes > thisStream->second.bodyLimit)
+        {
+            rejectOverBodyLimit(streamId, thisStream->second.receivedBytes);
+            return 0;
         }
 
         std::optional<bmcweb::HttpBody::reader>& reqReader =
@@ -412,18 +450,86 @@ class HTTP2Connection :
     int onFrameRecvCallback(const nghttp2_frame& frame)
     {
         BMCWEB_LOG_DEBUG("frame type {}", static_cast<int>(frame.hd.type));
+        bool endStream = (frame.hd.flags & NGHTTP2_FLAG_END_STREAM) != 0;
         switch (frame.hd.type)
         {
-            case NGHTTP2_DATA:
             case NGHTTP2_HEADERS:
-                // Check that the client request has finished
-                if ((frame.hd.flags & NGHTTP2_FLAG_END_STREAM) != 0)
+                if (!endStream)
+                {
+                    // Headers are in but a body follows. Authenticate now so
+                    // the body is held to the authenticated or unauthenticated
+                    // limit as it streams in, the same way HTTP/1.1 does after
+                    // reading the headers.
+                    return onHeadersComplete(frame.hd.stream_id);
+                }
+                return onRequestRecv(frame.hd.stream_id);
+            case NGHTTP2_DATA:
+                if (endStream)
                 {
                     return onRequestRecv(frame.hd.stream_id);
                 }
                 break;
             default:
                 break;
+        }
+        return 0;
+    }
+
+    // Mirror of http_connection.hpp handleContentLengthError(): a body between
+    // the logged-out and global limits is treated as an unauthenticated
+    // request that should log in (401); anything at or above the global limit
+    // is too large (413).
+    static boost::beast::http::status bodyLimitStatus(uint64_t length)
+    {
+        if (length > loggedOutPostBodyLimit && length < httpReqBodyLimit)
+        {
+            return boost::beast::http::status::unauthorized;
+        }
+        return boost::beast::http::status::payload_too_large;
+    }
+
+    // Send a status-only response for a stream whose body exceeded the limit
+    // and stop processing it, mirroring the HTTP/1.1 body-limit path.
+    void rejectOverBodyLimit(int32_t streamId, uint64_t length)
+    {
+        auto it = streams.find(streamId);
+        if (it == streams.end())
+        {
+            return;
+        }
+        BMCWEB_LOG_WARNING("Stream {} body of {} bytes exceeds limit {}",
+                           streamId, length, it->second.bodyLimit);
+        it->second.responseSent = true;
+        Response rejectRes;
+        rejectRes.result(bodyLimitStatus(length));
+        sendResponse(rejectRes, streamId);
+    }
+
+    int onHeadersComplete(int32_t streamId)
+    {
+        auto it = streams.find(streamId);
+        if (it == streams.end())
+        {
+            close();
+            return -1;
+        }
+        Request& thisReq = *it->second.req;
+
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        {
+            thisReq.session = authentication::authenticate(
+                ip, it->second.res, thisReq.method(), thisReq.req, mtlsSession);
+            it->second.authenticated = true;
+            if (thisReq.session == nullptr)
+            {
+                it->second.bodyLimit = loggedOutPostBodyLimit;
+            }
+        }
+
+        if (it->second.contentLength &&
+            *it->second.contentLength > it->second.bodyLimit)
+        {
+            rejectOverBodyLimit(streamId, *it->second.contentLength);
         }
         return 0;
     }
