@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "utils/journal_read_state.hpp"
-
 #include "utils/journal_utils.hpp"
 
 #include <optional>
