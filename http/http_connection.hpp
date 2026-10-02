@@ -9,6 +9,7 @@
 #include "forward_unauthorized.hpp"
 #include "http2_connection.hpp"
 #include "http_body.hpp"
+#include "http_body_limits.hpp"
 #include "http_connect_types.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -62,11 +63,6 @@ namespace crow
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int connectionCount = 0;
-
-// request body limit size set by the BMCWEB_HTTP_BODY_LIMIT option
-constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
-
-constexpr uint64_t loggedOutPostBodyLimit = 4096U;
 
 constexpr uint32_t httpHeaderLimit = 8192U;
 
