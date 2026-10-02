@@ -256,6 +256,14 @@ inline void deleteSnmpTrapClient(
     // request is "snmp1", which will be "1" after being erased.
     snmpTrapId.remove_prefix(4);
 
+    // An id of exactly "snmp" leaves an empty client id; appending it to the
+    // object path would throw, so reject it as a missing resource.
+    if (snmpTrapId.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "Subscriptions", param);
+        return;
+    }
+
     sdbusplus::object_path snmpPath =
         sdbusplus::object_path("/xyz/openbmc_project/network/snmp/manager") /
         std::string(snmpTrapId);
