@@ -575,6 +575,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                 "HttpHeaders/" + item.first);
                             return;
                         }
+                        if (!persistent_data::isHeaderToken(item.first) ||
+                            !persistent_data::isSafeHeaderText(*value))
+                        {
+                            messages::propertyValueFormatError(
+                                asyncResp->res, "(invalid characters)",
+                                "HttpHeaders");
+                            return;
+                        }
                         // Adding a new json value is the size of the key, +
                         // the size of the value + 2 * 2 quotes for each, +
                         // the colon and space between. example:
@@ -901,6 +909,14 @@ inline void requestRoutesEventDestination(App& app)
                                 messages::propertyValueFormatError(
                                     asyncResp->res, it.second,
                                     "HttpHeaders/" + it.first);
+                                return;
+                            }
+                            if (!persistent_data::isHeaderToken(it.first) ||
+                                !persistent_data::isSafeHeaderText(*value))
+                            {
+                                messages::propertyValueFormatError(
+                                    asyncResp->res, "(invalid characters)",
+                                    "HttpHeaders");
                                 return;
                             }
                             fields.set(it.first, *value);
