@@ -302,6 +302,13 @@ inline void onOpen(crow::websocket::Connection& conn)
         // object path and console service.
         consoleLeaf = conn.url().segments().back();
     }
+    if (consoleLeaf.empty())
+    {
+        // A trailing slash (e.g. /console/foo/) leaves an empty last segment;
+        // appending it to the object path would throw, so reject the request.
+        conn.close("Invalid console id");
+        return;
+    }
     std::string consolePath =
         sdbusplus::object_path("/xyz/openbmc_project/console") / consoleLeaf;
 
