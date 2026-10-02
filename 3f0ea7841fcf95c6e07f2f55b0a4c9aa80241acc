@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba73828a_0bd630cc",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-02T14:46:54Z",
+      "side": 1,
+      "message": "The requested changes are already tried in the previous patch set. Facing a Clang build error, as shown in the Jenkins log below:\n\nhttps://jenkins.openbmc.org/job/ci-repository/150378/console",
+      "parentUuid": "c7a7abef_2c8184c7",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 51
+      },
+      "revId": "3f0ea7841fcf95c6e07f2f55b0a4c9aa80241acc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12e06f7a_6c3f15f9",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d266756_1515d6dc",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-02T14:46:54Z",
+      "side": 1,
+      "message": "The requested changes are already tried in the previous patch set. Facing a Clang build error, as shown in the Jenkins log below:\n\nhttps://jenkins.openbmc.org/job/ci-repository/150378/console",
+      "parentUuid": "12e06f7a_6c3f15f9",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 53
+      },
+      "revId": "3f0ea7841fcf95c6e07f2f55b0a4c9aa80241acc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96c8db5d_3fd56b78",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-10-02T14:11:51Z",
       "side": 1,
       "message": "can you kick this to the next line ? make it match ?",
+      "range": {
+        "startLine": 107,
+        "startChar": 14,
+        "endLine": 107,
+        "endChar": 16
+      },
+      "revId": "3f0ea7841fcf95c6e07f2f55b0a4c9aa80241acc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb02d91_90e80b92",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-02T14:46:54Z",
+      "side": 1,
+      "message": "The requested changes are already tried in the previous patch set. Facing a Clang build error, as shown in the Jenkins log below:\n\nhttps://jenkins.openbmc.org/job/ci-repository/150378/console",
+      "parentUuid": "96c8db5d_3fd56b78",
       "range": {
         "startLine": 107,
         "startChar": 14,
