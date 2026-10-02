@@ -259,7 +259,7 @@ class Router
     template <typename Adaptor>
     void handleUpgrade(const std::shared_ptr<Request>& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       Adaptor&& adaptor)
+                       Adaptor& adaptor)
     {
         PerMethod& perMethod = upgradeRoutes;
         Trie<crow::Node>& trie = perMethod.trie;
@@ -287,12 +287,15 @@ class Router
 
         // TODO(ed) This should be able to use std::bind_front, but it doesn't
         // appear to work with the std::move on adaptor.
-        validatePrivilege(
-            req, asyncResp, rule,
-            [req, &rule, asyncResp,
-             adaptor = std::forward<Adaptor>(adaptor)]() mutable {
-                rule.handleUpgrade(*req, asyncResp, std::move(adaptor));
-            });
+        // The connection keeps ownership of the adaptor until the privilege
+        // check passes, so a denied request can still send its error response
+        // over it. The connection outlives this callback because the
+        // completion handler on asyncResp holds it.
+        validatePrivilege(req, asyncResp, rule,
+                          [req, &rule, asyncResp, &adaptor]() mutable {
+                              rule.handleUpgrade(*req, asyncResp,
+                                                 std::move(adaptor));
+                          });
     }
 
     void handle(const std::shared_ptr<Request>& req,
