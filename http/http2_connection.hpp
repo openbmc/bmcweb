@@ -653,8 +653,7 @@ class HTTP2Connection :
         adaptor.next_layer().close();
     }
 
-    void afterDoRead(const std::shared_ptr<self_type>& /*self*/,
-                     const boost::system::error_code& ec,
+    void afterDoRead(const boost::system::error_code& ec,
                      size_t bytesTransferred)
     {
         BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
@@ -693,16 +692,15 @@ class HTTP2Connection :
         BMCWEB_LOG_DEBUG("{} doRead", logPtr(this));
         if (httpType == HttpType::HTTPS)
         {
-            adaptor.async_read_some(boost::asio::buffer(inBuffer),
-                                    std::bind_front(&self_type::afterDoRead,
-                                                    this, shared_from_this()));
+            adaptor.async_read_some(
+                boost::asio::buffer(inBuffer),
+                std::bind_front(&self_type::afterDoRead, shared_from_this()));
         }
         else if (httpType == HttpType::HTTP)
         {
             adaptor.next_layer().async_read_some(
                 boost::asio::buffer(inBuffer),
-                std::bind_front(&self_type::afterDoRead, this,
-                                shared_from_this()));
+                std::bind_front(&self_type::afterDoRead, shared_from_this()));
         }
     }
 
