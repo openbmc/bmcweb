@@ -94,6 +94,19 @@ inline void handleSessionGet(
         return;
     }
 
+    if (req.session != nullptr && !session->username.empty() &&
+        session->username != req.session->username)
+    {
+        Privileges effectiveUserPrivileges =
+            redfish::getUserPrivileges(*req.session);
+
+        if (!effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"}))
+        {
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+    }
+
     fillSessionObject(asyncResp->res, *session);
 }
 
