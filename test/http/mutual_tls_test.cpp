@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "mutual_tls.hpp"
-
 #include "mutual_tls_private.hpp"
 #include "ossl_test_memory.hpp"
 #include "ossl_wrappers.hpp"
