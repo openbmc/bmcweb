@@ -28,12 +28,16 @@
 #include <boost/system/error_code.hpp>
 #include <boost/system/result.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/host_type.hpp>
+#include <boost/url/ipv4_address.hpp>
+#include <boost/url/ipv6_address.hpp>
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
 #include <array>
+#include <cctype>
 #include <cerrno>
 #include <cstddef>
 #include <cstdint>
@@ -42,6 +46,7 @@
 #include <optional>
 #include <ranges>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -260,6 +265,75 @@ inline void doSubscriptionCollection(
 
         getSnmpSubscriptionList(asyncResp, snmpId, memberArray);
     }
+}
+
+// True if the destination host is a loopback, unspecified or link-local
+// address, or the name localhost. Subscriptions must not point bmcweb at its
+// own services. A name whose last label is numeric, such as 127.1 or
+// 0x7f000001, is an address in a spelling the resolver accepts, so it is
+// refused too.
+inline bool isBlockedDestinationHost(const boost::urls::url& url)
+{
+    auto isLocalV4 = [](const boost::urls::ipv4_address& addr) {
+        auto bytes = addr.to_bytes();
+        return addr.is_loopback() || addr.is_unspecified() ||
+               (bytes[0] == 169 && bytes[1] == 254);
+    };
+
+    if (url.host_type() == boost::urls::host_type::ipv4)
+    {
+        return isLocalV4(url.host_ipv4_address());
+    }
+    if (url.host_type() == boost::urls::host_type::ipv6)
+    {
+        boost::urls::ipv6_address addr = url.host_ipv6_address();
+        auto bytes = addr.to_bytes();
+        if (addr.is_loopback() || addr.is_unspecified())
+        {
+            return true;
+        }
+        // fe80::/10
+        if (bytes[0] == 0xfe && (bytes[1] & 0xc0) == 0x80)
+        {
+            return true;
+        }
+        if (addr.is_v4_mapped())
+        {
+            return isLocalV4(boost::urls::ipv4_address(
+                std::array<unsigned char, 4>{bytes[12], bytes[13], bytes[14],
+                                             bytes[15]}));
+        }
+        return false;
+    }
+    // Only an address or a host name can be delivered to
+    if (url.host_type() != boost::urls::host_type::name || url.host().empty())
+    {
+        return true;
+    }
+
+    std::string host = url.host();
+    std::ranges::transform(host, host.begin(), [](unsigned char c) {
+        return static_cast<char>(std::tolower(c));
+    });
+    // A trailing dot is the DNS root and names the same host
+    if (host.ends_with('.'))
+    {
+        host.pop_back();
+    }
+    if (host == "localhost" || host.ends_with(".localhost"))
+    {
+        return true;
+    }
+
+    std::string_view lastLabel = host;
+    lastLabel = lastLabel.substr(lastLabel.rfind('.') + 1);
+    bool isHex = lastLabel.starts_with("0x") && lastLabel.size() > 2;
+    return !lastLabel.empty() &&
+           std::ranges::all_of(isHex ? lastLabel.substr(2) : lastLabel,
+                               [isHex](char c) {
+                                   return (c >= '0' && c <= '9') ||
+                                          (isHex && c >= 'a' && c <= 'f');
+                               });
 }
 
 inline void requestRoutesEventDestinationCollection(App& app)
@@ -493,6 +567,27 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 return;
             }
 
+            // The client only uses TLS for https, so any other scheme would be
+            // sent in the clear.
+            bool schemeAllowed = url->scheme() == "https";
+            if constexpr (BMCWEB_INSECURE_PUSH_STYLE_NOTIFICATION)
+            {
+                schemeAllowed = schemeAllowed || url->scheme() == "http";
+            }
+            if (!schemeAllowed)
+            {
+                messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                                   "Destination");
+                return;
+            }
+
+            if (isBlockedDestinationHost(*url))
+            {
+                messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                                   "Destination");
+                return;
+            }
+
             std::shared_ptr<Subscription> subValue =
                 std::make_shared<Subscription>(
                     std::make_shared<persistent_data::UserSubscription>(), *url,
@@ -573,6 +668,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
                             messages::propertyValueFormatError(
                                 asyncResp->res, item.second,
                                 "HttpHeaders/" + item.first);
+                            return;
+                        }
+                        if (!persistent_data::isAllowedHeaderName(item.first) ||
+                            !persistent_data::isSafeHeaderText(*value))
+                        {
+                            messages::propertyValueFormatError(
+                                asyncResp->res, "(invalid characters)",
+                                "HttpHeaders");
                             return;
                         }
                         // Adding a new json value is the size of the key, +
@@ -882,11 +985,9 @@ inline void requestRoutesEventDestination(App& app)
                     return;
                 }
 
-                if (context)
-                {
-                    subValue->userSub->customText = *context;
-                }
-
+                // Validate everything first so a rejected request changes
+                // nothing.
+                std::optional<boost::beast::http::fields> newHeaders;
                 if (headers)
                 {
                     boost::beast::http::fields fields;
@@ -903,10 +1004,19 @@ inline void requestRoutesEventDestination(App& app)
                                     "HttpHeaders/" + it.first);
                                 return;
                             }
+                            if (!persistent_data::isAllowedHeaderName(
+                                    it.first) ||
+                                !persistent_data::isSafeHeaderText(*value))
+                            {
+                                messages::propertyValueFormatError(
+                                    asyncResp->res, "(invalid characters)",
+                                    "HttpHeaders");
+                                return;
+                            }
                             fields.set(it.first, *value);
                         }
                     }
-                    subValue->userSub->httpHeaders = std::move(fields);
+                    newHeaders = std::move(fields);
                 }
 
                 if (retryPolicy)
@@ -920,13 +1030,8 @@ inline void requestRoutesEventDestination(App& app)
                                                          "DeliveryRetryPolicy");
                         return;
                     }
-                    subValue->userSub->retryPolicy = *retryPolicy;
                 }
 
-                if (sendHeartbeat)
-                {
-                    subValue->userSub->sendHeartbeat = *sendHeartbeat;
-                }
                 if (hbIntervalMinutes)
                 {
                     if (*hbIntervalMinutes < 1 || *hbIntervalMinutes > 65535)
@@ -936,6 +1041,29 @@ inline void requestRoutesEventDestination(App& app)
                             "HeartbeatIntervalMinutes");
                         return;
                     }
+                }
+
+                if (context)
+                {
+                    subValue->userSub->customText = *context;
+                }
+
+                if (newHeaders)
+                {
+                    subValue->userSub->httpHeaders = std::move(*newHeaders);
+                }
+
+                if (retryPolicy)
+                {
+                    subValue->userSub->retryPolicy = *retryPolicy;
+                }
+
+                if (sendHeartbeat)
+                {
+                    subValue->userSub->sendHeartbeat = *sendHeartbeat;
+                }
+                if (hbIntervalMinutes)
+                {
                     subValue->userSub->hbIntervalMinutes = *hbIntervalMinutes;
                 }
 

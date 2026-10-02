@@ -3,6 +3,7 @@
 #pragma once
 #include "logging.hpp"
 
+#include <boost/beast/core/string.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/result.hpp>
@@ -10,16 +11,43 @@
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
+#include <algorithm>
 #include <cstdint>
 #include <limits>
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
 namespace persistent_data
 {
+
+// Subscription header names and values are written as-is into the outbound
+// request, so a CR, LF or other control character would split the header.
+inline bool isSafeHeaderText(std::string_view text)
+{
+    return std::ranges::none_of(text, [](char c) {
+        unsigned char u = static_cast<unsigned char>(c);
+        return u < 0x20 || u == 0x7f;
+    });
+}
+
+// A header name must be a non-empty RFC 9110 token. Anything else, such as a
+// trailing space or a colon, would not name the field it appears to. The
+// request framing headers are set by bmcweb, so they cannot be supplied.
+inline bool isAllowedHeaderName(std::string_view name)
+{
+    constexpr std::string_view tokenSymbols = "!#$%&'*+-.^_`|~";
+    bool isToken = !name.empty() && std::ranges::all_of(name, [&](char c) {
+        return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') ||
+               (c >= 'a' && c <= 'z') ||
+               tokenSymbols.find(c) != std::string_view::npos;
+    });
+    return isToken && !boost::beast::iequals(name, "Transfer-Encoding") &&
+           !boost::beast::iequals(name, "Content-Length");
+}
 
 struct UserSubscription
 {
@@ -226,6 +254,14 @@ struct UserSubscription
                     {
                         BMCWEB_LOG_ERROR("Failed to parse value for key{}",
                                          val.first);
+                        continue;
+                    }
+                    if (!isAllowedHeaderName(val.first) ||
+                        !isSafeHeaderText(*value))
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Dropping subscription header with invalid "
+                            "characters");
                         continue;
                     }
                     subvalue.httpHeaders.set(val.first, *value);
