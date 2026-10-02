@@ -241,6 +241,14 @@ static void dumpEscaped(std::string& out, const std::string& str)
                 stringBuffer[bytes++] = 'f';
                 stringBuffer[bytes++] = 'd';
 
+                // flush if there is not enough room for the next code point,
+                // as the accept case above does
+                if (stringBuffer.size() - bytes < 13)
+                {
+                    out.append(stringBuffer.data(), bytes);
+                    bytes = 0;
+                }
+
                 bytesAfterLastAccept = bytes;
 
                 undumpedChars = 0;
