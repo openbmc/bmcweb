@@ -38,6 +38,7 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         SseSocketRule* p = new SseSocketRule(self->rule);
+        p->privilegesSet = self->privilegesSet;
         self->ruleToUpgrade.reset(p);
         return *p;
     }
