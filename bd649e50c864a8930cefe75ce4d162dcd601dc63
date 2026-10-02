@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b846f8f7_567433bb",
+        "filename": "test/redfish-core/lib/led_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-02T01:45:44Z",
+      "side": 1,
+      "message": "Modify it, thanks for review.",
+      "parentUuid": "ec5c8436_593819ba",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 16
+      },
+      "revId": "bd649e50c864a8930cefe75ce4d162dcd601dc63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54b76a1e_4671dded",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-09-21T16:21:16Z",
       "side": 1,
       "message": "I\u0027m wondering if the expected error can be generated instead of hard-coded here. As the Base message version gets updated this testcase will have to be updated. But if it is being generated that would not be necessary.\n\n(Similar comment for other expected errors.)",
+      "range": {
+        "startLine": 410,
+        "startChar": 39,
+        "endLine": 428,
+        "endChar": 14
+      },
+      "revId": "bd649e50c864a8930cefe75ce4d162dcd601dc63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b0d1730_e6bd146c",
+        "filename": "test/redfish-core/lib/led_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-02T01:45:44Z",
+      "side": 1,
+      "message": "Modify it, thanks for review.",
+      "parentUuid": "54b76a1e_4671dded",
       "range": {
         "startLine": 410,
         "startChar": 39,
