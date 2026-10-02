@@ -1,5 +1,6 @@
 
 srcfiles_unittest = files(
+    'http/bind_front_test.cpp',
     'http/crow_getroutes_test.cpp',
     'http/http2_connection_test.cpp',
     'http/http_body_test.cpp',

@@ -69,8 +69,10 @@ class ConnectionImpl : public Connection
 
         boost::beast::http::async_write_header(
             adaptor, serial,
-            std::bind_front(&ConnectionImpl::sendSSEHeaderCallback, this,
-                            shared_from_this(), req.copy()));
+            std::bind_front(
+                &ConnectionImpl::sendSSEHeaderCallback,
+                std::static_pointer_cast<ConnectionImpl>(shared_from_this()),
+                req.copy()));
     }
 
     void close(const std::string_view msg) override
@@ -85,8 +87,7 @@ class ConnectionImpl : public Connection
         boost::beast::get_lowest_layer(adaptor).close();
     }
 
-    void sendSSEHeaderCallback(const std::shared_ptr<Connection>& /*self*/,
-                               const Request& req,
+    void sendSSEHeaderCallback(const Request& req,
                                const boost::system::error_code& ec,
                                size_t /*bytesSent*/)
     {
@@ -107,13 +108,14 @@ class ConnectionImpl : public Connection
 
         // SSE stream header sent, So let us setup monitor.
         // Any read data on this stream will be error in case of SSE.
-        adaptor.async_read_some(boost::asio::buffer(buffer),
-                                std::bind_front(&ConnectionImpl::afterReadError,
-                                                this, shared_from_this()));
+        adaptor.async_read_some(
+            boost::asio::buffer(buffer),
+            std::bind_front(
+                &ConnectionImpl::afterReadError,
+                std::static_pointer_cast<ConnectionImpl>(shared_from_this())));
     }
 
-    void afterReadError(const std::shared_ptr<Connection>& /*self*/,
-                        const boost::system::error_code& ec, size_t bytesRead)
+    void afterReadError(const boost::system::error_code& ec, size_t bytesRead)
     {
         BMCWEB_LOG_DEBUG("Read {}", bytesRead);
         if (ec == boost::asio::error::operation_aborted)
@@ -144,12 +146,12 @@ class ConnectionImpl : public Connection
 
         adaptor.async_write_some(
             inputBuffer.data(),
-            std::bind_front(&ConnectionImpl::doWriteCallback, this,
-                            shared_from_this()));
+            std::bind_front(
+                &ConnectionImpl::doWriteCallback,
+                std::static_pointer_cast<ConnectionImpl>(shared_from_this())));
     }
 
-    void doWriteCallback(const std::shared_ptr<Connection>& /*self*/,
-                         const boost::beast::error_code& ec,
+    void doWriteCallback(const boost::beast::error_code& ec,
                          size_t bytesTransferred)
     {
         timer.cancel();
