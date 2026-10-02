@@ -120,9 +120,10 @@ class ConnectionImpl : public Connection
         std::unique_ptr<Body> mobile = std::make_unique<Body>(req.req);
         Body* ptr = mobile.get();
         // Perform the websocket upgrade
-        ws.async_accept(*ptr,
-                        std::bind_front(&self_t::acceptDone, this,
-                                        shared_from_this(), std::move(mobile)));
+        ws.async_accept(*ptr, std::bind_front(&self_t::acceptDone,
+                                              std::static_pointer_cast<self_t>(
+                                                  shared_from_this()),
+                                              std::move(mobile)));
     }
 
     void sendBinary(std::string_view msg) override
@@ -198,8 +199,7 @@ class ConnectionImpl : public Connection
         return uri;
     }
 
-    void acceptDone(const std::shared_ptr<Connection>& /*self*/,
-                    const std::unique_ptr<
+    void acceptDone(const std::unique_ptr<
                         boost::beast::http::request<bmcweb::HttpBody>>& /*req*/,
                     const boost::system::error_code& ec)
     {
@@ -236,8 +236,7 @@ class ConnectionImpl : public Connection
         selfOwned.reset();
     }
 
-    void afterRead(const std::shared_ptr<Connection>& /*self*/,
-                   const boost::beast::error_code& ec, size_t bytesRead)
+    void afterRead(const boost::beast::error_code& ec, size_t bytesRead)
     {
         if (ec)
         {
@@ -273,12 +272,13 @@ class ConnectionImpl : public Connection
         {
             return;
         }
-        ws.async_read(inBuffer, std::bind_front(&self_t::afterRead, this,
-                                                shared_from_this()));
+        ws.async_read(inBuffer,
+                      std::bind_front(&self_t::afterRead,
+                                      std::static_pointer_cast<self_t>(
+                                          shared_from_this())));
     }
 
-    void afterWrite(const std::shared_ptr<Connection>& /*self*/,
-                    const boost::beast::error_code& ec, size_t bytesSent)
+    void afterWrite(const boost::beast::error_code& ec, size_t bytesSent)
     {
         doingWrite = false;
         outBuffer.consume(bytesSent);
@@ -318,20 +318,15 @@ class ConnectionImpl : public Connection
             return;
         }
         doingWrite = true;
-        ws.async_write(
-            outBuffer.data(),
-            std::bind_front(&self_t::afterWrite, this, shared_from_this()));
+        ws.async_write(outBuffer.data(),
+                       std::bind_front(&self_t::afterWrite,
+                                       std::static_pointer_cast<self_t>(
+                                           shared_from_this())));
     }
 
   private:
-    void afterHandleMessage(const std::shared_ptr<Connection>& self,
-                            size_t bytesRead)
+    void afterHandleMessage(size_t bytesRead)
     {
-        if (self == nullptr)
-        {
-            return;
-        }
-
         inBuffer.consume(bytesRead);
         inString.clear();
 
@@ -345,8 +340,10 @@ class ConnectionImpl : public Connection
             // Note, because of the interactions with the read buffers,
             // this message handler overrides the normal message handler
             messageExHandler(*this, inString, MessageType::Binary,
-                             std::bind_front(&self_t::afterHandleMessage, this,
-                                             shared_from_this(), bytesRead));
+                             std::bind_front(&self_t::afterHandleMessage,
+                                             std::static_pointer_cast<self_t>(
+                                                 shared_from_this()),
+                                             bytesRead));
             return;
         }
 

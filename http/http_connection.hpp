@@ -164,8 +164,7 @@ class Connection :
         return true;
     }
 
-    void afterDetectSsl(const std::shared_ptr<self_type>& /*self*/,
-                        boost::beast::error_code ec, bool isTls)
+    void afterDetectSsl(boost::beast::error_code ec, bool isTls)
     {
         if (ec)
         {
@@ -185,7 +184,7 @@ class Connection :
             httpType = HttpType::HTTPS;
             adaptor.async_handshake(
                 boost::asio::ssl::stream_base::server, buffer.data(),
-                std::bind_front(&self_type::afterSslHandshake, this,
+                std::bind_front(&self_type::afterSslHandshake,
                                 shared_from_this()));
         }
         else
@@ -230,12 +229,10 @@ class Connection :
 
         boost::beast::async_detect_ssl(
             adaptor.next_layer(), buffer,
-            std::bind_front(&self_type::afterDetectSsl, this,
-                            shared_from_this()));
+            std::bind_front(&self_type::afterDetectSsl, shared_from_this()));
     }
 
-    void afterSslHandshake(const std::shared_ptr<self_type>& /*self*/,
-                           const boost::system::error_code& ec,
+    void afterSslHandshake(const boost::system::error_code& ec,
                            size_t bytesParsed)
     {
         buffer.consume(bytesParsed);
@@ -469,15 +466,14 @@ class Connection :
         adaptor.next_layer().close();
     }
 
-    void tlsShutdownComplete(const std::shared_ptr<self_type>& self,
-                             const boost::system::error_code& ec)
+    void tlsShutdownComplete(const boost::system::error_code& ec)
     {
         if (ec)
         {
             BMCWEB_LOG_WARNING("{} Failed to shut down TLS cleanly {}",
-                               logPtr(self.get()), ec);
+                               logPtr(this), ec);
         }
-        self->hardClose();
+        hardClose();
     }
 
     void gracefulClose()
@@ -495,7 +491,7 @@ class Connection :
             }
 
             adaptor.async_shutdown(std::bind_front(
-                &self_type::tlsShutdownComplete, this, shared_from_this()));
+                &self_type::tlsShutdownComplete, shared_from_this()));
         }
         else
         {
@@ -607,8 +603,7 @@ class Connection :
         return true;
     }
 
-    void afterReadHeaders(const std::shared_ptr<self_type>& /*self*/,
-                          const boost::system::error_code& ec,
+    void afterReadHeaders(const boost::system::error_code& ec,
                           std::size_t bytesTransferred)
     {
         BMCWEB_LOG_DEBUG("{} async_read_header {} Bytes", logPtr(this),
@@ -690,20 +685,19 @@ class Connection :
         {
             boost::beast::http::async_read_header(
                 adaptor.next_layer(), buffer, *parser,
-                std::bind_front(&self_type::afterReadHeaders, this,
+                std::bind_front(&self_type::afterReadHeaders,
                                 shared_from_this()));
         }
         else
         {
             boost::beast::http::async_read_header(
                 adaptor, buffer, *parser,
-                std::bind_front(&self_type::afterReadHeaders, this,
+                std::bind_front(&self_type::afterReadHeaders,
                                 shared_from_this()));
         }
     }
 
-    void afterRead(const std::shared_ptr<self_type>& /*self*/,
-                   const boost::system::error_code& ec,
+    void afterRead(const boost::system::error_code& ec,
                    std::size_t /*bytesTransferred*/)
     {
         // BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
@@ -771,20 +765,17 @@ class Connection :
         {
             boost::beast::http::async_read_some(
                 adaptor.next_layer(), buffer, parse,
-                std::bind_front(&self_type::afterRead, this,
-                                shared_from_this()));
+                std::bind_front(&self_type::afterRead, shared_from_this()));
         }
         else
         {
             boost::beast::http::async_read_some(
                 adaptor, buffer, parse,
-                std::bind_front(&self_type::afterRead, this,
-                                shared_from_this()));
+                std::bind_front(&self_type::afterRead, shared_from_this()));
         }
     }
 
-    void afterDoWrite(const std::shared_ptr<self_type>& /*self*/,
-                      const boost::system::error_code& ec,
+    void afterDoWrite(const boost::system::error_code& ec,
                       std::size_t bytesTransferred)
     {
         BMCWEB_LOG_DEBUG("{} async_write wrote {} bytes, ec={}", logPtr(this),
@@ -864,16 +855,14 @@ class Connection :
             boost::beast::async_write(
                 adaptor.next_layer(),
                 boost::beast::http::message_generator(std::move(res.response)),
-                std::bind_front(&self_type::afterDoWrite, this,
-                                shared_from_this()));
+                std::bind_front(&self_type::afterDoWrite, shared_from_this()));
         }
         else
         {
             boost::beast::async_write(
                 adaptor,
                 boost::beast::http::message_generator(std::move(res.response)),
-                std::bind_front(&self_type::afterDoWrite, this,
-                                shared_from_this()));
+                std::bind_front(&self_type::afterDoWrite, shared_from_this()));
         }
     }
 
