@@ -575,11 +575,12 @@ inline void handleReplaceCertificateAction(
     sdbusplus::object_path objectPath;
     std::string name;
     std::string service;
+    const char* basePath = nullptr;
     if (crow::utility::readUrlSegments(*parsedUrl, "redfish", "v1", "Managers",
                                        "bmc", "NetworkProtocol", "HTTPS",
                                        "Certificates", std::ref(id)))
     {
-        objectPath = sdbusplus::object_path(certs::httpsObjectPath) / id;
+        basePath = certs::httpsObjectPath;
         name = "HTTPS certificate";
         service = certs::httpsServiceName;
     }
@@ -587,7 +588,7 @@ inline void handleReplaceCertificateAction(
                                             "AccountService", "LDAP",
                                             "Certificates", std::ref(id)))
     {
-        objectPath = sdbusplus::object_path(certs::ldapObjectPath) / id;
+        basePath = certs::ldapObjectPath;
         name = "LDAP certificate";
         service = certs::ldapServiceName;
     }
@@ -595,7 +596,7 @@ inline void handleReplaceCertificateAction(
                                             "Managers", "bmc", "Truststore",
                                             "Certificates", std::ref(id)))
     {
-        objectPath = sdbusplus::object_path(certs::authorityObjectPath) / id;
+        basePath = certs::authorityObjectPath;
         name = "TrustStore certificate";
         service = certs::authorityServiceName;
     }
@@ -605,6 +606,16 @@ inline void handleReplaceCertificateAction(
                                               "ReplaceCertificate");
         return;
     }
+
+    if (id.empty())
+    {
+        // An @odata.id ending in "//" or "#/" yields an empty certificate id;
+        // appending it to the object path would throw, so reject the URI.
+        messages::actionParameterValueFormatError(
+            asyncResp->res, certURI, "CertificateUri", "ReplaceCertificate");
+        return;
+    }
+    objectPath = sdbusplus::object_path(basePath) / id;
 
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certificate);
