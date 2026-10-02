@@ -472,6 +472,7 @@ class Connection :
     void tlsShutdownComplete(const std::shared_ptr<self_type>& self,
                              const boost::system::error_code& ec)
     {
+        self->cancelDeadlineTimer();
         if (ec)
         {
             BMCWEB_LOG_WARNING("{} Failed to shut down TLS cleanly {}",
@@ -494,6 +495,10 @@ class Connection :
                     mtlsSession);
             }
 
+            // async_shutdown waits for the peer's close_notify, which a silent
+            // client never sends. Arm the deadline so a stuck shutdown is hard
+            // closed instead of pinning the connection (and its slot) forever.
+            startDeadline(DeadlineTimerType::Default);
             adaptor.async_shutdown(std::bind_front(
                 &self_type::tlsShutdownComplete, this, shared_from_this()));
         }
