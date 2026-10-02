@@ -94,6 +94,23 @@ inline void handleSessionGet(
         return;
     }
 
+    // A session resource exposes its owner's user name, role and client
+    // origin address.  Reading another user's session requires more than the
+    // ConfigureSelf privilege that satisfies this route, so apply the same
+    // authority check handleSessionDelete performs.
+    if (req.session != nullptr && !session->username.empty() &&
+        session->username != req.session->username)
+    {
+        Privileges effectiveUserPrivileges =
+            redfish::getUserPrivileges(*req.session);
+
+        if (!effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"}))
+        {
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+    }
+
     fillSessionObject(asyncResp->res, *session);
 }
 
