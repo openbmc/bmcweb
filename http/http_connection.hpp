@@ -369,12 +369,11 @@ class Connection :
                 BMCWEB_LOG_INFO("{} Upgrading socket", logPtr(this));
                 if (httpType == HttpType::HTTP)
                 {
-                    handler->handleUpgrade(req, asyncResp,
-                                           std::move(adaptor.next_layer()));
+                    handler->handleUpgrade(req, asyncResp, adaptor.next_layer());
                 }
                 else
                 {
-                    handler->handleUpgrade(req, asyncResp, std::move(adaptor));
+                    handler->handleUpgrade(req, asyncResp, adaptor);
                 }
 
                 return true;
