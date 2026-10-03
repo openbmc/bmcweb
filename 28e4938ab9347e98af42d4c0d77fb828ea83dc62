@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e27ec9ca_021cb66b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-03T05:43:03Z",
+      "side": 1,
+      "message": "Understood, will remove the bmcweb prefix in the future.\nThanks for acknowledging this.",
+      "parentUuid": "f1ff7eab_2424045e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "28e4938ab9347e98af42d4c0d77fb828ea83dc62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47f62d70_3302c58e",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a53ee29_6f40459e",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-03T05:43:03Z",
+      "side": 1,
+      "message": "I added this as @yuvanvarshitha@ami.com suggested so. \nHappy to drop it if you insisted.",
+      "parentUuid": "47f62d70_3302c58e",
+      "revId": "28e4938ab9347e98af42d4c0d77fb828ea83dc62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "febcb026_99822698",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-10-01T20:45:03Z",
       "side": 1,
       "message": "Any concern with adding this ?",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 54
+      },
+      "revId": "28e4938ab9347e98af42d4c0d77fb828ea83dc62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ad1e8e_a602ac68",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-03T05:43:03Z",
+      "side": 1,
+      "message": "I was doing this initially to adapt to the PDI changes. \nHowever, I have abandoned the idea of such PDI changes and forgotten to drop this.\n\nApologizes for that, and I have removed it now. Thanks for the catching!",
+      "parentUuid": "febcb026_99822698",
       "range": {
         "startLine": 190,
         "startChar": 0,
