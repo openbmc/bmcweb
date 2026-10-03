@@ -179,6 +179,12 @@ struct nghttp2_session
                                                      windowSize);
     }
 
+    int submitRstStream(int32_t streamId, uint32_t errorCode)
+    {
+        return nghttp2_submit_rst_stream(ptr, NGHTTP2_FLAG_NONE, streamId,
+                                         errorCode);
+    }
+
   private:
     nghttp2_session* ptr = nullptr;
 };
