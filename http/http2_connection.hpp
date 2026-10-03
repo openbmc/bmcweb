@@ -53,6 +53,11 @@
 namespace crow
 {
 
+// request body limit size set by the BMCWEB_HTTP_BODY_LIMIT option
+constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+
+constexpr uint64_t loggedOutPostBodyLimit = 4096U;
+
 // Total number of simultaneous connections, shared between HTTP/1.1
 // Connection (http_connection.hpp) and HTTP2Connection. A function-local
 // static (rather than a namespace-scope variable) guarantees a single
@@ -74,6 +79,12 @@ struct Http2StreamData
 {
     std::shared_ptr<Request> req = std::make_shared<Request>();
     std::optional<bmcweb::HttpBody::reader> reqReader;
+    // Set when the body exceeds bodyLimit or the reader rejects it.
+    bool bodyRejected = false;
+    // Running total of DATA bytes received on this stream, checked against
+    // bodyLimit since Content-Length can be missing or under-declared.
+    uint64_t bodyBytesReceived = 0;
+    uint64_t bodyLimit = httpReqBodyLimit;
     std::string accept;
     std::string acceptEnc;
     boost::optional<uint64_t> contentLength;
@@ -395,6 +406,31 @@ class HTTP2Connection :
         return 0;
     }
 
+    // The session is only resolved once the whole request is received, so
+    // decide the limit from the credentials presented in the headers.
+    uint64_t getBodyLimit(const Request& req) const
+    {
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        {
+            using boost::beast::http::field;
+            if (mtlsSession == nullptr &&
+                req.getHeaderValue(field::authorization).empty() &&
+                req.getHeaderValue("X-Auth-Token").empty() &&
+                req.getHeaderValue(field::cookie).empty())
+            {
+                return loggedOutPostBodyLimit;
+            }
+        }
+        return httpReqBodyLimit;
+    }
+
+    void rejectStreamBody(int32_t streamId, Http2StreamData& stream)
+    {
+        stream.bodyRejected = true;
+        // Callback return code alone doesn't reset the stream.
+        ngSession.submitRstStream(streamId, NGHTTP2_CANCEL);
+    }
+
     int onDataChunkRecvCallback(uint8_t /*flags*/, int32_t streamId,
                                 const uint8_t* data, size_t len)
     {
@@ -405,6 +441,28 @@ class HTTP2Connection :
             close();
             return -1;
         }
+
+        Http2StreamData& streamData = thisStream->second;
+        if (streamData.bodyRejected)
+        {
+            return 0;
+        }
+        if (streamData.bodyBytesReceived == 0)
+        {
+            // All headers have been received by the first DATA frame
+            streamData.bodyLimit = getBodyLimit(*streamData.req);
+        }
+        // Same limits as HTTP/1.1, including the logged out limit.
+        if (len > streamData.bodyLimit ||
+            streamData.bodyBytesReceived > streamData.bodyLimit - len)
+        {
+            BMCWEB_LOG_WARNING(
+                "Stream {} body exceeds limit of {} bytes, resetting", streamId,
+                streamData.bodyLimit);
+            rejectStreamBody(streamId, streamData);
+            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+        }
+        streamData.bodyBytesReceived += len;
 
         std::optional<bmcweb::HttpBody::reader>& reqReader =
             thisStream->second.reqReader;
@@ -417,6 +475,7 @@ class HTTP2Connection :
             if (initEc)
             {
                 BMCWEB_LOG_CRITICAL("Failed to initialize payload");
+                rejectStreamBody(streamId, streamData);
                 return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
             }
         }
@@ -425,6 +484,7 @@ class HTTP2Connection :
         if (ec)
         {
             BMCWEB_LOG_CRITICAL("Failed to write payload");
+            rejectStreamBody(streamId, streamData);
             return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
         }
         return 0;
