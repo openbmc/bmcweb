@@ -69,10 +69,8 @@ constexpr int maxHttp1Connections = 200;
 // than for HTTP/1.1.
 constexpr int maxHttp2Connections = 40;
 
-// request body limit size set by the BMCWEB_HTTP_BODY_LIMIT option
-constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
-
-constexpr uint64_t loggedOutPostBodyLimit = 4096U;
+// httpReqBodyLimit and loggedOutPostBodyLimit are defined in
+// http2_connection.hpp so that they are shared with HTTP2Connection.
 
 constexpr uint32_t httpHeaderLimit = 8192U;
 
