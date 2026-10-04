@@ -63,8 +63,8 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     void sendHeartbeatEvent();
     void scheduleNextHeartbeatEvent();
     void heartbeatParametersChanged();
-    void onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
-                     const boost::system::error_code& ec);
+    static void onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
+                            const boost::system::error_code& ec);
 
     bool sendEventToSubscriber(uint64_t eventId, std::string&& msg);
 

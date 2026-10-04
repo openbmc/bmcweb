@@ -117,7 +117,7 @@ void Subscription::scheduleNextHeartbeatEvent()
 {
     hbTimer.expires_after(std::chrono::minutes(userSub->hbIntervalMinutes));
     hbTimer.async_wait(
-        std::bind_front(&Subscription::onHbTimeout, this, weak_from_this()));
+        std::bind_front(&Subscription::onHbTimeout, weak_from_this()));
 }
 
 void Subscription::heartbeatParametersChanged()
@@ -157,10 +157,10 @@ void Subscription::onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
     }
 
     // Timer expired.
-    sendHeartbeatEvent();
+    self->sendHeartbeatEvent();
 
     // reschedule heartbeat timer
-    scheduleNextHeartbeatEvent();
+    self->scheduleNextHeartbeatEvent();
 }
 
 bool Subscription::sendEventToSubscriber(uint64_t eventId, std::string&& msg)
