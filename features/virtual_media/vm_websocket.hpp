@@ -324,8 +324,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         }
     }
 
-    void afterRead(const std::weak_ptr<NbdProxyServer>& weak,
-                   const boost::system::error_code& ec, size_t bytesRead)
+    static void afterRead(const std::weak_ptr<NbdProxyServer>& weak,
+                          const boost::system::error_code& ec, size_t bytesRead)
     {
         if (ec)
         {
@@ -344,15 +344,16 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         self->connection.sendEx(
             crow::websocket::MessageType::Binary,
             boost::beast::buffers_to_string(self->ux2wsBuf.data()),
-            std::bind_front(&NbdProxyServer::afterSendEx, weak_from_this()));
+            std::bind_front(&NbdProxyServer::afterSendEx,
+                            self->weak_from_this()));
     }
 
     void doRead()
     {
         // Trigger async read
-        peerSocket.async_read_some(ux2wsBuf.prepare(nbdBufferSize),
-                                   std::bind_front(&NbdProxyServer::afterRead,
-                                                   this, weak_from_this()));
+        peerSocket.async_read_some(
+            ux2wsBuf.prepare(nbdBufferSize),
+            std::bind_front(&NbdProxyServer::afterRead, weak_from_this()));
     }
 
     static void afterWrite(const std::weak_ptr<NbdProxyServer>& weak,
