@@ -7,8 +7,10 @@
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
 #include "utils/sensor_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <cmath>
+#include <cstdint>
 #include <functional>
 #include <optional>
 #include <string>
@@ -412,6 +414,51 @@ TEST(FillSensorIdentity, Success)
     EXPECT_EQ(sensorJson["ReadingType"], sensor::ReadingType::ChargeAh);
     EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "Ah");
     EXPECT_EQ(unit.to_string(), "/Reading");
+}
+
+TEST(FillSensorIdentity, ReadingTime)
+{
+    nlohmann::json sensorJson;
+    nlohmann::json::json_pointer unit = "/Reading"_json_pointer;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Value", DbusVariantType(static_cast<double>(42))},
+        {"UpdatedTime", DbusVariantType(uint64_t{1638312095123456})},
+    };
+
+    EXPECT_TRUE(fillSensorIdentity("temp1", "temperature", properties,
+                                   sensorJson, false, unit));
+    // ReadingTime is formatted in the BMC's local time zone
+    EXPECT_EQ(sensorJson["ReadingTime"],
+              time_utils::getDateTimeUintUs(uint64_t{1638312095123456}));
+
+    // UpdatedTime of 0 means unsupported; ReadingTime must not be set
+    properties = {
+        {"Value", DbusVariantType(static_cast<double>(42))},
+        {"UpdatedTime", DbusVariantType(uint64_t{0})},
+    };
+    sensorJson.clear();
+    EXPECT_TRUE(fillSensorIdentity("temp1", "temperature", properties,
+                                   sensorJson, false, unit));
+    EXPECT_FALSE(sensorJson.contains("ReadingTime"));
+
+    // UpdatedTime not present
+    properties = {
+        {"Value", DbusVariantType(static_cast<double>(42))},
+    };
+    sensorJson.clear();
+    EXPECT_TRUE(fillSensorIdentity("temp1", "temperature", properties,
+                                   sensorJson, false, unit));
+    EXPECT_FALSE(sensorJson.contains("ReadingTime"));
+
+    // Excerpts don't include ReadingTime
+    properties = {
+        {"Value", DbusVariantType(static_cast<double>(42))},
+        {"UpdatedTime", DbusVariantType(uint64_t{1638312095123456})},
+    };
+    sensorJson.clear();
+    EXPECT_TRUE(fillSensorIdentity("temp1", "temperature", properties,
+                                   sensorJson, true, unit));
+    EXPECT_FALSE(sensorJson.contains("ReadingTime"));
 }
 
 TEST(FillSensorIdentity, Failure)
