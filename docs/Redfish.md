@@ -525,6 +525,7 @@ Fields common to all schemas
 - @odata.id
 - @odata.type
 - Id
+- LLDPEnabled
 - Name
 - Ports
 - Status
@@ -548,6 +549,30 @@ Fields common to all schemas
 
 - @odata.id
 - @odata.type
+- Ethernet
+  - LLDPEnabled
+  - LLDPReceive
+    - ChassisId
+    - ChassisIdSubtype
+    - ManagementAddressIPv4
+    - ManagementAddressIPv6
+    - ManagementAddressMAC
+    - PortId
+    - PortIdSubtype
+    - SystemCapabilities
+    - SystemDescription
+    - SystemName
+  - LLDPTransmit
+    - ChassisId
+    - ChassisIdSubtype
+    - ManagementAddressIPv4
+    - ManagementAddressIPv6
+    - ManagementAddressMAC
+    - PortId
+    - PortIdSubtype
+    - SystemCapabilities
+    - SystemDescription
+    - SystemName
 - Id
 - Metrics
 - Name
