@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14e759cc_2d64437e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-05T08:45:44Z",
+      "side": 1,
+      "message": "Hi Shah, seen your recent changes in bmcweb. OpenBMC CI reports “User not approved, see admin, no CI” on this change. Could you confirm whether you’ve completed the OpenBMC CLA process? If not, please follow https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#starting-out. Once that’s done, please ask an OpenBMC maintainer or admin to check your Gerrit account’s CI approval so the tests can run.",
+      "revId": "6ae4e65ad6b484cf9b5c59e79c212ab8d0636b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
