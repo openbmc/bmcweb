@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01f7b333_d9c92b1e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-05T10:19:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a26cbe9d_80babc90",
+      "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a98a658_ddb14e9b",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ac1cfbf_f16bab35",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-05T10:19:44Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "8a98a658_ddb14e9b",
+      "range": {
+        "startLine": 769,
+        "startChar": 52,
+        "endLine": 770,
+        "endChar": 65
+      },
+      "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dd4efbe_f19ba8ec",
@@ -54,6 +96,24 @@
       "writtenOn": "2026-10-05T08:39:32Z",
       "side": 1,
       "message": "can we call function getDimmLinks directly from here?",
+      "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a24df80_76416054",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-05T10:19:44Z",
+      "side": 1,
+      "message": "The loop can visit several objects for the same Memory and does not break, and unlike `getDimmDataByService` this one appends to an array via `handleCollectionMembers`, so calling it here would duplicate the Links/Processors members; the single call after the loop keeps it to exactly one lookup.",
+      "parentUuid": "5dd4efbe_f19ba8ec",
       "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
