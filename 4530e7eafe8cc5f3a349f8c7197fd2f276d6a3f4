@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1d71beb_84e9984b",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-05T11:34:19Z",
+      "side": 1,
+      "message": "Removed the redundant loop. Resolved in new PS.",
+      "parentUuid": "631b7370_dcda61e6",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 9
+      },
+      "revId": "4530e7eafe8cc5f3a349f8c7197fd2f276d6a3f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bbcff20_b23a78ce",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0e59b8e_f3cdd422",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-05T11:34:19Z",
+      "side": 1,
+      "message": "Ohh yes, Acked. Thanks for the feedbacks.",
+      "parentUuid": "6bbcff20_b23a78ce",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 15
+      },
+      "revId": "4530e7eafe8cc5f3a349f8c7197fd2f276d6a3f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f686047_45643229",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-09-29T05:03:39Z",
       "side": 1,
       "message": "I noticed that you have added a condition in the `if` compared to the legacy code,\ncan we note this in the commit message as well?",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 5
+      },
+      "revId": "4530e7eafe8cc5f3a349f8c7197fd2f276d6a3f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c7df37_a3da444c",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-05T11:34:19Z",
+      "side": 1,
+      "message": "Commit message already states that missing devices return 404 and other mapper failures return 500. Thanks for looking this over.",
+      "parentUuid": "4f686047_45643229",
       "range": {
         "startLine": 98,
         "startChar": 4,
