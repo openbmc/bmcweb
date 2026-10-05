@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac7f8c05_5ebdb033",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-10-05T18:58:49Z",
+      "side": 1,
+      "message": "nit due to splitting the patch in two:\n\n```suggestion\nMove isHostnameValid() and isDomainnameValid() so they are defined\nbefore their callers in the next patch.  No functional change.\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "f93f0eb56685d089a5230370f704775a7ab08c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35fa9cd7_31b2b2ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-10-05T18:58:49Z",
+      "side": 1,
+      "message": "Besides the nit lgtm",
+      "revId": "f93f0eb56685d089a5230370f704775a7ab08c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
