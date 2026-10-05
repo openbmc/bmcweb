@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "827dc812_3ef0ed3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-05T07:39:25Z",
+      "side": 1,
+      "message": "This patch looks good to me, thank you.",
+      "revId": "05a74b4c0c6b63902435bf0c70c031bf69e2430a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17db9dc3_c839720c",
