@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a26cbe9d_80babc90",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-05T08:39:32Z",
+      "side": 1,
+      "message": "Was code populating both these links before since they are already present in Redfish.md?",
+      "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a98a658_ddb14e9b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-05T08:39:32Z",
+      "side": 1,
+      "message": "nit: this can be interpreted fairly easily from code below and strictly not necessary.",
+      "range": {
+        "startLine": 769,
+        "startChar": 52,
+        "endLine": 770,
+        "endChar": 65
+      },
+      "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dd4efbe_f19ba8ec",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-05T08:39:32Z",
+      "side": 1,
+      "message": "can we call function getDimmLinks directly from here?",
+      "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
