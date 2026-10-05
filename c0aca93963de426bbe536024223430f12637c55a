@@ -16,6 +16,57 @@
       "message": "Please complete the review. ALl comments are resolved",
       "revId": "c0aca93963de426bbe536024223430f12637c55a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "602d32b7_dd8e0f1f",
+        "filename": "http/app.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-05T12:17:38Z",
+      "side": 1,
+      "message": "This fallback path doesn\u0027t force AuthMode::NOAUTH when BMCWEB_INSECURE_DISABLE_AUTH is set, unlike the other fallback below. This should be consistent.",
+      "revId": "c0aca93963de426bbe536024223430f12637c55a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66cc7db9_8c07a442",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-05T12:17:38Z",
+      "side": 1,
+      "message": "Same as http_connection.hpp:643 (HTTP/2 equivalent) — condition is correct, but thisReq.session staying null here also skips validatePrivilege() at routing.hpp:349. Needs the same callout in the commit message and the same privileged-write test coverage.",
+      "revId": "c0aca93963de426bbe536024223430f12637c55a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeeeeb7d_c4bc3333",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-05T12:17:38Z",
+      "side": 1,
+      "message": "Note (condition itself is correct — it properly skips auth on NOAUTH):\nbe aware this also means userSession stays null, which at routing.hpp:349 skips validatePrivilege() entirely. A noauth port grants full unauthenticated access to every route, including privileged writes — not just relaxed auth for read-only paths like the TaskService GET shown in the commit\u0027s Test section. Please call this out explicitly in the commit message and add a test proving an unauthenticated PATCH/POST to a privileged endpoint also succeeds.",
+      "revId": "c0aca93963de426bbe536024223430f12637c55a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
