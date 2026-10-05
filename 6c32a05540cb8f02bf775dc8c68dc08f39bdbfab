@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "083cb4a4_8ce0657f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2317,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-05T20:36:08Z",
+      "side": 1,
+      "message": "I think this also needs to be \n\n|| errorName \u003d\u003d \"xyz.openbmc_project.User.Common.Error.UserNameDoesNotExist\"\n\nhttps://github.com/openbmc/phosphor-user-manager/blob/27ff229be5741d5157d0a4f345692930dc42cf74/user_mgr.cpp#L411xx",
+      "revId": "6c32a05540cb8f02bf775dc8c68dc08f39bdbfab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7310771f_e95c71c9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2361,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-05T20:36:08Z",
+      "side": 1,
+      "message": "this could be `const sdbusplus::message_t\u0026 msg`",
+      "range": {
+        "startLine": 2361,
+        "startChar": 30,
+        "endLine": 2361,
+        "endChar": 55
+      },
+      "revId": "6c32a05540cb8f02bf775dc8c68dc08f39bdbfab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
