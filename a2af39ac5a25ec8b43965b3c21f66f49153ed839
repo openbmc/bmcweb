@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dba898f7_258fda5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-06T08:55:12Z",
+      "side": 1,
+      "message": "Can you update the commit message to https://cbea.ms/git-commit/ accordingly.",
+      "revId": "a2af39ac5a25ec8b43965b3c21f66f49153ed839",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
