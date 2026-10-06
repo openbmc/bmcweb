@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "796c6f5b_874f1c51",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T15:51:17Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a6110178_15a16a9e",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f85e7b03_50879d7f",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
