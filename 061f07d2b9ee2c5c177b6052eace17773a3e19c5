@@ -46,6 +46,30 @@
       },
       "revId": "061f07d2b9ee2c5c177b6052eace17773a3e19c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "070f8796_73e6f1fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T14:39:23Z",
+      "side": 1,
+      "message": "But you are adding more code. \nSo we remove a call but add 50 lines of code.? \nCan you add more in the commit msg, why this is better",
+      "parentUuid": "7ec47368_694eeaf1",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 70
+      },
+      "revId": "061f07d2b9ee2c5c177b6052eace17773a3e19c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
