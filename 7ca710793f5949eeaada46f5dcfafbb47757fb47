@@ -16,6 +16,42 @@
       "message": "disableAuth() is removed by this CL, but this call site isn\u0027t updated — breaks the fuzz build (-Dfuzz-tests\u003denabled, not part of default CI). \n\nhttps://github.com/openbmc/bmcweb/blob/master/test/http/http_connection_fuzzer.cpp#L137\n\nCan you update it accordingly.",
       "revId": "7ca710793f5949eeaada46f5dcfafbb47757fb47",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2152b3f5_a5795c11",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-10-06T09:34:33Z",
+      "side": 0,
+      "message": "Thanks, fixed in the next patchset. The fuzzer now passes crow::AuthMode::NOAUTH to the Connection constructor instead of calling the removed disableAuth().",
+      "parentUuid": "6208d5c2_e23ae47a",
+      "revId": "7ca710793f5949eeaada46f5dcfafbb47757fb47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94288e24_54d91042",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-10-06T09:34:33Z",
+      "side": 0,
+      "message": "Thanks, fixed in the next patchset. The fuzzer now passes crow::AuthMode::NOAUTH to the Connection constructor instead of calling the removed disableAuth().",
+      "parentUuid": "6208d5c2_e23ae47a",
+      "revId": "7ca710793f5949eeaada46f5dcfafbb47757fb47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

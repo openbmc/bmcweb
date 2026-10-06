@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8421e91_68544454",
+        "filename": "http/app.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-10-06T09:34:33Z",
+      "side": 1,
+      "message": "Fixed in the next patchset: the per-socket auth mode is read first, and BMCWEB_INSECURE_DISABLE_AUTH then overrides it for all paths.",
+      "parentUuid": "602d32b7_dd8e0f1f",
+      "revId": "c0aca93963de426bbe536024223430f12637c55a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66cc7db9_8c07a442",
         "filename": "http/http2_connection.hpp",
         "patchSetId": 19
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7212b412_3166b968",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-10-06T09:34:33Z",
+      "side": 1,
+      "message": "Added also for http2",
+      "parentUuid": "66cc7db9_8c07a442",
+      "revId": "c0aca93963de426bbe536024223430f12637c55a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aeeeeb7d_c4bc3333",
         "filename": "http/http_connection.hpp",
         "patchSetId": 19
@@ -65,6 +101,24 @@
       "writtenOn": "2026-10-05T12:17:38Z",
       "side": 1,
       "message": "Note (condition itself is correct — it properly skips auth on NOAUTH):\nbe aware this also means userSession stays null, which at routing.hpp:349 skips validatePrivilege() entirely. A noauth port grants full unauthenticated access to every route, including privileged writes — not just relaxed auth for read-only paths like the TaskService GET shown in the commit\u0027s Test section. Please call this out explicitly in the commit message and add a test proving an unauthenticated PATCH/POST to a privileged endpoint also succeeds.",
+      "revId": "c0aca93963de426bbe536024223430f12637c55a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e0532aa_57630dca",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1002029
+      },
+      "writtenOn": "2026-10-06T09:34:33Z",
+      "side": 1,
+      "message": "Agreed. With no session, the router skips validatePrivilege(), so a noauth port allows privileged writes too. That\u0027s the same as BMCWEB_INSECURE_DISABLE_AUTH today, but per port. I added a security note to the commit message and a router test (SessionlessRequestSkipsPrivilegeCheck) showing that sessionless PATCH and POST to ConfigureManager routes succeed.",
+      "parentUuid": "aeeeeb7d_c4bc3333",
       "revId": "c0aca93963de426bbe536024223430f12637c55a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
