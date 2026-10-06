@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ddba1ff1_d7c07b43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003160
+      },
+      "writtenOn": "2026-10-06T02:29:47Z",
+      "side": 1,
+      "message": "Tested with Redfish Service Validator, passed. Thanks!",
+      "parentUuid": "c3cbf7d9_4b438ff2",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "c4ad4cc230327a41265644639c4a3c7ffcea826d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5dac60a8_0262c468",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
