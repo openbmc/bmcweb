@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbe9b9ef_dd7dd197",
+        "filename": "test/redfish-core/include/utils/chassis_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T15:54:21Z",
+      "side": 1,
+      "message": "This is the first utils we are testing ? \nSo this is a new directory ? \nhttps://github.com/openbmc/bmcweb/tree/master/test/include",
+      "revId": "7ed45f2c7d71b8ab36d9b19dde8dd7d48d7f45d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d92cb12_da02a5c4",
+        "filename": "test/redfish-core/include/utils/chassis_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T15:54:21Z",
+      "side": 1,
+      "message": "I don\u0027t see it using ?`#include \"http_response.hpp\"`",
+      "revId": "7ed45f2c7d71b8ab36d9b19dde8dd7d48d7f45d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
