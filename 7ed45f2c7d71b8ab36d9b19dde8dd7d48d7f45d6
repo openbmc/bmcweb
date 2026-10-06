@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cafd463_83d838f6",
+        "filename": "test/redfish-core/include/utils/chassis_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-06T17:03:17Z",
+      "side": 1,
+      "message": "Thanks for checking — this isn\u0027t a new directory, and chassis_utils isn\u0027t the first util being unit tested here. \"test/redfish-core/include/utils/\" already contains 13 other test files (e.g. hex_utils_test.cpp, ip_utils_test.cpp, time_utils_test.cpp, location_utils_test.cpp, sensor_utils_test.cpp), each mirroring its corresponding header under redfish-core/include/utils/ on a 1:1 basis. chassis_utils_test.cpp simply follows that same established convention. \nThere\u0027s no existing chassis_utils-specific test file to consolidate into.",
+      "parentUuid": "dbe9b9ef_dd7dd197",
+      "revId": "7ed45f2c7d71b8ab36d9b19dde8dd7d48d7f45d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d92cb12_da02a5c4",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-06T15:54:21Z",
       "side": 1,
       "message": "I don\u0027t see it using ?`#include \"http_response.hpp\"`",
+      "revId": "7ed45f2c7d71b8ab36d9b19dde8dd7d48d7f45d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14bff84a_765f0049",
+        "filename": "test/redfish-core/include/utils/chassis_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-06T17:03:17Z",
+      "side": 1,
+      "message": "Good catch, thanks — it was unused directly; async_resp.hpp already pulls it in transitively. Removed it in the latest patch set.",
+      "parentUuid": "4d92cb12_da02a5c4",
       "revId": "7ed45f2c7d71b8ab36d9b19dde8dd7d48d7f45d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
