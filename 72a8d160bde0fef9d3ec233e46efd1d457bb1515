@@ -16,6 +16,24 @@
       "message": "We should go with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/93757 since it was up first",
       "revId": "72a8d160bde0fef9d3ec233e46efd1d457bb1515",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bbb2435_43925275",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-06T17:15:14Z",
+      "side": 1,
+      "message": "Agreed, 93757 covers this exact fix (and more — the regular subscription lookup too) and is already further along in review.\n\nAbandoning this change in favor of 93757.",
+      "parentUuid": "792cd3aa_d1d39510",
+      "revId": "72a8d160bde0fef9d3ec233e46efd1d457bb1515",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
