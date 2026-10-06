@@ -87,6 +87,24 @@
       "parentUuid": "4d92cb12_da02a5c4",
       "revId": "7ed45f2c7d71b8ab36d9b19dde8dd7d48d7f45d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4a77719_95d9a539",
+        "filename": "test/redfish-core/include/utils/chassis_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T18:28:35Z",
+      "side": 1,
+      "message": "Still waiting for this change",
+      "parentUuid": "14bff84a_765f0049",
+      "revId": "7ed45f2c7d71b8ab36d9b19dde8dd7d48d7f45d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
