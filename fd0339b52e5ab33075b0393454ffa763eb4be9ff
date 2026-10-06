@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4954eab_662e41c6",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2588,
+      "author": {
+        "id": 1003102
+      },
+      "writtenOn": "2026-10-06T11:12:54Z",
+      "side": 1,
+      "message": "Could we define how multiple threshold writes behave if one D-Bus Set fails? These writes are dispatched independently, so a request containing several thresholds can partially change the sensor while returning an error. Please add handling or a test for that failure case.",
+      "revId": "fd0339b52e5ab33075b0393454ffa763eb4be9ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
