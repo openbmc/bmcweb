@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85395bd5_2ca165eb",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T22:56:44Z",
+      "side": 0,
+      "message": "Why didn\u0027t this work before?",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 15
+      },
+      "revId": "937cbc859f0e1663dabb1066a2b1cae8b4061102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
