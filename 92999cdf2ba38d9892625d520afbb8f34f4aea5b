@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7340d594_cbe93e7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T01:25:57Z",
+      "side": 1,
+      "message": "Ideally the backend throw the error back.. like I don\u0027t want to validate every input.. But I guess we already are here.. \n\n    if (!isHostnameValid(hostname) || !isDomainnameValid(domainname))\n    {\n        messages::propertyValueFormatError(asyncResp-\u003eres, fqdn, \"FQDN\");\n        return;\n    }",
+      "revId": "92999cdf2ba38d9892625d520afbb8f34f4aea5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7799bace_d7de7c3a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
