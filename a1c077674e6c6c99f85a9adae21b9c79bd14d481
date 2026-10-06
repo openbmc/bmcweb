@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37b15469_e90187be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-06T11:32:32Z",
+      "side": 1,
+      "message": "Rebased. Can you please check.",
+      "parentUuid": "0ee5234e_766dc858",
+      "revId": "a1c077674e6c6c99f85a9adae21b9c79bd14d481",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13c9ac92_9ab99739",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-09-29T20:45:35Z",
       "side": 1,
       "message": "This is still wrong isn\u0027t it?",
+      "revId": "a1c077674e6c6c99f85a9adae21b9c79bd14d481",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ddd2f49_1df96e07",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-06T11:32:32Z",
+      "side": 1,
+      "message": "Acknowledged, Thanks for reviewing.",
+      "parentUuid": "13c9ac92_9ab99739",
       "revId": "a1c077674e6c6c99f85a9adae21b9c79bd14d481",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
