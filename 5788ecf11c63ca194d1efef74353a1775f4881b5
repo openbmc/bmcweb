@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "aa9ecdbc_7d26f9d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-06T17:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b08b5602_69aa865a",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 66
+      },
+      "revId": "5788ecf11c63ca194d1efef74353a1775f4881b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "093f740f_16456928",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -78,6 +102,30 @@
       "writtenOn": "2026-10-05T20:44:53Z",
       "side": 1,
       "message": "std::string_view might be slightly more efficient here. Oh well.",
+      "range": {
+        "startLine": 62,
+        "startChar": 14,
+        "endLine": 62,
+        "endChar": 26
+      },
+      "revId": "5788ecf11c63ca194d1efef74353a1775f4881b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7d13071_665f179e",
+        "filename": "redfish-core/include/sub_request.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-06T17:28:15Z",
+      "side": 1,
+      "message": "Changed to string_view",
+      "parentUuid": "695ceaf5_88065d9b",
       "range": {
         "startLine": 62,
         "startChar": 14,
