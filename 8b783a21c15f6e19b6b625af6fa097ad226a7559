@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "980b8fcd_763b8533",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T17:07:02Z",
+      "side": 1,
+      "message": "Can\u0027t it be more than Embedded? \n\nI thought we already had https://github.com/openbmc/bmcweb/blob/28bfd9c61c912e369091cc12af4d156168c5730e/redfish-core/include/utils/location_utils.hpp#L29",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 395,
+        "endChar": 41
+      },
+      "revId": "8b783a21c15f6e19b6b625af6fa097ad226a7559",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c9ec09e_88c951dc",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T17:07:02Z",
+      "side": 1,
+      "message": "I would prefer one getNetworkAdapterLocation(asyncResp, path);\n\nand something more like \n```\ninline void afterGetNetworkAdapterLocation(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 networkAdapterPath,\n    const boost::system::error_code\u0026 ec,\n    const dbus::utility::MapperGetObject\u0026 object)\n{\n    if (ec)\n    {\n        if (ec.value() !\u003d EBADR)\n        {\n            BMCWEB_LOG_ERROR(\"DBUS response error for getDbusObject {}\",\n                             ec.value());\n            messages::internalError(asyncResp-\u003eres);\n        }\n        return;\n    }\n\n    for (const auto\u0026 [service, interfaces] : object)\n    {\n        for (const std::string\u0026 interface : interfaces)\n        {\n            if (interface \u003d\u003d\n                \"xyz.openbmc_project.Inventory.Decorator.LocationCode\")\n            {\n```\n\n\n```\ninline void getNetworkAdapterLocation(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 networkAdapterPath)\n{\n    constexpr std::array\u003cstd::string_view, 3\u003e locationInterfaces \u003d {\n        \"xyz.openbmc_project.Inventory.Decorator.LocationCode\",\n        \"xyz.openbmc_project.Inventory.Connector.Embedded\",\n        \"xyz.openbmc_project.Inventory.Connector.Slot\"};\n\n    dbus::utility::getDbusObject(\n        networkAdapterPath, locationInterfaces,\n        std::bind_front(afterGetNetworkAdapterLocation, asyncResp,\n                        networkAdapterPath));\n}\n\n```",
+      "revId": "8b783a21c15f6e19b6b625af6fa097ad226a7559",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
