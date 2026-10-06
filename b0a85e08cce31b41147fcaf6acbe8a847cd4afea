@@ -22,6 +22,30 @@
       },
       "revId": "b0a85e08cce31b41147fcaf6acbe8a847cd4afea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "537c596e_e6f9fa06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-06T17:12:22Z",
+      "side": 1,
+      "message": "These aren\u0027t app-specific — they\u0027re standard sd-bus/systemd framework errors (SD_BUS_ERROR_INVALID_ARGS / SD_BUS_ERROR_PROPERTY_READ_ONLY):\nhttps://github.com/systemd/systemd/blob/main/src/systemd/sd-bus-protocol.h\n\nsd-bus raises them itself, before any daemon\u0027s own code runs:\n- PropertyReadOnly: Set called on a property with no .set callback.\n- InvalidArgs: request body type doesn\u0027t match the property\u0027s type.\n\nSo any daemon\u0027s existing xyz.openbmc_project.* error table never sees these. Repro\u0027d for real in Tested: LED-backed LocationIndicatorActive returns PropertyReadOnly on PATCH, and InvalidArgs on a type mismatch.",
+      "parentUuid": "0bdc4576_93a82ecb",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "b0a85e08cce31b41147fcaf6acbe8a847cd4afea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
