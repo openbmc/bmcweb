@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f68a1649_33755edc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T22:26:12Z",
+      "side": 1,
+      "message": "Is there a PDI interface here?",
+      "revId": "d432b6828c47656e5916f7d067dfe585870b9187",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40bf854b_568722ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T22:26:12Z",
+      "side": 1,
+      "message": "Can you also run the Redfish validator ?",
+      "revId": "d432b6828c47656e5916f7d067dfe585870b9187",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
