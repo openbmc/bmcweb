@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae35f70f_361a6255",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-06T03:04:39Z",
+      "side": 1,
+      "message": "Could unit test this \n```\nTEST(PowerSupplyCollection, InvalidChassisReturnsNotFound)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n\n    afterGetValidPowerSupplyCollectionChassisPath(\n        asyncResp, \"InvalidChassis\", std::nullopt);\n\n    EXPECT_EQ(asyncResp-\u003eres.result(),\n              boost::beast::http::status::not_found);\n\n    const nlohmann::json\u0026 extendedInfo \u003d\n        asyncResp-\u003eres.jsonValue[\"error\"][\"@Message.ExtendedInfo\"];\n\n    ASSERT_EQ(extendedInfo.size(), 1);\n    EXPECT_EQ(extendedInfo[0][\"MessageArgs\"],\n              nlohmann::json::array({\"Chassis\", \"InvalidChassis\"}));\n}\n```",
+      "revId": "28e94de269b1c26d1e52d1aec2f62fc7c333ecb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb21aa58_df012335",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 1
