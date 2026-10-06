@@ -9,6 +9,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "fabric_adapters.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "human_sort.hpp"
@@ -295,14 +296,8 @@ inline void doHandleFabricPortCollectionGet(
 {
     if (ec)
     {
-        if (ec.value() != boost::system::errc::io_error)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_WARNING("Adapter not found");
-        messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+        messages::internalError(asyncResp->res);
         return;
     }
     asyncResp->res.addHeader(
@@ -340,6 +335,37 @@ inline void doHandleFabricPortCollectionGet(
     asyncResp->res.jsonValue["Members@odata.count"] = members.size();
 }
 
+inline void afterGetFabricPortCollectionAdapterPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId,
+    const boost::system::error_code& ec, const std::string& fabricAdapterPath,
+    const std::string& serviceName)
+{
+    if (ec)
+    {
+        if (ec.value() != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("DBus method call failed with error {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
+        return;
+    }
+    if (fabricAdapterPath.empty() || serviceName.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
+        return;
+    }
+
+    dbus::utility::getAssociatedSubTreePathsById(
+        adapterId, "/xyz/openbmc_project/inventory", fabricInterfaces,
+        "connecting", portInterfaces,
+        std::bind_front(doHandleFabricPortCollectionGet, asyncResp, systemName,
+                        adapterId));
+}
+
 inline void handleFabricPortCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -363,11 +389,9 @@ inline void handleFabricPortCollectionGet(
         return;
     }
 
-    dbus::utility::getAssociatedSubTreePathsById(
-        adapterId, "/xyz/openbmc_project/inventory", fabricInterfaces,
-        "connecting", portInterfaces,
-        std::bind_front(doHandleFabricPortCollectionGet, asyncResp, systemName,
-                        adapterId));
+    getValidFabricAdapterPath(
+        adapterId, std::bind_front(afterGetFabricPortCollectionAdapterPath,
+                                   asyncResp, systemName, adapterId));
 }
 
 inline void afterHandlePortPatch(
