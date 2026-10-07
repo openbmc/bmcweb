@@ -33,6 +33,24 @@
       "message": "Tests look good. I suggest a couple of additional coverage tests:\n - Positive test where there are multiple matches and all are returned.\n - Mixed test where there is a match and an ignorable error. Result should be returning the match only and no error.",
       "revId": "33fcba7c00ef1a31a0d5feb6bf95ea85b20dfe77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "681e8dfa_263b815e",
+        "filename": "test/redfish-core/include/utils/sensor_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-07T07:29:38Z",
+      "side": 1,
+      "message": "Good suggestions, added both:\n- CheckSensorPurpose.MultipleMatchesAllReturned - two sensors both\n  matching totalPower, verifies sensorMatches ends up with both\n  entries in order.\n- AfterGetSensorPurpose.MatchAndIgnorableErrorReturnsMatchOnly -\n  one sensor matches, the other returns an ignorable EBADR; verifies\n  the aggregated callback surfaces only the match with no error.",
+      "parentUuid": "e77dd156_ed454cbe",
+      "revId": "33fcba7c00ef1a31a0d5feb6bf95ea85b20dfe77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
