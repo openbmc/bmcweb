@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cd5fdbd_bdabe47b",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-07T06:48:04Z",
+      "side": 1,
+      "message": "Done. Replaced the capturing lambda with std::bind_front(getStorageControllerHandler, asyncResp, storageId, controllerId), since the handler signature already matches (ec, subtree) appended after the bound args.",
+      "parentUuid": "c3e327f9_1aee9c07",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 11
+      },
+      "revId": "91eb8ecfbbfa1d2f344cd5c0b4ff34520592fdbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e69053a_5458b610",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2273b68_a36e275a",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-07T06:48:04Z",
+      "side": 1,
+      "message": "Good catch - storageId was never validated, so any bogus ID in the URL still returned HTTP 200 with an echoed @odata.id. \n\nAdded a getSubTreePaths lookup against xyz.openbmc_project.Inventory.Item.Storage (same pattern as storage.hpp\u0027s afterSystemsStorageGetSubtree) before building the response - now returns Base.1.19.ResourceNotFound if storageId doesn\u0027t match a real Storage instance.",
+      "parentUuid": "4e69053a_5458b610",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "91eb8ecfbbfa1d2f344cd5c0b4ff34520592fdbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05585a77_074912cc",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-09-30T08:59:08Z",
       "side": 1,
       "message": "This as well, can we uses `std::bind_front()` here as well?",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 11
+      },
+      "revId": "91eb8ecfbbfa1d2f344cd5c0b4ff34520592fdbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26746088_05b20e1d",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-07T06:48:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05585a77_074912cc",
       "range": {
         "startLine": 185,
         "startChar": 8,
