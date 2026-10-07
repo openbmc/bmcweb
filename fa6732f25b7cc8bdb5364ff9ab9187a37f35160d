@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b532aca4_91c070bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-07T15:45:33Z",
+      "side": 1,
+      "message": "I don\u0027t really understand this test",
+      "revId": "fa6732f25b7cc8bdb5364ff9ab9187a37f35160d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af126e75_0cceae2f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-07T15:45:33Z",
+      "side": 1,
+      "message": "I\u0027m lost.  Why are we adding methods just so we can add a unit test for them?",
+      "revId": "fa6732f25b7cc8bdb5364ff9ab9187a37f35160d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d52739bc_6af6758b",
+        "filename": "test/redfish-core/include/redfish_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-07T15:45:33Z",
+      "side": 1,
+      "message": "Why isn\u0027t this handled with raii?",
+      "revId": "fa6732f25b7cc8bdb5364ff9ab9187a37f35160d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
