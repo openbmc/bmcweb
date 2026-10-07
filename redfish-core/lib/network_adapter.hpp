@@ -361,7 +361,7 @@ inline void afterGetNetworkAdapterLocation(
                                                "/Location"_json_pointer);
                 continue;
             }
-            std::optional<std::string> locationType =
+            std::optional<resource::LocationType> locationType =
                 location_util::getLocationType(interface);
             if (locationType)
             {
