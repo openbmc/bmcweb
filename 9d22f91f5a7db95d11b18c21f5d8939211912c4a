@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62222dd7_2f233a78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002771
+      },
+      "writtenOn": "2026-10-07T10:42:37Z",
+      "side": 1,
+      "message": "Note from testing: the Control/ControlCollection schemas are not installed in this change, so the Redfish Service Validator flags Control in $metadata. 87387 adds them, so these two may need coordinating.",
+      "revId": "9d22f91f5a7db95d11b18c21f5d8939211912c4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
