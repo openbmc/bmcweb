@@ -16,6 +16,24 @@
       "message": "I am fine with this but Joel, Vinothkumar, and Yuvakumar but you all work at the same company, do all really want to be reviewers ?",
       "revId": "0e2e92448512d13527c84cc6a53da5d4e9d67588",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "093a8374_3306eddc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-07T15:21:54Z",
+      "side": 1,
+      "message": "Yes, I would like to be a reviewer for bmcweb. I understand the concern, and I’m happy to contribute reviews independently based on my experience with the codebase.",
+      "parentUuid": "509196bf_9a263d2e",
+      "revId": "0e2e92448512d13527c84cc6a53da5d4e9d67588",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
