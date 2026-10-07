@@ -16,6 +16,23 @@
       "message": "LGTM. The handling of unset/sentinel values and error paths looks good.",
       "revId": "4953ae3be3637b05dee64a0a0b288df302d99f11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db0cc55d_64fc1b57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-07T05:36:21Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "4953ae3be3637b05dee64a0a0b288df302d99f11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
