@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64de5cd6_ef838868",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-07T21:34:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8670f7fe_a4b3249a",
+      "range": {
+        "startLine": 167,
+        "startChar": 12,
+        "endLine": 167,
+        "endChar": 61
+      },
+      "revId": "b9bf82c48510db9a8760cf18d215ffa1df0704cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce093bda_8d942c10",
@@ -61,6 +85,30 @@
       "writtenOn": "2026-08-31T08:08:41Z",
       "side": 1,
       "message": "The association names doesn\u0027t match with the ones defined in the mentioned PDI patch, please update it.",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 36
+      },
+      "revId": "b9bf82c48510db9a8760cf18d215ffa1df0704cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f347eefe_9daba4c4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-07T21:34:04Z",
+      "side": 1,
+      "message": "I\u0027ve corrected to use the monitored_by association as documented in the PDI patch.",
+      "parentUuid": "ce093bda_8d942c10",
       "range": {
         "startLine": 217,
         "startChar": 8,
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a8dd4bd_e49b3727",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-07T21:34:04Z",
+      "side": 1,
+      "message": "Yes, good point.\n\nI\u0027ve restructured the code a bit. I believe I have addressed this in the new flow. I\u0027ve separated the handling of no associated object and other errors.",
+      "parentUuid": "adb78bd3_cc9faa57",
+      "range": {
+        "startLine": 221,
+        "startChar": 12,
+        "endLine": 226,
+        "endChar": 13
+      },
+      "revId": "b9bf82c48510db9a8760cf18d215ffa1df0704cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b906bb91_d754528c",
@@ -107,6 +179,30 @@
       "writtenOn": "2026-08-31T08:08:41Z",
       "side": 1,
       "message": "Can we make this into callback instead of lambda?",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 19
+      },
+      "revId": "b9bf82c48510db9a8760cf18d215ffa1df0704cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7137d7be_e81a4fb7",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-07T21:34:04Z",
+      "side": 1,
+      "message": "I have restructured the code a bit. Lambdas are not being used in the new flow.",
+      "parentUuid": "b906bb91_d754528c",
       "range": {
         "startLine": 218,
         "startChar": 8,
