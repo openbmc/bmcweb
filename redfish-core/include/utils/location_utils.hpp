@@ -2,6 +2,7 @@
 
 #include "dbus_singleton.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/resource.hpp"
 
 #include <async_resp.hpp>
 #include <boost/system/error_code.hpp>
@@ -26,15 +27,16 @@ namespace location_util
  * @return location if interface is supported Connector, otherwise, return
  * std::nullopt.
  */
-inline std::optional<std::string> getLocationType(const std::string& interface)
+inline std::optional<resource::LocationType> getLocationType(
+    const std::string& interface)
 {
     if (interface == "xyz.openbmc_project.Inventory.Connector.Embedded")
     {
-        return "Embedded";
+        return resource::LocationType::Embedded;
     }
     if (interface == "xyz.openbmc_project.Inventory.Connector.Slot")
     {
-        return "Slot";
+        return resource::LocationType::Slot;
     }
     return std::nullopt;
 }

@@ -1,3 +1,4 @@
+#include "generated/enums/resource.hpp"
 #include "utils/location_utils.hpp"
 
 #include <optional>
@@ -12,10 +13,10 @@ namespace
 TEST(LocationUtility, ValidLocationType)
 {
     EXPECT_EQ(getLocationType("xyz.openbmc_project.Inventory.Connector.Slot"),
-              "Slot");
+              resource::LocationType::Slot);
     EXPECT_EQ(
         getLocationType("xyz.openbmc_project.Inventory.Connector.Embedded"),
-        "Embedded");
+        resource::LocationType::Embedded);
 }
 
 TEST(LocationUtility, InvalidLocationType)
