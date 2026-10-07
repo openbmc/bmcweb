@@ -98,6 +98,24 @@
       "message": "Ideally some testing here.. \nhttps://github.com/openbmc/bmcweb/blob/28bfd9c61c912e369091cc12af4d156168c5730e/test/redfish-core/include/utils/sensor_utils_test.cpp#L306",
       "revId": "fe7425ba5ee9af3b87f2560ad98c8e5f0cf87a5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "106a1d0c_b852f3f3",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-07T04:16:58Z",
+      "side": 1,
+      "message": "Done. Here is the patch link https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95293.",
+      "parentUuid": "abb005c6_cb3e35dc",
+      "revId": "fe7425ba5ee9af3b87f2560ad98c8e5f0cf87a5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
