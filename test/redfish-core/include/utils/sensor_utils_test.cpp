@@ -7,8 +7,10 @@
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
 #include "utils/sensor_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <cmath>
+#include <cstdint>
 #include <functional>
 #include <optional>
 #include <string>
@@ -412,6 +414,51 @@ TEST(FillSensorIdentity, Success)
     EXPECT_EQ(sensorJson["ReadingType"], sensor::ReadingType::ChargeAh);
     EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "Ah");
     EXPECT_EQ(unit.to_string(), "/Reading");
+}
+
+TEST(FillSensorIdentity, ReadingTime)
+{
+    constexpr uint64_t updatedTime = 1638312095123456;
+    const auto reading = DbusVariantType(static_cast<double>(42));
+
+    nlohmann::json sensorJson;
+    nlohmann::json::json_pointer unit = "/Reading"_json_pointer;
+    auto properties = dbus::utility::DBusPropertiesMap{
+        {"Value", reading},
+        {"UpdatedTime", DbusVariantType(updatedTime)},
+    };
+    EXPECT_TRUE(fillSensorIdentity("temp0", "temperature", properties,
+                                   sensorJson, false, unit));
+    EXPECT_EQ(sensorJson["ReadingTime"],
+              time_utils::getDateTimeUintUs(updatedTime));
+
+    // A service that has not obtained a reading leaves the property zero,
+    // which is not a date a client should be given.
+    properties = {{"Value", reading},
+                  {"UpdatedTime", DbusVariantType(uint64_t{0})}};
+    sensorJson.clear();
+    unit = "/Reading"_json_pointer;
+    EXPECT_TRUE(fillSensorIdentity("temp0", "temperature", properties,
+                                   sensorJson, false, unit));
+    EXPECT_FALSE(sensorJson.contains("ReadingTime"));
+
+    // A service that does not publish the property at all.
+    properties = {{"Value", reading}};
+    sensorJson.clear();
+    unit = "/Reading"_json_pointer;
+    EXPECT_TRUE(fillSensorIdentity("temp0", "temperature", properties,
+                                   sensorJson, false, unit));
+    EXPECT_FALSE(sensorJson.contains("ReadingTime"));
+
+    // The schema gives ReadingTime no excerpt annotation, so an excerpt
+    // carries none.
+    properties = {{"Value", reading},
+                  {"UpdatedTime", DbusVariantType(updatedTime)}};
+    sensorJson.clear();
+    unit = "/Reading"_json_pointer;
+    EXPECT_TRUE(fillSensorIdentity("temp0", "temperature", properties,
+                                   sensorJson, true, unit));
+    EXPECT_FALSE(sensorJson.contains("ReadingTime"));
 }
 
 TEST(FillSensorIdentity, Failure)
