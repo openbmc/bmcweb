@@ -485,62 +485,63 @@ inline void handleEventServiceSubscriptionsPost(
     }
 }
 
+inline void handleEventServiceGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/EventService";
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#EventService.v1_5_0.EventService";
+    asyncResp->res.jsonValue["Id"] = "EventService";
+    asyncResp->res.jsonValue["Name"] = "Event Service";
+    asyncResp->res.jsonValue["ServerSentEventUri"] =
+        "/redfish/v1/EventService/SSE";
+
+    asyncResp->res.jsonValue["Subscriptions"]["@odata.id"] =
+        "/redfish/v1/EventService/Subscriptions";
+    asyncResp->res.jsonValue["Actions"]["#EventService.SubmitTestEvent"]
+                            ["target"] =
+        "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent";
+
+    const persistent_data::EventServiceConfig eventServiceConfig =
+        persistent_data::EventServiceStore::getInstance()
+            .getEventServiceConfig();
+
+    asyncResp->res.jsonValue["Status"]["State"] =
+        (eventServiceConfig.enabled ? resource::State::Enabled
+                                    : resource::State::Disabled);
+    asyncResp->res.jsonValue["ServiceEnabled"] = eventServiceConfig.enabled;
+    asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
+        eventServiceConfig.retryAttempts;
+    asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
+        eventServiceConfig.retryTimeoutInterval;
+    asyncResp->res.jsonValue["EventFormatTypes"] = supportedEvtFormatTypes;
+    asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
+    asyncResp->res.jsonValue["ResourceTypes"] = supportedResourceTypes;
+
+    nlohmann::json::object_t supportedSSEFilters;
+    supportedSSEFilters["EventFormatType"] = true;
+    supportedSSEFilters["MessageId"] = true;
+    supportedSSEFilters["MetricReportDefinition"] = true;
+    supportedSSEFilters["RegistryPrefix"] = true;
+    supportedSSEFilters["OriginResource"] = false;
+    supportedSSEFilters["ResourceType"] = false;
+
+    asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
+        std::move(supportedSSEFilters);
+}
+
 inline void requestRoutesEventService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
         .privileges(redfish::privileges::getEventService)
-        .methods(boost::beast::http::verb::get)
-        // ast-grep-ignore: long-lambda
-        ([&app](const crow::Request& req,
-                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
-
-            asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/EventService";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#EventService.v1_5_0.EventService";
-            asyncResp->res.jsonValue["Id"] = "EventService";
-            asyncResp->res.jsonValue["Name"] = "Event Service";
-            asyncResp->res.jsonValue["ServerSentEventUri"] =
-                "/redfish/v1/EventService/SSE";
-
-            asyncResp->res.jsonValue["Subscriptions"]["@odata.id"] =
-                "/redfish/v1/EventService/Subscriptions";
-            asyncResp->res.jsonValue["Actions"]["#EventService.SubmitTestEvent"]
-                                    ["target"] =
-                "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent";
-
-            const persistent_data::EventServiceConfig eventServiceConfig =
-                persistent_data::EventServiceStore::getInstance()
-                    .getEventServiceConfig();
-
-            asyncResp->res.jsonValue["Status"]["State"] =
-                (eventServiceConfig.enabled ? resource::State::Enabled
-                                            : resource::State::Disabled);
-            asyncResp->res.jsonValue["ServiceEnabled"] =
-                eventServiceConfig.enabled;
-            asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
-                eventServiceConfig.retryAttempts;
-            asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
-                eventServiceConfig.retryTimeoutInterval;
-            asyncResp->res.jsonValue["EventFormatTypes"] =
-                supportedEvtFormatTypes;
-            asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
-            asyncResp->res.jsonValue["ResourceTypes"] = supportedResourceTypes;
-
-            nlohmann::json::object_t supportedSSEFilters;
-            supportedSSEFilters["EventFormatType"] = true;
-            supportedSSEFilters["MessageId"] = true;
-            supportedSSEFilters["MetricReportDefinition"] = true;
-            supportedSSEFilters["RegistryPrefix"] = true;
-            supportedSSEFilters["OriginResource"] = false;
-            supportedSSEFilters["ResourceType"] = false;
-
-            asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
-                std::move(supportedSSEFilters);
-        });
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleEventServiceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
         .privileges(redfish::privileges::patchEventService)
