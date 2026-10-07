@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3a129f5_49a52d75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-07T20:52:40Z",
+      "side": 1,
+      "message": "I see another commit was added to test the new refactored function. Can those tests just be pulled into this commit. (It makes it easier to review coverage when looking at the code changed along with the tests.)\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/94904",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 7
+      },
+      "revId": "8f5098914b3a264ecfe615fbc0137d06142fbb44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
