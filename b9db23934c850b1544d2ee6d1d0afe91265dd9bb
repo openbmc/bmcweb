@@ -57,6 +57,29 @@
       "parentUuid": "97bd749e_d3695aae",
       "revId": "b9db23934c850b1544d2ee6d1d0afe91265dd9bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c55f80_e4c0ad9b",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-07T14:02:39Z",
+      "side": 1,
+      "message": "```suggestion\nvoid afterGetValidChassisPath(\n    // NOLINTNEXTLINE(performance-unnecessary-value-param)\n    Callback\u0026 callback, const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 chassisId, const boost::system::error_code\u0026 ec,\n    const dbus::utility::MapperGetSubTreePathsResponse\u0026 chassisPaths)\n```\nI think it should be like this.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 69
+      },
+      "revId": "b9db23934c850b1544d2ee6d1d0afe91265dd9bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
