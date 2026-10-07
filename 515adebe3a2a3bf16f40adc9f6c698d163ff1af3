@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d096065_75dd65af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-07T20:45:14Z",
+      "side": 1,
+      "message": "It would also be helpful for reviewers to include link to Redfish Schema defining the new property being populated.",
+      "revId": "515adebe3a2a3bf16f40adc9f6c698d163ff1af3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "864cb38e_c5f06b39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-07T20:45:14Z",
+      "side": 1,
+      "message": "A couple of minor comments. Otherwise looks good to me assuming PDI is merged first.",
+      "revId": "515adebe3a2a3bf16f40adc9f6c698d163ff1af3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d951af_72381c4e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-07T20:45:14Z",
+      "side": 1,
+      "message": "Can std::bind_front() be used here?",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 62
+      },
+      "revId": "515adebe3a2a3bf16f40adc9f6c698d163ff1af3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
