@@ -94,8 +94,9 @@ inline std::optional<pcie_slots::SlotTypes> dbusSlotTypeToRf(
     {
         return pcie_slots::SlotTypes::U2;
     }
-    if (slotType ==
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Unknown")
+    if (slotType.empty() ||
+        slotType ==
+            "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.Unknown")
     {
         return std::nullopt;
     }
