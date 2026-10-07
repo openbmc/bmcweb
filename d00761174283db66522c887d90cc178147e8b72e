@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62536811_73556a9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-07T13:45:23Z",
+      "side": 1,
+      "message": "This lists adapters but does not call that callback. Right?",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "d00761174283db66522c887d90cc178147e8b72e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
