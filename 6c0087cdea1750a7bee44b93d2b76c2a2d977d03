@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14f995a_d3f5a703",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-07T15:44:10Z",
+      "side": 1,
+      "message": "Sounds like we need to figure that out separately.",
+      "parentUuid": "3c4d9b07_183688dc",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 21
+      },
+      "revId": "6c0087cdea1750a7bee44b93d2b76c2a2d977d03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a629884f_0b2ef38b",
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "unable at this moment. there\u0027s no wrapdb for OpenSSL 4.0 :( \nI\u0027ve added a note in the commit message.",
       "parentUuid": "a629884f_0b2ef38b",
+      "revId": "6c0087cdea1750a7bee44b93d2b76c2a2d977d03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33d2858_2fb42e03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-07T15:44:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97187488_abcb4b22",
       "revId": "6c0087cdea1750a7bee44b93d2b76c2a2d977d03",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
