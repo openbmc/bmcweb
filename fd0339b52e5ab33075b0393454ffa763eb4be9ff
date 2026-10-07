@@ -16,6 +16,24 @@
       "message": "Could we define how multiple threshold writes behave if one D-Bus Set fails? These writes are dispatched independently, so a request containing several thresholds can partially change the sensor while returning an error. Please add handling or a test for that failure case.",
       "revId": "fd0339b52e5ab33075b0393454ffa763eb4be9ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b102682_2a4c0772",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2588,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-07T07:57:23Z",
+      "side": 1,
+      "message": "Thanks! Done in PS7: a threshold whose interface the sensor does not host now refuses the whole request before any Set, covered by SetSensorThresholds.AMissingThresholdInterfaceWritesNothing. If the daemon rejects a value, only that threshold reports an error and the other thresholds are still written, as in other PATCH handlers that use setDbusProperty; the commit message documents this behavior.",
+      "parentUuid": "e4954eab_662e41c6",
+      "revId": "fd0339b52e5ab33075b0393454ffa763eb4be9ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
