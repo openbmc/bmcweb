@@ -87,6 +87,23 @@
       "message": "@vinothkumars@ami.com, thank you for your continued contributions to bmcweb.\n\nI support adding @vinothkumars@ami.com as a reviewer. He has been an active and consistent contributor, regularly participating in development and code reviews.\n\nBased on his contributions, engagement, and commitment to the community, I believe he would be a valuable addition to the bmcweb reviewer team.",
       "revId": "0e2e92448512d13527c84cc6a53da5d4e9d67588",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e05b15e_b6ed0b60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-08T06:04:03Z",
+      "side": 1,
+      "message": "Support adding @vinothkumars@ami.com as a reviewer. \nHe has been dedicated in bmcweb for quite a time. I believe he will be valuable to this community.",
+      "revId": "0e2e92448512d13527c84cc6a53da5d4e9d67588",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
