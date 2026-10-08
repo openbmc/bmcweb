@@ -22,6 +22,30 @@
       },
       "revId": "d00761174283db66522c887d90cc178147e8b72e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "313a4a0f_7effcc63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-08T04:06:16Z",
+      "side": 1,
+      "message": "Good catch — you\u0027re right, the earlier test evidence hit the collection endpoint, which doesn\u0027t call this code. Re-tested against the actual single-adapter endpoint (/redfish/v1/Systems/system/FabricAdapters/\u003cid\u003e/) with a live LocationCode-decorated adapter object: 200 OK, Location.PartLocation.ServiceLabel correctly populated from the D-Bus property, no errors logged. Commit message updated with the corrected evidence.",
+      "parentUuid": "62536811_73556a9e",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "d00761174283db66522c887d90cc178147e8b72e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
