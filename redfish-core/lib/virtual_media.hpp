@@ -18,7 +18,6 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/result.hpp>
 #include <boost/url/format.hpp>
@@ -125,7 +124,7 @@ inline void findAndParseObject(
             }
 
             BMCWEB_LOG_DEBUG("Parent item not found");
-            asyncResp->res.result(boost::beast::http::status::not_found);
+            messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
         });
 }
 
