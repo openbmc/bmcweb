@@ -92,6 +92,142 @@ constexpr const char* updateInterface = "xyz.openbmc_project.Software.Update";
 constexpr const char* loggingEntryInterface =
     "xyz.openbmc_project.Logging.Entry";
 
+/* @brief An update event read out of a logging entry */
+struct UpdateLogEntry
+{
+    std::string messageType;
+    std::unordered_map<std::string, std::string> additionalData;
+};
+
+/**
+ * @brief Read the update event a logging entry reports
+ *
+ * The update events are named after the Software.Update interface, so an
+ * entry is recognised as one without knowing the software object it targets.
+ *
+ * @param[in] interfacesProperties - Interfaces of the entry
+ *
+ * @return The event, or nullopt when the entry does not report one
+ */
+inline std::optional<UpdateLogEntry> parseUpdateLogEntry(
+    const dbus::utility::DBusInterfacesMap& interfacesProperties)
+{
+    for (const auto& [iface, properties] : interfacesProperties)
+    {
+        if (iface != loggingEntryInterface)
+        {
+            continue;
+        }
+
+        UpdateLogEntry entry;
+        for (const auto& [key, value] : properties)
+        {
+            if (key == "Message")
+            {
+                const std::string* message = std::get_if<std::string>(&value);
+                if (message != nullptr)
+                {
+                    entry.messageType = *message;
+                }
+            }
+            else if (key == "AdditionalData")
+            {
+                const auto* data =
+                    std::get_if<std::unordered_map<std::string, std::string>>(
+                        &value);
+                if (data != nullptr)
+                {
+                    entry.additionalData = *data;
+                }
+            }
+        }
+
+        if (!entry.messageType.starts_with(updateInterface))
+        {
+            return std::nullopt;
+        }
+        return entry;
+    }
+    return std::nullopt;
+}
+
+/* @brief Match for entries being added to the logging service */
+constexpr const char* loggingMatchStr =
+    "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
+    "member='InterfacesAdded',path='/xyz/openbmc_project/logging'";
+
+/**
+ * @brief Logging entries committed before the update task exists
+ *
+ * StartUpdate reports the software object its events name, so neither the
+ * task nor the filter on that object can exist until the call has replied.
+ * The update commits its first events before then, so the match is installed
+ * ahead of the call and whatever arrives is held here until the reply names
+ * the object to filter on.
+ */
+struct EarlyLogEntries
+{
+    EarlyLogEntries() = default;
+    EarlyLogEntries(const EarlyLogEntries&) = delete;
+    EarlyLogEntries(EarlyLogEntries&&) = delete;
+    EarlyLogEntries& operator=(const EarlyLogEntries&) = delete;
+    EarlyLogEntries& operator=(EarlyLogEntries&&) = delete;
+    ~EarlyLogEntries() = default;
+
+    /* Only the update events are kept and one update is in flight, so this
+       bounds a reply that never comes rather than ordinary traffic. */
+    static constexpr size_t maxEntries = 16;
+
+    std::vector<std::pair<std::string, dbus::utility::DBusInterfacesMap>>
+        entries;
+    std::unique_ptr<sdbusplus::match> match;
+};
+
+/**
+ * @brief Hold an update event reported before the task can filter it
+ *
+ * @param[in] early - The entries collected so far
+ * @param[in] m - The InterfacesAdded signal of the logging service
+ */
+inline void collectEarlyLogEntry(EarlyLogEntries& early,
+                                 sdbusplus::message_t& m)
+{
+    if (early.entries.size() >= EarlyLogEntries::maxEntries)
+    {
+        return;
+    }
+
+    sdbusplus::object_path logEntryPath;
+    dbus::utility::DBusInterfacesMap interfacesProperties;
+    m.read(logEntryPath, interfacesProperties);
+
+    if (!parseUpdateLogEntry(interfacesProperties))
+    {
+        return;
+    }
+
+    early.entries.emplace_back(logEntryPath.str,
+                               std::move(interfacesProperties));
+}
+
+/**
+ * @brief Collect logging entries until the update task can filter them
+ *
+ * @return The entries collected so far, to hand to createTask()
+ */
+inline std::unique_ptr<EarlyLogEntries> watchLogEntriesEarly()
+{
+    auto early = std::make_unique<EarlyLogEntries>();
+
+    /* The match is owned by the entries it appends to, so it is removed with
+       them and cannot run against a destroyed object. */
+    early->match = std::make_unique<sdbusplus::match>(
+        static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
+        loggingMatchStr,
+        std::bind_front(collectEarlyLogEntry, std::ref(*early)));
+    return early;
+}
+
 struct MemoryFileDescriptor
 {
     int fd = -1;
@@ -198,68 +334,33 @@ inline void processLogEntry(
     const std::string& logEntryPath,
     const dbus::utility::DBusInterfacesMap& interfacesProperties)
 {
-    for (const auto& [iface, properties] : interfacesProperties)
+    auto entry = parseUpdateLogEntry(interfacesProperties);
+    if (!entry)
     {
-        if (iface != loggingEntryInterface)
-        {
-            continue;
-        }
+        return;
+    }
 
-        std::string messageType;
-        std::unordered_map<std::string, std::string> additionalData;
+    // Only process events targeting this update's software object
+    auto targetIt = entry->additionalData.find("TARGET_NAME");
+    if (targetIt == entry->additionalData.end() ||
+        targetIt->second != swObjPath.str)
+    {
+        return;
+    }
 
-        for (const auto& [key, value] : properties)
-        {
-            if (key == "Message")
-            {
-                const std::string* msg = std::get_if<std::string>(&value);
-                if (msg != nullptr)
-                {
-                    messageType = *msg;
-                }
-            }
-            else if (key == "AdditionalData")
-            {
-                const auto* data =
-                    std::get_if<std::unordered_map<std::string, std::string>>(
-                        &value);
-                if (data != nullptr)
-                {
-                    for (const auto& [k, v] : *data)
-                    {
-                        additionalData[k] = v;
-                    }
-                }
-            }
-        }
+    // Dedup against what we have already recorded for this task
+    if (!taskData->processedLogEntries.insert(logEntryPath).second)
+    {
+        return;
+    }
 
-        if (messageType.empty())
-        {
-            continue;
-        }
-
-        // Only process events targeting this update's software object
-        auto targetIt = additionalData.find("TARGET_NAME");
-        if (targetIt == additionalData.end() ||
-            targetIt->second != swObjPath.str)
-        {
-            continue;
-        }
-
-        // Dedup against what we have already recorded for this task
-        if (!taskData->processedLogEntries.insert(logEntryPath).second)
-        {
-            continue;
-        }
-
-        auto msg = updateEventToTaskMessage(messageType, additionalData);
-        if (msg)
-        {
-            taskData->messages.emplace_back(std::move(*msg));
-        }
+    auto msg =
+        updateEventToTaskMessage(entry->messageType, entry->additionalData);
+    if (msg)
+    {
+        taskData->messages.emplace_back(std::move(*msg));
     }
 }
-
 inline void handleLogEvent(const sdbusplus::object_path& swObjPath,
                            sdbusplus::message_t& m,
                            const std::shared_ptr<task::TaskData>& taskData)
@@ -377,7 +478,8 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
 
 inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        task::Payload&& payload,
-                       const sdbusplus::object_path& objPath)
+                       const sdbusplus::object_path& objPath,
+                       std::unique_ptr<EarlyLogEntries> early)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
         std::bind_front(handleCreateTask),
@@ -388,10 +490,23 @@ inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     task->payload.emplace(std::move(payload));
     task->populateResp(asyncResp->res);
 
-    task->addLoggingMatch(
-        "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
-        "member='InterfacesAdded',path='/xyz/openbmc_project/logging'",
-        std::bind_front(handleLogEvent, objPath));
+    task->addLoggingMatch(loggingMatchStr,
+                          std::bind_front(handleLogEvent, objPath));
+
+    if (early)
+    {
+        // Collecting stops here rather than when early goes out of scope, so
+        // nothing appends to the entries while they are replayed. The match
+        // above has covered new entries since it was installed.
+        early->match.reset();
+
+        // Replayed after the match above is installed, so an entry arriving
+        // in between is seen twice. processLogEntry() drops the duplicate.
+        for (const auto& [logEntryPath, interfacesProperties] : early->entries)
+        {
+            processLogEntry(objPath, task, logEntryPath, interfacesProperties);
+        }
+    }
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
@@ -454,7 +569,8 @@ inline void softwareInterfaceAdded(
                     activateImage(objPath.str, objInfo[0].first);
                     if (asyncResp)
                     {
-                        createTask(asyncResp, std::move(payload), objPath);
+                        createTask(asyncResp, std::move(payload), objPath,
+                                   nullptr);
                     }
                     fwUpdateInProgress = false;
                 });
@@ -985,8 +1101,8 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
 
 inline void handleStartUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
-    const std::string& objectPath, const boost::system::error_code& ec,
-    const sdbusplus::object_path& retPath)
+    const std::string& objectPath, std::unique_ptr<EarlyLogEntries> early,
+    const boost::system::error_code& ec, const sdbusplus::object_path& retPath)
 {
     if (ec)
     {
@@ -998,7 +1114,7 @@ inline void handleStartUpdate(
 
     BMCWEB_LOG_INFO("Call to StartUpdate on {} Success, retPath = {}",
                     objectPath, retPath.str);
-    createTask(asyncResp, std::move(payload), retPath);
+    createTask(asyncResp, std::move(payload), retPath, std::move(early));
 }
 
 inline void startUpdate(
@@ -1006,13 +1122,19 @@ inline void startUpdate(
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
     const std::string& objectPath, const std::string& serviceName)
 {
+    // Installed before the call: the update commits its first events as soon
+    // as StartUpdate is invoked, which is before the reply names the software
+    // object the task filters on.
+    auto early = watchLogEntriesEarly();
+
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, payload = std::move(payload),
-         objectPath](const boost::system::error_code& ec1,
-                     const sdbusplus::object_path& retPath) mutable {
-            handleStartUpdate(asyncResp, std::move(payload), objectPath, ec1,
-                              retPath);
+        [asyncResp, payload = std::move(payload), objectPath,
+         early =
+             std::move(early)](const boost::system::error_code& ec1,
+                               const sdbusplus::object_path& retPath) mutable {
+            handleStartUpdate(asyncResp, std::move(payload), objectPath,
+                              std::move(early), ec1, retPath);
         },
         serviceName, objectPath, updateInterface, "StartUpdate",
         sdbusplus::message::unix_fd(memfd.fd), applyTime);
