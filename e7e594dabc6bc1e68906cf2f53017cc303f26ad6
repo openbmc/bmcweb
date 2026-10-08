@@ -16,6 +16,23 @@
       "message": "Any GET behavioral change should add RSV results on tested block. Please add.",
       "revId": "e7e594dabc6bc1e68906cf2f53017cc303f26ad6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a4947d2_33788073",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-08T18:52:05Z",
+      "side": 1,
+      "message": "I think it is appropriate to make 2 commits\n- commit 1: refactor the getChassisState() first\n- commit 2: And then add getChassisStatePath",
+      "revId": "e7e594dabc6bc1e68906cf2f53017cc303f26ad6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
