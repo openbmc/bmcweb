@@ -22,6 +22,30 @@
       },
       "revId": "937cbc859f0e1663dabb1066a2b1cae8b4061102",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c46800d_f84f4a55",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-08T07:33:36Z",
+      "side": 0,
+      "message": "getAssociatedSubTreePathsById() converts io_error into success with an empty list, so the old if (ec) branch was skipped and GET returned an empty collection with 200.\nThe new adapter lookup detects the missing adapter and returns 404 before querying its ports.\nI think this thread can be resolved, feel free to open if needed.",
+      "parentUuid": "85395bd5_2ca165eb",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 15
+      },
+      "revId": "937cbc859f0e1663dabb1066a2b1cae8b4061102",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
