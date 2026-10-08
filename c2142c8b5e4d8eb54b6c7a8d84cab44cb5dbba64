@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f15dc0_0f4a1718",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-08T01:59:37Z",
+      "side": 1,
+      "message": "Good catch — these log strings were left over from before the lambda was extracted. Updated both to reference afterGetValidChassisPath instead of the old getValidChassisPath respHandler name, to match the function it\u0027s now actually in. Thanks!",
+      "parentUuid": "938e12c6_6b5950c5",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "c2142c8b5e4d8eb54b6c7a8d84cab44cb5dbba64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88f65e17_976171ff",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-10-07T18:09:27Z",
       "side": 1,
       "message": "nit: Should this change to the name of this function?",
+      "range": {
+        "startLine": 45,
+        "startChar": 26,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "c2142c8b5e4d8eb54b6c7a8d84cab44cb5dbba64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46be8944_cad6abe1",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-08T01:59:37Z",
+      "side": 1,
+      "message": "Good catch — these log strings were left over from before the lambda was extracted. Updated both to reference afterGetValidChassisPath instead of the old getValidChassisPath respHandler name, to match the function it\u0027s now actually in. Thanks!",
+      "parentUuid": "88f65e17_976171ff",
       "range": {
         "startLine": 45,
         "startChar": 26,

@@ -22,6 +22,30 @@
       },
       "revId": "8f5098914b3a264ecfe615fbc0137d06142fbb44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a11d5724_2c8c613a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003065
+      },
+      "writtenOn": "2026-10-08T01:59:37Z",
+      "side": 1,
+      "message": "This change is intentionally scoped as a pure refactor (no behavior change), per earlier feedback from Gunnar. \n\nTest coverage for afterGetValidChassisPath is tracked as a separate stacked change: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/94904 — keeping them split makes each change easier to review/revert independently.",
+      "parentUuid": "a3a129f5_49a52d75",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 7
+      },
+      "revId": "8f5098914b3a264ecfe615fbc0137d06142fbb44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
