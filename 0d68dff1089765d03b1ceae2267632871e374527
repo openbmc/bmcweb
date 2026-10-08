@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d5ce83_20e75811",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-08T23:02:50Z",
+      "side": 1,
+      "message": "Then this isn\u0027t testing the function being refactored \n\nGET   /redfish/v1/Chassis/chassis/Thermal/\nPATCH /redfish/v1/Chassis/chassis/Thermal/",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "0d68dff1089765d03b1ceae2267632871e374527",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dd634d7b_4eea6bed",
@@ -14,6 +37,23 @@
       "writtenOn": "2026-10-08T19:07:11Z",
       "side": 1,
       "message": "It looks good to me",
+      "revId": "0d68dff1089765d03b1ceae2267632871e374527",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0163059e_196c4f30",
+        "filename": "redfish-core/lib/thermal.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-08T23:02:50Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e",
       "revId": "0d68dff1089765d03b1ceae2267632871e374527",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
