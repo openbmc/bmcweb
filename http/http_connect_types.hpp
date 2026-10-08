@@ -8,4 +8,4 @@ enum class HttpType
     HTTP,  // Socket supports HTTP only
     BOTH   // Socket supports both HTTPS and HTTP, with HTTP Redirect
 };
-}
+} // namespace crow
