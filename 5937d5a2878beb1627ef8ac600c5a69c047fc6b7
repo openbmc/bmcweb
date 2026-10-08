@@ -37,6 +37,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b6dad9b_839e08d3",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-08T18:21:43Z",
+      "side": 1,
+      "message": "Maybe better to define a constexpr function for fan link association, and use it here and fan.hpp too.\n\n```\nconst constexpr std::string_view getFanLinkAssociationName()\n{\n    if constexpr (!BMCWEB_REDFISH_FAN_LINKS)\n    {\n        return \"cooled_by\";\n    }\n    return \"containing\";\n}\n```\nAnd then here,\n\n```\n   sdbusplus::object_path endpointPath{validChassisPath};\n   endpointPath /\u003d getFanLinkAssociationName();\n```",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fac4df57_5790a371",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-08T18:21:43Z",
+      "side": 1,
+      "message": "Would it be better doing like this?\n\n```\n    [[maybe_unused]] for (const auto\u0026 [_skip1, chassisPath, assoc, _skip2,\n                                       fanPath] : result)\n    {\n        auto\u0026 pair \u003d res[chassisPath.filename()];\n        auto\u0026 containingFans \u003d std::get\u003c0\u003e(pair);\n        auto\u0026 cooledByFans \u003d std::get\u003c1\u003e(pair);\n\n        ...\n```",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fc13569_ef25492c",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-08T18:21:43Z",
+      "side": 1,
+      "message": "Would this be?\n\n```\n  return AlphanumLess\u003cstd::string\u003e()(lhs.string(), rhs.string());\n```",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eed6c85c_6078219d",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 20
@@ -66,6 +117,23 @@
       "side": 1,
       "message": "i don\u0027t think this can actually happen since we set it as array in line 388.\n\nTherefore it\u0027s more like a failsafe in case the code is changed in the future that there is some kind of log. It\u0027s not expected this log will ever be printed with the current code.\n\nIt\u0027s just that\u0027s the way the nlohmann API is structured that we need to take this branch in the error case.\n\nLet me know if you find a better solution to set it as array with a different type so we do not need to handle this error at all. That would probably be a better use of our time than improving log messages which will never print.",
       "parentUuid": "eed6c85c_6078219d",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81dd6814_c2604f82",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-08T18:21:43Z",
+      "side": 1,
+      "message": "Is it more appropriate by doing `getFanPathsByChassisId()` if BMCWEB_REDFISH_FAN_LINKS is enabled like\n\n```\n\n    if constexpr (BMCWEB_REDFISH_FAN_LINKS)\n    {\n         fan_utils::getFanPathsByChassisId(\n             std::bind_front(getChassisFanLinks, asyncResp, chassisId));\n    }\n```",
       "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -136,6 +204,23 @@
       "side": 1,
       "message": "no. even with `BMCWEB_REDFISH_FAN_LINKS` the `cooling` association is entirely optional and an empty result is allowed here.",
       "parentUuid": "25aca881_ff169307",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daf3344e_d24202e4",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-08T18:21:43Z",
+      "side": 1,
+      "message": "By introducing `getFanLinkAssociationName()` in fan_utils.hpp, this can be used like\n```\n        const sdbusplus::object_path endpointPath \u003d\n            sdbusplus::object_path(validChassisPath.value()) /\n            getFanLinkAssociationName();\n```",
       "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
