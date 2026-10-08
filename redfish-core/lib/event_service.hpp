@@ -182,8 +182,8 @@ inline void handleEventServiceSubscriptionsPost(
         }
         if (retryPolicy)
         {
-            messages::propertyValueConflict(asyncResp->res, "RetryPolicy",
-                                            "Protocol");
+            messages::propertyValueConflict(asyncResp->res,
+                                            "DeliveryRetryPolicy", "Protocol");
             return;
         }
         if (sendHeartbeat)
