@@ -9,6 +9,7 @@
 #include "human_sort.hpp"
 #include "logging.hpp"
 
+#include <boost/beast/http/field.hpp>
 #include <boost/system/result.hpp>
 #include <boost/url/parse.hpp>
 #include <boost/url/url_view.hpp>
@@ -26,6 +27,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <type_traits>
 #include <utility>
 #include <variant>
@@ -36,6 +38,14 @@ namespace redfish
 
 namespace json_util
 {
+
+inline crow::Request makeJsonPost(std::string_view body)
+{
+    std::error_code ec;
+    crow::Request req(body, ec);
+    req.addHeader(boost::beast::http::field::content_type, "application/json");
+    return req;
+}
 
 /**
  * @brief Processes request to extract JSON from its body. If it fails, adds
