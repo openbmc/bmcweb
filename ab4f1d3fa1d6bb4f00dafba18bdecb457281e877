@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efb8927d_88e03238",
+        "filename": "test/redfish-core/include/utils/chassis_utils_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-08T16:12:42Z",
+      "side": 1,
+      "message": "If you could test the chassisName.empty() branch, but oh well",
+      "revId": "ab4f1d3fa1d6bb4f00dafba18bdecb457281e877",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
