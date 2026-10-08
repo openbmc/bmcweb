@@ -16,6 +16,29 @@
       "message": "changes and test looks reasonable.",
       "revId": "6082270c98fa5361cfe69968fbd80467eecc2701",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e36af39f_02e2984a",
+        "filename": "test/redfish-core/lib/event_service_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-08T18:08:29Z",
+      "side": 1,
+      "message": "Can sure you use LF(\\n) not CRLF (\\r\\n)\nUse like dos2unix  to convert \n\nhttps://github.com/openbmc/bmcweb/blob/dba5d4ddde45989e017d3842370852266983a243/.clang-format#L91",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "6082270c98fa5361cfe69968fbd80467eecc2701",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
