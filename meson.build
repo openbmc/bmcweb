@@ -108,6 +108,24 @@ if (cxx.get_id() == 'clang')
             language: 'cpp',
         )
     endif
+    if (cxx.version().version_compare('>=23.0'))
+        # Clang 23 enables the experimental lifetime safety analysis under
+        # -Weverything.  The -invalidation and -return-stack-addr-moved
+        # warnings are false positives on idiomatic code (e.g. appending to
+        # a std::string& parameter, or returning a reference to a
+        # just-moved-from unique_ptr's pointee), and the
+        # -intra-tu-*-suggestions and -cross-tu-*-suggestions warnings only
+        # suggest [[clang::lifetimebound]] annotations.  Disable them until
+        # the analysis stabilizes.
+        add_project_arguments(
+            '-Wno-lifetime-safety-cross-tu-constructor-suggestions',
+            '-Wno-lifetime-safety-intra-tu-constructor-suggestions',
+            '-Wno-lifetime-safety-intra-tu-suggestions',
+            '-Wno-lifetime-safety-invalidation',
+            '-Wno-lifetime-safety-return-stack-addr-moved',
+            language: 'cpp',
+        )
+    endif
 
     boost_flags += ['-Wno-strict-prototypes', '-Wno-unused-but-set-variable']
 endif
