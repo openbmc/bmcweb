@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c0bec0c_66967a85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-08T22:58:33Z",
+      "side": 1,
+      "message": "Where? I don\u0027t see std::bind_front() used.. Please read these commit msgs first.. I see it below why bind_front isn\u0027t used but it wrong here.. \n\nPlease read the commit msg first, this is really wordy and incorrect in places..",
+      "range": {
+        "startLine": 17,
+        "startChar": 47,
+        "endLine": 17,
+        "endChar": 64
+      },
+      "revId": "6d3664c21b19ff08b6775d5e920395e8af789b02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dce4df3e_2818dbec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-08T22:58:33Z",
+      "side": 1,
+      "message": "Then this doesn\u0027t test the code refactored.. I could be okay with that but please state that accurately",
+      "range": {
+        "startLine": 41,
+        "startChar": 56,
+        "endLine": 42,
+        "endChar": 70
+      },
+      "revId": "6d3664c21b19ff08b6775d5e920395e8af789b02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2ece4f83_34bdd77d",
