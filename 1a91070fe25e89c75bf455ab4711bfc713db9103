@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61f8a6b1_c7fadcb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002971
+      },
+      "writtenOn": "2026-10-08T19:32:29Z",
+      "side": 1,
+      "message": "The CI failure appears to be a pre-existing build issue unrelated to this change. My local CI passes.",
+      "revId": "1a91070fe25e89c75bf455ab4711bfc713db9103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
