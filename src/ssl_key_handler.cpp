@@ -522,7 +522,7 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         mode |= boost::asio::ssl::verify_peer;
         mode |= boost::asio::ssl::verify_fail_if_no_peer_cert;
     }
-    else if (!forward_unauthorized::hasWebuiRoute())
+    else if (!BMCWEB_PASSWORD_AUTH || !forward_unauthorized::hasWebuiRoute())
     {
         // This is a HACK
         // If the webui is installed, and TLSSTrict is false, we don't want to

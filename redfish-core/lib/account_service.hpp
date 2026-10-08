@@ -879,17 +879,35 @@ inline void handleAuthMethodsPatch(
         return;
     }
 
+    if constexpr (!BMCWEB_PASSWORD_AUTH)
+    {
+        // Disabling TLS would remove the remaining login method. Reject this
+        // before applying any auth settings, including those in the same PATCH.
+        if (auth.tls && !*auth.tls)
+        {
+            messages::actionNotSupported(
+                asyncResp->res,
+                "Disabling TLS when password-auth feature is disabled");
+            return;
+        }
+    }
+
     persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
     if (auth.basicAuth)
     {
-        if constexpr (!BMCWEB_BASIC_AUTH)
+        if constexpr (!BMCWEB_BASIC_AUTH || !BMCWEB_PASSWORD_AUTH)
         {
-            messages::actionNotSupported(
-                asyncResp->res,
-                "Setting BasicAuth when basic-auth feature is disabled");
-            return;
+            // Basic auth cannot be enabled in this build. Allow clients to
+            // request Disabled, which is also the advertised allowable value.
+            if (*auth.basicAuth)
+            {
+                messages::actionNotSupported(
+                    asyncResp->res,
+                    "Enabling BasicAuth when basic-auth or password-auth feature is disabled");
+                return;
+            }
         }
 
         authMethodsConfig.basic = *auth.basicAuth;
@@ -1461,7 +1479,10 @@ inline void handleAccountServiceGet(
                                 : account_service::BasicAuthState::Disabled;
 
     nlohmann::json::array_t allowed;
-    allowed.emplace_back(account_service::BasicAuthState::Enabled);
+    if constexpr (BMCWEB_BASIC_AUTH && BMCWEB_PASSWORD_AUTH)
+    {
+        allowed.emplace_back(account_service::BasicAuthState::Enabled);
+    }
     allowed.emplace_back(account_service::BasicAuthState::Disabled);
     json["HTTPBasicAuth@Redfish.AllowableValues"] = std::move(allowed);
 

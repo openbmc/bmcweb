@@ -227,6 +227,16 @@ option(
                     - For the other logging level option, see DEVELOPING.md.''',
 )
 
+# BMCWEB_PASSWORD_AUTH
+option(
+    'password-auth',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enable username/password authentication through Basic auth,
+                    web login, and Redfish session creation. Disabling this
+                    revokes existing password sessions.''',
+)
+
 # BMCWEB_BASIC_AUTH
 option(
     'basic-auth',

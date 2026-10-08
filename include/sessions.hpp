@@ -184,7 +184,7 @@ inline MTLSCommonNameParseMode getMTLSCommonNameParseMode(std::string_view name)
 struct AuthConfigMethods
 {
     // Authentication paths
-    bool basic = BMCWEB_BASIC_AUTH;
+    bool basic = BMCWEB_BASIC_AUTH && BMCWEB_PASSWORD_AUTH;
     bool sessionToken = BMCWEB_SESSION_AUTH;
     bool xtoken = BMCWEB_XTOKEN_AUTH;
     bool cookie = BMCWEB_COOKIE_AUTH;
@@ -222,7 +222,7 @@ struct AuthConfigMethods
                 }
                 else if (element.first == "BasicAuth")
                 {
-                    basic = *value;
+                    basic = *value && BMCWEB_BASIC_AUTH && BMCWEB_PASSWORD_AUTH;
                 }
                 else if (element.first == "TLS")
                 {
@@ -253,6 +253,16 @@ struct AuthConfigMethods
                             *intValue);
                     }
                 }
+            }
+        }
+        if constexpr (!BMCWEB_PASSWORD_AUTH && BMCWEB_MUTUAL_TLS_AUTH)
+        {
+            // Password login is now disabled, so keep certificate login enabled
+            if (!tls)
+            {
+                BMCWEB_LOG_WARNING(
+                    "Ignoring persisted TLS=false because password-auth is disabled");
+                tls = true;
             }
         }
     }
@@ -312,6 +322,16 @@ class SessionStore
             return nullptr;
         }
         std::shared_ptr<UserSession> userSession = sessionIt->second;
+        if constexpr (!BMCWEB_PASSWORD_AUTH)
+        {
+            // Revoke sessions that used passwords
+            if (userSession->sessionType != SessionType::MutualTLS)
+            {
+                authTokens.erase(sessionIt);
+                needWrite = true;
+                return nullptr;
+            }
+        }
         userSession->lastUpdated = std::chrono::steady_clock::now();
         return userSession;
     }

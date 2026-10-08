@@ -31,6 +31,16 @@ endif
 
 # Get compiler and default build type
 
+# Certificate authentication is the remaining login path without passwords.
+if not get_option('password-auth').allowed()
+    if not get_option('mutual-tls-auth').allowed()
+        error('Disabling password-auth requires mutual-tls-auth')
+    endif
+    if get_option('insecure-disable-ssl').allowed()
+        error('Disabling password-auth requires HTTPS')
+    endif
+endif
+
 cxx = meson.get_compiler('cpp')
 build = get_option('buildtype')
 optimization = get_option('optimization')

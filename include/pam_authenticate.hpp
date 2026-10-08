@@ -2,6 +2,8 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "logging.hpp"
 
 #include <security/_pam_types.h>
@@ -128,6 +130,11 @@ inline int pamAuthenticateUser(std::string_view username,
                                std::string_view password,
                                std::optional<std::string> token)
 {
+    if constexpr (!BMCWEB_PASSWORD_AUTH)
+    {
+        return PAM_AUTH_ERR;
+    }
+
     std::string userStr(username);
     PasswordData data;
     if (int ret = data.addPrompt("Password: ", password); ret != PAM_SUCCESS)

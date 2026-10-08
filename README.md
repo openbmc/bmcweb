@@ -39,6 +39,19 @@ runtime policy changes (through the relevant Redfish APIs) or via configure time
 options. All authentication mechanisms supporting username/password are routed
 to libpam, to allow for customization in authentication implementations.
 
+To disable all username/password authentication, configure with:
+
+```sh
+meson setup builddir -Dpassword-auth=disabled
+```
+
+This option is enabled by default. Disabling it rejects HTTP Basic credentials,
+web login (`POST /login`), and Redfish session creation
+(`POST /redfish/v1/SessionService/Sessions` and `POST /redfish/v1/Sessions`),
+including password logins with an MFA token. Basic authentication is also
+reported as disabled and cannot be enabled through the Redfish API. Mutual TLS
+remains usable when enabled.
+
 ### Authorization
 
 All authorization in bmcweb is determined at routing time, and per route, and
