@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0e10bebc_9ef53f68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002971
+      },
+      "writtenOn": "2026-10-08T19:05:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d096065_75dd65af",
+      "revId": "515adebe3a2a3bf16f40adc9f6c698d163ff1af3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "864cb38e_c5f06b39",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -48,6 +66,30 @@
       "writtenOn": "2026-10-07T20:45:14Z",
       "side": 1,
       "message": "Can std::bind_front() be used here?",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 62
+      },
+      "revId": "515adebe3a2a3bf16f40adc9f6c698d163ff1af3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "903ae3f9_7e80a093",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1002971
+      },
+      "writtenOn": "2026-10-08T19:05:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64d951af_72381c4e",
       "range": {
         "startLine": 348,
         "startChar": 8,
