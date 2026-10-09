@@ -192,16 +192,11 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
 
         if (state->ends_with("Staged"))
         {
-            taskData->state = "Stopping";
-            taskData->messages.emplace_back(messages::taskPaused(index));
-
-            // its staged, set a long timer to
-            // allow them time to complete the
-            // update (probably cycle the
-            // system) if this expires then
-            // task will be canceled
-            taskData->extendTimer(std::chrono::hours(5));
-            return !task::completed;
+            taskData->state = "Completed";
+            taskData->status = "OK";
+            taskData->percentComplete = 100;
+            taskData->messages.emplace_back(messages::taskCompletedOK(index));
+            return task::completed;
         }
 
         if (state->ends_with("Active"))
