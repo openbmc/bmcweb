@@ -612,8 +612,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
                     {
                         // let's find the object whose ldap type is equal to the
                         // given type
-                        if (object.first.str.find(searchString) ==
-                            std::string::npos)
+                        if (!object.first.str.contains(searchString))
                         {
                             continue;
                         }

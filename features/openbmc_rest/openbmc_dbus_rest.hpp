@@ -204,7 +204,7 @@ inline void findRemainingObjectsForEnumerate(
     BMCWEB_LOG_DEBUG("findRemainingObjectsForEnumerate");
     const nlohmann::json& dataJson = asyncResp->res.jsonValue["data"];
 
-    for (const auto& [path, interface_map] : *subtree)
+    for (const auto& [path, interfaceMap] : *subtree)
     {
         if (path == objectPath)
         {
@@ -213,7 +213,7 @@ inline void findRemainingObjectsForEnumerate(
         }
         if (!dataJson.contains(path))
         {
-            for (const auto& [service, interfaces] : interface_map)
+            for (const auto& [service, interfaces] : interfaceMap)
             {
                 for (const auto& interface : interfaces)
                 {
@@ -2199,7 +2199,7 @@ inline void handleBusSystemPost(
     {
         // Check if segment contains ".".  If it does, it must be an
         // interface
-        if (it->find(".") != std::string::npos)
+        if (it->contains("."))
         {
             break;
             // This check is necessary as the trailing slash gets
