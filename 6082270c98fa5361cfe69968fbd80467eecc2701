@@ -39,6 +39,30 @@
       },
       "revId": "6082270c98fa5361cfe69968fbd80467eecc2701",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b370f28_2982c16b",
+        "filename": "test/redfish-core/lib/event_service_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-09T09:21:54Z",
+      "side": 1,
+      "message": "Fixed. The file had mixed CRLF/LF line endings. I converted it to LF (\\n) using dos2unix and updated the commit.",
+      "parentUuid": "e36af39f_02e2984a",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "6082270c98fa5361cfe69968fbd80467eecc2701",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
