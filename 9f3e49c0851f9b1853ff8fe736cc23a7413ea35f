@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edb0b59c_7b6d133e",
+        "filename": "features/openbmc_rest/openbmc_dbus_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2202,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-09T06:08:21Z",
+      "side": 1,
+      "message": "```suggestion\n        if (it-\u003econtains(\".\"))\n```\nIs this what you have intended?",
+      "range": {
+        "startLine": 2202,
+        "startChar": 8,
+        "endLine": 2202,
+        "endChar": 31
+      },
+      "revId": "9f3e49c0851f9b1853ff8fe736cc23a7413ea35f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
