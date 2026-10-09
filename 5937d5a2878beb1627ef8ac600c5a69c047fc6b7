@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13ff1997_e1765b68",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-09T15:35:41Z",
+      "side": 1,
+      "message": "sure, applied it.",
+      "parentUuid": "9b6dad9b_839e08d3",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fac4df57_5790a371",
@@ -69,6 +87,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8b0dda6_d15dc496",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-09T15:35:41Z",
+      "side": 1,
+      "message": "Thanks, applied your suggestion.",
+      "parentUuid": "fac4df57_5790a371",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fc13569_ef25492c",
@@ -82,6 +118,24 @@
       "writtenOn": "2026-10-08T18:21:43Z",
       "side": 1,
       "message": "Would this be?\n\n```\n  return AlphanumLess\u003cstd::string\u003e()(lhs.string(), rhs.string());\n```",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69d7c01f_da67e774",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-09T15:35:41Z",
+      "side": 1,
+      "message": "right, it seems to be convention in bmcweb to use this for sorting. Fixed it, thanks 👍",
+      "parentUuid": "7fc13569_ef25492c",
       "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -134,6 +188,24 @@
       "writtenOn": "2026-10-08T18:21:43Z",
       "side": 1,
       "message": "Is it more appropriate by doing `getFanPathsByChassisId()` if BMCWEB_REDFISH_FAN_LINKS is enabled like\n\n```\n\n    if constexpr (BMCWEB_REDFISH_FAN_LINKS)\n    {\n         fan_utils::getFanPathsByChassisId(\n             std::bind_front(getChassisFanLinks, asyncResp, chassisId));\n    }\n```",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5742db63_7473be38",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-09T15:35:41Z",
+      "side": 1,
+      "message": "fixed it, your version is more compact 👍",
+      "parentUuid": "81dd6814_c2604f82",
       "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -221,6 +293,24 @@
       "writtenOn": "2026-10-08T18:21:43Z",
       "side": 1,
       "message": "By introducing `getFanLinkAssociationName()` in fan_utils.hpp, this can be used like\n```\n        const sdbusplus::object_path endpointPath \u003d\n            sdbusplus::object_path(validChassisPath.value()) /\n            getFanLinkAssociationName();\n```",
+      "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "850a140f_2ceb2bea",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-09T15:35:41Z",
+      "side": 1,
+      "message": "Thanks, applied 👍",
+      "parentUuid": "daf3344e_d24202e4",
       "revId": "5937d5a2878beb1627ef8ac600c5a69c047fc6b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
