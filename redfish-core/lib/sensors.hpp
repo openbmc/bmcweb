@@ -580,9 +580,8 @@ inline void populateFanRedundancy(
                         auto found = std::ranges::find_if(
                             endpoints,
                             [sensorsAsyncResp](const std::string& entry) {
-                                return entry.find(
-                                           sensorsAsyncResp->chassisId) !=
-                                       std::string::npos;
+                                return entry.contains(
+                                    sensorsAsyncResp->chassisId);
                             });
 
                         if (found == endpoints.end())

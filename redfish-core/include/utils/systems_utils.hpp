@@ -363,7 +363,7 @@ inline bool indexMatchingSubTreeMapObjectPath(
 
         tmp.insert(0, 1, '/');
         tmp.append("/");
-        if (path.str.find(host) != std::string::npos)
+        if (path.str.contains(host))
         {
             return true;
         }

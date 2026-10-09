@@ -583,7 +583,7 @@ inline void assembleDimmProperties(
             asyncResp->res.jsonValue[jsonPtr]["MemoryDeviceType"] =
                 memoryDeviceType;
         }
-        if (memoryType->find("DDR") != std::string::npos)
+        if (memoryType->contains("DDR"))
         {
             asyncResp->res.jsonValue[jsonPtr]["MemoryType"] =
                 memory::MemoryType::DRAM;

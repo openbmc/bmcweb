@@ -852,7 +852,7 @@ inline bool fillPowerThermalIdentity(
             sensorJson["Name"] = "Chassis Power Control";
             unit = "/PowerConsumedWatts"_json_pointer;
         }
-        else if (lower.find("input") != std::string::npos)
+        else if (lower.contains("input"))
         {
             unit = "/PowerInputWatts"_json_pointer;
         }

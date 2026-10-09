@@ -497,7 +497,7 @@ inline std::optional<boost::urls::url> parseSimpleUpdateUrl(
     std::string imageURI, std::optional<std::string> transferProtocol,
     crow::Response& res)
 {
-    if (imageURI.find("://") == std::string::npos)
+    if (!imageURI.contains("://"))
     {
         if (imageURI.starts_with("/"))
         {
