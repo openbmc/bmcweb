@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91539679_c7d9be10",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1002038
+      },
+      "writtenOn": "2026-10-10T05:55:00Z",
+      "side": 1,
+      "message": "Should be `xyz.openbmc_project.Logging.CPER.Raw`",
+      "revId": "43ae25406cd9cb6d865a5eebe7c42f1911b7938e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57377429_e09e73ac",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1002038
+      },
+      "writtenOn": "2026-10-10T05:55:00Z",
+      "side": 1,
+      "message": "Should be `xyz.openbmc_project.Logging.CPER.Raw`",
+      "revId": "43ae25406cd9cb6d865a5eebe7c42f1911b7938e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2ec93ce_e4c6b33a",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002038
+      },
+      "writtenOn": "2026-10-10T05:55:00Z",
+      "side": 1,
+      "message": "Should be `xyz.openbmc_project.Logging.CPER.Raw`",
+      "revId": "43ae25406cd9cb6d865a5eebe7c42f1911b7938e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "845b45e9_fd34c828",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1002038
+      },
+      "writtenOn": "2026-10-10T05:55:00Z",
+      "side": 1,
+      "message": "Should be `xyz.openbmc_project.Logging.CPER.Raw`",
+      "revId": "43ae25406cd9cb6d865a5eebe7c42f1911b7938e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5c38233_29ebb07c",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1002038
+      },
+      "writtenOn": "2026-10-10T05:55:00Z",
+      "side": 1,
+      "message": "Seems to be `GetFileHandle` on `xyz.openbmc_project.Logging.CPER.Raw`.\nRef: https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Logging/CPER/Raw.interface.yaml",
+      "revId": "43ae25406cd9cb6d865a5eebe7c42f1911b7938e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
