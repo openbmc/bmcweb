@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bcbac43_0350880d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-11T18:11:16Z",
+      "side": 1,
+      "message": "But i don\u0027t see you disable \n`-Wno-lifetime-safety-cross-tu-suggestions`\n\nJust \n\n            \u0027-Wno-lifetime-safety-cross-tu-constructor-suggestions\u0027,\n            \u0027-Wno-lifetime-safety-intra-tu-constructor-suggestions\u0027,\n            \u0027-Wno-lifetime-safety-intra-tu-suggestions\u0027,",
+      "range": {
+        "startLine": 12,
+        "startChar": 42,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "dd73e9c9dd0154ea5283a6ad1858fc5a0cf88dcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7de8da3_df1986ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-11T18:11:16Z",
+      "side": 1,
+      "message": "Oh well, this enables clang 23, we can revisit later",
+      "revId": "dd73e9c9dd0154ea5283a6ad1858fc5a0cf88dcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc9572d4_21ed5df6",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-11T18:11:16Z",
+      "side": 1,
+      "message": "So something like \n```\n    \u0027-Wno-lifetime-safety-suggestions\u0027,\n    \u0027-Wno-lifetime-safety-invalidation\u0027,\n    \u0027-Wno-lifetime-safety-return-stack-addr-moved\u0027,\n```\nmight have been cleaner since \n\n```\n-Wlifetime-safety-suggestions\n├── -Wlifetime-safety-intra-tu-suggestions\n│   └── -Wlifetime-safety-intra-tu-constructor-suggestions\n└── -Wlifetime-safety-cross-tu-suggestions\n    └── -Wlifetime-safety-cross-tu-constructor-suggestions\n```\n\nOh well.",
+      "revId": "dd73e9c9dd0154ea5283a6ad1858fc5a0cf88dcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
