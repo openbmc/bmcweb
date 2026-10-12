@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95a12aa0_c34bfe01",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-12T06:55:52Z",
+      "side": 1,
+      "message": "Agreed. The mapped Image/Version errors aren’t declared by StartUpdate. I’ve removed mapDbusErrorToRedfish and its obsolete test, keeping the existing InternalError fallback.",
+      "parentUuid": "620313b5_eaec8a03",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "713518b0_04c94be7",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "writtenOn": "2026-08-31T11:00:57Z",
       "side": 1,
       "message": "This error does not exist in https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Software/Image.errors.yaml",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d989a7c_4f3d5b75",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-12T06:55:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "713518b0_04c94be7",
       "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b16dec00_1405f647",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-12T06:55:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "afc6e2a3_8b85d4f5",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f8fd254_e9fd16d9",
@@ -82,6 +136,24 @@
       "writtenOn": "2026-08-31T11:00:57Z",
       "side": 1,
       "message": "Error doesn\u0027t exist in PDI",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9df58ffe_4bcc6a80",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-12T06:55:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9f8fd254_e9fd16d9",
       "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +177,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ff15d24_3df90da0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-12T06:55:52Z",
+      "side": 1,
+      "message": "Agreed.removed",
+      "parentUuid": "e514bda3_d1f80d83",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a2aee91_2994dd02",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
@@ -116,6 +206,24 @@
       "writtenOn": "2026-09-09T07:45:35Z",
       "side": 1,
       "message": "Suggest adding #include \u003csystemd/sd-bus.h\u003e here, the way managers.hpp:32 does — sd_bus_error looks new to this file and currently comes in transitively via \u003csdbusplus/message.hpp\u003e.",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceae6271_1e02f167",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-12T06:55:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9a2aee91_2994dd02",
       "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +247,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76cc07e1_6d3e02bf",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-12T06:55:52Z",
+      "side": 1,
+      "message": "The new check has been removed along with the obsolete error mapper. The error logs are now the first statements in the error path.",
+      "parentUuid": "cfb9a181_6a24d503",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2dcdf2f9_690fe691",
         "filename": "test/redfish-core/lib/update_service_test.cpp",
         "patchSetId": 2
@@ -150,6 +276,24 @@
       "writtenOn": "2026-09-09T07:45:35Z",
       "side": 1,
       "message": "Suggest also asserting the Retry-After \"30\" and adding an unmapped name that hits internalError — SpaceAccess and BusyFailure both expect 503, so swapping the two branches would still pass.",
+      "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3060474e_3cb25b07",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-12T06:55:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2dcdf2f9_690fe691",
       "revId": "555e04dc26d059f5b4b3cbb9ba38434ca3523c7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
