@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "634ded90_01648c36",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-12T12:59:18Z",
+      "side": 1,
+      "message": "Logged error, but called return, is that intended?",
+      "revId": "9cc3b9f7ea1fec4bdbe765677e01f16972957c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34980e01_4bd6dc8b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-12T12:59:18Z",
+      "side": 1,
+      "message": "Should this be operating_frequency?",
+      "range": {
+        "startLine": 619,
+        "startChar": 17,
+        "endLine": 619,
+        "endChar": 35
+      },
+      "revId": "9cc3b9f7ea1fec4bdbe765677e01f16972957c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b16457_151c9c3c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-12T12:59:18Z",
+      "side": 1,
+      "message": "Should we check each speed against MAX_INT before converting it? PDI explicitly defines MAX_INT as unsupported right?",
+      "range": {
+        "startLine": 807,
+        "startChar": 4,
+        "endLine": 807,
+        "endChar": 33
+      },
+      "revId": "9cc3b9f7ea1fec4bdbe765677e01f16972957c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
