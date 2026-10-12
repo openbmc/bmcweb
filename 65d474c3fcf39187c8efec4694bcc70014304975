@@ -33,6 +33,23 @@
       "message": "Code seems reasonable",
       "revId": "65d474c3fcf39187c8efec4694bcc70014304975",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3425f55c_d9dc7bd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-12T13:12:25Z",
+      "side": 1,
+      "message": "I don\u0027t have permission to overwrite the failed CI verified in the previous commits to be able to submit this.",
+      "revId": "65d474c3fcf39187c8efec4694bcc70014304975",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
