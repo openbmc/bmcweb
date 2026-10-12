@@ -5,10 +5,14 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/asset_utils.hpp"
+
+#include <boost/system/errc.hpp>
 
 #include <functional>
 
@@ -59,10 +63,17 @@ inline void getStorageControllerHandler(
     const std::string& controllerId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec || subtree.empty())
+    if (ec)
     {
-        // doesn't have to be there
-        BMCWEB_LOG_DEBUG("Failed to handle StorageController");
+        if (ec.value() == boost::system::errc::io_error)
+        {
+            messages::resourceNotFound(asyncResp->res, "StorageController",
+                                       controllerId);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("Failed to get StorageController subtree: {}", ec);
+        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -91,7 +102,10 @@ inline void getStorageControllerHandler(
         const std::string& connectionName = interfaceDict.front().first;
         populateStorageController(asyncResp, controllerId, connectionName,
                                   path);
+        return;
     }
+    messages::resourceNotFound(asyncResp->res, "StorageController",
+                               controllerId);
 }
 
 inline void populateStorageControllerCollection(
