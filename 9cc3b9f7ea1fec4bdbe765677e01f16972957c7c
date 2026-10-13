@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47d18676_d54c8bc5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-13T03:05:57Z",
+      "side": 1,
+      "message": "The metric only decorates the response, so the lookup failing should not fail the whole GET; the ERROR level was the inconsistent part and is now a WARNING.",
+      "parentUuid": "634ded90_01648c36",
+      "revId": "9cc3b9f7ea1fec4bdbe765677e01f16972957c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34980e01_4bd6dc8b",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-10-12T12:59:18Z",
       "side": 1,
       "message": "Should this be operating_frequency?",
+      "range": {
+        "startLine": 619,
+        "startChar": 17,
+        "endLine": 619,
+        "endChar": 35
+      },
+      "revId": "9cc3b9f7ea1fec4bdbe765677e01f16972957c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "350ec661_a8348c49",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-13T03:05:57Z",
+      "side": 1,
+      "message": "Done, thanks.\nI sent https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/95690 to fix the path and will follow it here.",
+      "parentUuid": "34980e01_4bd6dc8b",
       "range": {
         "startLine": 619,
         "startChar": 17,
@@ -78,6 +120,30 @@
       "side": 1,
       "message": "+1 for the rest of the properties here",
       "parentUuid": "f5b16457_151c9c3c",
+      "range": {
+        "startLine": 807,
+        "startChar": 4,
+        "endLine": 807,
+        "endChar": 33
+      },
+      "revId": "9cc3b9f7ea1fec4bdbe765677e01f16972957c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e07b2982_89abe1e1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-13T03:05:57Z",
+      "side": 1,
+      "message": "Good catch, right, Item.Accelerator documents maxint as \"not supported\" and also makes it the default, so the pointer is never null; skipped the sentinel on all three speeds.",
+      "parentUuid": "bac8b3fb_f85c15dc",
       "range": {
         "startLine": 807,
         "startChar": 4,
