@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f666b5_117a8dea",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-13T02:30:18Z",
+      "side": 1,
+      "message": "Made more than one chassis an internalError to match afterGetUpstreamChassisPaths in chassis.hpp, and split out the empty case, which only means the processor has no chassis.",
+      "parentUuid": "c8beb7b1_d4062159",
+      "range": {
+        "startLine": 769,
+        "startChar": 21,
+        "endLine": 769,
+        "endChar": 32
+      },
+      "revId": "ac48678b1d3ad11fc60f13fad568ecd082dee2ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81d473f1_ac5c8675",
@@ -54,6 +78,24 @@
       "writtenOn": "2026-10-08T18:45:48Z",
       "side": 1,
       "message": "Should it be an error if size() \u003e 1?",
+      "revId": "ac48678b1d3ad11fc60f13fad568ecd082dee2ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fe8fb41_6ee1846f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-13T02:30:18Z",
+      "side": 1,
+      "message": "Kept this a skip because Links/Processors is an array in the schema and more than one processor is legitimate; only the chassis derived through it is ambiguous, so just that link is left out.",
+      "parentUuid": "81d473f1_ac5c8675",
       "revId": "ac48678b1d3ad11fc60f13fad568ecd082dee2ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
