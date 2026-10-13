@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c2da3b_29f28722",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-13T06:24:58Z",
+      "side": 1,
+      "message": "Can you please elaborate the tests you have done.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b04cb2d_d3f455dc",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-13T06:24:58Z",
+      "side": 1,
+      "message": "When the EventLog entry advertises CPER diagnostic data, should it point its AdditionalDataURI to the raw CPER attachment???",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 56
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beca9ba4_dde7599c",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-13T06:24:58Z",
+      "side": 1,
+      "message": "Should we derive the raw entry’s DiagnosticDataType from the explicit D-Bus property rather than the presence of SectionType. The interface allows an unavailable section GUID to be empty right?",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
