@@ -183,10 +183,14 @@ inline std::pair<std::string, std::string> splitSensorNameAndType(
     }
     std::string sensorType{sensorId.substr(0, index)};
     std::string sensorName{sensorId.substr(index + 1)};
-    // fan_pwm and fan_tach need special handling
+    // fan_pwm, fan_tach, and rotational_position need special handling
     if (sensorType == "fantach" || sensorType == "fanpwm")
     {
         sensorType.insert(3, 1, '_');
+    }
+    else if (sensorType == "rotationalposition")
+    {
+        sensorType = "rotational_position";
     }
     return std::make_pair(sensorType, sensorName);
 }
@@ -255,6 +259,10 @@ inline std::string_view toReadingUnits(std::string_view sensorType)
     {
         return "Hz";
     }
+    if (sensorType == "rotational_position")
+    {
+        return "rad";
+    }
     return "";
 }
 
@@ -322,6 +330,10 @@ inline sensor::ReadingType toReadingType(std::string_view sensorType)
     if (sensorType == "charge")
     {
         return sensor::ReadingType::ChargeAh;
+    }
+    if (sensorType == "rotational_position")
+    {
+        return sensor::ReadingType::RotationalPosition;
     }
     return sensor::ReadingType::Invalid;
 }
