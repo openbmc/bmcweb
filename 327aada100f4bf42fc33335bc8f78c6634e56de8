@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5eb07fe7_215049f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003019
+      },
+      "writtenOn": "2026-10-13T23:12:00Z",
+      "side": 1,
+      "message": "1. The tests are done on target platform Qemu using phosphor-logging utils log-create with the extend option.\ne.g log-create xyz.openbmc_project.State.CPER.Fatal \\\n  -j \u0027{\"SOURCE\":\"/xyz/openbmc_project/inventory/system/board/MB\",\"CPER\":\"{}\"}\u0027 \\\n  --extend xyz.openbmc_project.Logging.Extension.CPER.Processed \\\n  \u0027{\"DiagnosticDataType\":\"xyz.openbmc_project.Logging.CPER.Types.ContentType.CPER\",\"NotificationType\":\"8f87f311-c998-4d9e-a0c4-fb4dfc2c8c14\",\"SectionType\":\"\",\"Oem\":{\"XYZ\":\"{\\\"@odata.type\\\":\\\"#XYZ_LogEntry.v1_0_0.XYZ_LogEntry\\\",\\\"HardwareRegisters\\\":[{\\\"RegisterName\\\":\\\"SMN_STATUS\\\",\\\"Address\\\":\\\"0x03B00054\\\",\\\"Value\\\":\\\"0xXXXXXXXXXXXXXXXX\\\"},{\\\"RegisterName\\\":\\\"MCA_STATUS\\\",\\\"Address\\\":\\\"0x00000401\\\",\\\"Value\\\":\\\"0xXXXXXXXXXXXXXXXX\\\"}],\\\"XYZFieldIdentifiers\\\":[{\\\"ERRORID\\\":12016,\\\"Description\\\":\\\"Compute Tray Error\\\"}],\\\"RackUnitPosition\\\":\\\"XYZ:RACK_ID\\\"}\"}}\u0027 \\\n  --extend xyz.openbmc_project.Logging.Extension.CPER.Raw \\\n  \u0027{\"Data\":[68,80,69,82,1,0,255,255,18,52,86,120,170,187,204,221]}\u0027\n2. This will create dbus entry for the event with extension interfaces attached.\nThe corresponding entries in bmcweb EventLog and CPERRawLog service is checked.\n3. There are couple of tests done using busctl call to CPER processor service(builds which has CPER processor integrated)\n4. Apart from this the regular bmcweb CI tests are run locally",
+      "parentUuid": "01c2da3b_29f28722",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b04cb2d_d3f455dc",
         "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
         "patchSetId": 6
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ccdb0f5_396dd225",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003019
+      },
+      "writtenOn": "2026-10-13T23:12:00Z",
+      "side": 1,
+      "message": "For regular EventLog entry \"AdditionalDataURI\" is already being used for raw BMC event from phosphor logging so it is not changed. In the CPERRawLog service entry, \"AdditionalDataURI\" will be pointing to the attachment containing CPER data.  Please see additional details here https://github.com/openbmc/docs/blob/master/designs/cper-event-logs.md",
+      "parentUuid": "7b04cb2d_d3f455dc",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 56
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "beca9ba4_dde7599c",
         "filename": "redfish-core/lib/log_services_rawcper.hpp",
         "patchSetId": 6
@@ -60,6 +108,24 @@
       "writtenOn": "2026-10-13T06:24:58Z",
       "side": 1,
       "message": "Should we derive the raw entry’s DiagnosticDataType from the explicit D-Bus property rather than the presence of SectionType. The interface allows an unavailable section GUID to be empty right?",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c343eab5_105cd2ef",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1003019
+      },
+      "writtenOn": "2026-10-13T23:12:00Z",
+      "side": 1,
+      "message": "Yes it can be fetched from DiagnosticDataType D-bus property directly.",
+      "parentUuid": "beca9ba4_dde7599c",
       "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
