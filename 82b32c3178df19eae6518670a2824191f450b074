@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfd5d11f_de0eb84c",
+        "filename": "redfish-core/lib/processor_metrics.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-13T08:16:51Z",
+      "side": 1,
+      "message": "operating_frequency right?\nhttps://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/95690",
+      "range": {
+        "startLine": 190,
+        "startChar": 27,
+        "endLine": 190,
+        "endChar": 45
+      },
+      "revId": "82b32c3178df19eae6518670a2824191f450b074",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
