@@ -26,12 +26,15 @@ TEST(SplitSensorNameAndType, Type)
 {
     EXPECT_EQ(splitSensorNameAndType("fantach_foo_1").first, "fan_tach");
     EXPECT_EQ(splitSensorNameAndType("temperature_foo2").first, "temperature");
+    EXPECT_EQ(splitSensorNameAndType("rotation_foo_1").first,
+              "rotational_position");
 }
 
 TEST(SplitSensorNameAndType, Name)
 {
     EXPECT_EQ(splitSensorNameAndType("fantach_foo_1").second, "foo_1");
     EXPECT_EQ(splitSensorNameAndType("temperature_foo2").second, "foo2");
+    EXPECT_EQ(splitSensorNameAndType("rotation_foo_1").second, "foo_1");
 }
 
 TEST(SplitSensorNameAndType, Error)
@@ -58,6 +61,28 @@ TEST(GetSensorId, Success)
 
     sensorId = getSensorId("temp2", "temperature");
     EXPECT_EQ(sensorId, "temperature_temp2");
+
+    sensorId = getSensorId("rot0_0", "rotational_position");
+    EXPECT_EQ(sensorId, "rotation_rot0_0");
+}
+
+TEST(ToReadingUnits, Success)
+{
+    EXPECT_EQ(sensors::toReadingUnits("rotational_position"), "rad");
+    EXPECT_EQ(sensors::toReadingUnits("voltage"), "V");
+    EXPECT_EQ(sensors::toReadingUnits("temperature"), "Cel");
+    EXPECT_TRUE(sensors::toReadingUnits("invalid_type").empty());
+}
+
+TEST(ToReadingType, Success)
+{
+    EXPECT_EQ(sensors::toReadingType("rotational_position"),
+              sensor::ReadingType::RotationalPosition);
+    EXPECT_EQ(sensors::toReadingType("voltage"), sensor::ReadingType::Voltage);
+    EXPECT_EQ(sensors::toReadingType("temperature"),
+              sensor::ReadingType::Temperature);
+    EXPECT_EQ(sensors::toReadingType("invalid_type"),
+              sensor::ReadingType::Invalid);
 }
 
 TEST(ChassisSubNodeToString, Success)
