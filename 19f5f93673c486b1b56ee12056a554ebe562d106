@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b076e13_4836af93",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-13T14:33:57Z",
+      "side": 1,
+      "message": "Really don\u0027t like this \n\nFrom D-Bus \"A message is considered corrupt if the same key occurs twice in the same array of DICT_ENTRY\" https://dbus.freedesktop.org/doc/dbus-specification.html\n\nSo although we implemented as vector `std::vector\u003cstd::pair\u003cstd::string, DbusVariantType\u003e\u003e` and do support last value wins, I don\u0027t want to codify this.",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 47
+      },
+      "revId": "19f5f93673c486b1b56ee12056a554ebe562d106",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e8d18b_49f8a111",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-13T14:33:57Z",
+      "side": 1,
+      "message": "D-Bus say this is incorrect.. Can we remove this test and the  DuplicatePropertyNamesKeepLastValue test? This works because DBusInterfacesMap is a vector",
+      "revId": "19f5f93673c486b1b56ee12056a554ebe562d106",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
