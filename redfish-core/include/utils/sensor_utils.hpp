@@ -188,6 +188,10 @@ inline std::pair<std::string, std::string> splitSensorNameAndType(
     {
         sensorType.insert(3, 1, '_');
     }
+    else if (sensorType == "rotationalposition")
+    {
+        sensorType = "rotational_position";
+    }
     return std::make_pair(sensorType, sensorName);
 }
 
@@ -254,6 +258,10 @@ inline std::string_view toReadingUnits(std::string_view sensorType)
     if (sensorType == "frequency")
     {
         return "Hz";
+    }
+    if (sensorType == "rotational_position")
+    {
+        return "rad";
     }
     return "";
 }
@@ -322,6 +330,10 @@ inline sensor::ReadingType toReadingType(std::string_view sensorType)
     if (sensorType == "charge")
     {
         return sensor::ReadingType::ChargeAh;
+    }
+    if (sensorType == "rotational_position")
+    {
+        return sensor::ReadingType::RotationalPosition;
     }
     return sensor::ReadingType::Invalid;
 }
