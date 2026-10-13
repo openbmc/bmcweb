@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f26b30_3afe2c2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-13T02:37:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba38a727_877e4bd5",
+      "revId": "7a28905ef38218c8f755235a50e0d3cf9d097ba5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f0e754_bd67eca1",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-10-12T12:31:08Z",
       "side": 1,
       "message": "I think it will be good to assert the complete expected response.",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 69
+      },
+      "revId": "7a28905ef38218c8f755235a50e0d3cf9d097ba5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dc2e2cb_199464d6",
+        "filename": "test/redfish-core/include/utils/asset_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-13T02:37:05Z",
+      "side": 1,
+      "message": "Switched to comparing the whole jsonValue, which also pins the three sibling properties that the pointer test was not checking.",
+      "parentUuid": "99f0e754_bd67eca1",
       "range": {
         "startLine": 118,
         "startChar": 4,
