@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df0d148f_c628ef12",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-14T13:21:31Z",
+      "side": 1,
+      "message": "Order the checks as: missing → valid → invalid to improve readability and make the flow easier to follow.",
+      "revId": "02590196acdfc8db42972e7a8a0da9b6bf4de505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6936b1f8_9c8d8f17",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-14T13:21:31Z",
+      "side": 1,
+      "message": "Add test coverage for Base.1.19.HeaderMissing and Base.1.19.HeaderInvalid (HTTP 400). Also verify that HeaderInvalid MessageArgs contains the complete invalid header.",
+      "revId": "02590196acdfc8db42972e7a8a0da9b6bf4de505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c164ec09_ef0680f1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-14T13:21:31Z",
+      "side": 1,
+      "message": "Please follow the Redfish spec and pass the complete invalid header (name + value) in MessageArgs, not just \"Content-Type\".",
+      "revId": "02590196acdfc8db42972e7a8a0da9b6bf4de505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
