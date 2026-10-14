@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3132cf43_b22a1b15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:17:19Z",
+      "side": 1,
+      "message": "Does Redfish say this ? Why do we need this commit?",
+      "revId": "bc95b16613a781510737209fb6a38506db81f5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e8fa61e_fe7e3853",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
