@@ -16,6 +16,24 @@
       "message": "Should this be an error?",
       "revId": "181d134f183a9cc2c4970b36bddad83828cf2c53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "524831c1_0ac10feb",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-14T02:37:53Z",
+      "side": 1,
+      "message": "Reworded the log, which was misleading. More than one processor is not a contradiction the way more than one chassis is, so we publish them all and only leave out the chassis link we cannot derive from them.",
+      "parentUuid": "603c6e09_26447ab8",
+      "revId": "181d134f183a9cc2c4970b36bddad83828cf2c53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
