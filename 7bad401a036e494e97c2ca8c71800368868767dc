@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "55ae43bb_59283466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:02:54Z",
+      "side": 1,
+      "message": "Ideally GET and HEAD both do this..",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "7bad401a036e494e97c2ca8c71800368868767dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5da02d56_077e6602",
@@ -14,6 +37,29 @@
       "writtenOn": "2026-10-08T19:05:08Z",
       "side": 1,
       "message": "It makes sense to check adapterPath first",
+      "revId": "7bad401a036e494e97c2ca8c71800368868767dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61cdae00_fa68fca0",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:02:54Z",
+      "side": 1,
+      "message": "we can\u0027t do something like \n```\nconst sdbusplus::object_path associationPath \u003d\n    sdbusplus::object_path(fabricAdapterPath) / \"connecting\";\n\ndbus::utility::getAssociatedSubTreePaths(\n    associationPath, \"/xyz/openbmc_project/inventory\", 0, portInterfaces,\n    std::bind_front(doHandleFabricPortCollectionGet, asyncResp, systemName,\n                    adapterId));\n```\n?",
+      "range": {
+        "startLine": 362,
+        "startChar": 19,
+        "endLine": 362,
+        "endChar": 48
+      },
       "revId": "7bad401a036e494e97c2ca8c71800368868767dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
