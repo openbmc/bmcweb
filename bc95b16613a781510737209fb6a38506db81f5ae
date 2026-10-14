@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be3b98a6_385c78a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-14T23:33:38Z",
+      "side": 1,
+      "message": "+1.  I don\u0027t really understand why we think there\u0027s two different ways to expose a public key (public key property versus Certificate link).  I would expect Redfish would have guidance about this.",
+      "parentUuid": "3132cf43_b22a1b15",
+      "revId": "bc95b16613a781510737209fb6a38506db81f5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e8fa61e_fe7e3853",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
