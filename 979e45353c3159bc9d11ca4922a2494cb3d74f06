@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e491330e_9924d891",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-14T11:15:36Z",
+      "side": 1,
+      "message": "LGTM. Good coverage for the NVLink support.",
+      "revId": "979e45353c3159bc9d11ca4922a2494cb3d74f06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
