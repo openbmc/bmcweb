@@ -16,6 +16,46 @@
       "message": "It looks good to me",
       "revId": "7260e862c3cfb357979c192dfb10f9ffe78c9ab2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c934e9_ee53649b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-14T09:56:26Z",
+      "side": 1,
+      "message": "Could we keep cooled_by for environment metrics? Switching to containing drops FanSpeedsPercent on blades cooled by fans owned by another chassis, right?",
+      "revId": "7260e862c3cfb357979c192dfb10f9ffe78c9ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "050d220f_e5ae9829",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-14T09:56:26Z",
+      "side": 1,
+      "message": "The commit message\u0027s FAN_0 example shows two CoolingChassis entries, but this callback populates paths only when the mapper returns exactly one chassis, right. This confuses me.\nShould we handle multi target case here?",
+      "range": {
+        "startLine": 367,
+        "startChar": 4,
+        "endLine": 367,
+        "endChar": 33
+      },
+      "revId": "7260e862c3cfb357979c192dfb10f9ffe78c9ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
