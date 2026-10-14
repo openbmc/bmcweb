@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d80dfdea_76c3d089",
+        "filename": "test/redfish-core/include/utils/sw_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-14T02:11:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ceea117_dc6b1f86",
+      "revId": "58d368ca79ef85bf40e2e9c1f384f33743b98e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a44822e_e7a733f5",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-10-13T13:52:30Z",
       "side": 1,
       "message": "I don\u0027t see StandbySpare in the PDI \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/b9ce233718a2326a6046b5e9272fcdd93e1ef9cf/yaml/xyz/openbmc_project/Software/Activation.interface.yaml#L28\n\nI do see it in bmcweb \nhttps://github.com/openbmc/bmcweb/blob/65d474c3fcf39187c8efec4694bcc70014304975/redfish-core/include/utils/sw_utils.hpp#L345\n\nBut before we had tests to codify this behavior let\u0027s test against actual D-Bus states, so let\u0027s get SpandbySpare into PDI first",
+      "range": {
+        "startLine": 62,
+        "startChar": 53,
+        "endLine": 62,
+        "endChar": 77
+      },
+      "revId": "58d368ca79ef85bf40e2e9c1f384f33743b98e6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c7765e7_f71877b2",
+        "filename": "test/redfish-core/include/utils/sw_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-14T02:11:33Z",
+      "side": 1,
+      "message": "Dropped the StandbySpare assertions.",
+      "parentUuid": "8a44822e_e7a733f5",
       "range": {
         "startLine": 62,
         "startChar": 53,
