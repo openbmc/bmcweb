@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c22463ff_bbf77a64",
+        "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T16:38:47Z",
+      "side": 1,
+      "message": "Bonus for an IPv6 test",
+      "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34734852_38e12994",
+        "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T16:38:47Z",
+      "side": 1,
+      "message": "Ideally test \n\nEXPECT_EQ(info[\"MessageId\"], \"Base.1.19.ResourceNotFound\");\nEXPECT_EQ(info[\"MessageArgs\"][0], \"EventDestination\");\nEXPECT_EQ(info[\"MessageArgs\"][1], \"snmp99\");",
+      "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bdfce0a_ee5bde8b",
+        "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T16:38:47Z",
+      "side": 1,
+      "message": "Again ideally test \n\nEXPECT_EQ(info[\"MessageId\"], \"Base.1.19.ResourceNotFound\");\nEXPECT_EQ(info[\"MessageArgs\"][0], \"EventDestination\");\nEXPECT_EQ(info[\"MessageArgs\"][1], \"snmp1\");",
+      "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
