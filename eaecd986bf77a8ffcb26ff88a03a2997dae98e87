@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad3f684_79c69e8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:14:18Z",
+      "side": 1,
+      "message": "Why is this better?",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "671acd2f_c72cc7e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:14:18Z",
+      "side": 1,
+      "message": "And it matches what was there before?",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ac50d65_83924cf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:14:18Z",
+      "side": 1,
+      "message": "There is somethings wrong that could be commits on top or bottom",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23563a59_31d6f5b8",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:14:18Z",
+      "side": 1,
+      "message": "Ideally we supported the rest of these \n\n```\nif (type \u003d\u003d\n    \"xyz.openbmc_project.Inventory.Item.Drive.DriveType.SMR\")\n{\n    return drive::MediaType::SMR;\n}\n\n```\n\nOH well.",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f476483_aa9b198b",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:14:18Z",
+      "side": 1,
+      "message": "```\nif (proto \u003d\u003d\n    \"xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.eMMC\")\n{\n    return protocol::Protocol::eMMC;\n}\n```\n\nSame here. Oh well.",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "584abd4b_634dfe31",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:14:18Z",
+      "side": 1,
+      "message": "Want to fix this in the commit before?",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "507fe6c3_a85c9bcc",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-14T19:14:18Z",
+      "side": 1,
+      "message": "This looks wrong, I don\u0027t see a bool \n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/276b7d71dccf885867e7b38aa7a069fb6d0b7deb/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml#L25",
+      "range": {
+        "startLine": 149,
+        "startChar": 59,
+        "endLine": 149,
+        "endChar": 65
+      },
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
