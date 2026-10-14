@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73611a82_b1207d10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-14T19:51:10Z",
+      "side": 1,
+      "message": "Thanks for this. It\u0027s the fix 90580 was waiting on. CI hasn\u0027t run yet (\"User not approved\"); is a CLA on file or in progress for you or byteray? That\u0027s what stopped 90580, so it\u0027s worth sorting out first.\n\nI applied PS2 to master and drove HTTP2Connection with an nghttp2 client (the http2_connection_test.cpp TestStream setup). Master buffers an unauthenticated body with no content-length without limit. PS2 stops it at 4096 bytes with a 401, and it still stops at 4096 when the client adds a bogus \"Cookie: x\". Authenticating at header time is what makes that hold.\n\nTwo requests:\n\n1. After the 401/413 the stream stays open and further DATA is dropped, so a client can keep streaming indefinitely. Memory stays bounded, but bmcweb keeps reading. RFC 9113 section 8.1 allows a server that has sent a complete response to send RST_STREAM with NO_ERROR; I\u0027d do that once the response has gone out.\n\n2. Please add a unit test: an unauthenticated body over 4096 bytes (expect 401), the same with \"Cookie: x\", and an authenticated body under the limit that reaches the handler.",
+      "revId": "d2f7b97982db95168ee718e62b69c1712c87ca0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
