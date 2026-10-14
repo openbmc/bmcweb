@@ -56,6 +56,15 @@ inline void afterGetSnmpTrapClientdata(
         return;
     }
 
+    // boost::urls::format percent-encodes the colons of a bare IPv6 literal,
+    // so it has to be bracketed before being formatted into the host.
+    if (address.contains(':'))
+    {
+        asyncResp->res.jsonValue["Destination"] =
+            boost::urls::format("snmp://[{}]:{}", address, port);
+        return;
+    }
+
     asyncResp->res.jsonValue["Destination"] =
         boost::urls::format("snmp://{}:{}", address, port);
 }
