@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8fa61e_fe7e3853",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-14T11:01:24Z",
+      "side": 1,
+      "message": "LGTM. Test coverage for the empty Public Key case looks good.",
+      "revId": "bc95b16613a781510737209fb6a38506db81f5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
