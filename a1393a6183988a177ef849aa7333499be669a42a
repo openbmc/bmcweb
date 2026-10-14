@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc00024f_ca963a64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-14T23:24:48Z",
+      "side": 1,
+      "message": "We already have options for disabling all the existing auth types, including all password types.  Can you please document in your commit message why those weren\u0027t sufficient.  I don\u0027t really want to maintain yet another option that\u0027s just a superset of other options.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "a1393a6183988a177ef849aa7333499be669a42a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3355d212_17cc34e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-14T23:24:48Z",
+      "side": 1,
+      "message": "Please read and understand the testing requirements.",
+      "revId": "a1393a6183988a177ef849aa7333499be669a42a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
