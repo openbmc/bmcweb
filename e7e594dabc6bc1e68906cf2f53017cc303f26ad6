@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec701bd4_39e67ed7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-14T22:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78e2ab2e_9ee73ef7",
+      "revId": "e7e594dabc6bc1e68906cf2f53017cc303f26ad6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a4947d2_33788073",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-08T18:52:05Z",
       "side": 1,
       "message": "I think it is appropriate to make 2 commits\n- commit 1: refactor the getChassisState() first\n- commit 2: And then add getChassisStatePath",
+      "revId": "e7e594dabc6bc1e68906cf2f53017cc303f26ad6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bd81274_eeb5784c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-14T22:10:52Z",
+      "side": 1,
+      "message": "I\u0027ve split the refactoring into its own commit. The unit tests for the refactored function are also split into that commit.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/95807",
+      "parentUuid": "0a4947d2_33788073",
       "revId": "e7e594dabc6bc1e68906cf2f53017cc303f26ad6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
