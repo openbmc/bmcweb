@@ -50,6 +50,23 @@
       "message": "Should we add more testing?",
       "revId": "6c07068a90b9f2966454ea76b63b78685bac1e3f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "991dee35_9690a81d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-14T08:51:28Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "6c07068a90b9f2966454ea76b63b78685bac1e3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
