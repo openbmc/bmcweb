@@ -72,6 +72,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5ad3d41_1c182a32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-14T23:34:27Z",
+      "side": 1,
+      "message": "Also, why does this patch need to exist at all?  Just roll it into your patch adding this feature?  As is, you have a patch that has a bug, then you immediately fix the bug.  Just don\u0027t put the bug in in the first patch.",
+      "revId": "bc95b16613a781510737209fb6a38506db81f5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b52aa276_c1e00378",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 1
