@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07049d29_e7f3ceeb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-14T08:53:57Z",
+      "side": 1,
+      "message": "LGTM. The new rotationalposition mapping looks correct and follows the existing pattern.",
+      "revId": "e0dec85f77ef28103b84c4758de40006999829fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67b16f43_5e24c914",
