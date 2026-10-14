@@ -16,6 +16,24 @@
       "message": "Could also test Empty PartNumber or Model is Preserved but oh well\n\nTEST(AssetUtils, EmptyModelIsPreserved)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n    dbus::utility::DBusPropertiesMap properties \u003d {\n        {\"Model\", std::string(\"\")},\n    };\n\n    extractAssetInfo(asyncResp, \"\"_json_pointer, properties);\n\n    EXPECT_EQ(asyncResp-\u003eres.result(), boost::beast::http::status::ok);\n    EXPECT_TRUE(asyncResp-\u003eres.jsonValue.contains(\"Model\"));\n    EXPECT_EQ(asyncResp-\u003eres.jsonValue[\"Model\"], \"\");\n}",
       "revId": "3dfbe7c4c62602063f24e0045d1e97afb41a0b4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86199665_e37ec900",
+        "filename": "test/redfish-core/include/utils/asset_utils_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-14T02:11:47Z",
+      "side": 1,
+      "message": "Added. Thanks.",
+      "parentUuid": "312b55e8_bcc3ada2",
+      "revId": "3dfbe7c4c62602063f24e0045d1e97afb41a0b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
