@@ -1,16 +1,19 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "chassis.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/chassis.hpp"
+#include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 
 #include <boost/beast/core/string_type.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
+#include <boost/system/errc.hpp>
 #include <nlohmann/json.hpp>
 
 #include <functional>
@@ -155,6 +158,79 @@ TEST(HandleChassisProperties, TypeNotFound)
     auto properties = dbus::utility::DBusPropertiesMap();
     handleChassisProperties(response, properties);
     ASSERT_EQ("RackMount", response->res.jsonValue["ChassisType"]);
+}
+
+TEST(HandleChassisPowerState, PowerStateOn)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    handleChassisPowerState(response, ec,
+                            "xyz.openbmc_project.State.Chassis.PowerState.On");
+    EXPECT_EQ(response->res.jsonValue["PowerState"], resource::PowerState::On);
+    EXPECT_EQ(response->res.jsonValue["Status"]["State"],
+              resource::State::Enabled);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, PowerStateOff)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    handleChassisPowerState(response, ec,
+                            "xyz.openbmc_project.State.Chassis.PowerState.Off");
+    EXPECT_EQ(response->res.jsonValue["PowerState"], resource::PowerState::Off);
+    EXPECT_EQ(response->res.jsonValue["Status"]["State"],
+              resource::State::StandbyOffline);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, PowerStateTransitioningToOff)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    handleChassisPowerState(
+        response, ec,
+        "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOff");
+    EXPECT_EQ(response->res.jsonValue["PowerState"],
+              resource::PowerState::PoweringOff);
+    EXPECT_EQ(response->res.jsonValue["Status"]["State"],
+              resource::State::StandbyOffline);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, PowerStateTransitioningToOn)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    handleChassisPowerState(
+        response, ec,
+        "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOn");
+    EXPECT_EQ(response->res.jsonValue["PowerState"],
+              resource::PowerState::PoweringOn);
+    EXPECT_EQ(response->res.jsonValue["Status"]["State"],
+              resource::State::Starting);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, HostUnreachableNoError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::system::errc::make_error_code(
+        boost::system::errc::host_unreachable);
+    handleChassisPowerState(response, ec, "");
+    EXPECT_FALSE(response->res.jsonValue.contains("PowerState"));
+    EXPECT_FALSE(response->res.jsonValue.contains("Status"));
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(HandleChassisPowerState, GenericErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    handleChassisPowerState(response, ec, "");
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
 }
 
 } // namespace

@@ -154,71 +154,71 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 /**
- * @brief Retrieves chassis state properties over dbus
+ * @brief Handles the CurrentPowerState property response and populates
+ *        PowerState/Status fields on the chassis response.
+ */
+inline void handleChassisPowerState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& chassisState)
+{
+    if (ec)
+    {
+        if (ec == boost::system::errc::host_unreachable)
+        {
+            // Service not available, no error, just don't return
+            // chassis state info
+            BMCWEB_LOG_DEBUG("Service not available {}", ec);
+            return;
+        }
+        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("Chassis state: {}", chassisState);
+    // Verify Chassis State
+    if (chassisState == "xyz.openbmc_project.State.Chassis.PowerState.On")
+    {
+        asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+    }
+    else if (chassisState == "xyz.openbmc_project.State.Chassis.PowerState.Off")
+    {
+        asyncResp->res.jsonValue["PowerState"] = resource::PowerState::Off;
+        asyncResp->res.jsonValue["Status"]["State"] =
+            resource::State::StandbyOffline;
+    }
+    else if (chassisState ==
+             "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOff")
+    {
+        asyncResp->res.jsonValue["PowerState"] =
+            resource::PowerState::PoweringOff;
+        asyncResp->res.jsonValue["Status"]["State"] =
+            resource::State::StandbyOffline;
+    }
+    else if (chassisState ==
+             "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOn")
+    {
+        asyncResp->res.jsonValue["PowerState"] =
+            resource::PowerState::PoweringOn;
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Starting;
+    }
+}
+
+/**
+ * @brief Retrieves chassis state object
  *
  * @param[in] asyncResp - Shared pointer for completing asynchronous calls.
  *
  * @return None.
  */
-inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+inline void getChassisState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
-        [asyncResp{std::move(asyncResp)}](const boost::system::error_code& ec,
-                                          const std::string& chassisState) {
-            if (ec)
-            {
-                if (ec == boost::system::errc::host_unreachable)
-                {
-                    // Service not available, no error, just don't return
-                    // chassis state info
-                    BMCWEB_LOG_DEBUG("Service not available {}", ec);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG("Chassis state: {}", chassisState);
-            // Verify Chassis State
-            if (chassisState ==
-                "xyz.openbmc_project.State.Chassis.PowerState.On")
-            {
-                asyncResp->res.jsonValue["PowerState"] =
-                    resource::PowerState::On;
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Enabled;
-            }
-            else if (chassisState ==
-                     "xyz.openbmc_project.State.Chassis.PowerState.Off")
-            {
-                asyncResp->res.jsonValue["PowerState"] =
-                    resource::PowerState::Off;
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::StandbyOffline;
-            }
-            else if (
-                chassisState ==
-                "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOff")
-            {
-                asyncResp->res.jsonValue["PowerState"] =
-                    resource::PowerState::PoweringOff;
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::StandbyOffline;
-            }
-            else if (
-                chassisState ==
-                "xyz.openbmc_project.State.Chassis.PowerState.TransitioningToOn")
-            {
-                asyncResp->res.jsonValue["PowerState"] =
-                    resource::PowerState::PoweringOn;
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    resource::State::Starting;
-            }
-        });
+        std::bind_front(handleChassisPowerState, asyncResp));
 }
 
 /**
