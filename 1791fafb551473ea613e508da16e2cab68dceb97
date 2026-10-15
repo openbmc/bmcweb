@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c69b410_66110eea",
+        "filename": "test/redfish-core/lib/sensors_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:32:57Z",
+      "side": 1,
+      "message": "You could also test wrong types but oh well \n\n```\n    dbus::utility::DBusPropertiesMap itemProps;\n    itemProps.emplace_back(\"Present\", std::string(\"wrong type\"));\n\n    dbus::utility::DBusPropertiesMap assetProps;\n    assetProps.emplace_back(\"Manufacturer\", true);\n    assetProps.emplace_back(\"Model\", uint64_t{1});\n    assetProps.emplace_back(\"SerialNumber\", false);\n    assetProps.emplace_back(\"PartNumber\", uint32_t{1});\n```",
+      "revId": "1791fafb551473ea613e508da16e2cab68dceb97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
