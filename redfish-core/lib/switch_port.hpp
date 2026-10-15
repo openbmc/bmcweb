@@ -65,6 +65,24 @@ inline port::LinkStatus dBusSensorPortLinkStatusToRedfish(
         return port::LinkStatus::LinkDown;
     }
 
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.NoLink")
+    {
+        return port::LinkStatus::NoLink;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.Starting")
+    {
+        return port::LinkStatus::Starting;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.Training")
+    {
+        return port::LinkStatus::Training;
+    }
+
     return port::LinkStatus::Invalid;
 }
 
