@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ead97b_d9319cbe",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2375,
+      "author": {
+        "id": 1002932
+      },
+      "writtenOn": "2026-10-15T10:19:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1efceab9_b10efd91",
+      "range": {
+        "startLine": 2375,
+        "startChar": 0,
+        "endLine": 2375,
+        "endChar": 68
+      },
+      "revId": "5e8ccae32d88cf74dc3dde382c8d1756b76a49a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dce8d254_beb60c46",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-10-13T16:59:31Z",
       "side": 1,
       "message": "I don\u0027t find this code any cleaner than what was there.  How do we make sure if anything is added on the readJsonPatch call that it\u0027s also added here?\n\nCan we structure that so this is more automatic like it was before?  (ie, if I add a property to readJsonPatch, there\u0027s no changes needed elsewhere.)",
+      "range": {
+        "startLine": 2399,
+        "startChar": 34,
+        "endLine": 2400,
+        "endChar": 79
+      },
+      "revId": "5e8ccae32d88cf74dc3dde382c8d1756b76a49a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b610d4_60406ca2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2400,
+      "author": {
+        "id": 1002932
+      },
+      "writtenOn": "2026-10-15T10:19:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dce8d254_beb60c46",
       "range": {
         "startLine": 2399,
         "startChar": 34,
