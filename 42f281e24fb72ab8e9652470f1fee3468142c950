@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e01f687_088e5804",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:12:06Z",
+      "side": 1,
+      "message": "I don\u0027t understand the lifetime bug described here.. It simplifies the callbacks.. It makes it less awkward.. \n\nshared_ptr should be alive for as long as the callback object is..",
+      "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da2ea4f_4bf1ae71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:12:06Z",
+      "side": 1,
+      "message": "Was there a core of this ? Or why do we need this?",
+      "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c04bedd_6cb4a406",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:12:06Z",
+      "side": 1,
+      "message": "Touching \nhttp2_connection.hpp\nhttp_client.hpp\nhttp_connection.hpp\nserver_sent_event_impl.hpp\nsubscription.cpp\nwebsocket_impl.hpp\n\nhere.. \nCan you test HTTP/2, WEbsockets, EventService subscription, etc?",
+      "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca5bf97_9c5516fa",
+        "filename": "test/http/bind_front_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:12:06Z",
+      "side": 1,
+      "message": "This feels like a lot of LLM code / comments",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
