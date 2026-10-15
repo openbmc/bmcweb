@@ -73,6 +73,7 @@ srcfiles_unittest = files(
     'redfish-core/lib/system_test.cpp',
     'redfish-core/lib/systems_logservices_postcode.cpp',
     'redfish-core/lib/telemetry_service_test.cpp',
+    'redfish-core/lib/thermal_metrics_test.cpp',
     'redfish-core/lib/thermal_subsystem_test.cpp',
     'redfish-core/lib/update_service_test.cpp',
 ) + test_sources
