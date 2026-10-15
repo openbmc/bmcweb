@@ -3,11 +3,14 @@
 #include "generated/enums/metric_report_definition.hpp"
 #include "utils/telemetry_utils.hpp"
 
+#include <boost/container/flat_set.hpp>
 #include <nlohmann/json.hpp>
 
+#include <cstddef>
 #include <optional>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -16,6 +19,9 @@ namespace redfish::telemetry
 {
 namespace
 {
+
+using ChassisSensorNodes =
+    boost::container::flat_set<std::pair<std::string, std::string>>;
 
 TEST(GetDbusReportPath, AppendsIdToReportsCollection)
 {
@@ -119,6 +125,136 @@ TEST(GetTriggerIdFromDbusPath, RejectsPathOutsideTriggersCollection)
               std::nullopt);
     EXPECT_EQ(getTriggerIdFromDbusPath(""), std::nullopt);
     EXPECT_EQ(getTriggerIdFromDbusPath("NotAPath"), std::nullopt);
+}
+
+TEST(GetChassisSensorNode, EmptyUriListMatchesNothing)
+{
+    const std::vector<std::string> uris;
+    ChassisSensorNodes matched;
+
+    EXPECT_EQ(getChassisSensorNode(uris, matched), std::nullopt);
+    EXPECT_TRUE(matched.empty());
+}
+
+TEST(GetChassisSensorNode, RejectsEmptyChassisName)
+{
+    const std::vector<std::string> badUris{
+        "/redfish/v1/Chassis//Sensors", "/redfish/v1/Chassis//Sensors/sensor1"};
+
+    for (const std::string& badUri : badUris)
+    {
+        const std::vector<std::string> uris{badUri};
+        ChassisSensorNodes matched;
+
+        std::optional<IncorrectMetricUri> result =
+            getChassisSensorNode(uris, matched);
+        const IncorrectMetricUri bad =
+            result.value_or(IncorrectMetricUri{"<unset>", 999});
+        EXPECT_EQ(bad.uri, badUri);
+        EXPECT_EQ(bad.index, size_t{0});
+        EXPECT_TRUE(matched.empty());
+    }
+}
+
+TEST(GetChassisSensorNode, RejectsEmptyNodeOrSensorName)
+{
+    const std::vector<std::string> badUris{
+        "/redfish/v1/Chassis/chassis1//",
+        "/redfish/v1/Chassis/chassis1/Sensors//"};
+
+    for (const std::string& badUri : badUris)
+    {
+        const std::vector<std::string> uris{badUri};
+        ChassisSensorNodes matched;
+
+        std::optional<IncorrectMetricUri> result =
+            getChassisSensorNode(uris, matched);
+        const IncorrectMetricUri bad =
+            result.value_or(IncorrectMetricUri{"<unset>", 999});
+        EXPECT_EQ(bad.uri, badUri);
+        EXPECT_EQ(bad.index, size_t{0});
+        EXPECT_TRUE(matched.empty());
+    }
+}
+
+TEST(GetChassisSensorNode, RejectsUriMatchingNeitherForm)
+{
+    const std::vector<std::string> badUris{
+        "/redfish/v1/Chassis/chassis1", "/redfish/v1/Chassis",
+        "/redfish/v1/Systems/system/Memory",
+        "/redfish/v1/Chassis/chassis1/Sensors/sensor1/Extra",
+        "/redfish/v1/CHASSIS/chassis1/Sensors/sensor1"};
+
+    for (const std::string& badUri : badUris)
+    {
+        const std::vector<std::string> uris{badUri};
+        ChassisSensorNodes matched;
+
+        std::optional<IncorrectMetricUri> result =
+            getChassisSensorNode(uris, matched);
+        const IncorrectMetricUri bad =
+            result.value_or(IncorrectMetricUri{"<unset>", 999});
+        EXPECT_EQ(bad.uri, badUri);
+        EXPECT_EQ(bad.index, size_t{0});
+        EXPECT_TRUE(matched.empty());
+    }
+}
+
+TEST(GetChassisSensorNode, RejectsNonAbsoluteUri)
+{
+    const std::vector<std::string> badUris{
+        "redfish/v1/Chassis/chassis1/Sensors/sensor1", ""};
+
+    for (const std::string& badUri : badUris)
+    {
+        const std::vector<std::string> uris{badUri};
+        ChassisSensorNodes matched;
+
+        std::optional<IncorrectMetricUri> result =
+            getChassisSensorNode(uris, matched);
+        const IncorrectMetricUri bad =
+            result.value_or(IncorrectMetricUri{"<unset>", 999});
+        EXPECT_EQ(bad.uri, badUri);
+        EXPECT_EQ(bad.index, size_t{0});
+        EXPECT_TRUE(matched.empty());
+    }
+}
+
+TEST(GetChassisSensorNode, RejectsUnparsableUri)
+{
+    const std::vector<std::string> badUris{
+        "bad uri", "http://host/redfish/v1/Chassis/chassis1/Sensors/sensor1"};
+
+    for (const std::string& badUri : badUris)
+    {
+        const std::vector<std::string> uris{badUri};
+        ChassisSensorNodes matched;
+
+        std::optional<IncorrectMetricUri> result =
+            getChassisSensorNode(uris, matched);
+        const IncorrectMetricUri bad =
+            result.value_or(IncorrectMetricUri{"<unset>", 999});
+        EXPECT_EQ(bad.uri, badUri);
+        EXPECT_EQ(bad.index, size_t{0});
+        EXPECT_TRUE(matched.empty());
+    }
+}
+
+TEST(GetChassisSensorNode, ReportsIndexOfFirstIncorrectUri)
+{
+    const std::vector<std::string> uris{
+        "/redfish/v1/Chassis/chassis1/Sensors/sensor1#/Reading",
+        "/redfish/v1/Chassis/chassis2/Sensors/sensor2#/Reading",
+        "/redfish/v1/Systems/system/Memory",
+        "/redfish/v1/Chassis/chassis3/Sensors/sensor3#/Reading"};
+    ChassisSensorNodes matched;
+
+    std::optional<IncorrectMetricUri> result =
+        getChassisSensorNode(uris, matched);
+    const IncorrectMetricUri bad =
+        result.value_or(IncorrectMetricUri{"<unset>", 999});
+    EXPECT_EQ(bad.uri, "/redfish/v1/Systems/system/Memory");
+    EXPECT_EQ(bad.index, size_t{2});
 }
 
 TEST(ToRedfishCollectionFunction, ConvertsKnownOperationType)
