@@ -9,6 +9,7 @@
 #include "error_messages.hpp"
 #include "generated/enums/sensor.hpp"
 #include "http_request.hpp"
+#include "http_response.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -127,6 +128,19 @@ inline void getTemperatureReadingsCelsius(
                         chassisId));
 }
 
+inline void fillThermalMetricsResponse(crow::Response& res,
+                                       const std::string& chassisId)
+{
+    res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ThermalMetrics/ThermalMetrics.json>; rel=describedby");
+    res.jsonValue["@odata.type"] = "#ThermalMetrics.v1_0_1.ThermalMetrics";
+    res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/ThermalSubsystem/ThermalMetrics", chassisId);
+    res.jsonValue["Id"] = "ThermalMetrics";
+    res.jsonValue["Name"] = "Thermal Metrics";
+}
+
 inline void doThermalMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId,
@@ -138,15 +152,7 @@ inline void doThermalMetrics(
         return;
     }
 
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/ThermalMetrics/ThermalMetrics.json>; rel=describedby");
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ThermalMetrics.v1_0_1.ThermalMetrics";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Chassis/{}/ThermalSubsystem/ThermalMetrics", chassisId);
-    asyncResp->res.jsonValue["Id"] = "ThermalMetrics";
-    asyncResp->res.jsonValue["Name"] = "Thermal Metrics";
+    fillThermalMetricsResponse(asyncResp->res, chassisId);
 
     getTemperatureReadingsCelsius(asyncResp, *validChassisPath, chassisId);
 }
