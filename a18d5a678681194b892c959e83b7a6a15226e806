@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13c0f6ce_6c02d933",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T20:49:32Z",
+      "side": 1,
+      "message": "I don\u0027t see any testing of this I see no getSessionCollectionMembers() or handleSessionCollectionGet() testing",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 29
+      },
+      "revId": "a18d5a678681194b892c959e83b7a6a15226e806",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7edcfbe_17a4b3e6",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T20:49:32Z",
+      "side": 1,
+      "message": "Should we do something like \n```\nclass RedfishSessionsTest : public Test\n{\n  protected:\n    void SetUp() override\n    {\n        clearAllSessions();\n    }\n\n    void TearDown() override\n    {\n        clearAllSessions();\n    }\n\n...\n\n\nTEST_F(RedfishSessionsTest, BaseFieldsAreExpected)\n{\n\n```\n\nKind of like https://github.com/openbmc/bmcweb/blob/25219b3b8ae3096cb5350d420bf79e84f2ff4aff/test/include/multipart_test.cpp#L18\n\nBecause right now the assertion could hit and would not clear",
+      "revId": "a18d5a678681194b892c959e83b7a6a15226e806",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09a834ad_a42e3b0d",
         "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
         "patchSetId": 6
@@ -14,6 +54,24 @@
       "writtenOn": "2026-10-15T16:26:14Z",
       "side": 1,
       "message": "?\n\nI suspect rather than using the singleton, we need to be construcing a session store per test, that way we don\u0027t have cross test dependencies and ordering issues.",
+      "revId": "a18d5a678681194b892c959e83b7a6a15226e806",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2f05c09_9867d9c2",
+        "filename": "test/redfish-core/lib/redfish_sessions_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T20:49:32Z",
+      "side": 1,
+      "message": "Yeah, or this",
+      "parentUuid": "09a834ad_a42e3b0d",
       "revId": "a18d5a678681194b892c959e83b7a6a15226e806",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
