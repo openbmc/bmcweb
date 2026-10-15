@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3800e61e_129557df",
+        "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-15T05:26:22Z",
+      "side": 1,
+      "message": "Done. Added AfterGetSnmpTrapClientdata.Ipv6DestinationIsPopulated, which turned up a bug: boost::urls::format encodes host fields with a charset that excludes :, so a bare IPv6 address came out as snmp://fd03%3Af9ab%3A...:162. Bracketing the literal fixes it — the test now expects snmp://[fd03:f9ab:25de:89ec::1]:162. Happy to split the fix out if you\u0027d rather keep this test-only.",
+      "parentUuid": "c22463ff_bbf77a64",
+      "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34734852_38e12994",
         "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-14T16:38:47Z",
       "side": 1,
       "message": "Ideally test \n\nEXPECT_EQ(info[\"MessageId\"], \"Base.1.19.ResourceNotFound\");\nEXPECT_EQ(info[\"MessageArgs\"][0], \"EventDestination\");\nEXPECT_EQ(info[\"MessageArgs\"][1], \"snmp99\");",
+      "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb6bb72_354419f6",
+        "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-15T05:26:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "34734852_38e12994",
       "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-10-14T16:38:47Z",
       "side": 1,
       "message": "Again ideally test \n\nEXPECT_EQ(info[\"MessageId\"], \"Base.1.19.ResourceNotFound\");\nEXPECT_EQ(info[\"MessageArgs\"][0], \"EventDestination\");\nEXPECT_EQ(info[\"MessageArgs\"][1], \"snmp1\");",
+      "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab0483b_390efe50",
+        "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-15T05:26:22Z",
+      "side": 1,
+      "message": "Done. Both not-found tests now assert the full message off jsonValue[\"error\"][\"@Message.ExtendedInfo\"][0] — Base.1.19.ResourceNotFound with args EventDestination/snmp99 in AfterGetSnmpTrapClient.UnknownIdReturnsResourceNotFound, and EventDestination/snmp1 in HandleDeleteSnmpTrapClientResponse.BadRequestDescriptorIsNotFound.",
+      "parentUuid": "2bdfce0a_ee5bde8b",
       "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
