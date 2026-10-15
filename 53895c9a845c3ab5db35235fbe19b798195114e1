@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16bca54_f56a1be2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T17:09:38Z",
+      "side": 1,
+      "message": "Overall I don\u0027t really like how this patch is structured.  It assumes that connections will just silently close without any indication of doing so.\n\nRather than trying to handle that case, can we just make sure that idle connections are still monitored for disconnects, and if need be, we can replace the connection entirely (destroying the old one) rather than trying to reuse things?",
+      "revId": "53895c9a845c3ab5db35235fbe19b798195114e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "264d9700_8c68df69",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T17:09:38Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m lost here.  As a client, don\u0027t we want our connection to be open as long as the server and connection allows?",
+      "revId": "53895c9a845c3ab5db35235fbe19b798195114e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28cef5b5_2078acd3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T17:09:38Z",
+      "side": 1,
+      "message": "I don\u0027t like that we need a flag here.  If a connection hits an error, it should be closed and destroyed.  We shouldn\u0027t need to track reuse.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 0
+      },
+      "revId": "53895c9a845c3ab5db35235fbe19b798195114e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdb9f95b_aee52a6b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T17:09:38Z",
+      "side": 1,
+      "message": "No.... All errors, including shutting down should retry?  That doesn\u0027t seem right here.",
+      "revId": "53895c9a845c3ab5db35235fbe19b798195114e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79163a44_04235331",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T17:09:38Z",
+      "side": 1,
+      "message": "?  Why is whether or not we got some response a reason for retry?",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 57
+      },
+      "revId": "53895c9a845c3ab5db35235fbe19b798195114e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
