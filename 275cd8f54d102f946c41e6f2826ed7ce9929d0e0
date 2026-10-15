@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "effdf136_d222def8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:26:47Z",
+      "side": 1,
+      "message": "Can you do SSE, EventService, Virtual Media testing too?",
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2517cca_d3ec51f1",
+        "filename": "features/virtual_media/vm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:26:47Z",
+      "side": 1,
+      "message": "Do you need \n\n    if (ec \u003d\u003d boost::asio::error::operation_aborted)\n    {\n        return;\n    }\n\n\nso we don\u0027t log since this can run after NbdProxyServer destruction",
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a06bef4_3d0b7f53",
+        "filename": "http/server_sent_event_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:26:47Z",
+      "side": 1,
+      "message": "Move this up now?\n\n\n    if (ec \u003d\u003d boost::asio::error::operation_aborted)\n    {\n        BMCWEB_LOG_DEBUG(\"Timer operation aborted\");\n        return;\n    }\n\n    std::shared_ptr\u003cConnection\u003e self \u003d weakSelf.lock();\n    if (!self)\n    {\n        BMCWEB_LOG_CRITICAL(\"Failed to capture connection\");\n        return;\n    }\n\nOtherwise I worry normal teardown logs",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 9
+      },
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27253b63_d5ae8275",
+        "filename": "test/http/weak_from_this_timer_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T21:26:47Z",
+      "side": 1,
+      "message": "Again, this feels like a lot of LLM",
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
