@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "734f343b_b41e591d",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-15T02:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47aa0574_ab3a90ee",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 2
+      },
+      "revId": "979e45353c3159bc9d11ca4922a2494cb3d74f06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59ad135f_17d933c8",
@@ -72,6 +96,30 @@
       "writtenOn": "2026-10-14T20:51:41Z",
       "side": 1,
       "message": "Same as above",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 2
+      },
+      "revId": "979e45353c3159bc9d11ca4922a2494cb3d74f06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "639985cd_f3c8d43e",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-15T02:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59ad135f_17d933c8",
       "range": {
         "startLine": 332,
         "startChar": 0,
@@ -105,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29eb183a_efb4f204",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-15T02:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f4ab16b_3afe4b17",
+      "range": {
+        "startLine": 344,
+        "startChar": 38,
+        "endLine": 344,
+        "endChar": 59
+      },
+      "revId": "979e45353c3159bc9d11ca4922a2494cb3d74f06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb1d3cab_e989ba2f",
@@ -128,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59991ba6_ef6f47be",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-15T02:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb1d3cab_e989ba2f",
+      "range": {
+        "startLine": 361,
+        "startChar": 39,
+        "endLine": 361,
+        "endChar": 61
+      },
+      "revId": "979e45353c3159bc9d11ca4922a2494cb3d74f06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc7fd392_5175a0b1",
@@ -141,6 +237,30 @@
       "writtenOn": "2026-10-14T20:51:41Z",
       "side": 1,
       "message": "Should we have some negative tests as well?",
+      "range": {
+        "startLine": 349,
+        "startChar": 5,
+        "endLine": 349,
+        "endChar": 13
+      },
+      "revId": "979e45353c3159bc9d11ca4922a2494cb3d74f06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40bb0782_2c26876d",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-15T02:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc7fd392_5175a0b1",
       "range": {
         "startLine": 349,
         "startChar": 5,
