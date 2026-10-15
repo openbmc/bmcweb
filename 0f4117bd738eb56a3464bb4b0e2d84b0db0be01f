@@ -157,6 +157,24 @@
       "parentUuid": "1a2d2db7_d4d34570",
       "revId": "0f4117bd738eb56a3464bb4b0e2d84b0db0be01f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "703da737_6871aae4",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-15T06:26:18Z",
+      "side": 1,
+      "message": "Sorry, there was no conflict. Mistake",
+      "parentUuid": "0fa95c18_16c5b138",
+      "revId": "0f4117bd738eb56a3464bb4b0e2d84b0db0be01f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
