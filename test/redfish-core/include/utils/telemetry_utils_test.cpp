@@ -3,11 +3,14 @@
 #include "generated/enums/metric_report_definition.hpp"
 #include "utils/telemetry_utils.hpp"
 
+#include <boost/container/flat_set.hpp>
 #include <nlohmann/json.hpp>
 
+#include <cstddef>
 #include <optional>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -124,6 +127,26 @@ TEST(GetTriggerIdFromDbusPath, RejectsPathOutsideTriggersCollection)
               std::nullopt);
     EXPECT_EQ(getTriggerIdFromDbusPath(""), std::nullopt);
     EXPECT_EQ(getTriggerIdFromDbusPath("NotAPath"), std::nullopt);
+}
+
+TEST(GetChassisSensorNode, RejectsEmptyChassisName)
+{
+    const std::vector<std::string> badUris{
+        "/redfish/v1/Chassis//Sensors", "/redfish/v1/Chassis//Sensors/sensor1"};
+
+    for (const std::string& badUri : badUris)
+    {
+        const std::vector<std::string> uris{badUri};
+        boost::container::flat_set<std::pair<std::string, std::string>> matched;
+
+        std::optional<IncorrectMetricUri> result =
+            getChassisSensorNode(uris, matched);
+        const IncorrectMetricUri bad =
+            result.value_or(IncorrectMetricUri{"<unset>", 999});
+        EXPECT_EQ(bad.uri, badUri);
+        EXPECT_EQ(bad.index, size_t{0});
+        EXPECT_TRUE(matched.empty());
+    }
 }
 
 TEST(ToRedfishCollectionFunction, ConvertsKnownOperationType)
