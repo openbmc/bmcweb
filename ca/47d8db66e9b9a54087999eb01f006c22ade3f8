@@ -1,0 +1,12 @@
+Code-Review+1: Oliver Brewka <oliver.brewka@9elements.com>
+Code-Review+1: Gunnar Mills <gunnar@gmills.xyz>
+Code-Review+1: Joel Pullokaran Jesin <joelpj@ami.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Thu, 15 Oct 2026 15:37:27 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92679
+Comments-Total: 7
+Comments-Unresolved: 2
+Project: openbmc/bmcweb
+Branch: refs/heads/master
