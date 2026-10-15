@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc5d58ae_64b630a8",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T15:35:01Z",
+      "side": 1,
+      "message": "I\u0027m lost....  why are we erasing the set_cookie value?",
+      "revId": "3ee6794c5e46159b4393f8d4aabb801e87823a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
