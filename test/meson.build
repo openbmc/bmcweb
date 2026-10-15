@@ -28,6 +28,7 @@ srcfiles_unittest = files(
     'include/str_utility_test.cpp',
     'include/webassets_test.cpp',
     'redfish-core/include/dbus_log_watcher_test.cpp',
+    'redfish-core/include/error_messages_test.cpp',
     'redfish-core/include/event_log_test.cpp',
     'redfish-core/include/event_matches_filter_test.cpp',
     'redfish-core/include/filter_expr_executor_test.cpp',
