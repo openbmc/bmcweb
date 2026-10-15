@@ -71,6 +71,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2603069e_5b86b411",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T02:57:53Z",
+      "side": 1,
+      "message": "Thanks for the reviews!",
+      "revId": "0f4117bd738eb56a3464bb4b0e2d84b0db0be01f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7361661_108015bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T02:57:53Z",
+      "side": 1,
+      "message": "Understood, will submit another patch alongside with the other enum properties.",
+      "parentUuid": "dd3ec61a_7bbdddfb",
+      "revId": "0f4117bd738eb56a3464bb4b0e2d84b0db0be01f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07fa051d_01739a2c",
@@ -84,6 +119,24 @@
       "writtenOn": "2026-10-14T18:35:42Z",
       "side": 1,
       "message": "Don\u0027t want to support the others \nxyz.openbmc_project.Inventory.Connector.Port.LinkStatus.NoLink\nxyz.openbmc_project.Inventory.Connector.Port.LinkStatus.Starting\nxyz.openbmc_project.Inventory.Connector.Port.LinkStatus.Training \n\n?",
+      "revId": "0f4117bd738eb56a3464bb4b0e2d84b0db0be01f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a2d2db7_d4d34570",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T02:57:53Z",
+      "side": 1,
+      "message": "Acknowledged, I will submit a patch alongside with the unit test then.",
+      "parentUuid": "07fa051d_01739a2c",
       "revId": "0f4117bd738eb56a3464bb4b0e2d84b0db0be01f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
