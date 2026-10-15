@@ -39,6 +39,29 @@
       },
       "revId": "959c9a656ca945da3114336640a7a1726b6346cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14223a6_70967d41",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2418,
+      "author": {
+        "id": 1002931
+      },
+      "writtenOn": "2026-10-15T12:50:35Z",
+      "side": 1,
+      "message": "This should not be handled as an Id-specific PropertyNotWritable exception. The generic JSON parser cannot reliably distinguish read-only, unsupported, and otherwise non-applicable properties. We have added PropertyNotApplicable to the Redfish message registry to replace PropertyUnknown for these cases. Please remove this special handling; the common PropertyNotApplicable path will be added in a follow-up change.\n\nReference: https://redfishforum.com/thread/1303/generic-message-property-processing-limitation",
+      "range": {
+        "startLine": 2408,
+        "startChar": 4,
+        "endLine": 2418,
+        "endChar": 5
+      },
+      "revId": "959c9a656ca945da3114336640a7a1726b6346cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
