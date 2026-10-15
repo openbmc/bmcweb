@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf095d25_ab6be825",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T10:12:49Z",
+      "side": 1,
+      "message": "Thanks for acknowledging this.\nI have added this in PS2.",
+      "parentUuid": "59fe14ce_378c2f8c",
+      "revId": "0204c730e09beb27613e2444dc13f97e6f86cf39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc882193_f058b2f6",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-10-15T09:23:28Z",
       "side": 1,
       "message": "Could you assert this as a whole, and size is also not true right?",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "0204c730e09beb27613e2444dc13f97e6f86cf39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebdd467d_4f015015",
+        "filename": "test/redfish-core/lib/pcie_slots_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T10:12:49Z",
+      "side": 1,
+      "message": "Done, now asserting the whole array altogether and covers the size properly.",
+      "parentUuid": "bc882193_f058b2f6",
       "range": {
         "startLine": 83,
         "startChar": 4,
