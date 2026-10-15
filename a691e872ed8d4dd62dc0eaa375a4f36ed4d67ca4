@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "578b7ebc_9cdf0b9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T18:07:43Z",
+      "side": 1,
+      "message": "Can you please talk about what behavior this caused, not just a description of the code?",
+      "revId": "a691e872ed8d4dd62dc0eaa375a4f36ed4d67ca4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34b23d37_56af1161",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T18:07:43Z",
+      "side": 1,
+      "message": "tested?",
+      "revId": "a691e872ed8d4dd62dc0eaa375a4f36ed4d67ca4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
