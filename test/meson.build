@@ -70,6 +70,7 @@ srcfiles_unittest = files(
     'redfish-core/lib/power_subsystem_test.cpp',
     'redfish-core/lib/processor_test.cpp',
     'redfish-core/lib/service_root_test.cpp',
+    'redfish-core/lib/switch_port_test.cpp',
     'redfish-core/lib/system_test.cpp',
     'redfish-core/lib/systems_logservices_postcode.cpp',
     'redfish-core/lib/telemetry_service_test.cpp',
