@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7dbfd38_6fd1384a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T18:08:59Z",
+      "side": 1,
+      "message": "Sorry, why should we do this?  If an object is implementing multiple duplicates of an interface, that\u0027s a composition issue, not something we should ignore in bmcweb.  Generally we\u0027d say it needs to be a 500 error.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "4d84adbf292b9d414a79031fcc56e2fd4273b8d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
