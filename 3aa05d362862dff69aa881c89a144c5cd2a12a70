@@ -22,6 +22,30 @@
       },
       "revId": "3aa05d362862dff69aa881c89a144c5cd2a12a70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2caeca17_8f9f870c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T06:58:43Z",
+      "side": 1,
+      "message": "Acknowledged, I was doing this because the maintainer has suggested to remove the \"bmcweb:\" from the title.\n\nPlease check more details in the following link:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/93962/comment/f1ff7eab_2424045e/\n\nAnyway, I have modified and followed your suggestion. Thanks for reviewing as well!",
+      "parentUuid": "b3844076_a5f92bb9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "3aa05d362862dff69aa881c89a144c5cd2a12a70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
