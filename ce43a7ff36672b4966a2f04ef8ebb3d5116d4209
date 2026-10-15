@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaa39590_f64e8af5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T07:50:55Z",
+      "side": 1,
+      "message": "Isn\u0027t this documented for `updateCertIssuerOrSubject()`?",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 3
+      },
+      "revId": "ce43a7ff36672b4966a2f04ef8ebb3d5116d4209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f43bec32_5af75b75",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T07:50:55Z",
+      "side": 1,
+      "message": "Nit:\n`find(\u0027\u003d\u0027)` scans to the next `\u003d` on every separator. \nA single loop that returns false on the first character with `!isalnum()` or `.` would have simpler readability and stop earlier.",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 1
+      },
+      "revId": "ce43a7ff36672b4966a2f04ef8ebb3d5116d4209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3831aca8_f55275cb",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-15T07:50:55Z",
+      "side": 1,
+      "message": "What happens if a value itself contains \",\u003cword\u003e\u003d\"? \nDo we need to handle such situation?",
+      "range": {
+        "startLine": 213,
+        "startChar": 12,
+        "endLine": 214,
+        "endChar": 61
+      },
+      "revId": "ce43a7ff36672b4966a2f04ef8ebb3d5116d4209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
