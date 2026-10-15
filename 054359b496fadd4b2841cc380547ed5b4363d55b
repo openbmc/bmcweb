@@ -98,6 +98,24 @@
       "parentUuid": "1ef1d294_22e6039c",
       "revId": "054359b496fadd4b2841cc380547ed5b4363d55b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0668da9_d5a6ca51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T18:10:34Z",
+      "side": 1,
+      "message": "Question is in the thread above.  Neither of those, more \"how do hundreds of sensors require thousands of json entries\"",
+      "parentUuid": "269fe481_45b9eae7",
+      "revId": "054359b496fadd4b2841cc380547ed5b4363d55b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
