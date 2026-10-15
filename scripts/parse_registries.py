@@ -337,7 +337,7 @@ def make_error_function(
             for index, typename in enumerate(argtypes):
                 index += 1
                 if typename == "const nlohmann::json&":
-                    out += f"std::string arg{index}Str = arg{index}.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);\n"
+                    out += f"std::string arg{index}Str = messageArgToString(arg{index});\n"
                 elif typename == "uint64_t":
                     out += f"std::string arg{index}Str = std::to_string(arg{index});\n"
 
@@ -524,6 +524,18 @@ namespace redfish
 
 namespace messages
 {
+""")
+        if registry_name == "Base":
+            out.write("""
+static std::string messageArgToString(const nlohmann::json& arg)
+{
+    const std::string* str = arg.get_ptr<const std::string*>();
+    if (str != nullptr)
+    {
+        return *str;
+    }
+    return arg.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+}
 """)
         out.write("""
 static nlohmann::json::object_t getLog(redfish::registries::{struct_name}::Index name,
