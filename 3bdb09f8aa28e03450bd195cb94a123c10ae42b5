@@ -33,6 +33,29 @@
       "message": "Looks fine.",
       "revId": "3bdb09f8aa28e03450bd195cb94a123c10ae42b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "229b6a22_5c5b1d4b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T17:05:57Z",
+      "side": 1,
+      "message": "I suspect we should just fix this in the router.  I can\u0027t think of a use case that requires accepting an empty param, and I suspect they can all just 404 rather than handling them one at a time.",
+      "range": {
+        "startLine": 732,
+        "startChar": 23,
+        "endLine": 732,
+        "endChar": 28
+      },
+      "revId": "3bdb09f8aa28e03450bd195cb94a123c10ae42b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
