@@ -2404,11 +2404,24 @@ inline void handleAccountPatch(
     bool userHasConfigureUsers =
         effectiveUserPrivileges.isSupersetOf(configureUsers) &&
         !req.session->isConfigureSelfOnly;
+
+    std::optional<nlohmann::json::object_t> jsonRequest =
+        json_util::readJsonPatchHelper(req, asyncResp->res);
+    if (!jsonRequest)
+    {
+        return;
+    }
+    if (jsonRequest->contains("Id"))
+    {
+        messages::propertyNotWritable(asyncResp->res, "Id");
+        return;
+    }
+
     if (userHasConfigureUsers)
     {
         // Users with ConfigureUsers can modify for all users
-        if (!json_util::readJsonPatch(                    //
-                req, asyncResp->res,                      //
+        if (!json_util::readJsonObject(                   //
+                *jsonRequest, asyncResp->res,             //
                 "AccountTypes", accountTypes,             //
                 "Enabled", enabled,                       //
                 "Locked", locked,                         //
@@ -2431,8 +2444,8 @@ inline void handleAccountPatch(
         }
 
         // ConfigureSelf accounts can only modify their password
-        if (!json_util::readJsonPatch(req, asyncResp->res, "Password",
-                                      password))
+        if (!json_util::readJsonObject(*jsonRequest, asyncResp->res, "Password",
+                                       password))
         {
             return;
         }
