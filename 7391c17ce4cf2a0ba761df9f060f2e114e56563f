@@ -56,6 +56,97 @@
       },
       "revId": "7391c17ce4cf2a0ba761df9f060f2e114e56563f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c8a6009_98b4dd68",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T16:35:23Z",
+      "side": 1,
+      "message": "I don\u0027t see any condition here that sets null.  Shouldn\u0027t NAN set null?",
+      "revId": "7391c17ce4cf2a0ba761df9f060f2e114e56563f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e9e0875_9f0bae48",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T16:35:23Z",
+      "side": 1,
+      "message": "Why is this required?  Isn\u0027t this handled a lot further up the stack?",
+      "revId": "7391c17ce4cf2a0ba761df9f060f2e114e56563f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdfbea39_5b0b6c95",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T16:35:23Z",
+      "side": 1,
+      "message": "Why do we need special behavior for specific to fans?",
+      "revId": "7391c17ce4cf2a0ba761df9f060f2e114e56563f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cddb53bc_4dc93ef6",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T16:35:23Z",
+      "side": 1,
+      "message": "Can we start combining these into logical structs please.  9 input parameter is getting to be a lot.",
+      "range": {
+        "startLine": 709,
+        "startChar": 40,
+        "endLine": 710,
+        "endChar": 68
+      },
+      "revId": "7391c17ce4cf2a0ba761df9f060f2e114e56563f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a3e512b_6e89acee",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T16:35:23Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need to be behind \n!BMCWEB_REDFISH_ALLOW_DEPRECATED_ACCURACY",
+      "revId": "7391c17ce4cf2a0ba761df9f060f2e114e56563f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
