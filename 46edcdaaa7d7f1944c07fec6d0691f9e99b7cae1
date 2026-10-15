@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e63f8f4_fa394c48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T15:03:29Z",
+      "side": 1,
+      "message": "Clean up the space one if you can and then had a question on the other and then im good. Thanks!",
+      "revId": "46edcdaaa7d7f1944c07fec6d0691f9e99b7cae1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c93b00fe_34bde952",
+        "filename": "test/redfish-core/include/utils/telemetry_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T15:03:29Z",
+      "side": 1,
+      "message": "so we are encoding because D-Bus does not allow spaces\nhttps://dbus.freedesktop.org/doc/dbus-specification.html\n\nI am struggling that we want to codify this behavior\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.20.2.html\nsays \"Id shall not contain RFC1738-defined unsafe characters\" RFC1738 defines space as unsafe.. So this doesn\u0027t feel like a valid use case",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "46edcdaaa7d7f1944c07fec6d0691f9e99b7cae1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96eabafe_87d295ce",
+        "filename": "test/redfish-core/include/utils/telemetry_utils_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T15:03:29Z",
+      "side": 1,
+      "message": "Not sure why it has to support duplicates? Is there a use case of it needing to support duplicates? It is just a to redfish helper function, so oh well.",
+      "range": {
+        "startLine": 203,
+        "startChar": 8,
+        "endLine": 203,
+        "endChar": 36
+      },
+      "revId": "46edcdaaa7d7f1944c07fec6d0691f9e99b7cae1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
