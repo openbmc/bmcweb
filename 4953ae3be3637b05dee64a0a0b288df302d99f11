@@ -24,6 +24,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8fe0bab_c76d444a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T20:50:30Z",
+      "side": 1,
+      "message": "What does the redfish validator have to do with /vm/0/0/..",
+      "revId": "4953ae3be3637b05dee64a0a0b288df302d99f11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e70f8cf5_97cf49ae",
