@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad75760f_a34611ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T22:29:53Z",
+      "side": 1,
+      "message": "Isn\u0027t this \nHEAD /redfish/v1/Chassis/\u003cid\u003e/ThermalSubsystem/Fans/\nbeing changed?",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 58
+      },
+      "revId": "bf82be354bab8d5e7a0588b9537baa026bffd451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66f84b04_b86b4438",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T22:29:53Z",
+      "side": 1,
+      "message": "With an empty Fan collection, how is afterGetFanLocation or any of the others actually tested",
+      "range": {
+        "startLine": 27,
+        "startChar": 32,
+        "endLine": 27,
+        "endChar": 53
+      },
+      "revId": "bf82be354bab8d5e7a0588b9537baa026bffd451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
