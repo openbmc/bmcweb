@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c7d8f4b_127da843",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T00:30:25Z",
+      "side": 1,
+      "message": "\"Retrieves the current chassis power state\" would slightly more accurate but oh well",
+      "range": {
+        "startLine": 209,
+        "startChar": 10,
+        "endLine": 209,
+        "endChar": 40
+      },
+      "revId": "082a5f6f81b1a89c64b9f7b50072c79a86e4e863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
