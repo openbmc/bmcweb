@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b82102b0_c88dc10b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-15T12:47:24Z",
+      "side": 1,
+      "message": "Should we keep",
+      "revId": "959c9a656ca945da3114336640a7a1726b6346cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66751561_0d4f59ac",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2418,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-15T12:47:24Z",
+      "side": 1,
+      "message": "Should we keep the ConfigureSelf ownership check before body parsing. 0therwise, PATCHing another account with ConfigureSelf-only returns 405 PropertyNotWritable instead of the previous 403 InsufficientPrivilege???",
+      "range": {
+        "startLine": 2408,
+        "startChar": 4,
+        "endLine": 2418,
+        "endChar": 5
+      },
+      "revId": "959c9a656ca945da3114336640a7a1726b6346cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
