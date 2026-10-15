@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "928adfaa_f5501a94",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-10-15T14:03:18Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "99d8461e_6a66f3c2",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b1cd025_2f1eab2e",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-07T07:36:27Z",
       "side": 1,
       "message": "If parsing fails, defaulting versions to 0 may create synthetic MessageId values. Can we define explicit behavior: either return parse error for malformed version fields, or fall back to registry header versions?",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc92bff5_af86d107",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-10-15T14:03:18Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "0b1cd025_2f1eab2e",
       "revId": "999b687dbeae67607393517c75f75c17d4edf063",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebfd2eb5_4b848070",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-10-15T14:03:18Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "64f06448_a741afcf",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e799f0d3_874d7841",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 6
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01d869d7_3133a7a3",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-10-15T14:03:18Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "e799f0d3_874d7841",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec3d80a4_c1590ea8",
         "filename": "redfish-core/include/utils/eventlog_utils.hpp",
         "patchSetId": 6
@@ -82,6 +154,24 @@
       "writtenOn": "2026-08-07T07:36:27Z",
       "side": 1,
       "message": "If parsing fails, defaulting versions to 0 may create synthetic MessageId values. Can we define explicit behavior: either return parse error for malformed version fields, or fall back to registry header versions?",
+      "revId": "999b687dbeae67607393517c75f75c17d4edf063",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01bbcf98_2e68fb22",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2026-10-15T14:03:18Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "ec3d80a4_c1590ea8",
       "revId": "999b687dbeae67607393517c75f75c17d4edf063",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
