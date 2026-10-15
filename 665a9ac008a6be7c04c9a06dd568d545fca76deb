@@ -16,6 +16,23 @@
       "message": "It will be better to check the exact object size.",
       "revId": "665a9ac008a6be7c04c9a06dd568d545fca76deb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df39ec72_b6ebf711",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-15T10:07:51Z",
+      "side": 1,
+      "message": "Should we verify the ResourceNotFound message and message args?",
+      "revId": "665a9ac008a6be7c04c9a06dd568d545fca76deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
