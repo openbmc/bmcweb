@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb7479a_99e14d74",
+        "filename": "test/redfish-core/include/utils/telemetry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-15T08:16:50Z",
+      "side": 1,
+      "message": "Agreed. getChassisSensorNode() is the non-compliant MetricProperties\nhandling from #305, so I dropped its tests here rather than codify it.",
+      "parentUuid": "ecd5ebb0_ae4a1795",
+      "revId": "3e9207b687cb3f530511b26cea6fb44892b148f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d2321d6_5eddeae1",
@@ -122,6 +140,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa149775_1e03796c",
+        "filename": "test/redfish-core/include/utils/telemetry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-15T08:16:50Z",
+      "side": 1,
+      "message": "Telemetry only supports Power, Thermal and Sensors today, so a PowerSubsystem URI is rejected. I dropped these tests; the tests in 95838 use /Chassis/\u003cid\u003e/Sensors/\u003csensor\u003e URIs instead of Power.",
+      "parentUuid": "435a9795_47ccecc6",
+      "range": {
+        "startLine": 170,
+        "startChar": 38,
+        "endLine": 170,
+        "endChar": 43
+      },
+      "revId": "3e9207b687cb3f530511b26cea6fb44892b148f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4541ab5_7c4d8f1a",
@@ -135,6 +177,30 @@
       "writtenOn": "2026-10-13T14:07:56Z",
       "side": 1,
       "message": "This is the right behavior ? This feels like a bug in bmcweb",
+      "range": {
+        "startLine": 224,
+        "startChar": 60,
+        "endLine": 224,
+        "endChar": 62
+      },
+      "revId": "3e9207b687cb3f530511b26cea6fb44892b148f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5b7a1a4_029cf027",
+        "filename": "test/redfish-core/include/utils/telemetry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-15T08:16:50Z",
+      "side": 1,
+      "message": "Agreed, it\u0027s a bug. Removed the test here and fixed it in\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/95838",
+      "parentUuid": "f4541ab5_7c4d8f1a",
       "range": {
         "startLine": 224,
         "startChar": 60,
