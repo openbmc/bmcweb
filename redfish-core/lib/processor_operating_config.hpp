@@ -10,6 +10,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
+#include "http_response.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -231,6 +232,19 @@ inline void handleOperatingConfigCollectionGet(
         std::bind_front(afterGetOperatingConfigCollection, asyncResp, cpuName));
 }
 
+inline void fillOperatingConfigResponse(crow::Response& res,
+                                        const std::string& cpuName,
+                                        const std::string& configName)
+{
+    nlohmann::json& json = res.jsonValue;
+    json["@odata.type"] = "#OperatingConfig.v1_0_0.OperatingConfig";
+    json["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors/{}/OperatingConfigs/{}",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, cpuName, configName);
+    json["Name"] = "Processor Profile";
+    json["Id"] = configName;
+}
+
 inline void afterGetOperatingConfig(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& cpuName, const std::string& configName,
@@ -252,13 +266,7 @@ inline void afterGetOperatingConfig(
             continue;
         }
 
-        nlohmann::json& json = asyncResp->res.jsonValue;
-        json["@odata.type"] = "#OperatingConfig.v1_0_0.OperatingConfig";
-        json["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/{}/Processors/{}/OperatingConfigs/{}",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, cpuName, configName);
-        json["Name"] = "Processor Profile";
-        json["Id"] = configName;
+        fillOperatingConfigResponse(asyncResp->res, cpuName, configName);
 
         // Just use the first implementation of the object - not
         // expected that there would be multiple matching
