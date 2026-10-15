@@ -34,6 +34,24 @@
       "parentUuid": "308b49c2_fb80d7d2",
       "revId": "a2121ff037fc22eec20e68e58a209d7df0930f4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba81c17_e0b96dd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-15T17:00:55Z",
+      "side": 1,
+      "message": "\u003e This is a genuine requirement for IBM systems, where certain types of dumps can be quite large in size (often exceeding 500 MB). Once support for this functionality is available, we will have a corresponding client implementation in place.\n\nSorry, why does a large size require range support?  Range support is for resuming downloads.  Large downloads can be streamed without having to have impact on the client.\n\n\u003e \n\u003e For testing purposes, I developed a client that retrieves the dump in multiple 1 MB chunks. After all the chunks are downloaded, the client stitches them together to reconstruct the complete file. I have validated this approach, and it works as expected.\n\nThis is part of the issue.  \"I developed a client\" doesn\u0027t mean there\u0027s any support for this in the Redfish ecosystem.  That\u0027s not to say I want to prevent it, I just want to make sure we have SOME test coverage in one of our tools so we don\u0027t regress this.",
+      "parentUuid": "33092263_2ac8d417",
+      "revId": "a2121ff037fc22eec20e68e58a209d7df0930f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
