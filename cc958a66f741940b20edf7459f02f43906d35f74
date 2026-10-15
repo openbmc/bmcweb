@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e175cb10_841bd49f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-15T19:50:20Z",
+      "side": 1,
+      "message": "Thank you for adding these tests. Overall they look good to me, just a couple of minor suggestions.",
+      "revId": "cc958a66f741940b20edf7459f02f43906d35f74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "377fe3ab_dd122fe9",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-15T19:50:20Z",
+      "side": 1,
+      "message": "nit: This seems to only be used by one test. Might as well put in inline in that test.\n\nI\u0027m also wondering why it is char * instead of string_view?",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 41
+      },
+      "revId": "cc958a66f741940b20edf7459f02f43906d35f74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf5ee279_9a7d1b8f",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-15T19:50:20Z",
+      "side": 1,
+      "message": "Test is intending to confirm sorting as expected. It does, but since the values if sorted would also end up in the same order it is not confirming sorting is by the DataSourceUri and not by the value.\n\nSuggest just flopping the values here so that they would be the opposite sort.",
+      "range": {
+        "startLine": 88,
+        "startChar": 47,
+        "endLine": 88,
+        "endChar": 53
+      },
+      "revId": "cc958a66f741940b20edf7459f02f43906d35f74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
