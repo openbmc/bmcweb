@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5978e886_612fe602",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T00:38:51Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "df0d148f_c628ef12",
+      "revId": "02590196acdfc8db42972e7a8a0da9b6bf4de505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6936b1f8_9c8d8f17",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -48,6 +66,24 @@
       "writtenOn": "2026-10-14T13:21:31Z",
       "side": 1,
       "message": "Please follow the Redfish spec and pass the complete invalid header (name + value) in MessageArgs, not just \"Content-Type\".",
+      "revId": "02590196acdfc8db42972e7a8a0da9b6bf4de505",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5951f829_80987d32",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-15T00:38:51Z",
+      "side": 1,
+      "message": "From https://redfish.dmtf.org/registries/DSP2065_2024.1.html\n\n```\n2.1.32 HeaderInvalid\n\nIndicates that a request header is invalid.\n\n    This message shall indicate that a request header is known but is invalid.\n\nVersion Added: 1.13.0\n\nSeverity: Critical\n\nResolution: Resubmit the request with a valid request header.\n\nMessage and Arguments: \"Header \u0027\u003cArg1\u003e\u0027 is invalid.\"\n\n    string: The request header.\n        This argument shall contain the full request header, including the field name and field value.\n\n```\n\nSo this actually shoudl be something like \n\nmessages::headerInvalid(\n    asyncResp-\u003eres, std::format(\"Content-Type: {}\", contentType)); \n\nto make Redfish happy",
+      "parentUuid": "c164ec09_ef0680f1",
       "revId": "02590196acdfc8db42972e7a8a0da9b6bf4de505",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
