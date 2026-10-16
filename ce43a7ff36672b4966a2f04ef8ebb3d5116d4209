@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ef0f7fe_807ef755",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-16T04:00:46Z",
+      "side": 1,
+      "message": "Done, moved startsWithDnAttribute() above the comment so it documents\nupdateCertIssuerOrSubject() again.",
+      "parentUuid": "aaa39590_f64e8af5",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 3
+      },
+      "revId": "ce43a7ff36672b4966a2f04ef8ebb3d5116d4209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f43bec32_5af75b75",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "373182df_45c250b0",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-16T04:00:46Z",
+      "side": 1,
+      "message": "Done, it\u0027s now a single loop that stops at the first \u0027\u003d\u0027 or invalid\ncharacter.",
+      "parentUuid": "f43bec32_5af75b75",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 1
+      },
+      "revId": "ce43a7ff36672b4966a2f04ef8ebb3d5116d4209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3831aca8_f55275cb",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-10-15T07:50:55Z",
       "side": 1,
       "message": "What happens if a value itself contains \",\u003cword\u003e\u003d\"? \nDo we need to handle such situation?",
+      "range": {
+        "startLine": 213,
+        "startChar": 12,
+        "endLine": 214,
+        "endChar": 61
+      },
+      "revId": "ce43a7ff36672b4966a2f04ef8ebb3d5116d4209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d8ef1d8_b8048de7",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-16T04:00:46Z",
+      "side": 1,
+      "message": "It gets split there. certificate-manager prints the DN with\nXN_FLAG_SEP_COMMA_PLUS, which doesn\u0027t escape \u0027,\u0027 inside a value, so a value of \"x,CN\u003dy\" looks the same as two attributes. Handling it needs certificate-manager to print an escaped form such as XN_FLAG_RFC2253 (which also reverses the RDN order) and bmcweb to unescape it, so I\u0027d leave that for a separate change.",
+      "parentUuid": "3831aca8_f55275cb",
       "range": {
         "startLine": 213,
         "startChar": 12,
