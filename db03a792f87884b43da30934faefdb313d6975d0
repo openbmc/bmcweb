@@ -98,6 +98,30 @@
       },
       "revId": "db03a792f87884b43da30934faefdb313d6975d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff4b9de3_e9ad30d2",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1002889
+      },
+      "writtenOn": "2026-10-16T02:57:07Z",
+      "side": 1,
+      "message": "updated prefix to rotation as suggested. Both getSensorId() and splitSensorNameAndType() have been updated, along with unit tests.",
+      "parentUuid": "28d36307_ec0e726b",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 46
+      },
+      "revId": "db03a792f87884b43da30934faefdb313d6975d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
