@@ -16,6 +16,47 @@
       "message": "Please use the Redfish namespaced versions of these, setDbusProperty;  They handle errors correctly.  This patch does not.",
       "revId": "41c17e8c39670012a46f71e5021975ebfdaa7264",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fb55990_73fcba0f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-16T12:40:24Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5d66b614_d157d9a8",
+      "revId": "41c17e8c39670012a46f71e5021975ebfdaa7264",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d70e2b3d_309c3392",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-16T12:40:24Z",
+      "side": 1,
+      "message": "I think chassis discovery requires only Board or Chassis, not the AssetTag decorator. A valid chassis without that optional interface reaches this setter and receives InternalError is that intended?",
+      "range": {
+        "startLine": 736,
+        "startChar": 12,
+        "endLine": 740,
+        "endChar": 13
+      },
+      "revId": "41c17e8c39670012a46f71e5021975ebfdaa7264",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
