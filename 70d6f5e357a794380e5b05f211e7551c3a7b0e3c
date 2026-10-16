@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9f3bd64_03f3e3e9",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-16T16:43:18Z",
+      "side": 1,
+      "message": "Why are we treading this special.  Just map this to\n\nif (sensorType \u003d\u003d \"rotational_position\"){\n   sensorType \u003d \"rotation\";\n}",
+      "range": {
+        "startLine": 171,
+        "startChar": 19,
+        "endLine": 171,
+        "endChar": 20
+      },
+      "revId": "70d6f5e357a794380e5b05f211e7551c3a7b0e3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
