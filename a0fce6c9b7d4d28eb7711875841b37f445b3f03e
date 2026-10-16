@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ad210e4_c66bbc73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-16T22:05:51Z",
+      "side": 1,
+      "message": "Looks good, just one comment",
+      "revId": "a0fce6c9b7d4d28eb7711875841b37f445b3f03e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f9b25e7_3efeac8e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-16T22:05:51Z",
+      "side": 1,
+      "message": "I think before this change when this branch is met, Status.State\u003d\u003dEnabled from line 533.\n\nNow when this branch is met with `BMCWEB_REDFISH_CHASSIS_STATE_OBJECT_FALLBACK` it might be unwritten?",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 2
+      },
+      "revId": "a0fce6c9b7d4d28eb7711875841b37f445b3f03e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
