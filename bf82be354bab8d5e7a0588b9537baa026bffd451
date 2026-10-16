@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0b3cfca_5a1efbbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-16T11:48:46Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "ad75760f_a34611ee",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 58
+      },
+      "revId": "bf82be354bab8d5e7a0588b9537baa026bffd451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66f84b04_b86b4438",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2026-10-15T22:29:53Z",
       "side": 1,
       "message": "With an empty Fan collection, how is afterGetFanLocation or any of the others actually tested",
+      "range": {
+        "startLine": 27,
+        "startChar": 32,
+        "endLine": 27,
+        "endChar": 53
+      },
+      "revId": "bf82be354bab8d5e7a0588b9537baa026bffd451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28f3b9d2_7df72abb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-16T11:48:46Z",
+      "side": 1,
+      "message": "+1. It would also be nice to test individual fan-out GET/HEAD requests.",
+      "parentUuid": "66f84b04_b86b4438",
       "range": {
         "startLine": 27,
         "startChar": 32,
