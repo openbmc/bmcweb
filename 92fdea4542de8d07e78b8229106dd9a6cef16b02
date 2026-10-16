@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7306f208_528307c7",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-16T15:40:47Z",
+      "side": 1,
+      "message": "Should we have unit tests for these helper functions?",
+      "range": {
+        "startLine": 53,
+        "startChar": 49,
+        "endLine": 53,
+        "endChar": 68
+      },
+      "revId": "92fdea4542de8d07e78b8229106dd9a6cef16b02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af34ba6_7cdbace1",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-16T15:40:47Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 201,
+        "startChar": 50,
+        "endLine": 201,
+        "endChar": 70
+      },
+      "revId": "92fdea4542de8d07e78b8229106dd9a6cef16b02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
