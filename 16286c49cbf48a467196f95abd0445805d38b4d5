@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f568c588_26349e7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-16T07:25:57Z",
+      "side": 1,
+      "message": "Sure, I have added a tested line in the commit message.\nThanks for telling this.",
+      "parentUuid": "d7535cfd_a5749a08",
+      "revId": "16286c49cbf48a467196f95abd0445805d38b4d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdb0b548_56a12044",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-15T10:11:48Z",
       "side": 1,
       "message": "Training -\u003e port::LinkStatus::Training will be good, I think.",
+      "revId": "16286c49cbf48a467196f95abd0445805d38b4d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74bbb818_f91b5e2c",
+        "filename": "test/redfish-core/lib/switch_port_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-16T07:25:57Z",
+      "side": 1,
+      "message": "Done, case added in PS3.",
+      "parentUuid": "bdb0b548_56a12044",
       "revId": "16286c49cbf48a467196f95abd0445805d38b4d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
