@@ -641,13 +641,35 @@ inline void fillSensorStatus(
 inline physical_context::PhysicalContext dBusSensorPhysicalContextToRedfish(
     const std::string& sensorPhysicalContext)
 {
-    // Currently the PDI only defines the Accelerator type.
-    // TODO: Expand this mapping when additional PhysicalContext types are
-    // added to phosphor-dbus-interfaces.
     if (sensorPhysicalContext ==
         "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.Accelerator")
     {
         return physical_context::PhysicalContext::Accelerator;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.Board")
+    {
+        return physical_context::PhysicalContext::Board;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.CPU")
+    {
+        return physical_context::PhysicalContext::CPU;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.DCBus")
+    {
+        return physical_context::PhysicalContext::DCBus;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.GPUSubsystem")
+    {
+        return physical_context::PhysicalContext::GPUSubsystem;
+    }
+    if (sensorPhysicalContext ==
+        "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.VoltageRegulator")
+    {
+        return physical_context::PhysicalContext::VoltageRegulator;
     }
 
     BMCWEB_LOG_WARNING("Unknown PhysicalContext: {}", sensorPhysicalContext);

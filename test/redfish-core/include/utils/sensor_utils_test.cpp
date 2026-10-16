@@ -3,6 +3,7 @@
 #include "bmcweb_config.h"
 
 #include "dbus_utility.hpp"
+#include "generated/enums/physical_context.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
@@ -298,6 +299,40 @@ TEST(FillSensorStatus, Success)
     EXPECT_EQ(sensorJson["Status"]["State"],
               resource::State::UnavailableOffline);
     EXPECT_EQ(sensorJson["Status"]["Health"], resource::Health::Warning);
+}
+
+TEST(DBusSensorPhysicalContextToRedfish, Success)
+{
+    EXPECT_EQ(dBusSensorPhysicalContextToRedfish(
+                  "xyz.openbmc_project.Common.PhysicalContext."
+                  "PhysicalContextType.Accelerator"),
+              physical_context::PhysicalContext::Accelerator);
+    EXPECT_EQ(dBusSensorPhysicalContextToRedfish(
+                  "xyz.openbmc_project.Common.PhysicalContext."
+                  "PhysicalContextType.Board"),
+              physical_context::PhysicalContext::Board);
+    EXPECT_EQ(dBusSensorPhysicalContextToRedfish(
+                  "xyz.openbmc_project.Common.PhysicalContext."
+                  "PhysicalContextType.CPU"),
+              physical_context::PhysicalContext::CPU);
+    EXPECT_EQ(dBusSensorPhysicalContextToRedfish(
+                  "xyz.openbmc_project.Common.PhysicalContext."
+                  "PhysicalContextType.DCBus"),
+              physical_context::PhysicalContext::DCBus);
+    EXPECT_EQ(dBusSensorPhysicalContextToRedfish(
+                  "xyz.openbmc_project.Common.PhysicalContext."
+                  "PhysicalContextType.GPUSubsystem"),
+              physical_context::PhysicalContext::GPUSubsystem);
+    EXPECT_EQ(dBusSensorPhysicalContextToRedfish(
+                  "xyz.openbmc_project.Common.PhysicalContext."
+                  "PhysicalContextType.VoltageRegulator"),
+              physical_context::PhysicalContext::VoltageRegulator);
+    EXPECT_EQ(dBusSensorPhysicalContextToRedfish(
+                  "xyz.openbmc_project.Common.PhysicalContext."
+                  "PhysicalContextType.Unknown"),
+              physical_context::PhysicalContext::Invalid);
+    EXPECT_EQ(dBusSensorPhysicalContextToRedfish("Board"),
+              physical_context::PhysicalContext::Invalid);
 }
 
 using dbus::utility::DbusVariantType;
