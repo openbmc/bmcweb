@@ -52,6 +52,24 @@
       "parentUuid": "33092263_2ac8d417",
       "revId": "a2121ff037fc22eec20e68e58a209d7df0930f4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fe7e238_7fa985eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-10-16T06:00:42Z",
+      "side": 1,
+      "message": "Why should we dictate how clients use range support? Once the capability is available, it\u0027s up to the client to decide how best to leverage it. For example, a client could request the first 1 MB, then the next 1 MB, and so on. These requests can even be issued in parallel and stitched together once all chunks are received.\n\nThe retry behavior you mentioned would apply to individual chunks as well. From the server\u0027s perspective, however, nothing changes. The server simply serves the requested ranges and does not need to be aware of how the client chooses to consume them.\n\n We won\u0027t have any client-side usage at this point because there is no server-side implementation yet. If you\u0027re referring to unit test coverage for the feature, then I\u0027m completely fine with adding those test cases.",
+      "parentUuid": "cba81c17_e0b96dd8",
+      "revId": "a2121ff037fc22eec20e68e58a209d7df0930f4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
