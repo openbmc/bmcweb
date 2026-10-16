@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90a77432_66fb438b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-16T18:17:21Z",
+      "side": 1,
+      "message": "shared_ptr should be alive.\nEven if the shared_ptr is released (i.e. ref\u003d0 via reset()), the raw pointer is still pointing to the old memory (as the raw pointer was captured) -- i.e. not nullptr. Its test case is`UnsafePattern_RawPtrOutlivesSharedPtr`.\n\nIt may become an issue it happens before callback is invoked (i.e. io-queue still holds it).",
+      "parentUuid": "9e01f687_088e5804",
+      "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1da2ea4f_4bf1ae71",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-15T21:12:06Z",
       "side": 1,
       "message": "Was there a core of this ? Or why do we need this?",
+      "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c29cc2a_31b838da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-16T18:17:21Z",
+      "side": 1,
+      "message": "The current code may not core, but the current usage pattern is semantically unsafe. If an unsafe usage is inserted (i.e. shared_ptr\u0027s ownership is released before callback is invoked) unexpectedly, the issue may be surfaced again.",
+      "parentUuid": "1da2ea4f_4bf1ae71",
       "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c901b5fb_936f07fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-16T18:17:21Z",
+      "side": 1,
+      "message": "The unit test cases are to show the unsafeness of the current code pattern.\n- `bind_front(\u0026Self::cb, this, shared_from_this())`\nand it is directly replaced by \n- `bind_front(\u0026Self::cb, shared_from_this())`.\n\nThis is more like syntax issue for the safe usage.\n\n\nLooking at https://en.cppreference.com/cpp/utility/functional/bind_front,\nstd::bind_front() manual says \n```\ntemplate\u003c class F, class... Args \u003e\nconstexpr /* unspecified */ bind_front( F\u0026\u0026 f, Args\u0026\u0026... args );\n```\n\nNotes\n....\nAs described in std::invoke, when invoking a pointer to non-static member function or pointer to non-static data member, the first argument has to be a reference or pointer (including, possibly, smart pointer such as std::shared_ptr and std::unique_ptr) to an object whose member will be accessed.\n...\n\nSo, \nI\u0027m not sure whether we need the test for any of those, other than making sure it compiles.",
+      "parentUuid": "4c04bedd_6cb4a406",
+      "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ca5bf97_9c5516fa",
         "filename": "test/http/bind_front_test.cpp",
         "patchSetId": 2
@@ -65,6 +119,30 @@
       "writtenOn": "2026-10-15T21:12:06Z",
       "side": 1,
       "message": "This feels like a lot of LLM code / comments",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "42f281e24fb72ab8e9652470f1fee3468142c950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04dc7971_33a97cca",
+        "filename": "test/http/bind_front_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-16T18:17:21Z",
+      "side": 1,
+      "message": "Yes, I worked with LLM to make the test cases to prove the unsafeness.\n\nI may reword some of them.",
+      "parentUuid": "3ca5bf97_9c5516fa",
       "range": {
         "startLine": 8,
         "startChar": 0,
