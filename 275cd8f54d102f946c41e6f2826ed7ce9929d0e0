@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dddd596f_e99ae5ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-16T18:40:52Z",
+      "side": 1,
+      "message": "Same as https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95280, this commit is also for the safer coding style/syntax, not the logic change.\n\nIf it compiles, it will work same, other than unsafe situation.\nDo we still need them?",
+      "parentUuid": "effdf136_d222def8",
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2517cca_d3ec51f1",
         "filename": "features/virtual_media/vm_websocket.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-15T21:26:47Z",
       "side": 1,
       "message": "Do you need \n\n    if (ec \u003d\u003d boost::asio::error::operation_aborted)\n    {\n        return;\n    }\n\n\nso we don\u0027t log since this can run after NbdProxyServer destruction",
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc279892_2aa4cf7c",
+        "filename": "features/virtual_media/vm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-16T18:40:52Z",
+      "side": 1,
+      "message": "Probably so, but I think the part may need to be done separately as this commit is only for safer code syntax usage of `std::bind_front(\u0026cb, this, weak_from_this())` -\u003e `std::bind_front(\u0026cb, weak_from_this())`",
+      "parentUuid": "b2517cca_d3ec51f1",
       "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35b3c622_d5c0a5e1",
+        "filename": "http/server_sent_event_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-16T18:40:52Z",
+      "side": 1,
+      "message": "This commit tries to keep the original logic except the safeness usage pattern `this` and `weak_from_this()` via bind_front().\n\n(BTW, I think either code order results in the same - except the logging line, as either case will do noting but `return`, if any one of conditions meets)",
+      "parentUuid": "6a06bef4_3d0b7f53",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 9
+      },
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27253b63_d5ae8275",
         "filename": "test/http/weak_from_this_timer_test.cpp",
         "patchSetId": 1
@@ -71,6 +131,24 @@
       "writtenOn": "2026-10-15T21:26:47Z",
       "side": 1,
       "message": "Again, this feels like a lot of LLM",
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba35712a_b0ecb667",
+        "filename": "test/http/weak_from_this_timer_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2026-10-16T18:40:52Z",
+      "side": 1,
+      "message": "Yes, I got the help of LLM to make a test case (which proves the unsafeness).  I may reword some.",
+      "parentUuid": "27253b63_d5ae8275",
       "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
