@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dc4df57_01d1b9c8",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-17T22:14:38Z",
+      "side": 1,
+      "message": "Normally have a space here after the SPDX \nhttps://github.com/openbmc/bmcweb/blob/master/test/redfish-core/lib/chassis_test.cpp",
+      "revId": "3eb7b7cd6d76046dcaf7983145dde674c1b995d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a17444_5dc56ca4",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-17T22:14:38Z",
+      "side": 1,
+      "message": "Could check \n```\n\nEXPECT_EQ(info[0][\"MessageArgs\"],\n          nlohmann::json::array({\"Chassis\", \"chassis0\"}));\n```",
+      "revId": "3eb7b7cd6d76046dcaf7983145dde674c1b995d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37f25da9_dadba164",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-17T22:14:38Z",
+      "side": 1,
+      "message": "Could check \n\n\nEXPECT_EQ(info[0][\"MessageArgs\"],\n          nlohmann::json::array({\"Chassis\", \"chassis0\"}));",
+      "revId": "3eb7b7cd6d76046dcaf7983145dde674c1b995d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
