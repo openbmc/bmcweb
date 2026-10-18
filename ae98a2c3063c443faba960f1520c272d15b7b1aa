@@ -141,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3c82f7f_badb1192",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:52:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6969bb1f_33f3cdfe",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28fcee17_f863ee85",
@@ -260,6 +278,24 @@
       "side": 1,
       "message": "Done. The hex check was added earlier; PS14 moves it into a helper with unit tests and also rejects odd-length values, since a hex-encoded byte string has an even number of digits.",
       "parentUuid": "709f3fd3_d77cbed0",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c71008de_17cc93b1",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:52:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4db543b3_b27efb67",
       "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
