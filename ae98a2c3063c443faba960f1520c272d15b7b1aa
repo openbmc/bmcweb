@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9740295_72b76895",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:48:37Z",
+      "side": 1,
+      "message": "Agreed -- bmcweb now only consumes the association (see the L307 reply); nothing on the bmcweb side creates it. Since current upstream spdmd doesn\u0027t publish it yet, the sequencing question in the L307 reply applies here too.",
+      "parentUuid": "f0f6348e_405ec9f8",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6110178_15a16a9e",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
@@ -72,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49daa8c7_a7409eeb",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:48:37Z",
+      "side": 1,
+      "message": "Agreed, and done in PS14: the default to the Chassis collection is removed, and a missing \"authenticating\" association is treated as an error. The association itself is expected from spdmd per the schema in entity-manager 83263.\nOne note: with PS14 bmcweb requires the association and returns an error without it, and the current upstream spdmd does not publish it yet. Would you prefer the spdm side land first, or alongside this change?",
+      "parentUuid": "796c6f5b_874f1c51",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f85e7b03_50879d7f",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
@@ -89,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6969bb1f_33f3cdfe",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:48:37Z",
+      "side": 1,
+      "message": "Done -- uses dbus::utility::async_method_call (since PS9).",
+      "parentUuid": "f85e7b03_50879d7f",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28fcee17_f863ee85",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
@@ -100,6 +154,24 @@
       "writtenOn": "2026-04-16T06:05:14Z",
       "side": 1,
       "message": "Certificate path as per design(https://github.com/openbmc/docs/blob/master/designs/redfish-spdm-attestation.md) will use following path\n\n/xyz/openbmc_project/certs/devices/{chassis_id}/{cert_id}\n\nCertificate URI will be /redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}\n\nspdm daemon implementation:\nhttps://gerrit.openbmc.org/c/openbmc/spdm/+/83094/10/requester/component_integrity_dbus.cpp#378",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94baa5b9_d1605a07",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:48:37Z",
+      "side": 1,
+      "message": "Partly done in PS14: /xyz/openbmc_project/certs/chassis/{ChassisId}/{CertId} now maps to /redfish/v1/Chassis/{ChassisId}/Certificates/{CertId}, as in the design. The Chassis Certificates route and spdmd\u0027s certificate objects are separate follow-ups. The design also mentions a certs/devices/ form and TrustedComponents certificates; I\u0027ve left those until it\u0027s clear which one spdmd will use -- happy to follow whichever you prefer.",
+      "parentUuid": "28fcee17_f863ee85",
       "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -141,6 +213,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19a8e051_02dbf53d",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:48:37Z",
+      "side": 1,
+      "message": "Thanks Chinmay. Agreed, the Task work doesn\u0027t depend on the spdmd association. Since you already have the task-creation changes, please go ahead and push them as a follow-up change on top of this one, and I\u0027ll review. PS14 is up now with the other comments addressed.",
+      "parentUuid": "2a67329a_0f54df55",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "709f3fd3_d77cbed0",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
@@ -152,6 +242,24 @@
       "writtenOn": "2026-04-16T06:05:14Z",
       "side": 1,
       "message": "Currently only length is checked, but as per schema it\u0027s a hex encoded string, need to make sure string nonce input is hex.",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4db543b3_b27efb67",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:48:37Z",
+      "side": 1,
+      "message": "Done. The hex check was added earlier; PS14 moves it into a helper with unit tests and also rejects odd-length values, since a hex-encoded byte string has an even number of digits.",
+      "parentUuid": "709f3fd3_d77cbed0",
       "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

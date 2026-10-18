@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dfbd523_8168138b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-18T19:48:37Z",
+      "side": 1,
+      "message": "PS14: rebased; TargetComponentURI now strictly from the \"authenticating\" association (no Chassis fallback, error if missing); Item.Board mapped to Chassis like the Chassis collection; further function splits; nonce validation helper + tests; certs/chassis certificate mapping. Task support for the action will come as a follow-up change from Chinmay\u0027s team (see the L512 thread).",
+      "revId": "351c6fc221d473b7ce2b6681db24f20e1ad937a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
