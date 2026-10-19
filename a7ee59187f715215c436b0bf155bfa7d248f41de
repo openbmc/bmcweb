@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5802f176_46b1c225",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T17:27:08Z",
+      "side": 1,
+      "message": "I\u0027m seeing a lot of your LLM context that seems to have snuck into this commit.  Please make sure you\u0027re reviewing this code against the openbmc coding standard, and making sure it\u0027s the minimal implementation of what solves the technical problem.",
+      "revId": "a7ee59187f715215c436b0bf155bfa7d248f41de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e697197a_178a9bbb",
+        "filename": "test/http/weak_from_this_timer_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T17:27:08Z",
+      "side": 1,
+      "message": "Remove all this prose.  It doesn\u0027t add value here.",
+      "revId": "a7ee59187f715215c436b0bf155bfa7d248f41de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "126cb199_b922a88e",
+        "filename": "test/http/weak_from_this_timer_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T17:27:08Z",
+      "side": 1,
+      "message": "?  Why are we inventing timer mocks?  Please just call the appropriate timeout functions as fpart of your test.",
+      "revId": "a7ee59187f715215c436b0bf155bfa7d248f41de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
