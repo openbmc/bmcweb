@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fe855b9_888a50c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T17:27:50Z",
+      "side": 1,
+      "message": "How do you know this if you didn\u0027t test it???",
+      "revId": "cb9a5ecfabdc749bc93f9467194ff4ce1c145d20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b2d869e_0027f098",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T17:27:50Z",
+      "side": 1,
+      "message": "Why is this marked ready for review?",
+      "revId": "cb9a5ecfabdc749bc93f9467194ff4ce1c145d20",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
