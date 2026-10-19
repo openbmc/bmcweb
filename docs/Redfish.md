@@ -931,7 +931,6 @@ functions the same like the default implementation under the System resource.
 - IdlePowerSaver/EnterDwellTimeSeconds
 - IdlePowerSaver/ExitUtilizationPercent
 - IdlePowerSaver/ExitDwellTimeSeconds
-- IndicatorLED
 - LastResetTime
 - Links/Chassis
 - Links/ManagedBy

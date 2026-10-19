@@ -324,16 +324,6 @@ option(
                     sensors in the SensorCollection.''',
 )
 
-# BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED
-option(
-    'redfish-allow-deprecated-indicatorled',
-    type: 'feature',
-    value: 'disabled',
-    description: '''Enable/disable the deprecated IndicatorLED property. The
-                    default condition is disabled. The code to enable this
-                    option will be removed by March 2026.''',
-)
-
 # BMCWEB_REDFISH_USE_HARDCODED_SYSTEM_LOCATION_INDICATOR
 option(
     'redfish-use-hardcoded-system-location-indicator',
