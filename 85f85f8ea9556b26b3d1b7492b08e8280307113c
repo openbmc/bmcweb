@@ -16,6 +16,24 @@
       "message": "Kind of surprised you don\u0027t have a Valid DoThermalMetricsGet.. \nLike you have the invalid GET and HEAD and the valid HEAD..",
       "revId": "85f85f8ea9556b26b3d1b7492b08e8280307113c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f10373a5_2c8823e6",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-19T21:06:56Z",
+      "side": 1,
+      "message": "Rough but something like\n\n```\nTEST(DoThermalMetricsGet, ValidChassisPopulatesResource)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n\n    doThermalMetrics(asyncResp, \"chassis0\",\n                       \"/xyz/openbmc_project/inventory/system/chassis0\");\n\n    EXPECT_EQ(asyncResp-\u003eres.result(), boost::beast::http::status::ok);\n    EXPECT_EQ(\n        asyncResp-\u003eres.getHeaderValue(boost::beast::http::field::link),\n        \"\u003c/redfish/v1/JsonSchemas/ThermalMetrics/ThermalMetrics.json\u003e; rel\u003ddescribedby\");\n\n    const nlohmann::json\u0026 json \u003d asyncResp-\u003eres.jsonValue;\n    EXPECT_EQ(json[\"@odata.type\"], \"#ThermalMetrics.v1_0_1.ThermalMetrics\");\n    EXPECT_EQ(\n        json[\"@odata.id\"],\n        \"/redfish/v1/Chassis/chassis0/ThermalSubsystem/ThermalMetrics\");\n    EXPECT_EQ(json[\"Id\"], \"ThermalMetrics\");\n```",
+      "parentUuid": "a1580dff_785de83b",
+      "revId": "85f85f8ea9556b26b3d1b7492b08e8280307113c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
