@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86d18f9d_a554d37e",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T17:16:29Z",
+      "side": 0,
+      "message": "I\u0027m confused.  Why was this removed?  If we\u0027re not patching LocationIndicatorActive, we shouldn\u0027t call any other code.",
+      "revId": "bb6b9ebcd3171dc9763b7c9e6fb0da6e2447aa3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
