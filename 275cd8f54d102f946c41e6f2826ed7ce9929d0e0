@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1ee4b82_d804aa7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T17:20:06Z",
+      "side": 1,
+      "message": "\u003e If it compiles, it will work same, other than unsafe situation.\n\nThat\u0027s not true, as we\u0027ve found in a lot of these cases, it\u0027s possible to inject very subtle bugs.  Please test the code you\u0027re modifying.",
+      "parentUuid": "dddd596f_e99ae5ac",
+      "revId": "275cd8f54d102f946c41e6f2826ed7ce9929d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2517cca_d3ec51f1",
         "filename": "features/virtual_media/vm_websocket.hpp",
         "patchSetId": 1
