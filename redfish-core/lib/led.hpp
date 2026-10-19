@@ -12,6 +12,7 @@
 
 #include <asm-generic/errno.h>
 
+#include <boost/asio/error.hpp>
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
@@ -32,16 +33,14 @@ inline void afterGetLocationIndicatorEnclosure(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const bool ledOn)
 {
-    if (ec == boost::system::errc::invalid_argument)
-    {
-        BMCWEB_LOG_DEBUG(
-            "Get enclosure identity led failed, mismatch in property type");
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
     if (ec)
     {
+        if (ec.value() != EBADR &&
+            ec.value() != boost::asio::error::host_unreachable)
+        {
+            BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
+            messages::internalError(asyncResp->res);
+        }
         return;
     }
 
@@ -54,10 +53,10 @@ inline void afterGetLocationIndicatorBlink(
 {
     // Some systems may not have enclosure_identify_blink object so
     // proceed to get enclosure_identify state.
-    if (ec == boost::system::errc::invalid_argument)
+    if (ec && ec.value() != EBADR &&
+        ec.value() != boost::asio::error::host_unreachable)
     {
-        BMCWEB_LOG_DEBUG(
-            "Get identity blinking LED failed, mismatch in property type");
+        BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
