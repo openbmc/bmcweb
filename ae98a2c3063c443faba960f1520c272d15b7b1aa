@@ -214,6 +214,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70aa318f_ea4a22e2",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-19T18:09:10Z",
+      "side": 1,
+      "message": "Agreed. PS15 drops the certs/chassis mapping, so Certificate is omitted for device certificates until the Chassis certificate GET route is in. I\u0027ll add the mapping together with that route.",
+      "parentUuid": "b1c963e4_5e9e694d",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12cf1834_cf79c269",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
@@ -285,6 +303,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c405dc9f_d7d73d6d",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-19T18:09:10Z",
+      "side": 1,
+      "message": "Thanks Ankita, I\u0027ll review 95995.",
+      "parentUuid": "441125eb_899e8b27",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "709f3fd3_d77cbed0",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
@@ -350,6 +386,24 @@
       "side": 1,
       "message": "thanks Gary. one more small thing on this - the schema wants the nonce to be exactly 64 hex chars, so a shorter one like \"1234\" still passes here and then spdmd fails it with a 500. could we check for exactly 64 when a nonce is given?",
       "parentUuid": "c71008de_17cc93b1",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9349d867_484c2dc5",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-19T18:09:10Z",
+      "side": 1,
+      "message": "Done in PS15. A supplied Nonce must be exactly 64 hex digits, as the schema pattern requires, and an omitted Nonce is passed through empty so the requester generates one. This also covers Florian\u0027s 95259.",
+      "parentUuid": "b6f789c7_296de69c",
       "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
