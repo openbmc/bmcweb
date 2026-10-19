@@ -28,7 +28,6 @@
 
 #include <asm-generic/errno.h>
 
-#include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -737,10 +736,6 @@ inline void handleChassisGetSubTree(
         {
             if (std::ranges::find(interfaces2, interface) != interfaces2.end())
             {
-                if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
-                {
-                    getIndicatorLedState(asyncResp);
-                }
                 getLocationIndicatorActive(asyncResp, objPath);
                 break;
             }
@@ -804,7 +799,6 @@ inline void handleChassisPatch(
         return;
     }
     std::optional<bool> locationIndicatorActive;
-    std::optional<std::string> indicatorLed;
 
     if (param.empty())
     {
@@ -813,30 +807,15 @@ inline void handleChassisPatch(
 
     if (!json_util::readJsonPatch(                             //
             req, asyncResp->res,                               //
-            "IndicatorLED", indicatorLed,                      //
             "LocationIndicatorActive", locationIndicatorActive //
             ))
     {
         return;
     }
 
-    if (!locationIndicatorActive && !indicatorLed)
+    if (!locationIndicatorActive)
     {
         return; // delete this when we support more patch properties
-    }
-    if (indicatorLed)
-    {
-        if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
-        {
-            asyncResp->res.addHeader(
-                boost::beast::http::field::warning,
-                "299 - \"IndicatorLED is deprecated. Use LocationIndicatorActive instead.\"");
-        }
-        else
-        {
-            messages::propertyUnknown(asyncResp->res, "IndicatorLED");
-            return;
-        }
     }
 
     const std::string& chassisId = param;
@@ -844,9 +823,10 @@ inline void handleChassisPatch(
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
         // ast-grep-ignore: long-lambda
-        [asyncResp, chassisId, locationIndicatorActive,
-         indicatorLed](const boost::system::error_code& ec,
-                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        [asyncResp, chassisId,
+         locationIndicatorActive{*locationIndicatorActive}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error {}", ec);
@@ -890,33 +870,15 @@ inline void handleChassisPatch(
                         break;
                     }
                 }
-                if (locationIndicatorActive)
+                if (indicatorChassis)
                 {
-                    if (indicatorChassis)
-                    {
-                        setLocationIndicatorActive(asyncResp, path,
-                                                   *locationIndicatorActive);
-                    }
-                    else
-                    {
-                        messages::propertyUnknown(asyncResp->res,
-                                                  "LocationIndicatorActive");
-                    }
+                    setLocationIndicatorActive(asyncResp, path,
+                                               locationIndicatorActive);
                 }
-                if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+                else
                 {
-                    if (indicatorLed)
-                    {
-                        if (indicatorChassis)
-                        {
-                            setIndicatorLedState(asyncResp, *indicatorLed);
-                        }
-                        else
-                        {
-                            messages::propertyUnknown(asyncResp->res,
-                                                      "IndicatorLED");
-                        }
-                    }
+                    messages::propertyUnknown(asyncResp->res,
+                                              "LocationIndicatorActive");
                 }
                 return;
             }

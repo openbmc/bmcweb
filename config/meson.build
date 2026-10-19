@@ -24,7 +24,6 @@ feature_options = [
     'mutual-tls-auth',
     'redfish',
     'redfish-aggregation',
-    'redfish-allow-deprecated-indicatorled',
     'redfish-allow-deprecated-power-thermal',
     'redfish-allow-rotational-fans',
     'redfish-allow-simple-update',
