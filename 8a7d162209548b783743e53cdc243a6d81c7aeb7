@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00c2d6b6_1b71a5b5",
+        "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-19T20:54:42Z",
+      "side": 1,
+      "message": "Let\u0027s just do ipv6 on top if we need changes to support it - I thought it was supported today",
+      "parentUuid": "3800e61e_129557df",
+      "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34734852_38e12994",
         "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
         "patchSetId": 2
