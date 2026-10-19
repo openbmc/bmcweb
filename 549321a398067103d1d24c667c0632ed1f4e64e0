@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "804cbf02_6125474c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:29:54Z",
+      "side": 1,
+      "message": "Please wrap your commit messages properly.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bda31f4_dbaef504",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:29:54Z",
+      "side": 1,
+      "message": "Typo.",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 7
+      },
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "310137f2_4cee9fd1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:29:54Z",
+      "side": 1,
+      "message": "This should really be in its own commit, with details.  As written, I\u0027m not sure what \"align\" means, especially when there\u0027s deprecated properties.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 21
+      },
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a2168a9_b51395db",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:29:54Z",
+      "side": 1,
+      "message": "Please see \"fields common to all schemas\".  We don\u0027t duplicate the Redfish entries, so you can remove the ones already mentioned in that section.",
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1933178f_23c579fa",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:29:54Z",
+      "side": 1,
+      "message": "It\u0027s great that this is unit tested..... but this is a one line call used in one spot, I really suspect we could\u0027ve just inlined this and included it in the call above.",
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05b62c66_9c3378a7",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:29:54Z",
+      "side": 1,
+      "message": "why do we need captureless lambdas here?  Please just make these methods.",
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
