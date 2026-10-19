@@ -3171,11 +3171,6 @@ inline void processComputerSystemGet(
             });
     }
 
-    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
-    {
-        getIndicatorLedState(asyncResp);
-    }
-
     // Currently not supported on multi-host.
     if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
@@ -3252,7 +3247,6 @@ inline void handleComputerSystemGet(
 struct PatchParams
 {
     std::optional<bool> locationIndicatorActive;
-    std::optional<std::string> indicatorLed;
     std::optional<std::string> assetTag;
     std::optional<std::string> powerRestorePolicy;
     std::optional<std::string> powerMode;
@@ -3289,15 +3283,6 @@ inline void processComputerSystemPatch(
     std::string& systemName, PatchParams& patchParams,
     const uint64_t computerSystemIndex)
 {
-    if constexpr (!BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
-    {
-        if (patchParams.indicatorLed)
-        {
-            messages::propertyUnknown(asyncResp->res, "IndicatorLED");
-            return;
-        }
-    }
-
     if (patchParams.assetTag)
     {
         setAssetTag(asyncResp, *patchParams.assetTag);
@@ -3364,17 +3349,6 @@ inline void processComputerSystemPatch(
                     setLocationIndicatorActive(asyncResp, *validSystemsPath,
                                                locationIndicatorActive);
                 });
-        }
-    }
-
-    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
-    {
-        if (patchParams.indicatorLed)
-        {
-            setIndicatorLedState(asyncResp, *patchParams.indicatorLed);
-            asyncResp->res.addHeader(boost::beast::http::field::warning,
-                                     "299 - \"IndicatorLED is deprecated. Use "
-                                     "LocationIndicatorActive instead.\"");
         }
     }
 
@@ -3445,7 +3419,6 @@ inline void handleComputerSystemPatch(
             patchParams.ipsEnterUtil,                                         //
             "IdlePowerSaver/ExitDwellTimeSeconds", patchParams.ipsExitTime,   //
             "IdlePowerSaver/ExitUtilizationPercent", patchParams.ipsExitUtil, //
-            "IndicatorLED", patchParams.indicatorLed,                         //
             "LocationIndicatorActive", patchParams.locationIndicatorActive,   //
             "PowerMode", patchParams.powerMode,                               //
             "PowerRestorePolicy", patchParams.powerRestorePolicy))

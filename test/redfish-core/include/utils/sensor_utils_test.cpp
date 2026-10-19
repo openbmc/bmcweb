@@ -436,8 +436,8 @@ TEST(FillPowerThermalIdentity, Success)
     bool forceToInt = false;
     bool result = false;
 
-    result = fillPowerThermalIdentity("temp2", "temperature", sensorJson,
-                                      nullptr, unit, std::ref(forceToInt));
+    result = fillPowerThermalIdentity("temp2", "temperature", sensorJson, unit,
+                                      std::ref(forceToInt));
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Thermal.v1_"));
     EXPECT_EQ(sensorJson["Name"].get<std::string>(), "temp2");
@@ -449,8 +449,8 @@ TEST(FillPowerThermalIdentity, Success)
 
     sensorJson.clear();
     forceToInt = false;
-    result = fillPowerThermalIdentity("fan0_0", "fan_tach", sensorJson, nullptr,
-                                      unit, std::ref(forceToInt));
+    result = fillPowerThermalIdentity("fan0_0", "fan_tach", sensorJson, unit,
+                                      std::ref(forceToInt));
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Thermal.v1_"));
     EXPECT_EQ(sensorJson["Name"].get<std::string>(), "fan0 0");
@@ -462,8 +462,8 @@ TEST(FillPowerThermalIdentity, Success)
 
     sensorJson.clear();
     forceToInt = false;
-    result = fillPowerThermalIdentity("fan2_0", "fan_pwm", sensorJson, nullptr,
-                                      unit, std::ref(forceToInt));
+    result = fillPowerThermalIdentity("fan2_0", "fan_pwm", sensorJson, unit,
+                                      std::ref(forceToInt));
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Thermal.v1_"));
     EXPECT_EQ(sensorJson["Name"].get<std::string>(), "fan2 0");
@@ -475,8 +475,8 @@ TEST(FillPowerThermalIdentity, Success)
 
     sensorJson.clear();
     forceToInt = false;
-    result = fillPowerThermalIdentity("input0", "voltage", sensorJson, nullptr,
-                                      unit, std::ref(forceToInt));
+    result = fillPowerThermalIdentity("input0", "voltage", sensorJson, unit,
+                                      std::ref(forceToInt));
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Power.v1_"));
     EXPECT_EQ(sensorJson["Name"].get<std::string>(), "input0");
@@ -488,9 +488,8 @@ TEST(FillPowerThermalIdentity, Success)
 
     sensorJson.clear();
     forceToInt = false;
-    result =
-        fillPowerThermalIdentity("power1_0_input_power", "power", sensorJson,
-                                 nullptr, unit, std::ref(forceToInt));
+    result = fillPowerThermalIdentity("power1_0_input_power", "power",
+                                      sensorJson, unit, std::ref(forceToInt));
     EXPECT_TRUE(result);
     EXPECT_FALSE(sensorJson.contains("@odata.type"));
     EXPECT_FALSE(sensorJson.contains("MemberId"));
@@ -502,9 +501,8 @@ TEST(FillPowerThermalIdentity, Success)
 
     sensorJson.clear();
     forceToInt = false;
-    result =
-        fillPowerThermalIdentity("power1_0_output_power", "power", sensorJson,
-                                 nullptr, unit, std::ref(forceToInt));
+    result = fillPowerThermalIdentity("power1_0_output_power", "power",
+                                      sensorJson, unit, std::ref(forceToInt));
     EXPECT_TRUE(result);
     EXPECT_FALSE(sensorJson.contains("@odata.type"));
     EXPECT_FALSE(sensorJson.contains("MemberId"));
@@ -516,8 +514,8 @@ TEST(FillPowerThermalIdentity, Success)
 
     sensorJson.clear();
     forceToInt = false;
-    result = fillPowerThermalIdentity("total_power", "power", sensorJson,
-                                      nullptr, unit, std::ref(forceToInt));
+    result = fillPowerThermalIdentity("total_power", "power", sensorJson, unit,
+                                      std::ref(forceToInt));
     EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Power.v1_"));
     EXPECT_EQ(sensorJson["MemberId"].get<std::string>(), "0");
@@ -535,8 +533,8 @@ TEST(FillPowerThermalIdentity, Failure)
     bool forceToInt = false;
     bool result = false;
 
-    result = fillPowerThermalIdentity("BadSensor", "BadType", sensorJson,
-                                      nullptr, unit, std::ref(forceToInt));
+    result = fillPowerThermalIdentity("BadSensor", "BadType", sensorJson, unit,
+                                      std::ref(forceToInt));
     EXPECT_FALSE(result);
 }
 
