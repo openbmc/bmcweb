@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13515eee_935318c4",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-19T08:22:08Z",
+      "side": 1,
+      "message": "Acknowledged, add in PS3.",
+      "parentUuid": "0dc4df57_01d1b9c8",
+      "revId": "3eb7b7cd6d76046dcaf7983145dde674c1b995d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74a17444_5dc56ca4",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5228167c_303e3186",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-19T08:22:08Z",
+      "side": 1,
+      "message": "Done in PS3.",
+      "parentUuid": "74a17444_5dc56ca4",
+      "revId": "3eb7b7cd6d76046dcaf7983145dde674c1b995d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37f25da9_dadba164",
@@ -65,6 +101,24 @@
       "writtenOn": "2026-10-17T22:14:38Z",
       "side": 1,
       "message": "Could check \n\n\nEXPECT_EQ(info[0][\"MessageArgs\"],\n          nlohmann::json::array({\"Chassis\", \"chassis0\"}));",
+      "revId": "3eb7b7cd6d76046dcaf7983145dde674c1b995d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d484c4b_450688a0",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-19T08:22:08Z",
+      "side": 1,
+      "message": "Done in PS3.",
+      "parentUuid": "37f25da9_dadba164",
       "revId": "3eb7b7cd6d76046dcaf7983145dde674c1b995d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
