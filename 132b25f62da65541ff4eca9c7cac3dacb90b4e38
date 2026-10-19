@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17b1a005_62b385b1",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-19T13:31:09Z",
+      "side": 1,
+      "message": "See if we can use std::to_array to avoid typing the array length manually.",
+      "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce550524_4fca3dad",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-19T13:31:09Z",
+      "side": 1,
+      "message": "I am also fine if we want to put fully qualified D-Bus Object path (with pcie and nic prefixes) here to buy the freedom map any metrics as pcie or nic port metrics and not just tie it to prefix.",
+      "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd931a5f_9f275746",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-19T13:31:09Z",
+      "side": 1,
+      "message": "Is the function `getPortMetrics` being called from redfish-core/lib/network_adapter.hpp? If not we might do not hit this code path for NIC Port Metrics. Also preferably let\u0027s use same approach for getting metric for PCIe and NIC ports.",
+      "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c856aa4d_8ac64e78",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-19T13:31:09Z",
+      "side": 1,
+      "message": "Also see if we can sort this array at compile time for faster lookup inside the function `getMappedMetricProperty`.",
+      "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
