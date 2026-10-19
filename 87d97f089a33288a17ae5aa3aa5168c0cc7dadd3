@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af2d8134_ce02a09f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:10:33Z",
+      "side": 1,
+      "message": "getHeaderValue returns empty string if there\u0027s no header present.  Please use that for your check rather than exposing the internal boost data structures.",
+      "range": {
+        "startLine": 1143,
+        "startChar": 13,
+        "endLine": 1143,
+        "endChar": 24
+      },
+      "revId": "87d97f089a33288a17ae5aa3aa5168c0cc7dadd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60640b22_784709ed",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:10:33Z",
+      "side": 1,
+      "message": "nit, return here if this is complete.",
+      "revId": "87d97f089a33288a17ae5aa3aa5168c0cc7dadd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27555bbd_a995b407",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:10:33Z",
+      "side": 1,
+      "message": "Please put all the error cases together.  ideally the error cases shouldb e processed first.",
+      "revId": "87d97f089a33288a17ae5aa3aa5168c0cc7dadd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
