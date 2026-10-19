@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c62ab3f3_4ee10d73",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-19T18:14:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9740295_72b76895",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6110178_15a16a9e",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Agreed, and done in PS14: the default to the Chassis collection is removed, and a missing \"authenticating\" association is treated as an error. The association itself is expected from spdmd per the schema in entity-manager 83263.\nOne note: with PS14 bmcweb requires the association and returns an error without it, and the current upstream spdmd does not publish it yet. Would you prefer the spdm side land first, or alongside this change?",
       "parentUuid": "796c6f5b_874f1c51",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ed15c51_0f14ef5d",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-19T18:14:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49daa8c7_a7409eeb",
       "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -230,6 +266,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8724a1e_1641f7a5",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-19T18:14:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70aa318f_ea4a22e2",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12cf1834_cf79c269",
@@ -319,6 +373,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c186b57_5d50aa21",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-19T18:14:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c405dc9f_d7d73d6d",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "709f3fd3_d77cbed0",
@@ -404,6 +476,24 @@
       "side": 1,
       "message": "Done in PS15. A supplied Nonce must be exactly 64 hex digits, as the schema pattern requires, and an omitted Nonce is passed through empty so the requester generates one. This also covers Florian\u0027s 95259.",
       "parentUuid": "b6f789c7_296de69c",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86626d3e_f18ea66b",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-10-19T18:14:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9349d867_484c2dc5",
       "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
