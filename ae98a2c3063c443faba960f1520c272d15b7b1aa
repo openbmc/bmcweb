@@ -196,6 +196,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b1c963e4_5e9e694d",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1003181
+      },
+      "writtenOn": "2026-10-19T09:59:45Z",
+      "side": 1,
+      "message": "Thanks Gary. Certificate objects in 83094, including the latest PS32, use /xyz/openbmc_project/certs/devices/{chassis_id}/{cert_id}, so the certs/chassis mapping won’t match those objects.\nPS14 currently omits Certificate for this path. Could we keep it omitted until the corresponding certificate GET route is implemented, then add the mapping alongside that route?",
+      "parentUuid": "94baa5b9_d1605a07",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12cf1834_cf79c269",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
@@ -249,6 +267,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "441125eb_899e8b27",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1003181
+      },
+      "writtenOn": "2026-10-19T09:59:45Z",
+      "side": 1,
+      "message": "Thanks Gary. I pushed the task change on top of PS14: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95995",
+      "parentUuid": "19a8e051_02dbf53d",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "709f3fd3_d77cbed0",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 6
@@ -296,6 +332,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "4db543b3_b27efb67",
+      "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6f789c7_296de69c",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1003181
+      },
+      "writtenOn": "2026-10-19T09:59:45Z",
+      "side": 1,
+      "message": "thanks Gary. one more small thing on this - the schema wants the nonce to be exactly 64 hex chars, so a shorter one like \"1234\" still passes here and then spdmd fails it with a 500. could we check for exactly 64 when a nonce is given?",
+      "parentUuid": "c71008de_17cc93b1",
       "revId": "ae98a2c3063c443faba960f1520c272d15b7b1aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

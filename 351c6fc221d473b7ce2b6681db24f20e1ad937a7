@@ -16,6 +16,74 @@
       "message": "PS14: rebased; TargetComponentURI now strictly from the \"authenticating\" association (no Chassis fallback, error if missing); Item.Board mapped to Chassis like the Chassis collection; further function splits; nonce validation helper + tests; certs/chassis certificate mapping. Task support for the action will come as a follow-up change from Chinmay\u0027s team (see the L512 thread).",
       "revId": "351c6fc221d473b7ce2b6681db24f20e1ad937a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90c622c5_4f79cbc6",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003181
+      },
+      "writtenOn": "2026-10-19T09:59:45Z",
+      "side": 1,
+      "message": "I think the schema expects ComponentIntegrityTypeVersion to be an empty string when security protocols are disabled. Here the D-Bus value is copied as is, so a disabled responder could still show 1.2.0. Would it be okay to set it to an empty string when Enabled is false?",
+      "revId": "351c6fc221d473b7ce2b6681db24f20e1ad937a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d62e10f_4c6e20ae",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1003181
+      },
+      "writtenOn": "2026-10-19T09:59:45Z",
+      "side": 1,
+      "message": "I think SPDM.Requester and the action are added here before Type and Enabled are known, so a TPM or disabled resource would get them as well. The schema says SPDM should only be there when the type is SPDM and ComponentIntegrityEnabled is true, and the action only for SPDM. Would it work to set them in fillComponentIntegrityProperties, after Type and Enabled are read?",
+      "revId": "351c6fc221d473b7ce2b6681db24f20e1ad937a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a345d125_9cafdce9",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1003181
+      },
+      "writtenOn": "2026-10-19T09:59:45Z",
+      "side": 1,
+      "message": "When spdmd rejects the request with xyz.openbmc_project.Common.Error.InvalidArgument (for eg short nonce or empty certificate slot) this returns 500. Since MeasurementSet declares InvalidArgument for bad input, I think it would be better to return a 400 for that case and keep 500 for InternalFailure. Would that be okay?",
+      "revId": "351c6fc221d473b7ce2b6681db24f20e1ad937a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4da3de2a_607c0e8e",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1003181
+      },
+      "writtenOn": "2026-10-19T09:59:45Z",
+      "side": 1,
+      "message": "PublicKey is set for every request here, but the schema only allows it when SlotId is 15 and the requester has a pre-provisioned key. Since SlotId is limited to 0-7, I think it would be better to leave PublicKey out. This came up on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95260 as well.",
+      "revId": "351c6fc221d473b7ce2b6681db24f20e1ad937a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
