@@ -16,6 +16,24 @@
       "message": "?????  Why are we doing a contains check to determine ipv6.  This will mark things ipv6 that are invalid.  Please just use an appropriate boost urls constructor, handle the error appropriately.",
       "revId": "e3a87d3f9ec69f6a3fe09c6b8934524198e01931",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa1119a_8847faf9",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T21:00:06Z",
+      "side": 1,
+      "message": "To be clear, We want to be setting with set_host I believe, and handling the error in ec if it happens.",
+      "parentUuid": "d1fe6c4f_37dbfa0b",
+      "revId": "e3a87d3f9ec69f6a3fe09c6b8934524198e01931",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
