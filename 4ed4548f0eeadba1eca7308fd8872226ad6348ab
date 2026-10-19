@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ed3bdd_77b6b2e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:23:16Z",
+      "side": 1,
+      "message": "?  This isn\u0027t an output of a system and looks handwritten (because the pretty printing is wrong). Why is it included?",
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d265c1e_1d1a362c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:23:16Z",
+      "side": 1,
+      "message": "Ok, then please link the patchset to fix it.  Clean RSV runs are a requirement on new features.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 54
+      },
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69df515a_4d5b817f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:23:16Z",
+      "side": 1,
+      "message": "I\u0027m lost..... NVL32 doesn\u0027t have Network Controller managed PCIe devices, they\u0027re all connected to the host processor.",
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "237b2028_ffb451cd",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:23:16Z",
+      "side": 1,
+      "message": "by design we don\u0027t use std::less to sort.  Please look at the other collection sorts to find the right one to use.\n\nAlso.... why can\u0027t we use the common collection helper functions here?",
+      "range": {
+        "startLine": 370,
+        "startChar": 40,
+        "endLine": 370,
+        "endChar": 44
+      },
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d448ea_48b64bca",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T20:23:16Z",
+      "side": 1,
+      "message": "?  connected doesn\u0027t seem right here in the modeling?  Any reason it was picked?",
+      "range": {
+        "startLine": 404,
+        "startChar": 40,
+        "endLine": 404,
+        "endChar": 50
+      },
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
