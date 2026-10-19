@@ -13,6 +13,7 @@
 #include "http/parsing.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -101,6 +102,19 @@ struct Payload
     std::string jsonBodyStr;
 };
 
+// Response the task monitor returns once the task is done
+struct TaskResult
+{
+    boost::beast::http::status status = boost::beast::http::status::ok;
+    nlohmann::json body;
+};
+
+inline void populateTaskResult(crow::Response& res, const TaskResult& result)
+{
+    res.result(result.status);
+    res.jsonValue = result.body;
+}
+
 struct TaskData : std::enable_shared_from_this<TaskData>
 {
   private:
@@ -111,7 +125,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         callback(std::move(handler)), matchStr(matchIn), index(idx),
         startTime(std::chrono::system_clock::now()), status("OK"),
         state("Running"), messages(nlohmann::json::array()),
-        timer(crow::connections::systemBus->get_io_context())
+        timer(getIoContext())
 
     {}
 
@@ -209,11 +223,21 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             }
             res.jsonValue["PercentComplete"] = percentComplete;
         }
+        else if (result)
+        {
+            populateTaskResult(res, *result);
+        }
         else if (!gave204)
         {
             res.result(boost::beast::http::status::no_content);
             gave204 = true;
         }
+    }
+
+    void setResult(boost::beast::http::status resultStatus,
+                   nlohmann::json resultBody)
+    {
+        result = TaskResult{resultStatus, std::move(resultBody)};
     }
 
     void finishTask()
@@ -230,6 +254,11 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 if (ec == boost::asio::error::operation_aborted)
                 {
                     return; // completed successfully
+                }
+                // The timer can still fire after the task finished
+                if (self->endTime)
+                {
+                    return;
                 }
                 if (!ec)
                 {
@@ -314,30 +343,34 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         {
             return;
         }
-        match = std::make_unique<sdbusplus::match>(
-            static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
-            matchStr,
-            // ast-grep-ignore: long-lambda
-            [self = shared_from_this()](sdbusplus::message_t& message) {
-                boost::system::error_code ec;
+        // Without a match, the task creator finishes the task
+        if (!matchStr.empty())
+        {
+            match = std::make_unique<sdbusplus::match>(
+                static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
+                matchStr,
+                // ast-grep-ignore: long-lambda
+                [self = shared_from_this()](sdbusplus::message_t& message) {
+                    boost::system::error_code ec;
 
-                // callback to return True if callback is done, callback needs
-                // to update status itself if needed
-                if (self->callback(ec, message, self) == task::completed)
-                {
-                    self->timer.cancel();
-                    self->finishTask();
+                    // callback to return True if callback is done, callback
+                    // needs to update status itself if needed
+                    if (self->callback(ec, message, self) == task::completed)
+                    {
+                        self->timer.cancel();
+                        self->finishTask();
 
-                    // Send event
-                    sendTaskEvent(self->state, self->index);
+                        // Send event
+                        sendTaskEvent(self->state, self->index);
 
-                    // reset the match after the callback was successful
-                    boost::asio::post(
-                        crow::connections::systemBus->get_io_context(),
-                        [self] { self->match.reset(); });
-                    return;
-                }
-            });
+                        // reset the match after the callback was successful
+                        boost::asio::post(
+                            crow::connections::systemBus->get_io_context(),
+                            [self] { self->match.reset(); });
+                        return;
+                    }
+                });
+        }
 
         extendTimer(timeout);
         messages.emplace_back(messages::taskStarted(std::to_string(index)));
@@ -358,6 +391,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     std::unique_ptr<sdbusplus::match> match;
     std::optional<std::chrono::system_clock::time_point> endTime;
     std::optional<Payload> payload;
+    std::optional<TaskResult> result;
     bool gave204 = false;
     int percentComplete = 0;
 };

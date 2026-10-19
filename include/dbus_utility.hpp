@@ -12,6 +12,7 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -118,6 +119,19 @@ void async_method_call(const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
     crow::connections::systemBus->async_method_call(
         std::forward<MessageHandler>(handler), service, objpath, interf, method,
         a...);
+}
+
+template <typename MessageHandler, typename... InputArgs>
+// NOLINTNEXTLINE(readability-identifier-naming)
+void async_method_call_timed(
+    MessageHandler&& handler, const std::string& service,
+    const std::string& objpath, const std::string& interf,
+    const std::string& method, std::chrono::microseconds timeout,
+    const InputArgs&... a)
+{
+    crow::connections::systemBus->async_method_call_timed(
+        std::forward<MessageHandler>(handler), service, objpath, interf, method,
+        static_cast<uint64_t>(timeout.count()), a...);
 }
 
 template <typename PropertyType>

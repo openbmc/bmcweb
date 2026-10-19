@@ -6,15 +6,20 @@
 #include "component_integrity.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/component_integrity.hpp"
+#include "http_response.hpp"
+#include "io_context_singleton.hpp"
+#include "task.hpp"
 
 #include <asm-generic/errno.h>
 
+#include <boost/asio/io_context.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/system/errc.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/url.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
+#include <chrono>
 #include <cstdint>
 #include <format>
 #include <memory>
@@ -511,35 +516,34 @@ TEST(AfterHandleComponentIntegrityGet, NoMatchingIdReturnsNotFound)
 
 TEST(AfterGetSignedMeasurements, DbusErrorReturnsInternalError)
 {
-    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response res;
     boost::system::error_code ec =
         boost::system::errc::make_error_code(boost::system::errc::io_error);
 
     afterGetSignedMeasurements(
-        asyncResp, ec,
+        res, ec,
         sdbusplus::object_path("/xyz/openbmc_project/certs/server/https/1"),
         "TPM_ALG_SHA_384", "publicKeyPem", "c2lnbmVk", "TPMT_SIGNATURE",
         "1.1.0");
 
-    EXPECT_EQ(asyncResp->res.result(),
-              boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(res.result(), boost::beast::http::status::internal_server_error);
     // On error nothing should be populated.
-    EXPECT_FALSE(asyncResp->res.jsonValue.contains("SignedMeasurements"));
+    EXPECT_FALSE(res.jsonValue.contains("SignedMeasurements"));
 }
 
 TEST(AfterGetSignedMeasurements, HttpsCertificateMappedToManagerUri)
 {
-    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response res;
     boost::system::error_code ec;
 
     afterGetSignedMeasurements(
-        asyncResp, ec,
+        res, ec,
         sdbusplus::object_path("/xyz/openbmc_project/certs/server/https/1"),
         "TPM_ALG_SHA_384", "publicKeyPem", "c2lnbmVk", "TPMT_SIGNATURE",
         "1.1.0");
 
     EXPECT_EQ(
-        asyncResp->res.jsonValue["Certificate"]["@odata.id"],
+        res.jsonValue["Certificate"]["@odata.id"],
         std::format(
             "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates/1",
             BMCWEB_REDFISH_MANAGER_URI_NAME));
@@ -547,81 +551,198 @@ TEST(AfterGetSignedMeasurements, HttpsCertificateMappedToManagerUri)
 
 TEST(AfterGetSignedMeasurements, LdapCertificateMapped)
 {
-    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response res;
     boost::system::error_code ec;
 
     afterGetSignedMeasurements(
-        asyncResp, ec,
+        res, ec,
         sdbusplus::object_path("/xyz/openbmc_project/certs/client/ldap/3"),
         "alg", "key", "meas", "sig", "1.0.0");
 
-    EXPECT_EQ(asyncResp->res.jsonValue["Certificate"]["@odata.id"],
+    EXPECT_EQ(res.jsonValue["Certificate"]["@odata.id"],
               "/redfish/v1/AccountService/LDAP/Certificates/3");
 }
 
 TEST(AfterGetSignedMeasurements, TruststoreCertificateMappedToManagerUri)
 {
-    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response res;
     boost::system::error_code ec;
 
     afterGetSignedMeasurements(
-        asyncResp, ec,
+        res, ec,
         sdbusplus::object_path(
             "/xyz/openbmc_project/certs/authority/truststore/7"),
         "alg", "key", "meas", "sig", "1.0.0");
 
-    EXPECT_EQ(asyncResp->res.jsonValue["Certificate"]["@odata.id"],
+    EXPECT_EQ(res.jsonValue["Certificate"]["@odata.id"],
               std::format("/redfish/v1/Managers/{}/Truststore/Certificates/7",
                           BMCWEB_REDFISH_MANAGER_URI_NAME));
 }
 
 TEST(AfterGetSignedMeasurements, DeviceCertificateMappedToChassis)
 {
-    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response res;
     boost::system::error_code ec;
 
     afterGetSignedMeasurements(
-        asyncResp, ec,
+        res, ec,
         sdbusplus::object_path("/xyz/openbmc_project/certs/chassis/GPU0/cert1"),
         "alg", "key", "meas", "sig", "1.0.0");
 
-    EXPECT_EQ(asyncResp->res.jsonValue["Certificate"]["@odata.id"],
+    EXPECT_EQ(res.jsonValue["Certificate"]["@odata.id"],
               "/redfish/v1/Chassis/GPU0/Certificates/cert1");
 }
 
 TEST(AfterGetSignedMeasurements, UnmappableCertificatePathOmitsCertificate)
 {
-    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response res;
     boost::system::error_code ec;
 
     afterGetSignedMeasurements(
-        asyncResp, ec,
+        res, ec,
         sdbusplus::object_path("/xyz/openbmc_project/certs/unknown/place/9"),
         "alg", "key", "meas", "sig", "1.0.0");
 
     // Unknown cert parent: Certificate link omitted, but the measurement
     // payload is still returned.
-    EXPECT_FALSE(asyncResp->res.jsonValue.contains("Certificate"));
-    EXPECT_EQ(asyncResp->res.jsonValue["SignedMeasurements"], "meas");
+    EXPECT_FALSE(res.jsonValue.contains("Certificate"));
+    EXPECT_EQ(res.jsonValue["SignedMeasurements"], "meas");
 }
 
 TEST(AfterGetSignedMeasurements, MeasurementFieldsPopulated)
 {
-    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response res;
     boost::system::error_code ec;
 
     afterGetSignedMeasurements(
-        asyncResp, ec,
+        res, ec,
         sdbusplus::object_path("/xyz/openbmc_project/certs/server/https/1"),
         "TPM_ALG_SHA_384", "publicKeyPem", "c2lnbmVkTWVhcw==", "TPMT_SIGNATURE",
         "1.1.0");
 
-    EXPECT_EQ(asyncResp->res.jsonValue["HashingAlgorithm"], "TPM_ALG_SHA_384");
-    EXPECT_EQ(asyncResp->res.jsonValue["PublicKey"], "publicKeyPem");
-    EXPECT_EQ(asyncResp->res.jsonValue["SignedMeasurements"],
-              "c2lnbmVkTWVhcw==");
-    EXPECT_EQ(asyncResp->res.jsonValue["SigningAlgorithm"], "TPMT_SIGNATURE");
-    EXPECT_EQ(asyncResp->res.jsonValue["Version"], "1.1.0");
+    EXPECT_EQ(res.jsonValue["HashingAlgorithm"], "TPM_ALG_SHA_384");
+    EXPECT_EQ(res.jsonValue["PublicKey"], "publicKeyPem");
+    EXPECT_EQ(res.jsonValue["SignedMeasurements"], "c2lnbmVkTWVhcw==");
+    EXPECT_EQ(res.jsonValue["SigningAlgorithm"], "TPMT_SIGNATURE");
+    EXPECT_EQ(res.jsonValue["Version"], "1.1.0");
+}
+
+// --- completeSignedMeasurementsTask ---
+
+void runPendingHandlers()
+{
+    getIoContext().restart();
+    getIoContext().run_for(std::chrono::seconds(5));
+}
+
+std::shared_ptr<task::TaskData> startSignedMeasurementsTask(
+    std::chrono::seconds timeout)
+{
+    std::shared_ptr<task::TaskData> taskData =
+        task::TaskData::createTask(handleSignedMeasurementsTaskTimeout, "");
+    taskData->startTimer(timeout);
+    return taskData;
+}
+
+void replySignedMeasurements(const std::shared_ptr<task::TaskData>& taskData,
+                             const boost::system::error_code& ec)
+{
+    completeSignedMeasurementsTask(
+        taskData, ec,
+        sdbusplus::object_path("/xyz/openbmc_project/certs/server/https/1"),
+        "TPM_ALG_SHA_384", "publicKeyPem", "c2lnbmVk", "TPMT_SIGNATURE",
+        "1.2.0");
+}
+
+class SignedMeasurementsTaskTest : public ::testing::Test
+{
+  protected:
+    // Remove the tasks created by this test
+    void TearDown() override
+    {
+        for (const std::shared_ptr<task::TaskData>& taskData : task::tasks)
+        {
+            taskData->finishTask();
+            taskData->timer.cancel();
+        }
+        runPendingHandlers();
+        task::tasks.clear();
+    }
+};
+
+TEST_F(SignedMeasurementsTaskTest, ReplyCompletesTaskWithResponse)
+{
+    std::shared_ptr<task::TaskData> taskData =
+        startSignedMeasurementsTask(signedMeasurementsTimeout);
+    replySignedMeasurements(taskData, {});
+    runPendingHandlers();
+
+    EXPECT_EQ(taskData->state, "Completed");
+    EXPECT_EQ(taskData->status, "OK");
+    EXPECT_EQ(taskData->percentComplete, 100);
+
+    crow::Response monitor;
+    taskData->populateResp(monitor);
+    EXPECT_EQ(monitor.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(monitor.jsonValue["SignedMeasurements"], "c2lnbmVk");
+    EXPECT_EQ(monitor.jsonValue["Version"], "1.2.0");
+}
+
+TEST_F(SignedMeasurementsTaskTest, DbusErrorEndsTaskWithError)
+{
+    std::shared_ptr<task::TaskData> taskData =
+        startSignedMeasurementsTask(signedMeasurementsTimeout);
+    replySignedMeasurements(taskData, boost::system::errc::make_error_code(
+                                          boost::system::errc::io_error));
+    runPendingHandlers();
+
+    EXPECT_EQ(taskData->state, "Exception");
+    EXPECT_EQ(taskData->status, "Warning");
+
+    crow::Response monitor;
+    taskData->populateResp(monitor);
+    EXPECT_EQ(monitor.result(),
+              boost::beast::http::status::internal_server_error);
+    EXPECT_TRUE(monitor.jsonValue.contains("error"));
+    EXPECT_FALSE(monitor.jsonValue.contains("SignedMeasurements"));
+}
+
+TEST_F(SignedMeasurementsTaskTest, TimeoutEndsTaskAndIgnoresLateReply)
+{
+    std::shared_ptr<task::TaskData> taskData =
+        startSignedMeasurementsTask(std::chrono::seconds(0));
+    runPendingHandlers();
+
+    EXPECT_EQ(taskData->state, "Cancelled");
+    replySignedMeasurements(taskData, {});
+    EXPECT_EQ(taskData->state, "Cancelled");
+
+    crow::Response monitor;
+    taskData->populateResp(monitor);
+    EXPECT_EQ(monitor.result(),
+              boost::beast::http::status::internal_server_error);
+    EXPECT_FALSE(monitor.jsonValue.contains("SignedMeasurements"));
+}
+
+TEST_F(SignedMeasurementsTaskTest, TasksKeepTheirOwnResults)
+{
+    std::shared_ptr<task::TaskData> first =
+        startSignedMeasurementsTask(signedMeasurementsTimeout);
+    std::shared_ptr<task::TaskData> second =
+        startSignedMeasurementsTask(signedMeasurementsTimeout);
+    replySignedMeasurements(second, boost::system::errc::make_error_code(
+                                        boost::system::errc::io_error));
+    replySignedMeasurements(first, {});
+    runPendingHandlers();
+
+    crow::Response firstMonitor;
+    first->populateResp(firstMonitor);
+    EXPECT_EQ(firstMonitor.result(), boost::beast::http::status::ok);
+
+    crow::Response secondMonitor;
+    second->populateResp(secondMonitor);
+    EXPECT_EQ(secondMonitor.result(),
+              boost::beast::http::status::internal_server_error);
 }
 
 // --- Collection handler ---

@@ -11,9 +11,12 @@
 #include "error_messages.hpp"
 #include "generated/enums/component_integrity.hpp"
 #include "http_request.hpp"
+#include "http_response.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "task.hpp"
+#include "task_messages.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
@@ -23,6 +26,7 @@
 #include <asm-generic/errno.h>
 
 #include <boost/beast/http/field.hpp>
+#include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -32,6 +36,7 @@
 
 #include <algorithm>
 #include <array>
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -47,6 +52,9 @@ namespace redfish
 
 constexpr std::array<std::string_view, 1> componentIntegrityInterfaces = {
     "xyz.openbmc_project.Attestation.ComponentIntegrity"};
+
+// Measurements can take minutes on slow devices
+constexpr std::chrono::seconds signedMeasurementsTimeout{300};
 
 inline component_integrity::ComponentIntegrityType dbusTypeToRedfishType(
     const std::string& dbusType)
@@ -438,8 +446,7 @@ inline void handleComponentIntegrityHead(
 }
 
 inline void afterGetSignedMeasurements(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
+    crow::Response& res, const boost::system::error_code& ec,
     const sdbusplus::object_path& certificate,
     const std::string& hashingAlgorithm, const std::string& publicKey,
     const std::string& signedMeasurements, const std::string& signingAlgorithm,
@@ -448,7 +455,7 @@ inline void afterGetSignedMeasurements(
     if (ec)
     {
         BMCWEB_LOG_ERROR("SPDMGetSignedMeasurements D-Bus error: {}", ec);
-        messages::internalError(asyncResp->res);
+        messages::internalError(res);
         return;
     }
 
@@ -458,44 +465,40 @@ inline void afterGetSignedMeasurements(
     std::string certParent = certPath.parent_path();
     if (certParent == "/xyz/openbmc_project/certs/server/https")
     {
-        asyncResp->res.jsonValue["Certificate"]["@odata.id"] =
-            boost::urls::format(
-                "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates/{}",
-                BMCWEB_REDFISH_MANAGER_URI_NAME, certId);
+        res.jsonValue["Certificate"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates/{}",
+            BMCWEB_REDFISH_MANAGER_URI_NAME, certId);
     }
     else if (certParent == "/xyz/openbmc_project/certs/client/ldap")
     {
-        asyncResp->res.jsonValue["Certificate"]["@odata.id"] =
-            boost::urls::format(
-                "/redfish/v1/AccountService/LDAP/Certificates/{}", certId);
+        res.jsonValue["Certificate"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/AccountService/LDAP/Certificates/{}", certId);
     }
     else if (sdbusplus::object_path(certParent).parent_path() ==
              "/xyz/openbmc_project/certs/chassis")
     {
         // Device certificates: /certs/chassis/{ChassisId}/{CertId}, per the
         // redfish-spdm-attestation design.
-        asyncResp->res.jsonValue["Certificate"]["@odata.id"] =
-            boost::urls::format("/redfish/v1/Chassis/{}/Certificates/{}",
-                                sdbusplus::object_path(certParent).filename(),
-                                certId);
+        res.jsonValue["Certificate"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Chassis/{}/Certificates/{}",
+            sdbusplus::object_path(certParent).filename(), certId);
     }
     else if (certParent == "/xyz/openbmc_project/certs/authority/truststore")
     {
-        asyncResp->res.jsonValue["Certificate"]["@odata.id"] =
-            boost::urls::format(
-                "/redfish/v1/Managers/{}/Truststore/Certificates/{}",
-                BMCWEB_REDFISH_MANAGER_URI_NAME, certId);
+        res.jsonValue["Certificate"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Managers/{}/Truststore/Certificates/{}",
+            BMCWEB_REDFISH_MANAGER_URI_NAME, certId);
     }
     else
     {
         BMCWEB_LOG_WARNING("Cannot map certificate path {} to Redfish URI",
                            certificate.str);
     }
-    asyncResp->res.jsonValue["HashingAlgorithm"] = hashingAlgorithm;
-    asyncResp->res.jsonValue["PublicKey"] = publicKey;
-    asyncResp->res.jsonValue["SignedMeasurements"] = signedMeasurements;
-    asyncResp->res.jsonValue["SigningAlgorithm"] = signingAlgorithm;
-    asyncResp->res.jsonValue["Version"] = version;
+    res.jsonValue["HashingAlgorithm"] = hashingAlgorithm;
+    res.jsonValue["PublicKey"] = publicKey;
+    res.jsonValue["SignedMeasurements"] = signedMeasurements;
+    res.jsonValue["SigningAlgorithm"] = signingAlgorithm;
+    res.jsonValue["Version"] = version;
 }
 
 // Find the service that hosts the MeasurementSet interface on the
@@ -524,29 +527,93 @@ inline std::optional<std::pair<std::string, std::string>> findMeasurementSet(
     return std::nullopt;
 }
 
+inline void completeSignedMeasurementsTask(
+    const std::shared_ptr<task::TaskData>& taskData,
+    const boost::system::error_code& ec,
+    const sdbusplus::object_path& certificate,
+    const std::string& hashingAlgorithm, const std::string& publicKey,
+    const std::string& signedMeasurements, const std::string& signingAlgorithm,
+    const std::string& version)
+{
+    // Ignore a reply that arrives after the timeout
+    if (taskData->endTime)
+    {
+        return;
+    }
+    taskData->timer.cancel();
+
+    crow::Response res;
+    afterGetSignedMeasurements(res, ec, certificate, hashingAlgorithm,
+                               publicKey, signedMeasurements, signingAlgorithm,
+                               version);
+    const bool failed = res.result() != boost::beast::http::status::ok;
+    taskData->setResult(res.result(), std::move(res.jsonValue));
+
+    std::string index = std::to_string(taskData->index);
+    if (failed)
+    {
+        taskData->state = "Exception";
+        taskData->status = "Warning";
+        taskData->messages.emplace_back(messages::taskAborted(index));
+    }
+    else
+    {
+        taskData->state = "Completed";
+        taskData->percentComplete = 100;
+        taskData->messages.emplace_back(messages::taskCompletedOK(index));
+    }
+    taskData->finishTask();
+    task::TaskData::sendTaskEvent(taskData->state, taskData->index);
+}
+
+// Called only when the task times out
+inline bool handleSignedMeasurementsTaskTimeout(
+    const boost::system::error_code& ec, sdbusplus::message_t& /*msg*/,
+    const std::shared_ptr<task::TaskData>& taskData)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("SPDMGetSignedMeasurements task {} timed out",
+                         taskData->index);
+        crow::Response res;
+        messages::internalError(res);
+        taskData->setResult(res.result(), std::move(res.jsonValue));
+    }
+    return task::completed;
+}
+
 inline void callSPDMGetSignedMeasurements(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& service, const std::string& objectPath,
+    task::Payload&& payload, const std::string& service,
+    const std::string& objectPath,
     const std::vector<size_t>& measurementIndices, const std::string& nonce,
     size_t slotId)
 {
-    dbus::utility::async_method_call(
-        [asyncResp](
+    std::shared_ptr<task::TaskData> taskData =
+        task::TaskData::createTask(handleSignedMeasurementsTaskTimeout, "");
+    taskData->payload.emplace(std::move(payload));
+    taskData->populateResp(asyncResp->res);
+    taskData->startTimer(signedMeasurementsTimeout);
+
+    dbus::utility::async_method_call_timed(
+        [taskData](
             const boost::system::error_code& ec,
             const sdbusplus::object_path& certificate,
             const std::string& hashingAlgorithm, const std::string& publicKey,
             const std::string& signedMeasurements,
             const std::string& signingAlgorithm, const std::string& version) {
-            afterGetSignedMeasurements(
-                asyncResp, ec, certificate, hashingAlgorithm, publicKey,
+            completeSignedMeasurementsTask(
+                taskData, ec, certificate, hashingAlgorithm, publicKey,
                 signedMeasurements, signingAlgorithm, version);
         },
         service, objectPath, "xyz.openbmc_project.Attestation.MeasurementSet",
-        "SPDMGetSignedMeasurements", measurementIndices, nonce, slotId);
+        "SPDMGetSignedMeasurements", signedMeasurementsTimeout,
+        measurementIndices, nonce, slotId);
 }
 
 inline void afterFindObjectForAction(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<task::Payload>& payload,
     const std::string& componentIntegrityId,
     const std::vector<size_t>& measurementIndices, const std::string& nonce,
     size_t slotId, const boost::system::error_code& ec,
@@ -574,8 +641,9 @@ inline void afterFindObjectForAction(
                                    componentIntegrityId);
         return;
     }
-    callSPDMGetSignedMeasurements(asyncResp, found->first, found->second,
-                                  measurementIndices, nonce, slotId);
+    callSPDMGetSignedMeasurements(asyncResp, std::move(*payload), found->first,
+                                  found->second, measurementIndices, nonce,
+                                  slotId);
 }
 
 // Nonce is a hex-encoded string per the schema.  SPDM nonces are 32 bytes,
@@ -676,6 +744,7 @@ inline void handleSPDMGetSignedMeasurementsPost(
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/component_integrity", 0, interfaces,
         std::bind_front(afterFindObjectForAction, asyncResp,
+                        std::make_shared<task::Payload>(req),
                         componentIntegrityId, indices, nonceStr, slot));
 }
 
