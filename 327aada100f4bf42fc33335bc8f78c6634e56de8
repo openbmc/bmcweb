@@ -50,6 +50,80 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "406b99ae_4dfb668a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "At a minimum you\u0027re missing redfish service validator.  Please read the checklist for submitting new Redfish endpoints.",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00c18ed6_a31944d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Overall in support of this, but I\u0027m seeing a lot of violations of the rules that could\u0027ve been easily avoided with a little reading of the rules.  I don\u0027t see a lot of testing.",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e96e1975_45b0f0d2",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Remove.  Please use the existing pattern of vector\u003cpair\u003c\u003e\u003e",
+      "range": {
+        "startLine": 63,
+        "startChar": 9,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c456902f_cf193a96",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "per the coding standard, exact matching please.",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b04cb2d_d3f455dc",
         "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
         "patchSetId": 6
@@ -97,6 +171,218 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b44b92ab_78dd5af7",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "I\u0027m lost, why are we taking this type directly from phosphor logging? THere\u0027s not gaurantee the types match. Please fix by using the normal translator function we do elsewhere.",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "009e3816_4e6dd804",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "This section is really hard for me to read, and has instances of banned functions.  Please clean it up, including making the comments more clear.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e6baa1_a4ac1332",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "These need translated.  Dbus types have namespaces, Redfish types do not.  Please translate them using the normal methods.",
+      "range": {
+        "startLine": 144,
+        "startChar": 36,
+        "endLine": 144,
+        "endChar": 52
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0082b63c_002ad58e",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "same here.",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06dd57c9_ad92c2b8",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Remove.  We can\u0027t unpack an OEM section from a backend and guess that it meets the schema.  Also please see the policy on OEM schemas and understand it.",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 5
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6bf6df_4a3f2279",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Please rewrite.  I have no idea what \"authoritatively signalled\" considering that there is no authority here and we aren\u0027t using signals.",
+      "range": {
+        "startLine": 627,
+        "startChar": 0,
+        "endLine": 629,
+        "endChar": 80
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2077fa60_ebdd97dd",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Sorry, why are we duplicating this lookup?  Just add this interface to the existing getObject call.",
+      "range": {
+        "startLine": 724,
+        "startChar": 19,
+        "endLine": 724,
+        "endChar": 32
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad230e42_84665cc8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "there\u0027s nothing \"raw\" about this log, and \"log\" is defined by the type.  Please Just call it \"CPER\"",
+      "range": {
+        "startLine": 171,
+        "startChar": 68,
+        "endLine": 171,
+        "endChar": 78
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3fa2dbe_75b42de0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "CPER logs come from compute complexes, so this should be going under systems, not managers.  I\u0027m not aware of a BMC that produces CPER records.\n\n\nAlso, you\u0027ve duplicated the condition here.",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6444647c_faaee9f1",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Remove and inline.  This doesn\u0027t need to exist in the redfish namespace.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 56
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "beca9ba4_dde7599c",
         "filename": "redfish-core/lib/log_services_rawcper.hpp",
         "patchSetId": 6
@@ -126,6 +412,212 @@
       "side": 1,
       "message": "Yes it can be fetched from DiagnosticDataType D-bus property directly.",
       "parentUuid": "beca9ba4_dde7599c",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbb7a1c3_6856ad74",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Why are we reinventing the collection APIs?  Surely this isn\u0027t unique here.",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0240b2_2d1f0f22",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Please actually handle errors.  A DBus comms error is an internalError, not a 404.",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fc2515d_58b98963",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Please use the helper functions.  This is called out in common errors.",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 64
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f149088b_b4aff8d6",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "internal error?",
+      "range": {
+        "startLine": 334,
+        "startChar": 18,
+        "endLine": 334,
+        "endChar": 34
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99a4389d_566bd562",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Please use the RAII file handles",
+      "range": {
+        "startLine": 338,
+        "startChar": 13,
+        "endLine": 338,
+        "endChar": 16
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b5130e0_236ffd90",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "internalError",
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de4881f7_c9b1b87f",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Please use the correct object_path object for this.  This function is in the process of being deprecated.",
+      "range": {
+        "startLine": 378,
+        "startChar": 19,
+        "endLine": 378,
+        "endChar": 36
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5f9a9b4_a4c3daa4",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "What is an \"authoritative fd interface\".\n\nPlease rework this whole comment.",
+      "range": {
+        "startLine": 380,
+        "startChar": 41,
+        "endLine": 380,
+        "endChar": 58
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6250822b_fc0240a7",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Generate paths with object_path please.",
+      "range": {
+        "startLine": 390,
+        "startChar": 9,
+        "endLine": 390,
+        "endChar": 60
+      },
+      "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5aef8f9_6d561420",
+        "filename": "redfish-core/lib/log_services_rawcper.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T22:32:03Z",
+      "side": 1,
+      "message": "Please just inline this.",
       "revId": "327aada100f4bf42fc33335bc8f78c6634e56de8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
