@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1561780d_e9ccbc27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-19T21:12:15Z",
+      "side": 1,
+      "message": "get your commit message rewritten.",
+      "parentUuid": "4a9171b0_9a8214e1",
+      "revId": "1eef1e4764a1249e0307eb6958cc10da2ec4ac76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de9d1679_74d604b1",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
