@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9a7e048_735c5089",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-19T07:28:34Z",
+      "side": 1,
+      "message": "Acknowledged, added an empty line here.",
+      "parentUuid": "8bd1b5ae_6866a1b6",
+      "revId": "72d62d996c107cb765aae7dc471fc8873d84d281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ac30135_026dbfb5",
@@ -65,6 +83,24 @@
       "writtenOn": "2026-10-17T22:29:57Z",
       "side": 1,
       "message": "Could check that Members is an array \n\n    ASSERT_TRUE(json[\"Members\"].is_array());",
+      "revId": "72d62d996c107cb765aae7dc471fc8873d84d281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e576a73_59c70176",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-19T07:28:34Z",
+      "side": 1,
+      "message": "Done in PS4.",
+      "parentUuid": "6ac30135_026dbfb5",
       "revId": "72d62d996c107cb765aae7dc471fc8873d84d281",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
