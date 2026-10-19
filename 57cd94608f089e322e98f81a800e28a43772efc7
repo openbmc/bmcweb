@@ -116,6 +116,24 @@
       "parentUuid": "5dd4efbe_f19ba8ec",
       "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb324b6b_1c643f85",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-19T14:26:21Z",
+      "side": 1,
+      "message": "Don\u0027t we expect only one xyz.openbmc_project.Inventory.Item.Dimm interface to be present from all object paths?",
+      "parentUuid": "2a24df80_76416054",
+      "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
