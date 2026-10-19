@@ -23,6 +23,33 @@ namespace redfish
 namespace
 {
 
+TEST(Systems, DbusToRfBootSource)
+{
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Default"),
+              "None");
+
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Disk"),
+              "Hdd");
+
+    EXPECT_EQ(
+        dbusToRfBootSource(
+            "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia"),
+        "Cd");
+
+    EXPECT_EQ(dbusToRfBootSource(
+                  "xyz.openbmc_project.Control.Boot.Source.Sources.Network"),
+              "Pxe");
+
+    EXPECT_EQ(
+        dbusToRfBootSource(
+            "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia"),
+        "Usb");
+
+    EXPECT_EQ(dbusToRfBootSource("invalid"), "");
+}
+
 TEST(Systems, DbusToRfBootType)
 {
     EXPECT_EQ(
