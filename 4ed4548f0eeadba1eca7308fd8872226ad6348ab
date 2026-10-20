@@ -210,6 +210,30 @@
       },
       "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c173b8d_c55e356b",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T05:51:52Z",
+      "side": 1,
+      "message": "Because the PDI is still under review, set the patch to WIP.",
+      "parentUuid": "08561c86_f201e940",
+      "range": {
+        "startLine": 404,
+        "startChar": 40,
+        "endLine": 404,
+        "endChar": 50
+      },
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
