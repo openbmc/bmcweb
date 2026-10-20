@@ -16,6 +16,24 @@
       "message": "I think test also needs a change?\nhttps://github.com/search?q\u003dorg%3Aopenbmc+IndicatorLED\u0026type\u003dcode",
       "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0856e77_db8c74fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T07:29:47Z",
+      "side": 1,
+      "message": "Yes, thanks. In openbmc-test-automation, test_led_indicator_asserted.robot still checked IndicatorLED on the Power and Thermal resources. No machine enables the option, so those cases have had nothing to read since it was disabled by default. Removed them here:\nhttps://gerrit.openbmc.org/c/openbmc/openbmc-test-automation/+/96041\nThe other hits in that search are comments, or already use LocationIndicatorActive.",
+      "parentUuid": "5558a44a_45ba4f16",
+      "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
