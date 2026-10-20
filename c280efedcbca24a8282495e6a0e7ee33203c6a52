@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb0a8723_bb843b77",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-10-20T16:54:33Z",
+      "side": 1,
+      "message": "indeed. i\u0027ve moved the code inside. nice catch! thanks!",
+      "parentUuid": "5d865719_3ca6b88a",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 12
+      },
+      "revId": "c280efedcbca24a8282495e6a0e7ee33203c6a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb4ef20c_cb58a275",
@@ -71,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3fac1be_8ab88ff1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-10-20T16:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb4ef20c_cb58a275",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 60
+      },
+      "revId": "c280efedcbca24a8282495e6a0e7ee33203c6a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b949894b_92df42ec",
@@ -84,6 +132,30 @@
       "writtenOn": "2026-10-20T08:46:23Z",
       "side": 1,
       "message": "nit: \nCan we do `if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)` as the other call sites?",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 5
+      },
+      "revId": "c280efedcbca24a8282495e6a0e7ee33203c6a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "875f9e8a_26da545d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-10-20T16:54:33Z",
+      "side": 1,
+      "message": "Done. nice catch, thanks!",
+      "parentUuid": "b949894b_92df42ec",
       "range": {
         "startLine": 112,
         "startChar": 4,
