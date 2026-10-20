@@ -31,41 +31,6 @@ static constexpr std::array<std::string_view, 1> networkAdapterInterface = {
 namespace redfish
 {
 
-inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& object)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree{}", ec);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    for (const auto& [path, service] : object)
-    {
-        if (service.size() != 1)
-        {
-            continue;
-        }
-
-        sdbusplus::object_path objectPah(path);
-
-        const std::string metricType = objectPah.parent_path().filename();
-        const std::string metricName = objectPah.filename();
-
-        if (metricType != "nic")
-        {
-            continue;
-        }
-
-        metrics_util::getMappedMetricProperty(
-            asyncResp, service.begin()->first, path, metricName,
-            metrics_util::nicPortMetrics);
-    }
-}
-
 inline void handleNetworkAdapterPortPathPortMetricsGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
@@ -80,12 +45,7 @@ inline void handleNetworkAdapterPortPathPortMetricsGet(
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port Metrics", networkAdapterId, portId);
 
-    const std::string associationPath = portPath / "measured_by";
-    dbus::utility::getAssociatedSubTree(
-        associationPath, sdbusplus::object_path("/xyz/openbmc_project/metric"),
-        0, std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
-        std::bind_front(handleNetworkAdapterPortMetricsPathsPortMetricsGet,
-                        asyncResp));
+    metrics_util::getPortMetrics(asyncResp, portPath.str);
 }
 
 inline void handleNetworkAdapterPathPortGet(
