@@ -22,6 +22,76 @@
       },
       "revId": "c280efedcbca24a8282495e6a0e7ee33203c6a52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d865719_3ca6b88a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T08:46:23Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c8fc1cd1_fc6d5c5e",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 12
+      },
+      "revId": "c280efedcbca24a8282495e6a0e7ee33203c6a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb4ef20c_cb58a275",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T08:46:23Z",
+      "side": 1,
+      "message": "Should we move these line into if-else?\nOtherwise the case `if (systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)` will capture it.",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 60
+      },
+      "revId": "c280efedcbca24a8282495e6a0e7ee33203c6a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b949894b_92df42ec",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T08:46:23Z",
+      "side": 1,
+      "message": "nit: \nCan we do `if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)` as the other call sites?",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 5
+      },
+      "revId": "c280efedcbca24a8282495e6a0e7ee33203c6a52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
