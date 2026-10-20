@@ -134,6 +134,24 @@
       "parentUuid": "2a24df80_76416054",
       "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d531c48_2275f566",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T04:22:21Z",
+      "side": 1,
+      "message": "```\nfor (const auto\u0026 [objectPath, serviceMap] : subtree) // (1) object paths\n{\n    for (const auto\u0026 [serviceName, interfaceList] : serviceMap) // (2) services on one path\n    {\n        for (const auto\u0026 interface : interfaceList) // (3) interfaces of one service\n        {\n            if (interface \u003d\u003d \"xyz.openbmc_project.Inventory.Item.Dimm\" \u0026\u0026\n                path.filename() \u003d\u003d dimmId)\n```\nYou are right about (1), only one object path should carry it. The duplicate I am guarding against is (2), where the same path is served by more than one service, which is why `getDimmDataByService` is already called once per service.",
+      "parentUuid": "cb324b6b_1c643f85",
+      "revId": "57cd94608f089e322e98f81a800e28a43772efc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
