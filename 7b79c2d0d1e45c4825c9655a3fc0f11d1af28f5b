@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2a0f714_b7195cf4",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T08:11:41Z",
+      "side": 1,
+      "message": "Should we add soem debug log for the case `ec.value() \u003d\u003d EBADR` here?",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 15
+      },
+      "revId": "7b79c2d0d1e45c4825c9655a3fc0f11d1af28f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae14cefb_93793fc6",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T08:11:41Z",
+      "side": 1,
+      "message": "nit:\nThis comment now sits above the hard error return.\nCan you move it above the `getProperty()` call at L71, or reword it to mention that missing object is tolerated?",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 47
+      },
+      "revId": "7b79c2d0d1e45c4825c9655a3fc0f11d1af28f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78017b58_a5eeb4ec",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T08:11:41Z",
+      "side": 1,
+      "message": "here as well, should we add debug log for the object missing case, although they will be tolerated?",
+      "range": {
+        "startLine": 61,
+        "startChar": 9,
+        "endLine": 61,
+        "endChar": 15
+      },
+      "revId": "7b79c2d0d1e45c4825c9655a3fc0f11d1af28f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
