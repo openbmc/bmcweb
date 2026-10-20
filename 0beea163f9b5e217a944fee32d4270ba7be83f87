@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cbc8ff2_c939c711",
+        "filename": "test/redfish-core/lib/trigger_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T06:45:29Z",
+      "side": 1,
+      "message": "These tests copy the string table from `trigger.hpp` only.\nCan we test `getTriggerActions()`, `getDiscreteTriggers()`, and `getNumericThresholds()` instead?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "0beea163f9b5e217a944fee32d4270ba7be83f87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "624c29d5_2341ae38",
+        "filename": "test/redfish-core/lib/trigger_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T06:45:29Z",
+      "side": 1,
+      "message": "Here as well, don\u0027t think we need so much unmatched cases to be validated here.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "0beea163f9b5e217a944fee32d4270ba7be83f87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ff696e_b54493f5",
+        "filename": "test/redfish-core/lib/trigger_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T06:45:29Z",
+      "side": 1,
+      "message": "`toRedfishThresholdName()` is just an if-else function. I think testing with unmatched value here plus a \"\" case is enough here.\n\nrefs:\nhttps://github.com/openbmc/bmcweb/blob/c77d0d42cc13fc753a25b0b0df47f50d77162753/redfish-core/lib/trigger.hpp#L131",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 1
+      },
+      "revId": "0beea163f9b5e217a944fee32d4270ba7be83f87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
