@@ -135,6 +135,75 @@
       "message": "@ed@tanous.net Could you please review this change? My goal is to eliminate the extra lookup, simplify the implementation, and keep the behavior unchanged. While it does introduce a bit more code, this pattern is already used in bmcweb.",
       "revId": "061f07d2b9ee2c5c177b6052eace17773a3e19c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4786e83_7bf4ae5d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T07:15:28Z",
+      "side": 1,
+      "message": "Can we do something like below? I think it will saves much more lines.\n```\ninline void handleFanSubtree(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 fanId,\n    const std::function\u003cvoid(const std::string\u0026 fanPath,\n                             const std::string\u0026 service)\u003e\u0026 callback,\n    const boost::system::error_code\u0026 ec,\n    const dbus_::utility::MapperGetSubTreeResponse\u0026 fanSubtree)\n{\n    if (ec \u0026\u0026 ec.value() !\u003d boost::system::errc::io_error \u0026\u0026\n        ec.value() !\u003d EBADR)\n    {\n        BMCWEB_LOG_ERROR(\"DBUS response error {}\", ec);\n        messages::internalError(asyncResp-\u003eres);\n        return;\n    }\n    \n    for (const auto\u0026 [fanPath, serviceMap] : fanSubtree)\n    {\n        if (!checkFanId(fanPath, fanId))\n        {\n            continue;\n        }\n        if(serviceMap.empty())\n        {\n            messages::internalError(asyncResp-\u003eres);\n            return;\n        }\n        callback(fanPath, serviceMap.begin()-\u003efirst);\n        return;\n    }\n    BMCWEB_LOG_WARNING(\"Fan not found {}\", fanId);\n    messages::resourceNotFound(asyncResp-\u003eres, \"Fan\", fanId);\n}\n```",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 64
+      },
+      "revId": "061f07d2b9ee2c5c177b6052eace17773a3e19c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f05d0aa1_a41d2ed7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T07:15:28Z",
+      "side": 1,
+      "message": "This naming is confusing, because there is another function with same name in `fan_utils.hpp`. Could we change this as well?",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 163,
+        "endChar": 30
+      },
+      "revId": "061f07d2b9ee2c5c177b6052eace17773a3e19c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99a5decb_66ba5858",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T07:15:28Z",
+      "side": 1,
+      "message": "Could this call `getAssociatedSubTree()` directly and bind to `handleFanSubtree()`?\nIn this case, the new helpers in `fan_utils.hpp` aren\u0027t needed",
+      "range": {
+        "startLine": 195,
+        "startChar": 4,
+        "endLine": 198,
+        "endChar": 0
+      },
+      "revId": "061f07d2b9ee2c5c177b6052eace17773a3e19c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
