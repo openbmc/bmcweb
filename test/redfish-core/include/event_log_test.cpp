@@ -171,6 +171,15 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
 
     ASSERT_TRUE(logEntryJson.contains("MessageSeverity"));
     ASSERT_EQ(logEntryJson["MessageSeverity"], "Warning");
+
+    // The Systems/Managers parent depends on build options; check only the
+    // option-independent parts so coverage holds under any configuration.
+    const std::string* logEntryUri =
+        logEntryJson["LogEntry"]["@odata.id"].get_ptr<const std::string*>();
+    ASSERT_NE(logEntryUri, nullptr);
+    ASSERT_TRUE(logEntryUri->starts_with("/redfish/v1/"));
+    ASSERT_TRUE(
+        logEntryUri->ends_with("/LogServices/EventLog/Entries/23849423_3"));
 }
 
 TEST(RedfishEventLog, FormatEventLogEntryFail)

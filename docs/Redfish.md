@@ -643,6 +643,7 @@ Fields common to all schemas
 - Events[]/Context
 - Events[]/EventId
 - Events[]/EventTimestamp
+- Events[]/LogEntry
 - Events[]/Message
 - Events[]/MessageArgs
 - Events[]/MessageId

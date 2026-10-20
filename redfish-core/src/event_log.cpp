@@ -3,11 +3,19 @@
 // SPDX-FileCopyrightText: Copyright 2020 Intel Corporation
 #include "event_log.hpp"
 
+#include "bmcweb_config.h"
+
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
 #include "utils/time_utils.hpp"
+// Provides the nlohmann::adl_serializer<boost::urls::url> specialization
+// needed to assign a url to json. include-cleaner can't see uses of a
+// template specialization, so it reports this include as unused.
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include "utility.hpp"
 
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 
 #include <cerrno>
@@ -115,6 +123,24 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
     return 0;
 }
 
+static std::string_view getEventLogParent()
+{
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
+    {
+        return "Systems";
+    }
+    return "Managers";
+}
+
+static std::string_view getEventLogParentId()
+{
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
+    {
+        return BMCWEB_REDFISH_SYSTEM_URI_NAME;
+    }
+    return BMCWEB_REDFISH_MANAGER_URI_NAME;
+}
+
 int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
                         const std::string& messageID,
                         const std::span<std::string_view> messageArgs,
@@ -182,6 +208,9 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
+    logEntryJson["LogEntry"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}",
+        getEventLogParent(), getEventLogParentId(), logEntryID);
     return 0;
 }
 
