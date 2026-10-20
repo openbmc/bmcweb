@@ -174,6 +174,7 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     logEntryJson["EventId"] = std::to_string(eventId);
 
     logEntryJson["Severity"] = message->messageSeverity;
+    logEntryJson["MessageSeverity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] =
         std::format("{}.{}.{}.{}", msgComponents->registryName, versionMajor,

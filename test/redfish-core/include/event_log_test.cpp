@@ -168,6 +168,9 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
 
     ASSERT_TRUE(logEntryJson.contains("Context"));
     ASSERT_EQ(logEntryJson["Context"], "customText");
+
+    ASSERT_TRUE(logEntryJson.contains("MessageSeverity"));
+    ASSERT_EQ(logEntryJson["MessageSeverity"], "Warning");
 }
 
 TEST(RedfishEventLog, FormatEventLogEntryFail)
