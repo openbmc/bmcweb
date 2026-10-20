@@ -34,6 +34,98 @@
       "parentUuid": "5558a44a_45ba4f16",
       "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0ba285_2ed3ec5d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T07:49:33Z",
+      "side": 1,
+      "message": "FYI:\nThe early returning of the negative case.",
+      "range": {
+        "startLine": 816,
+        "startChar": 4,
+        "endLine": 819,
+        "endChar": 5
+      },
+      "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f6f285_af3f9551",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T07:49:33Z",
+      "side": 1,
+      "message": "I think we can removed the guard here because the negative case will return early now.",
+      "range": {
+        "startLine": 872,
+        "startChar": 16,
+        "endLine": 872,
+        "endChar": 44
+      },
+      "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f904441e_45945634",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T07:49:33Z",
+      "side": 1,
+      "message": "This drops the LED `GetSubTree()` and per-LED state reads from the `getInventoryItem()` chain.\nCan we add a `Chassis/\u003cid\u003e/Sensors?expand-.` GET to the \"Tested\" section in your commit message as an evidence the changed path is exercised on a default build?",
+      "range": {
+        "startLine": 1487,
+        "startChar": 28,
+        "endLine": 1489,
+        "endChar": 74
+      },
+      "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3531f9_e80fa7a9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T07:49:33Z",
+      "side": 1,
+      "message": "Can we drop this lambda and uses callback here as well?",
+      "range": {
+        "startLine": 1481,
+        "startChar": 24,
+        "endLine": 1489,
+        "endChar": 74
+      },
+      "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
