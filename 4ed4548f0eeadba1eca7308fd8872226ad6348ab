@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bba0bf4_3bfad5d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T05:51:22Z",
+      "side": 1,
+      "message": "Replaced it with the unmodified response from the machine.",
+      "parentUuid": "86ed3bdd_77b6b2e6",
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d265c1e_1d1a362c",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-10-19T20:23:16Z",
       "side": 1,
       "message": "Ok, then please link the patchset to fix it.  Clean RSV runs are a requirement on new features.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 54
+      },
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a0a1eac_ecf85453",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T05:51:22Z",
+      "side": 1,
+      "message": "A fresh run on the same machine is clean, Summary - PASS: 10335, WARN: 361, FAIL: 0, NOT TESTED: 14147, so there is nothing left to link and I dropped that sentence for the new summary.",
+      "parentUuid": "2d265c1e_1d1a362c",
       "range": {
         "startLine": 59,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d492502_d894dd73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T05:51:22Z",
+      "side": 1,
+      "message": "The ConnectX package publishes the network controller and its PCIe bridge as two inventory objects, so this links CX8_0_NIC to CX8_0_PCIe, the bridge the controller sits behind, rather than anything downstream of it. \nThe anonymised snippet hid that, and the first paragraph now says it.",
+      "parentUuid": "69df515a_4d5b817f",
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "237b2028_ffb451cd",
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cca8e49_b53b0498",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T05:51:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "237b2028_ffb451cd",
+      "range": {
+        "startLine": 370,
+        "startChar": 40,
+        "endLine": 370,
+        "endChar": 44
+      },
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d448ea_48b64bca",
@@ -94,6 +178,30 @@
       "writtenOn": "2026-10-19T20:23:16Z",
       "side": 1,
       "message": "?  connected doesn\u0027t seem right here in the modeling?  Any reason it was picked?",
+      "range": {
+        "startLine": 404,
+        "startChar": 40,
+        "endLine": 404,
+        "endChar": 50
+      },
+      "revId": "4ed4548f0eeadba1eca7308fd8872226ad6348ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08561c86_f201e940",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T05:51:22Z",
+      "side": 1,
+      "message": "Direction was the problem rather than the pair: PDI puts connecting on the upstream end, as in Cpu `connecting` -\u003e PCIeDevice, and the bridge is upstream. \n\nSwapped it in https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/89309 and https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/96037, so this reads `connected_to` now.",
+      "parentUuid": "a9d448ea_48b64bca",
       "range": {
         "startLine": 404,
         "startChar": 40,
