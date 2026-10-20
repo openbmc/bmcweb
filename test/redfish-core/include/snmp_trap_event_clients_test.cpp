@@ -63,6 +63,27 @@ TEST(AfterGetSnmpTrapClientdata, DestinationIsPopulated)
               "snmp://192.168.1.1:162");
 }
 
+TEST(AfterGetSnmpTrapClientdata, Ipv6DestinationIsPopulated)
+{
+    for (const std::string& address :
+         {std::string("fd03:f9ab:25de:89ec::1"),
+          std::string("[fd03:f9ab:25de:89ec::1]")})
+    {
+        SCOPED_TRACE(address);
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+        dbus::utility::DBusPropertiesMap props;
+        props.emplace_back("Address", address);
+        props.emplace_back("Port", uint16_t{162});
+
+        afterGetSnmpTrapClientdata(asyncResp, {}, props);
+
+        EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
+        EXPECT_EQ(asyncResp->res.jsonValue["Destination"],
+                  "snmp://[fd03:f9ab:25de:89ec::1]:162");
+    }
+}
+
 TEST(AfterGetSnmpTrapClientdata, HostnameDestinationIsPopulated)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
@@ -75,6 +96,28 @@ TEST(AfterGetSnmpTrapClientdata, HostnameDestinationIsPopulated)
 
     EXPECT_EQ(asyncResp->res.jsonValue["Destination"],
               "snmp://example.com:162");
+}
+
+TEST(AfterGetSnmpTrapClientdata, InvalidHostReturnsInternalError)
+{
+    for (const std::string& address :
+         {std::string("not:ipv6"), std::string("example.com:162"),
+            std::string("user@example.com"), std::string("fd03:f9ab:25de:89ec::gg"),
+            std::string("[not:ipv6]"), std::string()})
+    {
+        SCOPED_TRACE(address);
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+        dbus::utility::DBusPropertiesMap props;
+        props.emplace_back("Address", address);
+        props.emplace_back("Port", uint16_t{162});
+
+        afterGetSnmpTrapClientdata(asyncResp, {}, props);
+
+        EXPECT_EQ(asyncResp->res.result(),
+                  boost::beast::http::status::internal_server_error);
+        EXPECT_FALSE(asyncResp->res.jsonValue.contains("Destination"));
+    }
 }
 
 TEST(AfterGetSnmpTrapClient, ErrorCodeReturnsInternalError)
