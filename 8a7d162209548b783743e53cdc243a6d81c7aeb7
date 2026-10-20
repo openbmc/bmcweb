@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2a6ac22_9ffcc618",
+        "filename": "test/redfish-core/include/snmp_trap_event_clients_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-20T13:11:59Z",
+      "side": 1,
+      "message": "Moved the IPv6 fix and tests to follow-up 96059, leaving this change tests-only. QEMU verified that bare IPv6 addresses now produce a correctly bracketed destination with HTTP 200",
+      "parentUuid": "00c2d6b6_1b71a5b5",
+      "revId": "8a7d162209548b783743e53cdc243a6d81c7aeb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34734852_38e12994",
