@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65bc0a2f_dd36cb1c",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T04:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17b1a005_62b385b1",
+      "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce550524_4fca3dad",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-19T13:31:09Z",
       "side": 1,
       "message": "I am also fine if we want to put fully qualified D-Bus Object path (with pcie and nic prefixes) here to buy the freedom map any metrics as pcie or nic port metrics and not just tie it to prefix.",
+      "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "856d007e_5bb13418",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T04:23:34Z",
+      "side": 1,
+      "message": "I kept the bare metric names and dispatch on the nic or pcie path segment, because network_adapter.hpp relies on that segment to keep PCIe metrics out of its response; folding the prefix into the keys would still need the same filter, so I did not see the extra freedom paying for itself here.",
+      "parentUuid": "ce550524_4fca3dad",
       "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6926826_26bb8223",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T04:23:34Z",
+      "side": 1,
+      "message": "network_adapter.hpp does reach this mapping. The first patch in this series replaced its per metric if chain with `getMappedMetricProperty` and `nicPortMetrics`, so NIC port metrics go through the same table. What it still does on its own is the association walk, because it skips anything that is not under nic while `afterGetPortMetrics` dispatches both nic and pcie. Folding the two walks together changes what a NetworkAdapter port reports, so I will send that as a separate change.",
+      "parentUuid": "fd931a5f_9f275746",
+      "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c856aa4d_8ac64e78",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-10-19T13:31:09Z",
       "side": 1,
       "message": "Also see if we can sort this array at compile time for faster lookup inside the function `getMappedMetricProperty`.",
+      "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21c043fb_f678ea95",
+        "filename": "redfish-core/include/utils/metrics_util.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-20T04:23:34Z",
+      "side": 1,
+      "message": "Done. Both tables are sorted by metric name and the lookup is a `lower_bound`, with a `static_assert` on each table so a new entry in the wrong place fails the build rather than silently missing.",
+      "parentUuid": "c856aa4d_8ac64e78",
       "revId": "132b25f62da65541ff4eca9c7cac3dacb90b4e38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
