@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97c52241_e791f363",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T08:10:49Z",
+      "side": 1,
+      "message": "Done, empty node is rejected now.",
+      "parentUuid": "ce0cef1d_30ffbd98",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 29
+      },
+      "revId": "6a5b05c52f1ef031edd2632de03c425678bbb519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0bf5bbd_218e00a5",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d36ba675_2cb06c46",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T08:10:49Z",
+      "side": 1,
+      "message": "Done, empty sensor name is rejected now.",
+      "parentUuid": "a0bf5bbd_218e00a5",
+      "range": {
+        "startLine": 109,
+        "startChar": 12,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "6a5b05c52f1ef031edd2632de03c425678bbb519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb8a8d71_89d2c7f9",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-10-20T07:22:21Z",
       "side": 1,
       "message": "After adding the handler for empty node, can we have some test case for empty node handling as well?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 51
+      },
+      "revId": "6a5b05c52f1ef031edd2632de03c425678bbb519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f1d2ed_6a036821",
+        "filename": "test/redfish-core/include/utils/telemetry_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T08:10:49Z",
+      "side": 1,
+      "message": "Done, added RejectsEmptyNodeOrSensorName.",
+      "parentUuid": "eb8a8d71_89d2c7f9",
       "range": {
         "startLine": 139,
         "startChar": 0,
