@@ -15,7 +15,9 @@
 #include <systemd/sd-bus.h>
 
 #include <boost/system/error_code.hpp>
+#include <boost/url/authority_view.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/ipv6_address.hpp>
 #include <boost/url/url.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
@@ -56,8 +58,30 @@ inline void afterGetSnmpTrapClientdata(
         return;
     }
 
-    asyncResp->res.jsonValue["Destination"] =
-        boost::urls::format("snmp://{}:{}", address, port);
+    if (boost::urls::parse_ipv6_address(address))
+    {
+        address = "[" + address + "]";
+    }
+
+    auto authority = boost::urls::parse_authority(address);
+    if (!authority)
+    {
+        BMCWEB_LOG_ERROR("Invalid SNMP destination host: {}",
+                         authority.error());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (authority->has_userinfo() || authority->has_port() ||
+        authority->host().empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    boost::urls::url destination("snmp://");
+    destination.set_host(authority->host());
+    destination.set_port_number(port);
+    asyncResp->res.jsonValue["Destination"] = destination;
 }
 
 inline void getSnmpTrapClientdata(
