@@ -88,6 +88,24 @@
       "parentUuid": "86d71f49_199686f7",
       "revId": "85f85f8ea9556b26b3d1b7492b08e8280307113c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11ba5863_53221f47",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-20T05:58:51Z",
+      "side": 1,
+      "message": "Thanks for acknowledging this, I have applied the suggested test case in PS4.",
+      "parentUuid": "dc388be2_501d89df",
+      "revId": "85f85f8ea9556b26b3d1b7492b08e8280307113c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
