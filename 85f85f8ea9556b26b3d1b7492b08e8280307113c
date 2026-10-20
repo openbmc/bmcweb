@@ -70,6 +70,24 @@
       "parentUuid": "c297d816_7a4923de",
       "revId": "85f85f8ea9556b26b3d1b7492b08e8280307113c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc388be2_501d89df",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-20T04:15:53Z",
+      "side": 1,
+      "message": "You might be able to do fillThermalMetricsResponse but your call \n```\nTEST(FillThermalMetricsResponse, PopulatesResource)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n\n    fillThermalMetricsResponse(*asyncResp, \"chassis0\");\n\n    EXPECT_EQ(asyncResp-\u003eres.result(), boost::beast::http::status::ok);\n    EXPECT_EQ(\n        asyncResp-\u003eres.getHeaderValue(boost::beast::http::field::link),\n        \"\u003c/redfish/v1/JsonSchemas/ThermalMetrics/ThermalMetrics.json\u003e; rel\u003ddescribedby\");\n\n    const nlohmann::json\u0026 json \u003d asyncResp-\u003eres.jsonValue;\n    EXPECT_EQ(json[\"@odata.type\"], \"#ThermalMetrics.v1_0_1.ThermalMetrics\");\n    EXPECT_EQ(\n        json[\"@odata.id\"],\n        \"/redfish/v1/Chassis/chassis0/ThermalSubsystem/ThermalMetrics\");\n    EXPECT_EQ(json[\"Id\"], \"ThermalMetrics\");\n    EXPECT_EQ(json[\"Name\"], \"Thermal Metrics\");\n}\n```",
+      "parentUuid": "86d71f49_199686f7",
+      "revId": "85f85f8ea9556b26b3d1b7492b08e8280307113c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
