@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f885e4f7_a628548a",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T11:18:51Z",
+      "side": 1,
+      "message": "Done, a missing LED group or service now logs at debug level before leaving the property out.",
+      "parentUuid": "cc3c8680_e9a8d0dc",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 15
+      },
+      "revId": "7b79c2d0d1e45c4825c9655a3fc0f11d1af28f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae14cefb_93793fc6",
@@ -71,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "329aa22a_5df0aaef",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T11:18:51Z",
+      "side": 1,
+      "message": "Done, moved it above the getProperty() call for enclosure_identify.",
+      "parentUuid": "ae14cefb_93793fc6",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 47
+      },
+      "revId": "7b79c2d0d1e45c4825c9655a3fc0f11d1af28f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78017b58_a5eeb4ec",
@@ -84,6 +132,30 @@
       "writtenOn": "2026-10-20T08:11:41Z",
       "side": 1,
       "message": "here as well, should we add debug log for the object missing case, although they will be tolerated?",
+      "range": {
+        "startLine": 61,
+        "startChar": 9,
+        "endLine": 61,
+        "endChar": 15
+      },
+      "revId": "7b79c2d0d1e45c4825c9655a3fc0f11d1af28f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37ffd9e3_9ad87c54",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T11:18:51Z",
+      "side": 1,
+      "message": "Done, same debug log here before falling back to enclosure_identify.",
+      "parentUuid": "78017b58_a5eeb4ec",
       "range": {
         "startLine": 61,
         "startChar": 9,
