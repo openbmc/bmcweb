@@ -82,6 +82,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ce97398_e991a080",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T10:41:40Z",
+      "side": 1,
+      "message": "Done, removed the guard; the lambda now captures the bool like systems.hpp.",
+      "parentUuid": "a8f6f285_af3f9551",
+      "range": {
+        "startLine": 872,
+        "startChar": 16,
+        "endLine": 872,
+        "endChar": 44
+      },
+      "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f904441e_45945634",
@@ -121,6 +145,54 @@
       "range": {
         "startLine": 1481,
         "startChar": 24,
+        "endLine": 1489,
+        "endChar": 74
+      },
+      "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3169db78_a90c8fb0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T10:41:40Z",
+      "side": 1,
+      "message": "Still needed: getPowerSupplyAttributes() needs isPowerSupply from\ngetInventoryItemsData(), whose callback takes no arguments. The LED\nlambda could go because the LED step is gone.",
+      "parentUuid": "ed3531f9_e80fa7a9",
+      "range": {
+        "startLine": 1481,
+        "startChar": 24,
+        "endLine": 1489,
+        "endChar": 74
+      },
+      "revId": "7137d9a10b71558640eb6cdcd4c68264bea643a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "067184a3_1b667eac",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-20T10:41:40Z",
+      "side": 1,
+      "message": "Done, added a Sensors?$expand\u003d. GET; output matches before the change.\n$expand needs insecure-enable-redfish-query (enabled on nvl32-obmc); on a\ndefault build it returns 501.",
+      "parentUuid": "f904441e_45945634",
+      "range": {
+        "startLine": 1487,
+        "startChar": 28,
         "endLine": 1489,
         "endChar": 74
       },
