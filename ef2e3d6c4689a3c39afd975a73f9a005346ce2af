@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62b59ab0_4d7d32ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-21T14:03:01Z",
+      "side": 1,
+      "message": "Updated the commit message to describe the enum conversion and caller change, alongside the unit tests and QEMU validation.",
+      "parentUuid": "03252f31_f0715fea",
+      "revId": "ef2e3d6c4689a3c39afd975a73f9a005346ce2af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a33e2716_1c085059",
@@ -49,6 +67,24 @@
       "writtenOn": "2026-10-19T20:53:13Z",
       "side": 1,
       "message": "Ideally it is a bit more testing since you are not just adding tests but also changing code but I guess",
+      "revId": "ef2e3d6c4689a3c39afd975a73f9a005346ce2af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5ddf9bb_3e3ebeaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-21T14:03:01Z",
+      "side": 1,
+      "message": "Added functional testing on Romulus QEMU using the updated bmcweb binary. All 15 checks passed, covering boot-source GET mappings, boot-mode precedence, PATCH/GET round trips, and invalid PATCH rejection. I’ll include these results in the commit message.",
+      "parentUuid": "a33e2716_1c085059",
       "revId": "ef2e3d6c4689a3c39afd975a73f9a005346ce2af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
