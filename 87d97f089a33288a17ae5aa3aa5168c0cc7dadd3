@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "112542e2_ef03518e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T06:47:33Z",
+      "side": 1,
+      "message": "Used contentType.empty().",
+      "parentUuid": "af2d8134_ce02a09f",
+      "range": {
+        "startLine": 1143,
+        "startChar": 13,
+        "endLine": 1143,
+        "endChar": 24
+      },
+      "revId": "87d97f089a33288a17ae5aa3aa5168c0cc7dadd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60640b22_784709ed",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "759a24c1_217dd98f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T06:47:33Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "60640b22_784709ed",
+      "revId": "87d97f089a33288a17ae5aa3aa5168c0cc7dadd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27555bbd_a995b407",
@@ -54,6 +96,24 @@
       "writtenOn": "2026-10-19T22:10:33Z",
       "side": 1,
       "message": "Please put all the error cases together.  ideally the error cases shouldb e processed first.",
+      "revId": "87d97f089a33288a17ae5aa3aa5168c0cc7dadd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6f20d9d_e24ac6aa",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T06:47:33Z",
+      "side": 1,
+      "message": "ACKed, thanks for reviewing.",
+      "parentUuid": "27555bbd_a995b407",
       "revId": "87d97f089a33288a17ae5aa3aa5168c0cc7dadd3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
