@@ -1196,6 +1196,7 @@ functions the same like the default implementation under the System resource.
 
 #### Port
 
+- `@Redfish.Settings`
 - CurrentSpeedGbps
 - LinkState
 - LinkStatus
@@ -1226,6 +1227,12 @@ functions the same like the default implementation under the System resource.
 - RXBytes
 - RXErrors
 - TXBytes
+
+### /redfish/v1/Systems/system/Processors/{ProcessorId}/Ports/{PortId}/Settings/
+
+#### Port
+
+- LinkState
 
 ### /redfish/v1/Systems/system/Processors/{ProcessorId}/SubProcessors
 
