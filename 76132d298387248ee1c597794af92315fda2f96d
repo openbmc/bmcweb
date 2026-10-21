@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cfa064e_82b70dc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T11:21:01Z",
+      "side": 1,
+      "message": "Hi @yuvakumars@ami.com @vinothkumars@ami.com,\ncould you please review this commit?",
+      "revId": "76132d298387248ee1c597794af92315fda2f96d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
