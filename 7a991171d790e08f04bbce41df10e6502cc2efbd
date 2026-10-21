@@ -215,6 +215,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "71fc3502_2694575b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-21T20:50:32Z",
+      "side": 1,
+      "message": "Following up on the discussion here: phosphor-led-manager can now be configured with the identified_by/identifying associations between LED groups and inventory objects [1]. This includes inventory objects created by entity-manager, which was the gap discussed in this review.\n\nTo be clear, I\u0027m not proposing to change the default of redfish-use-hardcoded-system-location-indicator now, and I\u0027m not proposing a date. Platform LED configurations would need the associations added first, and any change to the default would be a separate discussion.\n\n[1] https://gerrit.openbmc.org/c/openbmc/phosphor-led-manager/+/93738 (Associations: Add ability to configure associations, merged)",
+      "parentUuid": "bdef9b02_092c00fd",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 68
+      },
+      "revId": "7a991171d790e08f04bbce41df10e6502cc2efbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "796c2411_8417ccc2",
