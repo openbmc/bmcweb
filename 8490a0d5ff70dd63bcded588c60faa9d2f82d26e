@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7114dbe_78ee87e3",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T05:45:37Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "f7d6ccf7_7797983e",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 53
+      },
+      "revId": "8490a0d5ff70dd63bcded588c60faa9d2f82d26e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "441e7dc6_ea05873c",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c636024_b6ff173d",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T05:45:37Z",
+      "side": 1,
+      "message": "That\u0027s right, done. Thanks for reviewing.",
+      "parentUuid": "441e7dc6_ea05873c",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 19
+      },
+      "revId": "8490a0d5ff70dd63bcded588c60faa9d2f82d26e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42a33a49_20d990e3",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-10-14T06:28:03Z",
       "side": 1,
       "message": "nit:\nI think we can add a debug log indicating no matching was found for the request.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 45
+      },
+      "revId": "8490a0d5ff70dd63bcded588c60faa9d2f82d26e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f9e6167_318e0b7e",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T05:45:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "42a33a49_20d990e3",
       "range": {
         "startLine": 107,
         "startChar": 4,
