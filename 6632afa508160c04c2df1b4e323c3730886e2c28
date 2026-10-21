@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b391d6f_b96fb5b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-21T12:13:45Z",
+      "side": 1,
+      "message": "Introduced in b943aaef12ec (“Add SetPointOffset To Refish”), which reversed the noncritical threshold mappings in createPidInterface.",
+      "parentUuid": "83dc3fb8_80cb4ccb",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6252ecef_b11ee015",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-09-25T04:02:59Z",
       "side": 1,
       "message": "Is this correct? *setpointOffset ??",
+      "range": {
+        "startLine": 830,
+        "startChar": 64,
+        "endLine": 830,
+        "endChar": 68
+      },
+      "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b6e7213_c9be7d40",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-21T12:13:45Z",
+      "side": 1,
+      "message": "Yes. setpointOffset is a std::optional\u003cstd::string\u003e. The enclosing if (setpointOffset) checks that it has a value, and *setpointOffset accesses that string for comparison.",
+      "parentUuid": "6252ecef_b11ee015",
       "range": {
         "startLine": 830,
         "startChar": 64,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a80ac33b_4da91ecf",
+        "filename": "test/redfish-core/lib/openbmc_managers_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-21T12:13:45Z",
+      "side": 1,
+      "message": "Agreed. This test checks known-value translation, not a full round trip. I’ll rename it to.",
+      "parentUuid": "9fceb522_3874096a",
+      "range": {
+        "startLine": 486,
+        "startChar": 25,
+        "endLine": 486,
+        "endChar": 60
+      },
+      "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cc1b558_561321ab",
@@ -83,6 +155,24 @@
       "writtenOn": "2026-09-25T04:02:59Z",
       "side": 1,
       "message": "```\n+    EXPECT_EQ(asyncResp-\u003eres.result(),\n+              boost::beast::http::status::bad_request);\n+\n+    const nlohmann::json\u0026 extendedInfo \u003d\n+        asyncResp-\u003eres.jsonValue[\"error\"][\"@Message.ExtendedInfo\"];\n+    ASSERT_EQ(extendedInfo.size(), 1);\n+    EXPECT_EQ(extendedInfo[0][\"MessageArgs\"],\n+              nlohmann::json::array({\"\\\"NotARealValue\\\"\", \"SetPointOffset\"}));\n```\n\ncould strengthen the test",
+      "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a57f6d0_71a06554",
+        "filename": "test/redfish-core/lib/openbmc_managers_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-21T12:13:45Z",
+      "side": 1,
+      "message": "Added the suggested assertions for HTTP 400 and error details. All tests passed.",
+      "parentUuid": "6cc1b558_561321ab",
       "revId": "6632afa508160c04c2df1b4e323c3730886e2c28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
