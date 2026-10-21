@@ -9,6 +9,7 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/port.hpp"
 #include "generated/enums/processor.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -56,6 +57,9 @@ namespace redfish
 
 static constexpr std::array<std::string_view, 1> processorPortInterfaces{
     "xyz.openbmc_project.Inventory.Connector.Port"};
+
+static constexpr std::array<std::string_view, 1> portLinkStateControlInterfaces{
+    "xyz.openbmc_project.Control.Port.LinkState"};
 
 /**
  * @brief Fill out uuid info of a processor by
@@ -1358,6 +1362,53 @@ inline std::optional<std::pair<std::string, std::string>> resolveProcessorPort(
     return std::nullopt;
 }
 
+// Finds the Control.Port.LinkState object of a port through its
+// controlled_by association.
+inline void getPortLinkStateControl(
+    const std::string& portPath,
+    std::function<void(const boost::system::error_code&,
+                       const dbus::utility::MapperGetSubTreeResponse&)>
+        callback)
+{
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path(portPath) / "controlled_by",
+        sdbusplus::object_path("/xyz/openbmc_project/control"), 0,
+        portLinkStateControlInterfaces, std::move(callback));
+}
+
+// A port only has a settings resource when it can be controlled, so the
+// annotation is added only when the control object exists. Not finding it
+// leaves the Port response complete as it is.
+inline void afterGetPortLinkStateControlForPort(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& portId,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        // EBADR and io_error mean the port has no control, as in
+        // resolvePortLinkStateControl.
+        if (ec.value() != EBADR && ec != boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("DBus error getting port link state control: {}",
+                             ec);
+        }
+        return;
+    }
+    if (subtree.empty())
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue["@Redfish.Settings"]["@odata.type"] =
+        "#Settings.v1_3_3.Settings";
+    asyncResp->res.jsonValue["@Redfish.Settings"]["SettingsObject"]
+                            ["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors/{}/Ports/{}/Settings",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId, portId);
+}
+
 inline void afterGetPortSubtreeForGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& portId,
@@ -1389,6 +1440,10 @@ inline void afterGetPortSubtreeForGet(
         port->first, port->second,
         "xyz.openbmc_project.Inventory.Connector.Port",
         std::bind_front(pcie_util::afterGetPortProperties, asyncResp));
+
+    getPortLinkStateControl(port->second,
+                            std::bind_front(afterGetPortLinkStateControlForPort,
+                                            asyncResp, processorId, portId));
 }
 
 inline void afterGetPortSubtreeForHead(
@@ -1757,6 +1812,218 @@ inline void handleProcessorPortCollectionGet(
                                        asyncResp, processorId));
 }
 
+// Resolves the single Control.Port.LinkState object of a port. A port that has
+// none has no settings resource.
+inline std::optional<std::pair<std::string, std::string>>
+    resolvePortLinkStateControl(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& portId, const boost::system::error_code& ec,
+        const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("Port {} has no link state control", portId);
+            messages::resourceNotFound(asyncResp->res, "Port", "Settings");
+            return std::nullopt;
+        }
+        BMCWEB_LOG_ERROR("DBus error getting port link state control: {}", ec);
+        messages::internalError(asyncResp->res);
+        return std::nullopt;
+    }
+
+    if (subtree.empty())
+    {
+        messages::resourceNotFound(asyncResp->res, "Port", "Settings");
+        return std::nullopt;
+    }
+    if (subtree.size() > 1 || subtree.front().second.size() != 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "More than one Control.Port.LinkState object or service for Port {}",
+            portId);
+        messages::internalError(asyncResp->res);
+        return std::nullopt;
+    }
+
+    return std::make_pair(subtree.front().second.front().first,
+                          subtree.front().first);
+}
+
+inline void afterGetRequestedLinkState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& requestedLinkState)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBus error getting RequestedLinkState: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Unknown until the device has reported it: omit the property.
+    std::optional<port::LinkState> linkState =
+        pcie_util::dbusPortLinkStateToRf(requestedLinkState);
+    if (!linkState)
+    {
+        BMCWEB_LOG_DEBUG("RequestedLinkState not known: {}",
+                         requestedLinkState);
+        return;
+    }
+    asyncResp->res.jsonValue["LinkState"] = *linkState;
+}
+
+// Called with the D-Bus service and object path of a port's link state
+// control once it has been found.
+using PortLinkStateControlCallback =
+    std::function<void(const std::string&, const std::string&)>;
+
+inline void afterGetPortLinkStateControlForSettings(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portId, const PortLinkStateControlCallback& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    std::optional<std::pair<std::string, std::string>> control =
+        resolvePortLinkStateControl(asyncResp, portId, ec, subtree);
+    if (!control)
+    {
+        return;
+    }
+    callback(control->first, control->second);
+}
+
+inline void afterGetPortPathsForSettings(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portId, const PortLinkStateControlCallback& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& paths)
+{
+    std::optional<std::string> portPath =
+        resolveProcessorPortPath(asyncResp, portId, ec, paths);
+    if (!portPath)
+    {
+        return;
+    }
+
+    getPortLinkStateControl(
+        *portPath, std::bind_front(afterGetPortLinkStateControlForSettings,
+                                   asyncResp, portId, callback));
+}
+
+inline void afterGetProcessorObjectForPortSettings(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portId, const PortLinkStateControlCallback& callback,
+    const std::string& objectPath,
+    const dbus::utility::MapperServiceMap& /*serviceMap*/)
+{
+    getConnectedPortPaths(objectPath,
+                          std::bind_front(afterGetPortPathsForSettings,
+                                          asyncResp, portId, callback));
+}
+
+// Finds the link state control behind a processor Port settings resource,
+// answering 404 for an unknown processor or port and for a port that has no
+// control, so every verb on the resource resolves it the same way.
+inline void getProcessorPortLinkStateControl(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& portId,
+    PortLinkStateControlCallback&& callback)
+{
+    getProcessorObject(asyncResp, processorId,
+                       std::bind_front(afterGetProcessorObjectForPortSettings,
+                                       asyncResp, portId, std::move(callback)));
+}
+
+inline void getProcessorPortSettings(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& portId,
+    const std::string& service, const std::string& controlPath)
+{
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Port/Port.json>; rel=describedby");
+    asyncResp->res.jsonValue["@odata.type"] = "#Port.v1_11_0.Port";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors/{}/Ports/{}/Settings",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId, portId);
+    asyncResp->res.jsonValue["Id"] = "Settings";
+    asyncResp->res.jsonValue["Name"] =
+        std::format("{} {} Pending Settings", processorId, portId);
+
+    dbus::utility::getProperty<std::string>(
+        service, controlPath, "xyz.openbmc_project.Control.Port.LinkState",
+        "RequestedLinkState",
+        std::bind_front(afterGetRequestedLinkState, asyncResp));
+}
+
+inline void addProcessorPortSettingsLinkHeader(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /*service*/, const std::string& /*controlPath*/)
+{
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Port/Port.json>; rel=describedby");
+}
+
+inline void handleProcessorPortSettingsHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& portId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    getProcessorPortLinkStateControl(
+        asyncResp, processorId, portId,
+        std::bind_front(addProcessorPortSettingsLinkHeader, asyncResp));
+}
+
+inline void handleProcessorPortSettingsGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& portId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    getProcessorPortLinkStateControl(
+        asyncResp, processorId, portId,
+        std::bind_front(getProcessorPortSettings, asyncResp, processorId,
+                        portId));
+}
+
 inline void requestRoutesProcessor(App& app)
 {
     /**
@@ -1818,6 +2085,18 @@ inline void requestRoutesProcessor(App& app)
         .privileges(redfish::privileges::getPortMetrics)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleProcessorPortMetricsGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/<str>/Processors/<str>/Ports/<str>/Settings/")
+        .privileges(redfish::privileges::headPort)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleProcessorPortSettingsHead, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/<str>/Processors/<str>/Ports/<str>/Settings/")
+        .privileges(redfish::privileges::getPort)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleProcessorPortSettingsGet, std::ref(app)));
 }
 
 } // namespace redfish

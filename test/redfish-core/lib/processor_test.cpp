@@ -12,7 +12,9 @@
 #include <nlohmann/json.hpp>
 
 #include <memory>
+#include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -317,6 +319,184 @@ TEST(AfterGetCpuAssetData, UnknownManufacturerNoArchitecture)
     EXPECT_EQ(response->res.jsonValue["Manufacturer"], "Unknown Vendor");
     EXPECT_FALSE(response->res.jsonValue.contains("ProcessorArchitecture"));
     EXPECT_FALSE(response->res.jsonValue.contains("InstructionSet"));
+}
+
+namespace port_settings
+{
+
+dbus::utility::MapperGetSubTreeResponse linkStateControlSubtree()
+{
+    return {{"/xyz/openbmc_project/control/port/GPU_0/NVLink_3",
+             {{"xyz.openbmc_project.GpuSensor",
+               {"xyz.openbmc_project.Control.Port.LinkState"}}}}};
+}
+
+} // namespace port_settings
+
+TEST(AfterGetPortLinkStateControlForPort, ControlAddsSettingsAnnotation)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetPortLinkStateControlForPort(
+        response, "GPU_0", "NVLink_3", ec,
+        port_settings::linkStateControlSubtree());
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(response->res.jsonValue["@Redfish.Settings"]["@odata.type"],
+              "#Settings.v1_3_3.Settings");
+    EXPECT_EQ(response->res.jsonValue["@Redfish.Settings"]["SettingsObject"]
+                                     ["@odata.id"],
+              "/redfish/v1/Systems/system/Processors/GPU_0/Ports/NVLink_3/"
+              "Settings");
+}
+
+TEST(AfterGetPortLinkStateControlForPort, NoControlOmitsSettingsAnnotation)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::linux_error::bad_request_descriptor;
+
+    afterGetPortLinkStateControlForPort(response, "GPU_0", "NVLink_3", ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("@Redfish.Settings"));
+}
+
+TEST(AfterGetPortLinkStateControlForPort, ErrorLeavesPortResponseIntact)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::asio::error::invalid_argument;
+
+    afterGetPortLinkStateControlForPort(response, "GPU_0", "NVLink_3", ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("@Redfish.Settings"));
+}
+
+TEST(ResolvePortLinkStateControl, NoControlIsNotFound)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::linux_error::bad_request_descriptor;
+
+    EXPECT_FALSE(resolvePortLinkStateControl(response, "NVLink_3", ec, {}));
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::not_found);
+}
+
+TEST(ResolvePortLinkStateControl, EmptySubtreeIsNotFound)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    EXPECT_FALSE(resolvePortLinkStateControl(response, "NVLink_3", ec, {}));
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::not_found);
+}
+
+TEST(ResolvePortLinkStateControl, SeveralControlsSetInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree =
+        port_settings::linkStateControlSubtree();
+    subtree.emplace_back("/xyz/openbmc_project/control/port/GPU_0/NVLink_4",
+                         subtree.front().second);
+
+    EXPECT_FALSE(
+        resolvePortLinkStateControl(response, "NVLink_3", ec, subtree));
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(ResolvePortLinkStateControl, SingleControlReturnsServiceAndPath)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    std::optional<std::pair<std::string, std::string>> control =
+        resolvePortLinkStateControl(response, "NVLink_3", ec,
+                                    port_settings::linkStateControlSubtree());
+
+    ASSERT_TRUE(control);
+    EXPECT_EQ(control->first, "xyz.openbmc_project.GpuSensor");
+    EXPECT_EQ(control->second,
+              "/xyz/openbmc_project/control/port/GPU_0/NVLink_3");
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetPortLinkStateControlForSettings, ControlIsHandedToCallback)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    std::string service;
+    std::string path;
+
+    afterGetPortLinkStateControlForSettings(
+        response, "NVLink_3",
+        [&service,
+         &path](const std::string& foundService, const std::string& foundPath) {
+            service = foundService;
+            path = foundPath;
+        },
+        ec, port_settings::linkStateControlSubtree());
+
+    EXPECT_EQ(service, "xyz.openbmc_project.GpuSensor");
+    EXPECT_EQ(path, "/xyz/openbmc_project/control/port/GPU_0/NVLink_3");
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetPortLinkStateControlForSettings, NoControlSkipsCallback)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::linux_error::bad_request_descriptor;
+    bool called = false;
+
+    afterGetPortLinkStateControlForSettings(
+        response, "NVLink_3",
+        [&called](const std::string& /*service*/, const std::string& /*path*/) {
+            called = true;
+        },
+        ec, {});
+
+    EXPECT_FALSE(called);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::not_found);
+}
+
+TEST(AfterGetRequestedLinkState, DisabledSetsLinkState)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetRequestedLinkState(
+        response, ec,
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Disabled");
+
+    EXPECT_EQ(response->res.jsonValue["LinkState"], "Disabled");
+}
+
+TEST(AfterGetRequestedLinkState, UnknownOmitsLinkState)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetRequestedLinkState(
+        response, ec,
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Unknown");
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("LinkState"));
+}
+
+TEST(AfterGetRequestedLinkState, ErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::asio::error::invalid_argument;
+
+    afterGetRequestedLinkState(response, ec, "");
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
 }
 
 } // namespace
