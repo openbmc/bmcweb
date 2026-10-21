@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07fe7ede_3a18b9bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T07:02:16Z",
+      "side": 1,
+      "message": "Removed that line (it was there in first PS, eventually removed the same)",
+      "parentUuid": "f8667657_f370cd1c",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "3ee6794c5e46159b4393f8d4aabb801e87823a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f976308e_0c891377",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-10-15T22:50:20Z",
       "side": 1,
       "message": "Is it safe to assume ordering here?\n\nDo you need to do something like \n\nhttps://github.com/openbmc/bmcweb/blob/25219b3b8ae3096cb5350d420bf79e84f2ff4aff/test/redfish-core/include/privileges_test.cpp#L25\n\n```\nUnorderedElementsAre(\n        \"XSRF-TOKEN\u003dtestCsrf...));\n```",
+      "revId": "3ee6794c5e46159b4393f8d4aabb801e87823a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "649667fd_f0b42a68",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T07:02:16Z",
+      "side": 1,
+      "message": "Done, Collected Set-Cookie values and compared them with UnorderedElementsAre(). Thanks for reviewing.",
+      "parentUuid": "f976308e_0c891377",
       "revId": "3ee6794c5e46159b4393f8d4aabb801e87823a35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "Because setSessionCookies puts the XSRF-TOKEN first.. And this erase then exposes BMCWEB-SESSION",
       "parentUuid": "bc5d58ae_64b630a8",
+      "revId": "3ee6794c5e46159b4393f8d4aabb801e87823a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "080d97e4_f8ad329e",
+        "filename": "test/include/cookies_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T07:02:16Z",
+      "side": 1,
+      "message": "Removed and used UnorderedElementsAre().",
+      "parentUuid": "32cee06c_500e762c",
       "revId": "3ee6794c5e46159b4393f8d4aabb801e87823a35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
