@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5744bca_44580c00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-10-21T15:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "804cbf02_6125474c",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bda31f4_dbaef504",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "503bb959_74816426",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-10-21T15:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bda31f4_dbaef504",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 7
+      },
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "310137f2_4cee9fd1",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-10-19T20:29:54Z",
       "side": 1,
       "message": "This should really be in its own commit, with details.  As written, I\u0027m not sure what \"align\" means, especially when there\u0027s deprecated properties.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 21
+      },
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9378763e_c9f2001d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-10-21T15:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "310137f2_4cee9fd1",
       "range": {
         "startLine": 31,
         "startChar": 0,
@@ -117,6 +189,24 @@
       "writtenOn": "2026-10-19T20:29:54Z",
       "side": 1,
       "message": "why do we need captureless lambdas here?  Please just make these methods.",
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11575c0f_50e3ad44",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-10-21T15:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05b62c66_9c3378a7",
       "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
