@@ -358,6 +358,20 @@ inline std::optional<port::LinkState> dbusPortLinkStateToRf(
     return std::nullopt;
 }
 
+inline std::optional<std::string> rfPortLinkStateToDbus(
+    std::string_view linkState)
+{
+    if (linkState == "Enabled")
+    {
+        return "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Enabled";
+    }
+    if (linkState == "Disabled")
+    {
+        return "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Disabled";
+    }
+    return std::nullopt;
+}
+
 inline std::optional<port::LinkStatus> dbusPortLinkStatusToRf(
     const std::string& linkStatus)
 {
