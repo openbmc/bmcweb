@@ -16,6 +16,24 @@
       "message": "And PATCHing LocationIndicatorActive still works?",
       "revId": "75aaa4c9ca93b903149212331039b80dc6bbcdd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dcf1c92_bfeca596",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-21T08:38:00Z",
+      "side": 1,
+      "message": "Yes. This machine has no LED groups, so this GET has no LocationIndicatorActive. I tested with a small sd-bus program standing in for phosphor-led-manager; it hosts enclosure_identify(_blink) and a test chassis, MockLedChassis, with an \"identifying\" LED group. On both Systems/system and MockLedChassis, PATCH sets Asserted (checked with busctl) and GET reads it back, same as the image\u0027s original bmcweb. Added to Tested in PS3.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/96033/2..3//COMMIT_MSG#33",
+      "parentUuid": "a3bb55ab_e8893f96",
+      "revId": "75aaa4c9ca93b903149212331039b80dc6bbcdd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
