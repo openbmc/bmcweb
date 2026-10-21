@@ -388,6 +388,17 @@ TEST(PcieUtil, PortLinkStateFromDbus)
     EXPECT_EQ(dbusPortLinkStateToRf("garbage"), std::nullopt);
 }
 
+TEST(PcieUtil, PortLinkStateToDbus)
+{
+    EXPECT_EQ(rfPortLinkStateToDbus("Enabled"),
+              "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Enabled");
+    EXPECT_EQ(
+        rfPortLinkStateToDbus("Disabled"),
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Disabled");
+    EXPECT_EQ(rfPortLinkStateToDbus("Unknown"), std::nullopt);
+    EXPECT_EQ(rfPortLinkStateToDbus("enabled"), std::nullopt);
+}
+
 TEST(PcieUtil, PortLinkStatusFromDbus)
 {
     EXPECT_EQ(dbusPortLinkStatusToRf("xyz.openbmc_project.Inventory.Connector."
