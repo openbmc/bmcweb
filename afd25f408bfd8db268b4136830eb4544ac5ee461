@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7128e33b_e3350fde",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-21T13:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3f9980f_d624822b",
+      "revId": "afd25f408bfd8db268b4136830eb4544ac5ee461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "992f11b0_a1658f1e",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 19
@@ -66,6 +84,24 @@
       "writtenOn": "2026-08-24T16:53:35Z",
       "side": 1,
       "message": "This is a latest addition in patch, hence mentioning this. Have you tested this with Anacapa like system you mentioned in your UT? I think this path won\u0027t be a fixed one /.../Bios (as it gets its name from EM config). So, the relevant firmware inventory needs to be linked here.",
+      "revId": "afd25f408bfd8db268b4136830eb4544ac5ee461",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2468f112_3c087dae",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-21T13:29:41Z",
+      "side": 1,
+      "message": "removed it here since `\"/redfish/v1/Systems/\u003cstr\u003e/Bios/\"` is not supported if the multi-host flag is enabled. \n\nhttps://github.com/openbmc/bmcweb/blob/c77d0d42cc13fc753a25b0b0df47f50d77162753/redfish-core/lib/bios.hpp#L39\n\nBut at the start of this function we branch on this flag so the link can never be valid.",
+      "parentUuid": "98c4aa9e_6e21aa2d",
       "revId": "afd25f408bfd8db268b4136830eb4544ac5ee461",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
