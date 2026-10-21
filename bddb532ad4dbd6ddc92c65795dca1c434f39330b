@@ -18,6 +18,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0caedf74_4f03c187",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T09:32:45Z",
+      "side": 1,
+      "message": "Done, thanks for reviewing.",
+      "parentUuid": "cb2dcd7a_a7dd08e8",
+      "revId": "bddb532ad4dbd6ddc92c65795dca1c434f39330b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b53308e_6e8e2c60",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T09:32:45Z",
+      "side": 1,
+      "message": "Removed the same.",
+      "parentUuid": "cb2dcd7a_a7dd08e8",
+      "revId": "bddb532ad4dbd6ddc92c65795dca1c434f39330b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "610d7222_53236b04",
@@ -31,6 +67,30 @@
       "writtenOn": "2026-10-13T18:36:12Z",
       "side": 1,
       "message": "I would think moving this to getAssociatedSubTreePaths \n\nand reusing the validChassisPath + \"powered_by\" could be an efficiency gain but oh well.",
+      "range": {
+        "startLine": 151,
+        "startChar": 19,
+        "endLine": 151,
+        "endChar": 48
+      },
+      "revId": "bddb532ad4dbd6ddc92c65795dca1c434f39330b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d74b2d3_2945f950",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-21T09:32:45Z",
+      "side": 1,
+      "message": "Will do that same in another commit. Resolving this thread, feel free to open if needed.",
+      "parentUuid": "610d7222_53236b04",
       "range": {
         "startLine": 151,
         "startChar": 19,
