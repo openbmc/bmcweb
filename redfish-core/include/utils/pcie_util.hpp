@@ -358,6 +358,22 @@ inline std::optional<port::LinkState> dbusPortLinkStateToRf(
     return std::nullopt;
 }
 
+// The D-Bus link state a client may request. Only the two states a link can be
+// put in are accepted; anything else has no D-Bus value to request.
+inline std::optional<std::string> rfPortLinkStateToDbus(
+    std::string_view linkState)
+{
+    if (linkState == "Enabled")
+    {
+        return "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Enabled";
+    }
+    if (linkState == "Disabled")
+    {
+        return "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Disabled";
+    }
+    return std::nullopt;
+}
+
 inline std::optional<port::LinkStatus> dbusPortLinkStatusToRf(
     const std::string& linkStatus)
 {

@@ -388,6 +388,18 @@ TEST(PcieUtil, PortLinkStateFromDbus)
     EXPECT_EQ(dbusPortLinkStateToRf("garbage"), std::nullopt);
 }
 
+TEST(PcieUtil, PortLinkStateToDbus)
+{
+    EXPECT_EQ(rfPortLinkStateToDbus("Enabled"),
+              "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Enabled");
+    EXPECT_EQ(
+        rfPortLinkStateToDbus("Disabled"),
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkState.Disabled");
+    // A client cannot request a state that is not one a link can be put in.
+    EXPECT_EQ(rfPortLinkStateToDbus("Unknown"), std::nullopt);
+    EXPECT_EQ(rfPortLinkStateToDbus("enabled"), std::nullopt);
+}
+
 TEST(PcieUtil, PortLinkStatusFromDbus)
 {
     EXPECT_EQ(dbusPortLinkStatusToRf("xyz.openbmc_project.Inventory.Connector."

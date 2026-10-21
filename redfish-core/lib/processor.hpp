@@ -2024,6 +2024,63 @@ inline void handleProcessorPortSettingsGet(
                         portId));
 }
 
+inline void patchProcessorPortSettings(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& requestedLinkState, const std::string& service,
+    const std::string& controlPath)
+{
+    setDbusProperty(asyncResp, "LinkState", service,
+                    sdbusplus::object_path(controlPath),
+                    "xyz.openbmc_project.Control.Port.LinkState",
+                    "RequestedLinkState", requestedLinkState);
+}
+
+inline void handleProcessorPortSettingsPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& portId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::string linkState;
+    if (!json_util::readJsonPatch(req, asyncResp->res,   //
+                                  "LinkState", linkState //
+                                  ))
+    {
+        return;
+    }
+
+    std::optional<std::string> requestedLinkState =
+        pcie_util::rfPortLinkStateToDbus(linkState);
+    if (!requestedLinkState)
+    {
+        messages::propertyValueNotInList(asyncResp->res, linkState,
+                                         "LinkState");
+        return;
+    }
+
+    getProcessorPortLinkStateControl(
+        asyncResp, processorId, portId,
+        std::bind_front(patchProcessorPortSettings, asyncResp,
+                        *requestedLinkState));
+}
+
 inline void requestRoutesProcessor(App& app)
 {
     /**
@@ -2097,6 +2154,12 @@ inline void requestRoutesProcessor(App& app)
         .privileges(redfish::privileges::getPort)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleProcessorPortSettingsGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/<str>/Processors/<str>/Ports/<str>/Settings/")
+        .privileges(redfish::privileges::patchPort)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleProcessorPortSettingsPatch, std::ref(app)));
 }
 
 } // namespace redfish
