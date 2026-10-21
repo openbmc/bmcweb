@@ -159,6 +159,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db3fc68d_104d42b0",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-10-21T15:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a2168a9_b51395db",
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1933178f_23c579fa",
@@ -172,6 +190,24 @@
       "writtenOn": "2026-10-19T20:29:54Z",
       "side": 1,
       "message": "It\u0027s great that this is unit tested..... but this is a one line call used in one spot, I really suspect we could\u0027ve just inlined this and included it in the call above.",
+      "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc11c6af_e4463d2d",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002802
+      },
+      "writtenOn": "2026-10-21T15:25:32Z",
+      "side": 1,
+      "message": "this has now been included inline",
+      "parentUuid": "1933178f_23c579fa",
       "revId": "549321a398067103d1d24c667c0632ed1f4e64e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
