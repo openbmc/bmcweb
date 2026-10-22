@@ -4,6 +4,7 @@
 #include "websocketrule.hpp"
 
 #include "async_resp.hpp"
+#include "connection_manager.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
 #include "websocket_impl.hpp"
@@ -27,6 +28,7 @@ void WebSocketRule::handleUpgrade(
             crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
             req.url(), req.session, std::move(adaptor), openHandler,
             messageHandler, messageExHandler, closeHandler, errorHandler);
+    ConnectionManager::getInstance().add(req.session, myConnection);
     myConnection->start(req);
 }
 
@@ -41,6 +43,7 @@ void WebSocketRule::handleUpgrade(
             boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
             req.url(), req.session, std::move(adaptor), openHandler,
             messageHandler, messageExHandler, closeHandler, errorHandler);
+    ConnectionManager::getInstance().add(req.session, myConnection);
     myConnection->start(req);
 }
 } // namespace crow

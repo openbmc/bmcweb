@@ -178,6 +178,19 @@ class ConnectionImpl : public Connection
 
     void close(std::string_view msg) override
     {
+        // Beast allows one close handshake, and a route and the connection
+        // manager can both close a connection.
+        if (closing)
+        {
+            return;
+        }
+        closing = true;
+        if (!ws.is_open())
+        {
+            // Not accepted yet, and acceptDone() then drops it; or already
+            // closing.
+            return;
+        }
         ws.async_close(
             {boost::beast::websocket::close_code::normal, msg},
             [self(shared_from_this())](const boost::system::error_code& ec) {
@@ -206,6 +219,11 @@ class ConnectionImpl : public Connection
         if (ec)
         {
             BMCWEB_LOG_ERROR("Error in ws.async_accept {}", ec);
+            return;
+        }
+        if (closing)
+        {
+            BMCWEB_LOG_DEBUG("Websocket closed while being accepted");
             return;
         }
         BMCWEB_LOG_DEBUG("Websocket accepted connection");
@@ -261,6 +279,16 @@ class ConnectionImpl : public Connection
                 std::string reason{ws.reason().reason.c_str()};
                 closeHandler(*this, reason);
             }
+            return;
+        }
+
+        if (closing)
+        {
+            // Beast still returns messages it read or buffered before the
+            // close.  Drop them, and read until the close ends the read.
+            inBuffer.consume(bytesRead);
+            inString.clear();
+            doRead();
             return;
         }
 
@@ -364,6 +392,7 @@ class ConnectionImpl : public Connection
     boost::beast::websocket::stream<Adaptor, false> ws;
 
     bool readingDefered = false;
+    bool closing = false;
     std::string inString;
     boost::asio::dynamic_string_buffer<std::string::value_type,
                                        std::string::traits_type,

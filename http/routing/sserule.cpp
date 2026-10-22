@@ -5,6 +5,7 @@
 
 #include "async_resp.hpp"
 #include "baserule.hpp"
+#include "connection_manager.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -49,6 +50,7 @@ void SseSocketRule::handleUpgrade(
         myConnection = std::make_shared<
             crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
             std::move(adaptor), openHandler, closeHandler);
+    ConnectionManager::getInstance().add(req.session, myConnection);
     myConnection->start(req);
 }
 void SseSocketRule::handleUpgrade(
@@ -60,6 +62,7 @@ void SseSocketRule::handleUpgrade(
         myConnection = std::make_shared<crow::sse_socket::ConnectionImpl<
             boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
             std::move(adaptor), openHandler, closeHandler);
+    ConnectionManager::getInstance().add(req.session, myConnection);
     myConnection->start(req);
 }
 

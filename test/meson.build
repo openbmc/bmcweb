@@ -1,5 +1,6 @@
 
 srcfiles_unittest = files(
+    'http/connection_manager_test.cpp',
     'http/crow_getroutes_test.cpp',
     'http/http2_connection_test.cpp',
     'http/http_body_test.cpp',
@@ -12,6 +13,7 @@ srcfiles_unittest = files(
     'http/server_sent_event_test.cpp',
     'http/utility_test.cpp',
     'http/verb_test.cpp',
+    'http/websocket_test.cpp',
     'http/zstd_compressor_test.cpp',
     'http/zstd_decompressor_test.cpp',
     'include/async_resolve_test.cpp',

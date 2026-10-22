@@ -411,6 +411,7 @@ subdir('features')
 fs = import('fs')
 
 srcfiles_bmcweb = files(
+    'http/connection_manager.cpp',
     'http/mutual_tls.cpp',
     'http/routing/sserule.cpp',
     'http/routing/websocketrule.cpp',

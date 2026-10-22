@@ -4,6 +4,7 @@
 
 #include "bmcweb_config.h"
 
+#include "connection_manager.hpp"
 #include "logging.hpp"
 #include "ossl_random.hpp"
 #include "utils/ip_utils.hpp"
@@ -294,8 +295,11 @@ class SessionStore
             {}});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
-        needWrite = sessionType != SessionType::Basic &&
-                    sessionType != SessionType::MutualTLS;
+        if (sessionType != SessionType::Basic &&
+            sessionType != SessionType::MutualTLS)
+        {
+            needWrite = true;
+        }
         return it.first->second;
     }
 
@@ -379,27 +383,13 @@ class SessionStore
 
     void removeSessionsByUsername(std::string_view username)
     {
-        std::erase_if(authTokens, [username](const auto& value) {
-            if (value.second == nullptr)
-            {
-                return false;
-            }
-            return value.second->username == username;
-        });
+        removeUserAccess(username, "");
     }
 
     void removeSessionsByUsernameExceptSession(
         std::string_view username, const std::shared_ptr<UserSession>& session)
     {
-        std::erase_if(authTokens, [username, session](const auto& value) {
-            if (value.second == nullptr)
-            {
-                return false;
-            }
-
-            return value.second->username == username &&
-                   value.second->uniqueId != session->uniqueId;
-        });
+        removeUserAccess(username, session->uniqueId);
     }
 
     void updateAuthMethodsConfig(const AuthConfigMethods& config)
@@ -482,6 +472,30 @@ class SessionStore
 
   private:
     SessionStore() : timeoutInSeconds(1800) {}
+
+    // Removes the user's sessions and closes the connections they opened,
+    // except those of the session keepSessionId.
+    void removeUserAccess(std::string_view username,
+                          std::string_view keepSessionId)
+    {
+        auto sessionIt = authTokens.begin();
+        while (sessionIt != authTokens.end())
+        {
+            const std::shared_ptr<UserSession>& session = sessionIt->second;
+            if (session != nullptr && session->username == username &&
+                session->uniqueId != keepSessionId)
+            {
+                sessionIt = authTokens.erase(sessionIt);
+                needWrite = true;
+            }
+            else
+            {
+                sessionIt++;
+            }
+        }
+        crow::ConnectionManager::getInstance().closeUserConnections(
+            username, keepSessionId);
+    }
 };
 
 } // namespace persistent_data
