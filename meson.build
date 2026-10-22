@@ -260,7 +260,7 @@ bmcweb_dependencies = [
 
 openssl = dependency(
     'openssl',
-    version: '>=3.0.0',
+    version: '>=3.5.0',
     include_type: 'system',
     default_options: ['warning_level=0', 'werror=false'],
 )
