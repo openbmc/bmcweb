@@ -29,6 +29,7 @@
 #include "utils/systemd_utils.hpp"
 #include "utils/time_utils.hpp"
 
+#include <asm-generic/errno.h>
 #include <systemd/sd-bus.h>
 
 #include <boost/beast/http/status.hpp>
@@ -714,6 +715,82 @@ inline void getManagedChassis(
         std::move(managerForChassis);
 }
 
+inline void linkBmcChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& chassisId)
+{
+    getManagedChassis(chassisId, asyncResp);
+    asyncResp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
+}
+
+inline void afterGetBmcParent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
+        return;
+    }
+    linkBmcChassis(asyncResp, chassisId);
+}
+
+inline void afterGetBmcContainer(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const sdbusplus::object_path& bmcPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& containers)
+{
+    if (!ec && containers.size() == 1)
+    {
+        linkBmcChassis(asyncResp,
+                       sdbusplus::object_path(containers.front()).filename());
+        return;
+    }
+    if (ec && ec.value() != EBADR)
+    {
+        BMCWEB_LOG_WARNING("BMC item contained_by lookup failed: {}",
+                           ec.value());
+    }
+    sdbusplus::object_path parent = bmcPath.parent_path();
+    dbus::utility::getDbusObject(
+        parent.str, chassisInterfaces,
+        std::bind_front(afterGetBmcParent, asyncResp, parent.filename()));
+}
+
+inline void afterGetBmcPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& paths)
+{
+    if (ec || paths.size() != 1)
+    {
+        getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
+        return;
+    }
+    sdbusplus::object_path bmcPath(paths.front());
+    dbus::utility::getAssociatedSubTreePaths(
+        bmcPath / "contained_by",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisInterfaces,
+        std::bind_front(afterGetBmcContainer, asyncResp, bmcPath));
+}
+
+/**
+ * @brief Link the chassis that holds the BMC inventory item: the Board or
+ * Chassis its contained_by association names, or else its parent object,
+ * which is where entity-manager places an exposed item.  Without exactly one
+ * BMC item, or without such a chassis, keep the previous behavior.
+ * ManagerInChassis is set only when the chassis was found this way, so its
+ * absence shows that the previous behavior was used.
+ */
+inline void getBmcChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, bmcInterfaces,
+        std::bind_front(afterGetBmcPaths, asyncResp));
+}
+
 inline void handleManagerGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -825,7 +902,7 @@ inline void handleManagerGet(
     managerDiagnosticData["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}/ManagerDiagnosticData", managerId);
 
-    getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
+    getBmcChassis(asyncResp);
 
     dbus::utility::getProperty<double>(
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
