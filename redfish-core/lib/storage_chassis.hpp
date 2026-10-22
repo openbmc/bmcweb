@@ -79,6 +79,10 @@ inline std::optional<drive::MediaType> convertDriveType(std::string_view type)
     {
         return drive::MediaType::SSD;
     }
+    if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.SMR")
+    {
+        return drive::MediaType::SMR;
+    }
     if (type == "xyz.openbmc_project.Inventory.Item.Drive.DriveType.Unknown")
     {
         return std::nullopt;
@@ -105,6 +109,10 @@ inline std::optional<protocol::Protocol> convertDriveProtocol(
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.FC")
     {
         return protocol::Protocol::FC;
+    }
+    if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.eMMC")
+    {
+        return protocol::Protocol::eMMC;
     }
     if (proto ==
         "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.Unknown")
