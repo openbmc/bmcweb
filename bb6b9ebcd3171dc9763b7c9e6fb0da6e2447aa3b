@@ -16,6 +16,24 @@
       "message": "I\u0027m confused.  Why was this removed?  If we\u0027re not patching LocationIndicatorActive, we shouldn\u0027t call any other code.",
       "revId": "bb6b9ebcd3171dc9763b7c9e6fb0da6e2447aa3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69c8b20c_53dc0dfd",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-22T09:37:53Z",
+      "side": 0,
+      "message": "You’re right. readJsonPatch rejects the request before the lookup, and my test bypassed that path. I’ve restored the guard and corrected the test; I’ll update the commit description.",
+      "parentUuid": "86d18f9d_a554d37e",
+      "revId": "bb6b9ebcd3171dc9763b7c9e6fb0da6e2447aa3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
