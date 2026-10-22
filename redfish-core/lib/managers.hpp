@@ -714,6 +714,52 @@ inline void getManagedChassis(
         std::move(managerForChassis);
 }
 
+inline void afterGetBmcChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
+        return;
+    }
+    getManagedChassis(chassisId, asyncResp);
+    asyncResp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
+}
+
+inline void afterGetBmcPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& paths)
+{
+    if (ec || paths.size() != 1)
+    {
+        getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
+        return;
+    }
+    sdbusplus::object_path parent =
+        sdbusplus::object_path(paths.front()).parent_path();
+    dbus::utility::getDbusObject(
+        parent.str, chassisInterfaces,
+        std::bind_front(afterGetBmcChassis, asyncResp, parent.filename()));
+}
+
+/**
+ * @brief Link the chassis that holds the BMC inventory item.  entity-manager
+ * places an exposed item under its board, so that is the parent object.
+ * Without exactly one BMC item, or without a Board/Chassis parent, keep the
+ * previous behavior.  ManagerInChassis is set only when the chassis was
+ * derived, so its absence shows that the previous behavior was used.
+ */
+inline void getBmcChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, bmcInterfaces,
+        std::bind_front(afterGetBmcPaths, asyncResp));
+}
+
 inline void handleManagerGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -825,7 +871,7 @@ inline void handleManagerGet(
     managerDiagnosticData["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}/ManagerDiagnosticData", managerId);
 
-    getMainChassisId(asyncResp, std::bind_front(getManagedChassis));
+    getBmcChassis(asyncResp);
 
     dbus::utility::getProperty<double>(
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
