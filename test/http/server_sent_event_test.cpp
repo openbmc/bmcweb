@@ -3,14 +3,17 @@
 #include "http/server_sent_event.hpp"
 #include "http/server_sent_event_impl.hpp"
 #include "http_request.hpp"
+#include "sessions.hpp"
 #include "test_stream.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/ip/address.hpp>
 #include <boost/asio/read.hpp>
 
 #include <chrono>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -114,6 +117,50 @@ TEST(ServerSentEvent, SseWorks)
             io.run_for(std::chrono::milliseconds(1));
         }
     }
+}
+TEST(ServerSentEvent, ClosedWhenUserLosesAccess)
+{
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    persistent_data::SessionStore& store =
+        persistent_data::SessionStore::getInstance();
+    std::shared_ptr<persistent_data::UserSession> session =
+        store.generateUserSession("user1", boost::asio::ip::address(),
+                                  std::nullopt,
+                                  persistent_data::SessionType::Session);
+    ASSERT_NE(session, nullptr);
+
+    Request req;
+    req.session = session;
+
+    bool openCalled = false;
+    auto openHandler =
+        [&openCalled](Connection&, const Request& /*handedReq*/) {
+            openCalled = true;
+        };
+    bool closeCalled = false;
+    auto closeHandler = [&closeCalled](Connection&) { closeCalled = true; };
+
+    std::shared_ptr<ConnectionImpl<TestStream>> conn =
+        std::make_shared<ConnectionImpl<TestStream>>(std::move(stream),
+                                                     openHandler, closeHandler);
+    conn->start(req);
+    for (int i = 0; i < 1000 && !openCalled; i++)
+    {
+        io.run_for(std::chrono::milliseconds(1));
+    }
+    ASSERT_TRUE(openCalled);
+
+    // Ending the session leaves the stream open (DSP0266 13.3.4.4).
+    store.removeSession(session);
+    io.run_for(std::chrono::milliseconds(10));
+    EXPECT_FALSE(closeCalled);
+
+    store.removeSessionsByUsername("user1");
+    EXPECT_TRUE(closeCalled);
 }
 } // namespace
 
