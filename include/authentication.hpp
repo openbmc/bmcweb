@@ -21,6 +21,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_set.hpp>
 
+#include <chrono>
 #include <cstddef>
 #include <cstring>
 #include <memory>
@@ -203,6 +204,9 @@ inline std::shared_ptr<persistent_data::UserSession> performTLSAuth(
 {
     if (session != nullptr)
     {
+        // The session lasts as long as its connection, so keep it from timing
+        // out while the connection is in use.
+        session->lastUpdated = std::chrono::steady_clock::now();
         res.addHeader(boost::beast::http::field::set_cookie,
                       "IsAuthenticated=true; Secure");
         BMCWEB_LOG_DEBUG(
