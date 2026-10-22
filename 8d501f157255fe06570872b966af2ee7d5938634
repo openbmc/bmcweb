@@ -16,6 +16,24 @@
       "message": "In your suggested path, we\u0027re now duplicating the disabled check between the two paths.  Please don\u0027t duplicate the check",
       "revId": "8d501f157255fe06570872b966af2ee7d5938634",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "538e41a4_81591d0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-10-22T17:45:26Z",
+      "side": 1,
+      "message": "Done in patch set 2. The check is gone from handleRequestUserInfo(), so Redfish session creation, which PAM\u0027s account check already covers, no longer checks it a second time. It now runs only in afterGetUserInfoValidate() and only for MutualTLS sessions: they never go through PAM, and their connection keeps its session after user_monitor removes it from the store. Password and token sessions are left to PAM and the session removal.",
+      "parentUuid": "fe71b18d_13fa42d7",
+      "revId": "8d501f157255fe06570872b966af2ee7d5938634",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
