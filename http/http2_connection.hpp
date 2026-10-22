@@ -299,6 +299,15 @@ class HTTP2Connection :
     {
         BMCWEB_LOG_DEBUG("onRequestRecv streamId:{}", streamId);
 
+        if (mtlsSession != nullptr && mtlsSession->revoked)
+        {
+            // See Connection::afterReadHeaders()
+            BMCWEB_LOG_WARNING("{} TLS session {} was revoked, closing",
+                               logPtr(this), mtlsSession->uniqueId);
+            close();
+            return -1;
+        }
+
         auto it = streams.find(streamId);
         if (it == streams.end())
         {
@@ -650,6 +659,14 @@ class HTTP2Connection :
 
     void close()
     {
+        if (mtlsSession != nullptr)
+        {
+            BMCWEB_LOG_DEBUG("{} Removing TLS session: {}", logPtr(this),
+                             mtlsSession->uniqueId);
+            persistent_data::SessionStore::getInstance().removeSession(
+                mtlsSession);
+            mtlsSession = nullptr;
+        }
         adaptor.next_layer().close();
     }
 
