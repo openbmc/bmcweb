@@ -80,6 +80,30 @@
       },
       "revId": "0048f0041a2193e3761e5e63c2102d68d08801d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9304a563_f0f819ba",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-22T04:51:18Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve moved the async callback logic into a separate helper method and kept the invalid SNMP Trap ID logging in the helper to improve readability",
+      "parentUuid": "245eda33_42b0d7a4",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 39
+      },
+      "revId": "0048f0041a2193e3761e5e63c2102d68d08801d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

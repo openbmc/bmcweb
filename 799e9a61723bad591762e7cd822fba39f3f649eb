@@ -34,6 +34,24 @@
       "parentUuid": "e986dba0_7ee906ab",
       "revId": "799e9a61723bad591762e7cd822fba39f3f649eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eddddaa_b4efb6a3",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-10-22T04:51:18Z",
+      "side": 1,
+      "message": "EBADR maps to a ResourceNotFound response, so it represents an invalid client request rather than a server error. I\u0027ll move the logging and use BMCWEB_LOG_WARNING for that case, keeping BMCWEB_LOG_ERROR for actual internal failures.",
+      "parentUuid": "e986dba0_7ee906ab",
+      "revId": "799e9a61723bad591762e7cd822fba39f3f649eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
