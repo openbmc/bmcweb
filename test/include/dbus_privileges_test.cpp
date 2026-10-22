@@ -3,8 +3,16 @@
 #include "async_resp.hpp"
 #include "dbus_privileges.hpp"
 #include "dbus_utility.hpp"
+#include "http_request.hpp"
+#include "routing/dynamicrule.hpp"
+#include "sessions.hpp"
+
+#include <boost/beast/http/verb.hpp>
 
 #include <memory>
+#include <string>
+#include <system_error>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -78,6 +86,86 @@ TEST(HandleRequestUserInfo, UnauthorizedError)
         },
         {});
     EXPECT_FALSE(called);
+    EXPECT_EQ(asyncResp->res.resultInt(), 401);
+}
+
+TEST(IsMtlsUserEnabled, LocalUserEnabled)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    persistent_data::UserSession session;
+    session.sessionType = persistent_data::SessionType::MutualTLS;
+
+    EXPECT_TRUE(isMtlsUserEnabled(
+        session, asyncResp, {{"RemoteUser", false}, {"UserEnabled", true}}));
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+}
+
+TEST(IsMtlsUserEnabled, LocalUserDisabled)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    persistent_data::UserSession session;
+    session.sessionType = persistent_data::SessionType::MutualTLS;
+
+    EXPECT_FALSE(isMtlsUserEnabled(
+        session, asyncResp, {{"RemoteUser", false}, {"UserEnabled", false}}));
+    EXPECT_EQ(asyncResp->res.resultInt(), 401);
+}
+
+TEST(IsMtlsUserEnabled, RemoteUserWithoutUserEnabled)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    persistent_data::UserSession session;
+    session.sessionType = persistent_data::SessionType::MutualTLS;
+
+    EXPECT_TRUE(isMtlsUserEnabled(session, asyncResp, {{"RemoteUser", true}}));
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+}
+
+TEST(IsMtlsUserEnabled, UserEnabledWrongType)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    persistent_data::UserSession session;
+    session.sessionType = persistent_data::SessionType::MutualTLS;
+
+    EXPECT_FALSE(isMtlsUserEnabled(
+        session, asyncResp,
+        {{"RemoteUser", false}, {"UserEnabled", std::string("true")}}));
+    EXPECT_EQ(asyncResp->res.resultInt(), 500);
+}
+
+TEST(IsMtlsUserEnabled, OtherSessionTypesNotChecked)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    persistent_data::UserSession session;
+    session.sessionType = persistent_data::SessionType::Session;
+
+    EXPECT_TRUE(isMtlsUserEnabled(
+        session, asyncResp, {{"RemoteUser", false}, {"UserEnabled", false}}));
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+}
+
+TEST(AfterGetUserInfoValidate, MtlsUserDisabled)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    std::error_code ec;
+    Request req{{boost::beast::http::verb::get, "/", 11}, ec};
+    req.session = std::make_shared<persistent_data::UserSession>();
+    req.session->sessionType = persistent_data::SessionType::MutualTLS;
+    DynamicRule rule("/");
+
+    EXPECT_FALSE(afterGetUserInfoValidate(
+        req, asyncResp, rule,
+        {{"UserPrivilege", std::string("priv-admin")},
+         {"RemoteUser", false},
+         {"UserPasswordExpired", false},
+         {"UserGroups", std::vector<std::string>{"redfish"}},
+         {"UserEnabled", false}}));
     EXPECT_EQ(asyncResp->res.resultInt(), 401);
 }
 } // namespace

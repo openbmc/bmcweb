@@ -109,6 +109,42 @@ inline bool isUserPrivileged(
     return true;
 }
 
+// A password login of a disabled account is refused by PAM's account check,
+// and the account's sessions are removed when it is disabled (user_monitor).
+// A mutual TLS session goes through neither: it comes from the client
+// certificate and lives as long as its connection, so the account is checked
+// here, on each request it makes.
+inline bool isMtlsUserEnabled(
+    const persistent_data::UserSession& session,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::DBusPropertiesMap& userInfoMap)
+{
+    if (session.sessionType != persistent_data::SessionType::MutualTLS)
+    {
+        return true;
+    }
+
+    // Remote (LDAP) users carry no UserEnabled.
+    std::optional<bool> userEnabled;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap, "UserEnabled",
+        userEnabled);
+    if (!success)
+    {
+        BMCWEB_LOG_ERROR("Failed to unpack UserEnabled property");
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return false;
+    }
+    if (!userEnabled.value_or(true))
+    {
+        BMCWEB_LOG_WARNING("User {} is disabled", session.username);
+        asyncResp->res.result(boost::beast::http::status::unauthorized);
+        return false;
+    }
+    return true;
+}
+
 inline bool afterGetUserInfoValidate(
     Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BaseRule& rule, const dbus::utility::DBusPropertiesMap& userInfoMap)
@@ -118,6 +154,11 @@ inline bool afterGetUserInfoValidate(
         BMCWEB_LOG_ERROR("Failed to populate user information");
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
+        return false;
+    }
+
+    if (!isMtlsUserEnabled(*req.session, asyncResp, userInfoMap))
+    {
         return false;
     }
 
