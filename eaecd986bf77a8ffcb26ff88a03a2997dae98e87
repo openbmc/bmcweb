@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8d08c8c_1639da5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-22T11:52:01Z",
+      "side": 1,
+      "message": "Less code, reuse of util functions, and more code readability.",
+      "parentUuid": "cad3f684_79c69e8f",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "671acd2f_c72cc7e6",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-14T19:14:18Z",
       "side": 1,
       "message": "And it matches what was there before?",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c93663f6_a2d0d9c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-22T11:52:01Z",
+      "side": 1,
+      "message": "Yeahhh.",
+      "parentUuid": "671acd2f_c72cc7e6",
       "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -87,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d28ec28d_158c0a7d",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-22T11:52:01Z",
+      "side": 1,
+      "message": "Uploaded a change for the same. (Ref: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/96170)",
+      "parentUuid": "23563a59_31d6f5b8",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f476483_aa9b198b",
@@ -100,6 +154,24 @@
       "writtenOn": "2026-10-14T19:14:18Z",
       "side": 1,
       "message": "```\nif (proto \u003d\u003d\n    \"xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.eMMC\")\n{\n    return protocol::Protocol::eMMC;\n}\n```\n\nSame here. Oh well.",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9d98a5_f94514d1",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-22T11:52:01Z",
+      "side": 1,
+      "message": "Uploaded a change for the same. (Ref: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/96170)",
+      "parentUuid": "7f476483_aa9b198b",
       "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
