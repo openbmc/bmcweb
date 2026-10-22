@@ -6,6 +6,7 @@
 #include "http/http_response.hpp"
 #include "http_connect_types.hpp"
 #include "nghttp2_adapters.hpp"
+#include "sessions.hpp"
 #include "test_stream.hpp"
 
 #include <nghttp2/nghttp2.h>
@@ -13,6 +14,7 @@
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
@@ -21,10 +23,12 @@
 
 #include <array>
 #include <bit>
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -95,6 +99,28 @@ void unpackHeaders(std::string_view dataField,
     EXPECT_TRUE(dataField.empty());
 }
 
+using std::literals::string_view_literals::operator""sv;
+
+// This is a binary pre-encrypted stream captured from curl for a request to
+// curl https://localhost:18080/redfish/v1/
+constexpr std::string_view curlRequest =
+    // Hello
+    "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+    // 18 byte settings frame
+    "\x00\x00\x12\x04\x00\x00\x00\x00\x00"
+    // Settings
+    "\x00\x03\x00\x00\x00\x64\x00\x04\x00\xa0\x00\x00\x00\x02\x00\x00\x00\x00"
+    // Window update frame
+    "\x00\x00\x04\x08\x00\x00\x00\x00\x00"
+    // Window update
+    "\x3e\x7f\x00\x01"
+    // Header frame END_STREAM, END_HEADERS set
+    "\x00\x00\x29\x01\x05\x00\x00\x00"
+    // Header payload
+    "\x01\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+    "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+    "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+
 TEST(http_connection, RequestPropogates)
 {
     using namespace std::literals;
@@ -102,27 +128,8 @@ TEST(http_connection, RequestPropogates)
     TestStream stream(io);
     TestStream out(io);
     stream.connect(out);
-    // This is a binary pre-encrypted stream captured from curl for a request to
-    // curl https://localhost:18080/redfish/v1/
-    std::string_view toSend =
-        // Hello
-        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
-        // 18 byte settings frame
-        "\x00\x00\x12\x04\x00\x00\x00\x00\x00"
-        // Settings
-        "\x00\x03\x00\x00\x00\x64\x00\x04\x00\xa0\x00\x00\x00\x02\x00\x00\x00\x00"
-        // Window update frame
-        "\x00\x00\x04\x08\x00\x00\x00\x00\x00"
-        // Window update
-        "\x3e\x7f\x00\x01"
-        // Header frame END_STREAM, END_HEADERS set
-        "\x00\x00\x29\x01\x05\x00\x00\x00"
-        // Header payload
-        "\x01\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
-        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
-        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
 
-    boost::asio::write(out, boost::asio::buffer(toSend));
+    boost::asio::write(out, boost::asio::buffer(curlRequest));
 
     FakeHandler handler;
     boost::asio::steady_timer timer(io);
@@ -203,6 +210,70 @@ TEST(http_connection, RequestPropogates)
                     Pair("pragma", "no-cache"), Pair("date", "TestTime")));
 
     EXPECT_EQ(outStr, expectedPostfix);
+}
+
+std::shared_ptr<persistent_data::UserSession> makeTlsSession()
+{
+    return persistent_data::SessionStore::getInstance().generateUserSession(
+        "user1", boost::asio::ip::address(), std::nullopt,
+        persistent_data::SessionType::MutualTLS);
+}
+
+TEST(HTTP2Connection, OnRequestRecvClosesOnRevokedTlsSession)
+{
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+    boost::asio::write(out, boost::asio::buffer(curlRequest));
+
+    std::shared_ptr<persistent_data::UserSession> session = makeTlsSession();
+    ASSERT_NE(session, nullptr);
+    persistent_data::SessionStore::getInstance().removeSessionsByUsername(
+        "user1");
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, session, boost::asio::ip::address());
+    conn->start();
+    for (int i = 0; i < 100 && !handler.called; i++)
+    {
+        io.run_for(std::chrono::milliseconds(1));
+    }
+    EXPECT_FALSE(handler.called);
+}
+
+TEST(HTTP2Connection, CloseRemovesTlsSession)
+{
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    persistent_data::SessionStore& store =
+        persistent_data::SessionStore::getInstance();
+    std::shared_ptr<persistent_data::UserSession> session = makeTlsSession();
+    ASSERT_NE(session, nullptr);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, session, boost::asio::ip::address());
+    conn->start();
+
+    // The client goes away without a request.
+    out.close();
+    for (int i = 0; i < 100 && store.authTokens.contains(session->sessionToken);
+         i++)
+    {
+        io.run_for(std::chrono::milliseconds(1));
+    }
+    EXPECT_FALSE(store.authTokens.contains(session->sessionToken));
 }
 
 } // namespace

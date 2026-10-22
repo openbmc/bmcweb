@@ -301,6 +301,8 @@ class Connection :
         auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
             std::move(adaptor), handler, getCachedDateStr, httpType,
             mtlsSession, ip);
+        // The HTTP/2 connection removes the TLS session when it ends.
+        mtlsSession = nullptr;
         if (http2settings.empty())
         {
             http2->start();
@@ -466,7 +468,20 @@ class Connection :
     void hardClose()
     {
         BMCWEB_LOG_DEBUG("{} Closing socket", logPtr(this));
+        removeMtlsSession();
         adaptor.next_layer().close();
+    }
+
+    void removeMtlsSession()
+    {
+        if (mtlsSession == nullptr)
+        {
+            return;
+        }
+        BMCWEB_LOG_DEBUG("{} Removing TLS session: {}", logPtr(this),
+                         mtlsSession->uniqueId);
+        persistent_data::SessionStore::getInstance().removeSession(mtlsSession);
+        mtlsSession = nullptr;
     }
 
     void tlsShutdownComplete(const std::shared_ptr<self_type>& self,
@@ -486,13 +501,7 @@ class Connection :
 
         if (httpType == HttpType::HTTPS)
         {
-            if (mtlsSession != nullptr)
-            {
-                BMCWEB_LOG_DEBUG("{} Removing TLS session: {}", logPtr(this),
-                                 mtlsSession->uniqueId);
-                persistent_data::SessionStore::getInstance().removeSession(
-                    mtlsSession);
-            }
+            removeMtlsSession();
 
             adaptor.async_shutdown(std::bind_front(
                 &self_type::tlsShutdownComplete, this, shared_from_this()));
@@ -642,6 +651,17 @@ class Connection :
         }
         auto& parse = *parser;
         const auto& value = parser->get();
+
+        if (mtlsSession != nullptr && mtlsSession->revoked)
+        {
+            // The session was removed since the handshake (deleted, timed
+            // out, or its account lost access).  Close the connection, so a
+            // new handshake checks the certificate again.
+            BMCWEB_LOG_WARNING("{} TLS session {} was revoked, closing",
+                               logPtr(this), mtlsSession->uniqueId);
+            gracefulClose();
+            return;
+        }
 
         if (authenticationEnabled)
         {
@@ -811,6 +831,7 @@ class Connection :
         if (ec)
         {
             BMCWEB_LOG_DEBUG("{} from write(2)", logPtr(this));
+            hardClose();
             return;
         }
 
