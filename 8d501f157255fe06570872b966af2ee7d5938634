@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe71b18d_13fa42d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-22T17:15:31Z",
+      "side": 1,
+      "message": "In your suggested path, we\u0027re now duplicating the disabled check between the two paths.  Please don\u0027t duplicate the check",
+      "revId": "8d501f157255fe06570872b966af2ee7d5938634",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
