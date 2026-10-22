@@ -106,6 +106,24 @@
       "parentUuid": "dc388be2_501d89df",
       "revId": "85f85f8ea9556b26b3d1b7492b08e8280307113c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b89d941_6cb6a54c",
+        "filename": "test/redfish-core/lib/thermal_metrics_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-22T18:38:52Z",
+      "side": 1,
+      "message": "I think I made this more complicated than it needed to be. But thanks for this.",
+      "parentUuid": "11ba5863_53221f47",
+      "revId": "85f85f8ea9556b26b3d1b7492b08e8280307113c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
