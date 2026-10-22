@@ -7,6 +7,7 @@
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "server_sent_event.hpp"
+#include "sessions.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/error.hpp>
@@ -62,6 +63,19 @@ class ConnectionImpl : public Connection
     void start(const Request& req)
     {
         BMCWEB_LOG_DEBUG("Starting SSE connection");
+
+        if (req.session != nullptr)
+        {
+            std::weak_ptr<Connection> weakSelf = weak_from_this();
+            persistent_data::SessionStore::getInstance().addUserConnection(
+                *req.session, weakSelf, [weakSelf]() {
+                    std::shared_ptr<Connection> self = weakSelf.lock();
+                    if (self)
+                    {
+                        self->close("User lost access");
+                    }
+                });
+        }
 
         res.set(boost::beast::http::field::content_type, "text/event-stream");
         boost::beast::http::response_serializer<BodyType>& serial =
