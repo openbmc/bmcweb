@@ -22,6 +22,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <system_error>
 #include <utility>
@@ -426,6 +427,29 @@ TEST(AfterGetChassisStatePath, EmptyServiceMapSetsInternalError)
     EXPECT_FALSE(callbackCalled);
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+}
+
+TEST(HandleChassisPowerCycle, DbusErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    dbus::utility::MapperGetSubTreePathsResponse chassisList;
+
+    handleChassisPowerCycle(response, ec, chassisList);
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(DoChassisPowerCycle, InvalidChassisPathReturnsNotFound)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    std::string chassisId = "badChassis";
+
+    doChassisPowerCycle(response, chassisId, std::nullopt);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::not_found);
 }
 
 } // namespace
