@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b810c39_966f31a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-22T12:43:44Z",
+      "side": 1,
+      "message": "Should we gate legacy Severity behind an allow-deprecated Meson option, while always emitting MessageSeverity?",
+      "revId": "b7300a8dc530d6eac58958f8ab802c388ba15b45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deca4176_40281713",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-22T12:43:44Z",
+      "side": 1,
+      "message": "Can we use resource::Health::Warning enum?",
+      "range": {
+        "startLine": 173,
+        "startChar": 48,
+        "endLine": 173,
+        "endChar": 55
+      },
+      "revId": "b7300a8dc530d6eac58958f8ab802c388ba15b45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
