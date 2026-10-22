@@ -81,6 +81,33 @@ SessionStore& emptyStore()
     return store;
 }
 
+TEST(SessionStore, RemoveSessionRevokesSession)
+{
+    SessionStore& store = emptyStore();
+    std::shared_ptr<UserSession> session = makeSession("user1");
+    ASSERT_NE(session, nullptr);
+    EXPECT_FALSE(session->revoked);
+
+    store.removeSession(session);
+
+    EXPECT_TRUE(session->revoked);
+    EXPECT_TRUE(store.authTokens.empty());
+}
+
+TEST(SessionStore, ApplySessionTimeoutsRevokesSession)
+{
+    SessionStore& store = emptyStore();
+    std::shared_ptr<UserSession> session = makeSession("user1");
+    ASSERT_NE(session, nullptr);
+    session->lastUpdated -= store.timeoutInSeconds;
+    store.lastTimeoutUpdate = {};
+
+    store.applySessionTimeouts();
+
+    EXPECT_TRUE(session->revoked);
+    EXPECT_TRUE(store.authTokens.empty());
+}
+
 TEST(SessionStore, RemoveSessionsByUsernameRemovesOnlyThatUser)
 {
     SessionStore& store = emptyStore();
@@ -94,6 +121,9 @@ TEST(SessionStore, RemoveSessionsByUsernameRemovesOnlyThatUser)
 
     store.removeSessionsByUsername("user1");
 
+    EXPECT_TRUE(first->revoked);
+    EXPECT_TRUE(second->revoked);
+    EXPECT_FALSE(other->revoked);
     ASSERT_EQ(store.authTokens.size(), 1U);
     EXPECT_EQ(store.authTokens.begin()->second, other);
     EXPECT_TRUE(store.needsWrite());
@@ -181,6 +211,8 @@ TEST(SessionStore, RemoveSessionsByUsernameExceptSessionKeepsThatSession)
 
     store.removeSessionsByUsernameExceptSession("user1", kept);
 
+    EXPECT_FALSE(kept->revoked);
+    EXPECT_TRUE(removed->revoked);
     ASSERT_EQ(store.authTokens.size(), 1U);
     EXPECT_EQ(store.authTokens.begin()->second, kept);
     EXPECT_EQ(keptClosed, 0);

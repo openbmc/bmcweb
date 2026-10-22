@@ -64,6 +64,12 @@ struct UserSession
     // bmcweb.  The value stored here is updated at the start of each
     // operation and used as the truth within bmcweb.
 
+    // Set once the session is removed from the SessionStore (logout,
+    // deletion, timeout, or its account losing access).  A connection that
+    // keeps using one session across requests, as a mutual TLS connection
+    // does, must stop trusting it then.
+    bool revoked = false;
+
     /**
      * @brief Fills object with data from UserSession's JSON representation
      *
@@ -302,7 +308,8 @@ class SessionStore
             false,
             isConfigureSelfOnly,
             "",
-            {}});
+            {},
+            false});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
         if (sessionType != SessionType::Basic &&
@@ -348,6 +355,7 @@ class SessionStore
 
     void removeSession(const std::shared_ptr<UserSession>& session)
     {
+        session->revoked = true;
         authTokens.erase(session->sessionToken);
         needWrite = true;
     }
@@ -472,6 +480,7 @@ class SessionStore
                 if (timeNow - authTokensIt->second->lastUpdated >=
                     timeoutInSeconds)
                 {
+                    authTokensIt->second->revoked = true;
                     authTokensIt = authTokens.erase(authTokensIt);
 
                     needWrite = true;
@@ -516,6 +525,7 @@ class SessionStore
             if (session != nullptr && session->username == username &&
                 session->uniqueId != keepSessionId)
             {
+                session->revoked = true;
                 sessionIt = authTokens.erase(sessionIt);
                 needWrite = true;
             }
