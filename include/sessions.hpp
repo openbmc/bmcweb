@@ -21,6 +21,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace persistent_data
@@ -258,6 +259,16 @@ struct AuthConfigMethods
     }
 };
 
+// A connection that outlives the request that authenticated it, such as a
+// websocket or a server-sent event stream.
+struct UserConnection
+{
+    std::string username;
+    std::string sessionId;
+    std::weak_ptr<void> connection;
+    std::function<void()> close;
+};
+
 class SessionStore
 {
   public:
@@ -294,8 +305,11 @@ class SessionStore
             {}});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
-        needWrite = sessionType != SessionType::Basic &&
-                    sessionType != SessionType::MutualTLS;
+        if (sessionType != SessionType::Basic &&
+            sessionType != SessionType::MutualTLS)
+        {
+            needWrite = true;
+        }
         return it.first->second;
     }
 
@@ -377,29 +391,34 @@ class SessionStore
         return sessions;
     }
 
+    // Called when a user loses access: the account was removed or disabled,
+    // or its credentials changed.
     void removeSessionsByUsername(std::string_view username)
     {
-        std::erase_if(authTokens, [username](const auto& value) {
-            if (value.second == nullptr)
-            {
-                return false;
-            }
-            return value.second->username == username;
-        });
+        removeUserAccess(username, "");
     }
 
     void removeSessionsByUsernameExceptSession(
         std::string_view username, const std::shared_ptr<UserSession>& session)
     {
-        std::erase_if(authTokens, [username, session](const auto& value) {
-            if (value.second == nullptr)
-            {
-                return false;
-            }
+        removeUserAccess(username, session->uniqueId);
+    }
 
-            return value.second->username == username &&
-                   value.second->uniqueId != session->uniqueId;
+    // Websocket and server-sent event connections outlive the request that
+    // authenticated them.  Ending a session does not end them (DSP0266
+    // 13.3.4.4), but they must not outlive the user's access, so they are
+    // registered here and closed by removeSessionsByUsername*.  The store
+    // never owns a connection: an entry is dropped once its connection is
+    // gone.
+    void addUserConnection(const UserSession& session,
+                           const std::weak_ptr<void>& connection,
+                           std::function<void()>&& closeConnection)
+    {
+        std::erase_if(userConnections, [](const UserConnection& entry) {
+            return entry.connection.expired();
         });
+        userConnections.emplace_back(session.username, session.uniqueId,
+                                     connection, std::move(closeConnection));
     }
 
     void updateAuthMethodsConfig(const AuthConfigMethods& config)
@@ -475,6 +494,8 @@ class SessionStore
                        std::hash<std::string>, bmcweb::ConstantTimeCompare>
         authTokens;
 
+    std::vector<UserConnection> userConnections;
+
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
     bool needWrite{false};
     std::chrono::seconds timeoutInSeconds;
@@ -482,6 +503,50 @@ class SessionStore
 
   private:
     SessionStore() : timeoutInSeconds(1800) {}
+
+    // Removes the user's sessions, except the one with uniqueId
+    // keepSessionId, and closes the connections they opened.
+    void removeUserAccess(std::string_view username,
+                          std::string_view keepSessionId)
+    {
+        auto sessionIt = authTokens.begin();
+        while (sessionIt != authTokens.end())
+        {
+            const std::shared_ptr<UserSession>& session = sessionIt->second;
+            if (session != nullptr && session->username == username &&
+                session->uniqueId != keepSessionId)
+            {
+                sessionIt = authTokens.erase(sessionIt);
+                needWrite = true;
+            }
+            else
+            {
+                sessionIt++;
+            }
+        }
+
+        // Closing a connection can call back into the store, so take the
+        // entries out before running their callbacks.
+        std::vector<std::function<void()>> toClose;
+        auto connIt = userConnections.begin();
+        while (connIt != userConnections.end())
+        {
+            if (connIt->username == username &&
+                connIt->sessionId != keepSessionId)
+            {
+                toClose.emplace_back(std::move(connIt->close));
+                connIt = userConnections.erase(connIt);
+            }
+            else
+            {
+                connIt++;
+            }
+        }
+        for (const std::function<void()>& closeConnection : toClose)
+        {
+            closeConnection();
+        }
+    }
 };
 
 } // namespace persistent_data

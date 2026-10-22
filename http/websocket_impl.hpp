@@ -17,6 +17,7 @@
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
 #include <boost/beast/core/role.hpp>
+#include <boost/beast/core/stream_traits.hpp>
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/status.hpp>
@@ -114,6 +115,20 @@ class ConnectionImpl : public Connection
                                              "mode=block");
                 m.insert("X-Content-Type-Options", "nosniff");
             }));
+
+        if (session != nullptr)
+        {
+            std::weak_ptr<self_t> weakSelf =
+                std::static_pointer_cast<self_t>(shared_from_this());
+            persistent_data::SessionStore::getInstance().addUserConnection(
+                *session, weakSelf, [weakSelf]() {
+                    std::shared_ptr<self_t> self = weakSelf.lock();
+                    if (self)
+                    {
+                        self->onUserRevoked();
+                    }
+                });
+        }
 
         // Make a pointer to keep the req alive while we accept it.
         using Body = boost::beast::http::request<bmcweb::HttpBody>;
@@ -324,6 +339,16 @@ class ConnectionImpl : public Connection
     }
 
   private:
+    void onUserRevoked()
+    {
+        BMCWEB_LOG_WARNING("{} User {} lost access, closing websocket",
+                           logPtr(this), session->username);
+        // A close handshake would keep handling the client's messages until
+        // it answers, so close the socket instead.  A pending read then
+        // fails and runs the close handler.
+        boost::beast::get_lowest_layer(ws).close();
+    }
+
     void afterHandleMessage(const std::shared_ptr<Connection>& self,
                             size_t bytesRead)
     {
