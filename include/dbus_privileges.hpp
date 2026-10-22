@@ -163,6 +163,27 @@ inline void handleRequestUserInfo(
             boost::beast::http::status::internal_server_error);
         return;
     }
+
+    // GetUserInfo reports UserEnabled for local users only.  Checking it here
+    // covers every authentication method, including mutual TLS, which never
+    // goes through PAM's account check.
+    std::optional<bool> userEnabled;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap, "UserEnabled",
+        userEnabled);
+    if (!success)
+    {
+        BMCWEB_LOG_ERROR("Failed to unpack UserEnabled property");
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+    if (!userEnabled.value_or(true))
+    {
+        BMCWEB_LOG_WARNING("User account is disabled");
+        asyncResp->res.result(boost::beast::http::status::unauthorized);
+        return;
+    }
     callback(userInfoMap);
 }
 

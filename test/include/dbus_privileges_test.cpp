@@ -5,6 +5,7 @@
 #include "dbus_utility.hpp"
 
 #include <memory>
+#include <string>
 
 #include <gtest/gtest.h>
 
@@ -79,6 +80,74 @@ TEST(HandleRequestUserInfo, UnauthorizedError)
         {});
     EXPECT_FALSE(called);
     EXPECT_EQ(asyncResp->res.resultInt(), 401);
+}
+
+TEST(HandleRequestUserInfo, LocalUserEnabled)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    const boost::system::error_code ec = {};
+
+    bool called = false;
+    handleRequestUserInfo(
+        asyncResp, ec,
+        [&called](const dbus::utility::DBusPropertiesMap& /* userInfoMap */) {
+            called = true;
+        },
+        {{"RemoteUser", false}, {"UserEnabled", true}});
+    EXPECT_TRUE(called);
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+}
+
+TEST(HandleRequestUserInfo, LocalUserDisabled)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    const boost::system::error_code ec = {};
+
+    bool called = false;
+    handleRequestUserInfo(
+        asyncResp, ec,
+        [&called](const dbus::utility::DBusPropertiesMap& /* userInfoMap */) {
+            called = true;
+        },
+        {{"RemoteUser", false}, {"UserEnabled", false}});
+    EXPECT_FALSE(called);
+    EXPECT_EQ(asyncResp->res.resultInt(), 401);
+}
+
+TEST(HandleRequestUserInfo, RemoteUserWithoutUserEnabled)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    const boost::system::error_code ec = {};
+
+    bool called = false;
+    handleRequestUserInfo(
+        asyncResp, ec,
+        [&called](const dbus::utility::DBusPropertiesMap& /* userInfoMap */) {
+            called = true;
+        },
+        {{"RemoteUser", true}});
+    EXPECT_TRUE(called);
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+}
+
+TEST(HandleRequestUserInfo, UserEnabledWrongType)
+{
+    const std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+    const boost::system::error_code ec = {};
+
+    bool called = false;
+    handleRequestUserInfo(
+        asyncResp, ec,
+        [&called](const dbus::utility::DBusPropertiesMap& /* userInfoMap */) {
+            called = true;
+        },
+        {{"RemoteUser", false}, {"UserEnabled", std::string("true")}});
+    EXPECT_FALSE(called);
+    EXPECT_EQ(asyncResp->res.resultInt(), 500);
 }
 } // namespace
 } // namespace crow
