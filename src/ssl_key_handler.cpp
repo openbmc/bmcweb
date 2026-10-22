@@ -414,8 +414,8 @@ static bool setCiphers(boost::asio::ssl::context& mSslContext)
 {
     OpenSSLSSLCtx sslCtx(mSslContext.native_handle());
 
-    // Mozilla recommended elliptic curve groups v5.7 (shared between profiles).
-    if (!sslCtx.setCurves("X25519:prime256v1:secp384r1"))
+    // Mozilla recommended elliptic curve groups v6.0 (shared between profiles).
+    if (!sslCtx.setCurves("X25519MLKEM768:X25519:prime256v1:secp384r1"))
     {
         BMCWEB_LOG_ERROR("Error setting TLS curve list");
         return false;
@@ -423,24 +423,21 @@ static bool setCiphers(boost::asio::ssl::context& mSslContext)
 
     if constexpr (BMCWEB_TLS_PROFILE == "intermediate")
     {
-        // Mozilla intermediate TLS 1.2 cipher suites v5.7.
-        // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
+        // Mozilla intermediate TLS 1.2 cipher suites v6.0.
+        // Sourced from: https://ssl-config.mozilla.org/guidelines/6.0.json
         constexpr std::string_view mozillaIntermediateCiphers =
-            "ECDHE-ECDSA-AES128-GCM-SHA256:"
-            "ECDHE-RSA-AES128-GCM-SHA256:"
-            "ECDHE-ECDSA-AES256-GCM-SHA384:"
-            "ECDHE-RSA-AES256-GCM-SHA384:"
-            "ECDHE-ECDSA-CHACHA20-POLY1305:"
-            "ECDHE-RSA-CHACHA20-POLY1305:"
-            "DHE-RSA-AES128-GCM-SHA256:"
-            "DHE-RSA-AES256-GCM-SHA384:"
-            "DHE-RSA-CHACHA20-POLY1305";
+             "ECDHE-ECDSA-AES128-GCM-SHA256:"
+             "ECDHE-RSA-AES128-GCM-SHA256:"
+             "ECDHE-ECDSA-AES256-GCM-SHA384:"
+             "ECDHE-RSA-AES256-GCM-SHA384:"
+             "ECDHE-ECDSA-CHACHA20-POLY1305:"
+             "ECDHE-RSA-CHACHA20-POLY1305";
         if (!sslCtx.setCipherList(mozillaIntermediateCiphers))
         {
             return false;
         }
     }
-    // Mozilla TLS 1.3 ciphersuites v5.7 (identical in the intermediate and
+    // Mozilla TLS 1.3 ciphersuites v6.0 (identical in the intermediate and
     // modern profiles).
     constexpr std::string_view tls13cipherSuites =
         "TLS_AES_128_GCM_SHA256:"
