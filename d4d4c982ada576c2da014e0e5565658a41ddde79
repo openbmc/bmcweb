@@ -1,6 +1,92 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b36c31d1_1f6d2162",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-22T17:22:17Z",
+      "side": 1,
+      "message": "nit, you don\u0027t need these headings.  Just make sure these questions are covered in your prose",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 19
+      },
+      "revId": "d4d4c982ada576c2da014e0e5565658a41ddde79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8bafbce_409da80c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-22T17:22:17Z",
+      "side": 1,
+      "message": "This is still the \"what\".  WHY do administrators want to do this?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "d4d4c982ada576c2da014e0e5565658a41ddde79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "542f5d51_5d6bd0cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-22T17:22:17Z",
+      "side": 1,
+      "message": ".... I\u0027d like to see testing that actually tests that the order was invoked correctly, not just whether the property sets return 200.",
+      "revId": "d4d4c982ada576c2da014e0e5565658a41ddde79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd06ad42_ea9cb875",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-22T17:22:17Z",
+      "side": 1,
+      "message": "Remove.  We only run against the full service.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "d4d4c982ada576c2da014e0e5565658a41ddde79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "825eaba7_ba856bcb",
@@ -31,6 +117,40 @@
       "writtenOn": "2026-10-22T16:08:42Z",
       "side": 1,
       "message": "@ed@tanous.net, @justinnanguyen@gmail.com\ncould you help to re-review this?",
+      "revId": "d4d4c982ada576c2da014e0e5565658a41ddde79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1dc0dce_fa5e7dc0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-22T17:22:17Z",
+      "side": 1,
+      "message": "This lambda is already in violation of the coding standard.  I\u0027m not going to accept patches that make it worse until it\u0027s cleaned up.  Please put up a patch for this to make this a normal method.",
+      "revId": "d4d4c982ada576c2da014e0e5565658a41ddde79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac1c1ac8_0d5f9ee1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1563,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-22T17:22:17Z",
+      "side": 1,
+      "message": "Please look at how we alphabetize and order these read json calls.  This needs cleaned up before we add more.",
       "revId": "d4d4c982ada576c2da014e0e5565658a41ddde79",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
