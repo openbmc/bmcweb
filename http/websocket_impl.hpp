@@ -17,6 +17,7 @@
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
 #include <boost/beast/core/role.hpp>
+#include <boost/beast/core/stream_traits.hpp>
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/status.hpp>
@@ -114,6 +115,20 @@ class ConnectionImpl : public Connection
                                              "mode=block");
                 m.insert("X-Content-Type-Options", "nosniff");
             }));
+
+        if (session != nullptr)
+        {
+            std::weak_ptr<self_t> weakSelf =
+                std::static_pointer_cast<self_t>(shared_from_this());
+            persistent_data::SessionStore::getInstance().addUserConnection(
+                *session, weakSelf, [weakSelf]() {
+                    std::shared_ptr<self_t> self = weakSelf.lock();
+                    if (self)
+                    {
+                        self->onUserRevoked();
+                    }
+                });
+        }
 
         // Make a pointer to keep the req alive while we accept it.
         using Body = boost::beast::http::request<bmcweb::HttpBody>;
@@ -239,9 +254,16 @@ class ConnectionImpl : public Connection
     void afterRead(const std::shared_ptr<Connection>& /*self*/,
                    const boost::beast::error_code& ec, size_t bytesRead)
     {
-        if (ec)
+        if (ec || revoked)
         {
-            if (ec == boost::beast::error::timeout)
+            if (revoked)
+            {
+                // Even a message that arrived is not handled once the user
+                // lost access.
+                BMCWEB_LOG_DEBUG("{} Read ended on revoked connection",
+                                 logPtr(this));
+            }
+            else if (ec == boost::beast::error::timeout)
             {
                 BMCWEB_LOG_WARNING("doRead timeout: {}", ec);
             }
@@ -324,6 +346,20 @@ class ConnectionImpl : public Connection
     }
 
   private:
+    void onUserRevoked()
+    {
+        BMCWEB_LOG_WARNING("{} User {} lost access, closing websocket",
+                           logPtr(this), session->username);
+        // Hand no further message to the handlers.  Closing the socket alone
+        // does not ensure that: a read may already have completed, and Beast
+        // returns frames it has already buffered without reading the socket.
+        revoked = true;
+        // A close handshake would keep reading the client's messages until it
+        // answers, so close the socket instead.  The next read then ends and
+        // runs the close handler.
+        boost::beast::get_lowest_layer(ws).close();
+    }
+
     void afterHandleMessage(const std::shared_ptr<Connection>& self,
                             size_t bytesRead)
     {
@@ -364,6 +400,7 @@ class ConnectionImpl : public Connection
     boost::beast::websocket::stream<Adaptor, false> ws;
 
     bool readingDefered = false;
+    bool revoked = false;
     std::string inString;
     boost::asio::dynamic_string_buffer<std::string::value_type,
                                        std::string::traits_type,
