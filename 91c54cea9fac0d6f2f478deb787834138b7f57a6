@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ac9f5a_1ea01614",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-10-23T04:41:43Z",
+      "side": 1,
+      "message": "Yes, but put that in your commit message",
+      "parentUuid": "9f8775bc_54390834",
+      "revId": "91c54cea9fac0d6f2f478deb787834138b7f57a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "94171230_7be30cb4",
