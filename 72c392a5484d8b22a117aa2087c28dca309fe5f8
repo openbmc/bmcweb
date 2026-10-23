@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09d1202d_1085d062",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-23T14:53:04Z",
+      "side": 1,
+      "message": "Please make sure these aren\u0027t already duplicated",
+      "revId": "72c392a5484d8b22a117aa2087c28dca309fe5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "946fcb2f_d308ab60",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-23T14:53:04Z",
+      "side": 1,
+      "message": "Huh? Isn\u0027t https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92322/9/test/redfish-core/lib/system_test.cpp adding this",
+      "revId": "72c392a5484d8b22a117aa2087c28dca309fe5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bbcc179_cae0137b",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-23T14:53:04Z",
+      "side": 1,
+      "message": "THese are the same tests you have",
+      "range": {
+        "startLine": 470,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 0
+      },
+      "revId": "72c392a5484d8b22a117aa2087c28dca309fe5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
