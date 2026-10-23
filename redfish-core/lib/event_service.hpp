@@ -18,6 +18,7 @@
 #include "registries.hpp"
 #include "registries/privilege_registry.hpp"
 #include "snmp_trap_event_clients.hpp"
+#include "str_utility.hpp"
 #include "subscription.hpp"
 #include "utils/json_utils.hpp"
 
@@ -57,6 +58,46 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
 
 static constexpr const std::array<const char*, 2> supportedResourceTypes = {
     "Task", "Heartbeat"};
+
+inline std::optional<std::string> normalizeSubscriptionMessageId(
+    const std::string& messageId)
+{
+    std::vector<std::string> fields;
+    bmcweb::split(fields, messageId, '.');
+    if (fields.size() != 2 && fields.size() != 4)
+    {
+        return std::nullopt;
+    }
+
+    if (fields.size() == 4)
+    {
+        for (size_t index = 1; index <= 2; ++index)
+        {
+            if (fields[index].empty() ||
+                !std::ranges::all_of(fields[index], [](char character) {
+                    return character >= '0' && character <= '9';
+                }))
+            {
+                return std::nullopt;
+            }
+        }
+    }
+
+    if (std::ranges::find(supportedRegPrefixes, fields.front()) ==
+        supportedRegPrefixes.end())
+    {
+        return std::nullopt;
+    }
+
+    if (registries::getMessageFromRegistry(
+            fields.back(), registries::getRegistryMessagesFromPrefix(
+                               fields.front())) == nullptr)
+    {
+        return std::nullopt;
+    }
+
+    return fields.front() + "." + fields.back();
+}
 
 inline void handleEventServiceSubscriptionsPost(
     App& app, const crow::Request& req,
@@ -373,47 +414,17 @@ inline void handleEventServiceSubscriptionsPost(
 
     if (msgIds)
     {
-        std::vector<std::string> registryPrefix;
-
-        // If no registry prefixes are mentioned, consider all
-        // supported prefixes
-        if (subValue->userSub->registryPrefixes.empty())
+        for (std::string& id : *msgIds)
         {
-            registryPrefix.assign(supportedRegPrefixes.begin(),
-                                  supportedRegPrefixes.end());
-        }
-        else
-        {
-            registryPrefix = subValue->userSub->registryPrefixes;
-        }
-
-        for (const std::string& id : *msgIds)
-        {
-            bool validId = false;
-
-            // Check for Message ID in each of the selected Registry
-            for (const std::string& it : registryPrefix)
-            {
-                const registries::MessageEntries registry =
-                    redfish::registries::getRegistryMessagesFromPrefix(it);
-
-                if (std::ranges::any_of(
-                        registry, [&id](const redfish::registries::MessageEntry&
-                                            messageEntry) {
-                            return id == messageEntry.first;
-                        }))
-                {
-                    validId = true;
-                    break;
-                }
-            }
-
-            if (!validId)
+            std::optional<std::string> normalizedId =
+                normalizeSubscriptionMessageId(id);
+            if (!normalizedId)
             {
                 messages::propertyValueNotInList(asyncResp->res, id,
                                                  "MessageIds");
                 return;
             }
+            id = std::move(*normalizedId);
         }
 
         subValue->userSub->registryMsgIds = *msgIds;
