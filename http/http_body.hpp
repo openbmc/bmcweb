@@ -177,7 +177,7 @@ class HttpBody::value_type
 
     void clear()
     {
-        bodyData = std::string{};
+        bodyData.emplace<std::string>();
         encodingType = EncodingType::Raw;
     }
 
@@ -384,6 +384,7 @@ class HttpBody::reader
     value_type& value;
     std::optional<MultipartParser> multipartParser;
     const boost::beast::http::fields& hdr;
+    size_t bodySize = 0;
 
   public:
     template <bool IsRequest, class Fields>
@@ -441,6 +442,20 @@ class HttpBody::reader
                     boost::system::error_code& ec)
     {
         size_t extra = boost::beast::buffer_bytes(buffers);
+        // Enforce the body limit on the accumulated size, not only on a
+        // declared Content-Length: on HTTP/2 there is no body parser
+        // limit and a request may omit content-length entirely while
+        // streaming DATA frames, so every chunk must be counted against
+        // the same limit the HTTP/1 parser already enforces.
+        constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+        if (extra > maxBodySize - bodySize)
+        {
+            BMCWEB_LOG_WARNING(
+                "Body chunk of {} bytes pushes the total to over the max body size {}, rejecting.",
+                extra, maxBodySize);
+            ec = boost::beast::http::error::body_limit;
+            return 0;
+        }
         for (const auto b : boost::beast::buffers_range_ref(buffers))
         {
             const char* ptr = static_cast<const char*>(b.data());
@@ -462,6 +477,7 @@ class HttpBody::reader
                 value.str().append(ptr, b.size());
             }
         }
+        bodySize += extra;
         ec = {};
         return extra;
     }

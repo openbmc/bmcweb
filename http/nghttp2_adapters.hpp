@@ -173,6 +173,12 @@ struct nghttp2_session
                                        headers.size(), dataPrd);
     }
 
+    int submitRstStream(int32_t streamId, uint32_t errorCode)
+    {
+        return nghttp2_submit_rst_stream(ptr, NGHTTP2_FLAG_NONE, streamId,
+                                         errorCode);
+    }
+
     int setLocalWindowSize(uint8_t flags, int32_t stream_id, int32_t windowSize)
     {
         return nghttp2_session_set_local_window_size(ptr, flags, stream_id,
