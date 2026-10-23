@@ -136,5 +136,61 @@ TEST(HttpFileBodyValueType, SetFd)
     EXPECT_EQ(value.payloadSize(), 16);
 }
 
+TEST(HttpHttpBodyReader, AccumulatedSizeLimitEnforcedWithoutContentLength)
+{
+    // HTTP/2 streams DATA frames without a Content-Length: the reader
+    // must enforce the body limit on the accumulated size of every put
+    // call, not only on a declared length.
+    boost::beast::http::request_header<boost::beast::http::fields> headers;
+    headers.set(boost::beast::http::field::content_type,
+                "application/octet-stream");
+    HttpBody::value_type value;
+    HttpBody::reader reader(headers, value);
+
+    boost::beast::error_code initEc;
+    reader.init(boost::none, initEc);
+    ASSERT_FALSE(initEc);
+
+    constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+    // Feed the limit in two puts: the first fits, the second overflows.
+    std::string first(maxBodySize / 2, 'a');
+    boost::beast::error_code ec;
+    size_t out =
+        reader.put(boost::asio::const_buffer(first.data(), first.size()), ec);
+    ASSERT_FALSE(ec);
+    EXPECT_EQ(out, first.size());
+
+    std::string second(maxBodySize, 'b');
+    out =
+        reader.put(boost::asio::const_buffer(second.data(), second.size()), ec);
+    EXPECT_EQ(ec, boost::beast::http::error::body_limit);
+    EXPECT_EQ(out, 0);
+}
+
+TEST(HttpHttpBodyReader, AccumulatedSizeAllowsExactLimit)
+{
+    boost::beast::http::request_header<boost::beast::http::fields> headers;
+    headers.set(boost::beast::http::field::content_type,
+                "application/octet-stream");
+    HttpBody::value_type value;
+    HttpBody::reader reader(headers, value);
+
+    boost::beast::error_code initEc;
+    reader.init(boost::none, initEc);
+    ASSERT_FALSE(initEc);
+
+    constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+    std::string chunk(maxBodySize / 8, 'a');
+    for (size_t i = 0; i < 8; ++i)
+    {
+        boost::beast::error_code ec;
+        size_t out = reader.put(
+            boost::asio::const_buffer(chunk.data(), chunk.size()), ec);
+        ASSERT_FALSE(ec) << "iteration " << i;
+        EXPECT_EQ(out, chunk.size());
+    }
+    EXPECT_EQ(value.str().size(), maxBodySize);
+}
+
 } // namespace
 } // namespace bmcweb
