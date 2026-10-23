@@ -1424,6 +1424,55 @@ inline CertificateMappingAttribute getCertificateMapping(
     }
 }
 
+inline void afterGetAccountPolicy(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("Got {} properties for AccountService",
+                     propertiesList.size());
+
+    const uint32_t* accountUnlockTimeout = nullptr;
+    const uint16_t* maxLoginAttemptBeforeLockout = nullptr;
+    const uint8_t* minPasswordLength = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesList,             //
+        "AccountUnlockTimeout", accountUnlockTimeout,                 //
+        "MaxLoginAttemptBeforeLockout", maxLoginAttemptBeforeLockout, //
+        "MinPasswordLength", minPasswordLength                        //
+    );
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (accountUnlockTimeout != nullptr)
+    {
+        asyncResp->res.jsonValue["AccountLockoutDuration"] =
+            *accountUnlockTimeout;
+    }
+
+    if (maxLoginAttemptBeforeLockout != nullptr)
+    {
+        asyncResp->res.jsonValue["AccountLockoutThreshold"] =
+            *maxLoginAttemptBeforeLockout;
+    }
+
+    if (minPasswordLength != nullptr)
+    {
+        asyncResp->res.jsonValue["MinPasswordLength"] = *minPasswordLength;
+    }
+}
+
 inline void handleAccountServiceGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1515,52 +1564,7 @@ inline void handleAccountServiceGet(
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.AccountPolicy",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const dbus::utility::DBusPropertiesMap& propertiesList) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG("Got {} properties for AccountService",
-                             propertiesList.size());
-
-            const uint8_t* minPasswordLength = nullptr;
-            const uint32_t* accountUnlockTimeout = nullptr;
-            const uint16_t* maxLoginAttemptBeforeLockout = nullptr;
-
-            const bool success = sdbusplus::unpackPropertiesNoThrow(
-                dbus_utils::UnpackErrorPrinter(), propertiesList,
-                "MinPasswordLength", minPasswordLength, "AccountUnlockTimeout",
-                accountUnlockTimeout, "MaxLoginAttemptBeforeLockout",
-                maxLoginAttemptBeforeLockout);
-
-            if (!success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            if (minPasswordLength != nullptr)
-            {
-                asyncResp->res.jsonValue["MinPasswordLength"] =
-                    *minPasswordLength;
-            }
-
-            if (accountUnlockTimeout != nullptr)
-            {
-                asyncResp->res.jsonValue["AccountLockoutDuration"] =
-                    *accountUnlockTimeout;
-            }
-
-            if (maxLoginAttemptBeforeLockout != nullptr)
-            {
-                asyncResp->res.jsonValue["AccountLockoutThreshold"] =
-                    *maxLoginAttemptBeforeLockout;
-            }
-        });
+        std::bind_front(afterGetAccountPolicy, asyncResp));
 
     auto callback = [asyncResp](bool success, const LDAPConfigData& confData,
                                 const std::string& ldapType) {
