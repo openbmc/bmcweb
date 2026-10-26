@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06f40b45_52691808",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-26T09:43:32Z",
+      "side": 1,
+      "message": "Wrap 50/72 gerrit formatting.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 63
+      },
+      "revId": "271ec64c3e01b0294aa1844e9577d7f0de18741c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d5de7e5_fdd5bc7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-26T09:43:32Z",
+      "side": 1,
+      "message": "The cumulative limit check looks correct, but the commit message’s claim that nghttp2 tears down the connection appears inconsistent with the v1.69.0 or v 1.70.0 implementation. onDataChunkRecvCallback() returns NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE (-521), whereas the DATA callback path [1] aborts only for errors below -900 [2]. Could you please clarify how the reported runtime test caused connection teardown?\n\n[1] https://github.com/nghttp2/nghttp2/blob/v1.69.0/lib/nghttp2_session.c#L6892\n[2] https://github.com/nghttp2/nghttp2/blob/v1.69.0/lib/nghttp2_session.c#L87",
+      "revId": "271ec64c3e01b0294aa1844e9577d7f0de18741c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
