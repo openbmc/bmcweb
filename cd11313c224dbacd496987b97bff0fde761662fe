@@ -1,0 +1,22 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "780e5bdb_5f26bed3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-10-26T22:13:18Z",
+      "side": 1,
+      "message": "You\u0027re right. In nghttp2 v1.69.0, the DATA callback path ignores -521: it only handles NGHTTP2_ERR_PAUSE or fatal values below -900. The earlier runtime run established that memory stopped growing, not that nghttp2 tore down the connection; that sentence overclaimed the evidence.\n\nPS3 explicitly submits RST_STREAM(ENHANCE_YOUR_CALM), returns 0 from the callback, releases the partial request body, and prevents request dispatch. The new tests verify the RST frame, body release, and handler suppression for both an accumulated and a declared oversized body, plus a subsequent request on the same nghttp2 session. A runtime probe also verifies that a new stream receives a response over the same connection after the reset. I shortened the subject and wrapped the commit body.",
+      "parentUuid": "9d5de7e5_fdd5bc7c",
+      "revId": "cd11313c224dbacd496987b97bff0fde761662fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
