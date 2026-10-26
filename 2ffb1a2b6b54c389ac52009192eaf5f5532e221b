@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96bd72e0_7c9a27b5",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "Sorry i am not aware as this code predates me. Sure, but lets keep that refactor as part of a separate patch",
+      "parentUuid": "d6624d41_18eece7c",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 42
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf1013e1_8a6d7351",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "This post call is non obvious why we\u0027re doing this in a complicated way.  Can you add a minor comment?",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83752165_8a429b95",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf1013e1_8a6d7351",
       "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c13fcaa8_3a2e48d8",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "The purpose of the logging match is to watch for logging event entries for this firmware update so the related events can be added into the Task messages. The Activation status object gives info about Activation states only.\n\nThis match also existed in the legacy flow (where only one update was allowed in the system) but as a global static var.\n\nPlease let me know if you have any other questions on this.",
+      "parentUuid": "349a58c5_c8567944",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7ebf1b8_d35e8c88",
         "filename": "redfish-core/lib/task.hpp",
         "patchSetId": 2
@@ -71,6 +131,24 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "This should just be a vector, right?  In theory we can have the same log entry twice.",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3cbd87a_8d79964c",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "This is dropped in the latest patch, hence marking this as resolved.",
+      "parentUuid": "e7ebf1b8_d35e8c88",
       "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +166,30 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "Having a little trouble reading this block.  Could you clean it up a little?",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 67
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df81aa93_bac159f1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "Done, added a helper metadataValue to handle this.",
+      "parentUuid": "92b5689a_8232d974",
       "range": {
         "startLine": 159,
         "startChar": 0,
@@ -121,6 +223,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed0ab77c_9054c148",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "These are URI as per Redfish Message Registries https://github.com/DMTF/Redfish-Publications/blob/main/registries/Update.1.5.0.json#L281",
+      "parentUuid": "deacf037_8bcce0b1",
+      "range": {
+        "startLine": 173,
+        "startChar": 25,
+        "endLine": 173,
+        "endChar": 43
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2fa541f_9d94eefa",
@@ -134,6 +260,30 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "nit, std::vector here.  There\u0027s nothing in the interface that gaurantees this is unique, and we want to be able to detect that.",
+      "range": {
+        "startLine": 209,
+        "startChar": 13,
+        "endLine": 209,
+        "endChar": 26
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f6e18fc_d8c96182",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "\u003e nit, std::vector here.  There\u0027s nothing in the interface that gaurantees this is unique, and we want to be able to detect that.\n\nThe interface definition defines the type as dict https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L33 . This is an existing definition.",
+      "parentUuid": "c2fa541f_9d94eefa",
       "range": {
         "startLine": 209,
         "startChar": 13,
@@ -161,6 +311,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25afa302_1374016b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "369ec041_392a5303",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a1210a6_e990c62f",
@@ -174,6 +342,30 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "Doesn\u0027t this break if you have more than one update happening at a time?  As far as I know you can\u0027t duplicate match expressions.",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 70
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb36b23b_4ad8b432",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "\u003e Doesn\u0027t this break if you have more than one update happening at a time?  As far as I know you can\u0027t duplicate match expressions.\n\nNo each update has its own unique objectPath, so it will not conflict with each other.",
+      "parentUuid": "2a1210a6_e990c62f",
       "range": {
         "startLine": 241,
         "startChar": 0,
@@ -207,6 +399,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "166b6946_5532353d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "Dropped this in the latest patch.",
+      "parentUuid": "7c125185_968d9a53",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 68
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55403dfc_74f23b6e",
@@ -220,6 +436,30 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "Please don\u0027t use auto in non obvious contexts.",
+      "range": {
+        "startLine": 255,
+        "startChar": 8,
+        "endLine": 255,
+        "endChar": 12
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e77535b_06624c68",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55403dfc_74f23b6e",
       "range": {
         "startLine": 255,
         "startChar": 8,
@@ -247,6 +487,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff991c12_3527c9a1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "No, in else case message is not the intended one we want to filter, probably some other log entry type, so no need to throw an error.",
+      "parentUuid": "86dc0736_a4b83bb3",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c65487a9_34fb4b10",
@@ -260,6 +518,30 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "Please use the dbus utilities classes for this.",
+      "range": {
+        "startLine": 279,
+        "startChar": 34,
+        "endLine": 279,
+        "endChar": 51
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f7c084_e2e28c26",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "This function has been dropped in the latest patch, hence marking this as resolved.",
+      "parentUuid": "c65487a9_34fb4b10",
       "range": {
         "startLine": 279,
         "startChar": 34,
@@ -287,6 +569,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "746f0e8a_41b27f09",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "This function has been dropped in the latest patch, hence marking this as resolved.",
+      "parentUuid": "9e775091_4e4d3586",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "641b8b98_76982f42",
@@ -300,6 +600,24 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "Why does this function need to exist?  I assume there\u0027s some out of order logging happening?  Please just fix that in the service rather than try to clean up afterward.",
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4836bf81_065dade0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "This function has been dropped in the latest patch, hence marking this as resolved.",
+      "parentUuid": "641b8b98_76982f42",
       "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -327,6 +645,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6919abc1_372839e7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "I have dropped this change from this patch and added that as a separate patch in series as its solving an edge scenario. Also added a new way to handle it (rather than skimming through the whole event buffer). Please let me know your inputs on that approach, its at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95899 .\n\nMarking this item as resolved on this patch.",
+      "parentUuid": "5ea620fe_847d6fc7",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 1
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4779cb8_20634bd0",
@@ -340,6 +682,30 @@
       "writtenOn": "2026-06-12T22:09:32Z",
       "side": 1,
       "message": "This is going to register us for ALL logging events, not just the events that we care about.  Can we refine this more and not have to post process afterward?",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 424,
+        "endChar": 50
+      },
+      "revId": "2ffb1a2b6b54c389ac52009192eaf5f5532e221b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ae2560_3f67649d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-26T23:21:22Z",
+      "side": 1,
+      "message": "\u003e This is going to register us for ALL logging events, not just the events that we care about.  Can we refine this more and not have to post process afterward?\n\nI was thinking of that too but the Message is one of the fields in the Logging.Entry interface definition and Dbus matcher can only allow filtering by top-level argument, so as i understand its not possible to have a Dbus matcher to filter by specific logging events.\n\nPlease let me know if i am missing something and you know a way to handle it through matchers ?",
+      "parentUuid": "c4779cb8_20634bd0",
       "range": {
         "startLine": 421,
         "startChar": 0,
