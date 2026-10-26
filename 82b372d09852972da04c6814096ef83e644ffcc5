@@ -39,6 +39,24 @@
       "message": "Could you add a brief rationale in the commit message for\nwhy is this termination policy preferred?",
       "revId": "82b372d09852972da04c6814096ef83e644ffcc5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "081f6edf_c5816319",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-10-26T11:47:12Z",
+      "side": 1,
+      "message": "I believe similar behaviour existed previously but was removed. If exceptions are caught in main, we will lose the core dump and debugging information.\n \nhttps://github.com/openbmc/bmcweb/commit/45de61262b926ea4fcd668cae2b3bdaf8c2c7a57",
+      "parentUuid": "9ffd626d_a097cc9a",
+      "revId": "82b372d09852972da04c6814096ef83e644ffcc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
