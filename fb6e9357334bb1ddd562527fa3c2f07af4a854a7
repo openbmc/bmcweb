@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6beb5f8_fbfd450b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-26T18:32:40Z",
+      "side": 1,
+      "message": "This has changed in the code",
+      "range": {
+        "startLine": 15,
+        "startChar": 51,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "fb6e9357334bb1ddd562527fa3c2f07af4a854a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3225c650_30e29703",
@@ -14,6 +37,29 @@
       "writtenOn": "2026-10-21T11:20:51Z",
       "side": 1,
       "message": "Hi @yuvakumars@ami.com @vinothkumars@ami.com,\ncould you please review this commit?",
+      "revId": "fb6e9357334bb1ddd562527fa3c2f07af4a854a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6be7adab_70b860aa",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-26T18:32:40Z",
+      "side": 1,
+      "message": "You are changing behavior here - please at least add that to your commit msg",
+      "range": {
+        "startLine": 755,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 9
+      },
       "revId": "fb6e9357334bb1ddd562527fa3c2f07af4a854a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
