@@ -1048,9 +1048,34 @@ inline void requestRoutesChassis(App& app)
             std::bind_front(handleChassisPatch, std::ref(app)));
 }
 
+inline void setChassisPowerCycle(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath, const boost::system::error_code& ec,
+    const std::string& statePath, const std::string& service)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (statePath.empty() || service.empty())
+    {
+        BMCWEB_LOG_WARNING("No chassis state object found for {}", chassisPath);
+        messages::actionNotSupported(asyncResp->res, "Chassis.Reset");
+        return;
+    }
+
+    setDbusProperty(asyncResp, "ResetType", service, statePath,
+                    "xyz.openbmc_project.State.Chassis",
+                    "RequestedPowerTransition",
+                    "xyz.openbmc_project.State.Chassis.Transition.PowerCycle");
+}
+
 inline void handleChassisPowerCycle(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
+    const std::string& chassisPath, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& chassisList)
 {
     if (ec)
@@ -1060,24 +1085,22 @@ inline void handleChassisPowerCycle(
         return;
     }
 
-    const char* processName = "xyz.openbmc_project.State.Chassis";
-    const char* interfaceName = "xyz.openbmc_project.State.Chassis";
-    const char* destProperty = "RequestedPowerTransition";
-    const std::string propertyValue =
-        "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
+    const std::string processName = "xyz.openbmc_project.State.Chassis";
     std::string objectPath = "/xyz/openbmc_project/state/chassis_system0";
 
-    /* Look for system reset chassis path */
-    if ((std::ranges::find(chassisList, objectPath)) == chassisList.end())
+    if ((std::ranges::find(chassisList, objectPath)) != chassisList.end())
     {
-        /* We prefer to reset the full chassis_system, but if it doesn't
-         * exist on some platforms, fall back to a host-only power reset
-         */
-        objectPath = "/xyz/openbmc_project/state/chassis0";
+        setChassisPowerCycle(asyncResp, chassisPath, ec, objectPath,
+                             processName);
+        return;
     }
 
-    setDbusProperty(asyncResp, "ResetType", processName, objectPath,
-                    interfaceName, destProperty, propertyValue);
+    /* We prefer to reset the full chassis_system, but if it doesn't exist on
+     * some platforms, fall back to a host-only power reset
+     */
+    getChassisStatePath(
+        asyncResp, chassisPath,
+        std::bind_front(setChassisPowerCycle, asyncResp, chassisPath));
 }
 
 inline void doChassisPowerCycle(
@@ -1097,7 +1120,7 @@ inline void doChassisPowerCycle(
     // Use mapper to get subtree paths.
     dbus::utility::getSubTreePaths(
         "/", 0, interfaces,
-        std::bind_front(handleChassisPowerCycle, asyncResp));
+        std::bind_front(handleChassisPowerCycle, asyncResp, *validChassisPath));
 }
 
 inline void handleChassisResetActionInfoPost(

@@ -7,6 +7,7 @@
 #include "async_resp.hpp"
 #include "chassis.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "generated/enums/chassis.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -429,6 +430,35 @@ TEST(AfterGetChassisStatePath, EmptyServiceMapSetsInternalError)
               boost::beast::http::status::internal_server_error);
 }
 
+TEST(SetChassisPowerCycle, DbusErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+
+    setChassisPowerCycle(
+        response, "/xyz/openbmc_project/inventory/system/chassis", ec, "", "");
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(SetChassisPowerCycle, EmptyStatePathSetsActionNotSupported)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    setChassisPowerCycle(
+        response, "/xyz/openbmc_project/inventory/system/chassis", ec, "", "");
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::bad_request);
+
+    const nlohmann::json& extInfo =
+        response->res.jsonValue["error"]["@Message.ExtendedInfo"];
+    ASSERT_EQ(extInfo.size(), 1);
+    EXPECT_EQ(extInfo[0], messages::actionNotSupported("Chassis.Reset"));
+}
+
 TEST(HandleChassisPowerCycle, DbusErrorSetsInternalError)
 {
     auto response = std::make_shared<bmcweb::AsyncResp>();
@@ -436,7 +466,9 @@ TEST(HandleChassisPowerCycle, DbusErrorSetsInternalError)
         boost::system::errc::make_error_code(boost::system::errc::io_error);
     dbus::utility::MapperGetSubTreePathsResponse chassisList;
 
-    handleChassisPowerCycle(response, ec, chassisList);
+    handleChassisPowerCycle(response,
+                            "/xyz/openbmc_project/inventory/system/chassis", ec,
+                            chassisList);
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
