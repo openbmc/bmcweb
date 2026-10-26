@@ -305,7 +305,7 @@ TEST(UpdateService, StartUpdateErrorReturnsInternalError)
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     crow::Request req;
     handleStartUpdate(
-        asyncResp, task::Payload{req}, "/software",
+        asyncResp, task::Payload{req}, "/software", nullptr, nullptr,
         boost::system::errc::make_error_code(boost::system::errc::io_error),
         sdbusplus::object_path{});
 
