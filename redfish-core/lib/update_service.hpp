@@ -23,6 +23,7 @@
 #include "str_utility.hpp"
 #include "task.hpp"
 #include "task_messages.hpp"
+#include "update_messages.hpp"
 #include "utility.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
@@ -87,6 +88,67 @@ static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
 /* @brief String that indicates the Software Update D-Bus interface */
 constexpr const char* updateInterface = "xyz.openbmc_project.Software.Update";
 
+/* @brief String that indicates the Logging Entry D-Bus interface */
+constexpr const char* loggingEntryInterface =
+    "xyz.openbmc_project.Logging.Entry";
+
+/* @brief An update event read out of a logging entry */
+struct UpdateLogEntry
+{
+    std::string messageType;
+    std::unordered_map<std::string, std::string> additionalData;
+};
+
+/**
+ * @brief Read the update event a logging entry reports
+ *
+ * The update events are named after the Software.Update interface, so an
+ * entry is recognized as one without knowing the software object it targets.
+ *
+ * @param[in] interfacesProperties - Interfaces of the entry
+ *
+ * @return The event, or nullopt when the entry does not report one
+ */
+inline std::optional<UpdateLogEntry> parseUpdateLogEntry(
+    const dbus::utility::DBusInterfacesMap& interfacesProperties)
+{
+    for (const auto& [iface, properties] : interfacesProperties)
+    {
+        if (iface != loggingEntryInterface)
+        {
+            continue;
+        }
+
+        const std::string* message = nullptr;
+        const std::unordered_map<std::string, std::string>* additionalData =
+            nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "Message", message,
+            "AdditionalData", additionalData);
+
+        if (!success || message == nullptr ||
+            !message->starts_with(updateInterface))
+        {
+            return std::nullopt;
+        }
+
+        UpdateLogEntry entry;
+        entry.messageType = *message;
+        if (additionalData != nullptr)
+        {
+            entry.additionalData = *additionalData;
+        }
+        return entry;
+    }
+    return std::nullopt;
+}
+
+/* @brief Match for entries being added to the logging service */
+constexpr const char* loggingMatchStr =
+    "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
+    "member='InterfacesAdded',path='/xyz/openbmc_project/logging'";
+
 struct MemoryFileDescriptor
 {
     int fd = -1;
@@ -146,6 +208,119 @@ inline void activateImage(const std::string& objPath,
         });
 }
 
+/**
+ * @brief The value a logging entry reported for a metadata field
+ *
+ * @param[in] additionalData - Metadata of the entry
+ * @param[in] key - Field to read
+ *
+ * @return The value, empty when the entry did not report the field
+ */
+inline std::string metadataValue(
+    const std::unordered_map<std::string, std::string>& additionalData,
+    const std::string& key)
+{
+    auto value = additionalData.find(key);
+    return value != additionalData.end() ? value->second : std::string{};
+}
+
+inline std::optional<nlohmann::json::object_t> updateEventToTaskMessage(
+    const std::string& messageType,
+    const std::unordered_map<std::string, std::string>& additionalData)
+{
+    std::string imageId = metadataValue(additionalData, "IMAGE_IDENTIFIER");
+    std::string targetName = metadataValue(additionalData, "TARGET_NAME");
+
+    // Convert dbus object path to Redfish FirmwareInventory URI
+    sdbusplus::object_path targetObjPath(targetName);
+    boost::urls::url targetUri =
+        boost::urls::format("/redfish/v1/UpdateService/FirmwareInventory/{}",
+                            targetObjPath.filename());
+
+    if (messageType == "xyz.openbmc_project.Software.Update.VerificationFailed")
+    {
+        return messages::verificationFailed(imageId, targetUri.buffer());
+    }
+    if (messageType == "xyz.openbmc_project.Software.Update.ActivateFailed")
+    {
+        return messages::activateFailed(imageId, targetUri.buffer());
+    }
+    if (messageType ==
+        "xyz.openbmc_project.Software.Update.UpdateNotApplicable")
+    {
+        return messages::updateNotApplicable(imageId, targetUri.buffer());
+    }
+    if (messageType ==
+        "xyz.openbmc_project.Software.Update.TransferringToComponent")
+    {
+        return messages::transferringToComponent(imageId, targetUri.buffer());
+    }
+    if (messageType ==
+        "xyz.openbmc_project.Software.Update.VerifyingAtComponent")
+    {
+        return messages::verifyingAtComponent(imageId, targetUri.buffer());
+    }
+    if (messageType ==
+        "xyz.openbmc_project.Software.Update.InstallingOnComponent")
+    {
+        return messages::installingOnComponent(imageId, targetUri.buffer());
+    }
+    if (messageType == "xyz.openbmc_project.Software.Update.TransferFailed")
+    {
+        return messages::transferFailed(imageId, targetUri.buffer());
+    }
+    if (messageType == "xyz.openbmc_project.Software.Update.TargetDetermined")
+    {
+        return messages::targetDetermined(targetUri.buffer(), imageId);
+    }
+    if (messageType == "xyz.openbmc_project.Software.Update.UpdateSuccessful")
+    {
+        return messages::updateSuccessful(targetUri.buffer(), imageId);
+    }
+    return std::nullopt;
+}
+
+inline void processLogEntry(
+    const sdbusplus::object_path& swObjPath, task::TaskData& taskData,
+    const dbus::utility::DBusInterfacesMap& interfacesProperties)
+{
+    std::optional<UpdateLogEntry> entry =
+        parseUpdateLogEntry(interfacesProperties);
+    if (!entry)
+    {
+        return;
+    }
+
+    // Only report events naming the target of this update
+    if (metadataValue(entry->additionalData, "TARGET_NAME") != swObjPath.str)
+    {
+        return;
+    }
+
+    std::optional<nlohmann::json::object_t> msg =
+        updateEventToTaskMessage(entry->messageType, entry->additionalData);
+    if (msg)
+    {
+        taskData.messages.emplace_back(std::move(*msg));
+    }
+}
+/**
+ * @brief Convert an update event into a message of the task it belongs to
+ *
+ * @param[in] swObjPath - Software object the task reports against
+ * @param[in] taskData - The task
+ * @param[in] m - The InterfacesAdded signal of the logging service
+ */
+inline void handleLogEvent(const sdbusplus::object_path& swObjPath,
+                           const std::shared_ptr<task::TaskData>& taskData,
+                           sdbusplus::message_t& m)
+{
+    sdbusplus::object_path logEntryPath;
+    dbus::utility::DBusInterfacesMap interfacesProperties;
+    m.read(logEntryPath, interfacesProperties);
+
+    processLogEntry(swObjPath, *taskData, interfacesProperties);
+}
 inline bool handleCreateTask(const boost::system::error_code& ec2,
                              sdbusplus::message_t& msg,
                              const std::shared_ptr<task::TaskData>& taskData)
@@ -249,7 +424,8 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
 
 inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        task::Payload&& payload,
-                       const sdbusplus::object_path& objPath)
+                       const sdbusplus::object_path& objPath,
+                       const sdbusplus::object_path& targetPath)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
         std::bind_front(handleCreateTask),
@@ -259,6 +435,13 @@ inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     task->startTimer(std::chrono::minutes(5));
     task->payload.emplace(std::move(payload));
     task->populateResp(asyncResp->res);
+
+    if (!targetPath.str.empty())
+    {
+        task->loggingMatch = std::make_unique<sdbusplus::match>(
+            static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
+            loggingMatchStr, std::bind_front(handleLogEvent, targetPath, task));
+    }
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
@@ -321,7 +504,7 @@ inline void softwareInterfaceAdded(
                     activateImage(objPath.str, objInfo[0].first);
                     if (asyncResp)
                     {
-                        createTask(asyncResp, std::move(payload), objPath);
+                        createTask(asyncResp, std::move(payload), objPath, {});
                     }
                     fwUpdateInProgress = false;
                 });
@@ -424,7 +607,7 @@ inline void afterUpdateErrorMatcher(
     for (const std::pair<std::string, dbus::utility::DBusPropertiesMap>&
              interface : interfacesProperties)
     {
-        if (interface.first == "xyz.openbmc_project.Logging.Entry")
+        if (interface.first == loggingEntryInterface)
         {
             for (const std::pair<std::string, dbus::utility::DbusVariantType>&
                      value : interface.second)
@@ -865,7 +1048,8 @@ inline void handleStartUpdate(
 
     BMCWEB_LOG_INFO("Call to StartUpdate on {} Success, retPath = {}",
                     objectPath, retPath.str);
-    createTask(asyncResp, std::move(payload), retPath);
+    createTask(asyncResp, std::move(payload), retPath,
+               sdbusplus::object_path(objectPath));
 }
 
 inline void startUpdate(
@@ -884,7 +1068,6 @@ inline void startUpdate(
         serviceName, objectPath, updateInterface, "StartUpdate",
         sdbusplus::message::unix_fd(memfd.fd), applyTime);
 }
-
 inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       task::Payload payload, const MemoryFileDescriptor& memfd,
                       const std::string& applyTime, const std::string& target,
