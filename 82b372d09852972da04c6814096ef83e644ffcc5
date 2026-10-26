@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9117b8a_ce979f94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-26T10:35:16Z",
+      "side": 1,
+      "message": "Please wrap the commit message using the standard 50/72\nformat.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 58
+      },
+      "revId": "82b372d09852972da04c6814096ef83e644ffcc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ffd626d_a097cc9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-26T10:35:16Z",
+      "side": 1,
+      "message": "Could you add a brief rationale in the commit message for\nwhy is this termination policy preferred?",
+      "revId": "82b372d09852972da04c6814096ef83e644ffcc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
