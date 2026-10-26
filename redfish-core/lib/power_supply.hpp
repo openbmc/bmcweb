@@ -225,45 +225,48 @@ inline void getValidPowerSupplyPath(
         });
 }
 
+inline void afterGetPowerSupplyAsset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for Asset {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    asset_utils::extractAssetInfo(asyncResp, ""_json_pointer, propertiesList,
+                                  true);
+
+    const std::string* buildDate = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "BuildDate",
+        buildDate);
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (buildDate != nullptr)
+    {
+        time_utils::productionDateReport(asyncResp->res, *buildDate);
+    }
+}
+
 inline void getPowerSupplyAsset(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& service, const std::string& path)
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Inventory.Decorator.Asset",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const dbus::utility::DBusPropertiesMap& propertiesList) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Asset {}",
-                                     ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            asset_utils::extractAssetInfo(asyncResp, ""_json_pointer,
-                                          propertiesList, true);
-
-            const std::string* buildDate = nullptr;
-
-            const bool success = sdbusplus::unpackPropertiesNoThrow(
-                dbus_utils::UnpackErrorPrinter(), propertiesList, "BuildDate",
-                buildDate);
-            if (!success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            if (buildDate != nullptr)
-            {
-                time_utils::productionDateReport(asyncResp->res, *buildDate);
-            }
-        });
+        std::bind_front(afterGetPowerSupplyAsset, asyncResp));
 }
 
 inline void getPowerSupplyFirmwareVersion(
