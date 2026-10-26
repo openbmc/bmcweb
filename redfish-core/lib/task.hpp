@@ -142,6 +142,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             // destroy all references
             (*last)->timer.cancel();
             (*last)->match.reset();
+            (*last)->loggingMatch.reset();
             tasks.erase(last);
         }
 
@@ -237,6 +238,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     ec = boost::asio::error::operation_aborted;
                 }
                 self->match.reset();
+                self->loggingMatch.reset();
                 sdbusplus::message_t msg;
                 self->finishTask();
                 self->state = "Cancelled";
@@ -331,10 +333,15 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     // Send event
                     sendTaskEvent(self->state, self->index);
 
-                    // reset the match after the callback was successful
+                    // Posted rather than reset here: this runs from the
+                    // match's own callback, which the match owns, so
+                    // destroying it inline would destroy the frame still
+                    // executing.
                     boost::asio::post(
-                        crow::connections::systemBus->get_io_context(),
-                        [self] { self->match.reset(); });
+                        crow::connections::systemBus->get_io_context(), [self] {
+                            self->match.reset();
+                            self->loggingMatch.reset();
+                        });
                     return;
                 }
             });
@@ -356,6 +363,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     nlohmann::json::array_t messages;
     boost::asio::steady_timer timer;
     std::unique_ptr<sdbusplus::match> match;
+    std::unique_ptr<sdbusplus::match> loggingMatch;
     std::optional<std::chrono::system_clock::time_point> endTime;
     std::optional<Payload> payload;
     bool gave204 = false;
