@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81d34f2b_d72b06d0",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-26T18:25:43Z",
+      "side": 1,
+      "message": "So if you don\u0027t have enclosure_identify_blink it returns EBADR and continues? I guess you tested that by not having either of these?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 5
+      },
+      "revId": "1c0566819fc79e3bdb95061ea102804439ca91fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
