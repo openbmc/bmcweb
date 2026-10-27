@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e086ed_264b0550",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-27T18:19:24Z",
+      "side": 1,
+      "message": "We should run the Redfish Service Validator as well since there was a change to the GET behavior (See TESTING.md).",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 2
+      },
+      "revId": "1ad8383171ca311da91b565b755b76a31c0e5049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
