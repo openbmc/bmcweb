@@ -16,6 +16,29 @@
       "message": "nit: this is evident from CI status and not needed.",
       "revId": "4719c36d1ab2a1290526a8357d74d157bae659f4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c03b529_ea5ab47d",
+        "filename": "test/redfish-core/include/utils/sensor_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-27T18:22:47Z",
+      "side": 1,
+      "message": "Should we instead be creating separate unit tests for each case rather than all inside a single test such that the failure output is more specific?",
+      "range": {
+        "startLine": 439,
+        "startChar": 0,
+        "endLine": 439,
+        "endChar": 2
+      },
+      "revId": "4719c36d1ab2a1290526a8357d74d157bae659f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
