@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "735614da_c36f4693",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-27T06:50:51Z",
+      "side": 1,
+      "message": "Please follow 50/72 commit message formatting.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "dcf95ba89d6ba52e90ea96d669af8927068f28ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "616ea2ad_727339cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-27T06:50:51Z",
+      "side": 1,
+      "message": "I think, getSwInfo is reached via POST /redfish/v1/UpdateService/update-multipart with a FirmwareInventory target, not GET /redfish/v1/UpdateService/FirmwareInventory.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 63
+      },
+      "revId": "dcf95ba89d6ba52e90ea96d669af8927068f28ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
