@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab2add75_b86c38a9",
+        "filename": "test/redfish-core/lib/led_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-27T19:28:40Z",
+      "side": 1,
+      "message": "Ideally these are in like a test helper function..",
+      "revId": "5f0ef7e7611704bd855f9faba17e0bdf65543928",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
