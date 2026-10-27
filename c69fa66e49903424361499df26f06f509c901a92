@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23f3c9b7_c50c0568",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-27T14:29:45Z",
+      "side": 1,
+      "message": "nit: this is not needed.",
+      "range": {
+        "startLine": 34,
+        "startChar": 70,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "c69fa66e49903424361499df26f06f509c901a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "270b5954_bde3a25a",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-27T14:29:45Z",
+      "side": 1,
+      "message": "use std::to_array.",
+      "revId": "c69fa66e49903424361499df26f06f509c901a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6289beb1_cd476b08",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-27T14:29:45Z",
+      "side": 1,
+      "message": "see if we can sort `nicPortMetricMap` at compile time for quick look up of metric name inside it.",
+      "revId": "c69fa66e49903424361499df26f06f509c901a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee09435_b14dd713",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2026-10-27T14:29:45Z",
+      "side": 1,
+      "message": "If we need std::string here, let\u0027s make that element of `nicPortMetricMap` std::string.",
+      "revId": "c69fa66e49903424361499df26f06f509c901a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
