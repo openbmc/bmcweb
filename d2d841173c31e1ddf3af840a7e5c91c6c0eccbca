@@ -16,6 +16,24 @@
       "message": "Is `pcieDeviceName` the right name here? Since it\u0027s derived from `switchPath.filename(), can we use a more appropriate name?",
       "revId": "d2d841173c31e1ddf3af840a7e5c91c6c0eccbca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "195e1371_40622043",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-28T08:16:42Z",
+      "side": 1,
+      "message": "Renamed to `switchName`, which also matches the existing naming in this file, and noted why the switch leaf name is the PCIeDevice id.",
+      "parentUuid": "4a6845ba_9cabb7e0",
+      "revId": "d2d841173c31e1ddf3af840a7e5c91c6c0eccbca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
