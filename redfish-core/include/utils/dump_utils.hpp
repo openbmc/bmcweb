@@ -641,8 +641,9 @@ inline void downloadDumpEntry(
 
 inline bool runCreateDumpTask(
     const sdbusplus::object_path& createdObjPath, const std::string& dumpId,
-    bool isProgressIntfPresent, const boost::system::error_code& ec,
-    sdbusplus::message_t& msg, const std::shared_ptr<task::TaskData>& taskData)
+    const boost::urls::url& entriesUrl, bool isProgressIntfPresent,
+    const boost::system::error_code& ec, sdbusplus::message_t& msg,
+    const std::shared_ptr<task::TaskData>& taskData)
 {
     if (ec)
     {
@@ -684,9 +685,7 @@ inline bool runCreateDumpTask(
     nlohmann::json retMessage = messages::success();
     taskData->messages.emplace_back(retMessage);
 
-    boost::urls::url url = boost::urls::format(
-        "/redfish/v1/Managers/{}/LogServices/Dump/Entries/{}",
-        BMCWEB_REDFISH_MANAGER_URI_NAME, dumpId);
+    boost::urls::url url = boost::urls::format("{}/{}", entriesUrl, dumpId);
 
     std::string headerLoc = "Location: ";
     headerLoc += url.buffer();
@@ -708,12 +707,19 @@ inline bool runCreateDumpTask(
 inline void startCreateDumpTask(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const task::Payload& payload, const sdbusplus::object_path& createdObjPath,
-    const std::string& dumpId, const boost::system::error_code& ec,
-    const std::string& introspectXml)
+    const std::string& dumpId, DumpType dumpType,
+    const boost::system::error_code& ec, const std::string& introspectXml)
 {
     if (ec)
     {
         BMCWEB_LOG_ERROR("Introspect call failed with error: {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    std::optional<boost::urls::url> entriesUrl = getDumpEntriesUrl(dumpType);
+    if (!entriesUrl)
+    {
         messages::internalError(asyncResp->res);
         return;
     }
@@ -751,7 +757,7 @@ inline void startCreateDumpTask(
     }
 
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-        std::bind_front(runCreateDumpTask, createdObjPath, dumpId,
+        std::bind_front(runCreateDumpTask, createdObjPath, dumpId, *entriesUrl,
                         isProgressIntfPresent),
         "type='signal',interface='org.freedesktop.DBus.Properties',"
         "member='PropertiesChanged',path='" +
@@ -767,17 +773,17 @@ inline void startCreateDumpTask(
 inline void createDumpTaskCallback(
     task::Payload&& payload,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const sdbusplus::object_path& createdObjPath)
+    const sdbusplus::object_path& createdObjPath, DumpType dumpType)
 {
     const std::string dumpId = createdObjPath.filename();
 
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, payload = std::move(payload), createdObjPath,
-         dumpId](const boost::system::error_code& ec,
-                 const std::string& introspectXml) {
-            startCreateDumpTask(asyncResp, payload, createdObjPath, dumpId, ec,
-                                introspectXml);
+        [asyncResp, payload = std::move(payload), createdObjPath, dumpId,
+         dumpType](const boost::system::error_code& ec,
+                   const std::string& introspectXml) {
+            startCreateDumpTask(asyncResp, payload, createdObjPath, dumpId,
+                                dumpType, ec, introspectXml);
         },
         "xyz.openbmc_project.Dump.Manager", createdObjPath,
         "org.freedesktop.DBus.Introspectable", "Introspect");
@@ -785,7 +791,7 @@ inline void createDumpTaskCallback(
 
 inline void afterCreateDump(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    task::Payload&& payload, const boost::urls::url& dumpUrl,
+    task::Payload&& payload, const boost::urls::url& dumpUrl, DumpType dumpType,
     const boost::system::error_code& ec, const sdbusplus::message_t& msg,
     const sdbusplus::object_path& objPath)
 {
@@ -831,7 +837,7 @@ inline void afterCreateDump(
         return;
     }
     BMCWEB_LOG_DEBUG("Dump Created. Path: {}", objPath.str);
-    createDumpTaskCallback(std::move(payload), asyncResp, objPath);
+    createDumpTaskCallback(std::move(payload), asyncResp, objPath, dumpType);
 }
 
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -924,12 +930,12 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, payload(task::Payload(req)),
-         dumpUrl](const boost::system::error_code& ec,
-                  const sdbusplus::message_t& msg,
-                  const sdbusplus::object_path& objPath) mutable {
-            afterCreateDump(asyncResp, std::move(payload), dumpUrl, ec, msg,
-                            objPath);
+        [asyncResp, payload(task::Payload(req)), dumpUrl,
+         dumpType](const boost::system::error_code& ec,
+                   const sdbusplus::message_t& msg,
+                   const sdbusplus::object_path& objPath) mutable {
+            afterCreateDump(asyncResp, std::move(payload), dumpUrl, dumpType,
+                            ec, msg, objPath);
         },
         "xyz.openbmc_project.Dump.Manager", *dumpObjPath,
         "xyz.openbmc_project.Dump.Create", "CreateDump", createDumpParamVec);
