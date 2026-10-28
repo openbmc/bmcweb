@@ -59,6 +59,7 @@ struct Http2StreamData
     boost::optional<uint64_t> contentLength;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
+    bool bodyLimitExceeded = false;
 };
 
 template <typename Adaptor, typename Handler>
@@ -305,6 +306,10 @@ class HTTP2Connection :
             close();
             return -1;
         }
+        if (it->second.bodyLimitExceeded)
+        {
+            return 0;
+        }
         auto& reqReader = it->second.reqReader;
         if (reqReader)
         {
@@ -360,6 +365,23 @@ class HTTP2Connection :
         return 0;
     }
 
+    int rejectOversizedBody(int32_t streamId, Http2StreamData& stream)
+    {
+        BMCWEB_LOG_WARNING("Request body limit exceeded on stream {}",
+                           streamId);
+        int rv = ngSession.submitRstStream(streamId, NGHTTP2_ENHANCE_YOUR_CALM);
+        if (rv != 0)
+        {
+            BMCWEB_LOG_ERROR("Failed to reset stream {}: {}", streamId,
+                             nghttp2_strerror(rv));
+            return NGHTTP2_ERR_CALLBACK_FAILURE;
+        }
+        stream.bodyLimitExceeded = true;
+        stream.reqReader.reset();
+        stream.req->req.body().clear();
+        return 0;
+    }
+
     int onDataChunkRecvCallback(uint8_t /*flags*/, int32_t streamId,
                                 const uint8_t* data, size_t len)
     {
@@ -369,6 +391,11 @@ class HTTP2Connection :
             BMCWEB_LOG_ERROR("Unknown stream{}", streamId);
             close();
             return -1;
+        }
+
+        if (thisStream->second.bodyLimitExceeded)
+        {
+            return 0;
         }
 
         std::optional<bmcweb::HttpBody::reader>& reqReader =
@@ -381,6 +408,10 @@ class HTTP2Connection :
             reqReader->init(thisStream->second.contentLength, initEc);
             if (initEc)
             {
+                if (initEc == boost::beast::http::error::body_limit)
+                {
+                    return rejectOversizedBody(streamId, thisStream->second);
+                }
                 BMCWEB_LOG_CRITICAL("Failed to initialize payload");
                 return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
             }
@@ -389,6 +420,10 @@ class HTTP2Connection :
         reqReader->put(boost::asio::const_buffer(data, len), ec);
         if (ec)
         {
+            if (ec == boost::beast::http::error::body_limit)
+            {
+                return rejectOversizedBody(streamId, thisStream->second);
+            }
             BMCWEB_LOG_CRITICAL("Failed to write payload");
             return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
         }
