@@ -681,6 +681,7 @@ def main() -> None:
         [
             ("base", "1.19.0"),
             ("composition", "1.1.2"),
+            ("device", "1.0.0"),
             ("environmental", "1.1.0"),
             ("ethernet_fabric", "1.0.1"),
             ("fabric", "1.0.2"),
@@ -703,6 +704,7 @@ def main() -> None:
     # Registries generated and exposed by default.
     default_registries = [
         "base",
+        "device",
         "environmental",
         "heartbeat_event",
         "openbmc",
