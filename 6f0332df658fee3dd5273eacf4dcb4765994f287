@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a7ec456_708a0b73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-28T06:44:23Z",
+      "side": 1,
+      "message": "Hi @vinothkumars@ami.com @yuvakumars@ami.com,\nCan you please review this change.",
+      "revId": "6f0332df658fee3dd5273eacf4dcb4765994f287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
