@@ -57,6 +57,30 @@
       },
       "revId": "4719c36d1ab2a1290526a8357d74d157bae659f4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1886c9b_f1e22a6c",
+        "filename": "test/redfish-core/include/utils/sensor_utils_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-10-28T08:07:50Z",
+      "side": 1,
+      "message": "Agreed, split into ReadingTime, ReadingTimeZero, ReadingTimeAbsent and ReadingTimeExcerpt so a failure names the case.",
+      "parentUuid": "9c03b529_ea5ab47d",
+      "range": {
+        "startLine": 439,
+        "startChar": 0,
+        "endLine": 439,
+        "endChar": 2
+      },
+      "revId": "4719c36d1ab2a1290526a8357d74d157bae659f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
