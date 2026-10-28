@@ -16,6 +16,24 @@
       "message": "This would be safer with a check \n\n```\nif (serviceMap.empty())\n{\n    BMCWEB_LOG_DEBUG(\"No D-Bus service found for LED group {}\",\n                     ledGroupPath);\n     callback(ec, \"\", \"\");\n     return \n```\n\nOh well, could be fixed later",
       "revId": "84ff9d36254c713e96dec97c914b82b2a7e15595",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d302d0c6_41356c82",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-28T04:24:08Z",
+      "side": 1,
+      "message": "Ok, I will submit other patch to fix it, thanks for review.",
+      "parentUuid": "d30c8eb7_9af0868c",
+      "revId": "84ff9d36254c713e96dec97c914b82b2a7e15595",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
