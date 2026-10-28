@@ -420,6 +420,11 @@ std::optional<std::string> getDateTimeIso8601(std::string_view datetime)
  */
 void productionDateReport(crow::Response& res, const std::string& buildDate)
 {
+    // The default buildDate property is empty, so just return
+    if (buildDate.empty())
+    {
+        return;
+    }
     std::optional<std::string> valueStr = getDateTimeIso8601(buildDate);
     if (!valueStr)
     {
