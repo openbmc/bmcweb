@@ -2503,39 +2503,58 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, sensorId);
-
-    BMCWEB_LOG_DEBUG("Sensor doGet enter");
-
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Sensor.Value"};
-    std::string sensorPath = "/xyz/openbmc_project/sensors/" + nameType.first +
-                             '/' + nameType.second;
-    // Get a list of all of the sensors that implement Sensor.Value
-    // and get the path and service name associated with the sensor
-    ::dbus::utility::getDbusObject(
-        sensorPath, interfaces,
+    // Validate that the requested chassis exists before returning the sensor.
+    // The D-Bus sensor path is not scoped by chassis, so without this check an
+    // invalid chassisId would still return the sensor.
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
         // ast-grep-ignore: long-lambda
-        [asyncResp, sensorId,
-         sensorPath](const boost::system::error_code& ec,
-                     const ::dbus::utility::MapperGetObject& subtree) {
-            BMCWEB_LOG_DEBUG("respHandler1 enter");
-            if (ec == boost::system::errc::io_error)
+        [asyncResp, chassisId, sensorId,
+         nameType](const std::optional<std::string>& validChassisPath) {
+            if (!validChassisPath)
             {
-                BMCWEB_LOG_WARNING("Sensor not found from getSensorPaths");
-                messages::resourceNotFound(asyncResp->res, "Sensor", sensorId);
+                messages::resourceNotFound(asyncResp->res, "Chassis",
+                                           chassisId);
                 return;
             }
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                BMCWEB_LOG_ERROR(
-                    "Sensor getSensorPaths resp_handler: Dbus error {}", ec);
-                return;
-            }
-            getSensorFromDbus(asyncResp, sensorPath, subtree);
-            BMCWEB_LOG_DEBUG("respHandler1 exit");
+
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, sensorId);
+
+            BMCWEB_LOG_DEBUG("Sensor doGet enter");
+
+            constexpr std::array<std::string_view, 1> interfaces = {
+                "xyz.openbmc_project.Sensor.Value"};
+            std::string sensorPath = "/xyz/openbmc_project/sensors/" +
+                                     nameType.first + '/' + nameType.second;
+            // Get a list of all of the sensors that implement Sensor.Value
+            // and get the path and service name associated with the sensor
+            ::dbus::utility::getDbusObject(
+                sensorPath, interfaces,
+                // ast-grep-ignore: long-lambda
+                [asyncResp, sensorId, sensorPath](
+                    const boost::system::error_code& ec,
+                    const ::dbus::utility::MapperGetObject& subtree) {
+                    BMCWEB_LOG_DEBUG("respHandler1 enter");
+                    if (ec == boost::system::errc::io_error)
+                    {
+                        BMCWEB_LOG_WARNING(
+                            "Sensor not found from getSensorPaths");
+                        messages::resourceNotFound(asyncResp->res, "Sensor",
+                                                   sensorId);
+                        return;
+                    }
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        BMCWEB_LOG_ERROR(
+                            "Sensor getSensorPaths resp_handler: Dbus error {}",
+                            ec);
+                        return;
+                    }
+                    getSensorFromDbus(asyncResp, sensorPath, subtree);
+                    BMCWEB_LOG_DEBUG("respHandler1 exit");
+                });
         });
 }
 
