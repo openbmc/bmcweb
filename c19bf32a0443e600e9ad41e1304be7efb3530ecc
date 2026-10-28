@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6524ed8_97338896",
+        "filename": "include/user_monitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000163
+      },
+      "writtenOn": "2026-10-28T22:15:16Z",
+      "side": 1,
+      "message": "Rather than keying off of a hard-coded name that we shouldn\u0027t be using in the first place, how about we key off something that won\u0027t change. Usernames can change. What happens when the username changes and bmcweb reboots? It loses the fact that the user is a bootstrap account. We need to rely on a dbus property (or maybe a group) that tells us it is a bootstrap account. \n\nSince the spec says that on service or host reset the bootstrap accounts should all be deleted, it seems like we need to keep better track of them. By making all bootstrap accounts members of the redfish group AND the bootstrap group, it is really easy to simply find all the users in the bootstrap group and delete them.",
+      "revId": "c19bf32a0443e600e9ad41e1304be7efb3530ecc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
