@@ -321,6 +321,15 @@ TEST(Utility, ProductionDateReportRejectsInvalidBuildDate)
     EXPECT_EQ(res.result(), boost::beast::http::status::internal_server_error);
 }
 
+TEST(Utility, ProductionDateReportEmptyStringLeavesResponseClean)
+{
+    crow::Response res;
+    productionDateReport(res, "");
+
+    EXPECT_FALSE(res.jsonValue.contains("ProductionDate"));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+}
+
 TEST(Utility, GetDateTimeOffsetNow)
 {
     // Not a lot of good ways to verify "now" is correct, but we can at least
