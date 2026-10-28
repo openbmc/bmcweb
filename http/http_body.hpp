@@ -2,6 +2,8 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "duplicatable_file_handle.hpp"
 #include "logging.hpp"
 #include "multipart_parser.hpp"
@@ -177,7 +179,7 @@ class HttpBody::value_type
 
     void clear()
     {
-        bodyData = std::string{};
+        bodyData.emplace<std::string>();
         encodingType = EncodingType::Raw;
     }
 
@@ -384,11 +386,17 @@ class HttpBody::reader
     value_type& value;
     std::optional<MultipartParser> multipartParser;
     const boost::beast::http::fields& hdr;
+    // A Beast parser enforces its own body_limit before calling put(), so
+    // only callers that feed the reader without one (HTTP/2) set this.
+    std::optional<size_t> maxBodySize;
+    size_t bodySize = 0;
 
   public:
     template <bool IsRequest, class Fields>
     reader(boost::beast::http::header<IsRequest, Fields>& headers,
-           value_type& body) : value(body), hdr(headers)
+           value_type& body,
+           std::optional<size_t> maxBodySizeIn = std::nullopt) :
+        value(body), hdr(headers), maxBodySize(maxBodySizeIn)
     {}
 
     void init(const boost::optional<std::uint64_t>& contentLength,
@@ -441,6 +449,16 @@ class HttpBody::reader
                     boost::system::error_code& ec)
     {
         size_t extra = boost::beast::buffer_bytes(buffers);
+        // bodySize never exceeds *maxBodySize, so the subtraction cannot
+        // wrap.
+        if (maxBodySize && extra > *maxBodySize - bodySize)
+        {
+            BMCWEB_LOG_WARNING(
+                "Body chunk of {} bytes pushes the total to over the max body size {}, rejecting.",
+                extra, *maxBodySize);
+            ec = boost::beast::http::error::body_limit;
+            return 0;
+        }
         for (const auto b : boost::beast::buffers_range_ref(buffers))
         {
             const char* ptr = static_cast<const char*>(b.data());
@@ -462,6 +480,7 @@ class HttpBody::reader
                 value.str().append(ptr, b.size());
             }
         }
+        bodySize += extra;
         ec = {};
         return extra;
     }

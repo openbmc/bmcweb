@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "bmcweb_config.h"
+
 #include "async_resp.hpp"
 #include "http/http2_connection.hpp"
 #include "http/http_request.hpp"
@@ -25,6 +27,7 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -38,6 +41,7 @@ namespace crow
 namespace
 {
 
+using ::testing::Contains;
 using ::testing::Pair;
 using ::testing::UnorderedElementsAre;
 
@@ -203,6 +207,235 @@ TEST(http_connection, RequestPropogates)
                     Pair("pragma", "no-cache"), Pair("date", "TestTime")));
 
     EXPECT_EQ(outStr, expectedPostfix);
+}
+
+struct Frame
+{
+    uint8_t type = 0;
+    uint8_t flags = 0;
+    std::string payload;
+};
+
+// Runs the connection's pending writes and returns the HEADERS, DATA and
+// RST_STREAM frames it sent on streamId.
+std::vector<Frame> sentFrames(boost::asio::io_context& io, TestStream& out,
+                              uint32_t streamId)
+{
+    io.restart();
+    io.poll();
+
+    std::string_view data = out.str();
+    auto byteAt = [&data](size_t index) {
+        return static_cast<uint32_t>(static_cast<uint8_t>(data[index]));
+    };
+    std::vector<Frame> frames;
+    while (data.size() >= 9)
+    {
+        size_t length = (byteAt(0) << 16U) | (byteAt(1) << 8U) | byteAt(2);
+        if (data.size() < 9 + length)
+        {
+            break;
+        }
+        uint8_t type = static_cast<uint8_t>(byteAt(3));
+        uint32_t frameStreamId =
+            ((byteAt(5) & 0x7FU) << 24U) | (byteAt(6) << 16U) |
+            (byteAt(7) << 8U) | byteAt(8);
+        if (frameStreamId == streamId &&
+            (type == NGHTTP2_HEADERS || type == NGHTTP2_DATA ||
+             type == NGHTTP2_RST_STREAM))
+        {
+            frames.push_back({type, static_cast<uint8_t>(byteAt(4)),
+                              std::string(data.substr(9, length))});
+        }
+        data.remove_prefix(9 + length);
+    }
+    EXPECT_TRUE(data.empty());
+    return frames;
+}
+
+// A rejected stream gets a complete response with the given status; if the
+// client was still sending, a RST_STREAM(NO_ERROR) follows.
+void expectRejected(const std::vector<Frame>& frames, std::string_view status,
+                    bool reset)
+{
+    ASSERT_EQ(frames.size(), reset ? 3U : 2U);
+
+    EXPECT_EQ(frames[0].type, NGHTTP2_HEADERS);
+    std::vector<std::pair<std::string, std::string>> headers;
+    unpackHeaders(frames[0].payload, headers);
+    EXPECT_THAT(headers, Contains(Pair(":status", std::string(status))));
+
+    EXPECT_EQ(frames[1].type, NGHTTP2_DATA);
+    EXPECT_NE(frames[1].flags & NGHTTP2_FLAG_END_STREAM, 0);
+
+    if (reset)
+    {
+        EXPECT_EQ(frames[2].type, NGHTTP2_RST_STREAM);
+        EXPECT_EQ(frames[2].payload, std::string(4, '\0'));
+    }
+}
+
+TEST(http_connection, BodyLimitAnswers413AndResetsOnlyTheStream)
+{
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    ASSERT_TRUE(conn->streams.contains(1));
+
+    constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+    std::vector<uint8_t> body(maxBodySize, 'a');
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, body.data(), body.size()), 0);
+
+    constexpr uint8_t extra = 'b';
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &extra, 1), 0);
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+    EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
+    EXPECT_FALSE(streamIt->second.reqReader);
+    EXPECT_TRUE(streamIt->second.req->req.body().str().empty());
+    EXPECT_LT(streamIt->second.req->req.body().str().capacity(), maxBodySize);
+
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &extra, 1), 0);
+    EXPECT_TRUE(streamIt->second.req->req.body().str().empty());
+    EXPECT_EQ(conn->onRequestRecv(1), 0);
+    EXPECT_FALSE(handler.called);
+
+    expectRejected(sentFrames(io, out, 1), "413", true);
+    EXPECT_FALSE(conn->streams.contains(1));
+
+    std::string_view postResetData =
+        "\x00\x00\x01\x00\x01\x00\x00\x00\x01\x63"sv;
+    std::span<const uint8_t> postResetInput(
+        std::bit_cast<const uint8_t*>(postResetData.data()),
+        postResetData.size());
+    ASSERT_EQ(conn->ngSession.memRecv(postResetInput),
+              static_cast<ssize_t>(postResetInput.size()));
+    EXPECT_FALSE(handler.called);
+
+    std::string_view nextRequestHeaders =
+        "\x00\x00\x29\x01\x05\x00\x00\x00\x03"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> nextInput(
+        std::bit_cast<const uint8_t*>(nextRequestHeaders.data()),
+        nextRequestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(nextInput),
+              static_cast<ssize_t>(nextInput.size()));
+    EXPECT_TRUE(handler.called);
+}
+
+TEST(http_connection, DeclaredBodyLimitAnswers413)
+{
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+
+    constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+    streamIt->second.contentLength = maxBodySize + 1;
+
+    constexpr uint8_t data = 'a';
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &data, 1), 0);
+    EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
+    EXPECT_FALSE(streamIt->second.reqReader);
+    EXPECT_TRUE(streamIt->second.req->req.body().str().empty());
+    EXPECT_EQ(conn->onRequestRecv(1), 0);
+    EXPECT_FALSE(handler.called);
+
+    expectRejected(sentFrames(io, out, 1), "413", true);
+}
+
+// A client that ended its side with the oversized DATA frame gets the 413,
+// which closes the stream without a reset.
+TEST(http_connection, BodyLimitSkipsResetAfterClientFinished)
+{
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+
+    constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+    streamIt->second.contentLength = maxBodySize + 1;
+
+    // DATA frame, 1 byte, END_STREAM, stream 1
+    std::string_view lastData = "\x00\x00\x01\x00\x01\x00\x00\x00\x01\x61"sv;
+    std::span<const uint8_t> lastInput(
+        std::bit_cast<const uint8_t*>(lastData.data()), lastData.size());
+    ASSERT_EQ(conn->ngSession.memRecv(lastInput),
+              static_cast<ssize_t>(lastInput.size()));
+    EXPECT_FALSE(handler.called);
+
+    expectRejected(sentFrames(io, out, 1), "413", false);
+    EXPECT_FALSE(conn->streams.contains(1));
 }
 
 } // namespace
