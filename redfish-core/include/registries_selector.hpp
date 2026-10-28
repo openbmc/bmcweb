@@ -3,6 +3,7 @@
 #pragma once
 // NOLINTBEGIN(misc-include-cleaner)
 #include "registries/base_message_registry.hpp"
+#include "registries/device_message_registry.hpp"
 #include "registries/environmental_message_registry.hpp"
 #include "registries/heartbeat_event_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
