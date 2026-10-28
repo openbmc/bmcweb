@@ -46,6 +46,30 @@
       },
       "revId": "366bad7b06980e8410b78a71669a471164977b4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c1157f4_73474174",
+        "filename": "test/redfish-core/lib/network_adapter_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-28T04:27:43Z",
+      "side": 1,
+      "message": "Thanks for checking. \nI have reworked the patch so that the test case aligned to the parent patch.",
+      "parentUuid": "5a1ab364_468d25da",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 1
+      },
+      "revId": "366bad7b06980e8410b78a71669a471164977b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
