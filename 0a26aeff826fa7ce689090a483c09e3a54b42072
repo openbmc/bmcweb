@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae23d700_58fc473f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-28T16:39:07Z",
+      "side": 1,
+      "message": "I agree this additional validation is correct. However, I don\u0027t think this is a complete fix.\n\nFor the Chassis Collection, the list of sensors obtained are using the /all_sensors association. [1] \n\nBut here we are just getting any sensor regardless of whether it is actually connected to the Chassis being queried.\n\n[1] https://github.com/openbmc/bmcweb/blob/c846fb5d6f816a85c27b9f54a012058a75c0b7f4/redfish-core/lib/sensors.hpp#L485",
+      "range": {
+        "startLine": 22,
+        "startChar": 19,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "0a26aeff826fa7ce689090a483c09e3a54b42072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a2dda1_1f400d21",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2511,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2026-10-28T16:39:07Z",
+      "side": 1,
+      "message": "Please don\u0027t introduce new long lambdas. This should go into a named function instead.",
+      "range": {
+        "startLine": 2511,
+        "startChar": 8,
+        "endLine": 2511,
+        "endChar": 39
+      },
+      "revId": "0a26aeff826fa7ce689090a483c09e3a54b42072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
