@@ -371,5 +371,24 @@ TEST(http_connection, DeclaredBodyLimitResetsTheStream)
     EXPECT_EQ(*resetError, NGHTTP2_ENHANCE_YOUR_CALM);
 }
 
+TEST(http_connection, Http2ConnectionCountsTowardLimit)
+{
+    boost::asio::io_context io;
+    TestStream stream(io);
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+
+    int baseline = connectionCount;
+    {
+        auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+            boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+            &handler, date, HttpType::HTTP, nullptr,
+            boost::asio::ip::address());
+        EXPECT_EQ(connectionCount, baseline + 1);
+    }
+    EXPECT_EQ(connectionCount, baseline);
+}
+
 } // namespace
 } // namespace crow

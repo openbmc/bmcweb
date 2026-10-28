@@ -78,7 +78,23 @@ class HTTP2Connection :
         ngSession(initializeNghttp2Session()), handler(handlerIn),
         getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn),
         ip(std::move(ipIn))
-    {}
+    {
+        connectionCount++;
+        BMCWEB_LOG_DEBUG("{} HTTP2Connection created, total {}", logPtr(this),
+                         connectionCount);
+    }
+
+    ~HTTP2Connection()
+    {
+        connectionCount--;
+        BMCWEB_LOG_DEBUG("{} HTTP2Connection closed, total {}", logPtr(this),
+                         connectionCount);
+    }
+
+    HTTP2Connection(const HTTP2Connection&) = delete;
+    HTTP2Connection(HTTP2Connection&&) = delete;
+    HTTP2Connection& operator=(const HTTP2Connection&) = delete;
+    HTTP2Connection& operator=(HTTP2Connection&&) = delete;
 
     void start()
     {
