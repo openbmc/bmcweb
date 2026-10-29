@@ -370,11 +370,11 @@ class Connection :
                 if (httpType == HttpType::HTTP)
                 {
                     handler->handleUpgrade(req, asyncResp,
-                                           std::move(adaptor.next_layer()));
+                                           adaptor.next_layer());
                 }
                 else
                 {
-                    handler->handleUpgrade(req, asyncResp, std::move(adaptor));
+                    handler->handleUpgrade(req, asyncResp, adaptor);
                 }
 
                 return true;
