@@ -140,6 +140,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa8403f7_2b3b61d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002889
+      },
+      "writtenOn": "2026-10-29T01:35:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f924ebc1_ff523712",
+      "revId": "e0dec85f77ef28103b84c4758de40006999829fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67b16f43_5e24c914",
@@ -153,6 +171,30 @@
       "writtenOn": "2026-10-14T07:34:15Z",
       "side": 1,
       "message": "Please add unit test for this.\n\nhttps://github.com/openbmc/bmcweb/blob/master/test/redfish-core/include/utils/sensor_utils_test.cpp",
+      "range": {
+        "startLine": 191,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 5
+      },
+      "revId": "e0dec85f77ef28103b84c4758de40006999829fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef757b50_5d259e7a",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002889
+      },
+      "writtenOn": "2026-10-29T01:35:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67b16f43_5e24c914",
       "range": {
         "startLine": 191,
         "startChar": 4,
@@ -186,6 +228,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "562e262b_37887228",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002889
+      },
+      "writtenOn": "2026-10-29T01:35:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00dc4050_3bde3e55",
+      "range": {
+        "startLine": 262,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 5
+      },
+      "revId": "e0dec85f77ef28103b84c4758de40006999829fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c1c307f_0d312630",
@@ -199,6 +265,30 @@
       "writtenOn": "2026-10-14T07:34:15Z",
       "side": 1,
       "message": "This as well.",
+      "range": {
+        "startLine": 334,
+        "startChar": 4,
+        "endLine": 337,
+        "endChar": 5
+      },
+      "revId": "e0dec85f77ef28103b84c4758de40006999829fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f489ce08_d9c474aa",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1002889
+      },
+      "writtenOn": "2026-10-29T01:35:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c1c307f_0d312630",
       "range": {
         "startLine": 334,
         "startChar": 4,
