@@ -33,6 +33,24 @@
       "message": "It was the original idea to make objmgr method (etAssociatedSubTreePathsById) to reduce 2 dbus calls into 1 dbus call.\n\nSo, instead 2 steps of dbus calls ( getValidFabricAdapterPath, and getAssociatedSubTreePaths), should `objmgr` be the one to change `getAssociatedSubTreePathsById()` to return the error if `adapterId` is not found?\n\nFrom that view, it seems the issue is at objmgr which does not handle the case `Id` not found.",
       "revId": "ef3e627045904ce866e3411fc2d977bc7fc15d23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6a4b73f_fcfdd0de",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-29T08:25:59Z",
+      "side": 1,
+      "message": "I agree that one D-Bus call would be preferable. ObjectMapper already returns ResourceNotFound when no path matches the ID, but getAssociatedSubTreePathsById() helper converts that error into success with an empty list. That is why the previous handler returned HTTP 200.\n\nChanging ObjectMapper alone would therefore not fix this path. This patch explicitly checks that the FabricAdapter exists before fetching its ports, so a missing adapter returns 404 while an existing adapter with no ports still returns an empty collection. Restoring the single-call approach would also require changing the helper error handling.",
+      "parentUuid": "d8279060_94d6bfcc",
+      "revId": "ef3e627045904ce866e3411fc2d977bc7fc15d23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
