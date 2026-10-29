@@ -13,7 +13,11 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/name_utils.hpp"
+
+#include <optional>
+#include <string_view>
 
 namespace redfish
 {
@@ -115,6 +119,43 @@ inline std::optional<protocol::Protocol> convertDriveProtocol(
     return protocol::Protocol::Invalid;
 }
 
+inline std::optional<drive::EncryptionStatus> convertDriveEncryptionStatus(
+    std::string_view encryptionStatus, std::string_view lockedStatus)
+{
+    if (encryptionStatus ==
+        "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Unknown")
+    {
+        return std::nullopt;
+    }
+    if (encryptionStatus ==
+        "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Unencrypted")
+    {
+        return drive::EncryptionStatus::Unencrypted;
+    }
+    if (encryptionStatus !=
+        "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Encrypted")
+    {
+        return drive::EncryptionStatus::Invalid;
+    }
+    if (lockedStatus ==
+        "xyz.openbmc_project.Inventory.Item.Drive.DriveLockState.Locked")
+    {
+        return drive::EncryptionStatus::Locked;
+    }
+    if (lockedStatus ==
+        "xyz.openbmc_project.Inventory.Item.Drive.DriveLockState.Unlocked")
+    {
+        return drive::EncryptionStatus::Unlocked;
+    }
+    if (lockedStatus.empty() ||
+        lockedStatus ==
+            "xyz.openbmc_project.Inventory.Item.Drive.DriveLockState.Unknown")
+    {
+        return std::nullopt;
+    }
+    return drive::EncryptionStatus::Invalid;
+}
+
 inline void getDriveItemProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& connectionName, const std::string& path)
@@ -132,7 +173,7 @@ inline void getDriveItemProperties(
                 return;
             }
             const std::string* encryptionStatus = nullptr;
-            const bool* isLocked = nullptr;
+            const std::string* lockedStatus = nullptr;
             for (const std::pair<std::string, dbus::utility::DbusVariantType>&
                      property : propertiesList)
             {
@@ -239,45 +280,37 @@ inline void getDriveItemProperties(
                         return;
                     }
                 }
-                else if (propertyName == "Locked")
+                else if (propertyName == "LockedStatus")
                 {
-                    isLocked = std::get_if<bool>(&property.second);
-                    if (isLocked == nullptr)
+                    lockedStatus = std::get_if<std::string>(&property.second);
+                    if (lockedStatus == nullptr)
                     {
-                        BMCWEB_LOG_ERROR("Illegal property: Locked");
+                        BMCWEB_LOG_ERROR("Illegal property: LockedStatus");
                         messages::internalError(asyncResp->res);
                         return;
                     }
                 }
             }
 
-            if (encryptionStatus == nullptr || isLocked == nullptr ||
-                *encryptionStatus ==
-                    "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Unknown")
+            if (encryptionStatus == nullptr)
             {
                 return;
             }
-            if (*encryptionStatus !=
-                "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Encrypted")
+            std::optional<drive::EncryptionStatus> status =
+                convertDriveEncryptionStatus(*encryptionStatus,
+                                             lockedStatus != nullptr
+                                                 ? *lockedStatus
+                                                 : std::string_view{});
+            if (!status)
             {
-                //"The drive is not currently encrypted."
-                asyncResp->res.jsonValue["EncryptionStatus"] =
-                    drive::EncryptionStatus::Unencrypted;
                 return;
             }
-            if (*isLocked)
+            if (*status == drive::EncryptionStatus::Invalid)
             {
-                //"The drive is currently encrypted and the data is not
-                // accessible to the user."
-                asyncResp->res.jsonValue["EncryptionStatus"] =
-                    drive::EncryptionStatus::Locked;
+                messages::internalError(asyncResp->res);
                 return;
             }
-            // if not locked
-            // "The drive is currently encrypted but the data is accessible
-            // to the user in unencrypted form."
-            asyncResp->res.jsonValue["EncryptionStatus"] =
-                drive::EncryptionStatus::Unlocked;
+            asyncResp->res.jsonValue["EncryptionStatus"] = *status;
         });
 }
 
