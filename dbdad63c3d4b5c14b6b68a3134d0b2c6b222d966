@@ -33,6 +33,29 @@
       "message": "Hi @vinothkumars@ami.com @yuvakumars@ami.com,\nCan you please review this change.",
       "revId": "dbdad63c3d4b5c14b6b68a3134d0b2c6b222d966",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92a070bb_6def2607",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-29T15:35:09Z",
+      "side": 1,
+      "message": "Head already has this check.. Interesting.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 13
+      },
+      "revId": "dbdad63c3d4b5c14b6b68a3134d0b2c6b222d966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
