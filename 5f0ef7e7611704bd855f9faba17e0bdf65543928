@@ -16,6 +16,24 @@
       "message": "Ideally these are in like a test helper function..",
       "revId": "5f0ef7e7611704bd855f9faba17e0bdf65543928",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e1aa1b_e4fb4da1",
+        "filename": "test/redfish-core/lib/led_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-29T06:57:28Z",
+      "side": 1,
+      "message": "Done. Moved internalErrorJson() into\nredfish-core/include/error_messages_test_utils.hpp in the parent change\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/96493, which also uses it\nin the existing *InternalError tests whose response holds only that\nerror. locationIndicatorUnknownJson() stays here since it is\nLED-specific.",
+      "parentUuid": "ab2add75_b86c38a9",
+      "revId": "5f0ef7e7611704bd855f9faba17e0bdf65543928",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
