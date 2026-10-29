@@ -60,6 +60,7 @@ struct Http2StreamData
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
     bool bodyLimitExceeded = false;
+    bool authenticated = false;
 };
 
 template <typename Adaptor, typename Handler>
@@ -351,12 +352,12 @@ class HTTP2Connection :
         thisRes.setCompleteRequestHandler(std::bind_front(
             &self_type::afterCompleteRequest, weak_from_this(), streamId));
 
+        authenticateStream(it->second);
+
         auto asyncResp =
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
         if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
-            thisReq.session = authentication::authenticate(
-                ip, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
             if (!authentication::isOnAllowlist(thisReq.url().path(),
                                                thisReq.method()) &&
                 thisReq.session == nullptr)
@@ -379,6 +380,33 @@ class HTTP2Connection :
         it->second.req->ipAddress = ip;
         handler->handle(it->second.req, asyncResp);
         return 0;
+    }
+
+    void authenticateStream(Http2StreamData& stream)
+    {
+        if (stream.authenticated)
+        {
+            return;
+        }
+        stream.authenticated = true;
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        {
+            Request& thisReq = *stream.req;
+            thisReq.session = authentication::authenticate(
+                ip, stream.res, thisReq.method(), thisReq.req, mtlsSession);
+        }
+    }
+
+    uint64_t getContentLengthLimit(const Http2StreamData& stream) const
+    {
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        {
+            if (stream.req->session == nullptr)
+            {
+                return loggedOutPostBodyLimit;
+            }
+        }
+        return httpReqBodyLimit;
     }
 
     int rejectOversizedBody(int32_t streamId, Http2StreamData& stream)
@@ -418,8 +446,10 @@ class HTTP2Connection :
             thisStream->second.reqReader;
         if (!reqReader)
         {
+            authenticateStream(thisStream->second);
             Request::Body& req = thisStream->second.req->req;
-            reqReader.emplace(req.base(), req.body());
+            reqReader.emplace(req.base(), req.body(),
+                              getContentLengthLimit(thisStream->second));
             boost::beast::error_code initEc;
             reqReader->init(thisStream->second.contentLength, initEc);
             if (initEc)

@@ -4,10 +4,12 @@
 
 #include "async_resp.hpp"
 #include "http/http2_connection.hpp"
+#include "http/http_body.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
 #include "http_connect_types.hpp"
 #include "nghttp2_adapters.hpp"
+#include "sessions.hpp"
 #include "test_stream.hpp"
 
 #include <nghttp2/nghttp2.h>
@@ -261,9 +263,11 @@ TEST(http_connection, BodyLimitResetsOnlyTheStream)
     FakeHandler handler;
     std::function<std::string()> date(getDateStr);
     boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto mtlsSession = std::make_shared<persistent_data::UserSession>();
     auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
         boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
-        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+        &handler, date, HttpType::HTTP, mtlsSession,
+        boost::asio::ip::address());
 
     std::string_view requestHeaders =
         "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
@@ -335,9 +339,11 @@ TEST(http_connection, DeclaredBodyLimitResetsTheStream)
     FakeHandler handler;
     std::function<std::string()> date(getDateStr);
     boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto mtlsSession = std::make_shared<persistent_data::UserSession>();
     auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
         boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
-        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+        &handler, date, HttpType::HTTP, mtlsSession,
+        boost::asio::ip::address());
 
     std::string_view requestHeaders =
         "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
@@ -359,6 +365,54 @@ TEST(http_connection, DeclaredBodyLimitResetsTheStream)
 
     constexpr uint8_t data = 'a';
     EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &data, 1), 0);
+    EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
+    EXPECT_FALSE(streamIt->second.reqReader);
+    EXPECT_TRUE(streamIt->second.req->req.body().str().empty());
+    EXPECT_EQ(conn->onRequestRecv(1), 0);
+    EXPECT_FALSE(handler.called);
+
+    std::optional<uint32_t> resetError;
+    getRstStreamError(conn->ngSession, 1, resetError);
+    ASSERT_TRUE(resetError);
+    EXPECT_EQ(*resetError, NGHTTP2_ENHANCE_YOUR_CALM);
+}
+
+TEST(http_connection, LoggedOutBodyLimitResetsTheStream)
+{
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+
+    std::vector<uint8_t> body(loggedOutPostBodyLimit, 'a');
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, body.data(), body.size()), 0);
+    EXPECT_FALSE(streamIt->second.bodyLimitExceeded);
+
+    constexpr uint8_t extra = 'b';
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &extra, 1), 0);
     EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
     EXPECT_FALSE(streamIt->second.reqReader);
     EXPECT_TRUE(streamIt->second.req->req.body().str().empty());
