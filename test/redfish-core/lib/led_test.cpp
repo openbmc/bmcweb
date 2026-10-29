@@ -124,6 +124,22 @@ TEST(HandleLedGroupSubtree, MultipleLedGroupsForwardEmptyPathAndService)
     EXPECT_EQ(recorder.service, "");
 }
 
+TEST(HandleLedGroupSubtree, EmptyServiceMapForwardsEmptyPathAndService)
+{
+    LedGroupRecorder recorder;
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/led/groups/chassis_identify", {}}};
+
+    handleLedGroupSubtree("/xyz/openbmc_project/inventory/system/chassis", ec,
+                          subtree, recorder.callback());
+
+    EXPECT_TRUE(recorder.called);
+    EXPECT_EQ(recorder.ec, boost::system::errc::success);
+    EXPECT_EQ(recorder.ledGroupPath, "");
+    EXPECT_EQ(recorder.service, "");
+}
+
 TEST(HandleLedGroupSubtree, SingleLedGroupForwardsPathAndService)
 {
     LedGroupRecorder recorder;
