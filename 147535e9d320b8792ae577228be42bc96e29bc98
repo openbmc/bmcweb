@@ -51,6 +51,24 @@
       "parentUuid": "00a69318_2c31c7b8",
       "revId": "147535e9d320b8792ae577228be42bc96e29bc98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb2fa541_01e533f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-29T03:05:41Z",
+      "side": 1,
+      "message": "Searched again: nothing in openbmc/openbmc master enables\nredfish-allow-deprecated-indicatorled, and no other openbmc repository uses it. The only test that still checks IndicatorLED is removed by\nhttps://gerrit.openbmc.org/c/openbmc/openbmc-test-automation/+/96041\n\nI submit this patch, thanks.",
+      "parentUuid": "a1d0b8a7_471914b5",
+      "revId": "147535e9d320b8792ae577228be42bc96e29bc98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
