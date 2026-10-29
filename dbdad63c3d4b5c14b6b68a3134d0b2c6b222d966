@@ -79,6 +79,30 @@
       },
       "revId": "dbdad63c3d4b5c14b6b68a3134d0b2c6b222d966",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d8e1c9_e9ddb513",
+        "filename": "test/redfish-core/lib/power_supply_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-29T19:42:13Z",
+      "side": 1,
+      "message": "+1. I think we should do something like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/96493/1 but I\u0027m okay with that coming after",
+      "parentUuid": "295dfaca_532ee7c5",
+      "range": {
+        "startLine": 31,
+        "startChar": 45,
+        "endLine": 31,
+        "endChar": 71
+      },
+      "revId": "dbdad63c3d4b5c14b6b68a3134d0b2c6b222d966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
