@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages_test_utils.hpp"
 #include "generated/enums/processor.hpp"
 #include "http_response.hpp"
 #include "processor.hpp"
@@ -31,6 +32,7 @@ TEST(AfterGetProcessorLocationCode, ErrorSetsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(AfterGetProcessorLocationCode, SuccessSetsServiceLabel)
@@ -66,6 +68,7 @@ TEST(AfterGetProcessorFirmwareVersion, ErrorSetsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(DbusToRfThrottleCause, ValidCausesTranslatedCorrectly)
@@ -109,6 +112,7 @@ TEST(ReadThrottleProperties, ErrorSetsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(AfterGetProcessorFirmwareVersion, EmptyVersionOmitsFirmwareVersion)
@@ -154,6 +158,7 @@ TEST(AfterGetProcessorFirmwareVersionSubTree, ErrorSetsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(ReadThrottleProperties, InvalidCauseSetsInternalError)
@@ -204,6 +209,7 @@ TEST(AfterGetCpuAssetData, ErrorSetsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(AfterGetProcessorFirmwareVersionSubTree, EmptySubTreeOmitsFirmwareVersion)
@@ -234,6 +240,7 @@ TEST(AfterGetProcessorFirmwareVersionSubTree,
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(AfterGetProcessorFirmwareVersionSubTree, EmptyServiceMapSetsInternalError)
@@ -247,6 +254,7 @@ TEST(AfterGetProcessorFirmwareVersionSubTree, EmptyServiceMapSetsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(AfterGetCpuAssetData, IntelManufacturerSetsX86Architecture)
