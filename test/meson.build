@@ -101,7 +101,10 @@ if (get_option('tests').allowed())
             fs.stem(test_src),
             test_src,
             link_with: bmcweblib,
-            include_directories: [incdir, include_directories('..')],
+            include_directories: [
+                incdir,
+                include_directories('..', 'redfish-core/include'),
+            ],
             install_dir: bindir,
             dependencies: bmcweb_dependencies + [gtestdep],
             cpp_args: ['-DTEST_DATA_DIR="' + data_dir + '"'],
