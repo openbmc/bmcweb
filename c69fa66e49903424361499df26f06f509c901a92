@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13ee06b8_2ff02683",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-29T07:03:44Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "23f3c9b7_c50c0568",
+      "range": {
+        "startLine": 34,
+        "startChar": 70,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "c69fa66e49903424361499df26f06f509c901a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "270b5954_bde3a25a",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-10-27T14:29:45Z",
       "side": 1,
       "message": "use std::to_array.",
+      "revId": "c69fa66e49903424361499df26f06f509c901a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd670f3b_b5129f88",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-29T07:03:44Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "270b5954_bde3a25a",
       "revId": "c69fa66e49903424361499df26f06f509c901a92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "193fa8bd_b9a41742",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-29T07:03:44Z",
+      "side": 1,
+      "message": "Done. The table is now sorted and the lookup uses std::ranges::lower_bound. Since the values are std::string now (#103), the sort runs once at startup instead of at compile time.",
+      "parentUuid": "6289beb1_cd476b08",
+      "revId": "c69fa66e49903424361499df26f06f509c901a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fee09435_b14dd713",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-10-27T14:29:45Z",
       "side": 1,
       "message": "If we need std::string here, let\u0027s make that element of `nicPortMetricMap` std::string.",
+      "revId": "c69fa66e49903424361499df26f06f509c901a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d561887b_d32a7724",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-29T07:03:44Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "fee09435_b14dd713",
       "revId": "c69fa66e49903424361499df26f06f509c901a92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
