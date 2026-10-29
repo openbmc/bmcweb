@@ -175,6 +175,14 @@ inline void handleLedGroupSubtree(
     }
 
     const auto& [ledGroupPath, serviceMap] = *subtree.begin();
+    if (serviceMap.empty())
+    {
+        BMCWEB_LOG_DEBUG("No D-Bus service found for LED group {}",
+                         ledGroupPath);
+        callback(ec, "", "");
+        return;
+    }
+
     const auto& [service, interfaces] = *serviceMap.begin();
     callback(ec, ledGroupPath, service);
 }
