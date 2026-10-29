@@ -355,8 +355,7 @@ inline void handleSessionServicePatch(
             std::chrono::seconds sessionTimeoutInseconds(*sessionTimeout);
             persistent_data::SessionStore::getInstance().updateSessionTimeout(
                 sessionTimeoutInseconds);
-            messages::propertyValueModified(asyncResp->res, "SessionTimeout",
-                                            std::to_string(*sessionTimeout));
+            asyncResp->res.result(boost::beast::http::status::no_content);
         }
         else
         {
