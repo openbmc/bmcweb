@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
+#include "error_messages_test_utils.hpp"
 #include "fabric.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_response.hpp"
@@ -63,6 +64,7 @@ TEST(AfterGetSwitchPowerState, GenericErrorReportsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(AfterGetSwitchPowerState, AbsentPropertyOmitsPowerState)
@@ -148,6 +150,7 @@ TEST(AfterGetSwitchPowerStateService, ErrorSetsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(AfterGetSwitchPowerStateService, EmptyObjectOmitsPowerState)

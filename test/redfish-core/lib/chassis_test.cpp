@@ -5,6 +5,7 @@
 #include "async_resp.hpp"
 #include "chassis.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages_test_utils.hpp"
 #include "generated/enums/chassis.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -231,6 +232,7 @@ TEST(HandleChassisPowerState, GenericErrorSetsInternalError)
     handleChassisPowerState(response, ec, "");
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 } // namespace

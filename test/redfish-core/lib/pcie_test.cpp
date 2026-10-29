@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
+#include "error_messages_test_utils.hpp"
 #include "http_response.hpp"
 #include "pcie.hpp"
 
@@ -40,6 +41,7 @@ TEST(AfterGetPCIeDeviceUUID, ErrorSetsInternalError)
 
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(response->res.jsonValue, internalErrorJson());
 }
 
 TEST(AfterGetPCIeDeviceUUID, EmptyUUIDOmitsUUID)

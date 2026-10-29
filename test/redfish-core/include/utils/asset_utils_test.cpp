@@ -3,6 +3,7 @@
 
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages_test_utils.hpp"
 #include "utils/asset_utils.hpp"
 
 #include <boost/asio/error.hpp>
@@ -120,6 +121,7 @@ TEST(AssetUtils, WrongPropertyTypeSetsInternalError)
 
     EXPECT_EQ(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(asyncResp->res.jsonValue, internalErrorJson());
 }
 
 TEST(AssetUtils, PropertiesUseJsonPointer)
@@ -163,6 +165,7 @@ TEST(AssetUtils, ErrorSetsInternalError)
 
     EXPECT_EQ(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
+    EXPECT_EQ(asyncResp->res.jsonValue, internalErrorJson());
 }
 
 TEST(AssetUtils, SuccessPopulatesAssetInfo)

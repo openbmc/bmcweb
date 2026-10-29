@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 
 #include "async_resp.hpp"
+#include "error_messages_test_utils.hpp"
 #include "utils/collection.hpp"
 
 #include <boost/system/errc.hpp>
@@ -102,7 +103,7 @@ TEST(CollectionUtil, HandleCollectionMembersEmptyJsonKeyReturnsInternalError)
         nlohmann::json::json_pointer(), {}, {});
 
     EXPECT_EQ(asyncResp->res.resultInt(), 500);
-    EXPECT_TRUE(asyncResp->res.jsonValue.contains("error"));
+    EXPECT_EQ(asyncResp->res.jsonValue, internalErrorJson());
 }
 
 TEST(CollectionUtil, HandleCollectionMembersAppendsMembersAndUpdatesCount)
