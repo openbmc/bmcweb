@@ -5,6 +5,10 @@
 #include "routing.hpp"
 #include "utility.hpp"
 
+#include <boost/asio/io_context.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/ssl/context.hpp>
+#include <boost/asio/ssl/stream.hpp>
 #include <boost/beast/http/verb.hpp>
 
 #include <memory>
@@ -153,6 +157,61 @@ TEST(Router, 405)
         router.handle(req, asyncResp);
     }
     EXPECT_TRUE(called);
+}
+
+// When validatePrivilege() does not run the upgrade continuation, the stream
+// must stay with the connection so an error response can still be written on
+// it. A request with no session makes validatePrivilege() return without
+// running the continuation; that is the same outcome as an authenticated user
+// who lacks the route privilege (a 403 after GetUserInfo), which needs a D-Bus
+// backend and is not driven here.
+std::shared_ptr<Request> deniedUpgradeRequest(std::string_view url)
+{
+    std::error_code ec;
+    auto req = std::make_shared<Request>(
+        Request::Body{boost::beast::http::verb::get, url, 11}, ec);
+    EXPECT_FALSE(ec);
+    EXPECT_EQ(req->session, nullptr);
+    return req;
+}
+
+TEST(Router, DeniedUpgradeKeepsPlainSocket)
+{
+    boost::asio::io_context io;
+    Router router;
+    router.newRuleTagged<getParameterTag("/ws")>("/ws")
+        .privileges({{"ConfigureComponents"}})
+        .websocket();
+    router.validate();
+
+    boost::asio::ip::tcp::socket socket(io);
+    socket.open(boost::asio::ip::tcp::v4());
+    ASSERT_TRUE(socket.is_open());
+
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    router.handleUpgrade(deniedUpgradeRequest("/ws"), asyncResp, socket);
+
+    EXPECT_TRUE(socket.is_open());
+}
+
+TEST(Router, DeniedUpgradeKeepsTlsStream)
+{
+    boost::asio::io_context io;
+    Router router;
+    router.newRuleTagged<getParameterTag("/ws")>("/ws")
+        .privileges({{"ConfigureComponents"}})
+        .websocket();
+    router.validate();
+
+    boost::asio::ssl::context ctx(boost::asio::ssl::context::tls_server);
+    boost::asio::ssl::stream<boost::asio::ip::tcp::socket> stream(io, ctx);
+    ASSERT_NE(stream.native_handle(), nullptr);
+
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    router.handleUpgrade(deniedUpgradeRequest("/ws"), asyncResp, stream);
+
+    // Writing the error response calls SSL_write() on this handle.
+    EXPECT_NE(stream.native_handle(), nullptr);
 }
 } // namespace
 } // namespace crow
