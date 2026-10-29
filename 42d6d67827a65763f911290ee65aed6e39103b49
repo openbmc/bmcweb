@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96b2ca4d_d505b919",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1294,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-29T17:09:28Z",
+      "side": 1,
+      "message": "i am relying on bmcweb unique leaf node constraint which is a pattern used throughout the project.\n\nLet me know if you want to have `std::flat_set` or similar here to guarantee unique results from the bmcweb side.\n\nSince the comment was marked as resolved i will leave it alone for now.",
+      "parentUuid": "76997094_bcf02e15",
+      "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22a122a1_1d4d0487",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-29T15:15:40Z",
       "side": 1,
       "message": "Isn\u0027t this backwards  ? \n\nhttps://github.com/openbmc/docs/blob/master/designs/code-update.md#association\n```\nrunning : A running association from xyz.openbmc_project.Inventory.Item to xyz.openbmc_project.Software.Version represents the current functional or running software version for the associated inventory item. The ran_on would be the corresponding reverse association.\n```\n\nIsn\u0027t this the Software.Version going to the Inventory.Item which should be ran_on ?",
+      "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e60bc3f_677c8855",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-10-29T17:09:28Z",
+      "side": 1,
+      "message": "seems like an error in the document. The code and PDI says something different.\n\n```\nroot@catalina:~# mappertool assocs --type running\n/xyz/openbmc_project/inventory/system/board/Catalina_HDD_Carrier  | ran_on\n/xyz/openbmc_project/software/Catalina_HDD_cpld_812               | running\n\n/xyz/openbmc_project/inventory/system/board/Catalina_PDB          | ran_on\n/xyz/openbmc_project/software/Catalina_PDB_cpld_6460              | running\n\n/xyz/openbmc_project/inventory/system/board/Catalina_SCM          | ran_on\n/xyz/openbmc_project/software/Catalina_SCM_CPLD_3061              | running\n```\n\nHere\u0027s the code creating the association definition\n\n```\n\n    if (isRunning)\n    {\n        debug(\"{SWID}: creating \u0027running\u0027 association to {OBJPATH}\", \"SWID\",\n              swid, \"OBJPATH\", objectPath);\n        std::tuple\u003cstd::string, std::string, std::string\u003e assocRunning \u003d {\n            \"running\", \"ran_on\", objectPath};\n        assocs.push_back(assocRunning);\n    }\n```\n\nhttps://github.com/openbmc/phosphor-bmc-code-mgmt/blob/0f0f3c9b9d5e291ccdc9f9dcc9da579495e71c6a/common/src/software.cpp#L120\n\nSee also the PDI documentation\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/7ff537f76de2bee983cf3dccdc7c5c5316a86cf3/yaml/xyz/openbmc_project/Software/Version.interface.yaml#L46\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/7ff537f76de2bee983cf3dccdc7c5c5316a86cf3/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml#L142",
+      "parentUuid": "22a122a1_1d4d0487",
       "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
