@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb89a2d_4fb59e86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-10-30T06:59:58Z",
+      "side": 1,
+      "message": "I think we need to test RSV results and affected GET response.\nhttps://github.com/openbmc/bmcweb/blob/24e758ab10526cd5e383894e36c260879fbaab2f/docs/REDFISH_CHECKLIST.md?plain\u003d1#L23-L27",
+      "revId": "c6b6542022d946df88b9dbbc85d09b8cebbbc947",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
