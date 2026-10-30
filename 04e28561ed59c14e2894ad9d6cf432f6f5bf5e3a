@@ -22,6 +22,30 @@
       },
       "revId": "04e28561ed59c14e2894ad9d6cf432f6f5bf5e3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9f2a866_5a45a0d3",
+        "filename": "test/redfish-core/lib/led_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-10-30T01:40:05Z",
+      "side": 1,
+      "message": "Done. It was removed by mistake when internalErrorJson() was moved to the parent change. Restored.",
+      "parentUuid": "e0bdc1c9_654f2c66",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 25
+      },
+      "revId": "04e28561ed59c14e2894ad9d6cf432f6f5bf5e3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
