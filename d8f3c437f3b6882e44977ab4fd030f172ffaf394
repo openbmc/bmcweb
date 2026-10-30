@@ -16,6 +16,40 @@
       "message": "Looks fine for me. Thanks.",
       "revId": "d8f3c437f3b6882e44977ab4fd030f172ffaf394",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22ef675f_9eb48b8a",
+        "filename": "test/redfish-core/lib/pcie_slots_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-30T15:58:12Z",
+      "side": 1,
+      "message": "Normally have a new line above",
+      "revId": "d8f3c437f3b6882e44977ab4fd030f172ffaf394",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177f0289_0c479ea5",
+        "filename": "test/redfish-core/lib/pcie_slots_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-30T15:58:12Z",
+      "side": 1,
+      "message": "Could test a multiple Slot \n\n    EXPECT_EQ(slots[0][\"Lanes\"], 16);\n    EXPECT_EQ(slots[0][\"HotPluggable\"], true);\n\n    EXPECT_EQ(slots[1][\"Lanes\"], 8);\n    EXPECT_EQ(slots[1][\"HotPluggable\"], false);",
+      "revId": "d8f3c437f3b6882e44977ab4fd030f172ffaf394",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
