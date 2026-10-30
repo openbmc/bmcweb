@@ -667,6 +667,7 @@ inline void addPCIeFunctionPropertiesFromInterface(
     const uint16_t* deviceId = nullptr;
     const uint16_t* subsystemVendorId = nullptr;
     const uint16_t* subsystemId = nullptr;
+    const uint8_t* busNumber = nullptr;
     const uint8_t* functionNumber = nullptr;
     const uint8_t* revisionId = nullptr;
     const uint8_t* baseClassCode = nullptr;
@@ -678,9 +679,9 @@ inline void addPCIeFunctionPropertiesFromInterface(
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), props, "VendorId", vendorId,
         "DeviceId", deviceId, "SubsystemVendorId", subsystemVendorId,
-        "SubsystemId", subsystemId, "FunctionNumber", functionNumber,
-        "RevisionId", revisionId, "BaseClassCode", baseClassCode,
-        "SubClassCode", subClassCode, "ProgrammingInterface",
+        "SubsystemId", subsystemId, "BusNumber", busNumber, "FunctionNumber",
+        functionNumber, "RevisionId", revisionId, "BaseClassCode",
+        baseClassCode, "SubClassCode", subClassCode, "ProgrammingInterface",
         programmingInterface, "DeviceClass", deviceClass, "FunctionType",
         functionType);
 
@@ -693,6 +694,10 @@ inline void addPCIeFunctionPropertiesFromInterface(
     if (functionNumber != nullptr)
     {
         resp.jsonValue["FunctionId"] = *functionNumber;
+    }
+    if (busNumber != nullptr)
+    {
+        resp.jsonValue["BusNumber"] = std::format("0x{:02X}", *busNumber);
     }
 
     if (vendorId != nullptr)
@@ -878,7 +883,7 @@ inline void addPCIeFunctionCommonProperties(crow::Response& resp,
     resp.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/PCIeFunction/PCIeFunction.json>; rel=describedby");
-    resp.jsonValue["@odata.type"] = "#PCIeFunction.v1_2_3.PCIeFunction";
+    resp.jsonValue["@odata.type"] = "#PCIeFunction.v1_7_0.PCIeFunction";
     resp.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions/{}",
         BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId, pcieFunctionId);
