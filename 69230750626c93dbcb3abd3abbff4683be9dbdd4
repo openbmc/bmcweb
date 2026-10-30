@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fceb44d_bd6f3fb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-30T16:59:51Z",
+      "side": 1,
+      "message": "Some minor comments but it looks good to me",
+      "revId": "69230750626c93dbcb3abd3abbff4683be9dbdd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "422831bb_2dcaf4ed",
@@ -36,6 +53,29 @@
         "startChar": 0,
         "endLine": 1089,
         "endChar": 2
+      },
+      "revId": "69230750626c93dbcb3abd3abbff4683be9dbdd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c616c85_1d36673a",
+        "filename": "test/redfish-core/lib/chassis_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-30T16:59:51Z",
+      "side": 1,
+      "message": "Should we have a test that if either only the path or service is empty is also not supported since this covers both?",
+      "range": {
+        "startLine": 446,
+        "startChar": 1,
+        "endLine": 461,
+        "endChar": 1
       },
       "revId": "69230750626c93dbcb3abd3abbff4683be9dbdd4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
