@@ -69,6 +69,30 @@
       },
       "revId": "ff9591975b2dae62dd69c3a4ca9afe289b9cc68a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb022875_303d1fb1",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1002614
+      },
+      "writtenOn": "2026-10-30T05:13:58Z",
+      "side": 1,
+      "message": "Addressed in PS3 — switched to error_code overloads for add_verify_path, use_certificate_chain, and use_private_key so there is no try block at all.",
+      "parentUuid": "d8eaa21a_404edf5e",
+      "range": {
+        "startLine": 478,
+        "startChar": 4,
+        "endLine": 486,
+        "endChar": 5
+      },
+      "revId": "ff9591975b2dae62dd69c3a4ca9afe289b9cc68a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
