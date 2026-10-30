@@ -16,6 +16,24 @@
       "message": "@jvoon@nvidia.com can you set the same topic to this patch as the PD patch?",
       "revId": "1c06353b0e1fdc3dc219fab53925bf7bf2c21d6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c35bf2af_04ae0f0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-30T01:07:15Z",
+      "side": 1,
+      "message": "Acknowledged, topic set.",
+      "parentUuid": "3a582c87_0f5b1922",
+      "revId": "1c06353b0e1fdc3dc219fab53925bf7bf2c21d6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
