@@ -448,7 +448,7 @@ inline void afterUpdateErrorMatcher(
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
-inline void monitorForSoftwareAvailable(
+inline bool monitorForSoftwareAvailable(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req, const std::string& url,
     int timeoutTimeSeconds = 50)
@@ -460,7 +460,7 @@ inline void monitorForSoftwareAvailable(
         {
             messages::serviceTemporarilyUnavailable(asyncResp->res, "30");
         }
-        return;
+        return false;
     }
 
     fwAvailableTimer =
@@ -491,6 +491,7 @@ inline void monitorForSoftwareAvailable(
         "member='InterfacesAdded',"
         "path='/xyz/openbmc_project/logging'",
         std::bind_front(afterUpdateErrorMatcher, asyncResp, url));
+    return true;
 }
 
 inline std::optional<boost::urls::url> parseSimpleUpdateUrl(
@@ -1094,8 +1095,11 @@ inline void updateMultipartContext(
         setApplyTime(asyncResp, *multipart->params.applyTime);
 
         // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req,
-                                    "/redfish/v1/UpdateService");
+        if (!monitorForSoftwareAvailable(asyncResp, req,
+                                         "/redfish/v1/UpdateService"))
+        {
+            return;
+        }
 
         uploadImageFile(asyncResp->res, multipart->uploadData);
     }
@@ -1121,8 +1125,11 @@ inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     else
     {
         // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req,
-                                    "/redfish/v1/UpdateService");
+        if (!monitorForSoftwareAvailable(asyncResp, req,
+                                         "/redfish/v1/UpdateService"))
+        {
+            return;
+        }
 
         uploadImageFile(asyncResp->res, req.body());
     }

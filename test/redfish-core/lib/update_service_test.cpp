@@ -18,6 +18,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <utility>
 
 #include <gtest/gtest.h>
 
@@ -27,6 +28,38 @@ namespace
 {
 
 using nlohmann::literals::operator""_json;
+
+TEST(UpdateService, BusyUpdateRejectsMonitoring)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Request req;
+    bool previousInProgress = std::exchange(fwUpdateInProgress, true);
+
+    bool monitoringStarted = monitorForSoftwareAvailable(
+        asyncResp, req, "/redfish/v1/UpdateService");
+    bool stillInProgress = fwUpdateInProgress;
+    fwUpdateInProgress = previousInProgress;
+
+    EXPECT_FALSE(monitoringStarted);
+    EXPECT_TRUE(stillInProgress);
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::service_unavailable);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Retry-After"), "30");
+}
+
+TEST(UpdateService, BusyUpdateRejectsMonitoringWithoutResponse)
+{
+    crow::Request req;
+    bool previousInProgress = std::exchange(fwUpdateInProgress, true);
+
+    bool monitoringStarted =
+        monitorForSoftwareAvailable(nullptr, req, "/redfish/v1/UpdateService");
+    bool stillInProgress = fwUpdateInProgress;
+    fwUpdateInProgress = previousInProgress;
+
+    EXPECT_FALSE(monitoringStarted);
+    EXPECT_TRUE(stillInProgress);
+}
 
 TEST(UpdateService, ParseHTTSPPostitive)
 {
