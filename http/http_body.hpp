@@ -38,6 +38,11 @@
 
 namespace bmcweb
 {
+// request body limit size set by the BMCWEB_HTTP_BODY_LIMIT option
+constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
+
+constexpr uint64_t loggedOutPostBodyLimit = 4096U;
+
 struct HttpBody
 {
     // Body concept requires specific naming of classes
@@ -387,11 +392,14 @@ class HttpBody::reader
     std::optional<MultipartParser> multipartParser;
     const boost::beast::http::fields& hdr;
     size_t bodySize = 0;
+    size_t maxBodySize = static_cast<size_t>(httpReqBodyLimit);
 
   public:
     template <bool IsRequest, class Fields>
     reader(boost::beast::http::header<IsRequest, Fields>& headers,
-           value_type& body) : value(body), hdr(headers)
+           value_type& body, uint64_t maxBodySizeIn = httpReqBodyLimit) :
+        value(body), hdr(headers),
+        maxBodySize(static_cast<size_t>(maxBodySizeIn))
     {}
 
     void init(const boost::optional<std::uint64_t>& contentLength,
@@ -419,14 +427,11 @@ class HttpBody::reader
 
         if (contentLength)
         {
-            constexpr size_t maxReserveSize =
-                1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
-
-            if (*contentLength > maxReserveSize)
+            if (*contentLength > maxBodySize)
             {
                 BMCWEB_LOG_WARNING(
                     "Content-Length {} exceeds max body size {}, rejecting.",
-                    *contentLength, maxReserveSize);
+                    *contentLength, maxBodySize);
                 ec = boost::beast::http::error::body_limit;
                 return;
             }
@@ -449,7 +454,6 @@ class HttpBody::reader
         // limit and a request may omit content-length entirely while
         // streaming DATA frames, so every chunk must be counted against
         // the same limit the HTTP/1 parser already enforces.
-        constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
         if (extra > maxBodySize - bodySize)
         {
             BMCWEB_LOG_WARNING(
@@ -511,3 +515,9 @@ inline std::uint64_t HttpBody::size(const value_type& body)
 }
 
 } // namespace bmcweb
+
+namespace crow
+{
+using bmcweb::httpReqBodyLimit;
+using bmcweb::loggedOutPostBodyLimit;
+} // namespace crow
