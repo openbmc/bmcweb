@@ -1141,6 +1141,7 @@ functions the same like the default implementation under the System resource.
 
 #### PCIeFunction
 
+- BusNumber
 - ClassCode
 - DeviceClass
 - DeviceId
