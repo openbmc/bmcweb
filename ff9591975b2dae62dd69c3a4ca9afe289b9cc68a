@@ -45,6 +45,30 @@
       },
       "revId": "ff9591975b2dae62dd69c3a4ca9afe289b9cc68a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8eaa21a_404edf5e",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1002614
+      },
+      "writtenOn": "2026-10-30T04:56:16Z",
+      "side": 1,
+      "message": "-DBOOST_NO_EXCEPTIONS redirects Boost’s throw_exception() to std::terminate() but does not disable C++ exceptions — -fno-exceptions is not set. Non-Boost throws (std::bad_alloc, sdbusplus errors, etc.) still propagate and will be caught here.",
+      "parentUuid": "2b843d21_97d24203",
+      "range": {
+        "startLine": 478,
+        "startChar": 4,
+        "endLine": 486,
+        "endChar": 5
+      },
+      "revId": "ff9591975b2dae62dd69c3a4ca9afe289b9cc68a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
