@@ -16,6 +16,24 @@
       "message": "Better if we also add, EXPECT_EQ(json.size(), 5). Also, for TurboProfileMapped and BaseSpeedPrioritySettingsMapped.",
       "revId": "e33b1ca85d60259dd9d3b8f4ed81f9150b12d4b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5c5e65_29f9b74f",
+        "filename": "test/redfish-core/lib/processor_operating_config_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-10-30T02:21:58Z",
+      "side": 1,
+      "message": "Done in PS6.\nThanks for the review!",
+      "parentUuid": "a01c3e4b_30015515",
+      "revId": "e33b1ca85d60259dd9d3b8f4ed81f9150b12d4b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
