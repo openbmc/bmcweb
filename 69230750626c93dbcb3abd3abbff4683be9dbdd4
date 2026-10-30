@@ -16,6 +16,29 @@
       "message": "Looks good to me.",
       "revId": "69230750626c93dbcb3abd3abbff4683be9dbdd4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "422831bb_2dcaf4ed",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-10-30T16:43:56Z",
+      "side": 1,
+      "message": "Should this be `const` now that it isn\u0027t changed?",
+      "range": {
+        "startLine": 1089,
+        "startChar": 0,
+        "endLine": 1089,
+        "endChar": 2
+      },
+      "revId": "69230750626c93dbcb3abd3abbff4683be9dbdd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
