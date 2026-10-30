@@ -61,6 +61,7 @@ struct Http2StreamData
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
     bool bodyLimitExceeded = false;
+    bool authChecked = false;
 };
 
 template <typename Adaptor, typename Handler>
@@ -337,12 +338,12 @@ class HTTP2Connection :
         thisRes.setCompleteRequestHandler(std::bind_front(
             &self_type::afterCompleteRequest, weak_from_this(), streamId));
 
+        authenticateStream(it->second);
+
         auto asyncResp =
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
         if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
-            thisReq.session = authentication::authenticate(
-                ip, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
             if (!authentication::isOnAllowlist(thisReq.url().path(),
                                                thisReq.method()) &&
                 thisReq.session == nullptr)
@@ -367,7 +368,34 @@ class HTTP2Connection :
         return 0;
     }
 
-    // The client may still be uploading when the 413 goes out;
+    void authenticateStream(Http2StreamData& stream)
+    {
+        if (stream.authChecked)
+        {
+            return;
+        }
+        stream.authChecked = true;
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        {
+            Request& thisReq = *stream.req;
+            thisReq.session = authentication::authenticate(
+                ip, stream.res, thisReq.method(), thisReq.req, mtlsSession);
+        }
+    }
+
+    uint64_t getContentLengthLimit(const Http2StreamData& stream) const
+    {
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        {
+            if (stream.req->session == nullptr)
+            {
+                return loggedOutPostBodyLimit;
+            }
+        }
+        return httpReqBodyLimit;
+    }
+
+    // The client may still be uploading when the error response goes out;
     // onFrameSendCallback() then resets the stream with NO_ERROR once the
     // response has ended it (RFC 9113 section 8.1).
     int rejectOversizedBody(int32_t streamId, Http2StreamData& stream)
@@ -378,8 +406,19 @@ class HTTP2Connection :
         stream.reqReader.reset();
         stream.req->req.body().clear();
 
-        Response res;
+        // stream.res already holds any headers authenticate() added. The
+        // statuses are those of Connection::handleContentLengthError(): a
+        // logged-out body that would fit the logged-in limit gets 401.
+        Response res = std::move(stream.res);
         res.result(boost::beast::http::status::payload_too_large);
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+        {
+            if (stream.req->session == nullptr &&
+                stream.contentLength.value_or(0) <= httpReqBodyLimit)
+            {
+                res.result(boost::beast::http::status::unauthorized);
+            }
+        }
         if (sendResponse(res, streamId) != 0)
         {
             return NGHTTP2_ERR_CALLBACK_FAILURE;
@@ -454,10 +493,11 @@ class HTTP2Connection :
             thisStream->second.reqReader;
         if (!reqReader)
         {
+            authenticateStream(thisStream->second);
             Request::Body& req = thisStream->second.req->req;
-            constexpr size_t maxBodySize =
-                1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
-            reqReader.emplace(req.base(), req.body(), maxBodySize);
+            reqReader.emplace(
+                req.base(), req.body(),
+                static_cast<size_t>(getContentLengthLimit(thisStream->second)));
             boost::beast::error_code initEc;
             reqReader->init(thisStream->second.contentLength, initEc);
             if (initEc)

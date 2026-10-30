@@ -38,6 +38,12 @@
 
 namespace bmcweb
 {
+// request body limit size set by the BMCWEB_HTTP_BODY_LIMIT option
+constexpr uint64_t httpReqBodyLimit =
+    uint64_t{1024} * 1024 * BMCWEB_HTTP_BODY_LIMIT;
+
+constexpr uint64_t loggedOutPostBodyLimit = 4096U;
+
 struct HttpBody
 {
     // Body concept requires specific naming of classes
@@ -424,14 +430,12 @@ class HttpBody::reader
 
         if (contentLength)
         {
-            constexpr size_t maxReserveSize =
-                1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
-
-            if (*contentLength > maxReserveSize)
+            const uint64_t limit = maxBodySize.value_or(httpReqBodyLimit);
+            if (*contentLength > limit)
             {
                 BMCWEB_LOG_WARNING(
                     "Content-Length {} exceeds max body size {}, rejecting.",
-                    *contentLength, maxReserveSize);
+                    *contentLength, limit);
                 ec = boost::beast::http::error::body_limit;
                 return;
             }
@@ -512,3 +516,9 @@ inline std::uint64_t HttpBody::size(const value_type& body)
 }
 
 } // namespace bmcweb
+
+namespace crow
+{
+using bmcweb::httpReqBodyLimit;
+using bmcweb::loggedOutPostBodyLimit;
+} // namespace crow

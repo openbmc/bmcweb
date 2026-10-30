@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "bmcweb_config.h"
+
 #include "async_resp.hpp"
+#include "http/http_body.hpp"
 #include "http/http_connection.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
@@ -16,6 +19,8 @@
 #include <boost/beast/http/verb.hpp>
 
 #include <chrono>
+#include <cstdint>
+#include <format>
 #include <functional>
 #include <memory>
 #include <string>
@@ -104,6 +109,60 @@ TEST(http_connection, RequestPropogates)
         "Content-Length: 0\r\n\r\n";
     EXPECT_EQ(outStr, expected);
     EXPECT_TRUE(clock.wascalled);
+}
+
+namespace
+{
+
+// Status line for a logged-out POST that declares contentLength bytes and
+// sends none of them.
+std::string loggedOutStatusLine(uint64_t contentLength)
+{
+    boost::asio::io_context io;
+    ClockFake clock;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    std::string request =
+        std::format("POST /redfish/v1/SessionService/Sessions HTTP/1.1\r\n"
+                    "Host: openbmc_project.xyz\r\n"
+                    "Content-Length: {}\r\n\r\n",
+                    contentLength);
+    out.write_some(boost::asio::buffer(request));
+    FakeHandler handler;
+    boost::asio::steady_timer timer(io);
+    std::function<std::string()> date(
+        std::bind_front(&ClockFake::getDateStr, &clock));
+
+    boost::asio::ssl::context context{boost::asio::ssl::context::tls};
+    std::shared_ptr<Connection<TestStream, FakeHandler>> conn =
+        std::make_shared<Connection<TestStream, FakeHandler>>(
+            &handler, HttpType::HTTP, std::move(timer), date,
+            boost::asio::ssl::stream<TestStream>(std::move(stream), context));
+    conn->start();
+    io.run_for(std::chrono::seconds(1));
+    EXPECT_FALSE(handler.called);
+    std::string outStr = out.str();
+    return outStr.substr(0, outStr.find("\r\n"));
+}
+
+} // namespace
+
+// A logged-out body that would fit the logged-in limit gets 401, so the
+// client knows to log in; anything larger gets 413.
+TEST(http_connection, LoggedOutDeclaredLengthStatus)
+{
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        GTEST_SKIP() << "insecure-disable-auth has no logged-out limit";
+    }
+    EXPECT_EQ(loggedOutStatusLine(loggedOutPostBodyLimit + 1),
+              "HTTP/1.1 401 Unauthorized");
+    EXPECT_EQ(loggedOutStatusLine(httpReqBodyLimit),
+              "HTTP/1.1 401 Unauthorized");
+    EXPECT_EQ(loggedOutStatusLine(httpReqBodyLimit + 1),
+              "HTTP/1.1 413 Payload Too Large");
 }
 
 } // namespace crow

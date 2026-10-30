@@ -4,10 +4,12 @@
 
 #include "async_resp.hpp"
 #include "http/http2_connection.hpp"
+#include "http/http_body.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
 #include "http_connect_types.hpp"
 #include "nghttp2_adapters.hpp"
+#include "sessions.hpp"
 #include "test_stream.hpp"
 
 #include <nghttp2/nghttp2.h>
@@ -275,6 +277,14 @@ void expectRejected(const std::vector<Frame>& frames, std::string_view status,
     }
 }
 
+// Gives the stream a session directly, so the test does not depend on which
+// authentication methods the build enables.
+void setLoggedIn(Http2StreamData& stream)
+{
+    stream.authChecked = true;
+    stream.req->session = std::make_shared<persistent_data::UserSession>();
+}
+
 TEST(http_connection, BodyLimitAnswers413AndResetsOnlyTheStream)
 {
     using namespace std::literals;
@@ -303,6 +313,7 @@ TEST(http_connection, BodyLimitAnswers413AndResetsOnlyTheStream)
     ASSERT_EQ(conn->ngSession.memRecv(input),
               static_cast<ssize_t>(input.size()));
     ASSERT_TRUE(conn->streams.contains(1));
+    setLoggedIn(conn->streams[1]);
 
     constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
     std::vector<uint8_t> body(maxBodySize, 'a');
@@ -376,6 +387,7 @@ TEST(http_connection, DeclaredBodyLimitAnswers413)
               static_cast<ssize_t>(input.size()));
     auto streamIt = conn->streams.find(1);
     ASSERT_NE(streamIt, conn->streams.end());
+    setLoggedIn(streamIt->second);
 
     constexpr size_t maxBodySize = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
     streamIt->second.contentLength = maxBodySize + 1;
@@ -436,6 +448,328 @@ TEST(http_connection, BodyLimitSkipsResetAfterClientFinished)
 
     expectRejected(sentFrames(io, out, 1), "413", false);
     EXPECT_FALSE(conn->streams.contains(1));
+}
+
+TEST(http_connection, LoggedOutBodyLimitAnswers401)
+{
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        GTEST_SKIP() << "insecure-disable-auth has no logged-out limit";
+    }
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+
+    std::vector<uint8_t> body(loggedOutPostBodyLimit, 'a');
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, body.data(), body.size()), 0);
+    EXPECT_FALSE(streamIt->second.bodyLimitExceeded);
+
+    constexpr uint8_t extra = 'b';
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &extra, 1), 0);
+    EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
+    EXPECT_FALSE(streamIt->second.reqReader);
+    EXPECT_TRUE(streamIt->second.req->req.body().str().empty());
+    EXPECT_EQ(conn->onRequestRecv(1), 0);
+    EXPECT_FALSE(handler.called);
+
+    expectRejected(sentFrames(io, out, 1), "401", true);
+}
+
+// init() rejects a declared Content-Length just over the logged-out limit
+// before any of the body is buffered.
+TEST(http_connection, LoggedOutDeclaredBodyLimitAnswers401)
+{
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        GTEST_SKIP() << "insecure-disable-auth has no logged-out limit";
+    }
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+
+    streamIt->second.contentLength = loggedOutPostBodyLimit + 1;
+
+    constexpr uint8_t data = 'a';
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &data, 1), 0);
+    EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
+    EXPECT_FALSE(streamIt->second.reqReader);
+    EXPECT_TRUE(streamIt->second.req->req.body().str().empty());
+    EXPECT_EQ(conn->onRequestRecv(1), 0);
+    EXPECT_FALSE(handler.called);
+
+    expectRejected(sentFrames(io, out, 1), "401", true);
+}
+
+// A logged-out body that would exactly fit the logged-in limit still gets
+// 401, as on HTTP/1.
+TEST(http_connection, LoggedOutDeclaredAtLoggedInLimitAnswers401)
+{
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        GTEST_SKIP() << "insecure-disable-auth has no logged-out limit";
+    }
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+    streamIt->second.contentLength = httpReqBodyLimit;
+
+    constexpr uint8_t data = 'a';
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &data, 1), 0);
+    EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
+    EXPECT_FALSE(handler.called);
+
+    expectRejected(sentFrames(io, out, 1), "401", true);
+}
+
+// The error response keeps the headers authenticate() set, here the mTLS
+// IsAuthenticated cookie.
+TEST(http_connection, BodyLimitResponseKeepsAuthenticationHeaders)
+{
+    if constexpr (!BMCWEB_MUTUAL_TLS_AUTH || BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        GTEST_SKIP() << "the session in this test comes from mTLS";
+    }
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto mtlsSession = std::make_shared<persistent_data::UserSession>();
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, mtlsSession,
+        boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+    streamIt->second.contentLength = httpReqBodyLimit + 1;
+
+    constexpr uint8_t data = 'a';
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &data, 1), 0);
+    EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
+
+    std::vector<Frame> frames = sentFrames(io, out, 1);
+    expectRejected(frames, "413", true);
+    ASSERT_FALSE(frames.empty());
+    std::vector<std::pair<std::string, std::string>> headers;
+    unpackHeaders(frames[0].payload, headers);
+    EXPECT_THAT(headers,
+                Contains(Pair("set-cookie", "IsAuthenticated=true; Secure")));
+}
+
+// A credential header whose value is not a valid session must not lift the
+// logged-out limit; the stream is authenticated, not judged by which headers
+// are present.
+void loggedOutBodyLimitHoldsWithHeader(std::string_view extraHpack)
+{
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        GTEST_SKIP() << "insecure-disable-auth has no logged-out limit";
+    }
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, nullptr, boost::asio::ip::address());
+
+    std::string headerBlock =
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"s;
+    headerBlock += extraHpack;
+    ASSERT_LT(headerBlock.size(), 256U);
+
+    std::string request = "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+                          "\x00\x00\x00\x04\x00\x00\x00\x00\x00"s;
+    request += "\x00\x00"s;
+    request += static_cast<char>(headerBlock.size());
+    request += "\x01\x04\x00\x00\x00\x01"s;
+    request += headerBlock;
+
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(request.data()), request.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+
+    std::vector<uint8_t> body(loggedOutPostBodyLimit, 'a');
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, body.data(), body.size()), 0);
+    EXPECT_FALSE(streamIt->second.bodyLimitExceeded);
+
+    constexpr uint8_t extra = 'b';
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, &extra, 1), 0);
+    EXPECT_TRUE(streamIt->second.bodyLimitExceeded);
+    EXPECT_TRUE(streamIt->second.req->req.body().str().empty());
+    EXPECT_EQ(conn->onRequestRecv(1), 0);
+    EXPECT_FALSE(handler.called);
+
+    expectRejected(sentFrames(io, out, 1), "401", true);
+}
+
+TEST(http_connection, LoggedOutBodyLimitHoldsWithBogusCookie)
+{
+    using namespace std::literals;
+    // cookie (HPACK static index 32): "x"
+    loggedOutBodyLimitHoldsWithHeader("\x60\x01"
+                                      "x"sv);
+}
+
+TEST(http_connection, LoggedOutBodyLimitHoldsWithBogusAuthorization)
+{
+    using namespace std::literals;
+    // authorization (HPACK static index 23): "x"
+    loggedOutBodyLimitHoldsWithHeader("\x57\x01"
+                                      "x"sv);
+}
+
+TEST(http_connection, LoggedOutBodyLimitHoldsWithBogusXAuthToken)
+{
+    using namespace std::literals;
+    // x-auth-token (literal name, not in the static table): "x"
+    loggedOutBodyLimitHoldsWithHeader("\x40\x0c"
+                                      "x-auth-token\x01"
+                                      "x"sv);
+}
+
+// The logged-out limit must apply only to unauthenticated streams: a stream
+// with a session keeps the full body limit.
+TEST(http_connection, AuthenticatedStreamKeepsFullBodyLimit)
+{
+    if constexpr (!BMCWEB_MUTUAL_TLS_AUTH)
+    {
+        GTEST_SKIP() << "the session in this test comes from mTLS";
+    }
+    using namespace std::literals;
+    boost::asio::io_context io;
+    TestStream stream(io);
+    TestStream out(io);
+    stream.connect(out);
+
+    FakeHandler handler;
+    std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+    auto mtlsSession = std::make_shared<persistent_data::UserSession>();
+    auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP, mtlsSession,
+        boost::asio::ip::address());
+
+    std::string_view requestHeaders =
+        "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+        "\x00\x00\x00\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x29\x01\x04\x00\x00\x00\x01"
+        "\x82\x87\x41\x8b\xa0\xe4\x1d\x13\x9d\x09\xb8\x17\x80\xf0\x3f"
+        "\x04\x89\x62\xc2\xc9\x29\x91\x3b\x1d\xc2\xc7\x7a\x88\x25\xb6\x50"
+        "\xc3\xcb\xb6\xb8\x3f\x53\x03\x2a\x2f\x2a"sv;
+    std::span<const uint8_t> input(
+        std::bit_cast<const uint8_t*>(requestHeaders.data()),
+        requestHeaders.size());
+    ASSERT_EQ(conn->ngSession.memRecv(input),
+              static_cast<ssize_t>(input.size()));
+    auto streamIt = conn->streams.find(1);
+    ASSERT_NE(streamIt, conn->streams.end());
+
+    std::vector<uint8_t> body(loggedOutPostBodyLimit + 1, 'a');
+    EXPECT_EQ(conn->onDataChunkRecvCallback(0, 1, body.data(), body.size()), 0);
+    EXPECT_FALSE(streamIt->second.bodyLimitExceeded);
+    EXPECT_TRUE(streamIt->second.reqReader);
+    EXPECT_EQ(streamIt->second.req->req.body().str().size(), body.size());
 }
 
 } // namespace
