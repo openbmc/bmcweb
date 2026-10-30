@@ -16,6 +16,23 @@
       "message": "It seems making sense",
       "revId": "5f757e6bb793b6a60d14367ed288a5e8af4d2122",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eafc6bcd_988cb309",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-10-30T15:04:30Z",
+      "side": 1,
+      "message": "Yeah, it is a Redfish path /redfish/v1/Managers/\u003cstr\u003e/VirtualMedia/\u003cstr\u003e/\nmakes sense",
+      "revId": "5f757e6bb793b6a60d14367ed288a5e8af4d2122",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
