@@ -24,6 +24,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df2ff518_b5cb76ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-10-31T16:01:58Z",
+      "side": 1,
+      "message": "Done in patch set 3.",
+      "parentUuid": "06f40b45_52691808",
+      "revId": "271ec64c3e01b0294aa1844e9577d7f0de18741c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d5de7e5_fdd5bc7c",
