@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2c85d10_5e605496",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-11-02T15:48:48Z",
+      "side": 1,
+      "message": "Gentle ping on this one: which Redfish message would you like for spdmd\u0027s InvalidArgument -\u003e 400? I\u0027ll add it in the next patchset.",
+      "parentUuid": "52b2f879_9a16d757",
+      "revId": "351c6fc221d473b7ce2b6681db24f20e1ad937a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4da3de2a_607c0e8e",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 14

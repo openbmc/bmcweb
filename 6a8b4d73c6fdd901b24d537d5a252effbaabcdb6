@@ -16,6 +16,24 @@
       "message": "As per the spec, PublicKey may be included only when SlotId \u003d\u003d 15 (0xF) and the requester was pre-provisioned with the responder’s public key. The verifier needs to rely on the signed measurement transcript to select the verification method. \nThis property can be ignored when it\u0027s empty.\n\nReference: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95260/comment/3132cf43_b22a1b15/",
       "revId": "6a8b4d73c6fdd901b24d537d5a252effbaabcdb6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce3a454_1886b28c",
+        "filename": "redfish-core/lib/component_integrity.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1002796
+      },
+      "writtenOn": "2026-11-02T15:48:48Z",
+      "side": 1,
+      "message": "Thanks Chinmay. Agreed, and PS15 already does this: PublicKey is omitted, since the schema allows it only for SlotId 15 with a pre-provisioned key and SlotId is limited to 0-7 here (the 95260 point, folded in).",
+      "parentUuid": "7a1b5c16_f7f48384",
+      "revId": "6a8b4d73c6fdd901b24d537d5a252effbaabcdb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
