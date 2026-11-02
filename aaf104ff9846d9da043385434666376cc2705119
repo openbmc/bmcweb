@@ -20,6 +20,63 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e94d30c2_807e2a76",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-02T21:03:37Z",
+      "side": 1,
+      "message": "The whole intent of the previous overload was to make the error codes easy to call.  This method now shows up in 40ish places?",
+      "revId": "aaf104ff9846d9da043385434666376cc2705119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf5a0dab_a715b0da",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-02T21:03:37Z",
+      "side": 1,
+      "message": "Remove from this diff.  Looking at this this error isn\u0027t even correct.",
+      "range": {
+        "startLine": 421,
+        "startChar": 36,
+        "endLine": 421,
+        "endChar": 42
+      },
+      "revId": "aaf104ff9846d9da043385434666376cc2705119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e675fd7b_843826a9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-02T21:03:37Z",
+      "side": 1,
+      "message": "This is a good example where we tool code that was relatively easy to read and make it really difficult to read.",
+      "revId": "aaf104ff9846d9da043385434666376cc2705119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40aa2b2c_9d9a6a37",
         "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
         "patchSetId": 3
