@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d9aa1d1_81a15313",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002901
+      },
+      "writtenOn": "2026-11-02T20:43:28Z",
+      "side": 1,
+      "message": "Should the error messages handle the conversion itself rather than the caller? I think in the future all callers will have to remember convert the value using to_string, the helper function, or hard code it",
+      "revId": "aaf104ff9846d9da043385434666376cc2705119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
