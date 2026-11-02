@@ -38,6 +38,25 @@ namespace json_util
 {
 
 /**
+ * @brief Renders a JSON value as a message argument. A string is returned
+ *        as-is so MessageArgs do not carry JSON quotes; any other type is
+ *        serialized to its JSON text.
+ *
+ * @param[in] value  JSON value to render
+ *
+ * @return Text form of the value for use as a std::string_view message arg
+ */
+inline std::string messageArgToString(const nlohmann::json& value)
+{
+    const std::string* str = value.get_ptr<const std::string*>();
+    if (str != nullptr)
+    {
+        return *str;
+    }
+    return value.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+}
+
+/**
  * @brief Processes request to extract JSON from its body. If it fails, adds
  *       MalformedJSON message to response and ends it.
  *
@@ -304,12 +323,14 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
             jsonValue.get_ptr<nlohmann::json::array_t*>();
         if (arr == nullptr)
         {
-            messages::propertyValueTypeError(res, jsonValue, key);
+            messages::propertyValueTypeError(res, messageArgToString(jsonValue),
+                                             key);
             return false;
         }
         if (jsonValue.size() != value.size())
         {
-            messages::propertyValueTypeError(res, jsonValue, key);
+            messages::propertyValueTypeError(res, messageArgToString(jsonValue),
+                                             key);
             return false;
         }
         size_t index = 0;
@@ -326,7 +347,8 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
             jsonValue.get_ptr<nlohmann::json::array_t*>();
         if (arr == nullptr)
         {
-            messages::propertyValueTypeError(res, jsonValue, key);
+            messages::propertyValueTypeError(res, messageArgToString(jsonValue),
+                                             key);
             return false;
         }
 
@@ -345,11 +367,13 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
         {
             if (ec == UnpackErrorCode::invalidType)
             {
-                messages::propertyValueTypeError(res, jsonValue, key);
+                messages::propertyValueTypeError(
+                    res, messageArgToString(jsonValue), key);
             }
             else if (ec == UnpackErrorCode::outOfRange)
             {
-                messages::propertyValueOutOfRange(res, jsonValue, key);
+                messages::propertyValueOutOfRange(
+                    res, messageArgToString(jsonValue), key);
             }
             return false;
         }
@@ -361,11 +385,13 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
         {
             if (ec == UnpackErrorCode::invalidType)
             {
-                messages::propertyValueTypeError(res, jsonValue, key);
+                messages::propertyValueTypeError(
+                    res, messageArgToString(jsonValue), key);
             }
             else if (ec == UnpackErrorCode::outOfRange)
             {
-                messages::propertyValueOutOfRange(res, jsonValue, key);
+                messages::propertyValueOutOfRange(
+                    res, messageArgToString(jsonValue), key);
             }
             return false;
         }

@@ -6,6 +6,7 @@
 #include "boost_formatters.hpp"
 #include "error_messages.hpp"
 #include "logging.hpp"
+#include "utils/json_utils.hpp"
 
 #include <systemd/sd-bus-protocol.h>
 
@@ -50,7 +51,8 @@ void afterSetProperty(
             {
                 BMCWEB_LOG_WARNING("DBUS response error: {}", ec);
                 messages::propertyValueIncorrect(
-                    asyncResp->res, redfishPropertyName, propertyValue);
+                    asyncResp->res, redfishPropertyName,
+                    json_util::messageArgToString(propertyValue));
                 return;
             }
             if (errorName ==
@@ -77,7 +79,8 @@ void afterSetProperty(
             if (errorName == "xyz.openbmc_project.Common.Error.Unavailable")
             {
                 messages::propertyValueExternalConflict(
-                    asyncResp->res, redfishPropertyName, propertyValue);
+                    asyncResp->res, redfishPropertyName,
+                    json_util::messageArgToString(propertyValue));
                 return;
             }
         }

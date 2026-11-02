@@ -787,8 +787,7 @@ inline void handleHypervisorEthernetInterfacePatch(
                     *ipv4StaticAddresses;
                 if (ipv4Static.begin() == ipv4Static.end())
                 {
-                    messages::propertyValueTypeError(asyncResp->res,
-                                                     std::vector<std::string>(),
+                    messages::propertyValueTypeError(asyncResp->res, "[]",
                                                      "IPv4StaticAddresses");
                     return;
                 }

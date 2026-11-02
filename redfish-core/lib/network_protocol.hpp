@@ -313,7 +313,7 @@ inline void handleNTPServersPatch(
             if (currentNtpServer == currentNtpServers.end())
             {
                 messages::propertyValueNotInList(
-                    asyncResp->res, nullptr,
+                    asyncResp->res, "null",
                     "NTP/NTPServers/" + std::to_string(index));
 
                 return;
@@ -328,7 +328,8 @@ inline void handleNTPServersPatch(
             if (!ntpServerObject->empty())
             {
                 messages::propertyValueNotInList(
-                    asyncResp->res, *ntpServerObject,
+                    asyncResp->res,
+                    json_util::messageArgToString(*ntpServerObject),
                     "NTP/NTPServers/" + std::to_string(index));
                 return;
             }
@@ -336,7 +337,8 @@ inline void handleNTPServersPatch(
             if (currentNtpServer == currentNtpServers.end())
             {
                 messages::propertyValueOutOfRange(
-                    asyncResp->res, *ntpServerObject,
+                    asyncResp->res,
+                    json_util::messageArgToString(*ntpServerObject),
                     "NTP/NTPServers/" + std::to_string(index));
 
                 return;

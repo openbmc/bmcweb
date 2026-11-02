@@ -2286,8 +2286,9 @@ inline std::string validatePowerMode(
     }
     else
     {
-        messages::propertyValueNotInList(asyncResp->res, modeValue,
-                                         "PowerMode");
+        messages::propertyValueNotInList(
+            asyncResp->res, json_util::messageArgToString(modeValue),
+            "PowerMode");
     }
     return mode;
 }

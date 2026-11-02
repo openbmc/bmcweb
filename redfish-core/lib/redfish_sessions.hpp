@@ -360,7 +360,8 @@ inline void handleSessionServicePatch(
         }
         else
         {
-            messages::propertyValueOutOfRange(asyncResp->res, *sessionTimeout,
+            messages::propertyValueOutOfRange(asyncResp->res,
+                                              std::to_string(*sessionTimeout),
                                               "SessionTimeout");
         }
     }

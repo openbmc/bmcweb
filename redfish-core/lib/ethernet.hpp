@@ -1079,8 +1079,9 @@ inline void handleIPv6DefaultGateway(
             // Do nothing, but make sure the entry exists.
             if (staticGatewayEntry == staticGatewayData.end())
             {
-                messages::propertyValueFormatError(asyncResp->res, *obj,
-                                                   pathString);
+                messages::propertyValueFormatError(
+                    asyncResp->res, json_util::messageArgToString(*obj),
+                    pathString);
                 return;
             }
         }
@@ -1856,8 +1857,9 @@ inline void handleIPv6StaticAddressesPatch(
                     messages::resourceCannotBeDeleted(asyncResp->res);
                     return;
                 }
-                messages::propertyValueFormatError(asyncResp->res, *obj,
-                                                   pathString);
+                messages::propertyValueFormatError(
+                    asyncResp->res, json_util::messageArgToString(*obj),
+                    pathString);
                 return;
             }
 
@@ -2259,8 +2261,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 {
                     // In OpenBMC implementation, VLANEnable cannot be false on
                     // create
-                    messages::propertyValueIncorrect(asyncResp->res,
-                                                     "VLAN/VLANEnable", false);
+                    messages::propertyValueIncorrect(
+                        asyncResp->res, "VLAN/VLANEnable", "false");
                     return;
                 }
 

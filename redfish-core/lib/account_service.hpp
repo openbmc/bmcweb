@@ -418,7 +418,7 @@ inline void handleRoleMapPatch(
             {
                 BMCWEB_LOG_ERROR("Can't delete the object");
                 messages::propertyValueTypeError(
-                    asyncResp->res, nullptr,
+                    asyncResp->res, "null",
                     "RemoteRoleMapping/" + std::to_string(index));
                 return;
             }
@@ -1016,7 +1016,9 @@ inline void handleLDAPPatch(LdapPatchParams&& input,
         if (input.serviceAddressList->empty())
         {
             messages::propertyValueNotInList(
-                asyncResp->res, *input.serviceAddressList, "ServiceAddress");
+                asyncResp->res,
+                json_util::messageArgToString(*input.serviceAddressList),
+                "ServiceAddress");
             return;
         }
     }
@@ -1024,8 +1026,10 @@ inline void handleLDAPPatch(LdapPatchParams&& input,
     {
         if (input.baseDNList->empty())
         {
-            messages::propertyValueNotInList(asyncResp->res, *input.baseDNList,
-                                             "BaseDistinguishedNames");
+            messages::propertyValueNotInList(
+                asyncResp->res,
+                json_util::messageArgToString(*input.baseDNList),
+                "BaseDistinguishedNames");
             return;
         }
     }
@@ -1198,7 +1202,7 @@ inline void afterVerifyUserExists(
         else if (retval == PAM_AUTHTOK_ERR)
         {
             // If password is invalid
-            messages::propertyValueFormatError(asyncResp->res, nullptr,
+            messages::propertyValueFormatError(asyncResp->res, "null",
                                                "Password");
             BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
         }
@@ -1248,8 +1252,9 @@ inline void afterVerifyUserExists(
         // not be allowed to lock an account.
         if (*params.locked)
         {
-            messages::propertyValueNotInList(asyncResp->res, *params.locked,
-                                             "Locked");
+            messages::propertyValueNotInList(
+                asyncResp->res, json_util::messageArgToString(*params.locked),
+                "Locked");
             return;
         }
         setDbusProperty(asyncResp, "Locked", "xyz.openbmc_project.User.Manager",
@@ -1270,7 +1275,7 @@ inline void afterVerifyUserExists(
             passwordExpirationToUint64(*params.passwordExpiration);
         if (!passwordExpiration)
         {
-            messages::propertyValueFormatError(asyncResp->res, nullptr,
+            messages::propertyValueFormatError(asyncResp->res, "null",
                                                "PasswordExpiration");
             return;
         }
@@ -1607,7 +1612,7 @@ inline void handleRespondToUnauthenticatedClientsPatch(
             messages::propertyValueExternalConflict(
                 res,
                 "MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients",
-                respondToUnauthenticatedClients);
+                json_util::messageArgToString(respondToUnauthenticatedClients));
             return;
         }
     }
@@ -1897,7 +1902,7 @@ inline void processAfterCreateUser(
                 }
 
                 // If password is invalid
-                messages::propertyValueFormatError(asyncResp->res, nullptr,
+                messages::propertyValueFormatError(asyncResp->res, "null",
                                                    "Password");
             },
             "xyz.openbmc_project.User.Manager", userPath,
@@ -1996,7 +2001,7 @@ inline void processAfterGetAllGroups(
             passwordExpirationToUint64(*userCreateProps.passwordExpiration);
         if (!passwordExpirationTime)
         {
-            messages::propertyValueFormatError(asyncResp->res, nullptr,
+            messages::propertyValueFormatError(asyncResp->res, "null",
                                                "PasswordExpiration");
             return;
         }

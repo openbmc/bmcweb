@@ -467,7 +467,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     if (userName.contains('\0'))
     {
         messages::actionParameterValueFormatError(
-            asyncResp->res, userName, "Username", "VirtualMedia.InsertMedia");
+            asyncResp->res, userName, "UserName", "VirtualMedia.InsertMedia");
         return;
     }
     constexpr uint64_t limit = 512;

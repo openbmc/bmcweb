@@ -312,21 +312,6 @@ def make_error_function(
             "ResourceMissingAtURI": [1],
             "SourceDoesNotSupportProtocol": [1],
         },
-        "const nlohmann::json&": {
-            "ActionParameterValueError": [1],
-            "ActionParameterValueFormatError": [1],
-            "ActionParameterValueTypeError": [1],
-            "PropertyValueExternalConflict": [2],
-            "PropertyValueFormatError": [1],
-            "PropertyValueIncorrect": [2],
-            "PropertyValueModified": [2],
-            "PropertyValueNotInList": [1],
-            "PropertyValueOutOfRange": [1],
-            "PropertyValueResourceConflict": [2],
-            "PropertyValueTypeError": [1],
-            "QueryParameterValueFormatError": [1],
-            "QueryParameterValueTypeError": [1],
-        },
     }
 
     out = ""
@@ -357,18 +342,13 @@ def make_error_function(
             outargs = []
             for index, typename in enumerate(argtypes):
                 index += 1
-                if typename == "const nlohmann::json&":
-                    out += f"std::string arg{index}Str = arg{index}.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);\n"
-                elif typename == "uint64_t":
+                if typename == "uint64_t":
                     out += f"std::string arg{index}Str = std::to_string(arg{index});\n"
 
             for index, typename in enumerate(argtypes):
                 index += 1
                 if typename == "const boost::urls::url_view_base&":
                     outargs.append(f"arg{index}.buffer()")
-                    to_array_type = "<std::string_view>"
-                elif typename == "const nlohmann::json&":
-                    outargs.append(f"arg{index}Str")
                     to_array_type = "<std::string_view>"
                 elif typename == "uint64_t":
                     outargs.append(f"arg{index}Str")

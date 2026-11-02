@@ -560,7 +560,8 @@ inline bool getZonesFromJsonReq(
     if (config.empty())
     {
         BMCWEB_LOG_ERROR("Empty Zones");
-        messages::propertyValueFormatError(response->res, config, "Zones");
+        messages::propertyValueFormatError(
+            response->res, json_util::messageArgToString(config), "Zones");
         return false;
     }
     for (auto& odata : config)
@@ -592,7 +593,8 @@ inline bool getZonesFromJsonReq(
         {
             BMCWEB_LOG_ERROR("Got invalid path {}", path);
             BMCWEB_LOG_ERROR("Illegal Type Zones");
-            messages::propertyValueFormatError(response->res, odata, "Zones");
+            messages::propertyValueFormatError(
+                response->res, json_util::messageArgToString(odata), "Zones");
             return false;
         }
         std::ranges::replace(input, '_', ' ');
@@ -1426,8 +1428,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 if (createNewObject && value == nullptr)
                 {
                     // can't delete a non-existent object
-                    messages::propertyValueNotInList(response->res, value,
-                                                     name);
+                    messages::propertyValueNotInList(
+                        response->res, json_util::messageArgToString(value),
+                        name);
                     continue;
                 }
 
