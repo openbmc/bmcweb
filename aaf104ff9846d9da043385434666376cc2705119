@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "391814b7_34a7e3f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-02T23:39:29Z",
+      "side": 1,
+      "message": "Which platform?  There\u0027s only 2 Nvidia platforms upstream.  If you tested downstream, no need to include that in your test results, as it doesn\u0027t apply to upstream.",
+      "range": {
+        "startLine": 36,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 47
+      },
+      "revId": "aaf104ff9846d9da043385434666376cc2705119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d9aa1d1_81a15313",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
