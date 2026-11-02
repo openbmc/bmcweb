@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "20af3f3e_53da399a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003078
+      },
+      "writtenOn": "2026-11-02T02:07:11Z",
+      "side": 1,
+      "message": "I believe “200 with the modified resource” means returning the entire resource with its updated properties after PATCH, but this may be difficult to implement.\n\nAnother concern is that `PropertyValueModified` may not be suitable here. According to its description, it is intended for cases where a property value is truncated or rounded, which does not seem to match the current situation.",
+      "parentUuid": "44d16502_79adc1c1",
+      "revId": "68663830ee5b62233a83b02d300e53430c6d5f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fd1d07cc_a5ada03f",
