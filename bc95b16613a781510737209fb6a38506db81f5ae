@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3be1cba5_77ef2440",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2026-11-02T15:26:23Z",
+      "side": 1,
+      "message": "@florian.sorin@arm.com Based on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95260/comment/3132cf43_b22a1b15/ i have added comment in patchset 88828(https://gerrit.openbmc.org/c/openbmc/bmcweb/+/88828/comment/7a1b5c16_f7f48384/). \nI think this patch can be closed since it\u0027s a small change and issue can be addressed in 88828 itself.",
+      "parentUuid": "67ebe284_941c7db6",
+      "revId": "bc95b16613a781510737209fb6a38506db81f5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b52aa276_c1e00378",
         "filename": "redfish-core/lib/component_integrity.hpp",
         "patchSetId": 1
