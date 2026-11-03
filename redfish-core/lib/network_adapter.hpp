@@ -6,6 +6,8 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/port.hpp"
+#include "generated/enums/protocol.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "human_sort.hpp"
@@ -14,17 +16,21 @@
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 #include <algorithm>
 #include <array>
 #include <charconv>
 #include <cmath>
 #include <cstddef>
+#include <cstdint>
 #include <format>
 #include <functional>
 #include <iterator>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <span>
@@ -353,13 +359,310 @@ inline void handleNetworkAdapterPortPathPortMetricsGet(
         std::bind_front(afterGetPortTransceiverPaths, asyncResp));
 }
 
+inline void afterGetSfpPresence(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, bool present)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("Transceiver has no Present property");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error for Present {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json& status = asyncResp->res.jsonValue["SFP"]["Status"];
+    if (!present)
+    {
+        status["State"] = resource::State::Absent;
+        return;
+    }
+
+    status["State"] = resource::State::Enabled;
+    // afterGetPortFunctional may already have reported the module Critical.
+    if (!status.contains("Health"))
+    {
+        status["Health"] = resource::Health::OK;
+    }
+}
+
+inline void afterGetPortFunctional(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool hasSfp,
+    const boost::system::error_code& ec, bool functional)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("Port has no Functional property");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error for Functional {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (functional)
+    {
+        return;
+    }
+
+    nlohmann::json& status = asyncResp->res.jsonValue["Status"];
+    status["Health"] = resource::Health::Critical;
+    status["HealthRollup"] = resource::Health::Critical;
+    if (hasSfp)
+    {
+        asyncResp->res.jsonValue["SFP"]["Status"]["Health"] =
+            resource::Health::Critical;
+    }
+}
+
+// Empty if Redfish has no name for the value; suffix completes port types.
+template <typename T>
+inline std::optional<T> dbusToRedfishEnum(const std::string* value,
+                                          std::string_view suffix = {})
+{
+    if (value == nullptr)
+    {
+        return std::nullopt;
+    }
+
+    const T mapped = nlohmann::json(value->substr(value->rfind('.') + 1) +
+                                    std::string(suffix))
+                         .get<T>();
+    if (mapped == T::Invalid)
+    {
+        return std::nullopt;
+    }
+    return mapped;
+}
+
+inline void afterGetSfpAsset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("Transceiver has no Asset interface");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error for Asset {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const std::string* manufacturer = nullptr;
+    const std::string* partNumber = nullptr;
+    const std::string* serialNumber = nullptr;
+
+    if (!sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "Manufacturer",
+            manufacturer, "PartNumber", partNumber, "SerialNumber",
+            serialNumber))
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json& sfp = asyncResp->res.jsonValue["SFP"];
+    if (manufacturer != nullptr)
+    {
+        sfp["Manufacturer"] = *manufacturer;
+    }
+    if (partNumber != nullptr)
+    {
+        sfp["PartNumber"] = *partNumber;
+    }
+    if (serialNumber != nullptr)
+    {
+        sfp["SerialNumber"] = *serialNumber;
+    }
+}
+
+inline void afterGetSfpDescription(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("Transceiver has no Item.Transceiver interface");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error for Transceiver {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const std::string* type = nullptr;
+    const std::string* mediumType = nullptr;
+    const std::string* managementInterfaceType = nullptr;
+
+    if (!sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "Type", type,
+            "MediumType", mediumType, "ManagementInterfaceType",
+            managementInterfaceType))
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json& sfp = asyncResp->res.jsonValue["SFP"];
+    if (const auto sfpType = dbusToRedfishEnum<port::SFPType>(type))
+    {
+        sfp["Type"] = *sfpType;
+    }
+    if (const auto medium = dbusToRedfishEnum<port::MediumType>(mediumType))
+    {
+        sfp["MediumType"] = *medium;
+    }
+    if (const auto management =
+            dbusToRedfishEnum<port::TransceiverManagementInterfaceType>(
+                managementInterfaceType))
+    {
+        sfp["ManagementInterfaceType"] = *management;
+    }
+}
+
+inline void afterGetPortLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& portPath,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("Port {} has no Connector.Port interface",
+                             portPath);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error for Port {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const std::string* portProtocol = nullptr;
+    const std::string* portType = nullptr;
+    const std::string* linkState = nullptr;
+    const std::string* linkStatus = nullptr;
+    const uint64_t* speed = nullptr;
+    // The interface declares Width as "size", not uint64.
+    const size_t* width = nullptr;
+
+    if (!sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "PortProtocol",
+            portProtocol, "PortType", portType, "LinkState", linkState,
+            "LinkStatus", linkStatus, "Speed", speed, "Width", width))
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json& portJson = asyncResp->res.jsonValue;
+    const std::optional<protocol::Protocol> redfishProtocol =
+        dbusToRedfishEnum<protocol::Protocol>(portProtocol);
+    if (redfishProtocol)
+    {
+        portJson["PortProtocol"] = *redfishProtocol;
+    }
+    if (const auto type = dbusToRedfishEnum<port::PortType>(portType, "Port"))
+    {
+        portJson["PortType"] = *type;
+    }
+    if (const auto state = dbusToRedfishEnum<port::LinkState>(linkState))
+    {
+        portJson["LinkState"] = *state;
+    }
+    if (const auto status = dbusToRedfishEnum<port::LinkStatus>(linkStatus))
+    {
+        portJson["LinkStatus"] = *status;
+    }
+
+    // A PCIe port has no SFP, so its health is the port's alone.
+    const bool hasSfp = redfishProtocol != protocol::Protocol::PCIe;
+    dbus::utility::getProperty<bool>(
+        serviceName, portPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        std::bind_front(afterGetPortFunctional, asyncResp, hasSfp));
+
+    // The maximum means the port doesn't support the property.
+    constexpr uint64_t unsupportedSpeed = std::numeric_limits<uint64_t>::max();
+    constexpr size_t unsupportedWidth = std::numeric_limits<size_t>::max();
+    // Speed is in bits per second.
+    constexpr double bitsPerGigabit = 1e9;
+
+    // 0 means the value isn't known yet, such as while the port is inactive.
+    if (width != nullptr && *width != unsupportedWidth && *width != 0)
+    {
+        portJson["Width"] = *width;
+    }
+
+    if (speed != nullptr && *speed != unsupportedSpeed && *speed != 0)
+    {
+        portJson["CurrentSpeedGbps"] =
+            static_cast<double>(*speed) / bitsPerGigabit;
+    }
+}
+
+inline void afterGetPortTransceiver(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& object)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No transceiver associated with the port");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (object.empty())
+    {
+        return;
+    }
+
+    const auto& [path, services] = *std::ranges::min_element(
+        object, {}, [](const auto& entry) { return entry.first; });
+    if (services.size() != 1)
+    {
+        return;
+    }
+    const std::string& service = services.front().first;
+
+    dbus::utility::getAllProperties(
+        service, path, "xyz.openbmc_project.Inventory.Decorator.Asset",
+        std::bind_front(afterGetSfpAsset, asyncResp));
+    dbus::utility::getProperty<bool>(
+        service, path, "xyz.openbmc_project.Inventory.Item", "Present",
+        std::bind_front(afterGetSfpPresence, asyncResp));
+    dbus::utility::getAllProperties(
+        service, path, "xyz.openbmc_project.Inventory.Item.Transceiver",
+        std::bind_front(afterGetSfpDescription, asyncResp));
+}
+
 inline void handleNetworkAdapterPathPortGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassiId, const std::string& networkAdapterId,
-    const std::string& portId, [[maybe_unused]] const std::string& portPath,
-    [[maybe_unused]] const std::string& serviceName)
+    const std::string& portId, const std::string& portPath,
+    const std::string& serviceName)
 {
-    asyncResp->res.jsonValue["@odata.type"] = "#Port.v1_9_0.Port";
+    asyncResp->res.jsonValue["@odata.type"] = "#Port.v1_19_0.Port";
     asyncResp->res.jsonValue["@odata.id"] =
         std::format("/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports/{}",
                     chassiId, networkAdapterId, portId);
@@ -375,6 +678,15 @@ inline void handleNetworkAdapterPathPortGet(
     asyncResp->res.jsonValue["Metrics"]["@odata.id"] = std::format(
         "/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports/{}/Metrics", chassiId,
         networkAdapterId, portId);
+
+    dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path(portPath) / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        transceiverInterface,
+        std::bind_front(afterGetPortTransceiver, asyncResp));
+    dbus::utility::getAllProperties(
+        serviceName, portPath, "xyz.openbmc_project.Inventory.Connector.Port",
+        std::bind_front(afterGetPortLink, asyncResp, serviceName, portPath));
 }
 
 inline void afterNetworkAdapterPortPaths(
