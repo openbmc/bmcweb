@@ -550,13 +550,30 @@ Fields common to all schemas
 
 - @odata.id
 - @odata.type
+- CurrentSpeedGbps
 - Id
+- LinkState
+- LinkStatus
 - Metrics
 - Name
+- PortProtocol
+- PortType
+- SFP
+  - ManagementInterfaceType
+  - Manufacturer
+  - MediumType
+  - Model
+  - PartNumber
+  - SerialNumber
+  - SparePartNumber
+  - Status/Health
+  - Status/State
+  - Type
 - Status
   - Health
   - HealthRollup
   - State
+- Width
 
 ### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Ports/{PortId}/Metrics/
 
