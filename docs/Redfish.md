@@ -567,27 +567,50 @@ Fields common to all schemas
 - Id
 - Name
 - Networking
+  - RDMATXReadRequests
+  - RDMATXSendRequests
+  - RDMATXWriteRequests
   - RXBroadcastFrames
+  - RXDiscards
   - RXFCSErrors
   - RXFalseCarrierErrors
   - RXFrameAlignmentErrors
+  - RXFrames
   - RXMulticastFrames
   - RXOversizeFrames
+  - RXPFCFrames
   - RXPauseXOFFFrames
   - RXPauseXONFrames
   - RXUndersizeFrames
   - RXUnicastFrames
   - TXBroadcastFrames
+  - TXDiscards
   - TXExcessiveCollisions
+  - TXFrames
   - TXLateCollisions
   - TXMulticastFrames
   - TXMultipleCollisions
+  - TXPFCFrames
   - TXPauseXOFFFrames
   - TXPauseXONFrames
   - TXSingleCollisions
   - TXUnicastFrames
+- PCIeErrors
+  - DLLPCRCErrorCount
+  - L0ToRecoveryCount
+  - NAKReceivedCount
+  - ReplayCount
+  - UnsupportedRequestCount
 - RXBytes
+- RXErrors
 - TXBytes
+- TXErrors
+- Transceivers
+  - ByLane/LaneId
+  - ByLane/RXInputPowerMilliWatts
+  - ByLane/TXBiasCurrentMilliAmps
+  - ByLane/TXOutputPowerMilliWatts
+  - SupplyVoltage
 
 ### /redfish/v1/EventService/
 
