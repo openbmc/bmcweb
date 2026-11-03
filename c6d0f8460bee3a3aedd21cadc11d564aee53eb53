@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5de51dd1_9827e557",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-03T20:50:05Z",
+      "side": 1,
+      "message": "The bar to being a reviewer is lower. Happy to discuss more.",
+      "revId": "c6d0f8460bee3a3aedd21cadc11d564aee53eb53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
