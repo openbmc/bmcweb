@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e20f404e_e5b817a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-03T14:50:04Z",
+      "side": 1,
+      "message": "Isn\u0027t that getSwInfo for the startUpdate ? \nLike don\u0027t you need to test POST /redfish/v1/UpdateService/update-multipart  ?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 63
+      },
+      "revId": "1d7d910f7641f65c24c71e906fe16adc4f59cec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1c6d017_6dbecb8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-03T14:50:04Z",
+      "side": 1,
+      "message": "These changes look unrelated. Oh well, but seems like 2 separate changes make the most sense here",
+      "revId": "1d7d910f7641f65c24c71e906fe16adc4f59cec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb6ac1ae_220f51bd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-03T14:50:04Z",
+      "side": 1,
+      "message": "I am good, I find this unlikely to happen. if it does and swId was the target then you get a propertyValueFormatError below.. Maybe an internal error would be better but oh well, I think the logic for the internal error would be complex here:\n\n```\nif (entry.second.empty())\n{\n    BMCWEB_LOG_ERROR(\"No D-Bus service found for software object {}\",\n                     entry.first);\n\n    if (swId \u003d\u003d target)\n    {\n        messages::internalError(asyncResp-\u003eres);\n        return;\n    }\n    continue;\n}\n\n```\n\nYour call",
+      "range": {
+        "startLine": 914,
+        "startChar": 0,
+        "endLine": 917,
+        "endChar": 9
+      },
+      "revId": "1d7d910f7641f65c24c71e906fe16adc4f59cec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
