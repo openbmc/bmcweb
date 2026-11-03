@@ -213,8 +213,10 @@ inline void getMappedMetricProperty(
     }
 }
 
-static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
+static constexpr std::array<std::pair<std::string_view, std::string_view>, 11>
     pciePortMetrics = {{
+        {"rx_errors", "/RXErrors"},
+        {"dllp_crc_error_count", "/PCIeErrors/DLLPCRCErrorCount"},
         {"correctable_error_count", "/PCIeErrors/CorrectableErrorCount"},
         {"non_fatal_error_count", "/PCIeErrors/NonFatalErrorCount"},
         {"fatal_error_count", "/PCIeErrors/FatalErrorCount"},

@@ -8,6 +8,7 @@
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
+#include "human_sort.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -16,13 +17,22 @@
 
 #include <boost/beast/http/verb.hpp>
 
+#include <algorithm>
 #include <array>
+#include <charconv>
+#include <cmath>
+#include <cstddef>
 #include <format>
 #include <functional>
+#include <iterator>
 #include <memory>
+#include <optional>
+#include <span>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
+#include <vector>
 
 static constexpr std::array<std::string_view, 1> networkAdapterInterface = {
     "xyz.openbmc_project.Inventory.Item.NetworkAdapter"};
@@ -30,7 +40,7 @@ static constexpr std::array<std::string_view, 1> networkAdapterInterface = {
 namespace redfish
 {
 
-static constexpr std::array<std::pair<std::string_view, std::string_view>, 21>
+static constexpr std::array<std::pair<std::string_view, std::string_view>, 32>
     nicPortMetrics = {{
         {"rx_bytes", "/RXBytes"},
         {"tx_bytes", "/TXBytes"},
@@ -53,7 +63,226 @@ static constexpr std::array<std::pair<std::string_view, std::string_view>, 21>
         {"tx_multiple_collisions", "/Networking/TXMultipleCollisions"},
         {"tx_late_collisions", "/Networking/TXLateCollisions"},
         {"tx_excessive_collisions", "/Networking/TXExcessiveCollisions"},
+        {"rx_errors", "/RXErrors"},
+        {"tx_errors", "/TXErrors"},
+        {"rx_discards", "/Networking/RXDiscards"},
+        {"tx_discards", "/Networking/TXDiscards"},
+        {"rx_frames", "/Networking/RXFrames"},
+        {"tx_frames", "/Networking/TXFrames"},
+        {"rx_pfc_frames", "/Networking/RXPFCFrames"},
+        {"tx_pfc_frames", "/Networking/TXPFCFrames"},
+        {"rdma_tx_read_requests", "/Networking/RDMATXReadRequests"},
+        {"rdma_tx_send_requests", "/Networking/RDMATXSendRequests"},
+        {"rdma_tx_write_requests", "/Networking/RDMATXWriteRequests"},
     }};
+
+inline void afterGetTransceiverMetricValue(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonPtr, double scale,
+    const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG(
+            "DBus response error on GetProperty {} for property {}", ec,
+            jsonPtr.to_string());
+        return;
+    }
+
+    if (!std::isfinite(value))
+    {
+        asyncResp->res.jsonValue[jsonPtr] = nullptr;
+        return;
+    }
+
+    asyncResp->res.jsonValue[jsonPtr] = value * scale;
+}
+
+inline void getTransceiverMetric(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const sdbusplus::object_path& objectPath,
+    const nlohmann::json::json_pointer& jsonPtr, double scale)
+{
+    dbus::utility::getProperty<double>(
+        serviceName, objectPath, "xyz.openbmc_project.Metric.Value", "Value",
+        std::bind_front(afterGetTransceiverMetricValue, asyncResp, jsonPtr,
+                        scale));
+}
+
+// Metric.Value names a lane by appending its number to the path segment.
+inline std::optional<size_t> getLaneFromMetricName(std::string_view name,
+                                                   std::string_view prefix)
+{
+    if (!name.starts_with(prefix))
+    {
+        return std::nullopt;
+    }
+    name.remove_prefix(prefix.size());
+
+    size_t lane = 0;
+    const auto [end, ec] = std::from_chars(name.begin(), name.end(), lane);
+    if (ec != std::errc() || end != name.end())
+    {
+        return std::nullopt;
+    }
+    return lane;
+}
+
+struct TransceiverLaneMetric
+{
+    std::string_view prefix;
+    std::string_view property;
+};
+
+// Metric.Value publishes base SI units where Redfish asks for milli.
+constexpr double milliPerUnit = 1e3;
+
+constexpr std::array<TransceiverLaneMetric, 3> transceiverLaneMetrics{{
+    {"tx_output_power_lane_", "TXOutputPowerMilliWatts"},
+    {"rx_input_power_lane_", "RXInputPowerMilliWatts"},
+    {"tx_bias_current_lane_", "TXBiasCurrentMilliAmps"},
+}};
+
+// Module-wide metrics, published in the unit Redfish reports them in.
+constexpr std::array<std::pair<std::string_view, std::string_view>, 1>
+    transceiverMetrics{{
+        {"supply_voltage", "SupplyVoltage"},
+    }};
+
+constexpr std::array<std::string_view, 1> transceiverInterface = {
+    "xyz.openbmc_project.Inventory.Item.Transceiver"};
+
+// ByLane is an array, so lanes pack in order and LaneId keeps each number.
+inline std::vector<size_t> getTransceiverLanes(
+    const dbus::utility::MapperGetSubTreeResponse& object)
+{
+    std::vector<size_t> lanes;
+    for (const auto& [path, service] : object)
+    {
+        const std::string metricName = sdbusplus::object_path(path).filename();
+        for (const TransceiverLaneMetric& metric : transceiverLaneMetrics)
+        {
+            const std::optional<size_t> lane =
+                getLaneFromMetricName(metricName, metric.prefix);
+            if (lane)
+            {
+                lanes.push_back(*lane);
+            }
+        }
+    }
+
+    std::ranges::sort(lanes);
+    lanes.erase(std::ranges::unique(lanes).begin(), lanes.end());
+    return lanes;
+}
+
+inline void addTransceiverMetric(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& transceiverPtr,
+    const std::string& serviceName, const sdbusplus::object_path& objectPath,
+    std::span<const size_t> lanes)
+{
+    const std::string metricName = objectPath.filename();
+    for (const auto& [name, property] : transceiverMetrics)
+    {
+        if (name == metricName)
+        {
+            getTransceiverMetric(asyncResp, serviceName, objectPath,
+                                 transceiverPtr / std::string(property), 1.0);
+            return;
+        }
+    }
+
+    for (const TransceiverLaneMetric& metric : transceiverLaneMetrics)
+    {
+        const std::optional<size_t> lane =
+            getLaneFromMetricName(metricName, metric.prefix);
+        if (!lane)
+        {
+            continue;
+        }
+
+        const auto index =
+            std::distance(lanes.begin(), std::ranges::find(lanes, *lane));
+        const nlohmann::json::json_pointer lanePtr =
+            transceiverPtr / "ByLane" / static_cast<size_t>(index);
+        asyncResp->res.jsonValue[lanePtr / "LaneId"] = *lane;
+        getTransceiverMetric(asyncResp, serviceName, objectPath,
+                             lanePtr / std::string(metric.property),
+                             milliPerUnit);
+        return;
+    }
+}
+
+inline void afterGetTransceiverMetrics(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& transceiverPtr,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& object)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No metrics for transceiver {}",
+                             transceiverPtr.to_string());
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTree {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const std::vector<size_t> lanes = getTransceiverLanes(object);
+    for (const auto& [path, service] : object)
+    {
+        if (service.size() != 1)
+        {
+            continue;
+        }
+        addTransceiverMetric(asyncResp, transceiverPtr, service.begin()->first,
+                             sdbusplus::object_path(path), lanes);
+    }
+}
+
+inline void afterGetPortTransceiverPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& paths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No transceiver associated with the port");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBus response error on GetAssociatedSubTreePaths {}",
+                         ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (paths.empty())
+    {
+        return;
+    }
+
+    std::vector<std::string> sorted = paths;
+    std::ranges::sort(sorted, AlphanumLess<std::string>());
+    // Create every entry first, so one without metrics leaves no null.
+    asyncResp->res.jsonValue["Transceivers"] =
+        nlohmann::json::array_t(sorted.size(), nlohmann::json::object_t());
+    for (size_t index = 0; index < sorted.size(); index++)
+    {
+        dbus::utility::getAssociatedSubTree(
+            sdbusplus::object_path(sorted[index]) / "measured_by",
+            sdbusplus::object_path("/xyz/openbmc_project/metric"), 0,
+            std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
+            std::bind_front(afterGetTransceiverMetrics, asyncResp,
+                            "/Transceivers"_json_pointer / index));
+    }
+}
 
 inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -78,14 +307,22 @@ inline void handleNetworkAdapterPortMetricsPathsPortMetricsGet(
 
         const std::string metricType = objectPah.parent_path().filename();
         const std::string metricName = objectPah.filename();
+        const auto& serviceName = service.begin()->first;
+
+        if (metricType == "pcie")
+        {
+            getMappedMetricProperty(asyncResp, serviceName, path, metricName,
+                                    pciePortMetrics);
+            continue;
+        }
 
         if (metricType != "nic")
         {
             continue;
         }
 
-        getMappedMetricProperty(asyncResp, service.begin()->first, path,
-                                metricName, nicPortMetrics);
+        getMappedMetricProperty(asyncResp, serviceName, path, metricName,
+                                nicPortMetrics);
     }
 }
 
@@ -95,7 +332,7 @@ inline void handleNetworkAdapterPortPathPortMetricsGet(
     const std::string& portId, const sdbusplus::object_path& portPath,
     [[maybe_unused]] const std::string& serviceName)
 {
-    asyncResp->res.jsonValue["@odata.type"] = "#PortMetrics.v1_7_0.PortMetrics";
+    asyncResp->res.jsonValue["@odata.type"] = "#PortMetrics.v1_9_0.PortMetrics";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/NetworkAdapters/{}/Ports/{}/Metrics", chassisId,
         networkAdapterId, portId);
@@ -109,6 +346,11 @@ inline void handleNetworkAdapterPortPathPortMetricsGet(
         0, std::array<std::string_view, 1>{"xyz.openbmc_project.Metric.Value"},
         std::bind_front(handleNetworkAdapterPortMetricsPathsPortMetricsGet,
                         asyncResp));
+    dbus::utility::getAssociatedSubTreePaths(
+        portPath / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        transceiverInterface,
+        std::bind_front(afterGetPortTransceiverPaths, asyncResp));
 }
 
 inline void handleNetworkAdapterPathPortGet(
