@@ -80,5 +80,68 @@ TEST(ToRedfishProperty, AllAddReportKeysMapToNonEmpty)
     }
 }
 
+TEST(InvalidArgsMethodMatches, JsonMessageMatchesMethod)
+{
+    constexpr std::string_view jsonMessage =
+        R"({"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"Interval","DETAILS":"Interval is below minimum."}})";
+    EXPECT_TRUE(telemetry::invalidArgsMethodMatches(jsonMessage, "Interval"));
+    EXPECT_FALSE(
+        telemetry::invalidArgsMethodMatches(jsonMessage, "ReportingType"));
+}
+
+TEST(InvalidArgsMethodMatches, LegacyPlainMessageDoesNotMatch)
+{
+    // Bare property names predate the JSON envelope; they are handled by
+    // the legacy prefix match in handleParamError, not here.
+    EXPECT_FALSE(telemetry::invalidArgsMethodMatches("Interval", "Interval"));
+}
+
+TEST(InvalidArgsMethodMatches, MalformedInputDoesNotMatch)
+{
+    EXPECT_FALSE(telemetry::invalidArgsMethodMatches("", "Interval"));
+    EXPECT_FALSE(telemetry::invalidArgsMethodMatches("{not json", "Interval"));
+    EXPECT_FALSE(telemetry::invalidArgsMethodMatches(
+        R"({"org.freedesktop.DBus.Error.InvalidArgs":{}})", "Interval"));
+    EXPECT_FALSE(telemetry::invalidArgsMethodMatches(
+        R"({"org.freedesktop.DBus.Error.Failed":{"METHOD":"Interval"}})",
+        "Interval"));
+}
+
+TEST(HandleParamError, JsonInvalidArgsYieldsPropertyValueError)
+{
+    crow::Response res;
+    constexpr const char* jsonMessage =
+        R"({"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"Interval","DETAILS":"Interval is below minimum."}})";
+    EXPECT_FALSE(telemetry::handleParamError(res, jsonMessage, "Interval"));
+
+    const nlohmann::json& extendedInfo =
+        res.jsonValue["error"][messages::messageAnnotation];
+    ASSERT_EQ(extendedInfo.size(), 1);
+    EXPECT_TRUE(extendedInfo[0]["MessageId"].get<std::string>().ends_with(
+        "PropertyValueError"));
+    EXPECT_EQ(extendedInfo[0]["MessageArgs"][0], "RecurrenceInterval");
+}
+
+TEST(HandleParamError, LegacyPlainMessageStillYieldsPropertyValueError)
+{
+    crow::Response res;
+    EXPECT_FALSE(telemetry::handleParamError(res, "ReadingParameters.Foo",
+                                             "ReadingParameters"));
+
+    const nlohmann::json& extendedInfo =
+        res.jsonValue["error"][messages::messageAnnotation];
+    ASSERT_EQ(extendedInfo.size(), 1);
+    EXPECT_EQ(extendedInfo[0]["MessageArgs"][0], "Metrics");
+}
+
+TEST(HandleParamError, NonMatchingKeyLeavesResponseUntouched)
+{
+    crow::Response res;
+    constexpr const char* jsonMessage =
+        R"({"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"Interval","DETAILS":"Interval is below minimum."}})";
+    EXPECT_TRUE(telemetry::handleParamError(res, jsonMessage, "Name"));
+    EXPECT_TRUE(res.jsonValue.empty());
+}
+
 } // namespace
 } // namespace redfish
