@@ -126,7 +126,7 @@ class OemRouter
                          std::unique_ptr<OemBaseRule>&& ruleObject)
         {
             rules.emplace_back(std::move(ruleObject));
-            trie.add(rule, static_cast<unsigned>(rules.size() - 1U));
+            trie.add(rule, static_cast<unsigned>(rules.size() - 1));
             // request to /resource/#/frag matches /resource#/frag
             size_t hashPos = rule.find("/#/");
             if (hashPos != std::string_view::npos)
@@ -135,7 +135,7 @@ class OemRouter
                 url += '#';
                 url += rule.substr(hashPos + 2); // Skip "/#" (2 characters)
                 std::string_view fragRule = url;
-                trie.add(fragRule, static_cast<unsigned>(rules.size() - 1U));
+                trie.add(fragRule, static_cast<unsigned>(rules.size() - 1));
             }
         }
     };

@@ -116,7 +116,7 @@ class Router
         void internalAdd(std::string_view rule, BaseRule* ruleObject)
         {
             rules.emplace_back(ruleObject);
-            trie.add(rule, static_cast<unsigned>(rules.size() - 1U));
+            trie.add(rule, static_cast<unsigned>(rules.size() - 1));
             // directory case:
             //   request to `/about' url matches `/about/' rule
             if (rule.size() > 2 && rule.back() == '/')
