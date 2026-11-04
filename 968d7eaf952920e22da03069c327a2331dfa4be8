@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f32b66d_b0834a94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-04T19:18:08Z",
+      "side": 1,
+      "message": "Sorry, why is this redundant?  Goal is to not have type promotion from unsigned to signed.",
+      "range": {
+        "startLine": 13,
+        "startChar": 51,
+        "endLine": 14,
+        "endChar": 67
+      },
+      "revId": "968d7eaf952920e22da03069c327a2331dfa4be8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f248fa0b_c18d54c9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
