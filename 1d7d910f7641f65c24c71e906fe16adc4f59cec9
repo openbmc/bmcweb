@@ -26,6 +26,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d3b1d91b_f0e2393d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002614
+      },
+      "writtenOn": "2026-11-04T17:50:04Z",
+      "side": 1,
+      "message": "the multipart path was exercised, getSwInfo was hit, and it returned the expected error.",
+      "parentUuid": "e20f404e_e5b817a2",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 63
+      },
+      "revId": "1d7d910f7641f65c24c71e906fe16adc4f59cec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9b18ca4_640a344a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002614
+      },
+      "writtenOn": "2026-11-04T17:50:04Z",
+      "side": 1,
+      "message": "the multipart path was exercised, getSwInfo was hit, and it returned the expected error",
+      "parentUuid": "e20f404e_e5b817a2",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 63
+      },
+      "revId": "1d7d910f7641f65c24c71e906fe16adc4f59cec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f1c6d017_6dbecb8d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -54,6 +102,30 @@
       "writtenOn": "2026-11-03T14:50:04Z",
       "side": 1,
       "message": "I am good, I find this unlikely to happen. if it does and swId was the target then you get a propertyValueFormatError below.. Maybe an internal error would be better but oh well, I think the logic for the internal error would be complex here:\n\n```\nif (entry.second.empty())\n{\n    BMCWEB_LOG_ERROR(\"No D-Bus service found for software object {}\",\n                     entry.first);\n\n    if (swId \u003d\u003d target)\n    {\n        messages::internalError(asyncResp-\u003eres);\n        return;\n    }\n    continue;\n}\n\n```\n\nYour call",
+      "range": {
+        "startLine": 914,
+        "startChar": 0,
+        "endLine": 917,
+        "endChar": 9
+      },
+      "revId": "1d7d910f7641f65c24c71e906fe16adc4f59cec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "956c0443_5dfed961",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1002614
+      },
+      "writtenOn": "2026-11-04T17:50:04Z",
+      "side": 1,
+      "message": "Thanks for the suggestion! I’ll keep the simple continue for now since the scenario is unlikely, but I can follow up with the more detailed error handling in a separate patch if needed.",
+      "parentUuid": "bb6ac1ae_220f51bd",
       "range": {
         "startLine": 914,
         "startChar": 0,
