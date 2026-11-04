@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "386c8cc3_5ecc97c7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-11-04T07:41:41Z",
+      "side": 1,
+      "message": "Could we allow SpeedLocked and SpeedLimitMHz to be patched independently? Updating only SpeedLimitMHz or only SpeedLocked currently fails with PropertyMissing.",
+      "revId": "de567630b6ba129764f98f921961267d6c28270f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af2949c5_aef6aca5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1695,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-11-04T07:41:41Z",
+      "side": 1,
+      "message": "Could we check for overflow before converting MHz to Hz, including SettingMin and SettingMax?",
+      "revId": "de567630b6ba129764f98f921961267d6c28270f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37156c38_f9f1c75c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-11-04T07:41:41Z",
+      "side": 1,
+      "message": "Could we reset Min when unlocking? The cached Min can leave SpeedLocked true.",
+      "revId": "de567630b6ba129764f98f921961267d6c28270f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
