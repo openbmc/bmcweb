@@ -317,7 +317,7 @@ inline QueryError getNumericParam(std::string_view value, size_t& param)
         return QueryError::OutOfRange;
     }
     // All other errors are value format
-    if (r.ec != std::errc())
+    if (r.ec != std::errc() || r.ptr != value.end())
     {
         return QueryError::ValueFormat;
     }
