@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82a3f824_01690835",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-04T18:33:21Z",
+      "side": 1,
+      "message": "Were you actually able to trigger this?  Per the nghttp2 docs, this should always be populated, but having a guard isn\u0027t a bad idea.",
+      "revId": "14c9773b8d9347389cb2f80b61853ab695c44357",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
