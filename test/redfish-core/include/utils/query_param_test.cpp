@@ -435,6 +435,38 @@ TEST(QueryParams, ParseParametersTop)
     EXPECT_EQ(query.value().top, 1);
 }
 
+TEST(QueryParams, ParseParametersTopZero)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=0");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+    std::optional<Query> query = parseParameters(ret->params(), res);
+    ASSERT_TRUE(query);
+    EXPECT_EQ(query->top, 0);
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+}
+
+TEST(QueryParams, ParseParametersTopTrailingCharacters)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=1junk");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+    EXPECT_EQ(parseParameters(ret->params(), res), std::nullopt);
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+}
+
+TEST(QueryParams, ParseParametersTopFractional)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=1.5");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+    EXPECT_EQ(parseParameters(ret->params(), res), std::nullopt);
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+}
+
 TEST(QueryParams, ParseParametersTopOutOfRangeNegative)
 {
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=-1");
@@ -475,6 +507,38 @@ TEST(QueryParams, ParseParametersSkip)
     }
     EXPECT_EQ(query.value().skip, 1);
 }
+TEST(QueryParams, ParseParametersSkipZero)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$skip=0");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+    std::optional<Query> query = parseParameters(ret->params(), res);
+    ASSERT_TRUE(query);
+    EXPECT_EQ(query->skip, 0);
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+}
+
+TEST(QueryParams, ParseParametersSkipTrailingCharacters)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$skip=1junk");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+    EXPECT_EQ(parseParameters(ret->params(), res), std::nullopt);
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+}
+
+TEST(QueryParams, ParseParametersSkipFractional)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$skip=2.5");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+    EXPECT_EQ(parseParameters(ret->params(), res), std::nullopt);
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+}
+
 TEST(QueryParams, ParseParametersSkipOutOfRange)
 {
     auto ret = boost::urls::parse_relative_ref(
