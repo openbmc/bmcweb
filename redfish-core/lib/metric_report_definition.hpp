@@ -9,6 +9,7 @@
 #include "error_messages.hpp"
 #include "generated/enums/metric_report_definition.hpp"
 #include "generated/enums/resource.hpp"
+#include "http/parsing.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -33,6 +34,7 @@
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
+#include <org/freedesktop/DBus/Error/event.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -720,6 +722,36 @@ inline std::string toRedfishProperty(std::string_view dbusMessage)
     return "";
 }
 
+// Telemetry reports InvalidArgs failures either as the bare property name
+// (older daemons, e.g. "Interval") or, with sdbusplus-generated errors, as a
+// JSON document, e.g.
+// {"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"Interval",...}}.
+// Check the latter for the rejected property's METHOD. Returns false when
+// the message is not in that JSON form, in which case callers fall back to
+// the legacy prefix match.
+inline bool invalidArgsMethodMatches(std::string_view errorMessage,
+                                     std::string_view key)
+{
+    using InvalidArgs =
+        sdbusplus::error::org::freedesktop::d_bus::Error::InvalidArgs;
+    std::optional<nlohmann::json> json = parseStringAsJson(errorMessage);
+    if (!json.has_value() || !json->is_object())
+    {
+        return false;
+    }
+    const auto error = json->find(InvalidArgs::errName);
+    if (error == json->end() || !error->is_object())
+    {
+        return false;
+    }
+    const auto method = error->find("METHOD");
+    if (method == error->end() || !method->is_string())
+    {
+        return false;
+    }
+    return method->get_ref<const std::string&>() == key;
+}
+
 inline bool handleParamError(crow::Response& res, const char* errorMessage,
                              std::string_view key)
 {
@@ -729,7 +761,8 @@ inline bool handleParamError(crow::Response& res, const char* errorMessage,
         return true;
     }
     std::string_view errorMessageSv(errorMessage);
-    if (errorMessageSv.starts_with(key))
+    if (errorMessageSv.starts_with(key) ||
+        invalidArgsMethodMatches(errorMessageSv, key))
     {
         std::string redfishProperty = toRedfishProperty(key);
         if (redfishProperty.empty())
