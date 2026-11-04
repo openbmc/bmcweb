@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd923351_de8e1609",
+        "filename": "test/redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-04T19:14:28Z",
+      "side": 1,
+      "message": "What path does this test hit that the first one doesn\u0027t?",
+      "range": {
+        "startLine": 438,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 1
+      },
+      "revId": "012ab5dbc29b51ba15c73e11e2a906fff088a684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87ce44e3_b503c0ec",
+        "filename": "test/redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-04T19:14:28Z",
+      "side": 1,
+      "message": "Same here.  This test covers the same thing that \"junk\" does?",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 468,
+        "endChar": 1
+      },
+      "revId": "012ab5dbc29b51ba15c73e11e2a906fff088a684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
