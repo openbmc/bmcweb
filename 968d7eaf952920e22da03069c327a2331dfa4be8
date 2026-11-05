@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20dbe884_9a4a1e5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003207
+      },
+      "writtenOn": "2026-11-05T01:20:17Z",
+      "side": 1,
+      "message": "Thanks for raising this. The U suffix is removed to avoid Clang-tidy’s redundant-cast diagnostic on ARM32, where size_t is already unsigned int. \nSince rules.size() is unsigned, the usual arithmetic conversions convert 1 to size_t before subtraction.\nThere is no unsigned-to-signed promotion or signed intermediate. The explicit cast to unsigned remains to preserve the narrowing on platforms where size_t is wider. \nAlso, the vector starts with one reserved entry and emplace_back occurs before the subtraction, so the index calculation doesn’t underflow.",
+      "parentUuid": "3f32b66d_b0834a94",
+      "range": {
+        "startLine": 13,
+        "startChar": 51,
+        "endLine": 14,
+        "endChar": 67
+      },
+      "revId": "968d7eaf952920e22da03069c327a2331dfa4be8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f248fa0b_c18d54c9",
