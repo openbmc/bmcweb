@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e43ad16_d33c24c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-05T19:12:14Z",
+      "side": 1,
+      "message": "Overall I am good",
+      "revId": "50fcf0911217b9c549be4b26d7a70c10224be501",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdbcd2a8_203fd92f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-05T19:12:14Z",
+      "side": 1,
+      "message": "probably move this down to 920 or make this a WARNING",
+      "range": {
+        "startLine": 916,
+        "startChar": 0,
+        "endLine": 917,
+        "endChar": 78
+      },
+      "revId": "50fcf0911217b9c549be4b26d7a70c10224be501",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
