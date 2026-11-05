@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4abe8fed_70bbcfc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-05T19:16:19Z",
+      "side": 1,
+      "message": "What tool ? \n\nTested: ?\n\nThey are comments or debug traces except scripts/parse_registries.py and scripts/generate_auth_certificates.py and that change in the code update path.. Not going to hold this up for testing.. But even a commit this small should be more clear than \"Fix typos using typos tool\"",
+      "revId": "e028c78a681e3569d0b4a27c127b098d8fded6cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
