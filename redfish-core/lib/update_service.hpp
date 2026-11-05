@@ -331,7 +331,7 @@ inline void softwareInterfaceAdded(
     }
 }
 
-inline void afterAvailbleTimerAsyncWait(
+inline void afterAvailableTimerAsyncWait(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec)
 {
@@ -469,7 +469,7 @@ inline void monitorForSoftwareAvailable(
     fwAvailableTimer->expires_after(std::chrono::seconds(timeoutTimeSeconds));
 
     fwAvailableTimer->async_wait(
-        std::bind_front(afterAvailbleTimerAsyncWait, asyncResp));
+        std::bind_front(afterAvailableTimerAsyncWait, asyncResp));
 
     task::Payload payload(req);
     auto callback = [asyncResp, payload](sdbusplus::message_t& m) mutable {

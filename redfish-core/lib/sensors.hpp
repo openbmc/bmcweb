@@ -352,7 +352,7 @@ void getConnections(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
 
 /**
  * @brief Shrinks the list of sensors for processing
- * @param SensorsAysncResp  The class holding the Redfish response
+ * @param SensorsAsyncResp  The class holding the Redfish response
  * @param allSensors  A list of all the sensors associated to the
  * chassis element (i.e. baseboard, front panel, etc...)
  * @param activeSensors A list that is a reduction of the incoming

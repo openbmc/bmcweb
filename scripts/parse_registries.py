@@ -202,15 +202,15 @@ def get_privilege_string_from_list(
     for privilege_json in privilege_list:
         privileges = privilege_json["Privilege"]
         privilege_string += "    {"
-        last_privelege = ""
+        last_privilege = ""
         for privilege in privileges:
-            last_privelege = privilege
+            last_privilege = privilege
             if privilege == "NoAuth":
                 continue
             privilege_string += '"'
             privilege_string += privilege
             privilege_string += '",\n'
-        if last_privelege != "NoAuth":
+        if last_privilege != "NoAuth":
             privilege_string = privilege_string[:-2]
         privilege_string += "}"
         privilege_string += ",\n"
