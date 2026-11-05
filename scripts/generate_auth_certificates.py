@@ -282,7 +282,7 @@ def generateCsr(
 
     CSRRequest = {
         "CommonName": commonName,
-        "City": "San Fransisco",
+        "City": "San Francisco",
         "Country": "US",
         "Organization": "",
         "OrganizationalUnit": "",

@@ -271,7 +271,7 @@ class HttpBody::writer
             if (size)
             {
                 BMCWEB_LOG_DEBUG(
-                    "Body is raw, client supports zstd, and paylod is not streaming.  Compressing.");
+                    "Body is raw, client supports zstd, and payload is not streaming.  Compressing.");
                 zstdCompressor.emplace();
                 if (!zstdCompressor->init(*size))
                 {

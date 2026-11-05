@@ -328,7 +328,7 @@ class OpenSSLGeneralNames
     OpenSSLGeneralNames() : ptr(GENERAL_NAMES_new()) {}
 
     // This parameter isn't "moved" but it is released, so clang-tidy flags
-    // that it shoudln't be an rvalue.  rvalue keeps the API clear that the
+    // that it shouldn't be an rvalue.  rvalue keeps the API clear that the
     // element has been effectively moved out of even if std::move isn't
     // used.
     // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
