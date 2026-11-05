@@ -22,6 +22,30 @@
       },
       "revId": "f997109859dbb77c154f613077a32a6241278ba8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106e805b_3e5ddd70",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-11-05T14:41:43Z",
+      "side": 1,
+      "message": "We could but that is a change in behavior. It seems like you are implying the code has an existing bug?  If so, that can be fixed but it should be separate from this change.",
+      "parentUuid": "a46702d7_cc35c602",
+      "range": {
+        "startLine": 752,
+        "startChar": 4,
+        "endLine": 752,
+        "endChar": 56
+      },
+      "revId": "f997109859dbb77c154f613077a32a6241278ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
