@@ -16,6 +16,24 @@
       "message": "Please include the effected GET response and Service Validator results in the \"Tested:\" block.",
       "revId": "ecc4491246acb46607a715512c4049bebeb217bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "068ed222_05a862ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-05T09:43:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf8979b5_e2d1d7cb",
+      "revId": "ecc4491246acb46607a715512c4049bebeb217bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
