@@ -252,6 +252,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f69fb9db_9cd963ba",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-05T05:55:47Z",
+      "side": 1,
+      "message": "Done. Can you kindly review https://gerrit.openbmc.org/c/openbmc/bmcweb/+/96491.",
+      "parentUuid": "507fe6c3_a85c9bcc",
+      "range": {
+        "startLine": 149,
+        "startChar": 59,
+        "endLine": 149,
+        "endChar": 65
+      },
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1eec5b0_92a31172",
