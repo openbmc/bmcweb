@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a46702d7_cc35c602",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-05T10:05:38Z",
+      "side": 1,
+      "message": "Could we also match dot-delimited child names here? If telemetry is emitting METHOD: \"ReadingParameters.CollectionDuration\", but the caller checks \"ReadingParameters\", will the exact equality misses this error, causing HTTP 500 instead of the Metrics property error?",
+      "range": {
+        "startLine": 752,
+        "startChar": 4,
+        "endLine": 752,
+        "endChar": 56
+      },
+      "revId": "f997109859dbb77c154f613077a32a6241278ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
