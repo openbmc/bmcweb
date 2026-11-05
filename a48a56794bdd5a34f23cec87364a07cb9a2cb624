@@ -16,6 +16,24 @@
       "message": "Can you please add Redfish service validator results and failure-path checks in tested block.",
       "revId": "a48a56794bdd5a34f23cec87364a07cb9a2cb624",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32f09ae6_f43ee0f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-05T09:40:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c2206f5_7ae69678",
+      "revId": "a48a56794bdd5a34f23cec87364a07cb9a2cb624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
