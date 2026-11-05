@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23f72ff_1b15c160",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-05T06:46:18Z",
+      "side": 1,
+      "message": "changes shoudln\u0027t to should\u0027t. The correct spelling is shouldn\u0027t. Right?\n\n\n```suggestion\n    // that it shouldn\u0027t be an rvalue.  rvalue keeps the API clear that the\n```",
+      "range": {
+        "startLine": 331,
+        "startChar": 15,
+        "endLine": 331,
+        "endChar": 23
+      },
+      "revId": "c2832285719a723af124219a5ea8040340f2cab8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
