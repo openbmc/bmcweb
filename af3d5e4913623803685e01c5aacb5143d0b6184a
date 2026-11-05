@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a160301_722517dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-05T10:59:21Z",
+      "side": 1,
+      "message": "Can you please add redfish service validator results here. Please check REDFISH_CHECKLIST.md",
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05001265_71ef5589",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-05T10:59:21Z",
+      "side": 1,
+      "message": "Need",
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e80f82_2ec5e54b",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-05T10:59:21Z",
+      "side": 1,
+      "message": "If an earlier transceiver has no usable metrics but a later one does, will this discovery index leaves a null entry in Transceivers, although the schema expects transceiver objects? Could we create each object before scheduling its metric query, following the pattern in getAssemblyProperties?",
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
