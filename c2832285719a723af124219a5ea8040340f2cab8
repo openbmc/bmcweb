@@ -22,6 +22,30 @@
       },
       "revId": "c2832285719a723af124219a5ea8040340f2cab8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29608957_a1053e80",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2026-11-05T07:08:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b23f72ff_1b15c160",
+      "range": {
+        "startLine": 331,
+        "startChar": 15,
+        "endLine": 331,
+        "endChar": 23
+      },
+      "revId": "c2832285719a723af124219a5ea8040340f2cab8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
