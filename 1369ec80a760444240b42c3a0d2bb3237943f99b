@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cce9adf6_43464520",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T01:51:40Z",
+      "side": 1,
+      "message": "Here as well?",
+      "range": {
+        "startLine": 451,
+        "startChar": 8,
+        "endLine": 451,
+        "endChar": 15
+      },
+      "revId": "1369ec80a760444240b42c3a0d2bb3237943f99b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4095776_a81912ec",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T01:51:40Z",
+      "side": 1,
+      "message": "Here as well?",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 494,
+        "endChar": 15
+      },
+      "revId": "1369ec80a760444240b42c3a0d2bb3237943f99b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf5f17cc_c185709f",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T01:51:40Z",
+      "side": 1,
+      "message": "Should we add `BMCWEB_LOG_DEBUG()` for the case `ec.value() \u003d\u003d EBADR` as well?",
+      "range": {
+        "startLine": 619,
+        "startChar": 8,
+        "endLine": 619,
+        "endChar": 15
+      },
+      "revId": "1369ec80a760444240b42c3a0d2bb3237943f99b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
