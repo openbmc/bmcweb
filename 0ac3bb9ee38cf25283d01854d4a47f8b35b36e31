@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c524453e_38a19dd9",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T06:46:58Z",
+      "side": 1,
+      "message": "These looked similar, can we integrate them as one?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 54
+      },
+      "revId": "0ac3bb9ee38cf25283d01854d4a47f8b35b36e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a1d4a6f_59ad58ef",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T06:46:58Z",
+      "side": 1,
+      "message": "nit: How about this?\n```\nfor (const auto\u0026 [_, interfaces] : serviceMap)\n{\n    if (std::ranges::contains(interfaces, interface))\n    {\n        return true;\n    }\n}\n```",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 17
+      },
+      "revId": "0ac3bb9ee38cf25283d01854d4a47f8b35b36e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40e0f763_c5ff6915",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T06:46:58Z",
+      "side": 1,
+      "message": "nit:\nCan we uses `ranges::contains()` or `ranges::find()`?\n```\nif (std::ranges::contains(interfaces, powerStateInterface))\n{\n    return serviceName;\n}\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 9
+      },
+      "revId": "0ac3bb9ee38cf25283d01854d4a47f8b35b36e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
