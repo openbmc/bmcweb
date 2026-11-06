@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "931594c0_4df908d3",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-06T09:19:43Z",
+      "side": 1,
+      "message": "storageInterface and systemInterface come from storage.hpp, which isn\u0027t included here, so this relies on redfish.cpp including it first. Could we include it?",
+      "revId": "df813fe504b221bee50ff7bafc1debea7d85db88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "172d0a95_926a7578",
         "filename": "redfish-core/lib/storage_controller.hpp",
         "patchSetId": 15
@@ -37,6 +54,40 @@
         "endLine": 169,
         "endChar": 11
       },
+      "revId": "df813fe504b221bee50ff7bafc1debea7d85db88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c74d0565_80ab7c63",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-06T09:19:43Z",
+      "side": 1,
+      "message": "Re-querying by StorageId mixes in another system\u0027s controllers if two systems share a StorageId. Could it use getAssociatedSubTreePaths() on storage-\u003efirst + \"/containing\"?",
+      "revId": "df813fe504b221bee50ff7bafc1debea7d85db88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2395b88_eea7da9a",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-06T09:19:43Z",
+      "side": 1,
+      "message": "nit: this and the setUpRedfishRoute() log above only fire on rejected client input or aggregation forwarding. Could they stay DEBUG (WARNING at most)?",
       "revId": "df813fe504b221bee50ff7bafc1debea7d85db88",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
