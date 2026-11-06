@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c7ad7b0_e8b39323",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-06T06:01:28Z",
+      "side": 1,
+      "message": "Commit message says it uses xyz.openbmc_project.Inventory.Decorator.ManagedHost, but implementation queries xyz.openbmc_project.Inventory.Item.System",
+      "revId": "496a82074bcf4ddf2943730b165a9a21b028cb57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea0ecee5_33e80710",
         "filename": "/COMMIT_MSG",
         "patchSetId": 14
