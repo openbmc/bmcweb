@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b90ad093_13e79585",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-06T13:41:36Z",
+      "side": 1,
+      "message": "`SpeedLocked` on its own has no limit to lock at, and `SpeedLimitMHz` on its own does not say whether to lock, so the pair is required rather than guessed; happy to relax this if you have a defined meaning for each on its own.",
+      "parentUuid": "386c8cc3_5ecc97c7",
+      "revId": "de567630b6ba129764f98f921961267d6c28270f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af2949c5_aef6aca5",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 21
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-04T07:41:41Z",
       "side": 1,
       "message": "Could we check for overflow before converting MHz to Hz, including SettingMin and SettingMax?",
+      "revId": "de567630b6ba129764f98f921961267d6c28270f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a7ec93_1bc51d36",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1695,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-06T13:41:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af2949c5_aef6aca5",
       "revId": "de567630b6ba129764f98f921961267d6c28270f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-04T07:41:41Z",
       "side": 1,
       "message": "Could we reset Min when unlocking? The cached Min can leave SpeedLocked true.",
+      "revId": "de567630b6ba129764f98f921961267d6c28270f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59aa060d_cbc23f19",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-06T13:41:36Z",
+      "side": 1,
+      "message": "Good catch, let me confirm what the daemon leaves in the cached Min on unlock before deciding whether bmcweb should write it explicitly.",
+      "parentUuid": "37156c38_f9f1c75c",
       "revId": "de567630b6ba129764f98f921961267d6c28270f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
