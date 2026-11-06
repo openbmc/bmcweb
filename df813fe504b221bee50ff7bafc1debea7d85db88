@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b6d9ec9_d53831c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-11-06T09:21:32Z",
+      "side": 1,
+      "message": "i did not want to change the single host behavior in this patch but i can add it, yes.",
+      "parentUuid": "0fa50a3b_f6cfa170",
+      "revId": "df813fe504b221bee50ff7bafc1debea7d85db88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "931594c0_4df908d3",
         "filename": "redfish-core/lib/storage_controller.hpp",
         "patchSetId": 15
@@ -48,6 +66,30 @@
       "writtenOn": "2026-10-28T08:58:14Z",
       "side": 1,
       "message": "Should this be?\n```suggestion\n    if (ec || controllerList.empty())\n```",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 11
+      },
+      "revId": "df813fe504b221bee50ff7bafc1debea7d85db88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16b0e12d_265f6b2d",
+        "filename": "redfish-core/lib/storage_controller.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-11-06T09:21:32Z",
+      "side": 1,
+      "message": "this doesn\u0027t compile. empty case is already handled on L109.",
+      "parentUuid": "172d0a95_926a7578",
       "range": {
         "startLine": 169,
         "startChar": 4,
