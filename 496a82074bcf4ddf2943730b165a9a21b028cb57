@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "879f5e20_9ee7937c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-06T17:26:42Z",
+      "side": 1,
+      "message": "Ups forgot to amend.. Done.",
+      "parentUuid": "8c7ad7b0_e8b39323",
+      "revId": "496a82074bcf4ddf2943730b165a9a21b028cb57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea0ecee5_33e80710",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-06T05:58:43Z",
       "side": 1,
       "message": "Please add Redfish service validator results.",
+      "revId": "496a82074bcf4ddf2943730b165a9a21b028cb57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca6b066a_7cf0d42a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-06T17:26:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea0ecee5_33e80710",
       "revId": "496a82074bcf4ddf2943730b165a9a21b028cb57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
