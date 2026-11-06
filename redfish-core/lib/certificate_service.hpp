@@ -34,6 +34,7 @@
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
+#include <org/freedesktop/DBus/Error/event.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
@@ -509,7 +510,9 @@ inline void handleError(const std::string_view dbusErrorName,
                         const std::string& id, const std::string& certificate,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (dbusErrorName == "org.freedesktop.DBus.Error.UnknownObject")
+    using UnknownObject =
+        sdbusplus::error::org::freedesktop::d_bus::Error::UnknownObject;
+    if (dbusErrorName == UnknownObject::errName)
     {
         messages::resourceNotFound(asyncResp->res, "Certificate", id);
     }
