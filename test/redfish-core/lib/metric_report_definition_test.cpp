@@ -94,7 +94,7 @@ TEST(InvalidArgsMethodMatches, JsonMessageMatchesMethod)
 TEST(InvalidArgsMethodMatches, LegacyPlainMessageDoesNotMatch)
 {
     // Bare property names predate the JSON envelope; they are handled by
-    // the legacy prefix match in handleParamError, not here.
+    // the legacy match in handleParamError, not here.
     EXPECT_FALSE(telemetry::invalidArgsMethodMatches("Interval", "Interval"));
 }
 
@@ -142,6 +142,66 @@ TEST(HandleParamError, NonMatchingKeyLeavesResponseUntouched)
     constexpr const char* jsonMessage =
         R"({"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"Interval","DETAILS":"Interval is below minimum."}})";
     EXPECT_TRUE(telemetry::handleParamError(res, jsonMessage, "Name"));
+    EXPECT_TRUE(res.jsonValue.empty());
+}
+
+TEST(DbusPropertyMatches, ExactAndDottedChildMatch)
+{
+    EXPECT_TRUE(telemetry::dbusPropertyMatches("Interval", "Interval"));
+    EXPECT_TRUE(telemetry::dbusPropertyMatches("ReadingParameters",
+                                               "ReadingParameters"));
+    EXPECT_TRUE(telemetry::dbusPropertyMatches(
+        "ReadingParameters.CollectionDuration", "ReadingParameters"));
+    EXPECT_TRUE(telemetry::dbusPropertyMatches("ReadingParameters.Foo.Bar",
+                                               "ReadingParameters"));
+}
+
+TEST(DbusPropertyMatches, PrefixWithoutDotBoundaryDoesNotMatch)
+{
+    EXPECT_FALSE(telemetry::dbusPropertyMatches("IntervalFoo", "Interval"));
+    EXPECT_FALSE(telemetry::dbusPropertyMatches("NameExtra", "Name"));
+    EXPECT_FALSE(telemetry::dbusPropertyMatches("Report", "ReportActions"));
+    EXPECT_FALSE(telemetry::dbusPropertyMatches("Interval", "IntervalFoo"));
+    EXPECT_FALSE(telemetry::dbusPropertyMatches("", "Interval"));
+}
+
+TEST(InvalidArgsMethodMatches, JsonDottedChildMatchesParent)
+{
+    constexpr std::string_view jsonMessage =
+        R"({"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"ReadingParameters.CollectionDuration","DETAILS":"Bad duration."}})";
+    EXPECT_TRUE(
+        telemetry::invalidArgsMethodMatches(jsonMessage, "ReadingParameters"));
+    EXPECT_FALSE(telemetry::invalidArgsMethodMatches(jsonMessage, "Interval"));
+
+    constexpr std::string_view prefixMessage =
+        R"({"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"IntervalFoo","DETAILS":"Bad."}})";
+    EXPECT_FALSE(
+        telemetry::invalidArgsMethodMatches(prefixMessage, "Interval"));
+}
+
+TEST(HandleParamError, JsonDottedChildYieldsParentPropertyError)
+{
+    crow::Response res;
+    constexpr const char* jsonMessage =
+        R"({"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"ReadingParameters.CollectionDuration","DETAILS":"Bad duration."}})";
+    EXPECT_FALSE(
+        telemetry::handleParamError(res, jsonMessage, "ReadingParameters"));
+
+    const nlohmann::json& extendedInfo =
+        res.jsonValue["error"][messages::messageAnnotation];
+    ASSERT_EQ(extendedInfo.size(), 1);
+    EXPECT_EQ(extendedInfo[0]["MessageArgs"][0], "Metrics");
+}
+
+TEST(HandleParamError, PrefixWithoutDotBoundaryLeavesResponseUntouched)
+{
+    crow::Response res;
+    EXPECT_TRUE(telemetry::handleParamError(res, "IntervalFoo", "Interval"));
+    EXPECT_TRUE(res.jsonValue.empty());
+
+    constexpr const char* jsonMessage =
+        R"({"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"IntervalFoo","DETAILS":"Bad."}})";
+    EXPECT_TRUE(telemetry::handleParamError(res, jsonMessage, "Interval"));
     EXPECT_TRUE(res.jsonValue.empty());
 }
 
