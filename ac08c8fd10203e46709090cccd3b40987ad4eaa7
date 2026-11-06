@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a8d4a20_a894b9f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-06T08:54:53Z",
+      "side": 1,
+      "message": "Can you please check this, since the CI is good I think.",
+      "revId": "ac08c8fd10203e46709090cccd3b40987ad4eaa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a5f016_33caaf4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-06T08:54:53Z",
+      "side": 1,
+      "message": "I think we need more testing.\nRef: https://github.com/openbmc/bmcweb/blob/master/docs/TESTING.md?plain\u003d1#L100",
+      "revId": "ac08c8fd10203e46709090cccd3b40987ad4eaa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
