@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc43edf7_26f73edf",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-06T09:21:33Z",
+      "side": 1,
+      "message": "HTTP/1 answers a Content-Length over the global limit with 413, but HTTP/2 only gets RST_STREAM. Could it send 413 and reset with NO_ERROR after it\u0027s sent?",
+      "revId": "70dcf7e5c85fad8f23e5972b277986f0fc7315c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc30d00_f92b3b8a",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-06T09:21:33Z",
+      "side": 1,
+      "message": "http_client parses satellite responses with this reader too, so chunked ones over BMCWEB_HTTP_BODY_LIMIT now fail though the aggregator allows 50 MB. Intended?",
+      "revId": "70dcf7e5c85fad8f23e5972b277986f0fc7315c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "042e3c58_d315b1c4",
+        "filename": "test/http/http_body_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-06T09:21:33Z",
+      "side": 1,
+      "message": "nit: this doesn\u0027t check the rejected chunk stayed out of the body. Maybe EXPECT_EQ(value.str().size(), first.size()) after the second put()?",
+      "revId": "70dcf7e5c85fad8f23e5972b277986f0fc7315c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
