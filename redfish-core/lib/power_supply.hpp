@@ -470,6 +470,23 @@ inline void doPowerSupplyGet(
     getLocationIndicatorActive(asyncResp, powerSupplyPath);
 }
 
+inline void doPowerSupplyHead(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& powerSupplyId, const std::string& powerSupplyPath,
+    const std::string& service)
+{
+    if (powerSupplyPath.empty() || service.empty())
+    {
+        BMCWEB_LOG_WARNING("PowerSupply not found");
+        messages::resourceNotFound(asyncResp->res, "PowerSupply",
+                                   powerSupplyId);
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/PowerSupply/PowerSupply.json>; rel=describedby");
+}
+
 inline void handlePowerSupplyHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -483,20 +500,7 @@ inline void handlePowerSupplyHead(
     // Get the correct Path and Service that match the input parameters
     getValidPowerSupplyPath(
         asyncResp, chassisId, powerSupplyId,
-        // ast-grep-ignore: long-lambda
-        [asyncResp, powerSupplyId](const std::string& powerSupplyPath,
-                                   const std::string& service) {
-            if (powerSupplyPath.empty() || service.empty())
-            {
-                BMCWEB_LOG_WARNING("PowerSupply not found");
-                messages::resourceNotFound(asyncResp->res, "PowerSupply",
-                                           powerSupplyId);
-                return;
-            }
-            asyncResp->res.addHeader(
-                boost::beast::http::field::link,
-                "</redfish/v1/JsonSchemas/PowerSupply/PowerSupply.json>; rel=describedby");
-        });
+        std::bind_front(doPowerSupplyHead, asyncResp, powerSupplyId));
 }
 
 inline void handlePowerSupplyGet(
