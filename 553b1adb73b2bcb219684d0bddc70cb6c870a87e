@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ace2f70_9def8272",
+        "filename": "test/redfish-core/lib/trigger_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-11-06T07:02:02Z",
+      "side": 1,
+      "message": "nit: could this be UnmappedActionGivesNullopt, to match the other ...GivesNullopt tests in this file?",
+      "range": {
+        "startLine": 33,
+        "startChar": 24,
+        "endLine": 33,
+        "endChar": 49
+      },
+      "revId": "553b1adb73b2bcb219684d0bddc70cb6c870a87e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
