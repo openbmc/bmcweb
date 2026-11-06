@@ -722,13 +722,32 @@ inline std::string toRedfishProperty(std::string_view dbusMessage)
     return "";
 }
 
+// Matches a D-Bus property identifier against the expected key, allowing
+// dot-delimited children (e.g. "ReadingParameters.CollectionDuration"
+// matches "ReadingParameters"). This keeps the legacy bare-string match and
+// the sdbusplus JSON METHOD match consistent: both accept an exact match or
+// a child of the expected property, and both reject unrelated properties
+// that merely share a prefix (e.g. "IntervalFoo" does not match "Interval").
+inline bool dbusPropertyMatches(std::string_view value, std::string_view key)
+{
+    if (value.size() < key.size())
+    {
+        return false;
+    }
+    if (value.substr(0, key.size()) != key)
+    {
+        return false;
+    }
+    return value.size() == key.size() || value[key.size()] == '.';
+}
+
 // Telemetry reports InvalidArgs failures either as the bare property name
 // (older daemons, e.g. "Interval") or, with sdbusplus-generated errors, as a
 // JSON document, e.g.
 // {"org.freedesktop.DBus.Error.InvalidArgs":{"METHOD":"Interval",...}}.
 // Check the latter for the rejected property's METHOD. Returns false when
 // the message is not in that JSON form, in which case callers fall back to
-// the legacy prefix match.
+// the legacy match.
 inline bool invalidArgsMethodMatches(std::string_view errorMessage,
                                      std::string_view key)
 {
@@ -749,7 +768,7 @@ inline bool invalidArgsMethodMatches(std::string_view errorMessage,
     {
         return false;
     }
-    return method->get_ref<const std::string&>() == key;
+    return dbusPropertyMatches(method->get_ref<const std::string&>(), key);
 }
 
 inline bool handleParamError(crow::Response& res, const char* errorMessage,
@@ -761,7 +780,7 @@ inline bool handleParamError(crow::Response& res, const char* errorMessage,
         return true;
     }
     std::string_view errorMessageSv(errorMessage);
-    if (errorMessageSv.starts_with(key) ||
+    if (dbusPropertyMatches(errorMessageSv, key) ||
         invalidArgsMethodMatches(errorMessageSv, key))
     {
         std::string redfishProperty = toRedfishProperty(key);
