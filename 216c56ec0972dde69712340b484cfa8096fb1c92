@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94fe23c4_ce57a92f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-06T08:56:09Z",
+      "side": 1,
+      "message": "I think you should add more testing according to https://github.com/openbmc/bmcweb/blob/master/docs/TESTING.md?plain\u003d1#L100",
+      "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2788c034_282c6a51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-06T08:56:09Z",
+      "side": 1,
+      "message": "PL",
+      "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b9cf512_d747560d",
         "filename": "test/http/http2_connection_test.cpp",
         "patchSetId": 3
