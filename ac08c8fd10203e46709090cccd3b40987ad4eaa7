@@ -33,6 +33,23 @@
       "message": "I think we need more testing.\nRef: https://github.com/openbmc/bmcweb/blob/master/docs/TESTING.md?plain\u003d1#L100",
       "revId": "ac08c8fd10203e46709090cccd3b40987ad4eaa7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01cda087_70221666",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-06T08:58:53Z",
+      "side": 1,
+      "message": "Please use 50/72 commit message formatting",
+      "revId": "ac08c8fd10203e46709090cccd3b40987ad4eaa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
