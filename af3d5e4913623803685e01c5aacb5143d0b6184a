@@ -37,6 +37,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b6bd584_bddd3df5",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T02:20:57Z",
+      "side": 1,
+      "message": "This looked very similar to `pciePortMetrics` defined in the parent change\u0027s switch_port.hpp.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/93495/9/redfish-core/lib/switch_port.hpp\n\nCan we merge this into the defined structure, since you have also included switch_port.hpp here?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 0
+      },
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8db8017_136603bd",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T02:20:57Z",
+      "side": 1,
+      "message": "Can we add `BMCWEB_LOG_DEBUG()` for the case of `ec.value() \u003d\u003d EBADR` here?",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 9
+      },
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0df36835_64c79f74",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-06T02:20:57Z",
+      "side": 1,
+      "message": "This as well?",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 270,
+        "endChar": 15
+      },
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98e80f82_2ec5e54b",
         "filename": "redfish-core/lib/network_adapter.hpp",
         "patchSetId": 1
