@@ -31,6 +31,7 @@
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
+#include <org/freedesktop/DBus/Error/event.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -2044,6 +2045,10 @@ inline void afterDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const boost::system::error_code& ec,
                         const sdbusplus::message_t& m)
 {
+    using UnknownMethod =
+        sdbusplus::error::org::freedesktop::d_bus::Error::UnknownMethod;
+    using UnknownObject =
+        sdbusplus::error::org::freedesktop::d_bus::Error::UnknownObject;
     if (!ec)
     {
         return;
@@ -2056,15 +2061,13 @@ inline void afterDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     BMCWEB_LOG_DEBUG("DBus error: {}", dbusError->name);
 
-    if (std::string_view("org.freedesktop.DBus.Error.UnknownObject") ==
-        dbusError->name)
+    if (std::string_view(UnknownObject::errName) == dbusError->name)
     {
         messages::resourceNotFound(asyncResp->res, "EthernetInterface",
                                    ifaceId);
         return;
     }
-    if (std::string_view("org.freedesktop.DBus.Error.UnknownMethod") ==
-        dbusError->name)
+    if (std::string_view(UnknownMethod::errName) == dbusError->name)
     {
         messages::resourceCannotBeDeleted(asyncResp->res);
         return;

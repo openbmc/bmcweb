@@ -35,6 +35,7 @@
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
+#include <org/freedesktop/DBus/Error/event.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -2315,7 +2316,9 @@ inline void processAfterDeleteUser(
         }
 
         const std::string_view errorName = dbusError->name;
-        if (errorName == "org.freedesktop.DBus.Error.UnknownObject" ||
+        using UnknownObject =
+            sdbusplus::error::org::freedesktop::d_bus::Error::UnknownObject;
+        if (errorName == UnknownObject::errName ||
             errorName ==
                 "xyz.openbmc_project.User.Common.Error.UserNameDoesNotExist")
         {
