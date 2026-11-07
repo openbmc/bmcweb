@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34d15b78_1826bb22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "You\u0027re right, that sentence was wrong. account_service_test failed only because my build host\u0027s time zone isn\u0027t UTC, which master has since fixed in 741c1c157. Patch set 2 is rebased onto master, all 80 unit test programs pass, and the sentence is gone.",
+      "parentUuid": "4a8d4a20_a894b9f3",
+      "revId": "ac08c8fd10203e46709090cccd3b40987ad4eaa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73a5f016_33caaf4b",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "324ba7b8_a37da377",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "Done in patch set 2. I ran a local x86 build over TLS, with a stand-in D-Bus user manager, and tried one route of each class. The /kvm/0/ websocket gives an Administrator 101 and now gives a ReadOnly user 403, and bmcweb keeps serving. On master bmcweb sent nothing for that ReadOnly upgrade and exited with SIGSEGV. GET and POST work over HTTP/1.1 and HTTP/2. I have no board for this, so none of it ran on hardware.",
+      "parentUuid": "73a5f016_33caaf4b",
+      "revId": "ac08c8fd10203e46709090cccd3b40987ad4eaa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01cda087_70221666",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-06T08:58:53Z",
       "side": 1,
       "message": "Please use 50/72 commit message formatting",
+      "revId": "ac08c8fd10203e46709090cccd3b40987ad4eaa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aed06c4c_8b454b95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "Done in patch set 2: the subject is now under 50 characters, and the body already wrapped at 72.",
+      "parentUuid": "01cda087_70221666",
       "revId": "ac08c8fd10203e46709090cccd3b40987ad4eaa7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
