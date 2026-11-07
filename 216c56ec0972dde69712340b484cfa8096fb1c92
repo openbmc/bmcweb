@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b70f23e_f0c39af5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "Done in patch set 4: the subject is now under 50 characters, and the body already wrapped at 72.",
+      "parentUuid": "d16d5963_cc6cfa24",
+      "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94fe23c4_ce57a92f",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-06T08:56:09Z",
       "side": 1,
       "message": "I think you should add more testing according to https://github.com/openbmc/bmcweb/blob/master/docs/TESTING.md?plain\u003d1#L100",
+      "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "323e98fe_0470c1f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "Done in patch set 4. Following TESTING.md, I ran a local x86 build over TLS with a stand-in D-Bus user manager. Over HTTP/1.1 and HTTP/2, GET /redfish/v1/ gives 200 and a bad-credentials POST to /redfish/v1/SessionService/Sessions gives 401. An Administrator /kvm/0/ websocket upgrade gives 101. A logged-out 1 MiB HTTP/2 POST now gets 401, then RST_STREAM(NO_ERROR); without this change it was read in full. I have no board for this, so none of it ran on hardware.",
+      "parentUuid": "94fe23c4_ce57a92f",
       "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -87,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a65b3bcf_53611005",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "Done in patch set 4.",
+      "parentUuid": "1e1f56c4_35fa9e2f",
+      "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3838dcf9_5dccd6e9",
@@ -100,6 +154,24 @@
       "writtenOn": "2026-11-06T09:17:47Z",
       "side": 1,
       "message": "A logged-out client whose body is between 4 KiB and the global limit now just gets RST_STREAM, never a 401. Could it send the 401 and reset with NO_ERROR after it\u0027s sent?",
+      "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f4eb62c_705c2277",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "Done in patch set 4. The status now follows HTTP/1\u0027s handleContentLengthError(): 401 for a logged-out body that would fit the logged-in limit, otherwise 413. HTTP/1 gave 413 at exactly that limit, so both now give 401 there. RST_STREAM(NO_ERROR) follows once the response has ended the stream, if the client is still sending; that reset comes from 96200 patch set 5.",
+      "parentUuid": "3838dcf9_5dccd6e9",
       "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -121,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83c3d4da_f6f53aa0",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "Done in patch set 4: LoggedOutDeclaredBodyLimitAnswers401 declares 4097 bytes on a logged-out stream and checks for a 401 with nothing buffered.",
+      "parentUuid": "69516783_9eebe717",
+      "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b9cf512_d747560d",
@@ -134,6 +224,24 @@
       "writtenOn": "2026-11-06T08:36:43Z",
       "side": 1,
       "message": "Could these tests account for mutual-tls-auth\u003ddisabled and insecure-disable-auth\u003denabled, since their current expectations fail in those configurations I think?",
+      "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "461e11e6_b206d02d",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:32Z",
+      "side": 1,
+      "message": "You\u0027re right. With mutual-tls-auth disabled one test failed, and with insecure-disable-auth enabled four did. In patch set 4, tests that only need a logged-in stream set its session directly. The mTLS tests skip without mutual-tls-auth, and the logged-out tests skip with insecure-disable-auth. All tests pass or skip in both configurations.",
+      "parentUuid": "0b9cf512_d747560d",
       "revId": "216c56ec0972dde69712340b484cfa8096fb1c92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
