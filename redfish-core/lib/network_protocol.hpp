@@ -46,13 +46,18 @@ namespace redfish
 void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp);
 
 static constexpr std::string_view sshServiceName = "dropbear";
+// OpenSSH (sshd.socket) is the SSH server on machines that do not ship
+// dropbear; without it SSH reads as disabled while port 22 is listening.
+static constexpr std::string_view opensshServiceName = "sshd";
 static constexpr std::string_view httpsServiceName = "bmcweb";
 static constexpr std::string_view ipmiServiceName = "phosphor-ipmi-net";
 
 // Mapping from Redfish NetworkProtocol key name to backend service that hosts
-// that protocol.
-static constexpr std::array<std::pair<std::string_view, std::string_view>, 3>
+// that protocol. A protocol may be listed more than once; it is enabled when
+// any of its services is.
+static constexpr std::array<std::pair<std::string_view, std::string_view>, 4>
     networkProtocolToDbus = {{{"SSH", sshServiceName},
+                              {"SSH", opensshServiceName},
                               {"HTTPS", httpsServiceName},
                               {"IPMI", ipmiServiceName}}};
 
