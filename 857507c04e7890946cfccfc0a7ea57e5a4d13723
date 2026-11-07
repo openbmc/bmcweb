@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f405d92_cc4b4a49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:45:04Z",
+      "side": 1,
+      "message": "Hardware update: I ran an armhf build of this patch set in place of the bmcweb on a 32-bit ARM BMC running a vendor OpenBMC build. An Administrator /kvm/0/ upgrade got 101, a ReadOnly one got 403 Forbidden, and bmcweb kept serving. A master build made the same way gave the ReadOnly upgrade no response at all; it did not crash there, as it does on x86. I\u0027ll drop the No-HW-Test line in the next patch set.",
+      "revId": "857507c04e7890946cfccfc0a7ea57e5a4d13723",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
