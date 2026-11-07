@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c307a6f_5332064f",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:31Z",
+      "side": 1,
+      "message": "Done in patch set 5. An over-limit stream now gets 413, and once that response has ended the stream, RST_STREAM(NO_ERROR) follows if the client is still sending. A client that already sent END_STREAM gets only the 413. Unit tests check the frames for both cases. A local 60 MiB HTTP/2 POST got 413, then the reset after about 30 MiB had been sent.",
+      "parentUuid": "dc43edf7_26f73edf",
+      "revId": "70dcf7e5c85fad8f23e5972b277986f0fc7315c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbc30d00_f92b3b8a",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf15df7_e7e5bb43",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:31Z",
+      "side": 1,
+      "message": "Not intended, thanks. In patch set 5 only HTTP/2 passes the reader a limit, so readers under a Beast parser, including http_client\u0027s, rely on its body_limit again. A new test parses a chunked response one byte over the limit as http_client does. It passes on patch set 5 and fails with patch set 4\u0027s always-on reader limit forced back in. Separately, reader::init() on master already rejects a declared Content-Length over 1024 * 1024 * BMCWEB_HTTP_BODY_LIMIT; I can fix that in a follow-up.",
+      "parentUuid": "bbc30d00_f92b3b8a",
+      "revId": "70dcf7e5c85fad8f23e5972b277986f0fc7315c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "042e3c58_d315b1c4",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-06T09:21:33Z",
       "side": 1,
       "message": "nit: this doesn\u0027t check the rejected chunk stayed out of the body. Maybe EXPECT_EQ(value.str().size(), first.size()) after the second put()?",
+      "revId": "70dcf7e5c85fad8f23e5972b277986f0fc7315c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e452486_8d5e7913",
+        "filename": "test/http/http_body_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1003113
+      },
+      "writtenOn": "2026-11-07T01:03:31Z",
+      "side": 1,
+      "message": "Done in patch set 5.",
+      "parentUuid": "042e3c58_d315b1c4",
       "revId": "70dcf7e5c85fad8f23e5972b277986f0fc7315c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
