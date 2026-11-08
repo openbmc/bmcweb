@@ -42,6 +42,7 @@
 #include <array>
 #include <format>
 #include <functional>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <ranges>
@@ -587,6 +588,122 @@ inline void handleChassisProperties(
     }
 }
 
+inline void afterGetContainedProcessorUuid(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& uuid)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBus response error for UUID: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (uuid.empty())
+    {
+        return;
+    }
+    asyncResp->res.jsonValue["UUID"] = uuid;
+}
+
+inline void afterGetPowerBounds(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBus response error for PowerBounds: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const uint32_t* minPowerWatts = nullptr;
+    const uint32_t* maxPowerWatts = nullptr;
+    if (!sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "MinPowerWatts",
+            minPowerWatts, "MaxPowerWatts", maxPowerWatts))
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    constexpr uint32_t notSupported = std::numeric_limits<uint32_t>::max();
+    if (minPowerWatts != nullptr && *minPowerWatts != notSupported)
+    {
+        asyncResp->res.jsonValue["MinPowerWatts"] = *minPowerWatts;
+    }
+    if (maxPowerWatts != nullptr && *maxPowerWatts != notSupported)
+    {
+        asyncResp->res.jsonValue["MaxPowerWatts"] = *maxPowerWatts;
+    }
+}
+
+inline void afterGetContainedProcessor(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool chassisHasUuid,
+    bool chassisHasAsset, bool chassisHasPowerBounds,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != boost::system::errc::io_error && ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBus response error {}", ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.size() != 1)
+    {
+        return;
+    }
+
+    const auto& [processorPath, serviceMap] = subtree.front();
+    for (const auto& [service, interfaces] : serviceMap)
+    {
+        for (const std::string& interface : interfaces)
+        {
+            if (interface == "xyz.openbmc_project.Common.UUID" &&
+                !chassisHasUuid)
+            {
+                dbus::utility::getProperty<std::string>(
+                    service, processorPath, interface, "UUID",
+                    std::bind_front(afterGetContainedProcessorUuid, asyncResp));
+            }
+            else if (interface ==
+                         "xyz.openbmc_project.Inventory.Decorator.Asset" &&
+                     !chassisHasAsset)
+            {
+                asset_utils::getAssetInfo(asyncResp, service, processorPath,
+                                          ""_json_pointer, true);
+            }
+            else if (
+                interface ==
+                    "xyz.openbmc_project.Inventory.Decorator.PowerBounds" &&
+                !chassisHasPowerBounds)
+            {
+                dbus::utility::getAllProperties(
+                    service, processorPath, interface,
+                    std::bind_front(afterGetPowerBounds, asyncResp));
+            }
+        }
+    }
+}
+
+inline void getContainedProcessor(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const sdbusplus::object_path& chassisPath, bool chassisHasUuid,
+    bool chassisHasAsset, bool chassisHasPowerBounds)
+{
+    dbus::utility::getAssociatedSubTree(
+        chassisPath / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        processorInterfaces,
+        std::bind_front(afterGetContainedProcessor, asyncResp, chassisHasUuid,
+                        chassisHasAsset, chassisHasPowerBounds));
+}
+
 inline void handleChassisGetSubTree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const boost::system::error_code& ec,
@@ -732,6 +849,13 @@ inline void handleChassisGetSubTree(
             {
                 getChassisLocationCode(asyncResp, connectionName, path);
             }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.PowerBounds")
+            {
+                dbus::utility::getAllProperties(
+                    connectionName, path, interface,
+                    std::bind_front(afterGetPowerBounds, asyncResp));
+            }
             else if (std::optional<resource::LocationType> locationType =
                          location_util::getLocationType(interface);
                      locationType.has_value())
@@ -777,6 +901,20 @@ inline void handleChassisGetSubTree(
                 const dbus::utility::DBusPropertiesMap& propertiesList) {
                 handleChassisProperties(asyncResp, propertiesList);
             });
+
+        const bool chassisHasUuid =
+            std::ranges::find(interfaces2, uuidInterface) != interfaces2.end();
+        const bool chassisHasAsset =
+            std::ranges::find(
+                interfaces2, "xyz.openbmc_project.Inventory.Decorator.Asset") !=
+            interfaces2.end();
+        const bool chassisHasPowerBounds =
+            std::ranges::find(
+                interfaces2,
+                "xyz.openbmc_project.Inventory.Decorator.PowerBounds") !=
+            interfaces2.end();
+        getContainedProcessor(asyncResp, objPath, chassisHasUuid,
+                              chassisHasAsset, chassisHasPowerBounds);
 
         return;
     }

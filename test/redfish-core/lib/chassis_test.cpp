@@ -14,9 +14,12 @@
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/errc.hpp>
+#include <boost/system/linux_error.hpp>
 #include <nlohmann/json.hpp>
 
+#include <cstdint>
 #include <functional>
+#include <limits>
 #include <memory>
 #include <string>
 #include <system_error>
@@ -229,6 +232,156 @@ TEST(HandleChassisPowerState, GenericErrorSetsInternalError)
     boost::system::error_code ec =
         boost::system::errc::make_error_code(boost::system::errc::io_error);
     handleChassisPowerState(response, ec, "");
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetContainedProcessorUuid, UuidIsReported)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    afterGetContainedProcessorUuid(response, ec,
+                                   "1115cd9d-8371-51c0-bf13-8a737577691d");
+    EXPECT_EQ(response->res.jsonValue["UUID"],
+              "1115cd9d-8371-51c0-bf13-8a737577691d");
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetContainedProcessorUuid, EmptyUuidIsOmitted)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    afterGetContainedProcessorUuid(response, ec, "");
+    EXPECT_FALSE(response->res.jsonValue.contains("UUID"));
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetContainedProcessorUuid, ErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    afterGetContainedProcessorUuid(response, ec, "");
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetPowerBounds, BoundsAreReported)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    const dbus::utility::DBusPropertiesMap properties = {
+        {"MinPowerWatts",
+         dbus::utility::DbusVariantType(static_cast<uint32_t>(300))},
+        {"MaxPowerWatts",
+         dbus::utility::DbusVariantType(static_cast<uint32_t>(600))}};
+    boost::system::error_code ec;
+    afterGetPowerBounds(response, ec, properties);
+    EXPECT_EQ(response->res.jsonValue["MinPowerWatts"], 300);
+    EXPECT_EQ(response->res.jsonValue["MaxPowerWatts"], 600);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetPowerBounds, UnsupportedBoundIsOmitted)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    const dbus::utility::DBusPropertiesMap properties = {
+        {"MinPowerWatts",
+         dbus::utility::DbusVariantType(std::numeric_limits<uint32_t>::max())},
+        {"MaxPowerWatts",
+         dbus::utility::DbusVariantType(static_cast<uint32_t>(600))}};
+    boost::system::error_code ec;
+    afterGetPowerBounds(response, ec, properties);
+    EXPECT_FALSE(response->res.jsonValue.contains("MinPowerWatts"));
+    EXPECT_EQ(response->res.jsonValue["MaxPowerWatts"], 600);
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetPowerBounds, UnsupportedBoundsAreOmitted)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    const dbus::utility::DBusPropertiesMap properties = {
+        {"MinPowerWatts",
+         dbus::utility::DbusVariantType(std::numeric_limits<uint32_t>::max())},
+        {"MaxPowerWatts",
+         dbus::utility::DbusVariantType(std::numeric_limits<uint32_t>::max())}};
+    boost::system::error_code ec;
+    afterGetPowerBounds(response, ec, properties);
+    EXPECT_FALSE(response->res.jsonValue.contains("MinPowerWatts"));
+    EXPECT_FALSE(response->res.jsonValue.contains("MaxPowerWatts"));
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetPowerBounds, WrongTypeSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    const dbus::utility::DBusPropertiesMap properties = {
+        {"MaxPowerWatts", dbus::utility::DbusVariantType("600")}};
+    boost::system::error_code ec;
+    afterGetPowerBounds(response, ec, properties);
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetPowerBounds, ErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    afterGetPowerBounds(response, ec, dbus::utility::DBusPropertiesMap{});
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetContainedProcessor, SeveralProcessorsReportNothing)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    const dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/inventory/GPU_2",
+         {{"xyz.openbmc_project.GpuSensor",
+           {"xyz.openbmc_project.Common.UUID",
+            "xyz.openbmc_project.Inventory.Item.Accelerator"}}}},
+        {"/xyz/openbmc_project/inventory/GPU_3",
+         {{"xyz.openbmc_project.GpuSensor",
+           {"xyz.openbmc_project.Common.UUID",
+            "xyz.openbmc_project.Inventory.Item.Accelerator"}}}}};
+    boost::system::error_code ec;
+    afterGetContainedProcessor(response, false, false, false, ec, subtree);
+    EXPECT_FALSE(response->res.jsonValue.contains("UUID"));
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetContainedProcessor, NoProcessorReportsNothing)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    afterGetContainedProcessor(response, false, false, false, ec,
+                               dbus::utility::MapperGetSubTreeResponse{});
+    EXPECT_FALSE(response->res.jsonValue.contains("UUID"));
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetContainedProcessor, NoAssociationIsNotAnError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    afterGetContainedProcessor(response, false, false, false, ec,
+                               dbus::utility::MapperGetSubTreeResponse{});
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+
+    ec = boost::system::linux_error::bad_request_descriptor;
+    afterGetContainedProcessor(response, false, false, false, ec,
+                               dbus::utility::MapperGetSubTreeResponse{});
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(AfterGetContainedProcessor, GenericErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::timed_out);
+    afterGetContainedProcessor(response, false, false, false, ec,
+                               dbus::utility::MapperGetSubTreeResponse{});
     EXPECT_EQ(response->res.result(),
               boost::beast::http::status::internal_server_error);
 }
