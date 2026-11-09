@@ -188,6 +188,7 @@ inline void afterGetOperatingConfigCollection(
             interface, object);
         return;
     }
+    messages::resourceNotFound(asyncResp->res, "Processor", cpuName);
 }
 
 inline void handleOperatingConfigCollectionGet(
