@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df35b0c2_5810e076",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-09T08:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cce9adf6_43464520",
+      "range": {
+        "startLine": 451,
+        "startChar": 8,
+        "endLine": 451,
+        "endChar": 15
+      },
+      "revId": "1369ec80a760444240b42c3a0d2bb3237943f99b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4095776_a81912ec",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a03c718_42cc7fb7",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-09T08:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4095776_a81912ec",
+      "range": {
+        "startLine": 494,
+        "startChar": 8,
+        "endLine": 494,
+        "endChar": 15
+      },
+      "revId": "1369ec80a760444240b42c3a0d2bb3237943f99b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf5f17cc_c185709f",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-11-06T01:51:40Z",
       "side": 1,
       "message": "Should we add `BMCWEB_LOG_DEBUG()` for the case `ec.value() \u003d\u003d EBADR` as well?",
+      "range": {
+        "startLine": 619,
+        "startChar": 8,
+        "endLine": 619,
+        "endChar": 15
+      },
+      "revId": "1369ec80a760444240b42c3a0d2bb3237943f99b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9842c34b_c5526af3",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-09T08:03:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf5f17cc_c185709f",
       "range": {
         "startLine": 619,
         "startChar": 8,
