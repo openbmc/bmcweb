@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de2d3ace_643ed301",
+        "filename": "test/redfish-core/lib/processor_operating_config_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-09T07:00:47Z",
+      "side": 1,
+      "message": "Done in PS7.",
+      "parentUuid": "529b25ed_830dee9f",
+      "revId": "7582de3a40aa6aadda42b203fdba4f7abe66bc2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d36cf97c_c8dde28c",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "561329a0_67b70a5e",
+        "filename": "test/redfish-core/lib/processor_operating_config_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-09T07:00:47Z",
+      "side": 1,
+      "message": "Sure, I have submitted a fix patch as a parent patch.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/96924",
+      "parentUuid": "d36cf97c_c8dde28c",
+      "revId": "7582de3a40aa6aadda42b203fdba4f7abe66bc2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d40fb0c8_3e63e46a",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-06T09:04:38Z",
       "side": 1,
       "message": "The fields set on a match with a service aren\u0027t tested, since that path then calls D-Bus. Worth a fill helper like fillThermalMetricsResponse?",
+      "revId": "7582de3a40aa6aadda42b203fdba4f7abe66bc2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "541aa389_39b9905b",
+        "filename": "test/redfish-core/lib/processor_operating_config_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-09T07:00:47Z",
+      "side": 1,
+      "message": "Done in PS7.",
+      "parentUuid": "d40fb0c8_3e63e46a",
       "revId": "7582de3a40aa6aadda42b203fdba4f7abe66bc2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
