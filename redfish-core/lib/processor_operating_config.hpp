@@ -20,6 +20,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/url.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -167,7 +168,7 @@ inline void afterGetOperatingConfigCollection(
 
     for (const std::string& object : objects)
     {
-        if (!object.ends_with(cpuName))
+        if (sdbusplus::object_path(object).filename() != cpuName)
         {
             continue;
         }
@@ -176,18 +177,23 @@ inline void afterGetOperatingConfigCollection(
         // CPU objects, but if there are just use the first
         // one.
 
+        const boost::urls::url collectionUrl = boost::urls::format(
+            "/redfish/v1/Systems/{}/Processors/{}/OperatingConfigs",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, cpuName);
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#OperatingConfigCollection.OperatingConfigCollection";
+        asyncResp->res.jsonValue["@odata.id"] = collectionUrl;
+        asyncResp->res.jsonValue["Name"] = "Operating Config Collection";
+
         // Use the common search routine to construct the
         // Collection of all Config objects under this CPU.
         constexpr std::array<std::string_view, 1> interface{
             "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"};
-        collection_util::getCollectionMembers(
-            asyncResp,
-            boost::urls::format(
-                "/redfish/v1/Systems/{}/Processors/{}/OperatingConfigs",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME, cpuName),
-            interface, object);
+        collection_util::getCollectionMembers(asyncResp, collectionUrl,
+                                              interface, object);
         return;
     }
+    messages::resourceNotFound(asyncResp->res, "Processor", cpuName);
 }
 
 inline void handleOperatingConfigCollectionGet(
@@ -214,13 +220,6 @@ inline void handleOperatingConfigCollectionGet(
                                    systemName);
         return;
     }
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#OperatingConfigCollection.OperatingConfigCollection";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Processors/{}/OperatingConfigs",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, cpuName);
-    asyncResp->res.jsonValue["Name"] = "Operating Config Collection";
-
     // First find the matching CPU object so we know how to
     // constrain our search for related Config objects.
     const std::array<std::string_view, 1> interfaces = {
