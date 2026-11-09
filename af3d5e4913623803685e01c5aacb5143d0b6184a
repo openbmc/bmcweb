@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a680c2ce_d536095a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-09T08:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a160301_722517dd",
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "05001265_71ef5589",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -58,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40b9788d_33049e02",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-09T08:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b6bd584_bddd3df5",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 0
+      },
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8db8017_136603bd",
@@ -71,6 +113,30 @@
       "writtenOn": "2026-11-06T02:20:57Z",
       "side": 1,
       "message": "Can we add `BMCWEB_LOG_DEBUG()` for the case of `ec.value() \u003d\u003d EBADR` here?",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 9
+      },
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f2ab3f8_dfdb96c1",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-09T08:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8db8017_136603bd",
       "range": {
         "startLine": 236,
         "startChar": 8,
@@ -104,6 +170,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c7b0e6a_2b52734b",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-09T08:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0df36835_64c79f74",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 270,
+        "endChar": 15
+      },
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98e80f82_2ec5e54b",
@@ -117,6 +207,24 @@
       "writtenOn": "2026-11-05T10:59:21Z",
       "side": 1,
       "message": "If an earlier transceiver has no usable metrics but a later one does, will this discovery index leaves a null entry in Transceivers, although the schema expects transceiver objects? Could we create each object before scheduling its metric query, following the pattern in getAssemblyProperties?",
+      "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c85aba_6e7c035b",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1002734
+      },
+      "writtenOn": "2026-11-09T08:17:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98e80f82_2ec5e54b",
       "revId": "af3d5e4913623803685e01c5aacb5143d0b6184a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
