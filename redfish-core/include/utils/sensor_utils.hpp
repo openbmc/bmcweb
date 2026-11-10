@@ -18,6 +18,7 @@
 
 #include <asm-generic/errno.h>
 
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
@@ -827,11 +828,11 @@ inline bool fillPowerThermalIdentity(
         }
         else if (lower.contains("input"))
         {
-            unit = "/PowerInputWatts"_json_pointer;
+            unit = "/PowerCapacityWatts"_json_pointer;
         }
-        else
+        else if (!(boost::algorithm::ifind_first(sensorName, "output").empty()))
         {
-            unit = "/PowerOutputWatts"_json_pointer;
+            return false;
         }
         return true;
     }
