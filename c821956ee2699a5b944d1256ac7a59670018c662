@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5326e88_d30cc78f",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-10T19:47:59Z",
+      "side": 1,
+      "message": "Huh? How does this work ? I would think you would need the whole \nD-Bus enum strings\n\"xyz.openbmc_project.Inventory.Item.Drive.DriveType.HDD\"\n\nThe enum value is xyz.openbmc_project.Inventory.Item.Drive.DriveType.HDD",
+      "range": {
+        "startLine": 77,
+        "startChar": 17,
+        "endLine": 77,
+        "endChar": 20
+      },
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cae6a70_1c3e181d",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-10T19:47:59Z",
+      "side": 1,
+      "message": "Same here.. How does this work? I think you need the whole D-Bus enum strings \nxyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.SAS",
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b08f90f_f298b878",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-10T19:47:59Z",
+      "side": 1,
+      "message": "This is wrong, it should be uint8_t https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml\n\nLike\nhttps://github.com/openbmc/bmcweb/blob/c6e2c2610e45c04ae965a209f03e450902d70359/redfish-core/lib/account_service.hpp#L1531\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/8f450ea627117246d39f4e14825a7fe071c74e77/yaml/xyz/openbmc_project/User/AccountPolicy.interface.yaml#L21",
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c864908d_a3a00c50",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-10T19:47:59Z",
+      "side": 1,
+      "message": "I am at a loss how this still works.. The old code looked correct \n\n```\n            if (encryptionStatus \u003d\u003d nullptr || isLocked \u003d\u003d nullptr ||\n                *encryptionStatus \u003d\u003d\n                    \"xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Unknown\")\n            {\n                return;\n            }\n            if (*encryptionStatus !\u003d\n                \"xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Encrypted\")\n            {\n                //\"The drive is not currently encrypted.\"\n                asyncResp-\u003eres.jsonValue[\"EncryptionStatus\"] \u003d\n                    drive::EncryptionStatus::Unencrypted;\n                return;\n            }\n            if (*isLocked)\n            {\n```",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 8
+      },
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dda5314_878093fb",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-10T19:47:59Z",
+      "side": 1,
+      "message": "Should this be a 404? \nCan you test `/redfish/v1/Chassis/Tyan_S8047_Baseboard/Drives/badDriveId`",
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
