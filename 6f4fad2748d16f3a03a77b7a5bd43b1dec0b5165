@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c9092d_3e1eed00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-10T19:34:33Z",
+      "side": 1,
+      "message": "These all need to go together since otherwise a part of the tree breaks\n\nGET /redfish/v1/Chassis/{ChassisId}\t\nGET /redfish/v1/Chassis/{ChassisId}/Drives\t\nGET /redfish/v1/Chassis/{ChassisId}/Drives/{DriveId}",
+      "revId": "6f4fad2748d16f3a03a77b7a5bd43b1dec0b5165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
