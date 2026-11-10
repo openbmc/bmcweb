@@ -34,6 +34,93 @@
       "parentUuid": "01a10515_1bab3bb0",
       "revId": "529008aaf9a1e30e8cc9d52cb80356a6a1a82d59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e84d8255_e8e67289",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-11-10T13:15:21Z",
+      "side": 1,
+      "message": "Happy to review this change but i don\u0027t think alternative solutions automatically block progress or require abandoning all but one change.\n\nMaintainers and Reviewers should decide which solution they want to merge.\n\nI will mark this as resolved with above reasoning (alternative solutions should not block progress).\n\n@haghera@nvidia.com please review my change as well and see if it fits your use-case.",
+      "parentUuid": "90bff39d_867c0a75",
+      "revId": "529008aaf9a1e30e8cc9d52cb80356a6a1a82d59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5713c211_be7aec57",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-11-10T13:15:21Z",
+      "side": 1,
+      "message": "```suggestion\n                            const std::string\u0026 purpose, const sdbusplus::object_path\u0026 path)\n```",
+      "range": {
+        "startLine": 1280,
+        "startChar": 56,
+        "endLine": 1280,
+        "endChar": 79
+      },
+      "revId": "529008aaf9a1e30e8cc9d52cb80356a6a1a82d59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e88644f3_27ec902c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-11-10T13:15:21Z",
+      "side": 1,
+      "message": "```suggestion\n    const std::string\u0026 swId, const sdbusplus::object_path\u0026 path,\n```",
+      "range": {
+        "startLine": 1310,
+        "startChar": 29,
+        "endLine": 1310,
+        "endChar": 53
+      },
+      "revId": "529008aaf9a1e30e8cc9d52cb80356a6a1a82d59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b344a6fb_58e2aa1f",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-11-10T13:15:21Z",
+      "side": 1,
+      "message": "will this empty string not get passed into getRelatedItems and used as object path base in line 1297 ?",
+      "range": {
+        "startLine": 155,
+        "startChar": 50,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "529008aaf9a1e30e8cc9d52cb80356a6a1a82d59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
