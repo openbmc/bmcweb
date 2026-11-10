@@ -145,9 +145,8 @@ inline void handlePowerSupplyCollectionGet(
 
     const std::string reqpath = "/xyz/openbmc_project/inventory";
 
-    dbus::utility::getAssociatedSubTreePathsById(
-        chassisId, reqpath, chassisInterfaces, "powered_by",
-        powerSupplyInterface,
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, powerSupplyInterface,
         [asyncResp, chassisId](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
@@ -208,16 +207,15 @@ inline void afterGetValidPowerSupplyPath(
 
 inline void getValidPowerSupplyPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId, const std::string& powerSupplyId,
+    const std::string& powerSupplyId,
     std::function<void(const std::string& powerSupplyPath,
                        const std::string& service)>&& callback)
 {
     const std::string reqpath = "/xyz/openbmc_project/inventory";
 
-    dbus::utility::getAssociatedSubTreeById(
-        chassisId, reqpath, chassisInterfaces, "powered_by",
-        powerSupplyInterface,
-        [asyncResp, chassisId, powerSupplyId, callback{std::move(callback)}](
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, powerSupplyInterface,
+        [asyncResp, powerSupplyId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
             afterGetValidPowerSupplyPath(asyncResp, powerSupplyId, ec, subtree,
@@ -490,7 +488,7 @@ inline void doPowerSupplyHead(
 inline void handlePowerSupplyHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId, const std::string& powerSupplyId)
+    const std::string& /*chassisId*/, const std::string& powerSupplyId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -499,7 +497,7 @@ inline void handlePowerSupplyHead(
 
     // Get the correct Path and Service that match the input parameters
     getValidPowerSupplyPath(
-        asyncResp, chassisId, powerSupplyId,
+        asyncResp, powerSupplyId,
         std::bind_front(doPowerSupplyHead, asyncResp, powerSupplyId));
 }
 
@@ -513,7 +511,7 @@ inline void handlePowerSupplyGet(
         return;
     }
     getValidPowerSupplyPath(
-        asyncResp, chassisId, powerSupplyId,
+        asyncResp, powerSupplyId,
         std::bind_front(doPowerSupplyGet, asyncResp, chassisId, powerSupplyId));
 }
 
@@ -529,7 +527,7 @@ inline void doPatchPowerSupply(
 inline void handlePowerSupplyPatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId, const std::string& powerSupplyId)
+    const std::string& /*chassisId*/, const std::string& powerSupplyId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -548,7 +546,7 @@ inline void handlePowerSupplyPatch(
     if (locationIndicatorActive)
     {
         // Get the correct power supply Path that match the input parameters
-        getValidPowerSupplyPath(asyncResp, chassisId, powerSupplyId,
+        getValidPowerSupplyPath(asyncResp, powerSupplyId,
                                 std::bind_front(doPatchPowerSupply, asyncResp,
                                                 *locationIndicatorActive));
     }
