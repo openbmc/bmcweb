@@ -87,6 +87,24 @@
       "parentUuid": "0e60bc3f_677c8855",
       "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff5f54b8_0c0b105f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-11-10T12:51:43Z",
+      "side": 1,
+      "message": "Sure, the docs change is available here:\nhttps://gerrit.openbmc.org/c/openbmc/docs/+/97006",
+      "parentUuid": "f6d4abde_46b5e423",
+      "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
