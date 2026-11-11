@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5122bd46_abbfd0c9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-11T05:54:05Z",
+      "side": 1,
+      "message": "nit:\nI think we can remove this, \nas the reason of adding this line were stated in the commit message?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 73
+      },
+      "revId": "09ef40c6b10d4e7796de984ace3c1164e6774e2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "140f0167_53cab1e9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-11T05:54:05Z",
+      "side": 1,
+      "message": "This as well?",
+      "range": {
+        "startLine": 56,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "09ef40c6b10d4e7796de984ace3c1164e6774e2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9c65d87_c70aa3fc",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-11T05:54:05Z",
+      "side": 1,
+      "message": "Q:\nThis fixes enables only GET on OpenSSH machine but not PATCH.\nIs this intentional or there are incoming patch to do this?",
+      "range": {
+        "startLine": 566,
+        "startChar": 8,
+        "endLine": 568,
+        "endChar": 53
+      },
+      "revId": "09ef40c6b10d4e7796de984ace3c1164e6774e2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
