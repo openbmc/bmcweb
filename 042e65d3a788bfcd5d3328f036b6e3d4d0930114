@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02b37549_a6f0e4cd",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-11T08:39:01Z",
+      "side": 1,
+      "message": "Done in patch set 3: RemoteUser is unpacked too, and a local user without UserEnabled is refused with 500, as populateUserInfo() refuses a local user missing its other properties. Only remote users default to enabled.",
+      "parentUuid": "a9eb9a0f_4e506abb",
+      "revId": "042e65d3a788bfcd5d3328f036b6e3d4d0930114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "727faff6_5178e20d",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6f8c891_abdbd1af",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-11T08:39:01Z",
+      "side": 1,
+      "message": "Noted in the commit message in patch set 3. I kept this change independent of 96575 rather than stacking it: they touch different files, so either can land first, and once 96575 is in, an upgrade refused here gets its 401 like the existing 403.",
+      "parentUuid": "727faff6_5178e20d",
+      "revId": "042e65d3a788bfcd5d3328f036b6e3d4d0930114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b09d0a93_c207b80b",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-11T06:33:46Z",
       "side": 1,
       "message": "isMtlsUserEnabled() ignores RemoteUser, so this passes even with an empty map. If that changes, could we add a local user without UserEnabled, expecting false?",
+      "revId": "042e65d3a788bfcd5d3328f036b6e3d4d0930114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be2ee3ee_c103e398",
+        "filename": "test/include/dbus_privileges_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-11T08:39:01Z",
+      "side": 1,
+      "message": "Added IsMtlsUserEnabled.LocalUserWithoutUserEnabled in patch set 3 (RemoteUser false and no UserEnabled: false, with 500). It fails against patch set 2 and passes now.",
+      "parentUuid": "b09d0a93_c207b80b",
       "revId": "042e65d3a788bfcd5d3328f036b6e3d4d0930114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
