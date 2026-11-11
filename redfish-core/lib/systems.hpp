@@ -303,15 +303,22 @@ inline void afterGetInventory(
     asset_utils::extractAssetInfo(asyncResp, ""_json_pointer, propertiesList,
                                   false);
 
+    const std::string* sku = nullptr;
     const std::string* subModel = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), propertiesList, "SubModel", subModel);
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "SKU", sku,
+        "SubModel", subModel);
 
     if (!success)
     {
         messages::internalError(asyncResp->res);
         return;
+    }
+
+    if (sku != nullptr && !sku->empty())
+    {
+        asyncResp->res.jsonValue["SKU"] = *sku;
     }
 
     if (subModel != nullptr && !subModel->empty())
