@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "729846a4_4e0afe9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-11T16:26:32Z",
+      "side": 1,
+      "message": "Question about the interface but looks good. Thanks for adding!",
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91377448_f9a1482e",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-11T16:26:32Z",
+      "side": 1,
+      "message": "Why wouldn\u0027t we actually test using the cpucore interface? \n\n    return {\n        {\"/xyz/openbmc_project/inventory/system/cpu0/core0\",\n         {{\"xyz.openbmc_project.Inventory.Manager\",\n           {\"xyz.openbmc_project.Inventory.Item.CpuCore\"}}}},\n        {\"/xyz/openbmc_project/inventory/system/cpu0/core1\",\n         {{\"xyz.openbmc_project.Inventory.Manager\",\n           {\"xyz.openbmc_project.Inventory.Item.CpuCore\"}}}}};\n\nI don\u0027t love that `xyz.openbmc_project.Example` produces a core",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 78
+      },
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3ad4990_d65303d1",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-11T16:26:32Z",
+      "side": 1,
+      "message": "THis `json.size(), 6` kind of feels brittle.. Add a property and it breaks. Like I understand for the service root links.. oh well, your call if you want to remove",
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "495d32d0_5ba1599d",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-11T16:26:32Z",
+      "side": 1,
+      "message": "Less brittle but again, your call if you want.",
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
