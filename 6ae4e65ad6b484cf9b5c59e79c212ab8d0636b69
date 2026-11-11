@@ -33,6 +33,57 @@
       "message": "@joelpj@ami.com Hi, I signed it and emailed it a couple days ago. I\u0027ll ask.",
       "revId": "6ae4e65ad6b484cf9b5c59e79c212ab8d0636b69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c0d9d34_cde3613d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T08:32:39Z",
+      "side": 1,
+      "message": "This misses localhost.localdomain, which systemd-resolved (bmcweb\u0027s default) resolves to loopback. Would checking the IP before connecting be more reliable?",
+      "revId": "6ae4e65ad6b484cf9b5c59e79c212ab8d0636b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fafb4937_db235061",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T08:32:39Z",
+      "side": 1,
+      "message": "nit: for Content-Length/Transfer-Encoding, \u0027(invalid characters)\u0027 isn\u0027t the real reason (same in PATCH). Could it use propertyValueError(\"HttpHeaders/\" + item.first)?",
+      "revId": "6ae4e65ad6b484cf9b5c59e79c212ab8d0636b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4692486b_b0d18a65",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T08:32:39Z",
+      "side": 1,
+      "message": "PATCH still lacks POST\u0027s Context (256) and HttpHeaders (8096) length limits, so it can store what POST rejects. Could they be checked here too?",
+      "revId": "6ae4e65ad6b484cf9b5c59e79c212ab8d0636b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
