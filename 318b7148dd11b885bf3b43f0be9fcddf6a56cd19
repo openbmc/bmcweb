@@ -111,6 +111,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a3db8fd_b97ef556",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:19:25Z",
+      "side": 1,
+      "message": "Removed the code",
+      "parentUuid": "b40f8085_82326733",
+      "range": {
+        "startLine": 446,
+        "startChar": 12,
+        "endLine": 446,
+        "endChar": 30
+      },
+      "revId": "318b7148dd11b885bf3b43f0be9fcddf6a56cd19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86fe74a7_53f22b40",
@@ -219,6 +243,30 @@
       "side": 1,
       "message": "Then we must use different header name?",
       "parentUuid": "29a91efa_aafe8e1f",
+      "range": {
+        "startLine": 1331,
+        "startChar": 40,
+        "endLine": 1331,
+        "endChar": 55
+      },
+      "revId": "318b7148dd11b885bf3b43f0be9fcddf6a56cd19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f176bd_83f13445",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:19:25Z",
+      "side": 1,
+      "message": "Redfish issue created for this",
+      "parentUuid": "65311057_39d70602",
       "range": {
         "startLine": 1331,
         "startChar": 40,
