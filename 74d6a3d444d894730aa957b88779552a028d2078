@@ -16,6 +16,57 @@
       "message": "You need to sign the CLA.",
       "revId": "74d6a3d444d894730aa957b88779552a028d2078",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91d75d20_9dfd437a",
+        "filename": "http/routing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T08:30:26Z",
+      "side": 1,
+      "message": "No test checks that a denied upgrade keeps the socket. Could router_test.cpp add one? A sessionless request is rejected by validatePrivilege() without any D-Bus call.",
+      "revId": "74d6a3d444d894730aa957b88779552a028d2078",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0a07e8_36cac965",
+        "filename": "http/routing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T08:30:26Z",
+      "side": 1,
+      "message": "If GetUserInfo replies slowly, the still-running deadline timer\u0027s hardClose() now closes the socket this lambda later passes to rule.handleUpgrade(). Is that intended?",
+      "revId": "74d6a3d444d894730aa957b88779552a028d2078",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5501b8e2_99781c18",
+        "filename": "http/routing.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T08:30:26Z",
+      "side": 1,
+      "message": "nit: with adaptor captured by reference, the lambda modifies no by-value capture, so `mutable` can go, like the validatePrivilege() lambda in handle().",
+      "revId": "74d6a3d444d894730aa957b88779552a028d2078",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
