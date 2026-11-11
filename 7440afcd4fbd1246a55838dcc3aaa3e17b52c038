@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dec8a780_0ce8fd0d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:13:04Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "1976e827_e2fab0f5",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49eb0fb9_52a42d81",
@@ -195,6 +213,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b57c0e_a55b1fce",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:13:04Z",
+      "side": 1,
+      "message": "resolved",
+      "parentUuid": "4ea1114b_5e098355",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23720215_8eb287fe",
@@ -244,6 +280,24 @@
       "side": 1,
       "message": "Yes, you must have https for mtls.  the opposite is not true.\n\nI\u0027m fine if you don\u0027t want to enforce either, and just make setting mtls on an http connection nooop.",
       "parentUuid": "d3a3ddf1_d38b5b73",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d98581a_f89082a7",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:13:04Z",
+      "side": 1,
+      "message": "MTLS always have https scheme",
+      "parentUuid": "1962e72b_8ce8f3dc",
       "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -420,6 +474,48 @@
       "writtenOn": "2026-05-18T17:15:28Z",
       "side": 1,
       "message": "Why do we need to check for both empty and \u003d\u003d bmcweb?  They\u0027re redundant, just check for \u003d\u003d \u003cstring\u003e",
+      "range": {
+        "startLine": 1336,
+        "startChar": 12,
+        "endLine": 1336,
+        "endChar": 67
+      },
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c07805e4_5d6d0f46",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:13:04Z",
+      "side": 1,
+      "message": "Redfish issue created for this",
+      "parentUuid": "31f022cf_4872b0d4",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "737eb220_c6bec0d4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:13:04Z",
+      "side": 1,
+      "message": "made changes",
+      "parentUuid": "0cf16123_43b62346",
       "range": {
         "startLine": 1336,
         "startChar": 12,
