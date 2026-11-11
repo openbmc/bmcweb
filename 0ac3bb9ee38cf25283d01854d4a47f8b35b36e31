@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43c82107_00ace298",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-11T09:42:48Z",
+      "side": 1,
+      "message": "These lists serve different queries: collection discovery must match only PCIeSwitch, while individual GET discovery also retrieves optional decorators. Memory uses the same distinction between its Dimm-only collection filter and broader detail filter.",
+      "parentUuid": "c524453e_38a19dd9",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 54
+      },
+      "revId": "0ac3bb9ee38cf25283d01854d4a47f8b35b36e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a1d4a6f_59ad58ef",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f490227f_b786f051",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-11T09:42:48Z",
+      "side": 1,
+      "message": "Done, Thanks for reviewing.",
+      "parentUuid": "2a1d4a6f_59ad58ef",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 17
+      },
+      "revId": "0ac3bb9ee38cf25283d01854d4a47f8b35b36e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40e0f763_c5ff6915",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-11-06T06:46:58Z",
       "side": 1,
       "message": "nit:\nCan we uses `ranges::contains()` or `ranges::find()`?\n```\nif (std::ranges::contains(interfaces, powerStateInterface))\n{\n    return serviceName;\n}\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 9
+      },
+      "revId": "0ac3bb9ee38cf25283d01854d4a47f8b35b36e31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d42f773_901a90f2",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-11T09:42:48Z",
+      "side": 1,
+      "message": "ACKed.",
+      "parentUuid": "40e0f763_c5ff6915",
       "range": {
         "startLine": 123,
         "startChar": 8,
