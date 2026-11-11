@@ -13,12 +13,15 @@
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
 #include <boost/beast/http/fields.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 #include <nlohmann/json.hpp>
 
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
+#include <fstream>
 #include <memory>
 #include <optional>
 #include <string>
@@ -33,6 +36,12 @@ class ConfigFile
     uint64_t jsonRevision = 1;
 
   public:
+    static constexpr const char* chipIdSysfsNode =
+        "/sys/devices/platform"
+        "/ahb/ahb:apb/1e6e2000.syscon/1e6e2000.syscon:misc_control/chip_id";
+    static constexpr const char* UuidNs = "{b7b0553a-54cc-4162-982d-"
+                                          "944847ed76f5}";
+
     static std::string getStateFile()
     {
         // NOLINTNEXTLINE(concurrency-mt-unsafe)
@@ -280,8 +289,30 @@ class ConfigFile
 
         if (systemUuid.empty())
         {
-            systemUuid = bmcweb::getRandomUUID();
-            needWrite = true;
+            // Try to retrieve chip id-based uuid.
+            std::ifstream chipIdFile(chipIdSysfsNode);
+            if (chipIdFile.is_open())
+            {
+                std::string chipId;
+                std::getline(chipIdFile, chipId);
+                if (!chipId.empty())
+                {
+                    boost::uuids::name_generator_sha1 gen(
+                        boost::uuids::string_generator()(UuidNs));
+                    systemUuid = boost::uuids::to_string(gen(chipId.c_str()));
+                    needWrite = true;
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR("Cannot get chip id-based System UUID.");
+                }
+            }
+            // If the above fails, generate random uuid.
+            if (systemUuid.empty())
+            {
+                systemUuid = bmcweb::getRandomUUID();
+                needWrite = true;
+            }
         }
         if (fileRevision < jsonRevision)
         {
