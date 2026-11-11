@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b6e6fc_c728d072",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:07:25Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "140b90d0_4519159f",
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9aa1736a_221d7a0f",
@@ -315,6 +333,30 @@
       "side": 1,
       "message": "The X-Forwarded-For header is added to Redfish requests originating from bmcweb during the aggregation phase. This allows the satellite BMC to detect that the request is part of an aggregation flow. As a result, the satellite BMC can avoid initiating any further aggregation itself.\nAs mentioned in the commit message, this approach works for a fully connected BMC topology, where the initiating BMC directly aggregates all connected satellite BMCs. However, it does not work correctly in scenarios where some BMCs are only indirectly connected.",
       "parentUuid": "abff0d2d_53d3dc69",
+      "range": {
+        "startLine": 633,
+        "startChar": 48,
+        "endLine": 633,
+        "endChar": 54
+      },
+      "revId": "7440afcd4fbd1246a55838dcc3aaa3e17b52c038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e94a71a8_c5f616ce",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:07:25Z",
+      "side": 1,
+      "message": "Resolving this as we have new redfish issue created for this",
+      "parentUuid": "39a2edf2_558af66a",
       "range": {
         "startLine": 633,
         "startChar": 48,

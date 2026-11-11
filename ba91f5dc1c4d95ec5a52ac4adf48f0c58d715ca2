@@ -88,6 +88,24 @@
       "parentUuid": "6ede6c8a_e0a2e3b9",
       "revId": "ba91f5dc1c4d95ec5a52ac4adf48f0c58d715ca2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "573370a9_e19a52b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-11T05:07:25Z",
+      "side": 1,
+      "message": "We have open redfish issue",
+      "parentUuid": "b6b67693_f4d6c7a2",
+      "revId": "ba91f5dc1c4d95ec5a52ac4adf48f0c58d715ca2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
