@@ -11,6 +11,7 @@
 #include "generated/enums/processor.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
+#include "processor.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
@@ -221,6 +222,19 @@ inline void doHandleSubProcessorCollectionHead(
         "</redfish/v1/JsonSchemas/ProcessorCollection/ProcessorCollection.json>; rel=describedby");
 }
 
+inline void afterHeadSubProcessorCollectionProcessor(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const std::string& objectPath,
+    const dbus::utility::MapperServiceMap& /* serviceMap */)
+{
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::object_path(objectPath) / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        processorCoreInterfaces,
+        std::bind_front(doHandleSubProcessorCollectionHead, asyncResp,
+                        processorId));
+}
+
 inline void handleSubProcessorCollectionHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -246,11 +260,9 @@ inline void handleSubProcessorCollectionHead(
         return;
     }
 
-    dbus::utility::getAssociatedSubTreePathsById(
-        processorId, "/xyz/openbmc_project/inventory", processorInterfaces,
-        "containing", processorCoreInterfaces,
-        std::bind_front(doHandleSubProcessorCollectionHead, asyncResp,
-                        processorId));
+    getProcessorObject(asyncResp, processorId,
+                       std::bind_front(afterHeadSubProcessorCollectionProcessor,
+                                       asyncResp, processorId));
 }
 
 inline void doHandleSubProcessorCollectionGet(
@@ -290,6 +302,20 @@ inline void doHandleSubProcessorCollectionGet(
         nlohmann::json::json_pointer("/Members"), ec, coreSubTreePaths);
 }
 
+inline void afterGetSubProcessorCollectionProcessor(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& objectPath,
+    const dbus::utility::MapperServiceMap& /* serviceMap */)
+{
+    dbus::utility::getAssociatedSubTreePaths(
+        sdbusplus::object_path(objectPath) / "containing",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        processorCoreInterfaces,
+        std::bind_front(doHandleSubProcessorCollectionGet, asyncResp,
+                        systemName, processorId));
+}
+
 inline void handleSubProcessorCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -315,11 +341,9 @@ inline void handleSubProcessorCollectionGet(
         return;
     }
 
-    dbus::utility::getAssociatedSubTreePathsById(
-        processorId, "/xyz/openbmc_project/inventory", processorInterfaces,
-        "containing", processorCoreInterfaces,
-        std::bind_front(doHandleSubProcessorCollectionGet, asyncResp,
-                        systemName, processorId));
+    getProcessorObject(asyncResp, processorId,
+                       std::bind_front(afterGetSubProcessorCollectionProcessor,
+                                       asyncResp, systemName, processorId));
 }
 
 inline void requestRoutesSubProcessors(App& app)
