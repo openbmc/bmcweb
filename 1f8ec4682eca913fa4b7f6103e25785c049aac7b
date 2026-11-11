@@ -16,6 +16,29 @@
       "message": "This getAssetInfo is used all over: \nAssembly, Drive, PCIeDevice, Fan, Cable \n\nDo all these schema have this SKU property ? \n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+getAssetInfo\u0026type\u003dcode\n\nAlso please run the redfish service validator",
       "revId": "1f8ec4682eca913fa4b7f6103e25785c049aac7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20da0f6f_bc9ac99a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-11T16:06:11Z",
+      "side": 1,
+      "message": "Ideally here and your Gerrit Name is your full name here: \n```\n\nAll commit messages must include a \"Signed-off-by\" line, which indicates that\nyou the contributor have agreed to the Developer Certificate of Origin (see\nbelow). This line must include the full name you commonly use, often a given\nname and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not\nok: xXthorXx, Sam, RAH)\n```\nhttps://github.com/openbmc/docs/blob/93e6e050d9fe4dc67d8aaa6b1616ccce373c2c1c/CONTRIBUTING.md?plain\u003d1#L261",
+      "range": {
+        "startLine": 22,
+        "startChar": 15,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "1f8ec4682eca913fa4b7f6103e25785c049aac7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
