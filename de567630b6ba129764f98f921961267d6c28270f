@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c244c47_6226ccd4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1002918
+      },
+      "writtenOn": "2026-11-11T20:10:19Z",
+      "side": 1,
+      "message": "I think we can use the current value of the omitted property. But keeping this is fine.",
+      "parentUuid": "b90ad093_13e79585",
+      "revId": "de567630b6ba129764f98f921961267d6c28270f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af2949c5_aef6aca5",
