@@ -955,6 +955,7 @@ functions the same like the default implementation under the System resource.
 - SerialNumber
 - Status
 - Storage
+- SKU
 - SubModel
 - SystemType
 
