@@ -16,6 +16,23 @@
       "message": "Looks good to me.",
       "revId": "01a103ad1eaadbb43a1f4f40571f7769362cc97f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7513205_3dd3fa85",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-11T16:30:37Z",
+      "side": 1,
+      "message": "Don\u0027t we still have  problem with \n\ncpu0\tmatching both: /xyz/openbmc_project/inventory/system/cpu0 and /xyz/openbmc_project/inventory/system/notcpu0",
+      "revId": "01a103ad1eaadbb43a1f4f40571f7769362cc97f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
