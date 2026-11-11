@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12cc879e_fba2f820",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-11T16:04:58Z",
+      "side": 1,
+      "message": "This getAssetInfo is used all over: \nAssembly, Drive, PCIeDevice, Fan, Cable \n\nDo all these schema have this SKU property ? \n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+getAssetInfo\u0026type\u003dcode\n\nAlso please run the redfish service validator",
+      "revId": "1f8ec4682eca913fa4b7f6103e25785c049aac7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
