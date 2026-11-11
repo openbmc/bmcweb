@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9eb9a0f_4e506abb",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T06:33:46Z",
+      "side": 1,
+      "message": "This ignores RemoteUser, so a local user missing UserEnabled passes too. Could it check RemoteUser like populateUserInfo(), so only remote users default to enabled?",
+      "revId": "042e65d3a788bfcd5d3328f036b6e3d4d0930114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "727faff6_5178e20d",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T06:33:46Z",
+      "side": 1,
+      "message": "nit: master\u0027s Router::handleUpgrade() moves the stream before this check, so WebSocket/SSE never get this 401 or the existing 403. Note it in the commit msg, or stack on fix 96575?",
+      "revId": "042e65d3a788bfcd5d3328f036b6e3d4d0930114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b09d0a93_c207b80b",
+        "filename": "test/include/dbus_privileges_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-11T06:33:46Z",
+      "side": 1,
+      "message": "isMtlsUserEnabled() ignores RemoteUser, so this passes even with an empty map. If that changes, could we add a local user without UserEnabled, expecting false?",
+      "revId": "042e65d3a788bfcd5d3328f036b6e3d4d0930114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
