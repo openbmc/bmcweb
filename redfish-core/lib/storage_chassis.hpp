@@ -161,8 +161,7 @@ inline void getDriveItemProperties(
                         convertDriveType(*value);
                     if (!mediaType)
                     {
-                        BMCWEB_LOG_WARNING("UnknownDriveType Interface: {}",
-                                           *value);
+                        BMCWEB_LOG_WARNING("Unknown drive type: {}", *value);
                         continue;
                     }
                     if (*mediaType == drive::MediaType::Invalid)
@@ -206,8 +205,8 @@ inline void getDriveItemProperties(
                         convertDriveProtocol(*value);
                     if (!proto)
                     {
-                        BMCWEB_LOG_WARNING(
-                            "Unknown DrivePrototype Interface: {}", *value);
+                        BMCWEB_LOG_WARNING("Unknown drive protocol: {}",
+                                           *value);
                         continue;
                     }
                     if (*proto == protocol::Protocol::Invalid)
@@ -323,7 +322,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR("Drive mapper call error");
+        BMCWEB_LOG_ERROR("Drive mapper call error: {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -419,7 +418,8 @@ inline void afterChassisDriveCollectionSubtreeGet(
                                    const dbus::utility::MapperEndPoints& resp) {
                 if (ec3)
                 {
-                    BMCWEB_LOG_ERROR("Error in chassis Drive association ");
+                    BMCWEB_LOG_ERROR("Error in chassis drive association: {}",
+                                     ec3);
                 }
                 nlohmann::json& members = asyncResp->res.jsonValue["Members"];
                 // important if array is empty
@@ -478,7 +478,7 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
         messages::internalError(asyncResp->res);
         return;
     }
