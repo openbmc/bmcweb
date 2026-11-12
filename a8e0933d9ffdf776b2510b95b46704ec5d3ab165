@@ -121,6 +121,24 @@
       "parentUuid": "0a3f6192_d82b5dff",
       "revId": "a8e0933d9ffdf776b2510b95b46704ec5d3ab165",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b6591f1_990d4bbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001076
+      },
+      "writtenOn": "2026-11-12T02:52:48Z",
+      "side": 1,
+      "message": "Based on OpenSSL roadmap (https://openssl-library.org/roadmap/index.html) current minimum version should be 3.5. Moreover, Yocto is currently using OpenSSL 4.0.",
+      "parentUuid": "4b2e2ec1_48df3dd7",
+      "revId": "a8e0933d9ffdf776b2510b95b46704ec5d3ab165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
