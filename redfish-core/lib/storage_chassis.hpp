@@ -161,8 +161,7 @@ inline void getDriveItemProperties(
                         convertDriveType(*value);
                     if (!mediaType)
                     {
-                        BMCWEB_LOG_WARNING("UnknownDriveType Interface: {}",
-                                           *value);
+                        BMCWEB_LOG_WARNING("Unknown drive type: {}", *value);
                         continue;
                     }
                     if (*mediaType == drive::MediaType::Invalid)
@@ -206,8 +205,8 @@ inline void getDriveItemProperties(
                         convertDriveProtocol(*value);
                     if (!proto)
                     {
-                        BMCWEB_LOG_WARNING(
-                            "Unknown DrivePrototype Interface: {}", *value);
+                        BMCWEB_LOG_WARNING("Unknown drive protocol: {}",
+                                           *value);
                         continue;
                     }
                     if (*proto == protocol::Protocol::Invalid)
