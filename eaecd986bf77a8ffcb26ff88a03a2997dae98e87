@@ -299,6 +299,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b424b1f_2b8cf09d",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-12T11:10:19Z",
+      "side": 1,
+      "message": "Please check this out:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/97207",
+      "parentUuid": "c1eec5b0_92a31172",
+      "range": {
+        "startLine": 161,
+        "startChar": 40,
+        "endLine": 161,
+        "endChar": 56
+      },
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c70063b_1eaaf5df",
@@ -312,6 +336,30 @@
       "writtenOn": "2026-10-15T06:10:21Z",
       "side": 1,
       "message": "Here as well, shall we change to the follows?\n```\nBMCWEB_LOG_WARNING(\"Unknown drive protocol: {}\", *protocol);\n```",
+      "range": {
+        "startLine": 183,
+        "startChar": 20,
+        "endLine": 184,
+        "endChar": 50
+      },
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1f68fe4_28f5e0c2",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-12T11:10:19Z",
+      "side": 1,
+      "message": "Please check this out:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/97207",
+      "parentUuid": "5c70063b_1eaaf5df",
       "range": {
         "startLine": 183,
         "startChar": 20,
