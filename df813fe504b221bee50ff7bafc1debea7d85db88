@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb940016_eabdd54c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-12T08:41:32Z",
+      "side": 1,
+      "message": "Okay, that\u0027s reasonable.",
+      "parentUuid": "0b6d9ec9_d53831c1",
+      "revId": "df813fe504b221bee50ff7bafc1debea7d85db88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "931594c0_4df908d3",
         "filename": "redfish-core/lib/storage_controller.hpp",
         "patchSetId": 15
