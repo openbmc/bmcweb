@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b22c565d_7e92b712",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-12T13:04:36Z",
+      "side": 1,
+      "message": "After the reset, `SettingMax` and `SettingMin` read 4294967295, which a client will take as a real limit. Is that the expected default?",
+      "revId": "139ff9f0070431e5f79be33d3b6031ad6dd6f90a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473b6947_fab8bbd5",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-12T13:04:36Z",
+      "side": 1,
+      "message": "`Control.Reset` is the device reset in [89422](https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/89422).\nCould this follow the rename in [89416](https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/89416)?",
+      "revId": "139ff9f0070431e5f79be33d3b6031ad6dd6f90a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
