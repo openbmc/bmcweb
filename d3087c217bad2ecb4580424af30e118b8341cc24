@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79e66850_93ebe6bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-12T11:54:02Z",
+      "side": 1,
+      "message": "@paligill@gmail.com Could we use std::vector\u003cstd::pair\u003cstd::string, std::string\u003e\u003e as Ed suggested? sdbusplus supports this representation for a{ss}, so it should also cover the existing AdditionalData property.",
+      "parentUuid": "90361396_4b1164f9",
+      "revId": "d3087c217bad2ecb4580424af30e118b8341cc24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2802daa_8aaf4898",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 1
