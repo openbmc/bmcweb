@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82d6792f_f276d5d9",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-12T05:31:00Z",
+      "side": 1,
+      "message": "Acknowledged, changed to `Inventory.Item.CpuCore` as suggested.",
+      "parentUuid": "91377448_f9a1482e",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 78
+      },
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3ad4990_d65303d1",
@@ -58,6 +82,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e6f2eb2_f8f75ac2",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-12T05:31:00Z",
+      "side": 1,
+      "message": "I added these because @joelpj@ami.com asked for them.\nPerhaps the author should also modify these test if they add more property in their patch?",
+      "parentUuid": "f3ad4990_d65303d1",
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "495d32d0_5ba1599d",
@@ -71,6 +113,24 @@
       "writtenOn": "2026-11-11T16:26:32Z",
       "side": 1,
       "message": "Less brittle but again, your call if you want.",
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdb0cf0e_f1a21aed",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-12T05:31:00Z",
+      "side": 1,
+      "message": "As indicated above, I would rather keep these and let the author in the future to modify them.",
+      "parentUuid": "495d32d0_5ba1599d",
       "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
