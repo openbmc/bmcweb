@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4e31ccf_411995ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002460
+      },
+      "writtenOn": "2026-11-12T03:45:30Z",
+      "side": 1,
+      "message": "PS3 prefers the BMC item’s contained_by association with the parent as fallback, and adds RSV results (0 failures with and without the change) to the Tested block.",
+      "revId": "08931572063b71edf63c9fe0fcdb227264f81369",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

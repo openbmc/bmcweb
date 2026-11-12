@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42abc79b_677a2466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002460
+      },
+      "writtenOn": "2026-11-12T03:45:30Z",
+      "side": 1,
+      "message": "Done in PS3: the BMC item’s contained_by association is now preferred (getAssociatedSubTreePaths on \u003citem\u003e/contained_by, filtered to Board/Chassis), and the parent object is only the fallback when it is absent.\n\nOne note on why the fallback stays: entity-manager currently creates containing/contained_by only between boards (topology.cpp restricts it to Board/Chassis types), so an exposed Item.Bmc has no such association and EM-based systems still take the fallback. Both paths were exercised on hardware; see the Tested block.",
+      "parentUuid": "cdf9f0aa_da665bbe",
+      "revId": "248afe569b55f0ced8ea7375c5860185e0c847b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd976491_8ff42597",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-11T12:09:40Z",
       "side": 1,
       "message": "Please add RSV results in tested block.",
+      "revId": "248afe569b55f0ced8ea7375c5860185e0c847b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd2b2805_c6847ee8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002460
+      },
+      "writtenOn": "2026-11-12T03:45:30Z",
+      "side": 1,
+      "message": "Done. RSV 3.1.8 was run on the same system against bmcweb built at the same revision with and without this change: 0 failures in both. The only resource whose counts differ is /redfish/v1/Managers/bmc (ManagerInChassis is now validated).",
+      "parentUuid": "cd976491_8ff42597",
       "revId": "248afe569b55f0ced8ea7375c5860185e0c847b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
