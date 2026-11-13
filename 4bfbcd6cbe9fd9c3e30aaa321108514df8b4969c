@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dae7837_9978d585",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-13T06:56:13Z",
+      "side": 1,
+      "message": "How is the cache reconciled if Entity Manager disappears or the initial GetManagedObjects request fails? An abrupt service exit may not emit InterfacesRemoved for each object, and an initial failure does not appear to trigger another snapshot. Could we handle the service owner change and refresh the cache when Entity Manager becomes available?",
+      "revId": "4bfbcd6cbe9fd9c3e30aaa321108514df8b4969c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "349fb3f6_4a0b79ed",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-13T06:56:13Z",
+      "side": 1,
+      "message": "Could the prefix check account for underscores in the Entity Manager Name? For example, with a source named rack_1, a resource ID such as rack_1_system is checked against rack, so it will not match the cached rack_1 source. The SatelliteController schema does not appear to prohibit underscores. It may also be worth defining how overlapping source prefixes are handled.",
+      "revId": "4bfbcd6cbe9fd9c3e30aaa321108514df8b4969c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
