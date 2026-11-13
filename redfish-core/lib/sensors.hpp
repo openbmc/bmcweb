@@ -2204,6 +2204,12 @@ inline void getSensorFromDbus(
                 name, type, sensor_utils::ChassisSubNode::sensorsNode,
                 valuesDict, asyncResp->res.jsonValue, nullptr);
         });
+
+    ::dbus::utility::getAssociatedSubTree(
+        sdbusplus::object_path(sensorPath) / "inventory",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        sensor_utils::physicalContextItemInterfaces,
+        std::bind_front(sensor_utils::afterGetSensorInventoryItem, asyncResp));
 }
 
 inline void handleSensorGet(App& app, const crow::Request& req,

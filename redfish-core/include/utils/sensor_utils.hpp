@@ -24,6 +24,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
@@ -633,6 +634,68 @@ inline physical_context::PhysicalContext dBusSensorPhysicalContextToRedfish(
 
     BMCWEB_LOG_WARNING("Unknown PhysicalContext: {}", sensorPhysicalContext);
     return physical_context::PhysicalContext::Invalid;
+}
+
+constexpr auto physicalContextItemInterfaces = std::to_array<std::string_view>({
+    "xyz.openbmc_project.Inventory.Item.Cpu",
+    "xyz.openbmc_project.Inventory.Item.Vrm",
+});
+
+inline physical_context::PhysicalContext inventoryItemToPhysicalContext(
+    const std::vector<std::string>& interfaces)
+{
+    for (const std::string& interface : interfaces)
+    {
+        if (interface == "xyz.openbmc_project.Inventory.Item.Cpu")
+        {
+            return physical_context::PhysicalContext::CPU;
+        }
+        if (interface == "xyz.openbmc_project.Inventory.Item.Vrm")
+        {
+            return physical_context::PhysicalContext::VoltageRegulator;
+        }
+    }
+
+    return physical_context::PhysicalContext::Invalid;
+}
+
+inline void afterGetSensorInventoryItem(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if ((ec != boost::system::errc::io_error) && (ec.value() != EBADR))
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for getAssociatedSubTree {}",
+                             ec);
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.size() != 1)
+    {
+        return;
+    }
+
+    // Common.PhysicalContext on the sensor, read in parallel, takes precedence
+    if (asyncResp->res.jsonValue.contains("PhysicalContext"))
+    {
+        return;
+    }
+
+    for (const auto& [service, interfaces] : subtree.front().second)
+    {
+        physical_context::PhysicalContext context =
+            inventoryItemToPhysicalContext(interfaces);
+        if (context != physical_context::PhysicalContext::Invalid)
+        {
+            asyncResp->res.jsonValue["PhysicalContext"] = context;
+            return;
+        }
+    }
 }
 
 inline bool fillSensorIdentity(

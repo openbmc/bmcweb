@@ -2,14 +2,23 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "bmcweb_config.h"
 
+#include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/physical_context.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
+#include "http_response.hpp"
 #include "utils/sensor_utils.hpp"
+
+#include <boost/asio/error.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/system/errc.hpp>
+#include <boost/system/linux_error.hpp>
 
 #include <cmath>
 #include <functional>
+#include <memory>
 #include <optional>
 #include <string>
 #include <tuple>
@@ -765,6 +774,222 @@ TEST(GetFanPercent, Fail)
     percentValue = getFanPercent("defaultMinMax", maxValue, minValue, value);
     EXPECT_FALSE(percentValue.has_value());
     percentValue.reset();
+}
+
+TEST(InventoryItemToPhysicalContext, MappedItem)
+{
+    EXPECT_EQ(inventoryItemToPhysicalContext(
+                  {"xyz.openbmc_project.Inventory.Item",
+                   "xyz.openbmc_project.Inventory.Item.Cpu"}),
+              physical_context::PhysicalContext::CPU);
+    EXPECT_EQ(inventoryItemToPhysicalContext(
+                  {"xyz.openbmc_project.Inventory.Item",
+                   "xyz.openbmc_project.Inventory.Item.Vrm"}),
+              physical_context::PhysicalContext::VoltageRegulator);
+}
+
+TEST(InventoryItemToPhysicalContext, UnmappedItem)
+{
+    EXPECT_EQ(inventoryItemToPhysicalContext({}),
+              physical_context::PhysicalContext::Invalid);
+    EXPECT_EQ(inventoryItemToPhysicalContext(
+                  {"xyz.openbmc_project.Inventory.Item",
+                   "xyz.openbmc_project.Inventory.Item.Board"}),
+              physical_context::PhysicalContext::Invalid);
+    EXPECT_EQ(inventoryItemToPhysicalContext(
+                  {"xyz.openbmc_project.Inventory.Item.PowerSupply"}),
+              physical_context::PhysicalContext::Invalid);
+}
+
+TEST(InventoryItemToPhysicalContext, MapperFilterInterfacesAreMapped)
+{
+    for (const auto& interface : physicalContextItemInterfaces)
+    {
+        EXPECT_NE(inventoryItemToPhysicalContext({std::string(interface)}),
+                  physical_context::PhysicalContext::Invalid)
+            << "interface: " << interface;
+    }
+}
+
+TEST(AfterGetSensorInventoryItem, CpuItemSetsPhysicalContext)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/inventory/system/board/cpu0",
+         {{"xyz.openbmc_project.Service0",
+           {"xyz.openbmc_project.Inventory.Item",
+            "xyz.openbmc_project.Inventory.Item.Cpu"}}}}};
+
+    afterGetSensorInventoryItem(response, ec, subtree);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(response->res.jsonValue["PhysicalContext"],
+              physical_context::PhysicalContext::CPU);
+}
+
+TEST(AfterGetSensorInventoryItem, VrmItemSetsPhysicalContext)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/inventory/system/board/vrm0",
+         {{"xyz.openbmc_project.Service0",
+           {"xyz.openbmc_project.Inventory.Decorator.Asset"}},
+          {"xyz.openbmc_project.Service1",
+           {"xyz.openbmc_project.Inventory.Item",
+            "xyz.openbmc_project.Inventory.Item.Vrm"}}}}};
+
+    afterGetSensorInventoryItem(response, ec, subtree);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(response->res.jsonValue["PhysicalContext"],
+              physical_context::PhysicalContext::VoltageRegulator);
+}
+
+TEST(AfterGetSensorInventoryItem, UnmappedItemOmitsPhysicalContext)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/inventory/system/board/baseboard",
+         {{"xyz.openbmc_project.Service0",
+           {"xyz.openbmc_project.Inventory.Item",
+            "xyz.openbmc_project.Inventory.Item.Board"}},
+          {"xyz.openbmc_project.Service1",
+           {"xyz.openbmc_project.Inventory.Decorator.Asset"}}}}};
+
+    afterGetSensorInventoryItem(response, ec, subtree);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("PhysicalContext"));
+}
+
+TEST(AfterGetSensorInventoryItem, EmptySubTreeOmitsPhysicalContext)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetSensorInventoryItem(response, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("PhysicalContext"));
+}
+
+TEST(AfterGetSensorInventoryItem, MultipleItemsOmitPhysicalContext)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/inventory/system/board/cpu0",
+         {{"xyz.openbmc_project.Service0",
+           {"xyz.openbmc_project.Inventory.Item.Cpu"}}}},
+        {"/xyz/openbmc_project/inventory/system/board/vrm0",
+         {{"xyz.openbmc_project.Service0",
+           {"xyz.openbmc_project.Inventory.Item.Vrm"}}}}};
+
+    afterGetSensorInventoryItem(response, ec, subtree);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("PhysicalContext"));
+}
+
+TEST(AfterGetSensorInventoryItem, NotFoundErrorOmitsPhysicalContext)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+
+    afterGetSensorInventoryItem(
+        response, boost::system::linux_error::bad_request_descriptor, {});
+    afterGetSensorInventoryItem(
+        response,
+        boost::system::errc::make_error_code(boost::system::errc::io_error),
+        {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("PhysicalContext"));
+}
+
+TEST(AfterGetSensorInventoryItem, ErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::asio::error::invalid_argument;
+
+    afterGetSensorInventoryItem(response, ec, {});
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+    EXPECT_FALSE(response->res.jsonValue.contains("PhysicalContext"));
+}
+
+TEST(AfterGetSensorInventoryItem, PropertyReplyFirstTakesPrecedence)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    nlohmann::json::json_pointer unit("/Reading");
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Type",
+         "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.Accelerator"},
+    };
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/inventory/system/board/cpu0",
+         {{"xyz.openbmc_project.Service0",
+           {"xyz.openbmc_project.Inventory.Item.Cpu"}}}}};
+
+    EXPECT_TRUE(fillSensorIdentity("temp0", "temperature", properties,
+                                   response->res.jsonValue, false, unit));
+    afterGetSensorInventoryItem(response, ec, subtree);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(response->res.jsonValue["PhysicalContext"],
+              physical_context::PhysicalContext::Accelerator);
+}
+
+TEST(AfterGetSensorInventoryItem, PropertyReplyLastTakesPrecedence)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    nlohmann::json::json_pointer unit("/Reading");
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Type",
+         "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.Accelerator"},
+    };
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/inventory/system/board/cpu0",
+         {{"xyz.openbmc_project.Service0",
+           {"xyz.openbmc_project.Inventory.Item.Cpu"}}}}};
+
+    afterGetSensorInventoryItem(response, ec, subtree);
+    EXPECT_EQ(response->res.jsonValue["PhysicalContext"],
+              physical_context::PhysicalContext::CPU);
+    EXPECT_TRUE(fillSensorIdentity("temp0", "temperature", properties,
+                                   response->res.jsonValue, false, unit));
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(response->res.jsonValue["PhysicalContext"],
+              physical_context::PhysicalContext::Accelerator);
+}
+
+TEST(AfterGetSensorInventoryItem, UnmappedPropertyUsesInventoryItem)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    nlohmann::json::json_pointer unit("/Reading");
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Type",
+         "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.BADTYPE"},
+    };
+    dbus::utility::MapperGetSubTreeResponse subtree = {
+        {"/xyz/openbmc_project/inventory/system/board/cpu0",
+         {{"xyz.openbmc_project.Service0",
+           {"xyz.openbmc_project.Inventory.Item.Cpu"}}}}};
+
+    EXPECT_TRUE(fillSensorIdentity("temp0", "temperature", properties,
+                                   response->res.jsonValue, false, unit));
+    afterGetSensorInventoryItem(response, ec, subtree);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(response->res.jsonValue["PhysicalContext"],
+              physical_context::PhysicalContext::CPU);
 }
 
 } // namespace
