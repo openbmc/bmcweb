@@ -16,6 +16,24 @@
       "message": "Ideally this is just fixing the circular aggregation problem.. This needs to get into Redfish first",
       "revId": "c5120492c692c72ccbb19bb1385a8261dacef427",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71f8f087_4f1507a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2026-11-13T06:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd43488c_e8f07056",
+      "revId": "c5120492c692c72ccbb19bb1385a8261dacef427",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
