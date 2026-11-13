@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31a4aa3e_381f0212",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-13T10:36:19Z",
+      "side": 1,
+      "message": "Please expand Tested: with the actual Port GET responses checked on hardware, and also add RSV results.",
+      "revId": "10b95797b77eb42d8a06d8dc8fe23e55c24ba706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4810a4d_afc9b196",
+        "filename": "test/redfish-core/include/utils/settings_util_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-13T10:36:19Z",
+      "side": 1,
+      "message": "Should this be nlohmann::json::array({settings::ApplyTime::OnReset})??",
+      "range": {
+        "startLine": 160,
+        "startChar": 14,
+        "endLine": 160,
+        "endChar": 47
+      },
+      "revId": "10b95797b77eb42d8a06d8dc8fe23e55c24ba706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
