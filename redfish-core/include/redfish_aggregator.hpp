@@ -516,16 +516,21 @@ class RedfishAggregator
                     return;
                 }
 
-                // For now assume authentication not required to communicate
-                // with the satellite BMC
-                if (*propVal != "None")
+                if (*propVal == "None")
+                {
+                    url.set_scheme("http");
+                }
+                else if (*propVal == "MTLS")
+                {
+                    url.set_scheme("https");
+                }
+                else
                 {
                     BMCWEB_LOG_ERROR(
-                        "Unsupported AuthType value: {}, only \"none\" is supported",
+                        R"(Unsupported AuthType value: {} , only "None" and "MTLS" are supported)",
                         *propVal);
                     return;
                 }
-                url.set_scheme("http");
             }
             else if (prop.first == "Name")
             {
