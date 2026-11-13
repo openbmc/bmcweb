@@ -50,6 +50,24 @@
       "message": "getUserPrivileges() ignores isConfigureSelfOnly, so an expired-password admin can still read others\u0027 sessions. Should GET and DELETE check it like handleAccountPatch()?",
       "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c18e483_dc77ff90",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-13T04:58:50Z",
+      "side": 1,
+      "message": "+1, getUserPrivileges() restores the full role privileges.",
+      "parentUuid": "cb3e4e5f_bcdc15ef",
+      "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
