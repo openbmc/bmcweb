@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b687bb_0ef7465d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-13T17:50:34Z",
+      "side": 1,
+      "message": "And I assume \n\nhttps://{BMC_IP}/redfish/v1/Systems/system/Processors/bad-processor-id/OperatingConfigs\n\nGives a 404  ?",
+      "revId": "65af3b7dc83d7c13efcaa550f9d8236af8b2b0d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85fd052c_0de91133",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-13T17:50:34Z",
+      "side": 1,
+      "message": "I think this is the same bug ..?",
+      "range": {
+        "startLine": 248,
+        "startChar": 12,
+        "endLine": 248,
+        "endChar": 49
+      },
+      "revId": "65af3b7dc83d7c13efcaa550f9d8236af8b2b0d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5414eb49_9a546657",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-13T17:50:34Z",
+      "side": 1,
+      "message": "And this /redfish/v1/Systems/{}/Processors/{}/OperatingConfigs link only gets put on processors that have the interface ? \nhttps://github.com/openbmc/bmcweb/blob/c6e2c2610e45c04ae965a209f03e450902d70359/redfish-core/lib/processor.hpp#L991\n\nAgree with the reading of that code ?",
+      "revId": "65af3b7dc83d7c13efcaa550f9d8236af8b2b0d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
