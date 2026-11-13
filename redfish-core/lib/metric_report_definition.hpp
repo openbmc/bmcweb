@@ -1316,7 +1316,7 @@ inline void handleMetricReportDefinitionCollectionGet(
     }
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/MetricReportDefinition/MetricReportDefinition.json>; rel=describedby");
+        "</redfish/v1/JsonSchemas/MetricReportDefinitionCollection/MetricReportDefinitionCollection.json>; rel=describedby");
 
     asyncResp->res.jsonValue["@odata.type"] =
         "#MetricReportDefinitionCollection."
