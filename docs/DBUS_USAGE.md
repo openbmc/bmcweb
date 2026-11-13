@@ -19,6 +19,10 @@ schemas:
   expected to handle functionally bad, but DBus-correct input in their own
   process, and return appropriate return codes. This is done to reduce the
   duplication in input processing between the various user-facing daemons.
+- Values that a daemon accepts on DBus but that the hardware applies later (for
+  example on the next reset) shall be exposed through the Redfish settings
+  resource referenced by `@Redfish.Settings`, with the value in effect kept on
+  the resource itself, so clients can distinguish the two.
 - There are interfaces for which there is an expectation that there will only
   ever be one producer in the project (ex bmc networking, user management). In
   these cases, it is desirable to call the daemon by well known name directly.
