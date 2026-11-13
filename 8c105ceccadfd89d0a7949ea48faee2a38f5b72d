@@ -100,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb33713a_5a1ccf40",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-13T18:12:53Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "9e6f2eb2_f8f75ac2",
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "495d32d0_5ba1599d",
@@ -131,6 +149,24 @@
       "side": 1,
       "message": "As indicated above, I would rather keep these and let the author in the future to modify them.",
       "parentUuid": "495d32d0_5ba1599d",
+      "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c89ed1b_cf33888c",
+        "filename": "test/redfish-core/lib/processor_core_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-13T18:12:53Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "fdb0cf0e_f1a21aed",
       "revId": "8c105ceccadfd89d0a7949ea48faee2a38f5b72d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
