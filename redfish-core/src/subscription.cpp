@@ -3,7 +3,6 @@
 // SPDX-FileCopyrightText: Copyright 2020 Intel Corporation
 #include "subscription.hpp"
 
-#include "dbus_singleton.hpp"
 #include "event_log.hpp"
 #include "event_logs_object_type.hpp"
 #include "event_matches_filter.hpp"
@@ -12,6 +11,7 @@
 #include "heartbeat_messages.hpp"
 #include "http_client.hpp"
 #include "http_response.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "server_sent_event.hpp"
 #include "ssl_key_handler.hpp"
@@ -56,7 +56,7 @@ Subscription::Subscription(
 
 Subscription::Subscription(crow::sse_socket::Connection& connIn) :
     userSub{std::make_shared<persistent_data::UserSubscription>()},
-    sseConn(&connIn), hbTimer(crow::connections::systemBus->get_io_context())
+    sseConn(&connIn), hbTimer(getIoContext())
 {}
 
 // callback for subscription sendData
