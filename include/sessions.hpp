@@ -338,6 +338,18 @@ class SessionStore
         needWrite = true;
     }
 
+    std::vector<std::shared_ptr<UserSession>> getAllSessions()
+    {
+        applySessionTimeouts();
+        std::vector<std::shared_ptr<UserSession>> ret;
+        ret.reserve(authTokens.size());
+        for (const auto& [token, session] : authTokens)
+        {
+            ret.push_back(session);
+        }
+        return ret;
+    }
+
     std::vector<std::string> getAllUniqueIds()
     {
         applySessionTimeouts();
