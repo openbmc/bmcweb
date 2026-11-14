@@ -143,17 +143,42 @@ inline void handleSessionDelete(
     messages::success(asyncResp->res);
 }
 
-inline nlohmann::json getSessionCollectionMembers()
+inline nlohmann::json getSessionCollectionMembers(const crow::Request& req)
 {
+    nlohmann::json ret = nlohmann::json::array();
+    if (req.session == nullptr)
+    {
+        return ret;
+    }
+
+    // Only ConfigureUsers may enumerate other users' sessions; every other
+    // authenticated user sees their own sessions in the collection.  The
+    // collection route is Login-privileged so the web UI can still list the
+    // current user's session.
+    Privileges effectiveUserPrivileges =
+        redfish::getUserPrivileges(*req.session);
+
     std::vector<std::string> sessionIds =
         persistent_data::SessionStore::getInstance().getAllUniqueIds();
-    nlohmann::json ret = nlohmann::json::array();
     for (const std::string& uid : sessionIds)
     {
-        nlohmann::json::object_t session;
-        session["@odata.id"] =
+        std::shared_ptr<persistent_data::UserSession> session =
+            persistent_data::SessionStore::getInstance().getSessionByUid(uid);
+        if (session == nullptr)
+        {
+            // Raced with logout; skip.
+            continue;
+        }
+        if (session->username != req.session->username &&
+            !effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"}))
+        {
+            continue;
+        }
+
+        nlohmann::json::object_t member;
+        member["@odata.id"] =
             boost::urls::format("/redfish/v1/SessionService/Sessions/{}", uid);
-        ret.emplace_back(std::move(session));
+        ret.emplace_back(std::move(member));
     }
     return ret;
 }
@@ -183,7 +208,7 @@ inline void handleSessionCollectionGet(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/SessionCollection.json>; rel=describedby");
 
-    asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers();
+    asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers(req);
     asyncResp->res.jsonValue["Members@odata.count"] =
         asyncResp->res.jsonValue["Members"].size();
     asyncResp->res.jsonValue["@odata.type"] =
