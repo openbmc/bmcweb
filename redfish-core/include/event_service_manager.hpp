@@ -458,6 +458,17 @@ class EventServiceManager
         return subscriptionsMap.size();
     }
 
+    // Sending an event to a subscriber can delete subscriptions from
+    // subscriptionsMap, e.g. an SSE connection whose buffer overflows is
+    // closed and its subscription erased. Callers that send to subscribers
+    // iterate over this copy instead of the map, and skip subscriptions that
+    // have been deleted in the meantime.
+    std::vector<std::pair<std::string, std::shared_ptr<Subscription>>>
+        getSubscriptionsSnapshot() const
+    {
+        return {subscriptionsMap.begin(), subscriptionsMap.end()};
+    }
+
     size_t getNumberOfSSESubscriptions() const
     {
         auto size = std::ranges::count_if(
@@ -538,9 +549,12 @@ class EventServiceManager
             2, ' ', true, nlohmann::json::error_handler_t::replace);
 
         messages.push_back(Event(eventId, msg));
-        for (const auto& it : subscriptionsMap)
+        for (const auto& [id, entry] : getSubscriptionsSnapshot())
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            if (!isSubscriptionExist(id))
+            {
+                continue;
+            }
             if (!entry->sendEventToSubscriber(eventId, std::string(strMsg)))
             {
                 return false;
@@ -554,10 +568,13 @@ class EventServiceManager
     {
         EventServiceManager& mgr = EventServiceManager::getInstance();
         mgr.eventId++;
-        for (const auto& it : mgr.subscriptionsMap)
+        for (const auto& [id, entry] : mgr.getSubscriptionsSnapshot())
         {
-            Subscription& entry = *it.second;
-            entry.filterAndSendEventLogs(mgr.eventId, eventRecords);
+            if (!mgr.isSubscriptionExist(id))
+            {
+                continue;
+            }
+            entry->filterAndSendEventLogs(mgr.eventId, eventRecords);
         }
     }
 
@@ -567,10 +584,13 @@ class EventServiceManager
         EventServiceManager& mgr = EventServiceManager::getInstance();
         mgr.eventId++;
 
-        for (const auto& it : mgr.subscriptionsMap)
+        for (const auto& [id, entry] : mgr.getSubscriptionsSnapshot())
         {
-            Subscription& entry = *it.second;
-            entry.filterAndSendReports(mgr.eventId, reportId, var);
+            if (!mgr.isSubscriptionExist(id))
+            {
+                continue;
+            }
+            entry->filterAndSendReports(mgr.eventId, reportId, var);
         }
     }
 
@@ -593,9 +613,12 @@ class EventServiceManager
 
         messages.push_back(Event(eventId, eventMessage));
 
-        for (auto& it : subscriptionsMap)
+        for (const auto& [id, entry] : getSubscriptionsSnapshot())
         {
-            std::shared_ptr<Subscription>& entry = it.second;
+            if (!isSubscriptionExist(id))
+            {
+                continue;
+            }
             if (!eventMatchesFilter(*entry->userSub, eventMessage,
                                     resourceType))
             {
