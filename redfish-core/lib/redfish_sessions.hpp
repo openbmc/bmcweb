@@ -143,17 +143,41 @@ inline void handleSessionDelete(
     messages::success(asyncResp->res);
 }
 
-inline nlohmann::json getSessionCollectionMembers()
+inline nlohmann::json getSessionCollectionMembers(const crow::Request& req)
 {
-    std::vector<std::string> sessionIds =
-        persistent_data::SessionStore::getInstance().getAllUniqueIds();
     nlohmann::json ret = nlohmann::json::array();
-    for (const std::string& uid : sessionIds)
+    if (req.session == nullptr)
     {
-        nlohmann::json::object_t session;
-        session["@odata.id"] =
-            boost::urls::format("/redfish/v1/SessionService/Sessions/{}", uid);
-        ret.emplace_back(std::move(session));
+        return ret;
+    }
+
+    // Only ConfigureUsers may enumerate other users' sessions; every other
+    // authenticated user sees their own sessions in the collection.  The
+    // collection route is Login-privileged so the web UI can still list the
+    // current user's session.
+    Privileges effectiveUserPrivileges =
+        redfish::getUserPrivileges(*req.session);
+
+    // Walk the store once.  getSessionByUid() is a linear scan, so looking up
+    // each id from getAllUniqueIds() would make this collection GET O(N^2).
+    const bool canSeeAll =
+        effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"});
+    for (const std::shared_ptr<persistent_data::UserSession>& session :
+         persistent_data::SessionStore::getInstance().getSessions())
+    {
+        if (session == nullptr)
+        {
+            continue;
+        }
+        if (!canSeeAll && session->username != req.session->username)
+        {
+            continue;
+        }
+
+        nlohmann::json::object_t member;
+        member["@odata.id"] = boost::urls::format(
+            "/redfish/v1/SessionService/Sessions/{}", session->uniqueId);
+        ret.emplace_back(std::move(member));
     }
     return ret;
 }
@@ -183,7 +207,7 @@ inline void handleSessionCollectionGet(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/SessionCollection.json>; rel=describedby");
 
-    asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers();
+    asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers(req);
     asyncResp->res.jsonValue["Members@odata.count"] =
         asyncResp->res.jsonValue["Members"].size();
     asyncResp->res.jsonValue["@odata.type"] =

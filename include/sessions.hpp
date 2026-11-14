@@ -368,6 +368,7 @@ class SessionStore
 
     std::vector<std::shared_ptr<UserSession>> getSessions()
     {
+        applySessionTimeouts();
         std::vector<std::shared_ptr<UserSession>> sessions;
         sessions.reserve(authTokens.size());
         for (auto& session : authTokens)
