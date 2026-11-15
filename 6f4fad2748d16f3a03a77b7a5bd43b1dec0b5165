@@ -16,6 +16,29 @@
       "message": "These all need to go together since otherwise a part of the tree breaks\n\nGET /redfish/v1/Chassis/{ChassisId}\t\nGET /redfish/v1/Chassis/{ChassisId}/Drives\t\nGET /redfish/v1/Chassis/{ChassisId}/Drives/{DriveId}",
       "revId": "6f4fad2748d16f3a03a77b7a5bd43b1dec0b5165",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d65c81d8_ce70d773",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-15T12:39:03Z",
+      "side": 1,
+      "message": "Although prior code did the same thing, I am not entirely sure why we do a drives look-up ahead of the drives collection request.\nThe link to the collection can be added by default since bmcweb generally supports and handles the drive resource. The drives look-up should happen when we request the drives collection. Worst-case the collection stays empty. Am I missing something?",
+      "range": {
+        "startLine": 588,
+        "startChar": 0,
+        "endLine": 610,
+        "endChar": 72
+      },
+      "revId": "6f4fad2748d16f3a03a77b7a5bd43b1dec0b5165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
