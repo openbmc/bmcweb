@@ -87,6 +87,24 @@
       "message": "systemd has constants for these standard D-Bus errors too but since we added to sdbusplus, https://github.com/openbmc/sdbusplus/commit/9ed6c8a9961eea8937b357b08287acf932121b3e, I am good using. Makes sense just for compile-time checking. \n\n```\n#include \u003csystemd/sd-bus-protocol.h\u003e \n\nif (errorName \u003d\u003d SD_BUS_ERROR_UNKNOWN_OBJECT)\n```",
       "revId": "c1c10116fcefedbf2fb0ed3b3f237fe3f9c15ed7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f8ef58_e88f954e",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-16T15:36:41Z",
+      "side": 1,
+      "message": "https://github.com/systemd/systemd/blob/main/src/systemd/sd-bus-protocol.h#L66 is the systemd stuff",
+      "parentUuid": "5a49df96_08a2fc24",
+      "revId": "c1c10116fcefedbf2fb0ed3b3f237fe3f9c15ed7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
