@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f4a091_5b0f0a0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-16T04:51:01Z",
+      "side": 1,
+      "message": "Yes, it return 404 for the case.\nModified the \"Tested\" section in the commit message to avoid confusion.",
+      "parentUuid": "53b687bb_0ef7465d",
+      "revId": "65af3b7dc83d7c13efcaa550f9d8236af8b2b0d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85fd052c_0de91133",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6efe3f92_d893f739",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-16T04:51:01Z",
+      "side": 1,
+      "message": "Thanks for the catching, fixed it in PS6 as well!",
+      "parentUuid": "85fd052c_0de91133",
+      "range": {
+        "startLine": 248,
+        "startChar": 12,
+        "endLine": 248,
+        "endChar": 49
+      },
+      "revId": "65af3b7dc83d7c13efcaa550f9d8236af8b2b0d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5414eb49_9a546657",
@@ -54,6 +96,24 @@
       "writtenOn": "2026-11-13T17:50:34Z",
       "side": 1,
       "message": "And this /redfish/v1/Systems/{}/Processors/{}/OperatingConfigs link only gets put on processors that have the interface ? \nhttps://github.com/openbmc/bmcweb/blob/c6e2c2610e45c04ae965a209f03e450902d70359/redfish-core/lib/processor.hpp#L991\n\nAgree with the reading of that code ?",
+      "revId": "65af3b7dc83d7c13efcaa550f9d8236af8b2b0d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "161e7c53_8dfce0a8",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-16T04:51:01Z",
+      "side": 1,
+      "message": "Yes, this patch doesn\u0027t break the original behavior at this part.",
+      "parentUuid": "5414eb49_9a546657",
       "revId": "65af3b7dc83d7c13efcaa550f9d8236af8b2b0d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
