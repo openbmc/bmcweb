@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bae659a6_ccdb0d88",
+        "filename": "test/redfish-core/lib/processor_operating_config_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-16T04:51:15Z",
+      "side": 1,
+      "message": "Done in PS12.",
+      "parentUuid": "1998baab_a23eff88",
+      "revId": "c5f8b31cae694221ac7a8f552f956dae2cd16405",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e3eabb9_06320bce",
@@ -65,6 +83,24 @@
       "writtenOn": "2026-11-13T18:02:38Z",
       "side": 1,
       "message": "Could also do \n```\nTEST(AfterGetOperatingConfigCollection, UnknownCpuReturnsNotFound)\n{\n    auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n\n    afterGetOperatingConfigCollection(asyncResp, \"cpu0\", {}, {});\n\n    EXPECT_EQ(asyncResp-\u003eres.result(),\n              boost::beast::http::status::not_found);\n\n    const nlohmann::json\u0026 info \u003d\n        asyncResp-\u003eres.jsonValue[\"error\"][\"@Message.ExtendedInfo\"];\n\n    ASSERT_TRUE(info.is_array());\n    ASSERT_FALSE(info.empty());\n    EXPECT_EQ(info[0][\"MessageArgs\"],\n              nlohmann::json::array({\"Processor\", \"cpu0\"}));\n}\n```",
+      "revId": "c5f8b31cae694221ac7a8f552f956dae2cd16405",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "376e952a_9a5873cd",
+        "filename": "test/redfish-core/lib/processor_operating_config_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-16T04:51:15Z",
+      "side": 1,
+      "message": "Done in PS12.",
+      "parentUuid": "6e3eabb9_06320bce",
       "revId": "c5f8b31cae694221ac7a8f552f956dae2cd16405",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
