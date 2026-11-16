@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f58bf9d_bc5dbc65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-16T17:47:19Z",
+      "side": 1,
+      "message": "And I assume some end to end testing worked? Like the account expired if the expiration did occur ?",
+      "revId": "1e27820cf1f7b3f7d05541e221cf72f1a3ffc234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64769a03_18de6d50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-16T17:47:19Z",
+      "side": 1,
+      "message": "Redfish Validator is happy with new property ?\n\nI confirmed it is 1_8 and it is readwrite \n\n```\n                \"AccountExpiration\": {\n                    \"description\": \"Indicates the date and time when this account expires.  If `null`, the account never expires.\",\n                    \"format\": \"date-time\",\n                    \"longDescription\": \"This property shall contain the date and time when this account expires.  The service shall disable or delete an account that has expired.  This property shall not apply to accounts created by the Redfish Host Interface Specification-defined credential bootstrapping.  If the value is `null`, or the property is not present, the account never expires.\",\n                    \"readonly\": false,\n                    \"type\": [\n                        \"string\",\n                        \"null\"\n                    ],\n                    \"versionAdded\": \"v1_8_0\"\n                },\n```",
+      "revId": "1e27820cf1f7b3f7d05541e221cf72f1a3ffc234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
