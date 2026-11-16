@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4505cc32_64ee50a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-16T07:48:08Z",
+      "side": 1,
+      "message": "Yes, it is the device\u0027s \"no limit requested\" value and reads the same before any limit is set.",
+      "parentUuid": "b22c565d_7e92b712",
+      "revId": "139ff9f0070431e5f79be33d3b6031ad6dd6f90a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "473b6947_fab8bbd5",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-12T13:04:36Z",
       "side": 1,
       "message": "`Control.Reset` is the device reset in [89422](https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/89422).\nCould this follow the rename in [89416](https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/89416)?",
+      "revId": "139ff9f0070431e5f79be33d3b6031ad6dd6f90a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d766d93_5b9ad29a",
+        "filename": "redfish-core/lib/control.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-16T07:48:08Z",
+      "side": 1,
+      "message": "Sure, I have modified the PDI patch and adapt to the new naming as suggested.",
+      "parentUuid": "473b6947_fab8bbd5",
       "revId": "139ff9f0070431e5f79be33d3b6031ad6dd6f90a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
