@@ -74,6 +74,23 @@
       "message": "The patch exposes SKU, and I think we should update the same in Redfish.md file",
       "revId": "1f8ec4682eca913fa4b7f6103e25785c049aac7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1c7301_dae7a4cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-16T17:31:30Z",
+      "side": 1,
+      "message": "Don\u0027t see SKU in https://redfish.dmtf.org/schemas/v1/PowerSupply.v1_8_0.json",
+      "revId": "1f8ec4682eca913fa4b7f6103e25785c049aac7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
