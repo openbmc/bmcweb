@@ -18,6 +18,7 @@ extern "C"
 #include <openssl/asn1.h>
 #include <openssl/obj_mac.h>
 #include <openssl/objects.h>
+#include <openssl/opensslv.h>
 #include <openssl/types.h>
 #include <openssl/x509_vfy.h>
 #include <openssl/x509v3.h>
@@ -133,7 +134,11 @@ std::string getUPNFromCert(OpenSSLX509& peerCert, std::string_view hostname)
         const ASN1_UTF8STRING* utf8string = value.value.utf8string;
         const char* upnChar =
             std::bit_cast<const char*>(ASN1_STRING_get0_data(utf8string));
+#if OPENSSL_VERSION_PREREQ(4, 1)
+        size_t upnLen = ASN1_STRING_get_length(utf8string);
+#else
         size_t upnLen = static_cast<size_t>(ASN1_STRING_length(utf8string));
+#endif
 
         std::string_view upn(upnChar, upnLen);
         if (!isUPNMatch(upn, hostname))
