@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6fee3c0_c40a8c76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-16T18:42:18Z",
+      "side": 1,
+      "message": "Why is this part of the HostInterface / Bootstrap stuff? Can this be a separate chain with a Topic of like \"Bios\" ?",
+      "revId": "580eb4623f01a7d3a693a55a0bd67d6762e4a7aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
