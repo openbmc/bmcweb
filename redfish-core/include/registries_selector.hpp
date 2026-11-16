@@ -8,4 +8,5 @@
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 #include "registries/telemetry_message_registry.hpp"
+#include "registries/sensor_event_message_registry.hpp"
 // NOLINTEND(misc-include-cleaner)
