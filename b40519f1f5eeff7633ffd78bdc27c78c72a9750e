@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fb0390a_1bb66e96",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-16T09:42:12Z",
+      "side": 1,
+      "message": "getSessionByUid() scans the entire store for each ID, making this collection GET O(N²), is that desired?",
+      "revId": "b40519f1f5eeff7633ffd78bdc27c78c72a9750e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e23b6589_35f8419a",
         "filename": "test/redfish-core/lib/session_collection_test.cpp",
         "patchSetId": 1
