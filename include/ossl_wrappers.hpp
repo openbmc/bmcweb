@@ -21,6 +21,7 @@ extern "C"
 #include <openssl/evp.h>
 #include <openssl/obj_mac.h>
 #include <openssl/objects.h>
+#include <openssl/opensslv.h>
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
 #include <openssl/tls1.h>
@@ -217,8 +218,14 @@ class OpenSSLASN1String
         {
             throw std::runtime_error("Failed to create ASN1_STRING");
         }
+#if defined(OPENSSL_VERSION_MAJOR) && OPENSSL_VERSION_MAJOR >= 4
+        if (ASN1_STRING_set1_data(ptr,
+                                  std::bit_cast<const uint8_t*>(data.data()),
+                                  data.size()) != 1)
+#else
         if (ASN1_STRING_set(ptr, data.data(), static_cast<int>(data.size())) !=
             1)
+#endif
         {
             throw std::runtime_error("Failed to set ASN1_STRING");
         }
@@ -251,7 +258,11 @@ class OpenSSLASN1String
     std::string_view getAsString() const
     {
         return {std::bit_cast<const char*>(ASN1_STRING_get0_data(ptr)),
+#if defined(OPENSSL_VERSION_MAJOR) && OPENSSL_VERSION_MAJOR >= 4
+                ASN1_STRING_get_length(ptr)};
+#else
                 static_cast<size_t>(ASN1_STRING_length(ptr))};
+#endif
     }
 
     ASN1_STRING* release()
@@ -818,14 +829,23 @@ class OpenSSLX509
             BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
             return "";
         }
+#if defined(OPENSSL_VERSION_MAJOR) && OPENSSL_VERSION_MAJOR >= 4
+        size_t length = ASN1_STRING_get_length(data);
+        if (length == 0)
+#else
         int length = ASN1_STRING_length(data);
         if (length <= 0)
+#endif
         {
             BMCWEB_LOG_DEBUG("TLS common name is empty");
             return "";
         }
         return {std::bit_cast<const char*>(ASN1_STRING_get0_data(data)),
+#if defined(OPENSSL_VERSION_MAJOR) && OPENSSL_VERSION_MAJOR >= 4
+                length};
+#else
                 static_cast<size_t>(length)};
+#endif
     }
 
     std::string getComment() const
