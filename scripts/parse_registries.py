@@ -707,6 +707,7 @@ def main() -> None:
         "openbmc",
         "privilege",
         "resource_event",
+        "sensor_event",
         "task_event",
         "telemetry",
     ]
