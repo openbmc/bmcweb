@@ -21,6 +21,7 @@ extern "C"
 #include <openssl/evp.h>
 #include <openssl/obj_mac.h>
 #include <openssl/objects.h>
+#include <openssl/opensslv.h>
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
 #include <openssl/tls1.h>
@@ -217,11 +218,20 @@ class OpenSSLASN1String
         {
             throw std::runtime_error("Failed to create ASN1_STRING");
         }
+#if OPENSSL_VERSION_PREREQ(4, 1)
+        if (ASN1_STRING_set1_data(ptr,
+                                  std::bit_cast<const uint8_t*>(data.data()),
+                                  data.size()) != 1)
+        {
+            throw std::runtime_error("Failed to set ASN1_STRING");
+        }
+#else
         if (ASN1_STRING_set(ptr, data.data(), static_cast<int>(data.size())) !=
             1)
         {
             throw std::runtime_error("Failed to set ASN1_STRING");
         }
+#endif
     }
     OpenSSLASN1String(ASN1_STRING* ptrIn) : ptr(ptrIn) {}
 
@@ -250,8 +260,13 @@ class OpenSSLASN1String
     }
     std::string_view getAsString() const
     {
-        return {std::bit_cast<const char*>(ASN1_STRING_get0_data(ptr)),
-                static_cast<size_t>(ASN1_STRING_length(ptr))};
+        const char* strPtr =
+            std::bit_cast<const char*>(ASN1_STRING_get0_data(ptr));
+#if OPENSSL_VERSION_PREREQ(4, 1)
+        return {strPtr, ASN1_STRING_get_length(ptr)};
+#else
+        return {strPtr, static_cast<size_t>(ASN1_STRING_length(ptr))};
+#endif
     }
 
     ASN1_STRING* release()
@@ -818,14 +833,25 @@ class OpenSSLX509
             BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
             return "";
         }
+        const char* cnChar =
+            std::bit_cast<const char*>(ASN1_STRING_get0_data(data));
+#if OPENSSL_VERSION_PREREQ(4, 1)
+        size_t length = ASN1_STRING_get_length(data);
+        if (length == 0)
+        {
+            BMCWEB_LOG_DEBUG("TLS common name is empty");
+            return "";
+        }
+        return {cnChar, length};
+#else
         int length = ASN1_STRING_length(data);
         if (length <= 0)
         {
             BMCWEB_LOG_DEBUG("TLS common name is empty");
             return "";
         }
-        return {std::bit_cast<const char*>(ASN1_STRING_get0_data(data)),
-                static_cast<size_t>(length)};
+        return {cnChar, static_cast<size_t>(length)};
+#endif
     }
 
     std::string getComment() const
