@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71f53399_4800d2c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-17T09:31:30Z",
+      "side": 1,
+      "message": "Updated in PS2. I moved the mid-dispatch erase regression test into submit_test_event_test.cpp (initializing Subscription\u0027s SSE hbTimer with getIoContext() so the test doesn\u0027t need systemBus) covering all four dispatch functions. Also ran rf_service_validator --authtype Session against /redfish/v1/EventService (37 pass / 0 fail) and verified SSE delivery via SubmitTestEvent over /redfish/v1/EventService/SSE/.",
+      "parentUuid": "5e4ed0ea_28113e75",
+      "revId": "3732288e76b937e53889d6e7b4267b0f7bb809be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc7fb687_1b0160eb",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-11-16T09:29:15Z",
       "side": 1,
       "message": "Please",
+      "revId": "3732288e76b937e53889d6e7b4267b0f7bb809be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c4af47_a5fa6d2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-17T09:31:30Z",
+      "side": 1,
+      "message": "Individual CLA is signed and emailed for adi0x90@gmail.com. Could someone with permissions add Ok-To-Test +1 while the CI group approval is pending?",
+      "parentUuid": "fc7fb687_1b0160eb",
       "revId": "3732288e76b937e53889d6e7b4267b0f7bb809be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
