@@ -880,7 +880,7 @@ inline void handleAuthMethodsPatch(
         return;
     }
 
-    persistent_data::AuthConfigMethods& authMethodsConfig =
+    persistent_data::AuthConfigMethods authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
     if (auth.basicAuth)

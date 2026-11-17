@@ -516,25 +516,28 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
     boost::asio::ssl::verify_mode mode = boost::asio::ssl::verify_none;
-    if (c.tlsStrict)
+    if (c.tls)
     {
-        BMCWEB_LOG_DEBUG("Setting verify peer and fail if no peer cert");
-        mode |= boost::asio::ssl::verify_peer;
-        mode |= boost::asio::ssl::verify_fail_if_no_peer_cert;
-    }
-    else if (!forward_unauthorized::hasWebuiRoute())
-    {
-        // This is a HACK
-        // If the webui is installed, and TLSSTrict is false, we don't want to
-        // force the mtls popup to occur, which would happen if we requested a
-        // client cert by setting verify_peer. But, if the webui isn't
-        // installed, we'd like clients to be able to optionally log in with
-        // MTLS, which won't happen if we don't expose the MTLS client cert
-        // request.  So, in this case detect if the webui is installed, and
-        // only request peer authentication if it's not present.
-        // This will likely need revisited in the future.
-        BMCWEB_LOG_DEBUG("Setting verify peer only");
-        mode |= boost::asio::ssl::verify_peer;
+        if (c.tlsStrict)
+        {
+            BMCWEB_LOG_DEBUG("Setting verify peer and fail if no peer cert");
+            mode |= boost::asio::ssl::verify_peer;
+            mode |= boost::asio::ssl::verify_fail_if_no_peer_cert;
+        }
+        else if (!forward_unauthorized::hasWebuiRoute())
+        {
+            // This is a HACK
+            // If the webui is installed, and TLSStrict is false, we don't want to
+            // force the mtls popup to occur, which would happen if we requested a
+            // client cert by setting verify_peer. But, if the webui isn't
+            // installed, we'd like clients to be able to optionally log in with
+            // MTLS, which won't happen if we don't expose the MTLS client cert
+            // request. So, in this case detect if the webui is installed, and
+            // only request peer authentication if it's not present.
+            // This will likely need revisited in the future.
+            BMCWEB_LOG_DEBUG("Setting verify peer only");
+            mode |= boost::asio::ssl::verify_peer;
+        }
     }
 
     boost::system::error_code ec;
