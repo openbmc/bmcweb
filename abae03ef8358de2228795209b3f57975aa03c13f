@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91e9b53f_b2b9ff36",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:24:18Z",
+      "side": 1,
+      "message": "We don\u0027t want to pass back an owning pointer here, as the caller now takes ownership of the connection.  You probably want to return weak_ptr here.",
+      "revId": "abae03ef8358de2228795209b3f57975aa03c13f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d196eab_7d988e1a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:24:18Z",
+      "side": 1,
+      "message": "?  Why are we checking this, we should be checking the pointer.",
+      "range": {
+        "startLine": 573,
+        "startChar": 21,
+        "endLine": 573,
+        "endChar": 40
+      },
+      "revId": "abae03ef8358de2228795209b3f57975aa03c13f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
