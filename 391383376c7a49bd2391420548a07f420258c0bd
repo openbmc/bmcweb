@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4097b2e_aeaef568",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-17T06:45:48Z",
+      "side": 1,
+      "message": "Can you please extend tests as per TESTING.md.\nhttps://github.com/openbmc/bmcweb/blob/2ebecd8cd1cedefa31f870acec0c7a445c3c7819/docs/TESTING.md#types-of-changes-to-run",
+      "revId": "391383376c7a49bd2391420548a07f420258c0bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "24a9a4f5_85e8a8ea",
