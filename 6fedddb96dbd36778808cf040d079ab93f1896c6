@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e09aca0b_5d1fec36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:25:20Z",
+      "side": 1,
+      "message": ".... This is in line with the privilege registry DTMF publishes I believe.  I understand you disagree with that, but lets make sure we\u0027re pushing the privilege changes up to DMTF directly not implementing a fork.",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "6fedddb96dbd36778808cf040d079ab93f1896c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
