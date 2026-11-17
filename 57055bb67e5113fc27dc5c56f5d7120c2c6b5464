@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0027bc40_ea4965ec",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-17T12:53:37Z",
+      "side": 1,
+      "message": "Should we explicitly mark the connection as revoked and prevent further message dispatch, rather than relying solely on a pending read failing?",
+      "revId": "57055bb67e5113fc27dc5c56f5d7120c2c6b5464",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
