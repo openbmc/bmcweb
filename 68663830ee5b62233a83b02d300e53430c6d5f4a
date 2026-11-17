@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fde66793_15816cde",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:34:43Z",
+      "side": 1,
+      "message": "+1.  I think Kenny is right here.  we don\u0027t include the ENTIRE resource.",
+      "parentUuid": "20af3f3e_53da399a",
+      "revId": "68663830ee5b62233a83b02d300e53430c6d5f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fd1d07cc_a5ada03f",
