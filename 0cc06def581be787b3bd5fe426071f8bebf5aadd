@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d71330f9_f47ad32c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:21:12Z",
+      "side": 1,
+      "message": "?  It\u0027s also satisfied byt he ConfigureUsers prvivilege, so I don\u0027t understand the actual failure here.  Please rewrite this in terms of what users can do what, and why that\u0027s unexpected (linking the DMTF privilege registry).",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 12,
+        "endChar": 23
+      },
+      "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f301912_a01c951c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:21:12Z",
+      "side": 1,
+      "message": "To my understanding, this isn\u0027t intended to be solved in the DTMF spec.",
+      "range": {
+        "startLine": 12,
+        "startChar": 56,
+        "endLine": 13,
+        "endChar": 61
+      },
+      "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c28fd00c_dc8daae2",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -102,6 +148,23 @@
       "side": 1,
       "message": "For isConfigureSelfOnly, since isUserPrivileged() at the route layer already restricts those sessions to ConfigureSelf, it seemed cleaner to handle it directly in getUserPrivileges() in privileges.hpp so GET, DELETE, the collection filter, and AccountService all stay in sync without checking req.session-\u003eisConfigureSelfOnly in each handler. I have a patch + privileges_test cases ready for that and will push it once my CI approval goes through (or happy to keep it local to redfish_sessions.hpp if you prefer).",
       "parentUuid": "5c18e483_dc77ff90",
+      "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fc1c844_b7658cf7",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:21:12Z",
+      "side": 1,
+      "message": "I\u0027m not following how this doesn\u0027t break redfish service validator for non root users.",
       "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
