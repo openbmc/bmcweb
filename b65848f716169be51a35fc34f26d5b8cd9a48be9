@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca879a40_17d58f1b",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-17T17:02:18Z",
+      "side": 1,
+      "message": "Could revocation also trigger cleanup when reads are deferred? In that state, doRead() returns without scheduling afterRead(), so closing the socket may not invoke the route’s closeHandler. \n\nIf setup stalls or fails before resumeRead(), the route’s resources and the self-owned connection may remain. Could cleanup be handled in this path too, while ensuring the handler cannot be called twice?",
+      "revId": "b65848f716169be51a35fc34f26d5b8cd9a48be9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
