@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "981a4c59_134f4d39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Done: the manager calls each connection\u0027s close(), so a websocket gets a close frame (1000, \"User lost access\"), and its close handler runs when the client answers or Beast\u0027s close timeout ends it. An SSE stream has no close message, so it is closed as the other SSE closes are.",
+      "parentUuid": "0edea092_57d04a01",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38ce864d_ea414057",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-17T18:57:14Z",
       "side": 1,
       "message": "How does this get hit?  Won\u0027t this break the auth disabled option?\n\nI also have no idea why a temporal socket is opening the persistent session store.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "377a03de_4a113d48",
+        "filename": "http/server_sent_event_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Removed: the SSE class no longer touches the session store. SseSocketRule::handleUpgrade() adds the connection to ConnectionManager, which keeps it only when the request has a session; with authentication disabled there is none, so nothing changes there. It was hit when the account that opened the stream was deleted or disabled, or its password was changed from another session.",
+      "parentUuid": "38ce864d_ea414057",
       "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "266cd622_77d8c474",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Done: WebSocketRule::handleUpgrade() adds the connection to ConnectionManager; the websocket class has no part in it.",
+      "parentUuid": "bad4d455_fbba7aca",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaaeb5d4_67d281ba",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-11-17T18:57:14Z",
       "side": 1,
       "message": "Remove. This violates type safety if we\u0027re doing pointer casts.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f101abc_6a4b26d2",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Removed; close() uses its original lambda.",
+      "parentUuid": "aaaeb5d4_67d281ba",
       "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44e2ccb8_a46487be",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "close() now starts the close once: a second call returns. A route and the manager can both close a connection, and Beast asserts on a second async_close while the first runs (CloseTwiceClosesOnce). The close handler runs only from afterRead() again.",
+      "parentUuid": "939ccd95_5916d4e9",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f54fcf79_0fa6fc92",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-11-17T18:57:14Z",
       "side": 1,
       "message": "Please do not make a lambda this complex.  Please break into methods where appropriate.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f26f32_edb6d110",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Removed. It ran the close handler when a route closed while its reads were deferred (Suvedha\u0027s PS3 point). With revocation going through close(), that could run the handler in the middle of a route\u0027s setup, while its callbacks still hold the connection, so I took it out. A connection revoked during setup gets the close frame at once, and its close handler runs when the route resumes reading. A route whose setup fails keeps its state, as before this change.",
+      "parentUuid": "f54fcf79_0fa6fc92",
       "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -128,6 +236,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e4c2943_a6ceb57c",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Removed revoked; revocation is now just close(). One flag stays, closing, set by close() for every close: it keeps close() to one handshake, and afterRead() drops a message that completes after close() instead of handing it to the route. The read alone doesn\u0027t stop that: Beast returns a message it already buffered, or one read while a write holds the stream, before the close frame goes out (Joel\u0027s PS2 point; NoMessageHandledAfterUserLosesAccess fails without the drop).",
+      "parentUuid": "2afed028_c75cc9dd",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d937b0a6_e7bae09c",
         "filename": "http/websocket_impl.hpp",
         "patchSetId": 4
@@ -145,6 +271,24 @@
         "endLine": 367,
         "endChar": 51
       },
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23cfa18f_d3073f0a",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Done: onUserRevoked() is gone, and the manager calls close(). A connection closed before its upgrade completes is dropped in acceptDone() instead, since Beast can\u0027t send a close frame during the handshake (ClosedBeforeAccepted).",
+      "parentUuid": "d937b0a6_e7bae09c",
       "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -174,6 +318,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50cfaff0_a855623f",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "bmcweb already ends the user\u0027s other sessions when the password changes (removeSessionsByUsernameExceptSession() in the account PATCH). A websocket or SSE stream opened by one of those sessions is the same access, so it ends with them; otherwise a KVM or console websocket opened with the old password stays open after the change meant to cut it off. The session that made the change keeps its connections.",
+      "parentUuid": "de9089b2_1ea4e6b4",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0462db8_30d845aa",
         "filename": "include/sessions.hpp",
         "patchSetId": 4
@@ -195,6 +357,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66c81457_439a64b0",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Done: that comment is gone; ConnectionManager has a short description, and the Redfish reference is only in the commit message.",
+      "parentUuid": "f0462db8_30d845aa",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12fd8510_eab85831",
@@ -208,6 +388,24 @@
       "writtenOn": "2026-11-17T18:57:14Z",
       "side": 1,
       "message": "?  WHy are we passing around an untyped pointer.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "630c984d_69e78321",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Removed: ConnectionManager keeps std::weak_ptr\u003cwebsocket::Connection\u003e and std::weak_ptr\u003csse_socket::Connection\u003e.",
+      "parentUuid": "12fd8510_eab85831",
       "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -235,6 +433,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c574e5a8_b57bd8a6",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Done: connections register with crow::ConnectionManager (http/connection_manager.cpp), and removeUserAccess() calls its closeUserConnections().",
+      "parentUuid": "aff81bbe_f40b18f0",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15d0c732_d1336c3e",
@@ -248,6 +464,24 @@
       "writtenOn": "2026-11-17T18:57:14Z",
       "side": 1,
       "message": "The fact that you had to do this workaround is pointing to an issue in how you structured your calls.  Please organize it differently.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea636c70_a12fc849",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T20:57:53Z",
+      "side": 1,
+      "message": "Gone: the store no longer holds connections or callbacks, so closing a connection doesn\u0027t call back into it.",
+      "parentUuid": "15d0c732_d1336c3e",
       "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
