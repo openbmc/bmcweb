@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1b1f80a_a4c293cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-17T09:31:30Z",
+      "side": 1,
+      "message": "Updated the Tested section. Ran rf_service_validator --authtype Session against /redfish/v1/SessionService (121 pass / 0 fail as admin, 44 pass / 0 fail as ReadOnly) and verified with curl that ReadOnly and Operator only see their own sessions while Admin sees all of them. Also added Operator and multi-session ReadOnly cases to session_collection_test.",
+      "parentUuid": "404866b4_7cbb2d76",
+      "revId": "b40519f1f5eeff7633ffd78bdc27c78c72a9750e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a9f4edf_9c493d0a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-16T09:22:50Z",
       "side": 1,
       "message": "Hi Aditya Gupta,\nOpenBMC CI reports “User not approved, see admin, no CI” on this change. Could you confirm whether you’ve completed the OpenBMC CLA process? If not, please follow https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#starting-out. Once that’s done, please ask an OpenBMC maintainer or admin to check your Gerrit account’s CI approval so the tests can run.",
+      "revId": "b40519f1f5eeff7633ffd78bdc27c78c72a9750e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9767b239_802ba026",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-17T09:31:30Z",
+      "side": 1,
+      "message": "I\u0027ve signed and emailed the Individual CLA (adi0x90@gmail.com), still waiting for it to be processed. If a maintainer could vote Ok-To-Test +1 in the meantime so Jenkins can run, I\u0027d appreciate it.",
+      "parentUuid": "4a9f4edf_9c493d0a",
       "revId": "b40519f1f5eeff7633ffd78bdc27c78c72a9750e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "676d4d1c_1f191f8c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-17T09:31:30Z",
+      "side": 1,
+      "message": "Good catch. Switched this to walk SessionStore::getSessions() directly (and added applySessionTimeouts() there) so it\u0027s a single O(N) pass.",
+      "parentUuid": "8fb0390a_1bb66e96",
+      "revId": "b40519f1f5eeff7633ffd78bdc27c78c72a9750e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e23b6589_35f8419a",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-11-16T09:35:20Z",
       "side": 1,
       "message": "```suggestion\n// SPDX-License-Identifier: Apache-2.0\n// SPDX-FileCopyrightText: Copyright OpenBMC Authors\n#include \"redfish_sessions.hpp\"\n```",
+      "revId": "b40519f1f5eeff7633ffd78bdc27c78c72a9750e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c10ce105_0f45e674",
+        "filename": "test/redfish-core/lib/session_collection_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-17T09:31:30Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e23b6589_35f8419a",
       "revId": "b40519f1f5eeff7633ffd78bdc27c78c72a9750e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
