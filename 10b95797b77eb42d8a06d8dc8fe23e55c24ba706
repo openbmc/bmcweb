@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d52b48e_1c8a8484",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-17T03:35:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31a4aa3e_381f0212",
+      "revId": "10b95797b77eb42d8a06d8dc8fe23e55c24ba706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4810a4d_afc9b196",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-11-13T10:36:19Z",
       "side": 1,
       "message": "Should this be nlohmann::json::array({settings::ApplyTime::OnReset})??",
+      "range": {
+        "startLine": 160,
+        "startChar": 14,
+        "endLine": 160,
+        "endChar": 47
+      },
+      "revId": "10b95797b77eb42d8a06d8dc8fe23e55c24ba706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77cf0261_2f343ee1",
+        "filename": "test/redfish-core/include/utils/settings_util_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-17T03:35:12Z",
+      "side": 1,
+      "message": "I kept the string literal on purpose, so the test checks the JSON a client receives rather than comparing the enum with itself.",
+      "parentUuid": "f4810a4d_afc9b196",
       "range": {
         "startLine": 160,
         "startChar": 14,
