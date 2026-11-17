@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ccb8884_aa26345f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:03:37Z",
+      "side": 1,
+      "message": "Overall in support.",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf93e46a_07db56e0",
@@ -37,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbe6eb3e_e010664c",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:03:37Z",
+      "side": 1,
+      "message": "Nit. I suspect we can take out the defined(...) call.  If that\u0027s not defined we haven\u0027t linked in openssl and something is very broken anyway.",
+      "parentUuid": "bf93e46a_07db56e0",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "547be07a_58f05354",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 1
@@ -48,6 +83,58 @@
       "writtenOn": "2026-11-17T15:28:10Z",
       "side": 1,
       "message": "From https://docs.openssl.org/4.1/man3/ASN1_STRING_length/\n\n\"ASN1_STRING_set1_data(), ASN1_STRING_set1_string(), and ASN1_STRING_get_length() were added in OpenSSL 4.1.\"\n\nSo I don\u0027t think this works for OpenSSL 4.0 ?",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc29c441_e23ef2df",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:03:37Z",
+      "side": 1,
+      "message": "This is such a grand adventure figuring out what APIs Openssl removed in each new revision 😊",
+      "parentUuid": "547be07a_58f05354",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aa2d6e2_76a83c86",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:03:37Z",
+      "side": 1,
+      "message": "nit, Could we write this like the below to avoid breaking a single statement across an ifdef?\n\n\n```\nconst char* tPtr \u003d std::bit_cast\u003cconst char*\u003e(ASN1_STRING_get0_data(ptr));\n#if defined(OPENSSL_VERSION_MAJOR) \u0026\u0026 OPENSSL_VERSION_MAJOR \u003e\u003d 4\n                return {tptr, ASN1_STRING_get_length(ptr)};\n#else\n                return {tptr, static_cast\u003csize_t\u003e(ASN1_STRING_length(ptr))};\n#endif\n```",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef5149c_0cbe8033",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:03:37Z",
+      "side": 1,
+      "message": "nit, same as above, not splitting statements across ifdefs.",
       "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
