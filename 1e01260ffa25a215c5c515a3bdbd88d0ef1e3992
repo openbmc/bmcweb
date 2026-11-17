@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7a9a3413_3f29f778",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-11-17T19:31:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2bb101b_cd566d7d",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0ccb8884_aa26345f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -70,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dff40ad_34c2ca97",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-11-17T19:31:32Z",
+      "side": 1,
+      "message": "Switched to \u0027PREREQ\u0027 macro.",
+      "parentUuid": "bbe6eb3e_e010664c",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "547be07a_58f05354",
@@ -105,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "044beb76_250da4dd",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-11-17T19:31:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc29c441_e23ef2df",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0aa2d6e2_76a83c86",
@@ -122,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17261ed8_3d4044eb",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-11-17T19:31:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aa2d6e2_76a83c86",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eef5149c_0cbe8033",
@@ -135,6 +207,24 @@
       "writtenOn": "2026-11-17T19:03:37Z",
       "side": 1,
       "message": "nit, same as above, not splitting statements across ifdefs.",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb63f30_6e9eb012",
+        "filename": "include/ossl_wrappers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-11-17T19:31:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eef5149c_0cbe8033",
       "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
