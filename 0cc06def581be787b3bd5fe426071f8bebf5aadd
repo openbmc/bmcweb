@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b71bfe8b_e7333997",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-17T09:31:31Z",
+      "side": 1,
+      "message": "I pushed the collection filter as a separate change so it doesn\u0027t conflict with this patch: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/97317\nIt filters getSessionCollectionMembers() to the caller\u0027s own sessions unless they have ConfigureUsers, same as handleAccountCollectionGet().",
+      "parentUuid": "a1c7bff5_628e5d97",
+      "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb3e4e5f_bcdc15ef",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "+1, getUserPrivileges() restores the full role privileges.",
       "parentUuid": "cb3e4e5f_bcdc15ef",
+      "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc3b2df7_0243d432",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-17T09:31:31Z",
+      "side": 1,
+      "message": "For isConfigureSelfOnly, since isUserPrivileged() at the route layer already restricts those sessions to ConfigureSelf, it seemed cleaner to handle it directly in getUserPrivileges() in privileges.hpp so GET, DELETE, the collection filter, and AccountService all stay in sync without checking req.session-\u003eisConfigureSelfOnly in each handler. I have a patch + privileges_test cases ready for that and will push it once my CI approval goes through (or happy to keep it local to redfish_sessions.hpp if you prefer).",
+      "parentUuid": "5c18e483_dc77ff90",
       "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
