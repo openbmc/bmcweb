@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e09c629f_2414198f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:32:58Z",
+      "side": 1,
+      "message": "Still has outstanding work to do.",
+      "revId": "921566124d32d269e2edbc8c4f4dace4452bb42d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12da44c3_6ca0aa40",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:32:58Z",
+      "side": 1,
+      "message": "?  This doesn\u0027t look correct.  X-Forwarded-For is an IP address",
+      "revId": "921566124d32d269e2edbc8c4f4dace4452bb42d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
