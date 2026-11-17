@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de012607_6350486f",
+        "filename": "redfish-core/include/utils/log_services_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-17T06:21:43Z",
+      "side": 1,
+      "message": "Please include \u003cstring_view\u003e",
+      "revId": "391383376c7a49bd2391420548a07f420258c0bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68b894d4_c944f294",
         "filename": "redfish-core/include/utils/log_services_utils.hpp",
         "patchSetId": 7
