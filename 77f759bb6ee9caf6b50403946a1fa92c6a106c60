@@ -1,0 +1,255 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0edea092_57d04a01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "Rather than just hard closing the connections, should we be sending the user a \"we closed your message\" connection first?",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ce864d_ea414057",
+        "filename": "http/server_sent_event_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "How does this get hit?  Won\u0027t this break the auth disabled option?\n\nI also have no idea why a temporal socket is opening the persistent session store.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad4d455_fbba7aca",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "Remove.  A websocket class should have no connection to the authentication layer.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaaeb5d4_67d281ba",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "Remove. This violates type safety if we\u0027re doing pointer casts.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "939ccd95_5916d4e9",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "This will result in calling close twice in some cases?",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f54fcf79_0fa6fc92",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "Please do not make a lambda this complex.  Please break into methods where appropriate.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2afed028_c75cc9dd",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "Remove.  Revocation should close the socket, which will hit he operation_aborted flow below.  We shouldn\u0027t have this variable JUST for logs",
+      "range": {
+        "startLine": 266,
+        "startChar": 18,
+        "endLine": 266,
+        "endChar": 25
+      },
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d937b0a6_e7bae09c",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "why aren\u0027t we calling a close method here?  We need to close connections cleanly if we can.",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 367,
+        "endChar": 51
+      },
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de9089b2_1ea4e6b4",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "?  I don\u0027t know if credentials changing is a reason to disconnect.",
+      "range": {
+        "startLine": 395,
+        "startChar": 7,
+        "endLine": 395,
+        "endChar": 34
+      },
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0462db8_30d845aa",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "Please read and make more succinct.  This is the generic session callback, it should not be mentioning redfish at all.  You can mention Redfish in the redfish specific code.",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 12
+      },
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12fd8510_eab85831",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "?  WHy are we passing around an untyped pointer.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aff81bbe_f40b18f0",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "This recursive design is something we should avoid.  Connections should register with a connection manager class or global list, and we can call that from here.",
+      "range": {
+        "startLine": 528,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 54
+      },
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15d0c732_d1336c3e",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T18:57:14Z",
+      "side": 1,
+      "message": "The fact that you had to do this workaround is pointing to an issue in how you structured your calls.  Please organize it differently.",
+      "revId": "77f759bb6ee9caf6b50403946a1fa92c6a106c60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
