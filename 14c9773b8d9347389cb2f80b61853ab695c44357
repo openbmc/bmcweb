@@ -34,6 +34,24 @@
       "parentUuid": "82a3f824_01690835",
       "revId": "14c9773b8d9347389cb2f80b61853ab695c44357",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b663f93a_c4e95e45",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:12:37Z",
+      "side": 1,
+      "message": "Please note that in your commit message.  I want to make sure this isn\u0027t incorrectly classified as a bug.",
+      "parentUuid": "90f5c811_f44bd4f8",
+      "revId": "14c9773b8d9347389cb2f80b61853ab695c44357",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

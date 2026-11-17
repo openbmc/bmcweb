@@ -16,6 +16,23 @@
       "message": "Looks reasonable.",
       "revId": "b818c23f86aa2a9e1a66b880956a917aa79fc9e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69228f9e_39e6e8c2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:12:37Z",
+      "side": 1,
+      "message": "Why is this a condition for internal error.  Remove this.",
+      "revId": "b818c23f86aa2a9e1a66b880956a917aa79fc9e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
