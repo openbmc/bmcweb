@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2bb101b_cd566d7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-17T15:28:10Z",
+      "side": 1,
+      "message": "Doesn\u0027t OpenSSL 4.0 also need to use the old calls \n\nFrom https://docs.openssl.org/4.1/man3/ASN1_STRING_length/\n\n\"ASN1_STRING_set1_data(), ASN1_STRING_set1_string(), and ASN1_STRING_get_length() were added in OpenSSL 4.1.",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf93e46a_07db56e0",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-17T15:28:10Z",
+      "side": 1,
+      "message": "I think this needs to be \n```\n#if defined(OPENSSL_VERSION_MAJOR) \u0026\u0026 (OPENSSL_VERSION_MAJOR \u003e 4 || \n    (OPENSSL_VERSION_MAJOR \u003d\u003d 4 \u0026\u0026 OPENSSL_VERSION_MINOR \u003e\u003d 1))\n```",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "547be07a_58f05354",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-17T15:28:10Z",
+      "side": 1,
+      "message": "From https://docs.openssl.org/4.1/man3/ASN1_STRING_length/\n\n\"ASN1_STRING_set1_data(), ASN1_STRING_set1_string(), and ASN1_STRING_get_length() were added in OpenSSL 4.1.\"\n\nSo I don\u0027t think this works for OpenSSL 4.0 ?",
+      "revId": "1e01260ffa25a215c5c515a3bdbd88d0ef1e3992",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
