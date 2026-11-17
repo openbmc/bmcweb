@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "213c6742_cb2e9b5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:05:42Z",
+      "side": 1,
+      "message": "Please update your commit message to include your testing, as well as discussion about some of the tradeoffs you\u0027ve made.  As far as I can tell below, you break the webui when this patch is applied.  I\u0027s hard to tell if that was on purpose or not.",
+      "revId": "c1b26a17c594573311a42ad31653e681c4b1fd22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24ab714_743e4b46",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:05:42Z",
+      "side": 1,
+      "message": "?  Doesn\u0027t this break all settings?",
+      "range": {
+        "startLine": 883,
+        "startChar": 27,
+        "endLine": 883,
+        "endChar": 28
+      },
+      "revId": "c1b26a17c594573311a42ad31653e681c4b1fd22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

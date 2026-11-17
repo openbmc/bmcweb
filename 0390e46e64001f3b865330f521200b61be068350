@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "327cce71_0d90e81d",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:05:42Z",
+      "side": 0,
+      "message": "Please heed this use case.  As far as I can tell, you\u0027ve broken it.",
+      "revId": "0390e46e64001f3b865330f521200b61be068350",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
