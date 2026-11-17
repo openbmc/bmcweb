@@ -16,6 +16,24 @@
       "message": "Should we explicitly mark the connection as revoked and prevent further message dispatch, rather than relying solely on a pending read failing?",
       "revId": "57055bb67e5113fc27dc5c56f5d7120c2c6b5464",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fa40ac6_16f303cc",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T13:20:12Z",
+      "side": 1,
+      "message": "Yes, done in patch set 3. Closing the socket alone did not guarantee it: a read can already have completed, and Beast returns frames it already holds in its buffer without reading the socket. onUserRevoked() now sets a revoked flag before it closes the socket, and afterRead() takes the close path whenever the flag is set, even after a successful read. The new test NoMessageHandledAfterUserLosesAccess sends two messages in one read and removes the user while the first is being handled; with patch set 2 the second message was still handled.",
+      "parentUuid": "0027bc40_ea4965ec",
+      "revId": "57055bb67e5113fc27dc5c56f5d7120c2c6b5464",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
