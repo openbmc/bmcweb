@@ -184,6 +184,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4955d41c_08cf8e9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-17T19:13:32Z",
+      "side": 1,
+      "message": "I don\u0027t see an answer in the commit message.  Asking them to match just means that we have to go patch a bunch of repos every new schema pack.",
+      "parentUuid": "7161fac9_f6551ede",
+      "revId": "6a609848f6a943996e7cd5e7ce58521f465a1647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad195f8d_dbcc7d04",
         "filename": "include/webassets.hpp",
         "patchSetId": 3
