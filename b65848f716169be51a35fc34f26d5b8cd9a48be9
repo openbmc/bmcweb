@@ -16,6 +16,24 @@
       "message": "Could revocation also trigger cleanup when reads are deferred? In that state, doRead() returns without scheduling afterRead(), so closing the socket may not invoke the route’s closeHandler. \n\nIf setup stalls or fails before resumeRead(), the route’s resources and the self-owned connection may remain. Could cleanup be handled in this path too, while ensuring the handler cannot be called twice?",
       "revId": "b65848f716169be51a35fc34f26d5b8cd9a48be9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78d2f345_53318ffa",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1003216
+      },
+      "writtenOn": "2026-11-17T17:22:27Z",
+      "side": 1,
+      "message": "Done in patch set 4 for a setup that fails. While reads are deferred no read is pending, so a close during setup never ran the close handler, revoked or not (a failed console setup kept its slot before this change too). close() now runs the close handler once the close is done when reads are deferred, and releases the connection; callCloseHandler() runs the handler at most once. New tests: CloseHandlerRunsWhenClosedWhileReadDeferred, and ClosedOnceWhenUserLosesAccessWhileReadDeferred (user removed during setup, setup fails, then reads resume: one call).\n\nonUserRevoked() itself does not run the handler while setup is in flight: the routes\u0027 setup callbacks still use the connection and can create state after it (nbd_proxy\u0027s afterGetSocket makes the proxy server), which nothing would remove afterwards. Once setup resumes reading or closes, the handler runs. A setup that never ends (nbd_proxy\u0027s accept has no timeout) is as before.",
+      "parentUuid": "ca879a40_17d58f1b",
+      "revId": "b65848f716169be51a35fc34f26d5b8cd9a48be9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
