@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7702b93_41cd6da1",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-18T21:38:44Z",
+      "side": 1,
+      "message": "What if you don\u0027t have any of these..? \n\nSure we are protected by the EBADR  ? \n\nhttps://github.com/openbmc/phosphor-objmgr/blob/master/src/handler.cpp#L109\nlooks to throw a resource not found and I think it perfectly valid a network adapter doesn\u0027t have any of these 3 interfaces",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 56
+      },
+      "revId": "666bd6afc6532fa8bc5ce14a4a172bbe2dfa6826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
