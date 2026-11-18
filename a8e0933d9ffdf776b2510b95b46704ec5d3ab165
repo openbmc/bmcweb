@@ -139,6 +139,24 @@
       "parentUuid": "4b2e2ec1_48df3dd7",
       "revId": "a8e0933d9ffdf776b2510b95b46704ec5d3ab165",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22eaed5b_733c7add",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-18T05:56:09Z",
+      "side": 1,
+      "message": "Requiring OpenSSL 3.5+ sounds reasonable. Should we enforce that minimum in Meson and update the OpenSSL fallback wrap in the same change, so both dependency paths match the new requirement?\n\n@gunnar@gmills.xyz can you please share your thoughts on this.",
+      "parentUuid": "6b6591f1_990d4bbb",
+      "revId": "a8e0933d9ffdf776b2510b95b46704ec5d3ab165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
