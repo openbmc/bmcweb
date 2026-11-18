@@ -529,7 +529,7 @@ inline void afterGetProcessorFirmwareVersionSubTree(
     {
         if (ec.value() == EBADR)
         {
-            // No "ran_on" association — processor has no firmware to report
+            // No "running" association — processor has no firmware to report
             BMCWEB_LOG_DEBUG("No firmware association for processor");
             return;
         }
@@ -570,7 +570,7 @@ inline void getProcessorFirmwareVersion(
     constexpr std::array<std::string_view, 1> softwareIfaces = {
         "xyz.openbmc_project.Software.Version"};
     dbus::utility::getAssociatedSubTree(
-        sdbusplus::object_path(processorPath) / "ran_on",
+        sdbusplus::object_path(processorPath) / "running",
         sdbusplus::object_path("/xyz/openbmc_project/software"), 0,
         softwareIfaces,
         std::bind_front(afterGetProcessorFirmwareVersionSubTree, asyncResp));
