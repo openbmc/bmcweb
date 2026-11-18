@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc623d4_219b4071",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-18T22:29:41Z",
+      "side": 1,
+      "message": "From my understanding this patch does two distinct things:\n\na) it fixes the bad usage of `cooled_by` to determine the fan resources under `/ThermalSubSystem/Fans` by using the `containing` association instead.\n\nb) it __introduces__ `Links/Fans` under `Chassis` to determine the fan resources a chassis resource is cooled by as per spec utilizing the `cooling/cooled_by` association correctly.\n\n\n\nI think it would be useful if the commit message would be more clear on this distinction.",
+      "revId": "24f1b393cdfc930452c28b1ae18a7760babfb8d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dc79b43_70bce500",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-18T22:29:41Z",
+      "side": 1,
+      "message": "Would it make sense to split this patch into multiples to make reviewing easier? I.e have the mapper call wrapper be a separate commit as well as the change to environment metrics? \nAlso, in regards to my other comment a split between a) and b) would be nice too, since a) would already suffice for multi-chassis fan inventory to work right? However looking at the code i did not see a clean way to do this split.",
+      "revId": "24f1b393cdfc930452c28b1ae18a7760babfb8d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
