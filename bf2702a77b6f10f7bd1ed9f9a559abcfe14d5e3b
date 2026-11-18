@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1232107f_7f0c692b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-18T21:24:03Z",
+      "side": 1,
+      "message": "Overall I am in support",
+      "revId": "bf2702a77b6f10f7bd1ed9f9a559abcfe14d5e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10aa360c_02aaf1d4",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-18T21:24:03Z",
+      "side": 1,
+      "message": "We don\u0027t require openssl 3.5 \n\n\"OpenSSL 3.5 also introduces support for three hybrid ECDH PQ key exchange TLS groups: X25519MLKEM768, SecP256r1MLKEM768 and SecP384r1MLKEM1024.\" \n\nhttps://docs.openssl.org/3.5/man3/SSL_CONF_cmd\n\nWhich is needed for X25519MLKEM768\n\nhttps://github.com/openbmc/bmcweb/blob/8bd54f0c2f16ba6f5137a047013e5a785b06ccbc/meson.build#L263\n\nAt this point I think it is fine to bump our required openssl version so please do that \n\nThe other choice is something like \n\n```\n#if OPENSSL_VERSION_PREREQ(3, 5)\n    constexpr std::string_view curves \u003d\n        \"X25519MLKEM768:X25519:prime256v1:secp384r1\";\n#else\n    constexpr std::string_view curves \u003d\n        \"X25519:prime256v1:secp384r1\";\n#endif\n```",
+      "revId": "bf2702a77b6f10f7bd1ed9f9a559abcfe14d5e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
