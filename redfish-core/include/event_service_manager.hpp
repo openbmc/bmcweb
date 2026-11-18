@@ -447,6 +447,7 @@ class EventServiceManager
                 persistent_data::EventServiceStore::getInstance()
                     .subscriptionsConfigMap.erase(entry->userSub->id);
                 it = subscriptionsMap.erase(it);
+                updateNoOfSubscribersCount();
                 return;
             }
             it++;
