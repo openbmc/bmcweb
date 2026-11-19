@@ -8,6 +8,7 @@
 #include "error_messages.hpp"
 #include "fabric.hpp"
 #include "generated/enums/port.hpp"
+#include "generated/enums/protocol.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
@@ -36,15 +37,21 @@ namespace redfish
 inline port::PortType dBusSensorPortTypeToRedfish(const std::string& portType)
 {
     if (portType ==
-        "xyz.openbmc_project.Inventory.Connector.Port.PortType.DownstreamPort")
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Downstream")
     {
         return port::PortType::DownstreamPort;
     }
 
     if (portType ==
-        "xyz.openbmc_project.Inventory.Connector.Port.PortType.UpstreamPort")
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Upstream")
     {
         return port::PortType::UpstreamPort;
+    }
+
+    if (portType ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortType.Bidirectional")
+    {
+        return port::PortType::BidirectionalPort;
     }
 
     return port::PortType::Invalid;
@@ -65,19 +72,43 @@ inline port::LinkStatus dBusSensorPortLinkStatusToRedfish(
         return port::LinkStatus::LinkDown;
     }
 
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.NoLink")
+    {
+        return port::LinkStatus::NoLink;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.Starting")
+    {
+        return port::LinkStatus::Starting;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Connector.Port.LinkStatus.Training")
+    {
+        return port::LinkStatus::Training;
+    }
+
     return port::LinkStatus::Invalid;
 }
 
-inline std::string dBusSensorPortProtocolToRedfish(
+inline protocol::Protocol dBusSensorPortProtocolToRedfish(
     const std::string& portProtocol)
 {
     if (portProtocol ==
         "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.PCIe")
     {
-        return "PCIe";
+        return protocol::Protocol::PCIe;
     }
 
-    return "Unknown";
+    if (portProtocol ==
+        "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.NVLink")
+    {
+        return protocol::Protocol::NVLink;
+    }
+
+    return protocol::Protocol::Invalid;
 }
 
 inline void afterGetFabricSwitchPortInfo(
@@ -115,7 +146,7 @@ inline void afterGetFabricSwitchPortInfo(
         if (*speed != 0 && *speed != std::numeric_limits<uint64_t>::max())
         {
             // Convert from bits per second to Gigabits per second (Gbps)
-            static constexpr int gbpsToBps = 1 << 30;
+            static constexpr double gbpsToBps = 1e9;
             const double convertedSpeed =
                 static_cast<double>(*speed) / gbpsToBps;
 
@@ -140,11 +171,11 @@ inline void afterGetFabricSwitchPortInfo(
     }
     if (portProtocol.has_value())
     {
-        const std::string portProtocolStr =
+        const protocol::Protocol portProtocolEnum =
             dBusSensorPortProtocolToRedfish(*portProtocol);
-        if (portProtocolStr != "Unknown")
+        if (portProtocolEnum != protocol::Protocol::Invalid)
         {
-            asyncResp->res.jsonValue["PortProtocol"] = portProtocolStr;
+            asyncResp->res.jsonValue["PortProtocol"] = portProtocolEnum;
         }
     }
     if (linkStatus.has_value())
