@@ -46,6 +46,30 @@
       },
       "revId": "c6e2c2610e45c04ae965a209f03e450902d70359",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d1d500_6f2ef552",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-19T16:18:14Z",
+      "side": 0,
+      "message": "+1. Do you need to implement the powered_by association ?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/91608907e3f003f341de8b0ac82d79a4212a94d7/yaml/xyz/openbmc_project/Inventory/Item/Chassis.interface.yaml#L57",
+      "parentUuid": "a575b3be_f15d616f",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 150,
+        "endChar": 29
+      },
+      "revId": "c6e2c2610e45c04ae965a209f03e450902d70359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
