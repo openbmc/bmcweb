@@ -56,6 +56,23 @@
       },
       "revId": "5f8363c56065861f3f018b54ff67421664914f33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6663514_c5def5fe",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2623,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:49:59Z",
+      "side": 1,
+      "message": "Please do not parse as subobjects any longer.  In the new way this should be \n\n\"Thresholds/LowerCaution/Reading\" And should parse the values explicitly, not relying on the user to provide the allowed property names.",
+      "revId": "5f8363c56065861f3f018b54ff67421664914f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
