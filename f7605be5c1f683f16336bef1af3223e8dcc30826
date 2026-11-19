@@ -56,6 +56,24 @@
       "message": "http-body-limit defaults to 30 MB (and allows values up to 512). It is  intended for large non-JSON request bodies such as firmware uploads. Do we really want parseStringAsJson() to permit JSON payloads up to that same limit?\n\nparser limits depth/value count protect us some..",
       "revId": "f7605be5c1f683f16336bef1af3223e8dcc30826",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af2f5cf5_8e77aba1",
+        "filename": "http/parsing.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:08:10Z",
+      "side": 1,
+      "message": "To reiterate what Gunnar said, we set limits based on available memory.  Json parsing in its current form is a multiplier on memory usage because of the structure overhead.\n\nI\u0027m open to increasing this to a reasonable value, but a 30MB-512MB json payload is unreasonable for a BMC to ever be parsing, and could only be a DOS attack.",
+      "parentUuid": "053c49fe_64b7f955",
+      "revId": "f7605be5c1f683f16336bef1af3223e8dcc30826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
