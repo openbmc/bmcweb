@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d579ba6b_927ca64d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:42:54Z",
+      "side": 1,
+      "message": "Why would we want log paths to be directly settable through meson options?  SHouldn\u0027t this just be feature modes for the 1-2 supported locations?  Or just search for those locations?\n\n\nI really don\u0027t want to pretend we support ANY path for a feature.  If there\u0027s a set of paths we support as a project, make an enum, and we can enumerate them, but giving platforms freeform access to put things whevever they want reduces the amount of shared code we have.",
+      "revId": "0cd372ba4d11f09d27ed4f863577718f6b128a3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
