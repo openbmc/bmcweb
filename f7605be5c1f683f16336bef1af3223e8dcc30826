@@ -24,6 +24,46 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "989b4521_558da860",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:08:51Z",
+      "side": 1,
+      "message": "Right... this is the intent, to limit the max json payload size to something reasonable and common.",
+      "range": {
+        "startLine": 12,
+        "startChar": 39,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "f7605be5c1f683f16336bef1af3223e8dcc30826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df7b0866_33e3a93b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:08:51Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "f7605be5c1f683f16336bef1af3223e8dcc30826",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "99f9e04b_a5d51335",
