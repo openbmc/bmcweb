@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f5e0b8_19d85644",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:28:00Z",
+      "side": 1,
+      "message": "UTC was previously the only supported offset in the API.  This is why it was default.",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 11,
+        "endChar": 14
+      },
+      "revId": "757cff77bce10e4666fcf6290fc0775a8b3337fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc82e2b2_a5dfc6d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:28:00Z",
+      "side": 1,
+      "message": "?  Why do we care here?  Isn\u0027t accepting a time and assuming it\u0027s UTC more valuable for the user, and doesn\u0027t this patch break existing users setting a time without a UTC code?",
+      "revId": "757cff77bce10e4666fcf6290fc0775a8b3337fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a04f787e_b1143374",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:28:00Z",
+      "side": 1,
+      "message": "I don\u0027t understand why we would make a breaking change.  Please make sure you answer WHY in your commit message.  So far as I can tell, this seems to be just a user nicety.",
+      "revId": "757cff77bce10e4666fcf6290fc0775a8b3337fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f421df6_a4407343",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:28:00Z",
+      "side": 1,
+      "message": "Remove.  There\u0027s already supported formats for this, we shouldn\u0027t be doing string comparisons when we already have a real parser running.\n\nThis assumes we want this patch at all.",
+      "range": {
+        "startLine": 469,
+        "startChar": 0,
+        "endLine": 475,
+        "endChar": 5
+      },
+      "revId": "757cff77bce10e4666fcf6290fc0775a8b3337fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
