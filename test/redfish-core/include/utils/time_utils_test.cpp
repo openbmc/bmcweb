@@ -424,5 +424,50 @@ TEST(Utility, GetDateTimeAllFunctionsUseSameTimezone)
     EXPECT_EQ(s4, "2021-11-30T22:41:35+00:00");
 }
 
+TEST(Rfc3339DateTimeToEpoch, AcceptsOffsetOrZulu)
+{
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2021-11-30T22:41:35Z"),
+              usSinceEpoch{1638312095000000});
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2021-11-30T22:41:35+00:00"),
+              usSinceEpoch{1638312095000000});
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2021-11-30T22:41:35-00:00"),
+              usSinceEpoch{1638312095000000});
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2021-11-30T22:41:35.123456+04:00"),
+              usSinceEpoch{1638297695123456});
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2025-06-15T12:00:00-07:00"),
+              usSinceEpoch{1750014000000000});
+}
+
+TEST(Rfc3339DateTimeToEpoch, RejectsMissingOffset)
+{
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2025-06-15T12:00:00"), std::nullopt);
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2021-11-30T22:41:35.123456"),
+              std::nullopt);
+}
+
+TEST(Rfc3339DateTimeToEpoch, RejectsNonRfc3339Forms)
+{
+    EXPECT_EQ(rfc3339DateTimeToEpoch("20230531"), std::nullopt);
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2025-06-15"), std::nullopt);
+    EXPECT_EQ(rfc3339DateTimeToEpoch("hello"), std::nullopt);
+    EXPECT_EQ(rfc3339DateTimeToEpoch(""), std::nullopt);
+    EXPECT_EQ(rfc3339DateTimeToEpoch("2025-06-15T12:00:00+05:30junk"),
+              std::nullopt);
+}
+
+TEST(Rfc3339DateTimeToEpoch, RejectsNegativeEpoch)
+{
+    EXPECT_EQ(rfc3339DateTimeToEpoch("1969-12-31T23:59:59Z"), std::nullopt);
+}
+
+TEST(DateStringToEpoch, StillAcceptsLenientForms)
+{
+    // dateStringToEpoch is shared with $filter and asset dates and must keep
+    // accepting offset-less and compact forms.
+    EXPECT_EQ(dateStringToEpoch("2021-11-30T22:41:35"),
+              usSinceEpoch{1638312095000000});
+    EXPECT_EQ(dateStringToEpoch("20230531"), usSinceEpoch{1685491200000000});
+}
+
 } // namespace
 } // namespace redfish::time_utils

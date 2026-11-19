@@ -517,7 +517,7 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("Set date time: {}", datetime);
 
     std::optional<redfish::time_utils::usSinceEpoch> us =
-        redfish::time_utils::dateStringToEpoch(datetime);
+        redfish::time_utils::rfc3339DateTimeToEpoch(datetime);
     if (!us)
     {
         messages::propertyValueFormatError(asyncResp->res, datetime,
