@@ -463,4 +463,16 @@ std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime)
     }
     return std::nullopt;
 }
+
+std::optional<usSinceEpoch> rfc3339DateTimeToEpoch(std::string_view datetime)
+{
+    // RFC 3339 section 5.6: time-offset ("Z" or +/-HH:MM) is mandatory.
+    if (!datetime.ends_with('Z') &&
+        (datetime.size() < 6 || (datetime[datetime.size() - 6] != '+' &&
+                                 datetime[datetime.size() - 6] != '-')))
+    {
+        return std::nullopt;
+    }
+    return dateStringToEpoch(datetime);
+}
 } // namespace redfish::time_utils
