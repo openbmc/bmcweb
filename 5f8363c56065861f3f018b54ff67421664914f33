@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a47c500_edede8cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:46:09Z",
+      "side": 1,
+      "message": "Please look at the previously available support for patching thresholds and model your code after it.  I would not expect all code to be net-new, and I would expect common fucntions from the old thermal code to be extracted and used.",
+      "revId": "5f8363c56065861f3f018b54ff67421664914f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e45d094b_d1a9ee50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:46:09Z",
+      "side": 1,
+      "message": "Please rewrite this commit message.  you need to answer WHY this feature needs to be supported.",
+      "revId": "5f8363c56065861f3f018b54ff67421664914f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09a4f569_ad3c0437",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:46:09Z",
+      "side": 1,
+      "message": "And how is it persisted?",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 49
+      },
+      "revId": "5f8363c56065861f3f018b54ff67421664914f33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
