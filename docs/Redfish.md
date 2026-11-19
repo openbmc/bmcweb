@@ -1424,6 +1424,16 @@ functions the same like the default implementation under the System resource.
   - NAKSentCount
   - NAKReceivedCount
   - UnsupportedRequestCount
+- PCIeMetrics
+  - CompletionCreditExhaustionDrops
+  - NPCreditExhaustionDrops
+  - OutboundCompletionTLPBytes
+  - OutboundCompletionTLPCount
+  - OutboundReadTLPBytes
+  - OutboundReadTLPCount
+  - OutboundWriteTLPBytes
+  - OutboundWriteTLPCount
+  - TagUnavailabilityDrops
 
 [1]: https://www.dmtf.org/standards/redfish
 [2]: https://github.com/DMTF/Redfish-Service-Validator

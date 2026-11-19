@@ -213,7 +213,7 @@ inline void getMappedMetricProperty(
     }
 }
 
-static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
+static constexpr std::array<std::pair<std::string_view, std::string_view>, 18>
     pciePortMetrics = {{
         {"correctable_error_count", "/PCIeErrors/CorrectableErrorCount"},
         {"non_fatal_error_count", "/PCIeErrors/NonFatalErrorCount"},
@@ -224,6 +224,18 @@ static constexpr std::array<std::pair<std::string_view, std::string_view>, 9>
         {"nak_sent_count", "/PCIeErrors/NAKSentCount"},
         {"nak_received_count", "/PCIeErrors/NAKReceivedCount"},
         {"unsupported_request_count", "/PCIeErrors/UnsupportedRequestCount"},
+        {"completion_credit_exhaustion_drops",
+         "/PCIeMetrics/CompletionCreditExhaustionDrops"},
+        {"np_credit_exhaustion_drops", "/PCIeMetrics/NPCreditExhaustionDrops"},
+        {"outbound_completion_tlp_bytes",
+         "/PCIeMetrics/OutboundCompletionTLPBytes"},
+        {"outbound_completion_tlp_count",
+         "/PCIeMetrics/OutboundCompletionTLPCount"},
+        {"outbound_read_tlp_bytes", "/PCIeMetrics/OutboundReadTLPBytes"},
+        {"outbound_read_tlp_count", "/PCIeMetrics/OutboundReadTLPCount"},
+        {"outbound_write_tlp_bytes", "/PCIeMetrics/OutboundWriteTLPBytes"},
+        {"outbound_write_tlp_count", "/PCIeMetrics/OutboundWriteTLPCount"},
+        {"tag_unavailability_drops", "/PCIeMetrics/TagUnavailabilityDrops"},
     }};
 
 inline void handleFabricSwitchPortMetricsPathPortMetricsGet(
@@ -266,7 +278,7 @@ inline void handleFabricSwitchPortPathPortMetricsGet(
     const std::string& portId, const std::string& portPath,
     [[maybe_unused]] const std::string& serviceName)
 {
-    asyncResp->res.jsonValue["@odata.type"] = "#PortMetrics.v1_3_0.PortMetrics";
+    asyncResp->res.jsonValue["@odata.type"] = "#PortMetrics.v1_8_0.PortMetrics";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Fabrics/{}/Switches/{}/Ports/{}/Metrics", fabricId,
         switchId, portId);
