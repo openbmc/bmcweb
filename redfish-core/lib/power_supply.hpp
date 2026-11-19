@@ -105,6 +105,22 @@ inline void doPowerSupplyCollection(
     updatePowerSupplyList(asyncResp, chassisId, subtreePaths);
 }
 
+inline void doPowerSupplyCollectionHead(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        BMCWEB_LOG_WARNING("Chassis not found");
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/PowerSupplyCollection/PowerSupplyCollection.json>; rel=describedby");
+}
+
 inline void handlePowerSupplyCollectionHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -117,20 +133,7 @@ inline void handlePowerSupplyCollectionHead(
 
     redfish::chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
-        // ast-grep-ignore: long-lambda
-        [asyncResp,
-         chassisId](const std::optional<std::string>& validChassisPath) {
-            if (!validChassisPath)
-            {
-                BMCWEB_LOG_WARNING("Chassis not found");
-                messages::resourceNotFound(asyncResp->res, "Chassis",
-                                           chassisId);
-                return;
-            }
-            asyncResp->res.addHeader(
-                boost::beast::http::field::link,
-                "</redfish/v1/JsonSchemas/PowerSupplyCollection/PowerSupplyCollection.json>; rel=describedby");
-        });
+        std::bind_front(doPowerSupplyCollectionHead, asyncResp, chassisId));
 }
 
 inline void handlePowerSupplyCollectionGet(
@@ -269,28 +272,47 @@ inline void getPowerSupplyAsset(
         std::bind_front(afterGetPowerSupplyAsset, asyncResp));
 }
 
+inline void afterGetPowerSupplyFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for FirmwareVersion {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res.jsonValue["FirmwareVersion"] = value;
+}
+
 inline void getPowerSupplyFirmwareVersion(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& service, const std::string& path)
 {
     dbus::utility::getProperty<std::string>(
         service, path, "xyz.openbmc_project.Software.Version", "Version",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const std::string& value) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR(
-                        "DBUS response error for FirmwareVersion {}",
-                        ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-            asyncResp->res.jsonValue["FirmwareVersion"] = value;
-        });
+        std::bind_front(afterGetPowerSupplyFirmwareVersion, asyncResp));
+}
+
+inline void afterGetPowerSupplyLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const std::string& value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for Location {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        value;
 }
 
 inline void getPowerSupplyLocation(
@@ -300,22 +322,7 @@ inline void getPowerSupplyLocation(
     dbus::utility::getProperty<std::string>(
         service, path, "xyz.openbmc_project.Inventory.Decorator.LocationCode",
         "LocationCode",
-        // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code& ec,
-                    const std::string& value) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Location {}",
-                                     ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-            asyncResp->res
-                .jsonValue["Location"]["PartLocation"]["ServiceLabel"] = value;
-        });
+        std::bind_front(afterGetPowerSupplyLocation, asyncResp));
 }
 
 inline void handlePowerCapacityResponse(
