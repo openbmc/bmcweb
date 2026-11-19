@@ -52,6 +52,24 @@
       "parentUuid": "089f2b35_719a4071",
       "revId": "3c64cb88c3e965d3c10c9bb45b16a5550318b01c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cfb6528_e78d03b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-11-19T18:40:52Z",
+      "side": 1,
+      "message": "I don\u0027t think we have to mark this as WIP as its ready for review but has a dependent patch series. For that, as long as we have some intimation to maintainers either via topic, commit message or open comment it shall be helpful, thats why i left my comment as unresolved.",
+      "parentUuid": "b7879cad_74bd09b1",
+      "revId": "3c64cb88c3e965d3c10c9bb45b16a5550318b01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
