@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7c691cc_37d36865",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:31:13Z",
+      "side": 1,
+      "message": "I\u0027m lost.... why do we need this?  Can you also please update this description with what we\u0027re doing here.  I don\u0027t understand when you say escaping.",
+      "revId": "9441b0b363233b609bb38b10455686b802f7e162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25349a4f_4f819f60",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -14,6 +31,23 @@
       "writtenOn": "2026-11-19T12:26:00Z",
       "side": 1,
       "message": "Can you please add Redfish validator results and GET results in \"tested\" section.",
+      "revId": "9441b0b363233b609bb38b10455686b802f7e162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65833730_d7736ec9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:31:13Z",
+      "side": 1,
+      "message": "Test on a real setup please.",
       "revId": "9441b0b363233b609bb38b10455686b802f7e162",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
