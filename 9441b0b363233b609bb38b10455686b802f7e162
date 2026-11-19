@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25349a4f_4f819f60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-19T12:26:00Z",
+      "side": 1,
+      "message": "Can you please add Redfish validator results and GET results in \"tested\" section.",
+      "revId": "9441b0b363233b609bb38b10455686b802f7e162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
