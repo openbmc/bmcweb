@@ -106,6 +106,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be9c8cd3_d71c90de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-19T06:34:11Z",
+      "side": 1,
+      "message": "Overall the implementation is nice, just having concern with relation chain.",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e6f694_08f98e33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-19T06:34:11Z",
+      "side": 1,
+      "message": "Didn\u0027t found any relation chain yet..?",
+      "parentUuid": "baf0ce9b_307a135d",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23563a59_31d6f5b8",
@@ -225,6 +260,24 @@
       "side": 1,
       "message": "Please check this out: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/95934",
       "parentUuid": "fd7f61ed_46c58eba",
+      "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b031b5f_f2121b7a",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-19T06:34:11Z",
+      "side": 1,
+      "message": "Can we put this patch in as a child patch after the the long lambda refactoring?",
+      "parentUuid": "732504cf_c04c3a2f",
       "revId": "eaecd986bf77a8ffcb26ff88a03a2997dae98e87",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
