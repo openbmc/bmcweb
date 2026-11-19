@@ -34,6 +34,24 @@
       "parentUuid": "802be4ad_caa3d31d",
       "revId": "3c64cb88c3e965d3c10c9bb45b16a5550318b01c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7879cad_74bd09b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-19T06:28:02Z",
+      "side": 1,
+      "message": "Anyway, implementation looks good to me.",
+      "parentUuid": "089f2b35_719a4071",
+      "revId": "3c64cb88c3e965d3c10c9bb45b16a5550318b01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
