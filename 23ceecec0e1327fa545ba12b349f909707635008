@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2127a5fd_b3809ab3",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:56:32Z",
+      "side": 1,
+      "message": "If this is shared why is it in the file with the http2 connection class?  We probably need to start a shared server state struct.",
+      "range": {
+        "startLine": 56,
+        "startChar": 45,
+        "endLine": 57,
+        "endChar": 56
+      },
+      "revId": "23ceecec0e1327fa545ba12b349f909707635008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0332daf7_7ba644a4",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:56:32Z",
+      "side": 1,
+      "message": "?  Why would a stream closing refresh the deadline?  Isn\u0027t the stream closed?",
+      "revId": "23ceecec0e1327fa545ba12b349f909707635008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "064b8dd8_47588072",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:56:32Z",
+      "side": 1,
+      "message": "What does this even mean?",
+      "revId": "23ceecec0e1327fa545ba12b349f909707635008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c70a110d_6de50768",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:56:32Z",
+      "side": 1,
+      "message": "?  Why do we have \"generations\" of timer?",
+      "revId": "23ceecec0e1327fa545ba12b349f909707635008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4dc2857_0d59e19c",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:56:32Z",
+      "side": 1,
+      "message": "?  Why did you find you needed this?  This reads like a misunderstanding of how asio timers work.",
+      "range": {
+        "startLine": 766,
+        "startChar": 0,
+        "endLine": 767,
+        "endChar": 28
+      },
+      "revId": "23ceecec0e1327fa545ba12b349f909707635008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae24d61_41753311",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:56:32Z",
+      "side": 1,
+      "message": "Should we be implementing timers per stream?",
+      "range": {
+        "startLine": 857,
+        "startChar": 0,
+        "endLine": 857,
+        "endChar": 36
+      },
+      "revId": "23ceecec0e1327fa545ba12b349f909707635008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
