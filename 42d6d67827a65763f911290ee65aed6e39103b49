@@ -123,6 +123,24 @@
       "parentUuid": "ff5f54b8_0c0b105f",
       "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "536cc408_6aa39c8e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-11-19T22:33:04Z",
+      "side": 1,
+      "message": "@alexander.hansen@9elements.com https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/97247 has been merged. Can you please update this patch.",
+      "parentUuid": "d946f192_07fd549b",
+      "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
