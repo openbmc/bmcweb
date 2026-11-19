@@ -70,6 +70,12 @@ using usSinceEpoch = std::chrono::duration<int64_t, std::micro>;
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime);
 
 /**
+ * @brief Like dateStringToEpoch, but a time offset ("Z" or +/-HH:MM) is
+ *        mandatory, as required by RFC 3339 section 5.6.
+ */
+std::optional<usSinceEpoch> rfc3339DateTimeToEpoch(std::string_view datetime);
+
+/**
  * @brief Returns the datetime in ISO 8601 format
  *
  * @param[in] std::string_view the date of item manufacture in ISO 8601 format,
