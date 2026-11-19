@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9084b7c8_af186f98",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:32:54Z",
+      "side": 1,
+      "message": "Also please update with what the actual API impacts are here.",
+      "parentUuid": "f7c691cc_37d36865",
+      "revId": "9441b0b363233b609bb38b10455686b802f7e162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25349a4f_4f819f60",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -71,6 +89,23 @@
       "writtenOn": "2026-11-19T15:31:13Z",
       "side": 1,
       "message": "Test on a real setup please.",
+      "revId": "9441b0b363233b609bb38b10455686b802f7e162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09650b22_69046655",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:32:54Z",
+      "side": 1,
+      "message": "It\u0027s very likely we need to write a real parser for this, using boost x3 or something like that.",
       "revId": "9441b0b363233b609bb38b10455686b802f7e162",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
