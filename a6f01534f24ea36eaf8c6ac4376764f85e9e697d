@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cc17139_cd419ad1",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:05:30Z",
+      "side": 1,
+      "message": "Same as other commit, if these are common, they don\u0027t go in a file specific to http2.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 50
+      },
+      "revId": "a6f01534f24ea36eaf8c6ac4376764f85e9e697d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2310f7a_60e56967",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:05:30Z",
+      "side": 1,
+      "message": "??????  How is checking a user provided header an appropriate way to know a user is logged in or not?  req.session is what should be checked.",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 419,
+        "endChar": 58
+      },
+      "revId": "a6f01534f24ea36eaf8c6ac4376764f85e9e697d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22c6472c_bef3a1be",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:05:30Z",
+      "side": 1,
+      "message": "?  There\u0027s no callback in this code.",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 63
+      },
+      "revId": "a6f01534f24ea36eaf8c6ac4376764f85e9e697d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e1e084_c6f8710e",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:05:30Z",
+      "side": 1,
+      "message": "Why are we ignoring return codes on this?  We should at least print an error?\n\nAlso shouldn\u0027t this be NGHTTP2_STREAM_CLOSED ?",
+      "revId": "a6f01534f24ea36eaf8c6ac4376764f85e9e697d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de094655_a07be15e",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:05:30Z",
+      "side": 1,
+      "message": "Remove.  The variable is common, so we know it\u0027s the same limits.",
+      "revId": "a6f01534f24ea36eaf8c6ac4376764f85e9e697d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aec8cc0e_4964d6f0",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:05:30Z",
+      "side": 1,
+      "message": "Why do we need both these checks?  Don\u0027t we only need the second one?",
+      "revId": "a6f01534f24ea36eaf8c6ac4376764f85e9e697d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e1bd016_48d3ed04",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:05:30Z",
+      "side": 1,
+      "message": "NGHTTP2_ERR_FRAME_SIZE_ERROR ?",
+      "revId": "a6f01534f24ea36eaf8c6ac4376764f85e9e697d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4104ebff_5e961973",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T16:05:30Z",
+      "side": 1,
+      "message": "Why do we need to leave this here?",
+      "revId": "a6f01534f24ea36eaf8c6ac4376764f85e9e697d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
