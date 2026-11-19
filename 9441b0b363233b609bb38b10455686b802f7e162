@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6e842c4_4d5c015a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2026-11-19T15:32:14Z",
+      "side": 1,
+      "message": "What is XN_FLAG_SEP_COMMA_PLUS ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "9441b0b363233b609bb38b10455686b802f7e162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7c691cc_37d36865",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
