@@ -87,6 +87,24 @@
       "parentUuid": "a924f55c_2cc24a23",
       "revId": "bf2702a77b6f10f7bd1ed9f9a559abcfe14d5e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d8d791d_f8938ae2",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T04:04:21Z",
+      "side": 1,
+      "message": "Let\u0027s put the change openssl here",
+      "parentUuid": "5ea50e1f_11db1f76",
+      "revId": "bf2702a77b6f10f7bd1ed9f9a559abcfe14d5e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
