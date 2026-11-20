@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c70a11_a4d76280",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-20T13:03:35Z",
+      "side": 1,
+      "message": "Should we also update the subprojects/openssl.wrap???",
+      "revId": "f64d1dae90d37d7ee2cc066ec8327144661fd34b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
