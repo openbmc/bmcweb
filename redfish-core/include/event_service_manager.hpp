@@ -406,12 +406,6 @@ class EventServiceManager
         return id;
     }
 
-    bool isSubscriptionExist(const std::string& id)
-    {
-        auto obj = subscriptionsMap.find(id);
-        return obj != subscriptionsMap.end();
-    }
-
     bool deleteSubscription(const std::string& id)
     {
         auto obj = subscriptionsMap.find(id);
@@ -456,6 +450,23 @@ class EventServiceManager
     size_t getNumberOfSubscriptions() const
     {
         return subscriptionsMap.size();
+    }
+
+    // Sending an event to a subscriber can delete subscriptions from
+    // subscriptionsMap, e.g. an SSE connection whose buffer overflows is
+    // closed and its subscription erased. Callers that send to subscribers
+    // iterate over weak references instead of the map so deletion during
+    // delivery cannot invalidate the loop or extend a subscription's lifetime
+    // past its own iteration.
+    std::vector<std::weak_ptr<Subscription>> getSubscriptionsSnapshot() const
+    {
+        std::vector<std::weak_ptr<Subscription>> snapshot;
+        snapshot.reserve(subscriptionsMap.size());
+        for (const auto& it : subscriptionsMap)
+        {
+            snapshot.emplace_back(it.second);
+        }
+        return snapshot;
     }
 
     size_t getNumberOfSSESubscriptions() const
@@ -538,9 +549,14 @@ class EventServiceManager
             2, ' ', true, nlohmann::json::error_handler_t::replace);
 
         messages.push_back(Event(eventId, msg));
-        for (const auto& it : subscriptionsMap)
+        for (const std::weak_ptr<Subscription>& weakEntry :
+             getSubscriptionsSnapshot())
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            std::shared_ptr<Subscription> entry = weakEntry.lock();
+            if (entry == nullptr)
+            {
+                continue;
+            }
             if (!entry->sendEventToSubscriber(eventId, std::string(strMsg)))
             {
                 return false;
@@ -554,10 +570,15 @@ class EventServiceManager
     {
         EventServiceManager& mgr = EventServiceManager::getInstance();
         mgr.eventId++;
-        for (const auto& it : mgr.subscriptionsMap)
+        for (const std::weak_ptr<Subscription>& weakEntry :
+             mgr.getSubscriptionsSnapshot())
         {
-            Subscription& entry = *it.second;
-            entry.filterAndSendEventLogs(mgr.eventId, eventRecords);
+            std::shared_ptr<Subscription> entry = weakEntry.lock();
+            if (entry == nullptr)
+            {
+                continue;
+            }
+            entry->filterAndSendEventLogs(mgr.eventId, eventRecords);
         }
     }
 
@@ -567,10 +588,15 @@ class EventServiceManager
         EventServiceManager& mgr = EventServiceManager::getInstance();
         mgr.eventId++;
 
-        for (const auto& it : mgr.subscriptionsMap)
+        for (const std::weak_ptr<Subscription>& weakEntry :
+             mgr.getSubscriptionsSnapshot())
         {
-            Subscription& entry = *it.second;
-            entry.filterAndSendReports(mgr.eventId, reportId, var);
+            std::shared_ptr<Subscription> entry = weakEntry.lock();
+            if (entry == nullptr)
+            {
+                continue;
+            }
+            entry->filterAndSendReports(mgr.eventId, reportId, var);
         }
     }
 
@@ -593,9 +619,14 @@ class EventServiceManager
 
         messages.push_back(Event(eventId, eventMessage));
 
-        for (auto& it : subscriptionsMap)
+        for (const std::weak_ptr<Subscription>& weakEntry :
+             getSubscriptionsSnapshot())
         {
-            std::shared_ptr<Subscription>& entry = it.second;
+            std::shared_ptr<Subscription> entry = weakEntry.lock();
+            if (entry == nullptr)
+            {
+                continue;
+            }
             if (!eventMatchesFilter(*entry->userSub, eventMessage,
                                     resourceType))
             {
