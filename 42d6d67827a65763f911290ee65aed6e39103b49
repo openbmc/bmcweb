@@ -141,6 +141,24 @@
       "parentUuid": "d946f192_07fd549b",
       "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c8e4e82_5915ad66",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-11-20T11:02:31Z",
+      "side": 1,
+      "message": "updated the patch and re-tested on anacapa qemu 👍",
+      "parentUuid": "536cc408_6aa39c8e",
+      "revId": "42d6d67827a65763f911290ee65aed6e39103b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
