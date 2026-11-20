@@ -16,6 +16,24 @@
       "message": "Hi @zane.li.wiwynn@gmail.com, could you have a look at this patch: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/93509/8 I believe this duplicates what @bence.nagy@9elements.com is doing.",
       "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57621bb6_df7d5deb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-11-20T00:17:51Z",
+      "side": 1,
+      "message": "Hi Oliver,\n\nThanks for the pointer. I looked at 93509 (patch set 8), and I don\u0027t think\nit covers the same thing as this change:\n\n- 93509 changes /redfish/v1/Chassis/{ChassisId}/Drives/{DriveId}. It moves\n  the chassis -\u003e drive lookup to the \"containing\" association and reworks\n  the drive property unpacking. Links/Chassis on that resource already\n  comes from the chassisId in the URL, so it was never wrong.\n\n- This change (95055) fixes\n  /redfish/v1/Systems/{SystemId}/Storage/1/Drives/{DriveId}. There,\n  Links/Chassis comes from getMainChassisId() and always points to the\n  first chassis in inventory. On Yosemite5, ssd0 is on\n  Yosemite5_Storage_Expansion_Board but the link says BMC_Storage_Module.\n  This is the reverse direction: drive -\u003e chassis through \"contained_by\".",
+      "parentUuid": "bd168aed_18af13e0",
+      "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
