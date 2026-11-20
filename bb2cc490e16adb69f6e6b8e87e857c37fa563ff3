@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b7a915_be430b77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T20:55:59Z",
+      "side": 1,
+      "message": "I don\u0027t see these associations documented in PDI ..?",
+      "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a225f85_6e5b6837",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T20:55:59Z",
+      "side": 1,
+      "message": "I could see a use case where a DIMM is in multiple chassis..  But Redfish says it should just be a single Chassis \n\n```            \n           \"Chassis\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis\",\n                    \"description\": \"The link to the chassis that contains this memory device.\",\n                    \"longDescription\": \"This property shall contain a link to a resource of type `Chassis` that represents the physical container associated with this memory device.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_2_0\"\n                },\n```",
+      "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad6f1057_0ed71dc2",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T20:55:59Z",
+      "side": 1,
+      "message": "I thought it would just be an empty result when the requested association doesn\u0027t exist. OH well",
+      "range": {
+        "startLine": 800,
+        "startChar": 35,
+        "endLine": 800,
+        "endChar": 70
+      },
+      "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
