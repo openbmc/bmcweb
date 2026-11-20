@@ -22,6 +22,30 @@
       },
       "revId": "104d673d382fcc3182e58ed49f9193377f920a71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f3e8c1a_7c29c685",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001076
+      },
+      "writtenOn": "2026-11-20T03:36:14Z",
+      "side": 1,
+      "message": "@mutyalax.jayaprakash@intel.com, please submit your change as a new patch instead of changing the content of this patch.",
+      "parentUuid": "dfabbf98_2dd21b24",
+      "range": {
+        "startLine": 4,
+        "startChar": 12,
+        "endLine": 4,
+        "endChar": 24
+      },
+      "revId": "104d673d382fcc3182e58ed49f9193377f920a71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
