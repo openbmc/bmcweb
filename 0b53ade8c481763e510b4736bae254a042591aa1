@@ -56,6 +56,30 @@
       },
       "revId": "0b53ade8c481763e510b4736bae254a042591aa1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5caa22_a32be623",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-20T09:21:22Z",
+      "side": 1,
+      "message": "+1, we don\u0027t need to handle io_errors, it is handled by the helper.",
+      "parentUuid": "9b437fcc_5fb5f1c9",
+      "range": {
+        "startLine": 100,
+        "startChar": 35,
+        "endLine": 100,
+        "endChar": 78
+      },
+      "revId": "0b53ade8c481763e510b4736bae254a042591aa1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
