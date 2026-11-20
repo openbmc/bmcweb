@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf8df57b_755e056b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T20:58:35Z",
+      "side": 1,
+      "message": "Like https://github.com/openbmc/phosphor-dbus-interfaces/blob/91608907e3f003f341de8b0ac82d79a4212a94d7/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml#L35 \nA dimm is contained_by a chassis.. Okay that makes sense.. \nBut a DIMM contained_by a processor doesn\u0027t make sense..",
+      "parentUuid": "86b7a915_be430b77",
+      "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a225f85_6e5b6837",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-20T20:55:59Z",
       "side": 1,
       "message": "I could see a use case where a DIMM is in multiple chassis..  But Redfish says it should just be a single Chassis \n\n```            \n           \"Chassis\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis\",\n                    \"description\": \"The link to the chassis that contains this memory device.\",\n                    \"longDescription\": \"This property shall contain a link to a resource of type `Chassis` that represents the physical container associated with this memory device.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_2_0\"\n                },\n```",
+      "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be640615_f05603fe",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T20:58:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9a225f85_6e5b6837",
       "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
