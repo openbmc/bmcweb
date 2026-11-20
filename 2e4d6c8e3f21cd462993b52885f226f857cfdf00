@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edb4d3cb_976e35d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T16:07:51Z",
+      "side": 1,
+      "message": "If the openssl bump goes here, please add that to the commit msg",
+      "revId": "2e4d6c8e3f21cd462993b52885f226f857cfdf00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4b39f84_9a196a7d",
+        "filename": "meson.build",
+        "patchSetId": 14
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T16:07:51Z",
+      "side": 1,
+      "message": "Need the subprojects/openssl.wrap change as well",
+      "revId": "2e4d6c8e3f21cd462993b52885f226f857cfdf00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

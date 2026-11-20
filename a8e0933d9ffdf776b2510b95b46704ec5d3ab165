@@ -175,6 +175,24 @@
       "parentUuid": "22eaed5b_733c7add",
       "revId": "a8e0933d9ffdf776b2510b95b46704ec5d3ab165",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cf95a0e_ea5922d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-20T16:07:51Z",
+      "side": 1,
+      "message": "\u003e OpenSSL fallback wrap in the same change, so both dependency paths match the new requirement?\n\nYes. In support of this commit, just this requires OpenSSL 3.5 so we need to make sure we have those changes",
+      "parentUuid": "6f39d710_461ae316",
+      "revId": "a8e0933d9ffdf776b2510b95b46704ec5d3ab165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
