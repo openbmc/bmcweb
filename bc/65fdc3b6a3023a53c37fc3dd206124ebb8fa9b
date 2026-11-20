@@ -1,0 +1,8 @@
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: <jvoon@nvidia.com>
+Submitted-at: Fri, 20 Nov 2026 02:52:01 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/92112
+Comments-Total: 18
+Project: openbmc/bmcweb
+Branch: refs/heads/master
