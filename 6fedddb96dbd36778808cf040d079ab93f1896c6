@@ -22,6 +22,30 @@
       },
       "revId": "6fedddb96dbd36778808cf040d079ab93f1896c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99fe0c0_bfd73119",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-20T18:28:20Z",
+      "side": 1,
+      "message": "Just to clarify, this keeps the route privilege as the generated redfish::privileges::getSessionCollection (Login) from Redfish_1.5.0_PrivilegeRegistry.json without modifying the registry.\n\nDMTF actually addressed this on the Redfish Forum and said GET on ManagerAccountCollection and SessionCollection stays Login in DSP8011 for HATEOAS discoverability (and because the privilege registry JSON has no syntax to express per-caller pruning of Members). Instead, DSP0266 section 13.4.3 (\"Redfish service operation-to-privilege mapping\") explicitly allows services to prune responses per caller:\n\n\u003e A service may perform additional checks based on the identity of the user and remove data from responses. For example, a service might restrict access for non-administrative users to only access their own ManagerAccount, Session, and EventDestination resources.\n\nForum threads from Mike Raineri / Jeff Hilland:\n- https://redfishforum.com/thread/281/manageraccountcollection-change-allows-account-enumeration (same thread cited by bmcweb commit f365910caf84 for handleAccountCollectionGet)\n- https://redfishforum.com/thread/1328/configureself-meant-scoped (confirming ConfigureSelf is meant to be self-scoped by definition, though Privileges_v1.xml currently only has non-normative text and DMTF is looking at adding normative wording)\n\nThis also ties into the Redfish Service Validator question you raised on 95150: if Session GET returns 403 for another user\u0027s session, an unfiltered SessionCollection makes rf_service_validator (run as ReadOnly/Operator) follow foreign member URIs and fail with HTTP 403, the same issue f365910caf84 fixed for AccountService/Accounts. With Members filtered here, rf_service_validator --authtype Session as ReadOnly passes (44 PASS / 0 FAIL).\n\nOne detail I noticed while re-checking Redfish_1.5.0_PrivilegeRegistry.json: Session GET/DELETE map to ConfigureManager OR ConfigureSelf rather than ConfigureUsers (which handleSessionDelete currently checks). Would you be open to this under DSP0266 13.4.3 if I switch the check to ConfigureManager (matching getSession in privilege_registry.hpp) and cite DSP0266 13.4.3 in the commit message, or would you rather hold off until DMTF updates Privileges_v1.xml from thread 1328?",
+      "parentUuid": "e09aca0b_5d1fec36",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "6fedddb96dbd36778808cf040d079ab93f1896c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
