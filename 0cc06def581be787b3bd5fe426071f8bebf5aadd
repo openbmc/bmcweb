@@ -167,6 +167,24 @@
       "message": "I\u0027m not following how this doesn\u0027t break redfish service validator for non root users.",
       "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d2c125_0528cbcb",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003238
+      },
+      "writtenOn": "2026-11-20T18:29:15Z",
+      "side": 1,
+      "message": "You\u0027re right: 95150 by itself will fail rf_service_validator when run as a non-admin user, because find_uris() crawls every member URI in SessionCollection, hits HTTP 403 on other users\u0027 sessions, and validate_response() records each non-200 GET as a Resource Error FAIL (the same failure commit f365910caf84 fixed for ManagerAccountCollection).\n\nThat\u0027s why 95150 needs to be paired with collection Members filtering (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/97317, per DSP0266 section 13.4.3). When we ran rf_service_validator --authtype Session as a ReadOnly user with Members filtered to the caller\u0027s own sessions while admin and operator sessions were active, /redfish/v1/SessionService passed with 44 PASS / 0 FAIL.",
+      "parentUuid": "5fc1c844_b7658cf7",
+      "revId": "0cc06def581be787b3bd5fe426071f8bebf5aadd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
