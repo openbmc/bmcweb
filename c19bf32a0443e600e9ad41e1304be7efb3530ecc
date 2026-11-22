@@ -16,6 +16,24 @@
       "message": "Rather than keying off of a hard-coded name that we shouldn\u0027t be using in the first place, how about we key off something that won\u0027t change. Usernames can change. What happens when the username changes and bmcweb reboots? It loses the fact that the user is a bootstrap account. We need to rely on a dbus property (or maybe a group) that tells us it is a bootstrap account. \n\nSince the spec says that on service or host reset the bootstrap accounts should all be deleted, it seems like we need to keep better track of them. By making all bootstrap accounts members of the redfish group AND the bootstrap group, it is really easy to simply find all the users in the bootstrap group and delete them.",
       "revId": "c19bf32a0443e600e9ad41e1304be7efb3530ecc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b593b53d_e48ae5b1",
+        "filename": "include/user_monitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-11-22T17:03:26Z",
+      "side": 1,
+      "message": "Thanks, addressed in the latest patch set.\nbmcweb no longer relies on the user name. A user is treated as a bootstrap account only when its BootStrapAccount D-Bus property is true.\n\nSince DSP0270 requires bootstrap accounts to be deleted on a service reset, bmcweb scans all users at startup and deletes every account with BootStrapAccount set, so no bootstrap account survives a bmcweb restart or crash.\n\nphosphor-user-manager did not keep BootStrapAccount when a user was renamed. This is fixed in https://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/97609, so a renamed bootstrap account keeps the property, stays restricted to the Redfish Host Interface, and is still deleted on reset.",
+      "parentUuid": "f6524ed8_97338896",
+      "revId": "c19bf32a0443e600e9ad41e1304be7efb3530ecc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
