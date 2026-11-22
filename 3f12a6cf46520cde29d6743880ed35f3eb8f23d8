@@ -34,6 +34,24 @@
       "parentUuid": "bd168aed_18af13e0",
       "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "850b098c_6d8ffdd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-22T19:34:40Z",
+      "side": 1,
+      "message": "Alright, thanks for having a look at 93509. Looking forward for your patch!",
+      "parentUuid": "57621bb6_df7d5deb",
+      "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
