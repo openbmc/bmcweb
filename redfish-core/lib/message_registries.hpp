@@ -5,24 +5,49 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "bios.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "query.hpp"
 #include "registries.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/bios_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
 
+#include <array>
 #include <format>
 #include <functional>
 #include <memory>
 #include <optional>
 #include <ranges>
+#include <string>
+#include <string_view>
 #include <utility>
 
 namespace redfish
 {
+
+inline void afterGetBiosManagerForRegistryCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        return;
+    }
+    nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+    nlohmann::json::object_t member;
+    member["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Registries/{}", bios_utils::biosAttributeRegistryId);
+    members.emplace_back(std::move(member));
+    asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+}
 
 inline void handleMessageRegistryFileCollectionGet(
     crow::App& app, const crow::Request& req,
@@ -52,6 +77,11 @@ inline void handleMessageRegistryFileCollectionGet(
         members.emplace_back(std::move(member));
     }
     asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+
+    dbus::utility::getDbusObject(
+        std::string(bios_utils::biosConfigManagerPath),
+        std::array<std::string_view, 1>{bios_utils::biosConfigManagerInterface},
+        std::bind_front(afterGetBiosManagerForRegistryCollection, asyncResp));
 }
 
 inline void requestRoutesMessageRegistryFileCollection(App& app)
@@ -72,6 +102,11 @@ inline void handleMessageRoutesMessageRegistryFileGet(
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
+        return;
+    }
+    if (registry == bios_utils::biosAttributeRegistryId)
+    {
+        handleBiosAttributeRegistryFileGet(asyncResp);
         return;
     }
     std::string dmtf = "DMTF ";
@@ -136,6 +171,12 @@ inline void handleMessageRegistryGet(
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
+        return;
+    }
+    if (registry == bios_utils::biosAttributeRegistryId &&
+        registryMatch == bios_utils::biosAttributeRegistryId)
+    {
+        handleBiosAttributeRegistryGet(asyncResp);
         return;
     }
 
