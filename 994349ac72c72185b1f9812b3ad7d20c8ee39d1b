@@ -99,6 +99,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eace9b87_8b405cc1",
+        "filename": "redfish-core/lib/bios_attribute_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-11-22T19:33:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab3e4292_da210941",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 28
+      },
+      "revId": "994349ac72c72185b1f9812b3ad7d20c8ee39d1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2d30693_105af6b7",
@@ -171,6 +195,30 @@
       "side": 1,
       "message": "Fixed. It now returns 404 when there is no BIOSConfig Manager.",
       "parentUuid": "64b299aa_59935881",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 234,
+        "endChar": 78
+      },
+      "revId": "994349ac72c72185b1f9812b3ad7d20c8ee39d1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1cd460_e382438e",
+        "filename": "redfish-core/lib/bios_attribute_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1002977
+      },
+      "writtenOn": "2026-11-22T19:33:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc6a3b6_ed7d9fb7",
       "range": {
         "startLine": 232,
         "startChar": 4,
