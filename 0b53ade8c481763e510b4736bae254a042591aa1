@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17a94d5c_aa8128d4",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-22T14:41:48Z",
+      "side": 1,
+      "message": "Could we test CapacityWatts after physically removing a PSU? If its inventory object and previous rating remain, this sum may still include the removed supply. Should presence be considered, or is the rating cleared elsewhere?",
+      "revId": "0b53ade8c481763e510b4736bae254a042591aa1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b437fcc_5fb5f1c9",
         "filename": "redfish-core/lib/power_subsystem.hpp",
         "patchSetId": 1
