@@ -871,6 +871,16 @@ functions the same like the default implementation under the System resource.
 - `Location@odata.count`
 - Registry
 
+### /redfish/v1/Registries/BiosAttributeRegistry/BiosAttributeRegistry/
+
+#### AttributeRegistry
+
+- Description
+- Language
+- OwningEntity
+- RegistryEntries/Attributes
+- RegistryVersion
+
 ### /redfish/v1/SessionService/
 
 #### SessionService
@@ -910,6 +920,7 @@ functions the same like the default implementation under the System resource.
 #### Bios
 
 - Actions
+- AttributeRegistry
 - Attributes
 - Description
 - Links/ActiveSoftwareImage
