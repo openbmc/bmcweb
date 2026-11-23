@@ -11,6 +11,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_device.hpp"
+#include "generated/enums/pcie_function.hpp"
 #include "generated/enums/pcie_slots.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -30,6 +31,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
@@ -781,21 +783,33 @@ inline void addPCIeFunctionProperties(
         {
             resp.jsonValue["VendorId"] = *strProperty;
         }
-        // TODO: FunctionType and DeviceClass are Redfish enums. The D-Bus
-        // property strings should be mapped correctly to ensure these
-        // strings are Redfish enum values. For now just check for empty.
+        // D-Bus FunctionType and DeviceClass are free-form strings; only
+        // publish them if they match a Redfish enum value.
         if (property.first == functionName + "FunctionType")
         {
-            if (!strProperty->empty())
+            pcie_function::FunctionType functionType =
+                nlohmann::json(*strProperty).get<pcie_function::FunctionType>();
+            if (functionType != pcie_function::FunctionType::Invalid)
             {
-                resp.jsonValue["FunctionType"] = *strProperty;
+                resp.jsonValue["FunctionType"] = functionType;
+            }
+            else if (!strProperty->empty())
+            {
+                BMCWEB_LOG_WARNING("Unknown PCIe FunctionType {}",
+                                   *strProperty);
             }
         }
         if (property.first == functionName + "DeviceClass")
         {
-            if (!strProperty->empty())
+            pcie_function::DeviceClass deviceClass =
+                nlohmann::json(*strProperty).get<pcie_function::DeviceClass>();
+            if (deviceClass != pcie_function::DeviceClass::Invalid)
             {
-                resp.jsonValue["DeviceClass"] = *strProperty;
+                resp.jsonValue["DeviceClass"] = deviceClass;
+            }
+            else if (!strProperty->empty())
+            {
+                BMCWEB_LOG_WARNING("Unknown PCIe DeviceClass {}", *strProperty);
             }
         }
         if (property.first == functionName + "ClassCode")

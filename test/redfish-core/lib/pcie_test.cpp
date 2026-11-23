@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages_test_utils.hpp"
+#include "generated/enums/pcie_function.hpp"
 #include "http_response.hpp"
 #include "pcie.hpp"
 
@@ -65,6 +67,47 @@ TEST(AfterGetPCIeDeviceUUID, SuccessSetsUUID)
 
     EXPECT_EQ(response->res.jsonValue["UUID"],
               "11111111-2222-3333-4444-555566667777");
+}
+
+TEST(AddPCIeFunctionProperties, ValidEnumsArePublished)
+{
+    crow::Response resp;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Function0FunctionType", std::string("Physical")},
+        {"Function0DeviceClass", std::string("MassStorageController")}};
+
+    addPCIeFunctionProperties(resp, 0, properties);
+
+    EXPECT_EQ(resp.jsonValue["FunctionType"],
+              pcie_function::FunctionType::Physical);
+    EXPECT_EQ(resp.jsonValue["DeviceClass"],
+              pcie_function::DeviceClass::MassStorageController);
+}
+
+TEST(AddPCIeFunctionProperties, UnknownEnumsAreOmitted)
+{
+    crow::Response resp;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Function0FunctionType", std::string("Logical")},
+        {"Function0DeviceClass", std::string("Mass Storage Controller")}};
+
+    addPCIeFunctionProperties(resp, 0, properties);
+
+    EXPECT_FALSE(resp.jsonValue.contains("FunctionType"));
+    EXPECT_FALSE(resp.jsonValue.contains("DeviceClass"));
+}
+
+TEST(AddPCIeFunctionProperties, EmptyAndInvalidEnumsAreOmitted)
+{
+    crow::Response resp;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Function0FunctionType", std::string("")},
+        {"Function0DeviceClass", std::string("Invalid")}};
+
+    addPCIeFunctionProperties(resp, 0, properties);
+
+    EXPECT_FALSE(resp.jsonValue.contains("FunctionType"));
+    EXPECT_FALSE(resp.jsonValue.contains("DeviceClass"));
 }
 
 } // namespace
