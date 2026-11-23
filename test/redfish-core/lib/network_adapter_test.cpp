@@ -5,16 +5,22 @@
 #include "http_response.hpp"
 #include "network_adapter.hpp"
 
+#include <systemd/sd-bus.h>
+
 #include <boost/asio/error.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/system/errc.hpp>
 #include <boost/system/linux_error.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/message.hpp>
+#include <sdbusplus/test/sdbus_mock.hpp>
 
 #include <memory>
 #include <string>
 #include <string_view>
+#include <type_traits>
 
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace redfish
@@ -115,6 +121,90 @@ TEST(AfterGetNetworkAdapterLocation, UnknownInterfaceOmitsLocation)
 
     afterGetNetworkAdapterLocation(response, std::string(adapterPath), ec,
                                    object);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(response->res.jsonValue.empty());
+}
+
+TEST(AfterGetNetworkAdapterAsset, ResourceNotFoundOmitsAsset)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    sdbusplus::SdBusMock sdbusMock;
+    sd_bus_error error = SD_BUS_ERROR_MAKE_CONST(
+        "xyz.openbmc_project.Common.Error.ResourceNotFound", "");
+    EXPECT_CALL(sdbusMock, sd_bus_message_get_error(testing::_))
+        .WillRepeatedly(testing::Return(&error));
+    sdbusplus::message_t msg(nullptr, &sdbusMock, std::false_type{});
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, msg,
+                                {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(response->res.jsonValue.empty());
+}
+
+TEST(AfterGetNetworkAdapterAsset, IoErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    sdbusplus::SdBusMock sdbusMock;
+    sd_bus_error error =
+        SD_BUS_ERROR_MAKE_CONST("org.freedesktop.DBus.Error.IOError", "");
+    EXPECT_CALL(sdbusMock, sd_bus_message_get_error(testing::_))
+        .WillRepeatedly(testing::Return(&error));
+    sdbusplus::message_t msg(nullptr, &sdbusMock, std::false_type{});
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, msg,
+                                {});
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetNetworkAdapterAsset, UnknownObjectSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::linux_error::bad_request_descriptor;
+    sdbusplus::SdBusMock sdbusMock;
+    sd_bus_error error =
+        SD_BUS_ERROR_MAKE_CONST("org.freedesktop.DBus.Error.UnknownObject", "");
+    EXPECT_CALL(sdbusMock, sd_bus_message_get_error(testing::_))
+        .WillRepeatedly(testing::Return(&error));
+    sdbusplus::message_t msg(nullptr, &sdbusMock, std::false_type{});
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, msg,
+                                {});
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetNetworkAdapterAsset, ErrorWithoutReplySetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+    sdbusplus::message_t msg;
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, msg,
+                                {});
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetNetworkAdapterAsset, EmptyObjectOmitsAsset)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    sdbusplus::message_t msg;
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, msg,
+                                {});
 
     EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
     EXPECT_TRUE(response->res.jsonValue.empty());
