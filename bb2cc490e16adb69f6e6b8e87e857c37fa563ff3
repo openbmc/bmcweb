@@ -110,6 +110,30 @@
       },
       "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "785cf240_1e025078",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-23T10:07:53Z",
+      "side": 1,
+      "message": "On the test machine the mapper returns an empty list, not an error, when the association has no endpoint, and that case is handled as no link. The `EBADR` and `io_error` branches are kept only as a guard.",
+      "parentUuid": "ad6f1057_0ed71dc2",
+      "range": {
+        "startLine": 800,
+        "startChar": 35,
+        "endLine": 800,
+        "endChar": 70
+      },
+      "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
