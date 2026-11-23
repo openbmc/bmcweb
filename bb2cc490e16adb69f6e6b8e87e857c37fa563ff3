@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f3631ab_6ac60a52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002790
+      },
+      "writtenOn": "2026-11-23T08:46:45Z",
+      "side": 1,
+      "message": "Dropped the Processors link from this change. The DIMM to processor association is proposed in PDI as accessing/accessed_by: https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/97618. The Processors link will follow in a separate change once that lands.",
+      "parentUuid": "cf8df57b_755e056b",
+      "revId": "bb2cc490e16adb69f6e6b8e87e857c37fa563ff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a225f85_6e5b6837",
