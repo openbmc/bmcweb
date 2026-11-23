@@ -129,6 +129,7 @@ inline void handleManagersDBusEventLogEntryDownload(
                                             true))
     {
         asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
     }
     if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
