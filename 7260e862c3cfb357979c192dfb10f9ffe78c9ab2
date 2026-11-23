@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8577580_b5de4151",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2026-11-23T15:05:34Z",
+      "side": 1,
+      "message": "Happy to discuss more on the spec interpretation if you still think my patch is wrong there. Assuming that\u0027s not the case since there was no further response.",
+      "parentUuid": "4bd82d34_e9cfb73d",
+      "revId": "7260e862c3cfb357979c192dfb10f9ffe78c9ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "050d220f_e5ae9829",
