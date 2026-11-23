@@ -52,6 +52,52 @@
       "parentUuid": "57621bb6_df7d5deb",
       "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76b48dcd_49ce5ff4",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1002134
+      },
+      "writtenOn": "2026-11-23T06:55:30Z",
+      "side": 1,
+      "message": "For an error other than `EBADR`, the current code logs and then still falls back to `getMainChassisId`. I suggest returning `internalError` after the log.",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 73
+      },
+      "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59a10b38_185794c8",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1002134
+      },
+      "writtenOn": "2026-11-23T06:55:30Z",
+      "side": 1,
+      "message": "Keeping this fallback is reasonable to me, since drives without the association keep the `Links.Chassis` they show today.\n\nThe alternative is to drop it so that the old path goes away, which could be staged behind a build option first. I am not sure what the maintainers prefer here.",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 57
+      },
+      "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
