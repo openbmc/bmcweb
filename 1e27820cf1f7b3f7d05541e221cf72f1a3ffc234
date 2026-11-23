@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab2d5bb3_27b38515",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000182
+      },
+      "writtenOn": "2026-11-23T07:27:49Z",
+      "side": 1,
+      "message": "I did update commit message as you suggested and checked, it works as I see.",
+      "parentUuid": "f17a07bc_92f9b66f",
+      "revId": "1e27820cf1f7b3f7d05541e221cf72f1a3ffc234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64769a03_18de6d50",
