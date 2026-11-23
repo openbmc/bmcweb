@@ -12,6 +12,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/location_utils.hpp"
 
@@ -388,6 +389,45 @@ inline void getNetworkAdapterLocation(
                         networkAdapterPath));
 }
 
+inline void afterGetNetworkAdapterAsset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("No asset interface on {}", networkAdapterPath);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error for getDbusObject {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (object.empty())
+    {
+        return;
+    }
+
+    asset_utils::getAssetInfo(asyncResp, object.begin()->first,
+                              networkAdapterPath, ""_json_pointer);
+}
+
+inline void getNetworkAdapterAsset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath)
+{
+    constexpr std::array<std::string_view, 1> assetInterfaces = {
+        "xyz.openbmc_project.Inventory.Decorator.Asset"};
+
+    dbus::utility::getDbusObject(
+        networkAdapterPath, assetInterfaces,
+        std::bind_front(afterGetNetworkAdapterAsset, asyncResp,
+                        networkAdapterPath));
+}
+
 inline void handleNetworkAdapterPathNetworkAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
@@ -411,6 +451,7 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
                     chassisId, networkAdapterId);
 
     getNetworkAdapterLocation(asyncResp, path);
+    getNetworkAdapterAsset(asyncResp, path);
 }
 
 inline void handleNetworkAdapterPaths(

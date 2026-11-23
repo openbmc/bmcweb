@@ -120,5 +120,51 @@ TEST(AfterGetNetworkAdapterLocation, UnknownInterfaceOmitsLocation)
     EXPECT_TRUE(response->res.jsonValue.empty());
 }
 
+TEST(AfterGetNetworkAdapterAsset, EbadrSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::linux_error::bad_request_descriptor;
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, {});
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetNetworkAdapterAsset, IoErrorOmitsAsset)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::errc::make_error_code(boost::system::errc::io_error);
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(response->res.jsonValue.empty());
+}
+
+TEST(AfterGetNetworkAdapterAsset, ErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::asio::error::invalid_argument;
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, {});
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetNetworkAdapterAsset, EmptyObjectOmitsAsset)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetNetworkAdapterAsset(response, std::string(adapterPath), ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(response->res.jsonValue.empty());
+}
+
 } // namespace
 } // namespace redfish
