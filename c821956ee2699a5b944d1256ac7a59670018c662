@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f2d5d7_5a8a00ab",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-11-23T15:28:03Z",
+      "side": 1,
+      "message": "I\u0027ve corrected this to full strings. (my test config that i made had the short values that\u0027s why it worked for me - oversight)",
+      "parentUuid": "d5326e88_d30cc78f",
+      "range": {
+        "startLine": 77,
+        "startChar": 17,
+        "endLine": 77,
+        "endChar": 20
+      },
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cae6a70_1c3e181d",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15297e7a_4dc7a56f",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-11-23T15:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cae6a70_1c3e181d",
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b08f90f_f298b878",
@@ -54,6 +96,24 @@
       "writtenOn": "2026-11-10T19:47:59Z",
       "side": 1,
       "message": "This is wrong, it should be uint8_t https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml\n\nLike\nhttps://github.com/openbmc/bmcweb/blob/c6e2c2610e45c04ae965a209f03e450902d70359/redfish-core/lib/account_service.hpp#L1531\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/8f450ea627117246d39f4e14825a7fe071c74e77/yaml/xyz/openbmc_project/User/AccountPolicy.interface.yaml#L21",
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70c73cfd_09ee4c57",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-11-23T15:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b08f90f_f298b878",
       "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7319b25d_487b717d",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-11-23T15:28:03Z",
+      "side": 1,
+      "message": "this is the old code\u0027s logic unraveled from the lambda. i don\u0027t see where i got it wrong.",
+      "parentUuid": "c864908d_a3a00c50",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 8
+      },
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dda5314_878093fb",
@@ -94,6 +178,24 @@
       "writtenOn": "2026-11-10T19:47:59Z",
       "side": 1,
       "message": "Should this be a 404? \nCan you test `/redfish/v1/Chassis/Tyan_S8047_Baseboard/Drives/badDriveId`",
+      "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d383715_1d11e0a5",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1002954
+      },
+      "writtenOn": "2026-11-23T15:28:03Z",
+      "side": 1,
+      "message": "this is not where a badDriveId ends up. it produces an empty subtree without errors and an empty response. you are correct tho, 404 is not handled, so i\u0027ve added a fix to return 404 below.\n`redfish/v1/Chassis/Yosemite_4_Sentinel_Dome_Slot_1_Chassis/Drives/NVMe_2\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The requested resource of type Drive named \u0027NVMe_2\u0027 was not found.\",\n        \"MessageArgs\": [\n          \"Drive\",\n          \"NVMe_2\"\n        ],\n        \"MessageId\": \"Base.1.19.ResourceNotFound\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n      }\n    ],\n    \"code\": \"Base.1.19.ResourceNotFound\",\n    \"message\": \"The requested resource of type Drive named \u0027NVMe_2\u0027 was not found.\"\n`",
+      "parentUuid": "0dda5314_878093fb",
       "revId": "c821956ee2699a5b944d1256ac7a59670018c662",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
