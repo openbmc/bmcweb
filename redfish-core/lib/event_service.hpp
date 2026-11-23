@@ -722,7 +722,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 {
                     nlohmann::json::object_t member;
                     member["@odata.id"] = boost::urls::format(
-                        "/redfish/v1/EventService/Subscriptions/{}" + id);
+                        "/redfish/v1/EventService/Subscriptions/{}", id);
                     memberArray.emplace_back(std::move(member));
                 }
                 dbus::utility::async_method_call(
