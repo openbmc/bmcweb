@@ -1084,6 +1084,7 @@ functions the same like the default implementation under the System resource.
 - ErrorCorrection
 - FirmwareRevision
 - Links/Chassis
+- Links/Processors
 - LocationIndicatorActive
 - Manufacturer
 - Model

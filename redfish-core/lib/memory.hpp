@@ -821,9 +821,45 @@ inline void afterGetDimmProcessorPaths(
         chassisInterfaces, std::bind_front(afterGetDimmChassisLink, asyncResp));
 }
 
+inline void afterGetDimmAccessedByPaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& processorPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR || ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("No accessed_by association: {}", ec);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (processorPaths.empty())
+    {
+        BMCWEB_LOG_DEBUG("No processor accesses this memory");
+        return;
+    }
+
+    collection_util::handleCollectionMembers(
+        asyncResp,
+        boost::urls::format("/redfish/v1/Systems/{}/Processors",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
+        nlohmann::json::json_pointer("/Links/Processors"), ec, processorPaths);
+}
+
 inline void getDimmLinks(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const sdbusplus::object_path& dimmPath)
 {
+    dbus::utility::getAssociatedSubTreePaths(
+        dimmPath / "accessed_by",
+        sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
+        processorInterfaces,
+        std::bind_front(afterGetDimmAccessedByPaths, asyncResp));
+
     dbus::utility::getAssociatedSubTreePaths(
         dimmPath / "contained_by",
         sdbusplus::object_path("/xyz/openbmc_project/inventory"), 0,
