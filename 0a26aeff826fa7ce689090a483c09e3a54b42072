@@ -69,6 +69,29 @@
       },
       "revId": "0a26aeff826fa7ce689090a483c09e3a54b42072",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2879849c_af2a30bf",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2557,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-23T04:59:21Z",
+      "side": 1,
+      "message": "Can we use callback here to avoid long lambda?",
+      "range": {
+        "startLine": 2534,
+        "startChar": 16,
+        "endLine": 2557,
+        "endChar": 19
+      },
+      "revId": "0a26aeff826fa7ce689090a483c09e3a54b42072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
