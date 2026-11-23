@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1333e01_25b9ddc5",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-23T07:24:11Z",
+      "side": 1,
+      "message": "Could we set AttributeRegistry only when the BIOS manager exists? Currently the BIOS resource advertises it unconditionally, but both registry URIs return 404 when the manager is absent.",
+      "revId": "8dc29c6194f45156f414c220ea5f163527c5dde7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8104f368_0088048b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-23T07:24:11Z",
+      "side": 1,
+      "message": "Could we normalize the menu path before publishing it? The D-Bus interface example uses Advanced/Memory Configuration/..., whereas the Redfish schema requires a path beginning with ./",
+      "revId": "8dc29c6194f45156f414c220ea5f163527c5dde7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
