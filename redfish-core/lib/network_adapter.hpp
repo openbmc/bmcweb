@@ -12,13 +12,16 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "switch_port.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/location_utils.hpp"
 
 #include <asm-generic/errno.h>
+#include <systemd/sd-bus.h>
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/errc.hpp>
+#include <sdbusplus/message.hpp>
 
 #include <array>
 #include <format>
@@ -388,6 +391,59 @@ inline void getNetworkAdapterLocation(
                         networkAdapterPath));
 }
 
+inline void afterGetNetworkAdapterAsset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath, const boost::system::error_code& ec,
+    const sdbusplus::message_t& msg,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec)
+    {
+        const sd_bus_error* dbusError = msg.get_error();
+        if (dbusError != nullptr && dbusError->name != nullptr &&
+            std::string_view(dbusError->name) ==
+                "xyz.openbmc_project.Common.Error.ResourceNotFound")
+        {
+            BMCWEB_LOG_DEBUG("No asset interface on {}", networkAdapterPath);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error for GetObject {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (object.empty())
+    {
+        return;
+    }
+
+    asset_utils::getAssetInfo(asyncResp, object.begin()->first,
+                              networkAdapterPath, ""_json_pointer);
+}
+
+inline void getNetworkAdapterAsset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& networkAdapterPath)
+{
+    constexpr std::array<std::string_view, 1> assetInterfaces = {
+        "xyz.openbmc_project.Inventory.Decorator.Asset"};
+
+    // Use the raw mapper call so the handler can inspect the D-Bus error name
+    dbus::utility::async_method_call(
+        asyncResp,
+        [asyncResp,
+         networkAdapterPath](const boost::system::error_code& ec,
+                             const sdbusplus::message_t& msg,
+                             const dbus::utility::MapperGetObject& object) {
+            afterGetNetworkAdapterAsset(asyncResp, networkAdapterPath, ec, msg,
+                                        object);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", networkAdapterPath,
+        assetInterfaces);
+}
+
 inline void handleNetworkAdapterPathNetworkAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& networkAdapterId,
@@ -411,6 +467,7 @@ inline void handleNetworkAdapterPathNetworkAdapterGet(
                     chassisId, networkAdapterId);
 
     getNetworkAdapterLocation(asyncResp, path);
+    getNetworkAdapterAsset(asyncResp, path);
 }
 
 inline void handleNetworkAdapterPaths(
