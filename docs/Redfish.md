@@ -529,8 +529,12 @@ Fields common to all schemas
 - Id
 - Location/PartLocation/LocationType
 - Location/PartLocation/ServiceLabel
+- Manufacturer
+- Model
 - Name
+- PartNumber
 - Ports
+- SerialNumber
 - Status
   - Health
   - HealthRollup
