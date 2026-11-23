@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e8a815_bffe9c1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-23T20:55:23Z",
+      "side": 1,
+      "message": "Please run the redfish validator. The validator would have flagged SparePartNumber is not in https://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_14_0.json",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 26
+      },
+      "revId": "e3f865cdf28c62c08573926f67a9ae18aa77c180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66b48770_ee80f9fb",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-23T20:55:23Z",
+      "side": 1,
+      "message": "SparePartNumber is not in https://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_14_0.json",
+      "range": {
+        "startLine": 415,
+        "startChar": 67,
+        "endLine": 415,
+        "endChar": 71
+      },
+      "revId": "e3f865cdf28c62c08573926f67a9ae18aa77c180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
