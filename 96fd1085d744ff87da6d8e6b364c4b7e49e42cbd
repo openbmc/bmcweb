@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2d6d34c_0ab19384",
+        "filename": "test/redfish-core/lib/fabric_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-23T12:49:12Z",
+      "side": 1,
+      "message": "Should we do something like this?\n```suggestion\n    EXPECT_EQ(\n    response-\u003eres.jsonValue[\"Links\"][\"PCIeDevice\"][\"@odata.id\"],\n    std::format(\"/redfish/v1/Systems/{}/PCIeDevices/switch0\",\n                BMCWEB_REDFISH_SYSTEM_URI_NAME));\n```",
+      "range": {
+        "startLine": 326,
+        "startChar": 4,
+        "endLine": 327,
+        "endChar": 64
+      },
+      "revId": "96fd1085d744ff87da6d8e6b364c4b7e49e42cbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
