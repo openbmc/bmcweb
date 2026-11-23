@@ -68,6 +68,24 @@
       "message": "I don\u0027t love that this sits with the production code.. I would perfer \n\ntest/redfish-core/include/error_messages_test_utils.hpp\n\nor if someone has another idea..?",
       "revId": "ba18ad07e3e61eafdb91365f185cb5e0b84a0e03",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab83bf86_31355c95",
+        "filename": "redfish-core/include/error_messages_test_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002810
+      },
+      "writtenOn": "2026-11-23T04:34:18Z",
+      "side": 1,
+      "message": "Done. Moved it to test/redfish-core/include/ and added that directory to the unit test include path.",
+      "parentUuid": "341a641f_fed565b9",
+      "revId": "ba18ad07e3e61eafdb91365f185cb5e0b84a0e03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
