@@ -220,5 +220,77 @@ TEST(AfterGetDimmProcessorPaths, MultipleProcessorsOmitsChassis)
     EXPECT_FALSE(response->res.jsonValue.contains("Links"));
 }
 
+TEST(AfterGetDimmAccessedByPaths, ErrorSetsInternalError)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec = boost::asio::error::invalid_argument;
+
+    afterGetDimmAccessedByPaths(response, ec, {});
+
+    EXPECT_EQ(response->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(AfterGetDimmAccessedByPaths, EbadrOmitsProcessors)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec =
+        boost::system::linux_error::bad_request_descriptor;
+
+    afterGetDimmAccessedByPaths(response, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetDimmAccessedByPaths, EmptyPathsOmitsProcessors)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+
+    afterGetDimmAccessedByPaths(response, ec, {});
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    EXPECT_FALSE(response->res.jsonValue.contains("Links"));
+}
+
+TEST(AfterGetDimmAccessedByPaths, SingleProcessorSetsLink)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreePathsResponse paths = {
+        "/xyz/openbmc_project/inventory/GPU_0"};
+
+    afterGetDimmAccessedByPaths(response, ec, paths);
+
+    EXPECT_EQ(response->res.result(), boost::beast::http::status::ok);
+    const nlohmann::json& processors =
+        response->res.jsonValue["Links"]["Processors"];
+    ASSERT_EQ(processors.size(), 1U);
+    EXPECT_EQ(processors[0]["@odata.id"],
+              "/redfish/v1/Systems/system/Processors/GPU_0");
+    EXPECT_EQ(response->res.jsonValue["Links"]["Processors@odata.count"], 1);
+}
+
+TEST(AfterGetDimmAccessedByPaths, MultipleProcessorsSetsAllLinks)
+{
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    boost::system::error_code ec;
+    dbus::utility::MapperGetSubTreePathsResponse paths = {
+        "/xyz/openbmc_project/inventory/GPU_1",
+        "/xyz/openbmc_project/inventory/GPU_0"};
+
+    afterGetDimmAccessedByPaths(response, ec, paths);
+
+    const nlohmann::json& processors =
+        response->res.jsonValue["Links"]["Processors"];
+    ASSERT_EQ(processors.size(), 2U);
+    EXPECT_EQ(processors[0]["@odata.id"],
+              "/redfish/v1/Systems/system/Processors/GPU_0");
+    EXPECT_EQ(processors[1]["@odata.id"],
+              "/redfish/v1/Systems/system/Processors/GPU_1");
+    EXPECT_EQ(response->res.jsonValue["Links"]["Processors@odata.count"], 2);
+}
+
 } // namespace
 } // namespace redfish
