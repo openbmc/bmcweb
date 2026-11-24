@@ -16,6 +16,7 @@
 #include "registries/privilege_registry.hpp"
 #include "storage_chassis.hpp"
 #include "utils/collection.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -90,10 +91,8 @@ inline void afterChassisDriveCollectionSubtree(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& driveList)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("Drive mapper call error");
-        messages::internalError(asyncResp->res);
         return;
     }
 
