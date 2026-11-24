@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0730220_1467c480",
+        "filename": "subprojects/openssl.wrap",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-24T17:21:20Z",
+      "side": 1,
+      "message": "Dang.. no official Meson WrapDB for OpenSSL 3.5.x.\n\nhttps://mesonbuild.com/Wrapdb-projects.html\n\n```\nopenssl\n 3.0.10-1\n3.0.8-3, 3.0.7-2, 3.0.2-1, 1.1.1l-3, 1.1.1k-2\n\n libcrypto, libssl, openssl\n```\n\nhttps://github.com/openbmc/bmcweb/issues/323  is related.. What do folks think we should do here ?\n\nI think either 1) keep OpenSSL 3.5 mandatory \nor something like \n```\n\n// Mozilla recommended groups v6.0 where supported.\n#if OPENSSL_VERSION_PREREQ(3, 5)\n    constexpr std::string_view groups \u003d\n        \"X25519MLKEM768:X25519:prime256v1:secp384r1\";\n#else\n    constexpr std::string_view groups \u003d\n        \"X25519:prime256v1:secp384r1\";\n#endif\n\n```",
+      "revId": "642bd7264fb2ce0f7e01a99aedc77f38117e9cff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
