@@ -69,10 +69,8 @@ inline void getProcessorUUID(
         service, objPath, "xyz.openbmc_project.Common.UUID", "UUID",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_DEBUG("DBUS response error");
-                messages::internalError(asyncResp->res);
                 return;
             }
             asyncResp->res.jsonValue["UUID"] = property;
@@ -246,10 +244,8 @@ inline void afterGetCpuDataByService(
     const boost::system::error_code& ec,
     const dbus::utility::ManagedObjectType& dbusData)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_DEBUG("DBUS response error");
-        messages::internalError(asyncResp->res);
         return;
     }
     asyncResp->res.jsonValue["Id"] = cpuId;
@@ -322,10 +318,8 @@ inline void readThrottleProperties(
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("Processor Throttle getAllProperties error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -375,10 +369,8 @@ inline void afterGetCpuAssetData(
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_DEBUG("DBUS response error");
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -463,10 +455,8 @@ inline void afterGetCpuRevisionData(
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_DEBUG("DBUS response error");
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -501,16 +491,13 @@ inline void afterGetProcessorFirmwareVersion(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const std::string& version)
 {
-    if (ec)
+    if (ec.value() == EBADR)
     {
-        if (ec.value() == EBADR)
-        {
-            // Software.Version not present on this object
-            BMCWEB_LOG_DEBUG("No Version property to report");
-            return;
-        }
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec.message());
-        messages::internalError(asyncResp->res);
+        dbus_utils::handleEBADR(ec);
+        return;
+    }
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
+    {
         return;
     }
     if (version.empty())
@@ -525,16 +512,13 @@ inline void afterGetProcessorFirmwareVersionSubTree(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (ec.value() == EBADR)
     {
-        if (ec.value() == EBADR)
-        {
-            // No "ran_on" association — processor has no firmware to report
-            BMCWEB_LOG_DEBUG("No firmware association for processor");
-            return;
-        }
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec.message());
-        messages::internalError(asyncResp->res);
+        dbus_utils::handleEBADR(ec);
+        return;
+    }
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
+    {
         return;
     }
     if (subtree.empty())
@@ -645,10 +629,8 @@ inline void afterGetCpuConfigData(
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -703,14 +685,11 @@ inline void afterGetCpuConfigData(
             "xyz.openbmc_project.Inventory.Item.Cpu."
             "OperatingConfig",
             "BaseSpeedPrioritySettings",
-            // ast-grep-ignore: long-lambda
             [asyncResp](
                 const boost::system::error_code& ec2,
                 const BaseSpeedPrioritySettingsProperty& baseSpeedList) {
-                if (ec2)
+                if (!dbus_utils::handleDbusError(asyncResp, ec2))
                 {
-                    BMCWEB_LOG_WARNING("D-Bus Property Get error: {}", ec2);
-                    messages::internalError(asyncResp->res);
                     return;
                 }
 
@@ -752,10 +731,8 @@ inline void afterGetProcessorLocationCode(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const std::string& property)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
     asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
@@ -798,13 +775,10 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "UniqueIdentifier",
-        // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& id) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR("Failed to read cpu unique id: {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
             asyncResp->res
@@ -868,10 +842,8 @@ inline void handleProcessorSubtree(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
     for (const auto& [objectPath, serviceMap] : subtree)

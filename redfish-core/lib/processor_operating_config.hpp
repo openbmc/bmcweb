@@ -11,7 +11,6 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
@@ -53,10 +52,8 @@ inline void afterGetOperatingConfigData(
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -160,10 +157,8 @@ inline void afterGetOperatingConfigCollection(
     const std::string& cpuName, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& objects)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -249,10 +244,8 @@ inline void afterGetOperatingConfig(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec, ec.message());
-        messages::internalError(asyncResp->res);
         return;
     }
     for (const auto& [objectPath, serviceMap] : subtree)
