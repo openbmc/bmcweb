@@ -433,19 +433,34 @@ inline resource::Health getHealth(
         return resource::Health::Critical;
     }
 
+    const bool* hardShutdownAlarmHigh = nullptr;
+    const bool* hardShutdownAlarmLow = nullptr;
+    const bool* softShutdownAlarmHigh = nullptr;
+    const bool* softShutdownAlarmLow = nullptr;
     const bool* criticalAlarmHigh = nullptr;
     const bool* criticalAlarmLow = nullptr;
     const bool* warningAlarmHigh = nullptr;
     const bool* warningAlarmLow = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), valuesDict, "CriticalAlarmHigh",
-        criticalAlarmHigh, "CriticalAlarmLow", criticalAlarmLow,
-        "WarningAlarmHigh", warningAlarmHigh, "WarningAlarmLow",
-        warningAlarmLow);
+        dbus_utils::UnpackErrorPrinter(), valuesDict, "HardShutdownAlarmHigh",
+        hardShutdownAlarmHigh, "HardShutdownAlarmLow", hardShutdownAlarmLow,
+        "SoftShutdownAlarmHigh", softShutdownAlarmHigh, "SoftShutdownAlarmLow",
+        softShutdownAlarmLow, "CriticalAlarmHigh", criticalAlarmHigh,
+        "CriticalAlarmLow", criticalAlarmLow, "WarningAlarmHigh",
+        warningAlarmHigh, "WarningAlarmLow", warningAlarmLow);
 
     if (success)
     {
+        // Shutdown thresholds are more severe than critical thresholds
+        if ((hardShutdownAlarmHigh != nullptr && *hardShutdownAlarmHigh) ||
+            (hardShutdownAlarmLow != nullptr && *hardShutdownAlarmLow) ||
+            (softShutdownAlarmHigh != nullptr && *softShutdownAlarmHigh) ||
+            (softShutdownAlarmLow != nullptr && *softShutdownAlarmLow))
+        {
+            return resource::Health::Critical;
+        }
+
         // Check if sensor has critical threshold alarm
         if ((criticalAlarmHigh != nullptr && *criticalAlarmHigh) ||
             (criticalAlarmLow != nullptr && *criticalAlarmLow))

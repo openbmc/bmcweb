@@ -287,6 +287,32 @@ TEST(FillSensorStatus, Success)
     EXPECT_EQ(sensorJson["Status"]["State"], resource::State::Enabled);
     EXPECT_EQ(sensorJson["Status"]["Health"], resource::Health::Critical);
 
+    for (const char* alarm : {"HardShutdownAlarmHigh", "HardShutdownAlarmLow",
+                              "SoftShutdownAlarmHigh", "SoftShutdownAlarmLow"})
+    {
+        properties = {
+            {alarm, true},
+            {"CriticalAlarmHigh", false},
+            {"WarningAlarmHigh", true},
+        };
+        sensorJson.clear();
+        fillSensorStatus(properties, sensorJson, nullptr);
+        EXPECT_EQ(sensorJson["Status"]["State"], resource::State::Enabled);
+        EXPECT_EQ(sensorJson["Status"]["Health"], resource::Health::Critical)
+            << alarm;
+    }
+
+    properties = {
+        {"HardShutdownAlarmHigh", false},
+        {"HardShutdownAlarmLow", false},
+        {"SoftShutdownAlarmHigh", false},
+        {"SoftShutdownAlarmLow", false},
+    };
+    sensorJson.clear();
+    fillSensorStatus(properties, sensorJson, nullptr);
+    EXPECT_EQ(sensorJson["Status"]["State"], resource::State::Enabled);
+    EXPECT_EQ(sensorJson["Status"]["Health"], resource::Health::OK);
+
     properties = {
         {"WarningAlarmHigh", true},
         {"WarningAlarmLow", false},
