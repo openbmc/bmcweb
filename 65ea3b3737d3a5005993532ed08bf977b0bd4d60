@@ -22,6 +22,52 @@
       },
       "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b09b6604_ca846351",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T21:49:59Z",
+      "side": 1,
+      "message": "By my understanding of the rf spec this case should never exist.. what specific scenario do you have in mind for a drive to be contained by multiple chassis?",
+      "range": {
+        "startLine": 343,
+        "startChar": 4,
+        "endLine": 347,
+        "endChar": 5
+      },
+      "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23663296_7b04bb6c",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T21:49:59Z",
+      "side": 1,
+      "message": "Please convert `drivePath` to a valid object_path first and mutate it using the object_path api.",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 363,
+        "endChar": 35
+      },
+      "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
