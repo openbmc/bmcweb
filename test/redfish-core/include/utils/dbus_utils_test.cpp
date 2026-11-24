@@ -5,11 +5,15 @@
 #include "http_response.hpp"
 #include "utils/dbus_utils.hpp"
 
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/status.hpp>
 #include <boost/system/errc.hpp>
+#include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message.hpp>
 
+#include <cerrno>
 #include <memory>
 #include <string>
 
@@ -96,3 +100,68 @@ TEST(DbusUtils, AfterPropertySetInternalError)
 
 } // namespace
 } // namespace redfish::details
+
+namespace redfish::dbus_utils
+{
+namespace
+{
+
+TEST(DbusUtils, HandleDbusErrorNoError)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    boost::system::error_code ec;
+    EXPECT_TRUE(handleDbusError(asyncResp, ec));
+    EXPECT_TRUE(handleDbusError(asyncResp, ec, {{EBADR, handleEBADR}}));
+
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(DbusUtils, HandleDbusErrorEBADR)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    boost::system::error_code ec(EBADR, boost::system::system_category());
+    EXPECT_FALSE(handleDbusError(asyncResp, ec, {{EBADR, handleEBADR}}));
+
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
+    EXPECT_TRUE(asyncResp->res.jsonValue.empty());
+}
+
+TEST(DbusUtils, HandleDbusErrorCallback)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    bool called = false;
+    boost::system::error_code ec(EIO, boost::system::system_category());
+    EXPECT_FALSE(handleDbusError(asyncResp, ec,
+                                 {{EIO, [&called]() { called = true; }}}));
+
+    EXPECT_TRUE(called);
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
+}
+
+TEST(DbusUtils, HandleDbusErrorEBADRInternalError)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    boost::system::error_code ec(EBADR, boost::system::system_category());
+    EXPECT_FALSE(handleDbusError(asyncResp, ec));
+
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+TEST(DbusUtils, HandleDbusErrorInternalError)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+
+    boost::system::error_code ec(EIO, boost::system::system_category());
+    EXPECT_FALSE(handleDbusError(asyncResp, ec, {{EBADR, handleEBADR}}));
+
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
+} // namespace
+} // namespace redfish::dbus_utils
