@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fc2a4e9_24625489",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-11-24T07:26:53Z",
+      "side": 1,
+      "message": "A missing Accept header already got a 400 before this change, because\nisContentTypeAllowed() fails on an empty header. The handler then didn\u0027t\nreturn: it still called GetEntry and put the log entry in the body of\nthe 400 response. Tested on QEMU:\n\n- Before: 400 with the log entry in the body\n- After: 400 with an empty body\n\nRequests that accept JSON or any media type (the curl default) still\nreturn 200. This matches the Systems handler. I\u0027ve updated the commit\nmessage.",
+      "parentUuid": "a6aae62d_d8115974",
+      "revId": "54cfd22d7ea84a9246c2aad3c01fded2473e4e18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cd2801c0_67094fee",
