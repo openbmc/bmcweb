@@ -20,6 +20,8 @@
 #include "utils/ip_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <asm-generic/errno.h>
+
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
@@ -840,6 +842,13 @@ inline void handleHypervisorEthernetInterfacePatch(
     asyncResp->res.result(boost::beast::http::status::accepted);
 }
 
+inline void handleResetActionInfoNotFound(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& /*ec*/, std::string_view /*errorName*/)
+{
+    messages::resourceNotFound(asyncResp->res, "ActionInfo", "ResetActionInfo");
+}
+
 inline void handleHypervisorResetActionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -853,19 +862,11 @@ inline void handleHypervisorResetActionGet(
             const boost::system::error_code& ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 objInfo) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(
+                    asyncResp, ec,
+                    {{EIO, std::bind_front(handleResetActionInfoNotFound,
+                                           asyncResp)}}))
             {
-                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
-
-                // No hypervisor objects found by mapper
-                if (ec.value() == boost::system::errc::io_error)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ActionInfo",
-                                               "ResetActionInfo");
-                    return;
-                }
-
-                messages::internalError(asyncResp->res);
                 return;
             }
 

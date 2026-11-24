@@ -156,14 +156,11 @@ inline void getProcessorSummary(
 
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Inventory.Item.Cpu",
-        // ast-grep-ignore: long-lambda
         [asyncResp, service,
          path](const boost::system::error_code& ec2,
                const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec2)
+            if (!dbus_utils::handleDbusError(asyncResp, ec2))
             {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                messages::internalError(asyncResp->res);
                 return;
             }
             getProcessorProperties(asyncResp, properties);
@@ -235,14 +232,11 @@ inline void getMemorySummary(
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Inventory.Item.Dimm",
-        // ast-grep-ignore: long-lambda
         [asyncResp, service,
          path](const boost::system::error_code& ec2,
                const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec2)
+            if (!dbus_utils::handleDbusError(asyncResp, ec2))
             {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                messages::internalError(asyncResp->res);
                 return;
             }
             processMemoryProperties(asyncResp, properties);
@@ -253,10 +247,8 @@ inline void afterGetUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const boost::system::error_code& ec,
                          const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
     BMCWEB_LOG_DEBUG("Got {} UUID properties.", properties.size());
@@ -343,10 +335,8 @@ inline void afterSystemGetSubTree(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
     // Iterate over all retrieved ObjectPaths.
@@ -463,17 +453,9 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(
+                    asyncResp, ec, {{EHOSTUNREACH, dbus_utils::handleEBADR}}))
             {
-                if (ec == boost::system::errc::host_unreachable)
-                {
-                    // Service not available, no error, just don't return
-                    // host state info
-                    BMCWEB_LOG_DEBUG("Service not available {}", ec);
-                    return;
-                }
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
 
@@ -888,10 +870,8 @@ inline void getBootOverrideMode(
         // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& bootModeStr) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
 
@@ -946,16 +926,11 @@ inline void getBootOverrideSource(
         // ast-grep-ignore: long-lambda
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          const std::string& bootSourceStr) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(
+                    asyncResp, ec,
+                    {{EBADR, dbus_utils::handleEBADR},
+                     {EHOSTUNREACH, dbus_utils::handleEBADR}}))
             {
-                // Service not available, no error, just don't return
-                // Boot Override Source information
-                if (ec.value() != EBADR &&
-                    ec.value() != boost::asio::error::host_unreachable)
-                {
-                    BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
-                    messages::internalError(asyncResp->res);
-                }
                 return;
             }
 
@@ -1009,10 +984,8 @@ inline void processBootOverrideEnable(
         "xyz.openbmc_project.Object.Enable", "Enabled",
         // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, bool oneTimeSetting) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
 
@@ -1051,16 +1024,11 @@ inline void getBootOverrideEnable(
         // ast-grep-ignore: long-lambda
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          const bool bootOverrideEnable) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(
+                    asyncResp, ec,
+                    {{EBADR, dbus_utils::handleEBADR},
+                     {EHOSTUNREACH, dbus_utils::handleEBADR}}))
             {
-                // Service not available, no error, just don't return
-                // Boot Override Enable information
-                if (ec.value() != EBADR &&
-                    ec.value() != boost::asio::error::host_unreachable)
-                {
-                    BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
-                    messages::internalError(asyncResp->res);
-                }
                 return;
             }
 
@@ -1155,16 +1123,11 @@ inline void getAutomaticRebootAttempts(
         [asyncResp{asyncResp}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& propertiesList) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(
+                    asyncResp, ec,
+                    {{EBADR, dbus_utils::handleEBADR},
+                     {EHOSTUNREACH, dbus_utils::handleEBADR}}))
             {
-                if (ec.value() != EBADR &&
-                    ec.value() != boost::asio::error::host_unreachable)
-                {
-                    // Service not available, no error, just don't return
-                    // RebootAttempts information
-                    BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                    messages::internalError(asyncResp->res);
-                }
                 return;
             }
 
@@ -1220,16 +1183,11 @@ inline void getAutomaticRetryPolicy(
         // ast-grep-ignore: long-lambda
         [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
                                          bool autoRebootEnabled) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(
+                    asyncResp, ec,
+                    {{EBADR, dbus_utils::handleEBADR},
+                     {EHOSTUNREACH, dbus_utils::handleEBADR}}))
             {
-                // Service not available, no error, just don't return
-                // AutoReboot information
-                if (ec.value() != EBADR &&
-                    ec.value() != boost::asio::error::host_unreachable)
-                {
-                    BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                    messages::internalError(asyncResp->res);
-                }
                 return;
             }
 
@@ -1363,16 +1321,11 @@ inline void getStopBootOnFault(
         "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
         // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec, bool value) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(
+                    asyncResp, ec,
+                    {{EBADR, dbus_utils::handleEBADR},
+                     {EHOSTUNREACH, dbus_utils::handleEBADR}}))
             {
-                // Service not available, no error, just don't return
-                // StopBootOnFault information
-                if (ec.value() != EBADR ||
-                    ec.value() != boost::asio::error::host_unreachable)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                    messages::internalError(asyncResp->res);
-                }
                 return;
             }
 
@@ -1442,11 +1395,8 @@ inline void getTrustedModuleRequiredToBootCallback(
         service, path, "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
         // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec2, bool tpmRequired) {
-            if (ec2)
+            if (!dbus_utils::handleDbusError(asyncResp, ec2))
             {
-                BMCWEB_LOG_ERROR("D-BUS response error on TPM.Policy Get{}",
-                                 ec2);
-                messages::internalError(asyncResp->res);
                 return;
             }
 
@@ -1493,10 +1443,8 @@ inline void setTrustedModuleRequiredToBootCallback(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error on TPM.Policy GetSubTree{}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
     if (subtree.empty())
@@ -1794,10 +1742,8 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         [asyncResp,
          assetTag](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_DEBUG("D-Bus response error on GetSubTree {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
             if (subtree.empty())
@@ -2118,10 +2064,8 @@ inline void afterGetPowerMode(
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error on PowerMode GetAll: {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -2320,12 +2264,8 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         [asyncResp,
          powerMode](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error on Power.Mode GetSubTree {}", ec);
-                // This is an optional D-Bus object, but user attempted to patch
-                messages::internalError(asyncResp->res);
                 return;
             }
             if (subtree.empty())
@@ -2629,12 +2569,8 @@ inline void getIdlePowerSaver(
         // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error on Power.IdlePowerSaver GetSubTree {}",
-                    ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
             if (subtree.empty())
@@ -2677,12 +2613,8 @@ inline void getIdlePowerSaver(
                 [asyncResp](
                     const boost::system::error_code& ec2,
                     const dbus::utility::DBusPropertiesMap& properties) {
-                    if (ec2)
+                    if (!dbus_utils::handleDbusError(asyncResp, ec2))
                     {
-                        BMCWEB_LOG_ERROR(
-                            "DBUS response error on IdlePowerSaver GetAll: {}",
-                            ec2);
-                        messages::internalError(asyncResp->res);
                         return;
                     }
 
@@ -2731,12 +2663,8 @@ inline void setIdlePowerSaver(
         [asyncResp, ipsEnable, ipsEnterUtil, ipsEnterTime, ipsExitUtil,
          ipsExitTime](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error on Power.IdlePowerSaver GetSubTree {}",
-                    ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
             if (subtree.empty())
@@ -2866,10 +2794,8 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     dbus::utility::async_method_call(
         asyncResp,
         [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR(" Bad D-Bus request error: {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
             messages::success(asyncResp->res);
@@ -3013,15 +2939,19 @@ inline void handleComputerSystemHead(
         "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
 }
 
+inline void handleSshServiceNotFound(const boost::system::error_code& /*ec*/,
+                                     std::string_view /*errorName*/)
+{
+    BMCWEB_LOG_WARNING("No ssh service found");
+}
+
 inline void afterPortRequest(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
     const std::vector<std::tuple<std::string, std::string, bool>>& socketData)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
     for (const auto& data : socketData)
@@ -3039,16 +2969,9 @@ inline void afterPortRequest(
             getPortNumber(socketPath, [asyncResp, protocolName](
                                           const boost::system::error_code& ec1,
                                           int portNumber) {
-                if (ec1.value() ==
-                    boost::system::errc::no_such_file_or_directory)
+                if (!dbus_utils::handleDbusError(
+                        asyncResp, ec1, {{ENOENT, handleSshServiceNotFound}}))
                 {
-                    BMCWEB_LOG_WARNING("No ssh service found");
-                    return;
-                }
-                if (ec1)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
-                    messages::internalError(asyncResp->res);
                     return;
                 }
 

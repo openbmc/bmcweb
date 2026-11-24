@@ -649,10 +649,8 @@ inline void afterGetDimmDataByService(
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_DEBUG("DBUS response error");
-        messages::internalError(asyncResp->res);
         return;
     }
     assembleDimmProperties(dimmId, asyncResp, properties, ""_json_pointer);
@@ -733,11 +731,8 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         [asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_DEBUG("DBUS response error");
-                messages::internalError(asyncResp->res);
-
                 return;
             }
             nlohmann::json::json_pointer regionPtr = "/Regions"_json_pointer;
@@ -752,13 +747,9 @@ inline void afterGetDimmData(
     const std::string& dimmId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec,
+                                     {{EBADR, dbus_utils::handleEBADR}}))
     {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
-            messages::internalError(asyncResp->res);
-        }
         return;
     }
 
@@ -855,25 +846,25 @@ inline void handleSetDimmData(
     setLocationIndicatorActive(asyncResp, dimmPath, locationIndicatorActive);
 }
 
+inline void handleDimmNotFound(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dimmId, const boost::system::error_code& /*ec*/,
+    std::string_view /*errorName*/)
+{
+    BMCWEB_LOG_WARNING("Dimm not found in inventory");
+    messages::resourceNotFound(asyncResp->res, "Memory", dimmId);
+}
+
 inline void afterGetValidDimmPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& dimmId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& subtree,
     const std::function<void(const std::string& dimmPath)>& callback)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(
+            asyncResp, ec,
+            {{EBADR, std::bind_front(handleDimmNotFound, asyncResp, dimmId)}}))
     {
-        if (ec.value() == EBADR)
-        {
-            /* Need to report error for PATCH */
-            BMCWEB_LOG_WARNING("Dimm not found in inventory");
-            messages::resourceNotFound(asyncResp->res, "Memory", dimmId);
-        }
-        else
-        {
-            BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
-            messages::internalError(asyncResp->res);
-        }
         return;
     }
 
