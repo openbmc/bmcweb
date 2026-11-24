@@ -77,6 +77,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d946d355_c6d16393",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-11-24T07:12:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76b48dcd_49ce5ff4",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 73
+      },
+      "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59a10b38_185794c8",
