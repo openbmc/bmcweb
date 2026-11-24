@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e862edf_b55309b3",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-24T04:23:15Z",
+      "side": 1,
+      "message": "There is a older patch implemented this as well.\nPlease check here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/95832",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "812ab1990199d8ae368c744cba6be0532c8cec48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9833d52b_2c3d245d",
+        "filename": "test/redfish-core/lib/switch_port_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-24T04:23:15Z",
+      "side": 1,
+      "message": "nit: \nCan we uses `constexpr` here?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 78
+      },
+      "revId": "812ab1990199d8ae368c744cba6be0532c8cec48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ff2036_d408e9b3",
+        "filename": "test/redfish-core/lib/switch_port_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-24T04:23:15Z",
+      "side": 1,
+      "message": "Some of the test here were overlapped with the patch as well.\nLet\u0027s see if we need to abandon the previous patch and keep this.\n\nSince this patch has implemented more feature than mine.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "812ab1990199d8ae368c744cba6be0532c8cec48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
