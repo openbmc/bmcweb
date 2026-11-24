@@ -649,10 +649,8 @@ inline void afterGetDimmDataByService(
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_DEBUG("DBUS response error");
-        messages::internalError(asyncResp->res);
         return;
     }
     assembleDimmProperties(dimmId, asyncResp, properties, ""_json_pointer);
@@ -733,11 +731,8 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         [asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_DEBUG("DBUS response error");
-                messages::internalError(asyncResp->res);
-
                 return;
             }
             nlohmann::json::json_pointer regionPtr = "/Regions"_json_pointer;
@@ -752,13 +747,13 @@ inline void afterGetDimmData(
     const std::string& dimmId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (ec.value() == EBADR)
     {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
-            messages::internalError(asyncResp->res);
-        }
+        dbus_utils::handleEBADR(ec);
+        return;
+    }
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
+    {
         return;
     }
 
