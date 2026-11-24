@@ -9,9 +9,9 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
-#include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/sw_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -108,12 +108,7 @@ inline void handleBiosResetPost(
     dbus::utility::async_method_call(
         asyncResp,
         [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Failed to reset bios: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
+            dbus_utils::handleDbusError(asyncResp, ec);
         },
         "xyz.openbmc_project.Software.Host.Updater0",
         "/xyz/openbmc_project/software",
