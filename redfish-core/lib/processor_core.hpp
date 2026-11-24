@@ -14,6 +14,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/name_utils.hpp"
 #include "utils/processor_utils.hpp"
@@ -41,23 +42,26 @@
 namespace redfish
 {
 
+inline void handleProcessorNotFound(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& processorId, const boost::system::error_code& /*ec*/,
+    std::string_view /*errorName*/)
+{
+    BMCWEB_LOG_WARNING("Processor {} not found.", processorId);
+    messages::resourceNotFound(asyncResp->res, "Processor", processorId);
+}
+
 inline void doHandleSubProcessorCoreHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId, const std::string& coreId,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& coreSubTree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(
+            asyncResp, ec, {},
+            {{EIO, std::bind_front(handleProcessorNotFound, asyncResp,
+                                   processorId)}}))
     {
-        if (ec.value() == boost::system::errc::io_error)
-        {
-            BMCWEB_LOG_WARNING("Processor {} not found.", processorId);
-            messages::resourceNotFound(asyncResp->res, "Processor",
-                                       processorId);
-            return;
-        }
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -137,17 +141,11 @@ inline void doHandleSubProcessorCoreGet(
     const std::string& coreId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& coreSubTree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(
+            asyncResp, ec, {},
+            {{EIO, std::bind_front(handleProcessorNotFound, asyncResp,
+                                   processorId)}}))
     {
-        if (ec.value() == boost::system::errc::io_error)
-        {
-            BMCWEB_LOG_WARNING("Processor {} not found.", processorId);
-            messages::resourceNotFound(asyncResp->res, "Processor",
-                                       processorId);
-            return;
-        }
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -204,16 +202,11 @@ inline void doHandleSubProcessorCollectionHead(
     const std::string& processorId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& /* coreSubTreePaths */)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(
+            asyncResp, ec, {},
+            {{EIO, std::bind_front(handleProcessorNotFound, asyncResp,
+                                   processorId)}}))
     {
-        if (ec.value() != boost::system::errc::io_error)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_WARNING("Processor {} not found.", processorId);
-        messages::resourceNotFound(asyncResp->res, "Processor", processorId);
         return;
     }
     asyncResp->res.addHeader(
@@ -259,16 +252,11 @@ inline void doHandleSubProcessorCollectionGet(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& coreSubTreePaths)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(
+            asyncResp, ec, {},
+            {{EIO, std::bind_front(handleProcessorNotFound, asyncResp,
+                                   processorId)}}))
     {
-        if (ec.value() != boost::system::errc::io_error)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_WARNING("Processor {} not found.", processorId);
-        messages::resourceNotFound(asyncResp->res, "Processor", processorId);
         return;
     }
     asyncResp->res.addHeader(
