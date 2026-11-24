@@ -33,16 +33,10 @@ inline void afterGetLocationIndicatorEnclosure(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const bool ledOn)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec, {},
+                                     {{EBADR, dbus_utils::handleEBADR},
+                                      {EHOSTUNREACH, dbus_utils::handleEBADR}}))
     {
-        if (ec.value() != EBADR &&
-            ec.value() != boost::asio::error::host_unreachable)
-        {
-            BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_DEBUG("enclosure_identify LED group not available: {}", ec);
         return;
     }
 
@@ -205,14 +199,9 @@ inline void afterGetLedState(
     const std::function<void(bool asserted)>& callback,
     const boost::system::error_code& ec, bool assert)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec, {},
+                                     {{EBADR, dbus_utils::handleEBADR}}))
     {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error for get ledState {}",
-                             ec.value());
-            messages::internalError(asyncResp->res);
-        }
         return;
     }
 
@@ -225,13 +214,9 @@ inline void getLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& ledGroupPath,
                         const std::string& service)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec, {},
+                                     {{EBADR, dbus_utils::handleEBADR}}))
     {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-            messages::internalError(asyncResp->res);
-        }
         return;
     }
 
@@ -280,21 +265,22 @@ inline void getLocationIndicatorActive(
     });
 }
 
+inline void handleLedGroupNotFound(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& /*ec*/, std::string_view /*errorName*/)
+{
+    messages::propertyUnknown(asyncResp->res, "LocationIndicatorActive");
+}
+
 inline void setLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         bool ledState, const boost::system::error_code& ec,
                         const std::string& ledGroupPath,
                         const std::string& service)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(
+            asyncResp, ec, {},
+            {{EBADR, std::bind_front(handleLedGroupNotFound, asyncResp)}}))
     {
-        if (ec.value() == EBADR)
-        {
-            messages::propertyUnknown(asyncResp->res,
-                                      "LocationIndicatorActive");
-            return;
-        }
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-        messages::internalError(asyncResp->res);
         return;
     }
 

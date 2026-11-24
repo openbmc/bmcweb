@@ -46,24 +46,17 @@ namespace redfish
  * @brief Get Location code for the given assembly.
  * @param[in] asyncResp - Shared pointer for asynchronous calls.
  * @param[in] serviceName - Service in which the assembly is hosted.
- * @param[in] assembly - Assembly object.
  * @param[in] assemblyJsonPtr - json-keyname on the assembly list output.
  * @return None.
  */
 inline void afterGetAssemblyLocationCode(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& assembly,
     const nlohmann::json::json_pointer& assemblyJsonPtr,
     const boost::system::error_code& ec, const std::string& value)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec, {},
+                                     {{EBADR, dbus_utils::handleEBADR}}))
     {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error: {} for assembly {}",
-                             ec.value(), assembly);
-            messages::internalError(asyncResp->res);
-        }
         return;
     }
 
@@ -79,7 +72,7 @@ inline void getAssemblyLocationCode(
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, serviceName, assembly,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        std::bind_front(afterGetAssemblyLocationCode, asyncResp, assembly,
+        std::bind_front(afterGetAssemblyLocationCode, asyncResp,
                         assemblyJsonPtr));
 }
 
@@ -90,11 +83,8 @@ inline void afterGetDbusObject(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetObject& object)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error : {} for assembly {}", ec.value(),
-                         assembly);
-        messages::internalError(asyncResp->res);
         return;
     }
 
