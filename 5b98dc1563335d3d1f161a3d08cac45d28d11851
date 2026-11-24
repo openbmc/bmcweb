@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8743e8b5_93c66603",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-24T13:16:53Z",
+      "side": 1,
+      "message": "Can we remove the EBADR exemption here so a missing ObjectMapper D-Bus object is reported as an internal error rather than treated as a missing Asset interface?\n\n```suggestion\n        if (ec.value() \u003d\u003d boost::system::errc::io_error)\n```",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 399,
+        "endChar": 79
+      },
+      "revId": "5b98dc1563335d3d1f161a3d08cac45d28d11851",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
