@@ -160,17 +160,9 @@ inline void handleChassisPowerState(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const std::string& chassisState)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec,
+                                     {{EHOSTUNREACH, dbus_utils::handleEBADR}}))
     {
-        if (ec == boost::system::errc::host_unreachable)
-        {
-            // Service not available, no error, just don't return
-            // chassis state info
-            BMCWEB_LOG_DEBUG("Service not available {}", ec);
-            return;
-        }
-        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -291,13 +283,9 @@ inline void getChassisContainedBy(
     const std::string& chassisId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& upstreamChassisPaths)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec,
+                                     {{EBADR, dbus_utils::handleEBADR}}))
     {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-        }
         return;
     }
     if (upstreamChassisPaths.empty())
@@ -329,13 +317,9 @@ inline void getChassisContains(
     const std::string& chassisId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& downstreamChassisPaths)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec,
+                                     {{EBADR, dbus_utils::handleEBADR}}))
     {
-        if (ec.value() != EBADR)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-        }
         return;
     }
     if (downstreamChassisPaths.empty())
@@ -392,15 +376,10 @@ inline void afterGetChassisProcessorLinks(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& procs)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(
+            asyncResp, ec,
+            {{EIO, dbus_utils::handleEBADR}, {EBADR, dbus_utils::handleEBADR}}))
     {
-        if (ec.value() == boost::system::errc::io_error || ec.value() == EBADR)
-        {
-            BMCWEB_LOG_DEBUG("No processor association: {}", ec);
-            return;
-        }
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
     collection_util::handleCollectionMembers(asyncResp, collectionPath,
@@ -456,10 +435,8 @@ inline void getChassisLocationCode(
         // ast-grep-ignore: long-lambda
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR("DBUS response error for Location");
-                messages::internalError(asyncResp->res);
                 return;
             }
 
@@ -477,10 +454,8 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         connectionName, path, "xyz.openbmc_project.Common.UUID", "UUID",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& chassisUUID) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR("DBUS response error for UUID");
-                messages::internalError(asyncResp->res);
                 return;
             }
             asyncResp->res.jsonValue["UUID"] = chassisUUID;
@@ -590,10 +565,8 @@ inline void handleChassisGetSubTree(
     const std::string& chassisId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
     // Iterate over all retrieved ObjectPaths.
@@ -674,14 +647,10 @@ inline void handleChassisGetSubTree(
             {
                 dbus::utility::getProperty<std::string>(
                     connectionName, path, assetTagInterface, "AssetTag",
-                    // ast-grep-ignore: long-lambda
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const std::string& property) {
-                        if (ec2)
+                        if (!dbus_utils::handleDbusError(asyncResp, ec2))
                         {
-                            BMCWEB_LOG_ERROR(
-                                "DBus response error for AssetTag: {}", ec2);
-                            messages::internalError(asyncResp->res);
                             return;
                         }
                         asyncResp->res.jsonValue["AssetTag"] = property;
@@ -691,15 +660,10 @@ inline void handleChassisGetSubTree(
             {
                 dbus::utility::getProperty<bool>(
                     connectionName, path, replaceableInterface, "HotPluggable",
-                    // ast-grep-ignore: long-lambda
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const bool property) {
-                        if (ec2)
+                        if (!dbus_utils::handleDbusError(asyncResp, ec2))
                         {
-                            BMCWEB_LOG_ERROR(
-                                "DBus response error for HotPluggable: {}",
-                                ec2);
-                            messages::internalError(asyncResp->res);
                             return;
                         }
                         asyncResp->res.jsonValue["HotPluggable"] = property;
@@ -709,14 +673,10 @@ inline void handleChassisGetSubTree(
             {
                 dbus::utility::getProperty<std::string>(
                     connectionName, path, revisionInterface, "Version",
-                    // ast-grep-ignore: long-lambda
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const std::string& property) {
-                        if (ec2)
+                        if (!dbus_utils::handleDbusError(asyncResp, ec2))
                         {
-                            BMCWEB_LOG_ERROR(
-                                "DBus response error for Version: {}", ec2);
-                            messages::internalError(asyncResp->res);
                             return;
                         }
                         asyncResp->res.jsonValue["Version"] = property;
@@ -827,10 +787,8 @@ inline void handleChassisPatch(
          locationIndicatorActive{*locationIndicatorActive}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
 
@@ -917,10 +875,8 @@ inline void doChassisPowerCycle(
         [asyncResp](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                BMCWEB_LOG_ERROR("[mapper] Bad D-Bus request error: {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
 
