@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7432ba2f_65277d1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T16:39:18Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "78331c01_cac95603",
+      "revId": "24f1b393cdfc930452c28b1ae18a7760babfb8d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dc79b43_70bce500",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "@gunnar@gmills.xyz what\u0027s your take on this?\n\n`+358` is not a small change but not super large either.\n\n\u003e Also, in regards to my other comment a split between a) and b) would be nice too, since a) would already suffice for multi-chassis fan inventory to work right?\n\nit would fix the D-Bus modeling but provides no way to know which fan is cooling which chassis. So there is no feature gain with `a)`, only fix.\n\n\u003e However looking at the code i did not see a clean way to do this split.\n\nSplitting it as `a)` and `b)` would not work with the meson option `redfish-fan-links\u0027 requested here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87061/comment/f4fb933b_ebdcd302/\n\nsince it would no longer introduce the links as that would be done by `b)`.\nWe would need to rename the meson option in that case.\n\nOpen to break up the patch but let\u0027s confirm with maintainers and other reviewers first. Depending on how far people have already gone into this review breaking it up now might do more harm than good.\n\nOptions would be\n- keep one patch\n- a, b\n- new mapper call, a, b\n- ... other idea",
       "parentUuid": "8dc79b43_70bce500",
+      "revId": "24f1b393cdfc930452c28b1ae18a7760babfb8d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7dc9ef3_ea4ffc6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T16:39:18Z",
+      "side": 1,
+      "message": "\u003e Splitting it as a) and b) would not work with the meson option `redfish-fan-links\u0027 requested here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87061/comment/f4fb933b_ebdcd302/\n\n\nFair enough 👍\n\n\u003e Open to break up the patch but let\u0027s confirm with maintainers and other reviewers first. Depending on how far people have already gone into this review breaking it up now might do more harm than good.\n\nNo worries, I was more asking than requesting based on the fact the review went stale for a bit now. Updating the commit message was more important to me.",
+      "parentUuid": "acf6dd2b_6bd83e33",
       "revId": "24f1b393cdfc930452c28b1ae18a7760babfb8d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
