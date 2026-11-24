@@ -13,6 +13,7 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/name_utils.hpp"
 
 namespace redfish
@@ -320,10 +321,8 @@ inline void afterGetSubtreeSystemsStorageDrive(
     const std::string& driveId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("Drive mapper call error: {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -373,19 +372,23 @@ inline void afterGetSubtreeSystemsStorageDrive(
                     connectionNames[0].second);
 }
 
+inline void handleChassisNotFound(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
+{
+    messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+}
+
 inline void afterChassisDriveCollectionSubtreeGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(
+            asyncResp, ec,
+            {{EHOSTUNREACH,
+              std::bind_front(handleChassisNotFound, asyncResp, chassisId)}}))
     {
-        if (ec == boost::system::errc::host_unreachable)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -476,10 +479,8 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
+    if (!dbus_utils::handleDbusError(asyncResp, ec))
     {
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -560,9 +561,8 @@ inline void handleChassisDriveGet(
         [asyncResp, chassisId,
          driveName](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
+            if (!dbus_utils::handleDbusError(asyncResp, ec))
             {
-                messages::internalError(asyncResp->res);
                 return;
             }
 
