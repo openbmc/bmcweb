@@ -3,9 +3,12 @@
 #pragma once
 
 #include "async_resp.hpp"
+#include "boost_formatters.hpp"
 #include "dbus_singleton.hpp"
+#include "error_messages.hpp"
 #include "logging.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/exception.hpp>
@@ -13,6 +16,7 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <memory>
+#include <source_location>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -33,6 +37,40 @@ struct UnpackErrorPrinter
                 reason));
     }
 };
+
+/**
+ * @brief Log a missing D-Bus object or interface without failing the
+ * request.
+ *
+ * @param[in] ec  Error code of the D-Bus reply.
+ */
+inline void handleEBADR(const boost::system::error_code& ec)
+{
+    BMCWEB_LOG_DEBUG("D-Bus object not found: {}", ec);
+}
+
+/**
+ * @brief Report a failed D-Bus reply as InternalError.
+ *
+ * @param[in,out] asyncResp  Async HTTP response.
+ * @param[in]     ec         Error code of the D-Bus reply.
+ * @param[in]     loc        Location of the caller.
+ *
+ * @return true if there is no error; false if InternalError was set.
+ */
+inline bool handleDbusError(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const std::source_location& loc = std::source_location::current())
+{
+    if (!ec)
+    {
+        return true;
+    }
+    BMCWEB_LOG_ERROR("D-Bus response error {}", ec);
+    messages::internalError(asyncResp->res, loc);
+    return false;
+}
 
 } // namespace dbus_utils
 
