@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fdab17b2_515aa057",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-11-24T08:54:39Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. I hadn\u0027t noticed 95832. The NoLink/Starting/Training LinkStatus mapping there is the same as in this change. Since this change also fixes the PortType strings (Downstream/Upstream/Bidirectional), adds NVLink to PortProtocol and fixes the Speed conversion (10^9 instead of 2^30), I\u0027d suggest keeping this one. In PS2 I\u0027ve referenced 95832 in the commit message. If you agree, could you abandon 95832?",
+      "parentUuid": "0e862edf_b55309b3",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "812ab1990199d8ae368c744cba6be0532c8cec48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9833d52b_2c3d245d",
         "filename": "test/redfish-core/lib/switch_port_test.cpp",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2026-11-24T04:23:15Z",
       "side": 1,
       "message": "nit: \nCan we uses `constexpr` here?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 78
+      },
+      "revId": "812ab1990199d8ae368c744cba6be0532c8cec48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5edc0b1a_7406bcbb",
+        "filename": "test/redfish-core/lib/switch_port_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-11-24T08:54:39Z",
+      "side": 1,
+      "message": "constexpr std::string isn\u0027t allowed here because its memory can\u0027t outlive compile time. I kept const std::string so the tests can use portIface + \"...\". I can switch to constexpr std::string_view if you prefer.",
+      "parentUuid": "9833d52b_2c3d245d",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2026-11-24T04:23:15Z",
       "side": 1,
       "message": "Some of the test here were overlapped with the patch as well.\nLet\u0027s see if we need to abandon the previous patch and keep this.\n\nSince this patch has implemented more feature than mine.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "812ab1990199d8ae368c744cba6be0532c8cec48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6922200_ccef6f6c",
+        "filename": "test/redfish-core/lib/switch_port_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-11-24T08:54:39Z",
+      "side": 1,
+      "message": "I\u0027ve added the test cases from 95832 that weren\u0027t covered here",
+      "parentUuid": "d4ff2036_d408e9b3",
       "range": {
         "startLine": 38,
         "startChar": 0,
