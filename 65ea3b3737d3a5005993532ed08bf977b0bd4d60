@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "424d5af0_2ed52eec",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002134
+      },
+      "writtenOn": "2026-11-24T10:38:37Z",
+      "side": 1,
+      "message": "```suggestion\n        BMCWEB_LOG_ERROR(\"Drive contained_by association error: {}\", ec);\n        messages::internalError(asyncResp-\u003eres);\n        return;\n```\n\nI think a D-Bus error other than `EBADR` is a real failure rather than a missing association, so it would be better to return `internalError` here.",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 335,
+        "endChar": 15
+      },
+      "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
