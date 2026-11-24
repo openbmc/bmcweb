@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cea4690_b4cbd42a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T20:20:24Z",
+      "side": 1,
+      "message": "Could you provide the em config you are using for testing in the commit message?",
+      "revId": "a7c9b3bf2e9d4dc4745c86c282ec6e89d849d39f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb6d8cbf_f54cfa5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T20:20:24Z",
+      "side": 1,
+      "message": "I think this can be removed due to use of a wrong config on your end? Instead you could state the refactoring of the lambda that breaks the 10L rule",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "a7c9b3bf2e9d4dc4745c86c282ec6e89d849d39f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdeafd82_e298f295",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T20:20:24Z",
+      "side": 1,
+      "message": "```suggestion\n    if (type \u003d\u003d \"xyz.openbmc_project.Inventory.Item.Drive.DriveType.HDD\")\n\n```\n\nThe properties in this patchset still don\u0027t match PDI definitions. This comment applies to all following properties in this patchset.",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "a7c9b3bf2e9d4dc4745c86c282ec6e89d849d39f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce6a55ef_22095950",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T20:20:24Z",
+      "side": 1,
+      "message": "Let\u0027s stick with returning `drive::MediaType::Invalid` and handle this explicitly.",
+      "revId": "a7c9b3bf2e9d4dc4745c86c282ec6e89d849d39f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de13bb3c_a26c5946",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T20:20:24Z",
+      "side": 1,
+      "message": "Let\u0027s stick with returning `protocol::Protocol::Invalid` and handle this explicitly.",
+      "revId": "a7c9b3bf2e9d4dc4745c86c282ec6e89d849d39f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14187660_8bcc1155",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T20:20:24Z",
+      "side": 1,
+      "message": "You are not handling potential errors from the previous dbus call.",
+      "revId": "a7c9b3bf2e9d4dc4745c86c282ec6e89d849d39f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb6ade15_8d5f1b71",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T20:20:24Z",
+      "side": 1,
+      "message": "This looks like a bug? Why do we check `lockedStatus` \u0026 `encryptionStatus` for `nullptr` twice with different handling?",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 5
+      },
+      "revId": "a7c9b3bf2e9d4dc4745c86c282ec6e89d849d39f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
