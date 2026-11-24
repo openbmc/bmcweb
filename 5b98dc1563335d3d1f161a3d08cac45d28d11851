@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24f28999_19739529",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-24T17:07:01Z",
+      "side": 1,
+      "message": "+1 can you update Redfish.md",
+      "parentUuid": "88992a7a_34531126",
+      "revId": "5b98dc1563335d3d1f161a3d08cac45d28d11851",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8743e8b5_93c66603",
         "filename": "redfish-core/lib/network_adapter.hpp",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2026-11-24T13:16:53Z",
       "side": 1,
       "message": "Can we remove the EBADR exemption here so a missing ObjectMapper D-Bus object is reported as an internal error rather than treated as a missing Asset interface?\n\n```suggestion\n        if (ec.value() \u003d\u003d boost::system::errc::io_error)\n```",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 399,
+        "endChar": 79
+      },
+      "revId": "5b98dc1563335d3d1f161a3d08cac45d28d11851",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be1f6e71_a6509e2a",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-24T17:07:01Z",
+      "side": 1,
+      "message": "A missing Asset Interface should not be a internal error. \n\nI don\u0027t love that we exclude all io_error because that is things like xyz.openbmc_project.Common.Error.ResourceNotFound (valid to not throw an error) and org.freedesktop.DBus.Error.IOError (seems like that should be a 500) \n\nhttps://github.com/openbmc/phosphor-objmgr/blob/master/src/handler.cpp?utm_source\u003dchatgpt.com#L55\n\nI think we can remove EBADR  - maps to things like org.freedesktop.DBus.Error.UnknownObject\norg.freedesktop.DBus.Error.UnknownInterface\norg.freedesktop.DBus.Error.UnknownMethod\n\nBecause would hit ResourceNotFound / IOError if that interface doesn\u0027t exist \nBut you should test that..",
+      "parentUuid": "8743e8b5_93c66603",
       "range": {
         "startLine": 399,
         "startChar": 8,

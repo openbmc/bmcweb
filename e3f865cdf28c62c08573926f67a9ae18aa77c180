@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24cea13b_26a390d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-24T17:07:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1a7c97f_8a5aae75",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 26
+      },
+      "revId": "e3f865cdf28c62c08573926f67a9ae18aa77c180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66b48770_ee80f9fb",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Done, removed SparePartNumber from NetworkAdapter",
       "parentUuid": "66b48770_ee80f9fb",
+      "range": {
+        "startLine": 415,
+        "startChar": 67,
+        "endLine": 415,
+        "endChar": 71
+      },
+      "revId": "e3f865cdf28c62c08573926f67a9ae18aa77c180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8787bf_b69cd12e",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-24T17:07:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77fb5e47_08616de9",
       "range": {
         "startLine": 415,
         "startChar": 67,
