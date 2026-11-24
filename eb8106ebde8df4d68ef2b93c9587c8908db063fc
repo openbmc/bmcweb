@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f073d22e_4f05da2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T18:26:34Z",
+      "side": 1,
+      "message": "Could you update the commit message according to the new behavior and the actual change regarding the updated documentation?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "eb8106ebde8df4d68ef2b93c9587c8908db063fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24b7a47f_2ffd2dcc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-24T18:26:34Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 13,
+        "startChar": 1,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "eb8106ebde8df4d68ef2b93c9587c8908db063fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
