@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f425a7f0_5c8772de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-25T14:11:56Z",
+      "side": 1,
+      "message": "Let\u0027s use the new 3.5.9 Meson WrapDB, that doesn\u0027t solve the Yocto is using 4.1.x OpenSSL now but that at least fixes this problem",
+      "revId": "642bd7264fb2ce0f7e01a99aedc77f38117e9cff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0730220_1467c480",
         "filename": "subprojects/openssl.wrap",
         "patchSetId": 17
@@ -68,6 +85,24 @@
       "side": 1,
       "message": "https://github.com/mesonbuild/wrapdb/pull/2956",
       "parentUuid": "427f7fc9_dc303120",
+      "revId": "642bd7264fb2ce0f7e01a99aedc77f38117e9cff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09bb6907_0eefe8a4",
+        "filename": "subprojects/openssl.wrap",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-25T14:11:56Z",
+      "side": 1,
+      "message": "https://github.com/mesonbuild/wrapdb/pull/2956 merged so a Meson WrapDB for OpenSSL 3.5.9 should show up in the coming days",
+      "parentUuid": "11382441_aca4e0bc",
       "revId": "642bd7264fb2ce0f7e01a99aedc77f38117e9cff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
