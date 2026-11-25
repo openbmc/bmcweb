@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56c9ae13_51c73f9a",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-25T14:37:54Z",
+      "side": 1,
+      "message": "Ah okay. I mean the check generally is good since it\u0027s possible to misconfigure this uncatched at runtime. But instead of adding a random chassis to the link as the defensive measure we prob want to log an error and not add the link at all?",
+      "parentUuid": "abed5fff_eacc3b86",
+      "range": {
+        "startLine": 343,
+        "startChar": 4,
+        "endLine": 347,
+        "endChar": 5
+      },
+      "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23663296_7b04bb6c",
         "filename": "redfish-core/lib/storage_chassis.hpp",
         "patchSetId": 3
