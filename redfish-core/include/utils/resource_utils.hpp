@@ -116,7 +116,7 @@ inline void getResourceState(
     const std::string& service, const std::string& path,
     const nlohmann::json::json_pointer& jsonPtr)
 {
-    BMCWEB_LOG_DEBUG("getResourceStatus");
+    BMCWEB_LOG_DEBUG("getResourceState");
     dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
