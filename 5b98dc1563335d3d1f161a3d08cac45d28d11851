@@ -99,6 +99,30 @@
       },
       "revId": "5b98dc1563335d3d1f161a3d08cac45d28d11851",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e5451c3_99e5cd1a",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-25T10:13:43Z",
+      "side": 1,
+      "message": "I think then we need something like this,\nhttps://github.com/openbmc/bmcweb/commit/b5ca3fdcf15c029e36b05d619752711871bf0e8d#diff-275215f5290a693394a85916c653f04c7cb99163f4d93fc6b1bf39e348d55620R1760-R1788",
+      "parentUuid": "be1f6e71_a6509e2a",
+      "range": {
+        "startLine": 399,
+        "startChar": 8,
+        "endLine": 399,
+        "endChar": 79
+      },
+      "revId": "5b98dc1563335d3d1f161a3d08cac45d28d11851",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
