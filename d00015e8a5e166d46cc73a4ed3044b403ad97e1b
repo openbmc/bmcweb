@@ -16,6 +16,29 @@
       "message": "Looks good to me.",
       "revId": "d00015e8a5e166d46cc73a4ed3044b403ad97e1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b3a35b8_53bf0fd0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-25T14:09:33Z",
+      "side": 1,
+      "message": "This has only been used for JSON request parsing up until now, the downside of using this for D-Bus errors is it logs warnings and the warnings don\u0027t make a lot of sense here, that said we are reusing code so ¯\\_(ツ)_/¯ https://github.com/openbmc/bmcweb/blob/33371025150a2b337becf972b1706f742535f324/http/parsing.hpp#L199\n\nI do think something like \n```\n    nlohmann::json json \u003d nlohmann::json::parse(\n        errorMessage.begin(), errorMessage.end(), nullptr, false);\n```\nwould work just as well",
+      "range": {
+        "startLine": 737,
+        "startChar": 41,
+        "endLine": 737,
+        "endChar": 58
+      },
+      "revId": "d00015e8a5e166d46cc73a4ed3044b403ad97e1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
