@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc02557_bb4ed3ac",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-11-25T02:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "424d5af0_2ed52eec",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 335,
+        "endChar": 15
+      },
+      "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b09b6604_ca846351",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abed5fff_eacc3b86",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-11-25T02:35:21Z",
+      "side": 1,
+      "message": "Done. There\u0027s no specific scenario. It was only a defensive check, so I\u0027ve removed it.",
+      "parentUuid": "b09b6604_ca846351",
+      "range": {
+        "startLine": 343,
+        "startChar": 4,
+        "endLine": 347,
+        "endChar": 5
+      },
+      "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23663296_7b04bb6c",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-11-24T21:49:59Z",
       "side": 1,
       "message": "Please convert `drivePath` to a valid object_path first and mutate it using the object_path api.",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 363,
+        "endChar": 35
+      },
+      "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "343ab79b_731958ce",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-11-25T02:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23663296_7b04bb6c",
       "range": {
         "startLine": 363,
         "startChar": 8,
