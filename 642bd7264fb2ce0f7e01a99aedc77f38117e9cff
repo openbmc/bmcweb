@@ -34,6 +34,24 @@
       "parentUuid": "d0730220_1467c480",
       "revId": "642bd7264fb2ce0f7e01a99aedc77f38117e9cff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "427f7fc9_dc303120",
+        "filename": "subprojects/openssl.wrap",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001076
+      },
+      "writtenOn": "2026-11-25T03:03:21Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz, do we migrate to OpenSSL 4.1 or remove the wrap changes for now and use the `OPENSSL_VERSION_PREREQ` in code?",
+      "parentUuid": "9084af87_2922edc0",
+      "revId": "642bd7264fb2ce0f7e01a99aedc77f38117e9cff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
