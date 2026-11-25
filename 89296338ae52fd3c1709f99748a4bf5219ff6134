@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "786a1429_dab8d907",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-11-25T18:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ffe44dd_d33115fd",
+      "revId": "89296338ae52fd3c1709f99748a4bf5219ff6134",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "098e51ba_df39331a",
@@ -58,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "808e31b7_033f84f6",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-11-25T18:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "098e51ba_df39331a",
+      "range": {
+        "startLine": 26,
+        "startChar": 22,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "89296338ae52fd3c1709f99748a4bf5219ff6134",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdc5a5ce_69c6a159",
@@ -71,6 +113,30 @@
       "writtenOn": "2026-11-25T17:45:06Z",
       "side": 1,
       "message": "I would prefer explicitly specifying the complete input\n```\nEXPECT_EQ(\n    dbusSlotTypeToRf(\n        \"xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength\"),\n    pcie_slots::SlotTypes::FullLength);\n```\nbecause:\nEach assertion is self-contained\nNo need to resolve a variable to understand the test input\nEasier searching\nFollows what we do elsewhere",
+      "range": {
+        "startLine": 27,
+        "startChar": 31,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "89296338ae52fd3c1709f99748a4bf5219ff6134",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6edb79f_18af7c86",
+        "filename": "test/redfish-core/include/utils/pcie_util_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002739
+      },
+      "writtenOn": "2026-11-25T18:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdc5a5ce_69c6a159",
       "range": {
         "startLine": 27,
         "startChar": 31,
