@@ -16,6 +16,24 @@
       "message": "This is a Post, it needs to always return an error if it fails",
       "revId": "adcc1bbc27bd269bd307eada23d9d3c124fb1fee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e0c9c17_1627607d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-25T04:06:34Z",
+      "side": 1,
+      "message": "With no callback map, `handleDbusErrorr()` will logs the error and returns `InternalError()` as the legacy behavior.\nNot sure which part of the modification are you having concerns.",
+      "parentUuid": "37acedf6_9c43c0bd",
+      "revId": "adcc1bbc27bd269bd307eada23d9d3c124fb1fee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
