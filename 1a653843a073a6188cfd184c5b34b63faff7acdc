@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7119a15_33fc30e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-25T13:26:28Z",
+      "side": 1,
+      "message": "Different D-Bus errors can share an errno, so mapping by ec.value() alone cannot preserve their distinct Redfish responses.\n\nPlease check: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/97633/comment/8743e8b5_93c66603/",
+      "revId": "1a653843a073a6188cfd184c5b34b63faff7acdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a023c0df_9ff17d8c",
         "filename": "redfish-core/include/utils/dbus_utils.hpp",
         "patchSetId": 1
