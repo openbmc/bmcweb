@@ -16,6 +16,24 @@
       "message": "And Redfish validator happy?",
       "revId": "bd9020de62d181d92f8691d1f754011d22700829",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d095563d_ef6dd242",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-11-25T09:44:34Z",
+      "side": 1,
+      "message": "Yes, the validator passes on the PCIeDevices tree with this change. Without it, PCIeFunction 1 fails on invalid FunctionType/DeviceClass values.",
+      "parentUuid": "a423ac56_174bc81a",
+      "revId": "bd9020de62d181d92f8691d1f754011d22700829",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
