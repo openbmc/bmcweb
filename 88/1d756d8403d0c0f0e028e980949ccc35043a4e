@@ -1,0 +1,9 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Joel Pullokaran Jesin <joelpj@ami.com>
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Submitted-by: Gunnar Mills <gunnar@gmills.xyz>
+Submitted-at: Wed, 25 Nov 2026 14:21:45 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/94289
+Comments-Total: 1
+Project: openbmc/bmcweb
+Branch: refs/heads/master
