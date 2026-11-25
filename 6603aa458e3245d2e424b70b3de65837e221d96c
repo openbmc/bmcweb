@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "84ca8065_f19ff0ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-25T17:52:53Z",
+      "side": 1,
+      "message": "Ideally this tested: \n\nPOST /redfish/v1/TelemetryService/MetricReportDefinitions\nPATCH /redfish/v1/TelemetryService/MetricReportDefinitions/{id}\n\nbut not going to hold this up for this",
+      "revId": "6603aa458e3245d2e424b70b3de65837e221d96c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0580bace_271c4080",
@@ -14,6 +31,23 @@
       "writtenOn": "2026-11-10T05:46:37Z",
       "side": 1,
       "message": "Thanks for the patch, looks good.",
+      "revId": "6603aa458e3245d2e424b70b3de65837e221d96c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b09e827d_63536eb8",
+        "filename": "test/redfish-core/lib/metric_report_definition_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-11-25T17:52:53Z",
+      "side": 1,
+      "message": "Ideally also checking to make sure it is a 400 \n\n\n    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);",
       "revId": "6603aa458e3245d2e424b70b3de65837e221d96c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
