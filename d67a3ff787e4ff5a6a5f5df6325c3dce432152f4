@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d18c3e2_0a95f635",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-11-26T07:39:57Z",
+      "side": 1,
+      "message": "Please add unit tests for getChassisState(): an error code should return internalError, and an empty statePath/service should give Status/State \u003d Enabled. Neither path reaches D-Bus, so both are easy to test.",
+      "revId": "d67a3ff787e4ff5a6a5f5df6325c3dce432152f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
