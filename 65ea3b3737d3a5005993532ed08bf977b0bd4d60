@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58b3d7b7_a5028026",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-11-26T01:54:39Z",
+      "side": 1,
+      "message": "Agreed, misconfiguration is possible, so the check is worth keeping. Instead of picking an arbitrary chassis, it now logs an error, returns internalError, and doesn\u0027t add the link when a drive is contained by more than one chassis. I verified this on hardware by configuring two contained_by associations on one drive. The commit message has the test output.",
+      "parentUuid": "56c9ae13_51c73f9a",
+      "range": {
+        "startLine": 343,
+        "startChar": 4,
+        "endLine": 347,
+        "endChar": 5
+      },
+      "revId": "65ea3b3737d3a5005993532ed08bf977b0bd4d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23663296_7b04bb6c",

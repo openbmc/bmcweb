@@ -22,6 +22,30 @@
       },
       "revId": "a32f2d0ba73879a83d89fa63bda3f240656d320c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c67248cc_79f23b33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-11-26T01:54:39Z",
+      "side": 1,
+      "message": "I restored the check, so a drive contained by more than one chassis now logs an error and returns internalError instead of linking the first chassis. I also fixed the commit message to match.",
+      "parentUuid": "b6355865_ccc712ba",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 29
+      },
+      "revId": "a32f2d0ba73879a83d89fa63bda3f240656d320c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
