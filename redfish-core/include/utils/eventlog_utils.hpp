@@ -25,7 +25,6 @@
 
 #include <asm-generic/errno.h>
 
-#include <boost/beast/http/status.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
@@ -771,8 +770,7 @@ inline void afterDBusEventLogEntryDelete(
         // TODO Handle for specific error code
         BMCWEB_LOG_ERROR(
             "EventLogEntry (DBus) doDelete respHandler got error {}", ec);
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
+        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -806,8 +804,7 @@ inline void afterDBusLogServiceActionsClear(
     {
         // TODO Handle for specific error code
         BMCWEB_LOG_ERROR("doClearLog resp_handler got error {}", ec);
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
+        messages::internalError(asyncResp->res);
         return;
     }
 

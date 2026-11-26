@@ -134,8 +134,6 @@ inline void handleSystemsLogServicesPostCodesPost(
                 // TODO Handle for specific error code
                 BMCWEB_LOG_ERROR("doClearPostCodes resp_handler got error {}",
                                  ec);
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
                 messages::internalError(asyncResp->res);
                 return;
             }
