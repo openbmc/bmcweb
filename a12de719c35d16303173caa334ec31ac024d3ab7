@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1c8f5a6_e625675d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-26T06:12:12Z",
+      "side": 1,
+      "message": "The commit message describes local fallback when LDAP authentication fails or LDAP is unreachable. However, the LocalAccountAuth.Fallback definition permits local authentication only when an external provider is unreachable.\n\nhttps://github.com/openbmc/bmcweb/blob/0390e46e64001f3b865330f521200b61be068350/redfish-core/schema/dmtf/csdl/AccountService_v1.xml#L527-L530",
+      "range": {
+        "startLine": 26,
+        "startChar": 29,
+        "endLine": 28,
+        "endChar": 11
+      },
+      "revId": "a12de719c35d16303173caa334ec31ac024d3ab7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "12da5c28_a4759ec0",
@@ -14,6 +37,29 @@
       "writtenOn": "2026-11-18T04:02:00Z",
       "side": 1,
       "message": "@ed@tanous.net @joelpj@ami.com\n\ncould you help to re-review this commit?",
+      "revId": "a12de719c35d16303173caa334ec31ac024d3ab7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa996463_0ebfb3a8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1443,
+      "author": {
+        "id": 1003017
+      },
+      "writtenOn": "2026-11-26T06:12:12Z",
+      "side": 1,
+      "message": "My understanding is that fallback should occur only when the external provider can\u0027t be reached. If RemoteFirst also falls back to local authentication after an LDAP authentication failure, how is that aligned with the requirement?",
+      "range": {
+        "startLine": 1439,
+        "startChar": 4,
+        "endLine": 1443,
+        "endChar": 56
+      },
       "revId": "a12de719c35d16303173caa334ec31ac024d3ab7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
