@@ -157,6 +157,42 @@
       "message": "Don\u0027t see SKU in https://redfish.dmtf.org/schemas/v1/PowerSupply.v1_8_0.json",
       "revId": "1f8ec4682eca913fa4b7f6103e25785c049aac7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee5448ee_0b5f24e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003023
+      },
+      "writtenOn": "2026-11-26T05:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2b1c7301_dae7a4cb",
+      "revId": "1f8ec4682eca913fa4b7f6103e25785c049aac7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e197226e_044bd85d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003023
+      },
+      "writtenOn": "2026-11-26T05:32:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e074d35d_3c0d35d1",
+      "revId": "1f8ec4682eca913fa4b7f6103e25785c049aac7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
