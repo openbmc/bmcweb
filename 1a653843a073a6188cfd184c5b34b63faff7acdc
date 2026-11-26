@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e16bfbc_be7d7088",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-26T06:49:05Z",
+      "side": 1,
+      "message": "This patch was only to introduce the helper function.\nPlease check the child patches in the relation chain for testing with more details.\nThanks!",
+      "parentUuid": "93e42039_de2aaecb",
+      "revId": "1a653843a073a6188cfd184c5b34b63faff7acdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7119a15_33fc30e0",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ee43a5e_2be3b905",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-26T06:49:05Z",
+      "side": 1,
+      "message": "Understood, I have modified the helper function to have an extra input of `sdbusplus::message_t\u0026 msg` so that we can distinguish the error further.",
+      "parentUuid": "a7119a15_33fc30e0",
+      "revId": "1a653843a073a6188cfd184c5b34b63faff7acdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a023c0df_9ff17d8c",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-11-25T13:22:31Z",
       "side": 1,
       "message": "internalError(..., loc) already logs the caller’s file, line, and function. Can we omit loc.function_name() here and retain just the D-Bus error code?",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "1a653843a073a6188cfd184c5b34b63faff7acdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d00174d7_197fca54",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002885
+      },
+      "writtenOn": "2026-11-26T06:49:05Z",
+      "side": 1,
+      "message": "Acknowledged, modified in PS4 so that it logs only D-Bus error code.",
+      "parentUuid": "a023c0df_9ff17d8c",
       "range": {
         "startLine": 80,
         "startChar": 8,
