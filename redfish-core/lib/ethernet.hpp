@@ -1256,6 +1256,21 @@ inline bool isHostnameValid(const std::string& hostname)
 
 inline bool isDomainnameValid(const std::string& domainname)
 {
+    size_t labelStart = 0;
+    while (labelStart < domainname.size())
+    {
+        size_t labelEnd = domainname.find('.', labelStart);
+        if (labelEnd == std::string::npos)
+        {
+            labelEnd = domainname.size();
+        }
+        if (labelEnd - labelStart > 63)
+        {
+            return false;
+        }
+        labelStart = labelEnd + 1;
+    }
+
     // Can have multiple subdomains
     // Top Level Domain's min length is 2 character
     const static std::regex pattern(
