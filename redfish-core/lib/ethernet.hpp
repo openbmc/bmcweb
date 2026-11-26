@@ -1120,6 +1120,64 @@ inline void handleIPv6DefaultGateway(
     }
 }
 
+enum class EthernetIfaceDataStatus
+{
+    Ok,
+    NotFound,
+    InternalError,
+};
+
+template <typename CallbackFunc>
+void afterGetEthernetIfaceData(const std::string& ethifaceId,
+                               CallbackFunc& callback,
+                               const boost::system::error_code& ec,
+                               const dbus::utility::ManagedObjectType& resp)
+{
+    EthernetInterfaceData ethData{};
+    std::vector<IPv4AddressData> ipv4Data;
+    std::vector<IPv6AddressData> ipv6Data;
+    std::vector<StaticGatewayData> ipv6GatewayData;
+
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("D-Bus response error on GetManagedObjects {}", ec);
+        callback(EthernetIfaceDataStatus::InternalError, ethData, ipv4Data,
+                 ipv6Data, ipv6GatewayData);
+        return;
+    }
+
+    bool found = extractEthernetInterfaceData(ethifaceId, resp, ethData);
+    if (!found)
+    {
+        callback(EthernetIfaceDataStatus::NotFound, ethData, ipv4Data, ipv6Data,
+                 ipv6GatewayData);
+        return;
+    }
+
+    extractIPData(ethifaceId, resp, ipv4Data);
+    // Fix global GW
+    for (IPv4AddressData& ipv4 : ipv4Data)
+    {
+        if (((ipv4.linktype == LinkType::Global) &&
+             (ipv4.gateway == "0.0.0.0")) ||
+            (ipv4.origin == "DHCP") || (ipv4.origin == "Static"))
+        {
+            ipv4.gateway = ethData.defaultGateway;
+        }
+    }
+
+    extractIPV6Data(ethifaceId, resp, ipv6Data);
+    if (!extractIPv6DefaultGatewayData(ethifaceId, resp, ipv6GatewayData))
+    {
+        callback(EthernetIfaceDataStatus::InternalError, ethData, ipv4Data,
+                 ipv6Data, ipv6GatewayData);
+        return;
+    }
+    // Finally make a callback with useful data
+    callback(EthernetIfaceDataStatus::Ok, ethData, ipv4Data, ipv6Data,
+             ipv6GatewayData);
+}
+
 /**
  * Function that retrieves all properties for given Ethernet Interface
  * Object
@@ -1139,45 +1197,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
          callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) mutable {
-            EthernetInterfaceData ethData{};
-            std::vector<IPv4AddressData> ipv4Data;
-            std::vector<IPv6AddressData> ipv6Data;
-            std::vector<StaticGatewayData> ipv6GatewayData;
-
-            if (ec)
-            {
-                callback(false, ethData, ipv4Data, ipv6Data, ipv6GatewayData);
-                return;
-            }
-
-            bool found =
-                extractEthernetInterfaceData(ethifaceId, resp, ethData);
-            if (!found)
-            {
-                callback(false, ethData, ipv4Data, ipv6Data, ipv6GatewayData);
-                return;
-            }
-
-            extractIPData(ethifaceId, resp, ipv4Data);
-            // Fix global GW
-            for (IPv4AddressData& ipv4 : ipv4Data)
-            {
-                if (((ipv4.linktype == LinkType::Global) &&
-                     (ipv4.gateway == "0.0.0.0")) ||
-                    (ipv4.origin == "DHCP") || (ipv4.origin == "Static"))
-                {
-                    ipv4.gateway = ethData.defaultGateway;
-                }
-            }
-
-            extractIPV6Data(ethifaceId, resp, ipv6Data);
-            if (!extractIPv6DefaultGatewayData(ethifaceId, resp,
-                                               ipv6GatewayData))
-            {
-                callback(false, ethData, ipv4Data, ipv6Data, ipv6GatewayData);
-            }
-            // Finally make a callback with useful data
-            callback(true, ethData, ipv4Data, ipv6Data, ipv6GatewayData);
+            afterGetEthernetIfaceData(ethifaceId, callback, ec, resp);
         });
 }
 
@@ -2306,17 +2326,20 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     ifaceId,
                     // ast-grep-ignore: long-lambda
                     [asyncResp, ifaceId](
-                        const bool& success,
+                        EthernetIfaceDataStatus status,
                         const EthernetInterfaceData& ethData,
                         const std::vector<IPv4AddressData>& ipv4Data,
                         const std::vector<IPv6AddressData>& ipv6Data,
                         const std::vector<StaticGatewayData>& ipv6GatewayData) {
-                        if (!success)
+                        if (status == EthernetIfaceDataStatus::NotFound)
                         {
-                            // TODO(Pawel)consider distinguish between non
-                            // existing object, and other errors
                             messages::resourceNotFound(
                                 asyncResp->res, "EthernetInterface", ifaceId);
+                            return;
+                        }
+                        if (status != EthernetIfaceDataStatus::Ok)
+                        {
+                            messages::internalError(asyncResp->res);
                             return;
                         }
 
@@ -2419,19 +2442,21 @@ inline void requestEthernetInterfacesRoutes(App& app)
                      ipv6AutoConfigEnabled,
                      v4dhcpParms = std::move(v4dhcpParms),
                      v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
-                        const bool success,
+                        EthernetIfaceDataStatus status,
                         const EthernetInterfaceData& ethData,
                         const std::vector<IPv4AddressData>& ipv4Data,
                         const std::vector<IPv6AddressData>& ipv6Data,
                         const std::vector<StaticGatewayData>&
                             ipv6GatewayData) mutable {
-                        if (!success)
+                        if (status == EthernetIfaceDataStatus::NotFound)
                         {
-                            // ... otherwise return error
-                            // TODO(Pawel)consider distinguish between non
-                            // existing object, and other errors
                             messages::resourceNotFound(
                                 asyncResp->res, "EthernetInterface", ifaceId);
+                            return;
+                        }
+                        if (status != EthernetIfaceDataStatus::Ok)
+                        {
+                            messages::internalError(asyncResp->res);
                             return;
                         }
 

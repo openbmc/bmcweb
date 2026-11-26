@@ -1,9 +1,15 @@
+#include "dbus_utility.hpp"
 #include "ethernet.hpp"
 #include "http_response.hpp"
 
+#include <boost/system/errc.hpp>
+#include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
 #include <cstddef>
+#include <cstdint>
+#include <optional>
 #include <string>
 #include <variant>
 #include <vector>
@@ -206,6 +212,91 @@ TEST(Ethernet, parseAddressesDeleteExistingOnShortLength)
     EXPECT_EQ(addrOut[0].existingDbusId, "my_ip_id");
     EXPECT_EQ(addrOut[0].operation, AddrChange::Delete);
     EXPECT_EQ(gatewayOut, "");
+}
+
+struct IfaceDataResult
+{
+    size_t callCount = 0;
+    EthernetIfaceDataStatus status = EthernetIfaceDataStatus::Ok;
+    std::optional<std::string> macAddress;
+};
+
+IfaceDataResult runAfterGetEthernetIfaceData(
+    const boost::system::error_code& ec,
+    const dbus::utility::ManagedObjectType& resp)
+{
+    IfaceDataResult result;
+    auto callback = [&result](EthernetIfaceDataStatus status,
+                              const EthernetInterfaceData& ethData,
+                              const std::vector<IPv4AddressData>& /*ipv4*/,
+                              const std::vector<IPv6AddressData>& /*ipv6*/,
+                              const std::vector<StaticGatewayData>& /*gw*/) {
+        result.callCount++;
+        result.status = status;
+        result.macAddress = ethData.macAddress;
+    };
+    afterGetEthernetIfaceData("eth0", callback, ec, resp);
+    return result;
+}
+
+TEST(Ethernet, afterGetEthernetIfaceDataDbusError)
+{
+    IfaceDataResult result = runAfterGetEthernetIfaceData(
+        boost::system::errc::make_error_code(
+            boost::system::errc::host_unreachable),
+        {});
+    EXPECT_EQ(result.callCount, 1);
+    EXPECT_EQ(result.status, EthernetIfaceDataStatus::InternalError);
+}
+
+TEST(Ethernet, afterGetEthernetIfaceDataNotFound)
+{
+    dbus::utility::ManagedObjectType resp;
+    resp.emplace_back(
+        sdbusplus::object_path("/xyz/openbmc_project/network/eth1"),
+        dbus::utility::DBusInterfacesMap{
+            {"xyz.openbmc_project.Network.MACAddress",
+             {{"MACAddress", std::string("aa:bb:cc:dd:ee:ff")}}}});
+
+    IfaceDataResult result = runAfterGetEthernetIfaceData({}, resp);
+    EXPECT_EQ(result.callCount, 1);
+    EXPECT_EQ(result.status, EthernetIfaceDataStatus::NotFound);
+}
+
+TEST(Ethernet, afterGetEthernetIfaceDataOk)
+{
+    dbus::utility::ManagedObjectType resp;
+    resp.emplace_back(
+        sdbusplus::object_path("/xyz/openbmc_project/network/eth0"),
+        dbus::utility::DBusInterfacesMap{
+            {"xyz.openbmc_project.Network.MACAddress",
+             {{"MACAddress", std::string("aa:bb:cc:dd:ee:ff")}}}});
+
+    IfaceDataResult result = runAfterGetEthernetIfaceData({}, resp);
+    EXPECT_EQ(result.callCount, 1);
+    EXPECT_EQ(result.status, EthernetIfaceDataStatus::Ok);
+    EXPECT_EQ(result.macAddress, "aa:bb:cc:dd:ee:ff");
+}
+
+TEST(Ethernet, afterGetEthernetIfaceDataBadStaticGatewayCallsOnce)
+{
+    dbus::utility::ManagedObjectType resp;
+    resp.emplace_back(
+        sdbusplus::object_path("/xyz/openbmc_project/network/eth0"),
+        dbus::utility::DBusInterfacesMap{
+            {"xyz.openbmc_project.Network.MACAddress",
+             {{"MACAddress", std::string("aa:bb:cc:dd:ee:ff")}}}});
+    // Gateway has the wrong type, so unpacking the StaticGateway fails
+    resp.emplace_back(
+        sdbusplus::object_path(
+            "/xyz/openbmc_project/network/eth0/static_gateway/gw1"),
+        dbus::utility::DBusInterfacesMap{
+            {"xyz.openbmc_project.Network.StaticGateway",
+             {{"Gateway", uint32_t{1}}}}});
+
+    IfaceDataResult result = runAfterGetEthernetIfaceData({}, resp);
+    EXPECT_EQ(result.callCount, 1);
+    EXPECT_EQ(result.status, EthernetIfaceDataStatus::InternalError);
 }
 
 } // namespace
