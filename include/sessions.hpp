@@ -294,8 +294,11 @@ class SessionStore
             {}});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
-        needWrite = sessionType != SessionType::Basic &&
-                    sessionType != SessionType::MutualTLS;
+        if (sessionType != SessionType::Basic &&
+            sessionType != SessionType::MutualTLS)
+        {
+            needWrite = true;
+        }
         return it.first->second;
     }
 
@@ -379,27 +382,18 @@ class SessionStore
 
     void removeSessionsByUsername(std::string_view username)
     {
-        std::erase_if(authTokens, [username](const auto& value) {
-            if (value.second == nullptr)
-            {
-                return false;
-            }
-            return value.second->username == username;
-        });
-    }
-
-    void removeSessionsByUsernameExceptSession(
-        std::string_view username, const std::shared_ptr<UserSession>& session)
-    {
-        std::erase_if(authTokens, [username, session](const auto& value) {
-            if (value.second == nullptr)
-            {
-                return false;
-            }
-
-            return value.second->username == username &&
-                   value.second->uniqueId != session->uniqueId;
-        });
+        size_t removed =
+            std::erase_if(authTokens, [username](const auto& value) {
+                if (value.second == nullptr)
+                {
+                    return false;
+                }
+                return value.second->username == username;
+            });
+        if (removed != 0)
+        {
+            needWrite = true;
+        }
     }
 
     void updateAuthMethodsConfig(const AuthConfigMethods& config)

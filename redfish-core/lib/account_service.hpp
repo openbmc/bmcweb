@@ -1171,7 +1171,6 @@ struct UserUpdateParams
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
     bool userSelf;
-    std::shared_ptr<persistent_data::UserSession> session;
     std::string dbusObjectPath;
     std::optional<std::variant<std::string, std::nullptr_t>> passwordExpiration;
 };
@@ -1213,8 +1212,7 @@ inline void afterVerifyUserExists(
             // Remove existing sessions of the user when password
             // changed
             persistent_data::SessionStore::getInstance()
-                .removeSessionsByUsernameExceptSession(params.username,
-                                                       params.session);
+                .removeSessionsByUsername(params.username);
             asyncResp->res.result(boost::beast::http::status::no_content);
         }
     }
@@ -1289,7 +1287,6 @@ inline void updateUserProperties(
     const std::optional<bool>& enabled,
     const std::optional<std::string>& roleId, const std::optional<bool>& locked,
     const std::optional<std::vector<std::string>>& accountTypes, bool userSelf,
-    const std::shared_ptr<persistent_data::UserSession>& session,
     const std::optional<std::variant<std::string, std::nullptr_t>>&
         passwordExpiration)
 {
@@ -1297,9 +1294,9 @@ inline void updateUserProperties(
     tempObjPath /= username;
     std::string dbusObjectPath(tempObjPath);
 
-    UserUpdateParams params{
-        username,     password, enabled, roleId,         locked,
-        accountTypes, userSelf, session, dbusObjectPath, passwordExpiration};
+    UserUpdateParams params{username, password,       enabled,
+                            roleId,   locked,         accountTypes,
+                            userSelf, dbusObjectPath, passwordExpiration};
 
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
@@ -2462,7 +2459,7 @@ inline void handleAccountPatch(
     if (!newUserName || (newUserName.value() == username))
     {
         updateUserProperties(asyncResp, username, password, enabled, roleId,
-                             locked, accountTypes, userSelf, req.session,
+                             locked, accountTypes, userSelf,
                              passwordExpiration);
         return;
     }
@@ -2470,8 +2467,7 @@ inline void handleAccountPatch(
         asyncResp,
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked, userSelf, session = req.session,
-         accountTypes(std::move(accountTypes)),
+         locked, userSelf, accountTypes(std::move(accountTypes)),
          passwordExpiration(std::move(passwordExpiration))](
             const boost::system::error_code& ec, sdbusplus::message_t& m) {
             if (ec)
@@ -2482,7 +2478,7 @@ inline void handleAccountPatch(
             }
 
             updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                                 locked, accountTypes, userSelf, session,
+                                 locked, accountTypes, userSelf,
                                  passwordExpiration);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
