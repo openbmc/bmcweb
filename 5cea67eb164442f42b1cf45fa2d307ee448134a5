@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07afeefd_3d21580c",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1003054
+      },
+      "writtenOn": "2026-11-26T09:31:21Z",
+      "side": 1,
+      "message": "nit (optional): handleValidChassisNetworkAdapterPath() and\ndoNetworkAdapterCollection() differ only in the final callback. Consider a\nshared helper, e.g. getChassisNetworkAdapterPaths(asyncResp, chassisId, cb),\nthat validates the chassis and queries \u003cchassis\u003e/containing. Not blocking.",
+      "revId": "5cea67eb164442f42b1cf45fa2d307ee448134a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
