@@ -34,6 +34,7 @@ void afterSetProperty(
         if (ec.value() == boost::system::errc::permission_denied)
         {
             messages::insufficientPrivilege(asyncResp->res);
+            return;
         }
         if (ec.value() == boost::asio::error::host_unreachable)
         {

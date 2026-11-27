@@ -94,5 +94,38 @@ TEST(DbusUtils, AfterPropertySetInternalError)
                 })"_json);
 }
 
+TEST(DbusUtils, AfterPropertySetPermissionDenied)
+{
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+
+    boost::system::error_code ec = boost::system::errc::make_error_code(
+        boost::system::errc::permission_denied);
+    sdbusplus::message_t msg;
+    afterSetProperty(asyncResp, "MyRedfishProperty",
+                     nlohmann::json("MyRedfishValue"), ec, msg);
+
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::forbidden);
+    using nlohmann::literals::operator""_json;
+
+    EXPECT_EQ(asyncResp->res.jsonValue,
+              R"({
+                    "error": {
+                    "@Message.ExtendedInfo": [
+                        {
+                        "@odata.type": "#Message.v1_1_1.Message",
+                        "Message": "There are insufficient privileges for the account or credentials associated with the current session to perform the requested operation.",
+                        "MessageArgs": [],
+                        "MessageId": "Base.1.19.InsufficientPrivilege",
+                        "MessageSeverity": "Critical",
+                        "Resolution": "Either abandon the operation or change the associated access rights and resubmit the request if the operation failed."
+                        }
+                    ],
+                    "code": "Base.1.19.InsufficientPrivilege",
+                    "message": "There are insufficient privileges for the account or credentials associated with the current session to perform the requested operation."
+                    }
+                })"_json);
+}
+
 } // namespace
 } // namespace redfish::details
