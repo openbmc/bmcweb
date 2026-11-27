@@ -33,6 +33,24 @@
       "message": "Why is this a condition for internal error.  Remove this.",
       "revId": "b818c23f86aa2a9e1a66b880956a917aa79fc9e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bea4005b_fcf6a6a9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1002614
+      },
+      "writtenOn": "2026-11-27T13:37:42Z",
+      "side": 1,
+      "message": "Done, removed the target condition. Any subtree entry with an empty service list now returns internal error.",
+      "parentUuid": "69228f9e_39e6e8c2",
+      "revId": "b818c23f86aa2a9e1a66b880956a917aa79fc9e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
