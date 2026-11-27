@@ -122,6 +122,30 @@
       },
       "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cce4285d_ead90642",
+        "filename": "redfish-core/lib/storage_chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2026-11-27T17:52:16Z",
+      "side": 1,
+      "message": "At least this is something Ed suggested doing for `Links/Fans` under the Chassis resource: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/87061/comment/f4fb933b_ebdcd302/",
+      "parentUuid": "59a10b38_185794c8",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 57
+      },
+      "revId": "3f12a6cf46520cde29d6743880ed35f3eb8f23d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
