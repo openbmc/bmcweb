@@ -28,6 +28,7 @@
 #include <boost/system/error_code.hpp>
 #include <boost/system/result.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/ipv6_address.hpp>
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
@@ -1781,7 +1782,8 @@ inline void handleIPv6StaticAddressesPatch(
     const std::vector<IPv6AddressData>& ipv6Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    size_t entryIdx = 1;
+    std::vector<AddressPatch> changes;
+    size_t entryIdx = 0;
     std::vector<IPv6AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
     for (std::variant<nlohmann::json::object_t, std::nullptr_t>& thisJson :
@@ -1831,17 +1833,28 @@ inline void handleIPv6StaticAddressesPatch(
                 prefixLength = nicIpEntry->prefixLength;
             }
 
+            if (!boost::urls::parse_ipv6_address(*address))
+            {
+                messages::propertyValueFormatError(asyncResp->res, *address,
+                                                   pathString + "/Address");
+                return;
+            }
+            if (*prefixLength > 128)
+            {
+                messages::propertyValueOutOfRange(asyncResp->res, *prefixLength,
+                                                  pathString + "/PrefixLength");
+                return;
+            }
+
+            AddressPatch& change = changes.emplace_back();
+            change.operation = AddrChange::Update;
+            change.address = std::move(*address);
+            change.prefixLength = *prefixLength;
             if (nicIpEntry != ipv6Data.end())
             {
-                deleteAndCreateIPAddress(IpVersion::IpV6, ifaceId,
-                                         nicIpEntry->id, *prefixLength,
-                                         *address, "", asyncResp);
+                change.existingDbusId = nicIpEntry->id;
                 nicIpEntry =
                     getNextStaticIpEntry(++nicIpEntry, ipv6Data.cend());
-            }
-            else
-            {
-                createIPv6(ifaceId, *prefixLength, *address, asyncResp);
             }
             entryIdx++;
         }
@@ -1864,7 +1877,9 @@ inline void handleIPv6StaticAddressesPatch(
 
             if (obj == nullptr)
             {
-                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
+                AddressPatch& change = changes.emplace_back();
+                change.operation = AddrChange::Delete;
+                change.existingDbusId = nicIpEntry->id;
             }
             if (nicIpEntry != ipv6Data.cend())
             {
@@ -1872,6 +1887,24 @@ inline void handleIPv6StaticAddressesPatch(
                     getNextStaticIpEntry(++nicIpEntry, ipv6Data.cend());
             }
             entryIdx++;
+        }
+    }
+
+    for (const AddressPatch& change : changes)
+    {
+        if (change.operation == AddrChange::Delete)
+        {
+            deleteIPAddress(ifaceId, change.existingDbusId, asyncResp);
+        }
+        else if (change.existingDbusId.empty())
+        {
+            createIPv6(ifaceId, change.prefixLength, change.address, asyncResp);
+        }
+        else
+        {
+            deleteAndCreateIPAddress(IpVersion::IpV6, ifaceId,
+                                     change.existingDbusId, change.prefixLength,
+                                     change.address, "", asyncResp);
         }
     }
 }
